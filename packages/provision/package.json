@@ -1,5 +1,5 @@
 {
-  "name": "@agent-os/provision",
+  "name": "@agentic-sdk/provision",
   "version": "0.0.1",
   "description": "Database provisioning scripts for agent-os",
   "author": "Dan Lynch <pyramation@gmail.com>",

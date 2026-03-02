@@ -1,5 +1,5 @@
 {
-  "name": "@agent-os/schemas",
+  "name": "@agentic-sdk/schemas",
   "version": "0.0.1",
   "private": true,
   "description": "GraphQL schema files for agent-os database",

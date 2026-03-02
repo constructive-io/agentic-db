@@ -1,5 +1,5 @@
 {
-  "name": "@agent-os/sdk",
+  "name": "@agentic-sdk/sdk",
   "version": "0.0.1",
   "description": "Type-safe SDK for agent-os database",
   "author": "Dan Lynch <pyramation@gmail.com>",
@@ -19,7 +19,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@agent-os/schemas": "workspace:*",
+    "@agentic-sdk/schemas": "workspace:*",
     "@constructive-io/graphql-codegen": "^4.5.0",
     "@types/node": "^22.0.0",
     "dotenv": "^16.4.5",

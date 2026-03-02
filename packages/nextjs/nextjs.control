@@ -1,0 +1,7 @@
+# nextjs extension
+comment = 'nextjs extension'
+default_version = '0.1.0'
+module_pathname = '$libdir/nextjs'
+requires = 'plpgsql,uuid-ossp'
+relocatable = false
+superuser = false
