@@ -1,0 +1,33 @@
+{
+  "name": "@agent-os/provision",
+  "version": "0.0.1",
+  "description": "Database provisioning scripts for agent-os",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "scripts": {
+    "clean": "makage clean",
+    "build": "makage build",
+    "prepublishOnly": "npm run build",
+    "provision": "tsx src/provision.ts",
+    "provision:crm": "tsx src/schemas/crm.ts",
+    "provision:agent": "tsx src/schemas/agent.ts",
+    "provision:accounting": "tsx src/schemas/accounting.ts"
+  },
+  "dependencies": {
+    "@constructive-io/node": "^0.1.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "makage": "0.1.10",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
