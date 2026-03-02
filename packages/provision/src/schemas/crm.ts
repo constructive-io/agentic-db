@@ -7,8 +7,8 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 dotenv.config({ path: path.resolve(__dirname, '../../../../.env') });
 
-import { createClient } from '../sdk/platform/orm/index.js';
-import { NodeHttpAdapter } from '../sdk/node-http-adapter.js';
+import { createClient } from '../sdk/platform/orm/index';
+import { NodeHttpAdapter } from '../sdk/node-http-adapter';
 import { withRetry, entityGrants, entityPolicyData } from '../helpers';
 
 const databaseId = process.env.DATABASE_ID;
