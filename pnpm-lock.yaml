@@ -220,6 +220,25 @@ importers:
         version: 5.9.3
     publishDirectory: dist
 
+  packages/seed:
+    dependencies:
+      '@agentic-sdk/sdk':
+        specifier: workspace:*
+        version: link:../../sdk/agent-os-sdk/dist
+      '@constructive-io/node':
+        specifier: ^0.1.0
+        version: 0.1.0
+      dotenv:
+        specifier: ^16.0.0
+        version: 16.4.7
+    devDependencies:
+      tsx:
+        specifier: ^4.0.0
+        version: 4.21.0
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+
   sdk/agent-os-sdk:
     devDependencies:
       '@agentic-sdk/schemas':
