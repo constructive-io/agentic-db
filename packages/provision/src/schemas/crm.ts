@@ -1,5 +1,6 @@
 /**
  * crm.ts — Provision CRM schema tables using platform SDK
+ * Includes vector(768) columns for embeddings (Ollama nomic-embed-text)
  */
 
 import * as dotenv from 'dotenv';
@@ -44,11 +45,11 @@ async function createOrgTable(tableName: string): Promise<string> {
 
 async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}) {
   await withRetry(() => client.field.create({ data: { tableId, name, type, isRequired: opts.isRequired ?? false, label: name, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
-  console.log(`      + ${name}`);
+  console.log(`      + ${name} (${type})`);
 }
 
 async function main() {
-  console.log('\n📋 Provisioning CRM Schema\n');
+  console.log('\n📋 Provisioning CRM Schema with Embeddings\n');
   console.log(`   Database ID: ${databaseId}`);
 
   console.log('\n👤 contacts...');
@@ -60,7 +61,7 @@ async function main() {
   await addField(contactsId, 'headline', 'text');
   await addField(contactsId, 'bio', 'text');
   await addField(contactsId, 'location', 'text');
-  // await addField(contactsId, 'embedding', 'vector(768)'); // TODO: Enable after pgvector
+  await addField(contactsId, 'embedding', 'vector(768)');  // nomic-embed-text dimension
 
   console.log('\n🏢 companies...');
   const companiesId = await createOrgTable('companies');
@@ -68,6 +69,7 @@ async function main() {
   await addField(companiesId, 'domain', 'text');
   await addField(companiesId, 'industry', 'text');
   await addField(companiesId, 'description', 'text');
+  await addField(companiesId, 'embedding', 'vector(768)');
 
   console.log('\n💰 deals...');
   const dealsId = await createOrgTable('deals');
@@ -75,6 +77,7 @@ async function main() {
   await addField(dealsId, 'stage', 'text', { defaultValue: "'lead'" });
   await addField(dealsId, 'value', 'numeric');
   await addField(dealsId, 'notes', 'text');
+  await addField(dealsId, 'embedding', 'vector(768)');
 
   console.log('\n📅 events...');
   const eventsId = await createOrgTable('events');
@@ -85,6 +88,7 @@ async function main() {
   await addField(eventsId, 'started_at', 'timestamptz');
   await addField(eventsId, 'ended_at', 'timestamptz');
   await addField(eventsId, 'notes', 'text');
+  await addField(eventsId, 'embedding', 'vector(768)');
 
   console.log('\n🏛️ venues...');
   const venuesId = await createOrgTable('venues');
@@ -93,10 +97,12 @@ async function main() {
   await addField(venuesId, 'city', 'text');
   await addField(venuesId, 'status', 'text', { defaultValue: "'potential'" });
   await addField(venuesId, 'notes', 'text');
+  await addField(venuesId, 'embedding', 'vector(768)');
 
   console.log('\n📝 notes...');
   const notesId = await createOrgTable('notes');
   await addField(notesId, 'content', 'text', { isRequired: true });
+  await addField(notesId, 'embedding', 'vector(768)');
 
   console.log('\n🏷️ tags (shared)...');
   const tagsResult = await withRetry(() =>
@@ -141,7 +147,8 @@ async function main() {
   }).unwrap());
   console.log('   ✓ deals ↔ contacts');
 
-  console.log('\n✅ CRM Schema complete!\n');
+  console.log('\n✅ CRM Schema with embeddings complete!\n');
+  console.log('   All tables have vector(768) embedding columns for RAG\n');
 }
 
 main().catch((err) => { console.error('❌', err.message ?? err); process.exit(1); });
