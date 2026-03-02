@@ -277,3 +277,61 @@ WHERE api_id = '414b84ee-2ea7-4d75-bfdc-0f60c82fb1de';  -- copy from public API
 - The `app` API should be created with RLS module automatically
 - Bug in the database provisioning workflow
 
+
+---
+
+## RESOLVED: SQL Fixes Applied (2026-03-01 22:14)
+
+### Fix 1: RLS Module for App API
+
+```sql
+-- Disable trigger to avoid duplicate function creation
+ALTER TABLE metaschema_modules_public.rls_module DISABLE TRIGGER insert_rls_module;
+
+-- Copy RLS config from 'public' API to 'app' API
+INSERT INTO metaschema_modules_public.rls_module (
+  database_id, api_id, schema_id, private_schema_id,
+  session_credentials_table_id, sessions_table_id, users_table_id,
+  authenticate, authenticate_strict, "current_role", current_role_id
+)
+SELECT 
+  database_id, '5174d102-50fe-4859-9f44-0334f40f7e8c'::uuid,
+  schema_id, private_schema_id, session_credentials_table_id,
+  sessions_table_id, users_table_id, authenticate, authenticate_strict,
+  "current_role", current_role_id
+FROM metaschema_modules_public.rls_module 
+WHERE api_id = '414b84ee-2ea7-4d75-bfdc-0f60c82fb1de';
+
+ALTER TABLE metaschema_modules_public.rls_module ENABLE TRIGGER insert_rls_module;
+```
+
+### Fix 2: Membership Support Table Sync
+
+New users weren't being synced to `org_memberships_sprt`:
+
+```sql
+INSERT INTO "agent-os-*-memberships-private".org_memberships_sprt 
+  (is_owner, is_admin, permissions, actor_id, entity_id)
+SELECT is_owner, is_admin, permissions, actor_id, entity_id
+FROM "agent-os-*-memberships-public".org_memberships
+WHERE actor_id = '<user-id>'
+ON CONFLICT (actor_id, entity_id) DO NOTHING;
+```
+
+### Underlying Issues to Fix in Platform
+
+1. **App API missing RLS module** — provisioning should create RLS modules for all APIs that expose user data
+
+2. **org_memberships_sprt sync** — trigger or function should auto-populate the support table when new memberships are created via signup
+
+### Test Results
+
+- ✅ Auth working (token validates, user_id recognized)
+- ✅ SELECT contacts — works
+- ✅ INSERT contact — works
+- ✅ Full CRUD operational
+
+---
+
+*Status: **Resolved** (with manual SQL fixes)*
+*Root causes documented for platform fixes*
