@@ -209,3 +209,71 @@ Could add a script to create a fresh admin token:
 3. Create a new session + session_credential
 4. Return the unhashed token
 
+
+---
+
+## Update: RLS Module Missing for App API (2026-03-01 22:10)
+
+### The Real Bug
+
+The `app-public-agent-os-*` endpoint has **no RLS module configured**!
+
+```sql
+-- API IDs for agent-os-1772427594809
+SELECT a.id, a.name, d.subdomain 
+FROM services_public.apis a 
+JOIN services_public.domains d ON a.id = d.api_id 
+WHERE d.subdomain LIKE '%agent-os-1772427594809%';
+
+-- Results:
+-- 414b84ee-... | public  | public-agent-os-1772427594809
+-- 5174d102-... | app     | app-public-agent-os-1772427594809  <-- WE USE THIS ONE
+
+-- RLS module exists for 'public' API but NOT for 'app' API:
+SELECT * FROM metaschema_modules_public.rls_module 
+WHERE api_id = '5174d102-50fe-4859-9f44-0334f40f7e8c';
+-- (0 rows)  <-- EMPTY!
+```
+
+### Server Logs Confirm
+
+```
+[auth] rlsModule=missing, authenticate=none, authenticateStrict=none, privateSchema=none
+[auth] No RLS module configured, skipping auth
+```
+
+### API Schema Mapping
+
+| API | Subdomain | Has RLS Module | Schemas Exposed |
+|-----|-----------|----------------|-----------------|
+| `public` | `public-agent-os-*` | ✅ Yes | users, auth, memberships, profiles, etc. |
+| `app` | `app-public-agent-os-*` | ❌ No | app-public (contacts, companies, etc.) |
+
+### Why This Matters
+
+- `public` API has auth working, but doesn't expose our CRM tables
+- `app` API exposes our CRM tables, but has no auth — everyone is anonymous
+- RLS denies anonymous users → "permission denied"
+
+### Proposed Fixes
+
+**Option 1: Add RLS module to `app` API**
+```sql
+INSERT INTO metaschema_modules_public.rls_module (
+  database_id, api_id, private_schema_id, authenticate, authenticate_strict, ...
+) SELECT 
+  database_id, 
+  '5174d102-50fe-4859-9f44-0334f40f7e8c',  -- app API
+  private_schema_id, authenticate, authenticate_strict, ...
+FROM metaschema_modules_public.rls_module 
+WHERE api_id = '414b84ee-2ea7-4d75-bfdc-0f60c82fb1de';  -- copy from public API
+```
+
+**Option 2: Add app-public schema to `public` API**
+- Keeps single authenticated endpoint
+- May not be desired separation
+
+**Option 3: Fix provisioning**
+- The `app` API should be created with RLS module automatically
+- Bug in the database provisioning workflow
+
