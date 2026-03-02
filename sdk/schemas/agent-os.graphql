@@ -1,0 +1,3766 @@
+"""The root query type which gives access points into the data universe."""
+type Query {
+  """Reads and enables pagination through a set of `ContactCompany`."""
+  contactCompanies(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ContactCompanyCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: ContactCompanyFilter
+
+    """The method to use when ordering `ContactCompany`."""
+    orderBy: [ContactCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactCompanyConnection
+
+  """Reads and enables pagination through a set of `ContactEvent`."""
+  contactEvents(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ContactEventCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: ContactEventFilter
+
+    """The method to use when ordering `ContactEvent`."""
+    orderBy: [ContactEventOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactEventConnection
+
+  """Reads and enables pagination through a set of `DealContact`."""
+  dealContacts(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: DealContactCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: DealContactFilter
+
+    """The method to use when ordering `DealContact`."""
+    orderBy: [DealContactOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DealContactConnection
+
+  """Reads and enables pagination through a set of `EventVenue`."""
+  eventVenues(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: EventVenueCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: EventVenueFilter
+
+    """The method to use when ordering `EventVenue`."""
+    orderBy: [EventVenueOrderBy!] = [PRIMARY_KEY_ASC]
+  ): EventVenueConnection
+
+  """Reads and enables pagination through a set of `Tag`."""
+  tags(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TagCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: TagFilter
+
+    """The method to use when ordering `Tag`."""
+    orderBy: [TagOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TagConnection
+
+  """Reads and enables pagination through a set of `Note`."""
+  notes(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: NoteCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: NoteFilter
+
+    """The method to use when ordering `Note`."""
+    orderBy: [NoteOrderBy!] = [PRIMARY_KEY_ASC]
+  ): NoteConnection
+
+  """Reads and enables pagination through a set of `Venue`."""
+  venues(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: VenueCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: VenueFilter
+
+    """The method to use when ordering `Venue`."""
+    orderBy: [VenueOrderBy!] = [PRIMARY_KEY_ASC]
+  ): VenueConnection
+
+  """Reads and enables pagination through a set of `Contact`."""
+  contacts(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ContactCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: ContactFilter
+
+    """The method to use when ordering `Contact`."""
+    orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactConnection
+
+  """Reads and enables pagination through a set of `Event`."""
+  events(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: EventCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: EventFilter
+
+    """The method to use when ordering `Event`."""
+    orderBy: [EventOrderBy!] = [PRIMARY_KEY_ASC]
+  ): EventConnection
+
+  """Reads and enables pagination through a set of `Deal`."""
+  deals(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: DealCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: DealFilter
+
+    """The method to use when ordering `Deal`."""
+    orderBy: [DealOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DealConnection
+
+  """Reads and enables pagination through a set of `Company`."""
+  companies(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CompanyCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: CompanyFilter
+
+    """The method to use when ordering `Company`."""
+    orderBy: [CompanyOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CompanyConnection
+
+  """
+  Metadata about the database schema, including tables, fields, indexes, and constraints. Useful for code generation tools.
+  """
+  _meta: MetaSchema
+}
+
+"""A connection to a list of `ContactCompany` values."""
+type ContactCompanyConnection {
+  """A list of `ContactCompany` objects."""
+  nodes: [ContactCompany]!
+
+  """
+  A list of edges which contains the `ContactCompany` and cursor to aid in pagination.
+  """
+  edges: [ContactCompanyEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `ContactCompany` you could get from the connection."""
+  totalCount: Int!
+}
+
+type ContactCompany {
+  contactId: UUID!
+  companyId: UUID!
+  id: UUID!
+  entityId: UUID!
+
+  """Reads a single `Company` that is related to this `ContactCompany`."""
+  company: Company
+
+  """Reads a single `Contact` that is related to this `ContactCompany`."""
+  contact: Contact
+}
+
+"""
+A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122).
+"""
+scalar UUID
+
+type Company {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  name: String!
+  domain: String
+  industry: String
+  description: String
+  test1772427893521: [Float]
+  test1772427893568: [Float]
+  test1772427893598: [Float]
+  embedding: [Float]
+  embeddingText: String
+}
+
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) and, if it has a timezone, [RFC
+3339](https://datatracker.ietf.org/doc/html/rfc3339) standards. Input values
+that do not conform to both ISO 8601 and RFC 3339 may be coerced, which may lead
+to unexpected results.
+"""
+scalar Datetime
+
+type Contact {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  firstName: String!
+  lastName: String
+  email: String
+  phone: String
+  headline: String
+  bio: String
+  location: String
+}
+
+"""A `ContactCompany` edge in the connection."""
+type ContactCompanyEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `ContactCompany` at the end of the edge."""
+  node: ContactCompany
+}
+
+"""A location in a connection that can be used for resuming pagination."""
+scalar Cursor
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: Cursor
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
+}
+
+"""
+A condition to be used against `ContactCompany` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input ContactCompanyCondition {
+  """Checks for equality with the object’s `contactId` field."""
+  contactId: UUID
+
+  """Checks for equality with the object’s `companyId` field."""
+  companyId: UUID
+
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+}
+
+"""
+A filter to be used against `ContactCompany` object types. All fields are combined with a logical ‘and.’
+"""
+input ContactCompanyFilter {
+  """Filter by the object’s `contactId` field."""
+  contactId: UUIDFilter
+
+  """Filter by the object’s `companyId` field."""
+  companyId: UUIDFilter
+
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Checks for all expressions in this list."""
+  and: [ContactCompanyFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [ContactCompanyFilter!]
+
+  """Negates the expression."""
+  not: ContactCompanyFilter
+}
+
+"""
+A filter to be used against UUID fields. All fields are combined with a logical ‘and.’
+"""
+input UUIDFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: UUID
+
+  """Not equal to the specified value."""
+  notEqualTo: UUID
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: UUID
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: UUID
+
+  """Included in the specified list."""
+  in: [UUID!]
+
+  """Not included in the specified list."""
+  notIn: [UUID!]
+
+  """Less than the specified value."""
+  lessThan: UUID
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: UUID
+
+  """Greater than the specified value."""
+  greaterThan: UUID
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: UUID
+}
+
+"""Methods to use when ordering `ContactCompany`."""
+enum ContactCompanyOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `ContactEvent` values."""
+type ContactEventConnection {
+  """A list of `ContactEvent` objects."""
+  nodes: [ContactEvent]!
+
+  """
+  A list of edges which contains the `ContactEvent` and cursor to aid in pagination.
+  """
+  edges: [ContactEventEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `ContactEvent` you could get from the connection."""
+  totalCount: Int!
+}
+
+type ContactEvent {
+  contactId: UUID!
+  eventId: UUID!
+  id: UUID!
+  entityId: UUID!
+
+  """Reads a single `Contact` that is related to this `ContactEvent`."""
+  contact: Contact
+
+  """Reads a single `Event` that is related to this `ContactEvent`."""
+  event: Event
+}
+
+type Event {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  name: String!
+  eventType: String
+  location: String
+  city: String
+  startedAt: Datetime
+  endedAt: Datetime
+  notes: String
+}
+
+"""A `ContactEvent` edge in the connection."""
+type ContactEventEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `ContactEvent` at the end of the edge."""
+  node: ContactEvent
+}
+
+"""
+A condition to be used against `ContactEvent` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input ContactEventCondition {
+  """Checks for equality with the object’s `contactId` field."""
+  contactId: UUID
+
+  """Checks for equality with the object’s `eventId` field."""
+  eventId: UUID
+
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+}
+
+"""
+A filter to be used against `ContactEvent` object types. All fields are combined with a logical ‘and.’
+"""
+input ContactEventFilter {
+  """Filter by the object’s `contactId` field."""
+  contactId: UUIDFilter
+
+  """Filter by the object’s `eventId` field."""
+  eventId: UUIDFilter
+
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Checks for all expressions in this list."""
+  and: [ContactEventFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [ContactEventFilter!]
+
+  """Negates the expression."""
+  not: ContactEventFilter
+}
+
+"""Methods to use when ordering `ContactEvent`."""
+enum ContactEventOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `DealContact` values."""
+type DealContactConnection {
+  """A list of `DealContact` objects."""
+  nodes: [DealContact]!
+
+  """
+  A list of edges which contains the `DealContact` and cursor to aid in pagination.
+  """
+  edges: [DealContactEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `DealContact` you could get from the connection."""
+  totalCount: Int!
+}
+
+type DealContact {
+  dealId: UUID!
+  contactId: UUID!
+  id: UUID!
+  entityId: UUID!
+
+  """Reads a single `Contact` that is related to this `DealContact`."""
+  contact: Contact
+
+  """Reads a single `Deal` that is related to this `DealContact`."""
+  deal: Deal
+}
+
+type Deal {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  name: String!
+  stage: String
+  value: BigFloat
+  notes: String
+}
+
+"""
+A floating point number that requires more precision than IEEE 754 binary 64
+"""
+scalar BigFloat
+
+"""A `DealContact` edge in the connection."""
+type DealContactEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `DealContact` at the end of the edge."""
+  node: DealContact
+}
+
+"""
+A condition to be used against `DealContact` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input DealContactCondition {
+  """Checks for equality with the object’s `dealId` field."""
+  dealId: UUID
+
+  """Checks for equality with the object’s `contactId` field."""
+  contactId: UUID
+
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+}
+
+"""
+A filter to be used against `DealContact` object types. All fields are combined with a logical ‘and.’
+"""
+input DealContactFilter {
+  """Filter by the object’s `dealId` field."""
+  dealId: UUIDFilter
+
+  """Filter by the object’s `contactId` field."""
+  contactId: UUIDFilter
+
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Checks for all expressions in this list."""
+  and: [DealContactFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [DealContactFilter!]
+
+  """Negates the expression."""
+  not: DealContactFilter
+}
+
+"""Methods to use when ordering `DealContact`."""
+enum DealContactOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `EventVenue` values."""
+type EventVenueConnection {
+  """A list of `EventVenue` objects."""
+  nodes: [EventVenue]!
+
+  """
+  A list of edges which contains the `EventVenue` and cursor to aid in pagination.
+  """
+  edges: [EventVenueEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `EventVenue` you could get from the connection."""
+  totalCount: Int!
+}
+
+type EventVenue {
+  eventId: UUID!
+  venueId: UUID!
+  id: UUID!
+  entityId: UUID!
+
+  """Reads a single `Event` that is related to this `EventVenue`."""
+  event: Event
+
+  """Reads a single `Venue` that is related to this `EventVenue`."""
+  venue: Venue
+}
+
+type Venue {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  name: String!
+  neighborhood: String
+  city: String
+  status: String
+  notes: String
+}
+
+"""A `EventVenue` edge in the connection."""
+type EventVenueEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `EventVenue` at the end of the edge."""
+  node: EventVenue
+}
+
+"""
+A condition to be used against `EventVenue` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input EventVenueCondition {
+  """Checks for equality with the object’s `eventId` field."""
+  eventId: UUID
+
+  """Checks for equality with the object’s `venueId` field."""
+  venueId: UUID
+
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+}
+
+"""
+A filter to be used against `EventVenue` object types. All fields are combined with a logical ‘and.’
+"""
+input EventVenueFilter {
+  """Filter by the object’s `eventId` field."""
+  eventId: UUIDFilter
+
+  """Filter by the object’s `venueId` field."""
+  venueId: UUIDFilter
+
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Checks for all expressions in this list."""
+  and: [EventVenueFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [EventVenueFilter!]
+
+  """Negates the expression."""
+  not: EventVenueFilter
+}
+
+"""Methods to use when ordering `EventVenue`."""
+enum EventVenueOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `Tag` values."""
+type TagConnection {
+  """A list of `Tag` objects."""
+  nodes: [Tag]!
+
+  """
+  A list of edges which contains the `Tag` and cursor to aid in pagination.
+  """
+  edges: [TagEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Tag` you could get from the connection."""
+  totalCount: Int!
+}
+
+type Tag {
+  id: UUID!
+  name: String!
+}
+
+"""A `Tag` edge in the connection."""
+type TagEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Tag` at the end of the edge."""
+  node: Tag
+}
+
+"""
+A condition to be used against `Tag` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input TagCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+}
+
+"""
+A filter to be used against `Tag` object types. All fields are combined with a logical ‘and.’
+"""
+input TagFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `name` field."""
+  name: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [TagFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [TagFilter!]
+
+  """Negates the expression."""
+  not: TagFilter
+}
+
+"""
+A filter to be used against String fields. All fields are combined with a logical ‘and.’
+"""
+input StringFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: String
+
+  """Not equal to the specified value."""
+  notEqualTo: String
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: String
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: String
+
+  """Included in the specified list."""
+  in: [String!]
+
+  """Not included in the specified list."""
+  notIn: [String!]
+
+  """Less than the specified value."""
+  lessThan: String
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: String
+
+  """Greater than the specified value."""
+  greaterThan: String
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: String
+
+  """Contains the specified string (case-sensitive)."""
+  includes: String
+
+  """Does not contain the specified string (case-sensitive)."""
+  notIncludes: String
+
+  """Contains the specified string (case-insensitive)."""
+  includesInsensitive: String
+
+  """Does not contain the specified string (case-insensitive)."""
+  notIncludesInsensitive: String
+
+  """Starts with the specified string (case-sensitive)."""
+  startsWith: String
+
+  """Does not start with the specified string (case-sensitive)."""
+  notStartsWith: String
+
+  """Starts with the specified string (case-insensitive)."""
+  startsWithInsensitive: String
+
+  """Does not start with the specified string (case-insensitive)."""
+  notStartsWithInsensitive: String
+
+  """Ends with the specified string (case-sensitive)."""
+  endsWith: String
+
+  """Does not end with the specified string (case-sensitive)."""
+  notEndsWith: String
+
+  """Ends with the specified string (case-insensitive)."""
+  endsWithInsensitive: String
+
+  """Does not end with the specified string (case-insensitive)."""
+  notEndsWithInsensitive: String
+
+  """
+  Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters.
+  """
+  like: String
+
+  """
+  Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters.
+  """
+  notLike: String
+
+  """
+  Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters.
+  """
+  likeInsensitive: String
+
+  """
+  Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters.
+  """
+  notLikeInsensitive: String
+
+  """Equal to the specified value (case-insensitive)."""
+  equalToInsensitive: String
+
+  """Not equal to the specified value (case-insensitive)."""
+  notEqualToInsensitive: String
+
+  """
+  Not equal to the specified value, treating null like an ordinary value (case-insensitive).
+  """
+  distinctFromInsensitive: String
+
+  """
+  Equal to the specified value, treating null like an ordinary value (case-insensitive).
+  """
+  notDistinctFromInsensitive: String
+
+  """Included in the specified list (case-insensitive)."""
+  inInsensitive: [String!]
+
+  """Not included in the specified list (case-insensitive)."""
+  notInInsensitive: [String!]
+
+  """Less than the specified value (case-insensitive)."""
+  lessThanInsensitive: String
+
+  """Less than or equal to the specified value (case-insensitive)."""
+  lessThanOrEqualToInsensitive: String
+
+  """Greater than the specified value (case-insensitive)."""
+  greaterThanInsensitive: String
+
+  """Greater than or equal to the specified value (case-insensitive)."""
+  greaterThanOrEqualToInsensitive: String
+}
+
+"""Methods to use when ordering `Tag`."""
+enum TagOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `Note` values."""
+type NoteConnection {
+  """A list of `Note` objects."""
+  nodes: [Note]!
+
+  """
+  A list of edges which contains the `Note` and cursor to aid in pagination.
+  """
+  edges: [NoteEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Note` you could get from the connection."""
+  totalCount: Int!
+}
+
+type Note {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  content: String!
+  contactId: UUID!
+
+  """Reads a single `Contact` that is related to this `Note`."""
+  contact: Contact
+}
+
+"""A `Note` edge in the connection."""
+type NoteEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Note` at the end of the edge."""
+  node: Note
+}
+
+"""
+A condition to be used against `Note` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input NoteCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `content` field."""
+  content: String
+
+  """Checks for equality with the object’s `contactId` field."""
+  contactId: UUID
+}
+
+"""
+A filter to be used against `Note` object types. All fields are combined with a logical ‘and.’
+"""
+input NoteFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `content` field."""
+  content: StringFilter
+
+  """Filter by the object’s `contactId` field."""
+  contactId: UUIDFilter
+
+  """Checks for all expressions in this list."""
+  and: [NoteFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [NoteFilter!]
+
+  """Negates the expression."""
+  not: NoteFilter
+}
+
+"""
+A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’
+"""
+input DatetimeFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: Datetime
+
+  """Not equal to the specified value."""
+  notEqualTo: Datetime
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: Datetime
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: Datetime
+
+  """Included in the specified list."""
+  in: [Datetime!]
+
+  """Not included in the specified list."""
+  notIn: [Datetime!]
+
+  """Less than the specified value."""
+  lessThan: Datetime
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: Datetime
+
+  """Greater than the specified value."""
+  greaterThan: Datetime
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: Datetime
+}
+
+"""Methods to use when ordering `Note`."""
+enum NoteOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `Venue` values."""
+type VenueConnection {
+  """A list of `Venue` objects."""
+  nodes: [Venue]!
+
+  """
+  A list of edges which contains the `Venue` and cursor to aid in pagination.
+  """
+  edges: [VenueEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Venue` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Venue` edge in the connection."""
+type VenueEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Venue` at the end of the edge."""
+  node: Venue
+}
+
+"""
+A condition to be used against `Venue` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input VenueCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `neighborhood` field."""
+  neighborhood: String
+
+  """Checks for equality with the object’s `city` field."""
+  city: String
+
+  """Checks for equality with the object’s `status` field."""
+  status: String
+
+  """Checks for equality with the object’s `notes` field."""
+  notes: String
+}
+
+"""
+A filter to be used against `Venue` object types. All fields are combined with a logical ‘and.’
+"""
+input VenueFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `name` field."""
+  name: StringFilter
+
+  """Filter by the object’s `neighborhood` field."""
+  neighborhood: StringFilter
+
+  """Filter by the object’s `city` field."""
+  city: StringFilter
+
+  """Filter by the object’s `status` field."""
+  status: StringFilter
+
+  """Filter by the object’s `notes` field."""
+  notes: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [VenueFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [VenueFilter!]
+
+  """Negates the expression."""
+  not: VenueFilter
+}
+
+"""Methods to use when ordering `Venue`."""
+enum VenueOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `Contact` values."""
+type ContactConnection {
+  """A list of `Contact` objects."""
+  nodes: [Contact]!
+
+  """
+  A list of edges which contains the `Contact` and cursor to aid in pagination.
+  """
+  edges: [ContactEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Contact` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Contact` edge in the connection."""
+type ContactEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Contact` at the end of the edge."""
+  node: Contact
+}
+
+"""
+A condition to be used against `Contact` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input ContactCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `firstName` field."""
+  firstName: String
+
+  """Checks for equality with the object’s `lastName` field."""
+  lastName: String
+
+  """Checks for equality with the object’s `email` field."""
+  email: String
+
+  """Checks for equality with the object’s `phone` field."""
+  phone: String
+
+  """Checks for equality with the object’s `headline` field."""
+  headline: String
+
+  """Checks for equality with the object’s `bio` field."""
+  bio: String
+
+  """Checks for equality with the object’s `location` field."""
+  location: String
+}
+
+"""
+A filter to be used against `Contact` object types. All fields are combined with a logical ‘and.’
+"""
+input ContactFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `firstName` field."""
+  firstName: StringFilter
+
+  """Filter by the object’s `lastName` field."""
+  lastName: StringFilter
+
+  """Filter by the object’s `email` field."""
+  email: StringFilter
+
+  """Filter by the object’s `phone` field."""
+  phone: StringFilter
+
+  """Filter by the object’s `headline` field."""
+  headline: StringFilter
+
+  """Filter by the object’s `bio` field."""
+  bio: StringFilter
+
+  """Filter by the object’s `location` field."""
+  location: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [ContactFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [ContactFilter!]
+
+  """Negates the expression."""
+  not: ContactFilter
+}
+
+"""Methods to use when ordering `Contact`."""
+enum ContactOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `Event` values."""
+type EventConnection {
+  """A list of `Event` objects."""
+  nodes: [Event]!
+
+  """
+  A list of edges which contains the `Event` and cursor to aid in pagination.
+  """
+  edges: [EventEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Event` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Event` edge in the connection."""
+type EventEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Event` at the end of the edge."""
+  node: Event
+}
+
+"""
+A condition to be used against `Event` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input EventCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `eventType` field."""
+  eventType: String
+
+  """Checks for equality with the object’s `location` field."""
+  location: String
+
+  """Checks for equality with the object’s `city` field."""
+  city: String
+
+  """Checks for equality with the object’s `startedAt` field."""
+  startedAt: Datetime
+
+  """Checks for equality with the object’s `endedAt` field."""
+  endedAt: Datetime
+
+  """Checks for equality with the object’s `notes` field."""
+  notes: String
+}
+
+"""
+A filter to be used against `Event` object types. All fields are combined with a logical ‘and.’
+"""
+input EventFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `name` field."""
+  name: StringFilter
+
+  """Filter by the object’s `eventType` field."""
+  eventType: StringFilter
+
+  """Filter by the object’s `location` field."""
+  location: StringFilter
+
+  """Filter by the object’s `city` field."""
+  city: StringFilter
+
+  """Filter by the object’s `startedAt` field."""
+  startedAt: DatetimeFilter
+
+  """Filter by the object’s `endedAt` field."""
+  endedAt: DatetimeFilter
+
+  """Filter by the object’s `notes` field."""
+  notes: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [EventFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [EventFilter!]
+
+  """Negates the expression."""
+  not: EventFilter
+}
+
+"""Methods to use when ordering `Event`."""
+enum EventOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `Deal` values."""
+type DealConnection {
+  """A list of `Deal` objects."""
+  nodes: [Deal]!
+
+  """
+  A list of edges which contains the `Deal` and cursor to aid in pagination.
+  """
+  edges: [DealEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Deal` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Deal` edge in the connection."""
+type DealEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Deal` at the end of the edge."""
+  node: Deal
+}
+
+"""
+A condition to be used against `Deal` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input DealCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `stage` field."""
+  stage: String
+
+  """Checks for equality with the object’s `value` field."""
+  value: BigFloat
+
+  """Checks for equality with the object’s `notes` field."""
+  notes: String
+}
+
+"""
+A filter to be used against `Deal` object types. All fields are combined with a logical ‘and.’
+"""
+input DealFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `name` field."""
+  name: StringFilter
+
+  """Filter by the object’s `stage` field."""
+  stage: StringFilter
+
+  """Filter by the object’s `value` field."""
+  value: BigFloatFilter
+
+  """Filter by the object’s `notes` field."""
+  notes: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [DealFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [DealFilter!]
+
+  """Negates the expression."""
+  not: DealFilter
+}
+
+"""
+A filter to be used against BigFloat fields. All fields are combined with a logical ‘and.’
+"""
+input BigFloatFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: BigFloat
+
+  """Not equal to the specified value."""
+  notEqualTo: BigFloat
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: BigFloat
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: BigFloat
+
+  """Included in the specified list."""
+  in: [BigFloat!]
+
+  """Not included in the specified list."""
+  notIn: [BigFloat!]
+
+  """Less than the specified value."""
+  lessThan: BigFloat
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: BigFloat
+
+  """Greater than the specified value."""
+  greaterThan: BigFloat
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: BigFloat
+}
+
+"""Methods to use when ordering `Deal`."""
+enum DealOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `Company` values."""
+type CompanyConnection {
+  """A list of `Company` objects."""
+  nodes: [Company]!
+
+  """
+  A list of edges which contains the `Company` and cursor to aid in pagination.
+  """
+  edges: [CompanyEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Company` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Company` edge in the connection."""
+type CompanyEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Company` at the end of the edge."""
+  node: Company
+}
+
+"""
+A condition to be used against `Company` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input CompanyCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `domain` field."""
+  domain: String
+
+  """Checks for equality with the object’s `industry` field."""
+  industry: String
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `test1772427893521` field."""
+  test1772427893521: [Float]
+
+  """Checks for equality with the object’s `test1772427893568` field."""
+  test1772427893568: [Float]
+
+  """Checks for equality with the object’s `test1772427893598` field."""
+  test1772427893598: [Float]
+
+  """Checks for equality with the object’s `embedding` field."""
+  embedding: [Float]
+
+  """Checks for equality with the object’s `embeddingText` field."""
+  embeddingText: String
+}
+
+"""
+A filter to be used against `Company` object types. All fields are combined with a logical ‘and.’
+"""
+input CompanyFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `name` field."""
+  name: StringFilter
+
+  """Filter by the object’s `domain` field."""
+  domain: StringFilter
+
+  """Filter by the object’s `industry` field."""
+  industry: StringFilter
+
+  """Filter by the object’s `description` field."""
+  description: StringFilter
+
+  """Filter by the object’s `test1772427893521` field."""
+  test1772427893521: FloatListFilter
+
+  """Filter by the object’s `test1772427893568` field."""
+  test1772427893568: FloatListFilter
+
+  """Filter by the object’s `test1772427893598` field."""
+  test1772427893598: FloatListFilter
+
+  """Filter by the object’s `embedding` field."""
+  embedding: FloatListFilter
+
+  """Filter by the object’s `embeddingText` field."""
+  embeddingText: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [CompanyFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [CompanyFilter!]
+
+  """Negates the expression."""
+  not: CompanyFilter
+}
+
+"""
+A filter to be used against Float List fields. All fields are combined with a logical ‘and.’
+"""
+input FloatListFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: [Float]
+
+  """Not equal to the specified value."""
+  notEqualTo: [Float]
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: [Float]
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: [Float]
+
+  """Less than the specified value."""
+  lessThan: [Float]
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: [Float]
+
+  """Greater than the specified value."""
+  greaterThan: [Float]
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: [Float]
+
+  """Contains the specified list of values."""
+  contains: [Float]
+
+  """Contained by the specified list of values."""
+  containedBy: [Float]
+
+  """Overlaps the specified list of values."""
+  overlaps: [Float]
+
+  """Any array item is equal to the specified value."""
+  anyEqualTo: Float
+
+  """Any array item is not equal to the specified value."""
+  anyNotEqualTo: Float
+
+  """Any array item is less than the specified value."""
+  anyLessThan: Float
+
+  """Any array item is less than or equal to the specified value."""
+  anyLessThanOrEqualTo: Float
+
+  """Any array item is greater than the specified value."""
+  anyGreaterThan: Float
+
+  """Any array item is greater than or equal to the specified value."""
+  anyGreaterThanOrEqualTo: Float
+}
+
+"""Methods to use when ordering `Company`."""
+enum CompanyOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""Root meta schema type"""
+type MetaSchema {
+  tables: [MetaTable!]!
+}
+
+"""Information about a database table"""
+type MetaTable {
+  name: String!
+  schemaName: String!
+  fields: [MetaField!]!
+  indexes: [MetaIndex!]!
+  constraints: MetaConstraints!
+  foreignKeyConstraints: [MetaForeignKeyConstraint!]!
+  primaryKeyConstraints: [MetaPrimaryKeyConstraint!]!
+  uniqueConstraints: [MetaUniqueConstraint!]!
+  relations: MetaRelations!
+  inflection: MetaInflection!
+  query: MetaQuery!
+}
+
+"""Information about a table field/column"""
+type MetaField {
+  name: String!
+  type: MetaType!
+  isNotNull: Boolean!
+  hasDefault: Boolean!
+}
+
+"""Information about a PostgreSQL type"""
+type MetaType {
+  pgType: String!
+  gqlType: String!
+  isArray: Boolean!
+  isNotNull: Boolean
+  hasDefault: Boolean
+}
+
+"""Information about a database index"""
+type MetaIndex {
+  name: String!
+  isUnique: Boolean!
+  isPrimary: Boolean!
+  columns: [String!]!
+  fields: [MetaField!]
+}
+
+"""Table constraints"""
+type MetaConstraints {
+  primaryKey: MetaPrimaryKeyConstraint
+  unique: [MetaUniqueConstraint!]!
+  foreignKey: [MetaForeignKeyConstraint!]!
+}
+
+"""Information about a primary key constraint"""
+type MetaPrimaryKeyConstraint {
+  name: String!
+  fields: [MetaField!]!
+}
+
+"""Information about a unique constraint"""
+type MetaUniqueConstraint {
+  name: String!
+  fields: [MetaField!]!
+}
+
+"""Information about a foreign key constraint"""
+type MetaForeignKeyConstraint {
+  name: String!
+  fields: [MetaField!]!
+  referencedTable: String!
+  referencedFields: [String!]!
+  refFields: [MetaField!]
+  refTable: MetaRefTable
+}
+
+"""Reference to a related table"""
+type MetaRefTable {
+  name: String!
+}
+
+"""Table relations"""
+type MetaRelations {
+  belongsTo: [MetaBelongsToRelation!]!
+  has: [MetaHasRelation!]!
+  hasOne: [MetaHasRelation!]!
+  hasMany: [MetaHasRelation!]!
+  manyToMany: [MetaManyToManyRelation!]!
+}
+
+"""A belongs-to (forward FK) relation"""
+type MetaBelongsToRelation {
+  fieldName: String
+  isUnique: Boolean!
+  type: String
+  keys: [MetaField!]!
+  references: MetaRefTable!
+}
+
+"""A has-one or has-many (reverse FK) relation"""
+type MetaHasRelation {
+  fieldName: String
+  isUnique: Boolean!
+  type: String
+  keys: [MetaField!]!
+  referencedBy: MetaRefTable!
+}
+
+"""A many-to-many relation via junction table"""
+type MetaManyToManyRelation {
+  fieldName: String
+  type: String
+  junctionTable: MetaRefTable!
+  junctionLeftConstraint: MetaForeignKeyConstraint!
+  junctionLeftKeyAttributes: [MetaField!]!
+  junctionRightConstraint: MetaForeignKeyConstraint!
+  junctionRightKeyAttributes: [MetaField!]!
+  leftKeyAttributes: [MetaField!]!
+  rightKeyAttributes: [MetaField!]!
+  rightTable: MetaRefTable!
+}
+
+"""Table inflection names"""
+type MetaInflection {
+  tableType: String!
+  allRows: String!
+  connection: String!
+  edge: String!
+  filterType: String
+  orderByType: String!
+  conditionType: String!
+  patchType: String
+  createInputType: String!
+  createPayloadType: String!
+  updatePayloadType: String
+  deletePayloadType: String!
+}
+
+"""Table query/mutation names"""
+type MetaQuery {
+  all: String!
+  one: String
+  create: String
+  update: String
+  delete: String
+}
+
+"""
+The root mutation type which contains root level fields which mutate data.
+"""
+type Mutation {
+  """Creates a single `ContactCompany`."""
+  createContactCompany(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateContactCompanyInput!
+  ): CreateContactCompanyPayload
+
+  """Creates a single `ContactEvent`."""
+  createContactEvent(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateContactEventInput!
+  ): CreateContactEventPayload
+
+  """Creates a single `DealContact`."""
+  createDealContact(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateDealContactInput!
+  ): CreateDealContactPayload
+
+  """Creates a single `EventVenue`."""
+  createEventVenue(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateEventVenueInput!
+  ): CreateEventVenuePayload
+
+  """Creates a single `Tag`."""
+  createTag(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateTagInput!
+  ): CreateTagPayload
+
+  """Creates a single `Note`."""
+  createNote(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateNoteInput!
+  ): CreateNotePayload
+
+  """Creates a single `Venue`."""
+  createVenue(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateVenueInput!
+  ): CreateVenuePayload
+
+  """Creates a single `Contact`."""
+  createContact(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateContactInput!
+  ): CreateContactPayload
+
+  """Creates a single `Event`."""
+  createEvent(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateEventInput!
+  ): CreateEventPayload
+
+  """Creates a single `Deal`."""
+  createDeal(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateDealInput!
+  ): CreateDealPayload
+
+  """Creates a single `Company`."""
+  createCompany(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCompanyInput!
+  ): CreateCompanyPayload
+
+  """Updates a single `ContactCompany` using a unique key and a patch."""
+  updateContactCompany(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateContactCompanyInput!
+  ): UpdateContactCompanyPayload
+
+  """Updates a single `ContactEvent` using a unique key and a patch."""
+  updateContactEvent(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateContactEventInput!
+  ): UpdateContactEventPayload
+
+  """Updates a single `DealContact` using a unique key and a patch."""
+  updateDealContact(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateDealContactInput!
+  ): UpdateDealContactPayload
+
+  """Updates a single `EventVenue` using a unique key and a patch."""
+  updateEventVenue(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateEventVenueInput!
+  ): UpdateEventVenuePayload
+
+  """Updates a single `Tag` using a unique key and a patch."""
+  updateTag(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTagInput!
+  ): UpdateTagPayload
+
+  """Updates a single `Note` using a unique key and a patch."""
+  updateNote(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateNoteInput!
+  ): UpdateNotePayload
+
+  """Updates a single `Venue` using a unique key and a patch."""
+  updateVenue(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateVenueInput!
+  ): UpdateVenuePayload
+
+  """Updates a single `Contact` using a unique key and a patch."""
+  updateContact(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateContactInput!
+  ): UpdateContactPayload
+
+  """Updates a single `Event` using a unique key and a patch."""
+  updateEvent(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateEventInput!
+  ): UpdateEventPayload
+
+  """Updates a single `Deal` using a unique key and a patch."""
+  updateDeal(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateDealInput!
+  ): UpdateDealPayload
+
+  """Updates a single `Company` using a unique key and a patch."""
+  updateCompany(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCompanyInput!
+  ): UpdateCompanyPayload
+
+  """Deletes a single `ContactCompany` using a unique key."""
+  deleteContactCompany(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteContactCompanyInput!
+  ): DeleteContactCompanyPayload
+
+  """Deletes a single `ContactEvent` using a unique key."""
+  deleteContactEvent(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteContactEventInput!
+  ): DeleteContactEventPayload
+
+  """Deletes a single `DealContact` using a unique key."""
+  deleteDealContact(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteDealContactInput!
+  ): DeleteDealContactPayload
+
+  """Deletes a single `EventVenue` using a unique key."""
+  deleteEventVenue(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteEventVenueInput!
+  ): DeleteEventVenuePayload
+
+  """Deletes a single `Tag` using a unique key."""
+  deleteTag(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTagInput!
+  ): DeleteTagPayload
+
+  """Deletes a single `Note` using a unique key."""
+  deleteNote(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteNoteInput!
+  ): DeleteNotePayload
+
+  """Deletes a single `Venue` using a unique key."""
+  deleteVenue(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteVenueInput!
+  ): DeleteVenuePayload
+
+  """Deletes a single `Contact` using a unique key."""
+  deleteContact(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteContactInput!
+  ): DeleteContactPayload
+
+  """Deletes a single `Event` using a unique key."""
+  deleteEvent(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteEventInput!
+  ): DeleteEventPayload
+
+  """Deletes a single `Deal` using a unique key."""
+  deleteDeal(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteDealInput!
+  ): DeleteDealPayload
+
+  """Deletes a single `Company` using a unique key."""
+  deleteCompany(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCompanyInput!
+  ): DeleteCompanyPayload
+}
+
+"""The output of our create `ContactCompany` mutation."""
+type CreateContactCompanyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `ContactCompany` that was created by this mutation."""
+  contactCompany: ContactCompany
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `ContactCompany`. May be used by Relay 1."""
+  contactCompanyEdge(
+    """The method to use when ordering `ContactCompany`."""
+    orderBy: [ContactCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactCompanyEdge
+}
+
+"""All input for the create `ContactCompany` mutation."""
+input CreateContactCompanyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `ContactCompany` to be created by this mutation."""
+  contactCompany: ContactCompanyInput!
+}
+
+"""An input for mutations affecting `ContactCompany`"""
+input ContactCompanyInput {
+  contactId: UUID!
+  companyId: UUID!
+  id: UUID
+  entityId: UUID!
+}
+
+"""The output of our create `ContactEvent` mutation."""
+type CreateContactEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `ContactEvent` that was created by this mutation."""
+  contactEvent: ContactEvent
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `ContactEvent`. May be used by Relay 1."""
+  contactEventEdge(
+    """The method to use when ordering `ContactEvent`."""
+    orderBy: [ContactEventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactEventEdge
+}
+
+"""All input for the create `ContactEvent` mutation."""
+input CreateContactEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `ContactEvent` to be created by this mutation."""
+  contactEvent: ContactEventInput!
+}
+
+"""An input for mutations affecting `ContactEvent`"""
+input ContactEventInput {
+  contactId: UUID!
+  eventId: UUID!
+  id: UUID
+  entityId: UUID!
+}
+
+"""The output of our create `DealContact` mutation."""
+type CreateDealContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `DealContact` that was created by this mutation."""
+  dealContact: DealContact
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `DealContact`. May be used by Relay 1."""
+  dealContactEdge(
+    """The method to use when ordering `DealContact`."""
+    orderBy: [DealContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DealContactEdge
+}
+
+"""All input for the create `DealContact` mutation."""
+input CreateDealContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `DealContact` to be created by this mutation."""
+  dealContact: DealContactInput!
+}
+
+"""An input for mutations affecting `DealContact`"""
+input DealContactInput {
+  dealId: UUID!
+  contactId: UUID!
+  id: UUID
+  entityId: UUID!
+}
+
+"""The output of our create `EventVenue` mutation."""
+type CreateEventVenuePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `EventVenue` that was created by this mutation."""
+  eventVenue: EventVenue
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `EventVenue`. May be used by Relay 1."""
+  eventVenueEdge(
+    """The method to use when ordering `EventVenue`."""
+    orderBy: [EventVenueOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): EventVenueEdge
+}
+
+"""All input for the create `EventVenue` mutation."""
+input CreateEventVenueInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `EventVenue` to be created by this mutation."""
+  eventVenue: EventVenueInput!
+}
+
+"""An input for mutations affecting `EventVenue`"""
+input EventVenueInput {
+  eventId: UUID!
+  venueId: UUID!
+  id: UUID
+  entityId: UUID!
+}
+
+"""The output of our create `Tag` mutation."""
+type CreateTagPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Tag` that was created by this mutation."""
+  tag: Tag
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Tag`. May be used by Relay 1."""
+  tagEdge(
+    """The method to use when ordering `Tag`."""
+    orderBy: [TagOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TagEdge
+}
+
+"""All input for the create `Tag` mutation."""
+input CreateTagInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Tag` to be created by this mutation."""
+  tag: TagInput!
+}
+
+"""An input for mutations affecting `Tag`"""
+input TagInput {
+  id: UUID
+  name: String!
+}
+
+"""The output of our create `Note` mutation."""
+type CreateNotePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Note` that was created by this mutation."""
+  note: Note
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Note`. May be used by Relay 1."""
+  noteEdge(
+    """The method to use when ordering `Note`."""
+    orderBy: [NoteOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): NoteEdge
+}
+
+"""All input for the create `Note` mutation."""
+input CreateNoteInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Note` to be created by this mutation."""
+  note: NoteInput!
+}
+
+"""An input for mutations affecting `Note`"""
+input NoteInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  content: String!
+  contactId: UUID!
+}
+
+"""The output of our create `Venue` mutation."""
+type CreateVenuePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Venue` that was created by this mutation."""
+  venue: Venue
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Venue`. May be used by Relay 1."""
+  venueEdge(
+    """The method to use when ordering `Venue`."""
+    orderBy: [VenueOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): VenueEdge
+}
+
+"""All input for the create `Venue` mutation."""
+input CreateVenueInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Venue` to be created by this mutation."""
+  venue: VenueInput!
+}
+
+"""An input for mutations affecting `Venue`"""
+input VenueInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String!
+  neighborhood: String
+  city: String
+  status: String
+  notes: String
+}
+
+"""The output of our create `Contact` mutation."""
+type CreateContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Contact` that was created by this mutation."""
+  contact: Contact
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Contact`. May be used by Relay 1."""
+  contactEdge(
+    """The method to use when ordering `Contact`."""
+    orderBy: [ContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactEdge
+}
+
+"""All input for the create `Contact` mutation."""
+input CreateContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Contact` to be created by this mutation."""
+  contact: ContactInput!
+}
+
+"""An input for mutations affecting `Contact`"""
+input ContactInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  firstName: String!
+  lastName: String
+  email: String
+  phone: String
+  headline: String
+  bio: String
+  location: String
+}
+
+"""The output of our create `Event` mutation."""
+type CreateEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Event` that was created by this mutation."""
+  event: Event
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Event`. May be used by Relay 1."""
+  eventEdge(
+    """The method to use when ordering `Event`."""
+    orderBy: [EventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): EventEdge
+}
+
+"""All input for the create `Event` mutation."""
+input CreateEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Event` to be created by this mutation."""
+  event: EventInput!
+}
+
+"""An input for mutations affecting `Event`"""
+input EventInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String!
+  eventType: String
+  location: String
+  city: String
+  startedAt: Datetime
+  endedAt: Datetime
+  notes: String
+}
+
+"""The output of our create `Deal` mutation."""
+type CreateDealPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Deal` that was created by this mutation."""
+  deal: Deal
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Deal`. May be used by Relay 1."""
+  dealEdge(
+    """The method to use when ordering `Deal`."""
+    orderBy: [DealOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DealEdge
+}
+
+"""All input for the create `Deal` mutation."""
+input CreateDealInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Deal` to be created by this mutation."""
+  deal: DealInput!
+}
+
+"""An input for mutations affecting `Deal`"""
+input DealInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String!
+  stage: String
+  value: BigFloat
+  notes: String
+}
+
+"""The output of our create `Company` mutation."""
+type CreateCompanyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Company` that was created by this mutation."""
+  company: Company
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Company`. May be used by Relay 1."""
+  companyEdge(
+    """The method to use when ordering `Company`."""
+    orderBy: [CompanyOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): CompanyEdge
+}
+
+"""All input for the create `Company` mutation."""
+input CreateCompanyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Company` to be created by this mutation."""
+  company: CompanyInput!
+}
+
+"""An input for mutations affecting `Company`"""
+input CompanyInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String!
+  domain: String
+  industry: String
+  description: String
+  test1772427893521: [Float]
+  test1772427893568: [Float]
+  test1772427893598: [Float]
+  embedding: [Float]
+  embeddingText: String
+}
+
+"""The output of our update `ContactCompany` mutation."""
+type UpdateContactCompanyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `ContactCompany` that was updated by this mutation."""
+  contactCompany: ContactCompany
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `ContactCompany`. May be used by Relay 1."""
+  contactCompanyEdge(
+    """The method to use when ordering `ContactCompany`."""
+    orderBy: [ContactCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactCompanyEdge
+}
+
+"""All input for the `updateContactCompany` mutation."""
+input UpdateContactCompanyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `ContactCompany` being updated.
+  """
+  contactCompanyPatch: ContactCompanyPatch!
+}
+
+"""
+Represents an update to a `ContactCompany`. Fields that are set will be updated.
+"""
+input ContactCompanyPatch {
+  contactId: UUID
+  companyId: UUID
+  id: UUID
+  entityId: UUID
+}
+
+"""The output of our update `ContactEvent` mutation."""
+type UpdateContactEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `ContactEvent` that was updated by this mutation."""
+  contactEvent: ContactEvent
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `ContactEvent`. May be used by Relay 1."""
+  contactEventEdge(
+    """The method to use when ordering `ContactEvent`."""
+    orderBy: [ContactEventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactEventEdge
+}
+
+"""All input for the `updateContactEvent` mutation."""
+input UpdateContactEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `ContactEvent` being updated.
+  """
+  contactEventPatch: ContactEventPatch!
+}
+
+"""
+Represents an update to a `ContactEvent`. Fields that are set will be updated.
+"""
+input ContactEventPatch {
+  contactId: UUID
+  eventId: UUID
+  id: UUID
+  entityId: UUID
+}
+
+"""The output of our update `DealContact` mutation."""
+type UpdateDealContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `DealContact` that was updated by this mutation."""
+  dealContact: DealContact
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `DealContact`. May be used by Relay 1."""
+  dealContactEdge(
+    """The method to use when ordering `DealContact`."""
+    orderBy: [DealContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DealContactEdge
+}
+
+"""All input for the `updateDealContact` mutation."""
+input UpdateDealContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `DealContact` being updated.
+  """
+  dealContactPatch: DealContactPatch!
+}
+
+"""
+Represents an update to a `DealContact`. Fields that are set will be updated.
+"""
+input DealContactPatch {
+  dealId: UUID
+  contactId: UUID
+  id: UUID
+  entityId: UUID
+}
+
+"""The output of our update `EventVenue` mutation."""
+type UpdateEventVenuePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `EventVenue` that was updated by this mutation."""
+  eventVenue: EventVenue
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `EventVenue`. May be used by Relay 1."""
+  eventVenueEdge(
+    """The method to use when ordering `EventVenue`."""
+    orderBy: [EventVenueOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): EventVenueEdge
+}
+
+"""All input for the `updateEventVenue` mutation."""
+input UpdateEventVenueInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `EventVenue` being updated.
+  """
+  eventVenuePatch: EventVenuePatch!
+}
+
+"""
+Represents an update to a `EventVenue`. Fields that are set will be updated.
+"""
+input EventVenuePatch {
+  eventId: UUID
+  venueId: UUID
+  id: UUID
+  entityId: UUID
+}
+
+"""The output of our update `Tag` mutation."""
+type UpdateTagPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Tag` that was updated by this mutation."""
+  tag: Tag
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Tag`. May be used by Relay 1."""
+  tagEdge(
+    """The method to use when ordering `Tag`."""
+    orderBy: [TagOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TagEdge
+}
+
+"""All input for the `updateTag` mutation."""
+input UpdateTagInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `Tag` being updated.
+  """
+  tagPatch: TagPatch!
+}
+
+"""Represents an update to a `Tag`. Fields that are set will be updated."""
+input TagPatch {
+  id: UUID
+  name: String
+}
+
+"""The output of our update `Note` mutation."""
+type UpdateNotePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Note` that was updated by this mutation."""
+  note: Note
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Note`. May be used by Relay 1."""
+  noteEdge(
+    """The method to use when ordering `Note`."""
+    orderBy: [NoteOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): NoteEdge
+}
+
+"""All input for the `updateNote` mutation."""
+input UpdateNoteInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `Note` being updated.
+  """
+  notePatch: NotePatch!
+}
+
+"""Represents an update to a `Note`. Fields that are set will be updated."""
+input NotePatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  content: String
+  contactId: UUID
+}
+
+"""The output of our update `Venue` mutation."""
+type UpdateVenuePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Venue` that was updated by this mutation."""
+  venue: Venue
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Venue`. May be used by Relay 1."""
+  venueEdge(
+    """The method to use when ordering `Venue`."""
+    orderBy: [VenueOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): VenueEdge
+}
+
+"""All input for the `updateVenue` mutation."""
+input UpdateVenueInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `Venue` being updated.
+  """
+  venuePatch: VenuePatch!
+}
+
+"""
+Represents an update to a `Venue`. Fields that are set will be updated.
+"""
+input VenuePatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String
+  neighborhood: String
+  city: String
+  status: String
+  notes: String
+}
+
+"""The output of our update `Contact` mutation."""
+type UpdateContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Contact` that was updated by this mutation."""
+  contact: Contact
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Contact`. May be used by Relay 1."""
+  contactEdge(
+    """The method to use when ordering `Contact`."""
+    orderBy: [ContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactEdge
+}
+
+"""All input for the `updateContact` mutation."""
+input UpdateContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `Contact` being updated.
+  """
+  contactPatch: ContactPatch!
+}
+
+"""
+Represents an update to a `Contact`. Fields that are set will be updated.
+"""
+input ContactPatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  headline: String
+  bio: String
+  location: String
+}
+
+"""The output of our update `Event` mutation."""
+type UpdateEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Event` that was updated by this mutation."""
+  event: Event
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Event`. May be used by Relay 1."""
+  eventEdge(
+    """The method to use when ordering `Event`."""
+    orderBy: [EventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): EventEdge
+}
+
+"""All input for the `updateEvent` mutation."""
+input UpdateEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `Event` being updated.
+  """
+  eventPatch: EventPatch!
+}
+
+"""
+Represents an update to a `Event`. Fields that are set will be updated.
+"""
+input EventPatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String
+  eventType: String
+  location: String
+  city: String
+  startedAt: Datetime
+  endedAt: Datetime
+  notes: String
+}
+
+"""The output of our update `Deal` mutation."""
+type UpdateDealPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Deal` that was updated by this mutation."""
+  deal: Deal
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Deal`. May be used by Relay 1."""
+  dealEdge(
+    """The method to use when ordering `Deal`."""
+    orderBy: [DealOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DealEdge
+}
+
+"""All input for the `updateDeal` mutation."""
+input UpdateDealInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `Deal` being updated.
+  """
+  dealPatch: DealPatch!
+}
+
+"""Represents an update to a `Deal`. Fields that are set will be updated."""
+input DealPatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String
+  stage: String
+  value: BigFloat
+  notes: String
+}
+
+"""The output of our update `Company` mutation."""
+type UpdateCompanyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Company` that was updated by this mutation."""
+  company: Company
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Company`. May be used by Relay 1."""
+  companyEdge(
+    """The method to use when ordering `Company`."""
+    orderBy: [CompanyOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): CompanyEdge
+}
+
+"""All input for the `updateCompany` mutation."""
+input UpdateCompanyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `Company` being updated.
+  """
+  companyPatch: CompanyPatch!
+}
+
+"""
+Represents an update to a `Company`. Fields that are set will be updated.
+"""
+input CompanyPatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String
+  domain: String
+  industry: String
+  description: String
+  test1772427893521: [Float]
+  test1772427893568: [Float]
+  test1772427893598: [Float]
+  embedding: [Float]
+  embeddingText: String
+}
+
+"""The output of our delete `ContactCompany` mutation."""
+type DeleteContactCompanyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `ContactCompany` that was deleted by this mutation."""
+  contactCompany: ContactCompany
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `ContactCompany`. May be used by Relay 1."""
+  contactCompanyEdge(
+    """The method to use when ordering `ContactCompany`."""
+    orderBy: [ContactCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactCompanyEdge
+}
+
+"""All input for the `deleteContactCompany` mutation."""
+input DeleteContactCompanyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `ContactEvent` mutation."""
+type DeleteContactEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `ContactEvent` that was deleted by this mutation."""
+  contactEvent: ContactEvent
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `ContactEvent`. May be used by Relay 1."""
+  contactEventEdge(
+    """The method to use when ordering `ContactEvent`."""
+    orderBy: [ContactEventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactEventEdge
+}
+
+"""All input for the `deleteContactEvent` mutation."""
+input DeleteContactEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `DealContact` mutation."""
+type DeleteDealContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `DealContact` that was deleted by this mutation."""
+  dealContact: DealContact
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `DealContact`. May be used by Relay 1."""
+  dealContactEdge(
+    """The method to use when ordering `DealContact`."""
+    orderBy: [DealContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DealContactEdge
+}
+
+"""All input for the `deleteDealContact` mutation."""
+input DeleteDealContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `EventVenue` mutation."""
+type DeleteEventVenuePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `EventVenue` that was deleted by this mutation."""
+  eventVenue: EventVenue
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `EventVenue`. May be used by Relay 1."""
+  eventVenueEdge(
+    """The method to use when ordering `EventVenue`."""
+    orderBy: [EventVenueOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): EventVenueEdge
+}
+
+"""All input for the `deleteEventVenue` mutation."""
+input DeleteEventVenueInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `Tag` mutation."""
+type DeleteTagPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Tag` that was deleted by this mutation."""
+  tag: Tag
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Tag`. May be used by Relay 1."""
+  tagEdge(
+    """The method to use when ordering `Tag`."""
+    orderBy: [TagOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TagEdge
+}
+
+"""All input for the `deleteTag` mutation."""
+input DeleteTagInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `Note` mutation."""
+type DeleteNotePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Note` that was deleted by this mutation."""
+  note: Note
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Note`. May be used by Relay 1."""
+  noteEdge(
+    """The method to use when ordering `Note`."""
+    orderBy: [NoteOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): NoteEdge
+}
+
+"""All input for the `deleteNote` mutation."""
+input DeleteNoteInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `Venue` mutation."""
+type DeleteVenuePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Venue` that was deleted by this mutation."""
+  venue: Venue
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Venue`. May be used by Relay 1."""
+  venueEdge(
+    """The method to use when ordering `Venue`."""
+    orderBy: [VenueOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): VenueEdge
+}
+
+"""All input for the `deleteVenue` mutation."""
+input DeleteVenueInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `Contact` mutation."""
+type DeleteContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Contact` that was deleted by this mutation."""
+  contact: Contact
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Contact`. May be used by Relay 1."""
+  contactEdge(
+    """The method to use when ordering `Contact`."""
+    orderBy: [ContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactEdge
+}
+
+"""All input for the `deleteContact` mutation."""
+input DeleteContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `Event` mutation."""
+type DeleteEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Event` that was deleted by this mutation."""
+  event: Event
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Event`. May be used by Relay 1."""
+  eventEdge(
+    """The method to use when ordering `Event`."""
+    orderBy: [EventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): EventEdge
+}
+
+"""All input for the `deleteEvent` mutation."""
+input DeleteEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `Deal` mutation."""
+type DeleteDealPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Deal` that was deleted by this mutation."""
+  deal: Deal
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Deal`. May be used by Relay 1."""
+  dealEdge(
+    """The method to use when ordering `Deal`."""
+    orderBy: [DealOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DealEdge
+}
+
+"""All input for the `deleteDeal` mutation."""
+input DeleteDealInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""The output of our delete `Company` mutation."""
+type DeleteCompanyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Company` that was deleted by this mutation."""
+  company: Company
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Company`. May be used by Relay 1."""
+  companyEdge(
+    """The method to use when ordering `Company`."""
+    orderBy: [CompanyOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): CompanyEdge
+}
+
+"""All input for the `deleteCompany` mutation."""
+input DeleteCompanyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}

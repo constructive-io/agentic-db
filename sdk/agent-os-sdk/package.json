@@ -1,7 +1,7 @@
 {
-  "name": "@agent-os/codegen",
+  "name": "@agent-os/sdk",
   "version": "0.0.1",
-  "description": "Generated SDK for agent-os database",
+  "description": "Type-safe SDK for agent-os database",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "license": "MIT",
   "main": "index.js",
@@ -17,10 +17,10 @@
     "prepublishOnly": "npm run build",
     "generate": "tsx src/generate.ts"
   },
-  "dependencies": {
-    "@constructive-io/graphql-codegen": "^4.5.0"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@agent-os/schemas": "workspace:*",
+    "@constructive-io/graphql-codegen": "^4.5.0",
     "@types/node": "^22.0.0",
     "dotenv": "^16.4.5",
     "makage": "0.1.10",

@@ -1,0 +1,20 @@
+{
+  "name": "@agent-os/schemas",
+  "version": "0.0.1",
+  "private": true,
+  "description": "GraphQL schema files for agent-os database",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "*.graphql"
+  ],
+  "scripts": {
+    "export": "tsx src/export.ts"
+  },
+  "devDependencies": {
+    "@constructive-io/graphql-codegen": "^4.5.0",
+    "dotenv": "^16.4.5",
+    "tsx": "^4.19.0"
+  }
+}

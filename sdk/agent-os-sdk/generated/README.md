@@ -14,8 +14,6 @@
 
 **Generators:** ORM
 
-**Endpoint:** `http://[::1]:3000/graphql`
-
 ## Modules
 
 ### ORM Client (`./orm`)
