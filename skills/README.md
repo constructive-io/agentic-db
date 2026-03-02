@@ -2,51 +2,66 @@
 
 Skills documentation for the Agent-OS system. These markdown files provide agent-readable instructions for interacting with the Constructive-backed database.
 
+## ⚠️ Read First
+
+**Before any development, read `RULES.md`** — mandatory development standards.
+
 ## Structure
 
 ```
 skills/
 ├── README.md              # This index
-├── provision.md           # Database provisioning
+├── RULES.md               # ⚠️ MANDATORY DEVELOPMENT RULES
+├── provision.md           # Database provisioning via SDK
+├── codegen.md             # SDK generation with @constructive-io/graphql-codegen
+├── safegres.md            # Security patterns (Authz* policies)
 ├── embeddings.md          # Embedding generation via Ollama
 ├── rag-query.md           # RAG pipeline usage
 ├── crm/                   # CRM-related skills
 │   ├── contacts.md
 │   ├── companies.md
-│   ├── deals.md
 │   ├── events.md
-│   ├── venues.md
-│   └── tags.md
+│   └── venues.md
 ├── agent/                 # Agent-related skills
 │   ├── tasks.md
-│   ├── skills.md
-│   ├── memories.md
-│   └── rules.md
+│   └── memories.md
 └── accounting/            # Accounting skills
     └── expenses.md
 ```
 
-## Usage
+## Key Principles
 
-These skills are designed to be:
-1. **Human-readable** — developers can understand the API
-2. **Agent-ingestible** — can be loaded into `agent.skills` table for AI-assisted development
-3. **Executable** — code examples work with the generated SDK
+1. **No raw SQL** — Use GraphQL via SDK only
+2. **No hardcoded secrets** — Use `.env` files
+3. **Workspace dependencies** — Use `workspace:*` syntax
+4. **Makage builds** — Use `dist/` folder publishing
+5. **TypeScript only** — No JavaScript
 
-## Workspace Reference
+## SDK Usage
 
-All scripts assume you're working in a pnpm workspace with:
+| Context | SDK |
+|---------|-----|
+| Platform ops (provision) | `@constructive-io/node` |
+| Per-database CRUD | Generated SDK from codegen |
+| Browser | `@constructive-io/sdk` |
 
-```typescript
-import { createClient } from '@agent-os/codegen/generated/agent-os-sdk/orm';
-import { generateEmbedding } from '@agent-os/scripts/embeddings';
-```
+## Workflow
+
+1. **Provision** — Create database via `@constructive-io/node`
+2. **Codegen** — Generate SDK with `@constructive-io/graphql-codegen`
+3. **Develop** — Use generated SDK for all CRUD
+4. **Build** — Use `makage build` for packages
 
 ## Environment
 
-- Constructive server at `api.localhost:3000` / `auth.localhost:3000`
-- Ollama with `nomic-embed-text` model
-- Provisioned agent-os database
+Required `.env`:
+```bash
+API_ENDPOINT=http://api.localhost:3000/graphql
+AUTH_ENDPOINT=http://auth.localhost:3000/graphql
+DATABASE_NAME=agent-os
+```
+
+See `.env.example` in workspace root.
 
 ---
 
