@@ -12,7 +12,7 @@
     "start": "tsx generated/cli/index.ts"
   },
   "dependencies": {
-    "inquirerer": "^2.0.0"
+    "inquirerer": "^4.5.0"
   },
   "devDependencies": {
     "@agentic-sdk/schemas": "workspace:*",

@@ -248,8 +248,8 @@ importers:
   sdk/cli:
     dependencies:
       inquirerer:
-        specifier: ^2.0.0
-        version: 2.4.0
+        specifier: ^4.5.0
+        version: 4.5.1
     devDependencies:
       '@agentic-sdk/schemas':
         specifier: workspace:*
@@ -3959,9 +3959,6 @@ packages:
     resolution: {integrity: sha512-S8KoZgRZN+a5rNwqTxlZZePjT/4cnm0ROV70LedRHZ0p8u9fRID0hJUZQpkKLzro8LfmC8sx23bY6tVNxv8pQA==}
     engines: {node: '>= 18.0.0'}
 
-  find-and-require-package-json@0.8.2:
-    resolution: {integrity: sha512-uhGbdUEsz/qgbOBzFAuqZy7i4xKdN8pnzEY3mF2jTdv3TkYow5NGWdsosdETJTVLoiJFAZ72zVlL4KcsvVb6SA==}
-
   find-and-require-package-json@0.9.1:
     resolution: {integrity: sha512-jFpCL0XgjipSk109viUtfp+NyR/oW6a4Xus4tV3UYkmCbsjisEeZD1x5QnD1NDDK/hXas1WFs4yO13L4TPXWlQ==}
 
@@ -4572,9 +4569,6 @@ packages:
     peerDependenciesMeta:
       '@types/node':
         optional: true
-
-  inquirerer@2.4.0:
-    resolution: {integrity: sha512-JV64rQPKD5U/sxWy43vvzvbHqOY4SdGwfxfyq4NfYUROC6C1kx+X9ghfGnbUv6dYa75VNyU6yfkai7bluGrm3A==}
 
   inquirerer@4.5.1:
     resolution: {integrity: sha512-/Cis0BNeqdgcXJt3loHKt7PbfawPG7fLTQHr29IfpOHCRaLACmf5737PAHakVU1rBflCNNMo4lpdso6t4FHpjg==}
@@ -7177,9 +7171,6 @@ packages:
     resolution: {integrity: sha512-mplynKqc1C2hTVYxd0PU2xQAc22TI1vShAYGksCCfxbn/dFwnHTNi1bvYsBTkhdUNtGIf5xNOg938rrSSYvS9A==}
     engines: {node: '>= 14.6'}
     hasBin: true
-
-  yanse@0.1.8:
-    resolution: {integrity: sha512-kPJpgJ+Cazht6h2kzsd5/ATS6r77f0nMS8U5iQQw7xdlb0lvHVvCOASq7d8/VqgHDYjMBU3TZU75VSjVgK/8qg==}
 
   yanse@0.2.1:
     resolution: {integrity: sha512-SMi3ZO1IqsvPLLXuy8LBCP1orqcjOT8VygiuyAlplaGeH2g+n4ZSSyWlA/BZjuUuN58TyOcz89mVkflSqIPxxQ==}
@@ -12076,8 +12067,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  find-and-require-package-json@0.8.2: {}
-
   find-and-require-package-json@0.9.1: {}
 
   find-up@2.1.0:
@@ -13315,14 +13304,6 @@ snapshots:
       rxjs: 7.8.2
     optionalDependencies:
       '@types/node': 25.3.3
-
-  inquirerer@2.4.0:
-    dependencies:
-      deepmerge: 4.3.1
-      find-and-require-package-json: 0.8.2
-      js-yaml: 4.1.1
-      minimist: 1.2.8
-      yanse: 0.1.8
 
   inquirerer@4.5.1:
     dependencies:
@@ -16499,8 +16480,6 @@ snapshots:
   yallist@5.0.0: {}
 
   yaml@2.8.2: {}
-
-  yanse@0.1.8: {}
 
   yanse@0.2.1: {}
 
