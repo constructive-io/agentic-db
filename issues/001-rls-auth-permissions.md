@@ -151,3 +151,61 @@ SELECT * FROM "<auth-schema>".tokens WHERE token = '<token>';
 
 *Created: 2026-03-01*
 *Status: Open*
+
+---
+
+## Update: Root Cause Found (2026-03-01 22:00)
+
+### The Real Problem: Token Mismatch
+
+The token stored in `.env` does **not** match the token hash in the database.
+
+```sql
+-- Our token hashes to:
+SELECT encode(digest('b05ce4d60d...', 'sha256'), 'hex');
+-- Result: fe77158ed3567a0e683f2debd97bca0dfaa86db5bad16dc2cc6aed67bd6e88ae
+
+-- But the stored hash is:
+SELECT encode(secret_hash, 'hex') FROM "agent-os-*-auth-private".session_credentials;
+-- Result: 80d7ad33aa2753a00031d026fa572a9cd58a55853cb75418fc32bc4206faa1d5
+```
+
+### Why This Happened
+
+The provision script was run **twice**, creating two databases:
+1. `agent-os-1772427381667` (first run)
+2. `agent-os-1772427594809` (second run, different token)
+
+The `.env` file has the token from the **first run**, but we're using the DATABASE_ID from the **second run**.
+
+### Database Architecture
+
+Databases are **virtual** (multi-tenant schemas within `constructive` DB):
+
+```
+constructive (Postgres database)
+├── agent-os-1772427594809-be847aa0-app-public    (tables)
+├── agent-os-1772427594809-be847aa0-auth-private  (sessions, credentials)
+├── agent-os-1772427594809-be847aa0-auth-public
+└── ... (many more schemas per database)
+```
+
+### Solution
+
+Re-provision a fresh database and **immediately** capture the token:
+
+```bash
+pnpm --filter @agentic-sdk/provision run provision
+# Copy the ACCESS_TOKEN from output to .env right away
+```
+
+Or query the existing session to find a valid token... but the token is hashed one-way (SHA256), so we'd need to create a new one.
+
+### Creating a New Token for Existing Database
+
+Could add a script to create a fresh admin token:
+1. Connect to the database's auth schema
+2. Find the bootstrapped user_id
+3. Create a new session + session_credential
+4. Return the unhashed token
+
