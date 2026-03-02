@@ -57,17 +57,7 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/agent-os:
-    devDependencies:
-      makage:
-        specifier: 0.1.9
-        version: 0.1.9
-      pgsql-test:
-        specifier: ^2.18.15
-        version: 2.26.1
-    publishDirectory: dist
-
-  packages/nextjs:
+  app/agent-os-ui:
     dependencies:
       '@0no-co/graphql.web':
         specifier: ^1.2.0
@@ -196,6 +186,16 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
+
+  packages/agent-os:
+    devDependencies:
+      makage:
+        specifier: 0.1.9
+        version: 0.1.9
+      pgsql-test:
+        specifier: ^2.18.15
+        version: 2.26.1
+    publishDirectory: dist
 
   packages/provision:
     dependencies:
