@@ -56,26 +56,29 @@ export function getAuthHeaders(token?: string) {
 
 ---
 
-## 3. NO Raw SQL
+## 3. NO Raw SQL or Raw GraphQL Strings
 
-**NEVER** write raw SQL in this workspace.
+**NEVER** write raw SQL or raw GraphQL query strings in this workspace when a generated SDK exists.
 
 If you absolutely must write SQL (emergency hack), put it in `sql-hacks/` folder with clear documentation of why.
 
 **ALWAYS** use:
 1. `@constructive-io/node` SDK for platform operations
 2. Generated SDK (from codegen) for database CRUD
-3. GraphQL queries/mutations
+3. GraphQL queries/mutations ONLY if the SDK is missing a feature (and fix the SDK first)
 
 ```typescript
-// ❌ WRONG
+// ❌ WRONG (Raw SQL)
 await pool.query('INSERT INTO contacts (first_name) VALUES ($1)', ['Dan']);
 
-// ✅ CORRECT
-await db.contact.create({
+// ❌ WRONG (Raw GraphQL String)
+await client.execute(`mutation { createContact(input: { contact: { firstName: "Dan" } }) { contact { id } } }`);
+
+// ✅ CORRECT (Typed SDK)
+await client.contact.create({
   data: { firstName: 'Dan', entityId: orgId },
   select: { id: true },
-}).execute();
+}).unwrap();
 ```
 
 ---
@@ -93,7 +96,7 @@ await db.contact.create({
 import { createClient } from '@constructive-io/node';
 
 // Per-database CRUD (after codegen)
-import { createClient } from '@agent-os/codegen/generated/agent-os-sdk/orm';
+import { createClient } from '@agentic-sdk/sdk';
 ```
 
 ---

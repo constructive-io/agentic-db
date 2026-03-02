@@ -3,7 +3,7 @@
  */
 import { config } from './config';
 import { authenticate, createAuthenticatedClient, createRawAdapter } from './client';
-import { embed, vectorToString } from './ollama';
+import { embed } from './ollama';
 
 const TEST_EMAIL = 'rag-test@example.com';
 const TEST_PASSWORD = 'RagTest123!';
@@ -36,9 +36,9 @@ async function main() {
   // Authenticate
   const { token } = await authenticate(TEST_EMAIL, TEST_PASSWORD);
   const adapter = createRawAdapter(token);
-  const client = await createAuthenticatedClient(token);
+  const client = createAuthenticatedClient(token);
 
-  // Fetch the record
+  // Fetch the record (using raw query for now as FindOne by ID dynamic logic is verbose in typed SDK without helper)
   const tablePlural = table + 's';
   const query = `{ ${tablePlural}(filter: { id: { equalTo: "${id}" } }) { nodes { id ${TABLE_TEXT_FIELDS[table].join(' ')} } } }`;
   
@@ -70,19 +70,18 @@ async function main() {
   const embedding = await embed(text);
   console.log(`   Dimension: ${embedding.length}`);
 
-  // Update the record
-  const updateMutation = `
-    mutation Update($id: UUID!, $patch: ${table.charAt(0).toUpperCase() + table.slice(1)}Patch!) {
-      update${table.charAt(0).toUpperCase() + table.slice(1)}(input: { id: $id, ${table}Patch: $patch }) {
-        ${table} { id }
-      }
-    }
-  `;
+  // Update the record using SDK
+  const model = (client as any)[table];
+  if (!model) throw new Error(`Model ${table} not found on client`);
 
-  const updateResult = await adapter.execute(updateMutation, {
+  const patchKey = `${table}Patch`;
+  
+  // Using .update({ id, contactPatch: ... })
+  const updateResult = await model.update({
     id,
-    patch: { embedding: vectorToString(embedding) },
-  });
+    [patchKey]: { embedding: embedding as any },
+    select: { id: true }
+  }).execute();
 
   if (!updateResult.ok) {
     console.error('❌ Failed to update:', updateResult.errors);

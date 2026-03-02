@@ -2,8 +2,16 @@
   "name": "@agentic-sdk/rag",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
   "scripts": {
+    "clean": "makage clean",
+    "build": "makage build",
     "embed": "tsx src/embed.ts",
     "embed:all": "tsx src/embed-all.ts",
     "search": "tsx src/search.ts",
@@ -11,11 +19,13 @@
     "seed": "tsx src/seed-data.ts"
   },
   "dependencies": {
+    "@agentic-sdk/sdk": "workspace:*",
     "@constructive-io/node": "^0.1.0",
     "dotenv": "^16.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "makage": "0.1.10",
     "tsx": "^4.0.0",
     "typescript": "^5.0.0"
   }

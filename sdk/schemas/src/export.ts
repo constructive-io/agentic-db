@@ -4,6 +4,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { NodeHttpAdapter } from '@constructive-io/node';
+import { buildClientSchema, printSchema } from 'graphql';
 
 const DATABASE_NAME = process.env.DATABASE_NAME || 'agent-os-1772448876647';
 const APP_HOST = `app-public-${DATABASE_NAME}.localhost`;
@@ -86,6 +87,10 @@ async function main() {
                   ofType {
                     kind
                     name
+                    ofType {
+                      kind
+                      name
+                    }
                   }
                 }
               }
@@ -103,9 +108,18 @@ async function main() {
     process.exit(1);
   }
 
-  const schemaPath = path.resolve(__dirname, '../agent-os.graphql.json');
-  fs.writeFileSync(schemaPath, JSON.stringify(result.data, null, 2));
+  // Convert to SDL
+  const schema = buildClientSchema(result.data as any);
+  const sdl = printSchema(schema);
+
+  const schemaPath = path.resolve(__dirname, '../agent-os.graphql');
+  fs.writeFileSync(schemaPath, sdl);
   console.log(`✅ Schema exported to ${schemaPath}\n`);
+  
+  // Also save JSON for backup/debugging
+  const jsonPath = path.resolve(__dirname, '../agent-os.graphql.json');
+  fs.writeFileSync(jsonPath, JSON.stringify(result.data, null, 2));
+  console.log(`✅ Schema JSON exported to ${jsonPath}\n`);
 }
 
 main().catch((err) => {

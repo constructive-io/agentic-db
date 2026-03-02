@@ -35,7 +35,7 @@ async function main() {
   }
 
   // Use .data instead of .value for the SDK result
-  const data = (signUpResult as any).data || signUpResult.value;
+  const data = (signUpResult as any).data;
   console.log('   Data:', JSON.stringify(data, null, 2));
   
   const userId = data?.signUp?.result?.userId;
@@ -82,7 +82,7 @@ async function main() {
     process.exit(1);
   }
 
-  const provData = (provisionResult as any).data || provisionResult.value;
+  const provData = (provisionResult as any).data;
   const dbProv = provData?.createDatabaseProvisionModule?.databaseProvisionModule;
   
   if (!dbProv || dbProv.status === 'failed') {

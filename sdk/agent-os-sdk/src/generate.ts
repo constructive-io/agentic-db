@@ -12,7 +12,7 @@ import { generate } from '@constructive-io/graphql-codegen';
 async function main() {
   // Resolve schema directory from workspace dependency
   const schemaDir = path.resolve(__dirname, '../../schemas');
-  const outputDir = path.resolve(__dirname, '../generated');
+  const outputDir = path.resolve(__dirname, 'generated');
 
   // Verify schema exists
   const schemaFile = path.join(schemaDir, 'agent-os.graphql');
@@ -26,25 +26,19 @@ async function main() {
   console.log(`   Schema: ${schemaFile}`);
   console.log(`   Output: ${outputDir}`);
 
-  fs.mkdirSync(outputDir, { recursive: true });
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
 
   const result = await generate({
     schemaFile,
     output: outputDir,
     orm: true,
     nodeHttpAdapter: true,
-    browserCompatible: false,
     docs: {
       readme: true,
       agents: true,
       skills: true,
-    },
-    scalars: {
-      BigFloat: 'string',
-      Cursor: 'string',
-      Datetime: 'string',
-      JSON: 'Record<string, unknown>',
-      UUID: 'string',
     },
     verbose: true,
   });
@@ -54,7 +48,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log('\n✅ SDK generated at sdk/agent-os-sdk/generated/\n');
+  console.log('\n✅ SDK generated at sdk/agent-os-sdk/src/generated/\n');
   console.log('   Tables:', result.tables?.join(', '));
 }
 

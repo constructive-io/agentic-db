@@ -18,11 +18,19 @@
     "provision": "tsx src/provision.ts",
     "provision:crm": "tsx src/schemas/crm.ts",
     "provision:agent": "tsx src/schemas/agent.ts",
-    "provision:accounting": "tsx src/schemas/accounting.ts"
+    "provision:agent_runtime": "tsx src/schemas/agent_runtime.ts",
+    "provision:projects": "tsx src/schemas/projects.ts",
+    "provision:life_os": "tsx src/schemas/life_os.ts",
+    "provision:codebase": "tsx src/schemas/codebase.ts",
+    "provision:all": "pnpm run provision:agent && pnpm run provision:agent_runtime && pnpm run provision:projects && pnpm run provision:life_os && pnpm run provision:codebase"
   },
   "dependencies": {
+    "@0no-co/graphql.web": "^1.2.0",
+    "@constructive-io/graphql-types": "3.0.0",
     "@constructive-io/node": "^0.1.0",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "gql-ast": "^2.7.0",
+    "graphql": "^15.10.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

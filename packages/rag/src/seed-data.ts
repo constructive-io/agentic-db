@@ -1,8 +1,8 @@
 /**
  * Seed sample data for RAG testing
  */
-import { config } from './config';
 import { authenticate, createRawAdapter } from './client';
+import { createClient } from '@agentic-sdk/sdk';
 import { embed } from './ollama';
 
 const TEST_EMAIL = 'rag-test@example.com';
@@ -17,39 +17,33 @@ async function main() {
   console.log(`   User: ${userId}`);
 
   const adapter = createRawAdapter(token);
+  const client = createClient({ adapter });
 
-  // 2. Helper to create with embedding (raw GraphQL)
+  // 2. Helper to create with embedding (Typed SDK)
   async function createCompany(name: string, domain: string, industry: string, description: string) {
     const text = `${name}: ${description}`;
     console.log(`   Embedding: ${name}...`);
     const embedding = await embed(text);
     
-    const result = await adapter.execute(`
-      mutation CreateCompany($input: CreateCompanyInput!) {
-        createCompany(input: $input) {
-          company { id name }
-        }
-      }
-    `, {
-      input: {
-        company: {
-          entityId: userId,
-          name,
-          domain,
-          industry,
-          description,
-          embedding,  // Pass as array directly
-        }
-      }
-    });
+    const result = await client.company.create({
+      data: {
+        entityId: userId,
+        name,
+        domain,
+        industry,
+        description,
+        embedding: embedding as any,
+      },
+      select: { id: true, name: true }
+    }).execute();
     
     if (!result.ok) {
       console.log(`   ❌ ${name}: ${result.errors?.[0]?.message}`);
       return null;
     }
-    const data = (result.data as any).createCompany?.company;
-    console.log(`   ✅ ${data.name}`);
-    return data.id;
+    const data = result.data?.createCompany?.company;
+    console.log(`   ✅ ${data?.name}`);
+    return data?.id;
   }
 
   async function createContact(firstName: string, lastName: string, email: string, headline: string, bio: string) {
@@ -57,33 +51,26 @@ async function main() {
     console.log(`   Embedding: ${firstName} ${lastName}...`);
     const embedding = await embed(text);
     
-    const result = await adapter.execute(`
-      mutation CreateContact($input: CreateContactInput!) {
-        createContact(input: $input) {
-          contact { id firstName lastName }
-        }
-      }
-    `, {
-      input: {
-        contact: {
-          entityId: userId,
-          firstName,
-          lastName,
-          email,
-          headline,
-          bio,
-          embedding,
-        }
-      }
-    });
+    const result = await client.contact.create({
+      data: {
+        entityId: userId,
+        firstName,
+        lastName,
+        email,
+        headline,
+        bio,
+        embedding: embedding as any,
+      },
+      select: { id: true, firstName: true, lastName: true }
+    }).execute();
     
     if (!result.ok) {
       console.log(`   ❌ ${firstName}: ${result.errors?.[0]?.message}`);
       return null;
     }
-    const data = (result.data as any).createContact?.contact;
-    console.log(`   ✅ ${data.firstName} ${data.lastName}`);
-    return data.id;
+    const data = result.data?.createContact?.contact;
+    console.log(`   ✅ ${data?.firstName} ${data?.lastName}`);
+    return data?.id;
   }
 
   async function createDeal(name: string, stage: string, value: string, notes: string) {
@@ -91,32 +78,25 @@ async function main() {
     console.log(`   Embedding: ${name}...`);
     const embedding = await embed(text);
     
-    const result = await adapter.execute(`
-      mutation CreateDeal($input: CreateDealInput!) {
-        createDeal(input: $input) {
-          deal { id name }
-        }
-      }
-    `, {
-      input: {
-        deal: {
-          entityId: userId,
-          name,
-          stage,
-          value,
-          notes,
-          embedding,
-        }
-      }
-    });
+    const result = await client.deal.create({
+      data: {
+        entityId: userId,
+        name,
+        stage,
+        value: value as any, 
+        notes,
+        embedding: embedding as any,
+      },
+      select: { id: true, name: true }
+    }).execute();
     
     if (!result.ok) {
       console.log(`   ❌ ${name}: ${result.errors?.[0]?.message}`);
       return null;
     }
-    const data = (result.data as any).createDeal?.deal;
-    console.log(`   ✅ ${data.name}`);
-    return data.id;
+    const data = result.data?.createDeal?.deal;
+    console.log(`   ✅ ${data?.name}`);
+    return data?.id;
   }
 
   // 3. Seed companies

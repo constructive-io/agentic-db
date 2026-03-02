@@ -2,13 +2,10 @@
  * RAG Configuration
  */
 import * as dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
+import { resolve } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-dotenv.config({ path: resolve(__dirname, '../../../.env') });
+// Assume running from package root
+dotenv.config({ path: resolve(process.cwd(), '../../.env') });
 
 export const config = {
   databaseName: process.env.DATABASE_NAME || 'agent-os-1772448876647',
