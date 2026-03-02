@@ -335,3 +335,47 @@ ON CONFLICT (actor_id, entity_id) DO NOTHING;
 
 *Status: **Resolved** (with manual SQL fixes)*
 *Root causes documented for platform fixes*
+
+---
+
+## Fix: Skip Email Verification (2026-03-01 22:18)
+
+### The Real Fix
+
+The `org_memberships_sprt` sync issue was caused by requiring email verification before memberships become active.
+
+**Solution:** Update `app_membership_defaults` to auto-approve and auto-verify:
+
+```sql
+UPDATE "<db-schema>-memberships-public".app_membership_defaults 
+SET is_approved = true, is_verified = true;
+```
+
+For agent-os-1772427594809:
+```sql
+UPDATE "agent-os-1772427594809-be847aa0-memberships-public".app_membership_defaults 
+SET is_approved = true, is_verified = true;
+```
+
+### What This Does
+
+- `is_verified = true` → Skip email verification requirement
+- `is_approved = true` → Auto-approve new memberships
+- Together: New signups immediately get their `org_memberships_sprt` entry populated
+- Result: Users can use the API immediately after signup
+
+### Test Confirmed
+
+1. Set both flags to `true`
+2. New signup created user `cc25bdd3-...`
+3. User immediately present in `org_memberships_sprt`
+4. User can create contacts without any verification step
+
+### For Future Databases
+
+Add to provisioning or post-provision setup:
+```sql
+UPDATE "<schema>-memberships-public".app_membership_defaults 
+SET is_approved = true, is_verified = true;
+```
+
