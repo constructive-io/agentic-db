@@ -1,0 +1,62 @@
+/**
+ * generate.ts — Generate CLI from schema files
+ * 
+ * Run with: pnpm --filter @agentic-sdk/cli run generate
+ */
+
+import * as path from 'path';
+import * as fs from 'fs';
+
+import { generate } from '@constructive-io/graphql-codegen';
+
+async function main() {
+  const schemaFile = path.resolve(__dirname, '../../schemas/agent-os.graphql');
+  const outputDir = path.resolve(__dirname, '../generated');
+
+  if (!fs.existsSync(schemaFile)) {
+    console.error('❌ Schema not found:', schemaFile);
+    console.error('   Run: pnpm --filter @agentic-sdk/schemas run export');
+    process.exit(1);
+  }
+
+  console.log('\n🔧 Generating CLI from schema\n');
+  console.log(`   Schema: ${schemaFile}`);
+  console.log(`   Output: ${outputDir}`);
+
+  fs.mkdirSync(outputDir, { recursive: true });
+
+  const result = await generate({
+    schemaFile,
+    output: outputDir,
+    cli: {
+      toolName: 'agent-os',
+      entryPoint: true,
+    },
+    nodeHttpAdapter: true,
+    docs: {
+      readme: true,
+      agents: true,
+      skills: true,
+    },
+    scalars: {
+      BigFloat: 'string',
+      Cursor: 'string',
+      Datetime: 'string',
+      JSON: 'Record<string, unknown>',
+      UUID: 'string',
+    },
+    verbose: true,
+  });
+
+  if (!result.success) {
+    console.error('\n❌ Generation failed:', result.message);
+    process.exit(1);
+  }
+
+  console.log('\n✅ CLI generated at sdk/cli/generated/\n');
+}
+
+main().catch((err) => {
+  console.error('\n❌ Error:', err.message ?? err);
+  process.exit(1);
+});

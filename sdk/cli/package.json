@@ -1,0 +1,25 @@
+{
+  "name": "@agentic-sdk/cli",
+  "version": "0.0.1",
+  "description": "CLI for agent-os database operations",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "license": "MIT",
+  "bin": {
+    "agent-os": "./generated/cli/index.js"
+  },
+  "scripts": {
+    "generate": "tsx src/generate.ts",
+    "start": "tsx generated/cli/index.ts"
+  },
+  "dependencies": {
+    "inquirerer": "^2.0.0"
+  },
+  "devDependencies": {
+    "@agentic-sdk/schemas": "workspace:*",
+    "@constructive-io/graphql-codegen": "^4.5.0",
+    "@types/node": "^22.0.0",
+    "dotenv": "^16.4.5",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
