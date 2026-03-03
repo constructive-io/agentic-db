@@ -9,8 +9,6 @@ import { embed, chat, ChatMessage } from './ollama';
 const TEST_EMAIL = 'rag-test@example.com';
 const TEST_PASSWORD = 'RagTest123!';
 
-type TableName = 'contacts' | 'companies' | 'deals';
-
 interface ContextItem {
   type: string;
   content: string;
@@ -34,64 +32,70 @@ async function gatherContext(
   topK: number = 5
 ): Promise<ContextItem[]> {
   const results: ContextItem[] = [];
-  
-  // Fetch contacts
-  const contactsResult = await adapter.execute(`{
-    contacts { nodes { id firstName lastName email headline bio embedding } }
-  }`);
-  
-  if (contactsResult.ok) {
-    for (const node of (contactsResult.data as any).contacts?.nodes || []) {
-      if (!node.embedding) continue;
-      const emb = typeof node.embedding === 'string' 
-        ? JSON.parse(node.embedding) 
-        : node.embedding;
-      const score = cosineSimilarity(queryEmbedding, emb);
-      results.push({
-        type: 'contact',
-        content: `Contact: ${node.firstName} ${node.lastName} (${node.email})\nHeadline: ${node.headline}\nBio: ${node.bio}`,
-        score,
-      });
+
+  const tables = [
+    {
+      name: 'contacts',
+      query: `{ contacts { nodes { id firstName lastName email headline bio embedding } } }`,
+      format: (n: any) => `Contact: ${n.firstName} ${n.lastName} (${n.email || 'N/A'})\nHeadline: ${n.headline || 'N/A'}\nBio: ${n.bio || 'N/A'}`
+    },
+    {
+      name: 'companies',
+      query: `{ companies { nodes { id name domain industry description embedding } } }`,
+      format: (n: any) => `Company: ${n.name} (${n.domain || 'N/A'})\nIndustry: ${n.industry}\nDescription: ${n.description}`
+    },
+    {
+      name: 'deals',
+      query: `{ deals { nodes { id name stage value notes embedding } } }`,
+      format: (n: any) => `Deal: ${n.name}\nStage: ${n.stage}\nValue: $${n.value}\nNotes: ${n.notes}`
+    },
+    {
+      name: 'tasks',
+      query: `{ tasks { nodes { id title description status priority embedding } } }`,
+      format: (n: any) => `Task: ${n.title}\nStatus: ${n.status} (Priority ${n.priority})\nDesc: ${n.description}`
+    },
+    {
+      name: 'notes',
+      query: `{ notes { nodes { id content embedding } } }`,
+      format: (n: any) => `Note: ${n.content}`
+    },
+    {
+      name: 'memories',
+      query: `{ memories { nodes { id content tags embedding } } }`,
+      format: (n: any) => `Memory: ${n.content} [${n.tags?.join(', ')}]`
+    },
+    {
+      name: 'expenses',
+      query: `{ expenses { nodes { id description amount currency category merchant date embedding } } }`,
+      format: (n: any) => `Expense: ${n.description}\nAmount: ${n.amount} ${n.currency}\nCategory: ${n.category}\nMerchant: ${n.merchant}\nDate: ${n.date}`
+    },
+    {
+      name: 'events',
+      query: `{ events { nodes { id name eventType location notes embedding } } }`,
+      format: (n: any) => `Event: ${n.name} (${n.eventType})\nLocation: ${n.location}\nNotes: ${n.notes}`
     }
-  }
+  ];
   
-  // Fetch companies
-  const companiesResult = await adapter.execute(`{
-    companies { nodes { id name domain industry description embedding } }
-  }`);
-  
-  if (companiesResult.ok) {
-    for (const node of (companiesResult.data as any).companies?.nodes || []) {
-      if (!node.embedding) continue;
-      const emb = typeof node.embedding === 'string' 
-        ? JSON.parse(node.embedding) 
-        : node.embedding;
-      const score = cosineSimilarity(queryEmbedding, emb);
-      results.push({
-        type: 'company',
-        content: `Company: ${node.name} (${node.domain})\nIndustry: ${node.industry}\nDescription: ${node.description}`,
-        score,
-      });
-    }
-  }
-  
-  // Fetch deals
-  const dealsResult = await adapter.execute(`{
-    deals { nodes { id name stage value notes embedding } }
-  }`);
-  
-  if (dealsResult.ok) {
-    for (const node of (dealsResult.data as any).deals?.nodes || []) {
-      if (!node.embedding) continue;
-      const emb = typeof node.embedding === 'string' 
-        ? JSON.parse(node.embedding) 
-        : node.embedding;
-      const score = cosineSimilarity(queryEmbedding, emb);
-      results.push({
-        type: 'deal',
-        content: `Deal: ${node.name}\nStage: ${node.stage}\nValue: $${node.value}\nNotes: ${node.notes}`,
-        score,
-      });
+  for (const t of tables) {
+    const res = await adapter.execute(t.query);
+    if (res.ok) {
+      for (const node of (res.data as any)[t.name]?.nodes || []) {
+        if (!node.embedding) continue;
+        
+        let emb: number[];
+        if (typeof node.embedding === 'string') {
+          emb = JSON.parse(node.embedding.replace(/^\[/, '[').replace(/\]$/, ']'));
+        } else {
+          emb = node.embedding;
+        }
+
+        const score = cosineSimilarity(queryEmbedding, emb);
+        results.push({
+          type: t.name.slice(0, -1), // singularish
+          content: t.format(node),
+          score,
+        });
+      }
     }
   }
   
@@ -103,11 +107,6 @@ async function main() {
   
   if (!question) {
     console.log('\nUsage: pnpm --filter @agentic-sdk/rag run ask "<question>"\n');
-    console.log('Examples:');
-    console.log('  pnpm --filter @agentic-sdk/rag run ask "Who are the Postgres experts?"');
-    console.log('  pnpm --filter @agentic-sdk/rag run ask "What companies are in the database space?"');
-    console.log('  pnpm --filter @agentic-sdk/rag run ask "Tell me about the enterprise deals"');
-    console.log('  pnpm --filter @agentic-sdk/rag run ask "Who founded Constructive?"');
     process.exit(0);
   }
 
@@ -128,7 +127,6 @@ async function main() {
 
   if (context.length === 0) {
     console.log('\n⚠️  No relevant data found. Try seeding data first:');
-    console.log('   pnpm --filter @agentic-sdk/rag run seed\n');
     process.exit(0);
   }
 
@@ -166,8 +164,8 @@ Answer based on the context above:`;
   
   console.log('\n📊 Sources used:\n');
   for (const item of context) {
-    const preview = item.content.split('\n')[0];
-    console.log(`   • [${item.type}] ${preview} (${(item.score * 100).toFixed(1)}% match)`);
+    const preview = item.content.split('\n')[0].slice(0, 80);
+    console.log(`   • [${item.type}] ${preview}... (${(item.score * 100).toFixed(1)}% match)`);
   }
   console.log('');
 }

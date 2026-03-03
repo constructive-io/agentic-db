@@ -8,7 +8,7 @@ import { embed, vectorToString } from './ollama';
 const TEST_EMAIL = 'rag-test@example.com';
 const TEST_PASSWORD = 'RagTest123!';
 
-type TableName = 'contacts' | 'companies' | 'deals' | 'events' | 'venues' | 'notes';
+type TableName = 'contacts' | 'companies' | 'deals' | 'events' | 'venues' | 'notes' | 'expenses' | 'tasks' | 'memories' | 'skills' | 'rules';
 
 interface TableConfig {
   singular: string;
@@ -16,20 +16,25 @@ interface TableConfig {
   patchType: string;
 }
 
-const TABLE_CONFIGS: Record<TableName, TableConfig> = {
+const TABLE_CONFIGS: Record<string, TableConfig> = {
   contacts: { singular: 'Contact', textFields: ['firstName', 'lastName', 'headline', 'bio'], patchType: 'ContactPatch' },
   companies: { singular: 'Company', textFields: ['name', 'description', 'industry'], patchType: 'CompanyPatch' },
   deals: { singular: 'Deal', textFields: ['name', 'notes'], patchType: 'DealPatch' },
   events: { singular: 'Event', textFields: ['name', 'eventType', 'notes'], patchType: 'EventPatch' },
   venues: { singular: 'Venue', textFields: ['name', 'neighborhood', 'city', 'notes'], patchType: 'VenuePatch' },
   notes: { singular: 'Note', textFields: ['content'], patchType: 'NotePatch' },
+  expenses: { singular: 'Expense', textFields: ['description', 'category', 'merchant'], patchType: 'ExpensePatch' },
+  tasks: { singular: 'Task', textFields: ['title', 'description', 'status'], patchType: 'TaskPatch' },
+  memories: { singular: 'Memory', textFields: ['content'], patchType: 'MemoryPatch' },
+  skills: { singular: 'Skill', textFields: ['name', 'description', 'content'], patchType: 'SkillPatch' },
+  rules: { singular: 'Rule', textFields: ['title', 'content', 'kind'], patchType: 'RulePatch' },
 };
 
 async function main() {
-  const table = (process.argv[2] as TableName) || 'all';
+  const table = (process.argv[2] as string) || 'all';
   
-  const tables: TableName[] = table === 'all' 
-    ? Object.keys(TABLE_CONFIGS) as TableName[]
+  const tables = table === 'all' 
+    ? Object.keys(TABLE_CONFIGS)
     : [table];
 
   console.log(`\n🔧 Embedding ${table === 'all' ? 'all tables' : table}\n`);
@@ -79,7 +84,7 @@ async function main() {
       // Generate embedding
       const embedding = await embed(text);
 
-      // Update
+      // Update (using raw mutation for now to support dynamic table)
       const mutation = `
         mutation Update($id: UUID!, $patch: ${cfg.patchType}!) {
           update${cfg.singular}(input: { id: $id, ${cfg.singular.toLowerCase()}Patch: $patch }) {
@@ -90,13 +95,13 @@ async function main() {
 
       const updateResult = await adapter.execute(mutation, {
         id: record.id,
-        patch: { embedding: vectorToString(embedding) },
+        patch: { embedding }, // Pass as array directly
       });
 
       if (!updateResult.ok) {
         console.log(`      ❌ ${updateResult.errors?.[0]?.message}`);
       } else {
-        console.log(`      ✅ Done`);
+        process.stdout.write('.');
       }
     }
   }

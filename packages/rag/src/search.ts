@@ -8,7 +8,7 @@ import { embed, vectorToString } from './ollama';
 const TEST_EMAIL = 'rag-test@example.com';
 const TEST_PASSWORD = 'RagTest123!';
 
-type TableName = 'contacts' | 'companies' | 'deals' | 'events' | 'venues' | 'notes';
+type TableName = 'contacts' | 'companies' | 'deals' | 'events' | 'venues' | 'notes' | 'tasks' | 'memories' | 'skills' | 'rules' | 'expenses' | 'repositories' | 'files' | 'chunks' | 'messages';
 
 interface SearchResult {
   table: TableName;
@@ -35,6 +35,15 @@ async function searchTable(
     events: `{ events { nodes { id name eventType location city notes embedding } } }`,
     venues: `{ venues { nodes { id name neighborhood city notes embedding } } }`,
     notes: `{ notes { nodes { id content embedding } } }`,
+    tasks: `{ tasks { nodes { id title description status embedding } } }`,
+    memories: `{ memories { nodes { id content tags embedding } } }`,
+    skills: `{ skills { nodes { id name description content embedding } } }`,
+    rules: `{ rules { nodes { id title content kind embedding } } }`,
+    expenses: `{ expenses { nodes { id description category amount merchant embedding } } }`,
+    repositories: `{ repositories { nodes { id name description embedding } } }`,
+    files: `{ files { nodes { id path language } } }`,
+    chunks: `{ chunks { nodes { id content embedding } } }`,
+    messages: `{ messages { nodes { id subject bodyText from embedding } } }`,
   };
 
   const result = await adapter.execute(tableToQuery[table]);
@@ -64,8 +73,10 @@ async function searchTable(
     // Get display name
     let name = '';
     if (table === 'contacts') name = `${node.firstName} ${node.lastName}`;
-    else if (table === 'notes') name = node.content?.slice(0, 50) + '...';
-    else name = node.name;
+    else if (table === 'notes' || table === 'memories' || table === 'chunks') name = node.content?.slice(0, 50) + '...';
+    else if (table === 'messages') name = node.subject;
+    else if (table === 'expenses') name = `${node.description} ($${node.amount})`;
+    else name = node.name || node.title || node.path || 'Unknown';
     
     results.push({
       table,
@@ -97,7 +108,9 @@ function cosineSimilarity(a: number[], b: number[]): number {
 
 async function main() {
   const query = process.argv[2];
-  const tables = (process.argv[3]?.split(',') as TableName[]) || ['contacts', 'companies', 'deals'];
+  const allTables: TableName[] = ['contacts', 'companies', 'deals', 'events', 'venues', 'notes', 'tasks', 'memories', 'skills', 'rules', 'expenses', 'repositories', 'messages'];
+  
+  const tables = (process.argv[3]?.split(',') as TableName[]) || allTables;
   
   if (!query) {
     console.log('\nUsage: pnpm --filter @agentic-sdk/rag run search "<query>" [tables]\n');
@@ -109,7 +122,7 @@ async function main() {
   }
 
   console.log(`\n🔍 Searching: "${query}"\n`);
-  console.log(`   Tables: ${tables.join(', ')}`);
+  // console.log(`   Tables: ${tables.join(', ')}`);
 
   // Authenticate
   const { token } = await authenticate(TEST_EMAIL, TEST_PASSWORD);
@@ -123,8 +136,9 @@ async function main() {
   const allResults: SearchResult[] = [];
   
   for (const table of tables) {
-    console.log(`   Searching ${table}...`);
+    process.stdout.write(`   Searching ${table}... `);
     const results = await searchTable(adapter, table, queryEmbedding, 3);
+    console.log(`Found ${results.length}`);
     allResults.push(...results);
   }
 
@@ -133,7 +147,7 @@ async function main() {
 
   console.log('\n📊 Results:\n');
   
-  for (const result of allResults.slice(0, 10)) {
+  for (const result of allResults.slice(0, 15)) {
     const scoreBar = '█'.repeat(Math.round(result.score * 20)) + '░'.repeat(20 - Math.round(result.score * 20));
     console.log(`   [${result.table}] ${result.name}`);
     console.log(`      Score: ${scoreBar} ${(result.score * 100).toFixed(1)}%`);
@@ -143,8 +157,8 @@ async function main() {
       console.log(`      ${result.data.headline}`);
     } else if (result.table === 'companies' && result.data.description) {
       console.log(`      ${result.data.description.slice(0, 100)}...`);
-    } else if (result.table === 'deals' && result.data.notes) {
-      console.log(`      ${result.data.notes.slice(0, 100)}...`);
+    } else if (result.table === 'expenses') {
+      console.log(`      Date: ${result.data.occurredAt || 'N/A'}`);
     }
     console.log('');
   }
