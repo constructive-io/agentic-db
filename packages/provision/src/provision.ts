@@ -6,20 +6,23 @@ import { auth, public_, NodeHttpAdapter } from '@constructive-io/node';
 import { config } from './config';
 import { withRetry } from './helpers';
 
+const PLATFORM_PHYSICAL_URL = 'http://[::1]:3000/graphql';
+
 async function main() {
   const ts = Date.now();
   const databaseName = `${config.databaseName}-${ts}`;
   const uniqueEmail = config.adminEmail.replace('@', `+${ts}@`);
 
   console.log('\n🚀 Agent-OS Database Provisioning\n');
-  console.log(`   API: ${config.apiEndpoint}`);
-  console.log(`   Auth: ${config.authEndpoint}`);
   console.log(`   Database: ${databaseName}`);
 
   // Step 1: Sign up
   console.log(`\n🔐 Signing up as ${uniqueEmail}...`);
   
-  const authAdapter = new NodeHttpAdapter(config.authEndpoint);
+  // Use explicit Host header for reliable local resolution
+  const authAdapter = new NodeHttpAdapter(PLATFORM_PHYSICAL_URL, {
+    Host: 'auth.localhost'
+  });
   const authClient = auth.createClient({ adapter: authAdapter });
 
   const signUpResult = await authClient.mutation.signUp(
@@ -27,22 +30,17 @@ async function main() {
     { select: { result: { select: { userId: true, accessToken: true } } } }
   ).execute();
 
-  console.log('   SignUp result ok:', signUpResult.ok);
-  
   if (!signUpResult.ok) {
-    console.error('❌ Sign up failed:', JSON.stringify(signUpResult, null, 2));
+    console.error('❌ Sign up failed:', JSON.stringify(signUpResult.errors, null, 2));
     process.exit(1);
   }
 
-  // Use .data instead of .value for the SDK result
   const data = (signUpResult as any).data;
-  console.log('   Data:', JSON.stringify(data, null, 2));
-  
   const userId = data?.signUp?.result?.userId;
   const accessToken = data?.signUp?.result?.accessToken;
 
   if (!accessToken || !userId) {
-    console.error('❌ No token/userId');
+    console.error('❌ No token/userId returned');
     process.exit(1);
   }
 
@@ -51,7 +49,8 @@ async function main() {
   // Step 2: Provision database
   console.log(`\n🗄️  Provisioning "${databaseName}"...`);
 
-  const apiAdapter = new NodeHttpAdapter(config.apiEndpoint, {
+  const apiAdapter = new NodeHttpAdapter(PLATFORM_PHYSICAL_URL, {
+    Host: 'api.localhost',
     Authorization: `Bearer ${accessToken}`,
   });
   const apiClient = public_.createClient({ adapter: apiAdapter });
@@ -78,7 +77,7 @@ async function main() {
   );
 
   if (!provisionResult.ok) {
-    console.error('❌ Provision failed:', JSON.stringify(provisionResult, null, 2));
+    console.error('❌ Provision failed:', JSON.stringify(provisionResult.errors, null, 2));
     process.exit(1);
   }
 
@@ -100,7 +99,8 @@ async function main() {
   console.log(`   ACCESS_TOKEN=${accessToken}`);
   console.log('\n   Then run: pnpm --filter @agent-os/provision run provision:crm');
   
-  console.log('\n📦 RESULT:', JSON.stringify({ databaseName, databaseId, userId, accessToken }));
+  // Output JSON for easy parsing if needed
+  // console.log('\n📦 RESULT:', JSON.stringify({ databaseName, databaseId, userId, accessToken }));
 }
 
 main().catch((err) => {

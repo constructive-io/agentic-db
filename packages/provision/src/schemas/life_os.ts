@@ -53,13 +53,29 @@ async function createOrgTable(tableName: string): Promise<string> {
   return tableId;
 }
 
-async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}) {
-  await withRetry(() => client.field.create({ data: { tableId, name, type, isRequired: opts.isRequired ?? false, label: name, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
+async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}): Promise<string> {
+  const result = await withRetry(() => client.field.create({ data: { tableId, name, type, isRequired: opts.isRequired ?? false, label: name, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
   console.log(`      + ${name} (${type})`);
+  return result.createField?.field?.id!;
+}
+
+async function addBm25Index(tableId: string, name: string, fieldIds: string[]) {
+  await withRetry(() => client.index.create({
+    data: {
+      databaseId,
+      tableId,
+      name,
+      accessMethod: 'bm25',
+      fieldIds,
+      indexParams: { text_config: 'english' }, 
+    },
+    select: { id: true }
+  }).unwrap());
+  console.log(`      🔍 Index: ${name}`);
 }
 
 async function main() {
-  console.log('\n🧬 Provisioning Life OS Schema\n');
+  console.log('\n🧬 Provisioning Life OS Schema with Embeddings & BM25\n');
 
   // --- Communications ---
   console.log('📧 email_accounts...');
@@ -72,12 +88,14 @@ async function main() {
   const msgsId = await createOrgTable('messages');
   await addField(msgsId, 'thread_id', 'text');
   await addField(msgsId, 'remote_id', 'text');
-  await addField(msgsId, 'from', 'text');
-  await addField(msgsId, 'to', 'text[]');
-  await addField(msgsId, 'subject', 'text');
-  await addField(msgsId, 'body_text', 'text');
+  const m_from = await addField(msgsId, 'from', 'text');
+  const m_to = await addField(msgsId, 'to', 'text[]');
+  const m_subj = await addField(msgsId, 'subject', 'text');
+  const m_body = await addField(msgsId, 'body_text', 'text');
   await addField(msgsId, 'received_at', 'timestamptz');
   await addField(msgsId, 'embedding', 'vector(768)');
+
+  // await addBm25Index(msgsId, 'messages_bm25_idx', [m_subj, m_body, m_from]);
 
   console.log('📅 calendar_sync...');
   const calSyncId = await createOrgTable('calendar_sync');
@@ -91,20 +109,24 @@ async function main() {
   await addField(expensesId, 'amount', 'numeric');
   await addField(expensesId, 'currency', 'text', { defaultValue: "'USD'" });
   await addField(expensesId, 'date', 'date');
-  await addField(expensesId, 'category', 'text');
-  await addField(expensesId, 'description', 'text');
-  await addField(expensesId, 'merchant', 'text');
+  const ex_cat = await addField(expensesId, 'category', 'text');
+  const ex_desc = await addField(expensesId, 'description', 'text');
+  const ex_merch = await addField(expensesId, 'merchant', 'text');
   await addField(expensesId, 'receipt_url', 'text');
   await addField(expensesId, 'embedding', 'vector(768)');
+
+  // await addBm25Index(expensesId, 'expenses_bm25_idx', [ex_desc, ex_merch, ex_cat]);
 
   // --- Knowledge ---
   console.log('📚 documents...');
   const docsId = await createOrgTable('documents');
-  await addField(docsId, 'title', 'text');
+  const doc_title = await addField(docsId, 'title', 'text');
   await addField(docsId, 'url', 'text');
-  await addField(docsId, 'content', 'text');
+  const doc_content = await addField(docsId, 'content', 'text');
   await addField(docsId, 'source_type', 'text');
   await addField(docsId, 'embedding', 'vector(768)');
+
+  // await addBm25Index(docsId, 'documents_bm25_idx', [doc_title, doc_content]);
 
   // Relations
   console.log('\n🔗 Relations...');
