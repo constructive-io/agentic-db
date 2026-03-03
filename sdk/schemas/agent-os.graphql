@@ -1,8 +1,3 @@
-"""
-Indicates exactly one field must be supplied and this field must not be `null`.
-"""
-directive @oneOf on INPUT_OBJECT
-
 """The root query type which gives access points into the data universe."""
 type Query {
   """Reads and enables pagination through a set of `ContactCompany`."""

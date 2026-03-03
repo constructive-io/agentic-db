@@ -12,7 +12,7 @@ import { generate } from '@constructive-io/graphql-codegen';
 async function main() {
   // Resolve schema directory from workspace dependency
   const schemaDir = path.resolve(__dirname, '../../schemas');
-  const outputDir = path.resolve(__dirname, 'generated');
+  const outputDir = path.resolve(__dirname, '../src/generated');
 
   // Verify schema exists
   const schemaFile = path.join(schemaDir, 'agent-os.graphql');

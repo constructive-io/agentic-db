@@ -10,7 +10,7 @@
     "*.graphql"
   ],
   "scripts": {
-    "export": "tsx src/export.ts"
+    "export": "tsx scripts/export.ts"
   },
   "devDependencies": {
     "@constructive-io/graphql-codegen": "^4.5.0",
