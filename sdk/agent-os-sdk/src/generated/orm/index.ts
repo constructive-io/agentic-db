@@ -5,25 +5,40 @@
  */
 import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
+import { CompanyImageModel } from './models/companyImage';
 import { ContactCompanyModel } from './models/contactCompany';
 import { ContactEventModel } from './models/contactEvent';
+import { ContactImageModel } from './models/contactImage';
 import { DealContactModel } from './models/dealContact';
+import { EventImageModel } from './models/eventImage';
 import { EventVenueModel } from './models/eventVenue';
+import { VenueImageModel } from './models/venueImage';
 import { CalendarSyncModel } from './models/calendarSync';
+import { FileModel } from './models/file';
 import { EmailAccountModel } from './models/emailAccount';
+import { ExecutionLogModel } from './models/executionLog';
+import { ChatModel } from './models/chat';
+import { ProjectModel } from './models/project';
+import { RepositoryModel } from './models/repository';
+import { SessionModel } from './models/session';
+import { BlueprintModel } from './models/blueprint';
+import { ImageModel } from './models/image';
+import { MilestoneModel } from './models/milestone';
+import { ChatMessageModel } from './models/chatMessage';
+import { ChunkModel } from './models/chunk';
 import { MemoryModel } from './models/memory';
-import { CompanyModel } from './models/company';
 import { DealModel } from './models/deal';
 import { DocumentModel } from './models/document';
-import { VenueModel } from './models/venue';
-import { ContactModel } from './models/contact';
-import { EventModel } from './models/event';
+import { TaskModel } from './models/task';
 import { RuleModel } from './models/rule';
 import { SkillModel } from './models/skill';
-import { TaskModel } from './models/task';
 import { ExpenseModel } from './models/expense';
 import { NoteModel } from './models/note';
 import { MessageModel } from './models/message';
+import { CompanyModel } from './models/company';
+import { VenueModel } from './models/venue';
+import { ContactModel } from './models/contact';
+import { EventModel } from './models/event';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
 export { GraphQLRequestError } from './client';
 export { QueryBuilder } from './query-builder';
@@ -56,24 +71,39 @@ export { NodeHttpAdapter } from './node-fetch';
 export function createClient(config: OrmClientConfig) {
   const client = new OrmClient(config);
   return {
+    companyImage: new CompanyImageModel(client),
     contactCompany: new ContactCompanyModel(client),
     contactEvent: new ContactEventModel(client),
+    contactImage: new ContactImageModel(client),
     dealContact: new DealContactModel(client),
+    eventImage: new EventImageModel(client),
     eventVenue: new EventVenueModel(client),
+    venueImage: new VenueImageModel(client),
     calendarSync: new CalendarSyncModel(client),
+    file: new FileModel(client),
     emailAccount: new EmailAccountModel(client),
+    executionLog: new ExecutionLogModel(client),
+    chat: new ChatModel(client),
+    project: new ProjectModel(client),
+    repository: new RepositoryModel(client),
+    session: new SessionModel(client),
+    blueprint: new BlueprintModel(client),
+    image: new ImageModel(client),
+    milestone: new MilestoneModel(client),
+    chatMessage: new ChatMessageModel(client),
+    chunk: new ChunkModel(client),
     memory: new MemoryModel(client),
-    company: new CompanyModel(client),
     deal: new DealModel(client),
     document: new DocumentModel(client),
-    venue: new VenueModel(client),
-    contact: new ContactModel(client),
-    event: new EventModel(client),
+    task: new TaskModel(client),
     rule: new RuleModel(client),
     skill: new SkillModel(client),
-    task: new TaskModel(client),
     expense: new ExpenseModel(client),
     note: new NoteModel(client),
     message: new MessageModel(client),
+    company: new CompanyModel(client),
+    venue: new VenueModel(client),
+    contact: new ContactModel(client),
+    event: new EventModel(client),
   };
 }

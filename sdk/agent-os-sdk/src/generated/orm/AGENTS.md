@@ -21,6 +21,37 @@ const db = createClient({
 
 ## MODELS
 
+### MODEL: companyImage
+
+Access: `db.companyImage`
+
+```
+METHODS:
+  db.companyImage.findMany({ select, where?, orderBy?, first?, offset? })
+  db.companyImage.findOne({ id, select })
+  db.companyImage.create({ data: { companyId, imageId, entityId }, select })
+  db.companyImage.update({ where: { id }, data, select })
+  db.companyImage.delete({ where: { id } })
+
+FIELDS:
+  companyId: string
+  imageId: string
+  id: string (primary key)
+  entityId: string
+
+EDITABLE FIELDS:
+  companyId: string
+  imageId: string
+  entityId: string
+
+OUTPUT: Promise<JSON>
+  findMany: [{ companyId, imageId, id, entityId }]
+  findOne:  { companyId, imageId, id, entityId }
+  create:   { companyId, imageId, id, entityId }
+  update:   { companyId, imageId, id, entityId }
+  delete:   { id }
+```
+
 ### MODEL: contactCompany
 
 Access: `db.contactCompany`
@@ -83,6 +114,37 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
+### MODEL: contactImage
+
+Access: `db.contactImage`
+
+```
+METHODS:
+  db.contactImage.findMany({ select, where?, orderBy?, first?, offset? })
+  db.contactImage.findOne({ id, select })
+  db.contactImage.create({ data: { contactId, imageId, entityId }, select })
+  db.contactImage.update({ where: { id }, data, select })
+  db.contactImage.delete({ where: { id } })
+
+FIELDS:
+  contactId: string
+  imageId: string
+  id: string (primary key)
+  entityId: string
+
+EDITABLE FIELDS:
+  contactId: string
+  imageId: string
+  entityId: string
+
+OUTPUT: Promise<JSON>
+  findMany: [{ contactId, imageId, id, entityId }]
+  findOne:  { contactId, imageId, id, entityId }
+  create:   { contactId, imageId, id, entityId }
+  update:   { contactId, imageId, id, entityId }
+  delete:   { id }
+```
+
 ### MODEL: dealContact
 
 Access: `db.dealContact`
@@ -114,6 +176,37 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
+### MODEL: eventImage
+
+Access: `db.eventImage`
+
+```
+METHODS:
+  db.eventImage.findMany({ select, where?, orderBy?, first?, offset? })
+  db.eventImage.findOne({ id, select })
+  db.eventImage.create({ data: { eventId, imageId, entityId }, select })
+  db.eventImage.update({ where: { id }, data, select })
+  db.eventImage.delete({ where: { id } })
+
+FIELDS:
+  eventId: string
+  imageId: string
+  id: string (primary key)
+  entityId: string
+
+EDITABLE FIELDS:
+  eventId: string
+  imageId: string
+  entityId: string
+
+OUTPUT: Promise<JSON>
+  findMany: [{ eventId, imageId, id, entityId }]
+  findOne:  { eventId, imageId, id, entityId }
+  create:   { eventId, imageId, id, entityId }
+  update:   { eventId, imageId, id, entityId }
+  delete:   { id }
+```
+
 ### MODEL: eventVenue
 
 Access: `db.eventVenue`
@@ -142,6 +235,37 @@ OUTPUT: Promise<JSON>
   findOne:  { eventId, venueId, id, entityId }
   create:   { eventId, venueId, id, entityId }
   update:   { eventId, venueId, id, entityId }
+  delete:   { id }
+```
+
+### MODEL: venueImage
+
+Access: `db.venueImage`
+
+```
+METHODS:
+  db.venueImage.findMany({ select, where?, orderBy?, first?, offset? })
+  db.venueImage.findOne({ id, select })
+  db.venueImage.create({ data: { venueId, imageId, entityId }, select })
+  db.venueImage.update({ where: { id }, data, select })
+  db.venueImage.delete({ where: { id } })
+
+FIELDS:
+  venueId: string
+  imageId: string
+  id: string (primary key)
+  entityId: string
+
+EDITABLE FIELDS:
+  venueId: string
+  imageId: string
+  entityId: string
+
+OUTPUT: Promise<JSON>
+  findMany: [{ venueId, imageId, id, entityId }]
+  findOne:  { venueId, imageId, id, entityId }
+  create:   { venueId, imageId, id, entityId }
+  update:   { venueId, imageId, id, entityId }
   delete:   { id }
 ```
 
@@ -180,6 +304,43 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
+### MODEL: file
+
+Access: `db.file`
+
+```
+METHODS:
+  db.file.findMany({ select, where?, orderBy?, first?, offset? })
+  db.file.findOne({ id, select })
+  db.file.create({ data: { entityId, path, language, hash, repositoryId }, select })
+  db.file.update({ where: { id }, data, select })
+  db.file.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  path: string
+  language: string
+  hash: string
+  repositoryId: string
+
+EDITABLE FIELDS:
+  entityId: string
+  path: string
+  language: string
+  hash: string
+  repositoryId: string
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, path, language, hash, repositoryId }]
+  findOne:  { id, entityId, createdAt, updatedAt, path, language, hash, repositoryId }
+  create:   { id, entityId, createdAt, updatedAt, path, language, hash, repositoryId }
+  update:   { id, entityId, createdAt, updatedAt, path, language, hash, repositoryId }
+  delete:   { id }
+```
+
 ### MODEL: emailAccount
 
 Access: `db.emailAccount`
@@ -212,6 +373,416 @@ OUTPUT: Promise<JSON>
   findOne:  { id, entityId, createdAt, updatedAt, email, provider, syncState }
   create:   { id, entityId, createdAt, updatedAt, email, provider, syncState }
   update:   { id, entityId, createdAt, updatedAt, email, provider, syncState }
+  delete:   { id }
+```
+
+### MODEL: executionLog
+
+Access: `db.executionLog`
+
+```
+METHODS:
+  db.executionLog.findMany({ select, where?, orderBy?, first?, offset? })
+  db.executionLog.findOne({ id, select })
+  db.executionLog.create({ data: { entityId, stepName, input, output, toolCalls, durationMs, sessionId }, select })
+  db.executionLog.update({ where: { id }, data, select })
+  db.executionLog.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  stepName: string
+  input: string
+  output: string
+  toolCalls: unknown
+  durationMs: number
+  sessionId: string
+
+EDITABLE FIELDS:
+  entityId: string
+  stepName: string
+  input: string
+  output: string
+  toolCalls: unknown
+  durationMs: number
+  sessionId: string
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, stepName, input, output, toolCalls, durationMs, sessionId }]
+  findOne:  { id, entityId, createdAt, updatedAt, stepName, input, output, toolCalls, durationMs, sessionId }
+  create:   { id, entityId, createdAt, updatedAt, stepName, input, output, toolCalls, durationMs, sessionId }
+  update:   { id, entityId, createdAt, updatedAt, stepName, input, output, toolCalls, durationMs, sessionId }
+  delete:   { id }
+```
+
+### MODEL: chat
+
+Access: `db.chat`
+
+```
+METHODS:
+  db.chat.findMany({ select, where?, orderBy?, first?, offset? })
+  db.chat.findOne({ id, select })
+  db.chat.create({ data: { entityId, title, startedAt, embedding, embeddingDistance }, select })
+  db.chat.update({ where: { id }, data, select })
+  db.chat.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  title: string
+  startedAt: string
+  embedding: Vector
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  title: string
+  startedAt: string
+  embedding: Vector
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, title, startedAt, embedding, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, startedAt, embedding, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, title, startedAt, embedding, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, title, startedAt, embedding, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: project
+
+Access: `db.project`
+
+```
+METHODS:
+  db.project.findMany({ select, where?, orderBy?, first?, offset? })
+  db.project.findOne({ id, select })
+  db.project.create({ data: { entityId, name, description, status, startDate, dueDate, embedding, embeddingDistance }, select })
+  db.project.update({ where: { id }, data, select })
+  db.project.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  name: string
+  description: string
+  status: string
+  startDate: string
+  dueDate: string
+  embedding: Vector
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  name: string
+  description: string
+  status: string
+  startDate: string
+  dueDate: string
+  embedding: Vector
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, embedding, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, embedding, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, embedding, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, embedding, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: repository
+
+Access: `db.repository`
+
+```
+METHODS:
+  db.repository.findMany({ select, where?, orderBy?, first?, offset? })
+  db.repository.findOne({ id, select })
+  db.repository.create({ data: { entityId, name, url, description, defaultBranch, lastSyncedAt, embedding, embeddingDistance }, select })
+  db.repository.update({ where: { id }, data, select })
+  db.repository.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  name: string
+  url: string
+  description: string
+  defaultBranch: string
+  lastSyncedAt: string
+  embedding: Vector
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  name: string
+  url: string
+  description: string
+  defaultBranch: string
+  lastSyncedAt: string
+  embedding: Vector
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, embedding, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, embedding, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, embedding, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, embedding, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: session
+
+Access: `db.session`
+
+```
+METHODS:
+  db.session.findMany({ select, where?, orderBy?, first?, offset? })
+  db.session.findOne({ id, select })
+  db.session.create({ data: { entityId, title, startedAt, endedAt, status, contextSummary, embedding, embeddingDistance }, select })
+  db.session.update({ where: { id }, data, select })
+  db.session.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  title: string
+  startedAt: string
+  endedAt: string
+  status: string
+  contextSummary: string
+  embedding: Vector
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  title: string
+  startedAt: string
+  endedAt: string
+  status: string
+  contextSummary: string
+  embedding: Vector
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, title, startedAt, endedAt, status, contextSummary, embedding, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, startedAt, endedAt, status, contextSummary, embedding, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, title, startedAt, endedAt, status, contextSummary, embedding, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, title, startedAt, endedAt, status, contextSummary, embedding, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: blueprint
+
+Access: `db.blueprint`
+
+```
+METHODS:
+  db.blueprint.findMany({ select, where?, orderBy?, first?, offset? })
+  db.blueprint.findOne({ id, select })
+  db.blueprint.create({ data: { entityId, title, steps, triggerConditions, embedding, embeddingDistance }, select })
+  db.blueprint.update({ where: { id }, data, select })
+  db.blueprint.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  title: string
+  steps: unknown
+  triggerConditions: string
+  embedding: Vector
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  title: string
+  steps: unknown
+  triggerConditions: string
+  embedding: Vector
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, title, steps, triggerConditions, embedding, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, embedding, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, embedding, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, embedding, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: image
+
+Access: `db.image`
+
+```
+METHODS:
+  db.image.findMany({ select, where?, orderBy?, first?, offset? })
+  db.image.findOne({ id, select })
+  db.image.create({ data: { entityId, url, meta, altText, caption, embedding, embeddingDistance }, select })
+  db.image.update({ where: { id }, data, select })
+  db.image.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  url: string
+  meta: unknown
+  altText: string
+  caption: string
+  embedding: Vector
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  url: string
+  meta: unknown
+  altText: string
+  caption: string
+  embedding: Vector
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: milestone
+
+Access: `db.milestone`
+
+```
+METHODS:
+  db.milestone.findMany({ select, where?, orderBy?, first?, offset? })
+  db.milestone.findOne({ id, select })
+  db.milestone.create({ data: { entityId, name, dueDate, embedding, projectId, embeddingDistance }, select })
+  db.milestone.update({ where: { id }, data, select })
+  db.milestone.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  name: string
+  dueDate: string
+  embedding: Vector
+  projectId: string
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  name: string
+  dueDate: string
+  embedding: Vector
+  projectId: string
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, name, dueDate, embedding, projectId, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, dueDate, embedding, projectId, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, name, dueDate, embedding, projectId, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, name, dueDate, embedding, projectId, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: chatMessage
+
+Access: `db.chatMessage`
+
+```
+METHODS:
+  db.chatMessage.findMany({ select, where?, orderBy?, first?, offset? })
+  db.chatMessage.findOne({ id, select })
+  db.chatMessage.create({ data: { entityId, role, content, toolCalls, embedding, chatId, embeddingDistance }, select })
+  db.chatMessage.update({ where: { id }, data, select })
+  db.chatMessage.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  role: string
+  content: string
+  toolCalls: unknown
+  embedding: Vector
+  chatId: string
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  role: string
+  content: string
+  toolCalls: unknown
+  embedding: Vector
+  chatId: string
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, role, content, toolCalls, embedding, chatId, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, role, content, toolCalls, embedding, chatId, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, role, content, toolCalls, embedding, chatId, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, role, content, toolCalls, embedding, chatId, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: chunk
+
+Access: `db.chunk`
+
+```
+METHODS:
+  db.chunk.findMany({ select, where?, orderBy?, first?, offset? })
+  db.chunk.findOne({ id, select })
+  db.chunk.create({ data: { entityId, content, startLine, endLine, embedding, fileId, repositoryId, embeddingDistance }, select })
+  db.chunk.update({ where: { id }, data, select })
+  db.chunk.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  content: string
+  startLine: number
+  endLine: number
+  embedding: Vector
+  fileId: string
+  repositoryId: string
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  content: string
+  startLine: number
+  endLine: number
+  embedding: Vector
+  fileId: string
+  repositoryId: string
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, content, startLine, endLine, embedding, fileId, repositoryId, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, content, startLine, endLine, embedding, fileId, repositoryId, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, content, startLine, endLine, embedding, fileId, repositoryId, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, content, startLine, endLine, embedding, fileId, repositoryId, embeddingDistance }
   delete:   { id }
 ```
 
@@ -249,49 +820,6 @@ OUTPUT: Promise<JSON>
   findOne:  { id, entityId, createdAt, updatedAt, content, tags, embedding, embeddingDistance }
   create:   { id, entityId, createdAt, updatedAt, content, tags, embedding, embeddingDistance }
   update:   { id, entityId, createdAt, updatedAt, content, tags, embedding, embeddingDistance }
-  delete:   { id }
-```
-
-### MODEL: company
-
-Access: `db.company`
-
-```
-METHODS:
-  db.company.findMany({ select, where?, orderBy?, first?, offset? })
-  db.company.findOne({ id, select })
-  db.company.create({ data: { entityId, name, domain, industry, description, tags, embedding, embeddingDistance }, select })
-  db.company.update({ where: { id }, data, select })
-  db.company.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  name: string
-  domain: string
-  industry: string
-  description: string
-  tags: string[]
-  embedding: Vector
-  embeddingDistance: number
-
-EDITABLE FIELDS:
-  entityId: string
-  name: string
-  domain: string
-  industry: string
-  description: string
-  tags: string[]
-  embedding: Vector
-  embeddingDistance: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embedding, embeddingDistance }
   delete:   { id }
 ```
 
@@ -381,146 +909,46 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
-### MODEL: venue
+### MODEL: task
 
-Access: `db.venue`
+Access: `db.task`
 
 ```
 METHODS:
-  db.venue.findMany({ select, where?, orderBy?, first?, offset? })
-  db.venue.findOne({ id, select })
-  db.venue.create({ data: { entityId, name, neighborhood, city, status, notes, tags, embedding, embeddingDistance }, select })
-  db.venue.update({ where: { id }, data, select })
-  db.venue.delete({ where: { id } })
+  db.task.findMany({ select, where?, orderBy?, first?, offset? })
+  db.task.findOne({ id, select })
+  db.task.create({ data: { entityId, title, description, status, priority, tags, embedding, embeddingDistance }, select })
+  db.task.update({ where: { id }, data, select })
+  db.task.delete({ where: { id } })
 
 FIELDS:
   id: string (primary key)
   entityId: string
   createdAt: string
   updatedAt: string
-  name: string
-  neighborhood: string
-  city: string
+  title: string
+  description: string
   status: string
-  notes: string
+  priority: number
   tags: string[]
   embedding: Vector
   embeddingDistance: number
 
 EDITABLE FIELDS:
   entityId: string
-  name: string
-  neighborhood: string
-  city: string
+  title: string
+  description: string
   status: string
-  notes: string
+  priority: number
   tags: string[]
   embedding: Vector
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, neighborhood, city, status, notes, tags, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, neighborhood, city, status, notes, tags, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, neighborhood, city, status, notes, tags, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, neighborhood, city, status, notes, tags, embedding, embeddingDistance }
-  delete:   { id }
-```
-
-### MODEL: contact
-
-Access: `db.contact`
-
-```
-METHODS:
-  db.contact.findMany({ select, where?, orderBy?, first?, offset? })
-  db.contact.findOne({ id, select })
-  db.contact.create({ data: { entityId, firstName, lastName, email, phone, headline, bio, location, tags, embedding, embeddingDistance }, select })
-  db.contact.update({ where: { id }, data, select })
-  db.contact.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  headline: string
-  bio: string
-  location: string
-  tags: string[]
-  embedding: Vector
-  embeddingDistance: number
-
-EDITABLE FIELDS:
-  entityId: string
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  headline: string
-  bio: string
-  location: string
-  tags: string[]
-  embedding: Vector
-  embeddingDistance: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, embeddingDistance }
-  delete:   { id }
-```
-
-### MODEL: event
-
-Access: `db.event`
-
-```
-METHODS:
-  db.event.findMany({ select, where?, orderBy?, first?, offset? })
-  db.event.findOne({ id, select })
-  db.event.create({ data: { entityId, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, embeddingDistance }, select })
-  db.event.update({ where: { id }, data, select })
-  db.event.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  name: string
-  eventType: string
-  location: string
-  city: string
-  startedAt: string
-  endedAt: string
-  notes: string
-  tags: string[]
-  embedding: Vector
-  embeddingDistance: number
-
-EDITABLE FIELDS:
-  entityId: string
-  name: string
-  eventType: string
-  location: string
-  city: string
-  startedAt: string
-  endedAt: string
-  notes: string
-  tags: string[]
-  embedding: Vector
-  embeddingDistance: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, description, status, priority, tags, embedding, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, description, status, priority, tags, embedding, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, title, description, status, priority, tags, embedding, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, title, description, status, priority, tags, embedding, embeddingDistance }
   delete:   { id }
 ```
 
@@ -610,51 +1038,6 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
-### MODEL: task
-
-Access: `db.task`
-
-```
-METHODS:
-  db.task.findMany({ select, where?, orderBy?, first?, offset? })
-  db.task.findOne({ id, select })
-  db.task.create({ data: { entityId, title, description, status, priority, tags, embedding, embeddingDistance, bm25DescriptionScore }, select })
-  db.task.update({ where: { id }, data, select })
-  db.task.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  title: string
-  description: string
-  status: string
-  priority: number
-  tags: string[]
-  embedding: Vector
-  embeddingDistance: number
-  bm25DescriptionScore: number
-
-EDITABLE FIELDS:
-  entityId: string
-  title: string
-  description: string
-  status: string
-  priority: number
-  tags: string[]
-  embedding: Vector
-  embeddingDistance: number
-  bm25DescriptionScore: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, description, status, priority, tags, embedding, embeddingDistance, bm25DescriptionScore }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, description, status, priority, tags, embedding, embeddingDistance, bm25DescriptionScore }
-  create:   { id, entityId, createdAt, updatedAt, title, description, status, priority, tags, embedding, embeddingDistance, bm25DescriptionScore }
-  update:   { id, entityId, createdAt, updatedAt, title, description, status, priority, tags, embedding, embeddingDistance, bm25DescriptionScore }
-  delete:   { id }
-```
-
 ### MODEL: expense
 
 Access: `db.expense`
@@ -712,7 +1095,7 @@ Access: `db.note`
 METHODS:
   db.note.findMany({ select, where?, orderBy?, first?, offset? })
   db.note.findOne({ id, select })
-  db.note.create({ data: { entityId, content, tags, embedding, contactId, embeddingDistance, bm25ContentScore }, select })
+  db.note.create({ data: { entityId, content, tags, embedding, contactId, embeddingDistance }, select })
   db.note.update({ where: { id }, data, select })
   db.note.delete({ where: { id } })
 
@@ -726,7 +1109,6 @@ FIELDS:
   embedding: Vector
   contactId: string
   embeddingDistance: number
-  bm25ContentScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -735,13 +1117,12 @@ EDITABLE FIELDS:
   embedding: Vector
   contactId: string
   embeddingDistance: number
-  bm25ContentScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, content, tags, embedding, contactId, embeddingDistance, bm25ContentScore }]
-  findOne:  { id, entityId, createdAt, updatedAt, content, tags, embedding, contactId, embeddingDistance, bm25ContentScore }
-  create:   { id, entityId, createdAt, updatedAt, content, tags, embedding, contactId, embeddingDistance, bm25ContentScore }
-  update:   { id, entityId, createdAt, updatedAt, content, tags, embedding, contactId, embeddingDistance, bm25ContentScore }
+  findMany: [{ id, entityId, createdAt, updatedAt, content, tags, embedding, contactId, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, content, tags, embedding, contactId, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, content, tags, embedding, contactId, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, content, tags, embedding, contactId, embeddingDistance }
   delete:   { id }
 ```
 
@@ -753,7 +1134,7 @@ Access: `db.message`
 METHODS:
   db.message.findMany({ select, where?, orderBy?, first?, offset? })
   db.message.findOne({ id, select })
-  db.message.create({ data: { entityId, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance, bm25BodyTextScore }, select })
+  db.message.create({ data: { entityId, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }, select })
   db.message.update({ where: { id }, data, select })
   db.message.delete({ where: { id } })
 
@@ -773,7 +1154,6 @@ FIELDS:
   embedding: Vector
   emailAccountId: string
   embeddingDistance: number
-  bm25BodyTextScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -788,13 +1168,214 @@ EDITABLE FIELDS:
   embedding: Vector
   emailAccountId: string
   embeddingDistance: number
-  bm25BodyTextScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance, bm25BodyTextScore }]
-  findOne:  { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance, bm25BodyTextScore }
-  create:   { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance, bm25BodyTextScore }
-  update:   { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance, bm25BodyTextScore }
+  findMany: [{ id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: company
+
+Access: `db.company`
+
+```
+METHODS:
+  db.company.findMany({ select, where?, orderBy?, first?, offset? })
+  db.company.findOne({ id, select })
+  db.company.create({ data: { entityId, name, domain, industry, description, tags, embedding, mainImageId, imageId, embeddingDistance }, select })
+  db.company.update({ where: { id }, data, select })
+  db.company.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  name: string
+  domain: string
+  industry: string
+  description: string
+  tags: string[]
+  embedding: Vector
+  mainImageId: string
+  imageId: string
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  name: string
+  domain: string
+  industry: string
+  description: string
+  tags: string[]
+  embedding: Vector
+  mainImageId: string
+  imageId: string
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embedding, mainImageId, imageId, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embedding, mainImageId, imageId, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embedding, mainImageId, imageId, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embedding, mainImageId, imageId, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: venue
+
+Access: `db.venue`
+
+```
+METHODS:
+  db.venue.findMany({ select, where?, orderBy?, first?, offset? })
+  db.venue.findOne({ id, select })
+  db.venue.create({ data: { entityId, name, neighborhood, city, status, notes, tags, embedding, mainImageId, imageId, embeddingDistance }, select })
+  db.venue.update({ where: { id }, data, select })
+  db.venue.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  name: string
+  neighborhood: string
+  city: string
+  status: string
+  notes: string
+  tags: string[]
+  embedding: Vector
+  mainImageId: string
+  imageId: string
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  name: string
+  neighborhood: string
+  city: string
+  status: string
+  notes: string
+  tags: string[]
+  embedding: Vector
+  mainImageId: string
+  imageId: string
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, name, neighborhood, city, status, notes, tags, embedding, mainImageId, imageId, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, neighborhood, city, status, notes, tags, embedding, mainImageId, imageId, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, name, neighborhood, city, status, notes, tags, embedding, mainImageId, imageId, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, name, neighborhood, city, status, notes, tags, embedding, mainImageId, imageId, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: contact
+
+Access: `db.contact`
+
+```
+METHODS:
+  db.contact.findMany({ select, where?, orderBy?, first?, offset? })
+  db.contact.findOne({ id, select })
+  db.contact.create({ data: { entityId, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, embeddingDistance }, select })
+  db.contact.update({ where: { id }, data, select })
+  db.contact.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  headline: string
+  bio: string
+  location: string
+  tags: string[]
+  embedding: Vector
+  mainImageId: string
+  imageId: string
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  headline: string
+  bio: string
+  location: string
+  tags: string[]
+  embedding: Vector
+  mainImageId: string
+  imageId: string
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: event
+
+Access: `db.event`
+
+```
+METHODS:
+  db.event.findMany({ select, where?, orderBy?, first?, offset? })
+  db.event.findOne({ id, select })
+  db.event.create({ data: { entityId, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, mainImageId, imageId, embeddingDistance }, select })
+  db.event.update({ where: { id }, data, select })
+  db.event.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  name: string
+  eventType: string
+  location: string
+  city: string
+  startedAt: string
+  endedAt: string
+  notes: string
+  tags: string[]
+  embedding: Vector
+  mainImageId: string
+  imageId: string
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  name: string
+  eventType: string
+  location: string
+  city: string
+  startedAt: string
+  endedAt: string
+  notes: string
+  tags: string[]
+  embedding: Vector
+  mainImageId: string
+  imageId: string
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, mainImageId, imageId, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, mainImageId, imageId, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, mainImageId, imageId, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, mainImageId, imageId, embeddingDistance }
   delete:   { id }
 ```
 

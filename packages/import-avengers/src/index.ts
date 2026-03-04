@@ -28,7 +28,7 @@ async function main() {
   const authClient = createClient({ adapter: authAdapter });
 
   // Use hardcoded userId from provisioning log because token is opaque
-  const userId = '32ed4c18-edd6-43d5-11e0-82826679a33a';
+  const userId = '32ed5ae4-4395-4a6c-a4ea-2f7c10ccdef3';
   console.log(`👤 Using User ID: ${userId}`);
   console.log(`🌍 Target Host: ${config.appHost}`);
 

@@ -111,15 +111,15 @@ import { EmailModel } from './models/email';
 import { AppProfileModel } from './models/appProfile';
 import { UserModel } from './models/user';
 import { HierarchyModuleModel } from './models/hierarchyModule';
-import { createQueryOperations } from './query';
-import { createMutationOperations } from './mutation';
+// import { createQueryOperations } from './query';
+// import { createMutationOperations } from './mutation';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
 export { GraphQLRequestError } from './client';
 export { QueryBuilder } from './query-builder';
 export * from './select-types';
 export * from './models';
-export { createQueryOperations } from './query';
-export { createMutationOperations } from './mutation';
+// export { createQueryOperations } from './query';
+// export { createMutationOperations } from './mutation';
 /**
  * Create an ORM client instance
  *
@@ -252,7 +252,7 @@ export function createClient(config: OrmClientConfig) {
     appProfile: new AppProfileModel(client),
     user: new UserModel(client),
     hierarchyModule: new HierarchyModuleModel(client),
-    query: createQueryOperations(client),
-    mutation: createMutationOperations(client),
+    // query: createQueryOperations(client),
+    // mutation: createMutationOperations(client),
   };
 }
