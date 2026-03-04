@@ -22,7 +22,8 @@
     "provision:projects": "tsx src/schemas/projects.ts",
     "provision:life_os": "tsx src/schemas/life_os.ts",
     "provision:codebase": "tsx src/schemas/codebase.ts",
-    "provision:all": "pnpm run provision:agent && pnpm run provision:agent_runtime && pnpm run provision:projects && pnpm run provision:life_os && pnpm run provision:codebase"
+    "provision:indexes": "tsx src/create-indexes.ts",
+    "provision:all": "pnpm run provision:agent && pnpm run provision:agent_runtime && pnpm run provision:projects && pnpm run provision:life_os && pnpm run provision:codebase && pnpm run provision:crm && pnpm run provision:indexes"
   },
   "dependencies": {
     "@0no-co/graphql.web": "^1.2.0",

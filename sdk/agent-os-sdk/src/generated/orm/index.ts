@@ -9,32 +9,21 @@ import { ContactCompanyModel } from './models/contactCompany';
 import { ContactEventModel } from './models/contactEvent';
 import { DealContactModel } from './models/dealContact';
 import { EventVenueModel } from './models/eventVenue';
-import { TagModel } from './models/tag';
 import { CalendarSyncModel } from './models/calendarSync';
-import { FileModel } from './models/file';
 import { EmailAccountModel } from './models/emailAccount';
-import { ExecutionLogModel } from './models/executionLog';
-import { ChatModel } from './models/chat';
+import { MemoryModel } from './models/memory';
 import { CompanyModel } from './models/company';
-import { DocumentModel } from './models/document';
-import { ProjectModel } from './models/project';
-import { RepositoryModel } from './models/repository';
-import { SessionModel } from './models/session';
-import { VenueModel } from './models/venue';
-import { TaskModel } from './models/task';
 import { DealModel } from './models/deal';
-import { BlueprintModel } from './models/blueprint';
+import { DocumentModel } from './models/document';
+import { VenueModel } from './models/venue';
 import { ContactModel } from './models/contact';
 import { EventModel } from './models/event';
-import { MemoryModel } from './models/memory';
-import { NoteModel } from './models/note';
-import { MilestoneModel } from './models/milestone';
-import { ChatMessageModel } from './models/chatMessage';
 import { RuleModel } from './models/rule';
 import { SkillModel } from './models/skill';
-import { ChunkModel } from './models/chunk';
-import { MessageModel } from './models/message';
+import { TaskModel } from './models/task';
 import { ExpenseModel } from './models/expense';
+import { NoteModel } from './models/note';
+import { MessageModel } from './models/message';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
 export { GraphQLRequestError } from './client';
 export { QueryBuilder } from './query-builder';
@@ -71,31 +60,20 @@ export function createClient(config: OrmClientConfig) {
     contactEvent: new ContactEventModel(client),
     dealContact: new DealContactModel(client),
     eventVenue: new EventVenueModel(client),
-    tag: new TagModel(client),
     calendarSync: new CalendarSyncModel(client),
-    file: new FileModel(client),
     emailAccount: new EmailAccountModel(client),
-    executionLog: new ExecutionLogModel(client),
-    chat: new ChatModel(client),
+    memory: new MemoryModel(client),
     company: new CompanyModel(client),
-    document: new DocumentModel(client),
-    project: new ProjectModel(client),
-    repository: new RepositoryModel(client),
-    session: new SessionModel(client),
-    venue: new VenueModel(client),
-    task: new TaskModel(client),
     deal: new DealModel(client),
-    blueprint: new BlueprintModel(client),
+    document: new DocumentModel(client),
+    venue: new VenueModel(client),
     contact: new ContactModel(client),
     event: new EventModel(client),
-    memory: new MemoryModel(client),
-    note: new NoteModel(client),
-    milestone: new MilestoneModel(client),
-    chatMessage: new ChatMessageModel(client),
     rule: new RuleModel(client),
     skill: new SkillModel(client),
-    chunk: new ChunkModel(client),
-    message: new MessageModel(client),
+    task: new TaskModel(client),
     expense: new ExpenseModel(client),
+    note: new NoteModel(client),
+    message: new MessageModel(client),
   };
 }

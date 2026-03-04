@@ -9,7 +9,7 @@ ORM operations for Skill records
 ```typescript
 db.skill.findMany({ select: { id: true } }).execute()
 db.skill.findOne({ id: '<value>', select: { id: true } }).execute()
-db.skill.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', content: '<value>', isActive: '<value>', embedding: '<value>' }, select: { id: true } }).execute()
+db.skill.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', content: '<value>', isActive: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
 db.skill.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.skill.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.skill.findMany({
 
 ```typescript
 const item = await db.skill.create({
-  data: { entityId: 'value', name: 'value', description: 'value', content: 'value', isActive: 'value', embedding: 'value' },
+  data: { entityId: 'value', name: 'value', description: 'value', content: 'value', isActive: 'value', tags: 'value', embedding: 'value', embeddingDistance: 'value' },
   select: { id: true }
 }).execute();
 ```

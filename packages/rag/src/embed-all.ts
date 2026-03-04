@@ -17,17 +17,17 @@ interface TableConfig {
 }
 
 const TABLE_CONFIGS: Record<string, TableConfig> = {
-  contacts: { singular: 'Contact', textFields: ['firstName', 'lastName', 'headline', 'bio'], patchType: 'ContactPatch' },
-  companies: { singular: 'Company', textFields: ['name', 'description', 'industry'], patchType: 'CompanyPatch' },
-  deals: { singular: 'Deal', textFields: ['name', 'notes'], patchType: 'DealPatch' },
-  events: { singular: 'Event', textFields: ['name', 'eventType', 'notes'], patchType: 'EventPatch' },
-  venues: { singular: 'Venue', textFields: ['name', 'neighborhood', 'city', 'notes'], patchType: 'VenuePatch' },
-  notes: { singular: 'Note', textFields: ['content'], patchType: 'NotePatch' },
-  expenses: { singular: 'Expense', textFields: ['description', 'category', 'merchant'], patchType: 'ExpensePatch' },
-  tasks: { singular: 'Task', textFields: ['title', 'description', 'status'], patchType: 'TaskPatch' },
-  memories: { singular: 'Memory', textFields: ['content'], patchType: 'MemoryPatch' },
-  skills: { singular: 'Skill', textFields: ['name', 'description', 'content'], patchType: 'SkillPatch' },
-  rules: { singular: 'Rule', textFields: ['title', 'content', 'kind'], patchType: 'RulePatch' },
+  contacts: { singular: 'Contact', textFields: ['firstName', 'lastName', 'headline', 'bio', 'tags'], patchType: 'ContactPatch' },
+  companies: { singular: 'Company', textFields: ['name', 'description', 'industry', 'tags'], patchType: 'CompanyPatch' },
+  deals: { singular: 'Deal', textFields: ['name', 'notes', 'tags'], patchType: 'DealPatch' },
+  events: { singular: 'Event', textFields: ['name', 'eventType', 'notes', 'tags'], patchType: 'EventPatch' },
+  venues: { singular: 'Venue', textFields: ['name', 'neighborhood', 'city', 'notes', 'tags'], patchType: 'VenuePatch' },
+  notes: { singular: 'Note', textFields: ['content', 'tags'], patchType: 'NotePatch' },
+  expenses: { singular: 'Expense', textFields: ['description', 'category', 'merchant', 'tags'], patchType: 'ExpensePatch' },
+  tasks: { singular: 'Task', textFields: ['title', 'description', 'status', 'tags'], patchType: 'TaskPatch' },
+  memories: { singular: 'Memory', textFields: ['content', 'tags'], patchType: 'MemoryPatch' },
+  skills: { singular: 'Skill', textFields: ['name', 'description', 'content', 'tags'], patchType: 'SkillPatch' },
+  rules: { singular: 'Rule', textFields: ['title', 'content', 'kind', 'tags'], patchType: 'RulePatch' },
 };
 
 async function main() {
@@ -40,7 +40,8 @@ async function main() {
   console.log(`\n🔧 Embedding ${table === 'all' ? 'all tables' : table}\n`);
 
   // Authenticate
-  const { token } = await authenticate(TEST_EMAIL, TEST_PASSWORD);
+  const { token, userId } = await authenticate(TEST_EMAIL, TEST_PASSWORD);
+  console.log(`   Authenticated as: ${userId}`);
   const adapter = createRawAdapter(token);
 
   for (const tableName of tables) {
@@ -53,6 +54,8 @@ async function main() {
     console.log(`\n📋 Processing ${tableName}...`);
 
     // Fetch records without embeddings
+    // Note: We use raw query because SDK models don't expose 'embedding' field easily in all versions?
+    // Actually SDK has it. But dynamic query is easier here.
     const fields = ['id', ...cfg.textFields, 'embedding'].join(' ');
     const query = `{ ${tableName} { nodes { ${fields} } } }`;
     
@@ -70,7 +73,11 @@ async function main() {
     for (const record of needsEmbedding) {
       // Build text
       const textParts = cfg.textFields
-        .map(field => record[field])
+        .map(field => {
+            const val = record[field];
+            if (Array.isArray(val)) return val.join(', '); // Handle tags array
+            return val;
+        })
         .filter(Boolean);
       const text = textParts.join('. ');
       
@@ -82,7 +89,13 @@ async function main() {
       console.log(`   🔄 ${record.id.slice(0, 8)}... "${text.slice(0, 40)}..."`);
 
       // Generate embedding
-      const embedding = await embed(text);
+      let embedding;
+      try {
+        embedding = await embed(text);
+      } catch (e: any) {
+        console.log(`      ❌ Embed error: ${e.message || e}`);
+        continue;
+      }
 
       // Update (using raw mutation for now to support dynamic table)
       const mutation = `

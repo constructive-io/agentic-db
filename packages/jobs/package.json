@@ -1,0 +1,19 @@
+{
+  "name": "@agentic-sdk/jobs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "ingest": "tsx src/ingest-daily.ts && tsx src/ingest-email.ts",
+    "ingest:calendar": "tsx src/ingest-daily.ts",
+    "ingest:email": "tsx src/ingest-email.ts"
+  },
+  "dependencies": {
+    "pg": "^8.11.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "@types/pg": "^8.11.0",
+    "@types/node": "^22.0.0"
+  }
+}

@@ -5,53 +5,34 @@ import { NodeHttpAdapter } from '@constructive-io/node';
 import { config } from './config';
 import { createClient } from '@agentic-sdk/sdk';
 
+// Load root .env
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 const avengersClient = new Client({
   connectionString: config.avengersDbUrl,
 });
 
-const adapter = new NodeHttpAdapter(config.graphqlUrl, {
-  Host: config.authHost,
-});
-
-const client = createClient({ adapter });
-
-async function signIn() {
-  const query = `
-    mutation SignIn($email: String!, $password: String!) {
-      signIn(input: { email: $email, password: $password }) {
-        result { accessToken userId }
-      }
-    }
-  `;
-  
-  const result = await adapter.execute<{ signIn: { result: { accessToken: string; userId: string } } }>(
-    query,
-    { email: config.agentEmail, password: config.agentPassword }
-  );
-
-  if (!result.ok || !result.data?.signIn?.result?.accessToken) {
-    throw new Error(`Sign in failed: ${JSON.stringify(result.errors)}`);
-  }
-  return { 
-    token: result.data.signIn.result.accessToken, 
-    userId: result.data.signIn.result.userId 
-  };
-}
-
 async function main() {
-  await avengersClient.connect();
-  const { token, userId } = await signIn();
-  
-  // Re-create adapter with auth and APP host
+  const token = process.env.ACCESS_TOKEN;
+  if (!token) {
+    console.error('❌ Missing ACCESS_TOKEN in .env');
+    process.exit(1);
+  }
+
+  // Setup client with existing token
   const authAdapter = new NodeHttpAdapter(config.graphqlUrl, {
     Host: config.appHost,
     Authorization: `Bearer ${token}`,
   });
   
-  // Re-create client with auth adapter
   const authClient = createClient({ adapter: authAdapter });
+
+  // Use hardcoded userId from provisioning log because token is opaque
+  const userId = '32ed4c18-edd6-43d5-11e0-82826679a33a';
+  console.log(`👤 Using User ID: ${userId}`);
+  console.log(`🌍 Target Host: ${config.appHost}`);
+
+  await avengersClient.connect();
 
   console.log(`\n🚀 Starting Full Import (User: ${userId})...\n`);
 
@@ -61,7 +42,6 @@ async function main() {
     let success = 0;
     let fail = 0;
     
-    // Process in chunks of 50 to avoid overwhelming connection? No, sequential is safer for now.
     for (const row of res.rows) {
       try {
         await createFn(row);
@@ -78,7 +58,6 @@ async function main() {
 
   // 1. Contacts
   await importTable('Contacts', 'SELECT * FROM crm.contacts', async (row) => {
-    const embedding = typeof row.embedding === 'string' ? JSON.parse(row.embedding) : row.embedding;
     return authClient.contact.create({
       data: {
         id: row.id,
@@ -90,7 +69,7 @@ async function main() {
         headline: row.headline,
         bio: row.bio,
         location: row.location,
-        embedding: Array.isArray(embedding) ? embedding : undefined,
+        tags: [], // Initialize tags array
       },
       select: { id: true }
     }).execute();
@@ -98,7 +77,6 @@ async function main() {
 
   // 2. Tasks
   await importTable('Tasks', 'SELECT * FROM agent.tasks', async (row) => {
-    const embedding = typeof row.embedding === 'string' ? JSON.parse(row.embedding) : row.embedding;
     return authClient.task.create({
       data: {
         id: row.id,
@@ -107,7 +85,7 @@ async function main() {
         description: row.description,
         status: row.status,
         priority: row.priority,
-        embedding: Array.isArray(embedding) ? embedding : undefined,
+        tags: [],
       },
       select: { id: true }
     }).execute();
@@ -115,7 +93,6 @@ async function main() {
 
   // 3. Companies
   await importTable('Companies', 'SELECT * FROM crm.companies', async (row) => {
-    const embedding = typeof row.embedding === 'string' ? JSON.parse(row.embedding) : row.embedding;
     return authClient.company.create({
       data: {
         id: row.id,
@@ -124,7 +101,7 @@ async function main() {
         domain: row.website,
         industry: row.industry,
         description: row.description,
-        embedding: Array.isArray(embedding) ? embedding : undefined,
+        tags: [],
       },
       select: { id: true }
     }).execute();
@@ -132,7 +109,6 @@ async function main() {
   
   // 4. Events
   await importTable('Events', 'SELECT * FROM crm.events', async (row) => {
-    const embedding = typeof row.embedding === 'string' ? JSON.parse(row.embedding) : row.embedding;
     return authClient.event.create({
       data: {
         id: row.id,
@@ -144,7 +120,7 @@ async function main() {
         startedAt: row.started_at,
         endedAt: row.ended_at,
         notes: row.notes,
-        embedding: Array.isArray(embedding) ? embedding : undefined,
+        tags: [],
       },
       select: { id: true }
     }).execute();
@@ -161,21 +137,21 @@ async function main() {
         city: row.city,
         status: row.status,
         notes: row.notes,
+        tags: [],
       },
       select: { id: true }
     }).execute();
   });
 
-  // 6. Notes (Requires Contacts)
+  // 6. Notes
   await importTable('Notes', 'SELECT * FROM crm.notes', async (row) => {
-    const embedding = typeof row.embedding === 'string' ? JSON.parse(row.embedding) : row.embedding;
     return authClient.note.create({
       data: {
         id: row.id,
         entityId: userId,
         contactId: row.contact_id,
         content: row.body,
-        embedding: Array.isArray(embedding) ? embedding : undefined,
+        tags: [],
       },
       select: { id: true }
     }).execute();
@@ -183,14 +159,12 @@ async function main() {
   
   // 7. Memories
   await importTable('Memories', 'SELECT * FROM agent.memories', async (row) => {
-    const embedding = typeof row.embedding === 'string' ? JSON.parse(row.embedding) : row.embedding;
     return authClient.memory.create({
       data: {
         id: row.id,
         entityId: userId,
         content: row.content,
-        tags: row.tags,
-        embedding: Array.isArray(embedding) ? embedding : undefined,
+        tags: row.tags || [],
       },
       select: { id: true }
     }).execute();
@@ -198,7 +172,6 @@ async function main() {
   
   // 8. Skills
   await importTable('Skills', 'SELECT * FROM agent.skills', async (row) => {
-    const embedding = typeof row.embedding === 'string' ? JSON.parse(row.embedding) : row.embedding;
     return authClient.skill.create({
       data: {
         id: row.id,
@@ -207,7 +180,7 @@ async function main() {
         description: row.description,
         content: row.content,
         isActive: row.active ?? true,
-        embedding: Array.isArray(embedding) ? embedding : undefined,
+        tags: row.tags || [],
       },
       select: { id: true }
     }).execute();
@@ -215,7 +188,6 @@ async function main() {
   
   // 9. Rules
   await importTable('Rules', 'SELECT * FROM agent.rules', async (row) => {
-    const embedding = typeof row.embedding === 'string' ? JSON.parse(row.embedding) : row.embedding;
     return authClient.rule.create({
       data: {
         id: row.id,
@@ -224,7 +196,7 @@ async function main() {
         content: row.content,
         kind: row.kind,
         isActive: row.active ?? true,
-        embedding: Array.isArray(embedding) ? embedding : undefined,
+        tags: [],
       },
       select: { id: true }
     }).execute();
@@ -243,74 +215,13 @@ async function main() {
         description: row.description,
         merchant: row.merchant,
         receiptUrl: row.receipt_url,
+        tags: [],
       },
       select: { id: true }
     }).execute();
   });
   
-  // 11. Codebase Repos
-  await importTable('Repositories', 'SELECT * FROM codebase.repos', async (row) => {
-    return authClient.repository.create({
-      data: {
-        id: row.id,
-        entityId: userId,
-        name: row.name,
-        description: row.root_path,
-      },
-      select: { id: true }
-    }).execute();
-  });
-  
-  // 12. Codebase Files
-  await importTable('Files', 'SELECT * FROM codebase.files', async (row) => {
-    return authClient.file.create({
-      data: {
-        id: row.id,
-        entityId: userId,
-        repoId: row.repo_id,
-        path: row.path,
-        language: row.language,
-        hash: row.hash,
-      },
-      select: { id: true }
-    }).execute();
-  });
-  
-  // 13. Codebase Chunks
-  await importTable('Chunks', 'SELECT * FROM codebase.chunks', async (row) => {
-    const embedding = typeof row.embedding === 'string' ? JSON.parse(row.embedding) : row.embedding;
-    return authClient.chunk.create({
-      data: {
-        id: row.id,
-        entityId: userId,
-        fileId: row.file_id,
-        content: row.content,
-        startLine: row.start_line,
-        endLine: row.end_line,
-        embedding: Array.isArray(embedding) ? embedding : undefined,
-      },
-      select: { id: true }
-    }).execute();
-  });
-  
-  // 14. Email Accounts & Messages (Skipping large dataset for now, or just accounts?)
-  // Let's do accounts at least.
-  
-  const accountsRes = await avengersClient.query('SELECT DISTINCT account FROM email.messages WHERE account IS NOT NULL');
-  console.log('\n📦 Importing Email Accounts...');
-  for (const row of accountsRes.rows) {
-     const email = row.account;
-     try {
-       await authClient.emailAccount.create({
-         data: { entityId: userId, email: email, provider: 'google' },
-         select: { id: true }
-       }).execute();
-       process.stdout.write('.');
-     } catch (e) { process.stdout.write('x'); }
-  }
-  console.log('\n✅ Imported Email Accounts.');
-
-  // Note: Skipping 15k messages to keep it fast, but could be added if requested.
+  // 11. Documents (Life OS) - Assuming empty for now or skipping
 
   await avengersClient.end();
 }

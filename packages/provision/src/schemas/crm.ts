@@ -49,24 +49,18 @@ async function addField(tableId: string, name: string, type: string, opts: { isR
   return result.createField?.field?.id!;
 }
 
-async function addBm25Index(tableId: string, name: string, fieldIds: string[]) {
-  await withRetry(() => client.index.create({
-    data: {
-      databaseId,
-      tableId,
-      name,
-      accessMethod: 'bm25',
-      fieldIds,
-      indexParams: { text_config: 'english' }, 
-    },
-    select: { id: true }
-  }).unwrap());
-  console.log(`      🔍 Index: ${name}`);
-}
-
 async function main() {
-  console.log('\n📋 Provisioning CRM Schema with Embeddings & BM25\n');
+  console.log('\n📋 Provisioning CRM Schema with Embeddings & Tags (citext[])\n');
   console.log(`   Database ID: ${databaseId}`);
+
+  // 1. Create Image Storage Table (part of CRM module for now to simplify linking)
+  console.log('\n🗄️  images...');
+  const imagesId = await createOrgTable('images');
+  await addField(imagesId, 'url', 'text', { isRequired: true });
+  await addField(imagesId, 'meta', 'jsonb');
+  await addField(imagesId, 'alt_text', 'text');
+  await addField(imagesId, 'caption', 'text');
+  await addField(imagesId, 'embedding', 'vector(768)');
 
   console.log('\n👤 contacts...');
   const contactsId = await createOrgTable('contacts');
@@ -77,9 +71,9 @@ async function main() {
   const c_headline = await addField(contactsId, 'headline', 'text');
   const c_bio = await addField(contactsId, 'bio', 'text');
   await addField(contactsId, 'location', 'text');
+  await addField(contactsId, 'tags', 'citext[]');
   await addField(contactsId, 'embedding', 'vector(768)');
-  
-  // await addBm25Index(contactsId, 'contacts_bm25_idx', [c_fname, c_lname, c_email, c_headline, c_bio]);
+  await addField(contactsId, 'main_image_id', 'uuid'); // 1:1 Link
 
   console.log('\n🏢 companies...');
   const companiesId = await createOrgTable('companies');
@@ -87,9 +81,9 @@ async function main() {
   await addField(companiesId, 'domain', 'text');
   const co_ind = await addField(companiesId, 'industry', 'text');
   const co_desc = await addField(companiesId, 'description', 'text');
+  await addField(companiesId, 'tags', 'citext[]');
   await addField(companiesId, 'embedding', 'vector(768)');
-
-  // await addBm25Index(companiesId, 'companies_bm25_idx', [co_name, co_ind, co_desc]);
+  await addField(companiesId, 'main_image_id', 'uuid'); // 1:1 Link
 
   console.log('\n💰 deals...');
   const dealsId = await createOrgTable('deals');
@@ -97,9 +91,8 @@ async function main() {
   await addField(dealsId, 'stage', 'text', { defaultValue: "'lead'" });
   await addField(dealsId, 'value', 'numeric');
   const d_notes = await addField(dealsId, 'notes', 'text');
+  await addField(dealsId, 'tags', 'citext[]');
   await addField(dealsId, 'embedding', 'vector(768)');
-
-  // await addBm25Index(dealsId, 'deals_bm25_idx', [d_name, d_notes]);
 
   console.log('\n📅 events...');
   const eventsId = await createOrgTable('events');
@@ -110,9 +103,9 @@ async function main() {
   await addField(eventsId, 'started_at', 'timestamptz');
   await addField(eventsId, 'ended_at', 'timestamptz');
   const e_notes = await addField(eventsId, 'notes', 'text');
+  await addField(eventsId, 'tags', 'citext[]');
   await addField(eventsId, 'embedding', 'vector(768)');
-
-  // await addBm25Index(eventsId, 'events_bm25_idx', [e_name, e_notes]);
+  await addField(eventsId, 'main_image_id', 'uuid'); // 1:1 Link
 
   console.log('\n🏛️ venues...');
   const venuesId = await createOrgTable('venues');
@@ -121,30 +114,61 @@ async function main() {
   await addField(venuesId, 'city', 'text');
   await addField(venuesId, 'status', 'text', { defaultValue: "'potential'" });
   const v_notes = await addField(venuesId, 'notes', 'text');
+  await addField(venuesId, 'tags', 'citext[]');
   await addField(venuesId, 'embedding', 'vector(768)');
-
-  // await addBm25Index(venuesId, 'venues_bm25_idx', [v_name, v_notes]);
+  await addField(venuesId, 'main_image_id', 'uuid'); // 1:1 Link
 
   console.log('\n📝 notes...');
   const notesId = await createOrgTable('notes');
   const n_content = await addField(notesId, 'content', 'text', { isRequired: true });
+  await addField(notesId, 'tags', 'citext[]');
   await addField(notesId, 'embedding', 'vector(768)');
-
-  // await addBm25Index(notesId, 'notes_bm25_idx', [n_content]);
-
-  console.log('\n🏷️ tags (shared)...');
-  const tagsResult = await withRetry(() =>
-    client.secureTableProvision.create({
-      data: { databaseId, tableName: 'tags', nodeType: 'DataId', useRls: true, grantRoles: ['authenticated'], grantPrivileges: entityGrants, policyType: 'AuthzAllowAll', policyPermissive: true, policyData: {} as any },
-      select: { id: true, tableId: true },
-    }).unwrap()
-  );
-  const tagsId = tagsResult.createSecureTableProvision?.secureTableProvision?.tableId!;
-  await addField(tagsId, 'name', 'text', { isRequired: true });
-  console.log('   ✓ tags');
 
   console.log('\n🔗 Relations...');
 
+  // 1:1 Main Image Links
+  const linkImage = async (sourceId: string, name: string) => {
+    await withRetry(() => client.relationProvision.create({
+      data: { databaseId, relationType: 'RelationBelongsTo', sourceTableId: sourceId, targetTableId: imagesId, sourceFieldName: 'main_image_id', targetFieldName: 'id', deleteAction: 'n' }, // Set NULL on delete
+      select: { id: true },
+    }).unwrap());
+    console.log(`   ✓ ${name} → images (main_image)`);
+  };
+
+  await linkImage(contactsId, 'contacts');
+  await linkImage(companiesId, 'companies');
+  await linkImage(eventsId, 'events');
+  await linkImage(venuesId, 'venues');
+
+  // M:N Gallery Links
+  const linkGallery = async (sourceId: string, sourceName: string, junctionName: string, sourceField: string) => {
+    await withRetry(() => client.relationProvision.create({
+      data: { 
+        databaseId, 
+        relationType: 'RelationManyToMany', 
+        sourceTableId: sourceId, 
+        targetTableId: imagesId, 
+        junctionTableName: junctionName, 
+        sourceFieldName: sourceField, 
+        targetFieldName: 'image_id', 
+        nodeType: 'DataEntityMembership', 
+        policyType: 'AuthzEntityMembership', 
+        policyPermissive: true, 
+        policyData: entityPolicyData, 
+        grantRoles: ['authenticated'], 
+        grantPrivileges: [['select', '*'], ['insert', '*'], ['delete', '*']] as any 
+      },
+      select: { id: true },
+    }).unwrap());
+    console.log(`   ✓ ${sourceName} ↔ images (${junctionName})`);
+  };
+
+  await linkGallery(contactsId, 'contacts', 'contact_images', 'contact_id');
+  await linkGallery(companiesId, 'companies', 'company_images', 'company_id');
+  await linkGallery(eventsId, 'events', 'event_images', 'event_id');
+  await linkGallery(venuesId, 'venues', 'venue_images', 'venue_id');
+
+  // Existing Relations
   await withRetry(() => client.relationProvision.create({
     data: { databaseId, relationType: 'RelationHasMany', sourceTableId: contactsId, targetTableId: notesId, deleteAction: 'c' },
     select: { id: true },
@@ -175,7 +199,7 @@ async function main() {
   }).unwrap());
   console.log('   ✓ deals ↔ contacts');
 
-  console.log('\n✅ CRM Schema with embeddings & BM25 complete!\n');
+  console.log('\n✅ CRM Schema with Images, Embeddings & Tags complete!\n');
 }
 
 main().catch((err) => { console.error('❌', err.message ?? err); process.exit(1); });

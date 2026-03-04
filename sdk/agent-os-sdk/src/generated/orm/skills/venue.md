@@ -9,7 +9,7 @@ ORM operations for Venue records
 ```typescript
 db.venue.findMany({ select: { id: true } }).execute()
 db.venue.findOne({ id: '<value>', select: { id: true } }).execute()
-db.venue.create({ data: { entityId: '<value>', name: '<value>', neighborhood: '<value>', city: '<value>', status: '<value>', notes: '<value>', embedding: '<value>' }, select: { id: true } }).execute()
+db.venue.create({ data: { entityId: '<value>', name: '<value>', neighborhood: '<value>', city: '<value>', status: '<value>', notes: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
 db.venue.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.venue.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.venue.findMany({
 
 ```typescript
 const item = await db.venue.create({
-  data: { entityId: 'value', name: 'value', neighborhood: 'value', city: 'value', status: 'value', notes: 'value', embedding: 'value' },
+  data: { entityId: 'value', name: 'value', neighborhood: 'value', city: 'value', status: 'value', notes: 'value', tags: 'value', embedding: 'value', embeddingDistance: 'value' },
   select: { id: true }
 }).execute();
 ```

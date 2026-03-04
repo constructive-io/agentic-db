@@ -9,7 +9,7 @@ ORM operations for Contact records
 ```typescript
 db.contact.findMany({ select: { id: true } }).execute()
 db.contact.findOne({ id: '<value>', select: { id: true } }).execute()
-db.contact.create({ data: { entityId: '<value>', firstName: '<value>', lastName: '<value>', email: '<value>', phone: '<value>', headline: '<value>', bio: '<value>', location: '<value>', embedding: '<value>' }, select: { id: true } }).execute()
+db.contact.create({ data: { entityId: '<value>', firstName: '<value>', lastName: '<value>', email: '<value>', phone: '<value>', headline: '<value>', bio: '<value>', location: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
 db.contact.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.contact.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.contact.findMany({
 
 ```typescript
 const item = await db.contact.create({
-  data: { entityId: 'value', firstName: 'value', lastName: 'value', email: 'value', phone: 'value', headline: 'value', bio: 'value', location: 'value', embedding: 'value' },
+  data: { entityId: 'value', firstName: 'value', lastName: 'value', email: 'value', phone: 'value', headline: 'value', bio: 'value', location: 'value', tags: 'value', embedding: 'value', embeddingDistance: 'value' },
   select: { id: true }
 }).execute();
 ```

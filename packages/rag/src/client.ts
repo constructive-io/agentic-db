@@ -4,6 +4,10 @@
 import { NodeHttpAdapter } from '@constructive-io/node';
 import { createClient } from '@agentic-sdk/sdk';
 import { config } from './config';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 export interface AuthResult {
   token: string;
@@ -14,6 +18,12 @@ export interface AuthResult {
  * Sign up or sign in to get a token
  */
 export async function authenticate(email: string, password: string): Promise<AuthResult> {
+  if (process.env.ACCESS_TOKEN) {
+    // Hardcoded User ID from provisioning logs for admin
+    const userId = '32ed0879-7cc3-48a7-2bc6-145d2eeca36c';
+    return { token: process.env.ACCESS_TOKEN, userId };
+  }
+
   const adapter = new NodeHttpAdapter(config.graphqlUrl, { Host: config.authHost });
   
   // Try sign in first

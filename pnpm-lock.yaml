@@ -229,6 +229,25 @@ importers:
         version: 5.9.3
     publishDirectory: dist
 
+  packages/jobs:
+    dependencies:
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.7
+      pg:
+        specifier: ^8.11.0
+        version: 8.19.0
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.13
+      '@types/pg':
+        specifier: ^8.11.0
+        version: 8.18.0
+      tsx:
+        specifier: ^4.19.0
+        version: 4.21.0
+
   packages/provision:
     dependencies:
       '@0no-co/graphql.web':

@@ -9,7 +9,7 @@ ORM operations for Task records
 ```typescript
 db.task.findMany({ select: { id: true } }).execute()
 db.task.findOne({ id: '<value>', select: { id: true } }).execute()
-db.task.create({ data: { entityId: '<value>', title: '<value>', description: '<value>', status: '<value>', priority: '<value>', embedding: '<value>' }, select: { id: true } }).execute()
+db.task.create({ data: { entityId: '<value>', title: '<value>', description: '<value>', status: '<value>', priority: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>', bm25DescriptionScore: '<value>' }, select: { id: true } }).execute()
 db.task.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.task.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.task.findMany({
 
 ```typescript
 const item = await db.task.create({
-  data: { entityId: 'value', title: 'value', description: 'value', status: 'value', priority: 'value', embedding: 'value' },
+  data: { entityId: 'value', title: 'value', description: 'value', status: 'value', priority: 'value', tags: 'value', embedding: 'value', embeddingDistance: 'value', bm25DescriptionScore: 'value' },
   select: { id: true }
 }).execute();
 ```

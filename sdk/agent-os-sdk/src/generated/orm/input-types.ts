@@ -250,10 +250,6 @@ export interface EventVenue {
   id: string;
   entityId?: string | null;
 }
-export interface Tag {
-  id: string;
-  name?: string | null;
-}
 export interface CalendarSync {
   id: string;
   entityId?: string | null;
@@ -262,16 +258,6 @@ export interface CalendarSync {
   provider?: string | null;
   syncToken?: string | null;
   lastSyncedAt?: string | null;
-}
-export interface File {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  path?: string | null;
-  language?: string | null;
-  hash?: string | null;
-  repositoryId?: string | null;
 }
 export interface EmailAccount {
   id: string;
@@ -282,26 +268,16 @@ export interface EmailAccount {
   provider?: string | null;
   syncState?: Record<string, unknown> | null;
 }
-export interface ExecutionLog {
+export interface Memory {
   id: string;
   entityId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  stepName?: string | null;
-  input?: string | null;
-  output?: string | null;
-  toolCalls?: Record<string, unknown> | null;
-  durationMs?: number | null;
-  sessionId?: string | null;
-}
-export interface Chat {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  title?: string | null;
-  startedAt?: string | null;
+  content?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
 }
 export interface Company {
   id: string;
@@ -312,7 +288,24 @@ export interface Company {
   domain?: string | null;
   industry?: string | null;
   description?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
+}
+export interface Deal {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  name?: string | null;
+  stage?: string | null;
+  value?: string | null;
+  notes?: string | null;
+  tags?: string | null;
+  embedding?: Vector | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
 }
 export interface Document {
   id: string;
@@ -323,43 +316,10 @@ export interface Document {
   url?: string | null;
   content?: string | null;
   sourceType?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
-}
-export interface Project {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  description?: string | null;
-  status?: string | null;
-  startDate?: string | null;
-  dueDate?: string | null;
-  embedding?: Vector | null;
-}
-export interface Repository {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  url?: string | null;
-  description?: string | null;
-  defaultBranch?: string | null;
-  lastSyncedAt?: string | null;
-  embedding?: Vector | null;
-}
-export interface Session {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  title?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  status?: string | null;
-  contextSummary?: string | null;
-  embedding?: Vector | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
 }
 export interface Venue {
   id: string;
@@ -371,39 +331,10 @@ export interface Venue {
   city?: string | null;
   status?: string | null;
   notes?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
-}
-export interface Task {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  title?: string | null;
-  description?: string | null;
-  status?: string | null;
-  priority?: number | null;
-  embedding?: Vector | null;
-}
-export interface Deal {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  stage?: string | null;
-  value?: string | null;
-  notes?: string | null;
-  embedding?: Vector | null;
-}
-export interface Blueprint {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  title?: string | null;
-  steps?: Record<string, unknown> | null;
-  triggerConditions?: string | null;
-  embedding?: Vector | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
 }
 export interface Contact {
   id: string;
@@ -417,7 +348,10 @@ export interface Contact {
   headline?: string | null;
   bio?: string | null;
   location?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
 }
 export interface Event {
   id: string;
@@ -431,46 +365,10 @@ export interface Event {
   startedAt?: string | null;
   endedAt?: string | null;
   notes?: string | null;
-  embedding?: Vector | null;
-}
-export interface Memory {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  content?: string | null;
   tags?: string | null;
   embedding?: Vector | null;
-}
-export interface Note {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  content?: string | null;
-  embedding?: Vector | null;
-  contactId?: string | null;
-}
-export interface Milestone {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  dueDate?: string | null;
-  embedding?: Vector | null;
-  projectId?: string | null;
-}
-export interface ChatMessage {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  role?: string | null;
-  content?: string | null;
-  toolCalls?: Record<string, unknown> | null;
-  embedding?: Vector | null;
-  chatId?: string | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
 }
 export interface Rule {
   id: string;
@@ -481,7 +379,10 @@ export interface Rule {
   content?: string | null;
   kind?: string | null;
   isActive?: boolean | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
 }
 export interface Skill {
   id: string;
@@ -492,34 +393,26 @@ export interface Skill {
   description?: string | null;
   content?: string | null;
   isActive?: boolean | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
 }
-export interface Chunk {
+export interface Task {
   id: string;
   entityId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  content?: string | null;
-  startLine?: number | null;
-  endLine?: number | null;
+  title?: string | null;
+  description?: string | null;
+  status?: string | null;
+  priority?: number | null;
+  tags?: string | null;
   embedding?: Vector | null;
-  fileId?: string | null;
-  repositoryId?: string | null;
-}
-export interface Message {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  threadId?: string | null;
-  remoteId?: string | null;
-  from?: string | null;
-  to?: string | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  receivedAt?: string | null;
-  embedding?: Vector | null;
-  emailAccountId?: string | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
+  /** BM25 relevance score when searching `description`. Returns negative values (more negative = more relevant). Returns null when no BM25 search condition is active. */
+  bm25DescriptionScore?: number | null;
 }
 export interface Expense {
   id: string;
@@ -533,7 +426,44 @@ export interface Expense {
   description?: string | null;
   merchant?: string | null;
   receiptUrl?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
+}
+export interface Note {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  content?: string | null;
+  tags?: string | null;
+  embedding?: Vector | null;
+  contactId?: string | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
+  /** BM25 relevance score when searching `content`. Returns negative values (more negative = more relevant). Returns null when no BM25 search condition is active. */
+  bm25ContentScore?: number | null;
+}
+export interface Message {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  threadId?: string | null;
+  remoteId?: string | null;
+  from?: string | null;
+  to?: string | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  receivedAt?: string | null;
+  tags?: string | null;
+  embedding?: Vector | null;
+  emailAccountId?: string | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
+  /** BM25 relevance score when searching `bodyText`. Returns negative values (more negative = more relevant). Returns null when no BM25 search condition is active. */
+  bm25BodyTextScore?: number | null;
 }
 // ============ Relation Helper Types ============
 export interface ConnectionResult<T> {
@@ -564,78 +494,45 @@ export interface EventVenueRelations {
   event?: Event | null;
   venue?: Venue | null;
 }
-export interface TagRelations {}
 export interface CalendarSyncRelations {}
-export interface FileRelations {
-  repository?: Repository | null;
-}
 export interface EmailAccountRelations {}
-export interface ExecutionLogRelations {
-  session?: Session | null;
-}
-export interface ChatRelations {}
+export interface MemoryRelations {}
 export interface CompanyRelations {}
-export interface DocumentRelations {}
-export interface ProjectRelations {}
-export interface RepositoryRelations {}
-export interface SessionRelations {}
-export interface VenueRelations {}
-export interface TaskRelations {}
 export interface DealRelations {}
-export interface BlueprintRelations {}
+export interface DocumentRelations {}
+export interface VenueRelations {}
 export interface ContactRelations {}
 export interface EventRelations {}
-export interface MemoryRelations {}
-export interface NoteRelations {
-  contact?: Contact | null;
-}
-export interface MilestoneRelations {
-  project?: Project | null;
-}
-export interface ChatMessageRelations {
-  chat?: Chat | null;
-}
 export interface RuleRelations {}
 export interface SkillRelations {}
-export interface ChunkRelations {
-  file?: File | null;
-  repository?: Repository | null;
+export interface TaskRelations {}
+export interface ExpenseRelations {}
+export interface NoteRelations {
+  contact?: Contact | null;
 }
 export interface MessageRelations {
   emailAccount?: EmailAccount | null;
 }
-export interface ExpenseRelations {}
 // ============ Entity Types With Relations ============
 export type ContactCompanyWithRelations = ContactCompany & ContactCompanyRelations;
 export type ContactEventWithRelations = ContactEvent & ContactEventRelations;
 export type DealContactWithRelations = DealContact & DealContactRelations;
 export type EventVenueWithRelations = EventVenue & EventVenueRelations;
-export type TagWithRelations = Tag & TagRelations;
 export type CalendarSyncWithRelations = CalendarSync & CalendarSyncRelations;
-export type FileWithRelations = File & FileRelations;
 export type EmailAccountWithRelations = EmailAccount & EmailAccountRelations;
-export type ExecutionLogWithRelations = ExecutionLog & ExecutionLogRelations;
-export type ChatWithRelations = Chat & ChatRelations;
+export type MemoryWithRelations = Memory & MemoryRelations;
 export type CompanyWithRelations = Company & CompanyRelations;
-export type DocumentWithRelations = Document & DocumentRelations;
-export type ProjectWithRelations = Project & ProjectRelations;
-export type RepositoryWithRelations = Repository & RepositoryRelations;
-export type SessionWithRelations = Session & SessionRelations;
-export type VenueWithRelations = Venue & VenueRelations;
-export type TaskWithRelations = Task & TaskRelations;
 export type DealWithRelations = Deal & DealRelations;
-export type BlueprintWithRelations = Blueprint & BlueprintRelations;
+export type DocumentWithRelations = Document & DocumentRelations;
+export type VenueWithRelations = Venue & VenueRelations;
 export type ContactWithRelations = Contact & ContactRelations;
 export type EventWithRelations = Event & EventRelations;
-export type MemoryWithRelations = Memory & MemoryRelations;
-export type NoteWithRelations = Note & NoteRelations;
-export type MilestoneWithRelations = Milestone & MilestoneRelations;
-export type ChatMessageWithRelations = ChatMessage & ChatMessageRelations;
 export type RuleWithRelations = Rule & RuleRelations;
 export type SkillWithRelations = Skill & SkillRelations;
-export type ChunkWithRelations = Chunk & ChunkRelations;
-export type MessageWithRelations = Message & MessageRelations;
+export type TaskWithRelations = Task & TaskRelations;
 export type ExpenseWithRelations = Expense & ExpenseRelations;
+export type NoteWithRelations = Note & NoteRelations;
+export type MessageWithRelations = Message & MessageRelations;
 // ============ Entity Select Types ============
 export type ContactCompanySelect = {
   contactId?: boolean;
@@ -685,10 +582,6 @@ export type EventVenueSelect = {
     select: VenueSelect;
   };
 };
-export type TagSelect = {
-  id?: boolean;
-  name?: boolean;
-};
 export type CalendarSyncSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -697,19 +590,6 @@ export type CalendarSyncSelect = {
   provider?: boolean;
   syncToken?: boolean;
   lastSyncedAt?: boolean;
-};
-export type FileSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  path?: boolean;
-  language?: boolean;
-  hash?: boolean;
-  repositoryId?: boolean;
-  repository?: {
-    select: RepositorySelect;
-  };
 };
 export type EmailAccountSelect = {
   id?: boolean;
@@ -720,29 +600,15 @@ export type EmailAccountSelect = {
   provider?: boolean;
   syncState?: boolean;
 };
-export type ExecutionLogSelect = {
+export type MemorySelect = {
   id?: boolean;
   entityId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
-  stepName?: boolean;
-  input?: boolean;
-  output?: boolean;
-  toolCalls?: boolean;
-  durationMs?: boolean;
-  sessionId?: boolean;
-  session?: {
-    select: SessionSelect;
-  };
-};
-export type ChatSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  title?: boolean;
-  startedAt?: boolean;
+  content?: boolean;
+  tags?: boolean;
   embedding?: boolean;
+  embeddingDistance?: boolean;
 };
 export type CompanySelect = {
   id?: boolean;
@@ -753,7 +619,22 @@ export type CompanySelect = {
   domain?: boolean;
   industry?: boolean;
   description?: boolean;
+  tags?: boolean;
   embedding?: boolean;
+  embeddingDistance?: boolean;
+};
+export type DealSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  name?: boolean;
+  stage?: boolean;
+  value?: boolean;
+  notes?: boolean;
+  tags?: boolean;
+  embedding?: boolean;
+  embeddingDistance?: boolean;
 };
 export type DocumentSelect = {
   id?: boolean;
@@ -764,43 +645,9 @@ export type DocumentSelect = {
   url?: boolean;
   content?: boolean;
   sourceType?: boolean;
+  tags?: boolean;
   embedding?: boolean;
-};
-export type ProjectSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  name?: boolean;
-  description?: boolean;
-  status?: boolean;
-  startDate?: boolean;
-  dueDate?: boolean;
-  embedding?: boolean;
-};
-export type RepositorySelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  name?: boolean;
-  url?: boolean;
-  description?: boolean;
-  defaultBranch?: boolean;
-  lastSyncedAt?: boolean;
-  embedding?: boolean;
-};
-export type SessionSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  title?: boolean;
-  startedAt?: boolean;
-  endedAt?: boolean;
-  status?: boolean;
-  contextSummary?: boolean;
-  embedding?: boolean;
+  embeddingDistance?: boolean;
 };
 export type VenueSelect = {
   id?: boolean;
@@ -812,39 +659,9 @@ export type VenueSelect = {
   city?: boolean;
   status?: boolean;
   notes?: boolean;
+  tags?: boolean;
   embedding?: boolean;
-};
-export type TaskSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  title?: boolean;
-  description?: boolean;
-  status?: boolean;
-  priority?: boolean;
-  embedding?: boolean;
-};
-export type DealSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  name?: boolean;
-  stage?: boolean;
-  value?: boolean;
-  notes?: boolean;
-  embedding?: boolean;
-};
-export type BlueprintSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  title?: boolean;
-  steps?: boolean;
-  triggerConditions?: boolean;
-  embedding?: boolean;
+  embeddingDistance?: boolean;
 };
 export type ContactSelect = {
   id?: boolean;
@@ -858,7 +675,9 @@ export type ContactSelect = {
   headline?: boolean;
   bio?: boolean;
   location?: boolean;
+  tags?: boolean;
   embedding?: boolean;
+  embeddingDistance?: boolean;
 };
 export type EventSelect = {
   id?: boolean;
@@ -872,55 +691,9 @@ export type EventSelect = {
   startedAt?: boolean;
   endedAt?: boolean;
   notes?: boolean;
-  embedding?: boolean;
-};
-export type MemorySelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  content?: boolean;
   tags?: boolean;
   embedding?: boolean;
-};
-export type NoteSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  content?: boolean;
-  embedding?: boolean;
-  contactId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-};
-export type MilestoneSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  name?: boolean;
-  dueDate?: boolean;
-  embedding?: boolean;
-  projectId?: boolean;
-  project?: {
-    select: ProjectSelect;
-  };
-};
-export type ChatMessageSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  role?: boolean;
-  content?: boolean;
-  toolCalls?: boolean;
-  embedding?: boolean;
-  chatId?: boolean;
-  chat?: {
-    select: ChatSelect;
-  };
+  embeddingDistance?: boolean;
 };
 export type RuleSelect = {
   id?: boolean;
@@ -931,7 +704,9 @@ export type RuleSelect = {
   content?: boolean;
   kind?: boolean;
   isActive?: boolean;
+  tags?: boolean;
   embedding?: boolean;
+  embeddingDistance?: boolean;
 };
 export type SkillSelect = {
   id?: boolean;
@@ -942,24 +717,53 @@ export type SkillSelect = {
   description?: boolean;
   content?: boolean;
   isActive?: boolean;
+  tags?: boolean;
   embedding?: boolean;
+  embeddingDistance?: boolean;
 };
-export type ChunkSelect = {
+export type TaskSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  title?: boolean;
+  description?: boolean;
+  status?: boolean;
+  priority?: boolean;
+  tags?: boolean;
+  embedding?: boolean;
+  embeddingDistance?: boolean;
+  bm25DescriptionScore?: boolean;
+};
+export type ExpenseSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  amount?: boolean;
+  currency?: boolean;
+  date?: boolean;
+  category?: boolean;
+  description?: boolean;
+  merchant?: boolean;
+  receiptUrl?: boolean;
+  tags?: boolean;
+  embedding?: boolean;
+  embeddingDistance?: boolean;
+};
+export type NoteSelect = {
   id?: boolean;
   entityId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
   content?: boolean;
-  startLine?: boolean;
-  endLine?: boolean;
+  tags?: boolean;
   embedding?: boolean;
-  fileId?: boolean;
-  repositoryId?: boolean;
-  file?: {
-    select: FileSelect;
-  };
-  repository?: {
-    select: RepositorySelect;
+  contactId?: boolean;
+  embeddingDistance?: boolean;
+  bm25ContentScore?: boolean;
+  contact?: {
+    select: ContactSelect;
   };
 };
 export type MessageSelect = {
@@ -974,25 +778,14 @@ export type MessageSelect = {
   subject?: boolean;
   bodyText?: boolean;
   receivedAt?: boolean;
+  tags?: boolean;
   embedding?: boolean;
   emailAccountId?: boolean;
+  embeddingDistance?: boolean;
+  bm25BodyTextScore?: boolean;
   emailAccount?: {
     select: EmailAccountSelect;
   };
-};
-export type ExpenseSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  amount?: boolean;
-  currency?: boolean;
-  date?: boolean;
-  category?: boolean;
-  description?: boolean;
-  merchant?: boolean;
-  receiptUrl?: boolean;
-  embedding?: boolean;
 };
 // ============ Table Filter Types ============
 export interface ContactCompanyFilter {
@@ -1031,13 +824,6 @@ export interface EventVenueFilter {
   or?: EventVenueFilter[];
   not?: EventVenueFilter;
 }
-export interface TagFilter {
-  id?: UUIDFilter;
-  name?: StringFilter;
-  and?: TagFilter[];
-  or?: TagFilter[];
-  not?: TagFilter;
-}
 export interface CalendarSyncFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
@@ -1049,19 +835,6 @@ export interface CalendarSyncFilter {
   and?: CalendarSyncFilter[];
   or?: CalendarSyncFilter[];
   not?: CalendarSyncFilter;
-}
-export interface FileFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  path?: StringFilter;
-  language?: StringFilter;
-  hash?: StringFilter;
-  repositoryId?: UUIDFilter;
-  and?: FileFilter[];
-  or?: FileFilter[];
-  not?: FileFilter;
 }
 export interface EmailAccountFilter {
   id?: UUIDFilter;
@@ -1075,32 +848,18 @@ export interface EmailAccountFilter {
   or?: EmailAccountFilter[];
   not?: EmailAccountFilter;
 }
-export interface ExecutionLogFilter {
+export interface MemoryFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
   createdAt?: DatetimeFilter;
   updatedAt?: DatetimeFilter;
-  stepName?: StringFilter;
-  input?: StringFilter;
-  output?: StringFilter;
-  toolCalls?: JSONFilter;
-  durationMs?: IntFilter;
-  sessionId?: UUIDFilter;
-  and?: ExecutionLogFilter[];
-  or?: ExecutionLogFilter[];
-  not?: ExecutionLogFilter;
-}
-export interface ChatFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  title?: StringFilter;
-  startedAt?: DatetimeFilter;
+  content?: StringFilter;
+  tags?: StringFilter;
   embedding?: StringFilter;
-  and?: ChatFilter[];
-  or?: ChatFilter[];
-  not?: ChatFilter;
+  embeddingDistance?: FloatFilter;
+  and?: MemoryFilter[];
+  or?: MemoryFilter[];
+  not?: MemoryFilter;
 }
 export interface CompanyFilter {
   id?: UUIDFilter;
@@ -1111,10 +870,28 @@ export interface CompanyFilter {
   domain?: StringFilter;
   industry?: StringFilter;
   description?: StringFilter;
+  tags?: StringFilter;
   embedding?: StringFilter;
+  embeddingDistance?: FloatFilter;
   and?: CompanyFilter[];
   or?: CompanyFilter[];
   not?: CompanyFilter;
+}
+export interface DealFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  name?: StringFilter;
+  stage?: StringFilter;
+  value?: BigFloatFilter;
+  notes?: StringFilter;
+  tags?: StringFilter;
+  embedding?: StringFilter;
+  embeddingDistance?: FloatFilter;
+  and?: DealFilter[];
+  or?: DealFilter[];
+  not?: DealFilter;
 }
 export interface DocumentFilter {
   id?: UUIDFilter;
@@ -1125,55 +902,12 @@ export interface DocumentFilter {
   url?: StringFilter;
   content?: StringFilter;
   sourceType?: StringFilter;
+  tags?: StringFilter;
   embedding?: StringFilter;
+  embeddingDistance?: FloatFilter;
   and?: DocumentFilter[];
   or?: DocumentFilter[];
   not?: DocumentFilter;
-}
-export interface ProjectFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  name?: StringFilter;
-  description?: StringFilter;
-  status?: StringFilter;
-  startDate?: DatetimeFilter;
-  dueDate?: DatetimeFilter;
-  embedding?: StringFilter;
-  and?: ProjectFilter[];
-  or?: ProjectFilter[];
-  not?: ProjectFilter;
-}
-export interface RepositoryFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  name?: StringFilter;
-  url?: StringFilter;
-  description?: StringFilter;
-  defaultBranch?: StringFilter;
-  lastSyncedAt?: DatetimeFilter;
-  embedding?: StringFilter;
-  and?: RepositoryFilter[];
-  or?: RepositoryFilter[];
-  not?: RepositoryFilter;
-}
-export interface SessionFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  title?: StringFilter;
-  startedAt?: DatetimeFilter;
-  endedAt?: DatetimeFilter;
-  status?: StringFilter;
-  contextSummary?: StringFilter;
-  embedding?: StringFilter;
-  and?: SessionFilter[];
-  or?: SessionFilter[];
-  not?: SessionFilter;
 }
 export interface VenueFilter {
   id?: UUIDFilter;
@@ -1185,51 +919,12 @@ export interface VenueFilter {
   city?: StringFilter;
   status?: StringFilter;
   notes?: StringFilter;
+  tags?: StringFilter;
   embedding?: StringFilter;
+  embeddingDistance?: FloatFilter;
   and?: VenueFilter[];
   or?: VenueFilter[];
   not?: VenueFilter;
-}
-export interface TaskFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  title?: StringFilter;
-  description?: StringFilter;
-  status?: StringFilter;
-  priority?: IntFilter;
-  embedding?: StringFilter;
-  and?: TaskFilter[];
-  or?: TaskFilter[];
-  not?: TaskFilter;
-}
-export interface DealFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  name?: StringFilter;
-  stage?: StringFilter;
-  value?: BigFloatFilter;
-  notes?: StringFilter;
-  embedding?: StringFilter;
-  and?: DealFilter[];
-  or?: DealFilter[];
-  not?: DealFilter;
-}
-export interface BlueprintFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  title?: StringFilter;
-  steps?: JSONFilter;
-  triggerConditions?: StringFilter;
-  embedding?: StringFilter;
-  and?: BlueprintFilter[];
-  or?: BlueprintFilter[];
-  not?: BlueprintFilter;
 }
 export interface ContactFilter {
   id?: UUIDFilter;
@@ -1243,7 +938,9 @@ export interface ContactFilter {
   headline?: StringFilter;
   bio?: StringFilter;
   location?: StringFilter;
+  tags?: StringFilter;
   embedding?: StringFilter;
+  embeddingDistance?: FloatFilter;
   and?: ContactFilter[];
   or?: ContactFilter[];
   not?: ContactFilter;
@@ -1260,61 +957,12 @@ export interface EventFilter {
   startedAt?: DatetimeFilter;
   endedAt?: DatetimeFilter;
   notes?: StringFilter;
+  tags?: StringFilter;
   embedding?: StringFilter;
+  embeddingDistance?: FloatFilter;
   and?: EventFilter[];
   or?: EventFilter[];
   not?: EventFilter;
-}
-export interface MemoryFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  content?: StringFilter;
-  tags?: StringFilter;
-  embedding?: StringFilter;
-  and?: MemoryFilter[];
-  or?: MemoryFilter[];
-  not?: MemoryFilter;
-}
-export interface NoteFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  content?: StringFilter;
-  embedding?: StringFilter;
-  contactId?: UUIDFilter;
-  and?: NoteFilter[];
-  or?: NoteFilter[];
-  not?: NoteFilter;
-}
-export interface MilestoneFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  name?: StringFilter;
-  dueDate?: DatetimeFilter;
-  embedding?: StringFilter;
-  projectId?: UUIDFilter;
-  and?: MilestoneFilter[];
-  or?: MilestoneFilter[];
-  not?: MilestoneFilter;
-}
-export interface ChatMessageFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  role?: StringFilter;
-  content?: StringFilter;
-  toolCalls?: JSONFilter;
-  embedding?: StringFilter;
-  chatId?: UUIDFilter;
-  and?: ChatMessageFilter[];
-  or?: ChatMessageFilter[];
-  not?: ChatMessageFilter;
 }
 export interface RuleFilter {
   id?: UUIDFilter;
@@ -1325,7 +973,9 @@ export interface RuleFilter {
   content?: StringFilter;
   kind?: StringFilter;
   isActive?: BooleanFilter;
+  tags?: StringFilter;
   embedding?: StringFilter;
+  embeddingDistance?: FloatFilter;
   and?: RuleFilter[];
   or?: RuleFilter[];
   not?: RuleFilter;
@@ -1339,43 +989,29 @@ export interface SkillFilter {
   description?: StringFilter;
   content?: StringFilter;
   isActive?: BooleanFilter;
+  tags?: StringFilter;
   embedding?: StringFilter;
+  embeddingDistance?: FloatFilter;
   and?: SkillFilter[];
   or?: SkillFilter[];
   not?: SkillFilter;
 }
-export interface ChunkFilter {
+export interface TaskFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
   createdAt?: DatetimeFilter;
   updatedAt?: DatetimeFilter;
-  content?: StringFilter;
-  startLine?: IntFilter;
-  endLine?: IntFilter;
+  title?: StringFilter;
+  description?: StringFilter;
+  status?: StringFilter;
+  priority?: IntFilter;
+  tags?: StringFilter;
   embedding?: StringFilter;
-  fileId?: UUIDFilter;
-  repositoryId?: UUIDFilter;
-  and?: ChunkFilter[];
-  or?: ChunkFilter[];
-  not?: ChunkFilter;
-}
-export interface MessageFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  threadId?: StringFilter;
-  remoteId?: StringFilter;
-  from?: StringFilter;
-  to?: StringFilter;
-  subject?: StringFilter;
-  bodyText?: StringFilter;
-  receivedAt?: DatetimeFilter;
-  embedding?: StringFilter;
-  emailAccountId?: UUIDFilter;
-  and?: MessageFilter[];
-  or?: MessageFilter[];
-  not?: MessageFilter;
+  embeddingDistance?: FloatFilter;
+  bm25DescriptionScore?: FloatFilter;
+  and?: TaskFilter[];
+  or?: TaskFilter[];
+  not?: TaskFilter;
 }
 export interface ExpenseFilter {
   id?: UUIDFilter;
@@ -1389,10 +1025,48 @@ export interface ExpenseFilter {
   description?: StringFilter;
   merchant?: StringFilter;
   receiptUrl?: StringFilter;
+  tags?: StringFilter;
   embedding?: StringFilter;
+  embeddingDistance?: FloatFilter;
   and?: ExpenseFilter[];
   or?: ExpenseFilter[];
   not?: ExpenseFilter;
+}
+export interface NoteFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  content?: StringFilter;
+  tags?: StringFilter;
+  embedding?: StringFilter;
+  contactId?: UUIDFilter;
+  embeddingDistance?: FloatFilter;
+  bm25ContentScore?: FloatFilter;
+  and?: NoteFilter[];
+  or?: NoteFilter[];
+  not?: NoteFilter;
+}
+export interface MessageFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  threadId?: StringFilter;
+  remoteId?: StringFilter;
+  from?: StringFilter;
+  to?: StringFilter;
+  subject?: StringFilter;
+  bodyText?: StringFilter;
+  receivedAt?: DatetimeFilter;
+  tags?: StringFilter;
+  embedding?: StringFilter;
+  emailAccountId?: UUIDFilter;
+  embeddingDistance?: FloatFilter;
+  bm25BodyTextScore?: FloatFilter;
+  and?: MessageFilter[];
+  or?: MessageFilter[];
+  not?: MessageFilter;
 }
 // ============ Table Condition Types ============
 export interface ContactCompanyCondition {
@@ -1419,10 +1093,6 @@ export interface EventVenueCondition {
   id?: string | null;
   entityId?: string | null;
 }
-export interface TagCondition {
-  id?: string | null;
-  name?: string | null;
-}
 export interface CalendarSyncCondition {
   id?: string | null;
   entityId?: string | null;
@@ -1431,16 +1101,6 @@ export interface CalendarSyncCondition {
   provider?: string | null;
   syncToken?: string | null;
   lastSyncedAt?: string | null;
-}
-export interface FileCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  path?: string | null;
-  language?: string | null;
-  hash?: string | null;
-  repositoryId?: string | null;
 }
 export interface EmailAccountCondition {
   id?: string | null;
@@ -1451,26 +1111,15 @@ export interface EmailAccountCondition {
   provider?: string | null;
   syncState?: unknown | null;
 }
-export interface ExecutionLogCondition {
+export interface MemoryCondition {
   id?: string | null;
   entityId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  stepName?: string | null;
-  input?: string | null;
-  output?: string | null;
-  toolCalls?: unknown | null;
-  durationMs?: number | null;
-  sessionId?: string | null;
-}
-export interface ChatCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  title?: string | null;
-  startedAt?: string | null;
+  content?: string | null;
+  tags?: string | null;
   embedding?: unknown | null;
+  embeddingDistance?: number | null;
 }
 export interface CompanyCondition {
   id?: string | null;
@@ -1481,7 +1130,22 @@ export interface CompanyCondition {
   domain?: string | null;
   industry?: string | null;
   description?: string | null;
+  tags?: string | null;
   embedding?: unknown | null;
+  embeddingDistance?: number | null;
+}
+export interface DealCondition {
+  id?: string | null;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  name?: string | null;
+  stage?: string | null;
+  value?: string | null;
+  notes?: string | null;
+  tags?: string | null;
+  embedding?: unknown | null;
+  embeddingDistance?: number | null;
 }
 export interface DocumentCondition {
   id?: string | null;
@@ -1492,43 +1156,9 @@ export interface DocumentCondition {
   url?: string | null;
   content?: string | null;
   sourceType?: string | null;
+  tags?: string | null;
   embedding?: unknown | null;
-}
-export interface ProjectCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  description?: string | null;
-  status?: string | null;
-  startDate?: string | null;
-  dueDate?: string | null;
-  embedding?: unknown | null;
-}
-export interface RepositoryCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  url?: string | null;
-  description?: string | null;
-  defaultBranch?: string | null;
-  lastSyncedAt?: string | null;
-  embedding?: unknown | null;
-}
-export interface SessionCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  title?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  status?: string | null;
-  contextSummary?: string | null;
-  embedding?: unknown | null;
+  embeddingDistance?: number | null;
 }
 export interface VenueCondition {
   id?: string | null;
@@ -1540,39 +1170,9 @@ export interface VenueCondition {
   city?: string | null;
   status?: string | null;
   notes?: string | null;
+  tags?: string | null;
   embedding?: unknown | null;
-}
-export interface TaskCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  title?: string | null;
-  description?: string | null;
-  status?: string | null;
-  priority?: number | null;
-  embedding?: unknown | null;
-}
-export interface DealCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  stage?: string | null;
-  value?: string | null;
-  notes?: string | null;
-  embedding?: unknown | null;
-}
-export interface BlueprintCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  title?: string | null;
-  steps?: unknown | null;
-  triggerConditions?: string | null;
-  embedding?: unknown | null;
+  embeddingDistance?: number | null;
 }
 export interface ContactCondition {
   id?: string | null;
@@ -1586,7 +1186,9 @@ export interface ContactCondition {
   headline?: string | null;
   bio?: string | null;
   location?: string | null;
+  tags?: string | null;
   embedding?: unknown | null;
+  embeddingDistance?: number | null;
 }
 export interface EventCondition {
   id?: string | null;
@@ -1600,46 +1202,9 @@ export interface EventCondition {
   startedAt?: string | null;
   endedAt?: string | null;
   notes?: string | null;
-  embedding?: unknown | null;
-}
-export interface MemoryCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  content?: string | null;
   tags?: string | null;
   embedding?: unknown | null;
-}
-export interface NoteCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  content?: string | null;
-  embedding?: unknown | null;
-  contactId?: string | null;
-}
-export interface MilestoneCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  dueDate?: string | null;
-  embedding?: unknown | null;
-  projectId?: string | null;
-}
-export interface ChatMessageCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  role?: string | null;
-  content?: string | null;
-  toolCalls?: unknown | null;
-  embedding?: unknown | null;
-  chatId?: string | null;
+  embeddingDistance?: number | null;
 }
 export interface RuleCondition {
   id?: string | null;
@@ -1650,7 +1215,9 @@ export interface RuleCondition {
   content?: string | null;
   kind?: string | null;
   isActive?: boolean | null;
+  tags?: string | null;
   embedding?: unknown | null;
+  embeddingDistance?: number | null;
 }
 export interface SkillCondition {
   id?: string | null;
@@ -1661,34 +1228,23 @@ export interface SkillCondition {
   description?: string | null;
   content?: string | null;
   isActive?: boolean | null;
+  tags?: string | null;
   embedding?: unknown | null;
+  embeddingDistance?: number | null;
 }
-export interface ChunkCondition {
+export interface TaskCondition {
   id?: string | null;
   entityId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  content?: string | null;
-  startLine?: number | null;
-  endLine?: number | null;
+  title?: string | null;
+  description?: string | null;
+  status?: string | null;
+  priority?: number | null;
+  tags?: string | null;
   embedding?: unknown | null;
-  fileId?: string | null;
-  repositoryId?: string | null;
-}
-export interface MessageCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  threadId?: string | null;
-  remoteId?: string | null;
-  from?: string | null;
-  to?: string | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  receivedAt?: string | null;
-  embedding?: unknown | null;
-  emailAccountId?: string | null;
+  embeddingDistance?: number | null;
+  bm25DescriptionScore?: number | null;
 }
 export interface ExpenseCondition {
   id?: string | null;
@@ -1702,7 +1258,39 @@ export interface ExpenseCondition {
   description?: string | null;
   merchant?: string | null;
   receiptUrl?: string | null;
+  tags?: string | null;
   embedding?: unknown | null;
+  embeddingDistance?: number | null;
+}
+export interface NoteCondition {
+  id?: string | null;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  content?: string | null;
+  tags?: string | null;
+  embedding?: unknown | null;
+  contactId?: string | null;
+  embeddingDistance?: number | null;
+  bm25ContentScore?: number | null;
+}
+export interface MessageCondition {
+  id?: string | null;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  threadId?: string | null;
+  remoteId?: string | null;
+  from?: string | null;
+  to?: string | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  receivedAt?: string | null;
+  tags?: string | null;
+  embedding?: unknown | null;
+  emailAccountId?: string | null;
+  embeddingDistance?: number | null;
+  bm25BodyTextScore?: number | null;
 }
 // ============ OrderBy Types ============
 export type ContactCompanyOrderBy =
@@ -1753,14 +1341,6 @@ export type EventVenueOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
-export type TagOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC';
 export type CalendarSyncOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -1779,26 +1359,6 @@ export type CalendarSyncOrderBy =
   | 'SYNC_TOKEN_DESC'
   | 'LAST_SYNCED_AT_ASC'
   | 'LAST_SYNCED_AT_DESC';
-export type FileOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'PATH_ASC'
-  | 'PATH_DESC'
-  | 'LANGUAGE_ASC'
-  | 'LANGUAGE_DESC'
-  | 'HASH_ASC'
-  | 'HASH_DESC'
-  | 'REPOSITORY_ID_ASC'
-  | 'REPOSITORY_ID_DESC';
 export type EmailAccountOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -1817,7 +1377,7 @@ export type EmailAccountOrderBy =
   | 'PROVIDER_DESC'
   | 'SYNC_STATE_ASC'
   | 'SYNC_STATE_DESC';
-export type ExecutionLogOrderBy =
+export type MemoryOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
   | 'NATURAL'
@@ -1829,36 +1389,14 @@ export type ExecutionLogOrderBy =
   | 'CREATED_AT_DESC'
   | 'UPDATED_AT_ASC'
   | 'UPDATED_AT_DESC'
-  | 'STEP_NAME_ASC'
-  | 'STEP_NAME_DESC'
-  | 'INPUT_ASC'
-  | 'INPUT_DESC'
-  | 'OUTPUT_ASC'
-  | 'OUTPUT_DESC'
-  | 'TOOL_CALLS_ASC'
-  | 'TOOL_CALLS_DESC'
-  | 'DURATION_MS_ASC'
-  | 'DURATION_MS_DESC'
-  | 'SESSION_ID_ASC'
-  | 'SESSION_ID_DESC';
-export type ChatOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'STARTED_AT_ASC'
-  | 'STARTED_AT_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
 export type CompanyOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -1879,8 +1417,38 @@ export type CompanyOrderBy =
   | 'INDUSTRY_DESC'
   | 'DESCRIPTION_ASC'
   | 'DESCRIPTION_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
+export type DealOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'STAGE_ASC'
+  | 'STAGE_DESC'
+  | 'VALUE_ASC'
+  | 'VALUE_DESC'
+  | 'NOTES_ASC'
+  | 'NOTES_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
 export type DocumentOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -1901,80 +1469,12 @@ export type DocumentOrderBy =
   | 'CONTENT_DESC'
   | 'SOURCE_TYPE_ASC'
   | 'SOURCE_TYPE_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
-export type ProjectOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'START_DATE_ASC'
-  | 'START_DATE_DESC'
-  | 'DUE_DATE_ASC'
-  | 'DUE_DATE_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
-export type RepositoryOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'URL_ASC'
-  | 'URL_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'DEFAULT_BRANCH_ASC'
-  | 'DEFAULT_BRANCH_DESC'
-  | 'LAST_SYNCED_AT_ASC'
-  | 'LAST_SYNCED_AT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
-export type SessionOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'STARTED_AT_ASC'
-  | 'STARTED_AT_DESC'
-  | 'ENDED_AT_ASC'
-  | 'ENDED_AT_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'CONTEXT_SUMMARY_ASC'
-  | 'CONTEXT_SUMMARY_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
 export type VenueOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -1997,72 +1497,12 @@ export type VenueOrderBy =
   | 'STATUS_DESC'
   | 'NOTES_ASC'
   | 'NOTES_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
-export type TaskOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'PRIORITY_ASC'
-  | 'PRIORITY_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
-export type DealOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'STAGE_ASC'
-  | 'STAGE_DESC'
-  | 'VALUE_ASC'
-  | 'VALUE_DESC'
-  | 'NOTES_ASC'
-  | 'NOTES_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
-export type BlueprintOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'STEPS_ASC'
-  | 'STEPS_DESC'
-  | 'TRIGGER_CONDITIONS_ASC'
-  | 'TRIGGER_CONDITIONS_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
 export type ContactOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -2089,8 +1529,12 @@ export type ContactOrderBy =
   | 'BIO_DESC'
   | 'LOCATION_ASC'
   | 'LOCATION_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
 export type EventOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -2117,86 +1561,12 @@ export type EventOrderBy =
   | 'ENDED_AT_DESC'
   | 'NOTES_ASC'
   | 'NOTES_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
-export type MemoryOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
   | 'TAGS_ASC'
   | 'TAGS_DESC'
   | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
-export type NoteOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC';
-export type MilestoneOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'DUE_DATE_ASC'
-  | 'DUE_DATE_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'PROJECT_ID_ASC'
-  | 'PROJECT_ID_DESC';
-export type ChatMessageOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'ROLE_ASC'
-  | 'ROLE_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'TOOL_CALLS_ASC'
-  | 'TOOL_CALLS_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'CHAT_ID_ASC'
-  | 'CHAT_ID_DESC';
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
 export type RuleOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -2217,8 +1587,12 @@ export type RuleOrderBy =
   | 'KIND_DESC'
   | 'IS_ACTIVE_ASC'
   | 'IS_ACTIVE_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
 export type SkillOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -2239,9 +1613,13 @@ export type SkillOrderBy =
   | 'CONTENT_DESC'
   | 'IS_ACTIVE_ASC'
   | 'IS_ACTIVE_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
-export type ChunkOrderBy =
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
+export type TaskOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
   | 'NATURAL'
@@ -2253,48 +1631,22 @@ export type ChunkOrderBy =
   | 'CREATED_AT_DESC'
   | 'UPDATED_AT_ASC'
   | 'UPDATED_AT_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'START_LINE_ASC'
-  | 'START_LINE_DESC'
-  | 'END_LINE_ASC'
-  | 'END_LINE_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'PRIORITY_ASC'
+  | 'PRIORITY_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'FILE_ID_ASC'
-  | 'FILE_ID_DESC'
-  | 'REPOSITORY_ID_ASC'
-  | 'REPOSITORY_ID_DESC';
-export type MessageOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'THREAD_ID_ASC'
-  | 'THREAD_ID_DESC'
-  | 'REMOTE_ID_ASC'
-  | 'REMOTE_ID_DESC'
-  | 'FROM_ASC'
-  | 'FROM_DESC'
-  | 'TO_ASC'
-  | 'TO_DESC'
-  | 'SUBJECT_ASC'
-  | 'SUBJECT_DESC'
-  | 'BODY_TEXT_ASC'
-  | 'BODY_TEXT_DESC'
-  | 'RECEIVED_AT_ASC'
-  | 'RECEIVED_AT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMAIL_ACCOUNT_ID_ASC'
-  | 'EMAIL_ACCOUNT_ID_DESC';
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC'
+  | 'BM25_DESCRIPTION_SCORE_ASC'
+  | 'BM25_DESCRIPTION_SCORE_DESC';
 export type ExpenseOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -2321,8 +1673,72 @@ export type ExpenseOrderBy =
   | 'MERCHANT_DESC'
   | 'RECEIPT_URL_ASC'
   | 'RECEIPT_URL_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
   | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC';
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
+export type NoteOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC'
+  | 'BM25_CONTENT_SCORE_ASC'
+  | 'BM25_CONTENT_SCORE_DESC';
+export type MessageOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'THREAD_ID_ASC'
+  | 'THREAD_ID_DESC'
+  | 'REMOTE_ID_ASC'
+  | 'REMOTE_ID_DESC'
+  | 'FROM_ASC'
+  | 'FROM_DESC'
+  | 'TO_ASC'
+  | 'TO_DESC'
+  | 'SUBJECT_ASC'
+  | 'SUBJECT_DESC'
+  | 'BODY_TEXT_ASC'
+  | 'BODY_TEXT_DESC'
+  | 'RECEIVED_AT_ASC'
+  | 'RECEIVED_AT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMAIL_ACCOUNT_ID_ASC'
+  | 'EMAIL_ACCOUNT_ID_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC'
+  | 'BM25_BODY_TEXT_SCORE_ASC'
+  | 'BM25_BODY_TEXT_SCORE_DESC';
 // ============ CRUD Input Types ============
 export interface CreateContactCompanyInput {
   clientMutationId?: string;
@@ -2412,24 +1828,6 @@ export interface DeleteEventVenueInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateTagInput {
-  clientMutationId?: string;
-  tag: {
-    name: string;
-  };
-}
-export interface TagPatch {
-  name?: string | null;
-}
-export interface UpdateTagInput {
-  clientMutationId?: string;
-  id: string;
-  tagPatch: TagPatch;
-}
-export interface DeleteTagInput {
-  clientMutationId?: string;
-  id: string;
-}
 export interface CreateCalendarSyncInput {
   clientMutationId?: string;
   calendarSync: {
@@ -2451,32 +1849,6 @@ export interface UpdateCalendarSyncInput {
   calendarSyncPatch: CalendarSyncPatch;
 }
 export interface DeleteCalendarSyncInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateFileInput {
-  clientMutationId?: string;
-  file: {
-    entityId: string;
-    path: string;
-    language?: string;
-    hash?: string;
-    repositoryId: string;
-  };
-}
-export interface FilePatch {
-  entityId?: string | null;
-  path?: string | null;
-  language?: string | null;
-  hash?: string | null;
-  repositoryId?: string | null;
-}
-export interface UpdateFileInput {
-  clientMutationId?: string;
-  id: string;
-  filePatch: FilePatch;
-}
-export interface DeleteFileInput {
   clientMutationId?: string;
   id: string;
 }
@@ -2504,57 +1876,28 @@ export interface DeleteEmailAccountInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateExecutionLogInput {
+export interface CreateMemoryInput {
   clientMutationId?: string;
-  executionLog: {
+  memory: {
     entityId: string;
-    stepName?: string;
-    input?: string;
-    output?: string;
-    toolCalls?: Record<string, unknown>;
-    durationMs?: number;
-    sessionId: string;
-  };
-}
-export interface ExecutionLogPatch {
-  entityId?: string | null;
-  stepName?: string | null;
-  input?: string | null;
-  output?: string | null;
-  toolCalls?: Record<string, unknown> | null;
-  durationMs?: number | null;
-  sessionId?: string | null;
-}
-export interface UpdateExecutionLogInput {
-  clientMutationId?: string;
-  id: string;
-  executionLogPatch: ExecutionLogPatch;
-}
-export interface DeleteExecutionLogInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateChatInput {
-  clientMutationId?: string;
-  chat: {
-    entityId: string;
-    title?: string;
-    startedAt?: string;
+    content?: string;
+    tags?: string[];
     embedding?: Vector;
   };
 }
-export interface ChatPatch {
+export interface MemoryPatch {
   entityId?: string | null;
-  title?: string | null;
-  startedAt?: string | null;
+  content?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  embeddingDistance?: number | null;
 }
-export interface UpdateChatInput {
+export interface UpdateMemoryInput {
   clientMutationId?: string;
   id: string;
-  chatPatch: ChatPatch;
+  memoryPatch: MemoryPatch;
 }
-export interface DeleteChatInput {
+export interface DeleteMemoryInput {
   clientMutationId?: string;
   id: string;
 }
@@ -2566,6 +1909,7 @@ export interface CreateCompanyInput {
     domain?: string;
     industry?: string;
     description?: string;
+    tags?: string[];
     embedding?: Vector;
   };
 }
@@ -2575,7 +1919,9 @@ export interface CompanyPatch {
   domain?: string | null;
   industry?: string | null;
   description?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  embeddingDistance?: number | null;
 }
 export interface UpdateCompanyInput {
   clientMutationId?: string;
@@ -2586,14 +1932,46 @@ export interface DeleteCompanyInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateDealInput {
+  clientMutationId?: string;
+  deal: {
+    entityId: string;
+    name: string;
+    stage?: string;
+    value?: string;
+    notes?: string;
+    tags?: string[];
+    embedding?: Vector;
+  };
+}
+export interface DealPatch {
+  entityId?: string | null;
+  name?: string | null;
+  stage?: string | null;
+  value?: string | null;
+  notes?: string | null;
+  tags?: string | null;
+  embedding?: Vector | null;
+  embeddingDistance?: number | null;
+}
+export interface UpdateDealInput {
+  clientMutationId?: string;
+  id: string;
+  dealPatch: DealPatch;
+}
+export interface DeleteDealInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateDocumentInput {
   clientMutationId?: string;
   document: {
     entityId: string;
-    title?: string;
+    title: string;
     url?: string;
     content?: string;
     sourceType?: string;
+    tags?: string[];
     embedding?: Vector;
   };
 }
@@ -2603,7 +1981,9 @@ export interface DocumentPatch {
   url?: string | null;
   content?: string | null;
   sourceType?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  embeddingDistance?: number | null;
 }
 export interface UpdateDocumentInput {
   clientMutationId?: string;
@@ -2611,96 +1991,6 @@ export interface UpdateDocumentInput {
   documentPatch: DocumentPatch;
 }
 export interface DeleteDocumentInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateProjectInput {
-  clientMutationId?: string;
-  project: {
-    entityId: string;
-    name: string;
-    description?: string;
-    status?: string;
-    startDate?: string;
-    dueDate?: string;
-    embedding?: Vector;
-  };
-}
-export interface ProjectPatch {
-  entityId?: string | null;
-  name?: string | null;
-  description?: string | null;
-  status?: string | null;
-  startDate?: string | null;
-  dueDate?: string | null;
-  embedding?: Vector | null;
-}
-export interface UpdateProjectInput {
-  clientMutationId?: string;
-  id: string;
-  projectPatch: ProjectPatch;
-}
-export interface DeleteProjectInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateRepositoryInput {
-  clientMutationId?: string;
-  repository: {
-    entityId: string;
-    name: string;
-    url?: string;
-    description?: string;
-    defaultBranch?: string;
-    lastSyncedAt?: string;
-    embedding?: Vector;
-  };
-}
-export interface RepositoryPatch {
-  entityId?: string | null;
-  name?: string | null;
-  url?: string | null;
-  description?: string | null;
-  defaultBranch?: string | null;
-  lastSyncedAt?: string | null;
-  embedding?: Vector | null;
-}
-export interface UpdateRepositoryInput {
-  clientMutationId?: string;
-  id: string;
-  repositoryPatch: RepositoryPatch;
-}
-export interface DeleteRepositoryInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateSessionInput {
-  clientMutationId?: string;
-  session: {
-    entityId: string;
-    title?: string;
-    startedAt?: string;
-    endedAt?: string;
-    status?: string;
-    contextSummary?: string;
-    embedding?: Vector;
-  };
-}
-export interface SessionPatch {
-  entityId?: string | null;
-  title?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  status?: string | null;
-  contextSummary?: string | null;
-  embedding?: Vector | null;
-}
-export interface UpdateSessionInput {
-  clientMutationId?: string;
-  id: string;
-  sessionPatch: SessionPatch;
-}
-export interface DeleteSessionInput {
   clientMutationId?: string;
   id: string;
 }
@@ -2713,6 +2003,7 @@ export interface CreateVenueInput {
     city?: string;
     status?: string;
     notes?: string;
+    tags?: string[];
     embedding?: Vector;
   };
 }
@@ -2723,7 +2014,9 @@ export interface VenuePatch {
   city?: string | null;
   status?: string | null;
   notes?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  embeddingDistance?: number | null;
 }
 export interface UpdateVenueInput {
   clientMutationId?: string;
@@ -2731,88 +2024,6 @@ export interface UpdateVenueInput {
   venuePatch: VenuePatch;
 }
 export interface DeleteVenueInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateTaskInput {
-  clientMutationId?: string;
-  task: {
-    entityId: string;
-    title: string;
-    description?: string;
-    status?: string;
-    priority?: number;
-    embedding?: Vector;
-  };
-}
-export interface TaskPatch {
-  entityId?: string | null;
-  title?: string | null;
-  description?: string | null;
-  status?: string | null;
-  priority?: number | null;
-  embedding?: Vector | null;
-}
-export interface UpdateTaskInput {
-  clientMutationId?: string;
-  id: string;
-  taskPatch: TaskPatch;
-}
-export interface DeleteTaskInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateDealInput {
-  clientMutationId?: string;
-  deal: {
-    entityId: string;
-    name: string;
-    stage?: string;
-    value?: string;
-    notes?: string;
-    embedding?: Vector;
-  };
-}
-export interface DealPatch {
-  entityId?: string | null;
-  name?: string | null;
-  stage?: string | null;
-  value?: string | null;
-  notes?: string | null;
-  embedding?: Vector | null;
-}
-export interface UpdateDealInput {
-  clientMutationId?: string;
-  id: string;
-  dealPatch: DealPatch;
-}
-export interface DeleteDealInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateBlueprintInput {
-  clientMutationId?: string;
-  blueprint: {
-    entityId: string;
-    title: string;
-    steps?: Record<string, unknown>;
-    triggerConditions?: string;
-    embedding?: Vector;
-  };
-}
-export interface BlueprintPatch {
-  entityId?: string | null;
-  title?: string | null;
-  steps?: Record<string, unknown> | null;
-  triggerConditions?: string | null;
-  embedding?: Vector | null;
-}
-export interface UpdateBlueprintInput {
-  clientMutationId?: string;
-  id: string;
-  blueprintPatch: BlueprintPatch;
-}
-export interface DeleteBlueprintInput {
   clientMutationId?: string;
   id: string;
 }
@@ -2827,6 +2038,7 @@ export interface CreateContactInput {
     headline?: string;
     bio?: string;
     location?: string;
+    tags?: string[];
     embedding?: Vector;
   };
 }
@@ -2839,7 +2051,9 @@ export interface ContactPatch {
   headline?: string | null;
   bio?: string | null;
   location?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  embeddingDistance?: number | null;
 }
 export interface UpdateContactInput {
   clientMutationId?: string;
@@ -2861,6 +2075,7 @@ export interface CreateEventInput {
     startedAt?: string;
     endedAt?: string;
     notes?: string;
+    tags?: string[];
     embedding?: Vector;
   };
 }
@@ -2873,7 +2088,9 @@ export interface EventPatch {
   startedAt?: string | null;
   endedAt?: string | null;
   notes?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  embeddingDistance?: number | null;
 }
 export interface UpdateEventInput {
   clientMutationId?: string;
@@ -2881,108 +2098,6 @@ export interface UpdateEventInput {
   eventPatch: EventPatch;
 }
 export interface DeleteEventInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateMemoryInput {
-  clientMutationId?: string;
-  memory: {
-    entityId: string;
-    content: string;
-    tags?: string[];
-    embedding?: Vector;
-  };
-}
-export interface MemoryPatch {
-  entityId?: string | null;
-  content?: string | null;
-  tags?: string | null;
-  embedding?: Vector | null;
-}
-export interface UpdateMemoryInput {
-  clientMutationId?: string;
-  id: string;
-  memoryPatch: MemoryPatch;
-}
-export interface DeleteMemoryInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateNoteInput {
-  clientMutationId?: string;
-  note: {
-    entityId: string;
-    content: string;
-    embedding?: Vector;
-    contactId: string;
-  };
-}
-export interface NotePatch {
-  entityId?: string | null;
-  content?: string | null;
-  embedding?: Vector | null;
-  contactId?: string | null;
-}
-export interface UpdateNoteInput {
-  clientMutationId?: string;
-  id: string;
-  notePatch: NotePatch;
-}
-export interface DeleteNoteInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateMilestoneInput {
-  clientMutationId?: string;
-  milestone: {
-    entityId: string;
-    name: string;
-    dueDate?: string;
-    embedding?: Vector;
-    projectId: string;
-  };
-}
-export interface MilestonePatch {
-  entityId?: string | null;
-  name?: string | null;
-  dueDate?: string | null;
-  embedding?: Vector | null;
-  projectId?: string | null;
-}
-export interface UpdateMilestoneInput {
-  clientMutationId?: string;
-  id: string;
-  milestonePatch: MilestonePatch;
-}
-export interface DeleteMilestoneInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateChatMessageInput {
-  clientMutationId?: string;
-  chatMessage: {
-    entityId: string;
-    role?: string;
-    content?: string;
-    toolCalls?: Record<string, unknown>;
-    embedding?: Vector;
-    chatId: string;
-  };
-}
-export interface ChatMessagePatch {
-  entityId?: string | null;
-  role?: string | null;
-  content?: string | null;
-  toolCalls?: Record<string, unknown> | null;
-  embedding?: Vector | null;
-  chatId?: string | null;
-}
-export interface UpdateChatMessageInput {
-  clientMutationId?: string;
-  id: string;
-  chatMessagePatch: ChatMessagePatch;
-}
-export interface DeleteChatMessageInput {
   clientMutationId?: string;
   id: string;
 }
@@ -2994,6 +2109,7 @@ export interface CreateRuleInput {
     content?: string;
     kind?: string;
     isActive?: boolean;
+    tags?: string[];
     embedding?: Vector;
   };
 }
@@ -3003,7 +2119,9 @@ export interface RulePatch {
   content?: string | null;
   kind?: string | null;
   isActive?: boolean | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  embeddingDistance?: number | null;
 }
 export interface UpdateRuleInput {
   clientMutationId?: string;
@@ -3022,6 +2140,7 @@ export interface CreateSkillInput {
     description?: string;
     content?: string;
     isActive?: boolean;
+    tags?: string[];
     embedding?: Vector;
   };
 }
@@ -3031,7 +2150,9 @@ export interface SkillPatch {
   description?: string | null;
   content?: string | null;
   isActive?: boolean | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  embeddingDistance?: number | null;
 }
 export interface UpdateSkillInput {
   clientMutationId?: string;
@@ -3042,69 +2163,35 @@ export interface DeleteSkillInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateChunkInput {
+export interface CreateTaskInput {
   clientMutationId?: string;
-  chunk: {
+  task: {
     entityId: string;
-    content: string;
-    startLine?: number;
-    endLine?: number;
+    title: string;
+    description?: string;
+    status?: string;
+    priority?: number;
+    tags?: string[];
     embedding?: Vector;
-    fileId: string;
-    repositoryId: string;
   };
 }
-export interface ChunkPatch {
+export interface TaskPatch {
   entityId?: string | null;
-  content?: string | null;
-  startLine?: number | null;
-  endLine?: number | null;
+  title?: string | null;
+  description?: string | null;
+  status?: string | null;
+  priority?: number | null;
+  tags?: string | null;
   embedding?: Vector | null;
-  fileId?: string | null;
-  repositoryId?: string | null;
+  embeddingDistance?: number | null;
+  bm25DescriptionScore?: number | null;
 }
-export interface UpdateChunkInput {
+export interface UpdateTaskInput {
   clientMutationId?: string;
   id: string;
-  chunkPatch: ChunkPatch;
+  taskPatch: TaskPatch;
 }
-export interface DeleteChunkInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateMessageInput {
-  clientMutationId?: string;
-  message: {
-    entityId: string;
-    threadId?: string;
-    remoteId?: string;
-    from?: string;
-    to?: string[];
-    subject?: string;
-    bodyText?: string;
-    receivedAt?: string;
-    embedding?: Vector;
-    emailAccountId: string;
-  };
-}
-export interface MessagePatch {
-  entityId?: string | null;
-  threadId?: string | null;
-  remoteId?: string | null;
-  from?: string | null;
-  to?: string | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  receivedAt?: string | null;
-  embedding?: Vector | null;
-  emailAccountId?: string | null;
-}
-export interface UpdateMessageInput {
-  clientMutationId?: string;
-  id: string;
-  messagePatch: MessagePatch;
-}
-export interface DeleteMessageInput {
+export interface DeleteTaskInput {
   clientMutationId?: string;
   id: string;
 }
@@ -3119,6 +2206,7 @@ export interface CreateExpenseInput {
     description?: string;
     merchant?: string;
     receiptUrl?: string;
+    tags?: string[];
     embedding?: Vector;
   };
 }
@@ -3131,7 +2219,9 @@ export interface ExpensePatch {
   description?: string | null;
   merchant?: string | null;
   receiptUrl?: string | null;
+  tags?: string | null;
   embedding?: Vector | null;
+  embeddingDistance?: number | null;
 }
 export interface UpdateExpenseInput {
   clientMutationId?: string;
@@ -3139,6 +2229,74 @@ export interface UpdateExpenseInput {
   expensePatch: ExpensePatch;
 }
 export interface DeleteExpenseInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateNoteInput {
+  clientMutationId?: string;
+  note: {
+    entityId: string;
+    content: string;
+    tags?: string[];
+    embedding?: Vector;
+    contactId: string;
+  };
+}
+export interface NotePatch {
+  entityId?: string | null;
+  content?: string | null;
+  tags?: string | null;
+  embedding?: Vector | null;
+  contactId?: string | null;
+  embeddingDistance?: number | null;
+  bm25ContentScore?: number | null;
+}
+export interface UpdateNoteInput {
+  clientMutationId?: string;
+  id: string;
+  notePatch: NotePatch;
+}
+export interface DeleteNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateMessageInput {
+  clientMutationId?: string;
+  message: {
+    entityId: string;
+    threadId?: string;
+    remoteId?: string;
+    from?: string;
+    to?: string[];
+    subject?: string;
+    bodyText?: string;
+    receivedAt?: string;
+    tags?: string[];
+    embedding?: Vector;
+    emailAccountId: string;
+  };
+}
+export interface MessagePatch {
+  entityId?: string | null;
+  threadId?: string | null;
+  remoteId?: string | null;
+  from?: string | null;
+  to?: string | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  receivedAt?: string | null;
+  tags?: string | null;
+  embedding?: Vector | null;
+  emailAccountId?: string | null;
+  embeddingDistance?: number | null;
+  bm25BodyTextScore?: number | null;
+}
+export interface UpdateMessageInput {
+  clientMutationId?: string;
+  id: string;
+  messagePatch: MessagePatch;
+}
+export interface DeleteMessageInput {
   clientMutationId?: string;
   id: string;
 }
@@ -3325,51 +2483,6 @@ export type DeleteEventVenuePayloadSelect = {
     select: EventVenueEdgeSelect;
   };
 };
-export interface CreateTagPayload {
-  clientMutationId?: string | null;
-  /** The `Tag` that was created by this mutation. */
-  tag?: Tag | null;
-  tagEdge?: TagEdge | null;
-}
-export type CreateTagPayloadSelect = {
-  clientMutationId?: boolean;
-  tag?: {
-    select: TagSelect;
-  };
-  tagEdge?: {
-    select: TagEdgeSelect;
-  };
-};
-export interface UpdateTagPayload {
-  clientMutationId?: string | null;
-  /** The `Tag` that was updated by this mutation. */
-  tag?: Tag | null;
-  tagEdge?: TagEdge | null;
-}
-export type UpdateTagPayloadSelect = {
-  clientMutationId?: boolean;
-  tag?: {
-    select: TagSelect;
-  };
-  tagEdge?: {
-    select: TagEdgeSelect;
-  };
-};
-export interface DeleteTagPayload {
-  clientMutationId?: string | null;
-  /** The `Tag` that was deleted by this mutation. */
-  tag?: Tag | null;
-  tagEdge?: TagEdge | null;
-}
-export type DeleteTagPayloadSelect = {
-  clientMutationId?: boolean;
-  tag?: {
-    select: TagSelect;
-  };
-  tagEdge?: {
-    select: TagEdgeSelect;
-  };
-};
 export interface CreateCalendarSyncPayload {
   clientMutationId?: string | null;
   /** The `CalendarSync` that was created by this mutation. */
@@ -3413,51 +2526,6 @@ export type DeleteCalendarSyncPayloadSelect = {
   };
   calendarSyncEdge?: {
     select: CalendarSyncEdgeSelect;
-  };
-};
-export interface CreateFilePayload {
-  clientMutationId?: string | null;
-  /** The `File` that was created by this mutation. */
-  file?: File | null;
-  fileEdge?: FileEdge | null;
-}
-export type CreateFilePayloadSelect = {
-  clientMutationId?: boolean;
-  file?: {
-    select: FileSelect;
-  };
-  fileEdge?: {
-    select: FileEdgeSelect;
-  };
-};
-export interface UpdateFilePayload {
-  clientMutationId?: string | null;
-  /** The `File` that was updated by this mutation. */
-  file?: File | null;
-  fileEdge?: FileEdge | null;
-}
-export type UpdateFilePayloadSelect = {
-  clientMutationId?: boolean;
-  file?: {
-    select: FileSelect;
-  };
-  fileEdge?: {
-    select: FileEdgeSelect;
-  };
-};
-export interface DeleteFilePayload {
-  clientMutationId?: string | null;
-  /** The `File` that was deleted by this mutation. */
-  file?: File | null;
-  fileEdge?: FileEdge | null;
-}
-export type DeleteFilePayloadSelect = {
-  clientMutationId?: boolean;
-  file?: {
-    select: FileSelect;
-  };
-  fileEdge?: {
-    select: FileEdgeSelect;
   };
 };
 export interface CreateEmailAccountPayload {
@@ -3505,94 +2573,49 @@ export type DeleteEmailAccountPayloadSelect = {
     select: EmailAccountEdgeSelect;
   };
 };
-export interface CreateExecutionLogPayload {
+export interface CreateMemoryPayload {
   clientMutationId?: string | null;
-  /** The `ExecutionLog` that was created by this mutation. */
-  executionLog?: ExecutionLog | null;
-  executionLogEdge?: ExecutionLogEdge | null;
+  /** The `Memory` that was created by this mutation. */
+  memory?: Memory | null;
+  memoryEdge?: MemoryEdge | null;
 }
-export type CreateExecutionLogPayloadSelect = {
+export type CreateMemoryPayloadSelect = {
   clientMutationId?: boolean;
-  executionLog?: {
-    select: ExecutionLogSelect;
+  memory?: {
+    select: MemorySelect;
   };
-  executionLogEdge?: {
-    select: ExecutionLogEdgeSelect;
+  memoryEdge?: {
+    select: MemoryEdgeSelect;
   };
 };
-export interface UpdateExecutionLogPayload {
+export interface UpdateMemoryPayload {
   clientMutationId?: string | null;
-  /** The `ExecutionLog` that was updated by this mutation. */
-  executionLog?: ExecutionLog | null;
-  executionLogEdge?: ExecutionLogEdge | null;
+  /** The `Memory` that was updated by this mutation. */
+  memory?: Memory | null;
+  memoryEdge?: MemoryEdge | null;
 }
-export type UpdateExecutionLogPayloadSelect = {
+export type UpdateMemoryPayloadSelect = {
   clientMutationId?: boolean;
-  executionLog?: {
-    select: ExecutionLogSelect;
+  memory?: {
+    select: MemorySelect;
   };
-  executionLogEdge?: {
-    select: ExecutionLogEdgeSelect;
+  memoryEdge?: {
+    select: MemoryEdgeSelect;
   };
 };
-export interface DeleteExecutionLogPayload {
+export interface DeleteMemoryPayload {
   clientMutationId?: string | null;
-  /** The `ExecutionLog` that was deleted by this mutation. */
-  executionLog?: ExecutionLog | null;
-  executionLogEdge?: ExecutionLogEdge | null;
+  /** The `Memory` that was deleted by this mutation. */
+  memory?: Memory | null;
+  memoryEdge?: MemoryEdge | null;
 }
-export type DeleteExecutionLogPayloadSelect = {
+export type DeleteMemoryPayloadSelect = {
   clientMutationId?: boolean;
-  executionLog?: {
-    select: ExecutionLogSelect;
+  memory?: {
+    select: MemorySelect;
   };
-  executionLogEdge?: {
-    select: ExecutionLogEdgeSelect;
-  };
-};
-export interface CreateChatPayload {
-  clientMutationId?: string | null;
-  /** The `Chat` that was created by this mutation. */
-  chat?: Chat | null;
-  chatEdge?: ChatEdge | null;
-}
-export type CreateChatPayloadSelect = {
-  clientMutationId?: boolean;
-  chat?: {
-    select: ChatSelect;
-  };
-  chatEdge?: {
-    select: ChatEdgeSelect;
-  };
-};
-export interface UpdateChatPayload {
-  clientMutationId?: string | null;
-  /** The `Chat` that was updated by this mutation. */
-  chat?: Chat | null;
-  chatEdge?: ChatEdge | null;
-}
-export type UpdateChatPayloadSelect = {
-  clientMutationId?: boolean;
-  chat?: {
-    select: ChatSelect;
-  };
-  chatEdge?: {
-    select: ChatEdgeSelect;
-  };
-};
-export interface DeleteChatPayload {
-  clientMutationId?: string | null;
-  /** The `Chat` that was deleted by this mutation. */
-  chat?: Chat | null;
-  chatEdge?: ChatEdge | null;
-}
-export type DeleteChatPayloadSelect = {
-  clientMutationId?: boolean;
-  chat?: {
-    select: ChatSelect;
-  };
-  chatEdge?: {
-    select: ChatEdgeSelect;
+  memoryEdge?: {
+    select: MemoryEdgeSelect;
   };
 };
 export interface CreateCompanyPayload {
@@ -3640,276 +2663,6 @@ export type DeleteCompanyPayloadSelect = {
     select: CompanyEdgeSelect;
   };
 };
-export interface CreateDocumentPayload {
-  clientMutationId?: string | null;
-  /** The `Document` that was created by this mutation. */
-  document?: Document | null;
-  documentEdge?: DocumentEdge | null;
-}
-export type CreateDocumentPayloadSelect = {
-  clientMutationId?: boolean;
-  document?: {
-    select: DocumentSelect;
-  };
-  documentEdge?: {
-    select: DocumentEdgeSelect;
-  };
-};
-export interface UpdateDocumentPayload {
-  clientMutationId?: string | null;
-  /** The `Document` that was updated by this mutation. */
-  document?: Document | null;
-  documentEdge?: DocumentEdge | null;
-}
-export type UpdateDocumentPayloadSelect = {
-  clientMutationId?: boolean;
-  document?: {
-    select: DocumentSelect;
-  };
-  documentEdge?: {
-    select: DocumentEdgeSelect;
-  };
-};
-export interface DeleteDocumentPayload {
-  clientMutationId?: string | null;
-  /** The `Document` that was deleted by this mutation. */
-  document?: Document | null;
-  documentEdge?: DocumentEdge | null;
-}
-export type DeleteDocumentPayloadSelect = {
-  clientMutationId?: boolean;
-  document?: {
-    select: DocumentSelect;
-  };
-  documentEdge?: {
-    select: DocumentEdgeSelect;
-  };
-};
-export interface CreateProjectPayload {
-  clientMutationId?: string | null;
-  /** The `Project` that was created by this mutation. */
-  project?: Project | null;
-  projectEdge?: ProjectEdge | null;
-}
-export type CreateProjectPayloadSelect = {
-  clientMutationId?: boolean;
-  project?: {
-    select: ProjectSelect;
-  };
-  projectEdge?: {
-    select: ProjectEdgeSelect;
-  };
-};
-export interface UpdateProjectPayload {
-  clientMutationId?: string | null;
-  /** The `Project` that was updated by this mutation. */
-  project?: Project | null;
-  projectEdge?: ProjectEdge | null;
-}
-export type UpdateProjectPayloadSelect = {
-  clientMutationId?: boolean;
-  project?: {
-    select: ProjectSelect;
-  };
-  projectEdge?: {
-    select: ProjectEdgeSelect;
-  };
-};
-export interface DeleteProjectPayload {
-  clientMutationId?: string | null;
-  /** The `Project` that was deleted by this mutation. */
-  project?: Project | null;
-  projectEdge?: ProjectEdge | null;
-}
-export type DeleteProjectPayloadSelect = {
-  clientMutationId?: boolean;
-  project?: {
-    select: ProjectSelect;
-  };
-  projectEdge?: {
-    select: ProjectEdgeSelect;
-  };
-};
-export interface CreateRepositoryPayload {
-  clientMutationId?: string | null;
-  /** The `Repository` that was created by this mutation. */
-  repository?: Repository | null;
-  repositoryEdge?: RepositoryEdge | null;
-}
-export type CreateRepositoryPayloadSelect = {
-  clientMutationId?: boolean;
-  repository?: {
-    select: RepositorySelect;
-  };
-  repositoryEdge?: {
-    select: RepositoryEdgeSelect;
-  };
-};
-export interface UpdateRepositoryPayload {
-  clientMutationId?: string | null;
-  /** The `Repository` that was updated by this mutation. */
-  repository?: Repository | null;
-  repositoryEdge?: RepositoryEdge | null;
-}
-export type UpdateRepositoryPayloadSelect = {
-  clientMutationId?: boolean;
-  repository?: {
-    select: RepositorySelect;
-  };
-  repositoryEdge?: {
-    select: RepositoryEdgeSelect;
-  };
-};
-export interface DeleteRepositoryPayload {
-  clientMutationId?: string | null;
-  /** The `Repository` that was deleted by this mutation. */
-  repository?: Repository | null;
-  repositoryEdge?: RepositoryEdge | null;
-}
-export type DeleteRepositoryPayloadSelect = {
-  clientMutationId?: boolean;
-  repository?: {
-    select: RepositorySelect;
-  };
-  repositoryEdge?: {
-    select: RepositoryEdgeSelect;
-  };
-};
-export interface CreateSessionPayload {
-  clientMutationId?: string | null;
-  /** The `Session` that was created by this mutation. */
-  session?: Session | null;
-  sessionEdge?: SessionEdge | null;
-}
-export type CreateSessionPayloadSelect = {
-  clientMutationId?: boolean;
-  session?: {
-    select: SessionSelect;
-  };
-  sessionEdge?: {
-    select: SessionEdgeSelect;
-  };
-};
-export interface UpdateSessionPayload {
-  clientMutationId?: string | null;
-  /** The `Session` that was updated by this mutation. */
-  session?: Session | null;
-  sessionEdge?: SessionEdge | null;
-}
-export type UpdateSessionPayloadSelect = {
-  clientMutationId?: boolean;
-  session?: {
-    select: SessionSelect;
-  };
-  sessionEdge?: {
-    select: SessionEdgeSelect;
-  };
-};
-export interface DeleteSessionPayload {
-  clientMutationId?: string | null;
-  /** The `Session` that was deleted by this mutation. */
-  session?: Session | null;
-  sessionEdge?: SessionEdge | null;
-}
-export type DeleteSessionPayloadSelect = {
-  clientMutationId?: boolean;
-  session?: {
-    select: SessionSelect;
-  };
-  sessionEdge?: {
-    select: SessionEdgeSelect;
-  };
-};
-export interface CreateVenuePayload {
-  clientMutationId?: string | null;
-  /** The `Venue` that was created by this mutation. */
-  venue?: Venue | null;
-  venueEdge?: VenueEdge | null;
-}
-export type CreateVenuePayloadSelect = {
-  clientMutationId?: boolean;
-  venue?: {
-    select: VenueSelect;
-  };
-  venueEdge?: {
-    select: VenueEdgeSelect;
-  };
-};
-export interface UpdateVenuePayload {
-  clientMutationId?: string | null;
-  /** The `Venue` that was updated by this mutation. */
-  venue?: Venue | null;
-  venueEdge?: VenueEdge | null;
-}
-export type UpdateVenuePayloadSelect = {
-  clientMutationId?: boolean;
-  venue?: {
-    select: VenueSelect;
-  };
-  venueEdge?: {
-    select: VenueEdgeSelect;
-  };
-};
-export interface DeleteVenuePayload {
-  clientMutationId?: string | null;
-  /** The `Venue` that was deleted by this mutation. */
-  venue?: Venue | null;
-  venueEdge?: VenueEdge | null;
-}
-export type DeleteVenuePayloadSelect = {
-  clientMutationId?: boolean;
-  venue?: {
-    select: VenueSelect;
-  };
-  venueEdge?: {
-    select: VenueEdgeSelect;
-  };
-};
-export interface CreateTaskPayload {
-  clientMutationId?: string | null;
-  /** The `Task` that was created by this mutation. */
-  task?: Task | null;
-  taskEdge?: TaskEdge | null;
-}
-export type CreateTaskPayloadSelect = {
-  clientMutationId?: boolean;
-  task?: {
-    select: TaskSelect;
-  };
-  taskEdge?: {
-    select: TaskEdgeSelect;
-  };
-};
-export interface UpdateTaskPayload {
-  clientMutationId?: string | null;
-  /** The `Task` that was updated by this mutation. */
-  task?: Task | null;
-  taskEdge?: TaskEdge | null;
-}
-export type UpdateTaskPayloadSelect = {
-  clientMutationId?: boolean;
-  task?: {
-    select: TaskSelect;
-  };
-  taskEdge?: {
-    select: TaskEdgeSelect;
-  };
-};
-export interface DeleteTaskPayload {
-  clientMutationId?: string | null;
-  /** The `Task` that was deleted by this mutation. */
-  task?: Task | null;
-  taskEdge?: TaskEdge | null;
-}
-export type DeleteTaskPayloadSelect = {
-  clientMutationId?: boolean;
-  task?: {
-    select: TaskSelect;
-  };
-  taskEdge?: {
-    select: TaskEdgeSelect;
-  };
-};
 export interface CreateDealPayload {
   clientMutationId?: string | null;
   /** The `Deal` that was created by this mutation. */
@@ -3955,49 +2708,94 @@ export type DeleteDealPayloadSelect = {
     select: DealEdgeSelect;
   };
 };
-export interface CreateBlueprintPayload {
+export interface CreateDocumentPayload {
   clientMutationId?: string | null;
-  /** The `Blueprint` that was created by this mutation. */
-  blueprint?: Blueprint | null;
-  blueprintEdge?: BlueprintEdge | null;
+  /** The `Document` that was created by this mutation. */
+  document?: Document | null;
+  documentEdge?: DocumentEdge | null;
 }
-export type CreateBlueprintPayloadSelect = {
+export type CreateDocumentPayloadSelect = {
   clientMutationId?: boolean;
-  blueprint?: {
-    select: BlueprintSelect;
+  document?: {
+    select: DocumentSelect;
   };
-  blueprintEdge?: {
-    select: BlueprintEdgeSelect;
+  documentEdge?: {
+    select: DocumentEdgeSelect;
   };
 };
-export interface UpdateBlueprintPayload {
+export interface UpdateDocumentPayload {
   clientMutationId?: string | null;
-  /** The `Blueprint` that was updated by this mutation. */
-  blueprint?: Blueprint | null;
-  blueprintEdge?: BlueprintEdge | null;
+  /** The `Document` that was updated by this mutation. */
+  document?: Document | null;
+  documentEdge?: DocumentEdge | null;
 }
-export type UpdateBlueprintPayloadSelect = {
+export type UpdateDocumentPayloadSelect = {
   clientMutationId?: boolean;
-  blueprint?: {
-    select: BlueprintSelect;
+  document?: {
+    select: DocumentSelect;
   };
-  blueprintEdge?: {
-    select: BlueprintEdgeSelect;
+  documentEdge?: {
+    select: DocumentEdgeSelect;
   };
 };
-export interface DeleteBlueprintPayload {
+export interface DeleteDocumentPayload {
   clientMutationId?: string | null;
-  /** The `Blueprint` that was deleted by this mutation. */
-  blueprint?: Blueprint | null;
-  blueprintEdge?: BlueprintEdge | null;
+  /** The `Document` that was deleted by this mutation. */
+  document?: Document | null;
+  documentEdge?: DocumentEdge | null;
 }
-export type DeleteBlueprintPayloadSelect = {
+export type DeleteDocumentPayloadSelect = {
   clientMutationId?: boolean;
-  blueprint?: {
-    select: BlueprintSelect;
+  document?: {
+    select: DocumentSelect;
   };
-  blueprintEdge?: {
-    select: BlueprintEdgeSelect;
+  documentEdge?: {
+    select: DocumentEdgeSelect;
+  };
+};
+export interface CreateVenuePayload {
+  clientMutationId?: string | null;
+  /** The `Venue` that was created by this mutation. */
+  venue?: Venue | null;
+  venueEdge?: VenueEdge | null;
+}
+export type CreateVenuePayloadSelect = {
+  clientMutationId?: boolean;
+  venue?: {
+    select: VenueSelect;
+  };
+  venueEdge?: {
+    select: VenueEdgeSelect;
+  };
+};
+export interface UpdateVenuePayload {
+  clientMutationId?: string | null;
+  /** The `Venue` that was updated by this mutation. */
+  venue?: Venue | null;
+  venueEdge?: VenueEdge | null;
+}
+export type UpdateVenuePayloadSelect = {
+  clientMutationId?: boolean;
+  venue?: {
+    select: VenueSelect;
+  };
+  venueEdge?: {
+    select: VenueEdgeSelect;
+  };
+};
+export interface DeleteVenuePayload {
+  clientMutationId?: string | null;
+  /** The `Venue` that was deleted by this mutation. */
+  venue?: Venue | null;
+  venueEdge?: VenueEdge | null;
+}
+export type DeleteVenuePayloadSelect = {
+  clientMutationId?: boolean;
+  venue?: {
+    select: VenueSelect;
+  };
+  venueEdge?: {
+    select: VenueEdgeSelect;
   };
 };
 export interface CreateContactPayload {
@@ -4090,186 +2888,6 @@ export type DeleteEventPayloadSelect = {
     select: EventEdgeSelect;
   };
 };
-export interface CreateMemoryPayload {
-  clientMutationId?: string | null;
-  /** The `Memory` that was created by this mutation. */
-  memory?: Memory | null;
-  memoryEdge?: MemoryEdge | null;
-}
-export type CreateMemoryPayloadSelect = {
-  clientMutationId?: boolean;
-  memory?: {
-    select: MemorySelect;
-  };
-  memoryEdge?: {
-    select: MemoryEdgeSelect;
-  };
-};
-export interface UpdateMemoryPayload {
-  clientMutationId?: string | null;
-  /** The `Memory` that was updated by this mutation. */
-  memory?: Memory | null;
-  memoryEdge?: MemoryEdge | null;
-}
-export type UpdateMemoryPayloadSelect = {
-  clientMutationId?: boolean;
-  memory?: {
-    select: MemorySelect;
-  };
-  memoryEdge?: {
-    select: MemoryEdgeSelect;
-  };
-};
-export interface DeleteMemoryPayload {
-  clientMutationId?: string | null;
-  /** The `Memory` that was deleted by this mutation. */
-  memory?: Memory | null;
-  memoryEdge?: MemoryEdge | null;
-}
-export type DeleteMemoryPayloadSelect = {
-  clientMutationId?: boolean;
-  memory?: {
-    select: MemorySelect;
-  };
-  memoryEdge?: {
-    select: MemoryEdgeSelect;
-  };
-};
-export interface CreateNotePayload {
-  clientMutationId?: string | null;
-  /** The `Note` that was created by this mutation. */
-  note?: Note | null;
-  noteEdge?: NoteEdge | null;
-}
-export type CreateNotePayloadSelect = {
-  clientMutationId?: boolean;
-  note?: {
-    select: NoteSelect;
-  };
-  noteEdge?: {
-    select: NoteEdgeSelect;
-  };
-};
-export interface UpdateNotePayload {
-  clientMutationId?: string | null;
-  /** The `Note` that was updated by this mutation. */
-  note?: Note | null;
-  noteEdge?: NoteEdge | null;
-}
-export type UpdateNotePayloadSelect = {
-  clientMutationId?: boolean;
-  note?: {
-    select: NoteSelect;
-  };
-  noteEdge?: {
-    select: NoteEdgeSelect;
-  };
-};
-export interface DeleteNotePayload {
-  clientMutationId?: string | null;
-  /** The `Note` that was deleted by this mutation. */
-  note?: Note | null;
-  noteEdge?: NoteEdge | null;
-}
-export type DeleteNotePayloadSelect = {
-  clientMutationId?: boolean;
-  note?: {
-    select: NoteSelect;
-  };
-  noteEdge?: {
-    select: NoteEdgeSelect;
-  };
-};
-export interface CreateMilestonePayload {
-  clientMutationId?: string | null;
-  /** The `Milestone` that was created by this mutation. */
-  milestone?: Milestone | null;
-  milestoneEdge?: MilestoneEdge | null;
-}
-export type CreateMilestonePayloadSelect = {
-  clientMutationId?: boolean;
-  milestone?: {
-    select: MilestoneSelect;
-  };
-  milestoneEdge?: {
-    select: MilestoneEdgeSelect;
-  };
-};
-export interface UpdateMilestonePayload {
-  clientMutationId?: string | null;
-  /** The `Milestone` that was updated by this mutation. */
-  milestone?: Milestone | null;
-  milestoneEdge?: MilestoneEdge | null;
-}
-export type UpdateMilestonePayloadSelect = {
-  clientMutationId?: boolean;
-  milestone?: {
-    select: MilestoneSelect;
-  };
-  milestoneEdge?: {
-    select: MilestoneEdgeSelect;
-  };
-};
-export interface DeleteMilestonePayload {
-  clientMutationId?: string | null;
-  /** The `Milestone` that was deleted by this mutation. */
-  milestone?: Milestone | null;
-  milestoneEdge?: MilestoneEdge | null;
-}
-export type DeleteMilestonePayloadSelect = {
-  clientMutationId?: boolean;
-  milestone?: {
-    select: MilestoneSelect;
-  };
-  milestoneEdge?: {
-    select: MilestoneEdgeSelect;
-  };
-};
-export interface CreateChatMessagePayload {
-  clientMutationId?: string | null;
-  /** The `ChatMessage` that was created by this mutation. */
-  chatMessage?: ChatMessage | null;
-  chatMessageEdge?: ChatMessageEdge | null;
-}
-export type CreateChatMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  chatMessage?: {
-    select: ChatMessageSelect;
-  };
-  chatMessageEdge?: {
-    select: ChatMessageEdgeSelect;
-  };
-};
-export interface UpdateChatMessagePayload {
-  clientMutationId?: string | null;
-  /** The `ChatMessage` that was updated by this mutation. */
-  chatMessage?: ChatMessage | null;
-  chatMessageEdge?: ChatMessageEdge | null;
-}
-export type UpdateChatMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  chatMessage?: {
-    select: ChatMessageSelect;
-  };
-  chatMessageEdge?: {
-    select: ChatMessageEdgeSelect;
-  };
-};
-export interface DeleteChatMessagePayload {
-  clientMutationId?: string | null;
-  /** The `ChatMessage` that was deleted by this mutation. */
-  chatMessage?: ChatMessage | null;
-  chatMessageEdge?: ChatMessageEdge | null;
-}
-export type DeleteChatMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  chatMessage?: {
-    select: ChatMessageSelect;
-  };
-  chatMessageEdge?: {
-    select: ChatMessageEdgeSelect;
-  };
-};
 export interface CreateRulePayload {
   clientMutationId?: string | null;
   /** The `Rule` that was created by this mutation. */
@@ -4360,94 +2978,49 @@ export type DeleteSkillPayloadSelect = {
     select: SkillEdgeSelect;
   };
 };
-export interface CreateChunkPayload {
+export interface CreateTaskPayload {
   clientMutationId?: string | null;
-  /** The `Chunk` that was created by this mutation. */
-  chunk?: Chunk | null;
-  chunkEdge?: ChunkEdge | null;
+  /** The `Task` that was created by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
 }
-export type CreateChunkPayloadSelect = {
+export type CreateTaskPayloadSelect = {
   clientMutationId?: boolean;
-  chunk?: {
-    select: ChunkSelect;
+  task?: {
+    select: TaskSelect;
   };
-  chunkEdge?: {
-    select: ChunkEdgeSelect;
+  taskEdge?: {
+    select: TaskEdgeSelect;
   };
 };
-export interface UpdateChunkPayload {
+export interface UpdateTaskPayload {
   clientMutationId?: string | null;
-  /** The `Chunk` that was updated by this mutation. */
-  chunk?: Chunk | null;
-  chunkEdge?: ChunkEdge | null;
+  /** The `Task` that was updated by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
 }
-export type UpdateChunkPayloadSelect = {
+export type UpdateTaskPayloadSelect = {
   clientMutationId?: boolean;
-  chunk?: {
-    select: ChunkSelect;
+  task?: {
+    select: TaskSelect;
   };
-  chunkEdge?: {
-    select: ChunkEdgeSelect;
+  taskEdge?: {
+    select: TaskEdgeSelect;
   };
 };
-export interface DeleteChunkPayload {
+export interface DeleteTaskPayload {
   clientMutationId?: string | null;
-  /** The `Chunk` that was deleted by this mutation. */
-  chunk?: Chunk | null;
-  chunkEdge?: ChunkEdge | null;
+  /** The `Task` that was deleted by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
 }
-export type DeleteChunkPayloadSelect = {
+export type DeleteTaskPayloadSelect = {
   clientMutationId?: boolean;
-  chunk?: {
-    select: ChunkSelect;
+  task?: {
+    select: TaskSelect;
   };
-  chunkEdge?: {
-    select: ChunkEdgeSelect;
-  };
-};
-export interface CreateMessagePayload {
-  clientMutationId?: string | null;
-  /** The `Message` that was created by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
-}
-export type CreateMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
-  };
-  messageEdge?: {
-    select: MessageEdgeSelect;
-  };
-};
-export interface UpdateMessagePayload {
-  clientMutationId?: string | null;
-  /** The `Message` that was updated by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
-}
-export type UpdateMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
-  };
-  messageEdge?: {
-    select: MessageEdgeSelect;
-  };
-};
-export interface DeleteMessagePayload {
-  clientMutationId?: string | null;
-  /** The `Message` that was deleted by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
-}
-export type DeleteMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
-  };
-  messageEdge?: {
-    select: MessageEdgeSelect;
+  taskEdge?: {
+    select: TaskEdgeSelect;
   };
 };
 export interface CreateExpensePayload {
@@ -4493,6 +3066,96 @@ export type DeleteExpensePayloadSelect = {
   };
   expenseEdge?: {
     select: ExpenseEdgeSelect;
+  };
+};
+export interface CreateNotePayload {
+  clientMutationId?: string | null;
+  /** The `Note` that was created by this mutation. */
+  note?: Note | null;
+  noteEdge?: NoteEdge | null;
+}
+export type CreateNotePayloadSelect = {
+  clientMutationId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  noteEdge?: {
+    select: NoteEdgeSelect;
+  };
+};
+export interface UpdateNotePayload {
+  clientMutationId?: string | null;
+  /** The `Note` that was updated by this mutation. */
+  note?: Note | null;
+  noteEdge?: NoteEdge | null;
+}
+export type UpdateNotePayloadSelect = {
+  clientMutationId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  noteEdge?: {
+    select: NoteEdgeSelect;
+  };
+};
+export interface DeleteNotePayload {
+  clientMutationId?: string | null;
+  /** The `Note` that was deleted by this mutation. */
+  note?: Note | null;
+  noteEdge?: NoteEdge | null;
+}
+export type DeleteNotePayloadSelect = {
+  clientMutationId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  noteEdge?: {
+    select: NoteEdgeSelect;
+  };
+};
+export interface CreateMessagePayload {
+  clientMutationId?: string | null;
+  /** The `Message` that was created by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
+}
+export type CreateMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+  messageEdge?: {
+    select: MessageEdgeSelect;
+  };
+};
+export interface UpdateMessagePayload {
+  clientMutationId?: string | null;
+  /** The `Message` that was updated by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
+}
+export type UpdateMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+  messageEdge?: {
+    select: MessageEdgeSelect;
+  };
+};
+export interface DeleteMessagePayload {
+  clientMutationId?: string | null;
+  /** The `Message` that was deleted by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
+}
+export type DeleteMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+  messageEdge?: {
+    select: MessageEdgeSelect;
   };
 };
 /** A `ContactCompany` edge in the connection. */
@@ -4543,18 +3206,6 @@ export type EventVenueEdgeSelect = {
     select: EventVenueSelect;
   };
 };
-/** A `Tag` edge in the connection. */
-export interface TagEdge {
-  cursor?: string | null;
-  /** The `Tag` at the end of the edge. */
-  node?: Tag | null;
-}
-export type TagEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: TagSelect;
-  };
-};
 /** A `CalendarSync` edge in the connection. */
 export interface CalendarSyncEdge {
   cursor?: string | null;
@@ -4565,18 +3216,6 @@ export type CalendarSyncEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: CalendarSyncSelect;
-  };
-};
-/** A `File` edge in the connection. */
-export interface FileEdge {
-  cursor?: string | null;
-  /** The `File` at the end of the edge. */
-  node?: File | null;
-}
-export type FileEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: FileSelect;
   };
 };
 /** A `EmailAccount` edge in the connection. */
@@ -4591,28 +3230,16 @@ export type EmailAccountEdgeSelect = {
     select: EmailAccountSelect;
   };
 };
-/** A `ExecutionLog` edge in the connection. */
-export interface ExecutionLogEdge {
+/** A `Memory` edge in the connection. */
+export interface MemoryEdge {
   cursor?: string | null;
-  /** The `ExecutionLog` at the end of the edge. */
-  node?: ExecutionLog | null;
+  /** The `Memory` at the end of the edge. */
+  node?: Memory | null;
 }
-export type ExecutionLogEdgeSelect = {
+export type MemoryEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: ExecutionLogSelect;
-  };
-};
-/** A `Chat` edge in the connection. */
-export interface ChatEdge {
-  cursor?: string | null;
-  /** The `Chat` at the end of the edge. */
-  node?: Chat | null;
-}
-export type ChatEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ChatSelect;
+    select: MemorySelect;
   };
 };
 /** A `Company` edge in the connection. */
@@ -4627,78 +3254,6 @@ export type CompanyEdgeSelect = {
     select: CompanySelect;
   };
 };
-/** A `Document` edge in the connection. */
-export interface DocumentEdge {
-  cursor?: string | null;
-  /** The `Document` at the end of the edge. */
-  node?: Document | null;
-}
-export type DocumentEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: DocumentSelect;
-  };
-};
-/** A `Project` edge in the connection. */
-export interface ProjectEdge {
-  cursor?: string | null;
-  /** The `Project` at the end of the edge. */
-  node?: Project | null;
-}
-export type ProjectEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ProjectSelect;
-  };
-};
-/** A `Repository` edge in the connection. */
-export interface RepositoryEdge {
-  cursor?: string | null;
-  /** The `Repository` at the end of the edge. */
-  node?: Repository | null;
-}
-export type RepositoryEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: RepositorySelect;
-  };
-};
-/** A `Session` edge in the connection. */
-export interface SessionEdge {
-  cursor?: string | null;
-  /** The `Session` at the end of the edge. */
-  node?: Session | null;
-}
-export type SessionEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: SessionSelect;
-  };
-};
-/** A `Venue` edge in the connection. */
-export interface VenueEdge {
-  cursor?: string | null;
-  /** The `Venue` at the end of the edge. */
-  node?: Venue | null;
-}
-export type VenueEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: VenueSelect;
-  };
-};
-/** A `Task` edge in the connection. */
-export interface TaskEdge {
-  cursor?: string | null;
-  /** The `Task` at the end of the edge. */
-  node?: Task | null;
-}
-export type TaskEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: TaskSelect;
-  };
-};
 /** A `Deal` edge in the connection. */
 export interface DealEdge {
   cursor?: string | null;
@@ -4711,16 +3266,28 @@ export type DealEdgeSelect = {
     select: DealSelect;
   };
 };
-/** A `Blueprint` edge in the connection. */
-export interface BlueprintEdge {
+/** A `Document` edge in the connection. */
+export interface DocumentEdge {
   cursor?: string | null;
-  /** The `Blueprint` at the end of the edge. */
-  node?: Blueprint | null;
+  /** The `Document` at the end of the edge. */
+  node?: Document | null;
 }
-export type BlueprintEdgeSelect = {
+export type DocumentEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: BlueprintSelect;
+    select: DocumentSelect;
+  };
+};
+/** A `Venue` edge in the connection. */
+export interface VenueEdge {
+  cursor?: string | null;
+  /** The `Venue` at the end of the edge. */
+  node?: Venue | null;
+}
+export type VenueEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: VenueSelect;
   };
 };
 /** A `Contact` edge in the connection. */
@@ -4747,54 +3314,6 @@ export type EventEdgeSelect = {
     select: EventSelect;
   };
 };
-/** A `Memory` edge in the connection. */
-export interface MemoryEdge {
-  cursor?: string | null;
-  /** The `Memory` at the end of the edge. */
-  node?: Memory | null;
-}
-export type MemoryEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: MemorySelect;
-  };
-};
-/** A `Note` edge in the connection. */
-export interface NoteEdge {
-  cursor?: string | null;
-  /** The `Note` at the end of the edge. */
-  node?: Note | null;
-}
-export type NoteEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: NoteSelect;
-  };
-};
-/** A `Milestone` edge in the connection. */
-export interface MilestoneEdge {
-  cursor?: string | null;
-  /** The `Milestone` at the end of the edge. */
-  node?: Milestone | null;
-}
-export type MilestoneEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: MilestoneSelect;
-  };
-};
-/** A `ChatMessage` edge in the connection. */
-export interface ChatMessageEdge {
-  cursor?: string | null;
-  /** The `ChatMessage` at the end of the edge. */
-  node?: ChatMessage | null;
-}
-export type ChatMessageEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ChatMessageSelect;
-  };
-};
 /** A `Rule` edge in the connection. */
 export interface RuleEdge {
   cursor?: string | null;
@@ -4819,28 +3338,16 @@ export type SkillEdgeSelect = {
     select: SkillSelect;
   };
 };
-/** A `Chunk` edge in the connection. */
-export interface ChunkEdge {
+/** A `Task` edge in the connection. */
+export interface TaskEdge {
   cursor?: string | null;
-  /** The `Chunk` at the end of the edge. */
-  node?: Chunk | null;
+  /** The `Task` at the end of the edge. */
+  node?: Task | null;
 }
-export type ChunkEdgeSelect = {
+export type TaskEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: ChunkSelect;
-  };
-};
-/** A `Message` edge in the connection. */
-export interface MessageEdge {
-  cursor?: string | null;
-  /** The `Message` at the end of the edge. */
-  node?: Message | null;
-}
-export type MessageEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: MessageSelect;
+    select: TaskSelect;
   };
 };
 /** A `Expense` edge in the connection. */
@@ -4853,5 +3360,29 @@ export type ExpenseEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ExpenseSelect;
+  };
+};
+/** A `Note` edge in the connection. */
+export interface NoteEdge {
+  cursor?: string | null;
+  /** The `Note` at the end of the edge. */
+  node?: Note | null;
+}
+export type NoteEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: NoteSelect;
+  };
+};
+/** A `Message` edge in the connection. */
+export interface MessageEdge {
+  cursor?: string | null;
+  /** The `Message` at the end of the edge. */
+  node?: Message | null;
+}
+export type MessageEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: MessageSelect;
   };
 };

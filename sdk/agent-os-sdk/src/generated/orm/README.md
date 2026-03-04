@@ -25,32 +25,21 @@ const db = createClient({
 | `contactEvent` | findMany, findOne, create, update, delete |
 | `dealContact` | findMany, findOne, create, update, delete |
 | `eventVenue` | findMany, findOne, create, update, delete |
-| `tag` | findMany, findOne, create, update, delete |
 | `calendarSync` | findMany, findOne, create, update, delete |
-| `file` | findMany, findOne, create, update, delete |
 | `emailAccount` | findMany, findOne, create, update, delete |
-| `executionLog` | findMany, findOne, create, update, delete |
-| `chat` | findMany, findOne, create, update, delete |
+| `memory` | findMany, findOne, create, update, delete |
 | `company` | findMany, findOne, create, update, delete |
-| `document` | findMany, findOne, create, update, delete |
-| `project` | findMany, findOne, create, update, delete |
-| `repository` | findMany, findOne, create, update, delete |
-| `session` | findMany, findOne, create, update, delete |
-| `venue` | findMany, findOne, create, update, delete |
-| `task` | findMany, findOne, create, update, delete |
 | `deal` | findMany, findOne, create, update, delete |
-| `blueprint` | findMany, findOne, create, update, delete |
+| `document` | findMany, findOne, create, update, delete |
+| `venue` | findMany, findOne, create, update, delete |
 | `contact` | findMany, findOne, create, update, delete |
 | `event` | findMany, findOne, create, update, delete |
-| `memory` | findMany, findOne, create, update, delete |
-| `note` | findMany, findOne, create, update, delete |
-| `milestone` | findMany, findOne, create, update, delete |
-| `chatMessage` | findMany, findOne, create, update, delete |
 | `rule` | findMany, findOne, create, update, delete |
 | `skill` | findMany, findOne, create, update, delete |
-| `chunk` | findMany, findOne, create, update, delete |
-| `message` | findMany, findOne, create, update, delete |
+| `task` | findMany, findOne, create, update, delete |
 | `expense` | findMany, findOne, create, update, delete |
+| `note` | findMany, findOne, create, update, delete |
+| `message` | findMany, findOne, create, update, delete |
 
 ## Table Operations
 
@@ -182,36 +171,6 @@ const updated = await db.eventVenue.update({ where: { id: '<value>' }, data: { e
 const deleted = await db.eventVenue.delete({ where: { id: '<value>' } }).execute();
 ```
 
-### `db.tag`
-
-CRUD operations for Tag records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `name` | String | Yes |
-
-**Operations:**
-
-```typescript
-// List all tag records
-const items = await db.tag.findMany({ select: { id: true, name: true } }).execute();
-
-// Get one by id
-const item = await db.tag.findOne({ id: '<value>', select: { id: true, name: true } }).execute();
-
-// Create
-const created = await db.tag.create({ data: { name: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.tag.update({ where: { id: '<value>' }, data: { name: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.tag.delete({ where: { id: '<value>' } }).execute();
-```
-
 ### `db.calendarSync`
 
 CRUD operations for CalendarSync records.
@@ -245,42 +204,6 @@ const updated = await db.calendarSync.update({ where: { id: '<value>' }, data: {
 
 // Delete
 const deleted = await db.calendarSync.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.file`
-
-CRUD operations for File records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `path` | String | Yes |
-| `language` | String | Yes |
-| `hash` | String | Yes |
-| `repositoryId` | UUID | Yes |
-
-**Operations:**
-
-```typescript
-// List all file records
-const items = await db.file.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, path: true, language: true, hash: true, repositoryId: true } }).execute();
-
-// Get one by id
-const item = await db.file.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, path: true, language: true, hash: true, repositoryId: true } }).execute();
-
-// Create
-const created = await db.file.create({ data: { entityId: '<value>', path: '<value>', language: '<value>', hash: '<value>', repositoryId: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.file.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.file.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.emailAccount`
@@ -318,47 +241,9 @@ const updated = await db.emailAccount.update({ where: { id: '<value>' }, data: {
 const deleted = await db.emailAccount.delete({ where: { id: '<value>' } }).execute();
 ```
 
-### `db.executionLog`
+### `db.memory`
 
-CRUD operations for ExecutionLog records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `stepName` | String | Yes |
-| `input` | String | Yes |
-| `output` | String | Yes |
-| `toolCalls` | JSON | Yes |
-| `durationMs` | Int | Yes |
-| `sessionId` | UUID | Yes |
-
-**Operations:**
-
-```typescript
-// List all executionLog records
-const items = await db.executionLog.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, stepName: true, input: true, output: true, toolCalls: true, durationMs: true, sessionId: true } }).execute();
-
-// Get one by id
-const item = await db.executionLog.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, stepName: true, input: true, output: true, toolCalls: true, durationMs: true, sessionId: true } }).execute();
-
-// Create
-const created = await db.executionLog.create({ data: { entityId: '<value>', stepName: '<value>', input: '<value>', output: '<value>', toolCalls: '<value>', durationMs: '<value>', sessionId: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.executionLog.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.executionLog.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.chat`
-
-CRUD operations for Chat records.
+CRUD operations for Memory records.
 
 **Fields:**
 
@@ -368,27 +253,28 @@ CRUD operations for Chat records.
 | `entityId` | UUID | Yes |
 | `createdAt` | Datetime | No |
 | `updatedAt` | Datetime | No |
-| `title` | String | Yes |
-| `startedAt` | Datetime | Yes |
+| `content` | String | Yes |
+| `tags` | String | Yes |
 | `embedding` | Vector | Yes |
+| `embeddingDistance` | Float | Yes |
 
 **Operations:**
 
 ```typescript
-// List all chat records
-const items = await db.chat.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, startedAt: true, embedding: true } }).execute();
+// List all memory records
+const items = await db.memory.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, content: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Get one by id
-const item = await db.chat.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, startedAt: true, embedding: true } }).execute();
+const item = await db.memory.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, content: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Create
-const created = await db.chat.create({ data: { entityId: '<value>', title: '<value>', startedAt: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
+const created = await db.memory.create({ data: { entityId: '<value>', content: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
 
 // Update
-const updated = await db.chat.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
+const updated = await db.memory.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
 
 // Delete
-const deleted = await db.chat.delete({ where: { id: '<value>' } }).execute();
+const deleted = await db.memory.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.company`
@@ -407,25 +293,66 @@ CRUD operations for Company records.
 | `domain` | String | Yes |
 | `industry` | String | Yes |
 | `description` | String | Yes |
+| `tags` | String | Yes |
 | `embedding` | Vector | Yes |
+| `embeddingDistance` | Float | Yes |
 
 **Operations:**
 
 ```typescript
 // List all company records
-const items = await db.company.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, domain: true, industry: true, description: true, embedding: true } }).execute();
+const items = await db.company.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, domain: true, industry: true, description: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Get one by id
-const item = await db.company.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, domain: true, industry: true, description: true, embedding: true } }).execute();
+const item = await db.company.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, domain: true, industry: true, description: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Create
-const created = await db.company.create({ data: { entityId: '<value>', name: '<value>', domain: '<value>', industry: '<value>', description: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
+const created = await db.company.create({ data: { entityId: '<value>', name: '<value>', domain: '<value>', industry: '<value>', description: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.company.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.company.delete({ where: { id: '<value>' } }).execute();
+```
+
+### `db.deal`
+
+CRUD operations for Deal records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `name` | String | Yes |
+| `stage` | String | Yes |
+| `value` | BigFloat | Yes |
+| `notes` | String | Yes |
+| `tags` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingDistance` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all deal records
+const items = await db.deal.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, stage: true, value: true, notes: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
+
+// Get one by id
+const item = await db.deal.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, stage: true, value: true, notes: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
+
+// Create
+const created = await db.deal.create({ data: { entityId: '<value>', name: '<value>', stage: '<value>', value: '<value>', notes: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.deal.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.deal.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.document`
@@ -444,139 +371,27 @@ CRUD operations for Document records.
 | `url` | String | Yes |
 | `content` | String | Yes |
 | `sourceType` | String | Yes |
+| `tags` | String | Yes |
 | `embedding` | Vector | Yes |
+| `embeddingDistance` | Float | Yes |
 
 **Operations:**
 
 ```typescript
 // List all document records
-const items = await db.document.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, url: true, content: true, sourceType: true, embedding: true } }).execute();
+const items = await db.document.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, url: true, content: true, sourceType: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Get one by id
-const item = await db.document.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, url: true, content: true, sourceType: true, embedding: true } }).execute();
+const item = await db.document.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, url: true, content: true, sourceType: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Create
-const created = await db.document.create({ data: { entityId: '<value>', title: '<value>', url: '<value>', content: '<value>', sourceType: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
+const created = await db.document.create({ data: { entityId: '<value>', title: '<value>', url: '<value>', content: '<value>', sourceType: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.document.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.document.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.project`
-
-CRUD operations for Project records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `name` | String | Yes |
-| `description` | String | Yes |
-| `status` | String | Yes |
-| `startDate` | Datetime | Yes |
-| `dueDate` | Datetime | Yes |
-| `embedding` | Vector | Yes |
-
-**Operations:**
-
-```typescript
-// List all project records
-const items = await db.project.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, description: true, status: true, startDate: true, dueDate: true, embedding: true } }).execute();
-
-// Get one by id
-const item = await db.project.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, description: true, status: true, startDate: true, dueDate: true, embedding: true } }).execute();
-
-// Create
-const created = await db.project.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', status: '<value>', startDate: '<value>', dueDate: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.project.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.project.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.repository`
-
-CRUD operations for Repository records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `name` | String | Yes |
-| `url` | String | Yes |
-| `description` | String | Yes |
-| `defaultBranch` | String | Yes |
-| `lastSyncedAt` | Datetime | Yes |
-| `embedding` | Vector | Yes |
-
-**Operations:**
-
-```typescript
-// List all repository records
-const items = await db.repository.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, url: true, description: true, defaultBranch: true, lastSyncedAt: true, embedding: true } }).execute();
-
-// Get one by id
-const item = await db.repository.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, url: true, description: true, defaultBranch: true, lastSyncedAt: true, embedding: true } }).execute();
-
-// Create
-const created = await db.repository.create({ data: { entityId: '<value>', name: '<value>', url: '<value>', description: '<value>', defaultBranch: '<value>', lastSyncedAt: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.repository.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.repository.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.session`
-
-CRUD operations for Session records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `title` | String | Yes |
-| `startedAt` | Datetime | Yes |
-| `endedAt` | Datetime | Yes |
-| `status` | String | Yes |
-| `contextSummary` | String | Yes |
-| `embedding` | Vector | Yes |
-
-**Operations:**
-
-```typescript
-// List all session records
-const items = await db.session.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, startedAt: true, endedAt: true, status: true, contextSummary: true, embedding: true } }).execute();
-
-// Get one by id
-const item = await db.session.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, startedAt: true, endedAt: true, status: true, contextSummary: true, embedding: true } }).execute();
-
-// Create
-const created = await db.session.create({ data: { entityId: '<value>', title: '<value>', startedAt: '<value>', endedAt: '<value>', status: '<value>', contextSummary: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.session.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.session.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.venue`
@@ -596,135 +411,27 @@ CRUD operations for Venue records.
 | `city` | String | Yes |
 | `status` | String | Yes |
 | `notes` | String | Yes |
+| `tags` | String | Yes |
 | `embedding` | Vector | Yes |
+| `embeddingDistance` | Float | Yes |
 
 **Operations:**
 
 ```typescript
 // List all venue records
-const items = await db.venue.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, neighborhood: true, city: true, status: true, notes: true, embedding: true } }).execute();
+const items = await db.venue.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, neighborhood: true, city: true, status: true, notes: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Get one by id
-const item = await db.venue.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, neighborhood: true, city: true, status: true, notes: true, embedding: true } }).execute();
+const item = await db.venue.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, neighborhood: true, city: true, status: true, notes: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Create
-const created = await db.venue.create({ data: { entityId: '<value>', name: '<value>', neighborhood: '<value>', city: '<value>', status: '<value>', notes: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
+const created = await db.venue.create({ data: { entityId: '<value>', name: '<value>', neighborhood: '<value>', city: '<value>', status: '<value>', notes: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.venue.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.venue.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.task`
-
-CRUD operations for Task records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `title` | String | Yes |
-| `description` | String | Yes |
-| `status` | String | Yes |
-| `priority` | Int | Yes |
-| `embedding` | Vector | Yes |
-
-**Operations:**
-
-```typescript
-// List all task records
-const items = await db.task.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, description: true, status: true, priority: true, embedding: true } }).execute();
-
-// Get one by id
-const item = await db.task.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, description: true, status: true, priority: true, embedding: true } }).execute();
-
-// Create
-const created = await db.task.create({ data: { entityId: '<value>', title: '<value>', description: '<value>', status: '<value>', priority: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.task.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.task.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.deal`
-
-CRUD operations for Deal records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `name` | String | Yes |
-| `stage` | String | Yes |
-| `value` | BigFloat | Yes |
-| `notes` | String | Yes |
-| `embedding` | Vector | Yes |
-
-**Operations:**
-
-```typescript
-// List all deal records
-const items = await db.deal.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, stage: true, value: true, notes: true, embedding: true } }).execute();
-
-// Get one by id
-const item = await db.deal.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, stage: true, value: true, notes: true, embedding: true } }).execute();
-
-// Create
-const created = await db.deal.create({ data: { entityId: '<value>', name: '<value>', stage: '<value>', value: '<value>', notes: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.deal.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.deal.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.blueprint`
-
-CRUD operations for Blueprint records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `title` | String | Yes |
-| `steps` | JSON | Yes |
-| `triggerConditions` | String | Yes |
-| `embedding` | Vector | Yes |
-
-**Operations:**
-
-```typescript
-// List all blueprint records
-const items = await db.blueprint.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, steps: true, triggerConditions: true, embedding: true } }).execute();
-
-// Get one by id
-const item = await db.blueprint.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, steps: true, triggerConditions: true, embedding: true } }).execute();
-
-// Create
-const created = await db.blueprint.create({ data: { entityId: '<value>', title: '<value>', steps: '<value>', triggerConditions: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.blueprint.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.blueprint.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.contact`
@@ -746,19 +453,21 @@ CRUD operations for Contact records.
 | `headline` | String | Yes |
 | `bio` | String | Yes |
 | `location` | String | Yes |
+| `tags` | String | Yes |
 | `embedding` | Vector | Yes |
+| `embeddingDistance` | Float | Yes |
 
 **Operations:**
 
 ```typescript
 // List all contact records
-const items = await db.contact.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, embedding: true } }).execute();
+const items = await db.contact.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Get one by id
-const item = await db.contact.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, embedding: true } }).execute();
+const item = await db.contact.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Create
-const created = await db.contact.create({ data: { entityId: '<value>', firstName: '<value>', lastName: '<value>', email: '<value>', phone: '<value>', headline: '<value>', bio: '<value>', location: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
+const created = await db.contact.create({ data: { entityId: '<value>', firstName: '<value>', lastName: '<value>', email: '<value>', phone: '<value>', headline: '<value>', bio: '<value>', location: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contact.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
@@ -786,168 +495,27 @@ CRUD operations for Event records.
 | `startedAt` | Datetime | Yes |
 | `endedAt` | Datetime | Yes |
 | `notes` | String | Yes |
+| `tags` | String | Yes |
 | `embedding` | Vector | Yes |
+| `embeddingDistance` | Float | Yes |
 
 **Operations:**
 
 ```typescript
 // List all event records
-const items = await db.event.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, eventType: true, location: true, city: true, startedAt: true, endedAt: true, notes: true, embedding: true } }).execute();
+const items = await db.event.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, eventType: true, location: true, city: true, startedAt: true, endedAt: true, notes: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Get one by id
-const item = await db.event.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, eventType: true, location: true, city: true, startedAt: true, endedAt: true, notes: true, embedding: true } }).execute();
+const item = await db.event.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, eventType: true, location: true, city: true, startedAt: true, endedAt: true, notes: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Create
-const created = await db.event.create({ data: { entityId: '<value>', name: '<value>', eventType: '<value>', location: '<value>', city: '<value>', startedAt: '<value>', endedAt: '<value>', notes: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
+const created = await db.event.create({ data: { entityId: '<value>', name: '<value>', eventType: '<value>', location: '<value>', city: '<value>', startedAt: '<value>', endedAt: '<value>', notes: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.event.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.event.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.memory`
-
-CRUD operations for Memory records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `content` | String | Yes |
-| `tags` | String | Yes |
-| `embedding` | Vector | Yes |
-
-**Operations:**
-
-```typescript
-// List all memory records
-const items = await db.memory.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, content: true, tags: true, embedding: true } }).execute();
-
-// Get one by id
-const item = await db.memory.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, content: true, tags: true, embedding: true } }).execute();
-
-// Create
-const created = await db.memory.create({ data: { entityId: '<value>', content: '<value>', tags: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.memory.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.memory.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.note`
-
-CRUD operations for Note records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `content` | String | Yes |
-| `embedding` | Vector | Yes |
-| `contactId` | UUID | Yes |
-
-**Operations:**
-
-```typescript
-// List all note records
-const items = await db.note.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, content: true, embedding: true, contactId: true } }).execute();
-
-// Get one by id
-const item = await db.note.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, content: true, embedding: true, contactId: true } }).execute();
-
-// Create
-const created = await db.note.create({ data: { entityId: '<value>', content: '<value>', embedding: '<value>', contactId: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.note.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.note.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.milestone`
-
-CRUD operations for Milestone records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `name` | String | Yes |
-| `dueDate` | Datetime | Yes |
-| `embedding` | Vector | Yes |
-| `projectId` | UUID | Yes |
-
-**Operations:**
-
-```typescript
-// List all milestone records
-const items = await db.milestone.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, dueDate: true, embedding: true, projectId: true } }).execute();
-
-// Get one by id
-const item = await db.milestone.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, dueDate: true, embedding: true, projectId: true } }).execute();
-
-// Create
-const created = await db.milestone.create({ data: { entityId: '<value>', name: '<value>', dueDate: '<value>', embedding: '<value>', projectId: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.milestone.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.milestone.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.chatMessage`
-
-CRUD operations for ChatMessage records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `role` | String | Yes |
-| `content` | String | Yes |
-| `toolCalls` | JSON | Yes |
-| `embedding` | Vector | Yes |
-| `chatId` | UUID | Yes |
-
-**Operations:**
-
-```typescript
-// List all chatMessage records
-const items = await db.chatMessage.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, role: true, content: true, toolCalls: true, embedding: true, chatId: true } }).execute();
-
-// Get one by id
-const item = await db.chatMessage.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, role: true, content: true, toolCalls: true, embedding: true, chatId: true } }).execute();
-
-// Create
-const created = await db.chatMessage.create({ data: { entityId: '<value>', role: '<value>', content: '<value>', toolCalls: '<value>', embedding: '<value>', chatId: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.chatMessage.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.chatMessage.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.rule`
@@ -966,19 +534,21 @@ CRUD operations for Rule records.
 | `content` | String | Yes |
 | `kind` | String | Yes |
 | `isActive` | Boolean | Yes |
+| `tags` | String | Yes |
 | `embedding` | Vector | Yes |
+| `embeddingDistance` | Float | Yes |
 
 **Operations:**
 
 ```typescript
 // List all rule records
-const items = await db.rule.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, content: true, kind: true, isActive: true, embedding: true } }).execute();
+const items = await db.rule.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, content: true, kind: true, isActive: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Get one by id
-const item = await db.rule.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, content: true, kind: true, isActive: true, embedding: true } }).execute();
+const item = await db.rule.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, content: true, kind: true, isActive: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Create
-const created = await db.rule.create({ data: { entityId: '<value>', title: '<value>', content: '<value>', kind: '<value>', isActive: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
+const created = await db.rule.create({ data: { entityId: '<value>', title: '<value>', content: '<value>', kind: '<value>', isActive: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.rule.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
@@ -1003,19 +573,21 @@ CRUD operations for Skill records.
 | `description` | String | Yes |
 | `content` | String | Yes |
 | `isActive` | Boolean | Yes |
+| `tags` | String | Yes |
 | `embedding` | Vector | Yes |
+| `embeddingDistance` | Float | Yes |
 
 **Operations:**
 
 ```typescript
 // List all skill records
-const items = await db.skill.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, description: true, content: true, isActive: true, embedding: true } }).execute();
+const items = await db.skill.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, description: true, content: true, isActive: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Get one by id
-const item = await db.skill.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, description: true, content: true, isActive: true, embedding: true } }).execute();
+const item = await db.skill.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, name: true, description: true, content: true, isActive: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Create
-const created = await db.skill.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', content: '<value>', isActive: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
+const created = await db.skill.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', content: '<value>', isActive: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.skill.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
@@ -1024,47 +596,9 @@ const updated = await db.skill.update({ where: { id: '<value>' }, data: { entity
 const deleted = await db.skill.delete({ where: { id: '<value>' } }).execute();
 ```
 
-### `db.chunk`
+### `db.task`
 
-CRUD operations for Chunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `content` | String | Yes |
-| `startLine` | Int | Yes |
-| `endLine` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `fileId` | UUID | Yes |
-| `repositoryId` | UUID | Yes |
-
-**Operations:**
-
-```typescript
-// List all chunk records
-const items = await db.chunk.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, content: true, startLine: true, endLine: true, embedding: true, fileId: true, repositoryId: true } }).execute();
-
-// Get one by id
-const item = await db.chunk.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, content: true, startLine: true, endLine: true, embedding: true, fileId: true, repositoryId: true } }).execute();
-
-// Create
-const created = await db.chunk.create({ data: { entityId: '<value>', content: '<value>', startLine: '<value>', endLine: '<value>', embedding: '<value>', fileId: '<value>', repositoryId: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.chunk.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.chunk.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.message`
-
-CRUD operations for Message records.
+CRUD operations for Task records.
 
 **Fields:**
 
@@ -1074,33 +608,32 @@ CRUD operations for Message records.
 | `entityId` | UUID | Yes |
 | `createdAt` | Datetime | No |
 | `updatedAt` | Datetime | No |
-| `threadId` | String | Yes |
-| `remoteId` | String | Yes |
-| `from` | String | Yes |
-| `to` | String | Yes |
-| `subject` | String | Yes |
-| `bodyText` | String | Yes |
-| `receivedAt` | Datetime | Yes |
+| `title` | String | Yes |
+| `description` | String | Yes |
+| `status` | String | Yes |
+| `priority` | Int | Yes |
+| `tags` | String | Yes |
 | `embedding` | Vector | Yes |
-| `emailAccountId` | UUID | Yes |
+| `embeddingDistance` | Float | Yes |
+| `bm25DescriptionScore` | Float | Yes |
 
 **Operations:**
 
 ```typescript
-// List all message records
-const items = await db.message.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, threadId: true, remoteId: true, from: true, to: true, subject: true, bodyText: true, receivedAt: true, embedding: true, emailAccountId: true } }).execute();
+// List all task records
+const items = await db.task.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, description: true, status: true, priority: true, tags: true, embedding: true, embeddingDistance: true, bm25DescriptionScore: true } }).execute();
 
 // Get one by id
-const item = await db.message.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, threadId: true, remoteId: true, from: true, to: true, subject: true, bodyText: true, receivedAt: true, embedding: true, emailAccountId: true } }).execute();
+const item = await db.task.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, description: true, status: true, priority: true, tags: true, embedding: true, embeddingDistance: true, bm25DescriptionScore: true } }).execute();
 
 // Create
-const created = await db.message.create({ data: { entityId: '<value>', threadId: '<value>', remoteId: '<value>', from: '<value>', to: '<value>', subject: '<value>', bodyText: '<value>', receivedAt: '<value>', embedding: '<value>', emailAccountId: '<value>' }, select: { id: true } }).execute();
+const created = await db.task.create({ data: { entityId: '<value>', title: '<value>', description: '<value>', status: '<value>', priority: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>', bm25DescriptionScore: '<value>' }, select: { id: true } }).execute();
 
 // Update
-const updated = await db.message.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
+const updated = await db.task.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
 
 // Delete
-const deleted = await db.message.delete({ where: { id: '<value>' } }).execute();
+const deleted = await db.task.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.expense`
@@ -1122,25 +655,109 @@ CRUD operations for Expense records.
 | `description` | String | Yes |
 | `merchant` | String | Yes |
 | `receiptUrl` | String | Yes |
+| `tags` | String | Yes |
 | `embedding` | Vector | Yes |
+| `embeddingDistance` | Float | Yes |
 
 **Operations:**
 
 ```typescript
 // List all expense records
-const items = await db.expense.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, amount: true, currency: true, date: true, category: true, description: true, merchant: true, receiptUrl: true, embedding: true } }).execute();
+const items = await db.expense.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, amount: true, currency: true, date: true, category: true, description: true, merchant: true, receiptUrl: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Get one by id
-const item = await db.expense.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, amount: true, currency: true, date: true, category: true, description: true, merchant: true, receiptUrl: true, embedding: true } }).execute();
+const item = await db.expense.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, amount: true, currency: true, date: true, category: true, description: true, merchant: true, receiptUrl: true, tags: true, embedding: true, embeddingDistance: true } }).execute();
 
 // Create
-const created = await db.expense.create({ data: { entityId: '<value>', amount: '<value>', currency: '<value>', date: '<value>', category: '<value>', description: '<value>', merchant: '<value>', receiptUrl: '<value>', embedding: '<value>' }, select: { id: true } }).execute();
+const created = await db.expense.create({ data: { entityId: '<value>', amount: '<value>', currency: '<value>', date: '<value>', category: '<value>', description: '<value>', merchant: '<value>', receiptUrl: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.expense.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.expense.delete({ where: { id: '<value>' } }).execute();
+```
+
+### `db.note`
+
+CRUD operations for Note records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `content` | String | Yes |
+| `tags` | String | Yes |
+| `embedding` | Vector | Yes |
+| `contactId` | UUID | Yes |
+| `embeddingDistance` | Float | Yes |
+| `bm25ContentScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all note records
+const items = await db.note.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, content: true, tags: true, embedding: true, contactId: true, embeddingDistance: true, bm25ContentScore: true } }).execute();
+
+// Get one by id
+const item = await db.note.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, content: true, tags: true, embedding: true, contactId: true, embeddingDistance: true, bm25ContentScore: true } }).execute();
+
+// Create
+const created = await db.note.create({ data: { entityId: '<value>', content: '<value>', tags: '<value>', embedding: '<value>', contactId: '<value>', embeddingDistance: '<value>', bm25ContentScore: '<value>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.note.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.note.delete({ where: { id: '<value>' } }).execute();
+```
+
+### `db.message`
+
+CRUD operations for Message records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `threadId` | String | Yes |
+| `remoteId` | String | Yes |
+| `from` | String | Yes |
+| `to` | String | Yes |
+| `subject` | String | Yes |
+| `bodyText` | String | Yes |
+| `receivedAt` | Datetime | Yes |
+| `tags` | String | Yes |
+| `embedding` | Vector | Yes |
+| `emailAccountId` | UUID | Yes |
+| `embeddingDistance` | Float | Yes |
+| `bm25BodyTextScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all message records
+const items = await db.message.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, threadId: true, remoteId: true, from: true, to: true, subject: true, bodyText: true, receivedAt: true, tags: true, embedding: true, emailAccountId: true, embeddingDistance: true, bm25BodyTextScore: true } }).execute();
+
+// Get one by id
+const item = await db.message.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, threadId: true, remoteId: true, from: true, to: true, subject: true, bodyText: true, receivedAt: true, tags: true, embedding: true, emailAccountId: true, embeddingDistance: true, bm25BodyTextScore: true } }).execute();
+
+// Create
+const created = await db.message.create({ data: { entityId: '<value>', threadId: '<value>', remoteId: '<value>', from: '<value>', to: '<value>', subject: '<value>', bodyText: '<value>', receivedAt: '<value>', tags: '<value>', embedding: '<value>', emailAccountId: '<value>', embeddingDistance: '<value>', bm25BodyTextScore: '<value>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.message.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.message.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ---

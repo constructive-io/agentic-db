@@ -1,6 +1,5 @@
 /**
- * life_os.ts — Provision Life OS schemas (Communications, Finance, Knowledge)
- * Security: Safegres AuthzEntityMembership (Org-scoped)
+ * life_os.ts — Provision Life OS schema tables using platform SDK
  */
 
 import * as dotenv from 'dotenv';
@@ -31,17 +30,7 @@ const client = createClient({ adapter });
 async function createOrgTable(tableName: string): Promise<string> {
   const result = await withRetry(() =>
     client.secureTableProvision.create({
-      data: {
-        databaseId,
-        tableName,
-        nodeType: 'DataEntityMembership', 
-        useRls: true,
-        grantRoles: ['authenticated'],
-        grantPrivileges: entityGrants,
-        policyType: 'AuthzEntityMembership',
-        policyPermissive: true,
-        policyData: entityPolicyData,
-      },
+      data: { databaseId, tableName, nodeType: 'DataEntityMembership', useRls: true, grantRoles: ['authenticated'], grantPrivileges: entityGrants, policyType: 'AuthzEntityMembership', policyPermissive: true, policyData: entityPolicyData },
       select: { id: true, tableId: true },
     }).unwrap()
   );
@@ -53,85 +42,63 @@ async function createOrgTable(tableName: string): Promise<string> {
   return tableId;
 }
 
-async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}): Promise<string> {
+async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string; isArray?: boolean } = {}): Promise<string> {
   const result = await withRetry(() => client.field.create({ data: { tableId, name, type, isRequired: opts.isRequired ?? false, label: name, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
   console.log(`      + ${name} (${type})`);
   return result.createField?.field?.id!;
 }
 
-async function addBm25Index(tableId: string, name: string, fieldIds: string[]) {
-  await withRetry(() => client.index.create({
-    data: {
-      databaseId,
-      tableId,
-      name,
-      accessMethod: 'bm25',
-      fieldIds,
-      indexParams: { text_config: 'english' }, 
-    },
-    select: { id: true }
-  }).unwrap());
-  console.log(`      🔍 Index: ${name}`);
-}
-
 async function main() {
-  console.log('\n🧬 Provisioning Life OS Schema with Embeddings & BM25\n');
+  console.log('\n🧬 Provisioning Life OS Schema with Embeddings & Tags\n');
 
-  // --- Communications ---
   console.log('📧 email_accounts...');
-  const emailAcctId = await createOrgTable('email_accounts');
-  await addField(emailAcctId, 'email', 'text', { isRequired: true });
-  await addField(emailAcctId, 'provider', 'text');
-  await addField(emailAcctId, 'sync_state', 'jsonb');
+  const emailId = await createOrgTable('email_accounts');
+  await addField(emailId, 'email', 'text', { isRequired: true });
+  await addField(emailId, 'provider', 'text');
+  await addField(emailId, 'sync_state', 'jsonb');
 
   console.log('📨 messages...');
-  const msgsId = await createOrgTable('messages');
-  await addField(msgsId, 'thread_id', 'text');
-  await addField(msgsId, 'remote_id', 'text');
-  const m_from = await addField(msgsId, 'from', 'text');
-  const m_to = await addField(msgsId, 'to', 'text[]');
-  const m_subj = await addField(msgsId, 'subject', 'text');
-  const m_body = await addField(msgsId, 'body_text', 'text');
-  await addField(msgsId, 'received_at', 'timestamptz');
-  await addField(msgsId, 'embedding', 'vector(768)');
-
-  // await addBm25Index(msgsId, 'messages_bm25_idx', [m_subj, m_body, m_from]);
+  const messagesId = await createOrgTable('messages');
+  await addField(messagesId, 'thread_id', 'text');
+  await addField(messagesId, 'remote_id', 'text');
+  await addField(messagesId, 'from', 'text');
+  await addField(messagesId, 'to', 'text[]');
+  await addField(messagesId, 'subject', 'text');
+  await addField(messagesId, 'body_text', 'text');
+  await addField(messagesId, 'received_at', 'timestamptz');
+  await addField(messagesId, 'tags', 'citext[]');
+  await addField(messagesId, 'embedding', 'vector(768)');
 
   console.log('📅 calendar_sync...');
-  const calSyncId = await createOrgTable('calendar_sync');
-  await addField(calSyncId, 'provider', 'text');
-  await addField(calSyncId, 'sync_token', 'text');
-  await addField(calSyncId, 'last_synced_at', 'timestamptz');
+  const calId = await createOrgTable('calendar_sync');
+  await addField(calId, 'provider', 'text');
+  await addField(calId, 'sync_token', 'text');
+  await addField(calId, 'last_synced_at', 'timestamptz');
 
-  // --- Finance ---
   console.log('💸 expenses...');
   const expensesId = await createOrgTable('expenses');
   await addField(expensesId, 'amount', 'numeric');
   await addField(expensesId, 'currency', 'text', { defaultValue: "'USD'" });
   await addField(expensesId, 'date', 'date');
-  const ex_cat = await addField(expensesId, 'category', 'text');
-  const ex_desc = await addField(expensesId, 'description', 'text');
-  const ex_merch = await addField(expensesId, 'merchant', 'text');
+  await addField(expensesId, 'category', 'text');
+  await addField(expensesId, 'description', 'text');
+  await addField(expensesId, 'merchant', 'text');
   await addField(expensesId, 'receipt_url', 'text');
+  await addField(expensesId, 'tags', 'citext[]');
   await addField(expensesId, 'embedding', 'vector(768)');
 
-  // await addBm25Index(expensesId, 'expenses_bm25_idx', [ex_desc, ex_merch, ex_cat]);
-
-  // --- Knowledge ---
   console.log('📚 documents...');
   const docsId = await createOrgTable('documents');
-  const doc_title = await addField(docsId, 'title', 'text');
+  await addField(docsId, 'title', 'text', { isRequired: true });
   await addField(docsId, 'url', 'text');
-  const doc_content = await addField(docsId, 'content', 'text');
+  await addField(docsId, 'content', 'text');
   await addField(docsId, 'source_type', 'text');
+  await addField(docsId, 'tags', 'citext[]');
   await addField(docsId, 'embedding', 'vector(768)');
 
-  // await addBm25Index(docsId, 'documents_bm25_idx', [doc_title, doc_content]);
-
-  // Relations
   console.log('\n🔗 Relations...');
   await withRetry(() => client.relationProvision.create({
-    data: { databaseId, relationType: 'RelationHasMany', sourceTableId: emailAcctId, targetTableId: msgsId, deleteAction: 'c' },
+    data: { databaseId, relationType: 'RelationHasMany', sourceTableId: emailId, targetTableId: messagesId, deleteAction: 'c' },
     select: { id: true },
   }).unwrap());
   console.log('   ✓ email_accounts → messages');
