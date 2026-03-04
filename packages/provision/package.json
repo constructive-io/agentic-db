@@ -27,15 +27,15 @@
   },
   "dependencies": {
     "@0no-co/graphql.web": "^1.2.0",
-    "@constructive-io/graphql-types": "3.0.0",
-    "@constructive-io/node": "^0.1.0",
+    "@constructive-io/graphql-types": "3.1.2",
+    "@constructive-io/node": "^0.1.4",
     "dotenv": "^16.4.5",
-    "gql-ast": "^2.7.0",
-    "graphql": "^15.10.1"
+    "gql-ast": "^3.1.1",
+    "graphql": "^16.13.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "makage": "0.1.10",
+    "makage": "0.1.12",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0"
   }

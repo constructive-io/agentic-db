@@ -20,12 +20,12 @@
   },
   "dependencies": {
     "@agentic-sdk/sdk": "workspace:*",
-    "@constructive-io/node": "^0.1.0",
+    "@constructive-io/node": "^0.1.4",
     "dotenv": "^16.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "makage": "0.1.10",
+    "makage": "0.1.12",
     "tsx": "^4.0.0",
     "typescript": "^5.0.0"
   }

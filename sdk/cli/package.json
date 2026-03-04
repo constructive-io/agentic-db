@@ -12,11 +12,11 @@
     "start": "tsx generated/cli/index.ts"
   },
   "dependencies": {
-    "inquirerer": "^4.5.0"
+    "inquirerer": "^4.5.2"
   },
   "devDependencies": {
     "@agentic-sdk/schemas": "workspace:*",
-    "@constructive-io/graphql-codegen": "^4.5.0",
+    "@constructive-io/graphql-codegen": "^4.8.0",
     "@types/node": "^22.0.0",
     "dotenv": "^16.4.5",
     "tsx": "^4.19.0",

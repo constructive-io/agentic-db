@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@agentic-sdk/sdk": "workspace:*",
-    "@constructive-io/node": "^0.1.0",
+    "@constructive-io/node": "^0.1.4",
     "dotenv": "^16.0.0"
   },
   "devDependencies": {
