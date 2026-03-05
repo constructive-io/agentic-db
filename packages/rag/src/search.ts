@@ -1,14 +1,11 @@
-/**
- * Semantic search across CRM data using embeddings
- */
 import { config } from './config';
-import { authenticate, createRawAdapter } from './client';
-import { embed, vectorToString } from './ollama';
+import { authenticate, createAuthenticatedClient } from './client';
+import { embed } from './ollama';
 
-const TEST_EMAIL = 'rag-test@example.com';
+const TEST_EMAIL = 'rag-test@example.com'; 
 const TEST_PASSWORD = 'RagTest123!';
 
-type TableName = 'contacts' | 'companies' | 'deals' | 'events' | 'venues' | 'notes' | 'tasks' | 'memories' | 'skills' | 'rules' | 'expenses' | 'repositories' | 'files' | 'chunks' | 'messages';
+type TableName = 'contacts' | 'companies' | 'deals' | 'events' | 'venues' | 'notes' | 'expenses' | 'tasks' | 'memories' | 'skills' | 'rules';
 
 interface SearchResult {
   table: TableName;
@@ -18,153 +15,134 @@ interface SearchResult {
   data: Record<string, any>;
 }
 
+const TABLE_CONFIGS: Record<string, { modelName: string; textField: string }> = {
+  contacts: { modelName: 'contact', textField: 'headline' },
+  companies: { modelName: 'company', textField: 'description' },
+  deals: { modelName: 'deal', textField: 'name' },
+  events: { modelName: 'event', textField: 'name' },
+  venues: { modelName: 'venue', textField: 'name' },
+  notes: { modelName: 'note', textField: 'content' },
+  expenses: { modelName: 'expense', textField: 'description' },
+  tasks: { modelName: 'task', textField: 'title' },
+  memories: { modelName: 'memory', textField: 'content' },
+  skills: { modelName: 'skill', textField: 'name' },
+  rules: { modelName: 'rule', textField: 'title' },
+};
+
 async function searchTable(
-  adapter: any,
+  client: any,
   table: TableName,
   queryEmbedding: number[],
   limit: number = 5
 ): Promise<SearchResult[]> {
-  // Use raw SQL via a custom function or direct query
-  // For now, we'll fetch all and compute similarity in JS
-  // In production, you'd use pgvector's <=> operator via a custom GraphQL query
-  
-  const tableToQuery: Record<TableName, string> = {
-    contacts: `{ contacts { nodes { id firstName lastName email headline bio embedding } } }`,
-    companies: `{ companies { nodes { id name domain industry description embedding } } }`,
-    deals: `{ deals { nodes { id name stage value notes embedding } } }`,
-    events: `{ events { nodes { id name eventType location city notes embedding } } }`,
-    venues: `{ venues { nodes { id name neighborhood city notes embedding } } }`,
-    notes: `{ notes { nodes { id content embedding } } }`,
-    tasks: `{ tasks { nodes { id title description status embedding } } }`,
-    memories: `{ memories { nodes { id content tags embedding } } }`,
-    skills: `{ skills { nodes { id name description content embedding } } }`,
-    rules: `{ rules { nodes { id title content kind embedding } } }`,
-    expenses: `{ expenses { nodes { id description category amount merchant embedding } } }`,
-    repositories: `{ repositories { nodes { id name description embedding } } }`,
-    files: `{ files { nodes { id path language } } }`,
-    chunks: `{ chunks { nodes { id content embedding } } }`,
-    messages: `{ messages { nodes { id subject bodyText from embedding } } }`,
-  };
+  const cfg = TABLE_CONFIGS[table];
+  if (!cfg) return [];
 
-  const result = await adapter.execute(tableToQuery[table]);
-  
-  if (!result.ok || !result.data) {
+  const model = client[cfg.modelName];
+  if (!model) return [];
+
+  try {
+    // Convert to string "[0.1,0.2,...]" for pgvector input if needed
+    const vectorArg = JSON.stringify(queryEmbedding);
+    
+    const res = await model.findMany({
+      condition: {
+        vectorEmbedding: { vector: vectorArg, distance: 2.0 } 
+      },
+      orderBy: ['EMBEDDING_DISTANCE_ASC'],
+      first: limit,
+      select: {
+        id: true,
+        embeddingDistance: true, 
+        [cfg.textField]: true,
+        ...(table === 'contacts' ? { firstName: true, lastName: true, headline: true } : {}),
+        ...(table === 'companies' ? { name: true, description: true } : {}),
+        ...(table === 'expenses' ? { amount: true, description: true } : {}),
+        ...(table === 'events' ? { name: true, notes: true } : {}),
+      }
+    }).execute();
+
+    if (!res.ok) {
+      // console.warn(`Search failed for ${table}:`, JSON.stringify(res.errors));
+      return [];
+    }
+
+    const dataKey = Object.keys(res.data || {})[0];
+    const nodes = (res.data as any)[dataKey]?.nodes || [];
+
+    return nodes.map((node: any) => {
+        let name = 'Unknown';
+        if (table === 'contacts') name = `${node.firstName} ${node.lastName}`;
+        else if (table === 'expenses') name = `${node.description} ($${node.amount})`;
+        else name = node[cfg.textField] || 'Untitled';
+
+        // Score: 1 - distance/2 (Cosine distance is 0..2)
+        // If distance is null, score is 0.
+        const dist = node.embeddingDistance ?? 2.0;
+        const score = 1 - (dist / 2.0);
+
+        return {
+            table,
+            id: node.id,
+            name,
+            score: Math.max(0, score),
+            data: node
+        };
+    });
+  } catch (e) {
+    console.error(`Error searching ${table}:`, e);
     return [];
   }
-
-  const nodes = (result.data as any)[table]?.nodes || [];
-  
-  // Compute cosine similarity
-  const results: SearchResult[] = [];
-  
-  for (const node of nodes) {
-    if (!node.embedding) continue;
-    
-    // Parse embedding string to array
-    let nodeEmbedding: number[];
-    if (typeof node.embedding === 'string') {
-      nodeEmbedding = JSON.parse(node.embedding.replace(/^\[/, '[').replace(/\]$/, ']'));
-    } else {
-      nodeEmbedding = node.embedding;
-    }
-    
-    const score = cosineSimilarity(queryEmbedding, nodeEmbedding);
-    
-    // Get display name
-    let name = '';
-    if (table === 'contacts') name = `${node.firstName} ${node.lastName}`;
-    else if (table === 'notes' || table === 'memories' || table === 'chunks') name = node.content?.slice(0, 50) + '...';
-    else if (table === 'messages') name = node.subject;
-    else if (table === 'expenses') name = `${node.description} ($${node.amount})`;
-    else name = node.name || node.title || node.path || 'Unknown';
-    
-    results.push({
-      table,
-      id: node.id,
-      name,
-      score,
-      data: node,
-    });
-  }
-  
-  return results.sort((a, b) => b.score - a.score).slice(0, limit);
 }
 
-function cosineSimilarity(a: number[], b: number[]): number {
-  if (a.length !== b.length) return 0;
-  
-  let dotProduct = 0;
-  let normA = 0;
-  let normB = 0;
-  
-  for (let i = 0; i < a.length; i++) {
-    dotProduct += a[i] * b[i];
-    normA += a[i] * a[i];
-    normB += b[i] * b[i];
+export async function search(query: string, tables?: TableName[]) {
+  const ts = config.databaseName.split('-').pop();
+  const ADMIN_EMAIL = `admin+${ts}@agent-os.local`;
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'password';
+
+  const { token } = await authenticate(ADMIN_EMAIL, ADMIN_PASSWORD);
+  const client = createAuthenticatedClient(token);
+
+  // console.log(`\n   Embedding query...`);
+  const queryEmbedding = await embed(query);
+
+  const targetTables = tables || Object.keys(TABLE_CONFIGS) as TableName[];
+  const allResults: SearchResult[] = [];
+
+  for (const table of targetTables) {
+    const results = await searchTable(client, table, queryEmbedding, 3);
+    allResults.push(...results);
   }
-  
-  return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+
+  return allResults.sort((a, b) => b.score - a.score);
 }
 
 async function main() {
   const query = process.argv[2];
-  const allTables: TableName[] = ['contacts', 'companies', 'deals', 'events', 'venues', 'notes', 'tasks', 'memories', 'skills', 'rules', 'expenses', 'repositories', 'messages'];
+  if (!query) return;
   
-  const tables = (process.argv[3]?.split(',') as TableName[]) || allTables;
-  
-  if (!query) {
-    console.log('\nUsage: pnpm --filter @agentic-sdk/rag run search "<query>" [tables]\n');
-    console.log('Examples:');
-    console.log('  pnpm --filter @agentic-sdk/rag run search "postgres experts"');
-    console.log('  pnpm --filter @agentic-sdk/rag run search "enterprise deals" deals');
-    console.log('  pnpm --filter @agentic-sdk/rag run search "database companies" companies');
-    process.exit(0);
-  }
-
   console.log(`\n🔍 Searching: "${query}"\n`);
-  // console.log(`   Tables: ${tables.join(', ')}`);
-
-  // Authenticate
-  const { token } = await authenticate(TEST_EMAIL, TEST_PASSWORD);
-  const adapter = createRawAdapter(token);
-
-  // Embed query
-  console.log('\n   Embedding query...');
-  const queryEmbedding = await embed(query);
-
-  // Search each table
-  const allResults: SearchResult[] = [];
   
-  for (const table of tables) {
-    process.stdout.write(`   Searching ${table}... `);
-    const results = await searchTable(adapter, table, queryEmbedding, 3);
-    console.log(`Found ${results.length}`);
-    allResults.push(...results);
-  }
-
-  // Sort by score and display
-  allResults.sort((a, b) => b.score - a.score);
+  const results = await search(query);
 
   console.log('\n📊 Results:\n');
   
-  for (const result of allResults.slice(0, 15)) {
-    const scoreBar = '█'.repeat(Math.round(result.score * 20)) + '░'.repeat(20 - Math.round(result.score * 20));
+  for (const result of results.slice(0, 15)) {
+    const scoreVal = result.score;
+    const scoreBar = '█'.repeat(Math.round(scoreVal * 20)) + '░'.repeat(20 - Math.round(scoreVal * 20));
     console.log(`   [${result.table}] ${result.name}`);
-    console.log(`      Score: ${scoreBar} ${(result.score * 100).toFixed(1)}%`);
+    console.log(`      Score: ${scoreBar} ${(scoreVal * 100).toFixed(1)}%`);
     
-    // Show relevant fields
-    if (result.table === 'contacts' && result.data.headline) {
-      console.log(`      ${result.data.headline}`);
-    } else if (result.table === 'companies' && result.data.description) {
-      console.log(`      ${result.data.description.slice(0, 100)}...`);
-    } else if (result.table === 'expenses') {
-      console.log(`      Date: ${result.data.occurredAt || 'N/A'}`);
-    }
+    if (result.table === 'contacts') console.log(`      ${result.data.headline || ''}`);
+    if (result.table === 'companies') console.log(`      ${(result.data.description || '').slice(0, 100)}...`);
+    
     console.log('');
   }
 }
 
-main().catch((err) => {
-  console.error('❌', err.message ?? err);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((err) => {
+    console.error('❌', err.message ?? err);
+    process.exit(1);
+  });
+}

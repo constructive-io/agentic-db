@@ -2,17 +2,22 @@ import { config } from './config';
 import { authenticate, createAuthenticatedClient } from './client';
 import { embed } from './ollama';
 
-const TEST_EMAIL = 'rag-test@example.com';
-const TEST_PASSWORD = 'RagTest123!';
+// Construct Admin Email dynamically from DB Name
+// databaseName: agent-os-1772665649005
+// email: admin+1772665649005@agent-os.local
+const ts = config.databaseName.split('-').pop();
+const ADMIN_EMAIL = `admin+${ts}@agent-os.local`;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'password';
+
+console.log(`🔑 Using Admin: ${ADMIN_EMAIL}`);
 
 type TableName = 'contacts' | 'companies' | 'deals' | 'events' | 'venues' | 'notes' | 'expenses' | 'tasks' | 'memories' | 'skills' | 'rules';
 
 interface TableConfig {
-  modelName: string; // SDK model property name (e.g. 'contact')
+  modelName: string;
   textFields: string[];
 }
 
-// Map table name to SDK model name (camelCase singular usually)
 const TABLE_CONFIGS: Record<string, TableConfig> = {
   contacts: { modelName: 'contact', textFields: ['firstName', 'lastName', 'headline', 'bio', 'tags'] },
   companies: { modelName: 'company', textFields: ['name', 'description', 'industry', 'tags'] },
@@ -33,7 +38,7 @@ async function main() {
 
   console.log(`\n🔧 Embedding ${table === 'all' ? 'all tables' : table}\n`);
 
-  const { token, userId } = await authenticate(TEST_EMAIL, TEST_PASSWORD);
+  const { token, userId } = await authenticate(ADMIN_EMAIL, ADMIN_PASSWORD);
   console.log(`   Authenticated as: ${userId}`);
   
   const client = createAuthenticatedClient(token);
@@ -44,14 +49,12 @@ async function main() {
 
     console.log(`\n📋 Processing ${tableName} (${cfg.modelName})...`);
 
-    // Dynamic model access
     const model = (client as any)[cfg.modelName];
     if (!model) {
-      console.log(`   ❌ Model '${cfg.modelName}' not found on SDK client`);
+      console.log(`   ❌ Model '${cfg.modelName}' not found`);
       continue;
     }
 
-    // Build select object
     const select: any = { id: true, embedding: true };
     cfg.textFields.forEach(f => select[f] = true);
 
@@ -70,7 +73,6 @@ async function main() {
     console.log(`   Found ${records.length} records, ${needsEmbedding.length} need embedding`);
 
     for (const record of needsEmbedding) {
-      // Build text
       const textParts = cfg.textFields
         .map(field => {
             const val = record[field];
@@ -82,8 +84,6 @@ async function main() {
       
       if (!text.trim()) continue;
 
-      console.log(`   🔄 ${record.id.slice(0, 8)}...`);
-
       let embedding;
       try {
         embedding = await embed(text);
@@ -92,18 +92,14 @@ async function main() {
         continue;
       }
 
-      // Update via SDK
-      const patchKey = cfg.modelName + 'Patch';
-      // SDK update(input) pattern
+      // ORM Pattern: update({ where, data })
       const updateRes = await model.update({
-        input: {
-          id: record.id,
-          [patchKey]: { embedding }
-        }
+        where: { id: record.id },
+        data: { embedding }
       }).execute();
 
       if (!updateRes.ok) {
-        console.log(`      ❌ Update failed: ${JSON.stringify(updateRes.errors)}`);
+        console.log(`\n      ❌ Update failed: ${JSON.stringify(updateRes.errors)}`);
       } else {
         process.stdout.write('.');
       }

@@ -27,8 +27,8 @@ async function main() {
   
   const authClient = createClient({ adapter: authAdapter });
 
-  // Use hardcoded userId from provisioning log because token is opaque
-  const userId = '32edd3a5-61b8-441d-fe3d-7cf56a7c0eea';
+  // Use the NEW Tenant User ID created via signUp
+  const userId = '88bae6e9-1149-4461-9d72-82ac8fcf6633';
   console.log(`👤 Using User ID: ${userId}`);
   console.log(`🌍 Target Host: ${config.appHost}`);
 
@@ -44,12 +44,16 @@ async function main() {
     
     for (const row of res.rows) {
       try {
-        await createFn(row);
-        process.stdout.write('.');
-        success++;
+        const result = await createFn(row);
+        if (result.ok) {
+           process.stdout.write('.');
+           success++;
+        } else {
+           // process.stdout.write('x');
+           console.warn(JSON.stringify(result.errors));
+           fail++;
+        }
       } catch (err: any) {
-        // process.stdout.write('x');
-        // console.warn(err);
         fail++;
       }
     }
@@ -69,7 +73,7 @@ async function main() {
         headline: row.headline,
         bio: row.bio,
         location: row.location,
-        tags: [], // Initialize tags array
+        tags: [], 
       },
       select: { id: true }
     }).execute();
@@ -220,8 +224,6 @@ async function main() {
       select: { id: true }
     }).execute();
   });
-  
-  // 11. Documents (Life OS) - Assuming empty for now or skipping
 
   await avengersClient.end();
 }

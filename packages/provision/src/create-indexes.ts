@@ -57,7 +57,7 @@ const INDEX_MAP: Record<string, IndexConfig> = {
   companies: { 
     gin: ['tags'], 
     hnsw: ['embedding'],
-    // bm25: ['description'], 
+    bm25: ['description'], 
     trigram: ['name'],
     btree: ['domain'] 
   },
@@ -78,7 +78,7 @@ const INDEX_MAP: Record<string, IndexConfig> = {
   notes: { 
     gin: ['tags'], 
     hnsw: ['embedding'],
-    // bm25: ['content']
+    bm25: ['content']
   },
   messages: { 
     gin: ['tags'], 
@@ -89,7 +89,7 @@ const INDEX_MAP: Record<string, IndexConfig> = {
   expenses: { 
     gin: ['tags'], 
     hnsw: ['embedding'],
-    // bm25: ['description', 'merchant'], 
+    bm25: ['description', 'merchant'], 
     btree: ['date', 'category'] 
   },
   
@@ -97,31 +97,31 @@ const INDEX_MAP: Record<string, IndexConfig> = {
   tasks: { 
     gin: ['tags'], 
     hnsw: ['embedding'],
-    // bm25: ['description'], 
+    bm25: ['description'], 
     btree: ['status', 'priority'] 
   },
   rules: { 
     gin: ['tags'], 
     hnsw: ['embedding'],
-    // bm25: ['content'], 
+    bm25: ['content'], 
     btree: ['kind', 'is_active'] 
   },
   skills: { 
     gin: ['tags'], 
     hnsw: ['embedding'],
-    // bm25: ['content', 'description'], 
+    bm25: ['content', 'description'], 
     trigram: ['name']
   },
   memories: { 
     gin: ['tags'], 
     hnsw: ['embedding'],
-    // bm25: ['content'] 
+    bm25: ['content'] 
   },
   
   // Codebase
   repositories: { 
     hnsw: ['embedding'],
-    // bm25: ['description'], 
+    bm25: ['description'], 
     trigram: ['name'] 
   },
   files: { 
@@ -129,23 +129,23 @@ const INDEX_MAP: Record<string, IndexConfig> = {
   },
   chunks: { 
     hnsw: ['embedding'],
-    // bm25: ['content']
+    bm25: ['content']
   },
   
   // Runtime
   sessions: { 
     hnsw: ['embedding'],
-    // bm25: ['context_summary'], 
+    bm25: ['context_summary'], 
     btree: ['status', 'started_at'] 
   },
   blueprints: { 
     hnsw: ['embedding'],
-    // bm25: ['trigger_conditions'], 
+    bm25: ['trigger_conditions'], 
     trigram: ['title'] 
   },
   chat_messages: { 
     hnsw: ['embedding'],
-    // bm25: ['content'], 
+    bm25: ['content'], 
     btree: ['role'] 
   }
 };
