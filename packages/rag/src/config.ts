@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 import { resolve } from 'path';
 
 // Assume running from package root
-dotenv.config({ path: resolve(process.cwd(), '../../.env') });
+dotenv.config({ path: resolve(__dirname, '../../../.env') });
 
 export const config = {
   databaseName: process.env.DATABASE_NAME || 'agent-os-1772448876647',

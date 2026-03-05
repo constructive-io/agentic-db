@@ -16,6 +16,7 @@ import { VenueImageModel } from './models/venueImage';
 import { CalendarSyncModel } from './models/calendarSync';
 import { FileModel } from './models/file';
 import { EmailAccountModel } from './models/emailAccount';
+import { MessageModel } from './models/message';
 import { ExecutionLogModel } from './models/executionLog';
 import { ChatModel } from './models/chat';
 import { ProjectModel } from './models/project';
@@ -34,11 +35,10 @@ import { RuleModel } from './models/rule';
 import { SkillModel } from './models/skill';
 import { ExpenseModel } from './models/expense';
 import { NoteModel } from './models/note';
-import { MessageModel } from './models/message';
 import { CompanyModel } from './models/company';
 import { VenueModel } from './models/venue';
-import { ContactModel } from './models/contact';
 import { EventModel } from './models/event';
+import { ContactModel } from './models/contact';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
 export { GraphQLRequestError } from './client';
 export { QueryBuilder } from './query-builder';
@@ -82,6 +82,7 @@ export function createClient(config: OrmClientConfig) {
     calendarSync: new CalendarSyncModel(client),
     file: new FileModel(client),
     emailAccount: new EmailAccountModel(client),
+    message: new MessageModel(client),
     executionLog: new ExecutionLogModel(client),
     chat: new ChatModel(client),
     project: new ProjectModel(client),
@@ -100,10 +101,9 @@ export function createClient(config: OrmClientConfig) {
     skill: new SkillModel(client),
     expense: new ExpenseModel(client),
     note: new NoteModel(client),
-    message: new MessageModel(client),
     company: new CompanyModel(client),
     venue: new VenueModel(client),
-    contact: new ContactModel(client),
     event: new EventModel(client),
+    contact: new ContactModel(client),
   };
 }

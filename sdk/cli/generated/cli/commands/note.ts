@@ -12,7 +12,10 @@ const fieldSchema = {
   createdAt: 'string',
   updatedAt: 'string',
   content: 'string',
+  tags: 'string',
+  embedding: 'string',
   contactId: 'uuid',
+  embeddingDistance: 'float',
 };
 const usage =
   '\nnote <command>\n\nCommands:\n  list                  List all note records\n  get                   Get a note by ID\n  create                Create a new note\n  update                Update an existing note\n  delete                Delete a note\n\n  --help, -h            Show this help message\n';
@@ -71,7 +74,10 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           createdAt: true,
           updatedAt: true,
           content: true,
+          tags: true,
+          embedding: true,
           contactId: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -104,7 +110,10 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           createdAt: true,
           updatedAt: true,
           content: true,
+          tags: true,
+          embedding: true,
           contactId: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -134,8 +143,26 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+      },
+      {
+        type: 'text',
         name: 'contactId',
         message: 'contactId',
+        required: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingDistance',
+        message: 'embeddingDistance',
         required: true,
       },
     ]);
@@ -147,7 +174,10 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         data: {
           entityId: cleanedData.entityId,
           content: cleanedData.content,
+          tags: cleanedData.tags,
+          embedding: cleanedData.embedding,
           contactId: cleanedData.contactId,
+          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -155,7 +185,10 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           createdAt: true,
           updatedAt: true,
           content: true,
+          tags: true,
+          embedding: true,
           contactId: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -191,8 +224,26 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+      },
+      {
+        type: 'text',
         name: 'contactId',
         message: 'contactId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embeddingDistance',
+        message: 'embeddingDistance',
         required: false,
       },
     ]);
@@ -207,7 +258,10 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         data: {
           entityId: cleanedData.entityId,
           content: cleanedData.content,
+          tags: cleanedData.tags,
+          embedding: cleanedData.embedding,
           contactId: cleanedData.contactId,
+          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -215,7 +269,10 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           createdAt: true,
           updatedAt: true,
           content: true,
+          tags: true,
+          embedding: true,
           contactId: true,
+          embeddingDistance: true,
         },
       })
       .execute();

@@ -15,11 +15,11 @@ const fieldSchema = {
   domain: 'string',
   industry: 'string',
   description: 'string',
-  test1772427893521: 'float',
-  test1772427893568: 'float',
-  test1772427893598: 'float',
-  embedding: 'float',
-  embeddingText: 'string',
+  tags: 'string',
+  embedding: 'string',
+  mainImageId: 'uuid',
+  imageId: 'uuid',
+  embeddingDistance: 'float',
 };
 const usage =
   '\ncompany <command>\n\nCommands:\n  list                  List all company records\n  get                   Get a company by ID\n  create                Create a new company\n  update                Update an existing company\n  delete                Delete a company\n\n  --help, -h            Show this help message\n';
@@ -81,11 +81,11 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           domain: true,
           industry: true,
           description: true,
-          test1772427893521: true,
-          test1772427893568: true,
-          test1772427893598: true,
+          tags: true,
           embedding: true,
-          embeddingText: true,
+          mainImageId: true,
+          imageId: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -121,11 +121,11 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           domain: true,
           industry: true,
           description: true,
-          test1772427893521: true,
-          test1772427893568: true,
-          test1772427893598: true,
+          tags: true,
           embedding: true,
-          embeddingText: true,
+          mainImageId: true,
+          imageId: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -173,20 +173,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'test1772427893521',
-        message: 'test1772427893521',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'test1772427893568',
-        message: 'test1772427893568',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'test1772427893598',
-        message: 'test1772427893598',
+        name: 'tags',
+        message: 'tags',
         required: false,
       },
       {
@@ -197,9 +185,21 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'embeddingText',
-        message: 'embeddingText',
+        name: 'mainImageId',
+        message: 'mainImageId',
         required: false,
+      },
+      {
+        type: 'text',
+        name: 'imageId',
+        message: 'imageId',
+        required: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingDistance',
+        message: 'embeddingDistance',
+        required: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
@@ -213,11 +213,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           domain: cleanedData.domain,
           industry: cleanedData.industry,
           description: cleanedData.description,
-          test1772427893521: cleanedData.test1772427893521,
-          test1772427893568: cleanedData.test1772427893568,
-          test1772427893598: cleanedData.test1772427893598,
+          tags: cleanedData.tags,
           embedding: cleanedData.embedding,
-          embeddingText: cleanedData.embeddingText,
+          mainImageId: cleanedData.mainImageId,
+          imageId: cleanedData.imageId,
+          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -228,11 +228,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           domain: true,
           industry: true,
           description: true,
-          test1772427893521: true,
-          test1772427893568: true,
-          test1772427893598: true,
+          tags: true,
           embedding: true,
-          embeddingText: true,
+          mainImageId: true,
+          imageId: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -286,20 +286,8 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'test1772427893521',
-        message: 'test1772427893521',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'test1772427893568',
-        message: 'test1772427893568',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'test1772427893598',
-        message: 'test1772427893598',
+        name: 'tags',
+        message: 'tags',
         required: false,
       },
       {
@@ -310,8 +298,20 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'embeddingText',
-        message: 'embeddingText',
+        name: 'mainImageId',
+        message: 'mainImageId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'imageId',
+        message: 'imageId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embeddingDistance',
+        message: 'embeddingDistance',
         required: false,
       },
     ]);
@@ -329,11 +329,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           domain: cleanedData.domain,
           industry: cleanedData.industry,
           description: cleanedData.description,
-          test1772427893521: cleanedData.test1772427893521,
-          test1772427893568: cleanedData.test1772427893568,
-          test1772427893598: cleanedData.test1772427893598,
+          tags: cleanedData.tags,
           embedding: cleanedData.embedding,
-          embeddingText: cleanedData.embeddingText,
+          mainImageId: cleanedData.mainImageId,
+          imageId: cleanedData.imageId,
+          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -344,11 +344,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           domain: true,
           industry: true,
           description: true,
-          test1772427893521: true,
-          test1772427893568: true,
-          test1772427893598: true,
+          tags: true,
           embedding: true,
-          embeddingText: true,
+          mainImageId: true,
+          imageId: true,
+          embeddingDistance: true,
         },
       })
       .execute();

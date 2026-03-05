@@ -6,34 +6,80 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import contextCmd from './commands/context';
 import authCmd from './commands/auth';
+import companyImageCmd from './commands/company-image';
 import contactCompanyCmd from './commands/contact-company';
 import contactEventCmd from './commands/contact-event';
+import contactImageCmd from './commands/contact-image';
 import dealContactCmd from './commands/deal-contact';
+import eventImageCmd from './commands/event-image';
 import eventVenueCmd from './commands/event-venue';
-import tagCmd from './commands/tag';
-import noteCmd from './commands/note';
-import venueCmd from './commands/venue';
-import contactCmd from './commands/contact';
-import eventCmd from './commands/event';
+import venueImageCmd from './commands/venue-image';
+import calendarSyncCmd from './commands/calendar-sync';
+import fileCmd from './commands/file';
+import emailAccountCmd from './commands/email-account';
+import messageCmd from './commands/message';
+import executionLogCmd from './commands/execution-log';
+import chatCmd from './commands/chat';
+import projectCmd from './commands/project';
+import repositoryCmd from './commands/repository';
+import sessionCmd from './commands/session';
+import blueprintCmd from './commands/blueprint';
+import imageCmd from './commands/image';
+import milestoneCmd from './commands/milestone';
+import chatMessageCmd from './commands/chat-message';
+import chunkCmd from './commands/chunk';
+import memoryCmd from './commands/memory';
 import dealCmd from './commands/deal';
+import documentCmd from './commands/document';
+import taskCmd from './commands/task';
+import ruleCmd from './commands/rule';
+import skillCmd from './commands/skill';
+import expenseCmd from './commands/expense';
+import noteCmd from './commands/note';
 import companyCmd from './commands/company';
+import venueCmd from './commands/venue';
+import eventCmd from './commands/event';
+import contactCmd from './commands/contact';
 const createCommandMap = () => ({
   context: contextCmd,
   auth: authCmd,
+  'company-image': companyImageCmd,
   'contact-company': contactCompanyCmd,
   'contact-event': contactEventCmd,
+  'contact-image': contactImageCmd,
   'deal-contact': dealContactCmd,
+  'event-image': eventImageCmd,
   'event-venue': eventVenueCmd,
-  tag: tagCmd,
-  note: noteCmd,
-  venue: venueCmd,
-  contact: contactCmd,
-  event: eventCmd,
+  'venue-image': venueImageCmd,
+  'calendar-sync': calendarSyncCmd,
+  file: fileCmd,
+  'email-account': emailAccountCmd,
+  message: messageCmd,
+  'execution-log': executionLogCmd,
+  chat: chatCmd,
+  project: projectCmd,
+  repository: repositoryCmd,
+  session: sessionCmd,
+  blueprint: blueprintCmd,
+  image: imageCmd,
+  milestone: milestoneCmd,
+  'chat-message': chatMessageCmd,
+  chunk: chunkCmd,
+  memory: memoryCmd,
   deal: dealCmd,
+  document: documentCmd,
+  task: taskCmd,
+  rule: ruleCmd,
+  skill: skillCmd,
+  expense: expenseCmd,
+  note: noteCmd,
   company: companyCmd,
+  venue: venueCmd,
+  event: eventCmd,
+  contact: contactCmd,
 });
 const usage =
-  '\nagent-os <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  contact-company      contactCompany CRUD operations\n  contact-event        contactEvent CRUD operations\n  deal-contact         dealContact CRUD operations\n  event-venue          eventVenue CRUD operations\n  tag                  tag CRUD operations\n  note                 note CRUD operations\n  venue                venue CRUD operations\n  contact              contact CRUD operations\n  event                event CRUD operations\n  deal                 deal CRUD operations\n  company              company CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
+  '\nagent-os <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  company-image        companyImage CRUD operations\n  contact-company      contactCompany CRUD operations\n  contact-event        contactEvent CRUD operations\n  contact-image        contactImage CRUD operations\n  deal-contact         dealContact CRUD operations\n  event-image          eventImage CRUD operations\n  event-venue          eventVenue CRUD operations\n  venue-image          venueImage CRUD operations\n  calendar-sync        calendarSync CRUD operations\n  file                 file CRUD operations\n  email-account        emailAccount CRUD operations\n  message              message CRUD operations\n  execution-log        executionLog CRUD operations\n  chat                 chat CRUD operations\n  project              project CRUD operations\n  repository           repository CRUD operations\n  session              session CRUD operations\n  blueprint            blueprint CRUD operations\n  image                image CRUD operations\n  milestone            milestone CRUD operations\n  chat-message         chatMessage CRUD operations\n  chunk                chunk CRUD operations\n  memory               memory CRUD operations\n  deal                 deal CRUD operations\n  document             document CRUD operations\n  task                 task CRUD operations\n  rule                 rule CRUD operations\n  skill                skill CRUD operations\n  expense              expense CRUD operations\n  note                 note CRUD operations\n  company              company CRUD operations\n  venue                venue CRUD operations\n  event                event CRUD operations\n  contact              contact CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
 export const commands = async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,

@@ -15,6 +15,9 @@ const fieldSchema = {
   stage: 'string',
   value: 'string',
   notes: 'string',
+  tags: 'string',
+  embedding: 'string',
+  embeddingDistance: 'float',
 };
 const usage =
   '\ndeal <command>\n\nCommands:\n  list                  List all deal records\n  get                   Get a deal by ID\n  create                Create a new deal\n  update                Update an existing deal\n  delete                Delete a deal\n\n  --help, -h            Show this help message\n';
@@ -76,6 +79,9 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           stage: true,
           value: true,
           notes: true,
+          tags: true,
+          embedding: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -111,6 +117,9 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           stage: true,
           value: true,
           notes: true,
+          tags: true,
+          embedding: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -156,6 +165,24 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         message: 'notes',
         required: false,
       },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embeddingDistance',
+        message: 'embeddingDistance',
+        required: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema);
@@ -168,6 +195,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           stage: cleanedData.stage,
           value: cleanedData.value,
           notes: cleanedData.notes,
+          tags: cleanedData.tags,
+          embedding: cleanedData.embedding,
+          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -178,6 +208,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           stage: true,
           value: true,
           notes: true,
+          tags: true,
+          embedding: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -229,6 +262,24 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         message: 'notes',
         required: false,
       },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embeddingDistance',
+        message: 'embeddingDistance',
+        required: false,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema);
@@ -244,6 +295,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           stage: cleanedData.stage,
           value: cleanedData.value,
           notes: cleanedData.notes,
+          tags: cleanedData.tags,
+          embedding: cleanedData.embedding,
+          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -254,6 +308,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           stage: true,
           value: true,
           notes: true,
+          tags: true,
+          embedding: true,
+          embeddingDistance: true,
         },
       })
       .execute();

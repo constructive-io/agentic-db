@@ -18,6 +18,13 @@ const fieldSchema = {
   headline: 'string',
   bio: 'string',
   location: 'string',
+  tags: 'string',
+  embedding: 'string',
+  mainImageId: 'uuid',
+  imageId: 'uuid',
+  searchTsv: 'string',
+  searchTsvRank: 'float',
+  embeddingDistance: 'float',
 };
 const usage =
   '\ncontact <command>\n\nCommands:\n  list                  List all contact records\n  get                   Get a contact by ID\n  create                Create a new contact\n  update                Update an existing contact\n  delete                Delete a contact\n\n  --help, -h            Show this help message\n';
@@ -82,6 +89,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           headline: true,
           bio: true,
           location: true,
+          tags: true,
+          embedding: true,
+          mainImageId: true,
+          imageId: true,
+          searchTsv: true,
+          searchTsvRank: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -120,6 +134,13 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           headline: true,
           bio: true,
           location: true,
+          tags: true,
+          embedding: true,
+          mainImageId: true,
+          imageId: true,
+          searchTsv: true,
+          searchTsvRank: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -183,6 +204,48 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         message: 'location',
         required: false,
       },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'mainImageId',
+        message: 'mainImageId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'imageId',
+        message: 'imageId',
+        required: true,
+      },
+      {
+        type: 'text',
+        name: 'searchTsv',
+        message: 'searchTsv',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'searchTsvRank',
+        message: 'searchTsvRank',
+        required: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingDistance',
+        message: 'embeddingDistance',
+        required: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema);
@@ -198,6 +261,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           headline: cleanedData.headline,
           bio: cleanedData.bio,
           location: cleanedData.location,
+          tags: cleanedData.tags,
+          embedding: cleanedData.embedding,
+          mainImageId: cleanedData.mainImageId,
+          imageId: cleanedData.imageId,
+          searchTsv: cleanedData.searchTsv,
+          searchTsvRank: cleanedData.searchTsvRank,
+          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -211,6 +281,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           headline: true,
           bio: true,
           location: true,
+          tags: true,
+          embedding: true,
+          mainImageId: true,
+          imageId: true,
+          searchTsv: true,
+          searchTsvRank: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -280,6 +357,48 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         message: 'location',
         required: false,
       },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'mainImageId',
+        message: 'mainImageId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'imageId',
+        message: 'imageId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'searchTsv',
+        message: 'searchTsv',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'searchTsvRank',
+        message: 'searchTsvRank',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embeddingDistance',
+        message: 'embeddingDistance',
+        required: false,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema);
@@ -298,6 +417,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           headline: cleanedData.headline,
           bio: cleanedData.bio,
           location: cleanedData.location,
+          tags: cleanedData.tags,
+          embedding: cleanedData.embedding,
+          mainImageId: cleanedData.mainImageId,
+          imageId: cleanedData.imageId,
+          searchTsv: cleanedData.searchTsv,
+          searchTsvRank: cleanedData.searchTsvRank,
+          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -311,6 +437,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           headline: true,
           bio: true,
           location: true,
+          tags: true,
+          embedding: true,
+          mainImageId: true,
+          imageId: true,
+          searchTsv: true,
+          searchTsvRank: true,
+          embeddingDistance: true,
         },
       })
       .execute();

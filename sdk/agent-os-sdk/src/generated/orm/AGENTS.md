@@ -376,6 +376,57 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
+### MODEL: message
+
+Access: `db.message`
+
+```
+METHODS:
+  db.message.findMany({ select, where?, orderBy?, first?, offset? })
+  db.message.findOne({ id, select })
+  db.message.create({ data: { entityId, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }, select })
+  db.message.update({ where: { id }, data, select })
+  db.message.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  threadId: string
+  remoteId: string
+  from: string
+  to: string[]
+  subject: string
+  bodyText: string
+  receivedAt: string
+  tags: string[]
+  embedding: Vector
+  emailAccountId: string
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  threadId: string
+  remoteId: string
+  from: string
+  to: string[]
+  subject: string
+  bodyText: string
+  receivedAt: string
+  tags: string[]
+  embedding: Vector
+  emailAccountId: string
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }
+  delete:   { id }
+```
+
 ### MODEL: executionLog
 
 Access: `db.executionLog`
@@ -1126,57 +1177,6 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
-### MODEL: message
-
-Access: `db.message`
-
-```
-METHODS:
-  db.message.findMany({ select, where?, orderBy?, first?, offset? })
-  db.message.findOne({ id, select })
-  db.message.create({ data: { entityId, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }, select })
-  db.message.update({ where: { id }, data, select })
-  db.message.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  threadId: string
-  remoteId: string
-  from: string
-  to: string[]
-  subject: string
-  bodyText: string
-  receivedAt: string
-  tags: string[]
-  embedding: Vector
-  emailAccountId: string
-  embeddingDistance: number
-
-EDITABLE FIELDS:
-  entityId: string
-  threadId: string
-  remoteId: string
-  from: string
-  to: string[]
-  subject: string
-  bodyText: string
-  receivedAt: string
-  tags: string[]
-  embedding: Vector
-  emailAccountId: string
-  embeddingDistance: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, threadId, remoteId, from, to, subject, bodyText, receivedAt, tags, embedding, emailAccountId, embeddingDistance }
-  delete:   { id }
-```
-
 ### MODEL: company
 
 Access: `db.company`
@@ -1273,59 +1273,6 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
-### MODEL: contact
-
-Access: `db.contact`
-
-```
-METHODS:
-  db.contact.findMany({ select, where?, orderBy?, first?, offset? })
-  db.contact.findOne({ id, select })
-  db.contact.create({ data: { entityId, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, embeddingDistance }, select })
-  db.contact.update({ where: { id }, data, select })
-  db.contact.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  headline: string
-  bio: string
-  location: string
-  tags: string[]
-  embedding: Vector
-  mainImageId: string
-  imageId: string
-  embeddingDistance: number
-
-EDITABLE FIELDS:
-  entityId: string
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  headline: string
-  bio: string
-  location: string
-  tags: string[]
-  embedding: Vector
-  mainImageId: string
-  imageId: string
-  embeddingDistance: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, embeddingDistance }
-  delete:   { id }
-```
-
 ### MODEL: event
 
 Access: `db.event`
@@ -1376,6 +1323,63 @@ OUTPUT: Promise<JSON>
   findOne:  { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, mainImageId, imageId, embeddingDistance }
   create:   { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, mainImageId, imageId, embeddingDistance }
   update:   { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embedding, mainImageId, imageId, embeddingDistance }
+  delete:   { id }
+```
+
+### MODEL: contact
+
+Access: `db.contact`
+
+```
+METHODS:
+  db.contact.findMany({ select, where?, orderBy?, first?, offset? })
+  db.contact.findOne({ id, select })
+  db.contact.create({ data: { entityId, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, searchTsv, searchTsvRank, embeddingDistance }, select })
+  db.contact.update({ where: { id }, data, select })
+  db.contact.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  headline: string
+  bio: string
+  location: string
+  tags: string[]
+  embedding: Vector
+  mainImageId: string
+  imageId: string
+  searchTsv: string
+  searchTsvRank: number
+  embeddingDistance: number
+
+EDITABLE FIELDS:
+  entityId: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  headline: string
+  bio: string
+  location: string
+  tags: string[]
+  embedding: Vector
+  mainImageId: string
+  imageId: string
+  searchTsv: string
+  searchTsvRank: number
+  embeddingDistance: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, searchTsv, searchTsvRank, embeddingDistance }]
+  findOne:  { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, searchTsv, searchTsvRank, embeddingDistance }
+  create:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, searchTsv, searchTsvRank, embeddingDistance }
+  update:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, tags, embedding, mainImageId, imageId, searchTsv, searchTsvRank, embeddingDistance }
   delete:   { id }
 ```
 

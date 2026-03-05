@@ -32,6 +32,7 @@ const db = createClient({
 | `calendarSync` | findMany, findOne, create, update, delete |
 | `file` | findMany, findOne, create, update, delete |
 | `emailAccount` | findMany, findOne, create, update, delete |
+| `message` | findMany, findOne, create, update, delete |
 | `executionLog` | findMany, findOne, create, update, delete |
 | `chat` | findMany, findOne, create, update, delete |
 | `project` | findMany, findOne, create, update, delete |
@@ -50,11 +51,10 @@ const db = createClient({
 | `skill` | findMany, findOne, create, update, delete |
 | `expense` | findMany, findOne, create, update, delete |
 | `note` | findMany, findOne, create, update, delete |
-| `message` | findMany, findOne, create, update, delete |
 | `company` | findMany, findOne, create, update, delete |
 | `venue` | findMany, findOne, create, update, delete |
-| `contact` | findMany, findOne, create, update, delete |
 | `event` | findMany, findOne, create, update, delete |
+| `contact` | findMany, findOne, create, update, delete |
 
 ## Table Operations
 
@@ -418,6 +418,49 @@ const updated = await db.emailAccount.update({ where: { id: '<value>' }, data: {
 
 // Delete
 const deleted = await db.emailAccount.delete({ where: { id: '<value>' } }).execute();
+```
+
+### `db.message`
+
+CRUD operations for Message records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `threadId` | String | Yes |
+| `remoteId` | String | Yes |
+| `from` | String | Yes |
+| `to` | String | Yes |
+| `subject` | String | Yes |
+| `bodyText` | String | Yes |
+| `receivedAt` | Datetime | Yes |
+| `tags` | String | Yes |
+| `embedding` | Vector | Yes |
+| `emailAccountId` | UUID | Yes |
+| `embeddingDistance` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all message records
+const items = await db.message.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, threadId: true, remoteId: true, from: true, to: true, subject: true, bodyText: true, receivedAt: true, tags: true, embedding: true, emailAccountId: true, embeddingDistance: true } }).execute();
+
+// Get one by id
+const item = await db.message.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, threadId: true, remoteId: true, from: true, to: true, subject: true, bodyText: true, receivedAt: true, tags: true, embedding: true, emailAccountId: true, embeddingDistance: true } }).execute();
+
+// Create
+const created = await db.message.create({ data: { entityId: '<value>', threadId: '<value>', remoteId: '<value>', from: '<value>', to: '<value>', subject: '<value>', bodyText: '<value>', receivedAt: '<value>', tags: '<value>', embedding: '<value>', emailAccountId: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.message.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.message.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.executionLog`
@@ -1110,49 +1153,6 @@ const updated = await db.note.update({ where: { id: '<value>' }, data: { entityI
 const deleted = await db.note.delete({ where: { id: '<value>' } }).execute();
 ```
 
-### `db.message`
-
-CRUD operations for Message records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `threadId` | String | Yes |
-| `remoteId` | String | Yes |
-| `from` | String | Yes |
-| `to` | String | Yes |
-| `subject` | String | Yes |
-| `bodyText` | String | Yes |
-| `receivedAt` | Datetime | Yes |
-| `tags` | String | Yes |
-| `embedding` | Vector | Yes |
-| `emailAccountId` | UUID | Yes |
-| `embeddingDistance` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all message records
-const items = await db.message.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, threadId: true, remoteId: true, from: true, to: true, subject: true, bodyText: true, receivedAt: true, tags: true, embedding: true, emailAccountId: true, embeddingDistance: true } }).execute();
-
-// Get one by id
-const item = await db.message.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, threadId: true, remoteId: true, from: true, to: true, subject: true, bodyText: true, receivedAt: true, tags: true, embedding: true, emailAccountId: true, embeddingDistance: true } }).execute();
-
-// Create
-const created = await db.message.create({ data: { entityId: '<value>', threadId: '<value>', remoteId: '<value>', from: '<value>', to: '<value>', subject: '<value>', bodyText: '<value>', receivedAt: '<value>', tags: '<value>', embedding: '<value>', emailAccountId: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.message.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.message.delete({ where: { id: '<value>' } }).execute();
-```
-
 ### `db.company`
 
 CRUD operations for Company records.
@@ -1236,50 +1236,6 @@ const updated = await db.venue.update({ where: { id: '<value>' }, data: { entity
 const deleted = await db.venue.delete({ where: { id: '<value>' } }).execute();
 ```
 
-### `db.contact`
-
-CRUD operations for Contact records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `firstName` | String | Yes |
-| `lastName` | String | Yes |
-| `email` | String | Yes |
-| `phone` | String | Yes |
-| `headline` | String | Yes |
-| `bio` | String | Yes |
-| `location` | String | Yes |
-| `tags` | String | Yes |
-| `embedding` | Vector | Yes |
-| `mainImageId` | UUID | Yes |
-| `imageId` | UUID | Yes |
-| `embeddingDistance` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all contact records
-const items = await db.contact.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, tags: true, embedding: true, mainImageId: true, imageId: true, embeddingDistance: true } }).execute();
-
-// Get one by id
-const item = await db.contact.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, tags: true, embedding: true, mainImageId: true, imageId: true, embeddingDistance: true } }).execute();
-
-// Create
-const created = await db.contact.create({ data: { entityId: '<value>', firstName: '<value>', lastName: '<value>', email: '<value>', phone: '<value>', headline: '<value>', bio: '<value>', location: '<value>', tags: '<value>', embedding: '<value>', mainImageId: '<value>', imageId: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.contact.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.contact.delete({ where: { id: '<value>' } }).execute();
-```
-
 ### `db.event`
 
 CRUD operations for Event records.
@@ -1322,6 +1278,52 @@ const updated = await db.event.update({ where: { id: '<value>' }, data: { entity
 
 // Delete
 const deleted = await db.event.delete({ where: { id: '<value>' } }).execute();
+```
+
+### `db.contact`
+
+CRUD operations for Contact records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `firstName` | String | Yes |
+| `lastName` | String | Yes |
+| `email` | String | Yes |
+| `phone` | String | Yes |
+| `headline` | String | Yes |
+| `bio` | String | Yes |
+| `location` | String | Yes |
+| `tags` | String | Yes |
+| `embedding` | Vector | Yes |
+| `mainImageId` | UUID | Yes |
+| `imageId` | UUID | Yes |
+| `searchTsv` | FullText | Yes |
+| `searchTsvRank` | Float | Yes |
+| `embeddingDistance` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all contact records
+const items = await db.contact.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, tags: true, embedding: true, mainImageId: true, imageId: true, searchTsv: true, searchTsvRank: true, embeddingDistance: true } }).execute();
+
+// Get one by id
+const item = await db.contact.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, tags: true, embedding: true, mainImageId: true, imageId: true, searchTsv: true, searchTsvRank: true, embeddingDistance: true } }).execute();
+
+// Create
+const created = await db.contact.create({ data: { entityId: '<value>', firstName: '<value>', lastName: '<value>', email: '<value>', phone: '<value>', headline: '<value>', bio: '<value>', location: '<value>', tags: '<value>', embedding: '<value>', mainImageId: '<value>', imageId: '<value>', searchTsv: '<value>', searchTsvRank: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.contact.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.contact.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ---

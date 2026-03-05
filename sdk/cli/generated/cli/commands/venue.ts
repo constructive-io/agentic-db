@@ -16,6 +16,11 @@ const fieldSchema = {
   city: 'string',
   status: 'string',
   notes: 'string',
+  tags: 'string',
+  embedding: 'string',
+  mainImageId: 'uuid',
+  imageId: 'uuid',
+  embeddingDistance: 'float',
 };
 const usage =
   '\nvenue <command>\n\nCommands:\n  list                  List all venue records\n  get                   Get a venue by ID\n  create                Create a new venue\n  update                Update an existing venue\n  delete                Delete a venue\n\n  --help, -h            Show this help message\n';
@@ -78,6 +83,11 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           city: true,
           status: true,
           notes: true,
+          tags: true,
+          embedding: true,
+          mainImageId: true,
+          imageId: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -114,6 +124,11 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           city: true,
           status: true,
           notes: true,
+          tags: true,
+          embedding: true,
+          mainImageId: true,
+          imageId: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -165,6 +180,36 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         message: 'notes',
         required: false,
       },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'mainImageId',
+        message: 'mainImageId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'imageId',
+        message: 'imageId',
+        required: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingDistance',
+        message: 'embeddingDistance',
+        required: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema);
@@ -178,6 +223,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           city: cleanedData.city,
           status: cleanedData.status,
           notes: cleanedData.notes,
+          tags: cleanedData.tags,
+          embedding: cleanedData.embedding,
+          mainImageId: cleanedData.mainImageId,
+          imageId: cleanedData.imageId,
+          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -189,6 +239,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           city: true,
           status: true,
           notes: true,
+          tags: true,
+          embedding: true,
+          mainImageId: true,
+          imageId: true,
+          embeddingDistance: true,
         },
       })
       .execute();
@@ -246,6 +301,36 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         message: 'notes',
         required: false,
       },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'mainImageId',
+        message: 'mainImageId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'imageId',
+        message: 'imageId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'embeddingDistance',
+        message: 'embeddingDistance',
+        required: false,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema);
@@ -262,6 +347,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           city: cleanedData.city,
           status: cleanedData.status,
           notes: cleanedData.notes,
+          tags: cleanedData.tags,
+          embedding: cleanedData.embedding,
+          mainImageId: cleanedData.mainImageId,
+          imageId: cleanedData.imageId,
+          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -273,6 +363,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           city: true,
           status: true,
           notes: true,
+          tags: true,
+          embedding: true,
+          mainImageId: true,
+          imageId: true,
+          embeddingDistance: true,
         },
       })
       .execute();
