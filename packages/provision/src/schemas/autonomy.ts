@@ -71,7 +71,15 @@ async function addFieldToExistingTable(tableName: string, fieldName: string, typ
     return;
   }
   const tableId = nodes[0].id;
-  await addField(tableId, fieldName, type, opts);
+  try {
+    await addField(tableId, fieldName, type, opts);
+  } catch (e: any) {
+    if (String(e?.message || e).includes('duplicate key') || String(e?.message || e).includes('already exists')) {
+      console.log('      ⏭️ ' + fieldName + ' already exists on ' + tableName + ', skipping');
+    } else {
+      throw e;
+    }
+  }
 }
 
 // --- Main ---
@@ -178,6 +186,23 @@ async function main() {
   }
 
   // ===== ENHANCE EXISTING TABLES =====
+  // rules: +slug, +severity, +verification, +trigger_concept
+  console.log('\n   📏 rules (enhance)...');
+  await addFieldToExistingTable('rules', 'slug', 'text');
+  await addFieldToExistingTable('rules', 'severity', 'text', { defaultValue: "'warning'" });
+  await addFieldToExistingTable('rules', 'verification', 'text');
+  await addFieldToExistingTable('rules', 'trigger_concept', 'vector(768)');
+
+  // skills: +slug, +procedure, +interface, +requirements, +file_path, +content_hash, +intent_trigger
+  console.log('\n   🛠️ skills (enhance)...');
+  await addFieldToExistingTable('skills', 'slug', 'text');
+  await addFieldToExistingTable('skills', 'procedure', 'text');
+  await addFieldToExistingTable('skills', 'interface', 'jsonb', { defaultValue: "'{}'" });
+  await addFieldToExistingTable('skills', 'requirements', 'jsonb', { defaultValue: "'{}'" });
+  await addFieldToExistingTable('skills', 'file_path', 'text');
+  await addFieldToExistingTable('skills', 'content_hash', 'text');
+  await addFieldToExistingTable('skills', 'intent_trigger', 'vector(768)');
+
   console.log('\n🔧 Enhancing existing tables...');
 
   // tasks: +assigned_agent_id, +conversation_id

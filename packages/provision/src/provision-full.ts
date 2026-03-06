@@ -108,6 +108,7 @@ async function main() {
   runSchema('projects.ts');
   runSchema('codebase.ts');
   runSchema('life_os.ts');
+  runSchema('autonomy.ts');
 
   // --- Step 3: Success ---
   console.log('\n✨✨✨ ALL SYSTEMS GO ✨✨✨');
