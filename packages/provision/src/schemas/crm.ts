@@ -129,7 +129,7 @@ async function main() {
   // 1:1 Main Image Links
   const linkImage = async (sourceId: string, name: string) => {
     await withRetry(() => client.relationProvision.create({
-      data: { databaseId, relationType: 'RelationBelongsTo', sourceTableId: sourceId, targetTableId: imagesId, sourceFieldName: 'main_image_id', targetFieldName: 'id', deleteAction: 'n' }, // Set NULL on delete
+      data: { databaseId, relationType: 'RelationBelongsTo', sourceTableId: sourceId, targetTableId: imagesId, fieldName: 'main_image_id', sourceFieldName: 'main_image_id', targetFieldName: 'id', deleteAction: 'n', isRequired: false }, // Set NULL on delete
       select: { id: true },
     }).unwrap());
     console.log(`   ✓ ${name} → images (main_image)`);

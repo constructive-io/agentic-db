@@ -26,7 +26,7 @@ if (!databaseId || !accessToken) {
   process.exit(1);
 }
 
-const PLATFORM_ENDPOINT = 'http://[::1]:3000/graphql';
+const PLATFORM_ENDPOINT = 'http://127.0.0.1:3000/graphql';
 const PLATFORM_HOST = 'api.localhost';
 
 const adapter = new NodeHttpAdapter(PLATFORM_ENDPOINT, {
@@ -38,6 +38,16 @@ const client = createClient({ adapter });
 // --- Helpers (same pattern as crm.ts) ---
 
 async function createOrgTable(tableName: string): Promise<string> {
+  const existing = await withRetry(() => client.table.findMany({
+    condition: { databaseId: { equalTo: databaseId }, name: { equalTo: tableName } },
+    first: 1,
+    select: { id: true },
+  }).unwrap());
+  if ((existing as any)?.tables?.nodes?.length > 0) {
+    console.log(`   ✓ ${tableName} (exists)`);
+    return (existing as any).tables.nodes[0].id;
+  }
+
   const result = await withRetry(() =>
     client.secureTableProvision.create({
       data: { databaseId, tableName, nodeType: 'DataEntityMembership', useRls: true, grantRoles: ['authenticated'], grantPrivileges: entityGrants, policyType: 'AuthzEntityMembership', policyPermissive: true, policyData: entityPolicyData },
@@ -53,9 +63,27 @@ async function createOrgTable(tableName: string): Promise<string> {
 }
 
 async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}): Promise<string> {
-  const result = await withRetry(() => client.field.create({ data: { tableId, name, type, isRequired: opts.isRequired ?? false, label: name, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
-  console.log(`      + ${name} (${type})`);
-  return result.createField?.field?.id!;
+  const existing = await withRetry(() => client.field.findMany({
+    condition: { tableId: { equalTo: tableId }, name: { equalTo: name } },
+    first: 1,
+    select: { id: true },
+  }).unwrap());
+  if ((existing as any)?.fields?.nodes?.length > 0) {
+    console.log(`      ⏭️ ${name} already exists`);
+    return (existing as any).fields.nodes[0].id;
+  }
+
+  try {
+    const result = await withRetry(() => client.field.create({ data: { tableId, name, type, isRequired: opts.isRequired ?? false, label: name, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
+    console.log(`      + ${name} (${type})`);
+    return result.createField?.field?.id!;
+  } catch (e: any) {
+    if (String(e?.message || e).includes('duplicate key') || String(e?.message || e).includes('already exists') || String(e?.message || e).includes('contains null values')) {
+      console.log(`      ⏭️ ${name} already exists (error caught)`);
+      return '';
+    }
+    throw e;
+  }
 }
 
 async function addFieldToExistingTable(tableName: string, fieldName: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}): Promise<void> {
@@ -159,11 +187,15 @@ async function main() {
   console.log('\n🔗 Relations...');
 
   // processes.agent_id → agents.id
-  await withRetry(() => client.relationProvision.create({
-    data: { databaseId, relationType: 'RelationBelongsTo', sourceTableId: processesId, targetTableId: agentsId, sourceFieldName: 'agent_id', targetFieldName: 'id', deleteAction: 'n' },
-    select: { id: true },
-  }).unwrap());
-  console.log('   ✓ processes → agents');
+  try {
+    await withRetry(() => client.relationProvision.create({
+      data: { databaseId, relationType: 'RelationBelongsTo', sourceTableId: processesId, targetTableId: agentsId, sourceFieldName: 'agent_id', targetFieldName: 'id', deleteAction: 'n' },
+      select: { id: true },
+    }).unwrap());
+    console.log('   ✓ processes → agents');
+  } catch (e: any) {
+    console.log(`      ⚠️ processes → agents: ${e.message}`);
+  }
 
   // threads.chat_id → chats (lookup existing chats table)
   try {
@@ -205,10 +237,12 @@ async function main() {
 
   console.log('\n🔧 Enhancing existing tables...');
 
-  // tasks: +assigned_agent_id, +conversation_id
+  // tasks: +assigned_agent_id, +conversation_id, +parent_task_id, +dependencies
   console.log('\n   📝 tasks...');
   await addFieldToExistingTable('tasks', 'assigned_agent_id', 'uuid');
   await addFieldToExistingTable('tasks', 'conversation_id', 'uuid');
+  await addFieldToExistingTable('tasks', 'parent_task_id', 'uuid');
+  await addFieldToExistingTable('tasks', 'dependencies', 'uuid[]');
 
   // blueprints: +conversation_id
   console.log('\n   🗺️ blueprints...');
