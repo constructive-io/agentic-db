@@ -150,7 +150,7 @@ async function main() {
         targetTableId: imagesId, 
         junctionTableName: junctionName, 
         sourceFieldName: sourceField, 
-        targetFieldName: 'image_id', 
+        targetFieldName: 'image_id', isRequired: false,
         nodeType: 'DataEntityMembership', 
         policyType: 'AuthzEntityMembership', 
         policyPermissive: true, 
