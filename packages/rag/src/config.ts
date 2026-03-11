@@ -20,9 +20,9 @@ export const config = {
   graphqlUrl: 'http://[::1]:3000/graphql',
   
   get authHost() {
-    return `auth-${this.databaseName}.localhost`;
+    return `auth-${this.databaseName}.localhost:3000`;
   },
   get appHost() {
-    return `app-public-${this.databaseName}.localhost`;
+    return `app-public-${this.databaseName}.localhost:3000`;
   },
 };

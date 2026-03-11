@@ -188,6 +188,12 @@ async function main() {
   console.log('   ✓ contacts ↔ events');
 
   await withRetry(() => client.relationProvision.create({
+    data: { databaseId, relationType: 'RelationManyToMany', sourceTableId: companiesId, targetTableId: eventsId, junctionTableName: 'company_events', sourceFieldName: 'company_id', targetFieldName: 'event_id', nodeType: 'DataEntityMembership', policyType: 'AuthzEntityMembership', policyPermissive: true, policyData: entityPolicyData, grantRoles: ['authenticated'], grantPrivileges: [['select', '*'], ['insert', '*'], ['delete', '*']] as any },
+    select: { id: true },
+  }).unwrap());
+  console.log('   ✓ companies ↔ events');
+
+  await withRetry(() => client.relationProvision.create({
     data: { databaseId, relationType: 'RelationManyToMany', sourceTableId: eventsId, targetTableId: venuesId, junctionTableName: 'event_venues', sourceFieldName: 'event_id', targetFieldName: 'venue_id', nodeType: 'DataEntityMembership', policyType: 'AuthzEntityMembership', policyPermissive: true, policyData: entityPolicyData, grantRoles: ['authenticated'], grantPrivileges: [['select', '*'], ['insert', '*'], ['delete', '*']] as any },
     select: { id: true },
   }).unwrap());

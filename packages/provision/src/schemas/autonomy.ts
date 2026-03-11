@@ -12,7 +12,7 @@
 
 import * as dotenv from 'dotenv';
 import * as path from 'path';
-dotenv.config({ path: path.resolve(__dirname, '../../../../.env') });
+// dotenv.config() removed
 
 import { createClient } from '../sdk/platform/orm/index';
 import { NodeHttpAdapter } from '../sdk/node-http-adapter';
@@ -26,7 +26,7 @@ if (!databaseId || !accessToken) {
   process.exit(1);
 }
 
-const PLATFORM_ENDPOINT = 'http://127.0.0.1:3000/graphql';
+const PLATFORM_ENDPOINT = 'http://[::1]:3000/graphql';
 const PLATFORM_HOST = 'api.localhost';
 
 const adapter = new NodeHttpAdapter(PLATFORM_ENDPOINT, {

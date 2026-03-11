@@ -4,8 +4,8 @@ set -euo pipefail
 export PGPASSWORD=password
 SOURCE_DB="avengers_restore"
 TARGET_DB="constructive"
-TARGET_SCHEMA="agent-os-v2-1772803474534-d8c00e38-app-public"
-ENTITY_ID="32ed69d4-d975-42e7-f0df-9afe61be1ffd"
+TARGET_SCHEMA="agent-os-v2-1773264696010-2ec73da3-app-public"
+ENTITY_ID="320827da-8801-453f-cc9a-c884b2fae8cf"
 
 echo ">>> Migrating Contacts..."
 psql -h localhost -U postgres -d $SOURCE_DB -t -A -c "
@@ -88,3 +88,13 @@ FROM agent.skills;
 echo "Skills done."
 
 echo ">>> All targeted migrations completed."
+
+echo ">>> Migrating Venues..."
+psql -h localhost -U postgres -d $SOURCE_DB -t -A -c "
+SELECT format(
+  'INSERT INTO \"$TARGET_SCHEMA\".venues (id, entity_id, name, neighborhood, city, status, notes) VALUES (%L, ''$ENTITY_ID'', %L, %L, %L, %L, %L) ON CONFLICT (id) DO NOTHING;',
+  id, name, neighborhood, city, status, notes
+)
+FROM crm.venues;
+" | psql -h localhost -U postgres -d $TARGET_DB > /dev/null
+echo "Venues done."

@@ -11,7 +11,7 @@ export async function withRetry<T>(
       return await fn();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
-      if (attempt === maxRetries) throw err;
+      if (msg.includes("already exists") || msg.includes("exists")) throw err; if (attempt === maxRetries) throw err;
       console.log(`   ⏳ Attempt ${attempt}/${maxRetries} failed: ${msg.slice(0, 120)}. Retrying in ${delayMs}ms...`);
       await new Promise((r) => setTimeout(r, delayMs));
     }

@@ -194,7 +194,7 @@ async function fetchTables() {
     select: { tableId: true, tableName: true }
   }).execute();
   
-  if (!result.ok) throw new Error('Failed to list tables: ' + result.error.message);
+  if (!result.ok) throw new Error('Failed to list tables: ' + JSON.stringify(result.errors));
   
   const map = new Map<string, string>();
   result.data.secureTableProvisions.nodes.forEach(t => {
@@ -209,7 +209,7 @@ async function fetchFields(tableId: string) {
     select: { id: true, name: true }
   }).execute();
   
-  if (!result.ok) throw new Error('Failed to list fields: ' + result.error.message);
+  if (!result.ok) throw new Error('Failed to list fields: ' + JSON.stringify(result.errors));
   
   const map = new Map<string, string>();
   result.data.fields.nodes.forEach(f => {
@@ -234,7 +234,7 @@ async function createIndex(tableId: string, name: string, fieldIds: string[], me
     }).unwrap());
     console.log('✅');
   } catch (e: any) {
-    if (e.message?.includes('duplicate') || e.message?.includes('exists')) {
+    if (e.message?.includes("duplicate") || e.message?.includes("exists") || e.message?.includes("already exists") || (e.errors && e.errors[0]?.message.includes("already exists"))) {
       console.log('✅ (exists)');
     } else {
       console.log(`❌ ${e.message}`);
@@ -266,7 +266,7 @@ async function applyIndexes(tableId: string, tableName: string, config: IndexCon
     const fid = fields.get(col);
     if (!fid) { console.log(`      ⚠️ Field '${col}' missing`); continue; }
     await createIndex(tableId, `idx_${tableName}_${col}_bm25`, [fid], 'bm25', {
-      indexParams: JSON.stringify({ text_config: 'english' })
+      options: { text_config: 'english' }
     });
   }
 

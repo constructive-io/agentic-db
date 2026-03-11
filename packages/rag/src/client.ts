@@ -12,15 +12,7 @@ export interface AuthResult {
 }
 
 export async function authenticate(email: string, password: string): Promise<AuthResult> {
-  // If env var is set, use it (now updated with valid Tenant Token!)
-  if (process.env.ACCESS_TOKEN) {
-    const userId = '32edd3a5-61b8-441d-fe3d-7cf56a7c0eea';
-    return { token: process.env.ACCESS_TOKEN, userId };
-  }
-
   const adapter = new NodeHttpAdapter(config.graphqlUrl, { Host: config.authHost });
-  // Note: SDK client.mutation seems undefined for root mutations in current build?
-  // Falling back to raw adapter for AUTH only to unblock.
   
   const signInQuery = `
     mutation SignIn($email: String!, $password: String!) {

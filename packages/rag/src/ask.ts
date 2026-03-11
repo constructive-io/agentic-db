@@ -31,7 +31,7 @@ async function main() {
     .map((item, i) => {
       let content = '';
       const d = item.data;
-      if (item.table === 'contacts') content = `Contact: ${d.firstName} ${d.lastName}\nHeadline: ${d.headline}\nBio: ${d.bio}`;
+      if (item.table === "contacts") { content = `Contact: ${d.firstName} ${d.lastName}\nHeadline: ${d.headline}\nBio: ${d.bio}`; console.log("FORMATTING CONTACT:", content); }
       else if (item.table === 'companies') content = `Company: ${d.name}\nDesc: ${d.description}\nIndustry: ${d.industry}`;
       else if (item.table === 'events') content = `Event: ${d.name}\nNotes: ${d.notes}`;
       else if (item.table === 'notes') content = `Note: ${d.content}`;
