@@ -5,6 +5,7 @@
  */
 import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
+import { CompanyEventModel } from './models/companyEvent';
 import { CompanyImageModel } from './models/companyImage';
 import { ContactCompanyModel } from './models/contactCompany';
 import { ContactEventModel } from './models/contactEvent';
@@ -16,7 +17,6 @@ import { VenueImageModel } from './models/venueImage';
 import { CalendarSyncModel } from './models/calendarSync';
 import { FileModel } from './models/file';
 import { EmailAccountModel } from './models/emailAccount';
-import { MessageModel } from './models/message';
 import { ExecutionLogModel } from './models/executionLog';
 import { ChatModel } from './models/chat';
 import { ProjectModel } from './models/project';
@@ -37,8 +37,9 @@ import { ExpenseModel } from './models/expense';
 import { NoteModel } from './models/note';
 import { CompanyModel } from './models/company';
 import { VenueModel } from './models/venue';
-import { EventModel } from './models/event';
 import { ContactModel } from './models/contact';
+import { EventModel } from './models/event';
+import { MessageModel } from './models/message';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
 export { GraphQLRequestError } from './client';
 export { QueryBuilder } from './query-builder';
@@ -71,6 +72,7 @@ export { NodeHttpAdapter } from './node-fetch';
 export function createClient(config: OrmClientConfig) {
   const client = new OrmClient(config);
   return {
+    companyEvent: new CompanyEventModel(client),
     companyImage: new CompanyImageModel(client),
     contactCompany: new ContactCompanyModel(client),
     contactEvent: new ContactEventModel(client),
@@ -82,7 +84,6 @@ export function createClient(config: OrmClientConfig) {
     calendarSync: new CalendarSyncModel(client),
     file: new FileModel(client),
     emailAccount: new EmailAccountModel(client),
-    message: new MessageModel(client),
     executionLog: new ExecutionLogModel(client),
     chat: new ChatModel(client),
     project: new ProjectModel(client),
@@ -103,7 +104,8 @@ export function createClient(config: OrmClientConfig) {
     note: new NoteModel(client),
     company: new CompanyModel(client),
     venue: new VenueModel(client),
-    event: new EventModel(client),
     contact: new ContactModel(client),
+    event: new EventModel(client),
+    message: new MessageModel(client),
   };
 }

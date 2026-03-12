@@ -1,13 +1,13 @@
 ---
 name: orm-default
-description: ORM client for the default API — provides typed CRUD operations for 34 tables and 0 custom operations
+description: ORM client for the default API — provides typed CRUD operations for 35 tables and 0 custom operations
 ---
 
 # orm-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-ORM client for the default API — provides typed CRUD operations for 34 tables and 0 custom operations
+ORM client for the default API — provides typed CRUD operations for 35 tables and 0 custom operations
 
 ## Usage
 
@@ -15,7 +15,7 @@ ORM client for the default API — provides typed CRUD operations for 34 tables 
 // Import the ORM client
 import { db } from './orm';
 
-// Available models: companyImage, contactCompany, contactEvent, contactImage, dealContact, eventImage, eventVenue, venueImage, ...
+// Available models: companyEvent, companyImage, contactCompany, contactEvent, contactImage, dealContact, eventImage, eventVenue, ...
 db.<model>.findMany({ select: { id: true } }).execute()
 db.<model>.findOne({ id: '<value>', select: { id: true } }).execute()
 db.<model>.create({ data: { ... }, select: { id: true } }).execute()
@@ -28,7 +28,7 @@ db.<model>.delete({ where: { id: '<value>' } }).execute()
 ### Query records
 
 ```typescript
-const items = await db.companyImage.findMany({
+const items = await db.companyEvent.findMany({
   select: { id: true }
 }).execute();
 ```
@@ -37,6 +37,7 @@ const items = await db.companyImage.findMany({
 
 See the `references/` directory for detailed per-entity API documentation:
 
+- [company-event](references/company-event.md)
 - [company-image](references/company-image.md)
 - [contact-company](references/contact-company.md)
 - [contact-event](references/contact-event.md)
@@ -48,7 +49,6 @@ See the `references/` directory for detailed per-entity API documentation:
 - [calendar-sync](references/calendar-sync.md)
 - [file](references/file.md)
 - [email-account](references/email-account.md)
-- [message](references/message.md)
 - [execution-log](references/execution-log.md)
 - [chat](references/chat.md)
 - [project](references/project.md)
@@ -69,5 +69,6 @@ See the `references/` directory for detailed per-entity API documentation:
 - [note](references/note.md)
 - [company](references/company.md)
 - [venue](references/venue.md)
-- [event](references/event.md)
 - [contact](references/contact.md)
+- [event](references/event.md)
+- [message](references/message.md)

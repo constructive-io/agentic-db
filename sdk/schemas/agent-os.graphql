@@ -1,5 +1,39 @@
 """The root query type which gives access points into the data universe."""
 type Query {
+  """Reads and enables pagination through a set of `CompanyEvent`."""
+  companyEvents(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CompanyEventCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: CompanyEventFilter
+
+    """The method to use when ordering `CompanyEvent`."""
+    orderBy: [CompanyEventOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CompanyEventConnection
+
   """Reads and enables pagination through a set of `CompanyImage`."""
   companyImages(
     """Only read the first `n` values of the set."""
@@ -986,40 +1020,6 @@ type Query {
     orderBy: [NoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): NoteConnection
 
-  """Reads and enables pagination through a set of `Message`."""
-  messages(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: MessageCondition
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    filter: MessageFilter
-
-    """The method to use when ordering `Message`."""
-    orderBy: [MessageOrderBy!] = [PRIMARY_KEY_ASC]
-  ): MessageConnection
-
   """Reads and enables pagination through a set of `Company`."""
   companies(
     """Only read the first `n` values of the set."""
@@ -1088,40 +1088,6 @@ type Query {
     orderBy: [VenueOrderBy!] = [PRIMARY_KEY_ASC]
   ): VenueConnection
 
-  """Reads and enables pagination through a set of `Event`."""
-  events(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: EventCondition
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    filter: EventFilter
-
-    """The method to use when ordering `Event`."""
-    orderBy: [EventOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EventConnection
-
   """Reads and enables pagination through a set of `Contact`."""
   contacts(
     """Only read the first `n` values of the set."""
@@ -1156,40 +1122,108 @@ type Query {
     orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactConnection
 
+  """Reads and enables pagination through a set of `Event`."""
+  events(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: EventCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: EventFilter
+
+    """The method to use when ordering `Event`."""
+    orderBy: [EventOrderBy!] = [PRIMARY_KEY_ASC]
+  ): EventConnection
+
+  """Reads and enables pagination through a set of `Message`."""
+  messages(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MessageCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: MessageFilter
+
+    """The method to use when ordering `Message`."""
+    orderBy: [MessageOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MessageConnection
+
   """
   Metadata about the database schema, including tables, fields, indexes, and constraints. Useful for code generation tools.
   """
   _meta: MetaSchema
 }
 
-"""A connection to a list of `CompanyImage` values."""
-type CompanyImageConnection {
-  """A list of `CompanyImage` objects."""
-  nodes: [CompanyImage]!
+"""A connection to a list of `CompanyEvent` values."""
+type CompanyEventConnection {
+  """A list of `CompanyEvent` objects."""
+  nodes: [CompanyEvent]!
 
   """
-  A list of edges which contains the `CompanyImage` and cursor to aid in pagination.
+  A list of edges which contains the `CompanyEvent` and cursor to aid in pagination.
   """
-  edges: [CompanyImageEdge]!
+  edges: [CompanyEventEdge]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  """The count of *all* `CompanyImage` you could get from the connection."""
+  """The count of *all* `CompanyEvent` you could get from the connection."""
   totalCount: Int!
 }
 
-type CompanyImage {
+type CompanyEvent {
   companyId: UUID!
-  imageId: UUID!
+  eventId: UUID!
   id: UUID!
   entityId: UUID!
 
-  """Reads a single `Company` that is related to this `CompanyImage`."""
+  """Reads a single `Company` that is related to this `CompanyEvent`."""
   company: Company
 
-  """Reads a single `Image` that is related to this `CompanyImage`."""
-  image: Image
+  """Reads a single `Event` that is related to this `CompanyEvent`."""
+  event: Event
 }
 
 """
@@ -1209,7 +1243,6 @@ type Company {
   tags: [String]
   embedding: Vector
   mainImageId: UUID
-  imageId: UUID!
 
   """
   Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active.
@@ -1217,7 +1250,7 @@ type Company {
   embeddingDistance: Float
 
   """Reads a single `Image` that is related to this `Company`."""
-  image: Image
+  mainImage: Image
 }
 
 """
@@ -1256,13 +1289,38 @@ Represents JSON values as specified by [ECMA-404](http://www.ecma-international.
 """
 scalar JSON
 
-"""A `CompanyImage` edge in the connection."""
-type CompanyImageEdge {
+type Event {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  name: String!
+  eventType: String
+  location: String
+  city: String
+  startedAt: Datetime
+  endedAt: Datetime
+  notes: String
+  tags: [String]
+  embedding: Vector
+  mainImageId: UUID
+
+  """
+  Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active.
+  """
+  embeddingDistance: Float
+
+  """Reads a single `Image` that is related to this `Event`."""
+  mainImage: Image
+}
+
+"""A `CompanyEvent` edge in the connection."""
+type CompanyEventEdge {
   """A cursor for use in pagination."""
   cursor: Cursor
 
-  """The `CompanyImage` at the end of the edge."""
-  node: CompanyImage
+  """The `CompanyEvent` at the end of the edge."""
+  node: CompanyEvent
 }
 
 """A location in a connection that can be used for resuming pagination."""
@@ -1281,6 +1339,140 @@ type PageInfo {
 
   """When paginating forwards, the cursor to continue."""
   endCursor: Cursor
+}
+
+"""
+A condition to be used against `CompanyEvent` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input CompanyEventCondition {
+  """Checks for equality with the object’s `companyId` field."""
+  companyId: UUID
+
+  """Checks for equality with the object’s `eventId` field."""
+  eventId: UUID
+
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+}
+
+"""
+A filter to be used against `CompanyEvent` object types. All fields are combined with a logical ‘and.’
+"""
+input CompanyEventFilter {
+  """Filter by the object’s `companyId` field."""
+  companyId: UUIDFilter
+
+  """Filter by the object’s `eventId` field."""
+  eventId: UUIDFilter
+
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Checks for all expressions in this list."""
+  and: [CompanyEventFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [CompanyEventFilter!]
+
+  """Negates the expression."""
+  not: CompanyEventFilter
+}
+
+"""
+A filter to be used against UUID fields. All fields are combined with a logical ‘and.’
+"""
+input UUIDFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: UUID
+
+  """Not equal to the specified value."""
+  notEqualTo: UUID
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: UUID
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: UUID
+
+  """Included in the specified list."""
+  in: [UUID!]
+
+  """Not included in the specified list."""
+  notIn: [UUID!]
+
+  """Less than the specified value."""
+  lessThan: UUID
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: UUID
+
+  """Greater than the specified value."""
+  greaterThan: UUID
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: UUID
+}
+
+"""Methods to use when ordering `CompanyEvent`."""
+enum CompanyEventOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `CompanyImage` values."""
+type CompanyImageConnection {
+  """A list of `CompanyImage` objects."""
+  nodes: [CompanyImage]!
+
+  """
+  A list of edges which contains the `CompanyImage` and cursor to aid in pagination.
+  """
+  edges: [CompanyImageEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `CompanyImage` you could get from the connection."""
+  totalCount: Int!
+}
+
+type CompanyImage {
+  companyId: UUID!
+  imageId: UUID!
+  id: UUID!
+  entityId: UUID!
+
+  """Reads a single `Company` that is related to this `CompanyImage`."""
+  company: Company
+
+  """Reads a single `Image` that is related to this `CompanyImage`."""
+  image: Image
+}
+
+"""A `CompanyImage` edge in the connection."""
+type CompanyImageEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CompanyImage` at the end of the edge."""
+  node: CompanyImage
 }
 
 """
@@ -1325,48 +1517,6 @@ input CompanyImageFilter {
 
   """Negates the expression."""
   not: CompanyImageFilter
-}
-
-"""
-A filter to be used against UUID fields. All fields are combined with a logical ‘and.’
-"""
-input UUIDFilter {
-  """
-  Is null (if `true` is specified) or is not null (if `false` is specified).
-  """
-  isNull: Boolean
-
-  """Equal to the specified value."""
-  equalTo: UUID
-
-  """Not equal to the specified value."""
-  notEqualTo: UUID
-
-  """
-  Not equal to the specified value, treating null like an ordinary value.
-  """
-  distinctFrom: UUID
-
-  """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: UUID
-
-  """Included in the specified list."""
-  in: [UUID!]
-
-  """Not included in the specified list."""
-  notIn: [UUID!]
-
-  """Less than the specified value."""
-  lessThan: UUID
-
-  """Less than or equal to the specified value."""
-  lessThanOrEqualTo: UUID
-
-  """Greater than the specified value."""
-  greaterThan: UUID
-
-  """Greater than or equal to the specified value."""
-  greaterThanOrEqualTo: UUID
 }
 
 """Methods to use when ordering `CompanyImage`."""
@@ -1423,13 +1573,6 @@ type Contact {
   tags: [String]
   embedding: Vector
   mainImageId: UUID
-  imageId: UUID!
-  searchTsv: FullText
-
-  """
-  Full-text search ranking when filtered by `searchTsv`. Returns null when no search condition is active.
-  """
-  searchTsvRank: Float
 
   """
   Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active.
@@ -1437,11 +1580,8 @@ type Contact {
   embeddingDistance: Float
 
   """Reads a single `Image` that is related to this `Contact`."""
-  image: Image
+  mainImage: Image
 }
-
-"""A full-text search tsvector value represented as a string."""
-scalar FullText
 
 """A `ContactCompany` edge in the connection."""
 type ContactCompanyEdge {
@@ -1533,32 +1673,6 @@ type ContactEvent {
 
   """Reads a single `Event` that is related to this `ContactEvent`."""
   event: Event
-}
-
-type Event {
-  id: UUID!
-  entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
-  name: String!
-  eventType: String
-  location: String
-  city: String
-  startedAt: Datetime
-  endedAt: Datetime
-  notes: String
-  tags: [String]
-  embedding: Vector
-  mainImageId: UUID
-  imageId: UUID!
-
-  """
-  Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active.
-  """
-  embeddingDistance: Float
-
-  """Reads a single `Image` that is related to this `Event`."""
-  image: Image
 }
 
 """A `ContactEvent` edge in the connection."""
@@ -1965,7 +2079,6 @@ type Venue {
   tags: [String]
   embedding: Vector
   mainImageId: UUID
-  imageId: UUID!
 
   """
   Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active.
@@ -1973,7 +2086,7 @@ type Venue {
   embeddingDistance: Float
 
   """Reads a single `Image` that is related to this `Venue`."""
-  image: Image
+  mainImage: Image
 }
 
 """A `EventVenue` edge in the connection."""
@@ -2543,8 +2656,6 @@ enum FileOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  PATH_ASC
-  PATH_DESC
 }
 
 """A connection to a list of `EmailAccount` values."""
@@ -2572,341 +2683,6 @@ type EmailAccount {
   email: String!
   provider: String
   syncState: JSON
-
-  """Reads and enables pagination through a set of `Message`."""
-  messages(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: MessageCondition
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    filter: MessageFilter
-
-    """The method to use when ordering `Message`."""
-    orderBy: [MessageOrderBy!] = [PRIMARY_KEY_ASC]
-  ): MessageConnection!
-}
-
-"""A connection to a list of `Message` values."""
-type MessageConnection {
-  """A list of `Message` objects."""
-  nodes: [Message]!
-
-  """
-  A list of edges which contains the `Message` and cursor to aid in pagination.
-  """
-  edges: [MessageEdge]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `Message` you could get from the connection."""
-  totalCount: Int!
-}
-
-type Message {
-  id: UUID!
-  entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
-  threadId: String
-  remoteId: String
-  from: String
-  to: [String]
-  subject: String
-  bodyText: String
-  receivedAt: Datetime
-  tags: [String]
-  embedding: Vector
-  emailAccountId: UUID!
-
-  """
-  Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active.
-  """
-  embeddingDistance: Float
-
-  """Reads a single `EmailAccount` that is related to this `Message`."""
-  emailAccount: EmailAccount
-}
-
-"""A `Message` edge in the connection."""
-type MessageEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `Message` at the end of the edge."""
-  node: Message
-}
-
-"""
-A condition to be used against `Message` object types. All fields are tested for equality and combined with a logical ‘and.’
-"""
-input MessageCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
-
-  """Checks for equality with the object’s `entityId` field."""
-  entityId: UUID
-
-  """Checks for equality with the object’s `createdAt` field."""
-  createdAt: Datetime
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: Datetime
-
-  """Checks for equality with the object’s `threadId` field."""
-  threadId: String
-
-  """Checks for equality with the object’s `remoteId` field."""
-  remoteId: String
-
-  """Checks for equality with the object’s `from` field."""
-  from: String
-
-  """Checks for equality with the object’s `to` field."""
-  to: [String]
-
-  """Checks for equality with the object’s `subject` field."""
-  subject: String
-
-  """Checks for equality with the object’s `bodyText` field."""
-  bodyText: String
-
-  """Checks for equality with the object’s `receivedAt` field."""
-  receivedAt: Datetime
-
-  """Checks for equality with the object’s `tags` field."""
-  tags: [String]
-
-  """Checks for equality with the object’s `embedding` field."""
-  embedding: Vector
-
-  """Checks for equality with the object’s `emailAccountId` field."""
-  emailAccountId: UUID
-
-  """
-  Vector similarity search on the `embedding` column. Provide a query vector to
-  filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
-  maximum distance threshold.
-  """
-  vectorEmbedding: VectorNearbyInput
-}
-
-"""
-Input for vector similarity search. Provide a query vector, optional metric, and optional max distance threshold.
-"""
-input VectorNearbyInput {
-  """Query vector for similarity search."""
-  vector: [Float!]!
-
-  """Similarity metric to use (default: COSINE)."""
-  metric: VectorMetric
-
-  """
-  Maximum distance threshold. Only rows within this distance are returned.
-  """
-  distance: Float
-}
-
-"""Similarity metric for vector search"""
-enum VectorMetric {
-  """
-  Cosine distance (1 - cosine similarity). Range: 0 (identical) to 2 (opposite).
-  """
-  COSINE
-
-  """Euclidean (L2) distance. Range: 0 (identical) to infinity."""
-  L2
-
-  """Negative inner product. Higher (less negative) = more similar."""
-  IP
-}
-
-"""
-A filter to be used against `Message` object types. All fields are combined with a logical ‘and.’
-"""
-input MessageFilter {
-  """Filter by the object’s `id` field."""
-  id: UUIDFilter
-
-  """Filter by the object’s `entityId` field."""
-  entityId: UUIDFilter
-
-  """Filter by the object’s `createdAt` field."""
-  createdAt: DatetimeFilter
-
-  """Filter by the object’s `updatedAt` field."""
-  updatedAt: DatetimeFilter
-
-  """Filter by the object’s `threadId` field."""
-  threadId: StringFilter
-
-  """Filter by the object’s `remoteId` field."""
-  remoteId: StringFilter
-
-  """Filter by the object’s `from` field."""
-  from: StringFilter
-
-  """Filter by the object’s `to` field."""
-  to: StringListFilter
-
-  """Filter by the object’s `subject` field."""
-  subject: StringFilter
-
-  """Filter by the object’s `bodyText` field."""
-  bodyText: StringFilter
-
-  """Filter by the object’s `receivedAt` field."""
-  receivedAt: DatetimeFilter
-
-  """Filter by the object’s `tags` field."""
-  tags: StringListFilter
-
-  """Filter by the object’s `embedding` field."""
-  embedding: VectorFilter
-
-  """Filter by the object’s `emailAccountId` field."""
-  emailAccountId: UUIDFilter
-
-  """Checks for all expressions in this list."""
-  and: [MessageFilter!]
-
-  """Checks for any expressions in this list."""
-  or: [MessageFilter!]
-
-  """Negates the expression."""
-  not: MessageFilter
-}
-
-"""
-A filter to be used against String List fields. All fields are combined with a logical ‘and.’
-"""
-input StringListFilter {
-  """
-  Is null (if `true` is specified) or is not null (if `false` is specified).
-  """
-  isNull: Boolean
-
-  """Equal to the specified value."""
-  equalTo: [String]
-
-  """Not equal to the specified value."""
-  notEqualTo: [String]
-
-  """
-  Not equal to the specified value, treating null like an ordinary value.
-  """
-  distinctFrom: [String]
-
-  """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: [String]
-
-  """Less than the specified value."""
-  lessThan: [String]
-
-  """Less than or equal to the specified value."""
-  lessThanOrEqualTo: [String]
-
-  """Greater than the specified value."""
-  greaterThan: [String]
-
-  """Greater than or equal to the specified value."""
-  greaterThanOrEqualTo: [String]
-
-  """Contains the specified list of values."""
-  contains: [String]
-
-  """Contained by the specified list of values."""
-  containedBy: [String]
-
-  """Overlaps the specified list of values."""
-  overlaps: [String]
-
-  """Any array item is equal to the specified value."""
-  anyEqualTo: String
-
-  """Any array item is not equal to the specified value."""
-  anyNotEqualTo: String
-
-  """Any array item is less than the specified value."""
-  anyLessThan: String
-
-  """Any array item is less than or equal to the specified value."""
-  anyLessThanOrEqualTo: String
-
-  """Any array item is greater than the specified value."""
-  anyGreaterThan: String
-
-  """Any array item is greater than or equal to the specified value."""
-  anyGreaterThanOrEqualTo: String
-}
-
-"""
-A filter to be used against Vector fields. All fields are combined with a logical ‘and.’
-"""
-input VectorFilter {
-  """
-  Is null (if `true` is specified) or is not null (if `false` is specified).
-  """
-  isNull: Boolean
-
-  """Equal to the specified value."""
-  equalTo: Vector
-
-  """Not equal to the specified value."""
-  notEqualTo: Vector
-
-  """
-  Not equal to the specified value, treating null like an ordinary value.
-  """
-  distinctFrom: Vector
-
-  """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: Vector
-
-  """Included in the specified list."""
-  in: [Vector!]
-
-  """Not included in the specified list."""
-  notIn: [Vector!]
-}
-
-"""Methods to use when ordering `Message`."""
-enum MessageOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  ID_ASC
-  ID_DESC
-  THREAD_ID_ASC
-  THREAD_ID_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMAIL_ACCOUNT_ID_ASC
-  EMAIL_ACCOUNT_ID_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A `EmailAccount` edge in the connection."""
@@ -3312,6 +3088,36 @@ input ChatCondition {
 }
 
 """
+Input for vector similarity search. Provide a query vector, optional metric, and optional max distance threshold.
+"""
+input VectorNearbyInput {
+  """Query vector for similarity search."""
+  vector: [Float!]!
+
+  """Similarity metric to use (default: COSINE)."""
+  metric: VectorMetric
+
+  """
+  Maximum distance threshold. Only rows within this distance are returned.
+  """
+  distance: Float
+}
+
+"""Similarity metric for vector search"""
+enum VectorMetric {
+  """
+  Cosine distance (1 - cosine similarity). Range: 0 (identical) to 2 (opposite).
+  """
+  COSINE
+
+  """Euclidean (L2) distance. Range: 0 (identical) to infinity."""
+  L2
+
+  """Negative inner product. Higher (less negative) = more similar."""
+  IP
+}
+
+"""
 A filter to be used against `Chat` object types. All fields are combined with a logical ‘and.’
 """
 input ChatFilter {
@@ -3344,6 +3150,36 @@ input ChatFilter {
 
   """Negates the expression."""
   not: ChatFilter
+}
+
+"""
+A filter to be used against Vector fields. All fields are combined with a logical ‘and.’
+"""
+input VectorFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: Vector
+
+  """Not equal to the specified value."""
+  notEqualTo: Vector
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: Vector
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: Vector
+
+  """Included in the specified list."""
+  in: [Vector!]
+
+  """Not included in the specified list."""
+  notIn: [Vector!]
 }
 
 """Methods to use when ordering `Chat`."""
@@ -3614,12 +3450,6 @@ enum RepositoryOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  NAME_ASC
-  NAME_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Session` values."""
@@ -3741,14 +3571,6 @@ enum SessionOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  STARTED_AT_ASC
-  STARTED_AT_DESC
-  STATUS_ASC
-  STATUS_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Blueprint` values."""
@@ -3875,12 +3697,6 @@ enum BlueprintOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  TITLE_ASC
-  TITLE_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Image` values."""
@@ -4261,12 +4077,6 @@ enum ChatMessageOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  ROLE_ASC
-  ROLE_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Chunk` values."""
@@ -4412,10 +4222,6 @@ enum ChunkOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Memory` values."""
@@ -4527,6 +4333,69 @@ input MemoryFilter {
   not: MemoryFilter
 }
 
+"""
+A filter to be used against String List fields. All fields are combined with a logical ‘and.’
+"""
+input StringListFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: [String]
+
+  """Not equal to the specified value."""
+  notEqualTo: [String]
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: [String]
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: [String]
+
+  """Less than the specified value."""
+  lessThan: [String]
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: [String]
+
+  """Greater than the specified value."""
+  greaterThan: [String]
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: [String]
+
+  """Contains the specified list of values."""
+  contains: [String]
+
+  """Contained by the specified list of values."""
+  containedBy: [String]
+
+  """Overlaps the specified list of values."""
+  overlaps: [String]
+
+  """Any array item is equal to the specified value."""
+  anyEqualTo: String
+
+  """Any array item is not equal to the specified value."""
+  anyNotEqualTo: String
+
+  """Any array item is less than the specified value."""
+  anyLessThan: String
+
+  """Any array item is less than or equal to the specified value."""
+  anyLessThanOrEqualTo: String
+
+  """Any array item is greater than the specified value."""
+  anyGreaterThan: String
+
+  """Any array item is greater than or equal to the specified value."""
+  anyGreaterThanOrEqualTo: String
+}
+
 """Methods to use when ordering `Memory`."""
 enum MemoryOrderBy {
   NATURAL
@@ -4534,10 +4403,6 @@ enum MemoryOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Deal` values."""
@@ -4980,14 +4845,6 @@ enum TaskOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  STATUS_ASC
-  STATUS_DESC
-  PRIORITY_ASC
-  PRIORITY_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Rule` values."""
@@ -5169,14 +5026,6 @@ enum RuleOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  KIND_ASC
-  KIND_DESC
-  IS_ACTIVE_ASC
-  IS_ACTIVE_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Skill` values."""
@@ -5316,12 +5165,6 @@ enum SkillOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  NAME_ASC
-  NAME_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Expense` values."""
@@ -5527,14 +5370,6 @@ enum ExpenseOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  DATE_ASC
-  DATE_DESC
-  CATEGORY_ASC
-  CATEGORY_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Note` values."""
@@ -5663,10 +5498,6 @@ enum NoteOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Company` values."""
@@ -5732,9 +5563,6 @@ input CompanyCondition {
   """Checks for equality with the object’s `mainImageId` field."""
   mainImageId: UUID
 
-  """Checks for equality with the object’s `imageId` field."""
-  imageId: UUID
-
   """
   Vector similarity search on the `embedding` column. Provide a query vector to
   filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
@@ -5780,9 +5608,6 @@ input CompanyFilter {
   """Filter by the object’s `mainImageId` field."""
   mainImageId: UUIDFilter
 
-  """Filter by the object’s `imageId` field."""
-  imageId: UUIDFilter
-
   """Checks for all expressions in this list."""
   and: [CompanyFilter!]
 
@@ -5800,14 +5625,6 @@ enum CompanyOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  NAME_ASC
-  NAME_DESC
-  DOMAIN_ASC
-  DOMAIN_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Venue` values."""
@@ -5876,9 +5693,6 @@ input VenueCondition {
   """Checks for equality with the object’s `mainImageId` field."""
   mainImageId: UUID
 
-  """Checks for equality with the object’s `imageId` field."""
-  imageId: UUID
-
   """
   Vector similarity search on the `embedding` column. Provide a query vector to
   filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
@@ -5927,9 +5741,6 @@ input VenueFilter {
   """Filter by the object’s `mainImageId` field."""
   mainImageId: UUIDFilter
 
-  """Filter by the object’s `imageId` field."""
-  imageId: UUIDFilter
-
   """Checks for all expressions in this list."""
   and: [VenueFilter!]
 
@@ -5947,175 +5758,6 @@ enum VenueOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  NAME_ASC
-  NAME_DESC
-  CITY_ASC
-  CITY_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
-}
-
-"""A connection to a list of `Event` values."""
-type EventConnection {
-  """A list of `Event` objects."""
-  nodes: [Event]!
-
-  """
-  A list of edges which contains the `Event` and cursor to aid in pagination.
-  """
-  edges: [EventEdge]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `Event` you could get from the connection."""
-  totalCount: Int!
-}
-
-"""A `Event` edge in the connection."""
-type EventEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `Event` at the end of the edge."""
-  node: Event
-}
-
-"""
-A condition to be used against `Event` object types. All fields are tested for equality and combined with a logical ‘and.’
-"""
-input EventCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
-
-  """Checks for equality with the object’s `entityId` field."""
-  entityId: UUID
-
-  """Checks for equality with the object’s `createdAt` field."""
-  createdAt: Datetime
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: Datetime
-
-  """Checks for equality with the object’s `name` field."""
-  name: String
-
-  """Checks for equality with the object’s `eventType` field."""
-  eventType: String
-
-  """Checks for equality with the object’s `location` field."""
-  location: String
-
-  """Checks for equality with the object’s `city` field."""
-  city: String
-
-  """Checks for equality with the object’s `startedAt` field."""
-  startedAt: Datetime
-
-  """Checks for equality with the object’s `endedAt` field."""
-  endedAt: Datetime
-
-  """Checks for equality with the object’s `notes` field."""
-  notes: String
-
-  """Checks for equality with the object’s `tags` field."""
-  tags: [String]
-
-  """Checks for equality with the object’s `embedding` field."""
-  embedding: Vector
-
-  """Checks for equality with the object’s `mainImageId` field."""
-  mainImageId: UUID
-
-  """Checks for equality with the object’s `imageId` field."""
-  imageId: UUID
-
-  """
-  Vector similarity search on the `embedding` column. Provide a query vector to
-  filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
-  maximum distance threshold.
-  """
-  vectorEmbedding: VectorNearbyInput
-}
-
-"""
-A filter to be used against `Event` object types. All fields are combined with a logical ‘and.’
-"""
-input EventFilter {
-  """Filter by the object’s `id` field."""
-  id: UUIDFilter
-
-  """Filter by the object’s `entityId` field."""
-  entityId: UUIDFilter
-
-  """Filter by the object’s `createdAt` field."""
-  createdAt: DatetimeFilter
-
-  """Filter by the object’s `updatedAt` field."""
-  updatedAt: DatetimeFilter
-
-  """Filter by the object’s `name` field."""
-  name: StringFilter
-
-  """Filter by the object’s `eventType` field."""
-  eventType: StringFilter
-
-  """Filter by the object’s `location` field."""
-  location: StringFilter
-
-  """Filter by the object’s `city` field."""
-  city: StringFilter
-
-  """Filter by the object’s `startedAt` field."""
-  startedAt: DatetimeFilter
-
-  """Filter by the object’s `endedAt` field."""
-  endedAt: DatetimeFilter
-
-  """Filter by the object’s `notes` field."""
-  notes: StringFilter
-
-  """Filter by the object’s `tags` field."""
-  tags: StringListFilter
-
-  """Filter by the object’s `embedding` field."""
-  embedding: VectorFilter
-
-  """Filter by the object’s `mainImageId` field."""
-  mainImageId: UUIDFilter
-
-  """Filter by the object’s `imageId` field."""
-  imageId: UUIDFilter
-
-  """Checks for all expressions in this list."""
-  and: [EventFilter!]
-
-  """Checks for any expressions in this list."""
-  or: [EventFilter!]
-
-  """Negates the expression."""
-  not: EventFilter
-}
-
-"""Methods to use when ordering `Event`."""
-enum EventOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  ID_ASC
-  ID_DESC
-  NAME_ASC
-  NAME_DESC
-  EVENT_TYPE_ASC
-  EVENT_TYPE_DESC
-  STARTED_AT_ASC
-  STARTED_AT_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
 }
 
 """A connection to a list of `Contact` values."""
@@ -6190,17 +5832,6 @@ input ContactCondition {
   """Checks for equality with the object’s `mainImageId` field."""
   mainImageId: UUID
 
-  """Checks for equality with the object’s `imageId` field."""
-  imageId: UUID
-
-  """Checks for equality with the object’s `searchTsv` field."""
-  searchTsv: FullText
-
-  """
-  Full-text search on the `search_tsv` tsvector column using `websearch_to_tsquery`.
-  """
-  fullTextSearchTsv: String
-
   """
   Vector similarity search on the `embedding` column. Provide a query vector to
   filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
@@ -6255,12 +5886,6 @@ input ContactFilter {
   """Filter by the object’s `mainImageId` field."""
   mainImageId: UUIDFilter
 
-  """Filter by the object’s `imageId` field."""
-  imageId: UUIDFilter
-
-  """Filter by the object’s `searchTsv` field."""
-  searchTsv: FullTextFilter
-
   """Checks for all expressions in this list."""
   and: [ContactFilter!]
 
@@ -6271,39 +5896,6 @@ input ContactFilter {
   not: ContactFilter
 }
 
-"""
-A filter to be used against FullText fields. All fields are combined with a logical ‘and.’
-"""
-input FullTextFilter {
-  """
-  Is null (if `true` is specified) or is not null (if `false` is specified).
-  """
-  isNull: Boolean
-
-  """Equal to the specified value."""
-  equalTo: FullText
-
-  """Not equal to the specified value."""
-  notEqualTo: FullText
-
-  """
-  Not equal to the specified value, treating null like an ordinary value.
-  """
-  distinctFrom: FullText
-
-  """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: FullText
-
-  """Included in the specified list."""
-  in: [FullText!]
-
-  """Not included in the specified list."""
-  notIn: [FullText!]
-
-  """Performs a full text search on the field."""
-  matches: String
-}
-
 """Methods to use when ordering `Contact`."""
 enum ContactOrderBy {
   NATURAL
@@ -6311,20 +5903,321 @@ enum ContactOrderBy {
   PRIMARY_KEY_DESC
   ID_ASC
   ID_DESC
-  FIRST_NAME_ASC
-  FIRST_NAME_DESC
-  LAST_NAME_ASC
-  LAST_NAME_DESC
-  EMAIL_ASC
-  EMAIL_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  SEARCH_TSV_ASC
-  SEARCH_TSV_DESC
-  SEARCH_TSV_RANK_ASC
-  SEARCH_TSV_RANK_DESC
-  EMBEDDING_DISTANCE_ASC
-  EMBEDDING_DISTANCE_DESC
+}
+
+"""A connection to a list of `Event` values."""
+type EventConnection {
+  """A list of `Event` objects."""
+  nodes: [Event]!
+
+  """
+  A list of edges which contains the `Event` and cursor to aid in pagination.
+  """
+  edges: [EventEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Event` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Event` edge in the connection."""
+type EventEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Event` at the end of the edge."""
+  node: Event
+}
+
+"""
+A condition to be used against `Event` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input EventCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `eventType` field."""
+  eventType: String
+
+  """Checks for equality with the object’s `location` field."""
+  location: String
+
+  """Checks for equality with the object’s `city` field."""
+  city: String
+
+  """Checks for equality with the object’s `startedAt` field."""
+  startedAt: Datetime
+
+  """Checks for equality with the object’s `endedAt` field."""
+  endedAt: Datetime
+
+  """Checks for equality with the object’s `notes` field."""
+  notes: String
+
+  """Checks for equality with the object’s `tags` field."""
+  tags: [String]
+
+  """Checks for equality with the object’s `embedding` field."""
+  embedding: Vector
+
+  """Checks for equality with the object’s `mainImageId` field."""
+  mainImageId: UUID
+
+  """
+  Vector similarity search on the `embedding` column. Provide a query vector to
+  filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+  maximum distance threshold.
+  """
+  vectorEmbedding: VectorNearbyInput
+}
+
+"""
+A filter to be used against `Event` object types. All fields are combined with a logical ‘and.’
+"""
+input EventFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `name` field."""
+  name: StringFilter
+
+  """Filter by the object’s `eventType` field."""
+  eventType: StringFilter
+
+  """Filter by the object’s `location` field."""
+  location: StringFilter
+
+  """Filter by the object’s `city` field."""
+  city: StringFilter
+
+  """Filter by the object’s `startedAt` field."""
+  startedAt: DatetimeFilter
+
+  """Filter by the object’s `endedAt` field."""
+  endedAt: DatetimeFilter
+
+  """Filter by the object’s `notes` field."""
+  notes: StringFilter
+
+  """Filter by the object’s `tags` field."""
+  tags: StringListFilter
+
+  """Filter by the object’s `embedding` field."""
+  embedding: VectorFilter
+
+  """Filter by the object’s `mainImageId` field."""
+  mainImageId: UUIDFilter
+
+  """Checks for all expressions in this list."""
+  and: [EventFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [EventFilter!]
+
+  """Negates the expression."""
+  not: EventFilter
+}
+
+"""Methods to use when ordering `Event`."""
+enum EventOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+}
+
+"""A connection to a list of `Message` values."""
+type MessageConnection {
+  """A list of `Message` objects."""
+  nodes: [Message]!
+
+  """
+  A list of edges which contains the `Message` and cursor to aid in pagination.
+  """
+  edges: [MessageEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Message` you could get from the connection."""
+  totalCount: Int!
+}
+
+type Message {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  threadId: String
+  remoteId: String
+  from: String
+  to: [String]
+  subject: String
+  bodyText: String
+  receivedAt: Datetime
+  tags: [String]
+  embedding: Vector
+  emailAccountId: UUID!
+
+  """
+  Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active.
+  """
+  embeddingDistance: Float
+
+  """Reads a single `EmailAccount` that is related to this `Message`."""
+  emailAccount: EmailAccount
+}
+
+"""A `Message` edge in the connection."""
+type MessageEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Message` at the end of the edge."""
+  node: Message
+}
+
+"""
+A condition to be used against `Message` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input MessageCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `entityId` field."""
+  entityId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `threadId` field."""
+  threadId: String
+
+  """Checks for equality with the object’s `remoteId` field."""
+  remoteId: String
+
+  """Checks for equality with the object’s `from` field."""
+  from: String
+
+  """Checks for equality with the object’s `to` field."""
+  to: [String]
+
+  """Checks for equality with the object’s `subject` field."""
+  subject: String
+
+  """Checks for equality with the object’s `bodyText` field."""
+  bodyText: String
+
+  """Checks for equality with the object’s `receivedAt` field."""
+  receivedAt: Datetime
+
+  """Checks for equality with the object’s `tags` field."""
+  tags: [String]
+
+  """Checks for equality with the object’s `embedding` field."""
+  embedding: Vector
+
+  """Checks for equality with the object’s `emailAccountId` field."""
+  emailAccountId: UUID
+
+  """
+  Vector similarity search on the `embedding` column. Provide a query vector to
+  filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+  maximum distance threshold.
+  """
+  vectorEmbedding: VectorNearbyInput
+}
+
+"""
+A filter to be used against `Message` object types. All fields are combined with a logical ‘and.’
+"""
+input MessageFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `threadId` field."""
+  threadId: StringFilter
+
+  """Filter by the object’s `remoteId` field."""
+  remoteId: StringFilter
+
+  """Filter by the object’s `from` field."""
+  from: StringFilter
+
+  """Filter by the object’s `to` field."""
+  to: StringListFilter
+
+  """Filter by the object’s `subject` field."""
+  subject: StringFilter
+
+  """Filter by the object’s `bodyText` field."""
+  bodyText: StringFilter
+
+  """Filter by the object’s `receivedAt` field."""
+  receivedAt: DatetimeFilter
+
+  """Filter by the object’s `tags` field."""
+  tags: StringListFilter
+
+  """Filter by the object’s `embedding` field."""
+  embedding: VectorFilter
+
+  """Filter by the object’s `emailAccountId` field."""
+  emailAccountId: UUIDFilter
+
+  """Checks for all expressions in this list."""
+  and: [MessageFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [MessageFilter!]
+
+  """Negates the expression."""
+  not: MessageFilter
+}
+
+"""Methods to use when ordering `Message`."""
+enum MessageOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
 }
 
 """Root meta schema type"""
@@ -6477,6 +6370,14 @@ type MetaQuery {
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
+  """Creates a single `CompanyEvent`."""
+  createCompanyEvent(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCompanyEventInput!
+  ): CreateCompanyEventPayload
+
   """Creates a single `CompanyImage`."""
   createCompanyImage(
     """
@@ -6709,14 +6610,6 @@ type Mutation {
     input: CreateNoteInput!
   ): CreateNotePayload
 
-  """Creates a single `Message`."""
-  createMessage(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateMessageInput!
-  ): CreateMessagePayload
-
   """Creates a single `Company`."""
   createCompany(
     """
@@ -6733,6 +6626,14 @@ type Mutation {
     input: CreateVenueInput!
   ): CreateVenuePayload
 
+  """Creates a single `Contact`."""
+  createContact(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateContactInput!
+  ): CreateContactPayload
+
   """Creates a single `Event`."""
   createEvent(
     """
@@ -6741,13 +6642,21 @@ type Mutation {
     input: CreateEventInput!
   ): CreateEventPayload
 
-  """Creates a single `Contact`."""
-  createContact(
+  """Creates a single `Message`."""
+  createMessage(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: CreateContactInput!
-  ): CreateContactPayload
+    input: CreateMessageInput!
+  ): CreateMessagePayload
+
+  """Updates a single `CompanyEvent` using a unique key and a patch."""
+  updateCompanyEvent(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCompanyEventInput!
+  ): UpdateCompanyEventPayload
 
   """Updates a single `CompanyImage` using a unique key and a patch."""
   updateCompanyImage(
@@ -6981,14 +6890,6 @@ type Mutation {
     input: UpdateNoteInput!
   ): UpdateNotePayload
 
-  """Updates a single `Message` using a unique key and a patch."""
-  updateMessage(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateMessageInput!
-  ): UpdateMessagePayload
-
   """Updates a single `Company` using a unique key and a patch."""
   updateCompany(
     """
@@ -7005,6 +6906,14 @@ type Mutation {
     input: UpdateVenueInput!
   ): UpdateVenuePayload
 
+  """Updates a single `Contact` using a unique key and a patch."""
+  updateContact(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateContactInput!
+  ): UpdateContactPayload
+
   """Updates a single `Event` using a unique key and a patch."""
   updateEvent(
     """
@@ -7013,13 +6922,21 @@ type Mutation {
     input: UpdateEventInput!
   ): UpdateEventPayload
 
-  """Updates a single `Contact` using a unique key and a patch."""
-  updateContact(
+  """Updates a single `Message` using a unique key and a patch."""
+  updateMessage(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateContactInput!
-  ): UpdateContactPayload
+    input: UpdateMessageInput!
+  ): UpdateMessagePayload
+
+  """Deletes a single `CompanyEvent` using a unique key."""
+  deleteCompanyEvent(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCompanyEventInput!
+  ): DeleteCompanyEventPayload
 
   """Deletes a single `CompanyImage` using a unique key."""
   deleteCompanyImage(
@@ -7253,14 +7170,6 @@ type Mutation {
     input: DeleteNoteInput!
   ): DeleteNotePayload
 
-  """Deletes a single `Message` using a unique key."""
-  deleteMessage(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteMessageInput!
-  ): DeleteMessagePayload
-
   """Deletes a single `Company` using a unique key."""
   deleteCompany(
     """
@@ -7277,6 +7186,14 @@ type Mutation {
     input: DeleteVenueInput!
   ): DeleteVenuePayload
 
+  """Deletes a single `Contact` using a unique key."""
+  deleteContact(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteContactInput!
+  ): DeleteContactPayload
+
   """Deletes a single `Event` using a unique key."""
   deleteEvent(
     """
@@ -7285,13 +7202,56 @@ type Mutation {
     input: DeleteEventInput!
   ): DeleteEventPayload
 
-  """Deletes a single `Contact` using a unique key."""
-  deleteContact(
+  """Deletes a single `Message` using a unique key."""
+  deleteMessage(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteContactInput!
-  ): DeleteContactPayload
+    input: DeleteMessageInput!
+  ): DeleteMessagePayload
+}
+
+"""The output of our create `CompanyEvent` mutation."""
+type CreateCompanyEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `CompanyEvent` that was created by this mutation."""
+  companyEvent: CompanyEvent
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `CompanyEvent`. May be used by Relay 1."""
+  companyEventEdge(
+    """The method to use when ordering `CompanyEvent`."""
+    orderBy: [CompanyEventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): CompanyEventEdge
+}
+
+"""All input for the create `CompanyEvent` mutation."""
+input CreateCompanyEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `CompanyEvent` to be created by this mutation."""
+  companyEvent: CompanyEventInput!
+}
+
+"""An input for mutations affecting `CompanyEvent`"""
+input CompanyEventInput {
+  companyId: UUID!
+  eventId: UUID!
+  id: UUID
+  entityId: UUID!
 }
 
 """The output of our create `CompanyImage` mutation."""
@@ -8648,59 +8608,6 @@ input NoteInput {
   contactId: UUID!
 }
 
-"""The output of our create `Message` mutation."""
-type CreateMessagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Message` that was created by this mutation."""
-  message: Message
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `Message`. May be used by Relay 1."""
-  messageEdge(
-    """The method to use when ordering `Message`."""
-    orderBy: [MessageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): MessageEdge
-}
-
-"""All input for the create `Message` mutation."""
-input CreateMessageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `Message` to be created by this mutation."""
-  message: MessageInput!
-}
-
-"""An input for mutations affecting `Message`"""
-input MessageInput {
-  id: UUID
-  entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
-  threadId: String
-  remoteId: String
-  from: String
-  to: [String]
-  subject: String
-  bodyText: String
-  receivedAt: Datetime
-  tags: [String]
-  embedding: Vector
-  emailAccountId: UUID!
-}
-
 """The output of our create `Company` mutation."""
 type CreateCompanyPayload {
   """
@@ -8749,7 +8656,6 @@ input CompanyInput {
   tags: [String]
   embedding: Vector
   mainImageId: UUID
-  imageId: UUID!
 }
 
 """The output of our create `Venue` mutation."""
@@ -8801,61 +8707,6 @@ input VenueInput {
   tags: [String]
   embedding: Vector
   mainImageId: UUID
-  imageId: UUID!
-}
-
-"""The output of our create `Event` mutation."""
-type CreateEventPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Event` that was created by this mutation."""
-  event: Event
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `Event`. May be used by Relay 1."""
-  eventEdge(
-    """The method to use when ordering `Event`."""
-    orderBy: [EventOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EventEdge
-}
-
-"""All input for the create `Event` mutation."""
-input CreateEventInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `Event` to be created by this mutation."""
-  event: EventInput!
-}
-
-"""An input for mutations affecting `Event`"""
-input EventInput {
-  id: UUID
-  entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
-  name: String!
-  eventType: String
-  location: String
-  city: String
-  startedAt: Datetime
-  endedAt: Datetime
-  notes: String
-  tags: [String]
-  embedding: Vector
-  mainImageId: UUID
-  imageId: UUID!
 }
 
 """The output of our create `Contact` mutation."""
@@ -8909,8 +8760,160 @@ input ContactInput {
   tags: [String]
   embedding: Vector
   mainImageId: UUID
-  imageId: UUID!
-  searchTsv: FullText
+}
+
+"""The output of our create `Event` mutation."""
+type CreateEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Event` that was created by this mutation."""
+  event: Event
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Event`. May be used by Relay 1."""
+  eventEdge(
+    """The method to use when ordering `Event`."""
+    orderBy: [EventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): EventEdge
+}
+
+"""All input for the create `Event` mutation."""
+input CreateEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Event` to be created by this mutation."""
+  event: EventInput!
+}
+
+"""An input for mutations affecting `Event`"""
+input EventInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String!
+  eventType: String
+  location: String
+  city: String
+  startedAt: Datetime
+  endedAt: Datetime
+  notes: String
+  tags: [String]
+  embedding: Vector
+  mainImageId: UUID
+}
+
+"""The output of our create `Message` mutation."""
+type CreateMessagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Message` that was created by this mutation."""
+  message: Message
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Message`. May be used by Relay 1."""
+  messageEdge(
+    """The method to use when ordering `Message`."""
+    orderBy: [MessageOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): MessageEdge
+}
+
+"""All input for the create `Message` mutation."""
+input CreateMessageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Message` to be created by this mutation."""
+  message: MessageInput!
+}
+
+"""An input for mutations affecting `Message`"""
+input MessageInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  threadId: String
+  remoteId: String
+  from: String
+  to: [String]
+  subject: String
+  bodyText: String
+  receivedAt: Datetime
+  tags: [String]
+  embedding: Vector
+  emailAccountId: UUID!
+}
+
+"""The output of our update `CompanyEvent` mutation."""
+type UpdateCompanyEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `CompanyEvent` that was updated by this mutation."""
+  companyEvent: CompanyEvent
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `CompanyEvent`. May be used by Relay 1."""
+  companyEventEdge(
+    """The method to use when ordering `CompanyEvent`."""
+    orderBy: [CompanyEventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): CompanyEventEdge
+}
+
+"""All input for the `updateCompanyEvent` mutation."""
+input UpdateCompanyEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `CompanyEvent` being updated.
+  """
+  companyEventPatch: CompanyEventPatch!
+}
+
+"""
+Represents an update to a `CompanyEvent`. Fields that are set will be updated.
+"""
+input CompanyEventPatch {
+  companyId: UUID
+  eventId: UUID
+  id: UUID
+  entityId: UUID
 }
 
 """The output of our update `CompanyImage` mutation."""
@@ -10400,64 +10403,6 @@ input NotePatch {
   contactId: UUID
 }
 
-"""The output of our update `Message` mutation."""
-type UpdateMessagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Message` that was updated by this mutation."""
-  message: Message
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `Message`. May be used by Relay 1."""
-  messageEdge(
-    """The method to use when ordering `Message`."""
-    orderBy: [MessageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): MessageEdge
-}
-
-"""All input for the `updateMessage` mutation."""
-input UpdateMessageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-
-  """
-  An object where the defined keys will be set on the `Message` being updated.
-  """
-  messagePatch: MessagePatch!
-}
-
-"""
-Represents an update to a `Message`. Fields that are set will be updated.
-"""
-input MessagePatch {
-  id: UUID
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  threadId: String
-  remoteId: String
-  from: String
-  to: [String]
-  subject: String
-  bodyText: String
-  receivedAt: Datetime
-  tags: [String]
-  embedding: Vector
-  emailAccountId: UUID
-}
-
 """The output of our update `Company` mutation."""
 type UpdateCompanyPayload {
   """
@@ -10511,7 +10456,6 @@ input CompanyPatch {
   tags: [String]
   embedding: Vector
   mainImageId: UUID
-  imageId: UUID
 }
 
 """The output of our update `Venue` mutation."""
@@ -10568,66 +10512,6 @@ input VenuePatch {
   tags: [String]
   embedding: Vector
   mainImageId: UUID
-  imageId: UUID
-}
-
-"""The output of our update `Event` mutation."""
-type UpdateEventPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Event` that was updated by this mutation."""
-  event: Event
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `Event`. May be used by Relay 1."""
-  eventEdge(
-    """The method to use when ordering `Event`."""
-    orderBy: [EventOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EventEdge
-}
-
-"""All input for the `updateEvent` mutation."""
-input UpdateEventInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-
-  """
-  An object where the defined keys will be set on the `Event` being updated.
-  """
-  eventPatch: EventPatch!
-}
-
-"""
-Represents an update to a `Event`. Fields that are set will be updated.
-"""
-input EventPatch {
-  id: UUID
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  name: String
-  eventType: String
-  location: String
-  city: String
-  startedAt: Datetime
-  endedAt: Datetime
-  notes: String
-  tags: [String]
-  embedding: Vector
-  mainImageId: UUID
-  imageId: UUID
 }
 
 """The output of our update `Contact` mutation."""
@@ -10686,8 +10570,155 @@ input ContactPatch {
   tags: [String]
   embedding: Vector
   mainImageId: UUID
-  imageId: UUID
-  searchTsv: FullText
+}
+
+"""The output of our update `Event` mutation."""
+type UpdateEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Event` that was updated by this mutation."""
+  event: Event
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Event`. May be used by Relay 1."""
+  eventEdge(
+    """The method to use when ordering `Event`."""
+    orderBy: [EventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): EventEdge
+}
+
+"""All input for the `updateEvent` mutation."""
+input UpdateEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `Event` being updated.
+  """
+  eventPatch: EventPatch!
+}
+
+"""
+Represents an update to a `Event`. Fields that are set will be updated.
+"""
+input EventPatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String
+  eventType: String
+  location: String
+  city: String
+  startedAt: Datetime
+  endedAt: Datetime
+  notes: String
+  tags: [String]
+  embedding: Vector
+  mainImageId: UUID
+}
+
+"""The output of our update `Message` mutation."""
+type UpdateMessagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Message` that was updated by this mutation."""
+  message: Message
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Message`. May be used by Relay 1."""
+  messageEdge(
+    """The method to use when ordering `Message`."""
+    orderBy: [MessageOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): MessageEdge
+}
+
+"""All input for the `updateMessage` mutation."""
+input UpdateMessageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+
+  """
+  An object where the defined keys will be set on the `Message` being updated.
+  """
+  messagePatch: MessagePatch!
+}
+
+"""
+Represents an update to a `Message`. Fields that are set will be updated.
+"""
+input MessagePatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  threadId: String
+  remoteId: String
+  from: String
+  to: [String]
+  subject: String
+  bodyText: String
+  receivedAt: Datetime
+  tags: [String]
+  embedding: Vector
+  emailAccountId: UUID
+}
+
+"""The output of our delete `CompanyEvent` mutation."""
+type DeleteCompanyEventPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `CompanyEvent` that was deleted by this mutation."""
+  companyEvent: CompanyEvent
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `CompanyEvent`. May be used by Relay 1."""
+  companyEventEdge(
+    """The method to use when ordering `CompanyEvent`."""
+    orderBy: [CompanyEventOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): CompanyEventEdge
+}
+
+"""All input for the `deleteCompanyEvent` mutation."""
+input DeleteCompanyEventInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
 }
 
 """The output of our delete `CompanyImage` mutation."""
@@ -11647,39 +11678,6 @@ input DeleteNoteInput {
   id: UUID!
 }
 
-"""The output of our delete `Message` mutation."""
-type DeleteMessagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Message` that was deleted by this mutation."""
-  message: Message
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """An edge for our `Message`. May be used by Relay 1."""
-  messageEdge(
-    """The method to use when ordering `Message`."""
-    orderBy: [MessageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): MessageEdge
-}
-
-"""All input for the `deleteMessage` mutation."""
-input DeleteMessageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
 """The output of our delete `Company` mutation."""
 type DeleteCompanyPayload {
   """
@@ -11746,6 +11744,39 @@ input DeleteVenueInput {
   id: UUID!
 }
 
+"""The output of our delete `Contact` mutation."""
+type DeleteContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Contact` that was deleted by this mutation."""
+  contact: Contact
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Contact`. May be used by Relay 1."""
+  contactEdge(
+    """The method to use when ordering `Contact`."""
+    orderBy: [ContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactEdge
+}
+
+"""All input for the `deleteContact` mutation."""
+input DeleteContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
 """The output of our delete `Event` mutation."""
 type DeleteEventPayload {
   """
@@ -11779,31 +11810,31 @@ input DeleteEventInput {
   id: UUID!
 }
 
-"""The output of our delete `Contact` mutation."""
-type DeleteContactPayload {
+"""The output of our delete `Message` mutation."""
+type DeleteMessagePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `Contact` that was deleted by this mutation."""
-  contact: Contact
+  """The `Message` that was deleted by this mutation."""
+  message: Message
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
-  """An edge for our `Contact`. May be used by Relay 1."""
-  contactEdge(
-    """The method to use when ordering `Contact`."""
-    orderBy: [ContactOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactEdge
+  """An edge for our `Message`. May be used by Relay 1."""
+  messageEdge(
+    """The method to use when ordering `Message`."""
+    orderBy: [MessageOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): MessageEdge
 }
 
-"""All input for the `deleteContact` mutation."""
-input DeleteContactInput {
+"""All input for the `deleteMessage` mutation."""
+input DeleteMessageInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.

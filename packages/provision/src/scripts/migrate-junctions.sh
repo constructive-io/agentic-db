@@ -4,8 +4,26 @@ set -euo pipefail
 export PGPASSWORD=password
 SOURCE_DB="avengers_restore"
 TARGET_DB="constructive"
-TARGET_SCHEMA="agent-os-v2-1773264696010-2ec73da3-app-public"
-ENTITY_ID="320827da-8801-453f-cc9a-c884b2fae8cf"
+
+# Load current DB configuration from .env
+ENV_FILE="$(dirname "$0")/../../../../.env"
+if [ -f "$ENV_FILE" ]; then
+    export $(grep -v '^#' "$ENV_FILE" | xargs)
+fi
+
+TARGET_SCHEMA="${DATABASE_NAME}-app-public"
+
+# Automatically find the admin entity ID for this specific DB prefix
+ENTITY_ID=$(psql -h localhost -U postgres -d $TARGET_DB -t -A -c "SELECT id FROM \"${DATABASE_NAME}-users-public\".users LIMIT 1;")
+
+if [ -z "$ENTITY_ID" ]; then
+    echo "❌ Could not find admin user for schema ${DATABASE_NAME}."
+    exit 1
+fi
+
+echo "Targeting Schema: $TARGET_SCHEMA"
+echo "Targeting Admin ID: $ENTITY_ID"
+echo "-----------------------------------"
 
 echo ">>> Migrating contact_companies..."
 psql -h localhost -U postgres -d $SOURCE_DB -t -A -c "

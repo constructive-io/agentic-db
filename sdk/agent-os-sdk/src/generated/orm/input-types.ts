@@ -226,6 +226,12 @@ export interface UUIDListFilter {
 // ============ Custom Scalar Types ============
 export type Vector = unknown;
 // ============ Entity Types ============
+export interface CompanyEvent {
+  companyId?: string | null;
+  eventId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
 export interface CompanyImage {
   companyId?: string | null;
   imageId?: string | null;
@@ -301,24 +307,6 @@ export interface EmailAccount {
   email?: string | null;
   provider?: string | null;
   syncState?: Record<string, unknown> | null;
-}
-export interface Message {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  threadId?: string | null;
-  remoteId?: string | null;
-  from?: string | null;
-  to?: string | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  receivedAt?: string | null;
-  tags?: string | null;
-  embedding?: Vector | null;
-  emailAccountId?: string | null;
-  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
-  embeddingDistance?: number | null;
 }
 export interface ExecutionLog {
   id: string;
@@ -571,7 +559,6 @@ export interface Company {
   tags?: string | null;
   embedding?: Vector | null;
   mainImageId?: string | null;
-  imageId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -588,26 +575,6 @@ export interface Venue {
   tags?: string | null;
   embedding?: Vector | null;
   mainImageId?: string | null;
-  imageId?: string | null;
-  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
-  embeddingDistance?: number | null;
-}
-export interface Event {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  eventType?: string | null;
-  location?: string | null;
-  city?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  notes?: string | null;
-  tags?: string | null;
-  embedding?: Vector | null;
-  mainImageId?: string | null;
-  imageId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -626,10 +593,42 @@ export interface Contact {
   tags?: string | null;
   embedding?: Vector | null;
   mainImageId?: string | null;
-  imageId?: string | null;
-  searchTsv?: string | null;
-  /** Full-text search ranking when filtered by `searchTsv`. Returns null when no search condition is active. */
-  searchTsvRank?: number | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
+}
+export interface Event {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  name?: string | null;
+  eventType?: string | null;
+  location?: string | null;
+  city?: string | null;
+  startedAt?: string | null;
+  endedAt?: string | null;
+  notes?: string | null;
+  tags?: string | null;
+  embedding?: Vector | null;
+  mainImageId?: string | null;
+  /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
+  embeddingDistance?: number | null;
+}
+export interface Message {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  threadId?: string | null;
+  remoteId?: string | null;
+  from?: string | null;
+  to?: string | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  receivedAt?: string | null;
+  tags?: string | null;
+  embedding?: Vector | null;
+  emailAccountId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -646,6 +645,10 @@ export interface PageInfo {
   endCursor?: string | null;
 }
 // ============ Entity Relation Types ============
+export interface CompanyEventRelations {
+  company?: Company | null;
+  event?: Event | null;
+}
 export interface CompanyImageRelations {
   company?: Company | null;
   image?: Image | null;
@@ -682,12 +685,7 @@ export interface CalendarSyncRelations {}
 export interface FileRelations {
   repository?: Repository | null;
 }
-export interface EmailAccountRelations {
-  messages?: ConnectionResult<Message>;
-}
-export interface MessageRelations {
-  emailAccount?: EmailAccount | null;
-}
+export interface EmailAccountRelations {}
 export interface ExecutionLogRelations {
   session?: Session | null;
 }
@@ -718,18 +716,22 @@ export interface NoteRelations {
   contact?: Contact | null;
 }
 export interface CompanyRelations {
-  image?: Image | null;
+  mainImage?: Image | null;
 }
 export interface VenueRelations {
-  image?: Image | null;
-}
-export interface EventRelations {
-  image?: Image | null;
+  mainImage?: Image | null;
 }
 export interface ContactRelations {
-  image?: Image | null;
+  mainImage?: Image | null;
+}
+export interface EventRelations {
+  mainImage?: Image | null;
+}
+export interface MessageRelations {
+  emailAccount?: EmailAccount | null;
 }
 // ============ Entity Types With Relations ============
+export type CompanyEventWithRelations = CompanyEvent & CompanyEventRelations;
 export type CompanyImageWithRelations = CompanyImage & CompanyImageRelations;
 export type ContactCompanyWithRelations = ContactCompany & ContactCompanyRelations;
 export type ContactEventWithRelations = ContactEvent & ContactEventRelations;
@@ -741,7 +743,6 @@ export type VenueImageWithRelations = VenueImage & VenueImageRelations;
 export type CalendarSyncWithRelations = CalendarSync & CalendarSyncRelations;
 export type FileWithRelations = File & FileRelations;
 export type EmailAccountWithRelations = EmailAccount & EmailAccountRelations;
-export type MessageWithRelations = Message & MessageRelations;
 export type ExecutionLogWithRelations = ExecutionLog & ExecutionLogRelations;
 export type ChatWithRelations = Chat & ChatRelations;
 export type ProjectWithRelations = Project & ProjectRelations;
@@ -762,9 +763,22 @@ export type ExpenseWithRelations = Expense & ExpenseRelations;
 export type NoteWithRelations = Note & NoteRelations;
 export type CompanyWithRelations = Company & CompanyRelations;
 export type VenueWithRelations = Venue & VenueRelations;
-export type EventWithRelations = Event & EventRelations;
 export type ContactWithRelations = Contact & ContactRelations;
+export type EventWithRelations = Event & EventRelations;
+export type MessageWithRelations = Message & MessageRelations;
 // ============ Entity Select Types ============
+export type CompanyEventSelect = {
+  companyId?: boolean;
+  eventId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  company?: {
+    select: CompanySelect;
+  };
+  event?: {
+    select: EventSelect;
+  };
+};
 export type CompanyImageSelect = {
   companyId?: boolean;
   imageId?: boolean;
@@ -891,32 +905,6 @@ export type EmailAccountSelect = {
   email?: boolean;
   provider?: boolean;
   syncState?: boolean;
-  messages?: {
-    select: MessageSelect;
-    first?: number;
-    filter?: MessageFilter;
-    orderBy?: MessageOrderBy[];
-  };
-};
-export type MessageSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  threadId?: boolean;
-  remoteId?: boolean;
-  from?: boolean;
-  to?: boolean;
-  subject?: boolean;
-  bodyText?: boolean;
-  receivedAt?: boolean;
-  tags?: boolean;
-  embedding?: boolean;
-  emailAccountId?: boolean;
-  embeddingDistance?: boolean;
-  emailAccount?: {
-    select: EmailAccountSelect;
-  };
 };
 export type ExecutionLogSelect = {
   id?: boolean;
@@ -1170,9 +1158,8 @@ export type CompanySelect = {
   tags?: boolean;
   embedding?: boolean;
   mainImageId?: boolean;
-  imageId?: boolean;
   embeddingDistance?: boolean;
-  image?: {
+  mainImage?: {
     select: ImageSelect;
   };
 };
@@ -1189,30 +1176,8 @@ export type VenueSelect = {
   tags?: boolean;
   embedding?: boolean;
   mainImageId?: boolean;
-  imageId?: boolean;
   embeddingDistance?: boolean;
-  image?: {
-    select: ImageSelect;
-  };
-};
-export type EventSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  name?: boolean;
-  eventType?: boolean;
-  location?: boolean;
-  city?: boolean;
-  startedAt?: boolean;
-  endedAt?: boolean;
-  notes?: boolean;
-  tags?: boolean;
-  embedding?: boolean;
-  mainImageId?: boolean;
-  imageId?: boolean;
-  embeddingDistance?: boolean;
-  image?: {
+  mainImage?: {
     select: ImageSelect;
   };
 };
@@ -1231,15 +1196,61 @@ export type ContactSelect = {
   tags?: boolean;
   embedding?: boolean;
   mainImageId?: boolean;
-  imageId?: boolean;
-  searchTsv?: boolean;
-  searchTsvRank?: boolean;
   embeddingDistance?: boolean;
-  image?: {
+  mainImage?: {
     select: ImageSelect;
   };
 };
+export type EventSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  name?: boolean;
+  eventType?: boolean;
+  location?: boolean;
+  city?: boolean;
+  startedAt?: boolean;
+  endedAt?: boolean;
+  notes?: boolean;
+  tags?: boolean;
+  embedding?: boolean;
+  mainImageId?: boolean;
+  embeddingDistance?: boolean;
+  mainImage?: {
+    select: ImageSelect;
+  };
+};
+export type MessageSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  threadId?: boolean;
+  remoteId?: boolean;
+  from?: boolean;
+  to?: boolean;
+  subject?: boolean;
+  bodyText?: boolean;
+  receivedAt?: boolean;
+  tags?: boolean;
+  embedding?: boolean;
+  emailAccountId?: boolean;
+  embeddingDistance?: boolean;
+  emailAccount?: {
+    select: EmailAccountSelect;
+  };
+};
 // ============ Table Filter Types ============
+export interface CompanyEventFilter {
+  companyId?: UUIDFilter;
+  eventId?: UUIDFilter;
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  and?: CompanyEventFilter[];
+  or?: CompanyEventFilter[];
+  not?: CompanyEventFilter;
+}
 export interface CompanyImageFilter {
   companyId?: UUIDFilter;
   imageId?: UUIDFilter;
@@ -1348,26 +1359,6 @@ export interface EmailAccountFilter {
   and?: EmailAccountFilter[];
   or?: EmailAccountFilter[];
   not?: EmailAccountFilter;
-}
-export interface MessageFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  threadId?: StringFilter;
-  remoteId?: StringFilter;
-  from?: StringFilter;
-  to?: StringFilter;
-  subject?: StringFilter;
-  bodyText?: StringFilter;
-  receivedAt?: DatetimeFilter;
-  tags?: StringFilter;
-  embedding?: StringFilter;
-  emailAccountId?: UUIDFilter;
-  embeddingDistance?: FloatFilter;
-  and?: MessageFilter[];
-  or?: MessageFilter[];
-  not?: MessageFilter;
 }
 export interface ExecutionLogFilter {
   id?: UUIDFilter;
@@ -1657,7 +1648,6 @@ export interface CompanyFilter {
   tags?: StringFilter;
   embedding?: StringFilter;
   mainImageId?: UUIDFilter;
-  imageId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
   and?: CompanyFilter[];
   or?: CompanyFilter[];
@@ -1676,32 +1666,10 @@ export interface VenueFilter {
   tags?: StringFilter;
   embedding?: StringFilter;
   mainImageId?: UUIDFilter;
-  imageId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
   and?: VenueFilter[];
   or?: VenueFilter[];
   not?: VenueFilter;
-}
-export interface EventFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  name?: StringFilter;
-  eventType?: StringFilter;
-  location?: StringFilter;
-  city?: StringFilter;
-  startedAt?: DatetimeFilter;
-  endedAt?: DatetimeFilter;
-  notes?: StringFilter;
-  tags?: StringFilter;
-  embedding?: StringFilter;
-  mainImageId?: UUIDFilter;
-  imageId?: UUIDFilter;
-  embeddingDistance?: FloatFilter;
-  and?: EventFilter[];
-  or?: EventFilter[];
-  not?: EventFilter;
 }
 export interface ContactFilter {
   id?: UUIDFilter;
@@ -1718,15 +1686,58 @@ export interface ContactFilter {
   tags?: StringFilter;
   embedding?: StringFilter;
   mainImageId?: UUIDFilter;
-  imageId?: UUIDFilter;
-  searchTsv?: FullTextFilter;
-  searchTsvRank?: FloatFilter;
   embeddingDistance?: FloatFilter;
   and?: ContactFilter[];
   or?: ContactFilter[];
   not?: ContactFilter;
 }
+export interface EventFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  name?: StringFilter;
+  eventType?: StringFilter;
+  location?: StringFilter;
+  city?: StringFilter;
+  startedAt?: DatetimeFilter;
+  endedAt?: DatetimeFilter;
+  notes?: StringFilter;
+  tags?: StringFilter;
+  embedding?: StringFilter;
+  mainImageId?: UUIDFilter;
+  embeddingDistance?: FloatFilter;
+  and?: EventFilter[];
+  or?: EventFilter[];
+  not?: EventFilter;
+}
+export interface MessageFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  threadId?: StringFilter;
+  remoteId?: StringFilter;
+  from?: StringFilter;
+  to?: StringFilter;
+  subject?: StringFilter;
+  bodyText?: StringFilter;
+  receivedAt?: DatetimeFilter;
+  tags?: StringFilter;
+  embedding?: StringFilter;
+  emailAccountId?: UUIDFilter;
+  embeddingDistance?: FloatFilter;
+  and?: MessageFilter[];
+  or?: MessageFilter[];
+  not?: MessageFilter;
+}
 // ============ Table Condition Types ============
+export interface CompanyEventCondition {
+  companyId?: string | null;
+  eventId?: string | null;
+  id?: string | null;
+  entityId?: string | null;
+}
 export interface CompanyImageCondition {
   companyId?: string | null;
   imageId?: string | null;
@@ -1802,23 +1813,6 @@ export interface EmailAccountCondition {
   email?: string | null;
   provider?: string | null;
   syncState?: unknown | null;
-}
-export interface MessageCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  threadId?: string | null;
-  remoteId?: string | null;
-  from?: string | null;
-  to?: string | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  receivedAt?: string | null;
-  tags?: string | null;
-  embedding?: unknown | null;
-  emailAccountId?: string | null;
-  embeddingDistance?: number | null;
 }
 export interface ExecutionLogCondition {
   id?: string | null;
@@ -2054,7 +2048,6 @@ export interface CompanyCondition {
   tags?: string | null;
   embedding?: unknown | null;
   mainImageId?: string | null;
-  imageId?: string | null;
   embeddingDistance?: number | null;
 }
 export interface VenueCondition {
@@ -2070,25 +2063,6 @@ export interface VenueCondition {
   tags?: string | null;
   embedding?: unknown | null;
   mainImageId?: string | null;
-  imageId?: string | null;
-  embeddingDistance?: number | null;
-}
-export interface EventCondition {
-  id?: string | null;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  eventType?: string | null;
-  location?: string | null;
-  city?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  notes?: string | null;
-  tags?: string | null;
-  embedding?: unknown | null;
-  mainImageId?: string | null;
-  imageId?: string | null;
   embeddingDistance?: number | null;
 }
 export interface ContactCondition {
@@ -2106,12 +2080,55 @@ export interface ContactCondition {
   tags?: string | null;
   embedding?: unknown | null;
   mainImageId?: string | null;
-  imageId?: string | null;
-  searchTsv?: string | null;
-  searchTsvRank?: number | null;
+  embeddingDistance?: number | null;
+}
+export interface EventCondition {
+  id?: string | null;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  name?: string | null;
+  eventType?: string | null;
+  location?: string | null;
+  city?: string | null;
+  startedAt?: string | null;
+  endedAt?: string | null;
+  notes?: string | null;
+  tags?: string | null;
+  embedding?: unknown | null;
+  mainImageId?: string | null;
+  embeddingDistance?: number | null;
+}
+export interface MessageCondition {
+  id?: string | null;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  threadId?: string | null;
+  remoteId?: string | null;
+  from?: string | null;
+  to?: string | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  receivedAt?: string | null;
+  tags?: string | null;
+  embedding?: unknown | null;
+  emailAccountId?: string | null;
   embeddingDistance?: number | null;
 }
 // ============ OrderBy Types ============
+export type CompanyEventOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'COMPANY_ID_ASC'
+  | 'COMPANY_ID_DESC'
+  | 'EVENT_ID_ASC'
+  | 'EVENT_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
 export type CompanyImageOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -2264,40 +2281,6 @@ export type EmailAccountOrderBy =
   | 'PROVIDER_DESC'
   | 'SYNC_STATE_ASC'
   | 'SYNC_STATE_DESC';
-export type MessageOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'THREAD_ID_ASC'
-  | 'THREAD_ID_DESC'
-  | 'REMOTE_ID_ASC'
-  | 'REMOTE_ID_DESC'
-  | 'FROM_ASC'
-  | 'FROM_DESC'
-  | 'TO_ASC'
-  | 'TO_DESC'
-  | 'SUBJECT_ASC'
-  | 'SUBJECT_DESC'
-  | 'BODY_TEXT_ASC'
-  | 'BODY_TEXT_DESC'
-  | 'RECEIVED_AT_ASC'
-  | 'RECEIVED_AT_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMAIL_ACCOUNT_ID_ASC'
-  | 'EMAIL_ACCOUNT_ID_DESC'
-  | 'EMBEDDING_DISTANCE_ASC'
-  | 'EMBEDDING_DISTANCE_DESC';
 export type ExecutionLogOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -2768,8 +2751,6 @@ export type CompanyOrderBy =
   | 'EMBEDDING_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
-  | 'IMAGE_ID_ASC'
-  | 'IMAGE_ID_DESC'
   | 'EMBEDDING_DISTANCE_ASC'
   | 'EMBEDDING_DISTANCE_DESC';
 export type VenueOrderBy =
@@ -2800,44 +2781,6 @@ export type VenueOrderBy =
   | 'EMBEDDING_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
-  | 'IMAGE_ID_ASC'
-  | 'IMAGE_ID_DESC'
-  | 'EMBEDDING_DISTANCE_ASC'
-  | 'EMBEDDING_DISTANCE_DESC';
-export type EventOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'EVENT_TYPE_ASC'
-  | 'EVENT_TYPE_DESC'
-  | 'LOCATION_ASC'
-  | 'LOCATION_DESC'
-  | 'CITY_ASC'
-  | 'CITY_DESC'
-  | 'STARTED_AT_ASC'
-  | 'STARTED_AT_DESC'
-  | 'ENDED_AT_ASC'
-  | 'ENDED_AT_DESC'
-  | 'NOTES_ASC'
-  | 'NOTES_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'MAIN_IMAGE_ID_ASC'
-  | 'MAIN_IMAGE_ID_DESC'
-  | 'IMAGE_ID_ASC'
-  | 'IMAGE_ID_DESC'
   | 'EMBEDDING_DISTANCE_ASC'
   | 'EMBEDDING_DISTANCE_DESC';
 export type ContactOrderBy =
@@ -2872,15 +2815,99 @@ export type ContactOrderBy =
   | 'EMBEDDING_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
-  | 'IMAGE_ID_ASC'
-  | 'IMAGE_ID_DESC'
-  | 'SEARCH_TSV_ASC'
-  | 'SEARCH_TSV_DESC'
-  | 'SEARCH_TSV_RANK_ASC'
-  | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
+export type EventOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'EVENT_TYPE_ASC'
+  | 'EVENT_TYPE_DESC'
+  | 'LOCATION_ASC'
+  | 'LOCATION_DESC'
+  | 'CITY_ASC'
+  | 'CITY_DESC'
+  | 'STARTED_AT_ASC'
+  | 'STARTED_AT_DESC'
+  | 'ENDED_AT_ASC'
+  | 'ENDED_AT_DESC'
+  | 'NOTES_ASC'
+  | 'NOTES_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'MAIN_IMAGE_ID_ASC'
+  | 'MAIN_IMAGE_ID_DESC'
+  | 'EMBEDDING_DISTANCE_ASC'
+  | 'EMBEDDING_DISTANCE_DESC';
+export type MessageOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'THREAD_ID_ASC'
+  | 'THREAD_ID_DESC'
+  | 'REMOTE_ID_ASC'
+  | 'REMOTE_ID_DESC'
+  | 'FROM_ASC'
+  | 'FROM_DESC'
+  | 'TO_ASC'
+  | 'TO_DESC'
+  | 'SUBJECT_ASC'
+  | 'SUBJECT_DESC'
+  | 'BODY_TEXT_ASC'
+  | 'BODY_TEXT_DESC'
+  | 'RECEIVED_AT_ASC'
+  | 'RECEIVED_AT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMAIL_ACCOUNT_ID_ASC'
+  | 'EMAIL_ACCOUNT_ID_DESC'
   | 'EMBEDDING_DISTANCE_ASC'
   | 'EMBEDDING_DISTANCE_DESC';
 // ============ CRUD Input Types ============
+export interface CreateCompanyEventInput {
+  clientMutationId?: string;
+  companyEvent: {
+    companyId: string;
+    eventId: string;
+    entityId: string;
+  };
+}
+export interface CompanyEventPatch {
+  companyId?: string | null;
+  eventId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateCompanyEventInput {
+  clientMutationId?: string;
+  id: string;
+  companyEventPatch: CompanyEventPatch;
+}
+export interface DeleteCompanyEventInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateCompanyImageInput {
   clientMutationId?: string;
   companyImage: {
@@ -3128,45 +3155,6 @@ export interface UpdateEmailAccountInput {
   emailAccountPatch: EmailAccountPatch;
 }
 export interface DeleteEmailAccountInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateMessageInput {
-  clientMutationId?: string;
-  message: {
-    entityId: string;
-    threadId?: string;
-    remoteId?: string;
-    from?: string;
-    to?: string[];
-    subject?: string;
-    bodyText?: string;
-    receivedAt?: string;
-    tags?: string[];
-    embedding?: Vector;
-    emailAccountId: string;
-  };
-}
-export interface MessagePatch {
-  entityId?: string | null;
-  threadId?: string | null;
-  remoteId?: string | null;
-  from?: string | null;
-  to?: string | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  receivedAt?: string | null;
-  tags?: string | null;
-  embedding?: Vector | null;
-  emailAccountId?: string | null;
-  embeddingDistance?: number | null;
-}
-export interface UpdateMessageInput {
-  clientMutationId?: string;
-  id: string;
-  messagePatch: MessagePatch;
-}
-export interface DeleteMessageInput {
   clientMutationId?: string;
   id: string;
 }
@@ -3716,7 +3704,6 @@ export interface CreateCompanyInput {
     tags?: string[];
     embedding?: Vector;
     mainImageId?: string;
-    imageId: string;
   };
 }
 export interface CompanyPatch {
@@ -3728,7 +3715,6 @@ export interface CompanyPatch {
   tags?: string | null;
   embedding?: Vector | null;
   mainImageId?: string | null;
-  imageId?: string | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateCompanyInput {
@@ -3752,7 +3738,6 @@ export interface CreateVenueInput {
     tags?: string[];
     embedding?: Vector;
     mainImageId?: string;
-    imageId: string;
   };
 }
 export interface VenuePatch {
@@ -3765,7 +3750,6 @@ export interface VenuePatch {
   tags?: string | null;
   embedding?: Vector | null;
   mainImageId?: string | null;
-  imageId?: string | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateVenueInput {
@@ -3774,47 +3758,6 @@ export interface UpdateVenueInput {
   venuePatch: VenuePatch;
 }
 export interface DeleteVenueInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEventInput {
-  clientMutationId?: string;
-  event: {
-    entityId: string;
-    name: string;
-    eventType?: string;
-    location?: string;
-    city?: string;
-    startedAt?: string;
-    endedAt?: string;
-    notes?: string;
-    tags?: string[];
-    embedding?: Vector;
-    mainImageId?: string;
-    imageId: string;
-  };
-}
-export interface EventPatch {
-  entityId?: string | null;
-  name?: string | null;
-  eventType?: string | null;
-  location?: string | null;
-  city?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  notes?: string | null;
-  tags?: string | null;
-  embedding?: Vector | null;
-  mainImageId?: string | null;
-  imageId?: string | null;
-  embeddingDistance?: number | null;
-}
-export interface UpdateEventInput {
-  clientMutationId?: string;
-  id: string;
-  eventPatch: EventPatch;
-}
-export interface DeleteEventInput {
   clientMutationId?: string;
   id: string;
 }
@@ -3832,8 +3775,6 @@ export interface CreateContactInput {
     tags?: string[];
     embedding?: Vector;
     mainImageId?: string;
-    imageId: string;
-    searchTsv?: string;
   };
 }
 export interface ContactPatch {
@@ -3848,9 +3789,6 @@ export interface ContactPatch {
   tags?: string | null;
   embedding?: Vector | null;
   mainImageId?: string | null;
-  imageId?: string | null;
-  searchTsv?: string | null;
-  searchTsvRank?: number | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateContactInput {
@@ -3862,13 +3800,132 @@ export interface DeleteContactInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateEventInput {
+  clientMutationId?: string;
+  event: {
+    entityId: string;
+    name: string;
+    eventType?: string;
+    location?: string;
+    city?: string;
+    startedAt?: string;
+    endedAt?: string;
+    notes?: string;
+    tags?: string[];
+    embedding?: Vector;
+    mainImageId?: string;
+  };
+}
+export interface EventPatch {
+  entityId?: string | null;
+  name?: string | null;
+  eventType?: string | null;
+  location?: string | null;
+  city?: string | null;
+  startedAt?: string | null;
+  endedAt?: string | null;
+  notes?: string | null;
+  tags?: string | null;
+  embedding?: Vector | null;
+  mainImageId?: string | null;
+  embeddingDistance?: number | null;
+}
+export interface UpdateEventInput {
+  clientMutationId?: string;
+  id: string;
+  eventPatch: EventPatch;
+}
+export interface DeleteEventInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateMessageInput {
+  clientMutationId?: string;
+  message: {
+    entityId: string;
+    threadId?: string;
+    remoteId?: string;
+    from?: string;
+    to?: string[];
+    subject?: string;
+    bodyText?: string;
+    receivedAt?: string;
+    tags?: string[];
+    embedding?: Vector;
+    emailAccountId: string;
+  };
+}
+export interface MessagePatch {
+  entityId?: string | null;
+  threadId?: string | null;
+  remoteId?: string | null;
+  from?: string | null;
+  to?: string | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  receivedAt?: string | null;
+  tags?: string | null;
+  embedding?: Vector | null;
+  emailAccountId?: string | null;
+  embeddingDistance?: number | null;
+}
+export interface UpdateMessageInput {
+  clientMutationId?: string;
+  id: string;
+  messagePatch: MessagePatch;
+}
+export interface DeleteMessageInput {
+  clientMutationId?: string;
+  id: string;
+}
 // ============ Connection Fields Map ============
-export const connectionFieldsMap = {
-  EmailAccount: {
-    messages: 'Message',
-  },
-} as Record<string, Record<string, string>>;
+export const connectionFieldsMap = {} as Record<string, Record<string, string>>;
 // ============ Payload/Return Types (for custom operations) ============
+export interface CreateCompanyEventPayload {
+  clientMutationId?: string | null;
+  /** The `CompanyEvent` that was created by this mutation. */
+  companyEvent?: CompanyEvent | null;
+  companyEventEdge?: CompanyEventEdge | null;
+}
+export type CreateCompanyEventPayloadSelect = {
+  clientMutationId?: boolean;
+  companyEvent?: {
+    select: CompanyEventSelect;
+  };
+  companyEventEdge?: {
+    select: CompanyEventEdgeSelect;
+  };
+};
+export interface UpdateCompanyEventPayload {
+  clientMutationId?: string | null;
+  /** The `CompanyEvent` that was updated by this mutation. */
+  companyEvent?: CompanyEvent | null;
+  companyEventEdge?: CompanyEventEdge | null;
+}
+export type UpdateCompanyEventPayloadSelect = {
+  clientMutationId?: boolean;
+  companyEvent?: {
+    select: CompanyEventSelect;
+  };
+  companyEventEdge?: {
+    select: CompanyEventEdgeSelect;
+  };
+};
+export interface DeleteCompanyEventPayload {
+  clientMutationId?: string | null;
+  /** The `CompanyEvent` that was deleted by this mutation. */
+  companyEvent?: CompanyEvent | null;
+  companyEventEdge?: CompanyEventEdge | null;
+}
+export type DeleteCompanyEventPayloadSelect = {
+  clientMutationId?: boolean;
+  companyEvent?: {
+    select: CompanyEventSelect;
+  };
+  companyEventEdge?: {
+    select: CompanyEventEdgeSelect;
+  };
+};
 export interface CreateCompanyImagePayload {
   clientMutationId?: string | null;
   /** The `CompanyImage` that was created by this mutation. */
@@ -4362,51 +4419,6 @@ export type DeleteEmailAccountPayloadSelect = {
   };
   emailAccountEdge?: {
     select: EmailAccountEdgeSelect;
-  };
-};
-export interface CreateMessagePayload {
-  clientMutationId?: string | null;
-  /** The `Message` that was created by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
-}
-export type CreateMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
-  };
-  messageEdge?: {
-    select: MessageEdgeSelect;
-  };
-};
-export interface UpdateMessagePayload {
-  clientMutationId?: string | null;
-  /** The `Message` that was updated by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
-}
-export type UpdateMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
-  };
-  messageEdge?: {
-    select: MessageEdgeSelect;
-  };
-};
-export interface DeleteMessagePayload {
-  clientMutationId?: string | null;
-  /** The `Message` that was deleted by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
-}
-export type DeleteMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
-  };
-  messageEdge?: {
-    select: MessageEdgeSelect;
   };
 };
 export interface CreateExecutionLogPayload {
@@ -5309,6 +5321,51 @@ export type DeleteVenuePayloadSelect = {
     select: VenueEdgeSelect;
   };
 };
+export interface CreateContactPayload {
+  clientMutationId?: string | null;
+  /** The `Contact` that was created by this mutation. */
+  contact?: Contact | null;
+  contactEdge?: ContactEdge | null;
+}
+export type CreateContactPayloadSelect = {
+  clientMutationId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  contactEdge?: {
+    select: ContactEdgeSelect;
+  };
+};
+export interface UpdateContactPayload {
+  clientMutationId?: string | null;
+  /** The `Contact` that was updated by this mutation. */
+  contact?: Contact | null;
+  contactEdge?: ContactEdge | null;
+}
+export type UpdateContactPayloadSelect = {
+  clientMutationId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  contactEdge?: {
+    select: ContactEdgeSelect;
+  };
+};
+export interface DeleteContactPayload {
+  clientMutationId?: string | null;
+  /** The `Contact` that was deleted by this mutation. */
+  contact?: Contact | null;
+  contactEdge?: ContactEdge | null;
+}
+export type DeleteContactPayloadSelect = {
+  clientMutationId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  contactEdge?: {
+    select: ContactEdgeSelect;
+  };
+};
 export interface CreateEventPayload {
   clientMutationId?: string | null;
   /** The `Event` that was created by this mutation. */
@@ -5354,49 +5411,61 @@ export type DeleteEventPayloadSelect = {
     select: EventEdgeSelect;
   };
 };
-export interface CreateContactPayload {
+export interface CreateMessagePayload {
   clientMutationId?: string | null;
-  /** The `Contact` that was created by this mutation. */
-  contact?: Contact | null;
-  contactEdge?: ContactEdge | null;
+  /** The `Message` that was created by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
 }
-export type CreateContactPayloadSelect = {
+export type CreateMessagePayloadSelect = {
   clientMutationId?: boolean;
-  contact?: {
-    select: ContactSelect;
+  message?: {
+    select: MessageSelect;
   };
-  contactEdge?: {
-    select: ContactEdgeSelect;
+  messageEdge?: {
+    select: MessageEdgeSelect;
   };
 };
-export interface UpdateContactPayload {
+export interface UpdateMessagePayload {
   clientMutationId?: string | null;
-  /** The `Contact` that was updated by this mutation. */
-  contact?: Contact | null;
-  contactEdge?: ContactEdge | null;
+  /** The `Message` that was updated by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
 }
-export type UpdateContactPayloadSelect = {
+export type UpdateMessagePayloadSelect = {
   clientMutationId?: boolean;
-  contact?: {
-    select: ContactSelect;
+  message?: {
+    select: MessageSelect;
   };
-  contactEdge?: {
-    select: ContactEdgeSelect;
+  messageEdge?: {
+    select: MessageEdgeSelect;
   };
 };
-export interface DeleteContactPayload {
+export interface DeleteMessagePayload {
   clientMutationId?: string | null;
-  /** The `Contact` that was deleted by this mutation. */
-  contact?: Contact | null;
-  contactEdge?: ContactEdge | null;
+  /** The `Message` that was deleted by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
 }
-export type DeleteContactPayloadSelect = {
+export type DeleteMessagePayloadSelect = {
   clientMutationId?: boolean;
-  contact?: {
-    select: ContactSelect;
+  message?: {
+    select: MessageSelect;
   };
-  contactEdge?: {
-    select: ContactEdgeSelect;
+  messageEdge?: {
+    select: MessageEdgeSelect;
+  };
+};
+/** A `CompanyEvent` edge in the connection. */
+export interface CompanyEventEdge {
+  cursor?: string | null;
+  /** The `CompanyEvent` at the end of the edge. */
+  node?: CompanyEvent | null;
+}
+export type CompanyEventEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CompanyEventSelect;
   };
 };
 /** A `CompanyImage` edge in the connection. */
@@ -5529,18 +5598,6 @@ export type EmailAccountEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: EmailAccountSelect;
-  };
-};
-/** A `Message` edge in the connection. */
-export interface MessageEdge {
-  cursor?: string | null;
-  /** The `Message` at the end of the edge. */
-  node?: Message | null;
-}
-export type MessageEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: MessageSelect;
   };
 };
 /** A `ExecutionLog` edge in the connection. */
@@ -5783,6 +5840,18 @@ export type VenueEdgeSelect = {
     select: VenueSelect;
   };
 };
+/** A `Contact` edge in the connection. */
+export interface ContactEdge {
+  cursor?: string | null;
+  /** The `Contact` at the end of the edge. */
+  node?: Contact | null;
+}
+export type ContactEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactSelect;
+  };
+};
 /** A `Event` edge in the connection. */
 export interface EventEdge {
   cursor?: string | null;
@@ -5795,15 +5864,15 @@ export type EventEdgeSelect = {
     select: EventSelect;
   };
 };
-/** A `Contact` edge in the connection. */
-export interface ContactEdge {
+/** A `Message` edge in the connection. */
+export interface MessageEdge {
   cursor?: string | null;
-  /** The `Contact` at the end of the edge. */
-  node?: Contact | null;
+  /** The `Message` at the end of the edge. */
+  node?: Message | null;
 }
-export type ContactEdgeSelect = {
+export type MessageEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: ContactSelect;
+    select: MessageSelect;
   };
 };

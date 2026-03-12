@@ -1,7 +1,7 @@
 /**
  * Seed sample data for RAG testing
  */
-import { authenticate, createRawAdapter } from './client';
+import { authenticate, createAuthenticatedClient } from './client';
 import { createClient } from '@agentic-sdk/sdk';
 import { embed } from './ollama';
 
@@ -16,8 +16,8 @@ async function main() {
   const { token, userId } = await authenticate(TEST_EMAIL, TEST_PASSWORD);
   console.log(`   User: ${userId}`);
 
-  const adapter = createRawAdapter(token);
-  const client = createClient({ adapter });
+  const client = createAuthenticatedClient(token);
+  
 
   // 2. Helper to create with embedding (Typed SDK)
   async function createCompany(name: string, domain: string, industry: string, description: string) {
