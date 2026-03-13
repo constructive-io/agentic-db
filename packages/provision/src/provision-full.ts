@@ -109,6 +109,7 @@ async function main() {
   runSchema('codebase.ts');
   runSchema('life_os.ts');
   runSchema('autonomy.ts');
+  runSchema('apply-schema-upgrades.ts');
 
   // --- Step 3: Success ---
   console.log('\n✨✨✨ ALL SYSTEMS GO ✨✨✨');

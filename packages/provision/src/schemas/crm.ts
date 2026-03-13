@@ -124,6 +124,21 @@ async function main() {
   await addField(notesId, 'tags', 'citext[]');
   await addField(notesId, 'embedding', 'vector(768)');
 
+  console.log('\n🔗 Extensible Link Tables...');
+  const createLinkTable = async (name: string) => {
+    const tableId = await createOrgTable(name);
+    await addField(tableId, 'title', 'text');
+    await addField(tableId, 'url', 'text', { isRequired: true });
+    await addField(tableId, 'embedding', 'vector(768)');
+    return tableId;
+  };
+
+  const contactLinksId = await createLinkTable('contact_links');
+  const companyLinksId = await createLinkTable('company_links');
+  const eventLinksId = await createLinkTable('event_links');
+  const venueLinksId = await createLinkTable('venue_links');
+
+
   console.log('\n🔗 Relations...');
 
   // 1:1 Main Image Links
@@ -204,6 +219,30 @@ async function main() {
     select: { id: true },
   }).unwrap());
   console.log('   ✓ deals ↔ contacts');
+
+  await withRetry(() => client.relationProvision.create({
+    data: { databaseId, relationType: 'RelationHasMany', sourceTableId: contactsId, targetTableId: contactLinksId, deleteAction: 'c' },
+    select: { id: true },
+  }).unwrap());
+  console.log('   ✓ contacts → contact_links');
+
+  await withRetry(() => client.relationProvision.create({
+    data: { databaseId, relationType: 'RelationHasMany', sourceTableId: companiesId, targetTableId: companyLinksId, deleteAction: 'c' },
+    select: { id: true },
+  }).unwrap());
+  console.log('   ✓ companies → company_links');
+
+  await withRetry(() => client.relationProvision.create({
+    data: { databaseId, relationType: 'RelationHasMany', sourceTableId: eventsId, targetTableId: eventLinksId, deleteAction: 'c' },
+    select: { id: true },
+  }).unwrap());
+  console.log('   ✓ events → event_links');
+
+  await withRetry(() => client.relationProvision.create({
+    data: { databaseId, relationType: 'RelationHasMany', sourceTableId: venuesId, targetTableId: venueLinksId, deleteAction: 'c' },
+    select: { id: true },
+  }).unwrap());
+  console.log('   ✓ venues → venue_links');
 
   console.log('\n✅ CRM Schema with Images, Embeddings & Tags complete!\n');
 }
