@@ -31,14 +31,15 @@ async function main() {
   }
 
   const schemas = [
-    ['CRM',           './schemas/crm'],
-    ['Agent Core',    './schemas/agent'],
-    ['Agent Runtime', './schemas/runtime'],
-    ['Projects',      './schemas/projects'],
-    ['Codebase',      './schemas/codebase'],
-    ['Life OS',       './schemas/life_os'],
-    ['Autonomy',      './schemas/autonomy'],
-    ['Indexes',       './create-indexes'],
+    ['CRM',              './schemas/crm'],
+    ['Agent Core',       './schemas/agent'],
+    ['Agent Runtime',    './schemas/runtime'],
+    ['Projects',         './schemas/projects'],
+    ['Codebase',         './schemas/codebase'],
+    ['Life OS',          './schemas/life_os'],
+    ['Autonomy',         './schemas/autonomy'],
+    ['Cross-Relations',  './schemas/cross-relations'],
+    ['Indexes',          './create-indexes'],
   ];
 
   for (const [label, mod] of schemas) {

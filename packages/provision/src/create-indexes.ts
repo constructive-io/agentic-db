@@ -36,13 +36,17 @@ interface IndexDef {
 // HNSW indexes on embedding columns (vector cosine similarity)
 const HNSW_INDEXES: IndexDef[] = [
   'contacts', 'companies', 'deals', 'events', 'venues', 'notes',
-  'interactions',
+  'interactions', 'tags', 'attachments',
   'tasks', 'rules', 'memories', 'skills', 'goals',
+  'prompts',
   'agents', 'sessions', 'chats', 'chat_messages', 'threads', 'blueprints',
+  'tools', 'workflows',
   'projects', 'milestones',
   'repositories', 'chunks',
   'messages', 'calendar_events', 'expenses', 'documents',
+  'trips',
   'ideas', 'reminders', 'habits', 'lists',
+  'recipes', 'templates',
 ].map((table) => ({
   table,
   column: 'embedding',
@@ -60,13 +64,17 @@ const HNSW_EXTRA: IndexDef[] = [
 // BM25 indexes on embedding_text (keyword search for hybrid RAG)
 const BM25_INDEXES: IndexDef[] = [
   'contacts', 'companies', 'deals', 'events', 'venues', 'notes',
-  'interactions',
+  'interactions', 'tags', 'attachments',
   'tasks', 'rules', 'memories', 'skills', 'goals',
+  'prompts',
   'agents', 'sessions', 'chats', 'chat_messages', 'threads', 'blueprints',
+  'tools', 'workflows',
   'projects', 'milestones',
   'repositories', 'chunks',
   'messages', 'calendar_events', 'expenses', 'documents',
+  'trips',
   'ideas', 'reminders', 'habits', 'lists',
+  'recipes', 'templates',
 ].map((table) => ({
   table,
   column: 'embedding_text',
@@ -79,6 +87,8 @@ const BM25_EXTRA: IndexDef[] = [
   { table: 'messages', column: 'body_text', method: 'bm25' },
   { table: 'documents', column: 'content', method: 'bm25' },
   { table: 'chat_messages', column: 'content', method: 'bm25' },
+  { table: 'prompts', column: 'content', method: 'bm25' },
+  { table: 'activity_log', column: 'description', method: 'bm25' },
 ];
 
 // GIN indexes on tags (citext[]) columns
@@ -86,20 +96,30 @@ const GIN_TAG_INDEXES: IndexDef[] = [
   'contacts', 'companies', 'deals', 'events', 'venues', 'notes',
   'interactions',
   'tasks', 'rules', 'memories', 'skills', 'goals',
+  'prompts',
   'blueprints',
+  'tools',
   'projects',
   'repositories',
   'messages', 'calendar_events', 'expenses', 'documents',
+  'subscriptions', 'trips',
   'ideas', 'habits', 'habit_logs', 'lists',
+  'recipes', 'templates',
 ].map((table) => ({
   table,
   column: 'tags',
   method: 'gin',
 }));
 
-// GIN index on habit_logs.data (JSONB containment queries)
+// GIN indexes on JSONB columns (containment queries)
 const GIN_JSONB_INDEXES: IndexDef[] = [
   { table: 'habit_logs', column: 'data', method: 'gin' },
+  { table: 'tools', column: 'input_schema', method: 'gin' },
+  { table: 'mcp_servers', column: 'auth_config', method: 'gin' },
+  { table: 'workflow_steps', column: 'config', method: 'gin' },
+  { table: 'recipes', column: 'ingredients', method: 'gin' },
+  { table: 'user_settings', column: 'value', method: 'gin' },
+  { table: 'integrations', column: 'config', method: 'gin' },
 ];
 
 // GIN indexes on tsvector columns
@@ -128,6 +148,17 @@ const TRGM_INDEXES: IndexDef[] = [
   { table: 'lists', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
   { table: 'agents', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
   { table: 'repositories', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'tools', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'recipes', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'templates', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'trips', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'subscriptions', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'integrations', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'workflows', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'ideas', column: 'content', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'reminders', column: 'title', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'habits', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'prompts', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
 ];
 
 // B-Tree indexes on FKs, status, dates, lookups
@@ -225,6 +256,56 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'notifications', column: 'type', method: 'btree' },
   { table: 'notifications', column: 'priority', method: 'btree' },
   { table: 'notifications', column: 'read_at', method: 'btree' },
+  { table: 'recipes', column: 'cuisine', method: 'btree' },
+  { table: 'recipes', column: 'difficulty', method: 'btree' },
+  { table: 'templates', column: 'type', method: 'btree' },
+  { table: 'templates', column: 'is_active', method: 'btree' },
+  // Runtime — tools, MCP, workflows, activity_log
+  { table: 'tools', column: 'type', method: 'btree' },
+  { table: 'tools', column: 'is_active', method: 'btree' },
+  { table: 'mcp_servers', column: 'status', method: 'btree' },
+  { table: 'mcp_server_tools', column: 'mcp_server_id', method: 'btree' },
+  { table: 'mcp_server_tools', column: 'tool_id', method: 'btree' },
+  { table: 'workflows', column: 'status', method: 'btree' },
+  { table: 'workflow_steps', column: 'workflow_id', method: 'btree' },
+  { table: 'workflow_steps', column: 'step_order', method: 'btree' },
+  { table: 'workflow_runs', column: 'workflow_id', method: 'btree' },
+  { table: 'workflow_runs', column: 'status', method: 'btree' },
+  { table: 'workflow_runs', column: 'started_at', method: 'btree' },
+  { table: 'activity_log', column: 'entity_type', method: 'btree' },
+  { table: 'activity_log', column: 'entity_id', method: 'btree' },
+  { table: 'activity_log', column: 'action', method: 'btree' },
+  { table: 'activity_log', column: 'performed_at', method: 'btree' },
+  { table: 'agent_tools', column: 'agent_id', method: 'btree' },
+  { table: 'agent_tools', column: 'tool_id', method: 'btree' },
+  // Agent — prompts, feedback
+  { table: 'prompts', column: 'type', method: 'btree' },
+  { table: 'prompts', column: 'is_active', method: 'btree' },
+  { table: 'feedback', column: 'entity_type', method: 'btree' },
+  { table: 'feedback', column: 'entity_id', method: 'btree' },
+  { table: 'feedback', column: 'rating', method: 'btree' },
+  // CRM — social / attachments
+  { table: 'contacts', column: 'twitter_handle', method: 'btree' },
+  { table: 'contacts', column: 'github_username', method: 'btree' },
+  { table: 'tags', column: 'name', method: 'btree' },
+  { table: 'tags', column: 'category', method: 'btree' },
+  { table: 'attachments', column: 'attachable_type', method: 'btree' },
+  { table: 'attachments', column: 'attachable_id', method: 'btree' },
+  // Life OS — integrations, webhooks, subscriptions, trips
+  { table: 'integrations', column: 'provider', method: 'btree' },
+  { table: 'integrations', column: 'status', method: 'btree' },
+  { table: 'webhooks', column: 'integration_id', method: 'btree' },
+  { table: 'webhooks', column: 'event_type', method: 'btree' },
+  { table: 'user_settings', column: 'key', method: 'btree' },
+  { table: 'user_settings', column: 'category', method: 'btree' },
+  { table: 'subscriptions', column: 'status', method: 'btree' },
+  { table: 'subscriptions', column: 'next_billing_date', method: 'btree' },
+  { table: 'trips', column: 'start_date', method: 'btree' },
+  { table: 'trips', column: 'end_date', method: 'btree' },
+  { table: 'trips', column: 'status', method: 'btree' },
+  // Codebase — repos->chunks direct
+  { table: 'venues', column: 'is_favorite', method: 'btree' },
+  { table: 'venues', column: 'google_place_id', method: 'btree' },
 ];
 
 // Combine all indexes

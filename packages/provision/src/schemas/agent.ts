@@ -1,7 +1,7 @@
 /**
  * agent.ts \u2014 Agent Core domain schema
  *
- * Tables: tasks, rules, memories, skills, goals
+ * Tables: tasks, rules, memories, skills, goals, prompts, feedback
  */
 
 import {
@@ -160,6 +160,28 @@ async function main() {
   await addField(goalsId, 'embedding_text', 'text');
   await addField(goalsId, 'embedding', 'vector(768)');
 
+  // -- Prompts --------------------------------------------------------------
+  console.log('\n\ud83d\udcdd prompts...');
+  const promptsId = await createOrgTable('prompts');
+  await addField(promptsId, 'name', 'text', { isRequired: true });
+  await addField(promptsId, 'content', 'text', { isRequired: true });
+  await addField(promptsId, 'type', 'text');        // system | user | template | few_shot
+  await addField(promptsId, 'model', 'text');
+  await addField(promptsId, 'version', 'int', { defaultValue: '1' });
+  await addField(promptsId, 'is_active', 'bool', { defaultValue: 'true' });
+  await addField(promptsId, 'tags', 'citext[]');
+  await addField(promptsId, 'embedding_text', 'text');
+  await addField(promptsId, 'embedding', 'vector(768)');
+
+  // -- Feedback -------------------------------------------------------------
+  console.log('\n\ud83d\udcac feedback...');
+  const feedbackId = await createOrgTable('feedback');
+  await addField(feedbackId, 'entity_type', 'text', { isRequired: true });
+  await addField(feedbackId, 'entity_id', 'uuid', { isRequired: true });
+  await addField(feedbackId, 'rating', 'int');
+  await addField(feedbackId, 'comment', 'text');
+  await addField(feedbackId, 'source', 'text');      // user | agent | auto
+
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');
 
@@ -183,6 +205,9 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 tasks -> tasks (parent)');
+
+  // NOTE: tasks -> projects, tasks -> agents, and other cross-module
+  // relations are created in cross-relations.ts after all schemas run.
 
   console.log('\n\u2705 Agent Core Schema complete!\n');
 }

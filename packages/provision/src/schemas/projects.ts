@@ -2,7 +2,7 @@
  * projects.ts \u2014 Projects domain schema
  *
  * Tables: projects, milestones
- * Relations: projects->milestones (HasMany), projects<->contacts (M:N)
+ * Relations: projects->milestones (HasMany), projects<->contacts (M:N via cross-relations.ts)
  */
 
 import {

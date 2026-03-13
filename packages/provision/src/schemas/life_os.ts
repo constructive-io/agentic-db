@@ -2,7 +2,8 @@
  * life_os.ts \u2014 Life OS domain schema
  *
  * Tables: email_accounts, messages, calendar_accounts, calendar_events,
- *         expenses, documents
+ *         expenses, documents, integrations, webhooks, user_settings,
+ *         subscriptions, trips
  */
 
 import {
@@ -162,6 +163,60 @@ async function main() {
   await addField(documentsId, 'embedding', 'vector(768)');
   await addField(documentsId, 'search_tsv', 'tsvector');
 
+  // -- Integrations ---------------------------------------------------------
+  console.log('\n\ud83d\udd0c integrations...');
+  const integrationsId = await createOrgTable('integrations');
+  await addField(integrationsId, 'name', 'text', { isRequired: true });
+  await addField(integrationsId, 'provider', 'text', { isRequired: true }); // google | slack | github | notion | linear
+  await addField(integrationsId, 'type', 'text');        // oauth2 | api_key | webhook
+  await addField(integrationsId, 'credentials_ref', 'text');
+  await addField(integrationsId, 'config', 'jsonb');
+  await addField(integrationsId, 'status', 'text', { defaultValue: "'active'" });
+  await addField(integrationsId, 'last_synced_at', 'timestamptz');
+
+  // -- Webhooks -------------------------------------------------------------
+  console.log('\n\ud83d\udd14 webhooks...');
+  const webhooksId = await createOrgTable('webhooks');
+  await addField(webhooksId, 'integration_id', 'uuid');
+  await addField(webhooksId, 'url', 'text', { isRequired: true });
+  await addField(webhooksId, 'event_type', 'text', { isRequired: true });
+  await addField(webhooksId, 'secret', 'text');
+  await addField(webhooksId, 'is_active', 'bool', { defaultValue: 'true' });
+
+  // -- User Settings --------------------------------------------------------
+  console.log('\n\u2699\ufe0f  user_settings...');
+  const userSettingsId = await createOrgTable('user_settings');
+  await addField(userSettingsId, 'key', 'text', { isRequired: true });
+  await addField(userSettingsId, 'value', 'jsonb');
+  await addField(userSettingsId, 'category', 'text');
+
+  // -- Subscriptions --------------------------------------------------------
+  console.log('\n\ud83d\udcb3 subscriptions...');
+  const subscriptionsId = await createOrgTable('subscriptions');
+  await addField(subscriptionsId, 'name', 'text', { isRequired: true });
+  await addField(subscriptionsId, 'amount', 'numeric');
+  await addField(subscriptionsId, 'currency', 'text', { defaultValue: "'USD'" });
+  await addField(subscriptionsId, 'frequency', 'text');   // monthly | annual | weekly
+  await addField(subscriptionsId, 'provider', 'text');
+  await addField(subscriptionsId, 'next_billing_date', 'date');
+  await addField(subscriptionsId, 'cancellation_date', 'date');
+  await addField(subscriptionsId, 'status', 'text', { defaultValue: "'active'" });
+  await addField(subscriptionsId, 'tags', 'citext[]');
+  await addField(subscriptionsId, 'notes', 'text');
+
+  // -- Trips ----------------------------------------------------------------
+  console.log('\n\u2708\ufe0f  trips...');
+  const tripsId = await createOrgTable('trips');
+  await addField(tripsId, 'name', 'text', { isRequired: true });
+  await addField(tripsId, 'destination', 'text');
+  await addField(tripsId, 'start_date', 'date');
+  await addField(tripsId, 'end_date', 'date');
+  await addField(tripsId, 'status', 'text', { defaultValue: "'planned'" });
+  await addField(tripsId, 'notes', 'text');
+  await addField(tripsId, 'tags', 'citext[]');
+  await addField(tripsId, 'embedding_text', 'text');
+  await addField(tripsId, 'embedding', 'vector(768)');
+
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');
 
@@ -198,6 +253,23 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 calendar_accounts -> calendar_events');
+
+  // integrations -> webhooks (HasMany)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: integrationsId,
+          targetTableId: webhooksId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 integrations -> webhooks');
 
   console.log('\n\u2705 Life OS Schema complete!\n');
 }

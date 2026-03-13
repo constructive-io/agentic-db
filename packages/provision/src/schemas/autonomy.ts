@@ -1,7 +1,8 @@
 /**
  * autonomy.ts \u2014 Autonomy domain schema
  *
- * Tables: ideas, reminders, habits, habit_logs, lists, list_items, notifications
+ * Tables: ideas, reminders, habits, habit_logs, lists, list_items,
+ *         notifications, recipes, templates
  */
 
 import {
@@ -172,6 +173,37 @@ async function main() {
   await addField(notificationsId, 'action_url', 'text');
   await addField(notificationsId, 'source_entity_id', 'uuid');
   await addField(notificationsId, 'source_entity_type', 'text');
+
+  // -- Recipes --------------------------------------------------------------
+  console.log('\n\ud83c\udf73 recipes...');
+  const recipesId = await createOrgTable('recipes');
+  await addField(recipesId, 'name', 'text', { isRequired: true });
+  await addField(recipesId, 'description', 'text');
+  await addField(recipesId, 'cuisine', 'text');
+  await addField(recipesId, 'prep_time_minutes', 'int');
+  await addField(recipesId, 'cook_time_minutes', 'int');
+  await addField(recipesId, 'servings', 'int');
+  await addField(recipesId, 'difficulty', 'text');       // easy | medium | hard
+  await addField(recipesId, 'ingredients', 'jsonb');
+  await addField(recipesId, 'instructions', 'jsonb');
+  await addField(recipesId, 'source_url', 'text');
+  await addField(recipesId, 'image_url', 'text');
+  await addField(recipesId, 'tags', 'citext[]');
+  await addField(recipesId, 'embedding_text', 'text');
+  await addField(recipesId, 'embedding', 'vector(768)');
+
+  // -- Templates --------------------------------------------------------------
+  console.log('\n\ud83d\udccb templates...');
+  const templatesId = await createOrgTable('templates');
+  await addField(templatesId, 'name', 'text', { isRequired: true });
+  await addField(templatesId, 'description', 'text');
+  await addField(templatesId, 'type', 'text');            // task | email | project | checklist | workflow
+  await addField(templatesId, 'content', 'jsonb', { isRequired: true });
+  await addField(templatesId, 'variables', 'jsonb');
+  await addField(templatesId, 'is_active', 'bool', { defaultValue: 'true' });
+  await addField(templatesId, 'tags', 'citext[]');
+  await addField(templatesId, 'embedding_text', 'text');
+  await addField(templatesId, 'embedding', 'vector(768)');
 
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');

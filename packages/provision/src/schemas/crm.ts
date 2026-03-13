@@ -115,6 +115,11 @@ async function main() {
   await addField(contactsId, 'birthday', 'date');
   await addField(contactsId, 'relationship_type', 'text');
   await addField(contactsId, 'how_we_met', 'text');
+  await addField(contactsId, 'twitter_handle', 'text');
+  await addField(contactsId, 'linkedin_url', 'text');
+  await addField(contactsId, 'github_username', 'text');
+  await addField(contactsId, 'instagram_handle', 'text');
+  await addField(contactsId, 'website', 'text');
   await addField(contactsId, 'tags', 'citext[]');
   await addField(contactsId, 'embedding_text', 'text');
   await addField(contactsId, 'embedding', 'vector(768)');
@@ -172,6 +177,12 @@ async function main() {
   await addField(venuesId, 'city', 'text');
   await addField(venuesId, 'category', 'text');
   await addField(venuesId, 'status', 'text', { defaultValue: "'potential'" });
+  await addField(venuesId, 'lat', 'numeric');
+  await addField(venuesId, 'lng', 'numeric');
+  await addField(venuesId, 'google_place_id', 'text');
+  await addField(venuesId, 'rating', 'numeric');
+  await addField(venuesId, 'price_level', 'text');
+  await addField(venuesId, 'is_favorite', 'bool', { defaultValue: 'false' });
   await addField(venuesId, 'notes', 'text');
   await addField(venuesId, 'tags', 'citext[]');
   await addField(venuesId, 'embedding_text', 'text');
@@ -202,6 +213,24 @@ async function main() {
   await addField(interactionsId, 'tags', 'citext[]');
   await addField(interactionsId, 'embedding_text', 'text');
   await addField(interactionsId, 'embedding', 'vector(768)');
+
+  // -- Tags (centralized) ---------------------------------------------------
+  console.log('\n\ud83c\udff7\ufe0f  tags...');
+  const tagsId = await createOrgTable('tags');
+  await addField(tagsId, 'name', 'text', { isRequired: true });
+  await addField(tagsId, 'color', 'text');
+  await addField(tagsId, 'category', 'text');
+  await addField(tagsId, 'usage_count', 'int', { defaultValue: '0' });
+
+  // -- Attachments (polymorphic) --------------------------------------------
+  console.log('\n\ud83d\udcce attachments...');
+  const attachmentsId = await createOrgTable('attachments');
+  await addField(attachmentsId, 'url', 'text', { isRequired: true });
+  await addField(attachmentsId, 'filename', 'text');
+  await addField(attachmentsId, 'mime_type', 'text');
+  await addField(attachmentsId, 'size_bytes', 'int');
+  await addField(attachmentsId, 'attachable_type', 'text');
+  await addField(attachmentsId, 'attachable_id', 'uuid');
 
   // -- Link tables ----------------------------------------------------------
   console.log('\n\ud83d\udd17 link tables...');

@@ -153,6 +153,23 @@ async function main() {
   );
   console.log('   \u2713 files -> chunks');
 
+  // repos -> chunks (HasMany, shortcut for direct repo->chunk queries)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: reposId,
+          targetTableId: chunksId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 repositories -> chunks');
+
   console.log('\n\u2705 Codebase Schema complete!\n');
 }
 

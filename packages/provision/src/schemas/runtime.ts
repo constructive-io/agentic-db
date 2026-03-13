@@ -2,7 +2,8 @@
  * runtime.ts \u2014 Agent Runtime domain schema
  *
  * Tables: agents, sessions, execution_log, chats, chat_messages, threads,
- *         blueprints, processes, scheduled_jobs
+ *         blueprints, processes, scheduled_jobs, tools, mcp_servers,
+ *         mcp_server_tools, workflows, workflow_steps, workflow_runs, activity_log
  */
 
 import {
@@ -183,6 +184,83 @@ async function main() {
   await addField(scheduledJobsId, 'last_run', 'timestamptz');
   await addField(scheduledJobsId, 'next_run', 'timestamptz');
 
+  // -- Tools ----------------------------------------------------------------
+  console.log('\n\ud83d\udee0\ufe0f  tools...');
+  const toolsId = await createOrgTable('tools');
+  await addField(toolsId, 'name', 'text', { isRequired: true });
+  await addField(toolsId, 'description', 'text');
+  await addField(toolsId, 'type', 'text');           // api | function | mcp | webhook
+  await addField(toolsId, 'input_schema', 'jsonb');
+  await addField(toolsId, 'output_schema', 'jsonb');
+  await addField(toolsId, 'endpoint', 'text');
+  await addField(toolsId, 'auth_method', 'text');
+  await addField(toolsId, 'is_active', 'bool', { defaultValue: 'true' });
+  await addField(toolsId, 'tags', 'citext[]');
+  await addField(toolsId, 'embedding_text', 'text');
+  await addField(toolsId, 'embedding', 'vector(768)');
+
+  // -- MCP Servers ----------------------------------------------------------
+  console.log('\n\ud83d\udd0c mcp_servers...');
+  const mcpServersId = await createOrgTable('mcp_servers');
+  await addField(mcpServersId, 'name', 'text', { isRequired: true });
+  await addField(mcpServersId, 'url', 'text');
+  await addField(mcpServersId, 'transport_type', 'text');  // stdio | sse | streamable-http
+  await addField(mcpServersId, 'auth_config', 'jsonb');
+  await addField(mcpServersId, 'status', 'text', { defaultValue: "'active'" });
+  await addField(mcpServersId, 'last_ping_at', 'timestamptz');
+
+  // -- MCP Server Tools -----------------------------------------------------
+  console.log('\n\ud83e\uddf0 mcp_server_tools...');
+  const mcpServerToolsId = await createOrgTable('mcp_server_tools');
+  await addField(mcpServerToolsId, 'server_id', 'uuid', { isRequired: true });
+  await addField(mcpServerToolsId, 'name', 'text', { isRequired: true });
+  await addField(mcpServerToolsId, 'description', 'text');
+  await addField(mcpServerToolsId, 'input_schema', 'jsonb');
+
+  // -- Workflows ------------------------------------------------------------
+  console.log('\n\ud83d\udd04 workflows...');
+  const workflowsId = await createOrgTable('workflows');
+  await addField(workflowsId, 'name', 'text', { isRequired: true });
+  await addField(workflowsId, 'description', 'text');
+  await addField(workflowsId, 'trigger_type', 'text');    // manual | scheduled | webhook | event
+  await addField(workflowsId, 'trigger_config', 'jsonb');
+  await addField(workflowsId, 'is_active', 'bool', { defaultValue: 'true' });
+  await addField(workflowsId, 'tags', 'citext[]');
+  await addField(workflowsId, 'embedding_text', 'text');
+  await addField(workflowsId, 'embedding', 'vector(768)');
+
+  // -- Workflow Steps -------------------------------------------------------
+  console.log('\n\ud83d\udccd workflow_steps...');
+  const workflowStepsId = await createOrgTable('workflow_steps');
+  await addField(workflowStepsId, 'workflow_id', 'uuid', { isRequired: true });
+  await addField(workflowStepsId, 'step_order', 'int', { isRequired: true });
+  await addField(workflowStepsId, 'action_type', 'text', { isRequired: true });
+  await addField(workflowStepsId, 'action_config', 'jsonb');
+  await addField(workflowStepsId, 'on_success_step', 'int');
+  await addField(workflowStepsId, 'on_failure_step', 'int');
+  await addField(workflowStepsId, 'timeout_ms', 'int');
+
+  // -- Workflow Runs --------------------------------------------------------
+  console.log('\n\u25b6\ufe0f  workflow_runs...');
+  const workflowRunsId = await createOrgTable('workflow_runs');
+  await addField(workflowRunsId, 'workflow_id', 'uuid', { isRequired: true });
+  await addField(workflowRunsId, 'status', 'text', { defaultValue: "'pending'" });
+  await addField(workflowRunsId, 'started_at', 'timestamptz');
+  await addField(workflowRunsId, 'completed_at', 'timestamptz');
+  await addField(workflowRunsId, 'input', 'jsonb');
+  await addField(workflowRunsId, 'output', 'jsonb');
+  await addField(workflowRunsId, 'error', 'text');
+
+  // -- Activity Log ---------------------------------------------------------
+  console.log('\n\ud83d\udcca activity_log...');
+  const activityLogId = await createOrgTable('activity_log');
+  await addField(activityLogId, 'actor_type', 'text', { isRequired: true }); // user | agent
+  await addField(activityLogId, 'actor_id', 'uuid');
+  await addField(activityLogId, 'action', 'text', { isRequired: true });     // created | updated | deleted | completed
+  await addField(activityLogId, 'entity_type', 'text', { isRequired: true });
+  await addField(activityLogId, 'entity_id', 'uuid', { isRequired: true });
+  await addField(activityLogId, 'metadata', 'jsonb');
+
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');
 
@@ -325,6 +403,91 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 agents -> scheduled_jobs');
+
+  // mcp_servers -> mcp_server_tools (HasMany)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: mcpServersId,
+          targetTableId: mcpServerToolsId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 mcp_servers -> mcp_server_tools');
+
+  // workflows -> workflow_steps (HasMany)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: workflowsId,
+          targetTableId: workflowStepsId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 workflows -> workflow_steps');
+
+  // workflows -> workflow_runs (HasMany)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: workflowsId,
+          targetTableId: workflowRunsId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 workflows -> workflow_runs');
+
+  // agent_tools M:N (agents <-> tools)
+  const m2mOpts = {
+    nodeType: 'DataEntityMembership',
+    policyType: 'AuthzEntityMembership',
+    policyPermissive: true,
+    policyData: entityPolicyData,
+    grantRoles: ['authenticated'],
+    grantPrivileges: [
+      ['select', '*'],
+      ['insert', '*'],
+      ['delete', '*'],
+    ] as any,
+  };
+
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationManyToMany',
+          sourceTableId: agentsId,
+          targetTableId: toolsId,
+          junctionTableName: 'agent_tools',
+          sourceFieldName: 'agent_id',
+          targetFieldName: 'tool_id',
+          isRequired: false,
+          ...m2mOpts,
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 agents <-> tools (agent_tools)');
 
   console.log('\n\u2705 Agent Runtime Schema complete!\n');
 }
