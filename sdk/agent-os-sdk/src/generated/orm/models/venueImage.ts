@@ -32,12 +32,13 @@ import type {
   CreateVenueImageInput,
   UpdateVenueImageInput,
   VenueImagePatch,
+  VenueImageCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class VenueImageModel {
   constructor(private client: OrmClient) {}
   findMany<S extends VenueImageSelect>(
-    args: FindManyArgs<S, VenueImageFilter, VenueImageOrderBy> & {
+    args: FindManyArgs<S, VenueImageFilter, VenueImageCondition, VenueImageOrderBy> & {
       select: S;
     } & StrictSelect<S, VenueImageSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class VenueImageModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class VenueImageModel {
       },
       'VenueImageFilter',
       'VenueImageOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'VenueImageCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class VenueImageModel {
     });
   }
   findFirst<S extends VenueImageSelect>(
-    args: FindFirstArgs<S, VenueImageFilter> & {
+    args: FindFirstArgs<S, VenueImageFilter, VenueImageCondition> & {
       select: S;
     } & StrictSelect<S, VenueImageSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class VenueImageModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'VenueImageFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'VenueImageCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class VenueImageModel {
       },
       'VenueImageFilter',
       'VenueImageOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'VenueImageCondition'
     );
     return new QueryBuilder({
       client: this.client,

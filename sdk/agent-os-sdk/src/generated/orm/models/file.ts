@@ -32,12 +32,13 @@ import type {
   CreateFileInput,
   UpdateFileInput,
   FilePatch,
+  FileCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class FileModel {
   constructor(private client: OrmClient) {}
   findMany<S extends FileSelect>(
-    args: FindManyArgs<S, FileFilter, FileOrderBy> & {
+    args: FindManyArgs<S, FileFilter, FileCondition, FileOrderBy> & {
       select: S;
     } & StrictSelect<S, FileSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class FileModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class FileModel {
       },
       'FileFilter',
       'FileOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'FileCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class FileModel {
     });
   }
   findFirst<S extends FileSelect>(
-    args: FindFirstArgs<S, FileFilter> & {
+    args: FindFirstArgs<S, FileFilter, FileCondition> & {
       select: S;
     } & StrictSelect<S, FileSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class FileModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'FileFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'FileCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class FileModel {
       },
       'FileFilter',
       'FileOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'FileCondition'
     );
     return new QueryBuilder({
       client: this.client,

@@ -32,12 +32,13 @@ import type {
   CreateExpenseInput,
   UpdateExpenseInput,
   ExpensePatch,
+  ExpenseCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class ExpenseModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ExpenseSelect>(
-    args: FindManyArgs<S, ExpenseFilter, ExpenseOrderBy> & {
+    args: FindManyArgs<S, ExpenseFilter, ExpenseCondition, ExpenseOrderBy> & {
       select: S;
     } & StrictSelect<S, ExpenseSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class ExpenseModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class ExpenseModel {
       },
       'ExpenseFilter',
       'ExpenseOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'ExpenseCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class ExpenseModel {
     });
   }
   findFirst<S extends ExpenseSelect>(
-    args: FindFirstArgs<S, ExpenseFilter> & {
+    args: FindFirstArgs<S, ExpenseFilter, ExpenseCondition> & {
       select: S;
     } & StrictSelect<S, ExpenseSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class ExpenseModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'ExpenseFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'ExpenseCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class ExpenseModel {
       },
       'ExpenseFilter',
       'ExpenseOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'ExpenseCondition'
     );
     return new QueryBuilder({
       client: this.client,

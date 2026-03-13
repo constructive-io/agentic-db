@@ -32,12 +32,13 @@ import type {
   CreateSkillInput,
   UpdateSkillInput,
   SkillPatch,
+  SkillCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class SkillModel {
   constructor(private client: OrmClient) {}
   findMany<S extends SkillSelect>(
-    args: FindManyArgs<S, SkillFilter, SkillOrderBy> & {
+    args: FindManyArgs<S, SkillFilter, SkillCondition, SkillOrderBy> & {
       select: S;
     } & StrictSelect<S, SkillSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class SkillModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class SkillModel {
       },
       'SkillFilter',
       'SkillOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'SkillCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class SkillModel {
     });
   }
   findFirst<S extends SkillSelect>(
-    args: FindFirstArgs<S, SkillFilter> & {
+    args: FindFirstArgs<S, SkillFilter, SkillCondition> & {
       select: S;
     } & StrictSelect<S, SkillSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class SkillModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'SkillFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'SkillCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class SkillModel {
       },
       'SkillFilter',
       'SkillOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'SkillCondition'
     );
     return new QueryBuilder({
       client: this.client,

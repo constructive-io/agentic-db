@@ -32,12 +32,13 @@ import type {
   CreateNoteInput,
   UpdateNoteInput,
   NotePatch,
+  NoteCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class NoteModel {
   constructor(private client: OrmClient) {}
   findMany<S extends NoteSelect>(
-    args: FindManyArgs<S, NoteFilter, NoteOrderBy> & {
+    args: FindManyArgs<S, NoteFilter, NoteCondition, NoteOrderBy> & {
       select: S;
     } & StrictSelect<S, NoteSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class NoteModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class NoteModel {
       },
       'NoteFilter',
       'NoteOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'NoteCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class NoteModel {
     });
   }
   findFirst<S extends NoteSelect>(
-    args: FindFirstArgs<S, NoteFilter> & {
+    args: FindFirstArgs<S, NoteFilter, NoteCondition> & {
       select: S;
     } & StrictSelect<S, NoteSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class NoteModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'NoteFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'NoteCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class NoteModel {
       },
       'NoteFilter',
       'NoteOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'NoteCondition'
     );
     return new QueryBuilder({
       client: this.client,

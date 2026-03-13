@@ -32,12 +32,13 @@ import type {
   CreateMemoryInput,
   UpdateMemoryInput,
   MemoryPatch,
+  MemoryCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class MemoryModel {
   constructor(private client: OrmClient) {}
   findMany<S extends MemorySelect>(
-    args: FindManyArgs<S, MemoryFilter, MemoryOrderBy> & {
+    args: FindManyArgs<S, MemoryFilter, MemoryCondition, MemoryOrderBy> & {
       select: S;
     } & StrictSelect<S, MemorySelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class MemoryModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class MemoryModel {
       },
       'MemoryFilter',
       'MemoryOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'MemoryCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class MemoryModel {
     });
   }
   findFirst<S extends MemorySelect>(
-    args: FindFirstArgs<S, MemoryFilter> & {
+    args: FindFirstArgs<S, MemoryFilter, MemoryCondition> & {
       select: S;
     } & StrictSelect<S, MemorySelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class MemoryModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'MemoryFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'MemoryCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class MemoryModel {
       },
       'MemoryFilter',
       'MemoryOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'MemoryCondition'
     );
     return new QueryBuilder({
       client: this.client,

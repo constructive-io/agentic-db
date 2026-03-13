@@ -32,12 +32,13 @@ import type {
   CreateRuleInput,
   UpdateRuleInput,
   RulePatch,
+  RuleCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class RuleModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RuleSelect>(
-    args: FindManyArgs<S, RuleFilter, RuleOrderBy> & {
+    args: FindManyArgs<S, RuleFilter, RuleCondition, RuleOrderBy> & {
       select: S;
     } & StrictSelect<S, RuleSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class RuleModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class RuleModel {
       },
       'RuleFilter',
       'RuleOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'RuleCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class RuleModel {
     });
   }
   findFirst<S extends RuleSelect>(
-    args: FindFirstArgs<S, RuleFilter> & {
+    args: FindFirstArgs<S, RuleFilter, RuleCondition> & {
       select: S;
     } & StrictSelect<S, RuleSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class RuleModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'RuleFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'RuleCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class RuleModel {
       },
       'RuleFilter',
       'RuleOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'RuleCondition'
     );
     return new QueryBuilder({
       client: this.client,

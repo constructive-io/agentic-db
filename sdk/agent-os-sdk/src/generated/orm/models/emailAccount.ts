@@ -32,12 +32,13 @@ import type {
   CreateEmailAccountInput,
   UpdateEmailAccountInput,
   EmailAccountPatch,
+  EmailAccountCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class EmailAccountModel {
   constructor(private client: OrmClient) {}
   findMany<S extends EmailAccountSelect>(
-    args: FindManyArgs<S, EmailAccountFilter, EmailAccountOrderBy> & {
+    args: FindManyArgs<S, EmailAccountFilter, EmailAccountCondition, EmailAccountOrderBy> & {
       select: S;
     } & StrictSelect<S, EmailAccountSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class EmailAccountModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class EmailAccountModel {
       },
       'EmailAccountFilter',
       'EmailAccountOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'EmailAccountCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class EmailAccountModel {
     });
   }
   findFirst<S extends EmailAccountSelect>(
-    args: FindFirstArgs<S, EmailAccountFilter> & {
+    args: FindFirstArgs<S, EmailAccountFilter, EmailAccountCondition> & {
       select: S;
     } & StrictSelect<S, EmailAccountSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class EmailAccountModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'EmailAccountFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'EmailAccountCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class EmailAccountModel {
       },
       'EmailAccountFilter',
       'EmailAccountOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'EmailAccountCondition'
     );
     return new QueryBuilder({
       client: this.client,

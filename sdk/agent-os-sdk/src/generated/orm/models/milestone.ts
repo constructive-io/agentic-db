@@ -32,12 +32,13 @@ import type {
   CreateMilestoneInput,
   UpdateMilestoneInput,
   MilestonePatch,
+  MilestoneCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class MilestoneModel {
   constructor(private client: OrmClient) {}
   findMany<S extends MilestoneSelect>(
-    args: FindManyArgs<S, MilestoneFilter, MilestoneOrderBy> & {
+    args: FindManyArgs<S, MilestoneFilter, MilestoneCondition, MilestoneOrderBy> & {
       select: S;
     } & StrictSelect<S, MilestoneSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class MilestoneModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class MilestoneModel {
       },
       'MilestoneFilter',
       'MilestoneOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'MilestoneCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class MilestoneModel {
     });
   }
   findFirst<S extends MilestoneSelect>(
-    args: FindFirstArgs<S, MilestoneFilter> & {
+    args: FindFirstArgs<S, MilestoneFilter, MilestoneCondition> & {
       select: S;
     } & StrictSelect<S, MilestoneSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class MilestoneModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'MilestoneFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'MilestoneCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class MilestoneModel {
       },
       'MilestoneFilter',
       'MilestoneOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'MilestoneCondition'
     );
     return new QueryBuilder({
       client: this.client,

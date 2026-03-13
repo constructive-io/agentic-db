@@ -32,12 +32,13 @@ import type {
   CreateCalendarSyncInput,
   UpdateCalendarSyncInput,
   CalendarSyncPatch,
+  CalendarSyncCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class CalendarSyncModel {
   constructor(private client: OrmClient) {}
   findMany<S extends CalendarSyncSelect>(
-    args: FindManyArgs<S, CalendarSyncFilter, CalendarSyncOrderBy> & {
+    args: FindManyArgs<S, CalendarSyncFilter, CalendarSyncCondition, CalendarSyncOrderBy> & {
       select: S;
     } & StrictSelect<S, CalendarSyncSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class CalendarSyncModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class CalendarSyncModel {
       },
       'CalendarSyncFilter',
       'CalendarSyncOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'CalendarSyncCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class CalendarSyncModel {
     });
   }
   findFirst<S extends CalendarSyncSelect>(
-    args: FindFirstArgs<S, CalendarSyncFilter> & {
+    args: FindFirstArgs<S, CalendarSyncFilter, CalendarSyncCondition> & {
       select: S;
     } & StrictSelect<S, CalendarSyncSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class CalendarSyncModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'CalendarSyncFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'CalendarSyncCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class CalendarSyncModel {
       },
       'CalendarSyncFilter',
       'CalendarSyncOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'CalendarSyncCondition'
     );
     return new QueryBuilder({
       client: this.client,

@@ -32,12 +32,13 @@ import type {
   CreateVenueInput,
   UpdateVenueInput,
   VenuePatch,
+  VenueCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class VenueModel {
   constructor(private client: OrmClient) {}
   findMany<S extends VenueSelect>(
-    args: FindManyArgs<S, VenueFilter, VenueOrderBy> & {
+    args: FindManyArgs<S, VenueFilter, VenueCondition, VenueOrderBy> & {
       select: S;
     } & StrictSelect<S, VenueSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class VenueModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class VenueModel {
       },
       'VenueFilter',
       'VenueOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'VenueCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class VenueModel {
     });
   }
   findFirst<S extends VenueSelect>(
-    args: FindFirstArgs<S, VenueFilter> & {
+    args: FindFirstArgs<S, VenueFilter, VenueCondition> & {
       select: S;
     } & StrictSelect<S, VenueSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class VenueModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'VenueFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'VenueCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class VenueModel {
       },
       'VenueFilter',
       'VenueOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'VenueCondition'
     );
     return new QueryBuilder({
       client: this.client,

@@ -32,12 +32,13 @@ import type {
   CreateMessageInput,
   UpdateMessageInput,
   MessagePatch,
+  MessageCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class MessageModel {
   constructor(private client: OrmClient) {}
   findMany<S extends MessageSelect>(
-    args: FindManyArgs<S, MessageFilter, MessageOrderBy> & {
+    args: FindManyArgs<S, MessageFilter, MessageCondition, MessageOrderBy> & {
       select: S;
     } & StrictSelect<S, MessageSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class MessageModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class MessageModel {
       },
       'MessageFilter',
       'MessageOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'MessageCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class MessageModel {
     });
   }
   findFirst<S extends MessageSelect>(
-    args: FindFirstArgs<S, MessageFilter> & {
+    args: FindFirstArgs<S, MessageFilter, MessageCondition> & {
       select: S;
     } & StrictSelect<S, MessageSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class MessageModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'MessageFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'MessageCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class MessageModel {
       },
       'MessageFilter',
       'MessageOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'MessageCondition'
     );
     return new QueryBuilder({
       client: this.client,

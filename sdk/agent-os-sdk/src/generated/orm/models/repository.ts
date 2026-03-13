@@ -32,12 +32,13 @@ import type {
   CreateRepositoryInput,
   UpdateRepositoryInput,
   RepositoryPatch,
+  RepositoryCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class RepositoryModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RepositorySelect>(
-    args: FindManyArgs<S, RepositoryFilter, RepositoryOrderBy> & {
+    args: FindManyArgs<S, RepositoryFilter, RepositoryCondition, RepositoryOrderBy> & {
       select: S;
     } & StrictSelect<S, RepositorySelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class RepositoryModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class RepositoryModel {
       },
       'RepositoryFilter',
       'RepositoryOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'RepositoryCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class RepositoryModel {
     });
   }
   findFirst<S extends RepositorySelect>(
-    args: FindFirstArgs<S, RepositoryFilter> & {
+    args: FindFirstArgs<S, RepositoryFilter, RepositoryCondition> & {
       select: S;
     } & StrictSelect<S, RepositorySelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class RepositoryModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'RepositoryFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'RepositoryCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class RepositoryModel {
       },
       'RepositoryFilter',
       'RepositoryOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'RepositoryCondition'
     );
     return new QueryBuilder({
       client: this.client,

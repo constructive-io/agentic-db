@@ -467,14 +467,14 @@ FIELDS:
   updatedAt: string
   title: string
   startedAt: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
   entityId: string
   title: string
   startedAt: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -507,7 +507,7 @@ FIELDS:
   status: string
   startDate: string
   dueDate: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -517,7 +517,7 @@ EDITABLE FIELDS:
   status: string
   startDate: string
   dueDate: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -550,7 +550,7 @@ FIELDS:
   description: string
   defaultBranch: string
   lastSyncedAt: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -560,7 +560,7 @@ EDITABLE FIELDS:
   description: string
   defaultBranch: string
   lastSyncedAt: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -593,7 +593,7 @@ FIELDS:
   endedAt: string
   status: string
   contextSummary: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -603,7 +603,7 @@ EDITABLE FIELDS:
   endedAt: string
   status: string
   contextSummary: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -634,7 +634,7 @@ FIELDS:
   title: string
   steps: unknown
   triggerConditions: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -642,7 +642,7 @@ EDITABLE FIELDS:
   title: string
   steps: unknown
   triggerConditions: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -674,7 +674,7 @@ FIELDS:
   meta: unknown
   altText: string
   caption: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -683,7 +683,7 @@ EDITABLE FIELDS:
   meta: unknown
   altText: string
   caption: string
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -713,7 +713,7 @@ FIELDS:
   updatedAt: string
   name: string
   dueDate: string
-  embedding: Vector
+  embedding: number[]
   projectId: string
   embeddingDistance: number
 
@@ -721,7 +721,7 @@ EDITABLE FIELDS:
   entityId: string
   name: string
   dueDate: string
-  embedding: Vector
+  embedding: number[]
   projectId: string
   embeddingDistance: number
 
@@ -753,7 +753,7 @@ FIELDS:
   role: string
   content: string
   toolCalls: unknown
-  embedding: Vector
+  embedding: number[]
   chatId: string
   embeddingDistance: number
 
@@ -762,7 +762,7 @@ EDITABLE FIELDS:
   role: string
   content: string
   toolCalls: unknown
-  embedding: Vector
+  embedding: number[]
   chatId: string
   embeddingDistance: number
 
@@ -794,7 +794,7 @@ FIELDS:
   content: string
   startLine: number
   endLine: number
-  embedding: Vector
+  embedding: number[]
   fileId: string
   repositoryId: string
   embeddingDistance: number
@@ -804,7 +804,7 @@ EDITABLE FIELDS:
   content: string
   startLine: number
   endLine: number
-  embedding: Vector
+  embedding: number[]
   fileId: string
   repositoryId: string
   embeddingDistance: number
@@ -836,14 +836,14 @@ FIELDS:
   updatedAt: string
   content: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
   entityId: string
   content: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -876,7 +876,7 @@ FIELDS:
   value: string
   notes: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -886,7 +886,7 @@ EDITABLE FIELDS:
   value: string
   notes: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -919,7 +919,7 @@ FIELDS:
   content: string
   sourceType: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -929,7 +929,7 @@ EDITABLE FIELDS:
   content: string
   sourceType: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -962,7 +962,7 @@ FIELDS:
   status: string
   priority: number
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -972,7 +972,7 @@ EDITABLE FIELDS:
   status: string
   priority: number
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -1005,7 +1005,7 @@ FIELDS:
   kind: string
   isActive: boolean
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -1015,7 +1015,7 @@ EDITABLE FIELDS:
   kind: string
   isActive: boolean
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -1048,7 +1048,7 @@ FIELDS:
   content: string
   isActive: boolean
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -1058,7 +1058,7 @@ EDITABLE FIELDS:
   content: string
   isActive: boolean
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -1094,7 +1094,7 @@ FIELDS:
   merchant: string
   receiptUrl: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 EDITABLE FIELDS:
@@ -1107,7 +1107,7 @@ EDITABLE FIELDS:
   merchant: string
   receiptUrl: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   embeddingDistance: number
 
 OUTPUT: Promise<JSON>
@@ -1137,7 +1137,7 @@ FIELDS:
   updatedAt: string
   content: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   contactId: string
   embeddingDistance: number
 
@@ -1145,7 +1145,7 @@ EDITABLE FIELDS:
   entityId: string
   content: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   contactId: string
   embeddingDistance: number
 
@@ -1179,7 +1179,7 @@ FIELDS:
   industry: string
   description: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   mainImageId: string
   embeddingDistance: number
 
@@ -1190,7 +1190,7 @@ EDITABLE FIELDS:
   industry: string
   description: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   mainImageId: string
   embeddingDistance: number
 
@@ -1225,7 +1225,7 @@ FIELDS:
   status: string
   notes: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   mainImageId: string
   embeddingDistance: number
 
@@ -1237,7 +1237,7 @@ EDITABLE FIELDS:
   status: string
   notes: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   mainImageId: string
   embeddingDistance: number
 
@@ -1274,7 +1274,7 @@ FIELDS:
   bio: string
   location: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   mainImageId: string
   embeddingDistance: number
 
@@ -1288,7 +1288,7 @@ EDITABLE FIELDS:
   bio: string
   location: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   mainImageId: string
   embeddingDistance: number
 
@@ -1325,7 +1325,7 @@ FIELDS:
   endedAt: string
   notes: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   mainImageId: string
   embeddingDistance: number
 
@@ -1339,7 +1339,7 @@ EDITABLE FIELDS:
   endedAt: string
   notes: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   mainImageId: string
   embeddingDistance: number
 
@@ -1376,7 +1376,7 @@ FIELDS:
   bodyText: string
   receivedAt: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   emailAccountId: string
   embeddingDistance: number
 
@@ -1390,7 +1390,7 @@ EDITABLE FIELDS:
   bodyText: string
   receivedAt: string
   tags: string[]
-  embedding: Vector
+  embedding: number[]
   emailAccountId: string
   embeddingDistance: number
 

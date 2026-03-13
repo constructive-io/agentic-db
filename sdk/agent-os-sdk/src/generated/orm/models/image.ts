@@ -32,12 +32,13 @@ import type {
   CreateImageInput,
   UpdateImageInput,
   ImagePatch,
+  ImageCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class ImageModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ImageSelect>(
-    args: FindManyArgs<S, ImageFilter, ImageOrderBy> & {
+    args: FindManyArgs<S, ImageFilter, ImageCondition, ImageOrderBy> & {
       select: S;
     } & StrictSelect<S, ImageSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class ImageModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class ImageModel {
       },
       'ImageFilter',
       'ImageOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'ImageCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class ImageModel {
     });
   }
   findFirst<S extends ImageSelect>(
-    args: FindFirstArgs<S, ImageFilter> & {
+    args: FindFirstArgs<S, ImageFilter, ImageCondition> & {
       select: S;
     } & StrictSelect<S, ImageSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class ImageModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'ImageFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'ImageCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class ImageModel {
       },
       'ImageFilter',
       'ImageOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'ImageCondition'
     );
     return new QueryBuilder({
       client: this.client,

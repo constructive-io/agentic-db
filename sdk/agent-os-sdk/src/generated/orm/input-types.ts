@@ -163,6 +163,13 @@ export interface InternetAddressFilter {
 export interface FullTextFilter {
   matches?: string;
 }
+export interface VectorFilter {
+  isNull?: boolean;
+  equalTo?: number[];
+  notEqualTo?: number[];
+  distinctFrom?: number[];
+  notDistinctFrom?: number[];
+}
 export interface StringListFilter {
   isNull?: boolean;
   equalTo?: string[];
@@ -223,8 +230,6 @@ export interface UUIDListFilter {
   anyGreaterThan?: string;
   anyGreaterThanOrEqualTo?: string;
 }
-// ============ Custom Scalar Types ============
-export type Vector = unknown;
 // ============ Entity Types ============
 export interface CompanyEvent {
   companyId?: string | null;
@@ -327,7 +332,7 @@ export interface Chat {
   updatedAt?: string | null;
   title?: string | null;
   startedAt?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -341,7 +346,7 @@ export interface Project {
   status?: string | null;
   startDate?: string | null;
   dueDate?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -355,7 +360,7 @@ export interface Repository {
   description?: string | null;
   defaultBranch?: string | null;
   lastSyncedAt?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -369,7 +374,7 @@ export interface Session {
   endedAt?: string | null;
   status?: string | null;
   contextSummary?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -381,7 +386,7 @@ export interface Blueprint {
   title?: string | null;
   steps?: Record<string, unknown> | null;
   triggerConditions?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -394,7 +399,7 @@ export interface Image {
   meta?: Record<string, unknown> | null;
   altText?: string | null;
   caption?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -405,7 +410,7 @@ export interface Milestone {
   updatedAt?: string | null;
   name?: string | null;
   dueDate?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   projectId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
@@ -418,7 +423,7 @@ export interface ChatMessage {
   role?: string | null;
   content?: string | null;
   toolCalls?: Record<string, unknown> | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   chatId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
@@ -431,7 +436,7 @@ export interface Chunk {
   content?: string | null;
   startLine?: number | null;
   endLine?: number | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   fileId?: string | null;
   repositoryId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
@@ -444,7 +449,7 @@ export interface Memory {
   updatedAt?: string | null;
   content?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -458,7 +463,7 @@ export interface Deal {
   value?: string | null;
   notes?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -472,7 +477,7 @@ export interface Document {
   content?: string | null;
   sourceType?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -486,7 +491,7 @@ export interface Task {
   status?: string | null;
   priority?: number | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -500,7 +505,7 @@ export interface Rule {
   kind?: string | null;
   isActive?: boolean | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -514,7 +519,7 @@ export interface Skill {
   content?: string | null;
   isActive?: boolean | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -531,7 +536,7 @@ export interface Expense {
   merchant?: string | null;
   receiptUrl?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
 }
@@ -542,7 +547,7 @@ export interface Note {
   updatedAt?: string | null;
   content?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   contactId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
@@ -557,7 +562,7 @@ export interface Company {
   industry?: string | null;
   description?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
@@ -573,7 +578,7 @@ export interface Venue {
   status?: string | null;
   notes?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
@@ -591,7 +596,7 @@ export interface Contact {
   bio?: string | null;
   location?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
@@ -609,7 +614,7 @@ export interface Event {
   endedAt?: string | null;
   notes?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
@@ -627,7 +632,7 @@ export interface Message {
   bodyText?: string | null;
   receivedAt?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   emailAccountId?: string | null;
   /** Vector distance when filtered by `embedding` nearby condition. Returns null when no nearby condition is active. */
   embeddingDistance?: number | null;
@@ -1382,7 +1387,7 @@ export interface ChatFilter {
   updatedAt?: DatetimeFilter;
   title?: StringFilter;
   startedAt?: DatetimeFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: ChatFilter[];
   or?: ChatFilter[];
@@ -1398,7 +1403,7 @@ export interface ProjectFilter {
   status?: StringFilter;
   startDate?: DatetimeFilter;
   dueDate?: DatetimeFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: ProjectFilter[];
   or?: ProjectFilter[];
@@ -1414,7 +1419,7 @@ export interface RepositoryFilter {
   description?: StringFilter;
   defaultBranch?: StringFilter;
   lastSyncedAt?: DatetimeFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: RepositoryFilter[];
   or?: RepositoryFilter[];
@@ -1430,7 +1435,7 @@ export interface SessionFilter {
   endedAt?: DatetimeFilter;
   status?: StringFilter;
   contextSummary?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: SessionFilter[];
   or?: SessionFilter[];
@@ -1444,7 +1449,7 @@ export interface BlueprintFilter {
   title?: StringFilter;
   steps?: JSONFilter;
   triggerConditions?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: BlueprintFilter[];
   or?: BlueprintFilter[];
@@ -1459,7 +1464,7 @@ export interface ImageFilter {
   meta?: JSONFilter;
   altText?: StringFilter;
   caption?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: ImageFilter[];
   or?: ImageFilter[];
@@ -1472,7 +1477,7 @@ export interface MilestoneFilter {
   updatedAt?: DatetimeFilter;
   name?: StringFilter;
   dueDate?: DatetimeFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   projectId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
   and?: MilestoneFilter[];
@@ -1487,7 +1492,7 @@ export interface ChatMessageFilter {
   role?: StringFilter;
   content?: StringFilter;
   toolCalls?: JSONFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   chatId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
   and?: ChatMessageFilter[];
@@ -1502,7 +1507,7 @@ export interface ChunkFilter {
   content?: StringFilter;
   startLine?: IntFilter;
   endLine?: IntFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   fileId?: UUIDFilter;
   repositoryId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
@@ -1517,7 +1522,7 @@ export interface MemoryFilter {
   updatedAt?: DatetimeFilter;
   content?: StringFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: MemoryFilter[];
   or?: MemoryFilter[];
@@ -1533,7 +1538,7 @@ export interface DealFilter {
   value?: BigFloatFilter;
   notes?: StringFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: DealFilter[];
   or?: DealFilter[];
@@ -1549,7 +1554,7 @@ export interface DocumentFilter {
   content?: StringFilter;
   sourceType?: StringFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: DocumentFilter[];
   or?: DocumentFilter[];
@@ -1565,7 +1570,7 @@ export interface TaskFilter {
   status?: StringFilter;
   priority?: IntFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: TaskFilter[];
   or?: TaskFilter[];
@@ -1581,7 +1586,7 @@ export interface RuleFilter {
   kind?: StringFilter;
   isActive?: BooleanFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: RuleFilter[];
   or?: RuleFilter[];
@@ -1597,7 +1602,7 @@ export interface SkillFilter {
   content?: StringFilter;
   isActive?: BooleanFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: SkillFilter[];
   or?: SkillFilter[];
@@ -1616,7 +1621,7 @@ export interface ExpenseFilter {
   merchant?: StringFilter;
   receiptUrl?: StringFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   embeddingDistance?: FloatFilter;
   and?: ExpenseFilter[];
   or?: ExpenseFilter[];
@@ -1629,7 +1634,7 @@ export interface NoteFilter {
   updatedAt?: DatetimeFilter;
   content?: StringFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   contactId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
   and?: NoteFilter[];
@@ -1646,7 +1651,7 @@ export interface CompanyFilter {
   industry?: StringFilter;
   description?: StringFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   mainImageId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
   and?: CompanyFilter[];
@@ -1664,7 +1669,7 @@ export interface VenueFilter {
   status?: StringFilter;
   notes?: StringFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   mainImageId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
   and?: VenueFilter[];
@@ -1684,7 +1689,7 @@ export interface ContactFilter {
   bio?: StringFilter;
   location?: StringFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   mainImageId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
   and?: ContactFilter[];
@@ -1704,7 +1709,7 @@ export interface EventFilter {
   endedAt?: DatetimeFilter;
   notes?: StringFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   mainImageId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
   and?: EventFilter[];
@@ -1724,7 +1729,7 @@ export interface MessageFilter {
   bodyText?: StringFilter;
   receivedAt?: DatetimeFilter;
   tags?: StringFilter;
-  embedding?: StringFilter;
+  embedding?: VectorFilter;
   emailAccountId?: UUIDFilter;
   embeddingDistance?: FloatFilter;
   and?: MessageFilter[];
@@ -1833,8 +1838,14 @@ export interface ChatCondition {
   updatedAt?: string | null;
   title?: string | null;
   startedAt?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface ProjectCondition {
   id?: string | null;
@@ -1846,8 +1857,14 @@ export interface ProjectCondition {
   status?: string | null;
   startDate?: string | null;
   dueDate?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface RepositoryCondition {
   id?: string | null;
@@ -1859,8 +1876,14 @@ export interface RepositoryCondition {
   description?: string | null;
   defaultBranch?: string | null;
   lastSyncedAt?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface SessionCondition {
   id?: string | null;
@@ -1872,8 +1895,14 @@ export interface SessionCondition {
   endedAt?: string | null;
   status?: string | null;
   contextSummary?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface BlueprintCondition {
   id?: string | null;
@@ -1883,8 +1912,14 @@ export interface BlueprintCondition {
   title?: string | null;
   steps?: unknown | null;
   triggerConditions?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface ImageCondition {
   id?: string | null;
@@ -1895,8 +1930,14 @@ export interface ImageCondition {
   meta?: unknown | null;
   altText?: string | null;
   caption?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface MilestoneCondition {
   id?: string | null;
@@ -1905,9 +1946,15 @@ export interface MilestoneCondition {
   updatedAt?: string | null;
   name?: string | null;
   dueDate?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   projectId?: string | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface ChatMessageCondition {
   id?: string | null;
@@ -1917,9 +1964,15 @@ export interface ChatMessageCondition {
   role?: string | null;
   content?: string | null;
   toolCalls?: unknown | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   chatId?: string | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface ChunkCondition {
   id?: string | null;
@@ -1929,10 +1982,16 @@ export interface ChunkCondition {
   content?: string | null;
   startLine?: number | null;
   endLine?: number | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   fileId?: string | null;
   repositoryId?: string | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface MemoryCondition {
   id?: string | null;
@@ -1941,8 +2000,14 @@ export interface MemoryCondition {
   updatedAt?: string | null;
   content?: string | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface DealCondition {
   id?: string | null;
@@ -1954,8 +2019,14 @@ export interface DealCondition {
   value?: string | null;
   notes?: string | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface DocumentCondition {
   id?: string | null;
@@ -1967,8 +2038,14 @@ export interface DocumentCondition {
   content?: string | null;
   sourceType?: string | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface TaskCondition {
   id?: string | null;
@@ -1980,8 +2057,14 @@ export interface TaskCondition {
   status?: string | null;
   priority?: number | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface RuleCondition {
   id?: string | null;
@@ -1993,8 +2076,14 @@ export interface RuleCondition {
   kind?: string | null;
   isActive?: boolean | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface SkillCondition {
   id?: string | null;
@@ -2006,8 +2095,14 @@ export interface SkillCondition {
   content?: string | null;
   isActive?: boolean | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface ExpenseCondition {
   id?: string | null;
@@ -2022,8 +2117,14 @@ export interface ExpenseCondition {
   merchant?: string | null;
   receiptUrl?: string | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface NoteCondition {
   id?: string | null;
@@ -2032,9 +2133,15 @@ export interface NoteCondition {
   updatedAt?: string | null;
   content?: string | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   contactId?: string | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface CompanyCondition {
   id?: string | null;
@@ -2046,9 +2153,15 @@ export interface CompanyCondition {
   industry?: string | null;
   description?: string | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface VenueCondition {
   id?: string | null;
@@ -2061,9 +2174,15 @@ export interface VenueCondition {
   status?: string | null;
   notes?: string | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface ContactCondition {
   id?: string | null;
@@ -2078,9 +2197,15 @@ export interface ContactCondition {
   bio?: string | null;
   location?: string | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface EventCondition {
   id?: string | null;
@@ -2095,9 +2220,15 @@ export interface EventCondition {
   endedAt?: string | null;
   notes?: string | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface MessageCondition {
   id?: string | null;
@@ -2112,9 +2243,15 @@ export interface MessageCondition {
   bodyText?: string | null;
   receivedAt?: string | null;
   tags?: string | null;
-  embedding?: unknown | null;
+  embedding?: number[] | null;
   emailAccountId?: string | null;
   embeddingDistance?: number | null;
+  /**
+   * Vector similarity search on the `embedding` column. Provide a query vector to
+   * filter and compute distance. Optionally specify a metric (COSINE, L2, IP) and
+   * maximum distance threshold.
+   */
+  vectorEmbedding?: VectorNearbyInput;
 }
 // ============ OrderBy Types ============
 export type CompanyEventOrderBy =
@@ -3194,14 +3331,14 @@ export interface CreateChatInput {
     entityId: string;
     title?: string;
     startedAt?: string;
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface ChatPatch {
   entityId?: string | null;
   title?: string | null;
   startedAt?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateChatInput {
@@ -3222,7 +3359,7 @@ export interface CreateProjectInput {
     status?: string;
     startDate?: string;
     dueDate?: string;
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface ProjectPatch {
@@ -3232,7 +3369,7 @@ export interface ProjectPatch {
   status?: string | null;
   startDate?: string | null;
   dueDate?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateProjectInput {
@@ -3253,7 +3390,7 @@ export interface CreateRepositoryInput {
     description?: string;
     defaultBranch?: string;
     lastSyncedAt?: string;
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface RepositoryPatch {
@@ -3263,7 +3400,7 @@ export interface RepositoryPatch {
   description?: string | null;
   defaultBranch?: string | null;
   lastSyncedAt?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateRepositoryInput {
@@ -3284,7 +3421,7 @@ export interface CreateSessionInput {
     endedAt?: string;
     status?: string;
     contextSummary?: string;
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface SessionPatch {
@@ -3294,7 +3431,7 @@ export interface SessionPatch {
   endedAt?: string | null;
   status?: string | null;
   contextSummary?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateSessionInput {
@@ -3313,7 +3450,7 @@ export interface CreateBlueprintInput {
     title: string;
     steps?: Record<string, unknown>;
     triggerConditions?: string;
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface BlueprintPatch {
@@ -3321,7 +3458,7 @@ export interface BlueprintPatch {
   title?: string | null;
   steps?: Record<string, unknown> | null;
   triggerConditions?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateBlueprintInput {
@@ -3341,7 +3478,7 @@ export interface CreateImageInput {
     meta?: Record<string, unknown>;
     altText?: string;
     caption?: string;
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface ImagePatch {
@@ -3350,7 +3487,7 @@ export interface ImagePatch {
   meta?: Record<string, unknown> | null;
   altText?: string | null;
   caption?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateImageInput {
@@ -3368,7 +3505,7 @@ export interface CreateMilestoneInput {
     entityId: string;
     name: string;
     dueDate?: string;
-    embedding?: Vector;
+    embedding?: number[];
     projectId: string;
   };
 }
@@ -3376,7 +3513,7 @@ export interface MilestonePatch {
   entityId?: string | null;
   name?: string | null;
   dueDate?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   projectId?: string | null;
   embeddingDistance?: number | null;
 }
@@ -3396,7 +3533,7 @@ export interface CreateChatMessageInput {
     role?: string;
     content?: string;
     toolCalls?: Record<string, unknown>;
-    embedding?: Vector;
+    embedding?: number[];
     chatId: string;
   };
 }
@@ -3405,7 +3542,7 @@ export interface ChatMessagePatch {
   role?: string | null;
   content?: string | null;
   toolCalls?: Record<string, unknown> | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   chatId?: string | null;
   embeddingDistance?: number | null;
 }
@@ -3425,7 +3562,7 @@ export interface CreateChunkInput {
     content: string;
     startLine?: number;
     endLine?: number;
-    embedding?: Vector;
+    embedding?: number[];
     fileId: string;
     repositoryId: string;
   };
@@ -3435,7 +3572,7 @@ export interface ChunkPatch {
   content?: string | null;
   startLine?: number | null;
   endLine?: number | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   fileId?: string | null;
   repositoryId?: string | null;
   embeddingDistance?: number | null;
@@ -3455,14 +3592,14 @@ export interface CreateMemoryInput {
     entityId: string;
     content?: string;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface MemoryPatch {
   entityId?: string | null;
   content?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateMemoryInput {
@@ -3483,7 +3620,7 @@ export interface CreateDealInput {
     value?: string;
     notes?: string;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface DealPatch {
@@ -3493,7 +3630,7 @@ export interface DealPatch {
   value?: string | null;
   notes?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateDealInput {
@@ -3514,7 +3651,7 @@ export interface CreateDocumentInput {
     content?: string;
     sourceType?: string;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface DocumentPatch {
@@ -3524,7 +3661,7 @@ export interface DocumentPatch {
   content?: string | null;
   sourceType?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateDocumentInput {
@@ -3545,7 +3682,7 @@ export interface CreateTaskInput {
     status?: string;
     priority?: number;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface TaskPatch {
@@ -3555,7 +3692,7 @@ export interface TaskPatch {
   status?: string | null;
   priority?: number | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateTaskInput {
@@ -3576,7 +3713,7 @@ export interface CreateRuleInput {
     kind?: string;
     isActive?: boolean;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface RulePatch {
@@ -3586,7 +3723,7 @@ export interface RulePatch {
   kind?: string | null;
   isActive?: boolean | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateRuleInput {
@@ -3607,7 +3744,7 @@ export interface CreateSkillInput {
     content?: string;
     isActive?: boolean;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface SkillPatch {
@@ -3617,7 +3754,7 @@ export interface SkillPatch {
   content?: string | null;
   isActive?: boolean | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateSkillInput {
@@ -3641,7 +3778,7 @@ export interface CreateExpenseInput {
     merchant?: string;
     receiptUrl?: string;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
   };
 }
 export interface ExpensePatch {
@@ -3654,7 +3791,7 @@ export interface ExpensePatch {
   merchant?: string | null;
   receiptUrl?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   embeddingDistance?: number | null;
 }
 export interface UpdateExpenseInput {
@@ -3672,7 +3809,7 @@ export interface CreateNoteInput {
     entityId: string;
     content: string;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
     contactId: string;
   };
 }
@@ -3680,7 +3817,7 @@ export interface NotePatch {
   entityId?: string | null;
   content?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   contactId?: string | null;
   embeddingDistance?: number | null;
 }
@@ -3702,7 +3839,7 @@ export interface CreateCompanyInput {
     industry?: string;
     description?: string;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
     mainImageId?: string;
   };
 }
@@ -3713,7 +3850,7 @@ export interface CompanyPatch {
   industry?: string | null;
   description?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   embeddingDistance?: number | null;
 }
@@ -3736,7 +3873,7 @@ export interface CreateVenueInput {
     status?: string;
     notes?: string;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
     mainImageId?: string;
   };
 }
@@ -3748,7 +3885,7 @@ export interface VenuePatch {
   status?: string | null;
   notes?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   embeddingDistance?: number | null;
 }
@@ -3773,7 +3910,7 @@ export interface CreateContactInput {
     bio?: string;
     location?: string;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
     mainImageId?: string;
   };
 }
@@ -3787,7 +3924,7 @@ export interface ContactPatch {
   bio?: string | null;
   location?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   embeddingDistance?: number | null;
 }
@@ -3812,7 +3949,7 @@ export interface CreateEventInput {
     endedAt?: string;
     notes?: string;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
     mainImageId?: string;
   };
 }
@@ -3826,7 +3963,7 @@ export interface EventPatch {
   endedAt?: string | null;
   notes?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   mainImageId?: string | null;
   embeddingDistance?: number | null;
 }
@@ -3851,7 +3988,7 @@ export interface CreateMessageInput {
     bodyText?: string;
     receivedAt?: string;
     tags?: string[];
-    embedding?: Vector;
+    embedding?: number[];
     emailAccountId: string;
   };
 }
@@ -3865,7 +4002,7 @@ export interface MessagePatch {
   bodyText?: string | null;
   receivedAt?: string | null;
   tags?: string | null;
-  embedding?: Vector | null;
+  embedding?: number[] | null;
   emailAccountId?: string | null;
   embeddingDistance?: number | null;
 }
@@ -3880,6 +4017,18 @@ export interface DeleteMessageInput {
 }
 // ============ Connection Fields Map ============
 export const connectionFieldsMap = {} as Record<string, Record<string, string>>;
+/** Input for vector similarity search. Provide a query vector, optional metric, and optional max distance threshold. */
+// ============ Custom Input Types (from schema) ============
+export interface VectorNearbyInput {
+  /** Query vector for similarity search. */
+  vector: number[];
+  /** Similarity metric to use (default: COSINE). */
+  metric?: VectorMetric;
+  /** Maximum distance threshold. Only rows within this distance are returned. */
+  distance?: number;
+}
+/** Similarity metric for vector search */
+export type VectorMetric = 'COSINE' | 'L2' | 'IP';
 // ============ Payload/Return Types (for custom operations) ============
 export interface CreateCompanyEventPayload {
   clientMutationId?: string | null;

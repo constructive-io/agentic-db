@@ -32,12 +32,13 @@ import type {
   CreateContactInput,
   UpdateContactInput,
   ContactPatch,
+  ContactCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class ContactModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ContactSelect>(
-    args: FindManyArgs<S, ContactFilter, ContactOrderBy> & {
+    args: FindManyArgs<S, ContactFilter, ContactCondition, ContactOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactSelect>
   ): QueryBuilder<{
@@ -49,6 +50,7 @@ export class ContactModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -58,7 +60,8 @@ export class ContactModel {
       },
       'ContactFilter',
       'ContactOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'ContactCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -70,7 +73,7 @@ export class ContactModel {
     });
   }
   findFirst<S extends ContactSelect>(
-    args: FindFirstArgs<S, ContactFilter> & {
+    args: FindFirstArgs<S, ContactFilter, ContactCondition> & {
       select: S;
     } & StrictSelect<S, ContactSelect>
   ): QueryBuilder<{
@@ -84,9 +87,11 @@ export class ContactModel {
       args.select,
       {
         where: args?.where,
+        condition: args?.condition,
       },
       'ContactFilter',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'ContactCondition'
     );
     return new QueryBuilder({
       client: this.client,
@@ -119,7 +124,8 @@ export class ContactModel {
       },
       'ContactFilter',
       'ContactOrderBy',
-      connectionFieldsMap
+      connectionFieldsMap,
+      'ContactCondition'
     );
     return new QueryBuilder({
       client: this.client,
