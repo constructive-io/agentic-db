@@ -1,49 +1,54 @@
 /**
- * provision.ts — Provisioning Entry Point
- * 
- * Supports both full provisioning (V1+V2) and V2 upgrade modes.
+ * provision.ts \u2014 Orchestrator for Agent OS schema provisioning
+ *
+ * Reads DATABASE_ID, ACCESS_TOKEN, DATABASE_NAME from .env (set by create-db)
+ * and runs all schema modules + index creation sequentially.
+ *
+ * Usage:  pnpm run provision
  */
 
-import { execSync } from 'child_process';
-import * as path from 'path';
+import { config } from './config';
 
-// Parse args (simple check for --upgrade flag)
-const args = process.argv.slice(2);
-const isUpgrade = args.includes('--upgrade');
+async function run(label: string, mod: string) {
+  console.log(`\n${'='.repeat(60)}`);
+  console.log(`  ${label}`);
+  console.log('='.repeat(60));
+
+  // Dynamic import executes the module's main()
+  await import(mod);
+}
 
 async function main() {
-  if (isUpgrade) {
-    console.log('🔄 Running V2 Upgrade Mode...');
-    try {
-      // Use tsx via npx to run the TypeScript file directly
-      // This avoids dynamic import complexities in ts-node/esm environments
-      const v2Path = path.resolve(__dirname, 'provision-v2.ts');
-      execSync(`npx tsx "${v2Path}"`, { 
-        stdio: 'inherit', 
-        env: process.env,
-        cwd: process.cwd()
-      });
-    } catch (e) {
-      console.error('❌ Upgrade failed.');
-      process.exit(1);
-    }
-  } else {
-    console.log('🚀 Running Full Provisioning Mode (New DB)...');
-    try {
-      const fullPath = path.resolve(__dirname, 'provision-full.ts');
-      execSync(`npx tsx "${fullPath}"`, { 
-        stdio: 'inherit', 
-        env: process.env, 
-        cwd: process.cwd() 
-      });
-    } catch (e) {
-      console.error('❌ Provisioning failed.');
-      process.exit(1);
-    }
+  console.log('\n\ud83d\ude80 Agent OS \u2014 Schema Provisioning\n');
+  console.log(`   Database:  ${config.databaseName}`);
+  console.log(`   DB ID:     ${config.databaseId}`);
+  console.log(`   Endpoint:  ${config.apiEndpoint}`);
+
+  if (!config.databaseId || !config.accessToken) {
+    console.error('\n\u274c Missing DATABASE_ID or ACCESS_TOKEN in .env');
+    console.error('   Run: pnpm run create-db\n');
+    process.exit(1);
   }
+
+  const schemas = [
+    ['CRM',           './schemas/crm'],
+    ['Agent Core',    './schemas/agent'],
+    ['Agent Runtime', './schemas/runtime'],
+    ['Projects',      './schemas/projects'],
+    ['Codebase',      './schemas/codebase'],
+    ['Life OS',       './schemas/life_os'],
+    ['Autonomy',      './schemas/autonomy'],
+    ['Indexes',       './create-indexes'],
+  ];
+
+  for (const [label, mod] of schemas) {
+    await run(label, mod);
+  }
+
+  console.log('\n\u2728 All schemas provisioned successfully!\n');
 }
 
 main().catch((err) => {
-  console.error(err);
+  console.error('\u274c Provision failed:', err.message ?? err);
   process.exit(1);
 });
