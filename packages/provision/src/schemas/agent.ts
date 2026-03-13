@@ -1,7 +1,7 @@
 /**
  * agent.ts \u2014 Agent Core domain schema
  *
- * Tables: tasks, rules, memories, skills, goals, prompts, feedback
+ * Tables: tasks, rules, memories, skills, goals, prompts, feedback, skill_executions
  */
 
 import {
@@ -122,9 +122,13 @@ async function main() {
   console.log('\n\ud83d\udca1 memories...');
   const memoriesId = await createOrgTable('memories');
   await addField(memoriesId, 'content', 'text', { isRequired: true });
+  await addField(memoriesId, 'memory_type', 'text');  // episodic | semantic | reflection
+  await addField(memoriesId, 'agent_id', 'uuid');     // whose memory (null = shared)
   await addField(memoriesId, 'importance', 'int');
   await addField(memoriesId, 'verified', 'bool', { defaultValue: 'false' });
   await addField(memoriesId, 'source', 'text');
+  await addField(memoriesId, 'related_entity_type', 'text');
+  await addField(memoriesId, 'related_entity_id', 'uuid');
   await addField(memoriesId, 'tags', 'citext[]');
   await addField(memoriesId, 'embedding_text', 'text');
   await addField(memoriesId, 'embedding', 'vector(768)');
@@ -141,6 +145,7 @@ async function main() {
   await addField(skillsId, 'requirements', 'jsonb');
   await addField(skillsId, 'file_path', 'text');
   await addField(skillsId, 'content_hash', 'text');
+  await addField(skillsId, 'category', 'text');     // code | communication | data | planning | research
   await addField(skillsId, 'is_active', 'bool', { defaultValue: 'true' });
   await addField(skillsId, 'tags', 'citext[]');
   await addField(skillsId, 'embedding_text', 'text');
@@ -172,6 +177,20 @@ async function main() {
   await addField(promptsId, 'tags', 'citext[]');
   await addField(promptsId, 'embedding_text', 'text');
   await addField(promptsId, 'embedding', 'vector(768)');
+
+  // -- Skill Executions -----------------------------------------------------
+  console.log('\n\u25b6\ufe0f  skill_executions...');
+  const skillExecsId = await createOrgTable('skill_executions');
+  await addField(skillExecsId, 'skill_id', 'uuid', { isRequired: true });
+  await addField(skillExecsId, 'agent_id', 'uuid');
+  await addField(skillExecsId, 'session_id', 'uuid');
+  await addField(skillExecsId, 'status', 'text', { defaultValue: "'pending'" }); // pending | running | success | failed | timeout
+  await addField(skillExecsId, 'started_at', 'timestamptz');
+  await addField(skillExecsId, 'completed_at', 'timestamptz');
+  await addField(skillExecsId, 'duration_ms', 'int');
+  await addField(skillExecsId, 'input', 'jsonb');
+  await addField(skillExecsId, 'output', 'jsonb');
+  await addField(skillExecsId, 'error', 'text');
 
   // -- Feedback -------------------------------------------------------------
   console.log('\n\ud83d\udcac feedback...');

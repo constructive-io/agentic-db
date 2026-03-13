@@ -2,8 +2,8 @@
  * runtime.ts \u2014 Agent Runtime domain schema
  *
  * Tables: agents, sessions, execution_log, chats, chat_messages, threads,
- *         blueprints, processes, scheduled_jobs, tools, mcp_servers,
- *         mcp_server_tools, workflows, workflow_steps, workflow_runs, activity_log
+ *         blueprints, processes, scheduled_jobs, tools,
+ *         workflows, workflow_steps, workflow_runs, activity_log
  */
 
 import {
@@ -95,6 +95,18 @@ async function main() {
   await addField(agentsId, 'capabilities', 'jsonb');
   await addField(agentsId, 'config', 'jsonb');
   await addField(agentsId, 'status', 'text', { defaultValue: "'idle'" });
+  // Soul / persona
+  await addField(agentsId, 'persona', 'text');
+  await addField(agentsId, 'backstory', 'text');
+  await addField(agentsId, 'communication_style', 'text'); // casual | formal | terse | empathetic
+  await addField(agentsId, 'system_prompt', 'text');
+  await addField(agentsId, 'preferred_model', 'text');
+  await addField(agentsId, 'fallback_models', 'text[]');
+  await addField(agentsId, 'temperature', 'numeric');
+  // State
+  await addField(agentsId, 'mood', 'text');
+  await addField(agentsId, 'focus', 'text');
+  await addField(agentsId, 'last_active_at', 'timestamptz');
   await addField(agentsId, 'embedding_text', 'text');
   await addField(agentsId, 'embedding', 'vector(768)');
 
@@ -189,7 +201,7 @@ async function main() {
   const toolsId = await createOrgTable('tools');
   await addField(toolsId, 'name', 'text', { isRequired: true });
   await addField(toolsId, 'description', 'text');
-  await addField(toolsId, 'type', 'text');           // api | function | mcp | webhook
+  await addField(toolsId, 'type', 'text');           // api | function | webhook
   await addField(toolsId, 'input_schema', 'jsonb');
   await addField(toolsId, 'output_schema', 'jsonb');
   await addField(toolsId, 'endpoint', 'text');
@@ -198,24 +210,6 @@ async function main() {
   await addField(toolsId, 'tags', 'citext[]');
   await addField(toolsId, 'embedding_text', 'text');
   await addField(toolsId, 'embedding', 'vector(768)');
-
-  // -- MCP Servers ----------------------------------------------------------
-  console.log('\n\ud83d\udd0c mcp_servers...');
-  const mcpServersId = await createOrgTable('mcp_servers');
-  await addField(mcpServersId, 'name', 'text', { isRequired: true });
-  await addField(mcpServersId, 'url', 'text');
-  await addField(mcpServersId, 'transport_type', 'text');  // stdio | sse | streamable-http
-  await addField(mcpServersId, 'auth_config', 'jsonb');
-  await addField(mcpServersId, 'status', 'text', { defaultValue: "'active'" });
-  await addField(mcpServersId, 'last_ping_at', 'timestamptz');
-
-  // -- MCP Server Tools -----------------------------------------------------
-  console.log('\n\ud83e\uddf0 mcp_server_tools...');
-  const mcpServerToolsId = await createOrgTable('mcp_server_tools');
-  await addField(mcpServerToolsId, 'server_id', 'uuid', { isRequired: true });
-  await addField(mcpServerToolsId, 'name', 'text', { isRequired: true });
-  await addField(mcpServerToolsId, 'description', 'text');
-  await addField(mcpServerToolsId, 'input_schema', 'jsonb');
 
   // -- Workflows ------------------------------------------------------------
   console.log('\n\ud83d\udd04 workflows...');
@@ -403,23 +397,6 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 agents -> scheduled_jobs');
-
-  // mcp_servers -> mcp_server_tools (HasMany)
-  await withRetry(() =>
-    client.relationProvision
-      .create({
-        data: {
-          databaseId,
-          relationType: 'RelationHasMany',
-          sourceTableId: mcpServersId,
-          targetTableId: mcpServerToolsId,
-          deleteAction: 'c',
-        },
-        select: { id: true },
-      })
-      .unwrap()
-  );
-  console.log('   \u2713 mcp_servers -> mcp_server_tools');
 
   // workflows -> workflow_steps (HasMany)
   await withRetry(() =>

@@ -11,6 +11,9 @@
  *   goals    <-> projects   (goal_projects)
  *   calendar_events <-> contacts (calendar_event_contacts)
  *   expenses <-> contacts   (expense_contacts)
+ *   agents   <-> skills     (agent_skills)
+ *   agents   <-> rules      (agent_rules)
+ *   agents   <-> prompts    (agent_prompts)
  */
 
 import {
@@ -112,6 +115,27 @@ const CROSS_RELATIONS: M2NRelation[] = [
     junctionTableName: 'expense_contacts',
     sourceFieldName: 'expense_id',
     targetFieldName: 'contact_id',
+  },
+  {
+    sourceTable: 'agents',
+    targetTable: 'skills',
+    junctionTableName: 'agent_skills',
+    sourceFieldName: 'agent_id',
+    targetFieldName: 'skill_id',
+  },
+  {
+    sourceTable: 'agents',
+    targetTable: 'rules',
+    junctionTableName: 'agent_rules',
+    sourceFieldName: 'agent_id',
+    targetFieldName: 'rule_id',
+  },
+  {
+    sourceTable: 'agents',
+    targetTable: 'prompts',
+    junctionTableName: 'agent_prompts',
+    sourceFieldName: 'agent_id',
+    targetFieldName: 'prompt_id',
   },
 ];
 

@@ -115,11 +115,12 @@ const GIN_TAG_INDEXES: IndexDef[] = [
 const GIN_JSONB_INDEXES: IndexDef[] = [
   { table: 'habit_logs', column: 'data', method: 'gin' },
   { table: 'tools', column: 'input_schema', method: 'gin' },
-  { table: 'mcp_servers', column: 'auth_config', method: 'gin' },
   { table: 'workflow_steps', column: 'config', method: 'gin' },
   { table: 'recipes', column: 'ingredients', method: 'gin' },
   { table: 'user_settings', column: 'value', method: 'gin' },
   { table: 'integrations', column: 'config', method: 'gin' },
+  { table: 'skill_executions', column: 'input', method: 'gin' },
+  { table: 'skill_executions', column: 'output', method: 'gin' },
 ];
 
 // GIN indexes on tsvector columns
@@ -263,9 +264,6 @@ const BTREE_INDEXES: IndexDef[] = [
   // Runtime — tools, MCP, workflows, activity_log
   { table: 'tools', column: 'type', method: 'btree' },
   { table: 'tools', column: 'is_active', method: 'btree' },
-  { table: 'mcp_servers', column: 'status', method: 'btree' },
-  { table: 'mcp_server_tools', column: 'mcp_server_id', method: 'btree' },
-  { table: 'mcp_server_tools', column: 'tool_id', method: 'btree' },
   { table: 'workflows', column: 'status', method: 'btree' },
   { table: 'workflow_steps', column: 'workflow_id', method: 'btree' },
   { table: 'workflow_steps', column: 'step_order', method: 'btree' },
@@ -278,6 +276,28 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'activity_log', column: 'performed_at', method: 'btree' },
   { table: 'agent_tools', column: 'agent_id', method: 'btree' },
   { table: 'agent_tools', column: 'tool_id', method: 'btree' },
+  { table: 'agent_skills', column: 'agent_id', method: 'btree' },
+  { table: 'agent_skills', column: 'skill_id', method: 'btree' },
+  { table: 'agent_rules', column: 'agent_id', method: 'btree' },
+  { table: 'agent_rules', column: 'rule_id', method: 'btree' },
+  { table: 'agent_prompts', column: 'agent_id', method: 'btree' },
+  { table: 'agent_prompts', column: 'prompt_id', method: 'btree' },
+  // Skill executions
+  { table: 'skill_executions', column: 'skill_id', method: 'btree' },
+  { table: 'skill_executions', column: 'agent_id', method: 'btree' },
+  { table: 'skill_executions', column: 'session_id', method: 'btree' },
+  { table: 'skill_executions', column: 'status', method: 'btree' },
+  { table: 'skill_executions', column: 'started_at', method: 'btree' },
+  // Agent soul/state
+  { table: 'agents', column: 'preferred_model', method: 'btree' },
+  { table: 'agents', column: 'last_active_at', method: 'btree' },
+  // Memory enhancements
+  { table: 'memories', column: 'memory_type', method: 'btree' },
+  { table: 'memories', column: 'agent_id', method: 'btree' },
+  { table: 'memories', column: 'related_entity_type', method: 'btree' },
+  { table: 'memories', column: 'related_entity_id', method: 'btree' },
+  // Skills
+  { table: 'skills', column: 'category', method: 'btree' },
   // Agent — prompts, feedback
   { table: 'prompts', column: 'type', method: 'btree' },
   { table: 'prompts', column: 'is_active', method: 'btree' },
