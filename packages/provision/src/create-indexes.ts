@@ -90,12 +90,17 @@ const GIN_TAG_INDEXES: IndexDef[] = [
   'projects',
   'repositories',
   'messages', 'calendar_events', 'expenses', 'documents',
-  'ideas', 'habits', 'lists',
+  'ideas', 'habits', 'habit_logs', 'lists',
 ].map((table) => ({
   table,
   column: 'tags',
   method: 'gin',
 }));
+
+// GIN index on habit_logs.data (JSONB containment queries)
+const GIN_JSONB_INDEXES: IndexDef[] = [
+  { table: 'habit_logs', column: 'data', method: 'gin' },
+];
 
 // GIN indexes on tsvector columns
 const GIN_TSV_INDEXES: IndexDef[] = [
@@ -211,6 +216,10 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'habits', column: 'category', method: 'btree' },
   { table: 'habit_logs', column: 'habit_id', method: 'btree' },
   { table: 'habit_logs', column: 'completed_at', method: 'btree' },
+  { table: 'habit_logs', column: 'activity_type', method: 'btree' },
+  { table: 'habit_logs', column: 'duration_minutes', method: 'btree' },
+  { table: 'habit_logs', column: 'distance', method: 'btree' },
+  { table: 'habit_logs', column: 'calories', method: 'btree' },
   { table: 'list_items', column: 'list_id', method: 'btree' },
   { table: 'list_items', column: 'position', method: 'btree' },
   { table: 'notifications', column: 'type', method: 'btree' },
@@ -225,6 +234,7 @@ const ALL_INDEXES: IndexDef[] = [
   ...BM25_INDEXES,
   ...BM25_EXTRA,
   ...GIN_TAG_INDEXES,
+  ...GIN_JSONB_INDEXES,
   ...GIN_TSV_INDEXES,
   ...TRGM_INDEXES,
   ...BTREE_INDEXES,

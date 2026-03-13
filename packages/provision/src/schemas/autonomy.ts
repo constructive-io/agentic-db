@@ -122,12 +122,24 @@ async function main() {
   await addField(habitsId, 'embedding', 'vector(768)');
 
   // -- Habit Logs -----------------------------------------------------------
+  // Polymorphic activity log: real columns for aggregatable measures,
+  // JSONB `data` for activity-specific extras (exercises array, stroke type, pace, etc.)
   console.log('\n\ud83d\udcdd habit_logs...');
   const habitLogsId = await createOrgTable('habit_logs');
   await addField(habitLogsId, 'habit_id', 'uuid', { isRequired: true });
   await addField(habitLogsId, 'completed_at', 'timestamptz', { isRequired: true });
-  await addField(habitLogsId, 'value', 'numeric');
+  await addField(habitLogsId, 'activity_type', 'text');
+  await addField(habitLogsId, 'duration_minutes', 'numeric');
+  await addField(habitLogsId, 'distance', 'numeric');
+  await addField(habitLogsId, 'distance_unit', 'text');
+  await addField(habitLogsId, 'reps', 'int');
+  await addField(habitLogsId, 'sets', 'int');
+  await addField(habitLogsId, 'weight_amount', 'numeric');
+  await addField(habitLogsId, 'weight_unit', 'text');
+  await addField(habitLogsId, 'calories', 'numeric');
+  await addField(habitLogsId, 'data', 'jsonb', { defaultValue: "'{}'" });
   await addField(habitLogsId, 'notes', 'text');
+  await addField(habitLogsId, 'tags', 'citext[]');
 
   // -- Lists ----------------------------------------------------------------
   console.log('\n\ud83d\udcdd lists...');
