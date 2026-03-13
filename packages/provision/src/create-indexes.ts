@@ -7,6 +7,7 @@
  *   GIN    — tags (citext[]) and tsvector columns
  *   Trigram — fuzzy name/title matching (pg_trgm)
  *   B-Tree — FKs, status, dates, lookups
+ *   GIST   — PostGIS geography(Point,4326) spatial proximity
  *
  * TSVector configuration for 6 entities:
  *   contacts, companies, events, venues, projects, documents
@@ -36,16 +37,16 @@ interface IndexDef {
 // HNSW indexes on embedding columns (vector cosine similarity)
 const HNSW_INDEXES: IndexDef[] = [
   'contacts', 'companies', 'deals', 'events', 'venues', 'notes',
-  'interactions', 'tags', 'attachments',
+  'interactions',
   'tasks', 'rules', 'memories', 'skills', 'goals',
   'prompts',
   'agents', 'sessions', 'chats', 'chat_messages', 'threads', 'blueprints',
-  'tools', 'workflows',
-  'projects', 'milestones',
+  'tools',
+  'projects',
   'repositories', 'chunks',
-  'messages', 'calendar_events', 'expenses', 'documents',
+  'messages', 'calendar_events', 'documents',
   'trips',
-  'ideas', 'reminders', 'habits', 'lists',
+  'ideas', 'reminders', 'lists',
   'recipes', 'templates',
 ].map((table) => ({
   table,
@@ -64,16 +65,16 @@ const HNSW_EXTRA: IndexDef[] = [
 // BM25 indexes on embedding_text (keyword search for hybrid RAG)
 const BM25_INDEXES: IndexDef[] = [
   'contacts', 'companies', 'deals', 'events', 'venues', 'notes',
-  'interactions', 'tags', 'attachments',
+  'interactions',
   'tasks', 'rules', 'memories', 'skills', 'goals',
   'prompts',
   'agents', 'sessions', 'chats', 'chat_messages', 'threads', 'blueprints',
-  'tools', 'workflows',
-  'projects', 'milestones',
+  'tools',
+  'projects',
   'repositories', 'chunks',
-  'messages', 'calendar_events', 'expenses', 'documents',
+  'messages', 'calendar_events', 'documents',
   'trips',
-  'ideas', 'reminders', 'habits', 'lists',
+  'ideas', 'reminders', 'lists',
   'recipes', 'templates',
 ].map((table) => ({
   table,
@@ -326,6 +327,16 @@ const BTREE_INDEXES: IndexDef[] = [
   // Codebase — repos->chunks direct
   { table: 'venues', column: 'is_favorite', method: 'btree' },
   { table: 'venues', column: 'google_place_id', method: 'btree' },
+  // Tasks
+  { table: 'tasks', column: 'task_type', method: 'btree' },
+];
+
+// GIST indexes on geography columns (spatial proximity queries)
+const GIST_GEO_INDEXES: IndexDef[] = [
+  { table: 'venues', column: 'location', method: 'gist' },
+  { table: 'contacts', column: 'location_geo', method: 'gist' },
+  { table: 'calendar_events', column: 'location_geo', method: 'gist' },
+  { table: 'trips', column: 'destination_geo', method: 'gist' },
 ];
 
 // Combine all indexes
@@ -339,6 +350,7 @@ const ALL_INDEXES: IndexDef[] = [
   ...GIN_TSV_INDEXES,
   ...TRGM_INDEXES,
   ...BTREE_INDEXES,
+  ...GIST_GEO_INDEXES,
 ];
 
 // ---------------------------------------------------------------------------

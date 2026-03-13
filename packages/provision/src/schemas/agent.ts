@@ -93,6 +93,7 @@ async function main() {
   await addField(tasksId, 'status', 'text', { defaultValue: "'todo'" });
   await addField(tasksId, 'priority', 'int');
   await addField(tasksId, 'project_id', 'uuid');
+  await addField(tasksId, 'task_type', 'text', { defaultValue: "'human'" }); // human | agent | hybrid
   await addField(tasksId, 'assigned_agent_id', 'uuid');
   await addField(tasksId, 'parent_task_id', 'uuid');
   await addField(tasksId, 'due_date', 'timestamptz');

@@ -130,6 +130,7 @@ async function main() {
   await addField(calEventsId, 'location', 'text');
   await addField(calEventsId, 'recurrence_rule', 'text');
   await addField(calEventsId, 'status', 'text', { defaultValue: "'confirmed'" });
+  await addField(calEventsId, 'location_geo', 'geography(Point,4326)');
   await addField(calEventsId, 'tags', 'citext[]');
   await addField(calEventsId, 'embedding_text', 'text');
   await addField(calEventsId, 'embedding', 'vector(768)');
@@ -146,8 +147,7 @@ async function main() {
   await addField(expensesId, 'receipt_url', 'text');
   await addField(expensesId, 'is_recurring', 'bool', { defaultValue: 'false' });
   await addField(expensesId, 'tags', 'citext[]');
-  await addField(expensesId, 'embedding_text', 'text');
-  await addField(expensesId, 'embedding', 'vector(768)');
+  // No embeddings — structured queries (date, category, merchant) suffice
 
   // -- Documents ------------------------------------------------------------
   console.log('\n\ud83d\udcc4 documents...');
@@ -213,6 +213,7 @@ async function main() {
   await addField(tripsId, 'end_date', 'date');
   await addField(tripsId, 'status', 'text', { defaultValue: "'planned'" });
   await addField(tripsId, 'notes', 'text');
+  await addField(tripsId, 'destination_geo', 'geography(Point,4326)');
   await addField(tripsId, 'tags', 'citext[]');
   await addField(tripsId, 'embedding_text', 'text');
   await addField(tripsId, 'embedding', 'vector(768)');

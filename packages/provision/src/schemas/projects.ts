@@ -106,8 +106,7 @@ async function main() {
   await addField(milestonesId, 'name', 'text', { isRequired: true });
   await addField(milestonesId, 'due_date', 'timestamptz');
   await addField(milestonesId, 'status', 'text', { defaultValue: "'pending'" });
-  await addField(milestonesId, 'embedding_text', 'text');
-  await addField(milestonesId, 'embedding', 'vector(768)');
+  // No embeddings — milestones are queried by project_id + status
 
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');

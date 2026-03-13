@@ -120,6 +120,7 @@ async function main() {
   await addField(contactsId, 'github_username', 'text');
   await addField(contactsId, 'instagram_handle', 'text');
   await addField(contactsId, 'website', 'text');
+  await addField(contactsId, 'location_geo', 'geography(Point,4326)');
   await addField(contactsId, 'tags', 'citext[]');
   await addField(contactsId, 'embedding_text', 'text');
   await addField(contactsId, 'embedding', 'vector(768)');
@@ -177,8 +178,7 @@ async function main() {
   await addField(venuesId, 'city', 'text');
   await addField(venuesId, 'category', 'text');
   await addField(venuesId, 'status', 'text', { defaultValue: "'potential'" });
-  await addField(venuesId, 'lat', 'numeric');
-  await addField(venuesId, 'lng', 'numeric');
+  await addField(venuesId, 'location', 'geography(Point,4326)');
   await addField(venuesId, 'google_place_id', 'text');
   await addField(venuesId, 'rating', 'numeric');
   await addField(venuesId, 'price_level', 'text');
@@ -221,6 +221,7 @@ async function main() {
   await addField(tagsId, 'color', 'text');
   await addField(tagsId, 'category', 'text');
   await addField(tagsId, 'usage_count', 'int', { defaultValue: '0' });
+  // No embeddings — tags are exact-match lookups
 
   // -- Attachments (polymorphic) --------------------------------------------
   console.log('\n\ud83d\udcce attachments...');
@@ -231,6 +232,7 @@ async function main() {
   await addField(attachmentsId, 'size_bytes', 'int');
   await addField(attachmentsId, 'attachable_type', 'text');
   await addField(attachmentsId, 'attachable_id', 'uuid');
+  // No embeddings — file metadata, not searchable content
 
   // -- Link tables ----------------------------------------------------------
   console.log('\n\ud83d\udd17 link tables...');

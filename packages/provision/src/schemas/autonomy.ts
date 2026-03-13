@@ -119,8 +119,7 @@ async function main() {
   await addField(habitsId, 'best_streak', 'int', { defaultValue: '0' });
   await addField(habitsId, 'category', 'text');
   await addField(habitsId, 'tags', 'citext[]');
-  await addField(habitsId, 'embedding_text', 'text');
-  await addField(habitsId, 'embedding', 'vector(768)');
+  // No embeddings — few habits, queried by name/category
 
   // -- Habit Logs -----------------------------------------------------------
   // Polymorphic activity log: real columns for aggregatable measures,

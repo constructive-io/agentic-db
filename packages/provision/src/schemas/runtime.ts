@@ -220,8 +220,7 @@ async function main() {
   await addField(workflowsId, 'trigger_config', 'jsonb');
   await addField(workflowsId, 'is_active', 'bool', { defaultValue: 'true' });
   await addField(workflowsId, 'tags', 'citext[]');
-  await addField(workflowsId, 'embedding_text', 'text');
-  await addField(workflowsId, 'embedding', 'vector(768)');
+  // No embeddings — workflows are queried by status/trigger, not semantically
 
   // -- Workflow Steps -------------------------------------------------------
   console.log('\n\ud83d\udccd workflow_steps...');
