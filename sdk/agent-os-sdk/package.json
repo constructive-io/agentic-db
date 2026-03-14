@@ -1,7 +1,7 @@
 {
-  "name": "@agentic-sdk/sdk",
+  "name": "@agentic-db/sdk",
   "version": "0.0.1",
-  "description": "Type-safe SDK for agent-os database",
+  "description": "Type-safe SDK for agent-db database",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "license": "MIT",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
     "graphql": "^16.13.1"
   },
   "devDependencies": {
-    "@agentic-sdk/schemas": "workspace:*",
+    "@agentic-db/schemas": "workspace:*",
     "@constructive-io/graphql-codegen": "^4.8.0",
     "@types/node": "^22.0.0",
     "dotenv": "^16.4.5",
