@@ -25,7 +25,7 @@ agent-os contact-image list
 ### Create a contactImage
 
 ```bash
-agent-os contact-image create --contactId "value" --imageId "value" --entityId "value"
+agent-os contact-image create --contactId <value> --imageId <value> --entityId <value>
 ```
 
 ### Get a contactImage by id

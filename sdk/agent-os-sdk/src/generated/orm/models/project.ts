@@ -32,13 +32,12 @@ import type {
   CreateProjectInput,
   UpdateProjectInput,
   ProjectPatch,
-  ProjectCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class ProjectModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ProjectSelect>(
-    args: FindManyArgs<S, ProjectFilter, ProjectCondition, ProjectOrderBy> & {
+    args: FindManyArgs<S, ProjectFilter, ProjectOrderBy> & {
       select: S;
     } & StrictSelect<S, ProjectSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class ProjectModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class ProjectModel {
       },
       'ProjectFilter',
       'ProjectOrderBy',
-      connectionFieldsMap,
-      'ProjectCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class ProjectModel {
     });
   }
   findFirst<S extends ProjectSelect>(
-    args: FindFirstArgs<S, ProjectFilter, ProjectCondition> & {
+    args: FindFirstArgs<S, ProjectFilter> & {
       select: S;
     } & StrictSelect<S, ProjectSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class ProjectModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'ProjectFilter',
-      connectionFieldsMap,
-      'ProjectCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class ProjectModel {
       },
       'ProjectFilter',
       'ProjectOrderBy',
-      connectionFieldsMap,
-      'ProjectCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

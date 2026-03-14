@@ -32,13 +32,12 @@ import type {
   CreateDocumentInput,
   UpdateDocumentInput,
   DocumentPatch,
-  DocumentCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class DocumentModel {
   constructor(private client: OrmClient) {}
   findMany<S extends DocumentSelect>(
-    args: FindManyArgs<S, DocumentFilter, DocumentCondition, DocumentOrderBy> & {
+    args: FindManyArgs<S, DocumentFilter, DocumentOrderBy> & {
       select: S;
     } & StrictSelect<S, DocumentSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class DocumentModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class DocumentModel {
       },
       'DocumentFilter',
       'DocumentOrderBy',
-      connectionFieldsMap,
-      'DocumentCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class DocumentModel {
     });
   }
   findFirst<S extends DocumentSelect>(
-    args: FindFirstArgs<S, DocumentFilter, DocumentCondition> & {
+    args: FindFirstArgs<S, DocumentFilter> & {
       select: S;
     } & StrictSelect<S, DocumentSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class DocumentModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'DocumentFilter',
-      connectionFieldsMap,
-      'DocumentCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class DocumentModel {
       },
       'DocumentFilter',
       'DocumentOrderBy',
-      connectionFieldsMap,
-      'DocumentCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

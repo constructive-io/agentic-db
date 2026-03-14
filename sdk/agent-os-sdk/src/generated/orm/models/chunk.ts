@@ -32,13 +32,12 @@ import type {
   CreateChunkInput,
   UpdateChunkInput,
   ChunkPatch,
-  ChunkCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class ChunkModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ChunkSelect>(
-    args: FindManyArgs<S, ChunkFilter, ChunkCondition, ChunkOrderBy> & {
+    args: FindManyArgs<S, ChunkFilter, ChunkOrderBy> & {
       select: S;
     } & StrictSelect<S, ChunkSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class ChunkModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class ChunkModel {
       },
       'ChunkFilter',
       'ChunkOrderBy',
-      connectionFieldsMap,
-      'ChunkCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class ChunkModel {
     });
   }
   findFirst<S extends ChunkSelect>(
-    args: FindFirstArgs<S, ChunkFilter, ChunkCondition> & {
+    args: FindFirstArgs<S, ChunkFilter> & {
       select: S;
     } & StrictSelect<S, ChunkSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class ChunkModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'ChunkFilter',
-      connectionFieldsMap,
-      'ChunkCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class ChunkModel {
       },
       'ChunkFilter',
       'ChunkOrderBy',
-      connectionFieldsMap,
-      'ChunkCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

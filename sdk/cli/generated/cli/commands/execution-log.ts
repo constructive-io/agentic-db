@@ -6,17 +6,19 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateExecutionLogInput, ExecutionLogPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
+  sessionId: 'uuid',
   stepName: 'string',
   input: 'string',
   output: 'string',
   toolCalls: 'json',
   durationMs: 'int',
-  sessionId: 'uuid',
 };
 const usage =
   '\nexecution-log <command>\n\nCommands:\n  list                  List all executionLog records\n  get                   Get a executionLog by ID\n  create                Create a new executionLog\n  update                Update an existing executionLog\n  delete                Delete a executionLog\n\n  --help, -h            Show this help message\n';
@@ -39,7 +41,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -74,12 +76,12 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          sessionId: true,
           stepName: true,
           input: true,
           output: true,
           toolCalls: true,
           durationMs: true,
-          sessionId: true,
         },
       })
       .execute();
@@ -105,18 +107,18 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.executionLog
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          sessionId: true,
           stepName: true,
           input: true,
           output: true,
           toolCalls: true,
           durationMs: true,
-          sessionId: true,
         },
       })
       .execute();
@@ -140,66 +142,75 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'sessionId',
+        message: 'sessionId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'stepName',
         message: 'stepName',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'input',
         message: 'input',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'output',
         message: 'output',
         required: false,
+        skipPrompt: true,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'toolCalls',
         message: 'toolCalls',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'durationMs',
         message: 'durationMs',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'sessionId',
-        message: 'sessionId',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(
+      answers,
+      fieldSchema
+    ) as CreateExecutionLogInput['executionLog'];
     const client = getClient();
     const result = await client.executionLog
       .create({
         data: {
           entityId: cleanedData.entityId,
+          sessionId: cleanedData.sessionId,
           stepName: cleanedData.stepName,
           input: cleanedData.input,
           output: cleanedData.output,
           toolCalls: cleanedData.toolCalls,
           durationMs: cleanedData.durationMs,
-          sessionId: cleanedData.sessionId,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          sessionId: true,
           stepName: true,
           input: true,
           output: true,
           toolCalls: true,
           durationMs: true,
-          sessionId: true,
         },
       })
       .execute();
@@ -229,43 +240,49 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'sessionId',
+        message: 'sessionId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'stepName',
         message: 'stepName',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'input',
         message: 'input',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'output',
         message: 'output',
         required: false,
+        skipPrompt: true,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'toolCalls',
         message: 'toolCalls',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'durationMs',
         message: 'durationMs',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'sessionId',
-        message: 'sessionId',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as ExecutionLogPatch;
     const client = getClient();
     const result = await client.executionLog
       .update({
@@ -274,24 +291,24 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           entityId: cleanedData.entityId,
+          sessionId: cleanedData.sessionId,
           stepName: cleanedData.stepName,
           input: cleanedData.input,
           output: cleanedData.output,
           toolCalls: cleanedData.toolCalls,
           durationMs: cleanedData.durationMs,
-          sessionId: cleanedData.sessionId,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          sessionId: true,
           stepName: true,
           input: true,
           output: true,
           toolCalls: true,
           durationMs: true,
-          sessionId: true,
         },
       })
       .execute();

@@ -25,7 +25,7 @@ agent-os venue-image list
 ### Create a venueImage
 
 ```bash
-agent-os venue-image create --venueId "value" --imageId "value" --entityId "value"
+agent-os venue-image create --venueId <value> --imageId <value> --entityId <value>
 ```
 
 ### Get a venueImage by id

@@ -32,13 +32,12 @@ import type {
   CreateTaskInput,
   UpdateTaskInput,
   TaskPatch,
-  TaskCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class TaskModel {
   constructor(private client: OrmClient) {}
   findMany<S extends TaskSelect>(
-    args: FindManyArgs<S, TaskFilter, TaskCondition, TaskOrderBy> & {
+    args: FindManyArgs<S, TaskFilter, TaskOrderBy> & {
       select: S;
     } & StrictSelect<S, TaskSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class TaskModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class TaskModel {
       },
       'TaskFilter',
       'TaskOrderBy',
-      connectionFieldsMap,
-      'TaskCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class TaskModel {
     });
   }
   findFirst<S extends TaskSelect>(
-    args: FindFirstArgs<S, TaskFilter, TaskCondition> & {
+    args: FindFirstArgs<S, TaskFilter> & {
       select: S;
     } & StrictSelect<S, TaskSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class TaskModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'TaskFilter',
-      connectionFieldsMap,
-      'TaskCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class TaskModel {
       },
       'TaskFilter',
       'TaskOrderBy',
-      connectionFieldsMap,
-      'TaskCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

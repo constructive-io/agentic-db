@@ -32,13 +32,12 @@ import type {
   CreateChatInput,
   UpdateChatInput,
   ChatPatch,
-  ChatCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class ChatModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ChatSelect>(
-    args: FindManyArgs<S, ChatFilter, ChatCondition, ChatOrderBy> & {
+    args: FindManyArgs<S, ChatFilter, ChatOrderBy> & {
       select: S;
     } & StrictSelect<S, ChatSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class ChatModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class ChatModel {
       },
       'ChatFilter',
       'ChatOrderBy',
-      connectionFieldsMap,
-      'ChatCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class ChatModel {
     });
   }
   findFirst<S extends ChatSelect>(
-    args: FindFirstArgs<S, ChatFilter, ChatCondition> & {
+    args: FindFirstArgs<S, ChatFilter> & {
       select: S;
     } & StrictSelect<S, ChatSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class ChatModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'ChatFilter',
-      connectionFieldsMap,
-      'ChatCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class ChatModel {
       },
       'ChatFilter',
       'ChatOrderBy',
-      connectionFieldsMap,
-      'ChatCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

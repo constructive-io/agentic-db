@@ -9,7 +9,7 @@ ORM operations for Expense records
 ```typescript
 db.expense.findMany({ select: { id: true } }).execute()
 db.expense.findOne({ id: '<value>', select: { id: true } }).execute()
-db.expense.create({ data: { entityId: '<value>', amount: '<value>', currency: '<value>', date: '<value>', category: '<value>', description: '<value>', merchant: '<value>', receiptUrl: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.expense.create({ data: { entityId: '<value>', amount: '<value>', currency: '<value>', date: '<value>', category: '<value>', description: '<value>', merchant: '<value>', receiptUrl: '<value>', isRecurring: '<value>', tags: '<value>' }, select: { id: true } }).execute()
 db.expense.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.expense.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.expense.findMany({
 
 ```typescript
 const item = await db.expense.create({
-  data: { entityId: 'value', amount: 'value', currency: 'value', date: 'value', category: 'value', description: 'value', merchant: 'value', receiptUrl: 'value', tags: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', amount: 'value', currency: 'value', date: 'value', category: 'value', description: 'value', merchant: 'value', receiptUrl: 'value', isRecurring: 'value', tags: 'value' },
   select: { id: true }
 }).execute();
 ```

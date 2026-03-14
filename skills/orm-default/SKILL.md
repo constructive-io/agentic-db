@@ -1,13 +1,13 @@
 ---
 name: orm-default
-description: ORM client for the default API — provides typed CRUD operations for 35 tables and 0 custom operations
+description: ORM client for the default API — provides typed CRUD operations for 80 tables and 0 custom operations
 ---
 
 # orm-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-ORM client for the default API — provides typed CRUD operations for 35 tables and 0 custom operations
+ORM client for the default API — provides typed CRUD operations for 80 tables and 0 custom operations
 
 ## Usage
 
@@ -15,7 +15,7 @@ ORM client for the default API — provides typed CRUD operations for 35 tables 
 // Import the ORM client
 import { db } from './orm';
 
-// Available models: companyEvent, companyImage, contactCompany, contactEvent, contactImage, dealContact, eventImage, eventVenue, ...
+// Available models: agentPrompt, process, scheduledJob, agentTool, agentSkill, agentRule, calendarEventContact, calendarEvent, ...
 db.<model>.findMany({ select: { id: true } }).execute()
 db.<model>.findOne({ id: '<value>', select: { id: true } }).execute()
 db.<model>.create({ data: { ... }, select: { id: true } }).execute()
@@ -28,7 +28,7 @@ db.<model>.delete({ where: { id: '<value>' } }).execute()
 ### Query records
 
 ```typescript
-const items = await db.companyEvent.findMany({
+const items = await db.agentPrompt.findMany({
   select: { id: true }
 }).execute();
 ```
@@ -37,6 +37,15 @@ const items = await db.companyEvent.findMany({
 
 See the `references/` directory for detailed per-entity API documentation:
 
+- [agent-prompt](references/agent-prompt.md)
+- [process](references/process.md)
+- [scheduled-job](references/scheduled-job.md)
+- [agent-tool](references/agent-tool.md)
+- [agent-skill](references/agent-skill.md)
+- [agent-rule](references/agent-rule.md)
+- [calendar-event-contact](references/calendar-event-contact.md)
+- [calendar-event](references/calendar-event.md)
+- [interaction](references/interaction.md)
 - [company-event](references/company-event.md)
 - [company-image](references/company-image.md)
 - [contact-company](references/contact-company.md)
@@ -45,30 +54,66 @@ See the `references/` directory for detailed per-entity API documentation:
 - [deal-contact](references/deal-contact.md)
 - [event-image](references/event-image.md)
 - [event-venue](references/event-venue.md)
-- [venue-image](references/venue-image.md)
-- [calendar-sync](references/calendar-sync.md)
-- [file](references/file.md)
-- [email-account](references/email-account.md)
-- [execution-log](references/execution-log.md)
-- [chat](references/chat.md)
-- [project](references/project.md)
-- [repository](references/repository.md)
-- [session](references/session.md)
-- [blueprint](references/blueprint.md)
-- [image](references/image.md)
+- [expense-contact](references/expense-contact.md)
+- [goal-habit](references/goal-habit.md)
+- [habit-log](references/habit-log.md)
+- [goal-project](references/goal-project.md)
 - [milestone](references/milestone.md)
-- [chat-message](references/chat-message.md)
+- [project-contact](references/project-contact.md)
+- [task-contact](references/task-contact.md)
+- [venue-image](references/venue-image.md)
+- [file](references/file.md)
 - [chunk](references/chunk.md)
-- [memory](references/memory.md)
+- [calendar-account](references/calendar-account.md)
+- [tag](references/tag.md)
+- [feedback](references/feedback.md)
+- [attachment](references/attachment.md)
+- [email-account](references/email-account.md)
+- [message](references/message.md)
+- [activity-log](references/activity-log.md)
+- [user-setting](references/user-setting.md)
+- [execution-log](references/execution-log.md)
+- [webhook](references/webhook.md)
+- [notification](references/notification.md)
+- [workflow-run](references/workflow-run.md)
+- [workflow-step](references/workflow-step.md)
+- [integration](references/integration.md)
+- [skill-execution](references/skill-execution.md)
+- [chat](references/chat.md)
+- [chat-message](references/chat-message.md)
+- [thread](references/thread.md)
+- [session](references/session.md)
+- [reminder](references/reminder.md)
+- [image](references/image.md)
+- [list-item](references/list-item.md)
+- [company-link](references/company-link.md)
+- [contact-link](references/contact-link.md)
+- [event-link](references/event-link.md)
+- [venue-link](references/venue-link.md)
+- [habit](references/habit.md)
+- [workflow](references/workflow.md)
+- [expense](references/expense.md)
+- [billing-subscription](references/billing-subscription.md)
+- [idea](references/idea.md)
+- [list](references/list.md)
+- [note](references/note.md)
+- [repository](references/repository.md)
 - [deal](references/deal.md)
-- [document](references/document.md)
-- [task](references/task.md)
+- [goal](references/goal.md)
+- [prompt](references/prompt.md)
+- [blueprint](references/blueprint.md)
+- [template](references/template.md)
+- [tool](references/tool.md)
+- [memory](references/memory.md)
+- [recipe](references/recipe.md)
+- [trip](references/trip.md)
 - [rule](references/rule.md)
 - [skill](references/skill.md)
-- [expense](references/expense.md)
-- [note](references/note.md)
+- [agent](references/agent.md)
+- [task](references/task.md)
+- [project](references/project.md)
+- [document](references/document.md)
 - [company](references/company.md)
-- [venue](references/venue.md)
-- [contact](references/contact.md)
 - [event](references/event.md)
-- [message](references/message.md)
+- [contact](references/contact.md)
+- [venue](references/venue.md)

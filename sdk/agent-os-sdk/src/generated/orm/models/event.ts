@@ -32,13 +32,12 @@ import type {
   CreateEventInput,
   UpdateEventInput,
   EventPatch,
-  EventCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class EventModel {
   constructor(private client: OrmClient) {}
   findMany<S extends EventSelect>(
-    args: FindManyArgs<S, EventFilter, EventCondition, EventOrderBy> & {
+    args: FindManyArgs<S, EventFilter, EventOrderBy> & {
       select: S;
     } & StrictSelect<S, EventSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class EventModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class EventModel {
       },
       'EventFilter',
       'EventOrderBy',
-      connectionFieldsMap,
-      'EventCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class EventModel {
     });
   }
   findFirst<S extends EventSelect>(
-    args: FindFirstArgs<S, EventFilter, EventCondition> & {
+    args: FindFirstArgs<S, EventFilter> & {
       select: S;
     } & StrictSelect<S, EventSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class EventModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'EventFilter',
-      connectionFieldsMap,
-      'EventCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class EventModel {
       },
       'EventFilter',
       'EventOrderBy',
-      connectionFieldsMap,
-      'EventCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

@@ -25,7 +25,7 @@ agent-os event-image list
 ### Create a eventImage
 
 ```bash
-agent-os event-image create --eventId "value" --imageId "value" --entityId "value"
+agent-os event-image create --eventId <value> --imageId <value> --entityId <value>
 ```
 
 ### Get a eventImage by id

@@ -204,7 +204,6 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'chat_messages', column: 'thread_id', method: 'btree' },
   { table: 'chat_messages', column: 'role', method: 'btree' },
   { table: 'threads', column: 'status', method: 'btree' },
-  { table: 'threads', column: 'chat_id', method: 'btree' },
   { table: 'threads', column: 'parent_thread_id', method: 'btree' },
   { table: 'processes', column: 'agent_id', method: 'btree' },
   { table: 'processes', column: 'status', method: 'btree' },

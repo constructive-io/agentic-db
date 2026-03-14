@@ -25,7 +25,7 @@ agent-os event-venue list
 ### Create a eventVenue
 
 ```bash
-agent-os event-venue create --eventId "value" --venueId "value" --entityId "value"
+agent-os event-venue create --eventId <value> --venueId <value> --entityId <value>
 ```
 
 ### Get a eventVenue by id

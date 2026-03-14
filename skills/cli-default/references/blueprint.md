@@ -9,8 +9,8 @@ CRUD operations for Blueprint records via agent-os CLI
 ```bash
 agent-os blueprint list
 agent-os blueprint get --id <value>
-agent-os blueprint create --entityId <value> --title <value> --steps <value> --triggerConditions <value> --embedding <value> --embeddingDistance <value>
-agent-os blueprint update --id <value> [--entityId <value>] [--title <value>] [--steps <value>] [--triggerConditions <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-os blueprint create --entityId <value> --title <value> --embeddingDistance <value> [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-os blueprint update --id <value> [--entityId <value>] [--title <value>] [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
 agent-os blueprint delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-os blueprint list
 ### Create a blueprint
 
 ```bash
-agent-os blueprint create --entityId "value" --title "value" --steps "value" --triggerConditions "value" --embedding "value" --embeddingDistance "value"
+agent-os blueprint create --entityId <value> --title <value> --embeddingDistance <value> [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a blueprint by id

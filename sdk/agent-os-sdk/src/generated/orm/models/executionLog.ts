@@ -32,13 +32,12 @@ import type {
   CreateExecutionLogInput,
   UpdateExecutionLogInput,
   ExecutionLogPatch,
-  ExecutionLogCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class ExecutionLogModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ExecutionLogSelect>(
-    args: FindManyArgs<S, ExecutionLogFilter, ExecutionLogCondition, ExecutionLogOrderBy> & {
+    args: FindManyArgs<S, ExecutionLogFilter, ExecutionLogOrderBy> & {
       select: S;
     } & StrictSelect<S, ExecutionLogSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class ExecutionLogModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class ExecutionLogModel {
       },
       'ExecutionLogFilter',
       'ExecutionLogOrderBy',
-      connectionFieldsMap,
-      'ExecutionLogCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class ExecutionLogModel {
     });
   }
   findFirst<S extends ExecutionLogSelect>(
-    args: FindFirstArgs<S, ExecutionLogFilter, ExecutionLogCondition> & {
+    args: FindFirstArgs<S, ExecutionLogFilter> & {
       select: S;
     } & StrictSelect<S, ExecutionLogSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class ExecutionLogModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'ExecutionLogFilter',
-      connectionFieldsMap,
-      'ExecutionLogCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class ExecutionLogModel {
       },
       'ExecutionLogFilter',
       'ExecutionLogOrderBy',
-      connectionFieldsMap,
-      'ExecutionLogCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

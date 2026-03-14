@@ -5,7 +5,7 @@ async function main() {
   const question = process.argv.slice(2).join(' ');
   
   if (!question) {
-    console.log('\nUsage: pnpm --filter @agentic-sdk/rag run ask "<question>"\n');
+    console.log('\nUsage: pnpm --filter @agentic-db/rag run ask "<question>"\n');
     process.exit(0);
   }
 

@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateExpenseInput, ExpensePatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -18,9 +20,8 @@ const fieldSchema = {
   description: 'string',
   merchant: 'string',
   receiptUrl: 'string',
+  isRecurring: 'boolean',
   tags: 'string',
-  embedding: 'string',
-  embeddingDistance: 'float',
 };
 const usage =
   '\nexpense <command>\n\nCommands:\n  list                  List all expense records\n  get                   Get a expense by ID\n  create                Create a new expense\n  update                Update an existing expense\n  delete                Delete a expense\n\n  --help, -h            Show this help message\n';
@@ -43,7 +44,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -85,9 +86,8 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           description: true,
           merchant: true,
           receiptUrl: true,
+          isRecurring: true,
           tags: true,
-          embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -113,7 +113,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.expense
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -126,9 +126,8 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           description: true,
           merchant: true,
           receiptUrl: true,
+          isRecurring: true,
           tags: true,
-          embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -155,64 +154,67 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'amount',
         message: 'amount',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'currency',
         message: 'currency',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'date',
         message: 'date',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'category',
         message: 'category',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'merchant',
         message: 'merchant',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'receiptUrl',
         message: 'receiptUrl',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
+        name: 'isRecurring',
+        message: 'isRecurring',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embedding',
-        message: 'embedding',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateExpenseInput['expense'];
     const client = getClient();
     const result = await client.expense
       .create({
@@ -225,9 +227,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           description: cleanedData.description,
           merchant: cleanedData.merchant,
           receiptUrl: cleanedData.receiptUrl,
+          isRecurring: cleanedData.isRecurring,
           tags: cleanedData.tags,
-          embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -241,9 +242,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           description: true,
           merchant: true,
           receiptUrl: true,
+          isRecurring: true,
           tags: true,
-          embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -276,64 +276,67 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'amount',
         message: 'amount',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'currency',
         message: 'currency',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'date',
         message: 'date',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'category',
         message: 'category',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'merchant',
         message: 'merchant',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'receiptUrl',
         message: 'receiptUrl',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
+        name: 'isRecurring',
+        message: 'isRecurring',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embedding',
-        message: 'embedding',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as ExpensePatch;
     const client = getClient();
     const result = await client.expense
       .update({
@@ -349,9 +352,8 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           description: cleanedData.description,
           merchant: cleanedData.merchant,
           receiptUrl: cleanedData.receiptUrl,
+          isRecurring: cleanedData.isRecurring,
           tags: cleanedData.tags,
-          embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -365,9 +367,8 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           description: true,
           merchant: true,
           receiptUrl: true,
+          isRecurring: true,
           tags: true,
-          embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

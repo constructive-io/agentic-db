@@ -6,18 +6,30 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateSkillInput, SkillPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
   name: 'string',
+  slug: 'string',
   description: 'string',
   content: 'string',
+  procedure: 'string',
+  interface: 'json',
+  requirements: 'json',
+  filePath: 'string',
+  contentHash: 'string',
+  category: 'string',
   isActive: 'boolean',
   tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
+  intentTrigger: 'string',
   embeddingDistance: 'float',
+  intentTriggerDistance: 'float',
 };
 const usage =
   '\nskill <command>\n\nCommands:\n  list                  List all skill records\n  get                   Get a skill by ID\n  create                Create a new skill\n  update                Update an existing skill\n  delete                Delete a skill\n\n  --help, -h            Show this help message\n';
@@ -40,7 +52,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -76,12 +88,22 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           createdAt: true,
           updatedAt: true,
           name: true,
+          slug: true,
           description: true,
           content: true,
+          procedure: true,
+          interface: true,
+          requirements: true,
+          filePath: true,
+          contentHash: true,
+          category: true,
           isActive: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          intentTrigger: true,
           embeddingDistance: true,
+          intentTriggerDistance: true,
         },
       })
       .execute();
@@ -107,19 +129,29 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.skill
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
           name: true,
+          slug: true,
           description: true,
           content: true,
+          procedure: true,
+          interface: true,
+          requirements: true,
+          filePath: true,
+          contentHash: true,
+          category: true,
           isActive: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          intentTrigger: true,
           embeddingDistance: true,
+          intentTriggerDistance: true,
         },
       })
       .execute();
@@ -149,55 +181,125 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'slug',
+        message: 'slug',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'content',
         message: 'content',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
+        name: 'procedure',
+        message: 'procedure',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'json',
+        name: 'interface',
+        message: 'interface',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'json',
+        name: 'requirements',
+        message: 'requirements',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'filePath',
+        message: 'filePath',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'contentHash',
+        message: 'contentHash',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'category',
+        message: 'category',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
         name: 'isActive',
         message: 'isActive',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        name: 'intentTrigger',
+        message: 'intentTrigger',
+        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateSkillInput['skill'];
     const client = getClient();
     const result = await client.skill
       .create({
         data: {
           entityId: cleanedData.entityId,
           name: cleanedData.name,
+          slug: cleanedData.slug,
           description: cleanedData.description,
           content: cleanedData.content,
+          procedure: cleanedData.procedure,
+          interface: cleanedData.interface,
+          requirements: cleanedData.requirements,
+          filePath: cleanedData.filePath,
+          contentHash: cleanedData.contentHash,
+          category: cleanedData.category,
           isActive: cleanedData.isActive,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
+          intentTrigger: cleanedData.intentTrigger,
         },
         select: {
           id: true,
@@ -205,12 +307,22 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           createdAt: true,
           updatedAt: true,
           name: true,
+          slug: true,
           description: true,
           content: true,
+          procedure: true,
+          interface: true,
+          requirements: true,
+          filePath: true,
+          contentHash: true,
+          category: true,
           isActive: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          intentTrigger: true,
           embeddingDistance: true,
+          intentTriggerDistance: true,
         },
       })
       .execute();
@@ -246,43 +358,105 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'slug',
+        message: 'slug',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'content',
         message: 'content',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
+        name: 'procedure',
+        message: 'procedure',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'json',
+        name: 'interface',
+        message: 'interface',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'json',
+        name: 'requirements',
+        message: 'requirements',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'filePath',
+        message: 'filePath',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'contentHash',
+        message: 'contentHash',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'category',
+        message: 'category',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
         name: 'isActive',
         message: 'isActive',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
+        name: 'intentTrigger',
+        message: 'intentTrigger',
         required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as SkillPatch;
     const client = getClient();
     const result = await client.skill
       .update({
@@ -292,12 +466,20 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         data: {
           entityId: cleanedData.entityId,
           name: cleanedData.name,
+          slug: cleanedData.slug,
           description: cleanedData.description,
           content: cleanedData.content,
+          procedure: cleanedData.procedure,
+          interface: cleanedData.interface,
+          requirements: cleanedData.requirements,
+          filePath: cleanedData.filePath,
+          contentHash: cleanedData.contentHash,
+          category: cleanedData.category,
           isActive: cleanedData.isActive,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
+          intentTrigger: cleanedData.intentTrigger,
         },
         select: {
           id: true,
@@ -305,12 +487,22 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           createdAt: true,
           updatedAt: true,
           name: true,
+          slug: true,
           description: true,
           content: true,
+          procedure: true,
+          interface: true,
+          requirements: true,
+          filePath: true,
+          contentHash: true,
+          category: true,
           isActive: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          intentTrigger: true,
           embeddingDistance: true,
+          intentTriggerDistance: true,
         },
       })
       .execute();

@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateVenueImageInput, VenueImagePatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   venueId: 'uuid',
   imageId: 'uuid',
   id: 'uuid',
@@ -33,7 +35,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -93,7 +95,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.venueImage
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           venueId: true,
           imageId: true,
@@ -134,7 +136,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateVenueImageInput['venueImage'];
     const client = getClient();
     const result = await client.venueImage
       .create({
@@ -189,7 +191,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as VenueImagePatch;
     const client = getClient();
     const result = await client.venueImage
       .update({

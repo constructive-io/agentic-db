@@ -32,13 +32,12 @@ import type {
   CreateDealContactInput,
   UpdateDealContactInput,
   DealContactPatch,
-  DealContactCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class DealContactModel {
   constructor(private client: OrmClient) {}
   findMany<S extends DealContactSelect>(
-    args: FindManyArgs<S, DealContactFilter, DealContactCondition, DealContactOrderBy> & {
+    args: FindManyArgs<S, DealContactFilter, DealContactOrderBy> & {
       select: S;
     } & StrictSelect<S, DealContactSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class DealContactModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class DealContactModel {
       },
       'DealContactFilter',
       'DealContactOrderBy',
-      connectionFieldsMap,
-      'DealContactCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class DealContactModel {
     });
   }
   findFirst<S extends DealContactSelect>(
-    args: FindFirstArgs<S, DealContactFilter, DealContactCondition> & {
+    args: FindFirstArgs<S, DealContactFilter> & {
       select: S;
     } & StrictSelect<S, DealContactSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class DealContactModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'DealContactFilter',
-      connectionFieldsMap,
-      'DealContactCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class DealContactModel {
       },
       'DealContactFilter',
       'DealContactOrderBy',
-      connectionFieldsMap,
-      'DealContactCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

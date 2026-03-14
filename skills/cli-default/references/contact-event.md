@@ -25,7 +25,7 @@ agent-os contact-event list
 ### Create a contactEvent
 
 ```bash
-agent-os contact-event create --contactId "value" --eventId "value" --entityId "value"
+agent-os contact-event create --contactId <value> --eventId <value> --entityId <value>
 ```
 
 ### Get a contactEvent by id

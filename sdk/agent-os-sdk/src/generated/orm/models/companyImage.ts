@@ -32,13 +32,12 @@ import type {
   CreateCompanyImageInput,
   UpdateCompanyImageInput,
   CompanyImagePatch,
-  CompanyImageCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class CompanyImageModel {
   constructor(private client: OrmClient) {}
   findMany<S extends CompanyImageSelect>(
-    args: FindManyArgs<S, CompanyImageFilter, CompanyImageCondition, CompanyImageOrderBy> & {
+    args: FindManyArgs<S, CompanyImageFilter, CompanyImageOrderBy> & {
       select: S;
     } & StrictSelect<S, CompanyImageSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class CompanyImageModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class CompanyImageModel {
       },
       'CompanyImageFilter',
       'CompanyImageOrderBy',
-      connectionFieldsMap,
-      'CompanyImageCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class CompanyImageModel {
     });
   }
   findFirst<S extends CompanyImageSelect>(
-    args: FindFirstArgs<S, CompanyImageFilter, CompanyImageCondition> & {
+    args: FindFirstArgs<S, CompanyImageFilter> & {
       select: S;
     } & StrictSelect<S, CompanyImageSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class CompanyImageModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'CompanyImageFilter',
-      connectionFieldsMap,
-      'CompanyImageCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class CompanyImageModel {
       },
       'CompanyImageFilter',
       'CompanyImageOrderBy',
-      connectionFieldsMap,
-      'CompanyImageCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

@@ -9,8 +9,8 @@ CRUD operations for Contact records via agent-os CLI
 ```bash
 agent-os contact list
 agent-os contact get --id <value>
-agent-os contact create --entityId <value> --firstName <value> --lastName <value> --email <value> --phone <value> --headline <value> --bio <value> --location <value> --tags <value> --embedding <value> --mainImageId <value> --imageId <value> --searchTsv <value> --searchTsvRank <value> --embeddingDistance <value>
-agent-os contact update --id <value> [--entityId <value>] [--firstName <value>] [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--tags <value>] [--embedding <value>] [--mainImageId <value>] [--imageId <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+agent-os contact create --entityId <value> --firstName <value> --searchTsvRank <value> --embeddingDistance <value> [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+agent-os contact update --id <value> [--entityId <value>] [--firstName <value>] [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
 agent-os contact delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-os contact list
 ### Create a contact
 
 ```bash
-agent-os contact create --entityId "value" --firstName "value" --lastName "value" --email "value" --phone "value" --headline "value" --bio "value" --location "value" --tags "value" --embedding "value" --mainImageId "value" --imageId "value" --searchTsv "value" --searchTsvRank "value" --embeddingDistance "value"
+agent-os contact create --entityId <value> --firstName <value> --searchTsvRank <value> --embeddingDistance <value> [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
 ```
 
 ### Get a contact by id

@@ -1,5 +1,5 @@
 {
-  "name": "@agentic-sdk/jobs",
+  "name": "@agentic-db/jobs",
   "version": "0.0.1",
   "private": true,
   "scripts": {

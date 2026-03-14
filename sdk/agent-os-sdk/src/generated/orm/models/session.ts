@@ -32,13 +32,12 @@ import type {
   CreateSessionInput,
   UpdateSessionInput,
   SessionPatch,
-  SessionCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class SessionModel {
   constructor(private client: OrmClient) {}
   findMany<S extends SessionSelect>(
-    args: FindManyArgs<S, SessionFilter, SessionCondition, SessionOrderBy> & {
+    args: FindManyArgs<S, SessionFilter, SessionOrderBy> & {
       select: S;
     } & StrictSelect<S, SessionSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class SessionModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class SessionModel {
       },
       'SessionFilter',
       'SessionOrderBy',
-      connectionFieldsMap,
-      'SessionCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class SessionModel {
     });
   }
   findFirst<S extends SessionSelect>(
-    args: FindFirstArgs<S, SessionFilter, SessionCondition> & {
+    args: FindFirstArgs<S, SessionFilter> & {
       select: S;
     } & StrictSelect<S, SessionSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class SessionModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'SessionFilter',
-      connectionFieldsMap,
-      'SessionCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class SessionModel {
       },
       'SessionFilter',
       'SessionOrderBy',
-      connectionFieldsMap,
-      'SessionCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

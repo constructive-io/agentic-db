@@ -27,7 +27,7 @@ export default async (
         options: ['set-token', 'status', 'logout'],
       },
     ]);
-    return handleAuthSubcommand(answer.subcommand, newArgv, prompter, store);
+    return handleAuthSubcommand(answer.subcommand as string, newArgv, prompter, store);
   }
   return handleAuthSubcommand(subcommand, newArgv, prompter, store);
 };
@@ -70,7 +70,7 @@ async function handleSetToken(
         required: true,
       },
     ]);
-    tokenValue = answer.token;
+    tokenValue = answer.token as string;
   }
   store.setCredentials(current.name, {
     token: String(tokenValue || '').trim(),
@@ -111,7 +111,7 @@ async function handleLogout(
       default: false,
     },
   ]);
-  if (!confirm.confirm) {
+  if (!(confirm.confirm as boolean)) {
     return;
   }
   if (store.removeCredentials(current.name)) {

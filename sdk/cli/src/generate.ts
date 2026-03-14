@@ -1,7 +1,7 @@
 /**
  * generate.ts — Generate CLI from schema files
  * 
- * Run with: pnpm --filter @agentic-sdk/cli run generate
+ * Run with: pnpm --filter @agentic-db/cli run generate
  */
 
 import * as path from 'path';
@@ -15,7 +15,7 @@ async function main() {
 
   if (!fs.existsSync(schemaFile)) {
     console.error('❌ Schema not found:', schemaFile);
-    console.error('   Run: pnpm --filter @agentic-sdk/schemas run export');
+    console.error('   Run: pnpm --filter @agentic-db/schemas run export');
     process.exit(1);
   }
 

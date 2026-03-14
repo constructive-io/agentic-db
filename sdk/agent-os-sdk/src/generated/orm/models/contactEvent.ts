@@ -32,13 +32,12 @@ import type {
   CreateContactEventInput,
   UpdateContactEventInput,
   ContactEventPatch,
-  ContactEventCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class ContactEventModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ContactEventSelect>(
-    args: FindManyArgs<S, ContactEventFilter, ContactEventCondition, ContactEventOrderBy> & {
+    args: FindManyArgs<S, ContactEventFilter, ContactEventOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactEventSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class ContactEventModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class ContactEventModel {
       },
       'ContactEventFilter',
       'ContactEventOrderBy',
-      connectionFieldsMap,
-      'ContactEventCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class ContactEventModel {
     });
   }
   findFirst<S extends ContactEventSelect>(
-    args: FindFirstArgs<S, ContactEventFilter, ContactEventCondition> & {
+    args: FindFirstArgs<S, ContactEventFilter> & {
       select: S;
     } & StrictSelect<S, ContactEventSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class ContactEventModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'ContactEventFilter',
-      connectionFieldsMap,
-      'ContactEventCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class ContactEventModel {
       },
       'ContactEventFilter',
       'ContactEventOrderBy',
-      connectionFieldsMap,
-      'ContactEventCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

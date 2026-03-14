@@ -32,13 +32,12 @@ import type {
   CreateContactCompanyInput,
   UpdateContactCompanyInput,
   ContactCompanyPatch,
-  ContactCompanyCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class ContactCompanyModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ContactCompanySelect>(
-    args: FindManyArgs<S, ContactCompanyFilter, ContactCompanyCondition, ContactCompanyOrderBy> & {
+    args: FindManyArgs<S, ContactCompanyFilter, ContactCompanyOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactCompanySelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class ContactCompanyModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class ContactCompanyModel {
       },
       'ContactCompanyFilter',
       'ContactCompanyOrderBy',
-      connectionFieldsMap,
-      'ContactCompanyCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class ContactCompanyModel {
     });
   }
   findFirst<S extends ContactCompanySelect>(
-    args: FindFirstArgs<S, ContactCompanyFilter, ContactCompanyCondition> & {
+    args: FindFirstArgs<S, ContactCompanyFilter> & {
       select: S;
     } & StrictSelect<S, ContactCompanySelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class ContactCompanyModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'ContactCompanyFilter',
-      connectionFieldsMap,
-      'ContactCompanyCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class ContactCompanyModel {
       },
       'ContactCompanyFilter',
       'ContactCompanyOrderBy',
-      connectionFieldsMap,
-      'ContactCompanyCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

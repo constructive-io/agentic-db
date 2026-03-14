@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateRuleInput, RulePatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -14,10 +16,16 @@ const fieldSchema = {
   title: 'string',
   content: 'string',
   kind: 'string',
+  severity: 'string',
   isActive: 'boolean',
+  slug: 'string',
+  verification: 'string',
   tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
+  triggerConcept: 'string',
   embeddingDistance: 'float',
+  triggerConceptDistance: 'float',
 };
 const usage =
   '\nrule <command>\n\nCommands:\n  list                  List all rule records\n  get                   Get a rule by ID\n  create                Create a new rule\n  update                Update an existing rule\n  delete                Delete a rule\n\n  --help, -h            Show this help message\n';
@@ -40,7 +48,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -78,10 +86,16 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           title: true,
           content: true,
           kind: true,
+          severity: true,
           isActive: true,
+          slug: true,
+          verification: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          triggerConcept: true,
           embeddingDistance: true,
+          triggerConceptDistance: true,
         },
       })
       .execute();
@@ -107,7 +121,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.rule
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -116,10 +130,16 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           title: true,
           content: true,
           kind: true,
+          severity: true,
           isActive: true,
+          slug: true,
+          verification: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          triggerConcept: true,
           embeddingDistance: true,
+          triggerConceptDistance: true,
         },
       })
       .execute();
@@ -152,40 +172,74 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'content',
         message: 'content',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'kind',
         message: 'kind',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
+        name: 'severity',
+        message: 'severity',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
         name: 'isActive',
         message: 'isActive',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'slug',
+        message: 'slug',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'verification',
+        message: 'verification',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        name: 'triggerConcept',
+        message: 'triggerConcept',
+        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateRuleInput['rule'];
     const client = getClient();
     const result = await client.rule
       .create({
@@ -194,10 +248,14 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           title: cleanedData.title,
           content: cleanedData.content,
           kind: cleanedData.kind,
+          severity: cleanedData.severity,
           isActive: cleanedData.isActive,
+          slug: cleanedData.slug,
+          verification: cleanedData.verification,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
+          triggerConcept: cleanedData.triggerConcept,
         },
         select: {
           id: true,
@@ -207,10 +265,16 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           title: true,
           content: true,
           kind: true,
+          severity: true,
           isActive: true,
+          slug: true,
+          verification: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          triggerConcept: true,
           embeddingDistance: true,
+          triggerConceptDistance: true,
         },
       })
       .execute();
@@ -249,40 +313,74 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'content',
         message: 'content',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'kind',
         message: 'kind',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
+        name: 'severity',
+        message: 'severity',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
         name: 'isActive',
         message: 'isActive',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'slug',
+        message: 'slug',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'verification',
+        message: 'verification',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
+        name: 'triggerConcept',
+        message: 'triggerConcept',
         required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as RulePatch;
     const client = getClient();
     const result = await client.rule
       .update({
@@ -294,10 +392,14 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           title: cleanedData.title,
           content: cleanedData.content,
           kind: cleanedData.kind,
+          severity: cleanedData.severity,
           isActive: cleanedData.isActive,
+          slug: cleanedData.slug,
+          verification: cleanedData.verification,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
+          triggerConcept: cleanedData.triggerConcept,
         },
         select: {
           id: true,
@@ -307,10 +409,16 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           title: true,
           content: true,
           kind: true,
+          severity: true,
           isActive: true,
+          slug: true,
+          verification: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          triggerConcept: true,
           embeddingDistance: true,
+          triggerConceptDistance: true,
         },
       })
       .execute();

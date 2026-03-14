@@ -25,7 +25,7 @@ agent-os deal-contact list
 ### Create a dealContact
 
 ```bash
-agent-os deal-contact create --dealId "value" --contactId "value" --entityId "value"
+agent-os deal-contact create --dealId <value> --contactId <value> --entityId <value>
 ```
 
 ### Get a dealContact by id

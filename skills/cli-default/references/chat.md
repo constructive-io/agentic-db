@@ -9,8 +9,8 @@ CRUD operations for Chat records via agent-os CLI
 ```bash
 agent-os chat list
 agent-os chat get --id <value>
-agent-os chat create --entityId <value> --title <value> --startedAt <value> --embedding <value> --embeddingDistance <value>
-agent-os chat update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-os chat create --entityId <value> --embeddingDistance <value> [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>]
+agent-os chat update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
 agent-os chat delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-os chat list
 ### Create a chat
 
 ```bash
-agent-os chat create --entityId "value" --title "value" --startedAt "value" --embedding "value" --embeddingDistance "value"
+agent-os chat create --entityId <value> --embeddingDistance <value> [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a chat by id

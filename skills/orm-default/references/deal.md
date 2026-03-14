@@ -9,7 +9,7 @@ ORM operations for Deal records
 ```typescript
 db.deal.findMany({ select: { id: true } }).execute()
 db.deal.findOne({ id: '<value>', select: { id: true } }).execute()
-db.deal.create({ data: { entityId: '<value>', name: '<value>', stage: '<value>', value: '<value>', notes: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.deal.create({ data: { entityId: '<value>', name: '<value>', stage: '<value>', value: '<value>', currency: '<value>', expectedCloseDate: '<value>', notes: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
 db.deal.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.deal.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.deal.findMany({
 
 ```typescript
 const item = await db.deal.create({
-  data: { entityId: 'value', name: 'value', stage: 'value', value: 'value', notes: 'value', tags: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', name: 'value', stage: 'value', value: 'value', currency: 'value', expectedCloseDate: 'value', notes: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
   select: { id: true }
 }).execute();
 ```

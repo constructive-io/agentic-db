@@ -32,13 +32,12 @@ import type {
   CreateEventImageInput,
   UpdateEventImageInput,
   EventImagePatch,
-  EventImageCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class EventImageModel {
   constructor(private client: OrmClient) {}
   findMany<S extends EventImageSelect>(
-    args: FindManyArgs<S, EventImageFilter, EventImageCondition, EventImageOrderBy> & {
+    args: FindManyArgs<S, EventImageFilter, EventImageOrderBy> & {
       select: S;
     } & StrictSelect<S, EventImageSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class EventImageModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class EventImageModel {
       },
       'EventImageFilter',
       'EventImageOrderBy',
-      connectionFieldsMap,
-      'EventImageCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class EventImageModel {
     });
   }
   findFirst<S extends EventImageSelect>(
-    args: FindFirstArgs<S, EventImageFilter, EventImageCondition> & {
+    args: FindFirstArgs<S, EventImageFilter> & {
       select: S;
     } & StrictSelect<S, EventImageSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class EventImageModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'EventImageFilter',
-      connectionFieldsMap,
-      'EventImageCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class EventImageModel {
       },
       'EventImageFilter',
       'EventImageOrderBy',
-      connectionFieldsMap,
-      'EventImageCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

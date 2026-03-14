@@ -189,7 +189,7 @@ export function buildSelections(
 // Document Builders
 // ============================================================================
 
-export function buildFindManyDocument<TSelect, TWhere, TCondition>(
+export function buildFindManyDocument<TSelect, TWhere, TCondition = never>(
   operationName: string,
   queryField: string,
   select: TSelect,
@@ -219,7 +219,6 @@ export function buildFindManyDocument<TSelect, TWhere, TCondition>(
   addVariable(
     {
       varName: 'condition',
-      argName: 'condition',
       typeName: conditionTypeName,
       value: args.condition,
     },
@@ -227,7 +226,6 @@ export function buildFindManyDocument<TSelect, TWhere, TCondition>(
     queryArgs,
     variables
   );
-
   addVariable(
     {
       varName: 'where',
@@ -304,7 +302,7 @@ export function buildFindManyDocument<TSelect, TWhere, TCondition>(
   return { document: print(document), variables };
 }
 
-export function buildFindFirstDocument<TSelect, TWhere, TCondition>(
+export function buildFindFirstDocument<TSelect, TWhere, TCondition = never>(
   operationName: string,
   queryField: string,
   select: TSelect,
@@ -328,11 +326,9 @@ export function buildFindFirstDocument<TSelect, TWhere, TCondition>(
     queryArgs,
     variables
   );
-
   addVariable(
     {
       varName: 'condition',
-      argName: 'condition',
       typeName: conditionTypeName,
       value: args.condition,
     },
@@ -340,7 +336,6 @@ export function buildFindFirstDocument<TSelect, TWhere, TCondition>(
     queryArgs,
     variables
   );
-
   addVariable(
     {
       varName: 'where',
@@ -756,7 +751,7 @@ function buildConnectionSelections(nodeSelections: FieldNode[]): FieldNode[] {
 interface VariableSpec {
   varName: string;
   argName?: string;
-  typeName: string;
+  typeName?: string;
   value: unknown;
 }
 
@@ -807,7 +802,7 @@ function addVariable(
   args: ArgumentNode[],
   variables: Record<string, unknown>
 ): void {
-  if (spec.value === undefined) return;
+  if (spec.value === undefined || !spec.typeName) return;
 
   definitions.push(
     t.variableDefinition({

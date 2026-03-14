@@ -6,13 +6,23 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateMemoryInput, MemoryPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
   content: 'string',
+  memoryType: 'string',
+  agentId: 'uuid',
+  importance: 'int',
+  verified: 'boolean',
+  source: 'string',
+  relatedEntityType: 'string',
+  relatedEntityId: 'uuid',
   tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
   embeddingDistance: 'float',
 };
@@ -37,7 +47,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -73,7 +83,15 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           createdAt: true,
           updatedAt: true,
           content: true,
+          memoryType: true,
+          agentId: true,
+          importance: true,
+          verified: true,
+          source: true,
+          relatedEntityType: true,
+          relatedEntityId: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },
@@ -101,14 +119,22 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.memory
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
           content: true,
+          memoryType: true,
+          agentId: true,
+          importance: true,
+          verified: true,
+          source: true,
+          relatedEntityType: true,
+          relatedEntityId: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },
@@ -136,38 +162,97 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         type: 'text',
         name: 'content',
         message: 'content',
+        required: true,
+      },
+      {
+        type: 'text',
+        name: 'memoryType',
+        message: 'memoryType',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'agentId',
+        message: 'agentId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'importance',
+        message: 'importance',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
+        name: 'verified',
+        message: 'verified',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'source',
+        message: 'source',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'relatedEntityType',
+        message: 'relatedEntityType',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'relatedEntityId',
+        message: 'relatedEntityId',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateMemoryInput['memory'];
     const client = getClient();
     const result = await client.memory
       .create({
         data: {
           entityId: cleanedData.entityId,
           content: cleanedData.content,
+          memoryType: cleanedData.memoryType,
+          agentId: cleanedData.agentId,
+          importance: cleanedData.importance,
+          verified: cleanedData.verified,
+          source: cleanedData.source,
+          relatedEntityType: cleanedData.relatedEntityType,
+          relatedEntityId: cleanedData.relatedEntityId,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -175,7 +260,15 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           createdAt: true,
           updatedAt: true,
           content: true,
+          memoryType: true,
+          agentId: true,
+          importance: true,
+          verified: true,
+          source: true,
+          relatedEntityType: true,
+          relatedEntityId: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },
@@ -213,25 +306,77 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'memoryType',
+        message: 'memoryType',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'agentId',
+        message: 'agentId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'importance',
+        message: 'importance',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
+        name: 'verified',
+        message: 'verified',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'source',
+        message: 'source',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'relatedEntityType',
+        message: 'relatedEntityType',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'relatedEntityId',
+        message: 'relatedEntityId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as MemoryPatch;
     const client = getClient();
     const result = await client.memory
       .update({
@@ -241,9 +386,16 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         data: {
           entityId: cleanedData.entityId,
           content: cleanedData.content,
+          memoryType: cleanedData.memoryType,
+          agentId: cleanedData.agentId,
+          importance: cleanedData.importance,
+          verified: cleanedData.verified,
+          source: cleanedData.source,
+          relatedEntityType: cleanedData.relatedEntityType,
+          relatedEntityId: cleanedData.relatedEntityId,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -251,7 +403,15 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           createdAt: true,
           updatedAt: true,
           content: true,
+          memoryType: true,
+          agentId: true,
+          importance: true,
+          verified: true,
+          source: true,
+          relatedEntityType: true,
+          relatedEntityId: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },

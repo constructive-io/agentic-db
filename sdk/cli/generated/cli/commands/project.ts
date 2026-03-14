@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateProjectInput, ProjectPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -16,7 +18,11 @@ const fieldSchema = {
   status: 'string',
   startDate: 'string',
   dueDate: 'string',
+  tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
+  searchTsv: 'string',
+  searchTsvRank: 'float',
   embeddingDistance: 'float',
 };
 const usage =
@@ -40,7 +46,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -80,7 +86,11 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           status: true,
           startDate: true,
           dueDate: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
+          searchTsvRank: true,
           embeddingDistance: true,
         },
       })
@@ -107,7 +117,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.project
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -118,7 +128,11 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           status: true,
           startDate: true,
           dueDate: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
+          searchTsvRank: true,
           embeddingDistance: true,
         },
       })
@@ -152,40 +166,60 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'status',
         message: 'status',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'startDate',
         message: 'startDate',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'dueDate',
         message: 'dueDate',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        name: 'searchTsv',
+        message: 'searchTsv',
+        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateProjectInput['project'];
     const client = getClient();
     const result = await client.project
       .create({
@@ -196,8 +230,10 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           status: cleanedData.status,
           startDate: cleanedData.startDate,
           dueDate: cleanedData.dueDate,
+          tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
+          searchTsv: cleanedData.searchTsv,
         },
         select: {
           id: true,
@@ -209,7 +245,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           status: true,
           startDate: true,
           dueDate: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
+          searchTsvRank: true,
           embeddingDistance: true,
         },
       })
@@ -249,40 +289,60 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'status',
         message: 'status',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'startDate',
         message: 'startDate',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'dueDate',
         message: 'dueDate',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
+        name: 'searchTsv',
+        message: 'searchTsv',
         required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as ProjectPatch;
     const client = getClient();
     const result = await client.project
       .update({
@@ -296,8 +356,10 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           status: cleanedData.status,
           startDate: cleanedData.startDate,
           dueDate: cleanedData.dueDate,
+          tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
+          searchTsv: cleanedData.searchTsv,
         },
         select: {
           id: true,
@@ -309,7 +371,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           status: true,
           startDate: true,
           dueDate: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
+          searchTsvRank: true,
           embeddingDistance: true,
         },
       })

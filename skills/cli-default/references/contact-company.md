@@ -25,7 +25,7 @@ agent-os contact-company list
 ### Create a contactCompany
 
 ```bash
-agent-os contact-company create --contactId "value" --companyId "value" --entityId "value"
+agent-os contact-company create --contactId <value> --companyId <value> --entityId <value>
 ```
 
 ### Get a contactCompany by id

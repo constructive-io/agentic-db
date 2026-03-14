@@ -158,7 +158,6 @@ async function main() {
   await addField(threadsId, 'summary', 'text');
   await addField(threadsId, 'status', 'text', { defaultValue: "'open'" });
   await addField(threadsId, 'parent_thread_id', 'uuid');
-  await addField(threadsId, 'chat_id', 'uuid');
   await addField(threadsId, 'embedding_text', 'text');
   await addField(threadsId, 'embedding', 'vector(768)');
 
@@ -324,23 +323,6 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 threads -> chat_messages');
-
-  // chats -> threads (HasMany)
-  await withRetry(() =>
-    client.relationProvision
-      .create({
-        data: {
-          databaseId,
-          relationType: 'RelationHasMany',
-          sourceTableId: chatsId,
-          targetTableId: threadsId,
-          deleteAction: 'c',
-        },
-        select: { id: true },
-      })
-      .unwrap()
-  );
-  console.log('   \u2713 chats -> threads');
 
   // threads self-referential (parent)
   await withRetry(() =>

@@ -9,8 +9,8 @@ CRUD operations for Deal records via agent-os CLI
 ```bash
 agent-os deal list
 agent-os deal get --id <value>
-agent-os deal create --entityId <value> --name <value> --stage <value> --value <value> --notes <value> --tags <value> --embedding <value> --embeddingDistance <value>
-agent-os deal update --id <value> [--entityId <value>] [--name <value>] [--stage <value>] [--value <value>] [--notes <value>] [--tags <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-os deal create --entityId <value> --name <value> --embeddingDistance <value> [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-os deal update --id <value> [--entityId <value>] [--name <value>] [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
 agent-os deal delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-os deal list
 ### Create a deal
 
 ```bash
-agent-os deal create --entityId "value" --name "value" --stage "value" --value "value" --notes "value" --tags "value" --embedding "value" --embeddingDistance "value"
+agent-os deal create --entityId <value> --name <value> --embeddingDistance <value> [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a deal by id

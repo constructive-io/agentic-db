@@ -9,7 +9,7 @@ ORM operations for ExecutionLog records
 ```typescript
 db.executionLog.findMany({ select: { id: true } }).execute()
 db.executionLog.findOne({ id: '<value>', select: { id: true } }).execute()
-db.executionLog.create({ data: { entityId: '<value>', stepName: '<value>', input: '<value>', output: '<value>', toolCalls: '<value>', durationMs: '<value>', sessionId: '<value>' }, select: { id: true } }).execute()
+db.executionLog.create({ data: { entityId: '<value>', sessionId: '<value>', stepName: '<value>', input: '<value>', output: '<value>', toolCalls: '<value>', durationMs: '<value>' }, select: { id: true } }).execute()
 db.executionLog.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.executionLog.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.executionLog.findMany({
 
 ```typescript
 const item = await db.executionLog.create({
-  data: { entityId: 'value', stepName: 'value', input: 'value', output: 'value', toolCalls: 'value', durationMs: 'value', sessionId: 'value' },
+  data: { entityId: 'value', sessionId: 'value', stepName: 'value', input: 'value', output: 'value', toolCalls: 'value', durationMs: 'value' },
   select: { id: true }
 }).execute();
 ```

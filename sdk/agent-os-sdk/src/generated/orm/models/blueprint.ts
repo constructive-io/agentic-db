@@ -32,13 +32,12 @@ import type {
   CreateBlueprintInput,
   UpdateBlueprintInput,
   BlueprintPatch,
-  BlueprintCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class BlueprintModel {
   constructor(private client: OrmClient) {}
   findMany<S extends BlueprintSelect>(
-    args: FindManyArgs<S, BlueprintFilter, BlueprintCondition, BlueprintOrderBy> & {
+    args: FindManyArgs<S, BlueprintFilter, BlueprintOrderBy> & {
       select: S;
     } & StrictSelect<S, BlueprintSelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class BlueprintModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class BlueprintModel {
       },
       'BlueprintFilter',
       'BlueprintOrderBy',
-      connectionFieldsMap,
-      'BlueprintCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class BlueprintModel {
     });
   }
   findFirst<S extends BlueprintSelect>(
-    args: FindFirstArgs<S, BlueprintFilter, BlueprintCondition> & {
+    args: FindFirstArgs<S, BlueprintFilter> & {
       select: S;
     } & StrictSelect<S, BlueprintSelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class BlueprintModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'BlueprintFilter',
-      connectionFieldsMap,
-      'BlueprintCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class BlueprintModel {
       },
       'BlueprintFilter',
       'BlueprintOrderBy',
-      connectionFieldsMap,
-      'BlueprintCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

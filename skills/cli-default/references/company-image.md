@@ -25,7 +25,7 @@ agent-os company-image list
 ### Create a companyImage
 
 ```bash
-agent-os company-image create --companyId "value" --imageId "value" --entityId "value"
+agent-os company-image create --companyId <value> --imageId <value> --entityId <value>
 ```
 
 ### Get a companyImage by id

@@ -9,7 +9,7 @@ ORM operations for Document records
 ```typescript
 db.document.findMany({ select: { id: true } }).execute()
 db.document.findOne({ id: '<value>', select: { id: true } }).execute()
-db.document.create({ data: { entityId: '<value>', title: '<value>', url: '<value>', content: '<value>', sourceType: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.document.create({ data: { entityId: '<value>', title: '<value>', url: '<value>', content: '<value>', sourceType: '<value>', isRead: '<value>', savedAt: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', searchTsv: '<value>', searchTsvRank: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
 db.document.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.document.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.document.findMany({
 
 ```typescript
 const item = await db.document.create({
-  data: { entityId: 'value', title: 'value', url: 'value', content: 'value', sourceType: 'value', tags: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', title: 'value', url: 'value', content: 'value', sourceType: 'value', isRead: 'value', savedAt: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', searchTsv: 'value', searchTsvRank: 'value', embeddingDistance: 'value' },
   select: { id: true }
 }).execute();
 ```

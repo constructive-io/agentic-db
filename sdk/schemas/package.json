@@ -1,5 +1,5 @@
 {
-  "name": "@agentic-sdk/schemas",
+  "name": "@agentic-db/schemas",
   "version": "0.0.1",
   "private": true,
   "description": "GraphQL schema files for agent-os database",
@@ -13,7 +13,7 @@
     "export": "tsx scripts/export.ts"
   },
   "devDependencies": {
-    "@constructive-io/graphql-codegen": "^4.8.0",
+    "@constructive-io/graphql-codegen": "^4.13.1",
     "dotenv": "^16.4.5",
     "tsx": "^4.19.0"
   }

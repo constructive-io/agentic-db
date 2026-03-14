@@ -9,8 +9,8 @@ CRUD operations for ChatMessage records via agent-os CLI
 ```bash
 agent-os chat-message list
 agent-os chat-message get --id <value>
-agent-os chat-message create --entityId <value> --role <value> --content <value> --toolCalls <value> --embedding <value> --chatId <value> --embeddingDistance <value>
-agent-os chat-message update --id <value> [--entityId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embedding <value>] [--chatId <value>] [--embeddingDistance <value>]
+agent-os chat-message create --entityId <value> --embeddingDistance <value> [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>]
+agent-os chat-message update --id <value> [--entityId <value>] [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
 agent-os chat-message delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-os chat-message list
 ### Create a chatMessage
 
 ```bash
-agent-os chat-message create --entityId "value" --role "value" --content "value" --toolCalls "value" --embedding "value" --chatId "value" --embeddingDistance "value"
+agent-os chat-message create --entityId <value> --embeddingDistance <value> [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a chatMessage by id

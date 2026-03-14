@@ -32,13 +32,12 @@ import type {
   CreateCompanyInput,
   UpdateCompanyInput,
   CompanyPatch,
-  CompanyCondition,
 } from '../input-types';
 import { connectionFieldsMap } from '../input-types';
 export class CompanyModel {
   constructor(private client: OrmClient) {}
   findMany<S extends CompanySelect>(
-    args: FindManyArgs<S, CompanyFilter, CompanyCondition, CompanyOrderBy> & {
+    args: FindManyArgs<S, CompanyFilter, CompanyOrderBy> & {
       select: S;
     } & StrictSelect<S, CompanySelect>
   ): QueryBuilder<{
@@ -50,7 +49,6 @@ export class CompanyModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
         orderBy: args?.orderBy as string[] | undefined,
         first: args?.first,
         last: args?.last,
@@ -60,8 +58,7 @@ export class CompanyModel {
       },
       'CompanyFilter',
       'CompanyOrderBy',
-      connectionFieldsMap,
-      'CompanyCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -73,7 +70,7 @@ export class CompanyModel {
     });
   }
   findFirst<S extends CompanySelect>(
-    args: FindFirstArgs<S, CompanyFilter, CompanyCondition> & {
+    args: FindFirstArgs<S, CompanyFilter> & {
       select: S;
     } & StrictSelect<S, CompanySelect>
   ): QueryBuilder<{
@@ -87,11 +84,9 @@ export class CompanyModel {
       args.select,
       {
         where: args?.where,
-        condition: args?.condition,
       },
       'CompanyFilter',
-      connectionFieldsMap,
-      'CompanyCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,
@@ -124,8 +119,7 @@ export class CompanyModel {
       },
       'CompanyFilter',
       'CompanyOrderBy',
-      connectionFieldsMap,
-      'CompanyCondition'
+      connectionFieldsMap
     );
     return new QueryBuilder({
       client: this.client,

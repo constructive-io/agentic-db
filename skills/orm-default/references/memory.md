@@ -9,7 +9,7 @@ ORM operations for Memory records
 ```typescript
 db.memory.findMany({ select: { id: true } }).execute()
 db.memory.findOne({ id: '<value>', select: { id: true } }).execute()
-db.memory.create({ data: { entityId: '<value>', content: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.memory.create({ data: { entityId: '<value>', content: '<value>', memoryType: '<value>', agentId: '<value>', importance: '<value>', verified: '<value>', source: '<value>', relatedEntityType: '<value>', relatedEntityId: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
 db.memory.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.memory.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.memory.findMany({
 
 ```typescript
 const item = await db.memory.create({
-  data: { entityId: 'value', content: 'value', tags: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', content: 'value', memoryType: 'value', agentId: 'value', importance: 'value', verified: 'value', source: 'value', relatedEntityType: 'value', relatedEntityId: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
   select: { id: true }
 }).execute();
 ```
