@@ -89,7 +89,7 @@ const BM25_EXTRA: IndexDef[] = [
   { table: 'documents', column: 'content', method: 'bm25' },
   { table: 'chat_messages', column: 'content', method: 'bm25' },
   { table: 'prompts', column: 'content', method: 'bm25' },
-  { table: 'activity_log', column: 'description', method: 'bm25' },
+  // activity_log has no description field — skip
 ];
 
 // GIN indexes on tags (citext[]) columns
@@ -103,7 +103,7 @@ const GIN_TAG_INDEXES: IndexDef[] = [
   'projects',
   'repositories',
   'messages', 'calendar_events', 'expenses', 'documents',
-  'subscriptions', 'trips',
+  'billing_subscriptions', 'trips',
   'ideas', 'habits', 'habit_logs', 'lists',
   'recipes', 'templates',
 ].map((table) => ({
@@ -116,7 +116,7 @@ const GIN_TAG_INDEXES: IndexDef[] = [
 const GIN_JSONB_INDEXES: IndexDef[] = [
   { table: 'habit_logs', column: 'data', method: 'gin' },
   { table: 'tools', column: 'input_schema', method: 'gin' },
-  { table: 'workflow_steps', column: 'config', method: 'gin' },
+  { table: 'workflow_steps', column: 'action_config', method: 'gin' },
   { table: 'recipes', column: 'ingredients', method: 'gin' },
   { table: 'user_settings', column: 'value', method: 'gin' },
   { table: 'integrations', column: 'config', method: 'gin' },
@@ -154,7 +154,7 @@ const TRGM_INDEXES: IndexDef[] = [
   { table: 'recipes', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
   { table: 'templates', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
   { table: 'trips', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
-  { table: 'subscriptions', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'billing_subscriptions', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
   { table: 'integrations', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
   { table: 'workflows', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
   { table: 'ideas', column: 'content', method: 'gin', opclass: 'gin_trgm_ops' },
@@ -265,16 +265,16 @@ const BTREE_INDEXES: IndexDef[] = [
   // Runtime — tools, MCP, workflows, activity_log
   { table: 'tools', column: 'type', method: 'btree' },
   { table: 'tools', column: 'is_active', method: 'btree' },
-  { table: 'workflows', column: 'status', method: 'btree' },
+  { table: 'workflows', column: 'is_active', method: 'btree' },
   { table: 'workflow_steps', column: 'workflow_id', method: 'btree' },
   { table: 'workflow_steps', column: 'step_order', method: 'btree' },
   { table: 'workflow_runs', column: 'workflow_id', method: 'btree' },
   { table: 'workflow_runs', column: 'status', method: 'btree' },
   { table: 'workflow_runs', column: 'started_at', method: 'btree' },
-  { table: 'activity_log', column: 'entity_type', method: 'btree' },
-  { table: 'activity_log', column: 'entity_id', method: 'btree' },
+  { table: 'activity_log', column: 'target_type', method: 'btree' },
+  { table: 'activity_log', column: 'target_id', method: 'btree' },
   { table: 'activity_log', column: 'action', method: 'btree' },
-  { table: 'activity_log', column: 'performed_at', method: 'btree' },
+  // activity_log uses created_at from DataTimestamps (auto-managed)
   { table: 'agent_tools', column: 'agent_id', method: 'btree' },
   { table: 'agent_tools', column: 'tool_id', method: 'btree' },
   { table: 'agent_skills', column: 'agent_id', method: 'btree' },
@@ -302,8 +302,8 @@ const BTREE_INDEXES: IndexDef[] = [
   // Agent — prompts, feedback
   { table: 'prompts', column: 'type', method: 'btree' },
   { table: 'prompts', column: 'is_active', method: 'btree' },
-  { table: 'feedback', column: 'entity_type', method: 'btree' },
-  { table: 'feedback', column: 'entity_id', method: 'btree' },
+  { table: 'feedback', column: 'target_type', method: 'btree' },
+  { table: 'feedback', column: 'target_id', method: 'btree' },
   { table: 'feedback', column: 'rating', method: 'btree' },
   // CRM — social / attachments
   { table: 'contacts', column: 'twitter_handle', method: 'btree' },
@@ -319,8 +319,8 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'webhooks', column: 'event_type', method: 'btree' },
   { table: 'user_settings', column: 'key', method: 'btree' },
   { table: 'user_settings', column: 'category', method: 'btree' },
-  { table: 'subscriptions', column: 'status', method: 'btree' },
-  { table: 'subscriptions', column: 'next_billing_date', method: 'btree' },
+  { table: 'billing_subscriptions', column: 'status', method: 'btree' },
+  { table: 'billing_subscriptions', column: 'next_billing_date', method: 'btree' },
   { table: 'trips', column: 'start_date', method: 'btree' },
   { table: 'trips', column: 'end_date', method: 'btree' },
   { table: 'trips', column: 'status', method: 'btree' },
@@ -601,7 +601,4 @@ async function main() {
   console.log(`\n\u2705 Indexes complete! Created: ${created}, Skipped: ${skipped}, Errors: ${errors}\n`);
 }
 
-main().catch((err) => {
-  console.error('\u2717', err.message ?? err);
-  process.exit(1);
-});
+export { main as default };

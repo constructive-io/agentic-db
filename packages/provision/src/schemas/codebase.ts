@@ -173,7 +173,4 @@ async function main() {
   console.log('\n\u2705 Codebase Schema complete!\n');
 }
 
-main().catch((err) => {
-  console.error('\u274c', err.message ?? err);
-  process.exit(1);
-});
+export { main as default };

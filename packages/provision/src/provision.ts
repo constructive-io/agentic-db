@@ -14,8 +14,12 @@ async function run(label: string, mod: string) {
   console.log(`  ${label}`);
   console.log('='.repeat(60));
 
-  // Dynamic import executes the module's main()
-  await import(mod);
+  const m = await import(mod);
+  if (typeof m.default === 'function') {
+    await m.default();
+  } else {
+    throw new Error(`Module ${mod} does not export a default function`);
+  }
 }
 
 async function main() {

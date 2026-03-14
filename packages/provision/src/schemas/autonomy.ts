@@ -158,8 +158,8 @@ async function main() {
   await addField(listItemsId, 'content', 'text');
   await addField(listItemsId, 'position', 'int');
   await addField(listItemsId, 'is_checked', 'bool', { defaultValue: 'false' });
-  await addField(listItemsId, 'entity_id', 'uuid');
-  await addField(listItemsId, 'entity_type', 'text');
+  await addField(listItemsId, 'ref_id', 'uuid');
+  await addField(listItemsId, 'ref_type', 'text');
 
   // -- Notifications --------------------------------------------------------
   console.log('\n\ud83d\udd14 notifications...');
@@ -244,7 +244,4 @@ async function main() {
   console.log('\n\u2705 Autonomy Schema complete!\n');
 }
 
-main().catch((err) => {
-  console.error('\u274c', err.message ?? err);
-  process.exit(1);
-});
+export { main as default };

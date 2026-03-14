@@ -196,8 +196,8 @@ async function main() {
   // -- Feedback -------------------------------------------------------------
   console.log('\n\ud83d\udcac feedback...');
   const feedbackId = await createOrgTable('feedback');
-  await addField(feedbackId, 'entity_type', 'text', { isRequired: true });
-  await addField(feedbackId, 'entity_id', 'uuid', { isRequired: true });
+  await addField(feedbackId, 'target_type', 'text', { isRequired: true });
+  await addField(feedbackId, 'target_id', 'uuid', { isRequired: true });
   await addField(feedbackId, 'rating', 'int');
   await addField(feedbackId, 'comment', 'text');
   await addField(feedbackId, 'source', 'text');      // user | agent | auto
@@ -232,7 +232,4 @@ async function main() {
   console.log('\n\u2705 Agent Core Schema complete!\n');
 }
 
-main().catch((err) => {
-  console.error('\u274c', err.message ?? err);
-  process.exit(1);
-});
+export { main as default };

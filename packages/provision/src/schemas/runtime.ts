@@ -250,8 +250,8 @@ async function main() {
   await addField(activityLogId, 'actor_type', 'text', { isRequired: true }); // user | agent
   await addField(activityLogId, 'actor_id', 'uuid');
   await addField(activityLogId, 'action', 'text', { isRequired: true });     // created | updated | deleted | completed
-  await addField(activityLogId, 'entity_type', 'text', { isRequired: true });
-  await addField(activityLogId, 'entity_id', 'uuid', { isRequired: true });
+  await addField(activityLogId, 'target_type', 'text', { isRequired: true });
+  await addField(activityLogId, 'target_id', 'uuid', { isRequired: true });
   await addField(activityLogId, 'metadata', 'jsonb');
 
   // -- Relations ------------------------------------------------------------
@@ -468,7 +468,4 @@ async function main() {
   console.log('\n\u2705 Agent Runtime Schema complete!\n');
 }
 
-main().catch((err) => {
-  console.error('\u274c', err.message ?? err);
-  process.exit(1);
-});
+export { main as default };

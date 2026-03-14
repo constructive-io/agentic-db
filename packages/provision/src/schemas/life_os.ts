@@ -3,7 +3,7 @@
  *
  * Tables: email_accounts, messages, calendar_accounts, calendar_events,
  *         expenses, documents, integrations, webhooks, user_settings,
- *         subscriptions, trips
+ *         billing_subscriptions, trips
  */
 
 import {
@@ -191,8 +191,8 @@ async function main() {
   await addField(userSettingsId, 'category', 'text');
 
   // -- Subscriptions --------------------------------------------------------
-  console.log('\n\ud83d\udcb3 subscriptions...');
-  const subscriptionsId = await createOrgTable('subscriptions');
+  console.log('\n\ud83d\udcb3 billing_subscriptions...');
+  const subscriptionsId = await createOrgTable('billing_subscriptions');
   await addField(subscriptionsId, 'name', 'text', { isRequired: true });
   await addField(subscriptionsId, 'amount', 'numeric');
   await addField(subscriptionsId, 'currency', 'text', { defaultValue: "'USD'" });
@@ -275,7 +275,4 @@ async function main() {
   console.log('\n\u2705 Life OS Schema complete!\n');
 }
 
-main().catch((err) => {
-  console.error('\u274c', err.message ?? err);
-  process.exit(1);
-});
+export { main as default };
