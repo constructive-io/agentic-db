@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for EmailAccount records via agent-os CLI
+CRUD operations for EmailAccount records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os email-account list
-agent-os email-account get --id <value>
-agent-os email-account create --entityId <value> --email <value> [--provider <value>] [--syncState <value>]
-agent-os email-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncState <value>]
-agent-os email-account delete --id <value>
+agent-db email-account list
+agent-db email-account get --id <value>
+agent-db email-account create --entityId <value> --email <value> [--provider <value>] [--syncState <value>]
+agent-db email-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncState <value>]
+agent-db email-account delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os email-account delete --id <value>
 ### List all emailAccount records
 
 ```bash
-agent-os email-account list
+agent-db email-account list
 ```
 
 ### Create a emailAccount
 
 ```bash
-agent-os email-account create --entityId <value> --email <value> [--provider <value>] [--syncState <value>]
+agent-db email-account create --entityId <value> --email <value> [--provider <value>] [--syncState <value>]
 ```
 
 ### Get a emailAccount by id
 
 ```bash
-agent-os email-account get --id <value>
+agent-db email-account get --id <value>
 ```

@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for CompanyImage records via agent-os CLI
+CRUD operations for CompanyImage records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os company-image list
-agent-os company-image get --id <value>
-agent-os company-image create --companyId <value> --imageId <value> --entityId <value>
-agent-os company-image update --id <value> [--companyId <value>] [--imageId <value>] [--entityId <value>]
-agent-os company-image delete --id <value>
+agent-db company-image list
+agent-db company-image get --id <value>
+agent-db company-image create --companyId <value> --imageId <value> --entityId <value>
+agent-db company-image update --id <value> [--companyId <value>] [--imageId <value>] [--entityId <value>]
+agent-db company-image delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os company-image delete --id <value>
 ### List all companyImage records
 
 ```bash
-agent-os company-image list
+agent-db company-image list
 ```
 
 ### Create a companyImage
 
 ```bash
-agent-os company-image create --companyId <value> --imageId <value> --entityId <value>
+agent-db company-image create --companyId <value> --imageId <value> --entityId <value>
 ```
 
 ### Get a companyImage by id
 
 ```bash
-agent-os company-image get --id <value>
+agent-db company-image get --id <value>
 ```

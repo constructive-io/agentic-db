@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for WorkflowRun records via agent-os CLI
+CRUD operations for WorkflowRun records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os workflow-run list
-agent-os workflow-run get --id <value>
-agent-os workflow-run create --entityId <value> --workflowId <value> [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
-agent-os workflow-run update --id <value> [--entityId <value>] [--workflowId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
-agent-os workflow-run delete --id <value>
+agent-db workflow-run list
+agent-db workflow-run get --id <value>
+agent-db workflow-run create --entityId <value> --workflowId <value> [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
+agent-db workflow-run update --id <value> [--entityId <value>] [--workflowId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
+agent-db workflow-run delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os workflow-run delete --id <value>
 ### List all workflowRun records
 
 ```bash
-agent-os workflow-run list
+agent-db workflow-run list
 ```
 
 ### Create a workflowRun
 
 ```bash
-agent-os workflow-run create --entityId <value> --workflowId <value> [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
+agent-db workflow-run create --entityId <value> --workflowId <value> [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
 ```
 
 ### Get a workflowRun by id
 
 ```bash
-agent-os workflow-run get --id <value>
+agent-db workflow-run get --id <value>
 ```

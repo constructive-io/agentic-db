@@ -6,7 +6,7 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getStore } from '../executor';
 const usage =
-  '\nagent-os context <command>\n\nCommands:\n  create <name>         Create a new context\n  list                  List all contexts\n  use <name>            Set the active context\n  current               Show current context\n  delete <name>         Delete a context\n\nCreate Options:\n  --endpoint <url>      GraphQL endpoint URL\n\n  --help, -h            Show this help message\n';
+  '\nagent-db context <command>\n\nCommands:\n  create <name>         Create a new context\n  list                  List all contexts\n  use <name>            Set the active context\n  current               Show current context\n  delete <name>         Delete a context\n\nCreate Options:\n  --endpoint <url>      GraphQL endpoint URL\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,

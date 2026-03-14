@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Thread records via agent-os CLI
+CRUD operations for Thread records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os thread list
-agent-os thread get --id <value>
-agent-os thread create --entityId <value> --title <value> --embeddingDistance <value> [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>]
-agent-os thread update --id <value> [--entityId <value>] [--title <value>] [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-agent-os thread delete --id <value>
+agent-db thread list
+agent-db thread get --id <value>
+agent-db thread create --entityId <value> --title <value> --embeddingDistance <value> [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db thread update --id <value> [--entityId <value>] [--title <value>] [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-db thread delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os thread delete --id <value>
 ### List all thread records
 
 ```bash
-agent-os thread list
+agent-db thread list
 ```
 
 ### Create a thread
 
 ```bash
-agent-os thread create --entityId <value> --title <value> --embeddingDistance <value> [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db thread create --entityId <value> --title <value> --embeddingDistance <value> [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a thread by id
 
 ```bash
-agent-os thread get --id <value>
+agent-db thread get --id <value>
 ```

@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Idea records via agent-os CLI
+CRUD operations for Idea records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os idea list
-agent-os idea get --id <value>
-agent-os idea create --entityId <value> --content <value> --embeddingDistance <value> [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-agent-os idea update --id <value> [--entityId <value>] [--content <value>] [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-agent-os idea delete --id <value>
+agent-db idea list
+agent-db idea get --id <value>
+agent-db idea create --entityId <value> --content <value> --embeddingDistance <value> [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db idea update --id <value> [--entityId <value>] [--content <value>] [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-db idea delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os idea delete --id <value>
 ### List all idea records
 
 ```bash
-agent-os idea list
+agent-db idea list
 ```
 
 ### Create a idea
 
 ```bash
-agent-os idea create --entityId <value> --content <value> --embeddingDistance <value> [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db idea create --entityId <value> --content <value> --embeddingDistance <value> [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a idea by id
 
 ```bash
-agent-os idea get --id <value>
+agent-db idea get --id <value>
 ```

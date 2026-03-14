@@ -1,35 +1,35 @@
 ---
 name: cli-default
-description: CLI tool (agent-os) for the default API — provides CRUD commands for 80 tables and 0 custom operations
+description: CLI tool (agent-db) for the default API — provides CRUD commands for 80 tables and 0 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agent-os) for the default API — provides CRUD commands for 80 tables and 0 custom operations
+CLI tool (agent-db) for the default API — provides CRUD commands for 80 tables and 0 custom operations
 
 ## Usage
 
 ```bash
 # Context management
-agent-os context create <name> --endpoint <url>
-agent-os context use <name>
+agent-db context create <name> --endpoint <url>
+agent-db context use <name>
 
 # Authentication
-agent-os auth set-token <token>
+agent-db auth set-token <token>
 
 # Config variables
-agent-os config set <key> <value>
-agent-os config get <key>
+agent-db config set <key> <value>
+agent-db config get <key>
 
 # CRUD for any table (e.g. agent-prompt)
-agent-os agent-prompt list
-agent-os agent-prompt get --id <value>
-agent-os agent-prompt create --<field> <value>
+agent-db agent-prompt list
+agent-db agent-prompt get --id <value>
+agent-db agent-prompt create --<field> <value>
 
 # Non-interactive mode (skip all prompts, use flags only)
-agent-os --no-tty agent-prompt list
+agent-db --no-tty agent-prompt list
 ```
 
 ## Examples
@@ -37,16 +37,16 @@ agent-os --no-tty agent-prompt list
 ### Set up and query
 
 ```bash
-agent-os context create local --endpoint http://localhost:5000/graphql
-agent-os context use local
-agent-os auth set-token <token>
-agent-os agent-prompt list
+agent-db context create local --endpoint http://localhost:5000/graphql
+agent-db context use local
+agent-db auth set-token <token>
+agent-db agent-prompt list
 ```
 
 ### Non-interactive mode (for scripts and CI)
 
 ```bash
-agent-os --no-tty agent-prompt create --<field> <value>
+agent-db --no-tty agent-prompt create --<field> <value>
 ```
 
 ## References

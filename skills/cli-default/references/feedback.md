@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Feedback records via agent-os CLI
+CRUD operations for Feedback records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os feedback list
-agent-os feedback get --id <value>
-agent-os feedback create --entityId <value> --targetType <value> --targetId <value> [--rating <value>] [--comment <value>] [--source <value>]
-agent-os feedback update --id <value> [--entityId <value>] [--targetType <value>] [--targetId <value>] [--rating <value>] [--comment <value>] [--source <value>]
-agent-os feedback delete --id <value>
+agent-db feedback list
+agent-db feedback get --id <value>
+agent-db feedback create --entityId <value> --targetType <value> --targetId <value> [--rating <value>] [--comment <value>] [--source <value>]
+agent-db feedback update --id <value> [--entityId <value>] [--targetType <value>] [--targetId <value>] [--rating <value>] [--comment <value>] [--source <value>]
+agent-db feedback delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os feedback delete --id <value>
 ### List all feedback records
 
 ```bash
-agent-os feedback list
+agent-db feedback list
 ```
 
 ### Create a feedback
 
 ```bash
-agent-os feedback create --entityId <value> --targetType <value> --targetId <value> [--rating <value>] [--comment <value>] [--source <value>]
+agent-db feedback create --entityId <value> --targetType <value> --targetId <value> [--rating <value>] [--comment <value>] [--source <value>]
 ```
 
 ### Get a feedback by id
 
 ```bash
-agent-os feedback get --id <value>
+agent-db feedback get --id <value>
 ```

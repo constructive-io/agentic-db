@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Image records via agent-os CLI
+CRUD operations for Image records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os image list
-agent-os image get --id <value>
-agent-os image create --entityId <value> --url <value> --embeddingDistance <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
-agent-os image update --id <value> [--entityId <value>] [--url <value>] [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>] [--embeddingDistance <value>]
-agent-os image delete --id <value>
+agent-db image list
+agent-db image get --id <value>
+agent-db image create --entityId <value> --url <value> --embeddingDistance <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
+agent-db image update --id <value> [--entityId <value>] [--url <value>] [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-db image delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os image delete --id <value>
 ### List all image records
 
 ```bash
-agent-os image list
+agent-db image list
 ```
 
 ### Create a image
 
 ```bash
-agent-os image create --entityId <value> --url <value> --embeddingDistance <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
+agent-db image create --entityId <value> --url <value> --embeddingDistance <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
 ```
 
 ### Get a image by id
 
 ```bash
-agent-os image get --id <value>
+agent-db image get --id <value>
 ```

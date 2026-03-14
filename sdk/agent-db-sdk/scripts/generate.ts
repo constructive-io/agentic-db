@@ -15,7 +15,7 @@ async function main() {
   const outputDir = path.resolve(__dirname, '../src/generated');
 
   // Verify schema exists
-  const schemaFile = path.join(schemaDir, 'agent-os.graphql');
+  const schemaFile = path.join(schemaDir, 'agent-db.graphql');
   if (!fs.existsSync(schemaFile)) {
     console.error('❌ Schema not found:', schemaFile);
     console.error('   Run: pnpm --filter @agent-os/schemas run export');
@@ -48,7 +48,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log('\n✅ SDK generated at sdk/agent-os-sdk/src/generated/\n');
+  console.log('\n✅ SDK generated at sdk/agent-db-sdk/src/generated/\n');
   console.log('   Tables:', result.tables?.join(', '));
 }
 

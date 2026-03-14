@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for UserSetting records via agent-os CLI
+CRUD operations for UserSetting records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os user-setting list
-agent-os user-setting get --id <value>
-agent-os user-setting create --entityId <value> --key <value> [--value <value>] [--category <value>]
-agent-os user-setting update --id <value> [--entityId <value>] [--key <value>] [--value <value>] [--category <value>]
-agent-os user-setting delete --id <value>
+agent-db user-setting list
+agent-db user-setting get --id <value>
+agent-db user-setting create --entityId <value> --key <value> [--value <value>] [--category <value>]
+agent-db user-setting update --id <value> [--entityId <value>] [--key <value>] [--value <value>] [--category <value>]
+agent-db user-setting delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os user-setting delete --id <value>
 ### List all userSetting records
 
 ```bash
-agent-os user-setting list
+agent-db user-setting list
 ```
 
 ### Create a userSetting
 
 ```bash
-agent-os user-setting create --entityId <value> --key <value> [--value <value>] [--category <value>]
+agent-db user-setting create --entityId <value> --key <value> [--value <value>] [--category <value>]
 ```
 
 ### Get a userSetting by id
 
 ```bash
-agent-os user-setting get --id <value>
+agent-db user-setting get --id <value>
 ```

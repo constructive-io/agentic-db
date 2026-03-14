@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Trip records via agent-os CLI
+CRUD operations for Trip records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os trip list
-agent-os trip get --id <value>
-agent-os trip create --entityId <value> --name <value> --embeddingDistance <value> [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-agent-os trip update --id <value> [--entityId <value>] [--name <value>] [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-agent-os trip delete --id <value>
+agent-db trip list
+agent-db trip get --id <value>
+agent-db trip create --entityId <value> --name <value> --embeddingDistance <value> [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db trip update --id <value> [--entityId <value>] [--name <value>] [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-db trip delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os trip delete --id <value>
 ### List all trip records
 
 ```bash
-agent-os trip list
+agent-db trip list
 ```
 
 ### Create a trip
 
 ```bash
-agent-os trip create --entityId <value> --name <value> --embeddingDistance <value> [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db trip create --entityId <value> --name <value> --embeddingDistance <value> [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a trip by id
 
 ```bash
-agent-os trip get --id <value>
+agent-db trip get --id <value>
 ```

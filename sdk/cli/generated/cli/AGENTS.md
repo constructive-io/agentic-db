@@ -1,21 +1,21 @@
-# agent-os CLI - Agent Reference
+# agent-db CLI - Agent Reference
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 > This document is structured for LLM/agent consumption.
 
 ## OVERVIEW
 
-`agent-os` is a CLI tool for interacting with a GraphQL API.
+`agent-db` is a CLI tool for interacting with a GraphQL API.
 All commands output JSON to stdout. All commands accept `--help` or `-h` for usage.
-Configuration is stored at `~/.agent-os/config/` via appstash.
+Configuration is stored at `~/.agent-db/config/` via appstash.
 
 ## PREREQUISITES
 
 Before running any data commands, you must:
 
-1. Create a context: `agent-os context create <name> --endpoint <url>`
-2. Activate it: `agent-os context use <name>`
-3. Authenticate: `agent-os auth set-token <token>`
+1. Create a context: `agent-db context create <name> --endpoint <url>`
+2. Activate it: `agent-db context use <name>`
+3. Authenticate: `agent-db auth set-token <token>`
 
 ## TOOLS
 
@@ -25,11 +25,11 @@ Manage named API endpoint contexts (like kubectl contexts).
 
 ```
 SUBCOMMANDS:
-  agent-os context create <name> --endpoint <url>   Create a new context
-  agent-os context list                              List all contexts
-  agent-os context use <name>                        Set active context
-  agent-os context current                           Show active context
-  agent-os context delete <name>                     Delete a context
+  agent-db context create <name> --endpoint <url>   Create a new context
+  agent-db context list                              List all contexts
+  agent-db context use <name>                        Set active context
+  agent-db context current                           Show active context
+  agent-db context delete <name>                     Delete a context
 
 INPUT:
   name:     string (required) - Context identifier
@@ -49,9 +49,9 @@ Manage authentication tokens per context.
 
 ```
 SUBCOMMANDS:
-  agent-os auth set-token <token>   Store bearer token for current context
-  agent-os auth status               Show auth status for all contexts
-  agent-os auth logout                Remove credentials for current context
+  agent-db auth set-token <token>   Store bearer token for current context
+  agent-db auth status               Show auth status for all contexts
+  agent-db auth logout                Remove credentials for current context
 
 INPUT:
   token: string (required for set-token) - Bearer token value
@@ -68,10 +68,10 @@ Manage per-context key-value configuration variables.
 
 ```
 SUBCOMMANDS:
-  agent-os config get <key>             Get a config value
-  agent-os config set <key> <value>     Set a config value
-  agent-os config list                  List all config values
-  agent-os config delete <key>          Delete a config value
+  agent-db config get <key>             Get a config value
+  agent-db config set <key> <value>     Set a config value
+  agent-db config list                  List all config values
+  agent-db config delete <key>          Delete a config value
 
 INPUT:
   key:   string (required for get/set/delete) - Variable name
@@ -90,11 +90,11 @@ CRUD operations for AgentPrompt records.
 
 ```
 SUBCOMMANDS:
-  agent-os agent-prompt list                               List all records
-  agent-os agent-prompt get --id <value>              Get one record
-  agent-os agent-prompt create --agentId <value> --promptId <value> --entityId <value>
-  agent-os agent-prompt update --id <value> [--agentId <value>] [--promptId <value>] [--entityId <value>]
-  agent-os agent-prompt delete --id <value>           Delete one record
+  agent-db agent-prompt list                               List all records
+  agent-db agent-prompt get --id <value>              Get one record
+  agent-db agent-prompt create --agentId <value> --promptId <value> --entityId <value>
+  agent-db agent-prompt update --id <value> [--agentId <value>] [--promptId <value>] [--entityId <value>]
+  agent-db agent-prompt delete --id <value>           Delete one record
 
 INPUT FIELDS:
   agentId: UUID
@@ -121,11 +121,11 @@ CRUD operations for Process records.
 
 ```
 SUBCOMMANDS:
-  agent-os process list                               List all records
-  agent-os process get --id <value>              Get one record
-  agent-os process create --entityId <value> [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
-  agent-os process update --id <value> [--entityId <value>] [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
-  agent-os process delete --id <value>           Delete one record
+  agent-db process list                               List all records
+  agent-db process get --id <value>              Get one record
+  agent-db process create --entityId <value> [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
+  agent-db process update --id <value> [--entityId <value>] [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
+  agent-db process delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -166,11 +166,11 @@ CRUD operations for ScheduledJob records.
 
 ```
 SUBCOMMANDS:
-  agent-os scheduled-job list                               List all records
-  agent-os scheduled-job get --id <value>              Get one record
-  agent-os scheduled-job create --entityId <value> --name <value> --schedule <value> --command <value> [--agentId <value>] [--active <value>] [--lastRun <value>] [--nextRun <value>]
-  agent-os scheduled-job update --id <value> [--entityId <value>] [--name <value>] [--schedule <value>] [--command <value>] [--agentId <value>] [--active <value>] [--lastRun <value>] [--nextRun <value>]
-  agent-os scheduled-job delete --id <value>           Delete one record
+  agent-db scheduled-job list                               List all records
+  agent-db scheduled-job get --id <value>              Get one record
+  agent-db scheduled-job create --entityId <value> --name <value> --schedule <value> --command <value> [--agentId <value>] [--active <value>] [--lastRun <value>] [--nextRun <value>]
+  agent-db scheduled-job update --id <value> [--entityId <value>] [--name <value>] [--schedule <value>] [--command <value>] [--agentId <value>] [--active <value>] [--lastRun <value>] [--nextRun <value>]
+  agent-db scheduled-job delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -209,11 +209,11 @@ CRUD operations for AgentTool records.
 
 ```
 SUBCOMMANDS:
-  agent-os agent-tool list                               List all records
-  agent-os agent-tool get --id <value>              Get one record
-  agent-os agent-tool create --agentId <value> --toolId <value> --entityId <value>
-  agent-os agent-tool update --id <value> [--agentId <value>] [--toolId <value>] [--entityId <value>]
-  agent-os agent-tool delete --id <value>           Delete one record
+  agent-db agent-tool list                               List all records
+  agent-db agent-tool get --id <value>              Get one record
+  agent-db agent-tool create --agentId <value> --toolId <value> --entityId <value>
+  agent-db agent-tool update --id <value> [--agentId <value>] [--toolId <value>] [--entityId <value>]
+  agent-db agent-tool delete --id <value>           Delete one record
 
 INPUT FIELDS:
   agentId: UUID
@@ -240,11 +240,11 @@ CRUD operations for AgentSkill records.
 
 ```
 SUBCOMMANDS:
-  agent-os agent-skill list                               List all records
-  agent-os agent-skill get --id <value>              Get one record
-  agent-os agent-skill create --agentId <value> --skillId <value> --entityId <value>
-  agent-os agent-skill update --id <value> [--agentId <value>] [--skillId <value>] [--entityId <value>]
-  agent-os agent-skill delete --id <value>           Delete one record
+  agent-db agent-skill list                               List all records
+  agent-db agent-skill get --id <value>              Get one record
+  agent-db agent-skill create --agentId <value> --skillId <value> --entityId <value>
+  agent-db agent-skill update --id <value> [--agentId <value>] [--skillId <value>] [--entityId <value>]
+  agent-db agent-skill delete --id <value>           Delete one record
 
 INPUT FIELDS:
   agentId: UUID
@@ -271,11 +271,11 @@ CRUD operations for AgentRule records.
 
 ```
 SUBCOMMANDS:
-  agent-os agent-rule list                               List all records
-  agent-os agent-rule get --id <value>              Get one record
-  agent-os agent-rule create --agentId <value> --ruleId <value> --entityId <value>
-  agent-os agent-rule update --id <value> [--agentId <value>] [--ruleId <value>] [--entityId <value>]
-  agent-os agent-rule delete --id <value>           Delete one record
+  agent-db agent-rule list                               List all records
+  agent-db agent-rule get --id <value>              Get one record
+  agent-db agent-rule create --agentId <value> --ruleId <value> --entityId <value>
+  agent-db agent-rule update --id <value> [--agentId <value>] [--ruleId <value>] [--entityId <value>]
+  agent-db agent-rule delete --id <value>           Delete one record
 
 INPUT FIELDS:
   agentId: UUID
@@ -302,11 +302,11 @@ CRUD operations for CalendarEventContact records.
 
 ```
 SUBCOMMANDS:
-  agent-os calendar-event-contact list                               List all records
-  agent-os calendar-event-contact get --id <value>              Get one record
-  agent-os calendar-event-contact create --calendarEventId <value> --contactId <value> --entityId <value>
-  agent-os calendar-event-contact update --id <value> [--calendarEventId <value>] [--contactId <value>] [--entityId <value>]
-  agent-os calendar-event-contact delete --id <value>           Delete one record
+  agent-db calendar-event-contact list                               List all records
+  agent-db calendar-event-contact get --id <value>              Get one record
+  agent-db calendar-event-contact create --calendarEventId <value> --contactId <value> --entityId <value>
+  agent-db calendar-event-contact update --id <value> [--calendarEventId <value>] [--contactId <value>] [--entityId <value>]
+  agent-db calendar-event-contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   calendarEventId: UUID
@@ -333,11 +333,11 @@ CRUD operations for CalendarEvent records.
 
 ```
 SUBCOMMANDS:
-  agent-os calendar-event list                               List all records
-  agent-os calendar-event get --id <value>              Get one record
-  agent-os calendar-event create --entityId <value> --title <value> --startAt <value> --embeddingDistance <value> [--calendarAccountId <value>] [--remoteId <value>] [--description <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os calendar-event update --id <value> [--entityId <value>] [--calendarAccountId <value>] [--remoteId <value>] [--title <value>] [--description <value>] [--startAt <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os calendar-event delete --id <value>           Delete one record
+  agent-db calendar-event list                               List all records
+  agent-db calendar-event get --id <value>              Get one record
+  agent-db calendar-event create --entityId <value> --title <value> --startAt <value> --embeddingDistance <value> [--calendarAccountId <value>] [--remoteId <value>] [--description <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db calendar-event update --id <value> [--entityId <value>] [--calendarAccountId <value>] [--remoteId <value>] [--title <value>] [--description <value>] [--startAt <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db calendar-event delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -390,11 +390,11 @@ CRUD operations for Interaction records.
 
 ```
 SUBCOMMANDS:
-  agent-os interaction list                               List all records
-  agent-os interaction get --id <value>              Get one record
-  agent-os interaction create --entityId <value> --contactId <value> --type <value> --occurredAt <value> --embeddingDistance <value> [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os interaction update --id <value> [--entityId <value>] [--contactId <value>] [--type <value>] [--occurredAt <value>] [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os interaction delete --id <value>           Delete one record
+  agent-db interaction list                               List all records
+  agent-db interaction get --id <value>              Get one record
+  agent-db interaction create --entityId <value> --contactId <value> --type <value> --occurredAt <value> --embeddingDistance <value> [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db interaction update --id <value> [--entityId <value>] [--contactId <value>] [--type <value>] [--occurredAt <value>] [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db interaction delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -437,11 +437,11 @@ CRUD operations for CompanyEvent records.
 
 ```
 SUBCOMMANDS:
-  agent-os company-event list                               List all records
-  agent-os company-event get --id <value>              Get one record
-  agent-os company-event create --companyId <value> --eventId <value> --entityId <value>
-  agent-os company-event update --id <value> [--companyId <value>] [--eventId <value>] [--entityId <value>]
-  agent-os company-event delete --id <value>           Delete one record
+  agent-db company-event list                               List all records
+  agent-db company-event get --id <value>              Get one record
+  agent-db company-event create --companyId <value> --eventId <value> --entityId <value>
+  agent-db company-event update --id <value> [--companyId <value>] [--eventId <value>] [--entityId <value>]
+  agent-db company-event delete --id <value>           Delete one record
 
 INPUT FIELDS:
   companyId: UUID
@@ -468,11 +468,11 @@ CRUD operations for CompanyImage records.
 
 ```
 SUBCOMMANDS:
-  agent-os company-image list                               List all records
-  agent-os company-image get --id <value>              Get one record
-  agent-os company-image create --companyId <value> --imageId <value> --entityId <value>
-  agent-os company-image update --id <value> [--companyId <value>] [--imageId <value>] [--entityId <value>]
-  agent-os company-image delete --id <value>           Delete one record
+  agent-db company-image list                               List all records
+  agent-db company-image get --id <value>              Get one record
+  agent-db company-image create --companyId <value> --imageId <value> --entityId <value>
+  agent-db company-image update --id <value> [--companyId <value>] [--imageId <value>] [--entityId <value>]
+  agent-db company-image delete --id <value>           Delete one record
 
 INPUT FIELDS:
   companyId: UUID
@@ -499,11 +499,11 @@ CRUD operations for ContactCompany records.
 
 ```
 SUBCOMMANDS:
-  agent-os contact-company list                               List all records
-  agent-os contact-company get --id <value>              Get one record
-  agent-os contact-company create --contactId <value> --companyId <value> --entityId <value>
-  agent-os contact-company update --id <value> [--contactId <value>] [--companyId <value>] [--entityId <value>]
-  agent-os contact-company delete --id <value>           Delete one record
+  agent-db contact-company list                               List all records
+  agent-db contact-company get --id <value>              Get one record
+  agent-db contact-company create --contactId <value> --companyId <value> --entityId <value>
+  agent-db contact-company update --id <value> [--contactId <value>] [--companyId <value>] [--entityId <value>]
+  agent-db contact-company delete --id <value>           Delete one record
 
 INPUT FIELDS:
   contactId: UUID
@@ -530,11 +530,11 @@ CRUD operations for ContactEvent records.
 
 ```
 SUBCOMMANDS:
-  agent-os contact-event list                               List all records
-  agent-os contact-event get --id <value>              Get one record
-  agent-os contact-event create --contactId <value> --eventId <value> --entityId <value>
-  agent-os contact-event update --id <value> [--contactId <value>] [--eventId <value>] [--entityId <value>]
-  agent-os contact-event delete --id <value>           Delete one record
+  agent-db contact-event list                               List all records
+  agent-db contact-event get --id <value>              Get one record
+  agent-db contact-event create --contactId <value> --eventId <value> --entityId <value>
+  agent-db contact-event update --id <value> [--contactId <value>] [--eventId <value>] [--entityId <value>]
+  agent-db contact-event delete --id <value>           Delete one record
 
 INPUT FIELDS:
   contactId: UUID
@@ -561,11 +561,11 @@ CRUD operations for ContactImage records.
 
 ```
 SUBCOMMANDS:
-  agent-os contact-image list                               List all records
-  agent-os contact-image get --id <value>              Get one record
-  agent-os contact-image create --contactId <value> --imageId <value> --entityId <value>
-  agent-os contact-image update --id <value> [--contactId <value>] [--imageId <value>] [--entityId <value>]
-  agent-os contact-image delete --id <value>           Delete one record
+  agent-db contact-image list                               List all records
+  agent-db contact-image get --id <value>              Get one record
+  agent-db contact-image create --contactId <value> --imageId <value> --entityId <value>
+  agent-db contact-image update --id <value> [--contactId <value>] [--imageId <value>] [--entityId <value>]
+  agent-db contact-image delete --id <value>           Delete one record
 
 INPUT FIELDS:
   contactId: UUID
@@ -592,11 +592,11 @@ CRUD operations for DealContact records.
 
 ```
 SUBCOMMANDS:
-  agent-os deal-contact list                               List all records
-  agent-os deal-contact get --id <value>              Get one record
-  agent-os deal-contact create --dealId <value> --contactId <value> --entityId <value>
-  agent-os deal-contact update --id <value> [--dealId <value>] [--contactId <value>] [--entityId <value>]
-  agent-os deal-contact delete --id <value>           Delete one record
+  agent-db deal-contact list                               List all records
+  agent-db deal-contact get --id <value>              Get one record
+  agent-db deal-contact create --dealId <value> --contactId <value> --entityId <value>
+  agent-db deal-contact update --id <value> [--dealId <value>] [--contactId <value>] [--entityId <value>]
+  agent-db deal-contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   dealId: UUID
@@ -623,11 +623,11 @@ CRUD operations for EventImage records.
 
 ```
 SUBCOMMANDS:
-  agent-os event-image list                               List all records
-  agent-os event-image get --id <value>              Get one record
-  agent-os event-image create --eventId <value> --imageId <value> --entityId <value>
-  agent-os event-image update --id <value> [--eventId <value>] [--imageId <value>] [--entityId <value>]
-  agent-os event-image delete --id <value>           Delete one record
+  agent-db event-image list                               List all records
+  agent-db event-image get --id <value>              Get one record
+  agent-db event-image create --eventId <value> --imageId <value> --entityId <value>
+  agent-db event-image update --id <value> [--eventId <value>] [--imageId <value>] [--entityId <value>]
+  agent-db event-image delete --id <value>           Delete one record
 
 INPUT FIELDS:
   eventId: UUID
@@ -654,11 +654,11 @@ CRUD operations for EventVenue records.
 
 ```
 SUBCOMMANDS:
-  agent-os event-venue list                               List all records
-  agent-os event-venue get --id <value>              Get one record
-  agent-os event-venue create --eventId <value> --venueId <value> --entityId <value>
-  agent-os event-venue update --id <value> [--eventId <value>] [--venueId <value>] [--entityId <value>]
-  agent-os event-venue delete --id <value>           Delete one record
+  agent-db event-venue list                               List all records
+  agent-db event-venue get --id <value>              Get one record
+  agent-db event-venue create --eventId <value> --venueId <value> --entityId <value>
+  agent-db event-venue update --id <value> [--eventId <value>] [--venueId <value>] [--entityId <value>]
+  agent-db event-venue delete --id <value>           Delete one record
 
 INPUT FIELDS:
   eventId: UUID
@@ -685,11 +685,11 @@ CRUD operations for ExpenseContact records.
 
 ```
 SUBCOMMANDS:
-  agent-os expense-contact list                               List all records
-  agent-os expense-contact get --id <value>              Get one record
-  agent-os expense-contact create --expenseId <value> --contactId <value> --entityId <value>
-  agent-os expense-contact update --id <value> [--expenseId <value>] [--contactId <value>] [--entityId <value>]
-  agent-os expense-contact delete --id <value>           Delete one record
+  agent-db expense-contact list                               List all records
+  agent-db expense-contact get --id <value>              Get one record
+  agent-db expense-contact create --expenseId <value> --contactId <value> --entityId <value>
+  agent-db expense-contact update --id <value> [--expenseId <value>] [--contactId <value>] [--entityId <value>]
+  agent-db expense-contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   expenseId: UUID
@@ -716,11 +716,11 @@ CRUD operations for GoalHabit records.
 
 ```
 SUBCOMMANDS:
-  agent-os goal-habit list                               List all records
-  agent-os goal-habit get --id <value>              Get one record
-  agent-os goal-habit create --goalId <value> --habitId <value> --entityId <value>
-  agent-os goal-habit update --id <value> [--goalId <value>] [--habitId <value>] [--entityId <value>]
-  agent-os goal-habit delete --id <value>           Delete one record
+  agent-db goal-habit list                               List all records
+  agent-db goal-habit get --id <value>              Get one record
+  agent-db goal-habit create --goalId <value> --habitId <value> --entityId <value>
+  agent-db goal-habit update --id <value> [--goalId <value>] [--habitId <value>] [--entityId <value>]
+  agent-db goal-habit delete --id <value>           Delete one record
 
 INPUT FIELDS:
   goalId: UUID
@@ -747,11 +747,11 @@ CRUD operations for HabitLog records.
 
 ```
 SUBCOMMANDS:
-  agent-os habit-log list                               List all records
-  agent-os habit-log get --id <value>              Get one record
-  agent-os habit-log create --entityId <value> --habitId <value> --completedAt <value> [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>]
-  agent-os habit-log update --id <value> [--entityId <value>] [--habitId <value>] [--completedAt <value>] [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>]
-  agent-os habit-log delete --id <value>           Delete one record
+  agent-db habit-log list                               List all records
+  agent-db habit-log get --id <value>              Get one record
+  agent-db habit-log create --entityId <value> --habitId <value> --completedAt <value> [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>]
+  agent-db habit-log update --id <value> [--entityId <value>] [--habitId <value>] [--completedAt <value>] [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>]
+  agent-db habit-log delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -804,11 +804,11 @@ CRUD operations for GoalProject records.
 
 ```
 SUBCOMMANDS:
-  agent-os goal-project list                               List all records
-  agent-os goal-project get --id <value>              Get one record
-  agent-os goal-project create --goalId <value> --projectId <value> --entityId <value>
-  agent-os goal-project update --id <value> [--goalId <value>] [--projectId <value>] [--entityId <value>]
-  agent-os goal-project delete --id <value>           Delete one record
+  agent-db goal-project list                               List all records
+  agent-db goal-project get --id <value>              Get one record
+  agent-db goal-project create --goalId <value> --projectId <value> --entityId <value>
+  agent-db goal-project update --id <value> [--goalId <value>] [--projectId <value>] [--entityId <value>]
+  agent-db goal-project delete --id <value>           Delete one record
 
 INPUT FIELDS:
   goalId: UUID
@@ -835,11 +835,11 @@ CRUD operations for Milestone records.
 
 ```
 SUBCOMMANDS:
-  agent-os milestone list                               List all records
-  agent-os milestone get --id <value>              Get one record
-  agent-os milestone create --entityId <value> --name <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
-  agent-os milestone update --id <value> [--entityId <value>] [--projectId <value>] [--name <value>] [--dueDate <value>] [--status <value>]
-  agent-os milestone delete --id <value>           Delete one record
+  agent-db milestone list                               List all records
+  agent-db milestone get --id <value>              Get one record
+  agent-db milestone create --entityId <value> --name <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
+  agent-db milestone update --id <value> [--entityId <value>] [--projectId <value>] [--name <value>] [--dueDate <value>] [--status <value>]
+  agent-db milestone delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -872,11 +872,11 @@ CRUD operations for ProjectContact records.
 
 ```
 SUBCOMMANDS:
-  agent-os project-contact list                               List all records
-  agent-os project-contact get --id <value>              Get one record
-  agent-os project-contact create --projectId <value> --contactId <value> --entityId <value>
-  agent-os project-contact update --id <value> [--projectId <value>] [--contactId <value>] [--entityId <value>]
-  agent-os project-contact delete --id <value>           Delete one record
+  agent-db project-contact list                               List all records
+  agent-db project-contact get --id <value>              Get one record
+  agent-db project-contact create --projectId <value> --contactId <value> --entityId <value>
+  agent-db project-contact update --id <value> [--projectId <value>] [--contactId <value>] [--entityId <value>]
+  agent-db project-contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   projectId: UUID
@@ -903,11 +903,11 @@ CRUD operations for TaskContact records.
 
 ```
 SUBCOMMANDS:
-  agent-os task-contact list                               List all records
-  agent-os task-contact get --id <value>              Get one record
-  agent-os task-contact create --taskId <value> --contactId <value> --entityId <value>
-  agent-os task-contact update --id <value> [--taskId <value>] [--contactId <value>] [--entityId <value>]
-  agent-os task-contact delete --id <value>           Delete one record
+  agent-db task-contact list                               List all records
+  agent-db task-contact get --id <value>              Get one record
+  agent-db task-contact create --taskId <value> --contactId <value> --entityId <value>
+  agent-db task-contact update --id <value> [--taskId <value>] [--contactId <value>] [--entityId <value>]
+  agent-db task-contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   taskId: UUID
@@ -934,11 +934,11 @@ CRUD operations for VenueImage records.
 
 ```
 SUBCOMMANDS:
-  agent-os venue-image list                               List all records
-  agent-os venue-image get --id <value>              Get one record
-  agent-os venue-image create --venueId <value> --imageId <value> --entityId <value>
-  agent-os venue-image update --id <value> [--venueId <value>] [--imageId <value>] [--entityId <value>]
-  agent-os venue-image delete --id <value>           Delete one record
+  agent-db venue-image list                               List all records
+  agent-db venue-image get --id <value>              Get one record
+  agent-db venue-image create --venueId <value> --imageId <value> --entityId <value>
+  agent-db venue-image update --id <value> [--venueId <value>] [--imageId <value>] [--entityId <value>]
+  agent-db venue-image delete --id <value>           Delete one record
 
 INPUT FIELDS:
   venueId: UUID
@@ -965,11 +965,11 @@ CRUD operations for File records.
 
 ```
 SUBCOMMANDS:
-  agent-os file list                               List all records
-  agent-os file get --id <value>              Get one record
-  agent-os file create --entityId <value> --path <value> [--repositoryId <value>] [--language <value>] [--hash <value>]
-  agent-os file update --id <value> [--entityId <value>] [--repositoryId <value>] [--path <value>] [--language <value>] [--hash <value>]
-  agent-os file delete --id <value>           Delete one record
+  agent-db file list                               List all records
+  agent-db file get --id <value>              Get one record
+  agent-db file create --entityId <value> --path <value> [--repositoryId <value>] [--language <value>] [--hash <value>]
+  agent-db file update --id <value> [--entityId <value>] [--repositoryId <value>] [--path <value>] [--language <value>] [--hash <value>]
+  agent-db file delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1002,11 +1002,11 @@ CRUD operations for Chunk records.
 
 ```
 SUBCOMMANDS:
-  agent-os chunk list                               List all records
-  agent-os chunk get --id <value>              Get one record
-  agent-os chunk create --entityId <value> --content <value> --embeddingDistance <value> [--fileId <value>] [--repositoryId <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os chunk update --id <value> [--entityId <value>] [--fileId <value>] [--repositoryId <value>] [--content <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os chunk delete --id <value>           Delete one record
+  agent-db chunk list                               List all records
+  agent-db chunk get --id <value>              Get one record
+  agent-db chunk create --entityId <value> --content <value> --embeddingDistance <value> [--fileId <value>] [--repositoryId <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db chunk update --id <value> [--entityId <value>] [--fileId <value>] [--repositoryId <value>] [--content <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db chunk delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1047,11 +1047,11 @@ CRUD operations for CalendarAccount records.
 
 ```
 SUBCOMMANDS:
-  agent-os calendar-account list                               List all records
-  agent-os calendar-account get --id <value>              Get one record
-  agent-os calendar-account create --entityId <value> --email <value> [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
-  agent-os calendar-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
-  agent-os calendar-account delete --id <value>           Delete one record
+  agent-db calendar-account list                               List all records
+  agent-db calendar-account get --id <value>              Get one record
+  agent-db calendar-account create --entityId <value> --email <value> [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
+  agent-db calendar-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
+  agent-db calendar-account delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1084,11 +1084,11 @@ CRUD operations for Tag records.
 
 ```
 SUBCOMMANDS:
-  agent-os tag list                               List all records
-  agent-os tag get --id <value>              Get one record
-  agent-os tag create --entityId <value> --name <value> [--color <value>] [--category <value>] [--usageCount <value>]
-  agent-os tag update --id <value> [--entityId <value>] [--name <value>] [--color <value>] [--category <value>] [--usageCount <value>]
-  agent-os tag delete --id <value>           Delete one record
+  agent-db tag list                               List all records
+  agent-db tag get --id <value>              Get one record
+  agent-db tag create --entityId <value> --name <value> [--color <value>] [--category <value>] [--usageCount <value>]
+  agent-db tag update --id <value> [--entityId <value>] [--name <value>] [--color <value>] [--category <value>] [--usageCount <value>]
+  agent-db tag delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1121,11 +1121,11 @@ CRUD operations for Feedback records.
 
 ```
 SUBCOMMANDS:
-  agent-os feedback list                               List all records
-  agent-os feedback get --id <value>              Get one record
-  agent-os feedback create --entityId <value> --targetType <value> --targetId <value> [--rating <value>] [--comment <value>] [--source <value>]
-  agent-os feedback update --id <value> [--entityId <value>] [--targetType <value>] [--targetId <value>] [--rating <value>] [--comment <value>] [--source <value>]
-  agent-os feedback delete --id <value>           Delete one record
+  agent-db feedback list                               List all records
+  agent-db feedback get --id <value>              Get one record
+  agent-db feedback create --entityId <value> --targetType <value> --targetId <value> [--rating <value>] [--comment <value>] [--source <value>]
+  agent-db feedback update --id <value> [--entityId <value>] [--targetType <value>] [--targetId <value>] [--rating <value>] [--comment <value>] [--source <value>]
+  agent-db feedback delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1160,11 +1160,11 @@ CRUD operations for Attachment records.
 
 ```
 SUBCOMMANDS:
-  agent-os attachment list                               List all records
-  agent-os attachment get --id <value>              Get one record
-  agent-os attachment create --entityId <value> --url <value> [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>]
-  agent-os attachment update --id <value> [--entityId <value>] [--url <value>] [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>]
-  agent-os attachment delete --id <value>           Delete one record
+  agent-db attachment list                               List all records
+  agent-db attachment get --id <value>              Get one record
+  agent-db attachment create --entityId <value> --url <value> [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>]
+  agent-db attachment update --id <value> [--entityId <value>] [--url <value>] [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>]
+  agent-db attachment delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1201,11 +1201,11 @@ CRUD operations for EmailAccount records.
 
 ```
 SUBCOMMANDS:
-  agent-os email-account list                               List all records
-  agent-os email-account get --id <value>              Get one record
-  agent-os email-account create --entityId <value> --email <value> [--provider <value>] [--syncState <value>]
-  agent-os email-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncState <value>]
-  agent-os email-account delete --id <value>           Delete one record
+  agent-db email-account list                               List all records
+  agent-db email-account get --id <value>              Get one record
+  agent-db email-account create --entityId <value> --email <value> [--provider <value>] [--syncState <value>]
+  agent-db email-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncState <value>]
+  agent-db email-account delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1236,11 +1236,11 @@ CRUD operations for Message records.
 
 ```
 SUBCOMMANDS:
-  agent-os message list                               List all records
-  agent-os message get --id <value>              Get one record
-  agent-os message create --entityId <value> --embeddingDistance <value> [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os message update --id <value> [--entityId <value>] [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os message delete --id <value>           Delete one record
+  agent-db message list                               List all records
+  agent-db message get --id <value>              Get one record
+  agent-db message create --entityId <value> --embeddingDistance <value> [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db message update --id <value> [--entityId <value>] [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db message delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1289,11 +1289,11 @@ CRUD operations for ActivityLog records.
 
 ```
 SUBCOMMANDS:
-  agent-os activity-log list                               List all records
-  agent-os activity-log get --id <value>              Get one record
-  agent-os activity-log create --entityId <value> --actorType <value> --action <value> --targetType <value> --targetId <value> [--actorId <value>] [--metadata <value>]
-  agent-os activity-log update --id <value> [--entityId <value>] [--actorType <value>] [--actorId <value>] [--action <value>] [--targetType <value>] [--targetId <value>] [--metadata <value>]
-  agent-os activity-log delete --id <value>           Delete one record
+  agent-db activity-log list                               List all records
+  agent-db activity-log get --id <value>              Get one record
+  agent-db activity-log create --entityId <value> --actorType <value> --action <value> --targetType <value> --targetId <value> [--actorId <value>] [--metadata <value>]
+  agent-db activity-log update --id <value> [--entityId <value>] [--actorType <value>] [--actorId <value>] [--action <value>] [--targetType <value>] [--targetId <value>] [--metadata <value>]
+  agent-db activity-log delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1330,11 +1330,11 @@ CRUD operations for UserSetting records.
 
 ```
 SUBCOMMANDS:
-  agent-os user-setting list                               List all records
-  agent-os user-setting get --id <value>              Get one record
-  agent-os user-setting create --entityId <value> --key <value> [--value <value>] [--category <value>]
-  agent-os user-setting update --id <value> [--entityId <value>] [--key <value>] [--value <value>] [--category <value>]
-  agent-os user-setting delete --id <value>           Delete one record
+  agent-db user-setting list                               List all records
+  agent-db user-setting get --id <value>              Get one record
+  agent-db user-setting create --entityId <value> --key <value> [--value <value>] [--category <value>]
+  agent-db user-setting update --id <value> [--entityId <value>] [--key <value>] [--value <value>] [--category <value>]
+  agent-db user-setting delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1365,11 +1365,11 @@ CRUD operations for ExecutionLog records.
 
 ```
 SUBCOMMANDS:
-  agent-os execution-log list                               List all records
-  agent-os execution-log get --id <value>              Get one record
-  agent-os execution-log create --entityId <value> [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
-  agent-os execution-log update --id <value> [--entityId <value>] [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
-  agent-os execution-log delete --id <value>           Delete one record
+  agent-db execution-log list                               List all records
+  agent-db execution-log get --id <value>              Get one record
+  agent-db execution-log create --entityId <value> [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
+  agent-db execution-log update --id <value> [--entityId <value>] [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
+  agent-db execution-log delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1406,11 +1406,11 @@ CRUD operations for Webhook records.
 
 ```
 SUBCOMMANDS:
-  agent-os webhook list                               List all records
-  agent-os webhook get --id <value>              Get one record
-  agent-os webhook create --entityId <value> --url <value> --eventType <value> [--integrationId <value>] [--secret <value>] [--isActive <value>]
-  agent-os webhook update --id <value> [--entityId <value>] [--integrationId <value>] [--url <value>] [--eventType <value>] [--secret <value>] [--isActive <value>]
-  agent-os webhook delete --id <value>           Delete one record
+  agent-db webhook list                               List all records
+  agent-db webhook get --id <value>              Get one record
+  agent-db webhook create --entityId <value> --url <value> --eventType <value> [--integrationId <value>] [--secret <value>] [--isActive <value>]
+  agent-db webhook update --id <value> [--entityId <value>] [--integrationId <value>] [--url <value>] [--eventType <value>] [--secret <value>] [--isActive <value>]
+  agent-db webhook delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1445,11 +1445,11 @@ CRUD operations for Notification records.
 
 ```
 SUBCOMMANDS:
-  agent-os notification list                               List all records
-  agent-os notification get --id <value>              Get one record
-  agent-os notification create --entityId <value> [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>]
-  agent-os notification update --id <value> [--entityId <value>] [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>]
-  agent-os notification delete --id <value>           Delete one record
+  agent-db notification list                               List all records
+  agent-db notification get --id <value>              Get one record
+  agent-db notification create --entityId <value> [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>]
+  agent-db notification update --id <value> [--entityId <value>] [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>]
+  agent-db notification delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1490,11 +1490,11 @@ CRUD operations for WorkflowRun records.
 
 ```
 SUBCOMMANDS:
-  agent-os workflow-run list                               List all records
-  agent-os workflow-run get --id <value>              Get one record
-  agent-os workflow-run create --entityId <value> --workflowId <value> [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
-  agent-os workflow-run update --id <value> [--entityId <value>] [--workflowId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
-  agent-os workflow-run delete --id <value>           Delete one record
+  agent-db workflow-run list                               List all records
+  agent-db workflow-run get --id <value>              Get one record
+  agent-db workflow-run create --entityId <value> --workflowId <value> [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
+  agent-db workflow-run update --id <value> [--entityId <value>] [--workflowId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
+  agent-db workflow-run delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1533,11 +1533,11 @@ CRUD operations for WorkflowStep records.
 
 ```
 SUBCOMMANDS:
-  agent-os workflow-step list                               List all records
-  agent-os workflow-step get --id <value>              Get one record
-  agent-os workflow-step create --entityId <value> --workflowId <value> --stepOrder <value> --actionType <value> [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
-  agent-os workflow-step update --id <value> [--entityId <value>] [--workflowId <value>] [--stepOrder <value>] [--actionType <value>] [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
-  agent-os workflow-step delete --id <value>           Delete one record
+  agent-db workflow-step list                               List all records
+  agent-db workflow-step get --id <value>              Get one record
+  agent-db workflow-step create --entityId <value> --workflowId <value> --stepOrder <value> --actionType <value> [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
+  agent-db workflow-step update --id <value> [--entityId <value>] [--workflowId <value>] [--stepOrder <value>] [--actionType <value>] [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
+  agent-db workflow-step delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1576,11 +1576,11 @@ CRUD operations for Integration records.
 
 ```
 SUBCOMMANDS:
-  agent-os integration list                               List all records
-  agent-os integration get --id <value>              Get one record
-  agent-os integration create --entityId <value> --name <value> --provider <value> [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
-  agent-os integration update --id <value> [--entityId <value>] [--name <value>] [--provider <value>] [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
-  agent-os integration delete --id <value>           Delete one record
+  agent-db integration list                               List all records
+  agent-db integration get --id <value>              Get one record
+  agent-db integration create --entityId <value> --name <value> --provider <value> [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
+  agent-db integration update --id <value> [--entityId <value>] [--name <value>] [--provider <value>] [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
+  agent-db integration delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1619,11 +1619,11 @@ CRUD operations for SkillExecution records.
 
 ```
 SUBCOMMANDS:
-  agent-os skill-execution list                               List all records
-  agent-os skill-execution get --id <value>              Get one record
-  agent-os skill-execution create --entityId <value> --skillId <value> [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>]
-  agent-os skill-execution update --id <value> [--entityId <value>] [--skillId <value>] [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>]
-  agent-os skill-execution delete --id <value>           Delete one record
+  agent-db skill-execution list                               List all records
+  agent-db skill-execution get --id <value>              Get one record
+  agent-db skill-execution create --entityId <value> --skillId <value> [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>]
+  agent-db skill-execution update --id <value> [--entityId <value>] [--skillId <value>] [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>]
+  agent-db skill-execution delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1668,11 +1668,11 @@ CRUD operations for Chat records.
 
 ```
 SUBCOMMANDS:
-  agent-os chat list                               List all records
-  agent-os chat get --id <value>              Get one record
-  agent-os chat create --entityId <value> --embeddingDistance <value> [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os chat update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os chat delete --id <value>           Delete one record
+  agent-db chat list                               List all records
+  agent-db chat get --id <value>              Get one record
+  agent-db chat create --entityId <value> --embeddingDistance <value> [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db chat update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db chat delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1707,11 +1707,11 @@ CRUD operations for ChatMessage records.
 
 ```
 SUBCOMMANDS:
-  agent-os chat-message list                               List all records
-  agent-os chat-message get --id <value>              Get one record
-  agent-os chat-message create --entityId <value> --embeddingDistance <value> [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os chat-message update --id <value> [--entityId <value>] [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os chat-message delete --id <value>           Delete one record
+  agent-db chat-message list                               List all records
+  agent-db chat-message get --id <value>              Get one record
+  agent-db chat-message create --entityId <value> --embeddingDistance <value> [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db chat-message update --id <value> [--entityId <value>] [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db chat-message delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1752,11 +1752,11 @@ CRUD operations for Thread records.
 
 ```
 SUBCOMMANDS:
-  agent-os thread list                               List all records
-  agent-os thread get --id <value>              Get one record
-  agent-os thread create --entityId <value> --title <value> --embeddingDistance <value> [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os thread update --id <value> [--entityId <value>] [--title <value>] [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os thread delete --id <value>           Delete one record
+  agent-db thread list                               List all records
+  agent-db thread get --id <value>              Get one record
+  agent-db thread create --entityId <value> --title <value> --embeddingDistance <value> [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db thread update --id <value> [--entityId <value>] [--title <value>] [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db thread delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1795,11 +1795,11 @@ CRUD operations for Session records.
 
 ```
 SUBCOMMANDS:
-  agent-os session list                               List all records
-  agent-os session get --id <value>              Get one record
-  agent-os session create --entityId <value> --embeddingDistance <value> [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os session update --id <value> [--entityId <value>] [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os session delete --id <value>           Delete one record
+  agent-db session list                               List all records
+  agent-db session get --id <value>              Get one record
+  agent-db session create --entityId <value> --embeddingDistance <value> [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db session update --id <value> [--entityId <value>] [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db session delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1842,11 +1842,11 @@ CRUD operations for Reminder records.
 
 ```
 SUBCOMMANDS:
-  agent-os reminder list                               List all records
-  agent-os reminder get --id <value>              Get one record
-  agent-os reminder create --entityId <value> --title <value> --embeddingDistance <value> [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os reminder update --id <value> [--entityId <value>] [--title <value>] [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os reminder delete --id <value>           Delete one record
+  agent-db reminder list                               List all records
+  agent-db reminder get --id <value>              Get one record
+  agent-db reminder create --entityId <value> --title <value> --embeddingDistance <value> [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db reminder update --id <value> [--entityId <value>] [--title <value>] [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db reminder delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1891,11 +1891,11 @@ CRUD operations for Image records.
 
 ```
 SUBCOMMANDS:
-  agent-os image list                               List all records
-  agent-os image get --id <value>              Get one record
-  agent-os image create --entityId <value> --url <value> --embeddingDistance <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
-  agent-os image update --id <value> [--entityId <value>] [--url <value>] [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os image delete --id <value>           Delete one record
+  agent-db image list                               List all records
+  agent-db image get --id <value>              Get one record
+  agent-db image create --entityId <value> --url <value> --embeddingDistance <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
+  agent-db image update --id <value> [--entityId <value>] [--url <value>] [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db image delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1932,11 +1932,11 @@ CRUD operations for ListItem records.
 
 ```
 SUBCOMMANDS:
-  agent-os list-item list                               List all records
-  agent-os list-item get --id <value>              Get one record
-  agent-os list-item create --entityId <value> --listId <value> [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>]
-  agent-os list-item update --id <value> [--entityId <value>] [--listId <value>] [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>]
-  agent-os list-item delete --id <value>           Delete one record
+  agent-db list-item list                               List all records
+  agent-db list-item get --id <value>              Get one record
+  agent-db list-item create --entityId <value> --listId <value> [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>]
+  agent-db list-item update --id <value> [--entityId <value>] [--listId <value>] [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>]
+  agent-db list-item delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1973,11 +1973,11 @@ CRUD operations for CompanyLink records.
 
 ```
 SUBCOMMANDS:
-  agent-os company-link list                               List all records
-  agent-os company-link get --id <value>              Get one record
-  agent-os company-link create --entityId <value> --url <value> --companyId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
-  agent-os company-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--companyId <value>] [--embeddingDistance <value>]
-  agent-os company-link delete --id <value>           Delete one record
+  agent-db company-link list                               List all records
+  agent-db company-link get --id <value>              Get one record
+  agent-db company-link create --entityId <value> --url <value> --companyId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
+  agent-db company-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--companyId <value>] [--embeddingDistance <value>]
+  agent-db company-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2012,11 +2012,11 @@ CRUD operations for ContactLink records.
 
 ```
 SUBCOMMANDS:
-  agent-os contact-link list                               List all records
-  agent-os contact-link get --id <value>              Get one record
-  agent-os contact-link create --entityId <value> --url <value> --contactId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
-  agent-os contact-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--contactId <value>] [--embeddingDistance <value>]
-  agent-os contact-link delete --id <value>           Delete one record
+  agent-db contact-link list                               List all records
+  agent-db contact-link get --id <value>              Get one record
+  agent-db contact-link create --entityId <value> --url <value> --contactId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
+  agent-db contact-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--contactId <value>] [--embeddingDistance <value>]
+  agent-db contact-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2051,11 +2051,11 @@ CRUD operations for EventLink records.
 
 ```
 SUBCOMMANDS:
-  agent-os event-link list                               List all records
-  agent-os event-link get --id <value>              Get one record
-  agent-os event-link create --entityId <value> --url <value> --eventId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
-  agent-os event-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--eventId <value>] [--embeddingDistance <value>]
-  agent-os event-link delete --id <value>           Delete one record
+  agent-db event-link list                               List all records
+  agent-db event-link get --id <value>              Get one record
+  agent-db event-link create --entityId <value> --url <value> --eventId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
+  agent-db event-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--eventId <value>] [--embeddingDistance <value>]
+  agent-db event-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2090,11 +2090,11 @@ CRUD operations for VenueLink records.
 
 ```
 SUBCOMMANDS:
-  agent-os venue-link list                               List all records
-  agent-os venue-link get --id <value>              Get one record
-  agent-os venue-link create --entityId <value> --url <value> --venueId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
-  agent-os venue-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--venueId <value>] [--embeddingDistance <value>]
-  agent-os venue-link delete --id <value>           Delete one record
+  agent-db venue-link list                               List all records
+  agent-db venue-link get --id <value>              Get one record
+  agent-db venue-link create --entityId <value> --url <value> --venueId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
+  agent-db venue-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--venueId <value>] [--embeddingDistance <value>]
+  agent-db venue-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2129,11 +2129,11 @@ CRUD operations for Habit records.
 
 ```
 SUBCOMMANDS:
-  agent-os habit list                               List all records
-  agent-os habit get --id <value>              Get one record
-  agent-os habit create --entityId <value> --name <value> [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
-  agent-os habit update --id <value> [--entityId <value>] [--name <value>] [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
-  agent-os habit delete --id <value>           Delete one record
+  agent-db habit list                               List all records
+  agent-db habit get --id <value>              Get one record
+  agent-db habit create --entityId <value> --name <value> [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
+  agent-db habit update --id <value> [--entityId <value>] [--name <value>] [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
+  agent-db habit delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2172,11 +2172,11 @@ CRUD operations for Workflow records.
 
 ```
 SUBCOMMANDS:
-  agent-os workflow list                               List all records
-  agent-os workflow get --id <value>              Get one record
-  agent-os workflow create --entityId <value> --name <value> [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
-  agent-os workflow update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
-  agent-os workflow delete --id <value>           Delete one record
+  agent-db workflow list                               List all records
+  agent-db workflow get --id <value>              Get one record
+  agent-db workflow create --entityId <value> --name <value> [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
+  agent-db workflow update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
+  agent-db workflow delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2213,11 +2213,11 @@ CRUD operations for Expense records.
 
 ```
 SUBCOMMANDS:
-  agent-os expense list                               List all records
-  agent-os expense get --id <value>              Get one record
-  agent-os expense create --entityId <value> [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>]
-  agent-os expense update --id <value> [--entityId <value>] [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>]
-  agent-os expense delete --id <value>           Delete one record
+  agent-db expense list                               List all records
+  agent-db expense get --id <value>              Get one record
+  agent-db expense create --entityId <value> [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>]
+  agent-db expense update --id <value> [--entityId <value>] [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>]
+  agent-db expense delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2260,11 +2260,11 @@ CRUD operations for BillingSubscription records.
 
 ```
 SUBCOMMANDS:
-  agent-os billing-subscription list                               List all records
-  agent-os billing-subscription get --id <value>              Get one record
-  agent-os billing-subscription create --entityId <value> --name <value> [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>]
-  agent-os billing-subscription update --id <value> [--entityId <value>] [--name <value>] [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>]
-  agent-os billing-subscription delete --id <value>           Delete one record
+  agent-db billing-subscription list                               List all records
+  agent-db billing-subscription get --id <value>              Get one record
+  agent-db billing-subscription create --entityId <value> --name <value> [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>]
+  agent-db billing-subscription update --id <value> [--entityId <value>] [--name <value>] [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>]
+  agent-db billing-subscription delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2309,11 +2309,11 @@ CRUD operations for Idea records.
 
 ```
 SUBCOMMANDS:
-  agent-os idea list                               List all records
-  agent-os idea get --id <value>              Get one record
-  agent-os idea create --entityId <value> --content <value> --embeddingDistance <value> [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os idea update --id <value> [--entityId <value>] [--content <value>] [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os idea delete --id <value>           Delete one record
+  agent-db idea list                               List all records
+  agent-db idea get --id <value>              Get one record
+  agent-db idea create --entityId <value> --content <value> --embeddingDistance <value> [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db idea update --id <value> [--entityId <value>] [--content <value>] [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db idea delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2352,11 +2352,11 @@ CRUD operations for List records.
 
 ```
 SUBCOMMANDS:
-  agent-os list list                               List all records
-  agent-os list get --id <value>              Get one record
-  agent-os list create --entityId <value> --name <value> --embeddingDistance <value> [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os list update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os list delete --id <value>           Delete one record
+  agent-db list list                               List all records
+  agent-db list get --id <value>              Get one record
+  agent-db list create --entityId <value> --name <value> --embeddingDistance <value> [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db list update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db list delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2395,11 +2395,11 @@ CRUD operations for Note records.
 
 ```
 SUBCOMMANDS:
-  agent-os note list                               List all records
-  agent-os note get --id <value>              Get one record
-  agent-os note create --entityId <value> --content <value> --embeddingDistance <value> [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os note update --id <value> [--entityId <value>] [--content <value>] [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os note delete --id <value>           Delete one record
+  agent-db note list                               List all records
+  agent-db note get --id <value>              Get one record
+  agent-db note create --entityId <value> --content <value> --embeddingDistance <value> [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db note update --id <value> [--entityId <value>] [--content <value>] [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db note delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2438,11 +2438,11 @@ CRUD operations for Repository records.
 
 ```
 SUBCOMMANDS:
-  agent-os repository list                               List all records
-  agent-os repository get --id <value>              Get one record
-  agent-os repository create --entityId <value> --name <value> --embeddingDistance <value> [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os repository update --id <value> [--entityId <value>] [--name <value>] [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os repository delete --id <value>           Delete one record
+  agent-db repository list                               List all records
+  agent-db repository get --id <value>              Get one record
+  agent-db repository create --entityId <value> --name <value> --embeddingDistance <value> [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db repository update --id <value> [--entityId <value>] [--name <value>] [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db repository delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2485,11 +2485,11 @@ CRUD operations for Deal records.
 
 ```
 SUBCOMMANDS:
-  agent-os deal list                               List all records
-  agent-os deal get --id <value>              Get one record
-  agent-os deal create --entityId <value> --name <value> --embeddingDistance <value> [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os deal update --id <value> [--entityId <value>] [--name <value>] [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os deal delete --id <value>           Delete one record
+  agent-db deal list                               List all records
+  agent-db deal get --id <value>              Get one record
+  agent-db deal create --entityId <value> --name <value> --embeddingDistance <value> [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db deal update --id <value> [--entityId <value>] [--name <value>] [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db deal delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2534,11 +2534,11 @@ CRUD operations for Goal records.
 
 ```
 SUBCOMMANDS:
-  agent-os goal list                               List all records
-  agent-os goal get --id <value>              Get one record
-  agent-os goal create --entityId <value> --title <value> --embeddingDistance <value> [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os goal update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os goal delete --id <value>           Delete one record
+  agent-db goal list                               List all records
+  agent-db goal get --id <value>              Get one record
+  agent-db goal create --entityId <value> --title <value> --embeddingDistance <value> [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db goal update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db goal delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2583,11 +2583,11 @@ CRUD operations for Prompt records.
 
 ```
 SUBCOMMANDS:
-  agent-os prompt list                               List all records
-  agent-os prompt get --id <value>              Get one record
-  agent-os prompt create --entityId <value> --name <value> --content <value> --embeddingDistance <value> [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os prompt update --id <value> [--entityId <value>] [--name <value>] [--content <value>] [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os prompt delete --id <value>           Delete one record
+  agent-db prompt list                               List all records
+  agent-db prompt get --id <value>              Get one record
+  agent-db prompt create --entityId <value> --name <value> --content <value> --embeddingDistance <value> [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db prompt update --id <value> [--entityId <value>] [--name <value>] [--content <value>] [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db prompt delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2632,11 +2632,11 @@ CRUD operations for Blueprint records.
 
 ```
 SUBCOMMANDS:
-  agent-os blueprint list                               List all records
-  agent-os blueprint get --id <value>              Get one record
-  agent-os blueprint create --entityId <value> --title <value> --embeddingDistance <value> [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os blueprint update --id <value> [--entityId <value>] [--title <value>] [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os blueprint delete --id <value>           Delete one record
+  agent-db blueprint list                               List all records
+  agent-db blueprint get --id <value>              Get one record
+  agent-db blueprint create --entityId <value> --title <value> --embeddingDistance <value> [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db blueprint update --id <value> [--entityId <value>] [--title <value>] [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db blueprint delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2677,11 +2677,11 @@ CRUD operations for Template records.
 
 ```
 SUBCOMMANDS:
-  agent-os template list                               List all records
-  agent-os template get --id <value>              Get one record
-  agent-os template create --entityId <value> --name <value> --content <value> --embeddingDistance <value> [--description <value>] [--type <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os template update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--content <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os template delete --id <value>           Delete one record
+  agent-db template list                               List all records
+  agent-db template get --id <value>              Get one record
+  agent-db template create --entityId <value> --name <value> --content <value> --embeddingDistance <value> [--description <value>] [--type <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db template update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--content <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db template delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2726,11 +2726,11 @@ CRUD operations for Tool records.
 
 ```
 SUBCOMMANDS:
-  agent-os tool list                               List all records
-  agent-os tool get --id <value>              Get one record
-  agent-os tool create --entityId <value> --name <value> --embeddingDistance <value> [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os tool update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os tool delete --id <value>           Delete one record
+  agent-db tool list                               List all records
+  agent-db tool get --id <value>              Get one record
+  agent-db tool create --entityId <value> --name <value> --embeddingDistance <value> [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db tool update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db tool delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2779,11 +2779,11 @@ CRUD operations for Memory records.
 
 ```
 SUBCOMMANDS:
-  agent-os memory list                               List all records
-  agent-os memory get --id <value>              Get one record
-  agent-os memory create --entityId <value> --content <value> --embeddingDistance <value> [--memoryType <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os memory update --id <value> [--entityId <value>] [--content <value>] [--memoryType <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os memory delete --id <value>           Delete one record
+  agent-db memory list                               List all records
+  agent-db memory get --id <value>              Get one record
+  agent-db memory create --entityId <value> --content <value> --embeddingDistance <value> [--memoryType <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db memory update --id <value> [--entityId <value>] [--content <value>] [--memoryType <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db memory delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2832,11 +2832,11 @@ CRUD operations for Recipe records.
 
 ```
 SUBCOMMANDS:
-  agent-os recipe list                               List all records
-  agent-os recipe get --id <value>              Get one record
-  agent-os recipe create --entityId <value> --name <value> --embeddingDistance <value> [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os recipe update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os recipe delete --id <value>           Delete one record
+  agent-db recipe list                               List all records
+  agent-db recipe get --id <value>              Get one record
+  agent-db recipe create --entityId <value> --name <value> --embeddingDistance <value> [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db recipe update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db recipe delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2891,11 +2891,11 @@ CRUD operations for Trip records.
 
 ```
 SUBCOMMANDS:
-  agent-os trip list                               List all records
-  agent-os trip get --id <value>              Get one record
-  agent-os trip create --entityId <value> --name <value> --embeddingDistance <value> [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os trip update --id <value> [--entityId <value>] [--name <value>] [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os trip delete --id <value>           Delete one record
+  agent-db trip list                               List all records
+  agent-db trip get --id <value>              Get one record
+  agent-db trip create --entityId <value> --name <value> --embeddingDistance <value> [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db trip update --id <value> [--entityId <value>] [--name <value>] [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db trip delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2940,11 +2940,11 @@ CRUD operations for Rule records.
 
 ```
 SUBCOMMANDS:
-  agent-os rule list                               List all records
-  agent-os rule get --id <value>              Get one record
-  agent-os rule create --entityId <value> --title <value> --embeddingDistance <value> --triggerConceptDistance <value> [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>]
-  agent-os rule update --id <value> [--entityId <value>] [--title <value>] [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>] [--embeddingDistance <value>] [--triggerConceptDistance <value>]
-  agent-os rule delete --id <value>           Delete one record
+  agent-db rule list                               List all records
+  agent-db rule get --id <value>              Get one record
+  agent-db rule create --entityId <value> --title <value> --embeddingDistance <value> --triggerConceptDistance <value> [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>]
+  agent-db rule update --id <value> [--entityId <value>] [--title <value>] [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>] [--embeddingDistance <value>] [--triggerConceptDistance <value>]
+  agent-db rule delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2995,11 +2995,11 @@ CRUD operations for Skill records.
 
 ```
 SUBCOMMANDS:
-  agent-os skill list                               List all records
-  agent-os skill get --id <value>              Get one record
-  agent-os skill create --entityId <value> --name <value> --embeddingDistance <value> --intentTriggerDistance <value> [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>]
-  agent-os skill update --id <value> [--entityId <value>] [--name <value>] [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>] [--embeddingDistance <value>] [--intentTriggerDistance <value>]
-  agent-os skill delete --id <value>           Delete one record
+  agent-db skill list                               List all records
+  agent-db skill get --id <value>              Get one record
+  agent-db skill create --entityId <value> --name <value> --embeddingDistance <value> --intentTriggerDistance <value> [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>]
+  agent-db skill update --id <value> [--entityId <value>] [--name <value>] [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>] [--embeddingDistance <value>] [--intentTriggerDistance <value>]
+  agent-db skill delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3058,11 +3058,11 @@ CRUD operations for Agent records.
 
 ```
 SUBCOMMANDS:
-  agent-os agent list                               List all records
-  agent-os agent get --id <value>              Get one record
-  agent-os agent create --entityId <value> --name <value> --embeddingDistance <value> [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os agent update --id <value> [--entityId <value>] [--name <value>] [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os agent delete --id <value>           Delete one record
+  agent-db agent list                               List all records
+  agent-db agent get --id <value>              Get one record
+  agent-db agent create --entityId <value> --name <value> --embeddingDistance <value> [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db agent update --id <value> [--entityId <value>] [--name <value>] [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db agent delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3123,11 +3123,11 @@ CRUD operations for Task records.
 
 ```
 SUBCOMMANDS:
-  agent-os task list                               List all records
-  agent-os task get --id <value>              Get one record
-  agent-os task create --entityId <value> --title <value> --embeddingDistance <value> [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-os task update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-os task delete --id <value>           Delete one record
+  agent-db task list                               List all records
+  agent-db task get --id <value>              Get one record
+  agent-db task create --entityId <value> --title <value> --embeddingDistance <value> [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db task update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db task delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3184,11 +3184,11 @@ CRUD operations for Project records.
 
 ```
 SUBCOMMANDS:
-  agent-os project list                               List all records
-  agent-os project get --id <value>              Get one record
-  agent-os project create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
-  agent-os project update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
-  agent-os project delete --id <value>           Delete one record
+  agent-db project list                               List all records
+  agent-db project get --id <value>              Get one record
+  agent-db project create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
+  agent-db project update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db project delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3235,11 +3235,11 @@ CRUD operations for Document records.
 
 ```
 SUBCOMMANDS:
-  agent-os document list                               List all records
-  agent-os document get --id <value>              Get one record
-  agent-os document create --entityId <value> --title <value> --searchTsvRank <value> --embeddingDistance <value> [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
-  agent-os document update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
-  agent-os document delete --id <value>           Delete one record
+  agent-db document list                               List all records
+  agent-db document get --id <value>              Get one record
+  agent-db document create --entityId <value> --title <value> --searchTsvRank <value> --embeddingDistance <value> [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
+  agent-db document update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db document delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3288,11 +3288,11 @@ CRUD operations for Company records.
 
 ```
 SUBCOMMANDS:
-  agent-os company list                               List all records
-  agent-os company get --id <value>              Get one record
-  agent-os company create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-os company update --id <value> [--entityId <value>] [--name <value>] [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
-  agent-os company delete --id <value>           Delete one record
+  agent-db company list                               List all records
+  agent-db company get --id <value>              Get one record
+  agent-db company create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agent-db company update --id <value> [--entityId <value>] [--name <value>] [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db company delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3339,11 +3339,11 @@ CRUD operations for Event records.
 
 ```
 SUBCOMMANDS:
-  agent-os event list                               List all records
-  agent-os event get --id <value>              Get one record
-  agent-os event create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-os event update --id <value> [--entityId <value>] [--name <value>] [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
-  agent-os event delete --id <value>           Delete one record
+  agent-db event list                               List all records
+  agent-db event get --id <value>              Get one record
+  agent-db event create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agent-db event update --id <value> [--entityId <value>] [--name <value>] [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db event delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3396,11 +3396,11 @@ CRUD operations for Contact records.
 
 ```
 SUBCOMMANDS:
-  agent-os contact list                               List all records
-  agent-os contact get --id <value>              Get one record
-  agent-os contact create --entityId <value> --firstName <value> --searchTsvRank <value> --embeddingDistance <value> [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-os contact update --id <value> [--entityId <value>] [--firstName <value>] [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
-  agent-os contact delete --id <value>           Delete one record
+  agent-db contact list                               List all records
+  agent-db contact get --id <value>              Get one record
+  agent-db contact create --entityId <value> --firstName <value> --searchTsvRank <value> --embeddingDistance <value> [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agent-db contact update --id <value> [--entityId <value>] [--firstName <value>] [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3469,11 +3469,11 @@ CRUD operations for Venue records.
 
 ```
 SUBCOMMANDS:
-  agent-os venue list                               List all records
-  agent-os venue get --id <value>              Get one record
-  agent-os venue create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-os venue update --id <value> [--entityId <value>] [--name <value>] [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
-  agent-os venue delete --id <value>           Delete one record
+  agent-db venue list                               List all records
+  agent-db venue get --id <value>              Get one record
+  agent-db venue create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agent-db venue update --id <value> [--entityId <value>] [--name <value>] [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db venue delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3533,41 +3533,41 @@ OUTPUT: JSON
 ### Initial setup
 
 ```bash
-agent-os context create dev --endpoint http://localhost:5000/graphql
-agent-os context use dev
-agent-os auth set-token eyJhbGciOiJIUzI1NiIs...
+agent-db context create dev --endpoint http://localhost:5000/graphql
+agent-db context use dev
+agent-db auth set-token eyJhbGciOiJIUzI1NiIs...
 ```
 
 ### CRUD workflow (agent-prompt)
 
 ```bash
 # List all
-agent-os agent-prompt list
+agent-db agent-prompt list
 
 # Create
-agent-os agent-prompt create --agentId "value" --promptId "value" --entityId "value"
+agent-db agent-prompt create --agentId "value" --promptId "value" --entityId "value"
 
 # Get by id
-agent-os agent-prompt get --id <value>
+agent-db agent-prompt get --id <value>
 
 # Update
-agent-os agent-prompt update --id <value> --agentId "new-value"
+agent-db agent-prompt update --id <value> --agentId "new-value"
 
 # Delete
-agent-os agent-prompt delete --id <value>
+agent-db agent-prompt delete --id <value>
 ```
 
 ### Piping output
 
 ```bash
 # Pretty print
-agent-os car list | jq '.'
+agent-db car list | jq '.'
 
 # Extract field
-agent-os car list | jq '.[].id'
+agent-db car list | jq '.[].id'
 
 # Count results
-agent-os car list | jq 'length'
+agent-db car list | jq 'length'
 ```
 
 ## ERROR HANDLING

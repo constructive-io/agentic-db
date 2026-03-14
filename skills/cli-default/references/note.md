@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Note records via agent-os CLI
+CRUD operations for Note records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os note list
-agent-os note get --id <value>
-agent-os note create --entityId <value> --content <value> --embeddingDistance <value> [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-agent-os note update --id <value> [--entityId <value>] [--content <value>] [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-agent-os note delete --id <value>
+agent-db note list
+agent-db note get --id <value>
+agent-db note create --entityId <value> --content <value> --embeddingDistance <value> [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db note update --id <value> [--entityId <value>] [--content <value>] [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-db note delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os note delete --id <value>
 ### List all note records
 
 ```bash
-agent-os note list
+agent-db note list
 ```
 
 ### Create a note
 
 ```bash
-agent-os note create --entityId <value> --content <value> --embeddingDistance <value> [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db note create --entityId <value> --content <value> --embeddingDistance <value> [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a note by id
 
 ```bash
-agent-os note get --id <value>
+agent-db note get --id <value>
 ```

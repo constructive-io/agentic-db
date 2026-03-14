@@ -20,7 +20,7 @@ async function main() {
     headers: { Host: APP_HOST },
     schemaOnly: true,
     schemaOnlyOutput: path.resolve(__dirname, '..'),
-    schemaOnlyFilename: 'agent-os.graphql',
+    schemaOnlyFilename: 'agent-db.graphql',
     verbose: true,
   });
 

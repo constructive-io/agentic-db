@@ -2,7 +2,7 @@
   "name": "@agentic-db/schemas",
   "version": "0.0.1",
   "private": true,
-  "description": "GraphQL schema files for agent-os database",
+  "description": "GraphQL schema files for agent-db database",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "license": "MIT",
   "main": "index.js",

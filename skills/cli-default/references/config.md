@@ -2,15 +2,15 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-Manage per-context key-value configuration variables for agent-os
+Manage per-context key-value configuration variables for agent-db
 
 ## Usage
 
 ```bash
-agent-os config get <key>
-agent-os config set <key> <value>
-agent-os config list
-agent-os config delete <key>
+agent-db config get <key>
+agent-db config set <key> <value>
+agent-db config list
+agent-db config delete <key>
 ```
 
 ## Examples
@@ -18,12 +18,12 @@ agent-os config delete <key>
 ### Store and retrieve a config variable
 
 ```bash
-agent-os config set orgId abc-123
-agent-os config get orgId
+agent-db config set orgId abc-123
+agent-db config get orgId
 ```
 
 ### List all config variables
 
 ```bash
-agent-os config list
+agent-db config list
 ```

@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Integration records via agent-os CLI
+CRUD operations for Integration records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os integration list
-agent-os integration get --id <value>
-agent-os integration create --entityId <value> --name <value> --provider <value> [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
-agent-os integration update --id <value> [--entityId <value>] [--name <value>] [--provider <value>] [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
-agent-os integration delete --id <value>
+agent-db integration list
+agent-db integration get --id <value>
+agent-db integration create --entityId <value> --name <value> --provider <value> [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
+agent-db integration update --id <value> [--entityId <value>] [--name <value>] [--provider <value>] [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
+agent-db integration delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os integration delete --id <value>
 ### List all integration records
 
 ```bash
-agent-os integration list
+agent-db integration list
 ```
 
 ### Create a integration
 
 ```bash
-agent-os integration create --entityId <value> --name <value> --provider <value> [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
+agent-db integration create --entityId <value> --name <value> --provider <value> [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
 ```
 
 ### Get a integration by id
 
 ```bash
-agent-os integration get --id <value>
+agent-db integration get --id <value>
 ```

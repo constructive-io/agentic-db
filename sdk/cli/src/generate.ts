@@ -10,7 +10,7 @@ import * as fs from 'fs';
 import { generate } from '@constructive-io/graphql-codegen';
 
 async function main() {
-  const schemaFile = path.resolve(__dirname, '../../schemas/agent-os.graphql');
+  const schemaFile = path.resolve(__dirname, '../../schemas/agent-db.graphql');
   const outputDir = path.resolve(__dirname, '../generated');
 
   if (!fs.existsSync(schemaFile)) {
@@ -29,7 +29,7 @@ async function main() {
     schemaFile,
     output: outputDir,
     cli: {
-      toolName: 'agent-os',
+      toolName: 'agent-db',
       entryPoint: true,
     },
     nodeHttpAdapter: true,

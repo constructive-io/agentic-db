@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for AgentTool records via agent-os CLI
+CRUD operations for AgentTool records via agent-db CLI
 
 ## Usage
 
 ```bash
-agent-os agent-tool list
-agent-os agent-tool get --id <value>
-agent-os agent-tool create --agentId <value> --toolId <value> --entityId <value>
-agent-os agent-tool update --id <value> [--agentId <value>] [--toolId <value>] [--entityId <value>]
-agent-os agent-tool delete --id <value>
+agent-db agent-tool list
+agent-db agent-tool get --id <value>
+agent-db agent-tool create --agentId <value> --toolId <value> --entityId <value>
+agent-db agent-tool update --id <value> [--agentId <value>] [--toolId <value>] [--entityId <value>]
+agent-db agent-tool delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os agent-tool delete --id <value>
 ### List all agentTool records
 
 ```bash
-agent-os agent-tool list
+agent-db agent-tool list
 ```
 
 ### Create a agentTool
 
 ```bash
-agent-os agent-tool create --agentId <value> --toolId <value> --entityId <value>
+agent-db agent-tool create --agentId <value> --toolId <value> --entityId <value>
 ```
 
 ### Get a agentTool by id
 
 ```bash
-agent-os agent-tool get --id <value>
+agent-db agent-tool get --id <value>
 ```
