@@ -1,0 +1,10 @@
+-- Revert: schemas/agent_db_user_identifiers_public/tables/phone_numbers/columns/is_primary/alterations/alt0000000729
+
+
+
+
+ALTER TABLE agent_db_user_identifiers_public.phone_numbers 
+    ALTER COLUMN is_primary DROP DEFAULT;
+
+
+

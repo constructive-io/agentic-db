@@ -1,0 +1,10 @@
+-- Deploy: schemas/agent_db_logging_public/tables/audit_logs/policies/enable_row_level_security
+-- made with <3 @ launchql.com
+
+-- requires: schemas/agent_db_logging_public/schema
+-- requires: schemas/agent_db_logging_public/tables/audit_logs/table
+
+
+ALTER TABLE agent_db_logging_public.audit_logs 
+  ENABLE ROW LEVEL SECURITY;
+
