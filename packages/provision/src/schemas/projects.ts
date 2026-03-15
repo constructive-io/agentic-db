@@ -1,6 +1,5 @@
 /**
- * projects.ts — Provision Project Management schema
- * Security: Safegres AuthzEntityMembership (Org-scoped)
+ * projects.ts — Provision Project Management schema using inline fields
  */
 
 import * as dotenv from 'dotenv';
@@ -15,7 +14,7 @@ const databaseId = process.env.DATABASE_ID;
 const accessToken = process.env.ACCESS_TOKEN;
 
 if (!databaseId || !accessToken) {
-  console.error('❌ Missing DATABASE_ID or ACCESS_TOKEN in .env');
+  console.error('Missing DATABASE_ID or ACCESS_TOKEN in .env');
   process.exit(1);
 }
 
@@ -28,19 +27,27 @@ const adapter = new NodeHttpAdapter(PLATFORM_ENDPOINT, {
 });
 const client = createClient({ adapter });
 
-async function createOrgTable(tableName: string): Promise<string> {
+interface FieldDef {
+  name: string;
+  type: string;
+  is_required?: boolean;
+  default?: string;
+}
+
+async function createOrgTable(tableName: string, fields: FieldDef[] = []): Promise<string> {
   const result = await withRetry(() =>
     client.secureTableProvision.create({
       data: {
         databaseId,
         tableName,
-        nodeType: 'DataEntityMembership', // Adds entity_id
+        nodeType: 'DataEntityMembership',
         useRls: true,
         grantRoles: ['authenticated'],
         grantPrivileges: entityGrants,
         policyType: 'AuthzEntityMembership',
         policyPermissive: true,
-        policyData: entityPolicyData, // { entity_field: 'entity_id', membership_type: 2 }
+        policyData: entityPolicyData,
+        ...(fields.length > 0 ? { fields: fields as any } : {}),
       },
       select: { id: true, tableId: true },
     }).unwrap()
@@ -49,46 +56,36 @@ async function createOrgTable(tableName: string): Promise<string> {
   if (!tableId) throw new Error(`No tableId for ${tableName}`);
 
   await withRetry(() => client.secureTableProvision.create({ data: { databaseId, tableId, nodeType: 'DataTimestamps', nodeData: { include_id: false } as any }, select: { id: true } }).unwrap());
-  console.log(`   ✓ ${tableName}`);
+  console.log(`   + ${tableName} (${fields.length} fields)`);
   return tableId;
 }
 
-async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}) {
-  await withRetry(() => client.field.create({ data: { tableId, name, type, isRequired: opts.isRequired ?? false, label: name, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
-  console.log(`      + ${name} (${type})`);
-}
-
 async function main() {
-  console.log('\n🏗️  Provisioning Projects Schema\n');
+  console.log('\nProvisioning Projects Schema\n');
 
-  // 1. Projects
-  console.log('📂 projects...');
-  const projectsId = await createOrgTable('projects');
-  await addField(projectsId, 'name', 'text', { isRequired: true });
-  await addField(projectsId, 'description', 'text');
-  await addField(projectsId, 'status', 'text', { defaultValue: "'planned'" });
-  await addField(projectsId, 'start_date', 'timestamptz');
-  await addField(projectsId, 'due_date', 'timestamptz');
-  await addField(projectsId, 'embedding', 'vector(768)');
+  const projectsId = await createOrgTable('projects', [
+    { name: 'name', type: 'text', is_required: true },
+    { name: 'description', type: 'text' },
+    { name: 'status', type: 'text', default: "'planned'" },
+    { name: 'start_date', type: 'timestamptz' },
+    { name: 'due_date', type: 'timestamptz' },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
-  // 2. Milestones
-  console.log('\n🚩 milestones...');
-  const milestonesId = await createOrgTable('milestones');
-  await addField(milestonesId, 'name', 'text', { isRequired: true });
-  await addField(milestonesId, 'due_date', 'timestamptz');
-  await addField(milestonesId, 'embedding', 'vector(768)');
+  const milestonesId = await createOrgTable('milestones', [
+    { name: 'name', type: 'text', is_required: true },
+    { name: 'due_date', type: 'timestamptz' },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
-  // 3. Relations
-  console.log('\n🔗 Relations...');
-
-  // Projects -has-many-> Milestones
+  console.log('\nRelations...');
   await withRetry(() => client.relationProvision.create({
     data: { databaseId, relationType: 'RelationHasMany', sourceTableId: projectsId, targetTableId: milestonesId, deleteAction: 'c' },
     select: { id: true },
   }).unwrap());
-  console.log('   ✓ projects → milestones');
-  
-  console.log('\n✅ Projects Schema complete!\n');
+  console.log('   + projects -> milestones');
+
+  console.log('\nProjects Schema complete!\n');
 }
 
-main().catch((err) => { console.error('❌', err.message ?? err); process.exit(1); });
+main().catch((err) => { console.error(err.message ?? err); process.exit(1); });

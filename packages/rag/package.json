@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@agentic-sdk/sdk": "workspace:*",
-    "@constructive-io/node": "^0.4.2",
+    "@constructive-io/node": "^0.4.3",
     "dotenv": "^16.0.0"
   },
   "devDependencies": {

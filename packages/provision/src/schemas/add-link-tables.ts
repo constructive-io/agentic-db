@@ -1,3 +1,8 @@
+/**
+ * add-link-tables.ts — Extensible link tables for CRM entities
+ * Uses inline fields on secureTableProvision.create()
+ */
+
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 dotenv.config({ path: path.resolve(__dirname, '../../../../.env') });
@@ -10,7 +15,7 @@ const databaseId = process.env.DATABASE_ID;
 const accessToken = process.env.ACCESS_TOKEN;
 
 if (!databaseId || !accessToken) {
-  console.error('❌ Missing DATABASE_ID or ACCESS_TOKEN in .env');
+  console.error('Missing DATABASE_ID or ACCESS_TOKEN in .env');
   process.exit(1);
 }
 
@@ -23,10 +28,28 @@ const adapter = new NodeHttpAdapter(PLATFORM_ENDPOINT, {
 });
 const client = createClient({ adapter });
 
-async function createOrgTable(tableName: string): Promise<string> {
+interface FieldDef {
+  name: string;
+  type: string;
+  is_required?: boolean;
+  default?: string;
+}
+
+async function createOrgTable(tableName: string, fields: FieldDef[] = []): Promise<string> {
   const result = await withRetry(() =>
     client.secureTableProvision.create({
-      data: { databaseId, tableName, nodeType: 'DataEntityMembership', useRls: true, grantRoles: ['authenticated'], grantPrivileges: entityGrants, policyType: 'AuthzEntityMembership', policyPermissive: true, policyData: entityPolicyData },
+      data: {
+        databaseId,
+        tableName,
+        nodeType: 'DataEntityMembership',
+        useRls: true,
+        grantRoles: ['authenticated'],
+        grantPrivileges: entityGrants,
+        policyType: 'AuthzEntityMembership',
+        policyPermissive: true,
+        policyData: entityPolicyData,
+        ...(fields.length > 0 ? { fields: fields as any } : {}),
+      },
       select: { id: true, tableId: true },
     }).unwrap()
   );
@@ -34,22 +57,16 @@ async function createOrgTable(tableName: string): Promise<string> {
   if (!tableId) throw new Error(`No tableId for ${tableName}`);
 
   await withRetry(() => client.secureTableProvision.create({ data: { databaseId, tableId, nodeType: 'DataTimestamps', nodeData: { include_id: false } as any }, select: { id: true } }).unwrap());
-  console.log(`   ✓ ${tableName}`);
+  console.log(`   + ${tableName} (${fields.length} fields)`);
   return tableId;
 }
 
-async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}): Promise<string> {
-  const result = await withRetry(() => client.field.create({ data: { tableId, name, type, isRequired: opts.isRequired ?? false, label: name, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
-  console.log(`      + ${name} (${type})`);
-  return result.createField?.field?.id!;
-}
-
 async function main() {
-  console.log('\n🔗 Adding Extensible Link Tables to existing CRM...');
-  
-  // Need to get the table IDs for the existing parent tables to link them
+  console.log('\nAdding Extensible Link Tables to existing CRM...');
+
+  // Look up existing parent tables
   const tablesResult = await client.table.findMany({
-    condition: { databaseId },
+    where: { databaseId: { equalTo: databaseId } },
     select: { id: true, name: true }
   }).unwrap();
 
@@ -64,17 +81,19 @@ async function main() {
   const eventsId = getTableId('events');
   const venuesId = getTableId('venues');
 
+  const linkFields: FieldDef[] = [
+    { name: 'title', type: 'text' },
+    { name: 'url', type: 'text', is_required: true },
+    { name: 'embedding', type: 'vector(768)' },
+  ];
+
   const createLinkTable = async (name: string) => {
-    // We already created contact_links table above before the crash, so check if it exists
-    let tableId;
+    let tableId: string;
     try {
       tableId = getTableId(name);
-      console.log(`   ✓ ${name} (already exists)`);
+      console.log(`   + ${name} (already exists)`);
     } catch {
-      tableId = await createOrgTable(name);
-      await addField(tableId, 'title', 'text');
-      await addField(tableId, 'url', 'text', { isRequired: true });
-      await addField(tableId, 'embedding', 'vector(768)');
+      tableId = await createOrgTable(name, linkFields);
     }
     return tableId;
   };
@@ -84,30 +103,30 @@ async function main() {
   const eventLinksId = await createLinkTable('event_links');
   const venueLinksId = await createLinkTable('venue_links');
 
-  console.log('\n🔗 Creating Relations...');
+  console.log('\nCreating Relations...');
 
   const tryRelation = async (sourceId: string, targetId: string, label: string) => {
     try {
-        await withRetry(() => client.relationProvision.create({
-          data: { databaseId, relationType: 'RelationHasMany', sourceTableId: sourceId, targetTableId: targetId, deleteAction: 'c' },
-          select: { id: true },
-        }).unwrap());
-        console.log(`   ✓ ${label}`);
+      await withRetry(() => client.relationProvision.create({
+        data: { databaseId, relationType: 'RelationHasMany', sourceTableId: sourceId, targetTableId: targetId, deleteAction: 'c' },
+        select: { id: true },
+      }).unwrap());
+      console.log(`   + ${label}`);
     } catch (e: any) {
-        if (e.message && e.message.includes("already exists")) {
-            console.log(`   ✓ ${label} (already exists)`);
-        } else {
-            console.error(`   ❌ Failed ${label}`, e.message);
-        }
+      if (e.message && e.message.includes('already exists')) {
+        console.log(`   + ${label} (already exists)`);
+      } else {
+        console.error(`   Failed ${label}`, e.message);
+      }
     }
   };
 
-  await tryRelation(contactsId, contactLinksId, 'contacts → contact_links');
-  await tryRelation(companiesId, companyLinksId, 'companies → company_links');
-  await tryRelation(eventsId, eventLinksId, 'events → event_links');
-  await tryRelation(venuesId, venueLinksId, 'venues → venue_links');
+  await tryRelation(contactsId, contactLinksId, 'contacts -> contact_links');
+  await tryRelation(companiesId, companyLinksId, 'companies -> company_links');
+  await tryRelation(eventsId, eventLinksId, 'events -> event_links');
+  await tryRelation(venuesId, venueLinksId, 'venues -> venue_links');
 
-  console.log('\n✅ Link Tables Successfully Added!');
+  console.log('\nLink Tables complete!');
 }
 
-main().catch((err) => { console.error('❌', err.message ?? err); process.exit(1); });
+main().catch((err) => { console.error(err.message ?? err); process.exit(1); });

@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@agentic-sdk/schemas": "workspace:*",
-    "@constructive-io/graphql-codegen": "^4.14.2",
+    "@constructive-io/graphql-codegen": "^4.14.3",
     "@types/node": "^22.0.0",
     "dotenv": "^16.4.5",
     "makage": "0.1.12",

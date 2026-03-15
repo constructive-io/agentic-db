@@ -1,13 +1,14 @@
 /**
  * autonomy.ts — Agent OS V2 Autonomy Schema
- * 
+ *
  * New tables: ideas, reminders, agents, scheduled_jobs, processes, threads
- * Enhanced tables: tasks (+assigned_agent_id, +conversation_id), 
+ * Enhanced tables: tasks (+assigned_agent_id, +conversation_id),
  *                  blueprints (+conversation_id),
  *                  chat_messages (+thread_id, +role, +embedding),
  *                  memories (+importance, +verified)
- * 
+ *
  * All new tables include vector(768) for pgvector semantic search.
+ * Uses inline fields on secureTableProvision.create() for new tables.
  */
 
 import * as dotenv from 'dotenv';
@@ -22,7 +23,7 @@ const databaseId = process.env.DATABASE_ID;
 const accessToken = process.env.ACCESS_TOKEN;
 
 if (!databaseId || !accessToken) {
-  console.error('❌ Missing DATABASE_ID or ACCESS_TOKEN in .env');
+  console.error('Missing DATABASE_ID or ACCESS_TOKEN in .env');
   process.exit(1);
 }
 
@@ -35,22 +36,40 @@ const adapter = new NodeHttpAdapter(PLATFORM_ENDPOINT, {
 });
 const client = createClient({ adapter });
 
-// --- Helpers (same pattern as crm.ts) ---
+// --- Helpers ---
 
-async function createOrgTable(tableName: string): Promise<string> {
+interface FieldDef {
+  name: string;
+  type: string;
+  is_required?: boolean;
+  default?: string;
+}
+
+async function createOrgTable(tableName: string, fields: FieldDef[] = []): Promise<string> {
   const existing = await withRetry(() => client.table.findMany({
-    condition: { databaseId: { equalTo: databaseId }, name: { equalTo: tableName } },
+    where: { databaseId: { equalTo: databaseId }, name: { equalTo: tableName } },
     first: 1,
     select: { id: true },
   }).unwrap());
   if ((existing as any)?.tables?.nodes?.length > 0) {
-    console.log(`   ✓ ${tableName} (exists)`);
+    console.log(`   + ${tableName} (exists, ${fields.length} fields)`);
     return (existing as any).tables.nodes[0].id;
   }
 
   const result = await withRetry(() =>
     client.secureTableProvision.create({
-      data: { databaseId, tableName, nodeType: 'DataEntityMembership', useRls: true, grantRoles: ['authenticated'], grantPrivileges: entityGrants, policyType: 'AuthzEntityMembership', policyPermissive: true, policyData: entityPolicyData },
+      data: {
+        databaseId,
+        tableName,
+        nodeType: 'DataEntityMembership',
+        useRls: true,
+        grantRoles: ['authenticated'],
+        grantPrivileges: entityGrants,
+        policyType: 'AuthzEntityMembership',
+        policyPermissive: true,
+        policyData: entityPolicyData,
+        ...(fields.length > 0 ? { fields: fields as any } : {}),
+      },
       select: { id: true, tableId: true },
     }).unwrap()
   );
@@ -58,52 +77,39 @@ async function createOrgTable(tableName: string): Promise<string> {
   if (!tableId) throw new Error(`No tableId for ${tableName}`);
 
   await withRetry(() => client.secureTableProvision.create({ data: { databaseId, tableId, nodeType: 'DataTimestamps', nodeData: { include_id: false } as any }, select: { id: true } }).unwrap());
-  console.log(`   ✓ ${tableName}`);
+  console.log(`   + ${tableName} (${fields.length} fields)`);
   return tableId;
 }
 
-async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}): Promise<string> {
-  const existing = await withRetry(() => client.field.findMany({
-    condition: { tableId: { equalTo: tableId }, name: { equalTo: name } },
-    first: 1,
-    select: { id: true },
-  }).unwrap());
-  if ((existing as any)?.fields?.nodes?.length > 0) {
-    console.log(`      ⏭️ ${name} already exists`);
-    return (existing as any).fields.nodes[0].id;
-  }
-
-  try {
-    const result = await withRetry(() => client.field.create({ data: { tableId, name, type, isRequired: opts.isRequired ?? false, label: name, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
-    console.log(`      + ${name} (${type})`);
-    return result.createField?.field?.id!;
-  } catch (e: any) {
-    if (String(e?.message || e).includes('duplicate key') || String(e?.message || e).includes('already exists') || String(e?.message || e).includes('contains null values')) {
-      console.log(`      ⏭️ ${name} already exists (error caught)`);
-      return '';
-    }
-    throw e;
-  }
-}
-
 async function addFieldToExistingTable(tableName: string, fieldName: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}): Promise<void> {
-  // Look up table ID first
   const tables = await withRetry(() => client.table.findMany({
-    condition: { databaseId: { equalTo: databaseId }, name: { equalTo: tableName } },
+    where: { databaseId: { equalTo: databaseId }, name: { equalTo: tableName } },
     first: 1,
     select: { id: true },
   }).unwrap());
   const nodes = (tables as any)?.tables?.nodes || [];
   if (nodes.length === 0) {
-    console.warn(`      ⚠️ Table ${tableName} not found, skipping ${fieldName}`);
+    console.warn(`      Warning: Table ${tableName} not found, skipping ${fieldName}`);
     return;
   }
   const tableId = nodes[0].id;
+
+  const existing = await withRetry(() => client.field.findMany({
+    where: { tableId: { equalTo: tableId }, name: { equalTo: fieldName } },
+    first: 1,
+    select: { id: true },
+  }).unwrap());
+  if ((existing as any)?.fields?.nodes?.length > 0) {
+    console.log(`      skip ${fieldName} (already exists)`);
+    return;
+  }
+
   try {
-    await addField(tableId, fieldName, type, opts);
+    await withRetry(() => client.field.create({ data: { tableId, name: fieldName, type, isRequired: opts.isRequired ?? false, label: fieldName, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
+    console.log(`      + ${fieldName} (${type})`);
   } catch (e: any) {
     if (String(e?.message || e).includes('duplicate key') || String(e?.message || e).includes('already exists')) {
-      console.log('      ⏭️ ' + fieldName + ' already exists on ' + tableName + ', skipping');
+      console.log(`      skip ${fieldName} (already exists)`);
     } else {
       throw e;
     }
@@ -113,94 +119,88 @@ async function addFieldToExistingTable(tableName: string, fieldName: string, typ
 // --- Main ---
 
 async function main() {
-  console.log('\n🚀 Provisioning Agent-OS V2 Autonomy Schema\n');
+  console.log('\nProvisioning Agent-OS V2 Autonomy Schema\n');
   console.log(`   Database ID: ${databaseId}`);
 
-  // ===== NEW TABLES =====
+  // ===== NEW TABLES (inline fields) =====
 
-  // 1. Ideas (Thought Stream)
-  console.log('\n💡 ideas...');
-  const ideasId = await createOrgTable('ideas');
-  await addField(ideasId, 'content', 'text', { isRequired: true });
-  await addField(ideasId, 'tags', 'citext[]');
-  await addField(ideasId, 'source', 'text', { defaultValue: "'manual'" });
-  await addField(ideasId, 'status', 'text', { defaultValue: "'new'" });
-  await addField(ideasId, 'embedding', 'vector(768)');
+  const ideasId = await createOrgTable('ideas', [
+    { name: 'content', type: 'text', is_required: true },
+    { name: 'tags', type: 'citext[]' },
+    { name: 'source', type: 'text', default: "'manual'" },
+    { name: 'status', type: 'text', default: "'new'" },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
-  // 2. Reminders
-  console.log('\n⏰ reminders...');
-  const remindersId = await createOrgTable('reminders');
-  await addField(remindersId, 'title', 'text', { isRequired: true });
-  await addField(remindersId, 'due_at', 'timestamptz');
-  await addField(remindersId, 'completed_at', 'timestamptz');
-  await addField(remindersId, 'recurrence', 'text');
-  await addField(remindersId, 'status', 'text', { defaultValue: "'pending'" });
-  await addField(remindersId, 'related_entity_id', 'uuid');
-  await addField(remindersId, 'related_entity_type', 'text');
-  await addField(remindersId, 'embedding', 'vector(768)');
+  const remindersId = await createOrgTable('reminders', [
+    { name: 'title', type: 'text', is_required: true },
+    { name: 'due_at', type: 'timestamptz' },
+    { name: 'completed_at', type: 'timestamptz' },
+    { name: 'recurrence', type: 'text' },
+    { name: 'status', type: 'text', default: "'pending'" },
+    { name: 'related_entity_id', type: 'uuid' },
+    { name: 'related_entity_type', type: 'text' },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
-  // 3. Agents (Workers)
-  console.log('\n🤖 agents...');
-  const agentsId = await createOrgTable('agents');
-  await addField(agentsId, 'name', 'text', { isRequired: true });
-  await addField(agentsId, 'role', 'text');
-  await addField(agentsId, 'capabilities', 'jsonb', { defaultValue: "'[]'" });
-  await addField(agentsId, 'config', 'jsonb', { defaultValue: "'{}'" });
-  await addField(agentsId, 'status', 'text', { defaultValue: "'idle'" });
-  await addField(agentsId, 'embedding', 'vector(768)');
+  const agentsId = await createOrgTable('agents', [
+    { name: 'name', type: 'text', is_required: true },
+    { name: 'role', type: 'text' },
+    { name: 'capabilities', type: 'jsonb', default: "'[]'" },
+    { name: 'config', type: 'jsonb', default: "'{}'" },
+    { name: 'status', type: 'text', default: "'idle'" },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
-  // 4. Scheduled Jobs (Cron)
-  console.log('\n⏱️ scheduled_jobs...');
-  const jobsId = await createOrgTable('scheduled_jobs');
-  await addField(jobsId, 'name', 'text', { isRequired: true });
-  await addField(jobsId, 'schedule', 'text', { isRequired: true });
-  await addField(jobsId, 'command', 'text', { isRequired: true });
-  await addField(jobsId, 'active', 'boolean', { defaultValue: 'true' });
-  await addField(jobsId, 'last_run', 'timestamptz');
-  await addField(jobsId, 'next_run', 'timestamptz');
-  await addField(jobsId, 'embedding', 'vector(768)');
+  const jobsId = await createOrgTable('scheduled_jobs', [
+    { name: 'name', type: 'text', is_required: true },
+    { name: 'schedule', type: 'text', is_required: true },
+    { name: 'command', type: 'text', is_required: true },
+    { name: 'active', type: 'boolean', default: 'true' },
+    { name: 'last_run', type: 'timestamptz' },
+    { name: 'next_run', type: 'timestamptz' },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
-  // 5. Processes (Live PIDs)
-  console.log('\n⚙️ processes...');
-  const processesId = await createOrgTable('processes');
-  await addField(processesId, 'pid', 'integer');
-  await addField(processesId, 'agent_id', 'uuid');
-  await addField(processesId, 'command', 'text');
-  await addField(processesId, 'started_at', 'timestamptz', { defaultValue: 'now()' });
-  await addField(processesId, 'ended_at', 'timestamptz');
-  await addField(processesId, 'status', 'text', { defaultValue: "'running'" });
-  await addField(processesId, 'exit_code', 'integer');
-  await addField(processesId, 'logs_path', 'text');
-  await addField(processesId, 'embedding', 'vector(768)');
+  const processesId = await createOrgTable('processes', [
+    { name: 'pid', type: 'integer' },
+    { name: 'agent_id', type: 'uuid' },
+    { name: 'command', type: 'text' },
+    { name: 'started_at', type: 'timestamptz', default: 'now()' },
+    { name: 'ended_at', type: 'timestamptz' },
+    { name: 'status', type: 'text', default: "'running'" },
+    { name: 'exit_code', type: 'integer' },
+    { name: 'logs_path', type: 'text' },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
-  // 6. Threads (Conversation Context)
-  console.log('\n💬 threads...');
-  const threadsId = await createOrgTable('threads');
-  await addField(threadsId, 'title', 'text', { isRequired: true });
-  await addField(threadsId, 'summary', 'text');
-  await addField(threadsId, 'status', 'text', { defaultValue: "'active'" });
-  await addField(threadsId, 'parent_thread_id', 'uuid');
-  await addField(threadsId, 'chat_id', 'uuid');
-  await addField(threadsId, 'embedding', 'vector(768)');
+  const threadsId = await createOrgTable('threads', [
+    { name: 'title', type: 'text', is_required: true },
+    { name: 'summary', type: 'text' },
+    { name: 'status', type: 'text', default: "'active'" },
+    { name: 'parent_thread_id', type: 'uuid' },
+    { name: 'chat_id', type: 'uuid' },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
   // ===== RELATIONS =====
-  console.log('\n🔗 Relations...');
+  console.log('\nRelations...');
 
-  // processes.agent_id → agents.id
+  // processes.agent_id -> agents.id
   try {
     await withRetry(() => client.relationProvision.create({
       data: { databaseId, relationType: 'RelationBelongsTo', sourceTableId: processesId, targetTableId: agentsId, sourceFieldName: 'agent_id', targetFieldName: 'id', deleteAction: 'n' },
       select: { id: true },
     }).unwrap());
-    console.log('   ✓ processes → agents');
+    console.log('   + processes -> agents');
   } catch (e: any) {
-    console.log(`      ⚠️ processes → agents: ${e.message}`);
+    console.log(`      Warning: processes -> agents: ${e.message}`);
   }
 
-  // threads.chat_id → chats (lookup existing chats table)
+  // threads.chat_id -> chats (lookup existing chats table)
   try {
     const chatsTables = await withRetry(() => client.table.findMany({
-      condition: { databaseId: { equalTo: databaseId }, name: { equalTo: 'chats' } },
+      where: { databaseId: { equalTo: databaseId }, name: { equalTo: 'chats' } },
       first: 1,
       select: { id: true },
     }).unwrap());
@@ -211,22 +211,24 @@ async function main() {
         data: { databaseId, relationType: 'RelationBelongsTo', sourceTableId: threadsId, targetTableId: chatsTableId, sourceFieldName: 'chat_id', targetFieldName: 'id', deleteAction: 'n' },
         select: { id: true },
       }).unwrap());
-      console.log('   ✓ threads → chats');
+      console.log('   + threads -> chats');
     }
   } catch (e) {
-    console.warn('   ⚠️ Could not link threads → chats (table may not exist yet)');
+    console.warn('   Warning: Could not link threads -> chats (table may not exist yet)');
   }
 
   // ===== ENHANCE EXISTING TABLES =====
+  console.log('\nEnhancing existing tables...');
+
   // rules: +slug, +severity, +verification, +trigger_concept
-  console.log('\n   📏 rules (enhance)...');
+  console.log('\n   rules (enhance)...');
   await addFieldToExistingTable('rules', 'slug', 'text');
   await addFieldToExistingTable('rules', 'severity', 'text', { defaultValue: "'warning'" });
   await addFieldToExistingTable('rules', 'verification', 'text');
   await addFieldToExistingTable('rules', 'trigger_concept', 'vector(768)');
 
   // skills: +slug, +procedure, +interface, +requirements, +file_path, +content_hash, +intent_trigger
-  console.log('\n   🛠️ skills (enhance)...');
+  console.log('\n   skills (enhance)...');
   await addFieldToExistingTable('skills', 'slug', 'text');
   await addFieldToExistingTable('skills', 'procedure', 'text');
   await addFieldToExistingTable('skills', 'interface', 'jsonb', { defaultValue: "'{}'" });
@@ -235,31 +237,29 @@ async function main() {
   await addFieldToExistingTable('skills', 'content_hash', 'text');
   await addFieldToExistingTable('skills', 'intent_trigger', 'vector(768)');
 
-  console.log('\n🔧 Enhancing existing tables...');
-
   // tasks: +assigned_agent_id, +conversation_id, +parent_task_id, +dependencies
-  console.log('\n   📝 tasks...');
+  console.log('\n   tasks (enhance)...');
   await addFieldToExistingTable('tasks', 'assigned_agent_id', 'uuid');
   await addFieldToExistingTable('tasks', 'conversation_id', 'uuid');
   await addFieldToExistingTable('tasks', 'parent_task_id', 'uuid');
   await addFieldToExistingTable('tasks', 'dependencies', 'uuid[]');
 
   // blueprints: +conversation_id
-  console.log('\n   🗺️ blueprints...');
+  console.log('\n   blueprints (enhance)...');
   await addFieldToExistingTable('blueprints', 'conversation_id', 'uuid');
 
   // chat_messages: +thread_id, +role, +embedding
-  console.log('\n   💬 chat_messages...');
+  console.log('\n   chat_messages (enhance)...');
   await addFieldToExistingTable('chat_messages', 'thread_id', 'uuid');
   await addFieldToExistingTable('chat_messages', 'role', 'text', { defaultValue: "'user'" });
   await addFieldToExistingTable('chat_messages', 'embedding', 'vector(768)');
 
   // memories: +importance, +verified
-  console.log('\n   🧠 memories...');
+  console.log('\n   memories (enhance)...');
   await addFieldToExistingTable('memories', 'importance', 'integer', { defaultValue: '1' });
   await addFieldToExistingTable('memories', 'verified', 'boolean', { defaultValue: 'false' });
 
-  console.log('\n✨✨✨ V2 AUTONOMY SCHEMA COMPLETE ✨✨✨\n');
+  console.log('\nV2 Autonomy Schema complete!\n');
 }
 
-main().catch((err) => { console.error('❌', err.message ?? err); process.exit(1); });
+main().catch((err) => { console.error(err.message ?? err); process.exit(1); });

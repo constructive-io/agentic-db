@@ -13,7 +13,7 @@
     "provision:upgrade": "tsx src/provision.ts --upgrade"
   },
   "dependencies": {
-    "@constructive-io/node": "^0.4.2",
+    "@constructive-io/node": "^0.4.3",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
