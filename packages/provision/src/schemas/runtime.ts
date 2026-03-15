@@ -4,7 +4,9 @@
  * Tables: agents, sessions, execution_log, chats, chat_messages, threads,
  *         blueprints, processes, scheduled_jobs, tools,
  *         workflows, workflow_steps, workflow_runs, activity_log,
- *         agent_spawns, context_relations, session_archives
+ *         agent_spawns, session_archives
+ * Note: context_relations removed (polymorphic anti-pattern)
+ * Note: activity_log simplified to personal activity log (no polymorphic fields)
  */
 
 import {
@@ -275,18 +277,6 @@ async function main() {
   await addField(agentSpawnsId, 'started_at', 'timestamptz');
   await addField(agentSpawnsId, 'completed_at', 'timestamptz');
 
-  // -- Context Relations -----------------------------------------------------
-  // OpenViking .relations.json pattern: generic links between any entities with a reason
-  console.log('\n\ud83d\udd17 context_relations...');
-  const contextRelationsId = await createOrgTable('context_relations');
-  await addField(contextRelationsId, 'from_type', 'text', { isRequired: true }); // e.g. 'memories', 'skills', 'documents'
-  await addField(contextRelationsId, 'from_id', 'uuid', { isRequired: true });
-  await addField(contextRelationsId, 'to_type', 'text', { isRequired: true });
-  await addField(contextRelationsId, 'to_id', 'uuid', { isRequired: true });
-  await addField(contextRelationsId, 'relation_kind', 'text'); // related_to | derived_from | supersedes | contradicts
-  await addField(contextRelationsId, 'reason', 'text');        // why these are linked
-  await addField(contextRelationsId, 'strength', 'numeric');   // 0.0-1.0 relation strength
-
   // -- Session Archives ------------------------------------------------------
   // Stores compressed message history separately from active sessions
   console.log('\n\ud83d\udce6 session_archives...');
@@ -301,14 +291,18 @@ async function main() {
   await addField(sessionArchivesId, 'embedding', 'vector(768)');
 
   // -- Activity Log ---------------------------------------------------------
+  // Personal activity log: exercise, meals, wellness, etc.
   console.log('\n\ud83d\udcca activity_log...');
   const activityLogId = await createOrgTable('activity_log');
-  await addField(activityLogId, 'actor_type', 'text', { isRequired: true }); // user | agent
-  await addField(activityLogId, 'actor_id', 'uuid');
-  await addField(activityLogId, 'action', 'text', { isRequired: true });     // created | updated | deleted | completed
-  await addField(activityLogId, 'target_type', 'text', { isRequired: true });
-  await addField(activityLogId, 'target_id', 'uuid', { isRequired: true });
-  await addField(activityLogId, 'metadata', 'jsonb');
+  await addField(activityLogId, 'activity_type', 'text', { isRequired: true }); // exercise | meal | wellness | reading | etc.
+  await addField(activityLogId, 'title', 'text');
+  await addField(activityLogId, 'description', 'text');
+  await addField(activityLogId, 'occurred_at', 'timestamptz');
+  await addField(activityLogId, 'duration_minutes', 'numeric');
+  await addField(activityLogId, 'data', 'jsonb');  // activity-specific extras
+  await addField(activityLogId, 'tags', 'citext[]');
+  await addField(activityLogId, 'embedding_text', 'text');
+  await addField(activityLogId, 'embedding', 'vector(768)');
 
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');

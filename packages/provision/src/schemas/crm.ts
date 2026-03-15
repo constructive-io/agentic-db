@@ -1,9 +1,10 @@
 /**
  * crm.ts \u2014 CRM domain schema
  *
- * Tables: images, contacts, companies, deals, events, venues, notes, interactions
+ * Tables: images, contacts, companies, deals, events, venues, notes, interactions, tags
  * Link tables: contact_links, company_links, event_links, venue_links
  * Relations: M:N junctions, HasMany, BelongsTo (images)
+ * Note: attachments table removed (polymorphic anti-pattern)
  */
 
 import {
@@ -190,12 +191,10 @@ async function main() {
   await addField(venuesId, 'search_tsv', 'tsvector');
   await addField(venuesId, 'main_image_id', 'uuid');
 
-  // -- Notes (polymorphic) --------------------------------------------------
+  // -- Notes ----------------------------------------------------------------
   console.log('\n\ud83d\udcdd notes...');
   const notesId = await createOrgTable('notes');
   await addField(notesId, 'content', 'text', { isRequired: true });
-  await addField(notesId, 'notable_type', 'text');
-  await addField(notesId, 'notable_id', 'uuid');
   // L0/L1 tiered context
   await addField(notesId, 'abstract', 'text');
   await addField(notesId, 'overview', 'text');
@@ -228,17 +227,6 @@ async function main() {
   await addField(tagsId, 'category', 'text');
   await addField(tagsId, 'usage_count', 'int', { defaultValue: '0' });
   // No embeddings — tags are exact-match lookups
-
-  // -- Attachments (polymorphic) --------------------------------------------
-  console.log('\n\ud83d\udcce attachments...');
-  const attachmentsId = await createOrgTable('attachments');
-  await addField(attachmentsId, 'url', 'text', { isRequired: true });
-  await addField(attachmentsId, 'filename', 'text');
-  await addField(attachmentsId, 'mime_type', 'text');
-  await addField(attachmentsId, 'size_bytes', 'int');
-  await addField(attachmentsId, 'attachable_type', 'text');
-  await addField(attachmentsId, 'attachable_id', 'uuid');
-  // No embeddings — file metadata, not searchable content
 
   // -- Link tables ----------------------------------------------------------
   console.log('\n\ud83d\udd17 link tables...');

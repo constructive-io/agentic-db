@@ -1,7 +1,8 @@
 /**
  * agent.ts \u2014 Agent Core domain schema
  *
- * Tables: tasks, rules, memories, skills, goals, prompts, feedback, skill_executions
+ * Tables: tasks, rules, memories, skills, goals, prompts, skill_executions
+ * Note: feedback table removed (polymorphic anti-pattern)
  */
 
 import {
@@ -130,8 +131,6 @@ async function main() {
   await addField(memoriesId, 'importance', 'int');
   await addField(memoriesId, 'verified', 'bool', { defaultValue: 'false' });
   await addField(memoriesId, 'source', 'text');
-  await addField(memoriesId, 'related_entity_type', 'text');
-  await addField(memoriesId, 'related_entity_id', 'uuid');
   // L0/L1 tiered context (OpenViking pattern: abstract ~256 chars, overview ~4000 chars)
   await addField(memoriesId, 'abstract', 'text');      // L0: short summary for listing
   await addField(memoriesId, 'overview', 'text');      // L1: structural overview for context loading
@@ -209,15 +208,6 @@ async function main() {
   await addField(skillExecsId, 'output', 'jsonb');
   await addField(skillExecsId, 'error', 'text');
 
-  // -- Feedback -------------------------------------------------------------
-  console.log('\n\ud83d\udcac feedback...');
-  const feedbackId = await createOrgTable('feedback');
-  await addField(feedbackId, 'target_type', 'text', { isRequired: true });
-  await addField(feedbackId, 'target_id', 'uuid', { isRequired: true });
-  await addField(feedbackId, 'rating', 'int');
-  await addField(feedbackId, 'comment', 'text');
-  await addField(feedbackId, 'source', 'text');      // user | agent | auto
-
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');
 
@@ -241,6 +231,9 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 tasks -> tasks (parent)');
+
+  // NOTE: memories -> agents FK is created in cross-relations.ts
+  // (memories.agent_id references agents.id, but agents is defined in runtime.ts)
 
   // NOTE: tasks -> projects, tasks -> agents, and other cross-module
   // relations are created in cross-relations.ts after all schemas run.

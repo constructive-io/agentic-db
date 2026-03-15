@@ -1,8 +1,8 @@
 /**
  * autonomy.ts \u2014 Autonomy domain schema
  *
- * Tables: ideas, reminders, habits, habit_logs, lists, list_items,
- *         notifications, recipes, templates
+ * Tables: ideas, reminders, habits, habit_logs, lists, recipes, templates
+ * Note: list_items and notifications removed (polymorphic anti-patterns)
  */
 
 import {
@@ -104,8 +104,6 @@ async function main() {
   await addField(remindersId, 'completed_at', 'timestamptz');
   await addField(remindersId, 'recurrence', 'text');
   await addField(remindersId, 'status', 'text', { defaultValue: "'pending'" });
-  await addField(remindersId, 'related_entity_id', 'uuid');
-  await addField(remindersId, 'related_entity_type', 'text');
   await addField(remindersId, 'embedding_text', 'text');
   await addField(remindersId, 'embedding', 'vector(768)');
 
@@ -150,28 +148,6 @@ async function main() {
   await addField(listsId, 'tags', 'citext[]');
   await addField(listsId, 'embedding_text', 'text');
   await addField(listsId, 'embedding', 'vector(768)');
-
-  // -- List Items -----------------------------------------------------------
-  console.log('\n\ud83d\udccb list_items...');
-  const listItemsId = await createOrgTable('list_items');
-  await addField(listItemsId, 'list_id', 'uuid', { isRequired: true });
-  await addField(listItemsId, 'content', 'text');
-  await addField(listItemsId, 'position', 'int');
-  await addField(listItemsId, 'is_checked', 'bool', { defaultValue: 'false' });
-  await addField(listItemsId, 'ref_id', 'uuid');
-  await addField(listItemsId, 'ref_type', 'text');
-
-  // -- Notifications --------------------------------------------------------
-  console.log('\n\ud83d\udd14 notifications...');
-  const notificationsId = await createOrgTable('notifications');
-  await addField(notificationsId, 'title', 'text');
-  await addField(notificationsId, 'body', 'text');
-  await addField(notificationsId, 'type', 'text');
-  await addField(notificationsId, 'priority', 'text');
-  await addField(notificationsId, 'read_at', 'timestamptz');
-  await addField(notificationsId, 'action_url', 'text');
-  await addField(notificationsId, 'source_entity_id', 'uuid');
-  await addField(notificationsId, 'source_entity_type', 'text');
 
   // -- Recipes --------------------------------------------------------------
   console.log('\n\ud83c\udf73 recipes...');
@@ -223,23 +199,6 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 habits -> habit_logs');
-
-  // lists -> list_items (HasMany)
-  await withRetry(() =>
-    client.relationProvision
-      .create({
-        data: {
-          databaseId,
-          relationType: 'RelationHasMany',
-          sourceTableId: listsId,
-          targetTableId: listItemsId,
-          deleteAction: 'c',
-        },
-        select: { id: true },
-      })
-      .unwrap()
-  );
-  console.log('   \u2713 lists -> list_items');
 
   console.log('\n\u2705 Autonomy Schema complete!\n');
 }
