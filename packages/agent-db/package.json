@@ -1,20 +1,20 @@
 {
-  "name": "undefined",
+  "name": "agent-db",
   "version": "0.0.1",
-  "author": "undefined <undefined>",
-  "description": "undefined",
-  "homepage": "https://github.com/undefined/undefined",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "description": "pgpm-installable agent-db SQL module for the Agent OS personal database",
+  "homepage": "https://github.com/pyramation-studio/agent-os",
   "license": "SEE LICENSE IN LICENSE",
   "publishConfig": {
-    "access": "undefined",
+    "access": "public",
     "directory": "dist"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/undefined/undefined"
+    "url": "https://github.com/pyramation-studio/agent-os"
   },
   "bugs": {
-    "url": "https://github.com/undefined/undefined/issues"
+    "url": "https://github.com/pyramation-studio/agent-os/issues"
   },
   "scripts": {
     "lint": "eslint . --fix",
@@ -24,10 +24,5 @@
   "keywords": [],
   "devDependencies": {
     "pgsql-test": "^2.13.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "graphql": "14.7.0"
-    }
   }
 }
