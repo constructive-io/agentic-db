@@ -9,15 +9,15 @@ Retrieve relevant context from vector-indexed tables using semantic search.
 
 ## Prerequisites
 
-- Provisioned agent-os database with vector columns
+- Provisioned agentic-db database with vector columns
 - HNSW indexes created on embedding columns
 - Ollama running with `nomic-embed-text`
 
 ## Basic Vector Search
 
 ```typescript
-import { createClient } from '@agent-os/codegen/generated/agent-os-sdk/orm';
-import { generateEmbedding } from '@agent-os/scripts/embeddings';
+import { createClient } from '@agentic-db/codegen/generated/agentic-db-sdk/orm';
+import { generateEmbedding } from '@agentic-db/scripts/embeddings';
 
 const db = createClient({ /* ... */ });
 

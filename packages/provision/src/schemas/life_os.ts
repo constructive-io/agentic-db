@@ -1,5 +1,5 @@
 /**
- * life_os.ts — Provision Life OS schema tables using platform SDK
+ * life_os.ts — Provision Life OS schema tables using inline fields
  */
 
 import * as dotenv from 'dotenv';
@@ -14,7 +14,7 @@ const databaseId = process.env.DATABASE_ID;
 const accessToken = process.env.ACCESS_TOKEN;
 
 if (!databaseId || !accessToken) {
-  console.error('❌ Missing DATABASE_ID or ACCESS_TOKEN in .env');
+  console.error('Missing DATABASE_ID or ACCESS_TOKEN in .env');
   process.exit(1);
 }
 
@@ -27,10 +27,28 @@ const adapter = new NodeHttpAdapter(PLATFORM_ENDPOINT, {
 });
 const client = createClient({ adapter });
 
-async function createOrgTable(tableName: string): Promise<string> {
+interface FieldDef {
+  name: string;
+  type: string;
+  is_required?: boolean;
+  default?: string;
+}
+
+async function createOrgTable(tableName: string, fields: FieldDef[] = []): Promise<string> {
   const result = await withRetry(() =>
     client.secureTableProvision.create({
-      data: { databaseId, tableName, nodeType: 'DataEntityMembership', useRls: true, grantRoles: ['authenticated'], grantPrivileges: entityGrants, policyType: 'AuthzEntityMembership', policyPermissive: true, policyData: entityPolicyData },
+      data: {
+        databaseId,
+        tableName,
+        nodeType: 'DataEntityMembership',
+        useRls: true,
+        grantRoles: ['authenticated'],
+        grantPrivileges: entityGrants,
+        policyType: 'AuthzEntityMembership',
+        policyPermissive: true,
+        policyData: entityPolicyData,
+        ...(fields.length > 0 ? { fields: fields as any } : {}),
+      },
       select: { id: true, tableId: true },
     }).unwrap()
   );
@@ -38,72 +56,66 @@ async function createOrgTable(tableName: string): Promise<string> {
   if (!tableId) throw new Error(`No tableId for ${tableName}`);
 
   await withRetry(() => client.secureTableProvision.create({ data: { databaseId, tableId, nodeType: 'DataTimestamps', nodeData: { include_id: false } as any }, select: { id: true } }).unwrap());
-  console.log(`   ✓ ${tableName}`);
+  console.log(`   + ${tableName} (${fields.length} fields)`);
   return tableId;
 }
 
-async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string; isArray?: boolean } = {}): Promise<string> {
-  const result = await withRetry(() => client.field.create({ data: { tableId, name, type, isRequired: opts.isRequired ?? false, label: name, ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}) }, select: { id: true } }).unwrap());
-  console.log(`      + ${name} (${type})`);
-  return result.createField?.field?.id!;
-}
-
 async function main() {
-  console.log('\n🧬 Provisioning Life OS Schema with Embeddings & Tags\n');
+  console.log('\nProvisioning Life OS Schema\n');
 
-  console.log('📧 email_accounts...');
-  const emailId = await createOrgTable('email_accounts');
-  await addField(emailId, 'email', 'text', { isRequired: true });
-  await addField(emailId, 'provider', 'text');
-  await addField(emailId, 'sync_state', 'jsonb');
+  const emailId = await createOrgTable('email_accounts', [
+    { name: 'email', type: 'text', is_required: true },
+    { name: 'provider', type: 'text' },
+    { name: 'sync_state', type: 'jsonb' },
+  ]);
 
-  console.log('📨 messages...');
-  const messagesId = await createOrgTable('messages');
-  await addField(messagesId, 'thread_id', 'text');
-  await addField(messagesId, 'remote_id', 'text');
-  await addField(messagesId, 'from', 'text');
-  await addField(messagesId, 'to', 'text[]');
-  await addField(messagesId, 'subject', 'text');
-  await addField(messagesId, 'body_text', 'text');
-  await addField(messagesId, 'received_at', 'timestamptz');
-  await addField(messagesId, 'tags', 'citext[]');
-  await addField(messagesId, 'embedding', 'vector(768)');
+  const messagesId = await createOrgTable('messages', [
+    { name: 'thread_id', type: 'text' },
+    { name: 'remote_id', type: 'text' },
+    { name: 'from', type: 'text' },
+    { name: 'to', type: 'text[]' },
+    { name: 'subject', type: 'text' },
+    { name: 'body_text', type: 'text' },
+    { name: 'received_at', type: 'timestamptz' },
+    { name: 'tags', type: 'citext[]' },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
-  console.log('📅 calendar_sync...');
-  const calId = await createOrgTable('calendar_sync');
-  await addField(calId, 'provider', 'text');
-  await addField(calId, 'sync_token', 'text');
-  await addField(calId, 'last_synced_at', 'timestamptz');
+  await createOrgTable('calendar_sync', [
+    { name: 'provider', type: 'text' },
+    { name: 'sync_token', type: 'text' },
+    { name: 'last_synced_at', type: 'timestamptz' },
+  ]);
 
-  console.log('💸 expenses...');
-  const expensesId = await createOrgTable('expenses');
-  await addField(expensesId, 'amount', 'numeric');
-  await addField(expensesId, 'currency', 'text', { defaultValue: "'USD'" });
-  await addField(expensesId, 'date', 'date');
-  await addField(expensesId, 'category', 'text');
-  await addField(expensesId, 'description', 'text');
-  await addField(expensesId, 'merchant', 'text');
-  await addField(expensesId, 'receipt_url', 'text');
-  await addField(expensesId, 'tags', 'citext[]');
-  await addField(expensesId, 'embedding', 'vector(768)');
+  await createOrgTable('expenses', [
+    { name: 'amount', type: 'numeric' },
+    { name: 'currency', type: 'text', default: "'USD'" },
+    { name: 'date', type: 'date' },
+    { name: 'category', type: 'text' },
+    { name: 'description', type: 'text' },
+    { name: 'merchant', type: 'text' },
+    { name: 'receipt_url', type: 'text' },
+    { name: 'tags', type: 'citext[]' },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
-  console.log('📚 documents...');
-  const docsId = await createOrgTable('documents');
-  await addField(docsId, 'title', 'text', { isRequired: true });
-  await addField(docsId, 'url', 'text');
-  await addField(docsId, 'content', 'text');
-  await addField(docsId, 'source_type', 'text');
-  await addField(docsId, 'tags', 'citext[]');
-  await addField(docsId, 'embedding', 'vector(768)');
+  await createOrgTable('documents', [
+    { name: 'title', type: 'text', is_required: true },
+    { name: 'url', type: 'text' },
+    { name: 'content', type: 'text' },
+    { name: 'source_type', type: 'text' },
+    { name: 'tags', type: 'citext[]' },
+    { name: 'embedding', type: 'vector(768)' },
+  ]);
 
-  console.log('\n🔗 Relations...');
+  console.log('\nRelations...');
   await withRetry(() => client.relationProvision.create({
     data: { databaseId, relationType: 'RelationHasMany', sourceTableId: emailId, targetTableId: messagesId, deleteAction: 'c' },
     select: { id: true },
   }).unwrap());
-  console.log('   ✓ email_accounts → messages');
+  console.log('   + email_accounts -> messages');
 
-  console.log('\n✅ Life OS Schema complete!\n');
+  console.log('\nLife OS Schema complete!\n');
 }
 
-main().catch((err) => { console.error('❌', err.message ?? err); process.exit(1); });
+main().catch((err) => { console.error(err.message ?? err); process.exit(1); });

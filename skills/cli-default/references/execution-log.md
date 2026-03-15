@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for ExecutionLog records via agent-os CLI
+CRUD operations for ExecutionLog records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os execution-log list
-agent-os execution-log get --id <value>
-agent-os execution-log create --entityId <value> --stepName <value> --input <value> --output <value> --toolCalls <value> --durationMs <value> --sessionId <value>
-agent-os execution-log update --id <value> [--entityId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>] [--sessionId <value>]
-agent-os execution-log delete --id <value>
+agentic-db execution-log list
+agentic-db execution-log get --id <value>
+agentic-db execution-log create --entityId <value> --stepName <value> --input <value> --output <value> --toolCalls <value> --durationMs <value> --sessionId <value>
+agentic-db execution-log update --id <value> [--entityId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>] [--sessionId <value>]
+agentic-db execution-log delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os execution-log delete --id <value>
 ### List all executionLog records
 
 ```bash
-agent-os execution-log list
+agentic-db execution-log list
 ```
 
 ### Create a executionLog
 
 ```bash
-agent-os execution-log create --entityId "value" --stepName "value" --input "value" --output "value" --toolCalls "value" --durationMs "value" --sessionId "value"
+agentic-db execution-log create --entityId "value" --stepName "value" --input "value" --output "value" --toolCalls "value" --durationMs "value" --sessionId "value"
 ```
 
 ### Get a executionLog by id
 
 ```bash
-agent-os execution-log get --id <value>
+agentic-db execution-log get --id <value>
 ```

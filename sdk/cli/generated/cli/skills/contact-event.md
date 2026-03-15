@@ -1,17 +1,17 @@
-# agent-os-contact-event
+# agentic-db-contact-event
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for ContactEvent records via agent-os CLI
+CRUD operations for ContactEvent records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os contact-event list
-agent-os contact-event get --id <value>
-agent-os contact-event create --contactId <value> --eventId <value> --entityId <value>
-agent-os contact-event update --id <value> [--contactId <value>] [--eventId <value>] [--entityId <value>]
-agent-os contact-event delete --id <value>
+agentic-db contact-event list
+agentic-db contact-event get --id <value>
+agentic-db contact-event create --contactId <value> --eventId <value> --entityId <value>
+agentic-db contact-event update --id <value> [--contactId <value>] [--eventId <value>] [--entityId <value>]
+agentic-db contact-event delete --id <value>
 ```
 
 ## Examples
@@ -19,29 +19,29 @@ agent-os contact-event delete --id <value>
 ### List all contactEvent records
 
 ```bash
-agent-os contact-event list
+agentic-db contact-event list
 ```
 
 ### Create a contactEvent
 
 ```bash
-agent-os contact-event create --contactId "value" --eventId "value" --entityId "value"
+agentic-db contact-event create --contactId "value" --eventId "value" --entityId "value"
 ```
 
 ### Get a contactEvent by id
 
 ```bash
-agent-os contact-event get --id <value>
+agentic-db contact-event get --id <value>
 ```
 
 ### Update a contactEvent
 
 ```bash
-agent-os contact-event update --id <value> --contactId "new-value"
+agentic-db contact-event update --id <value> --contactId "new-value"
 ```
 
 ### Delete a contactEvent
 
 ```bash
-agent-os contact-event delete --id <value>
+agentic-db contact-event delete --id <value>
 ```

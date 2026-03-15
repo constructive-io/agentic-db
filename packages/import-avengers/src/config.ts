@@ -3,7 +3,7 @@ import * as path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
-const DATABASE_NAME = process.env.DATABASE_NAME || 'agent-os-1772448876647';
+const DATABASE_NAME = process.env.DATABASE_NAME || 'agentic-db-1772448876647';
 
 export const config = {
   // Source: local Avengers Postgres

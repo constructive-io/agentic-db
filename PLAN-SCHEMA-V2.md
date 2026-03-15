@@ -98,7 +98,7 @@ erDiagram
 
 ## 4. Migration Plan
 
-1.  **Update `agent-os` Package:** Add new table definitions to `packages/provision/src/schemas/`.
+1.  **Update `agentic-db` Package:** Add new table definitions to `packages/provision/src/schemas/`.
 2.  **Provision:** Run `provision` script to apply changes (Constructive is idempotent, will add missing tables).
 3.  **Codegen:** Regenerate SDK to get new types (`pnpm run generate`).
 4.  **Verify:** Test inserting an Idea and searching for it via vector.

@@ -1,6 +1,6 @@
 # Agent-OS Development Plan
 
-**Goal:** Build a comprehensive agent-os system on top of the Constructive platform, mirroring all tables from the `avengers` database and providing a typed SDK with RAG capabilities via Nomic embeddings through Ollama.
+**Goal:** Build a comprehensive agentic-db system on top of the Constructive platform, mirroring all tables from the `avengers` database and providing a typed SDK with RAG capabilities via Nomic embeddings through Ollama.
 
 ---
 
@@ -19,13 +19,13 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         agent-os pnpm workspace                  │
+│                         agentic-db pnpm workspace                  │
 ├─────────────────────────────────────────────────────────────────┤
 │ packages/                                                        │
 │   ├── provision/           # Scripts to provision DB via SDK    │
 │   ├── codegen/             # Generated SDK from database        │
 │   ├── scripts/             # Insert, search, RAG utilities       │
-│   └── agent-os/            # Core module                         │
+│   └── agentic-db/            # Core module                         │
 ├─────────────────────────────────────────────────────────────────┤
 │ skills/                    # Agent skills (markdown docs)        │
 │   ├── RULES.md             # Development rules                   │
@@ -56,7 +56,7 @@
 **Package setup:**
 ```json
 {
-  "name": "@agent-os/provision",
+  "name": "@agentic-db/provision",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
@@ -93,11 +93,11 @@
 import 'dotenv/config';
 import { defineConfig } from '@constructive-io/graphql-codegen';
 
-const dbName = process.env.DATABASE_NAME || 'agent-os';
+const dbName = process.env.DATABASE_NAME || 'agentic-db';
 
 export default defineConfig({
   endpoint: `http://app-public-${dbName}.localhost:3000/graphql`,
-  output: './generated/agent-os-sdk',
+  output: './generated/agentic-db-sdk',
   orm: true,
   nodeHttpAdapter: true,
   docs: {
@@ -119,7 +119,7 @@ export default defineConfig({
 ```json
 {
   "dependencies": {
-    "@agent-os/codegen": "workspace:*",
+    "@agentic-db/codegen": "workspace:*",
     "ollama": "^0.5.0",
     "dotenv": "^16.0.0"
   }
@@ -129,8 +129,8 @@ export default defineConfig({
 **Usage:**
 ```typescript
 // src/insert/contacts.ts
-import { createClient } from '@agent-os/codegen/generated/agent-os-sdk/orm';
-import { NodeHttpAdapter } from '@agent-os/codegen/generated/agent-os-sdk/orm/node-fetch';
+import { createClient } from '@agentic-db/codegen/generated/agentic-db-sdk/orm';
+import { NodeHttpAdapter } from '@agentic-db/codegen/generated/agentic-db-sdk/orm/node-fetch';
 import { generateEmbedding } from '../embeddings';
 import { config, getAuthHeaders } from '../config';
 
@@ -156,7 +156,7 @@ Already created. Continue adding skills as we build.
 ## 4. Package Structure
 
 ```
-agent-os/
+agentic-db/
 ├── PLAN.md
 ├── .env.example
 ├── .gitignore
@@ -174,7 +174,7 @@ agent-os/
 │   │   ├── package.json
 │   │   ├── graphql-codegen.config.ts
 │   │   └── generated/
-│   │       └── agent-os-sdk/
+│   │       └── agentic-db-sdk/
 │   ├── scripts/
 │   │   ├── package.json
 │   │   └── src/
@@ -183,7 +183,7 @@ agent-os/
 │   │       ├── insert/
 │   │       ├── search/
 │   │       └── rag/
-│   └── agent-os/
+│   └── agentic-db/
 └── skills/
     ├── RULES.md
     ├── README.md
@@ -199,10 +199,10 @@ agent-os/
 pnpm install
 
 # Provision database
-pnpm --filter @agent-os/provision run provision
+pnpm --filter @agentic-db/provision run provision
 
 # Generate SDK
-pnpm --filter @agent-os/codegen run generate
+pnpm --filter @agentic-db/codegen run generate
 
 # Build all
 pnpm build

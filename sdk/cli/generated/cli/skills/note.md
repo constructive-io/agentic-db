@@ -1,17 +1,17 @@
-# agent-os-note
+# agentic-db-note
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Note records via agent-os CLI
+CRUD operations for Note records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os note list
-agent-os note get --id <value>
-agent-os note create --entityId <value> --content <value> --contactId <value>
-agent-os note update --id <value> [--entityId <value>] [--content <value>] [--contactId <value>]
-agent-os note delete --id <value>
+agentic-db note list
+agentic-db note get --id <value>
+agentic-db note create --entityId <value> --content <value> --contactId <value>
+agentic-db note update --id <value> [--entityId <value>] [--content <value>] [--contactId <value>]
+agentic-db note delete --id <value>
 ```
 
 ## Examples
@@ -19,29 +19,29 @@ agent-os note delete --id <value>
 ### List all note records
 
 ```bash
-agent-os note list
+agentic-db note list
 ```
 
 ### Create a note
 
 ```bash
-agent-os note create --entityId "value" --content "value" --contactId "value"
+agentic-db note create --entityId "value" --content "value" --contactId "value"
 ```
 
 ### Get a note by id
 
 ```bash
-agent-os note get --id <value>
+agentic-db note get --id <value>
 ```
 
 ### Update a note
 
 ```bash
-agent-os note update --id <value> --entityId "new-value"
+agentic-db note update --id <value> --entityId "new-value"
 ```
 
 ### Delete a note
 
 ```bash
-agent-os note delete --id <value>
+agentic-db note delete --id <value>
 ```

@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for CalendarSync records via agent-os CLI
+CRUD operations for CalendarSync records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os calendar-sync list
-agent-os calendar-sync get --id <value>
-agent-os calendar-sync create --entityId <value> --provider <value> --syncToken <value> --lastSyncedAt <value>
-agent-os calendar-sync update --id <value> [--entityId <value>] [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
-agent-os calendar-sync delete --id <value>
+agentic-db calendar-sync list
+agentic-db calendar-sync get --id <value>
+agentic-db calendar-sync create --entityId <value> --provider <value> --syncToken <value> --lastSyncedAt <value>
+agentic-db calendar-sync update --id <value> [--entityId <value>] [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
+agentic-db calendar-sync delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os calendar-sync delete --id <value>
 ### List all calendarSync records
 
 ```bash
-agent-os calendar-sync list
+agentic-db calendar-sync list
 ```
 
 ### Create a calendarSync
 
 ```bash
-agent-os calendar-sync create --entityId "value" --provider "value" --syncToken "value" --lastSyncedAt "value"
+agentic-db calendar-sync create --entityId "value" --provider "value" --syncToken "value" --lastSyncedAt "value"
 ```
 
 ### Get a calendarSync by id
 
 ```bash
-agent-os calendar-sync get --id <value>
+agentic-db calendar-sync get --id <value>
 ```

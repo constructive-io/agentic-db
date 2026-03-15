@@ -1,6 +1,6 @@
 # Agentic OS Feature Parity Plan
 
-This document outlines the roadmap to bring `agent-os` to feature parity with the legacy `avengers` database. The goal is to migrate all core functionality (excluding `smart_home`) into the new multi-tenant, secure-by-default, AI-native platform.
+This document outlines the roadmap to bring `agentic-db` to feature parity with the legacy `avengers` database. The goal is to migrate all core functionality (excluding `smart_home`) into the new multi-tenant, secure-by-default, AI-native platform.
 
 ## Core Philosophy
 

@@ -2,8 +2,8 @@
   "name": "@agentic-sdk/core",
   "version": "0.0.1",
   "author": "Dan Lynch <pyramation@gmail.com>",
-  "description": "agent-os",
-  "homepage": "https://github.com/pyramation-studio/agent-os",
+  "description": "agentic-db",
+  "homepage": "https://github.com/pyramation-studio/agentic-db",
   "license": "CLOSED",
   "publishConfig": {
     "access": "restricted",
@@ -11,10 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pyramation-studio/agent-os"
+    "url": "https://github.com/pyramation-studio/agentic-db"
   },
   "bugs": {
-    "url": "https://github.com/pyramation-studio/agent-os/issues"
+    "url": "https://github.com/pyramation-studio/agentic-db/issues"
   },
   "scripts": {
     "lint": "eslint . --fix",

@@ -1,17 +1,17 @@
-# agent-os-context
+# agentic-db-context
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-Manage API endpoint contexts for agent-os
+Manage API endpoint contexts for agentic-db
 
 ## Usage
 
 ```bash
-agent-os context create <name> --endpoint <url>
-agent-os context list
-agent-os context use <name>
-agent-os context current
-agent-os context delete <name>
+agentic-db context create <name> --endpoint <url>
+agentic-db context list
+agentic-db context use <name>
+agentic-db context current
+agentic-db context delete <name>
 ```
 
 ## Examples
@@ -19,12 +19,12 @@ agent-os context delete <name>
 ### Create and activate a context
 
 ```bash
-agent-os context create production --endpoint https://api.example.com/graphql
-agent-os context use production
+agentic-db context create production --endpoint https://api.example.com/graphql
+agentic-db context use production
 ```
 
 ### List all contexts
 
 ```bash
-agent-os context list
+agentic-db context list
 ```

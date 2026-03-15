@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Project records via agent-os CLI
+CRUD operations for Project records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os project list
-agent-os project get --id <value>
-agent-os project create --entityId <value> --name <value> --description <value> --status <value> --startDate <value> --dueDate <value> --embedding <value> --embeddingDistance <value>
-agent-os project update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--embedding <value>] [--embeddingDistance <value>]
-agent-os project delete --id <value>
+agentic-db project list
+agentic-db project get --id <value>
+agentic-db project create --entityId <value> --name <value> --description <value> --status <value> --startDate <value> --dueDate <value> --embedding <value> --embeddingDistance <value>
+agentic-db project update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--embedding <value>] [--embeddingDistance <value>]
+agentic-db project delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os project delete --id <value>
 ### List all project records
 
 ```bash
-agent-os project list
+agentic-db project list
 ```
 
 ### Create a project
 
 ```bash
-agent-os project create --entityId "value" --name "value" --description "value" --status "value" --startDate "value" --dueDate "value" --embedding "value" --embeddingDistance "value"
+agentic-db project create --entityId "value" --name "value" --description "value" --status "value" --startDate "value" --dueDate "value" --embedding "value" --embeddingDistance "value"
 ```
 
 ### Get a project by id
 
 ```bash
-agent-os project get --id <value>
+agentic-db project get --id <value>
 ```

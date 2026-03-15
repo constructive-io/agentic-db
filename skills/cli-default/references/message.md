@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Message records via agent-os CLI
+CRUD operations for Message records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os message list
-agent-os message get --id <value>
-agent-os message create --entityId <value> --threadId <value> --remoteId <value> --from <value> --to <value> --subject <value> --bodyText <value> --receivedAt <value> --tags <value> --embedding <value> --emailAccountId <value> --embeddingDistance <value>
-agent-os message update --id <value> [--entityId <value>] [--threadId <value>] [--remoteId <value>] [--from <value>] [--to <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embedding <value>] [--emailAccountId <value>] [--embeddingDistance <value>]
-agent-os message delete --id <value>
+agentic-db message list
+agentic-db message get --id <value>
+agentic-db message create --entityId <value> --threadId <value> --remoteId <value> --from <value> --to <value> --subject <value> --bodyText <value> --receivedAt <value> --tags <value> --embedding <value> --emailAccountId <value> --embeddingDistance <value>
+agentic-db message update --id <value> [--entityId <value>] [--threadId <value>] [--remoteId <value>] [--from <value>] [--to <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embedding <value>] [--emailAccountId <value>] [--embeddingDistance <value>]
+agentic-db message delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os message delete --id <value>
 ### List all message records
 
 ```bash
-agent-os message list
+agentic-db message list
 ```
 
 ### Create a message
 
 ```bash
-agent-os message create --entityId "value" --threadId "value" --remoteId "value" --from "value" --to "value" --subject "value" --bodyText "value" --receivedAt "value" --tags "value" --embedding "value" --emailAccountId "value" --embeddingDistance "value"
+agentic-db message create --entityId "value" --threadId "value" --remoteId "value" --from "value" --to "value" --subject "value" --bodyText "value" --receivedAt "value" --tags "value" --embedding "value" --emailAccountId "value" --embeddingDistance "value"
 ```
 
 ### Get a message by id
 
 ```bash
-agent-os message get --id <value>
+agentic-db message get --id <value>
 ```

@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Blueprint records via agent-os CLI
+CRUD operations for Blueprint records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os blueprint list
-agent-os blueprint get --id <value>
-agent-os blueprint create --entityId <value> --title <value> --steps <value> --triggerConditions <value> --embedding <value> --embeddingDistance <value>
-agent-os blueprint update --id <value> [--entityId <value>] [--title <value>] [--steps <value>] [--triggerConditions <value>] [--embedding <value>] [--embeddingDistance <value>]
-agent-os blueprint delete --id <value>
+agentic-db blueprint list
+agentic-db blueprint get --id <value>
+agentic-db blueprint create --entityId <value> --title <value> --steps <value> --triggerConditions <value> --embedding <value> --embeddingDistance <value>
+agentic-db blueprint update --id <value> [--entityId <value>] [--title <value>] [--steps <value>] [--triggerConditions <value>] [--embedding <value>] [--embeddingDistance <value>]
+agentic-db blueprint delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os blueprint delete --id <value>
 ### List all blueprint records
 
 ```bash
-agent-os blueprint list
+agentic-db blueprint list
 ```
 
 ### Create a blueprint
 
 ```bash
-agent-os blueprint create --entityId "value" --title "value" --steps "value" --triggerConditions "value" --embedding "value" --embeddingDistance "value"
+agentic-db blueprint create --entityId "value" --title "value" --steps "value" --triggerConditions "value" --embedding "value" --embeddingDistance "value"
 ```
 
 ### Get a blueprint by id
 
 ```bash
-agent-os blueprint get --id <value>
+agentic-db blueprint get --id <value>
 ```
