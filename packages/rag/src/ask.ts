@@ -45,7 +45,9 @@ async function main() {
   }
   
   const availableTables = Object.keys(TABLE_SEARCH) as TableName[];
-  let selectedTables: TableName[] = availableTables;
+  // We always want to search these core entities as a safety net
+  const CORE_TABLES: TableName[] = ['contacts', 'companies', 'events', 'notes'];
+  let selectedTables: TableName[] = [...CORE_TABLES];
 
   // =========================================================================
   // Pass 1: Query Router (Select Tables)
@@ -73,7 +75,9 @@ JSON array only:`;
       const match = routerResponse?.match(/\[.*\]/s);
       if (match) {
         const parsed = JSON.parse(match[0]);
-        selectedTables = parsed.filter((t: string) => availableTables.includes(t as TableName)) as TableName[];
+        const routerPicks = parsed.filter((t: string) => availableTables.includes(t as TableName)) as TableName[];
+        // Merge router picks with core tables, removing duplicates
+        selectedTables = [...new Set([...CORE_TABLES, ...routerPicks])];
       }
     } catch (err) {
       console.log('⚠️ Router failed, falling back to all tables.', err);
