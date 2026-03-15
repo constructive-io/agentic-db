@@ -1,0 +1,9 @@
+-- Deploy: schemas/agent_db_invites_public/tables/invites/columns/invite_count/alterations/alt0000002473
+-- made with <3 @ launchql.com
+
+-- requires: schemas/agent_db_invites_public/schema
+-- requires: schemas/agent_db_invites_public/tables/invites/columns/invite_count/column
+
+
+COMMENT ON COLUMN "agent_db_invites_public".invites.invite_count IS 'Running count of how many times this invite has been claimed';
+

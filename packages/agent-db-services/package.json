@@ -1,0 +1,33 @@
+{
+  "name": "undefined",
+  "version": "0.0.1",
+  "author": "undefined <undefined>",
+  "description": "undefined",
+  "homepage": "https://github.com/undefined/undefined",
+  "license": "SEE LICENSE IN LICENSE",
+  "publishConfig": {
+    "access": "undefined",
+    "directory": "dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/undefined/undefined"
+  },
+  "bugs": {
+    "url": "https://github.com/undefined/undefined/issues"
+  },
+  "scripts": {
+    "lint": "eslint . --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "pgsql-test": "^2.13.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "graphql": "14.7.0"
+    }
+  }
+}

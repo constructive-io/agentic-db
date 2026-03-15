@@ -46,7 +46,8 @@ async function main() {
   console.log(`✅ Signed up (ID: ${userId})`);
 
   console.log(`\n🗄️  Provisioning DB...`);
-  const apiAdapter = new NodeHttpAdapter(config.apiEndpoint, {
+  const metaEndpoint = process.env.META_ENDPOINT || 'http://meta.localhost:3000/graphql';
+  const apiAdapter = new NodeHttpAdapter(metaEndpoint, {
     Authorization: `Bearer ${accessToken}`,
   });
   const apiClient = public_.createClient({ adapter: apiAdapter });

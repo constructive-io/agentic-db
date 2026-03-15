@@ -1,0 +1,10 @@
+-- Deploy: schemas/agent_db_profiles_public/tables/app_profiles/indexes/app_profiles_created_at_idx
+-- made with <3 @ launchql.com
+
+-- requires: schemas/agent_db_profiles_public/schema
+-- requires: schemas/agent_db_profiles_public/tables/app_profiles/table
+-- requires: schemas/agent_db_profiles_public/tables/app_profiles/columns/created_at/column
+
+
+CREATE INDEX app_profiles_created_at_idx ON "agent_db_profiles_public".app_profiles ( created_at );
+

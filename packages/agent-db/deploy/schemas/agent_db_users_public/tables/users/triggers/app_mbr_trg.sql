@@ -1,0 +1,14 @@
+-- Deploy: schemas/agent_db_users_public/tables/users/triggers/app_mbr_trg
+-- made with <3 @ launchql.com
+
+-- requires: schemas/agent_db_users_public/schema
+-- requires: schemas/agent_db_memberships_private/schema
+-- requires: schemas/agent_db_users_public/tables/users/table
+-- requires: schemas/agent_db_memberships_private/trigger_fns/app_mbr_create
+
+
+CREATE TRIGGER app_mbr_trg
+AFTER INSERT ON "agent_db_users_public".users
+FOR EACH ROW
+EXECUTE PROCEDURE "agent_db_memberships_private".app_mbr_create ( );
+

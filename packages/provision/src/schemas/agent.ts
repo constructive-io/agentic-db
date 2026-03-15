@@ -19,7 +19,7 @@ if (!databaseId || !accessToken) {
 }
 
 const PLATFORM_ENDPOINT = 'http://[::1]:3000/graphql';
-const PLATFORM_HOST = 'api.localhost';
+const PLATFORM_HOST = 'meta.localhost';
 
 const adapter = new NodeHttpAdapter(PLATFORM_ENDPOINT, {
   Host: PLATFORM_HOST,

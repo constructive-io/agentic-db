@@ -1,0 +1,6 @@
+-- Verify: schemas/agent_db_app_public/tables/event_images/columns/image_id/column
+
+
+
+
+

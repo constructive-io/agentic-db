@@ -7,7 +7,7 @@ import { withRetry } from '../helpers';
 
 const databaseId = process.env.DATABASE_ID;
 const accessToken = process.env.ACCESS_TOKEN;
-const adapter = new NodeHttpAdapter('http://[::1]:3000/graphql', { Host: 'api.localhost', Authorization: `Bearer ${accessToken}` });
+const adapter = new NodeHttpAdapter('http://[::1]:3000/graphql', { Host: 'meta.localhost', Authorization: `Bearer ${accessToken}` });
 const client = createClient({ adapter });
 
 async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}): Promise<string> {

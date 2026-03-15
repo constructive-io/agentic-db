@@ -1,0 +1,7 @@
+-- Revert: schemas/agent_db_status_public/tables/org_steps/columns/entity_id/alterations/alt0000002208
+
+
+ALTER TABLE "agent_db_status_public".org_steps 
+  ALTER COLUMN entity_id DROP NOT NULL;
+
+
