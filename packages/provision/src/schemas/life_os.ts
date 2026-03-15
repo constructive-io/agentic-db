@@ -158,6 +158,13 @@ async function main() {
   await addField(documentsId, 'source_type', 'text');
   await addField(documentsId, 'is_read', 'bool', { defaultValue: 'false' });
   await addField(documentsId, 'saved_at', 'timestamptz');
+  await addField(documentsId, 'parent_document_id', 'uuid'); // hierarchical docs (OpenViking ResourceNode pattern)
+  // L0/L1 tiered context
+  await addField(documentsId, 'abstract', 'text');
+  await addField(documentsId, 'overview', 'text');
+  // Hotness scoring
+  await addField(documentsId, 'active_count', 'int', { defaultValue: '0' });
+  await addField(documentsId, 'last_accessed_at', 'timestamptz');
   await addField(documentsId, 'tags', 'citext[]');
   await addField(documentsId, 'embedding_text', 'text');
   await addField(documentsId, 'embedding', 'vector(768)');

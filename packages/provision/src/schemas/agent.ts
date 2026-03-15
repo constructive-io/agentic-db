@@ -120,16 +120,24 @@ async function main() {
   await addField(rulesId, 'trigger_concept', 'vector(768)');
 
   // -- Memories -------------------------------------------------------------
+  // Inspired by OpenViking's structured memory categories + tiered content
   console.log('\n\ud83d\udca1 memories...');
   const memoriesId = await createOrgTable('memories');
   await addField(memoriesId, 'content', 'text', { isRequired: true });
   await addField(memoriesId, 'memory_type', 'text');  // episodic | semantic | reflection
+  await addField(memoriesId, 'memory_category', 'text'); // profile | preferences | entities | events | cases | patterns
   await addField(memoriesId, 'agent_id', 'uuid');     // whose memory (null = shared)
   await addField(memoriesId, 'importance', 'int');
   await addField(memoriesId, 'verified', 'bool', { defaultValue: 'false' });
   await addField(memoriesId, 'source', 'text');
   await addField(memoriesId, 'related_entity_type', 'text');
   await addField(memoriesId, 'related_entity_id', 'uuid');
+  // L0/L1 tiered context (OpenViking pattern: abstract ~256 chars, overview ~4000 chars)
+  await addField(memoriesId, 'abstract', 'text');      // L0: short summary for listing
+  await addField(memoriesId, 'overview', 'text');      // L1: structural overview for context loading
+  // Hotness scoring (OpenViking pattern: frequency × recency)
+  await addField(memoriesId, 'active_count', 'int', { defaultValue: '0' });
+  await addField(memoriesId, 'last_accessed_at', 'timestamptz');
   await addField(memoriesId, 'tags', 'citext[]');
   await addField(memoriesId, 'embedding_text', 'text');
   await addField(memoriesId, 'embedding', 'vector(768)');
@@ -144,10 +152,18 @@ async function main() {
   await addField(skillsId, 'procedure', 'text');
   await addField(skillsId, 'interface', 'jsonb');
   await addField(skillsId, 'requirements', 'jsonb');
+  await addField(skillsId, 'prerequisites', 'jsonb');  // OpenViking pattern: { bins: [...], env: [...] }
+  await addField(skillsId, 'always_load', 'bool', { defaultValue: 'false' }); // OpenViking: always-loaded skills
   await addField(skillsId, 'file_path', 'text');
   await addField(skillsId, 'content_hash', 'text');
   await addField(skillsId, 'category', 'text');     // code | communication | data | planning | research
   await addField(skillsId, 'is_active', 'bool', { defaultValue: 'true' });
+  // L0/L1 tiered context
+  await addField(skillsId, 'abstract', 'text');
+  await addField(skillsId, 'overview', 'text');
+  // Hotness scoring
+  await addField(skillsId, 'active_count', 'int', { defaultValue: '0' });
+  await addField(skillsId, 'last_accessed_at', 'timestamptz');
   await addField(skillsId, 'tags', 'citext[]');
   await addField(skillsId, 'embedding_text', 'text');
   await addField(skillsId, 'embedding', 'vector(768)');

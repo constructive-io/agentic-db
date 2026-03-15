@@ -3,7 +3,8 @@
  *
  * Tables: agents, sessions, execution_log, chats, chat_messages, threads,
  *         blueprints, processes, scheduled_jobs, tools,
- *         workflows, workflow_steps, workflow_runs, activity_log
+ *         workflows, workflow_steps, workflow_runs, activity_log,
+ *         agent_spawns, context_relations, session_archives
  */
 
 import {
@@ -111,6 +112,7 @@ async function main() {
   await addField(agentsId, 'embedding', 'vector(768)');
 
   // -- Sessions -------------------------------------------------------------
+  // Enhanced with OpenViking session compression & archival pattern
   console.log('\n\ud83d\udce1 sessions...');
   const sessionsId = await createOrgTable('sessions');
   await addField(sessionsId, 'title', 'text');
@@ -119,6 +121,14 @@ async function main() {
   await addField(sessionsId, 'ended_at', 'timestamptz');
   await addField(sessionsId, 'status', 'text', { defaultValue: "'active'" });
   await addField(sessionsId, 'context_summary', 'text');
+  // Session compression (OpenViking pattern: messages → archive → memory extraction)
+  await addField(sessionsId, 'session_summary', 'text');       // compressed summary of full conversation
+  await addField(sessionsId, 'archived_messages', 'jsonb');    // compressed message history
+  await addField(sessionsId, 'compression_count', 'int', { defaultValue: '0' }); // how many compressions applied
+  await addField(sessionsId, 'archived_at', 'timestamptz');    // when session was archived
+  await addField(sessionsId, 'extracted_memory_ids', 'uuid[]'); // memories extracted from this session
+  await addField(sessionsId, 'contexts_used', 'jsonb');        // which contexts were loaded during session
+  await addField(sessionsId, 'skills_used', 'uuid[]');         // which skills were invoked
   await addField(sessionsId, 'embedding_text', 'text');
   await addField(sessionsId, 'embedding', 'vector(768)');
 
@@ -185,15 +195,23 @@ async function main() {
   await addField(processesId, 'logs_path', 'text');
 
   // -- Scheduled Jobs -------------------------------------------------------
+  // Enhanced with OpenViking CronTool pattern: interval/cron/once scheduling
   console.log('\n\u23f0 scheduled_jobs...');
   const scheduledJobsId = await createOrgTable('scheduled_jobs');
   await addField(scheduledJobsId, 'name', 'text', { isRequired: true });
-  await addField(scheduledJobsId, 'schedule', 'text', { isRequired: true });
+  await addField(scheduledJobsId, 'schedule_type', 'text', { isRequired: true }); // interval | cron | once
+  await addField(scheduledJobsId, 'schedule_expr', 'text');    // cron expression or interval string
+  await addField(scheduledJobsId, 'run_at', 'timestamptz');    // for one-time jobs (schedule_type = 'once')
   await addField(scheduledJobsId, 'command', 'text', { isRequired: true });
+  await addField(scheduledJobsId, 'message', 'text');          // human-readable description / reminder text
   await addField(scheduledJobsId, 'agent_id', 'uuid');
-  await addField(scheduledJobsId, 'active', 'bool', { defaultValue: 'true' });
-  await addField(scheduledJobsId, 'last_run', 'timestamptz');
-  await addField(scheduledJobsId, 'next_run', 'timestamptz');
+  await addField(scheduledJobsId, 'session_id', 'uuid');
+  await addField(scheduledJobsId, 'is_active', 'bool', { defaultValue: 'true' });
+  await addField(scheduledJobsId, 'delete_after_run', 'bool', { defaultValue: 'false' }); // OpenViking: one-shot jobs
+  await addField(scheduledJobsId, 'last_run_at', 'timestamptz');
+  await addField(scheduledJobsId, 'next_run_at', 'timestamptz');
+  await addField(scheduledJobsId, 'run_count', 'int', { defaultValue: '0' });
+  await addField(scheduledJobsId, 'last_result', 'jsonb');
 
   // -- Tools ----------------------------------------------------------------
   console.log('\n\ud83d\udee0\ufe0f  tools...');
@@ -242,6 +260,45 @@ async function main() {
   await addField(workflowRunsId, 'input', 'jsonb');
   await addField(workflowRunsId, 'output', 'jsonb');
   await addField(workflowRunsId, 'error', 'text');
+
+  // -- Agent Spawns ---------------------------------------------------------
+  // OpenViking subagent pattern: parent agents can spawn child agents for background work
+  console.log('\n\ud83e\udd16 agent_spawns...');
+  const agentSpawnsId = await createOrgTable('agent_spawns');
+  await addField(agentSpawnsId, 'parent_agent_id', 'uuid', { isRequired: true });
+  await addField(agentSpawnsId, 'child_agent_id', 'uuid');
+  await addField(agentSpawnsId, 'session_id', 'uuid');
+  await addField(agentSpawnsId, 'task', 'text', { isRequired: true });
+  await addField(agentSpawnsId, 'status', 'text', { defaultValue: "'running'" }); // running | completed | failed | timeout
+  await addField(agentSpawnsId, 'result', 'jsonb');
+  await addField(agentSpawnsId, 'max_iterations', 'int', { defaultValue: '15' }); // OpenViking default
+  await addField(agentSpawnsId, 'started_at', 'timestamptz');
+  await addField(agentSpawnsId, 'completed_at', 'timestamptz');
+
+  // -- Context Relations -----------------------------------------------------
+  // OpenViking .relations.json pattern: generic links between any entities with a reason
+  console.log('\n\ud83d\udd17 context_relations...');
+  const contextRelationsId = await createOrgTable('context_relations');
+  await addField(contextRelationsId, 'from_type', 'text', { isRequired: true }); // e.g. 'memories', 'skills', 'documents'
+  await addField(contextRelationsId, 'from_id', 'uuid', { isRequired: true });
+  await addField(contextRelationsId, 'to_type', 'text', { isRequired: true });
+  await addField(contextRelationsId, 'to_id', 'uuid', { isRequired: true });
+  await addField(contextRelationsId, 'relation_kind', 'text'); // related_to | derived_from | supersedes | contradicts
+  await addField(contextRelationsId, 'reason', 'text');        // why these are linked
+  await addField(contextRelationsId, 'strength', 'numeric');   // 0.0-1.0 relation strength
+
+  // -- Session Archives ------------------------------------------------------
+  // Stores compressed message history separately from active sessions
+  console.log('\n\ud83d\udce6 session_archives...');
+  const sessionArchivesId = await createOrgTable('session_archives');
+  await addField(sessionArchivesId, 'session_id', 'uuid', { isRequired: true });
+  await addField(sessionArchivesId, 'archive_index', 'int', { isRequired: true }); // nth compression
+  await addField(sessionArchivesId, 'summary', 'text', { isRequired: true });
+  await addField(sessionArchivesId, 'message_range_start', 'int'); // first message index in this archive
+  await addField(sessionArchivesId, 'message_range_end', 'int');   // last message index
+  await addField(sessionArchivesId, 'raw_messages', 'jsonb');      // original messages if retained
+  await addField(sessionArchivesId, 'embedding_text', 'text');
+  await addField(sessionArchivesId, 'embedding', 'vector(768)');
 
   // -- Activity Log ---------------------------------------------------------
   console.log('\n\ud83d\udcca activity_log...');
@@ -446,6 +503,40 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 agents <-> tools (agent_tools)');
+
+  // sessions -> session_archives (HasMany)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: sessionsId,
+          targetTableId: sessionArchivesId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 sessions -> session_archives');
+
+  // agents -> agent_spawns (HasMany, as parent)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: agentsId,
+          targetTableId: agentSpawnsId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 agents -> agent_spawns');
 
   console.log('\n\u2705 Agent Runtime Schema complete!\n');
 }

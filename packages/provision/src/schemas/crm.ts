@@ -196,6 +196,12 @@ async function main() {
   await addField(notesId, 'content', 'text', { isRequired: true });
   await addField(notesId, 'notable_type', 'text');
   await addField(notesId, 'notable_id', 'uuid');
+  // L0/L1 tiered context
+  await addField(notesId, 'abstract', 'text');
+  await addField(notesId, 'overview', 'text');
+  // Hotness scoring
+  await addField(notesId, 'active_count', 'int', { defaultValue: '0' });
+  await addField(notesId, 'last_accessed_at', 'timestamptz');
   await addField(notesId, 'tags', 'citext[]');
   await addField(notesId, 'embedding_text', 'text');
   await addField(notesId, 'embedding', 'vector(768)');
