@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@agentic-db/sdk": "workspace:*",
-    "@constructive-io/node": "^0.1.4",
+    "@constructive-io/node": "^0.4.1",
     "dotenv": "^16.4.5",
     "pg": "^8.11.0"
   },
