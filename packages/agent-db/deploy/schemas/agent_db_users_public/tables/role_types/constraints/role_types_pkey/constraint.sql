@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_users_public/tables/role_types/table
 
 
-ALTER TABLE "agent_db_users_public".role_types 
+ALTER TABLE agent_db_users_public.role_types 
   ADD CONSTRAINT role_types_pkey PRIMARY KEY (id);
 

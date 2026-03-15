@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_auth_private/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA "agent_db_auth_private" GRANT ALL ON FUNCTIONS TO authenticated;
+ALTER DEFAULT PRIVILEGES IN SCHEMA agent_db_auth_private GRANT ALL ON FUNCTIONS TO authenticated;
 

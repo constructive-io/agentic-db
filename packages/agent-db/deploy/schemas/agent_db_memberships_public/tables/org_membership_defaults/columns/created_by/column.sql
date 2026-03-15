@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_memberships_public/tables/org_membership_defaults/table
 
 
-ALTER TABLE "agent_db_memberships_public".org_membership_defaults 
+ALTER TABLE agent_db_memberships_public.org_membership_defaults 
   ADD COLUMN created_by uuid;
 

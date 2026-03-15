@@ -1,6 +1,6 @@
 -- Revert: schemas/agent_db_permissions_public/tables/app_permission_defaults/grants/authenticated/select/grant
 
 
-REVOKE SELECT ON "agent_db_permissions_public".app_permission_defaults FROM authenticated;
+REVOKE SELECT ON agent_db_permissions_public.app_permission_defaults FROM authenticated;
 
 

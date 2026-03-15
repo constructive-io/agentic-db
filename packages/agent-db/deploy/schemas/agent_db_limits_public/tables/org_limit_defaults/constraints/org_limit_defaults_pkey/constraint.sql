@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_limits_public/tables/org_limit_defaults/table
 
 
-ALTER TABLE "agent_db_limits_public".org_limit_defaults 
+ALTER TABLE agent_db_limits_public.org_limit_defaults 
   ADD CONSTRAINT org_limit_defaults_pkey PRIMARY KEY (id);
 

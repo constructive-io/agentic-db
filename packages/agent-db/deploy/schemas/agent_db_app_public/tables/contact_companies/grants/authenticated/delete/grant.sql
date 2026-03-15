@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/notes/constraints/notes_contact_id_fkey/constraint
 
 
-GRANT DELETE ON "agent_db_app_public".contact_companies TO authenticated;
+GRANT DELETE ON agent_db_app_public.contact_companies TO authenticated;
 

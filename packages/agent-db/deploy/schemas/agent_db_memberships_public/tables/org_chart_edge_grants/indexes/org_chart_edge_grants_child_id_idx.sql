@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_memberships_public/tables/org_chart_edge_grants/columns/child_id/column
 
 
-CREATE INDEX org_chart_edge_grants_child_id_idx ON "agent_db_memberships_public".org_chart_edge_grants USING BTREE ( child_id );
+CREATE INDEX org_chart_edge_grants_child_id_idx ON agent_db_memberships_public.org_chart_edge_grants USING BTREE ( child_id );
 

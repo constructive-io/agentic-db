@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/calendar_sync/columns/provider/column
 
 
-ALTER TABLE "agent_db_app_public".calendar_sync 
+ALTER TABLE agent_db_app_public.calendar_sync 
   ADD COLUMN sync_token text;
 

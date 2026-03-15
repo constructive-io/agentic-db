@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_logging_public/schema
 
 
-CREATE TABLE "agent_db_logging_public".audit_logs ();
+CREATE TABLE agent_db_logging_public.audit_logs ();
 

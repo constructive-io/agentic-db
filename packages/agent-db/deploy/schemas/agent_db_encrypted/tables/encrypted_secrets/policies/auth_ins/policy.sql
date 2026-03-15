@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_encrypted/tables/encrypted_secrets/table
 
 
-CREATE POLICY auth_ins ON "agent_db_encrypted".encrypted_secrets
+CREATE POLICY auth_ins ON agent_db_encrypted.encrypted_secrets
 FOR INSERT
 TO authenticated
 WITH CHECK (

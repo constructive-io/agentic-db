@@ -4,7 +4,7 @@
 -- requires: schemas/agent_db_memberships_private/schema
 
 
-CREATE FUNCTION "agent_db_memberships_private".org_membership_validate_not_in_hierarchy_tg() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agent_db_memberships_private.org_membership_validate_not_in_hierarchy_tg() RETURNS TRIGGER AS $_PGFN_$
 
                 DECLARE
                     v_old_is_active boolean;
@@ -20,7 +20,7 @@ CREATE FUNCTION "agent_db_memberships_private".org_membership_validate_not_in_hi
                         -- Check if user is in the hierarchy for this entity
                         SELECT EXISTS (
                             SELECT 1
-                            FROM "agent_db_memberships_public".org_chart_edges e
+                            FROM agent_db_memberships_public.org_chart_edges e
                             WHERE e.entity_id = NEW.entity_id
                                 AND (e.child_id = NEW.actor_id OR e.parent_id = NEW.actor_id)
                         ) INTO v_in_hierarchy;

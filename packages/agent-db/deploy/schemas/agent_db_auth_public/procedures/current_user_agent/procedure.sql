@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION "agent_db_auth_public".current_user_agent ()
+CREATE FUNCTION agent_db_auth_public.current_user_agent ()
   RETURNS text
 AS $$
 DECLARE
@@ -27,5 +27,5 @@ BEGIN
 END;
 $$
 LANGUAGE 'plpgsql' STABLE;
-GRANT EXECUTE ON FUNCTION "agent_db_auth_public".current_user_agent TO authenticated;
+GRANT EXECUTE ON FUNCTION agent_db_auth_public.current_user_agent TO authenticated;
 

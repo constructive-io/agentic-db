@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/files/columns/hash/column
 
 
-GRANT DELETE ON "agent_db_app_public".chunks TO authenticated;
+GRANT DELETE ON agent_db_app_public.chunks TO authenticated;
 

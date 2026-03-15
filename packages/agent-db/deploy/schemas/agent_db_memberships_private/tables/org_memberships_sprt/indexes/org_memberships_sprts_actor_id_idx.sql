@@ -9,5 +9,5 @@
 -- requires: schemas/agent_db_memberships_private/tables/org_memberships_sprt/columns/permissions/column
 
 
-CREATE INDEX org_memberships_sprts_actor_id_idx ON "agent_db_memberships_private".org_memberships_sprt USING BTREE ( actor_id ) INCLUDE ( permissions, is_owner, is_admin );
+CREATE INDEX org_memberships_sprts_actor_id_idx ON agent_db_memberships_private.org_memberships_sprt USING BTREE ( actor_id ) INCLUDE ( permissions, is_owner, is_admin );
 

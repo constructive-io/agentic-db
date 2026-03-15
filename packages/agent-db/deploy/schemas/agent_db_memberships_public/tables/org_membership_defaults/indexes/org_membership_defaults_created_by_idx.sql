@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_memberships_public/tables/org_membership_defaults/columns/created_by/column
 
 
-CREATE INDEX org_membership_defaults_created_by_idx ON "agent_db_memberships_public".org_membership_defaults ( created_by );
+CREATE INDEX org_membership_defaults_created_by_idx ON agent_db_memberships_public.org_membership_defaults ( created_by );
 

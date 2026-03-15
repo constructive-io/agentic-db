@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/chats/columns/title/column
 
 
-ALTER TABLE "agent_db_app_public".chats 
+ALTER TABLE agent_db_app_public.chats 
   ADD COLUMN started_at timestamptz;
 

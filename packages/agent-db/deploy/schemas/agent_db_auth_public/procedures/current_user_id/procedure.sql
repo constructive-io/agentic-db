@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION "agent_db_auth_public".current_user_id ()
+CREATE FUNCTION agent_db_auth_public.current_user_id ()
   RETURNS uuid
 AS $$
 DECLARE
@@ -27,5 +27,5 @@ BEGIN
 END;
 $$
 LANGUAGE 'plpgsql' STABLE;
-GRANT EXECUTE ON FUNCTION "agent_db_auth_public".current_user_id TO authenticated;
+GRANT EXECUTE ON FUNCTION agent_db_auth_public.current_user_id TO authenticated;
 

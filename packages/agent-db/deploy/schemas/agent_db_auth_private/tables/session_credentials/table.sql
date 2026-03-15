@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_auth_private/schema
 
 
-CREATE TABLE "agent_db_auth_private".session_credentials ();
+CREATE TABLE agent_db_auth_private.session_credentials ();
 

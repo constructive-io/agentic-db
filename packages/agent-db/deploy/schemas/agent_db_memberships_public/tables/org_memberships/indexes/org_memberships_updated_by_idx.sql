@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_memberships_public/tables/org_memberships/columns/updated_by/column
 
 
-CREATE INDEX org_memberships_updated_by_idx ON "agent_db_memberships_public".org_memberships ( updated_by );
+CREATE INDEX org_memberships_updated_by_idx ON agent_db_memberships_public.org_memberships ( updated_by );
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/tasks/columns/embedding/column
 
 
-GRANT DELETE ON "agent_db_app_public".rules TO authenticated;
+GRANT DELETE ON agent_db_app_public.rules TO authenticated;
 

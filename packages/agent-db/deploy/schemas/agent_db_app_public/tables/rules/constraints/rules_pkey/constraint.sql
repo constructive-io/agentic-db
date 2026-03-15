@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/tasks/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".rules 
+ALTER TABLE agent_db_app_public.rules 
   ADD CONSTRAINT rules_pkey PRIMARY KEY (id);
 

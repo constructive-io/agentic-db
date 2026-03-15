@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agent_db_status_private".member_tg_upd_achv;
+DROP FUNCTION agent_db_status_private.member_tg_upd_achv;
 
 

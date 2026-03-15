@@ -5,12 +5,12 @@
 
 
 
-CREATE FUNCTION "agent_db_profiles_private".org_profiles_cascade_tg ()
+CREATE FUNCTION agent_db_profiles_private.org_profiles_cascade_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 BEGIN
     IF (OLD.permissions IS DISTINCT FROM NEW.permissions) THEN
-        UPDATE "agent_db_memberships_public".org_memberships
+        UPDATE agent_db_memberships_public.org_memberships
             SET profile_id = profile_id
         WHERE profile_id = NEW.id;
     END IF;

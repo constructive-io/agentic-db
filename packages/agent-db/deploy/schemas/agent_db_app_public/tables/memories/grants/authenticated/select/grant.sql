@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/rules/columns/embedding/column
 
 
-GRANT SELECT ON "agent_db_app_public".memories TO authenticated;
+GRANT SELECT ON agent_db_app_public.memories TO authenticated;
 

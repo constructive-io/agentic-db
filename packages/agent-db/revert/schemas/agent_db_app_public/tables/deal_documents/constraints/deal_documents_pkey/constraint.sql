@@ -1,7 +1,7 @@
 -- Revert: schemas/agent_db_app_public/tables/deal_documents/constraints/deal_documents_pkey/constraint
 
 
-ALTER TABLE "agent_db_app_public".deal_documents 
+ALTER TABLE agent_db_app_public.deal_documents 
   DROP CONSTRAINT deal_documents_pkey;
 
 

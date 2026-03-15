@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION "agent_db_permissions_private".org_permissions_bitnum_tg ()
+CREATE FUNCTION agent_db_permissions_private.org_permissions_bitnum_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE

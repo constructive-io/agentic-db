@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/event_links/columns/embedding/column
 
 
-CREATE TABLE "agent_db_app_public".venue_links ();
+CREATE TABLE agent_db_app_public.venue_links ();
 

@@ -5,16 +5,16 @@
 
 
 
-CREATE FUNCTION "agent_db_profiles_private".app_profile_grants_apply_tg ()
+CREATE FUNCTION agent_db_profiles_private.app_profile_grants_apply_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 BEGIN
     IF (NEW.is_grant IS TRUE AND NEW.profile_id IS NOT NULL) THEN
-        UPDATE "agent_db_memberships_public".app_memberships
+        UPDATE agent_db_memberships_public.app_memberships
             SET profile_id = NEW.profile_id
         WHERE id = NEW.membership_id;
     ELSIF (NEW.is_grant IS FALSE) THEN
-        UPDATE "agent_db_memberships_public".app_memberships
+        UPDATE agent_db_memberships_public.app_memberships
             SET profile_id = NULL
         WHERE id = NEW.membership_id;
     END IF;

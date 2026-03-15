@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_invites_public/tables/invites/columns/expires_at/column
 
 
-CREATE INDEX invites_expires_at_idx ON "agent_db_invites_public".invites USING BTREE ( expires_at );
+CREATE INDEX invites_expires_at_idx ON agent_db_invites_public.invites USING BTREE ( expires_at );
 

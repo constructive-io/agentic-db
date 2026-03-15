@@ -2,8 +2,8 @@
 -- made with <3 @ launchql.com
 
 -- requires: schemas/agent_db_app_public/schema
--- requires: schemas/agent_db_app_public/tables/messages/constraints/messages_email_account_id_fkey/constraint
+-- requires: schemas/agent_db_users_public/tables/users/constraints/users_user_id_fkey/constraint
 
 
-CREATE TABLE "agent_db_app_public".contact_emails ();
+CREATE TABLE agent_db_app_public.contact_emails ();
 

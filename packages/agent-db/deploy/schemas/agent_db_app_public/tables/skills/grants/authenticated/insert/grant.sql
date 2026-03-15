@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/memories/columns/embedding/column
 
 
-GRANT INSERT ON "agent_db_app_public".skills TO authenticated;
+GRANT INSERT ON agent_db_app_public.skills TO authenticated;
 

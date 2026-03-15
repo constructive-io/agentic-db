@@ -6,7 +6,7 @@
 
 
 CREATE TRIGGER timestamps_tg
-BEFORE INSERT OR UPDATE ON "agent_db_memberships_public".app_admin_grants
+BEFORE INSERT OR UPDATE ON agent_db_memberships_public.app_admin_grants
 FOR EACH ROW
 EXECUTE PROCEDURE stamps.timestamps ( );
 

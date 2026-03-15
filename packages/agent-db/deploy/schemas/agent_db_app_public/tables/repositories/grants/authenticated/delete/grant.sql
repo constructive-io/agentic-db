@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/milestones/constraints/milestones_project_id_fkey/constraint
 
 
-GRANT DELETE ON "agent_db_app_public".repositories TO authenticated;
+GRANT DELETE ON agent_db_app_public.repositories TO authenticated;
 

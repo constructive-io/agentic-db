@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION "agent_db_memberships_private".org_memberships_delete_sprt_tg;
+DROP FUNCTION agent_db_memberships_private.org_memberships_delete_sprt_tg;
 
 
 

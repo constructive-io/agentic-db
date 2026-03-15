@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/event_venues/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".deal_contacts 
+ALTER TABLE agent_db_app_public.deal_contacts 
   ADD CONSTRAINT deal_contacts_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES "agent_db_users_public".users (id) 
+    REFERENCES agent_db_users_public.users (id) 
     ON DELETE CASCADE;
 

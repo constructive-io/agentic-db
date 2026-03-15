@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_limits_public/tables/org_limits/table
 
 
-CREATE POLICY auth_sel_own ON "agent_db_limits_public".org_limits
+CREATE POLICY auth_sel_own ON agent_db_limits_public.org_limits
 FOR SELECT
 TO authenticated
 USING (

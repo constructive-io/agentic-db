@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/companies/table
--- requires: schemas/agent_db_app_public/tables/companies/columns/updated_at/alterations/alt0000002578
+-- requires: schemas/agent_db_app_public/tables/companies/columns/updated_at/alterations/alt0000000874
 
 
-ALTER TABLE "agent_db_app_public".companies 
+ALTER TABLE agent_db_app_public.companies 
   ADD COLUMN name text;
 

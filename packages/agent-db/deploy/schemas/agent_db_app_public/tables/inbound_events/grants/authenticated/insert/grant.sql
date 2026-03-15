@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/tasks/columns/approved_at/column
 
 
-GRANT INSERT ON "agent_db_app_public".inbound_events TO authenticated;
+GRANT INSERT ON agent_db_app_public.inbound_events TO authenticated;
 

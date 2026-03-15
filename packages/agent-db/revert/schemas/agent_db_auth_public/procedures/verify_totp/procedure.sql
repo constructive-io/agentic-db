@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION "agent_db_auth_public".verify_totp;
+DROP FUNCTION agent_db_auth_public.verify_totp;
 
 
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/contacts/columns/main_image_id/column
 
 
-GRANT SELECT ON "agent_db_app_public".companies TO authenticated;
+GRANT SELECT ON agent_db_app_public.companies TO authenticated;
 

@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _00020_org_memberships_insert_sprt
-AFTER INSERT ON "agent_db_memberships_public".org_memberships
+AFTER INSERT ON agent_db_memberships_public.org_memberships
 FOR EACH ROW
-EXECUTE PROCEDURE "agent_db_memberships_private".org_memberships_insert_sprt_tg ( );
+EXECUTE PROCEDURE agent_db_memberships_private.org_memberships_insert_sprt_tg ( );
 

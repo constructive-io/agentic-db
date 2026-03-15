@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/sessions/table
--- requires: schemas/agent_db_app_public/tables/sessions/columns/started_at/alterations/alt0000002761
+-- requires: schemas/agent_db_app_public/tables/sessions/columns/started_at/alterations/alt0000001057
 
 
-ALTER TABLE "agent_db_app_public".sessions 
+ALTER TABLE agent_db_app_public.sessions 
   ADD COLUMN ended_at timestamptz;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/event_images/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".venue_images 
+ALTER TABLE agent_db_app_public.venue_images 
   ENABLE ROW LEVEL SECURITY;
 

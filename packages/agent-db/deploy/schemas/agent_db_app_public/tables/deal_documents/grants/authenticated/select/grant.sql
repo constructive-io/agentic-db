@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/company_documents/policies/auth_del_entity_membership/policy
 
 
-GRANT SELECT ON "agent_db_app_public".deal_documents TO authenticated;
+GRANT SELECT ON agent_db_app_public.deal_documents TO authenticated;
 

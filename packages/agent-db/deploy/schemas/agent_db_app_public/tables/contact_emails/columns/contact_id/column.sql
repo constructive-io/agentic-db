@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/contact_phones/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".contact_emails 
+ALTER TABLE agent_db_app_public.contact_emails 
   ADD COLUMN contact_id uuid;
 

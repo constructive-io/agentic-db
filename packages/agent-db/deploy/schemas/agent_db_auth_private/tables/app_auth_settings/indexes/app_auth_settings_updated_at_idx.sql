@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_auth_private/tables/app_auth_settings/columns/updated_at/column
 
 
-CREATE INDEX app_auth_settings_updated_at_idx ON "agent_db_auth_private".app_auth_settings ( updated_at );
+CREATE INDEX app_auth_settings_updated_at_idx ON agent_db_auth_private.app_auth_settings ( updated_at );
 

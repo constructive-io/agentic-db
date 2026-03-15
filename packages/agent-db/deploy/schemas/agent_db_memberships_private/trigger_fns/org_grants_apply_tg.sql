@@ -5,17 +5,17 @@
 
 
 
-CREATE FUNCTION "agent_db_memberships_private".org_grants_apply_tg ()
+CREATE FUNCTION agent_db_memberships_private.org_grants_apply_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 BEGIN
     IF (NEW.is_grant IS TRUE) THEN 
-        UPDATE "agent_db_memberships_public".org_memberships 
+        UPDATE agent_db_memberships_public.org_memberships 
             SET granted = granted | NEW.permissions
         WHERE actor_id = NEW.actor_id
         AND entity_id = NEW.entity_id; 
     ELSE 
-        UPDATE "agent_db_memberships_public".org_memberships 
+        UPDATE agent_db_memberships_public.org_memberships 
             SET granted = granted & ~ NEW.permissions
         WHERE actor_id = NEW.actor_id
         AND entity_id = NEW.entity_id; 

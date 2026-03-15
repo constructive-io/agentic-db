@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER app_owner_grants_insert_trg
-BEFORE INSERT ON "agent_db_memberships_public".app_owner_grants
+BEFORE INSERT ON agent_db_memberships_public.app_owner_grants
 FOR EACH ROW
-EXECUTE PROCEDURE "agent_db_memberships_private".app_owner_grants_apply_tg ( );
+EXECUTE PROCEDURE agent_db_memberships_private.app_owner_grants_apply_tg ( );
 

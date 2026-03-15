@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/messages/columns/embedding/column
 
 
-GRANT INSERT ON "agent_db_app_public".calendar_sync TO authenticated;
+GRANT INSERT ON agent_db_app_public.calendar_sync TO authenticated;
 

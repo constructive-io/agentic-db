@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/tasks/columns/approved_at/column
 
 
-ALTER TABLE "agent_db_app_public".inbound_events 
+ALTER TABLE agent_db_app_public.inbound_events 
   ADD CONSTRAINT inbound_events_pkey PRIMARY KEY (id);
 

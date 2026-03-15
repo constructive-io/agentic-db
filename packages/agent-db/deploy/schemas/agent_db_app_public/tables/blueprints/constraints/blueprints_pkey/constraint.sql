@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/sessions/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".blueprints 
+ALTER TABLE agent_db_app_public.blueprints 
   ADD CONSTRAINT blueprints_pkey PRIMARY KEY (id);
 

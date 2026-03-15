@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_permissions_public/tables/org_permission_defaults/table
 
 
-GRANT INSERT ON "agent_db_permissions_public".org_permission_defaults TO authenticated;
+GRANT INSERT ON agent_db_permissions_public.org_permission_defaults TO authenticated;
 

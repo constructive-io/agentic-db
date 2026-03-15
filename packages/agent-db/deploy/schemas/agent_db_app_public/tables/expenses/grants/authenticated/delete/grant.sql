@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/calendar_sync/columns/last_synced_at/column
 
 
-GRANT DELETE ON "agent_db_app_public".expenses TO authenticated;
+GRANT DELETE ON agent_db_app_public.expenses TO authenticated;
 

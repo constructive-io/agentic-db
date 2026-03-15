@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/contact_documents/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".company_documents 
+ALTER TABLE agent_db_app_public.company_documents 
   ADD COLUMN company_id uuid;
 

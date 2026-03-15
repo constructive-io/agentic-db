@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/chat_messages/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".execution_log 
+ALTER TABLE agent_db_app_public.execution_log 
   ADD COLUMN session_id uuid;
 

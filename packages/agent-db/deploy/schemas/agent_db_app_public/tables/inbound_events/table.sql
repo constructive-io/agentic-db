@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/tasks/columns/approved_at/column
 
 
-CREATE TABLE "agent_db_app_public".inbound_events ();
+CREATE TABLE agent_db_app_public.inbound_events ();
 

@@ -5,13 +5,13 @@
 
 
 
-CREATE FUNCTION "agent_db_permissions_public".org_permissions_get_by_mask (mask bit varying)
-  RETURNS SETOF "agent_db_permissions_public".org_permissions
+CREATE FUNCTION agent_db_permissions_public.org_permissions_get_by_mask (mask bit varying)
+  RETURNS SETOF agent_db_permissions_public.org_permissions
 AS $CODEZ$
     SELECT * FROM 
-      "agent_db_permissions_public".org_permissions
-    WHERE bitstr & "agent_db_permissions_public".org_permissions_get_padded_mask(mask) = bitstr;
+      agent_db_permissions_public.org_permissions
+    WHERE bitstr & agent_db_permissions_public.org_permissions_get_padded_mask(mask) = bitstr;
 $CODEZ$
 LANGUAGE sql STABLE;
-GRANT EXECUTE ON FUNCTION "agent_db_permissions_public".org_permissions_get_by_mask TO authenticated;
+GRANT EXECUTE ON FUNCTION agent_db_permissions_public.org_permissions_get_by_mask TO authenticated;
 

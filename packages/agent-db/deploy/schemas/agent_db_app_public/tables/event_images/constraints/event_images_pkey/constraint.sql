@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/company_images/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".event_images 
+ALTER TABLE agent_db_app_public.event_images 
   ADD CONSTRAINT event_images_pkey PRIMARY KEY (id);
 

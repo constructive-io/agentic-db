@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_profiles_public/tables/app_profile_grants/columns/membership_id/column
 
 
-CREATE INDEX app_profile_grants_membership_id_idx ON "agent_db_profiles_public".app_profile_grants USING BTREE ( membership_id );
+CREATE INDEX app_profile_grants_membership_id_idx ON agent_db_profiles_public.app_profile_grants USING BTREE ( membership_id );
 

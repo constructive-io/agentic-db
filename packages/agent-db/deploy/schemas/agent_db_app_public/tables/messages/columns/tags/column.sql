@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/messages/columns/received_at/column
 
 
-ALTER TABLE "agent_db_app_public".messages 
+ALTER TABLE agent_db_app_public.messages 
   ADD COLUMN tags citext[];
 

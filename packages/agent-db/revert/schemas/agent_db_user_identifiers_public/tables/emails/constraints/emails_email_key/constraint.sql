@@ -1,7 +1,7 @@
 -- Revert: schemas/agent_db_user_identifiers_public/tables/emails/constraints/emails_email_key/constraint
 
 
-ALTER TABLE "agent_db_user_identifiers_public".emails 
+ALTER TABLE agent_db_user_identifiers_public.emails 
   DROP CONSTRAINT emails_email_key;
 
 

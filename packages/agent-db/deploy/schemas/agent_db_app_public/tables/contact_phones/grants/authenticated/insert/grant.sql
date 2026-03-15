@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/contact_emails/columns/embedding/column
 
 
-GRANT INSERT ON "agent_db_app_public".contact_phones TO authenticated;
+GRANT INSERT ON agent_db_app_public.contact_phones TO authenticated;
 

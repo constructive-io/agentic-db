@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/event_images/policies/auth_del_entity_membership/policy
 
 
-GRANT DELETE ON "agent_db_app_public".venue_images TO authenticated;
+GRANT DELETE ON agent_db_app_public.venue_images TO authenticated;
 

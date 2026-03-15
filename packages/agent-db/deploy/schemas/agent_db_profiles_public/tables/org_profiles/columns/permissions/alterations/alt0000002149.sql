@@ -1,9 +1,0 @@
--- Deploy: schemas/agent_db_profiles_public/tables/org_profiles/columns/permissions/alterations/alt0000002149
--- made with <3 @ launchql.com
-
--- requires: schemas/agent_db_profiles_public/schema
--- requires: schemas/agent_db_profiles_public/tables/org_profiles/columns/permissions/column
-
-
-COMMENT ON COLUMN "agent_db_profiles_public".org_profiles.permissions IS E'Pre-computed permission bitmask aggregating all permissions in this profile';
-

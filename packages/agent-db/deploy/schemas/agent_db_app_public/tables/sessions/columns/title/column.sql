@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/sessions/table
--- requires: schemas/agent_db_app_public/tables/sessions/columns/updated_at/alterations/alt0000002760
+-- requires: schemas/agent_db_app_public/tables/sessions/columns/updated_at/alterations/alt0000001056
 
 
-ALTER TABLE "agent_db_app_public".sessions 
+ALTER TABLE agent_db_app_public.sessions 
   ADD COLUMN title text;
 

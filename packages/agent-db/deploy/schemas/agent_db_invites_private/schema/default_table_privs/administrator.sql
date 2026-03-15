@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_invites_private/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA "agent_db_invites_private" GRANT ALL ON TABLES TO administrator;
+ALTER DEFAULT PRIVILEGES IN SCHEMA agent_db_invites_private GRANT ALL ON TABLES TO administrator;
 

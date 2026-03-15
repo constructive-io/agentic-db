@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/documents/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".messages 
+ALTER TABLE agent_db_app_public.messages 
   ADD COLUMN email_account_id uuid;
 

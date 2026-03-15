@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/projects/columns/embedding/column
 
 
-CREATE TABLE "agent_db_app_public".milestones ();
+CREATE TABLE agent_db_app_public.milestones ();
 

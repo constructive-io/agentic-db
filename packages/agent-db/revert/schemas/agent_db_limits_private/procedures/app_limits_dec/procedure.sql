@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agent_db_limits_private".app_limits_dec;
+DROP FUNCTION agent_db_limits_private.app_limits_dec;
 
 

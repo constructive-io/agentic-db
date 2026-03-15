@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/expenses/columns/embedding/column
 
 
-GRANT DELETE ON "agent_db_app_public".documents TO authenticated;
+GRANT DELETE ON agent_db_app_public.documents TO authenticated;
 

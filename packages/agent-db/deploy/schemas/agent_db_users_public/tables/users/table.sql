@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_users_public/schema
 
 
-CREATE TABLE "agent_db_users_public".users ();
+CREATE TABLE agent_db_users_public.users ();
 

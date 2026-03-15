@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_invites_public/tables/invites/table
 
 
-ALTER TABLE "agent_db_invites_public".invites 
+ALTER TABLE agent_db_invites_public.invites 
   ADD COLUMN invite_token text;
 

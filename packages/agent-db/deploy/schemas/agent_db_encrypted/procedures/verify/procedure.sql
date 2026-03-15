@@ -8,7 +8,7 @@
 
 
 
-CREATE FUNCTION "agent_db_encrypted".verify (
+CREATE FUNCTION agent_db_encrypted.verify (
   owner_id uuid,
   secret_name text,
   value text
@@ -17,17 +17,17 @@ CREATE FUNCTION "agent_db_encrypted".verify (
   AS $$
 DECLARE
   v_secret_text text;
-  v_secret "agent_db_encrypted".encrypted_secrets;
+  v_secret agent_db_encrypted.encrypted_secrets;
 BEGIN
   SELECT
     *
   FROM
-    "agent_db_encrypted".get (verify.owner_id, verify.secret_name)
+    agent_db_encrypted.get (verify.owner_id, verify.secret_name)
   INTO v_secret_text;
   SELECT
     *
   FROM
-    "agent_db_encrypted".encrypted_secrets s
+    agent_db_encrypted.encrypted_secrets s
   WHERE
     s.name = verify.secret_name
     AND s.owner_id = verify.owner_id INTO v_secret;
@@ -41,5 +41,5 @@ END
 $$
 LANGUAGE 'plpgsql'
 STABLE;
-GRANT EXECUTE ON FUNCTION "agent_db_encrypted".verify TO authenticated;
+GRANT EXECUTE ON FUNCTION agent_db_encrypted.verify TO authenticated;
 

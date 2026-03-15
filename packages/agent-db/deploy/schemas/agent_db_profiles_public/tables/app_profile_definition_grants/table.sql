@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_profiles_public/schema
 
 
-CREATE TABLE "agent_db_profiles_public".app_profile_definition_grants ();
+CREATE TABLE agent_db_profiles_public.app_profile_definition_grants ();
 

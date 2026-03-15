@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/files/constraints/files_repository_id_fkey/constraint
 
 
-ALTER TABLE "agent_db_app_public".chunks 
+ALTER TABLE agent_db_app_public.chunks 
   ADD CONSTRAINT chunks_file_id_fkey 
     FOREIGN KEY(file_id) 
-    REFERENCES "agent_db_app_public".files (id) 
+    REFERENCES agent_db_app_public.files (id) 
     ON DELETE CASCADE;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/event_venues/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".deal_contacts 
+ALTER TABLE agent_db_app_public.deal_contacts 
   ADD COLUMN entity_id uuid;
 

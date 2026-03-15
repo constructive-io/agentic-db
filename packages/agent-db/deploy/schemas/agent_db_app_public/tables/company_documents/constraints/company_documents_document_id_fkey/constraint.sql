@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/contact_documents/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".company_documents 
+ALTER TABLE agent_db_app_public.company_documents 
   ADD CONSTRAINT company_documents_document_id_fkey 
     FOREIGN KEY(document_id) 
-    REFERENCES "agent_db_app_public".documents (id) 
+    REFERENCES agent_db_app_public.documents (id) 
     ON DELETE CASCADE;
 

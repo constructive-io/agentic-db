@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_profiles_public/tables/org_profile_definition_grants/columns/grantor_id/column
 
 
-CREATE INDEX org_profile_definition_grants_grantor_id_idx ON "agent_db_profiles_public".org_profile_definition_grants USING BTREE ( grantor_id );
+CREATE INDEX org_profile_definition_grants_grantor_id_idx ON agent_db_profiles_public.org_profile_definition_grants USING BTREE ( grantor_id );
 

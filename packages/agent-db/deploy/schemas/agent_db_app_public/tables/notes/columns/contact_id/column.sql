@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/venue_images/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".notes 
+ALTER TABLE agent_db_app_public.notes 
   ADD COLUMN contact_id uuid;
 

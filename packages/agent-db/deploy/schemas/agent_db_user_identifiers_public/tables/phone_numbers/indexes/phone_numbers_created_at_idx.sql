@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_user_identifiers_public/tables/phone_numbers/columns/created_at/column
 
 
-CREATE INDEX phone_numbers_created_at_idx ON "agent_db_user_identifiers_public".phone_numbers ( created_at );
+CREATE INDEX phone_numbers_created_at_idx ON agent_db_user_identifiers_public.phone_numbers ( created_at );
 

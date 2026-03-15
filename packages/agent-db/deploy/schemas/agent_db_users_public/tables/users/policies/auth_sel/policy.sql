@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_users_public/tables/users/table
 
 
-CREATE POLICY auth_sel ON "agent_db_users_public".users
+CREATE POLICY auth_sel ON agent_db_users_public.users
 FOR SELECT
 TO authenticated
 USING (

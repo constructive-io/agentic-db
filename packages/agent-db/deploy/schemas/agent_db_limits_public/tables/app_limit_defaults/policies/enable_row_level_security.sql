@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_limits_public/tables/app_limit_defaults/table
 
 
-ALTER TABLE "agent_db_limits_public".app_limit_defaults 
+ALTER TABLE agent_db_limits_public.app_limit_defaults 
   ENABLE ROW LEVEL SECURITY;
 

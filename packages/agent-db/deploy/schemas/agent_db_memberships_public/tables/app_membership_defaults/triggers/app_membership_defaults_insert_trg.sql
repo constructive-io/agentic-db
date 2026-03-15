@@ -6,7 +6,7 @@
 
 
 CREATE TRIGGER app_membership_defaults_insert_trg
-BEFORE INSERT ON "agent_db_memberships_public".app_membership_defaults
+BEFORE INSERT ON agent_db_memberships_public.app_membership_defaults
 FOR EACH ROW
 EXECUTE PROCEDURE utils.ensure_singleton ( );
 

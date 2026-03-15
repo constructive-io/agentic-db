@@ -1,6 +1,6 @@
 -- Revert: schemas/agent_db_app_public/tables/repositories/grants/authenticated/insert/grant
 
 
-REVOKE INSERT ON "agent_db_app_public".repositories FROM authenticated;
+REVOKE INSERT ON agent_db_app_public.repositories FROM authenticated;
 
 

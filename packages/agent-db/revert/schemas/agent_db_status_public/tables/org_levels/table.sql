@@ -1,6 +1,6 @@
 -- Revert: schemas/agent_db_status_public/tables/org_levels/table
 
 
-DROP TABLE "agent_db_status_public".org_levels;
+DROP TABLE agent_db_status_public.org_levels;
 
 

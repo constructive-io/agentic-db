@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/tasks/table
--- requires: schemas/agent_db_app_public/tables/tasks/columns/requires_approval/alterations/alt0000002933
+-- requires: schemas/agent_db_app_public/tables/tasks/columns/requires_approval/alterations/alt0000001230
 
 
-ALTER TABLE "agent_db_app_public".tasks 
+ALTER TABLE agent_db_app_public.tasks 
   ADD COLUMN approval_status text;
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/contact_emails/columns/embedding/column
 
 
-CREATE TABLE "agent_db_app_public".contact_phones ();
+CREATE TABLE agent_db_app_public.contact_phones ();
 

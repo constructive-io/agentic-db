@@ -1,7 +1,7 @@
 -- Revert: schemas/agent_db_app_public/tables/contact_emails/columns/created_at/column
 
 
-ALTER TABLE "agent_db_app_public".contact_emails 
+ALTER TABLE agent_db_app_public.contact_emails 
   DROP COLUMN created_at RESTRICT;
 
 

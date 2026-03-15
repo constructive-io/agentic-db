@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agent_db_status_private".incompleted_step;
+DROP FUNCTION agent_db_status_private.incompleted_step;
 
 

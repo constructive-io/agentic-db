@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_auth_private/tables/sessions/table
 
 
-ALTER TABLE "agent_db_auth_private".sessions 
+ALTER TABLE agent_db_auth_private.sessions 
   ADD COLUMN csrf_secret text;
 

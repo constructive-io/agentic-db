@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/company_links/columns/embedding/column
 
 
-GRANT INSERT ON "agent_db_app_public".event_links TO authenticated;
+GRANT INSERT ON agent_db_app_public.event_links TO authenticated;
 

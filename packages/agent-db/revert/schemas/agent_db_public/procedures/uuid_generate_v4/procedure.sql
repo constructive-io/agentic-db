@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agent_db_public".uuid_generate_v4;
+DROP FUNCTION agent_db_public.uuid_generate_v4;
 
 

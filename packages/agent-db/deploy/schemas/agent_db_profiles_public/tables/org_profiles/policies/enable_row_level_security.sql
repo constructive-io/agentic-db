@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_profiles_public/tables/org_profiles/table
 
 
-ALTER TABLE "agent_db_profiles_public".org_profiles 
+ALTER TABLE agent_db_profiles_public.org_profiles 
   ENABLE ROW LEVEL SECURITY;
 
