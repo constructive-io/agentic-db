@@ -6,7 +6,7 @@
 import { NodeHttpAdapter } from './node-fetch';
 import { createConfigStore } from 'appstash';
 import { createClient } from '../orm';
-const store = createConfigStore('agentic-db');
+const store = createConfigStore('agent-db');
 export const getStore = () => store;
 export function getClient(contextName?: string) {
   let ctx = null;
@@ -21,7 +21,7 @@ export function getClient(contextName?: string) {
       throw new Error('No active context. Run "context create" or "context use" first.');
     }
   }
-  const headers = {};
+  const headers: Record<string, string> = {};
   if (store.hasValidCredentials(ctx.name)) {
     const creds = store.getCredentials(ctx.name);
     if (creds?.token) {

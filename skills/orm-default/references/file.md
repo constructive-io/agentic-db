@@ -9,7 +9,7 @@ ORM operations for File records
 ```typescript
 db.file.findMany({ select: { id: true } }).execute()
 db.file.findOne({ id: '<value>', select: { id: true } }).execute()
-db.file.create({ data: { entityId: '<value>', path: '<value>', language: '<value>', hash: '<value>', repositoryId: '<value>' }, select: { id: true } }).execute()
+db.file.create({ data: { entityId: '<value>', repositoryId: '<value>', path: '<value>', language: '<value>', hash: '<value>' }, select: { id: true } }).execute()
 db.file.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.file.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.file.findMany({
 
 ```typescript
 const item = await db.file.create({
-  data: { entityId: 'value', path: 'value', language: 'value', hash: 'value', repositoryId: 'value' },
+  data: { entityId: 'value', repositoryId: 'value', path: 'value', language: 'value', hash: 'value' },
   select: { id: true }
 }).execute();
 ```

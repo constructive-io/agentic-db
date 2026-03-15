@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Rule records via agentic-db CLI
+CRUD operations for Rule records via agent-db CLI
 
 ## Usage
 
 ```bash
-agentic-db rule list
-agentic-db rule get --id <value>
-agentic-db rule create --entityId <value> --title <value> --content <value> --kind <value> --isActive <value> --tags <value> --embedding <value> --embeddingDistance <value>
-agentic-db rule update --id <value> [--entityId <value>] [--title <value>] [--content <value>] [--kind <value>] [--isActive <value>] [--tags <value>] [--embedding <value>] [--embeddingDistance <value>]
-agentic-db rule delete --id <value>
+agent-db rule list
+agent-db rule get --id <value>
+agent-db rule create --entityId <value> --title <value> --embeddingDistance <value> --triggerConceptDistance <value> [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>]
+agent-db rule update --id <value> [--entityId <value>] [--title <value>] [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>] [--embeddingDistance <value>] [--triggerConceptDistance <value>]
+agent-db rule delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agentic-db rule delete --id <value>
 ### List all rule records
 
 ```bash
-agentic-db rule list
+agent-db rule list
 ```
 
 ### Create a rule
 
 ```bash
-agentic-db rule create --entityId "value" --title "value" --content "value" --kind "value" --isActive "value" --tags "value" --embedding "value" --embeddingDistance "value"
+agent-db rule create --entityId <value> --title <value> --embeddingDistance <value> --triggerConceptDistance <value> [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>]
 ```
 
 ### Get a rule by id
 
 ```bash
-agentic-db rule get --id <value>
+agent-db rule get --id <value>
 ```

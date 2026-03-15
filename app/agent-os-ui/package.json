@@ -1,5 +1,5 @@
 {
-  "name": "@agentic-sdk/agentic-db-ui",
+  "name": "@agentic-db/agent-os-ui",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -38,7 +38,7 @@
     "zod": "^4.3.4"
   },
   "devDependencies": {
-    "@constructive-io/graphql-codegen": "4.14.3",
+    "@constructive-io/graphql-codegen": "4.8.0",
     "@eslint/eslintrc": "^3.3.3",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",

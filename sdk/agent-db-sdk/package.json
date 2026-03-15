@@ -1,0 +1,35 @@
+{
+  "name": "@agentic-db/sdk",
+  "version": "0.0.1",
+  "description": "Type-safe SDK for agent-db database",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "scripts": {
+    "clean": "makage clean",
+    "build": "makage build",
+    "prepublishOnly": "npm run build",
+    "generate": "tsx scripts/generate.ts"
+  },
+  "dependencies": {
+    "@0no-co/graphql.web": "^1.2.0",
+    "@constructive-io/graphql-types": "3.1.2",
+    "gql-ast": "^3.1.1",
+    "graphql": "^16.13.1"
+  },
+  "devDependencies": {
+    "@agentic-db/schemas": "workspace:*",
+    "@constructive-io/graphql-codegen": "^4.13.1",
+    "@types/node": "^22.0.0",
+    "dotenv": "^16.4.5",
+    "makage": "0.1.12",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

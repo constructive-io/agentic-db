@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Contact records via agentic-db CLI
+CRUD operations for Contact records via agent-db CLI
 
 ## Usage
 
 ```bash
-agentic-db contact list
-agentic-db contact get --id <value>
-agentic-db contact create --entityId <value> --firstName <value> --lastName <value> --email <value> --phone <value> --headline <value> --bio <value> --location <value> --tags <value> --embedding <value> --mainImageId <value> --imageId <value> --searchTsv <value> --searchTsvRank <value> --embeddingDistance <value>
-agentic-db contact update --id <value> [--entityId <value>] [--firstName <value>] [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--tags <value>] [--embedding <value>] [--mainImageId <value>] [--imageId <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
-agentic-db contact delete --id <value>
+agent-db contact list
+agent-db contact get --id <value>
+agent-db contact create --entityId <value> --firstName <value> --searchTsvRank <value> --embeddingDistance <value> [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+agent-db contact update --id <value> [--entityId <value>] [--firstName <value>] [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+agent-db contact delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agentic-db contact delete --id <value>
 ### List all contact records
 
 ```bash
-agentic-db contact list
+agent-db contact list
 ```
 
 ### Create a contact
 
 ```bash
-agentic-db contact create --entityId "value" --firstName "value" --lastName "value" --email "value" --phone "value" --headline "value" --bio "value" --location "value" --tags "value" --embedding "value" --mainImageId "value" --imageId "value" --searchTsv "value" --searchTsvRank "value" --embeddingDistance "value"
+agent-db contact create --entityId <value> --firstName <value> --searchTsvRank <value> --embeddingDistance <value> [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
 ```
 
 ### Get a contact by id
 
 ```bash
-agentic-db contact get --id <value>
+agent-db contact get --id <value>
 ```

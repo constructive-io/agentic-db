@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateImageInput, ImagePatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -39,7 +41,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -105,7 +107,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.image
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -145,38 +147,36 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: true,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'meta',
         message: 'meta',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'altText',
         message: 'altText',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'caption',
         message: 'caption',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateImageInput['image'];
     const client = getClient();
     const result = await client.image
       .create({
@@ -187,7 +187,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           altText: cleanedData.altText,
           caption: cleanedData.caption,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -234,38 +233,36 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'meta',
         message: 'meta',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'altText',
         message: 'altText',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'caption',
         message: 'caption',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as ImagePatch;
     const client = getClient();
     const result = await client.image
       .update({
@@ -279,7 +276,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           altText: cleanedData.altText,
           caption: cleanedData.caption,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,

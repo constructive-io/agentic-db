@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Event records via agentic-db CLI
+CRUD operations for Event records via agent-db CLI
 
 ## Usage
 
 ```bash
-agentic-db event list
-agentic-db event get --id <value>
-agentic-db event create --entityId <value> --name <value> --eventType <value> --location <value> --city <value> --startedAt <value> --endedAt <value> --notes <value> --tags <value> --embedding <value> --mainImageId <value> --imageId <value> --embeddingDistance <value>
-agentic-db event update --id <value> [--entityId <value>] [--name <value>] [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embedding <value>] [--mainImageId <value>] [--imageId <value>] [--embeddingDistance <value>]
-agentic-db event delete --id <value>
+agent-db event list
+agent-db event get --id <value>
+agent-db event create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+agent-db event update --id <value> [--entityId <value>] [--name <value>] [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+agent-db event delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agentic-db event delete --id <value>
 ### List all event records
 
 ```bash
-agentic-db event list
+agent-db event list
 ```
 
 ### Create a event
 
 ```bash
-agentic-db event create --entityId "value" --name "value" --eventType "value" --location "value" --city "value" --startedAt "value" --endedAt "value" --notes "value" --tags "value" --embedding "value" --mainImageId "value" --imageId "value" --embeddingDistance "value"
+agent-db event create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
 ```
 
 ### Get a event by id
 
 ```bash
-agentic-db event get --id <value>
+agent-db event get --id <value>
 ```

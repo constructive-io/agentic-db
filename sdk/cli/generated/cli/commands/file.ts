@@ -6,15 +6,17 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateFileInput, FilePatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
+  repositoryId: 'uuid',
   path: 'string',
   language: 'string',
   hash: 'string',
-  repositoryId: 'uuid',
 };
 const usage =
   '\nfile <command>\n\nCommands:\n  list                  List all file records\n  get                   Get a file by ID\n  create                Create a new file\n  update                Update an existing file\n  delete                Delete a file\n\n  --help, -h            Show this help message\n';
@@ -37,7 +39,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -72,10 +74,10 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          repositoryId: true,
           path: true,
           language: true,
           hash: true,
-          repositoryId: true,
         },
       })
       .execute();
@@ -101,16 +103,16 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.file
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          repositoryId: true,
           path: true,
           language: true,
           hash: true,
-          repositoryId: true,
         },
       })
       .execute();
@@ -134,6 +136,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'repositoryId',
+        message: 'repositoryId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'path',
         message: 'path',
         required: true,
@@ -143,41 +152,37 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'language',
         message: 'language',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'hash',
         message: 'hash',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'repositoryId',
-        message: 'repositoryId',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateFileInput['file'];
     const client = getClient();
     const result = await client.file
       .create({
         data: {
           entityId: cleanedData.entityId,
+          repositoryId: cleanedData.repositoryId,
           path: cleanedData.path,
           language: cleanedData.language,
           hash: cleanedData.hash,
-          repositoryId: cleanedData.repositoryId,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          repositoryId: true,
           path: true,
           language: true,
           hash: true,
-          repositoryId: true,
         },
       })
       .execute();
@@ -207,6 +212,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'repositoryId',
+        message: 'repositoryId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'path',
         message: 'path',
         required: false,
@@ -216,22 +228,18 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'language',
         message: 'language',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'hash',
         message: 'hash',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'repositoryId',
-        message: 'repositoryId',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as FilePatch;
     const client = getClient();
     const result = await client.file
       .update({
@@ -240,20 +248,20 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           entityId: cleanedData.entityId,
+          repositoryId: cleanedData.repositoryId,
           path: cleanedData.path,
           language: cleanedData.language,
           hash: cleanedData.hash,
-          repositoryId: cleanedData.repositoryId,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          repositoryId: true,
           path: true,
           language: true,
           hash: true,
-          repositoryId: true,
         },
       })
       .execute();

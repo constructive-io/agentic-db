@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Session records via agentic-db CLI
+CRUD operations for Session records via agent-db CLI
 
 ## Usage
 
 ```bash
-agentic-db session list
-agentic-db session get --id <value>
-agentic-db session create --entityId <value> --title <value> --startedAt <value> --endedAt <value> --status <value> --contextSummary <value> --embedding <value> --embeddingDistance <value>
-agentic-db session update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embedding <value>] [--embeddingDistance <value>]
-agentic-db session delete --id <value>
+agent-db session list
+agent-db session get --id <value>
+agent-db session create --entityId <value> --embeddingDistance <value> [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db session update --id <value> [--entityId <value>] [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-db session delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agentic-db session delete --id <value>
 ### List all session records
 
 ```bash
-agentic-db session list
+agent-db session list
 ```
 
 ### Create a session
 
 ```bash
-agentic-db session create --entityId "value" --title "value" --startedAt "value" --endedAt "value" --status "value" --contextSummary "value" --embedding "value" --embeddingDistance "value"
+agent-db session create --entityId <value> --embeddingDistance <value> [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a session by id
 
 ```bash
-agentic-db session get --id <value>
+agent-db session get --id <value>
 ```

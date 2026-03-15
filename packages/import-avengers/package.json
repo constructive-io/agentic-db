@@ -1,5 +1,5 @@
 {
-  "name": "@agentic-sdk/import-avengers",
+  "name": "@agentic-db/import-avengers",
   "version": "0.0.1",
   "description": "Import data from Avengers DB to Agent-OS",
   "private": true,
@@ -16,8 +16,8 @@
     "start": "tsx src/index.ts"
   },
   "dependencies": {
-    "@agentic-sdk/sdk": "workspace:*",
-    "@constructive-io/node": "^0.4.3",
+    "@agentic-db/sdk": "workspace:*",
+    "@constructive-io/node": "^0.1.4",
     "dotenv": "^16.4.5",
     "pg": "^8.11.0"
   },

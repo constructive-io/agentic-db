@@ -1,5 +1,5 @@
 import { NodeHttpAdapter } from '@constructive-io/node';
-import { createClient } from '@agentic-sdk/sdk';
+import { createClient } from '@agentic-db/sdk';
 import { config } from './config';
 import * as dotenv from 'dotenv';
 import * as path from 'path';

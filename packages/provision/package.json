@@ -9,8 +9,8 @@
   "scripts": {
     "build": "makage build",
     "clean": "makage clean",
-    "provision": "tsx src/provision.ts",
-    "provision:upgrade": "tsx src/provision.ts --upgrade"
+    "create-db": "tsx src/create-db.ts",
+    "provision": "tsx src/provision.ts"
   },
   "dependencies": {
     "@constructive-io/node": "^0.4.3",

@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Chat records via agentic-db CLI
+CRUD operations for Chat records via agent-db CLI
 
 ## Usage
 
 ```bash
-agentic-db chat list
-agentic-db chat get --id <value>
-agentic-db chat create --entityId <value> --title <value> --startedAt <value> --embedding <value> --embeddingDistance <value>
-agentic-db chat update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--embedding <value>] [--embeddingDistance <value>]
-agentic-db chat delete --id <value>
+agent-db chat list
+agent-db chat get --id <value>
+agent-db chat create --entityId <value> --embeddingDistance <value> [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db chat update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-db chat delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agentic-db chat delete --id <value>
 ### List all chat records
 
 ```bash
-agentic-db chat list
+agent-db chat list
 ```
 
 ### Create a chat
 
 ```bash
-agentic-db chat create --entityId "value" --title "value" --startedAt "value" --embedding "value" --embeddingDistance "value"
+agent-db chat create --entityId <value> --embeddingDistance <value> [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a chat by id
 
 ```bash
-agentic-db chat get --id <value>
+agent-db chat get --id <value>
 ```

@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateDealInput, DealPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -14,8 +16,11 @@ const fieldSchema = {
   name: 'string',
   stage: 'string',
   value: 'string',
+  currency: 'string',
+  expectedCloseDate: 'string',
   notes: 'string',
   tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
   embeddingDistance: 'float',
 };
@@ -40,7 +45,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -78,8 +83,11 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           name: true,
           stage: true,
           value: true,
+          currency: true,
+          expectedCloseDate: true,
           notes: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },
@@ -107,7 +115,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.deal
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -116,8 +124,11 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           name: true,
           stage: true,
           value: true,
+          currency: true,
+          expectedCloseDate: true,
           notes: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },
@@ -152,40 +163,60 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'stage',
         message: 'stage',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'value',
         message: 'value',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'currency',
+        message: 'currency',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'expectedCloseDate',
+        message: 'expectedCloseDate',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'notes',
         message: 'notes',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateDealInput['deal'];
     const client = getClient();
     const result = await client.deal
       .create({
@@ -194,10 +225,12 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           name: cleanedData.name,
           stage: cleanedData.stage,
           value: cleanedData.value,
+          currency: cleanedData.currency,
+          expectedCloseDate: cleanedData.expectedCloseDate,
           notes: cleanedData.notes,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -207,8 +240,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           name: true,
           stage: true,
           value: true,
+          currency: true,
+          expectedCloseDate: true,
           notes: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },
@@ -249,40 +285,60 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'stage',
         message: 'stage',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'value',
         message: 'value',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'currency',
+        message: 'currency',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'expectedCloseDate',
+        message: 'expectedCloseDate',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'notes',
         message: 'notes',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as DealPatch;
     const client = getClient();
     const result = await client.deal
       .update({
@@ -294,10 +350,12 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           name: cleanedData.name,
           stage: cleanedData.stage,
           value: cleanedData.value,
+          currency: cleanedData.currency,
+          expectedCloseDate: cleanedData.expectedCloseDate,
           notes: cleanedData.notes,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -307,8 +365,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           name: true,
           stage: true,
           value: true,
+          currency: true,
+          expectedCloseDate: true,
           notes: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },

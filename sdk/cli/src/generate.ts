@@ -1,7 +1,7 @@
 /**
  * generate.ts — Generate CLI from schema files
  * 
- * Run with: pnpm --filter @agentic-sdk/cli run generate
+ * Run with: pnpm --filter @agentic-db/cli run generate
  */
 
 import * as path from 'path';
@@ -10,12 +10,12 @@ import * as fs from 'fs';
 import { generate } from '@constructive-io/graphql-codegen';
 
 async function main() {
-  const schemaFile = path.resolve(__dirname, '../../schemas/agentic-db.graphql');
+  const schemaFile = path.resolve(__dirname, '../../schemas/agent-db.graphql');
   const outputDir = path.resolve(__dirname, '../generated');
 
   if (!fs.existsSync(schemaFile)) {
     console.error('❌ Schema not found:', schemaFile);
-    console.error('   Run: pnpm --filter @agentic-sdk/schemas run export');
+    console.error('   Run: pnpm --filter @agentic-db/schemas run export');
     process.exit(1);
   }
 
@@ -29,7 +29,7 @@ async function main() {
     schemaFile,
     output: outputDir,
     cli: {
-      toolName: 'agentic-db',
+      toolName: 'agent-db',
       entryPoint: true,
     },
     nodeHttpAdapter: true,

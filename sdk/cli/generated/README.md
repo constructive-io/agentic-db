@@ -8,7 +8,7 @@
 
 ## Overview
 
-- **Tables:** 34
+- **Tables:** 80
 - **Custom queries:** 0
 - **Custom mutations:** 0
 
@@ -32,7 +32,7 @@ See [orm/README.md](./orm/README.md) for full API reference.
 
 ### CLI Commands (`./cli`)
 
-inquirerer-based CLI commands for `agentic-db`.
+inquirerer-based CLI commands for `agent-db`.
 
 See [cli/README.md](./cli/README.md) for command reference.
 

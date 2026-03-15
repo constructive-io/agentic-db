@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateBlueprintInput, BlueprintPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -14,6 +16,9 @@ const fieldSchema = {
   title: 'string',
   steps: 'json',
   triggerConditions: 'string',
+  conversationId: 'uuid',
+  tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
   embeddingDistance: 'float',
 };
@@ -38,7 +43,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -76,6 +81,9 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           title: true,
           steps: true,
           triggerConditions: true,
+          conversationId: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },
@@ -103,7 +111,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.blueprint
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -112,6 +120,9 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           title: true,
           steps: true,
           triggerConditions: true,
+          conversationId: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },
@@ -142,32 +153,50 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: true,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'steps',
         message: 'steps',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'triggerConditions',
         message: 'triggerConditions',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'conversationId',
+        message: 'conversationId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateBlueprintInput['blueprint'];
     const client = getClient();
     const result = await client.blueprint
       .create({
@@ -176,8 +205,10 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           title: cleanedData.title,
           steps: cleanedData.steps,
           triggerConditions: cleanedData.triggerConditions,
+          conversationId: cleanedData.conversationId,
+          tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -187,6 +218,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           title: true,
           steps: true,
           triggerConditions: true,
+          conversationId: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },
@@ -223,32 +257,50 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'steps',
         message: 'steps',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'triggerConditions',
         message: 'triggerConditions',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'conversationId',
+        message: 'conversationId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as BlueprintPatch;
     const client = getClient();
     const result = await client.blueprint
       .update({
@@ -260,8 +312,10 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           title: cleanedData.title,
           steps: cleanedData.steps,
           triggerConditions: cleanedData.triggerConditions,
+          conversationId: cleanedData.conversationId,
+          tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -271,6 +325,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           title: true,
           steps: true,
           triggerConditions: true,
+          conversationId: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
           embeddingDistance: true,
         },

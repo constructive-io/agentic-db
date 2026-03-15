@@ -1,4 +1,4 @@
-# agentic-db CLI
+# agent-db CLI
 
 <p align="center" width="100%">
   <img height="120" src="https://raw.githubusercontent.com/constructive-io/constructive/refs/heads/main/assets/outline-logo.svg" />
@@ -10,13 +10,13 @@
 
 ```bash
 # Create a context pointing at your GraphQL endpoint
-agentic-db context create production --endpoint https://api.example.com/graphql
+agent-db context create production --endpoint https://api.example.com/graphql
 
 # Set the active context
-agentic-db context use production
+agent-db context use production
 
 # Authenticate
-agentic-db auth set-token <your-token>
+agent-db auth set-token <your-token>
 ```
 
 ## Commands
@@ -25,6 +25,17 @@ agentic-db auth set-token <your-token>
 |---------|-------------|
 | `context` | Manage API contexts (endpoints) |
 | `auth` | Manage authentication tokens |
+| `config` | Manage config key-value store (per-context) |
+| `agent-prompt` | agentPrompt CRUD operations |
+| `process` | process CRUD operations |
+| `scheduled-job` | scheduledJob CRUD operations |
+| `agent-tool` | agentTool CRUD operations |
+| `agent-skill` | agentSkill CRUD operations |
+| `agent-rule` | agentRule CRUD operations |
+| `calendar-event-contact` | calendarEventContact CRUD operations |
+| `calendar-event` | calendarEvent CRUD operations |
+| `interaction` | interaction CRUD operations |
+| `company-event` | companyEvent CRUD operations |
 | `company-image` | companyImage CRUD operations |
 | `contact-company` | contactCompany CRUD operations |
 | `contact-event` | contactEvent CRUD operations |
@@ -32,33 +43,69 @@ agentic-db auth set-token <your-token>
 | `deal-contact` | dealContact CRUD operations |
 | `event-image` | eventImage CRUD operations |
 | `event-venue` | eventVenue CRUD operations |
+| `expense-contact` | expenseContact CRUD operations |
+| `goal-habit` | goalHabit CRUD operations |
+| `habit-log` | habitLog CRUD operations |
+| `goal-project` | goalProject CRUD operations |
+| `milestone` | milestone CRUD operations |
+| `project-contact` | projectContact CRUD operations |
+| `task-contact` | taskContact CRUD operations |
 | `venue-image` | venueImage CRUD operations |
-| `calendar-sync` | calendarSync CRUD operations |
 | `file` | file CRUD operations |
+| `chunk` | chunk CRUD operations |
+| `calendar-account` | calendarAccount CRUD operations |
+| `tag` | tag CRUD operations |
+| `feedback` | feedback CRUD operations |
+| `attachment` | attachment CRUD operations |
 | `email-account` | emailAccount CRUD operations |
 | `message` | message CRUD operations |
+| `activity-log` | activityLog CRUD operations |
+| `user-setting` | userSetting CRUD operations |
 | `execution-log` | executionLog CRUD operations |
+| `webhook` | webhook CRUD operations |
+| `notification` | notification CRUD operations |
+| `workflow-run` | workflowRun CRUD operations |
+| `workflow-step` | workflowStep CRUD operations |
+| `integration` | integration CRUD operations |
+| `skill-execution` | skillExecution CRUD operations |
 | `chat` | chat CRUD operations |
-| `project` | project CRUD operations |
-| `repository` | repository CRUD operations |
-| `session` | session CRUD operations |
-| `blueprint` | blueprint CRUD operations |
-| `image` | image CRUD operations |
-| `milestone` | milestone CRUD operations |
 | `chat-message` | chatMessage CRUD operations |
-| `chunk` | chunk CRUD operations |
-| `memory` | memory CRUD operations |
+| `thread` | thread CRUD operations |
+| `session` | session CRUD operations |
+| `reminder` | reminder CRUD operations |
+| `image` | image CRUD operations |
+| `list-item` | listItem CRUD operations |
+| `company-link` | companyLink CRUD operations |
+| `contact-link` | contactLink CRUD operations |
+| `event-link` | eventLink CRUD operations |
+| `venue-link` | venueLink CRUD operations |
+| `habit` | habit CRUD operations |
+| `workflow` | workflow CRUD operations |
+| `expense` | expense CRUD operations |
+| `billing-subscription` | billingSubscription CRUD operations |
+| `idea` | idea CRUD operations |
+| `list` | list CRUD operations |
+| `note` | note CRUD operations |
+| `repository` | repository CRUD operations |
 | `deal` | deal CRUD operations |
-| `document` | document CRUD operations |
-| `task` | task CRUD operations |
+| `goal` | goal CRUD operations |
+| `prompt` | prompt CRUD operations |
+| `blueprint` | blueprint CRUD operations |
+| `template` | template CRUD operations |
+| `tool` | tool CRUD operations |
+| `memory` | memory CRUD operations |
+| `recipe` | recipe CRUD operations |
+| `trip` | trip CRUD operations |
 | `rule` | rule CRUD operations |
 | `skill` | skill CRUD operations |
-| `expense` | expense CRUD operations |
-| `note` | note CRUD operations |
+| `agent` | agent CRUD operations |
+| `task` | task CRUD operations |
+| `project` | project CRUD operations |
+| `document` | document CRUD operations |
 | `company` | company CRUD operations |
-| `venue` | venue CRUD operations |
 | `event` | event CRUD operations |
 | `contact` | contact CRUD operations |
+| `venue` | venue CRUD operations |
 
 ## Infrastructure Commands
 
@@ -74,7 +121,7 @@ Manage named API contexts (kubectl-style).
 | `current` | Show current context |
 | `delete <name>` | Delete a context |
 
-Configuration is stored at `~/.agentic-db/config/`.
+Configuration is stored at `~/.agent-db/config/`.
 
 ### `auth`
 
@@ -86,7 +133,292 @@ Manage authentication tokens per context.
 | `status` | Show auth status across all contexts |
 | `logout` | Remove credentials for current context |
 
+### `config`
+
+Manage per-context key-value configuration variables.
+
+| Subcommand | Description |
+|------------|-------------|
+| `get <key>` | Get a config value |
+| `set <key> <value>` | Set a config value |
+| `list` | List all config values |
+| `delete <key>` | Delete a config value |
+
+Variables are scoped to the active context and stored at `~/.agent-db/config/`.
+
 ## Table Commands
+
+### `agent-prompt`
+
+CRUD operations for AgentPrompt records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all agentPrompt records |
+| `get` | Get a agentPrompt by id |
+| `create` | Create a new agentPrompt |
+| `update` | Update an existing agentPrompt |
+| `delete` | Delete a agentPrompt |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `agentId` | UUID |
+| `promptId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `agentId`, `promptId`, `entityId`
+
+### `process`
+
+CRUD operations for Process records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all process records |
+| `get` | Get a process by id |
+| `create` | Create a new process |
+| `update` | Update an existing process |
+| `delete` | Delete a process |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `pid` | Int |
+| `agentId` | UUID |
+| `command` | String |
+| `startedAt` | Datetime |
+| `endedAt` | Datetime |
+| `status` | String |
+| `exitCode` | Int |
+| `logsPath` | String |
+
+**Required create fields:** `entityId`
+**Optional create fields (backend defaults):** `pid`, `agentId`, `command`, `startedAt`, `endedAt`, `status`, `exitCode`, `logsPath`
+
+### `scheduled-job`
+
+CRUD operations for ScheduledJob records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all scheduledJob records |
+| `get` | Get a scheduledJob by id |
+| `create` | Create a new scheduledJob |
+| `update` | Update an existing scheduledJob |
+| `delete` | Delete a scheduledJob |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `schedule` | String |
+| `command` | String |
+| `agentId` | UUID |
+| `active` | Boolean |
+| `lastRun` | Datetime |
+| `nextRun` | Datetime |
+
+**Required create fields:** `entityId`, `name`, `schedule`, `command`
+**Optional create fields (backend defaults):** `agentId`, `active`, `lastRun`, `nextRun`
+
+### `agent-tool`
+
+CRUD operations for AgentTool records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all agentTool records |
+| `get` | Get a agentTool by id |
+| `create` | Create a new agentTool |
+| `update` | Update an existing agentTool |
+| `delete` | Delete a agentTool |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `agentId` | UUID |
+| `toolId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `agentId`, `toolId`, `entityId`
+
+### `agent-skill`
+
+CRUD operations for AgentSkill records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all agentSkill records |
+| `get` | Get a agentSkill by id |
+| `create` | Create a new agentSkill |
+| `update` | Update an existing agentSkill |
+| `delete` | Delete a agentSkill |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `agentId` | UUID |
+| `skillId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `agentId`, `skillId`, `entityId`
+
+### `agent-rule`
+
+CRUD operations for AgentRule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all agentRule records |
+| `get` | Get a agentRule by id |
+| `create` | Create a new agentRule |
+| `update` | Update an existing agentRule |
+| `delete` | Delete a agentRule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `agentId` | UUID |
+| `ruleId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `agentId`, `ruleId`, `entityId`
+
+### `calendar-event-contact`
+
+CRUD operations for CalendarEventContact records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all calendarEventContact records |
+| `get` | Get a calendarEventContact by id |
+| `create` | Create a new calendarEventContact |
+| `update` | Update an existing calendarEventContact |
+| `delete` | Delete a calendarEventContact |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `calendarEventId` | UUID |
+| `contactId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `calendarEventId`, `contactId`, `entityId`
+
+### `calendar-event`
+
+CRUD operations for CalendarEvent records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all calendarEvent records |
+| `get` | Get a calendarEvent by id |
+| `create` | Create a new calendarEvent |
+| `update` | Update an existing calendarEvent |
+| `delete` | Delete a calendarEvent |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `calendarAccountId` | UUID |
+| `remoteId` | String |
+| `title` | String |
+| `description` | String |
+| `startAt` | Datetime |
+| `endAt` | Datetime |
+| `allDay` | Boolean |
+| `location` | String |
+| `recurrenceRule` | String |
+| `status` | String |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `title`, `startAt`, `embeddingDistance`
+**Optional create fields (backend defaults):** `calendarAccountId`, `remoteId`, `description`, `endAt`, `allDay`, `location`, `recurrenceRule`, `status`, `tags`, `embeddingText`, `embedding`
+
+### `interaction`
+
+CRUD operations for Interaction records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all interaction records |
+| `get` | Get a interaction by id |
+| `create` | Create a new interaction |
+| `update` | Update an existing interaction |
+| `delete` | Delete a interaction |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `contactId` | UUID |
+| `type` | String |
+| `occurredAt` | Datetime |
+| `summary` | String |
+| `sentiment` | String |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `contactId`, `type`, `occurredAt`, `embeddingDistance`
+**Optional create fields (backend defaults):** `summary`, `sentiment`, `tags`, `embeddingText`, `embedding`
+
+### `company-event`
+
+CRUD operations for CompanyEvent records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all companyEvent records |
+| `get` | Get a companyEvent by id |
+| `create` | Create a new companyEvent |
+| `update` | Update an existing companyEvent |
+| `delete` | Delete a companyEvent |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `companyId` | UUID |
+| `eventId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `companyId`, `eventId`, `entityId`
 
 ### `company-image`
 
@@ -109,7 +441,7 @@ CRUD operations for CompanyImage records.
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Create fields:** `companyId`, `imageId`, `entityId`
+**Required create fields:** `companyId`, `imageId`, `entityId`
 
 ### `contact-company`
 
@@ -132,7 +464,7 @@ CRUD operations for ContactCompany records.
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Create fields:** `contactId`, `companyId`, `entityId`
+**Required create fields:** `contactId`, `companyId`, `entityId`
 
 ### `contact-event`
 
@@ -155,7 +487,7 @@ CRUD operations for ContactEvent records.
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Create fields:** `contactId`, `eventId`, `entityId`
+**Required create fields:** `contactId`, `eventId`, `entityId`
 
 ### `contact-image`
 
@@ -178,7 +510,7 @@ CRUD operations for ContactImage records.
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Create fields:** `contactId`, `imageId`, `entityId`
+**Required create fields:** `contactId`, `imageId`, `entityId`
 
 ### `deal-contact`
 
@@ -201,7 +533,7 @@ CRUD operations for DealContact records.
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Create fields:** `dealId`, `contactId`, `entityId`
+**Required create fields:** `dealId`, `contactId`, `entityId`
 
 ### `event-image`
 
@@ -224,7 +556,7 @@ CRUD operations for EventImage records.
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Create fields:** `eventId`, `imageId`, `entityId`
+**Required create fields:** `eventId`, `imageId`, `entityId`
 
 ### `event-venue`
 
@@ -247,7 +579,188 @@ CRUD operations for EventVenue records.
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Create fields:** `eventId`, `venueId`, `entityId`
+**Required create fields:** `eventId`, `venueId`, `entityId`
+
+### `expense-contact`
+
+CRUD operations for ExpenseContact records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all expenseContact records |
+| `get` | Get a expenseContact by id |
+| `create` | Create a new expenseContact |
+| `update` | Update an existing expenseContact |
+| `delete` | Delete a expenseContact |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `expenseId` | UUID |
+| `contactId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `expenseId`, `contactId`, `entityId`
+
+### `goal-habit`
+
+CRUD operations for GoalHabit records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all goalHabit records |
+| `get` | Get a goalHabit by id |
+| `create` | Create a new goalHabit |
+| `update` | Update an existing goalHabit |
+| `delete` | Delete a goalHabit |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `goalId` | UUID |
+| `habitId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `goalId`, `habitId`, `entityId`
+
+### `habit-log`
+
+CRUD operations for HabitLog records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all habitLog records |
+| `get` | Get a habitLog by id |
+| `create` | Create a new habitLog |
+| `update` | Update an existing habitLog |
+| `delete` | Delete a habitLog |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `habitId` | UUID |
+| `completedAt` | Datetime |
+| `activityType` | String |
+| `durationMinutes` | BigFloat |
+| `distance` | BigFloat |
+| `distanceUnit` | String |
+| `reps` | Int |
+| `sets` | Int |
+| `weightAmount` | BigFloat |
+| `weightUnit` | String |
+| `calories` | BigFloat |
+| `data` | JSON |
+| `notes` | String |
+| `tags` | String |
+
+**Required create fields:** `entityId`, `habitId`, `completedAt`
+**Optional create fields (backend defaults):** `activityType`, `durationMinutes`, `distance`, `distanceUnit`, `reps`, `sets`, `weightAmount`, `weightUnit`, `calories`, `data`, `notes`, `tags`
+
+### `goal-project`
+
+CRUD operations for GoalProject records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all goalProject records |
+| `get` | Get a goalProject by id |
+| `create` | Create a new goalProject |
+| `update` | Update an existing goalProject |
+| `delete` | Delete a goalProject |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `goalId` | UUID |
+| `projectId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `goalId`, `projectId`, `entityId`
+
+### `milestone`
+
+CRUD operations for Milestone records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all milestone records |
+| `get` | Get a milestone by id |
+| `create` | Create a new milestone |
+| `update` | Update an existing milestone |
+| `delete` | Delete a milestone |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `projectId` | UUID |
+| `name` | String |
+| `dueDate` | Datetime |
+| `status` | String |
+
+**Required create fields:** `entityId`, `name`
+**Optional create fields (backend defaults):** `projectId`, `dueDate`, `status`
+
+### `project-contact`
+
+CRUD operations for ProjectContact records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all projectContact records |
+| `get` | Get a projectContact by id |
+| `create` | Create a new projectContact |
+| `update` | Update an existing projectContact |
+| `delete` | Delete a projectContact |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `projectId` | UUID |
+| `contactId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `projectId`, `contactId`, `entityId`
+
+### `task-contact`
+
+CRUD operations for TaskContact records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all taskContact records |
+| `get` | Get a taskContact by id |
+| `create` | Create a new taskContact |
+| `update` | Update an existing taskContact |
+| `delete` | Delete a taskContact |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `taskId` | UUID |
+| `contactId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `taskId`, `contactId`, `entityId`
 
 ### `venue-image`
 
@@ -270,33 +783,7 @@ CRUD operations for VenueImage records.
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Create fields:** `venueId`, `imageId`, `entityId`
-
-### `calendar-sync`
-
-CRUD operations for CalendarSync records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all calendarSync records |
-| `get` | Get a calendarSync by id |
-| `create` | Create a new calendarSync |
-| `update` | Update an existing calendarSync |
-| `delete` | Delete a calendarSync |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `provider` | String |
-| `syncToken` | String |
-| `lastSyncedAt` | Datetime |
-
-**Create fields:** `entityId`, `provider`, `syncToken`, `lastSyncedAt`
+**Required create fields:** `venueId`, `imageId`, `entityId`
 
 ### `file`
 
@@ -318,12 +805,160 @@ CRUD operations for File records.
 | `entityId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `repositoryId` | UUID |
 | `path` | String |
 | `language` | String |
 | `hash` | String |
-| `repositoryId` | UUID |
 
-**Create fields:** `entityId`, `path`, `language`, `hash`, `repositoryId`
+**Required create fields:** `entityId`, `path`
+**Optional create fields (backend defaults):** `repositoryId`, `language`, `hash`
+
+### `chunk`
+
+CRUD operations for Chunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all chunk records |
+| `get` | Get a chunk by id |
+| `create` | Create a new chunk |
+| `update` | Update an existing chunk |
+| `delete` | Delete a chunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `fileId` | UUID |
+| `repositoryId` | UUID |
+| `content` | String |
+| `startLine` | Int |
+| `endLine` | Int |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `content`, `embeddingDistance`
+**Optional create fields (backend defaults):** `fileId`, `repositoryId`, `startLine`, `endLine`, `embeddingText`, `embedding`
+
+### `calendar-account`
+
+CRUD operations for CalendarAccount records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all calendarAccount records |
+| `get` | Get a calendarAccount by id |
+| `create` | Create a new calendarAccount |
+| `update` | Update an existing calendarAccount |
+| `delete` | Delete a calendarAccount |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `email` | String |
+| `provider` | String |
+| `syncToken` | String |
+| `lastSyncedAt` | Datetime |
+
+**Required create fields:** `entityId`, `email`
+**Optional create fields (backend defaults):** `provider`, `syncToken`, `lastSyncedAt`
+
+### `tag`
+
+CRUD operations for Tag records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all tag records |
+| `get` | Get a tag by id |
+| `create` | Create a new tag |
+| `update` | Update an existing tag |
+| `delete` | Delete a tag |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `color` | String |
+| `category` | String |
+| `usageCount` | Int |
+
+**Required create fields:** `entityId`, `name`
+**Optional create fields (backend defaults):** `color`, `category`, `usageCount`
+
+### `feedback`
+
+CRUD operations for Feedback records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all feedback records |
+| `get` | Get a feedback by id |
+| `create` | Create a new feedback |
+| `update` | Update an existing feedback |
+| `delete` | Delete a feedback |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `targetType` | String |
+| `targetId` | UUID |
+| `rating` | Int |
+| `comment` | String |
+| `source` | String |
+
+**Required create fields:** `entityId`, `targetType`, `targetId`
+**Optional create fields (backend defaults):** `rating`, `comment`, `source`
+
+### `attachment`
+
+CRUD operations for Attachment records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all attachment records |
+| `get` | Get a attachment by id |
+| `create` | Create a new attachment |
+| `update` | Update an existing attachment |
+| `delete` | Delete a attachment |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `url` | String |
+| `filename` | String |
+| `mimeType` | String |
+| `sizeBytes` | Int |
+| `attachableType` | String |
+| `attachableId` | UUID |
+
+**Required create fields:** `entityId`, `url`
+**Optional create fields (backend defaults):** `filename`, `mimeType`, `sizeBytes`, `attachableType`, `attachableId`
 
 ### `email-account`
 
@@ -349,7 +984,8 @@ CRUD operations for EmailAccount records.
 | `provider` | String |
 | `syncState` | JSON |
 
-**Create fields:** `entityId`, `email`, `provider`, `syncState`
+**Required create fields:** `entityId`, `email`
+**Optional create fields (backend defaults):** `provider`, `syncState`
 
 ### `message`
 
@@ -371,19 +1007,78 @@ CRUD operations for Message records.
 | `entityId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `emailAccountId` | UUID |
 | `threadId` | String |
 | `remoteId` | String |
-| `from` | String |
-| `to` | String |
+| `fromAddress` | String |
+| `toAddresses` | String |
 | `subject` | String |
 | `bodyText` | String |
 | `receivedAt` | Datetime |
 | `tags` | String |
+| `embeddingText` | String |
 | `embedding` | Vector |
-| `emailAccountId` | UUID |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `threadId`, `remoteId`, `from`, `to`, `subject`, `bodyText`, `receivedAt`, `tags`, `embedding`, `emailAccountId`, `embeddingDistance`
+**Required create fields:** `entityId`, `embeddingDistance`
+**Optional create fields (backend defaults):** `emailAccountId`, `threadId`, `remoteId`, `fromAddress`, `toAddresses`, `subject`, `bodyText`, `receivedAt`, `tags`, `embeddingText`, `embedding`
+
+### `activity-log`
+
+CRUD operations for ActivityLog records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all activityLog records |
+| `get` | Get a activityLog by id |
+| `create` | Create a new activityLog |
+| `update` | Update an existing activityLog |
+| `delete` | Delete a activityLog |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `actorType` | String |
+| `actorId` | UUID |
+| `action` | String |
+| `targetType` | String |
+| `targetId` | UUID |
+| `metadata` | JSON |
+
+**Required create fields:** `entityId`, `actorType`, `action`, `targetType`, `targetId`
+**Optional create fields (backend defaults):** `actorId`, `metadata`
+
+### `user-setting`
+
+CRUD operations for UserSetting records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all userSetting records |
+| `get` | Get a userSetting by id |
+| `create` | Create a new userSetting |
+| `update` | Update an existing userSetting |
+| `delete` | Delete a userSetting |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `key` | String |
+| `value` | JSON |
+| `category` | String |
+
+**Required create fields:** `entityId`, `key`
+**Optional create fields (backend defaults):** `value`, `category`
 
 ### `execution-log`
 
@@ -405,14 +1100,203 @@ CRUD operations for ExecutionLog records.
 | `entityId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `sessionId` | UUID |
 | `stepName` | String |
 | `input` | String |
 | `output` | String |
 | `toolCalls` | JSON |
 | `durationMs` | Int |
-| `sessionId` | UUID |
 
-**Create fields:** `entityId`, `stepName`, `input`, `output`, `toolCalls`, `durationMs`, `sessionId`
+**Required create fields:** `entityId`
+**Optional create fields (backend defaults):** `sessionId`, `stepName`, `input`, `output`, `toolCalls`, `durationMs`
+
+### `webhook`
+
+CRUD operations for Webhook records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all webhook records |
+| `get` | Get a webhook by id |
+| `create` | Create a new webhook |
+| `update` | Update an existing webhook |
+| `delete` | Delete a webhook |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `integrationId` | UUID |
+| `url` | String |
+| `eventType` | String |
+| `secret` | String |
+| `isActive` | Boolean |
+
+**Required create fields:** `entityId`, `url`, `eventType`
+**Optional create fields (backend defaults):** `integrationId`, `secret`, `isActive`
+
+### `notification`
+
+CRUD operations for Notification records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all notification records |
+| `get` | Get a notification by id |
+| `create` | Create a new notification |
+| `update` | Update an existing notification |
+| `delete` | Delete a notification |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `title` | String |
+| `body` | String |
+| `type` | String |
+| `priority` | String |
+| `readAt` | Datetime |
+| `actionUrl` | String |
+| `sourceEntityId` | UUID |
+| `sourceEntityType` | String |
+
+**Required create fields:** `entityId`
+**Optional create fields (backend defaults):** `title`, `body`, `type`, `priority`, `readAt`, `actionUrl`, `sourceEntityId`, `sourceEntityType`
+
+### `workflow-run`
+
+CRUD operations for WorkflowRun records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all workflowRun records |
+| `get` | Get a workflowRun by id |
+| `create` | Create a new workflowRun |
+| `update` | Update an existing workflowRun |
+| `delete` | Delete a workflowRun |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `workflowId` | UUID |
+| `status` | String |
+| `startedAt` | Datetime |
+| `completedAt` | Datetime |
+| `input` | JSON |
+| `output` | JSON |
+| `error` | String |
+
+**Required create fields:** `entityId`, `workflowId`
+**Optional create fields (backend defaults):** `status`, `startedAt`, `completedAt`, `input`, `output`, `error`
+
+### `workflow-step`
+
+CRUD operations for WorkflowStep records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all workflowStep records |
+| `get` | Get a workflowStep by id |
+| `create` | Create a new workflowStep |
+| `update` | Update an existing workflowStep |
+| `delete` | Delete a workflowStep |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `workflowId` | UUID |
+| `stepOrder` | Int |
+| `actionType` | String |
+| `actionConfig` | JSON |
+| `onSuccessStep` | Int |
+| `onFailureStep` | Int |
+| `timeoutMs` | Int |
+
+**Required create fields:** `entityId`, `workflowId`, `stepOrder`, `actionType`
+**Optional create fields (backend defaults):** `actionConfig`, `onSuccessStep`, `onFailureStep`, `timeoutMs`
+
+### `integration`
+
+CRUD operations for Integration records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all integration records |
+| `get` | Get a integration by id |
+| `create` | Create a new integration |
+| `update` | Update an existing integration |
+| `delete` | Delete a integration |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `provider` | String |
+| `type` | String |
+| `credentialsRef` | String |
+| `config` | JSON |
+| `status` | String |
+| `lastSyncedAt` | Datetime |
+
+**Required create fields:** `entityId`, `name`, `provider`
+**Optional create fields (backend defaults):** `type`, `credentialsRef`, `config`, `status`, `lastSyncedAt`
+
+### `skill-execution`
+
+CRUD operations for SkillExecution records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all skillExecution records |
+| `get` | Get a skillExecution by id |
+| `create` | Create a new skillExecution |
+| `update` | Update an existing skillExecution |
+| `delete` | Delete a skillExecution |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `skillId` | UUID |
+| `agentId` | UUID |
+| `sessionId` | UUID |
+| `status` | String |
+| `startedAt` | Datetime |
+| `completedAt` | Datetime |
+| `durationMs` | Int |
+| `input` | JSON |
+| `output` | JSON |
+| `error` | String |
+
+**Required create fields:** `entityId`, `skillId`
+**Optional create fields (backend defaults):** `agentId`, `sessionId`, `status`, `startedAt`, `completedAt`, `durationMs`, `input`, `output`, `error`
 
 ### `chat`
 
@@ -436,22 +1320,24 @@ CRUD operations for Chat records.
 | `updatedAt` | Datetime |
 | `title` | String |
 | `startedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `title`, `startedAt`, `embedding`, `embeddingDistance`
+**Required create fields:** `entityId`, `embeddingDistance`
+**Optional create fields (backend defaults):** `title`, `startedAt`, `embeddingText`, `embedding`
 
-### `project`
+### `chat-message`
 
-CRUD operations for Project records.
+CRUD operations for ChatMessage records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all project records |
-| `get` | Get a project by id |
-| `create` | Create a new project |
-| `update` | Update an existing project |
-| `delete` | Delete a project |
+| `list` | List all chatMessage records |
+| `get` | Get a chatMessage by id |
+| `create` | Create a new chatMessage |
+| `update` | Update an existing chatMessage |
+| `delete` | Delete a chatMessage |
 
 **Fields:**
 
@@ -461,45 +1347,48 @@ CRUD operations for Project records.
 | `entityId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `name` | String |
-| `description` | String |
+| `chatId` | UUID |
+| `threadId` | UUID |
+| `role` | String |
+| `content` | String |
+| `toolCalls` | JSON |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `embeddingDistance`
+**Optional create fields (backend defaults):** `chatId`, `threadId`, `role`, `content`, `toolCalls`, `embeddingText`, `embedding`
+
+### `thread`
+
+CRUD operations for Thread records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all thread records |
+| `get` | Get a thread by id |
+| `create` | Create a new thread |
+| `update` | Update an existing thread |
+| `delete` | Delete a thread |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `title` | String |
+| `summary` | String |
 | `status` | String |
-| `startDate` | Datetime |
-| `dueDate` | Datetime |
+| `parentThreadId` | UUID |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `name`, `description`, `status`, `startDate`, `dueDate`, `embedding`, `embeddingDistance`
-
-### `repository`
-
-CRUD operations for Repository records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all repository records |
-| `get` | Get a repository by id |
-| `create` | Create a new repository |
-| `update` | Update an existing repository |
-| `delete` | Delete a repository |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `name` | String |
-| `url` | String |
-| `description` | String |
-| `defaultBranch` | String |
-| `lastSyncedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingDistance` | Float |
-
-**Create fields:** `entityId`, `name`, `url`, `description`, `defaultBranch`, `lastSyncedAt`, `embedding`, `embeddingDistance`
+**Required create fields:** `entityId`, `title`, `embeddingDistance`
+**Optional create fields (backend defaults):** `summary`, `status`, `parentThreadId`, `embeddingText`, `embedding`
 
 ### `session`
 
@@ -522,26 +1411,29 @@ CRUD operations for Session records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `title` | String |
+| `agentId` | UUID |
 | `startedAt` | Datetime |
 | `endedAt` | Datetime |
 | `status` | String |
 | `contextSummary` | String |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `title`, `startedAt`, `endedAt`, `status`, `contextSummary`, `embedding`, `embeddingDistance`
+**Required create fields:** `entityId`, `embeddingDistance`
+**Optional create fields (backend defaults):** `title`, `agentId`, `startedAt`, `endedAt`, `status`, `contextSummary`, `embeddingText`, `embedding`
 
-### `blueprint`
+### `reminder`
 
-CRUD operations for Blueprint records.
+CRUD operations for Reminder records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all blueprint records |
-| `get` | Get a blueprint by id |
-| `create` | Create a new blueprint |
-| `update` | Update an existing blueprint |
-| `delete` | Delete a blueprint |
+| `list` | List all reminder records |
+| `get` | Get a reminder by id |
+| `create` | Create a new reminder |
+| `update` | Update an existing reminder |
+| `delete` | Delete a reminder |
 
 **Fields:**
 
@@ -552,12 +1444,18 @@ CRUD operations for Blueprint records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `title` | String |
-| `steps` | JSON |
-| `triggerConditions` | String |
+| `dueAt` | Datetime |
+| `completedAt` | Datetime |
+| `recurrence` | String |
+| `status` | String |
+| `relatedEntityId` | UUID |
+| `relatedEntityType` | String |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `title`, `steps`, `triggerConditions`, `embedding`, `embeddingDistance`
+**Required create fields:** `entityId`, `title`, `embeddingDistance`
+**Optional create fields (backend defaults):** `dueAt`, `completedAt`, `recurrence`, `status`, `relatedEntityId`, `relatedEntityType`, `embeddingText`, `embedding`
 
 ### `image`
 
@@ -586,19 +1484,20 @@ CRUD operations for Image records.
 | `embedding` | Vector |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `url`, `meta`, `altText`, `caption`, `embedding`, `embeddingDistance`
+**Required create fields:** `entityId`, `url`, `embeddingDistance`
+**Optional create fields (backend defaults):** `meta`, `altText`, `caption`, `embedding`
 
-### `milestone`
+### `list-item`
 
-CRUD operations for Milestone records.
+CRUD operations for ListItem records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all milestone records |
-| `get` | Get a milestone by id |
-| `create` | Create a new milestone |
-| `update` | Update an existing milestone |
-| `delete` | Delete a milestone |
+| `list` | List all listItem records |
+| `get` | Get a listItem by id |
+| `create` | Create a new listItem |
+| `update` | Update an existing listItem |
+| `delete` | Delete a listItem |
 
 **Fields:**
 
@@ -608,141 +1507,27 @@ CRUD operations for Milestone records.
 | `entityId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `name` | String |
-| `dueDate` | Datetime |
-| `embedding` | Vector |
-| `projectId` | UUID |
-| `embeddingDistance` | Float |
-
-**Create fields:** `entityId`, `name`, `dueDate`, `embedding`, `projectId`, `embeddingDistance`
-
-### `chat-message`
-
-CRUD operations for ChatMessage records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all chatMessage records |
-| `get` | Get a chatMessage by id |
-| `create` | Create a new chatMessage |
-| `update` | Update an existing chatMessage |
-| `delete` | Delete a chatMessage |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `role` | String |
+| `listId` | UUID |
 | `content` | String |
-| `toolCalls` | JSON |
-| `embedding` | Vector |
-| `chatId` | UUID |
-| `embeddingDistance` | Float |
+| `position` | Int |
+| `isChecked` | Boolean |
+| `refId` | UUID |
+| `refType` | String |
 
-**Create fields:** `entityId`, `role`, `content`, `toolCalls`, `embedding`, `chatId`, `embeddingDistance`
+**Required create fields:** `entityId`, `listId`
+**Optional create fields (backend defaults):** `content`, `position`, `isChecked`, `refId`, `refType`
 
-### `chunk`
+### `company-link`
 
-CRUD operations for Chunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all chunk records |
-| `get` | Get a chunk by id |
-| `create` | Create a new chunk |
-| `update` | Update an existing chunk |
-| `delete` | Delete a chunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `content` | String |
-| `startLine` | Int |
-| `endLine` | Int |
-| `embedding` | Vector |
-| `fileId` | UUID |
-| `repositoryId` | UUID |
-| `embeddingDistance` | Float |
-
-**Create fields:** `entityId`, `content`, `startLine`, `endLine`, `embedding`, `fileId`, `repositoryId`, `embeddingDistance`
-
-### `memory`
-
-CRUD operations for Memory records.
+CRUD operations for CompanyLink records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all memory records |
-| `get` | Get a memory by id |
-| `create` | Create a new memory |
-| `update` | Update an existing memory |
-| `delete` | Delete a memory |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `content` | String |
-| `tags` | String |
-| `embedding` | Vector |
-| `embeddingDistance` | Float |
-
-**Create fields:** `entityId`, `content`, `tags`, `embedding`, `embeddingDistance`
-
-### `deal`
-
-CRUD operations for Deal records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all deal records |
-| `get` | Get a deal by id |
-| `create` | Create a new deal |
-| `update` | Update an existing deal |
-| `delete` | Delete a deal |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `name` | String |
-| `stage` | String |
-| `value` | BigFloat |
-| `notes` | String |
-| `tags` | String |
-| `embedding` | Vector |
-| `embeddingDistance` | Float |
-
-**Create fields:** `entityId`, `name`, `stage`, `value`, `notes`, `tags`, `embedding`, `embeddingDistance`
-
-### `document`
-
-CRUD operations for Document records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all document records |
-| `get` | Get a document by id |
-| `create` | Create a new document |
-| `update` | Update an existing document |
-| `delete` | Delete a document |
+| `list` | List all companyLink records |
+| `get` | Get a companyLink by id |
+| `create` | Create a new companyLink |
+| `update` | Update an existing companyLink |
+| `delete` | Delete a companyLink |
 
 **Fields:**
 
@@ -754,25 +1539,24 @@ CRUD operations for Document records.
 | `updatedAt` | Datetime |
 | `title` | String |
 | `url` | String |
-| `content` | String |
-| `sourceType` | String |
-| `tags` | String |
 | `embedding` | Vector |
+| `companyId` | UUID |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `title`, `url`, `content`, `sourceType`, `tags`, `embedding`, `embeddingDistance`
+**Required create fields:** `entityId`, `url`, `companyId`, `embeddingDistance`
+**Optional create fields (backend defaults):** `title`, `embedding`
 
-### `task`
+### `contact-link`
 
-CRUD operations for Task records.
+CRUD operations for ContactLink records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all task records |
-| `get` | Get a task by id |
-| `create` | Create a new task |
-| `update` | Update an existing task |
-| `delete` | Delete a task |
+| `list` | List all contactLink records |
+| `get` | Get a contactLink by id |
+| `create` | Create a new contactLink |
+| `update` | Update an existing contactLink |
+| `delete` | Delete a contactLink |
 
 **Fields:**
 
@@ -783,26 +1567,25 @@ CRUD operations for Task records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `title` | String |
-| `description` | String |
-| `status` | String |
-| `priority` | Int |
-| `tags` | String |
+| `url` | String |
 | `embedding` | Vector |
+| `contactId` | UUID |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `title`, `description`, `status`, `priority`, `tags`, `embedding`, `embeddingDistance`
+**Required create fields:** `entityId`, `url`, `contactId`, `embeddingDistance`
+**Optional create fields (backend defaults):** `title`, `embedding`
 
-### `rule`
+### `event-link`
 
-CRUD operations for Rule records.
+CRUD operations for EventLink records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all rule records |
-| `get` | Get a rule by id |
-| `create` | Create a new rule |
-| `update` | Update an existing rule |
-| `delete` | Delete a rule |
+| `list` | List all eventLink records |
+| `get` | Get a eventLink by id |
+| `create` | Create a new eventLink |
+| `update` | Update an existing eventLink |
+| `delete` | Delete a eventLink |
 
 **Fields:**
 
@@ -813,26 +1596,85 @@ CRUD operations for Rule records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `title` | String |
-| `content` | String |
-| `kind` | String |
-| `isActive` | Boolean |
-| `tags` | String |
+| `url` | String |
 | `embedding` | Vector |
+| `eventId` | UUID |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `title`, `content`, `kind`, `isActive`, `tags`, `embedding`, `embeddingDistance`
+**Required create fields:** `entityId`, `url`, `eventId`, `embeddingDistance`
+**Optional create fields (backend defaults):** `title`, `embedding`
 
-### `skill`
+### `venue-link`
 
-CRUD operations for Skill records.
+CRUD operations for VenueLink records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all skill records |
-| `get` | Get a skill by id |
-| `create` | Create a new skill |
-| `update` | Update an existing skill |
-| `delete` | Delete a skill |
+| `list` | List all venueLink records |
+| `get` | Get a venueLink by id |
+| `create` | Create a new venueLink |
+| `update` | Update an existing venueLink |
+| `delete` | Delete a venueLink |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `title` | String |
+| `url` | String |
+| `embedding` | Vector |
+| `venueId` | UUID |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `url`, `venueId`, `embeddingDistance`
+**Optional create fields (backend defaults):** `title`, `embedding`
+
+### `habit`
+
+CRUD operations for Habit records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all habit records |
+| `get` | Get a habit by id |
+| `create` | Create a new habit |
+| `update` | Update an existing habit |
+| `delete` | Delete a habit |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `frequency` | String |
+| `targetCount` | Int |
+| `currentStreak` | Int |
+| `bestStreak` | Int |
+| `category` | String |
+| `tags` | String |
+
+**Required create fields:** `entityId`, `name`
+**Optional create fields (backend defaults):** `frequency`, `targetCount`, `currentStreak`, `bestStreak`, `category`, `tags`
+
+### `workflow`
+
+CRUD operations for Workflow records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all workflow records |
+| `get` | Get a workflow by id |
+| `create` | Create a new workflow |
+| `update` | Update an existing workflow |
+| `delete` | Delete a workflow |
 
 **Fields:**
 
@@ -844,13 +1686,13 @@ CRUD operations for Skill records.
 | `updatedAt` | Datetime |
 | `name` | String |
 | `description` | String |
-| `content` | String |
+| `triggerType` | String |
+| `triggerConfig` | JSON |
 | `isActive` | Boolean |
 | `tags` | String |
-| `embedding` | Vector |
-| `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `name`, `description`, `content`, `isActive`, `tags`, `embedding`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`
+**Optional create fields (backend defaults):** `description`, `triggerType`, `triggerConfig`, `isActive`, `tags`
 
 ### `expense`
 
@@ -879,11 +1721,107 @@ CRUD operations for Expense records.
 | `description` | String |
 | `merchant` | String |
 | `receiptUrl` | String |
+| `isRecurring` | Boolean |
 | `tags` | String |
+
+**Required create fields:** `entityId`
+**Optional create fields (backend defaults):** `amount`, `currency`, `date`, `category`, `description`, `merchant`, `receiptUrl`, `isRecurring`, `tags`
+
+### `billing-subscription`
+
+CRUD operations for BillingSubscription records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all billingSubscription records |
+| `get` | Get a billingSubscription by id |
+| `create` | Create a new billingSubscription |
+| `update` | Update an existing billingSubscription |
+| `delete` | Delete a billingSubscription |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `amount` | BigFloat |
+| `currency` | String |
+| `frequency` | String |
+| `provider` | String |
+| `nextBillingDate` | Date |
+| `cancellationDate` | Date |
+| `status` | String |
+| `tags` | String |
+| `notes` | String |
+
+**Required create fields:** `entityId`, `name`
+**Optional create fields (backend defaults):** `amount`, `currency`, `frequency`, `provider`, `nextBillingDate`, `cancellationDate`, `status`, `tags`, `notes`
+
+### `idea`
+
+CRUD operations for Idea records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all idea records |
+| `get` | Get a idea by id |
+| `create` | Create a new idea |
+| `update` | Update an existing idea |
+| `delete` | Delete a idea |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `content` | String |
+| `source` | String |
+| `status` | String |
+| `tags` | String |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `amount`, `currency`, `date`, `category`, `description`, `merchant`, `receiptUrl`, `tags`, `embedding`, `embeddingDistance`
+**Required create fields:** `entityId`, `content`, `embeddingDistance`
+**Optional create fields (backend defaults):** `source`, `status`, `tags`, `embeddingText`, `embedding`
+
+### `list`
+
+CRUD operations for List records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all list records |
+| `get` | Get a list by id |
+| `create` | Create a new list |
+| `update` | Update an existing list |
+| `delete` | Delete a list |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `description` | String |
+| `type` | String |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Optional create fields (backend defaults):** `description`, `type`, `tags`, `embeddingText`, `embedding`
 
 ### `note`
 
@@ -906,12 +1844,592 @@ CRUD operations for Note records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `content` | String |
+| `notableType` | String |
+| `notableId` | UUID |
 | `tags` | String |
+| `embeddingText` | String |
 | `embedding` | Vector |
-| `contactId` | UUID |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `content`, `tags`, `embedding`, `contactId`, `embeddingDistance`
+**Required create fields:** `entityId`, `content`, `embeddingDistance`
+**Optional create fields (backend defaults):** `notableType`, `notableId`, `tags`, `embeddingText`, `embedding`
+
+### `repository`
+
+CRUD operations for Repository records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all repository records |
+| `get` | Get a repository by id |
+| `create` | Create a new repository |
+| `update` | Update an existing repository |
+| `delete` | Delete a repository |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `url` | String |
+| `description` | String |
+| `defaultBranch` | String |
+| `lastSyncedAt` | Datetime |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Optional create fields (backend defaults):** `url`, `description`, `defaultBranch`, `lastSyncedAt`, `tags`, `embeddingText`, `embedding`
+
+### `deal`
+
+CRUD operations for Deal records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all deal records |
+| `get` | Get a deal by id |
+| `create` | Create a new deal |
+| `update` | Update an existing deal |
+| `delete` | Delete a deal |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `stage` | String |
+| `value` | BigFloat |
+| `currency` | String |
+| `expectedCloseDate` | Datetime |
+| `notes` | String |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Optional create fields (backend defaults):** `stage`, `value`, `currency`, `expectedCloseDate`, `notes`, `tags`, `embeddingText`, `embedding`
+
+### `goal`
+
+CRUD operations for Goal records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all goal records |
+| `get` | Get a goal by id |
+| `create` | Create a new goal |
+| `update` | Update an existing goal |
+| `delete` | Delete a goal |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `title` | String |
+| `description` | String |
+| `targetDate` | Datetime |
+| `status` | String |
+| `category` | String |
+| `progressPct` | Int |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `title`, `embeddingDistance`
+**Optional create fields (backend defaults):** `description`, `targetDate`, `status`, `category`, `progressPct`, `tags`, `embeddingText`, `embedding`
+
+### `prompt`
+
+CRUD operations for Prompt records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all prompt records |
+| `get` | Get a prompt by id |
+| `create` | Create a new prompt |
+| `update` | Update an existing prompt |
+| `delete` | Delete a prompt |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `content` | String |
+| `type` | String |
+| `model` | String |
+| `version` | Int |
+| `isActive` | Boolean |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `content`, `embeddingDistance`
+**Optional create fields (backend defaults):** `type`, `model`, `version`, `isActive`, `tags`, `embeddingText`, `embedding`
+
+### `blueprint`
+
+CRUD operations for Blueprint records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all blueprint records |
+| `get` | Get a blueprint by id |
+| `create` | Create a new blueprint |
+| `update` | Update an existing blueprint |
+| `delete` | Delete a blueprint |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `title` | String |
+| `steps` | JSON |
+| `triggerConditions` | String |
+| `conversationId` | UUID |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `title`, `embeddingDistance`
+**Optional create fields (backend defaults):** `steps`, `triggerConditions`, `conversationId`, `tags`, `embeddingText`, `embedding`
+
+### `template`
+
+CRUD operations for Template records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all template records |
+| `get` | Get a template by id |
+| `create` | Create a new template |
+| `update` | Update an existing template |
+| `delete` | Delete a template |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `description` | String |
+| `type` | String |
+| `content` | JSON |
+| `variables` | JSON |
+| `isActive` | Boolean |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `content`, `embeddingDistance`
+**Optional create fields (backend defaults):** `description`, `type`, `variables`, `isActive`, `tags`, `embeddingText`, `embedding`
+
+### `tool`
+
+CRUD operations for Tool records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all tool records |
+| `get` | Get a tool by id |
+| `create` | Create a new tool |
+| `update` | Update an existing tool |
+| `delete` | Delete a tool |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `description` | String |
+| `type` | String |
+| `inputSchema` | JSON |
+| `outputSchema` | JSON |
+| `endpoint` | String |
+| `authMethod` | String |
+| `isActive` | Boolean |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Optional create fields (backend defaults):** `description`, `type`, `inputSchema`, `outputSchema`, `endpoint`, `authMethod`, `isActive`, `tags`, `embeddingText`, `embedding`
+
+### `memory`
+
+CRUD operations for Memory records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all memory records |
+| `get` | Get a memory by id |
+| `create` | Create a new memory |
+| `update` | Update an existing memory |
+| `delete` | Delete a memory |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `content` | String |
+| `memoryType` | String |
+| `agentId` | UUID |
+| `importance` | Int |
+| `verified` | Boolean |
+| `source` | String |
+| `relatedEntityType` | String |
+| `relatedEntityId` | UUID |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `content`, `embeddingDistance`
+**Optional create fields (backend defaults):** `memoryType`, `agentId`, `importance`, `verified`, `source`, `relatedEntityType`, `relatedEntityId`, `tags`, `embeddingText`, `embedding`
+
+### `recipe`
+
+CRUD operations for Recipe records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all recipe records |
+| `get` | Get a recipe by id |
+| `create` | Create a new recipe |
+| `update` | Update an existing recipe |
+| `delete` | Delete a recipe |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `description` | String |
+| `cuisine` | String |
+| `prepTimeMinutes` | Int |
+| `cookTimeMinutes` | Int |
+| `servings` | Int |
+| `difficulty` | String |
+| `ingredients` | JSON |
+| `instructions` | JSON |
+| `sourceUrl` | String |
+| `imageUrl` | String |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Optional create fields (backend defaults):** `description`, `cuisine`, `prepTimeMinutes`, `cookTimeMinutes`, `servings`, `difficulty`, `ingredients`, `instructions`, `sourceUrl`, `imageUrl`, `tags`, `embeddingText`, `embedding`
+
+### `trip`
+
+CRUD operations for Trip records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all trip records |
+| `get` | Get a trip by id |
+| `create` | Create a new trip |
+| `update` | Update an existing trip |
+| `delete` | Delete a trip |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `destination` | String |
+| `startDate` | Date |
+| `endDate` | Date |
+| `status` | String |
+| `notes` | String |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Optional create fields (backend defaults):** `destination`, `startDate`, `endDate`, `status`, `notes`, `tags`, `embeddingText`, `embedding`
+
+### `rule`
+
+CRUD operations for Rule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all rule records |
+| `get` | Get a rule by id |
+| `create` | Create a new rule |
+| `update` | Update an existing rule |
+| `delete` | Delete a rule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `title` | String |
+| `content` | String |
+| `kind` | String |
+| `severity` | String |
+| `isActive` | Boolean |
+| `slug` | String |
+| `verification` | String |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `triggerConcept` | Vector |
+| `embeddingDistance` | Float |
+| `triggerConceptDistance` | Float |
+
+**Required create fields:** `entityId`, `title`, `embeddingDistance`, `triggerConceptDistance`
+**Optional create fields (backend defaults):** `content`, `kind`, `severity`, `isActive`, `slug`, `verification`, `tags`, `embeddingText`, `embedding`, `triggerConcept`
+
+### `skill`
+
+CRUD operations for Skill records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all skill records |
+| `get` | Get a skill by id |
+| `create` | Create a new skill |
+| `update` | Update an existing skill |
+| `delete` | Delete a skill |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `slug` | String |
+| `description` | String |
+| `content` | String |
+| `procedure` | String |
+| `interface` | JSON |
+| `requirements` | JSON |
+| `filePath` | String |
+| `contentHash` | String |
+| `category` | String |
+| `isActive` | Boolean |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `intentTrigger` | Vector |
+| `embeddingDistance` | Float |
+| `intentTriggerDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `embeddingDistance`, `intentTriggerDistance`
+**Optional create fields (backend defaults):** `slug`, `description`, `content`, `procedure`, `interface`, `requirements`, `filePath`, `contentHash`, `category`, `isActive`, `tags`, `embeddingText`, `embedding`, `intentTrigger`
+
+### `agent`
+
+CRUD operations for Agent records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all agent records |
+| `get` | Get a agent by id |
+| `create` | Create a new agent |
+| `update` | Update an existing agent |
+| `delete` | Delete a agent |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `role` | String |
+| `capabilities` | JSON |
+| `config` | JSON |
+| `status` | String |
+| `persona` | String |
+| `backstory` | String |
+| `communicationStyle` | String |
+| `systemPrompt` | String |
+| `preferredModel` | String |
+| `fallbackModels` | String |
+| `temperature` | BigFloat |
+| `mood` | String |
+| `focus` | String |
+| `lastActiveAt` | Datetime |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Optional create fields (backend defaults):** `role`, `capabilities`, `config`, `status`, `persona`, `backstory`, `communicationStyle`, `systemPrompt`, `preferredModel`, `fallbackModels`, `temperature`, `mood`, `focus`, `lastActiveAt`, `embeddingText`, `embedding`
+
+### `task`
+
+CRUD operations for Task records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all task records |
+| `get` | Get a task by id |
+| `create` | Create a new task |
+| `update` | Update an existing task |
+| `delete` | Delete a task |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `title` | String |
+| `description` | String |
+| `status` | String |
+| `priority` | Int |
+| `projectId` | UUID |
+| `taskType` | String |
+| `assignedAgentId` | UUID |
+| `parentTaskId` | UUID |
+| `dueDate` | Datetime |
+| `completedAt` | Datetime |
+| `conversationId` | UUID |
+| `dependencies` | UUID |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `title`, `embeddingDistance`
+**Optional create fields (backend defaults):** `description`, `status`, `priority`, `projectId`, `taskType`, `assignedAgentId`, `parentTaskId`, `dueDate`, `completedAt`, `conversationId`, `dependencies`, `tags`, `embeddingText`, `embedding`
+
+### `project`
+
+CRUD operations for Project records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all project records |
+| `get` | Get a project by id |
+| `create` | Create a new project |
+| `update` | Update an existing project |
+| `delete` | Delete a project |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `description` | String |
+| `status` | String |
+| `startDate` | Datetime |
+| `dueDate` | Datetime |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `searchTsv` | FullText |
+| `searchTsvRank` | Float |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `searchTsvRank`, `embeddingDistance`
+**Optional create fields (backend defaults):** `description`, `status`, `startDate`, `dueDate`, `tags`, `embeddingText`, `embedding`, `searchTsv`
+
+### `document`
+
+CRUD operations for Document records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all document records |
+| `get` | Get a document by id |
+| `create` | Create a new document |
+| `update` | Update an existing document |
+| `delete` | Delete a document |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `title` | String |
+| `url` | String |
+| `content` | String |
+| `sourceType` | String |
+| `isRead` | Boolean |
+| `savedAt` | Datetime |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `searchTsv` | FullText |
+| `searchTsvRank` | Float |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `title`, `searchTsvRank`, `embeddingDistance`
+**Optional create fields (backend defaults):** `url`, `content`, `sourceType`, `isRead`, `savedAt`, `tags`, `embeddingText`, `embedding`, `searchTsv`
 
 ### `company`
 
@@ -938,45 +2456,15 @@ CRUD operations for Company records.
 | `industry` | String |
 | `description` | String |
 | `tags` | String |
+| `embeddingText` | String |
 | `embedding` | Vector |
+| `searchTsv` | FullText |
 | `mainImageId` | UUID |
-| `imageId` | UUID |
+| `searchTsvRank` | Float |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `name`, `domain`, `industry`, `description`, `tags`, `embedding`, `mainImageId`, `imageId`, `embeddingDistance`
-
-### `venue`
-
-CRUD operations for Venue records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all venue records |
-| `get` | Get a venue by id |
-| `create` | Create a new venue |
-| `update` | Update an existing venue |
-| `delete` | Delete a venue |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `name` | String |
-| `neighborhood` | String |
-| `city` | String |
-| `status` | String |
-| `notes` | String |
-| `tags` | String |
-| `embedding` | Vector |
-| `mainImageId` | UUID |
-| `imageId` | UUID |
-| `embeddingDistance` | Float |
-
-**Create fields:** `entityId`, `name`, `neighborhood`, `city`, `status`, `notes`, `tags`, `embedding`, `mainImageId`, `imageId`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `searchTsvRank`, `embeddingDistance`
+**Optional create fields (backend defaults):** `domain`, `industry`, `description`, `tags`, `embeddingText`, `embedding`, `searchTsv`, `mainImageId`
 
 ### `event`
 
@@ -1006,12 +2494,15 @@ CRUD operations for Event records.
 | `endedAt` | Datetime |
 | `notes` | String |
 | `tags` | String |
+| `embeddingText` | String |
 | `embedding` | Vector |
+| `searchTsv` | FullText |
 | `mainImageId` | UUID |
-| `imageId` | UUID |
+| `searchTsvRank` | Float |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `name`, `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notes`, `tags`, `embedding`, `mainImageId`, `imageId`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `searchTsvRank`, `embeddingDistance`
+**Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notes`, `tags`, `embeddingText`, `embedding`, `searchTsv`, `mainImageId`
 
 ### `contact`
 
@@ -1040,23 +2531,82 @@ CRUD operations for Contact records.
 | `headline` | String |
 | `bio` | String |
 | `location` | String |
+| `birthday` | Date |
+| `relationshipType` | String |
+| `howWeMet` | String |
+| `twitterHandle` | String |
+| `linkedinUrl` | String |
+| `githubUsername` | String |
+| `instagramHandle` | String |
+| `website` | String |
 | `tags` | String |
+| `embeddingText` | String |
 | `embedding` | Vector |
-| `mainImageId` | UUID |
-| `imageId` | UUID |
 | `searchTsv` | FullText |
+| `mainImageId` | UUID |
 | `searchTsvRank` | Float |
 | `embeddingDistance` | Float |
 
-**Create fields:** `entityId`, `firstName`, `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `tags`, `embedding`, `mainImageId`, `imageId`, `searchTsv`, `searchTsvRank`, `embeddingDistance`
+**Required create fields:** `entityId`, `firstName`, `searchTsvRank`, `embeddingDistance`
+**Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipType`, `howWeMet`, `twitterHandle`, `linkedinUrl`, `githubUsername`, `instagramHandle`, `website`, `tags`, `embeddingText`, `embedding`, `searchTsv`, `mainImageId`
+
+### `venue`
+
+CRUD operations for Venue records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all venue records |
+| `get` | Get a venue by id |
+| `create` | Create a new venue |
+| `update` | Update an existing venue |
+| `delete` | Delete a venue |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `address` | String |
+| `neighborhood` | String |
+| `city` | String |
+| `category` | String |
+| `status` | String |
+| `googlePlaceId` | String |
+| `rating` | BigFloat |
+| `priceLevel` | String |
+| `isFavorite` | Boolean |
+| `notes` | String |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `searchTsv` | FullText |
+| `mainImageId` | UUID |
+| `searchTsvRank` | Float |
+| `embeddingDistance` | Float |
+
+**Required create fields:** `entityId`, `name`, `searchTsvRank`, `embeddingDistance`
+**Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `embeddingText`, `embedding`, `searchTsv`, `mainImageId`
 
 ## Output
 
 All commands output JSON to stdout. Pipe to `jq` for formatting:
 
 ```bash
-agentic-db car list | jq '.[]'
-agentic-db car get --id <uuid> | jq '.'
+agent-db car list | jq '.[]'
+agent-db car get --id <uuid> | jq '.'
+```
+
+## Non-Interactive Mode
+
+Use `--no-tty` to skip all interactive prompts (useful for scripts and CI):
+
+```bash
+agent-db --no-tty car create --name "Sedan" --year 2024
 ```
 
 ---

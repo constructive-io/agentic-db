@@ -2,7 +2,7 @@
  * Seed sample data for RAG testing
  */
 import { authenticate, createAuthenticatedClient } from './client';
-import { createClient } from '@agentic-sdk/sdk';
+import { createClient } from '@agentic-db/sdk';
 import { embed } from './ollama';
 
 const TEST_EMAIL = 'rag-test@example.com';

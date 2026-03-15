@@ -6,21 +6,24 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateMessageInput, MessagePatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
+  emailAccountId: 'uuid',
   threadId: 'string',
   remoteId: 'string',
-  from: 'string',
-  to: 'string',
+  fromAddress: 'string',
+  toAddresses: 'string',
   subject: 'string',
   bodyText: 'string',
   receivedAt: 'string',
   tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
-  emailAccountId: 'uuid',
   embeddingDistance: 'float',
 };
 const usage =
@@ -44,7 +47,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -79,16 +82,17 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          emailAccountId: true,
           threadId: true,
           remoteId: true,
-          from: true,
-          to: true,
+          fromAddress: true,
+          toAddresses: true,
           subject: true,
           bodyText: true,
           receivedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          emailAccountId: true,
           embeddingDistance: true,
         },
       })
@@ -115,22 +119,23 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.message
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          emailAccountId: true,
           threadId: true,
           remoteId: true,
-          from: true,
-          to: true,
+          fromAddress: true,
+          toAddresses: true,
           subject: true,
           bodyText: true,
           receivedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          emailAccountId: true,
           embeddingDistance: true,
         },
       })
@@ -155,105 +160,117 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'emailAccountId',
+        message: 'emailAccountId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'threadId',
         message: 'threadId',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'remoteId',
         message: 'remoteId',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'from',
-        message: 'from',
+        name: 'fromAddress',
+        message: 'fromAddress',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'to',
-        message: 'to',
+        name: 'toAddresses',
+        message: 'toAddresses',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'subject',
         message: 'subject',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'bodyText',
         message: 'bodyText',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'receivedAt',
         message: 'receivedAt',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'emailAccountId',
-        message: 'emailAccountId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateMessageInput['message'];
     const client = getClient();
     const result = await client.message
       .create({
         data: {
           entityId: cleanedData.entityId,
+          emailAccountId: cleanedData.emailAccountId,
           threadId: cleanedData.threadId,
           remoteId: cleanedData.remoteId,
-          from: cleanedData.from,
-          to: cleanedData.to,
+          fromAddress: cleanedData.fromAddress,
+          toAddresses: cleanedData.toAddresses,
           subject: cleanedData.subject,
           bodyText: cleanedData.bodyText,
           receivedAt: cleanedData.receivedAt,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          emailAccountId: cleanedData.emailAccountId,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          emailAccountId: true,
           threadId: true,
           remoteId: true,
-          from: true,
-          to: true,
+          fromAddress: true,
+          toAddresses: true,
           subject: true,
           bodyText: true,
           receivedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          emailAccountId: true,
           embeddingDistance: true,
         },
       })
@@ -284,73 +301,84 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'emailAccountId',
+        message: 'emailAccountId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'threadId',
         message: 'threadId',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'remoteId',
         message: 'remoteId',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'from',
-        message: 'from',
+        name: 'fromAddress',
+        message: 'fromAddress',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'to',
-        message: 'to',
+        name: 'toAddresses',
+        message: 'toAddresses',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'subject',
         message: 'subject',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'bodyText',
         message: 'bodyText',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'receivedAt',
         message: 'receivedAt',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'emailAccountId',
-        message: 'emailAccountId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as MessagePatch;
     const client = getClient();
     const result = await client.message
       .update({
@@ -359,33 +387,34 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           entityId: cleanedData.entityId,
+          emailAccountId: cleanedData.emailAccountId,
           threadId: cleanedData.threadId,
           remoteId: cleanedData.remoteId,
-          from: cleanedData.from,
-          to: cleanedData.to,
+          fromAddress: cleanedData.fromAddress,
+          toAddresses: cleanedData.toAddresses,
           subject: cleanedData.subject,
           bodyText: cleanedData.bodyText,
           receivedAt: cleanedData.receivedAt,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          emailAccountId: cleanedData.emailAccountId,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          emailAccountId: true,
           threadId: true,
           remoteId: true,
-          from: true,
-          to: true,
+          fromAddress: true,
+          toAddresses: true,
           subject: true,
           bodyText: true,
           receivedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          emailAccountId: true,
           embeddingDistance: true,
         },
       })

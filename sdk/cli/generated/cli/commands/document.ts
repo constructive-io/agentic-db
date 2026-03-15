@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateDocumentInput, DocumentPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -15,8 +17,13 @@ const fieldSchema = {
   url: 'string',
   content: 'string',
   sourceType: 'string',
+  isRead: 'boolean',
+  savedAt: 'string',
   tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
+  searchTsv: 'string',
+  searchTsvRank: 'float',
   embeddingDistance: 'float',
 };
 const usage =
@@ -40,7 +47,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -79,8 +86,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           url: true,
           content: true,
           sourceType: true,
+          isRead: true,
+          savedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
+          searchTsvRank: true,
           embeddingDistance: true,
         },
       })
@@ -107,7 +119,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.document
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -117,8 +129,13 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           url: true,
           content: true,
           sourceType: true,
+          isRead: true,
+          savedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
+          searchTsvRank: true,
           embeddingDistance: true,
         },
       })
@@ -152,40 +169,67 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'url',
         message: 'url',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'content',
         message: 'content',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'sourceType',
         message: 'sourceType',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
+        name: 'isRead',
+        message: 'isRead',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'savedAt',
+        message: 'savedAt',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        name: 'searchTsv',
+        message: 'searchTsv',
+        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateDocumentInput['document'];
     const client = getClient();
     const result = await client.document
       .create({
@@ -195,9 +239,12 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           url: cleanedData.url,
           content: cleanedData.content,
           sourceType: cleanedData.sourceType,
+          isRead: cleanedData.isRead,
+          savedAt: cleanedData.savedAt,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
+          searchTsv: cleanedData.searchTsv,
         },
         select: {
           id: true,
@@ -208,8 +255,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           url: true,
           content: true,
           sourceType: true,
+          isRead: true,
+          savedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
+          searchTsvRank: true,
           embeddingDistance: true,
         },
       })
@@ -249,40 +301,67 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'url',
         message: 'url',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'content',
         message: 'content',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'sourceType',
         message: 'sourceType',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
+        name: 'isRead',
+        message: 'isRead',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'savedAt',
+        message: 'savedAt',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
+        name: 'searchTsv',
+        message: 'searchTsv',
         required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as DocumentPatch;
     const client = getClient();
     const result = await client.document
       .update({
@@ -295,9 +374,12 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           url: cleanedData.url,
           content: cleanedData.content,
           sourceType: cleanedData.sourceType,
+          isRead: cleanedData.isRead,
+          savedAt: cleanedData.savedAt,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
+          searchTsv: cleanedData.searchTsv,
         },
         select: {
           id: true,
@@ -308,8 +390,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           url: true,
           content: true,
           sourceType: true,
+          isRead: true,
+          savedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
+          searchTsvRank: true,
           embeddingDistance: true,
         },
       })

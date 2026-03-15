@@ -9,7 +9,7 @@ ORM operations for ChatMessage records
 ```typescript
 db.chatMessage.findMany({ select: { id: true } }).execute()
 db.chatMessage.findOne({ id: '<value>', select: { id: true } }).execute()
-db.chatMessage.create({ data: { entityId: '<value>', role: '<value>', content: '<value>', toolCalls: '<value>', embedding: '<value>', chatId: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.chatMessage.create({ data: { entityId: '<value>', chatId: '<value>', threadId: '<value>', role: '<value>', content: '<value>', toolCalls: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
 db.chatMessage.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.chatMessage.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.chatMessage.findMany({
 
 ```typescript
 const item = await db.chatMessage.create({
-  data: { entityId: 'value', role: 'value', content: 'value', toolCalls: 'value', embedding: 'value', chatId: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', chatId: 'value', threadId: 'value', role: 'value', content: 'value', toolCalls: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
   select: { id: true }
 }).execute();
 ```

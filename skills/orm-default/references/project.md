@@ -9,7 +9,7 @@ ORM operations for Project records
 ```typescript
 db.project.findMany({ select: { id: true } }).execute()
 db.project.findOne({ id: '<value>', select: { id: true } }).execute()
-db.project.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', status: '<value>', startDate: '<value>', dueDate: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.project.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', status: '<value>', startDate: '<value>', dueDate: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', searchTsv: '<value>', searchTsvRank: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
 db.project.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.project.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.project.findMany({
 
 ```typescript
 const item = await db.project.create({
-  data: { entityId: 'value', name: 'value', description: 'value', status: 'value', startDate: 'value', dueDate: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', name: 'value', description: 'value', status: 'value', startDate: 'value', dueDate: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', searchTsv: 'value', searchTsvRank: 'value', embeddingDistance: 'value' },
   select: { id: true }
 }).execute();
 ```

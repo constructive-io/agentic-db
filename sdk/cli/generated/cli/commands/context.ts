@@ -6,7 +6,7 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getStore } from '../executor';
 const usage =
-  '\nagentic-db context <command>\n\nCommands:\n  create <name>         Create a new context\n  list                  List all contexts\n  use <name>            Set the active context\n  current               Show current context\n  delete <name>         Delete a context\n\nCreate Options:\n  --endpoint <url>      GraphQL endpoint URL\n\n  --help, -h            Show this help message\n';
+  '\nagent-db context <command>\n\nCommands:\n  create <name>         Create a new context\n  list                  List all contexts\n  use <name>            Set the active context\n  current               Show current context\n  delete <name>         Delete a context\n\nCreate Options:\n  --endpoint <url>      GraphQL endpoint URL\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -27,7 +27,7 @@ export default async (
         options: ['create', 'list', 'use', 'current', 'delete'],
       },
     ]);
-    return handleSubcommand(answer.subcommand, newArgv, prompter, store);
+    return handleSubcommand(answer.subcommand as string, newArgv, prompter, store);
   }
   return handleSubcommand(subcommand, newArgv, prompter, store);
 };
@@ -59,7 +59,7 @@ async function handleCreate(
   store: ReturnType<typeof getStore>
 ) {
   const { first: name, newArgv: restArgv } = extractFirst(argv);
-  const answers = await prompter.prompt(
+  const answers = (await prompter.prompt(
     {
       name,
       ...restArgv,
@@ -78,7 +78,7 @@ async function handleCreate(
         required: true,
       },
     ]
-  );
+  )) as unknown as Record<string, string>;
   const contextName = answers.name;
   const endpoint = answers.endpoint;
   store.createContext(contextName, {
@@ -127,7 +127,7 @@ async function handleUse(
         options: contexts.map((c) => c.name),
       },
     ]);
-    contextName = answer.name;
+    contextName = answer.name as string;
   }
   if (store.setCurrentContext(contextName)) {
     console.log(`Switched to context: ${contextName}`);
@@ -168,7 +168,7 @@ async function handleDelete(
         options: contexts.map((c) => c.name),
       },
     ]);
-    contextName = answer.name;
+    contextName = answer.name as string;
   }
   if (store.deleteContext(contextName)) {
     console.log(`Deleted context: ${contextName}`);
