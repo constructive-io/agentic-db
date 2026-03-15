@@ -11,7 +11,7 @@
   "registry": "https://registry.npmjs.org",
   "command": {
     "create": {
-      "homepage": "https://github.com/pyramation-studio/agent-os",
+      "homepage": "https://github.com/pyramation-studio/agentic-db",
       "license": "MIT",
       "access": "restricted"
     },

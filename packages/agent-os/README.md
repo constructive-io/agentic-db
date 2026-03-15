@@ -1,4 +1,4 @@
-# agent-os
+# agentic-db
 
 <p align="center" width="100%">
   <img height="250" src="https://raw.githubusercontent.com/constructive-io/constructive/refs/heads/main/assets/outline-logo.svg" />
@@ -8,7 +8,7 @@
   <a href="https://github.com/pyra/a/actions/workflows/ci.yml">
     <img height="20" src="https://github.com/pyra/a/actions/workflows/ci.yml/badge.svg" />
   </a>
-   <a href="https://www.npmjs.com/package/agent-os"><img height="20" src="https://img.shields.io/github/package-json/v/pyra/a?filename=packages%2Fagent-os%2Fpackage.json"/></a>
+   <a href="https://www.npmjs.com/package/agentic-db"><img height="20" src="https://img.shields.io/github/package-json/v/pyra/a?filename=packages%2Fagentic-db%2Fpackage.json"/></a>
 </p>
 
 ## Credits

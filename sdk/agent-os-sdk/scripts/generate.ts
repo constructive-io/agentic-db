@@ -1,7 +1,7 @@
 /**
  * generate.ts — Generate SDK from schema files (no URL needed)
  * 
- * Run with: pnpm --filter @agent-os/sdk run generate
+ * Run with: pnpm --filter @agentic-db/sdk run generate
  */
 
 import * as path from 'path';
@@ -15,10 +15,10 @@ async function main() {
   const outputDir = path.resolve(__dirname, '../src/generated');
 
   // Verify schema exists
-  const schemaFile = path.join(schemaDir, 'agent-os.graphql');
+  const schemaFile = path.join(schemaDir, 'agentic-db.graphql');
   if (!fs.existsSync(schemaFile)) {
     console.error('❌ Schema not found:', schemaFile);
-    console.error('   Run: pnpm --filter @agent-os/schemas run export');
+    console.error('   Run: pnpm --filter @agentic-db/schemas run export');
     process.exit(1);
   }
 
@@ -48,7 +48,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log('\n✅ SDK generated at sdk/agent-os-sdk/src/generated/\n');
+  console.log('\n✅ SDK generated at sdk/agentic-db-sdk/src/generated/\n');
   console.log('   Tables:', result.tables?.join(', '));
 }
 

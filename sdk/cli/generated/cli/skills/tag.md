@@ -1,17 +1,17 @@
-# agent-os-tag
+# agentic-db-tag
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Tag records via agent-os CLI
+CRUD operations for Tag records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os tag list
-agent-os tag get --id <value>
-agent-os tag create --name <value>
-agent-os tag update --id <value> [--name <value>]
-agent-os tag delete --id <value>
+agentic-db tag list
+agentic-db tag get --id <value>
+agentic-db tag create --name <value>
+agentic-db tag update --id <value> [--name <value>]
+agentic-db tag delete --id <value>
 ```
 
 ## Examples
@@ -19,29 +19,29 @@ agent-os tag delete --id <value>
 ### List all tag records
 
 ```bash
-agent-os tag list
+agentic-db tag list
 ```
 
 ### Create a tag
 
 ```bash
-agent-os tag create --name "value"
+agentic-db tag create --name "value"
 ```
 
 ### Get a tag by id
 
 ```bash
-agent-os tag get --id <value>
+agentic-db tag get --id <value>
 ```
 
 ### Update a tag
 
 ```bash
-agent-os tag update --id <value> --name "new-value"
+agentic-db tag update --id <value> --name "new-value"
 ```
 
 ### Delete a tag
 
 ```bash
-agent-os tag delete --id <value>
+agentic-db tag delete --id <value>
 ```

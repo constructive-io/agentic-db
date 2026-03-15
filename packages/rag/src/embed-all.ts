@@ -3,10 +3,10 @@ import { authenticate, createAuthenticatedClient } from './client';
 import { embed } from './ollama';
 
 // Construct Admin Email dynamically from DB Name
-// databaseName: agent-os-1772665649005
-// email: admin+1772665649005@agent-os.local
+// databaseName: agentic-db-1772665649005
+// email: admin+1772665649005@agentic-db.local
 const ts = config.databaseName.split('-').pop();
-const ADMIN_EMAIL = `admin+${ts}@agent-os.local`;
+const ADMIN_EMAIL = `admin+${ts}@agentic-db.local`;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'password';
 
 console.log(`🔑 Using Admin: ${ADMIN_EMAIL}`);

@@ -1,4 +1,4 @@
-# agent-os CLI
+# agentic-db CLI
 
 <p align="center" width="100%">
   <img height="120" src="https://raw.githubusercontent.com/constructive-io/constructive/refs/heads/main/assets/outline-logo.svg" />
@@ -10,13 +10,13 @@
 
 ```bash
 # Create a context pointing at your GraphQL endpoint
-agent-os context create production --endpoint https://api.example.com/graphql
+agentic-db context create production --endpoint https://api.example.com/graphql
 
 # Set the active context
-agent-os context use production
+agentic-db context use production
 
 # Authenticate
-agent-os auth set-token <your-token>
+agentic-db auth set-token <your-token>
 ```
 
 ## Commands
@@ -74,7 +74,7 @@ Manage named API contexts (kubectl-style).
 | `current` | Show current context |
 | `delete <name>` | Delete a context |
 
-Configuration is stored at `~/.agent-os/config/`.
+Configuration is stored at `~/.agentic-db/config/`.
 
 ### `auth`
 
@@ -1055,8 +1055,8 @@ CRUD operations for Contact records.
 All commands output JSON to stdout. Pipe to `jq` for formatting:
 
 ```bash
-agent-os car list | jq '.[]'
-agent-os car get --id <uuid> | jq '.'
+agentic-db car list | jq '.[]'
+agentic-db car get --id <uuid> | jq '.'
 ```
 
 ---

@@ -4,7 +4,7 @@ import { embed } from './ollama';
 
 async function main() {
   const ts = config.databaseName.split('-').pop();
-  const ADMIN_EMAIL = `admin+${ts}@agent-os.local`;
+  const ADMIN_EMAIL = `admin+${ts}@agentic-db.local`;
   const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'AgentOS2026!';
 
   const { token } = await authenticate(ADMIN_EMAIL, ADMIN_PASSWORD);

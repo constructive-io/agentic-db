@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for ContactCompany records via agent-os CLI
+CRUD operations for ContactCompany records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os contact-company list
-agent-os contact-company get --id <value>
-agent-os contact-company create --contactId <value> --companyId <value> --entityId <value>
-agent-os contact-company update --id <value> [--contactId <value>] [--companyId <value>] [--entityId <value>]
-agent-os contact-company delete --id <value>
+agentic-db contact-company list
+agentic-db contact-company get --id <value>
+agentic-db contact-company create --contactId <value> --companyId <value> --entityId <value>
+agentic-db contact-company update --id <value> [--contactId <value>] [--companyId <value>] [--entityId <value>]
+agentic-db contact-company delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os contact-company delete --id <value>
 ### List all contactCompany records
 
 ```bash
-agent-os contact-company list
+agentic-db contact-company list
 ```
 
 ### Create a contactCompany
 
 ```bash
-agent-os contact-company create --contactId "value" --companyId "value" --entityId "value"
+agentic-db contact-company create --contactId "value" --companyId "value" --entityId "value"
 ```
 
 ### Get a contactCompany by id
 
 ```bash
-agent-os contact-company get --id <value>
+agentic-db contact-company get --id <value>
 ```

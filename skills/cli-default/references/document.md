@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Document records via agent-os CLI
+CRUD operations for Document records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os document list
-agent-os document get --id <value>
-agent-os document create --entityId <value> --title <value> --url <value> --content <value> --sourceType <value> --tags <value> --embedding <value> --embeddingDistance <value>
-agent-os document update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--content <value>] [--sourceType <value>] [--tags <value>] [--embedding <value>] [--embeddingDistance <value>]
-agent-os document delete --id <value>
+agentic-db document list
+agentic-db document get --id <value>
+agentic-db document create --entityId <value> --title <value> --url <value> --content <value> --sourceType <value> --tags <value> --embedding <value> --embeddingDistance <value>
+agentic-db document update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--content <value>] [--sourceType <value>] [--tags <value>] [--embedding <value>] [--embeddingDistance <value>]
+agentic-db document delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os document delete --id <value>
 ### List all document records
 
 ```bash
-agent-os document list
+agentic-db document list
 ```
 
 ### Create a document
 
 ```bash
-agent-os document create --entityId "value" --title "value" --url "value" --content "value" --sourceType "value" --tags "value" --embedding "value" --embeddingDistance "value"
+agentic-db document create --entityId "value" --title "value" --url "value" --content "value" --sourceType "value" --tags "value" --embedding "value" --embeddingDistance "value"
 ```
 
 ### Get a document by id
 
 ```bash
-agent-os document get --id <value>
+agentic-db document get --id <value>
 ```

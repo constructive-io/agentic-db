@@ -58,11 +58,11 @@ Required `.env`:
 ```bash
 API_ENDPOINT=http://api.localhost:3000/graphql
 AUTH_ENDPOINT=http://auth.localhost:3000/graphql
-DATABASE_NAME=agent-os
+DATABASE_NAME=agentic-db
 ```
 
 See `.env.example` in workspace root.
 
 ---
 
-*Part of the agent-os project*
+*Part of the agentic-db project*

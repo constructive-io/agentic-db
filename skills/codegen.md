@@ -1,5 +1,5 @@
 ---
-name: agent-os-codegen
+name: agentic-db-codegen
 description: Generate type-safe SDK from a Constructive database using @constructive-io/graphql-codegen
 ---
 
@@ -26,11 +26,11 @@ Create `graphql-codegen.config.ts`:
 import 'dotenv/config';
 import { defineConfig } from '@constructive-io/graphql-codegen';
 
-const dbName = process.env.DATABASE_NAME || 'agent-os';
+const dbName = process.env.DATABASE_NAME || 'agentic-db';
 
 export default defineConfig({
   endpoint: `http://app-public-${dbName}.localhost:3000/graphql`,
-  output: './generated/agent-os-sdk',
+  output: './generated/agentic-db-sdk',
   orm: true,
   nodeHttpAdapter: true,  // Required for Node.js
   docs: {
@@ -53,11 +53,11 @@ Or programmatically:
 import { generate } from '@constructive-io/graphql-codegen';
 import 'dotenv/config';
 
-const dbName = process.env.DATABASE_NAME || 'agent-os';
+const dbName = process.env.DATABASE_NAME || 'agentic-db';
 
 await generate({
   endpoint: `http://app-public-${dbName}.localhost:3000/graphql`,
-  output: './generated/agent-os-sdk',
+  output: './generated/agentic-db-sdk',
   orm: true,
   nodeHttpAdapter: true,
   docs: {
@@ -71,7 +71,7 @@ await generate({
 ## Generated Output
 
 ```
-generated/agent-os-sdk/
+generated/agentic-db-sdk/
 ├── README.md
 ├── AGENTS.md
 ├── orm/
@@ -93,11 +93,11 @@ generated/agent-os-sdk/
 ## Using Generated SDK
 
 ```typescript
-import { createClient } from '@agent-os/codegen/generated/agent-os-sdk/orm';
-import { NodeHttpAdapter } from '@agent-os/codegen/generated/agent-os-sdk/orm/node-fetch';
+import { createClient } from '@agentic-db/codegen/generated/agentic-db-sdk/orm';
+import { NodeHttpAdapter } from '@agentic-db/codegen/generated/agentic-db-sdk/orm/node-fetch';
 import 'dotenv/config';
 
-const dbName = process.env.DATABASE_NAME || 'agent-os';
+const dbName = process.env.DATABASE_NAME || 'agentic-db';
 const token = process.env.ACCESS_TOKEN;
 
 const adapter = new NodeHttpAdapter(

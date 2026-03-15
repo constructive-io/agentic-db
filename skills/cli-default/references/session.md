@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Session records via agent-os CLI
+CRUD operations for Session records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os session list
-agent-os session get --id <value>
-agent-os session create --entityId <value> --title <value> --startedAt <value> --endedAt <value> --status <value> --contextSummary <value> --embedding <value> --embeddingDistance <value>
-agent-os session update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embedding <value>] [--embeddingDistance <value>]
-agent-os session delete --id <value>
+agentic-db session list
+agentic-db session get --id <value>
+agentic-db session create --entityId <value> --title <value> --startedAt <value> --endedAt <value> --status <value> --contextSummary <value> --embedding <value> --embeddingDistance <value>
+agentic-db session update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embedding <value>] [--embeddingDistance <value>]
+agentic-db session delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os session delete --id <value>
 ### List all session records
 
 ```bash
-agent-os session list
+agentic-db session list
 ```
 
 ### Create a session
 
 ```bash
-agent-os session create --entityId "value" --title "value" --startedAt "value" --endedAt "value" --status "value" --contextSummary "value" --embedding "value" --embeddingDistance "value"
+agentic-db session create --entityId "value" --title "value" --startedAt "value" --endedAt "value" --status "value" --contextSummary "value" --embedding "value" --embeddingDistance "value"
 ```
 
 ### Get a session by id
 
 ```bash
-agent-os session get --id <value>
+agentic-db session get --id <value>
 ```

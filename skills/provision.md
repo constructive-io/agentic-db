@@ -1,6 +1,6 @@
 ---
-name: agent-os-provision
-description: Provision a new agent-os database on the Constructive platform with proper security and schemas
+name: agentic-db-provision
+description: Provision a new agentic-db database on the Constructive platform with proper security and schemas
 ---
 
 # Provision Agent-OS Database
@@ -26,7 +26,7 @@ ADMIN_EMAIL=admin@example.com
 ADMIN_PASSWORD=SecurePass123!
 
 # Database config
-DATABASE_NAME=agent-os
+DATABASE_NAME=agentic-db
 ```
 
 ## Usage

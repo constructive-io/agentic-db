@@ -117,7 +117,7 @@ const TABLE_SEARCH: Record<TableName, (client: SDKClient, qe: number[], limit: n
 
 export async function search(query: string, tables?: TableName[]) {
   const ts = config.databaseName.split('-').pop();
-  const ADMIN_EMAIL = `admin+${ts}@agent-os.local`;
+  const ADMIN_EMAIL = `admin+${ts}@agentic-db.local`;
   const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'AgentOS2026!';
 
   const { token } = await authenticate(ADMIN_EMAIL, ADMIN_PASSWORD);

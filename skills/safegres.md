@@ -1,6 +1,6 @@
 ---
-name: agent-os-safegres
-description: Safegres security patterns for agent-os tables. Authorization policies using Authz* types.
+name: agentic-db-safegres
+description: Safegres security patterns for agentic-db tables. Authorization policies using Authz* types.
 ---
 
 # Safegres Security Patterns

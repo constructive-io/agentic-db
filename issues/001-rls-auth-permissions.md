@@ -2,7 +2,7 @@
 
 ## Problem
 
-When using the CLI to access `agent-os-*` database tables, we get:
+When using the CLI to access `agentic-db-*` database tables, we get:
 
 ```json
 {
@@ -20,9 +20,9 @@ Even after authenticating with a valid token.
 Each provisioned database has its **own auth schema**:
 
 - **Main platform:** `constructive_auth_private.authenticate`
-- **agent-os DB:** `agent-os-1772427594809-*-auth-private.authenticate`
+- **agentic-db DB:** `agentic-db-1772427594809-*-auth-private.authenticate`
 
-When a user signs up on the main `auth.localhost:3000` endpoint, their token is stored in the **main constructive database**, not in the `agent-os-*` database.
+When a user signs up on the main `auth.localhost:3000` endpoint, their token is stored in the **main constructive database**, not in the `agentic-db-*` database.
 
 ### 2. RLS Module Configuration
 
@@ -30,9 +30,9 @@ From `services_public.api_modules WHERE name = 'rls_module'`:
 
 ```json
 {
-  "role_schema": "agent-os-1772427381667-ece70724-auth-public",
+  "role_schema": "agentic-db-1772427381667-ece70724-auth-public",
   "authenticate": "authenticate",
-  "authenticate_schema": "agent-os-1772427381667-ece70724-auth-private",
+  "authenticate_schema": "agentic-db-1772427381667-ece70724-auth-private",
   "authenticate_strict": "authenticate_strict"
 }
 ```
@@ -45,7 +45,7 @@ From `/graphql/server/src/middleware/auth.ts`:
 
 ```typescript
 const authQuery = `SELECT * FROM "${rlsModule.privateSchema.schemaName}"."${authFn}"($1)`;
-// Executes: SELECT * FROM "agent-os-*-auth-private"."authenticate"($1)
+// Executes: SELECT * FROM "agentic-db-*-auth-private"."authenticate"($1)
 ```
 
 The token validation happens against the **target database's auth schema**, not the main platform's.
@@ -60,8 +60,8 @@ RLS policy `AuthzEntityMembership` requires:
 
 1. User signs up at `auth.localhost:3000/graphql` (main platform)
 2. Token created in `constructive` database's `constructive_auth_private` schema
-3. User tries to access `app-public-agent-os-*.localhost:3000/graphql`
-4. Server looks up token in `agent-os-*-auth-private.authenticate()` 
+3. User tries to access `app-public-agentic-db-*.localhost:3000/graphql`
+4. Server looks up token in `agentic-db-*-auth-private.authenticate()` 
 5. Token not found → user appears unauthenticated
 6. RLS denies access
 
@@ -94,8 +94,8 @@ WHERE am.name = 'rls_module';
 
 ### Auth Functions
 ```sql
--- Check what authenticate function does in agent-os db
-\df "agent-os-1772427594809-*-auth-private".authenticate
+-- Check what authenticate function does in agentic-db db
+\df "agentic-db-1772427594809-*-auth-private".authenticate
 ```
 
 ### Bootstrap User Logic
@@ -104,18 +104,18 @@ WHERE am.name = 'rls_module';
 
 ## Test Cases
 
-### 1. Sign up on agent-os database directly
+### 1. Sign up on agentic-db database directly
 ```bash
 # Use auth endpoint for the specific database
 curl -X POST "http://[::1]:3000/graphql" \
-  -H "Host: auth-agent-os-1772427594809.localhost" \
+  -H "Host: auth-agentic-db-1772427594809.localhost" \
   -H "Content-Type: application/json" \
   -d '{"query":"mutation { signUp(input: {email: \"test@example.com\", password: \"Test123!\"}) { result { accessToken userId } } }"}'
 ```
 
 ### 2. Check if bootstrapped user exists
 ```sql
--- In agent-os database
+-- In agentic-db database
 SELECT * FROM "<auth-schema>".users LIMIT 5;
 ```
 
@@ -144,7 +144,7 @@ SELECT * FROM "<auth-schema>".tokens WHERE token = '<token>';
 ## Related
 
 - Provisioning code: `packages/provision/src/provision.ts`
-- SDK codegen: `sdk/agent-os-sdk/`
+- SDK codegen: `sdk/agentic-db-sdk/`
 - CLI auth commands: `sdk/cli/generated/cli/commands/auth.ts`
 
 ---
@@ -166,15 +166,15 @@ SELECT encode(digest('b05ce4d60d...', 'sha256'), 'hex');
 -- Result: fe77158ed3567a0e683f2debd97bca0dfaa86db5bad16dc2cc6aed67bd6e88ae
 
 -- But the stored hash is:
-SELECT encode(secret_hash, 'hex') FROM "agent-os-*-auth-private".session_credentials;
+SELECT encode(secret_hash, 'hex') FROM "agentic-db-*-auth-private".session_credentials;
 -- Result: 80d7ad33aa2753a00031d026fa572a9cd58a55853cb75418fc32bc4206faa1d5
 ```
 
 ### Why This Happened
 
 The provision script was run **twice**, creating two databases:
-1. `agent-os-1772427381667` (first run)
-2. `agent-os-1772427594809` (second run, different token)
+1. `agentic-db-1772427381667` (first run)
+2. `agentic-db-1772427594809` (second run, different token)
 
 The `.env` file has the token from the **first run**, but we're using the DATABASE_ID from the **second run**.
 
@@ -184,9 +184,9 @@ Databases are **virtual** (multi-tenant schemas within `constructive` DB):
 
 ```
 constructive (Postgres database)
-├── agent-os-1772427594809-be847aa0-app-public    (tables)
-├── agent-os-1772427594809-be847aa0-auth-private  (sessions, credentials)
-├── agent-os-1772427594809-be847aa0-auth-public
+├── agentic-db-1772427594809-be847aa0-app-public    (tables)
+├── agentic-db-1772427594809-be847aa0-auth-private  (sessions, credentials)
+├── agentic-db-1772427594809-be847aa0-auth-public
 └── ... (many more schemas per database)
 ```
 
@@ -216,18 +216,18 @@ Could add a script to create a fresh admin token:
 
 ### The Real Bug
 
-The `app-public-agent-os-*` endpoint has **no RLS module configured**!
+The `app-public-agentic-db-*` endpoint has **no RLS module configured**!
 
 ```sql
--- API IDs for agent-os-1772427594809
+-- API IDs for agentic-db-1772427594809
 SELECT a.id, a.name, d.subdomain 
 FROM services_public.apis a 
 JOIN services_public.domains d ON a.id = d.api_id 
-WHERE d.subdomain LIKE '%agent-os-1772427594809%';
+WHERE d.subdomain LIKE '%agentic-db-1772427594809%';
 
 -- Results:
--- 414b84ee-... | public  | public-agent-os-1772427594809
--- 5174d102-... | app     | app-public-agent-os-1772427594809  <-- WE USE THIS ONE
+-- 414b84ee-... | public  | public-agentic-db-1772427594809
+-- 5174d102-... | app     | app-public-agentic-db-1772427594809  <-- WE USE THIS ONE
 
 -- RLS module exists for 'public' API but NOT for 'app' API:
 SELECT * FROM metaschema_modules_public.rls_module 
@@ -246,8 +246,8 @@ WHERE api_id = '5174d102-50fe-4859-9f44-0334f40f7e8c';
 
 | API | Subdomain | Has RLS Module | Schemas Exposed |
 |-----|-----------|----------------|-----------------|
-| `public` | `public-agent-os-*` | ✅ Yes | users, auth, memberships, profiles, etc. |
-| `app` | `app-public-agent-os-*` | ❌ No | app-public (contacts, companies, etc.) |
+| `public` | `public-agentic-db-*` | ✅ Yes | users, auth, memberships, profiles, etc. |
+| `app` | `app-public-agentic-db-*` | ❌ No | app-public (contacts, companies, etc.) |
 
 ### Why This Matters
 
@@ -310,10 +310,10 @@ ALTER TABLE metaschema_modules_public.rls_module ENABLE TRIGGER insert_rls_modul
 New users weren't being synced to `org_memberships_sprt`:
 
 ```sql
-INSERT INTO "agent-os-*-memberships-private".org_memberships_sprt 
+INSERT INTO "agentic-db-*-memberships-private".org_memberships_sprt 
   (is_owner, is_admin, permissions, actor_id, entity_id)
 SELECT is_owner, is_admin, permissions, actor_id, entity_id
-FROM "agent-os-*-memberships-public".org_memberships
+FROM "agentic-db-*-memberships-public".org_memberships
 WHERE actor_id = '<user-id>'
 ON CONFLICT (actor_id, entity_id) DO NOTHING;
 ```
@@ -351,9 +351,9 @@ UPDATE "<db-schema>-memberships-public".app_membership_defaults
 SET is_approved = true, is_verified = true;
 ```
 
-For agent-os-1772427594809:
+For agentic-db-1772427594809:
 ```sql
-UPDATE "agent-os-1772427594809-be847aa0-memberships-public".app_membership_defaults 
+UPDATE "agentic-db-1772427594809-be847aa0-memberships-public".app_membership_defaults 
 SET is_approved = true, is_verified = true;
 ```
 

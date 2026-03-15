@@ -13,7 +13,7 @@ import { execSync } from 'child_process';
 
 async function main() {
   const ts = Date.now();
-  const databaseName = `agent-os-v2-${ts}`;
+  const databaseName = `agentic-db-v2-${ts}`;
   const uniqueEmail = config.adminEmail.replace('@', `+${ts}@`);
 
   console.log('\n🚀 Agent-OS v2 Full Provisioning\n');

@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Chunk records via agent-os CLI
+CRUD operations for Chunk records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os chunk list
-agent-os chunk get --id <value>
-agent-os chunk create --entityId <value> --content <value> --startLine <value> --endLine <value> --embedding <value> --fileId <value> --repositoryId <value> --embeddingDistance <value>
-agent-os chunk update --id <value> [--entityId <value>] [--content <value>] [--startLine <value>] [--endLine <value>] [--embedding <value>] [--fileId <value>] [--repositoryId <value>] [--embeddingDistance <value>]
-agent-os chunk delete --id <value>
+agentic-db chunk list
+agentic-db chunk get --id <value>
+agentic-db chunk create --entityId <value> --content <value> --startLine <value> --endLine <value> --embedding <value> --fileId <value> --repositoryId <value> --embeddingDistance <value>
+agentic-db chunk update --id <value> [--entityId <value>] [--content <value>] [--startLine <value>] [--endLine <value>] [--embedding <value>] [--fileId <value>] [--repositoryId <value>] [--embeddingDistance <value>]
+agentic-db chunk delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os chunk delete --id <value>
 ### List all chunk records
 
 ```bash
-agent-os chunk list
+agentic-db chunk list
 ```
 
 ### Create a chunk
 
 ```bash
-agent-os chunk create --entityId "value" --content "value" --startLine "value" --endLine "value" --embedding "value" --fileId "value" --repositoryId "value" --embeddingDistance "value"
+agentic-db chunk create --entityId "value" --content "value" --startLine "value" --endLine "value" --embedding "value" --fileId "value" --repositoryId "value" --embeddingDistance "value"
 ```
 
 ### Get a chunk by id
 
 ```bash
-agent-os chunk get --id <value>
+agentic-db chunk get --id <value>
 ```

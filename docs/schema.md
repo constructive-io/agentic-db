@@ -1,6 +1,6 @@
 # Agent OS Schema
 
-The Agent OS database (`agent-os`) is a schema-isolated tenant within the Constructive platform. It consists of 34 tables organized into functional domains.
+The Agent OS database (`agentic-db`) is a schema-isolated tenant within the Constructive platform. It consists of 34 tables organized into functional domains.
 
 ## Core Capabilities
 - **Vector Search:** All primary entities have a `vector(768)` embedding column indexed with HNSW.

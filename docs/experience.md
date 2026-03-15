@@ -3,7 +3,7 @@
 ## 2026-03-03 - Agent-OS Upgrade & Troubleshooting
 
 ### Context
-I am currently upgrading the `agent-os` platform to use the new `graphile-pgvector-plugin` and `graphile-pg-textsearch-plugin` (BM25) for Hybrid RAG. This involves updating the schema provisioning scripts, regenerating the SDK, and re-importing data.
+I am currently upgrading the `agentic-db` platform to use the new `graphile-pgvector-plugin` and `graphile-pg-textsearch-plugin` (BM25) for Hybrid RAG. This involves updating the schema provisioning scripts, regenerating the SDK, and re-importing data.
 
 ### Issues Encountered
 
@@ -32,7 +32,7 @@ I am currently upgrading the `agent-os` platform to use the new `graphile-pgvect
 ### Next Steps
 - Resolve the port conflict.
 - Run the provisioning scripts.
-- Regenerate the `agent-os` SDK.
+- Regenerate the `agentic-db` SDK.
 
 ---
 
@@ -79,7 +79,7 @@ I am currently upgrading the `agent-os` platform to use the new `graphile-pgvect
 #### Full Provisioning Flow Works (Minus Extensions)
 - Successfully ran the complete flow: `signUp` → `createUserDatabase` → provision tables with fields.
 - The `NodeHttpAdapter` with explicit `Host` header and `http://[::1]:3000/graphql` physical URL works reliably for all subdomains (`api.localhost`, `auth.localhost`).
-- New database `agent-os-1772566624109` was created with ID `59342a6f-84c4-40bd-9c18-fbf06bce7f49`.
+- New database `agentic-db-1772566624109` was created with ID `59342a6f-84c4-40bd-9c18-fbf06bce7f49`.
 
 #### SDK ORM Mutation API is Clean
 - Once you know the mutation names and field names, the SDK's `QueryBuilder` pattern is elegant:

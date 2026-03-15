@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for EventVenue records via agent-os CLI
+CRUD operations for EventVenue records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os event-venue list
-agent-os event-venue get --id <value>
-agent-os event-venue create --eventId <value> --venueId <value> --entityId <value>
-agent-os event-venue update --id <value> [--eventId <value>] [--venueId <value>] [--entityId <value>]
-agent-os event-venue delete --id <value>
+agentic-db event-venue list
+agentic-db event-venue get --id <value>
+agentic-db event-venue create --eventId <value> --venueId <value> --entityId <value>
+agentic-db event-venue update --id <value> [--eventId <value>] [--venueId <value>] [--entityId <value>]
+agentic-db event-venue delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-os event-venue delete --id <value>
 ### List all eventVenue records
 
 ```bash
-agent-os event-venue list
+agentic-db event-venue list
 ```
 
 ### Create a eventVenue
 
 ```bash
-agent-os event-venue create --eventId "value" --venueId "value" --entityId "value"
+agentic-db event-venue create --eventId "value" --venueId "value" --entityId "value"
 ```
 
 ### Get a eventVenue by id
 
 ```bash
-agent-os event-venue get --id <value>
+agentic-db event-venue get --id <value>
 ```

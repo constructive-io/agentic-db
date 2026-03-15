@@ -1,28 +1,28 @@
 ---
 name: cli-default
-description: CLI tool (agent-os) for the default API — provides CRUD commands for 34 tables and 0 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 34 tables and 0 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agent-os) for the default API — provides CRUD commands for 34 tables and 0 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 34 tables and 0 custom operations
 
 ## Usage
 
 ```bash
 # Context management
-agent-os context create <name> --endpoint <url>
-agent-os context use <name>
+agentic-db context create <name> --endpoint <url>
+agentic-db context use <name>
 
 # Authentication
-agent-os auth set-token <token>
+agentic-db auth set-token <token>
 
 # CRUD for any table (e.g. company-image)
-agent-os company-image list
-agent-os company-image get --id <value>
-agent-os company-image create --<field> <value>
+agentic-db company-image list
+agentic-db company-image get --id <value>
+agentic-db company-image create --<field> <value>
 ```
 
 ## Examples
@@ -30,10 +30,10 @@ agent-os company-image create --<field> <value>
 ### Set up and query
 
 ```bash
-agent-os context create local --endpoint http://localhost:5000/graphql
-agent-os context use local
-agent-os auth set-token <token>
-agent-os company-image list
+agentic-db context create local --endpoint http://localhost:5000/graphql
+agentic-db context use local
+agentic-db auth set-token <token>
+agentic-db company-image list
 ```
 
 ## References

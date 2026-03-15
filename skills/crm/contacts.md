@@ -29,8 +29,8 @@ Manage contacts in the CRM with automatic embedding generation for semantic sear
 ## Insert Contact
 
 ```typescript
-import { createClient } from '@agent-os/codegen/generated/agent-os-sdk/orm';
-import { generateEmbedding } from '@agent-os/scripts/embeddings';
+import { createClient } from '@agentic-db/codegen/generated/agentic-db-sdk/orm';
+import { generateEmbedding } from '@agentic-db/scripts/embeddings';
 
 async function insertContact(db, data: {
   entityId: string;

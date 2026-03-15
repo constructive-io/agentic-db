@@ -1,11 +1,11 @@
 {
   "name": "@agentic-sdk/cli",
   "version": "0.0.1",
-  "description": "CLI for agent-os database operations",
+  "description": "CLI for agentic-db database operations",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "license": "MIT",
   "bin": {
-    "agent-os": "./generated/cli/index.js"
+    "agentic-db": "./generated/cli/index.js"
   },
   "scripts": {
     "generate": "tsx src/generate.ts",
@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@agentic-sdk/schemas": "workspace:*",
-    "@constructive-io/graphql-codegen": "^4.8.0",
+    "@constructive-io/graphql-codegen": "^4.14.2",
     "@types/node": "^22.0.0",
     "dotenv": "^16.4.5",
     "tsx": "^4.19.0",

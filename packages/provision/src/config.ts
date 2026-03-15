@@ -3,9 +3,9 @@ import 'dotenv/config';
 export const config = {
   apiEndpoint: process.env.API_ENDPOINT || 'http://api.localhost:3000/graphql',
   authEndpoint: process.env.AUTH_ENDPOINT || 'http://auth.localhost:3000/graphql',
-  databaseName: process.env.DATABASE_NAME || 'agent-os',
+  databaseName: process.env.DATABASE_NAME || 'agentic-db',
   databaseId: process.env.DATABASE_ID,
-  adminEmail: process.env.ADMIN_EMAIL || 'admin@agent-os.local',
+  adminEmail: process.env.ADMIN_EMAIL || 'admin@agentic-db.local',
   adminPassword: process.env.ADMIN_PASSWORD || 'AgentOS2026!',
   get authHeaders() {
     return this.accessToken ? { Authorization: `Bearer ${this.accessToken}` } : {};

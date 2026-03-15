@@ -1,17 +1,17 @@
-# agent-os-venue
+# agentic-db-venue
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Venue records via agent-os CLI
+CRUD operations for Venue records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-os venue list
-agent-os venue get --id <value>
-agent-os venue create --entityId <value> --name <value> --neighborhood <value> --city <value> --status <value> --notes <value>
-agent-os venue update --id <value> [--entityId <value>] [--name <value>] [--neighborhood <value>] [--city <value>] [--status <value>] [--notes <value>]
-agent-os venue delete --id <value>
+agentic-db venue list
+agentic-db venue get --id <value>
+agentic-db venue create --entityId <value> --name <value> --neighborhood <value> --city <value> --status <value> --notes <value>
+agentic-db venue update --id <value> [--entityId <value>] [--name <value>] [--neighborhood <value>] [--city <value>] [--status <value>] [--notes <value>]
+agentic-db venue delete --id <value>
 ```
 
 ## Examples
@@ -19,29 +19,29 @@ agent-os venue delete --id <value>
 ### List all venue records
 
 ```bash
-agent-os venue list
+agentic-db venue list
 ```
 
 ### Create a venue
 
 ```bash
-agent-os venue create --entityId "value" --name "value" --neighborhood "value" --city "value" --status "value" --notes "value"
+agentic-db venue create --entityId "value" --name "value" --neighborhood "value" --city "value" --status "value" --notes "value"
 ```
 
 ### Get a venue by id
 
 ```bash
-agent-os venue get --id <value>
+agentic-db venue get --id <value>
 ```
 
 ### Update a venue
 
 ```bash
-agent-os venue update --id <value> --entityId "new-value"
+agentic-db venue update --id <value> --entityId "new-value"
 ```
 
 ### Delete a venue
 
 ```bash
-agent-os venue delete --id <value>
+agentic-db venue delete --id <value>
 ```

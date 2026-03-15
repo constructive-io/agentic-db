@@ -1,11 +1,11 @@
 ---
-name: agent-os-rules
-description: Development rules and standards for the agent-os workspace. Read this first before any development work.
+name: agentic-db-rules
+description: Development rules and standards for the agentic-db workspace. Read this first before any development work.
 ---
 
 # Agent-OS Development Rules
 
-**These rules are mandatory for all development in agent-os.**
+**These rules are mandatory for all development in agentic-db.**
 
 ---
 
@@ -110,7 +110,7 @@ import { generate } from '@constructive-io/graphql-codegen';
 
 await generate({
   endpoint: `http://app-public-${dbName}.localhost:3000/graphql`,
-  output: './generated/agent-os-sdk',
+  output: './generated/agentic-db-sdk',
   orm: true,
   nodeHttpAdapter: true,
   docs: {
@@ -146,14 +146,14 @@ await generate({
 import { something } from '../../other-package/src/thing';
 
 // ✅ CORRECT
-import { something } from '@agent-os/other-package';
+import { something } from '@agentic-db/other-package';
 ```
 
 In `package.json`:
 ```json
 {
   "dependencies": {
-    "@agent-os/other-package": "workspace:*"
+    "@agentic-db/other-package": "workspace:*"
   }
 }
 ```
@@ -166,7 +166,7 @@ Every package must use `makage` for builds with `dist/` folder publishing:
 
 ```json
 {
-  "name": "@agent-os/my-package",
+  "name": "@agentic-db/my-package",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",

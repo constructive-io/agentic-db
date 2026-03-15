@@ -8,7 +8,7 @@ import { resolve } from 'path';
 dotenv.config({ path: resolve(__dirname, '../../../.env') });
 
 export const config = {
-  databaseName: process.env.DATABASE_NAME || 'agent-os-1772448876647',
+  databaseName: process.env.DATABASE_NAME || 'agentic-db-1772448876647',
   accessToken: process.env.ACCESS_TOKEN || '',
   
   // Ollama config
