@@ -10,12 +10,12 @@
     "required": true
   },
   {
-    "name": "agent-db",
-    "message": "Enter the module name",
+        "name": "agentic-db",
+        "message": "Enter the module name",
     "required": true
   },
   {
-    "name": "pgpm-installable agent-db SQL module for the Agent OS personal database",
+    "name": "pgpm-installable agentic-db SQL module for the Agent OS personal database",
     "message": "Enter the module description",
     "required": true
   },
