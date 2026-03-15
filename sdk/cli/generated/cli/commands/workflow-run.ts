@@ -20,6 +20,9 @@ const fieldSchema: FieldSchema = {
   input: 'json',
   output: 'json',
   error: 'string',
+  statusTrgmSimilarity: 'float',
+  errorTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nworkflow-run <command>\n\nCommands:\n  list                  List all workflowRun records\n  get                   Get a workflowRun by ID\n  create                Create a new workflowRun\n  update                Update an existing workflowRun\n  delete                Delete a workflowRun\n\n  --help, -h            Show this help message\n';

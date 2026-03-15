@@ -1,0 +1,7 @@
+-- Revert: schemas/agent-os-1773547105079-c748b4c3-app-public/tables/habits/columns/name/alterations/alt0000003062
+
+
+ALTER TABLE "agent-os-1773547105079-c748b4c3-app-public".habits 
+  ALTER COLUMN name DROP NOT NULL;
+
+

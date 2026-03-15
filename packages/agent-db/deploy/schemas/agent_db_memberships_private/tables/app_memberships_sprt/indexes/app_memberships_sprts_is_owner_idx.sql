@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_memberships_private/tables/app_memberships_sprt/columns/is_owner/column
 
 
-CREATE INDEX app_memberships_sprts_is_owner_idx ON agent_db_memberships_private.app_memberships_sprt USING BTREE ( is_owner );
+CREATE INDEX app_memberships_sprts_is_owner_idx ON "agent_db_memberships_private".app_memberships_sprt USING BTREE ( is_owner );
 

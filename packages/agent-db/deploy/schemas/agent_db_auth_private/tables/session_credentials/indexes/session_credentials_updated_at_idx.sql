@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_auth_private/tables/session_credentials/columns/updated_at/column
 
 
-CREATE INDEX session_credentials_updated_at_idx ON agent_db_auth_private.session_credentials ( updated_at );
+CREATE INDEX session_credentials_updated_at_idx ON "agent_db_auth_private".session_credentials ( updated_at );
 

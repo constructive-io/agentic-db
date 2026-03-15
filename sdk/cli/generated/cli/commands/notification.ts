@@ -21,6 +21,13 @@ const fieldSchema: FieldSchema = {
   actionUrl: 'string',
   sourceEntityId: 'uuid',
   sourceEntityType: 'string',
+  titleTrgmSimilarity: 'float',
+  bodyTrgmSimilarity: 'float',
+  typeTrgmSimilarity: 'float',
+  priorityTrgmSimilarity: 'float',
+  actionUrlTrgmSimilarity: 'float',
+  sourceEntityTypeTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nnotification <command>\n\nCommands:\n  list                  List all notification records\n  get                   Get a notification by ID\n  create                Create a new notification\n  update                Update an existing notification\n  delete                Delete a notification\n\n  --help, -h            Show this help message\n';

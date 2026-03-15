@@ -3,15 +3,15 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/contact_companies/table
--- requires: schemas/agent_db_app_public/tables/notes/constraints/notes_contact_id_fkey/constraint
+-- requires: schemas/agent_db_app_public/tables/venue_links/constraints/venue_links_venue_id_fkey/constraint
 
 
-CREATE POLICY auth_ins_entity_membership ON agent_db_app_public.contact_companies
+CREATE POLICY auth_ins_entity_membership ON "agent_db_app_public".contact_companies
 FOR INSERT
 TO authenticated
 WITH CHECK (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM agent_db_memberships_private.org_memberships_sprt AS org_sprt
+  FROM "agent_db_memberships_private".org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

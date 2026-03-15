@@ -9,8 +9,8 @@ CRUD operations for Prompt records via agent-db CLI
 ```bash
 agent-db prompt list
 agent-db prompt get --id <value>
-agent-db prompt create --entityId <value> --name <value> --content <value> --embeddingDistance <value> [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-agent-db prompt update --id <value> [--entityId <value>] [--name <value>] [--content <value>] [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-db prompt create --entityId <value> --name <value> --content <value> --nameTrgmSimilarity <value> --contentTrgmSimilarity <value> --typeTrgmSimilarity <value> --modelTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db prompt update --id <value> [--entityId <value>] [--name <value>] [--content <value>] [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--nameTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--modelTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
 agent-db prompt delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-db prompt list
 ### Create a prompt
 
 ```bash
-agent-db prompt create --entityId <value> --name <value> --content <value> --embeddingDistance <value> [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db prompt create --entityId <value> --name <value> --content <value> --nameTrgmSimilarity <value> --contentTrgmSimilarity <value> --typeTrgmSimilarity <value> --modelTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a prompt by id

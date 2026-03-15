@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_memberships_private/tables/org_memberships_sprt/table
 
 
-ALTER TABLE agent_db_memberships_private.org_memberships_sprt 
+ALTER TABLE "agent_db_memberships_private".org_memberships_sprt 
   ADD COLUMN permissions bit(24);
 

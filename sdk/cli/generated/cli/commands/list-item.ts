@@ -19,6 +19,9 @@ const fieldSchema: FieldSchema = {
   isChecked: 'boolean',
   refId: 'uuid',
   refType: 'string',
+  contentTrgmSimilarity: 'float',
+  refTypeTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nlist-item <command>\n\nCommands:\n  list                  List all listItem records\n  get                   Get a listItem by ID\n  create                Create a new listItem\n  update                Update an existing listItem\n  delete                Delete a listItem\n\n  --help, -h            Show this help message\n';

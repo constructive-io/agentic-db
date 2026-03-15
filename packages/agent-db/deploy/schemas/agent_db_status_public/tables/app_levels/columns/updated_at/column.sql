@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_status_public/tables/app_levels/table
 
 
-ALTER TABLE agent_db_status_public.app_levels 
+ALTER TABLE "agent_db_status_public".app_levels 
   ADD COLUMN updated_at timestamptz;
 

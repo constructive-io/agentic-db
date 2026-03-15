@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION agent_db_profiles_private.org_memberships_profile_sync_tg ()
+CREATE FUNCTION "agent_db_profiles_private".org_memberships_profile_sync_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
@@ -16,7 +16,7 @@ BEGIN
     END IF;
     IF (NEW.profile_id IS NOT NULL) THEN
         SELECT permissions INTO v_profile_permissions
-        FROM agent_db_profiles_public.org_profiles
+        FROM "agent_db_profiles_public".org_profiles
         WHERE id = NEW.profile_id;
         IF (FOUND AND v_profile_permissions IS NOT NULL) THEN
             NEW.permissions := NEW.granted | v_profile_permissions;

@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_status_public/schema
 
 
-CREATE TABLE agent_db_status_public.app_level_requirements ();
+CREATE TABLE "agent_db_status_public".app_level_requirements ();
 

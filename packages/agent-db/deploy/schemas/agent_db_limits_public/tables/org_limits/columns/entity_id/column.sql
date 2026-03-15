@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_limits_public/tables/org_limits/table
 
 
-ALTER TABLE agent_db_limits_public.org_limits 
+ALTER TABLE "agent_db_limits_public".org_limits 
   ADD COLUMN entity_id uuid;
 

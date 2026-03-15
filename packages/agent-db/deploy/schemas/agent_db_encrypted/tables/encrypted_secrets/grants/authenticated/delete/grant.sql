@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_encrypted/tables/encrypted_secrets/table
 
 
-GRANT DELETE ON agent_db_encrypted.encrypted_secrets TO authenticated;
+GRANT DELETE ON "agent_db_encrypted".encrypted_secrets TO authenticated;
 

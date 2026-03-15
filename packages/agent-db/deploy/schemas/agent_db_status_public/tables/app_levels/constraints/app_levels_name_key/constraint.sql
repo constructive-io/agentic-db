@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_status_public/tables/app_levels/table
 
 
-ALTER TABLE agent_db_status_public.app_levels 
+ALTER TABLE "agent_db_status_public".app_levels 
   ADD CONSTRAINT app_levels_name_key 
     UNIQUE (name);
 

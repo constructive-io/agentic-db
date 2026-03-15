@@ -20,7 +20,11 @@ const fieldSchema: FieldSchema = {
   toolCalls: 'json',
   embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  roleTrgmSimilarity: 'float',
+  contentTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nchat-message <command>\n\nCommands:\n  list                  List all chatMessage records\n  get                   Get a chatMessage by ID\n  create                Create a new chatMessage\n  update                Update an existing chatMessage\n  delete                Delete a chatMessage\n\n  --help, -h            Show this help message\n';
@@ -85,7 +89,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           toolCalls: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -124,7 +127,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           toolCalls: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -226,7 +228,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           toolCalls: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -334,7 +335,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           toolCalls: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_profiles_public/tables/org_profile_permissions/table
 
 
-GRANT UPDATE ON agent_db_profiles_public.org_profile_permissions TO authenticated;
+GRANT UPDATE ON "agent_db_profiles_public".org_profile_permissions TO authenticated;
 

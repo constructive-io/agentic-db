@@ -22,7 +22,13 @@ const fieldSchema: FieldSchema = {
   tags: 'string',
   embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  nameTrgmSimilarity: 'float',
+  destinationTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  notesTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\ntrip <command>\n\nCommands:\n  list                  List all trip records\n  get                   Get a trip by ID\n  create                Create a new trip\n  update                Update an existing trip\n  delete                Delete a trip\n\n  --help, -h            Show this help message\n';
@@ -89,7 +95,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -130,7 +135,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -246,7 +250,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -371,7 +374,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

@@ -20,7 +20,11 @@ const fieldSchema: FieldSchema = {
   tags: 'string',
   embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  titleTrgmSimilarity: 'float',
+  triggerConditionsTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nblueprint <command>\n\nCommands:\n  list                  List all blueprint records\n  get                   Get a blueprint by ID\n  create                Create a new blueprint\n  update                Update an existing blueprint\n  delete                Delete a blueprint\n\n  --help, -h            Show this help message\n';
@@ -85,7 +89,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -124,7 +127,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -222,7 +224,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -329,7 +330,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

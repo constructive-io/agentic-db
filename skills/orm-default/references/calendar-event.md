@@ -9,7 +9,7 @@ ORM operations for CalendarEvent records
 ```typescript
 db.calendarEvent.findMany({ select: { id: true } }).execute()
 db.calendarEvent.findOne({ id: '<value>', select: { id: true } }).execute()
-db.calendarEvent.create({ data: { entityId: '<value>', calendarAccountId: '<value>', remoteId: '<value>', title: '<value>', description: '<value>', startAt: '<value>', endAt: '<value>', allDay: '<value>', location: '<value>', recurrenceRule: '<value>', status: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.calendarEvent.create({ data: { entityId: '<value>', calendarAccountId: '<value>', remoteId: '<value>', title: '<value>', description: '<value>', startAt: '<value>', endAt: '<value>', allDay: '<value>', location: '<value>', recurrenceRule: '<value>', status: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', remoteIdTrgmSimilarity: '<value>', titleTrgmSimilarity: '<value>', descriptionTrgmSimilarity: '<value>', locationTrgmSimilarity: '<value>', recurrenceRuleTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.calendarEvent.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.calendarEvent.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.calendarEvent.findMany({
 
 ```typescript
 const item = await db.calendarEvent.create({
-  data: { entityId: 'value', calendarAccountId: 'value', remoteId: 'value', title: 'value', description: 'value', startAt: 'value', endAt: 'value', allDay: 'value', location: 'value', recurrenceRule: 'value', status: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', calendarAccountId: 'value', remoteId: 'value', title: 'value', description: 'value', startAt: 'value', endAt: 'value', allDay: 'value', location: 'value', recurrenceRule: 'value', status: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', remoteIdTrgmSimilarity: 'value', titleTrgmSimilarity: 'value', descriptionTrgmSimilarity: 'value', locationTrgmSimilarity: 'value', recurrenceRuleTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

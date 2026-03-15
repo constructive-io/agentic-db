@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_permissions_public/tables/org_permission_defaults/table
 
 
-ALTER TABLE agent_db_permissions_public.org_permission_defaults 
+ALTER TABLE "agent_db_permissions_public".org_permission_defaults 
   ADD CONSTRAINT org_permission_defaults_pkey PRIMARY KEY (id);
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/images/columns/meta/column
 
 
-ALTER TABLE agent_db_app_public.images 
+ALTER TABLE "agent_db_app_public".images 
   ADD COLUMN alt_text text;
 

@@ -9,7 +9,7 @@ ORM operations for Attachment records
 ```typescript
 db.attachment.findMany({ select: { id: true } }).execute()
 db.attachment.findOne({ id: '<value>', select: { id: true } }).execute()
-db.attachment.create({ data: { entityId: '<value>', url: '<value>', filename: '<value>', mimeType: '<value>', sizeBytes: '<value>', attachableType: '<value>', attachableId: '<value>' }, select: { id: true } }).execute()
+db.attachment.create({ data: { entityId: '<value>', url: '<value>', filename: '<value>', mimeType: '<value>', sizeBytes: '<value>', attachableType: '<value>', attachableId: '<value>', urlTrgmSimilarity: '<value>', filenameTrgmSimilarity: '<value>', mimeTypeTrgmSimilarity: '<value>', attachableTypeTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.attachment.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.attachment.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.attachment.findMany({
 
 ```typescript
 const item = await db.attachment.create({
-  data: { entityId: 'value', url: 'value', filename: 'value', mimeType: 'value', sizeBytes: 'value', attachableType: 'value', attachableId: 'value' },
+  data: { entityId: 'value', url: 'value', filename: 'value', mimeType: 'value', sizeBytes: 'value', attachableType: 'value', attachableId: 'value', urlTrgmSimilarity: 'value', filenameTrgmSimilarity: 'value', mimeTypeTrgmSimilarity: 'value', attachableTypeTrgmSimilarity: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

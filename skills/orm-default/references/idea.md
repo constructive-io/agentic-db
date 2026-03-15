@@ -9,7 +9,7 @@ ORM operations for Idea records
 ```typescript
 db.idea.findMany({ select: { id: true } }).execute()
 db.idea.findOne({ id: '<value>', select: { id: true } }).execute()
-db.idea.create({ data: { entityId: '<value>', content: '<value>', source: '<value>', status: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.idea.create({ data: { entityId: '<value>', content: '<value>', source: '<value>', status: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', contentTrgmSimilarity: '<value>', sourceTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.idea.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.idea.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.idea.findMany({
 
 ```typescript
 const item = await db.idea.create({
-  data: { entityId: 'value', content: 'value', source: 'value', status: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', content: 'value', source: 'value', status: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', contentTrgmSimilarity: 'value', sourceTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

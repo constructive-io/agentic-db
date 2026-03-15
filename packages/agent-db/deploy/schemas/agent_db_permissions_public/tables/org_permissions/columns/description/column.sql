@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_permissions_public/tables/org_permissions/table
 
 
-ALTER TABLE agent_db_permissions_public.org_permissions 
+ALTER TABLE "agent_db_permissions_public".org_permissions 
   ADD COLUMN description text;
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-GRANT SELECT ON agent_db_app_public.images TO authenticated;
+GRANT SELECT ON "agent_db_app_public".images TO authenticated;
 

@@ -6,9 +6,9 @@
 -- requires: schemas/agent_db_profiles_public/tables/app_profile_grants/table
 
 
-ALTER TABLE agent_db_profiles_public.app_profile_grants 
+ALTER TABLE "agent_db_profiles_public".app_profile_grants 
   ADD CONSTRAINT app_profile_grants_membership_id_fkey 
     FOREIGN KEY(membership_id) 
-    REFERENCES agent_db_memberships_public.app_memberships (id) 
+    REFERENCES "agent_db_memberships_public".app_memberships (id) 
     ON DELETE CASCADE;
 

@@ -9,7 +9,7 @@ ORM operations for Repository records
 ```typescript
 db.repository.findMany({ select: { id: true } }).execute()
 db.repository.findOne({ id: '<value>', select: { id: true } }).execute()
-db.repository.create({ data: { entityId: '<value>', name: '<value>', url: '<value>', description: '<value>', defaultBranch: '<value>', lastSyncedAt: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.repository.create({ data: { entityId: '<value>', name: '<value>', url: '<value>', description: '<value>', defaultBranch: '<value>', lastSyncedAt: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', nameTrgmSimilarity: '<value>', urlTrgmSimilarity: '<value>', descriptionTrgmSimilarity: '<value>', defaultBranchTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.repository.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.repository.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.repository.findMany({
 
 ```typescript
 const item = await db.repository.create({
-  data: { entityId: 'value', name: 'value', url: 'value', description: 'value', defaultBranch: 'value', lastSyncedAt: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', name: 'value', url: 'value', description: 'value', defaultBranch: 'value', lastSyncedAt: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', nameTrgmSimilarity: 'value', urlTrgmSimilarity: 'value', descriptionTrgmSimilarity: 'value', defaultBranchTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

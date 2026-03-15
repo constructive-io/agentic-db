@@ -9,7 +9,7 @@ ORM operations for WorkflowStep records
 ```typescript
 db.workflowStep.findMany({ select: { id: true } }).execute()
 db.workflowStep.findOne({ id: '<value>', select: { id: true } }).execute()
-db.workflowStep.create({ data: { entityId: '<value>', workflowId: '<value>', stepOrder: '<value>', actionType: '<value>', actionConfig: '<value>', onSuccessStep: '<value>', onFailureStep: '<value>', timeoutMs: '<value>' }, select: { id: true } }).execute()
+db.workflowStep.create({ data: { entityId: '<value>', workflowId: '<value>', stepOrder: '<value>', actionType: '<value>', actionConfig: '<value>', onSuccessStep: '<value>', onFailureStep: '<value>', timeoutMs: '<value>', actionTypeTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.workflowStep.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.workflowStep.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.workflowStep.findMany({
 
 ```typescript
 const item = await db.workflowStep.create({
-  data: { entityId: 'value', workflowId: 'value', stepOrder: 'value', actionType: 'value', actionConfig: 'value', onSuccessStep: 'value', onFailureStep: 'value', timeoutMs: 'value' },
+  data: { entityId: 'value', workflowId: 'value', stepOrder: 'value', actionType: 'value', actionConfig: 'value', onSuccessStep: 'value', onFailureStep: 'value', timeoutMs: 'value', actionTypeTrgmSimilarity: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

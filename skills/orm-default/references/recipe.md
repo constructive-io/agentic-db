@@ -9,7 +9,7 @@ ORM operations for Recipe records
 ```typescript
 db.recipe.findMany({ select: { id: true } }).execute()
 db.recipe.findOne({ id: '<value>', select: { id: true } }).execute()
-db.recipe.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', cuisine: '<value>', prepTimeMinutes: '<value>', cookTimeMinutes: '<value>', servings: '<value>', difficulty: '<value>', ingredients: '<value>', instructions: '<value>', sourceUrl: '<value>', imageUrl: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.recipe.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', cuisine: '<value>', prepTimeMinutes: '<value>', cookTimeMinutes: '<value>', servings: '<value>', difficulty: '<value>', ingredients: '<value>', instructions: '<value>', sourceUrl: '<value>', imageUrl: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', nameTrgmSimilarity: '<value>', descriptionTrgmSimilarity: '<value>', cuisineTrgmSimilarity: '<value>', difficultyTrgmSimilarity: '<value>', sourceUrlTrgmSimilarity: '<value>', imageUrlTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.recipe.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.recipe.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.recipe.findMany({
 
 ```typescript
 const item = await db.recipe.create({
-  data: { entityId: 'value', name: 'value', description: 'value', cuisine: 'value', prepTimeMinutes: 'value', cookTimeMinutes: 'value', servings: 'value', difficulty: 'value', ingredients: 'value', instructions: 'value', sourceUrl: 'value', imageUrl: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', name: 'value', description: 'value', cuisine: 'value', prepTimeMinutes: 'value', cookTimeMinutes: 'value', servings: 'value', difficulty: 'value', ingredients: 'value', instructions: 'value', sourceUrl: 'value', imageUrl: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', nameTrgmSimilarity: 'value', descriptionTrgmSimilarity: 'value', cuisineTrgmSimilarity: 'value', difficultyTrgmSimilarity: 'value', sourceUrlTrgmSimilarity: 'value', imageUrlTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

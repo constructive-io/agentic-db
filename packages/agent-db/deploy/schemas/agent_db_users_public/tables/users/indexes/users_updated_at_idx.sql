@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_users_public/tables/users/columns/updated_at/column
 
 
-CREATE INDEX users_updated_at_idx ON agent_db_users_public.users ( updated_at );
+CREATE INDEX users_updated_at_idx ON "agent_db_users_public".users ( updated_at );
 

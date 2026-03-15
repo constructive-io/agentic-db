@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/event_links/columns/embedding/column
 
 
-GRANT UPDATE ON agent_db_app_public.venue_links TO authenticated;
+GRANT UPDATE ON "agent_db_app_public".venue_links TO authenticated;
 

@@ -17,7 +17,10 @@ const fieldSchema: FieldSchema = {
   url: 'string',
   embedding: 'string',
   eventId: 'uuid',
-  embeddingDistance: 'float',
+  titleTrgmSimilarity: 'float',
+  urlTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nevent-link <command>\n\nCommands:\n  list                  List all eventLink records\n  get                   Get a eventLink by ID\n  create                Create a new eventLink\n  update                Update an existing eventLink\n  delete                Delete a eventLink\n\n  --help, -h            Show this help message\n';
@@ -79,7 +82,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           url: true,
           embedding: true,
           eventId: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -115,7 +117,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           url: true,
           embedding: true,
           eventId: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -185,7 +186,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           url: true,
           embedding: true,
           eventId: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -264,7 +264,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           url: true,
           embedding: true,
           eventId: true,
-          embeddingDistance: true,
         },
       })
       .execute();

@@ -26,7 +26,15 @@ const fieldSchema: FieldSchema = {
   tags: 'string',
   embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  remoteIdTrgmSimilarity: 'float',
+  titleTrgmSimilarity: 'float',
+  descriptionTrgmSimilarity: 'float',
+  locationTrgmSimilarity: 'float',
+  recurrenceRuleTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\ncalendar-event <command>\n\nCommands:\n  list                  List all calendarEvent records\n  get                   Get a calendarEvent by ID\n  create                Create a new calendarEvent\n  update                Update an existing calendarEvent\n  delete                Delete a calendarEvent\n\n  --help, -h            Show this help message\n';
@@ -97,7 +105,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -142,7 +149,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -296,7 +302,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -456,7 +461,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

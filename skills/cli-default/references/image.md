@@ -9,8 +9,8 @@ CRUD operations for Image records via agent-db CLI
 ```bash
 agent-db image list
 agent-db image get --id <value>
-agent-db image create --entityId <value> --url <value> --embeddingDistance <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
-agent-db image update --id <value> [--entityId <value>] [--url <value>] [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>] [--embeddingDistance <value>]
+agent-db image create --entityId <value> --url <value> --urlTrgmSimilarity <value> --altTextTrgmSimilarity <value> --captionTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
+agent-db image update --id <value> [--entityId <value>] [--url <value>] [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>] [--urlTrgmSimilarity <value>] [--altTextTrgmSimilarity <value>] [--captionTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
 agent-db image delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-db image list
 ### Create a image
 
 ```bash
-agent-db image create --entityId <value> --url <value> --embeddingDistance <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
+agent-db image create --entityId <value> --url <value> --urlTrgmSimilarity <value> --altTextTrgmSimilarity <value> --captionTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
 ```
 
 ### Get a image by id

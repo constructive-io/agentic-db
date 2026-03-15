@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_status_public/tables/org_steps/columns/created_at/column
 
 
-CREATE INDEX org_steps_created_at_idx ON agent_db_status_public.org_steps ( created_at );
+CREATE INDEX org_steps_created_at_idx ON "agent_db_status_public".org_steps ( created_at );
 

@@ -9,7 +9,7 @@ ORM operations for UserSetting records
 ```typescript
 db.userSetting.findMany({ select: { id: true } }).execute()
 db.userSetting.findOne({ id: '<value>', select: { id: true } }).execute()
-db.userSetting.create({ data: { entityId: '<value>', key: '<value>', value: '<value>', category: '<value>' }, select: { id: true } }).execute()
+db.userSetting.create({ data: { entityId: '<value>', key: '<value>', value: '<value>', category: '<value>', keyTrgmSimilarity: '<value>', categoryTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.userSetting.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.userSetting.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.userSetting.findMany({
 
 ```typescript
 const item = await db.userSetting.create({
-  data: { entityId: 'value', key: 'value', value: 'value', category: 'value' },
+  data: { entityId: 'value', key: 'value', value: 'value', category: 'value', keyTrgmSimilarity: 'value', categoryTrgmSimilarity: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

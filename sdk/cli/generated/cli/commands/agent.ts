@@ -30,7 +30,19 @@ const fieldSchema: FieldSchema = {
   lastActiveAt: 'string',
   embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  nameTrgmSimilarity: 'float',
+  roleTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  personaTrgmSimilarity: 'float',
+  backstoryTrgmSimilarity: 'float',
+  communicationStyleTrgmSimilarity: 'float',
+  systemPromptTrgmSimilarity: 'float',
+  preferredModelTrgmSimilarity: 'float',
+  moodTrgmSimilarity: 'float',
+  focusTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nagent <command>\n\nCommands:\n  list                  List all agent records\n  get                   Get a agent by ID\n  create                Create a new agent\n  update                Update an existing agent\n  delete                Delete a agent\n\n  --help, -h            Show this help message\n';
@@ -105,7 +117,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           lastActiveAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -154,7 +165,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           lastActiveAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -342,7 +352,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           lastActiveAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -539,7 +548,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           lastActiveAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

@@ -9,7 +9,7 @@ ORM operations for ListItem records
 ```typescript
 db.listItem.findMany({ select: { id: true } }).execute()
 db.listItem.findOne({ id: '<value>', select: { id: true } }).execute()
-db.listItem.create({ data: { entityId: '<value>', listId: '<value>', content: '<value>', position: '<value>', isChecked: '<value>', refId: '<value>', refType: '<value>' }, select: { id: true } }).execute()
+db.listItem.create({ data: { entityId: '<value>', listId: '<value>', content: '<value>', position: '<value>', isChecked: '<value>', refId: '<value>', refType: '<value>', contentTrgmSimilarity: '<value>', refTypeTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.listItem.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.listItem.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.listItem.findMany({
 
 ```typescript
 const item = await db.listItem.create({
-  data: { entityId: 'value', listId: 'value', content: 'value', position: 'value', isChecked: 'value', refId: 'value', refType: 'value' },
+  data: { entityId: 'value', listId: 'value', content: 'value', position: 'value', isChecked: 'value', refId: 'value', refType: 'value', contentTrgmSimilarity: 'value', refTypeTrgmSimilarity: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

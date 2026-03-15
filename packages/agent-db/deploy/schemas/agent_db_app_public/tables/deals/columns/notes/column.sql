@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/deals/table
--- requires: schemas/agent_db_app_public/tables/deals/columns/value/column
+-- requires: schemas/agent_db_app_public/tables/deals/columns/expected_close_date/column
 
 
-ALTER TABLE agent_db_app_public.deals 
+ALTER TABLE "agent_db_app_public".deals 
   ADD COLUMN notes text;
 

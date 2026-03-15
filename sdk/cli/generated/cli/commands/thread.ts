@@ -19,7 +19,12 @@ const fieldSchema: FieldSchema = {
   parentThreadId: 'uuid',
   embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  titleTrgmSimilarity: 'float',
+  summaryTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nthread <command>\n\nCommands:\n  list                  List all thread records\n  get                   Get a thread by ID\n  create                Create a new thread\n  update                Update an existing thread\n  delete                Delete a thread\n\n  --help, -h            Show this help message\n';
@@ -83,7 +88,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           parentThreadId: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -121,7 +125,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           parentThreadId: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -210,7 +213,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           parentThreadId: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -308,7 +310,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           parentThreadId: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

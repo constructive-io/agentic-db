@@ -17,6 +17,10 @@ const fieldSchema: FieldSchema = {
   provider: 'string',
   syncToken: 'string',
   lastSyncedAt: 'string',
+  emailTrgmSimilarity: 'float',
+  providerTrgmSimilarity: 'float',
+  syncTokenTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\ncalendar-account <command>\n\nCommands:\n  list                  List all calendarAccount records\n  get                   Get a calendarAccount by ID\n  create                Create a new calendarAccount\n  update                Update an existing calendarAccount\n  delete                Delete a calendarAccount\n\n  --help, -h            Show this help message\n';

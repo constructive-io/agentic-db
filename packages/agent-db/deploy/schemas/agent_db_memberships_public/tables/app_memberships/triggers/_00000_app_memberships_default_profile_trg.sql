@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _00000_app_memberships_default_profile_trg
-BEFORE INSERT ON agent_db_memberships_public.app_memberships
+BEFORE INSERT ON "agent_db_memberships_public".app_memberships
 FOR EACH ROW
-EXECUTE PROCEDURE agent_db_profiles_private.app_memberships_default_profile_tg ( );
+EXECUTE PROCEDURE "agent_db_profiles_private".app_memberships_default_profile_tg ( );
 

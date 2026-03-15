@@ -9,7 +9,7 @@ ORM operations for Reminder records
 ```typescript
 db.reminder.findMany({ select: { id: true } }).execute()
 db.reminder.findOne({ id: '<value>', select: { id: true } }).execute()
-db.reminder.create({ data: { entityId: '<value>', title: '<value>', dueAt: '<value>', completedAt: '<value>', recurrence: '<value>', status: '<value>', relatedEntityId: '<value>', relatedEntityType: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.reminder.create({ data: { entityId: '<value>', title: '<value>', dueAt: '<value>', completedAt: '<value>', recurrence: '<value>', status: '<value>', relatedEntityId: '<value>', relatedEntityType: '<value>', embeddingText: '<value>', embedding: '<value>', titleTrgmSimilarity: '<value>', recurrenceTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', relatedEntityTypeTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.reminder.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.reminder.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.reminder.findMany({
 
 ```typescript
 const item = await db.reminder.create({
-  data: { entityId: 'value', title: 'value', dueAt: 'value', completedAt: 'value', recurrence: 'value', status: 'value', relatedEntityId: 'value', relatedEntityType: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', title: 'value', dueAt: 'value', completedAt: 'value', recurrence: 'value', status: 'value', relatedEntityId: 'value', relatedEntityType: 'value', embeddingText: 'value', embedding: 'value', titleTrgmSimilarity: 'value', recurrenceTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', relatedEntityTypeTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

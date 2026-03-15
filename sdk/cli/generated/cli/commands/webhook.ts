@@ -18,6 +18,10 @@ const fieldSchema: FieldSchema = {
   eventType: 'string',
   secret: 'string',
   isActive: 'boolean',
+  urlTrgmSimilarity: 'float',
+  eventTypeTrgmSimilarity: 'float',
+  secretTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nwebhook <command>\n\nCommands:\n  list                  List all webhook records\n  get                   Get a webhook by ID\n  create                Create a new webhook\n  update                Update an existing webhook\n  delete                Delete a webhook\n\n  --help, -h            Show this help message\n';

@@ -17,7 +17,10 @@ const fieldSchema: FieldSchema = {
   startedAt: 'string',
   embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  titleTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nchat <command>\n\nCommands:\n  list                  List all chat records\n  get                   Get a chat by ID\n  create                Create a new chat\n  update                Update an existing chat\n  delete                Delete a chat\n\n  --help, -h            Show this help message\n';
@@ -79,7 +82,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           startedAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -115,7 +117,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           startedAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -187,7 +188,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -268,7 +268,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

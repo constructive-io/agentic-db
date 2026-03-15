@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_limits_public/tables/app_limits/table
 
 
-GRANT SELECT ON agent_db_limits_public.app_limits TO authenticated;
+GRANT SELECT ON "agent_db_limits_public".app_limits TO authenticated;
 

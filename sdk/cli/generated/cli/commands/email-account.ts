@@ -16,6 +16,9 @@ const fieldSchema: FieldSchema = {
   email: 'string',
   provider: 'string',
   syncState: 'json',
+  emailTrgmSimilarity: 'float',
+  providerTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nemail-account <command>\n\nCommands:\n  list                  List all emailAccount records\n  get                   Get a emailAccount by ID\n  create                Create a new emailAccount\n  update                Update an existing emailAccount\n  delete                Delete a emailAccount\n\n  --help, -h            Show this help message\n';

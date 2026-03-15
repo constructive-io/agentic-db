@@ -19,6 +19,11 @@ const fieldSchema: FieldSchema = {
   sizeBytes: 'int',
   attachableType: 'string',
   attachableId: 'uuid',
+  urlTrgmSimilarity: 'float',
+  filenameTrgmSimilarity: 'float',
+  mimeTypeTrgmSimilarity: 'float',
+  attachableTypeTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nattachment <command>\n\nCommands:\n  list                  List all attachment records\n  get                   Get a attachment by ID\n  create                Create a new attachment\n  update                Update an existing attachment\n  delete                Delete a attachment\n\n  --help, -h            Show this help message\n';

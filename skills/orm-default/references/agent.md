@@ -9,7 +9,7 @@ ORM operations for Agent records
 ```typescript
 db.agent.findMany({ select: { id: true } }).execute()
 db.agent.findOne({ id: '<value>', select: { id: true } }).execute()
-db.agent.create({ data: { entityId: '<value>', name: '<value>', role: '<value>', capabilities: '<value>', config: '<value>', status: '<value>', persona: '<value>', backstory: '<value>', communicationStyle: '<value>', systemPrompt: '<value>', preferredModel: '<value>', fallbackModels: '<value>', temperature: '<value>', mood: '<value>', focus: '<value>', lastActiveAt: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.agent.create({ data: { entityId: '<value>', name: '<value>', role: '<value>', capabilities: '<value>', config: '<value>', status: '<value>', persona: '<value>', backstory: '<value>', communicationStyle: '<value>', systemPrompt: '<value>', preferredModel: '<value>', fallbackModels: '<value>', temperature: '<value>', mood: '<value>', focus: '<value>', lastActiveAt: '<value>', embeddingText: '<value>', embedding: '<value>', nameTrgmSimilarity: '<value>', roleTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', personaTrgmSimilarity: '<value>', backstoryTrgmSimilarity: '<value>', communicationStyleTrgmSimilarity: '<value>', systemPromptTrgmSimilarity: '<value>', preferredModelTrgmSimilarity: '<value>', moodTrgmSimilarity: '<value>', focusTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.agent.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.agent.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.agent.findMany({
 
 ```typescript
 const item = await db.agent.create({
-  data: { entityId: 'value', name: 'value', role: 'value', capabilities: 'value', config: 'value', status: 'value', persona: 'value', backstory: 'value', communicationStyle: 'value', systemPrompt: 'value', preferredModel: 'value', fallbackModels: 'value', temperature: 'value', mood: 'value', focus: 'value', lastActiveAt: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', name: 'value', role: 'value', capabilities: 'value', config: 'value', status: 'value', persona: 'value', backstory: 'value', communicationStyle: 'value', systemPrompt: 'value', preferredModel: 'value', fallbackModels: 'value', temperature: 'value', mood: 'value', focus: 'value', lastActiveAt: 'value', embeddingText: 'value', embedding: 'value', nameTrgmSimilarity: 'value', roleTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', personaTrgmSimilarity: 'value', backstoryTrgmSimilarity: 'value', communicationStyleTrgmSimilarity: 'value', systemPromptTrgmSimilarity: 'value', preferredModelTrgmSimilarity: 'value', moodTrgmSimilarity: 'value', focusTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

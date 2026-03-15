@@ -1,7 +1,7 @@
 -- Revert: schemas/agent_db_limits_public/tables/app_limits/policies/enable_row_level_security
 
 
-ALTER TABLE agent_db_limits_public.app_limits 
+ALTER TABLE "agent_db_limits_public".app_limits 
   DISABLE ROW LEVEL SECURITY;
 
 

@@ -115,122 +115,34 @@ OUTPUT: JSON
   delete: { id }
 ```
 
-### TOOL: process
+### TOOL: agent-rule
 
-CRUD operations for Process records.
-
-```
-SUBCOMMANDS:
-  agent-db process list                               List all records
-  agent-db process get --id <value>              Get one record
-  agent-db process create --entityId <value> [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
-  agent-db process update --id <value> [--entityId <value>] [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
-  agent-db process delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  pid: Int
-  agentId: UUID
-  command: String
-  startedAt: Datetime
-  endedAt: Datetime
-  status: String
-  exitCode: Int
-  logsPath: String
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  pid: Int (optional, has backend default)
-  agentId: UUID (optional, has backend default)
-  command: String (optional, has backend default)
-  startedAt: Datetime (optional, has backend default)
-  endedAt: Datetime (optional, has backend default)
-  status: String (optional, has backend default)
-  exitCode: Int (optional, has backend default)
-  logsPath: String (optional, has backend default)
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath }]
-  get:    { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath }
-  create: { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath }
-  update: { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath }
-  delete: { id }
-```
-
-### TOOL: scheduled-job
-
-CRUD operations for ScheduledJob records.
+CRUD operations for AgentRule records.
 
 ```
 SUBCOMMANDS:
-  agent-db scheduled-job list                               List all records
-  agent-db scheduled-job get --id <value>              Get one record
-  agent-db scheduled-job create --entityId <value> --name <value> --schedule <value> --command <value> [--agentId <value>] [--active <value>] [--lastRun <value>] [--nextRun <value>]
-  agent-db scheduled-job update --id <value> [--entityId <value>] [--name <value>] [--schedule <value>] [--command <value>] [--agentId <value>] [--active <value>] [--lastRun <value>] [--nextRun <value>]
-  agent-db scheduled-job delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  name: String
-  schedule: String
-  command: String
-  agentId: UUID
-  active: Boolean
-  lastRun: Datetime
-  nextRun: Datetime
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  name: String
-  schedule: String
-  command: String
-  agentId: UUID (optional, has backend default)
-  active: Boolean (optional, has backend default)
-  lastRun: Datetime (optional, has backend default)
-  nextRun: Datetime (optional, has backend default)
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, schedule, command, agentId, active, lastRun, nextRun }]
-  get:    { id, entityId, createdAt, updatedAt, name, schedule, command, agentId, active, lastRun, nextRun }
-  create: { id, entityId, createdAt, updatedAt, name, schedule, command, agentId, active, lastRun, nextRun }
-  update: { id, entityId, createdAt, updatedAt, name, schedule, command, agentId, active, lastRun, nextRun }
-  delete: { id }
-```
-
-### TOOL: agent-tool
-
-CRUD operations for AgentTool records.
-
-```
-SUBCOMMANDS:
-  agent-db agent-tool list                               List all records
-  agent-db agent-tool get --id <value>              Get one record
-  agent-db agent-tool create --agentId <value> --toolId <value> --entityId <value>
-  agent-db agent-tool update --id <value> [--agentId <value>] [--toolId <value>] [--entityId <value>]
-  agent-db agent-tool delete --id <value>           Delete one record
+  agent-db agent-rule list                               List all records
+  agent-db agent-rule get --id <value>              Get one record
+  agent-db agent-rule create --agentId <value> --ruleId <value> --entityId <value>
+  agent-db agent-rule update --id <value> [--agentId <value>] [--ruleId <value>] [--entityId <value>]
+  agent-db agent-rule delete --id <value>           Delete one record
 
 INPUT FIELDS:
   agentId: UUID
-  toolId: UUID
+  ruleId: UUID
   id: UUID (primary key)
   entityId: UUID
 
 EDITABLE FIELDS (for create/update):
   agentId: UUID
-  toolId: UUID
+  ruleId: UUID
   entityId: UUID
 
 OUTPUT: JSON
-  list:   [{ agentId, toolId, id, entityId }]
-  get:    { agentId, toolId, id, entityId }
-  create: { agentId, toolId, id, entityId }
-  update: { agentId, toolId, id, entityId }
+  list:   [{ agentId, ruleId, id, entityId }]
+  get:    { agentId, ruleId, id, entityId }
+  create: { agentId, ruleId, id, entityId }
+  update: { agentId, ruleId, id, entityId }
   delete: { id }
 ```
 
@@ -265,34 +177,34 @@ OUTPUT: JSON
   delete: { id }
 ```
 
-### TOOL: agent-rule
+### TOOL: agent-tool
 
-CRUD operations for AgentRule records.
+CRUD operations for AgentTool records.
 
 ```
 SUBCOMMANDS:
-  agent-db agent-rule list                               List all records
-  agent-db agent-rule get --id <value>              Get one record
-  agent-db agent-rule create --agentId <value> --ruleId <value> --entityId <value>
-  agent-db agent-rule update --id <value> [--agentId <value>] [--ruleId <value>] [--entityId <value>]
-  agent-db agent-rule delete --id <value>           Delete one record
+  agent-db agent-tool list                               List all records
+  agent-db agent-tool get --id <value>              Get one record
+  agent-db agent-tool create --agentId <value> --toolId <value> --entityId <value>
+  agent-db agent-tool update --id <value> [--agentId <value>] [--toolId <value>] [--entityId <value>]
+  agent-db agent-tool delete --id <value>           Delete one record
 
 INPUT FIELDS:
   agentId: UUID
-  ruleId: UUID
+  toolId: UUID
   id: UUID (primary key)
   entityId: UUID
 
 EDITABLE FIELDS (for create/update):
   agentId: UUID
-  ruleId: UUID
+  toolId: UUID
   entityId: UUID
 
 OUTPUT: JSON
-  list:   [{ agentId, ruleId, id, entityId }]
-  get:    { agentId, ruleId, id, entityId }
-  create: { agentId, ruleId, id, entityId }
-  update: { agentId, ruleId, id, entityId }
+  list:   [{ agentId, toolId, id, entityId }]
+  get:    { agentId, toolId, id, entityId }
+  create: { agentId, toolId, id, entityId }
+  update: { agentId, toolId, id, entityId }
   delete: { id }
 ```
 
@@ -324,110 +236,6 @@ OUTPUT: JSON
   get:    { calendarEventId, contactId, id, entityId }
   create: { calendarEventId, contactId, id, entityId }
   update: { calendarEventId, contactId, id, entityId }
-  delete: { id }
-```
-
-### TOOL: calendar-event
-
-CRUD operations for CalendarEvent records.
-
-```
-SUBCOMMANDS:
-  agent-db calendar-event list                               List all records
-  agent-db calendar-event get --id <value>              Get one record
-  agent-db calendar-event create --entityId <value> --title <value> --startAt <value> --embeddingDistance <value> [--calendarAccountId <value>] [--remoteId <value>] [--description <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db calendar-event update --id <value> [--entityId <value>] [--calendarAccountId <value>] [--remoteId <value>] [--title <value>] [--description <value>] [--startAt <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-db calendar-event delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  calendarAccountId: UUID
-  remoteId: String
-  title: String
-  description: String
-  startAt: Datetime
-  endAt: Datetime
-  allDay: Boolean
-  location: String
-  recurrenceRule: String
-  status: String
-  tags: String
-  embeddingText: String
-  embedding: Vector
-  embeddingDistance: Float
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  calendarAccountId: UUID (optional, has backend default)
-  remoteId: String (optional, has backend default)
-  title: String
-  description: String (optional, has backend default)
-  startAt: Datetime
-  endAt: Datetime (optional, has backend default)
-  allDay: Boolean (optional, has backend default)
-  location: String (optional, has backend default)
-  recurrenceRule: String (optional, has backend default)
-  status: String (optional, has backend default)
-  tags: String (optional, has backend default)
-  embeddingText: String (optional, has backend default)
-  embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, embeddingDistance }
-  delete: { id }
-```
-
-### TOOL: interaction
-
-CRUD operations for Interaction records.
-
-```
-SUBCOMMANDS:
-  agent-db interaction list                               List all records
-  agent-db interaction get --id <value>              Get one record
-  agent-db interaction create --entityId <value> --contactId <value> --type <value> --occurredAt <value> --embeddingDistance <value> [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db interaction update --id <value> [--entityId <value>] [--contactId <value>] [--type <value>] [--occurredAt <value>] [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-db interaction delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  contactId: UUID
-  type: String
-  occurredAt: Datetime
-  summary: String
-  sentiment: String
-  tags: String
-  embeddingText: String
-  embedding: Vector
-  embeddingDistance: Float
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  contactId: UUID
-  type: String
-  occurredAt: Datetime
-  summary: String (optional, has backend default)
-  sentiment: String (optional, has backend default)
-  tags: String (optional, has backend default)
-  embeddingText: String (optional, has backend default)
-  embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, embeddingDistance }
   delete: { id }
 ```
 
@@ -741,63 +549,6 @@ OUTPUT: JSON
   delete: { id }
 ```
 
-### TOOL: habit-log
-
-CRUD operations for HabitLog records.
-
-```
-SUBCOMMANDS:
-  agent-db habit-log list                               List all records
-  agent-db habit-log get --id <value>              Get one record
-  agent-db habit-log create --entityId <value> --habitId <value> --completedAt <value> [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>]
-  agent-db habit-log update --id <value> [--entityId <value>] [--habitId <value>] [--completedAt <value>] [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>]
-  agent-db habit-log delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  habitId: UUID
-  completedAt: Datetime
-  activityType: String
-  durationMinutes: BigFloat
-  distance: BigFloat
-  distanceUnit: String
-  reps: Int
-  sets: Int
-  weightAmount: BigFloat
-  weightUnit: String
-  calories: BigFloat
-  data: JSON
-  notes: String
-  tags: String
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  habitId: UUID
-  completedAt: Datetime
-  activityType: String (optional, has backend default)
-  durationMinutes: BigFloat (optional, has backend default)
-  distance: BigFloat (optional, has backend default)
-  distanceUnit: String (optional, has backend default)
-  reps: Int (optional, has backend default)
-  sets: Int (optional, has backend default)
-  weightAmount: BigFloat (optional, has backend default)
-  weightUnit: String (optional, has backend default)
-  calories: BigFloat (optional, has backend default)
-  data: JSON (optional, has backend default)
-  notes: String (optional, has backend default)
-  tags: String (optional, has backend default)
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags }]
-  get:    { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags }
-  create: { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags }
-  update: { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags }
-  delete: { id }
-```
-
 ### TOOL: goal-project
 
 CRUD operations for GoalProject records.
@@ -826,43 +577,6 @@ OUTPUT: JSON
   get:    { goalId, projectId, id, entityId }
   create: { goalId, projectId, id, entityId }
   update: { goalId, projectId, id, entityId }
-  delete: { id }
-```
-
-### TOOL: milestone
-
-CRUD operations for Milestone records.
-
-```
-SUBCOMMANDS:
-  agent-db milestone list                               List all records
-  agent-db milestone get --id <value>              Get one record
-  agent-db milestone create --entityId <value> --name <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
-  agent-db milestone update --id <value> [--entityId <value>] [--projectId <value>] [--name <value>] [--dueDate <value>] [--status <value>]
-  agent-db milestone delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  projectId: UUID
-  name: String
-  dueDate: Datetime
-  status: String
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  projectId: UUID (optional, has backend default)
-  name: String
-  dueDate: Datetime (optional, has backend default)
-  status: String (optional, has backend default)
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, projectId, name, dueDate, status }]
-  get:    { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status }
-  create: { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status }
-  update: { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status }
   delete: { id }
 ```
 
@@ -967,8 +681,8 @@ CRUD operations for File records.
 SUBCOMMANDS:
   agent-db file list                               List all records
   agent-db file get --id <value>              Get one record
-  agent-db file create --entityId <value> --path <value> [--repositoryId <value>] [--language <value>] [--hash <value>]
-  agent-db file update --id <value> [--entityId <value>] [--repositoryId <value>] [--path <value>] [--language <value>] [--hash <value>]
+  agent-db file create --entityId <value> --path <value> --pathTrgmSimilarity <value> --languageTrgmSimilarity <value> --hashTrgmSimilarity <value> --searchScore <value> [--repositoryId <value>] [--language <value>] [--hash <value>]
+  agent-db file update --id <value> [--entityId <value>] [--repositoryId <value>] [--path <value>] [--language <value>] [--hash <value>] [--pathTrgmSimilarity <value>] [--languageTrgmSimilarity <value>] [--hashTrgmSimilarity <value>] [--searchScore <value>]
   agent-db file delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -980,6 +694,10 @@ INPUT FIELDS:
   path: String
   language: String
   hash: String
+  pathTrgmSimilarity: Float
+  languageTrgmSimilarity: Float
+  hashTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -987,57 +705,59 @@ EDITABLE FIELDS (for create/update):
   path: String
   language: String (optional, has backend default)
   hash: String (optional, has backend default)
+  pathTrgmSimilarity: Float
+  languageTrgmSimilarity: Float
+  hashTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, repositoryId, path, language, hash }]
-  get:    { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash }
-  create: { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash }
-  update: { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash }
+  list:   [{ id, entityId, createdAt, updatedAt, repositoryId, path, language, hash, pathTrgmSimilarity, languageTrgmSimilarity, hashTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash, pathTrgmSimilarity, languageTrgmSimilarity, hashTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash, pathTrgmSimilarity, languageTrgmSimilarity, hashTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash, pathTrgmSimilarity, languageTrgmSimilarity, hashTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
-### TOOL: chunk
+### TOOL: milestone
 
-CRUD operations for Chunk records.
+CRUD operations for Milestone records.
 
 ```
 SUBCOMMANDS:
-  agent-db chunk list                               List all records
-  agent-db chunk get --id <value>              Get one record
-  agent-db chunk create --entityId <value> --content <value> --embeddingDistance <value> [--fileId <value>] [--repositoryId <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db chunk update --id <value> [--entityId <value>] [--fileId <value>] [--repositoryId <value>] [--content <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-db chunk delete --id <value>           Delete one record
+  agent-db milestone list                               List all records
+  agent-db milestone get --id <value>              Get one record
+  agent-db milestone create --entityId <value> --name <value> --nameTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
+  agent-db milestone update --id <value> [--entityId <value>] [--projectId <value>] [--name <value>] [--dueDate <value>] [--status <value>] [--nameTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
+  agent-db milestone delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
   entityId: UUID
   createdAt: Datetime
   updatedAt: Datetime
-  fileId: UUID
-  repositoryId: UUID
-  content: String
-  startLine: Int
-  endLine: Int
-  embeddingText: String
-  embedding: Vector
-  embeddingDistance: Float
+  projectId: UUID
+  name: String
+  dueDate: Datetime
+  status: String
+  nameTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
-  fileId: UUID (optional, has backend default)
-  repositoryId: UUID (optional, has backend default)
-  content: String
-  startLine: Int (optional, has backend default)
-  endLine: Int (optional, has backend default)
-  embeddingText: String (optional, has backend default)
-  embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  projectId: UUID (optional, has backend default)
+  name: String
+  dueDate: Datetime (optional, has backend default)
+  status: String (optional, has backend default)
+  nameTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, projectId, name, dueDate, status, nameTrgmSimilarity, statusTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status, nameTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status, nameTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status, nameTrgmSimilarity, statusTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1049,8 +769,8 @@ CRUD operations for CalendarAccount records.
 SUBCOMMANDS:
   agent-db calendar-account list                               List all records
   agent-db calendar-account get --id <value>              Get one record
-  agent-db calendar-account create --entityId <value> --email <value> [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
-  agent-db calendar-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
+  agent-db calendar-account create --entityId <value> --email <value> --emailTrgmSimilarity <value> --providerTrgmSimilarity <value> --syncTokenTrgmSimilarity <value> --searchScore <value> [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
+  agent-db calendar-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>] [--emailTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--syncTokenTrgmSimilarity <value>] [--searchScore <value>]
   agent-db calendar-account delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1062,6 +782,10 @@ INPUT FIELDS:
   provider: String
   syncToken: String
   lastSyncedAt: Datetime
+  emailTrgmSimilarity: Float
+  providerTrgmSimilarity: Float
+  syncTokenTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1069,12 +793,16 @@ EDITABLE FIELDS (for create/update):
   provider: String (optional, has backend default)
   syncToken: String (optional, has backend default)
   lastSyncedAt: Datetime (optional, has backend default)
+  emailTrgmSimilarity: Float
+  providerTrgmSimilarity: Float
+  syncTokenTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt }]
-  get:    { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt }
-  create: { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt }
-  update: { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt }
+  list:   [{ id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt, emailTrgmSimilarity, providerTrgmSimilarity, syncTokenTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt, emailTrgmSimilarity, providerTrgmSimilarity, syncTokenTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt, emailTrgmSimilarity, providerTrgmSimilarity, syncTokenTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt, emailTrgmSimilarity, providerTrgmSimilarity, syncTokenTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1086,8 +814,8 @@ CRUD operations for Tag records.
 SUBCOMMANDS:
   agent-db tag list                               List all records
   agent-db tag get --id <value>              Get one record
-  agent-db tag create --entityId <value> --name <value> [--color <value>] [--category <value>] [--usageCount <value>]
-  agent-db tag update --id <value> [--entityId <value>] [--name <value>] [--color <value>] [--category <value>] [--usageCount <value>]
+  agent-db tag create --entityId <value> --name <value> --nameTrgmSimilarity <value> --colorTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--color <value>] [--category <value>] [--usageCount <value>]
+  agent-db tag update --id <value> [--entityId <value>] [--name <value>] [--color <value>] [--category <value>] [--usageCount <value>] [--nameTrgmSimilarity <value>] [--colorTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--searchScore <value>]
   agent-db tag delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1099,6 +827,10 @@ INPUT FIELDS:
   color: String
   category: String
   usageCount: Int
+  nameTrgmSimilarity: Float
+  colorTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1106,12 +838,16 @@ EDITABLE FIELDS (for create/update):
   color: String (optional, has backend default)
   category: String (optional, has backend default)
   usageCount: Int (optional, has backend default)
+  nameTrgmSimilarity: Float
+  colorTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, color, category, usageCount }]
-  get:    { id, entityId, createdAt, updatedAt, name, color, category, usageCount }
-  create: { id, entityId, createdAt, updatedAt, name, color, category, usageCount }
-  update: { id, entityId, createdAt, updatedAt, name, color, category, usageCount }
+  list:   [{ id, entityId, createdAt, updatedAt, name, color, category, usageCount, nameTrgmSimilarity, colorTrgmSimilarity, categoryTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, color, category, usageCount, nameTrgmSimilarity, colorTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, color, category, usageCount, nameTrgmSimilarity, colorTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, color, category, usageCount, nameTrgmSimilarity, colorTrgmSimilarity, categoryTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1123,8 +859,8 @@ CRUD operations for Feedback records.
 SUBCOMMANDS:
   agent-db feedback list                               List all records
   agent-db feedback get --id <value>              Get one record
-  agent-db feedback create --entityId <value> --targetType <value> --targetId <value> [--rating <value>] [--comment <value>] [--source <value>]
-  agent-db feedback update --id <value> [--entityId <value>] [--targetType <value>] [--targetId <value>] [--rating <value>] [--comment <value>] [--source <value>]
+  agent-db feedback create --entityId <value> --targetType <value> --targetId <value> --targetTypeTrgmSimilarity <value> --commentTrgmSimilarity <value> --sourceTrgmSimilarity <value> --searchScore <value> [--rating <value>] [--comment <value>] [--source <value>]
+  agent-db feedback update --id <value> [--entityId <value>] [--targetType <value>] [--targetId <value>] [--rating <value>] [--comment <value>] [--source <value>] [--targetTypeTrgmSimilarity <value>] [--commentTrgmSimilarity <value>] [--sourceTrgmSimilarity <value>] [--searchScore <value>]
   agent-db feedback delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1137,6 +873,10 @@ INPUT FIELDS:
   rating: Int
   comment: String
   source: String
+  targetTypeTrgmSimilarity: Float
+  commentTrgmSimilarity: Float
+  sourceTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1145,12 +885,16 @@ EDITABLE FIELDS (for create/update):
   rating: Int (optional, has backend default)
   comment: String (optional, has backend default)
   source: String (optional, has backend default)
+  targetTypeTrgmSimilarity: Float
+  commentTrgmSimilarity: Float
+  sourceTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source }]
-  get:    { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source }
-  create: { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source }
-  update: { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source }
+  list:   [{ id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source, targetTypeTrgmSimilarity, commentTrgmSimilarity, sourceTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source, targetTypeTrgmSimilarity, commentTrgmSimilarity, sourceTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source, targetTypeTrgmSimilarity, commentTrgmSimilarity, sourceTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source, targetTypeTrgmSimilarity, commentTrgmSimilarity, sourceTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1162,8 +906,8 @@ CRUD operations for Attachment records.
 SUBCOMMANDS:
   agent-db attachment list                               List all records
   agent-db attachment get --id <value>              Get one record
-  agent-db attachment create --entityId <value> --url <value> [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>]
-  agent-db attachment update --id <value> [--entityId <value>] [--url <value>] [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>]
+  agent-db attachment create --entityId <value> --url <value> --urlTrgmSimilarity <value> --filenameTrgmSimilarity <value> --mimeTypeTrgmSimilarity <value> --attachableTypeTrgmSimilarity <value> --searchScore <value> [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>]
+  agent-db attachment update --id <value> [--entityId <value>] [--url <value>] [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>] [--urlTrgmSimilarity <value>] [--filenameTrgmSimilarity <value>] [--mimeTypeTrgmSimilarity <value>] [--attachableTypeTrgmSimilarity <value>] [--searchScore <value>]
   agent-db attachment delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1177,6 +921,11 @@ INPUT FIELDS:
   sizeBytes: Int
   attachableType: String
   attachableId: UUID
+  urlTrgmSimilarity: Float
+  filenameTrgmSimilarity: Float
+  mimeTypeTrgmSimilarity: Float
+  attachableTypeTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1186,12 +935,17 @@ EDITABLE FIELDS (for create/update):
   sizeBytes: Int (optional, has backend default)
   attachableType: String (optional, has backend default)
   attachableId: UUID (optional, has backend default)
+  urlTrgmSimilarity: Float
+  filenameTrgmSimilarity: Float
+  mimeTypeTrgmSimilarity: Float
+  attachableTypeTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId }]
-  get:    { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId }
-  create: { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId }
-  update: { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId }
+  list:   [{ id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId, urlTrgmSimilarity, filenameTrgmSimilarity, mimeTypeTrgmSimilarity, attachableTypeTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId, urlTrgmSimilarity, filenameTrgmSimilarity, mimeTypeTrgmSimilarity, attachableTypeTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId, urlTrgmSimilarity, filenameTrgmSimilarity, mimeTypeTrgmSimilarity, attachableTypeTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId, urlTrgmSimilarity, filenameTrgmSimilarity, mimeTypeTrgmSimilarity, attachableTypeTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1203,8 +957,8 @@ CRUD operations for EmailAccount records.
 SUBCOMMANDS:
   agent-db email-account list                               List all records
   agent-db email-account get --id <value>              Get one record
-  agent-db email-account create --entityId <value> --email <value> [--provider <value>] [--syncState <value>]
-  agent-db email-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncState <value>]
+  agent-db email-account create --entityId <value> --email <value> --emailTrgmSimilarity <value> --providerTrgmSimilarity <value> --searchScore <value> [--provider <value>] [--syncState <value>]
+  agent-db email-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncState <value>] [--emailTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--searchScore <value>]
   agent-db email-account delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1215,71 +969,24 @@ INPUT FIELDS:
   email: String
   provider: String
   syncState: JSON
+  emailTrgmSimilarity: Float
+  providerTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
   email: String
   provider: String (optional, has backend default)
   syncState: JSON (optional, has backend default)
+  emailTrgmSimilarity: Float
+  providerTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, email, provider, syncState }]
-  get:    { id, entityId, createdAt, updatedAt, email, provider, syncState }
-  create: { id, entityId, createdAt, updatedAt, email, provider, syncState }
-  update: { id, entityId, createdAt, updatedAt, email, provider, syncState }
-  delete: { id }
-```
-
-### TOOL: message
-
-CRUD operations for Message records.
-
-```
-SUBCOMMANDS:
-  agent-db message list                               List all records
-  agent-db message get --id <value>              Get one record
-  agent-db message create --entityId <value> --embeddingDistance <value> [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db message update --id <value> [--entityId <value>] [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-db message delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  emailAccountId: UUID
-  threadId: String
-  remoteId: String
-  fromAddress: String
-  toAddresses: String
-  subject: String
-  bodyText: String
-  receivedAt: Datetime
-  tags: String
-  embeddingText: String
-  embedding: Vector
-  embeddingDistance: Float
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  emailAccountId: UUID (optional, has backend default)
-  threadId: String (optional, has backend default)
-  remoteId: String (optional, has backend default)
-  fromAddress: String (optional, has backend default)
-  toAddresses: String (optional, has backend default)
-  subject: String (optional, has backend default)
-  bodyText: String (optional, has backend default)
-  receivedAt: Datetime (optional, has backend default)
-  tags: String (optional, has backend default)
-  embeddingText: String (optional, has backend default)
-  embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, email, provider, syncState, emailTrgmSimilarity, providerTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, email, provider, syncState, emailTrgmSimilarity, providerTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, email, provider, syncState, emailTrgmSimilarity, providerTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, email, provider, syncState, emailTrgmSimilarity, providerTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1291,8 +998,8 @@ CRUD operations for ActivityLog records.
 SUBCOMMANDS:
   agent-db activity-log list                               List all records
   agent-db activity-log get --id <value>              Get one record
-  agent-db activity-log create --entityId <value> --actorType <value> --action <value> --targetType <value> --targetId <value> [--actorId <value>] [--metadata <value>]
-  agent-db activity-log update --id <value> [--entityId <value>] [--actorType <value>] [--actorId <value>] [--action <value>] [--targetType <value>] [--targetId <value>] [--metadata <value>]
+  agent-db activity-log create --entityId <value> --actorType <value> --action <value> --targetType <value> --targetId <value> --actorTypeTrgmSimilarity <value> --actionTrgmSimilarity <value> --targetTypeTrgmSimilarity <value> --searchScore <value> [--actorId <value>] [--metadata <value>]
+  agent-db activity-log update --id <value> [--entityId <value>] [--actorType <value>] [--actorId <value>] [--action <value>] [--targetType <value>] [--targetId <value>] [--metadata <value>] [--actorTypeTrgmSimilarity <value>] [--actionTrgmSimilarity <value>] [--targetTypeTrgmSimilarity <value>] [--searchScore <value>]
   agent-db activity-log delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1306,6 +1013,10 @@ INPUT FIELDS:
   targetType: String
   targetId: UUID
   metadata: JSON
+  actorTypeTrgmSimilarity: Float
+  actionTrgmSimilarity: Float
+  targetTypeTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1315,12 +1026,69 @@ EDITABLE FIELDS (for create/update):
   targetType: String
   targetId: UUID
   metadata: JSON (optional, has backend default)
+  actorTypeTrgmSimilarity: Float
+  actionTrgmSimilarity: Float
+  targetTypeTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata }]
-  get:    { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata }
-  create: { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata }
-  update: { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata }
+  list:   [{ id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata, actorTypeTrgmSimilarity, actionTrgmSimilarity, targetTypeTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata, actorTypeTrgmSimilarity, actionTrgmSimilarity, targetTypeTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata, actorTypeTrgmSimilarity, actionTrgmSimilarity, targetTypeTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata, actorTypeTrgmSimilarity, actionTrgmSimilarity, targetTypeTrgmSimilarity, searchScore }
+  delete: { id }
+```
+
+### TOOL: context-relation
+
+CRUD operations for ContextRelation records.
+
+```
+SUBCOMMANDS:
+  agent-db context-relation list                               List all records
+  agent-db context-relation get --id <value>              Get one record
+  agent-db context-relation create --entityId <value> --fromType <value> --fromId <value> --toType <value> --toId <value> --fromTypeTrgmSimilarity <value> --toTypeTrgmSimilarity <value> --relationKindTrgmSimilarity <value> --reasonTrgmSimilarity <value> --searchScore <value> [--relationKind <value>] [--reason <value>] [--strength <value>]
+  agent-db context-relation update --id <value> [--entityId <value>] [--fromType <value>] [--fromId <value>] [--toType <value>] [--toId <value>] [--relationKind <value>] [--reason <value>] [--strength <value>] [--fromTypeTrgmSimilarity <value>] [--toTypeTrgmSimilarity <value>] [--relationKindTrgmSimilarity <value>] [--reasonTrgmSimilarity <value>] [--searchScore <value>]
+  agent-db context-relation delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  fromType: String
+  fromId: UUID
+  toType: String
+  toId: UUID
+  relationKind: String
+  reason: String
+  strength: BigFloat
+  fromTypeTrgmSimilarity: Float
+  toTypeTrgmSimilarity: Float
+  relationKindTrgmSimilarity: Float
+  reasonTrgmSimilarity: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  fromType: String
+  fromId: UUID
+  toType: String
+  toId: UUID
+  relationKind: String (optional, has backend default)
+  reason: String (optional, has backend default)
+  strength: BigFloat (optional, has backend default)
+  fromTypeTrgmSimilarity: Float
+  toTypeTrgmSimilarity: Float
+  relationKindTrgmSimilarity: Float
+  reasonTrgmSimilarity: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, fromType, fromId, toType, toId, relationKind, reason, strength, fromTypeTrgmSimilarity, toTypeTrgmSimilarity, relationKindTrgmSimilarity, reasonTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, fromType, fromId, toType, toId, relationKind, reason, strength, fromTypeTrgmSimilarity, toTypeTrgmSimilarity, relationKindTrgmSimilarity, reasonTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, fromType, fromId, toType, toId, relationKind, reason, strength, fromTypeTrgmSimilarity, toTypeTrgmSimilarity, relationKindTrgmSimilarity, reasonTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, fromType, fromId, toType, toId, relationKind, reason, strength, fromTypeTrgmSimilarity, toTypeTrgmSimilarity, relationKindTrgmSimilarity, reasonTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1332,8 +1100,8 @@ CRUD operations for UserSetting records.
 SUBCOMMANDS:
   agent-db user-setting list                               List all records
   agent-db user-setting get --id <value>              Get one record
-  agent-db user-setting create --entityId <value> --key <value> [--value <value>] [--category <value>]
-  agent-db user-setting update --id <value> [--entityId <value>] [--key <value>] [--value <value>] [--category <value>]
+  agent-db user-setting create --entityId <value> --key <value> --keyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--value <value>] [--category <value>]
+  agent-db user-setting update --id <value> [--entityId <value>] [--key <value>] [--value <value>] [--category <value>] [--keyTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--searchScore <value>]
   agent-db user-setting delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1344,18 +1112,24 @@ INPUT FIELDS:
   key: String
   value: JSON
   category: String
+  keyTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
   key: String
   value: JSON (optional, has backend default)
   category: String (optional, has backend default)
+  keyTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, key, value, category }]
-  get:    { id, entityId, createdAt, updatedAt, key, value, category }
-  create: { id, entityId, createdAt, updatedAt, key, value, category }
-  update: { id, entityId, createdAt, updatedAt, key, value, category }
+  list:   [{ id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1367,8 +1141,8 @@ CRUD operations for ExecutionLog records.
 SUBCOMMANDS:
   agent-db execution-log list                               List all records
   agent-db execution-log get --id <value>              Get one record
-  agent-db execution-log create --entityId <value> [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
-  agent-db execution-log update --id <value> [--entityId <value>] [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
+  agent-db execution-log create --entityId <value> --stepNameTrgmSimilarity <value> --inputTrgmSimilarity <value> --outputTrgmSimilarity <value> --searchScore <value> [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
+  agent-db execution-log update --id <value> [--entityId <value>] [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>] [--stepNameTrgmSimilarity <value>] [--inputTrgmSimilarity <value>] [--outputTrgmSimilarity <value>] [--searchScore <value>]
   agent-db execution-log delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1382,6 +1156,10 @@ INPUT FIELDS:
   output: String
   toolCalls: JSON
   durationMs: Int
+  stepNameTrgmSimilarity: Float
+  inputTrgmSimilarity: Float
+  outputTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1391,12 +1169,16 @@ EDITABLE FIELDS (for create/update):
   output: String (optional, has backend default)
   toolCalls: JSON (optional, has backend default)
   durationMs: Int (optional, has backend default)
+  stepNameTrgmSimilarity: Float
+  inputTrgmSimilarity: Float
+  outputTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs }]
-  get:    { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs }
-  create: { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs }
-  update: { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs }
+  list:   [{ id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1408,8 +1190,8 @@ CRUD operations for Webhook records.
 SUBCOMMANDS:
   agent-db webhook list                               List all records
   agent-db webhook get --id <value>              Get one record
-  agent-db webhook create --entityId <value> --url <value> --eventType <value> [--integrationId <value>] [--secret <value>] [--isActive <value>]
-  agent-db webhook update --id <value> [--entityId <value>] [--integrationId <value>] [--url <value>] [--eventType <value>] [--secret <value>] [--isActive <value>]
+  agent-db webhook create --entityId <value> --url <value> --eventType <value> --urlTrgmSimilarity <value> --eventTypeTrgmSimilarity <value> --secretTrgmSimilarity <value> --searchScore <value> [--integrationId <value>] [--secret <value>] [--isActive <value>]
+  agent-db webhook update --id <value> [--entityId <value>] [--integrationId <value>] [--url <value>] [--eventType <value>] [--secret <value>] [--isActive <value>] [--urlTrgmSimilarity <value>] [--eventTypeTrgmSimilarity <value>] [--secretTrgmSimilarity <value>] [--searchScore <value>]
   agent-db webhook delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1422,6 +1204,10 @@ INPUT FIELDS:
   eventType: String
   secret: String
   isActive: Boolean
+  urlTrgmSimilarity: Float
+  eventTypeTrgmSimilarity: Float
+  secretTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1430,12 +1216,16 @@ EDITABLE FIELDS (for create/update):
   eventType: String
   secret: String (optional, has backend default)
   isActive: Boolean (optional, has backend default)
+  urlTrgmSimilarity: Float
+  eventTypeTrgmSimilarity: Float
+  secretTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive }]
-  get:    { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive }
-  create: { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive }
-  update: { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive }
+  list:   [{ id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive, urlTrgmSimilarity, eventTypeTrgmSimilarity, secretTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive, urlTrgmSimilarity, eventTypeTrgmSimilarity, secretTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive, urlTrgmSimilarity, eventTypeTrgmSimilarity, secretTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive, urlTrgmSimilarity, eventTypeTrgmSimilarity, secretTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1447,8 +1237,8 @@ CRUD operations for Notification records.
 SUBCOMMANDS:
   agent-db notification list                               List all records
   agent-db notification get --id <value>              Get one record
-  agent-db notification create --entityId <value> [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>]
-  agent-db notification update --id <value> [--entityId <value>] [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>]
+  agent-db notification create --entityId <value> --titleTrgmSimilarity <value> --bodyTrgmSimilarity <value> --typeTrgmSimilarity <value> --priorityTrgmSimilarity <value> --actionUrlTrgmSimilarity <value> --sourceEntityTypeTrgmSimilarity <value> --searchScore <value> [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>]
+  agent-db notification update --id <value> [--entityId <value>] [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>] [--titleTrgmSimilarity <value>] [--bodyTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--priorityTrgmSimilarity <value>] [--actionUrlTrgmSimilarity <value>] [--sourceEntityTypeTrgmSimilarity <value>] [--searchScore <value>]
   agent-db notification delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1464,6 +1254,13 @@ INPUT FIELDS:
   actionUrl: String
   sourceEntityId: UUID
   sourceEntityType: String
+  titleTrgmSimilarity: Float
+  bodyTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  priorityTrgmSimilarity: Float
+  actionUrlTrgmSimilarity: Float
+  sourceEntityTypeTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1475,12 +1272,72 @@ EDITABLE FIELDS (for create/update):
   actionUrl: String (optional, has backend default)
   sourceEntityId: UUID (optional, has backend default)
   sourceEntityType: String (optional, has backend default)
+  titleTrgmSimilarity: Float
+  bodyTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  priorityTrgmSimilarity: Float
+  actionUrlTrgmSimilarity: Float
+  sourceEntityTypeTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType }]
-  get:    { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType }
-  create: { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType }
-  update: { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType }
+  list:   [{ id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType, titleTrgmSimilarity, bodyTrgmSimilarity, typeTrgmSimilarity, priorityTrgmSimilarity, actionUrlTrgmSimilarity, sourceEntityTypeTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType, titleTrgmSimilarity, bodyTrgmSimilarity, typeTrgmSimilarity, priorityTrgmSimilarity, actionUrlTrgmSimilarity, sourceEntityTypeTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType, titleTrgmSimilarity, bodyTrgmSimilarity, typeTrgmSimilarity, priorityTrgmSimilarity, actionUrlTrgmSimilarity, sourceEntityTypeTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType, titleTrgmSimilarity, bodyTrgmSimilarity, typeTrgmSimilarity, priorityTrgmSimilarity, actionUrlTrgmSimilarity, sourceEntityTypeTrgmSimilarity, searchScore }
+  delete: { id }
+```
+
+### TOOL: process
+
+CRUD operations for Process records.
+
+```
+SUBCOMMANDS:
+  agent-db process list                               List all records
+  agent-db process get --id <value>              Get one record
+  agent-db process create --entityId <value> --commandTrgmSimilarity <value> --statusTrgmSimilarity <value> --logsPathTrgmSimilarity <value> --searchScore <value> [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
+  agent-db process update --id <value> [--entityId <value>] [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>] [--commandTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--logsPathTrgmSimilarity <value>] [--searchScore <value>]
+  agent-db process delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  pid: Int
+  agentId: UUID
+  command: String
+  startedAt: Datetime
+  endedAt: Datetime
+  status: String
+  exitCode: Int
+  logsPath: String
+  commandTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  logsPathTrgmSimilarity: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  pid: Int (optional, has backend default)
+  agentId: UUID (optional, has backend default)
+  command: String (optional, has backend default)
+  startedAt: Datetime (optional, has backend default)
+  endedAt: Datetime (optional, has backend default)
+  status: String (optional, has backend default)
+  exitCode: Int (optional, has backend default)
+  logsPath: String (optional, has backend default)
+  commandTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  logsPathTrgmSimilarity: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath, commandTrgmSimilarity, statusTrgmSimilarity, logsPathTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath, commandTrgmSimilarity, statusTrgmSimilarity, logsPathTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath, commandTrgmSimilarity, statusTrgmSimilarity, logsPathTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath, commandTrgmSimilarity, statusTrgmSimilarity, logsPathTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1492,8 +1349,8 @@ CRUD operations for WorkflowRun records.
 SUBCOMMANDS:
   agent-db workflow-run list                               List all records
   agent-db workflow-run get --id <value>              Get one record
-  agent-db workflow-run create --entityId <value> --workflowId <value> [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
-  agent-db workflow-run update --id <value> [--entityId <value>] [--workflowId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
+  agent-db workflow-run create --entityId <value> --workflowId <value> --statusTrgmSimilarity <value> --errorTrgmSimilarity <value> --searchScore <value> [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
+  agent-db workflow-run update --id <value> [--entityId <value>] [--workflowId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>] [--statusTrgmSimilarity <value>] [--errorTrgmSimilarity <value>] [--searchScore <value>]
   agent-db workflow-run delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1508,6 +1365,9 @@ INPUT FIELDS:
   input: JSON
   output: JSON
   error: String
+  statusTrgmSimilarity: Float
+  errorTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1518,55 +1378,15 @@ EDITABLE FIELDS (for create/update):
   input: JSON (optional, has backend default)
   output: JSON (optional, has backend default)
   error: String (optional, has backend default)
+  statusTrgmSimilarity: Float
+  errorTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error }]
-  get:    { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error }
-  create: { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error }
-  update: { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error }
-  delete: { id }
-```
-
-### TOOL: workflow-step
-
-CRUD operations for WorkflowStep records.
-
-```
-SUBCOMMANDS:
-  agent-db workflow-step list                               List all records
-  agent-db workflow-step get --id <value>              Get one record
-  agent-db workflow-step create --entityId <value> --workflowId <value> --stepOrder <value> --actionType <value> [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
-  agent-db workflow-step update --id <value> [--entityId <value>] [--workflowId <value>] [--stepOrder <value>] [--actionType <value>] [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
-  agent-db workflow-step delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  workflowId: UUID
-  stepOrder: Int
-  actionType: String
-  actionConfig: JSON
-  onSuccessStep: Int
-  onFailureStep: Int
-  timeoutMs: Int
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  workflowId: UUID
-  stepOrder: Int
-  actionType: String
-  actionConfig: JSON (optional, has backend default)
-  onSuccessStep: Int (optional, has backend default)
-  onFailureStep: Int (optional, has backend default)
-  timeoutMs: Int (optional, has backend default)
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs }]
-  get:    { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs }
-  create: { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs }
-  update: { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs }
+  list:   [{ id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1578,8 +1398,8 @@ CRUD operations for Integration records.
 SUBCOMMANDS:
   agent-db integration list                               List all records
   agent-db integration get --id <value>              Get one record
-  agent-db integration create --entityId <value> --name <value> --provider <value> [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
-  agent-db integration update --id <value> [--entityId <value>] [--name <value>] [--provider <value>] [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
+  agent-db integration create --entityId <value> --name <value> --provider <value> --nameTrgmSimilarity <value> --providerTrgmSimilarity <value> --typeTrgmSimilarity <value> --credentialsRefTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
+  agent-db integration update --id <value> [--entityId <value>] [--name <value>] [--provider <value>] [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>] [--nameTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--credentialsRefTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
   agent-db integration delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1594,6 +1414,12 @@ INPUT FIELDS:
   config: JSON
   status: String
   lastSyncedAt: Datetime
+  nameTrgmSimilarity: Float
+  providerTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  credentialsRefTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1604,12 +1430,18 @@ EDITABLE FIELDS (for create/update):
   config: JSON (optional, has backend default)
   status: String (optional, has backend default)
   lastSyncedAt: Datetime (optional, has backend default)
+  nameTrgmSimilarity: Float
+  providerTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  credentialsRefTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt }]
-  get:    { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt }
-  create: { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt }
-  update: { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt }
+  list:   [{ id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt, nameTrgmSimilarity, providerTrgmSimilarity, typeTrgmSimilarity, credentialsRefTrgmSimilarity, statusTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt, nameTrgmSimilarity, providerTrgmSimilarity, typeTrgmSimilarity, credentialsRefTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt, nameTrgmSimilarity, providerTrgmSimilarity, typeTrgmSimilarity, credentialsRefTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt, nameTrgmSimilarity, providerTrgmSimilarity, typeTrgmSimilarity, credentialsRefTrgmSimilarity, statusTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1621,8 +1453,8 @@ CRUD operations for SkillExecution records.
 SUBCOMMANDS:
   agent-db skill-execution list                               List all records
   agent-db skill-execution get --id <value>              Get one record
-  agent-db skill-execution create --entityId <value> --skillId <value> [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>]
-  agent-db skill-execution update --id <value> [--entityId <value>] [--skillId <value>] [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>]
+  agent-db skill-execution create --entityId <value> --skillId <value> --statusTrgmSimilarity <value> --errorTrgmSimilarity <value> --searchScore <value> [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>]
+  agent-db skill-execution update --id <value> [--entityId <value>] [--skillId <value>] [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>] [--statusTrgmSimilarity <value>] [--errorTrgmSimilarity <value>] [--searchScore <value>]
   agent-db skill-execution delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1640,6 +1472,9 @@ INPUT FIELDS:
   input: JSON
   output: JSON
   error: String
+  statusTrgmSimilarity: Float
+  errorTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1653,12 +1488,15 @@ EDITABLE FIELDS (for create/update):
   input: JSON (optional, has backend default)
   output: JSON (optional, has backend default)
   error: String (optional, has backend default)
+  statusTrgmSimilarity: Float
+  errorTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error }]
-  get:    { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error }
-  create: { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error }
-  update: { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error }
+  list:   [{ id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1670,8 +1508,8 @@ CRUD operations for Chat records.
 SUBCOMMANDS:
   agent-db chat list                               List all records
   agent-db chat get --id <value>              Get one record
-  agent-db chat create --entityId <value> --embeddingDistance <value> [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db chat update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db chat create --entityId <value> --titleTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db chat update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>] [--titleTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db chat delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1683,7 +1521,10 @@ INPUT FIELDS:
   startedAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1691,13 +1532,120 @@ EDITABLE FIELDS (for create/update):
   startedAt: Datetime (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, titleTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, titleTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, titleTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, titleTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete: { id }
+```
+
+### TOOL: chunk
+
+CRUD operations for Chunk records.
+
+```
+SUBCOMMANDS:
+  agent-db chunk list                               List all records
+  agent-db chunk get --id <value>              Get one record
+  agent-db chunk create --entityId <value> --content <value> --contentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--fileId <value>] [--repositoryId <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db chunk update --id <value> [--entityId <value>] [--fileId <value>] [--repositoryId <value>] [--content <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>] [--contentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agent-db chunk delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  fileId: UUID
+  repositoryId: UUID
+  content: String
+  startLine: Int
+  endLine: Int
+  embeddingText: String
+  embedding: Vector
+  contentTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  fileId: UUID (optional, has backend default)
+  repositoryId: UUID (optional, has backend default)
+  content: String
+  startLine: Int (optional, has backend default)
+  endLine: Int (optional, has backend default)
+  embeddingText: String (optional, has backend default)
+  embedding: Vector (optional, has backend default)
+  contentTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete: { id }
+```
+
+### TOOL: thread
+
+CRUD operations for Thread records.
+
+```
+SUBCOMMANDS:
+  agent-db thread list                               List all records
+  agent-db thread get --id <value>              Get one record
+  agent-db thread create --entityId <value> --title <value> --titleTrgmSimilarity <value> --summaryTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db thread update --id <value> [--entityId <value>] [--title <value>] [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>] [--titleTrgmSimilarity <value>] [--summaryTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agent-db thread delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  title: String
+  summary: String
+  status: String
+  parentThreadId: UUID
+  embeddingText: String
+  embedding: Vector
+  titleTrgmSimilarity: Float
+  summaryTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  title: String
+  summary: String (optional, has backend default)
+  status: String (optional, has backend default)
+  parentThreadId: UUID (optional, has backend default)
+  embeddingText: String (optional, has backend default)
+  embedding: Vector (optional, has backend default)
+  titleTrgmSimilarity: Float
+  summaryTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, titleTrgmSimilarity, summaryTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, titleTrgmSimilarity, summaryTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, titleTrgmSimilarity, summaryTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, titleTrgmSimilarity, summaryTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -1709,8 +1657,8 @@ CRUD operations for ChatMessage records.
 SUBCOMMANDS:
   agent-db chat-message list                               List all records
   agent-db chat-message get --id <value>              Get one record
-  agent-db chat-message create --entityId <value> --embeddingDistance <value> [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db chat-message update --id <value> [--entityId <value>] [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db chat-message create --entityId <value> --roleTrgmSimilarity <value> --contentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db chat-message update --id <value> [--entityId <value>] [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>] [--roleTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db chat-message delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1725,7 +1673,11 @@ INPUT FIELDS:
   toolCalls: JSON
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  roleTrgmSimilarity: Float
+  contentTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1736,103 +1688,70 @@ EDITABLE FIELDS (for create/update):
   toolCalls: JSON (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  roleTrgmSimilarity: Float
+  contentTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, roleTrgmSimilarity, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, roleTrgmSimilarity, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, roleTrgmSimilarity, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, roleTrgmSimilarity, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
-### TOOL: thread
+### TOOL: session-archive
 
-CRUD operations for Thread records.
+CRUD operations for SessionArchive records.
 
 ```
 SUBCOMMANDS:
-  agent-db thread list                               List all records
-  agent-db thread get --id <value>              Get one record
-  agent-db thread create --entityId <value> --title <value> --embeddingDistance <value> [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db thread update --id <value> [--entityId <value>] [--title <value>] [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-db thread delete --id <value>           Delete one record
+  agent-db session-archive list                               List all records
+  agent-db session-archive get --id <value>              Get one record
+  agent-db session-archive create --entityId <value> --sessionId <value> --archiveIndex <value> --summary <value> --summaryTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--messageRangeStart <value>] [--messageRangeEnd <value>] [--rawMessages <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db session-archive update --id <value> [--entityId <value>] [--sessionId <value>] [--archiveIndex <value>] [--summary <value>] [--messageRangeStart <value>] [--messageRangeEnd <value>] [--rawMessages <value>] [--embeddingText <value>] [--embedding <value>] [--summaryTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agent-db session-archive delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
   entityId: UUID
   createdAt: Datetime
   updatedAt: Datetime
-  title: String
+  sessionId: UUID
+  archiveIndex: Int
   summary: String
-  status: String
-  parentThreadId: UUID
+  messageRangeStart: Int
+  messageRangeEnd: Int
+  rawMessages: JSON
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  summaryTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
-  title: String
-  summary: String (optional, has backend default)
-  status: String (optional, has backend default)
-  parentThreadId: UUID (optional, has backend default)
+  sessionId: UUID
+  archiveIndex: Int
+  summary: String
+  messageRangeStart: Int (optional, has backend default)
+  messageRangeEnd: Int (optional, has backend default)
+  rawMessages: JSON (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  summaryTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, embeddingDistance }
-  delete: { id }
-```
-
-### TOOL: session
-
-CRUD operations for Session records.
-
-```
-SUBCOMMANDS:
-  agent-db session list                               List all records
-  agent-db session get --id <value>              Get one record
-  agent-db session create --entityId <value> --embeddingDistance <value> [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db session update --id <value> [--entityId <value>] [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-db session delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  title: String
-  agentId: UUID
-  startedAt: Datetime
-  endedAt: Datetime
-  status: String
-  contextSummary: String
-  embeddingText: String
-  embedding: Vector
-  embeddingDistance: Float
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  title: String (optional, has backend default)
-  agentId: UUID (optional, has backend default)
-  startedAt: Datetime (optional, has backend default)
-  endedAt: Datetime (optional, has backend default)
-  status: String (optional, has backend default)
-  contextSummary: String (optional, has backend default)
-  embeddingText: String (optional, has backend default)
-  embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -1844,8 +1763,8 @@ CRUD operations for Reminder records.
 SUBCOMMANDS:
   agent-db reminder list                               List all records
   agent-db reminder get --id <value>              Get one record
-  agent-db reminder create --entityId <value> --title <value> --embeddingDistance <value> [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db reminder update --id <value> [--entityId <value>] [--title <value>] [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db reminder create --entityId <value> --title <value> --titleTrgmSimilarity <value> --recurrenceTrgmSimilarity <value> --statusTrgmSimilarity <value> --relatedEntityTypeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db reminder update --id <value> [--entityId <value>] [--title <value>] [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>] [--titleTrgmSimilarity <value>] [--recurrenceTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--relatedEntityTypeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db reminder delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1862,7 +1781,13 @@ INPUT FIELDS:
   relatedEntityType: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  recurrenceTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  relatedEntityTypeTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1875,13 +1800,19 @@ EDITABLE FIELDS (for create/update):
   relatedEntityType: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  recurrenceTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  relatedEntityTypeTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, titleTrgmSimilarity, recurrenceTrgmSimilarity, statusTrgmSimilarity, relatedEntityTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, titleTrgmSimilarity, recurrenceTrgmSimilarity, statusTrgmSimilarity, relatedEntityTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, titleTrgmSimilarity, recurrenceTrgmSimilarity, statusTrgmSimilarity, relatedEntityTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, titleTrgmSimilarity, recurrenceTrgmSimilarity, statusTrgmSimilarity, relatedEntityTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -1893,8 +1824,8 @@ CRUD operations for Image records.
 SUBCOMMANDS:
   agent-db image list                               List all records
   agent-db image get --id <value>              Get one record
-  agent-db image create --entityId <value> --url <value> --embeddingDistance <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
-  agent-db image update --id <value> [--entityId <value>] [--url <value>] [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db image create --entityId <value> --url <value> --urlTrgmSimilarity <value> --altTextTrgmSimilarity <value> --captionTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
+  agent-db image update --id <value> [--entityId <value>] [--url <value>] [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>] [--urlTrgmSimilarity <value>] [--altTextTrgmSimilarity <value>] [--captionTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db image delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1907,7 +1838,11 @@ INPUT FIELDS:
   altText: String
   caption: String
   embedding: Vector
-  embeddingDistance: Float
+  urlTrgmSimilarity: Float
+  altTextTrgmSimilarity: Float
+  captionTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1916,13 +1851,64 @@ EDITABLE FIELDS (for create/update):
   altText: String (optional, has backend default)
   caption: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  urlTrgmSimilarity: Float
+  altTextTrgmSimilarity: Float
+  captionTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, urlTrgmSimilarity, altTextTrgmSimilarity, captionTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, urlTrgmSimilarity, altTextTrgmSimilarity, captionTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, urlTrgmSimilarity, altTextTrgmSimilarity, captionTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, urlTrgmSimilarity, altTextTrgmSimilarity, captionTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete: { id }
+```
+
+### TOOL: workflow-step
+
+CRUD operations for WorkflowStep records.
+
+```
+SUBCOMMANDS:
+  agent-db workflow-step list                               List all records
+  agent-db workflow-step get --id <value>              Get one record
+  agent-db workflow-step create --entityId <value> --workflowId <value> --stepOrder <value> --actionType <value> --actionTypeTrgmSimilarity <value> --searchScore <value> [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
+  agent-db workflow-step update --id <value> [--entityId <value>] [--workflowId <value>] [--stepOrder <value>] [--actionType <value>] [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>] [--actionTypeTrgmSimilarity <value>] [--searchScore <value>]
+  agent-db workflow-step delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  workflowId: UUID
+  stepOrder: Int
+  actionType: String
+  actionConfig: JSON
+  onSuccessStep: Int
+  onFailureStep: Int
+  timeoutMs: Int
+  actionTypeTrgmSimilarity: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  workflowId: UUID
+  stepOrder: Int
+  actionType: String
+  actionConfig: JSON (optional, has backend default)
+  onSuccessStep: Int (optional, has backend default)
+  onFailureStep: Int (optional, has backend default)
+  timeoutMs: Int (optional, has backend default)
+  actionTypeTrgmSimilarity: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs, actionTypeTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs, actionTypeTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs, actionTypeTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs, actionTypeTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1934,8 +1920,8 @@ CRUD operations for ListItem records.
 SUBCOMMANDS:
   agent-db list-item list                               List all records
   agent-db list-item get --id <value>              Get one record
-  agent-db list-item create --entityId <value> --listId <value> [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>]
-  agent-db list-item update --id <value> [--entityId <value>] [--listId <value>] [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>]
+  agent-db list-item create --entityId <value> --listId <value> --contentTrgmSimilarity <value> --refTypeTrgmSimilarity <value> --searchScore <value> [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>]
+  agent-db list-item update --id <value> [--entityId <value>] [--listId <value>] [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>] [--contentTrgmSimilarity <value>] [--refTypeTrgmSimilarity <value>] [--searchScore <value>]
   agent-db list-item delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1949,6 +1935,9 @@ INPUT FIELDS:
   isChecked: Boolean
   refId: UUID
   refType: String
+  contentTrgmSimilarity: Float
+  refTypeTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1958,12 +1947,15 @@ EDITABLE FIELDS (for create/update):
   isChecked: Boolean (optional, has backend default)
   refId: UUID (optional, has backend default)
   refType: String (optional, has backend default)
+  contentTrgmSimilarity: Float
+  refTypeTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType }]
-  get:    { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType }
-  create: { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType }
-  update: { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType }
+  list:   [{ id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType, contentTrgmSimilarity, refTypeTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType, contentTrgmSimilarity, refTypeTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType, contentTrgmSimilarity, refTypeTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType, contentTrgmSimilarity, refTypeTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -1975,8 +1967,8 @@ CRUD operations for CompanyLink records.
 SUBCOMMANDS:
   agent-db company-link list                               List all records
   agent-db company-link get --id <value>              Get one record
-  agent-db company-link create --entityId <value> --url <value> --companyId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
-  agent-db company-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--companyId <value>] [--embeddingDistance <value>]
+  agent-db company-link create --entityId <value> --url <value> --companyId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
+  agent-db company-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--companyId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db company-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -1988,7 +1980,10 @@ INPUT FIELDS:
   url: String
   embedding: Vector
   companyId: UUID
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -1996,13 +1991,16 @@ EDITABLE FIELDS (for create/update):
   url: String
   embedding: Vector (optional, has backend default)
   companyId: UUID
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, url, embedding, companyId, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, url, embedding, companyId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2014,8 +2012,8 @@ CRUD operations for ContactLink records.
 SUBCOMMANDS:
   agent-db contact-link list                               List all records
   agent-db contact-link get --id <value>              Get one record
-  agent-db contact-link create --entityId <value> --url <value> --contactId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
-  agent-db contact-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--contactId <value>] [--embeddingDistance <value>]
+  agent-db contact-link create --entityId <value> --url <value> --contactId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
+  agent-db contact-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--contactId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db contact-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2027,7 +2025,10 @@ INPUT FIELDS:
   url: String
   embedding: Vector
   contactId: UUID
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2035,13 +2036,16 @@ EDITABLE FIELDS (for create/update):
   url: String
   embedding: Vector (optional, has backend default)
   contactId: UUID
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, url, embedding, contactId, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, url, embedding, contactId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2053,8 +2057,8 @@ CRUD operations for EventLink records.
 SUBCOMMANDS:
   agent-db event-link list                               List all records
   agent-db event-link get --id <value>              Get one record
-  agent-db event-link create --entityId <value> --url <value> --eventId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
-  agent-db event-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--eventId <value>] [--embeddingDistance <value>]
+  agent-db event-link create --entityId <value> --url <value> --eventId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
+  agent-db event-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--eventId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db event-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2066,7 +2070,10 @@ INPUT FIELDS:
   url: String
   embedding: Vector
   eventId: UUID
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2074,13 +2081,16 @@ EDITABLE FIELDS (for create/update):
   url: String
   embedding: Vector (optional, has backend default)
   eventId: UUID
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, url, embedding, eventId, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, url, embedding, eventId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2092,8 +2102,8 @@ CRUD operations for VenueLink records.
 SUBCOMMANDS:
   agent-db venue-link list                               List all records
   agent-db venue-link get --id <value>              Get one record
-  agent-db venue-link create --entityId <value> --url <value> --venueId <value> --embeddingDistance <value> [--title <value>] [--embedding <value>]
-  agent-db venue-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--venueId <value>] [--embeddingDistance <value>]
+  agent-db venue-link create --entityId <value> --url <value> --venueId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
+  agent-db venue-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--venueId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db venue-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2105,7 +2115,10 @@ INPUT FIELDS:
   url: String
   embedding: Vector
   venueId: UUID
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2113,13 +2126,140 @@ EDITABLE FIELDS (for create/update):
   url: String
   embedding: Vector (optional, has backend default)
   venueId: UUID
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, url, embedding, venueId, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, url, embedding, venueId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete: { id }
+```
+
+### TOOL: agent-spawn
+
+CRUD operations for AgentSpawn records.
+
+```
+SUBCOMMANDS:
+  agent-db agent-spawn list                               List all records
+  agent-db agent-spawn get --id <value>              Get one record
+  agent-db agent-spawn create --entityId <value> --parentAgentId <value> --task <value> --agentId <value> --taskTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--childAgentId <value>] [--sessionId <value>] [--status <value>] [--result <value>] [--maxIterations <value>] [--startedAt <value>] [--completedAt <value>]
+  agent-db agent-spawn update --id <value> [--entityId <value>] [--parentAgentId <value>] [--childAgentId <value>] [--sessionId <value>] [--task <value>] [--status <value>] [--result <value>] [--maxIterations <value>] [--startedAt <value>] [--completedAt <value>] [--agentId <value>] [--taskTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
+  agent-db agent-spawn delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  parentAgentId: UUID
+  childAgentId: UUID
+  sessionId: UUID
+  task: String
+  status: String
+  result: JSON
+  maxIterations: Int
+  startedAt: Datetime
+  completedAt: Datetime
+  agentId: UUID
+  taskTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  parentAgentId: UUID
+  childAgentId: UUID (optional, has backend default)
+  sessionId: UUID (optional, has backend default)
+  task: String
+  status: String (optional, has backend default)
+  result: JSON (optional, has backend default)
+  maxIterations: Int (optional, has backend default)
+  startedAt: Datetime (optional, has backend default)
+  completedAt: Datetime (optional, has backend default)
+  agentId: UUID
+  taskTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, parentAgentId, childAgentId, sessionId, task, status, result, maxIterations, startedAt, completedAt, agentId, taskTrgmSimilarity, statusTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, parentAgentId, childAgentId, sessionId, task, status, result, maxIterations, startedAt, completedAt, agentId, taskTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, parentAgentId, childAgentId, sessionId, task, status, result, maxIterations, startedAt, completedAt, agentId, taskTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, parentAgentId, childAgentId, sessionId, task, status, result, maxIterations, startedAt, completedAt, agentId, taskTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  delete: { id }
+```
+
+### TOOL: scheduled-job
+
+CRUD operations for ScheduledJob records.
+
+```
+SUBCOMMANDS:
+  agent-db scheduled-job list                               List all records
+  agent-db scheduled-job get --id <value>              Get one record
+  agent-db scheduled-job create --entityId <value> --name <value> --scheduleType <value> --command <value> --nameTrgmSimilarity <value> --scheduleTypeTrgmSimilarity <value> --scheduleExprTrgmSimilarity <value> --commandTrgmSimilarity <value> --messageTrgmSimilarity <value> --searchScore <value> [--scheduleExpr <value>] [--runAt <value>] [--message <value>] [--agentId <value>] [--sessionId <value>] [--isActive <value>] [--deleteAfterRun <value>] [--lastRunAt <value>] [--nextRunAt <value>] [--runCount <value>] [--lastResult <value>]
+  agent-db scheduled-job update --id <value> [--entityId <value>] [--name <value>] [--scheduleType <value>] [--scheduleExpr <value>] [--runAt <value>] [--command <value>] [--message <value>] [--agentId <value>] [--sessionId <value>] [--isActive <value>] [--deleteAfterRun <value>] [--lastRunAt <value>] [--nextRunAt <value>] [--runCount <value>] [--lastResult <value>] [--nameTrgmSimilarity <value>] [--scheduleTypeTrgmSimilarity <value>] [--scheduleExprTrgmSimilarity <value>] [--commandTrgmSimilarity <value>] [--messageTrgmSimilarity <value>] [--searchScore <value>]
+  agent-db scheduled-job delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String
+  scheduleType: String
+  scheduleExpr: String
+  runAt: Datetime
+  command: String
+  message: String
+  agentId: UUID
+  sessionId: UUID
+  isActive: Boolean
+  deleteAfterRun: Boolean
+  lastRunAt: Datetime
+  nextRunAt: Datetime
+  runCount: Int
+  lastResult: JSON
+  nameTrgmSimilarity: Float
+  scheduleTypeTrgmSimilarity: Float
+  scheduleExprTrgmSimilarity: Float
+  commandTrgmSimilarity: Float
+  messageTrgmSimilarity: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  name: String
+  scheduleType: String
+  scheduleExpr: String (optional, has backend default)
+  runAt: Datetime (optional, has backend default)
+  command: String
+  message: String (optional, has backend default)
+  agentId: UUID (optional, has backend default)
+  sessionId: UUID (optional, has backend default)
+  isActive: Boolean (optional, has backend default)
+  deleteAfterRun: Boolean (optional, has backend default)
+  lastRunAt: Datetime (optional, has backend default)
+  nextRunAt: Datetime (optional, has backend default)
+  runCount: Int (optional, has backend default)
+  lastResult: JSON (optional, has backend default)
+  nameTrgmSimilarity: Float
+  scheduleTypeTrgmSimilarity: Float
+  scheduleExprTrgmSimilarity: Float
+  commandTrgmSimilarity: Float
+  messageTrgmSimilarity: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, name, scheduleType, scheduleExpr, runAt, command, message, agentId, sessionId, isActive, deleteAfterRun, lastRunAt, nextRunAt, runCount, lastResult, nameTrgmSimilarity, scheduleTypeTrgmSimilarity, scheduleExprTrgmSimilarity, commandTrgmSimilarity, messageTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, scheduleType, scheduleExpr, runAt, command, message, agentId, sessionId, isActive, deleteAfterRun, lastRunAt, nextRunAt, runCount, lastResult, nameTrgmSimilarity, scheduleTypeTrgmSimilarity, scheduleExprTrgmSimilarity, commandTrgmSimilarity, messageTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, scheduleType, scheduleExpr, runAt, command, message, agentId, sessionId, isActive, deleteAfterRun, lastRunAt, nextRunAt, runCount, lastResult, nameTrgmSimilarity, scheduleTypeTrgmSimilarity, scheduleExprTrgmSimilarity, commandTrgmSimilarity, messageTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, scheduleType, scheduleExpr, runAt, command, message, agentId, sessionId, isActive, deleteAfterRun, lastRunAt, nextRunAt, runCount, lastResult, nameTrgmSimilarity, scheduleTypeTrgmSimilarity, scheduleExprTrgmSimilarity, commandTrgmSimilarity, messageTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -2131,8 +2271,8 @@ CRUD operations for Habit records.
 SUBCOMMANDS:
   agent-db habit list                               List all records
   agent-db habit get --id <value>              Get one record
-  agent-db habit create --entityId <value> --name <value> [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
-  agent-db habit update --id <value> [--entityId <value>] [--name <value>] [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
+  agent-db habit create --entityId <value> --name <value> --nameTrgmSimilarity <value> --frequencyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
+  agent-db habit update --id <value> [--entityId <value>] [--name <value>] [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>] [--nameTrgmSimilarity <value>] [--frequencyTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--searchScore <value>]
   agent-db habit delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2147,6 +2287,10 @@ INPUT FIELDS:
   bestStreak: Int
   category: String
   tags: String
+  nameTrgmSimilarity: Float
+  frequencyTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2157,12 +2301,16 @@ EDITABLE FIELDS (for create/update):
   bestStreak: Int (optional, has backend default)
   category: String (optional, has backend default)
   tags: String (optional, has backend default)
+  nameTrgmSimilarity: Float
+  frequencyTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags }]
-  get:    { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags }
-  create: { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags }
-  update: { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags }
+  list:   [{ id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags, nameTrgmSimilarity, frequencyTrgmSimilarity, categoryTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags, nameTrgmSimilarity, frequencyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags, nameTrgmSimilarity, frequencyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags, nameTrgmSimilarity, frequencyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -2174,8 +2322,8 @@ CRUD operations for Workflow records.
 SUBCOMMANDS:
   agent-db workflow list                               List all records
   agent-db workflow get --id <value>              Get one record
-  agent-db workflow create --entityId <value> --name <value> [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
-  agent-db workflow update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
+  agent-db workflow create --entityId <value> --name <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --triggerTypeTrgmSimilarity <value> --searchScore <value> [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
+  agent-db workflow update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--triggerTypeTrgmSimilarity <value>] [--searchScore <value>]
   agent-db workflow delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2189,6 +2337,10 @@ INPUT FIELDS:
   triggerConfig: JSON
   isActive: Boolean
   tags: String
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  triggerTypeTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2198,12 +2350,83 @@ EDITABLE FIELDS (for create/update):
   triggerConfig: JSON (optional, has backend default)
   isActive: Boolean (optional, has backend default)
   tags: String (optional, has backend default)
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  triggerTypeTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags }]
-  get:    { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags }
-  create: { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags }
-  update: { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags }
+  list:   [{ id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags, nameTrgmSimilarity, descriptionTrgmSimilarity, triggerTypeTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags, nameTrgmSimilarity, descriptionTrgmSimilarity, triggerTypeTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags, nameTrgmSimilarity, descriptionTrgmSimilarity, triggerTypeTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags, nameTrgmSimilarity, descriptionTrgmSimilarity, triggerTypeTrgmSimilarity, searchScore }
+  delete: { id }
+```
+
+### TOOL: habit-log
+
+CRUD operations for HabitLog records.
+
+```
+SUBCOMMANDS:
+  agent-db habit-log list                               List all records
+  agent-db habit-log get --id <value>              Get one record
+  agent-db habit-log create --entityId <value> --habitId <value> --completedAt <value> --activityTypeTrgmSimilarity <value> --distanceUnitTrgmSimilarity <value> --weightUnitTrgmSimilarity <value> --notesTrgmSimilarity <value> --searchScore <value> [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>]
+  agent-db habit-log update --id <value> [--entityId <value>] [--habitId <value>] [--completedAt <value>] [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>] [--activityTypeTrgmSimilarity <value>] [--distanceUnitTrgmSimilarity <value>] [--weightUnitTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--searchScore <value>]
+  agent-db habit-log delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  habitId: UUID
+  completedAt: Datetime
+  activityType: String
+  durationMinutes: BigFloat
+  distance: BigFloat
+  distanceUnit: String
+  reps: Int
+  sets: Int
+  weightAmount: BigFloat
+  weightUnit: String
+  calories: BigFloat
+  data: JSON
+  notes: String
+  tags: String
+  activityTypeTrgmSimilarity: Float
+  distanceUnitTrgmSimilarity: Float
+  weightUnitTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  habitId: UUID
+  completedAt: Datetime
+  activityType: String (optional, has backend default)
+  durationMinutes: BigFloat (optional, has backend default)
+  distance: BigFloat (optional, has backend default)
+  distanceUnit: String (optional, has backend default)
+  reps: Int (optional, has backend default)
+  sets: Int (optional, has backend default)
+  weightAmount: BigFloat (optional, has backend default)
+  weightUnit: String (optional, has backend default)
+  calories: BigFloat (optional, has backend default)
+  data: JSON (optional, has backend default)
+  notes: String (optional, has backend default)
+  tags: String (optional, has backend default)
+  activityTypeTrgmSimilarity: Float
+  distanceUnitTrgmSimilarity: Float
+  weightUnitTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags, activityTypeTrgmSimilarity, distanceUnitTrgmSimilarity, weightUnitTrgmSimilarity, notesTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags, activityTypeTrgmSimilarity, distanceUnitTrgmSimilarity, weightUnitTrgmSimilarity, notesTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags, activityTypeTrgmSimilarity, distanceUnitTrgmSimilarity, weightUnitTrgmSimilarity, notesTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags, activityTypeTrgmSimilarity, distanceUnitTrgmSimilarity, weightUnitTrgmSimilarity, notesTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -2215,8 +2438,8 @@ CRUD operations for Expense records.
 SUBCOMMANDS:
   agent-db expense list                               List all records
   agent-db expense get --id <value>              Get one record
-  agent-db expense create --entityId <value> [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>]
-  agent-db expense update --id <value> [--entityId <value>] [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>]
+  agent-db expense create --entityId <value> --currencyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --merchantTrgmSimilarity <value> --receiptUrlTrgmSimilarity <value> --searchScore <value> [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>]
+  agent-db expense update --id <value> [--entityId <value>] [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>] [--currencyTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--merchantTrgmSimilarity <value>] [--receiptUrlTrgmSimilarity <value>] [--searchScore <value>]
   agent-db expense delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2233,6 +2456,12 @@ INPUT FIELDS:
   receiptUrl: String
   isRecurring: Boolean
   tags: String
+  currencyTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  merchantTrgmSimilarity: Float
+  receiptUrlTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2245,12 +2474,18 @@ EDITABLE FIELDS (for create/update):
   receiptUrl: String (optional, has backend default)
   isRecurring: Boolean (optional, has backend default)
   tags: String (optional, has backend default)
+  currencyTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  merchantTrgmSimilarity: Float
+  receiptUrlTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags }]
-  get:    { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags }
-  create: { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags }
-  update: { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags }
+  list:   [{ id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags, currencyTrgmSimilarity, categoryTrgmSimilarity, descriptionTrgmSimilarity, merchantTrgmSimilarity, receiptUrlTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags, currencyTrgmSimilarity, categoryTrgmSimilarity, descriptionTrgmSimilarity, merchantTrgmSimilarity, receiptUrlTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags, currencyTrgmSimilarity, categoryTrgmSimilarity, descriptionTrgmSimilarity, merchantTrgmSimilarity, receiptUrlTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags, currencyTrgmSimilarity, categoryTrgmSimilarity, descriptionTrgmSimilarity, merchantTrgmSimilarity, receiptUrlTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -2262,8 +2497,8 @@ CRUD operations for BillingSubscription records.
 SUBCOMMANDS:
   agent-db billing-subscription list                               List all records
   agent-db billing-subscription get --id <value>              Get one record
-  agent-db billing-subscription create --entityId <value> --name <value> [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>]
-  agent-db billing-subscription update --id <value> [--entityId <value>] [--name <value>] [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>]
+  agent-db billing-subscription create --entityId <value> --name <value> --nameTrgmSimilarity <value> --currencyTrgmSimilarity <value> --frequencyTrgmSimilarity <value> --providerTrgmSimilarity <value> --statusTrgmSimilarity <value> --notesTrgmSimilarity <value> --searchScore <value> [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>]
+  agent-db billing-subscription update --id <value> [--entityId <value>] [--name <value>] [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>] [--nameTrgmSimilarity <value>] [--currencyTrgmSimilarity <value>] [--frequencyTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--searchScore <value>]
   agent-db billing-subscription delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2281,6 +2516,13 @@ INPUT FIELDS:
   status: String
   tags: String
   notes: String
+  nameTrgmSimilarity: Float
+  currencyTrgmSimilarity: Float
+  frequencyTrgmSimilarity: Float
+  providerTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2294,12 +2536,19 @@ EDITABLE FIELDS (for create/update):
   status: String (optional, has backend default)
   tags: String (optional, has backend default)
   notes: String (optional, has backend default)
+  nameTrgmSimilarity: Float
+  currencyTrgmSimilarity: Float
+  frequencyTrgmSimilarity: Float
+  providerTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes }]
-  get:    { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes }
-  create: { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes }
-  update: { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes }
+  list:   [{ id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes, nameTrgmSimilarity, currencyTrgmSimilarity, frequencyTrgmSimilarity, providerTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes, nameTrgmSimilarity, currencyTrgmSimilarity, frequencyTrgmSimilarity, providerTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes, nameTrgmSimilarity, currencyTrgmSimilarity, frequencyTrgmSimilarity, providerTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes, nameTrgmSimilarity, currencyTrgmSimilarity, frequencyTrgmSimilarity, providerTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, searchScore }
   delete: { id }
 ```
 
@@ -2311,8 +2560,8 @@ CRUD operations for Idea records.
 SUBCOMMANDS:
   agent-db idea list                               List all records
   agent-db idea get --id <value>              Get one record
-  agent-db idea create --entityId <value> --content <value> --embeddingDistance <value> [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db idea update --id <value> [--entityId <value>] [--content <value>] [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db idea create --entityId <value> --content <value> --contentTrgmSimilarity <value> --sourceTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db idea update --id <value> [--entityId <value>] [--content <value>] [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--contentTrgmSimilarity <value>] [--sourceTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db idea delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2326,7 +2575,12 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  contentTrgmSimilarity: Float
+  sourceTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2336,13 +2590,18 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  contentTrgmSimilarity: Float
+  sourceTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, contentTrgmSimilarity, sourceTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, contentTrgmSimilarity, sourceTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, contentTrgmSimilarity, sourceTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, contentTrgmSimilarity, sourceTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2354,8 +2613,8 @@ CRUD operations for List records.
 SUBCOMMANDS:
   agent-db list list                               List all records
   agent-db list get --id <value>              Get one record
-  agent-db list create --entityId <value> --name <value> --embeddingDistance <value> [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db list update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db list create --entityId <value> --name <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --typeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db list update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db list delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2369,7 +2628,12 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2379,56 +2643,75 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
-### TOOL: note
+### TOOL: interaction
 
-CRUD operations for Note records.
+CRUD operations for Interaction records.
 
 ```
 SUBCOMMANDS:
-  agent-db note list                               List all records
-  agent-db note get --id <value>              Get one record
-  agent-db note create --entityId <value> --content <value> --embeddingDistance <value> [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db note update --id <value> [--entityId <value>] [--content <value>] [--notableType <value>] [--notableId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-db note delete --id <value>           Delete one record
+  agent-db interaction list                               List all records
+  agent-db interaction get --id <value>              Get one record
+  agent-db interaction create --entityId <value> --contactId <value> --type <value> --occurredAt <value> --typeTrgmSimilarity <value> --summaryTrgmSimilarity <value> --sentimentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db interaction update --id <value> [--entityId <value>] [--contactId <value>] [--type <value>] [--occurredAt <value>] [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--typeTrgmSimilarity <value>] [--summaryTrgmSimilarity <value>] [--sentimentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agent-db interaction delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
   entityId: UUID
   createdAt: Datetime
   updatedAt: Datetime
-  content: String
-  notableType: String
-  notableId: UUID
+  contactId: UUID
+  type: String
+  occurredAt: Datetime
+  summary: String
+  sentiment: String
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  typeTrgmSimilarity: Float
+  summaryTrgmSimilarity: Float
+  sentimentTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
-  content: String
-  notableType: String (optional, has backend default)
-  notableId: UUID (optional, has backend default)
+  contactId: UUID
+  type: String
+  occurredAt: Datetime
+  summary: String (optional, has backend default)
+  sentiment: String (optional, has backend default)
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  typeTrgmSimilarity: Float
+  summaryTrgmSimilarity: Float
+  sentimentTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, content, notableType, notableId, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, content, notableType, notableId, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, content, notableType, notableId, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, content, notableType, notableId, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, typeTrgmSimilarity, summaryTrgmSimilarity, sentimentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, typeTrgmSimilarity, summaryTrgmSimilarity, sentimentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, typeTrgmSimilarity, summaryTrgmSimilarity, sentimentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, typeTrgmSimilarity, summaryTrgmSimilarity, sentimentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2440,8 +2723,8 @@ CRUD operations for Repository records.
 SUBCOMMANDS:
   agent-db repository list                               List all records
   agent-db repository get --id <value>              Get one record
-  agent-db repository create --entityId <value> --name <value> --embeddingDistance <value> [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db repository update --id <value> [--entityId <value>] [--name <value>] [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db repository create --entityId <value> --name <value> --nameTrgmSimilarity <value> --urlTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --defaultBranchTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db repository update --id <value> [--entityId <value>] [--name <value>] [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--nameTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--defaultBranchTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db repository delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2457,7 +2740,13 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  defaultBranchTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2469,13 +2758,19 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  defaultBranchTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, nameTrgmSimilarity, urlTrgmSimilarity, descriptionTrgmSimilarity, defaultBranchTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, nameTrgmSimilarity, urlTrgmSimilarity, descriptionTrgmSimilarity, defaultBranchTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, nameTrgmSimilarity, urlTrgmSimilarity, descriptionTrgmSimilarity, defaultBranchTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, nameTrgmSimilarity, urlTrgmSimilarity, descriptionTrgmSimilarity, defaultBranchTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2487,8 +2782,8 @@ CRUD operations for Deal records.
 SUBCOMMANDS:
   agent-db deal list                               List all records
   agent-db deal get --id <value>              Get one record
-  agent-db deal create --entityId <value> --name <value> --embeddingDistance <value> [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db deal update --id <value> [--entityId <value>] [--name <value>] [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db deal create --entityId <value> --name <value> --nameTrgmSimilarity <value> --stageTrgmSimilarity <value> --currencyTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db deal update --id <value> [--entityId <value>] [--name <value>] [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--nameTrgmSimilarity <value>] [--stageTrgmSimilarity <value>] [--currencyTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db deal delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2505,7 +2800,13 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  stageTrgmSimilarity: Float
+  currencyTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2518,13 +2819,19 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  stageTrgmSimilarity: Float
+  currencyTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, nameTrgmSimilarity, stageTrgmSimilarity, currencyTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, nameTrgmSimilarity, stageTrgmSimilarity, currencyTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, nameTrgmSimilarity, stageTrgmSimilarity, currencyTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, nameTrgmSimilarity, stageTrgmSimilarity, currencyTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2536,8 +2843,8 @@ CRUD operations for Goal records.
 SUBCOMMANDS:
   agent-db goal list                               List all records
   agent-db goal get --id <value>              Get one record
-  agent-db goal create --entityId <value> --title <value> --embeddingDistance <value> [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db goal update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db goal create --entityId <value> --title <value> --titleTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --statusTrgmSimilarity <value> --categoryTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db goal update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--titleTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db goal delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2554,7 +2861,13 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2567,13 +2880,82 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, categoryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, categoryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, categoryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, categoryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete: { id }
+```
+
+### TOOL: note
+
+CRUD operations for Note records.
+
+```
+SUBCOMMANDS:
+  agent-db note list                               List all records
+  agent-db note get --id <value>              Get one record
+  agent-db note create --entityId <value> --content <value> --contentTrgmSimilarity <value> --notableTypeTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--notableType <value>] [--notableId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db note update --id <value> [--entityId <value>] [--content <value>] [--notableType <value>] [--notableId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--contentTrgmSimilarity <value>] [--notableTypeTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agent-db note delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  content: String
+  notableType: String
+  notableId: UUID
+  abstract: String
+  overview: String
+  activeCount: Int
+  lastAccessedAt: Datetime
+  tags: String
+  embeddingText: String
+  embedding: Vector
+  contentTrgmSimilarity: Float
+  notableTypeTrgmSimilarity: Float
+  abstractTrgmSimilarity: Float
+  overviewTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  content: String
+  notableType: String (optional, has backend default)
+  notableId: UUID (optional, has backend default)
+  abstract: String (optional, has backend default)
+  overview: String (optional, has backend default)
+  activeCount: Int (optional, has backend default)
+  lastAccessedAt: Datetime (optional, has backend default)
+  tags: String (optional, has backend default)
+  embeddingText: String (optional, has backend default)
+  embedding: Vector (optional, has backend default)
+  contentTrgmSimilarity: Float
+  notableTypeTrgmSimilarity: Float
+  abstractTrgmSimilarity: Float
+  overviewTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, content, notableType, notableId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, notableTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, content, notableType, notableId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, notableTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, content, notableType, notableId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, notableTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, content, notableType, notableId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, notableTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2585,8 +2967,8 @@ CRUD operations for Prompt records.
 SUBCOMMANDS:
   agent-db prompt list                               List all records
   agent-db prompt get --id <value>              Get one record
-  agent-db prompt create --entityId <value> --name <value> --content <value> --embeddingDistance <value> [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db prompt update --id <value> [--entityId <value>] [--name <value>] [--content <value>] [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db prompt create --entityId <value> --name <value> --content <value> --nameTrgmSimilarity <value> --contentTrgmSimilarity <value> --typeTrgmSimilarity <value> --modelTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db prompt update --id <value> [--entityId <value>] [--name <value>] [--content <value>] [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--nameTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--modelTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db prompt delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2603,7 +2985,13 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  contentTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  modelTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2616,13 +3004,19 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  contentTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  modelTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, contentTrgmSimilarity, typeTrgmSimilarity, modelTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, contentTrgmSimilarity, typeTrgmSimilarity, modelTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, contentTrgmSimilarity, typeTrgmSimilarity, modelTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, contentTrgmSimilarity, typeTrgmSimilarity, modelTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2634,8 +3028,8 @@ CRUD operations for Blueprint records.
 SUBCOMMANDS:
   agent-db blueprint list                               List all records
   agent-db blueprint get --id <value>              Get one record
-  agent-db blueprint create --entityId <value> --title <value> --embeddingDistance <value> [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db blueprint update --id <value> [--entityId <value>] [--title <value>] [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db blueprint create --entityId <value> --title <value> --titleTrgmSimilarity <value> --triggerConditionsTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db blueprint update --id <value> [--entityId <value>] [--title <value>] [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--titleTrgmSimilarity <value>] [--triggerConditionsTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db blueprint delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2650,7 +3044,11 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  triggerConditionsTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2661,13 +3059,17 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  triggerConditionsTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, titleTrgmSimilarity, triggerConditionsTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, titleTrgmSimilarity, triggerConditionsTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, titleTrgmSimilarity, triggerConditionsTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, titleTrgmSimilarity, triggerConditionsTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2679,8 +3081,8 @@ CRUD operations for Template records.
 SUBCOMMANDS:
   agent-db template list                               List all records
   agent-db template get --id <value>              Get one record
-  agent-db template create --entityId <value> --name <value> --content <value> --embeddingDistance <value> [--description <value>] [--type <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db template update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--content <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db template create --entityId <value> --name <value> --content <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --typeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--type <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db template update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--content <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db template delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2697,7 +3099,12 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2710,13 +3117,18 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2728,8 +3140,8 @@ CRUD operations for Tool records.
 SUBCOMMANDS:
   agent-db tool list                               List all records
   agent-db tool get --id <value>              Get one record
-  agent-db tool create --entityId <value> --name <value> --embeddingDistance <value> [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db tool update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db tool create --entityId <value> --name <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --typeTrgmSimilarity <value> --endpointTrgmSimilarity <value> --authMethodTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db tool update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--endpointTrgmSimilarity <value>] [--authMethodTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db tool delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2748,7 +3160,14 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  endpointTrgmSimilarity: Float
+  authMethodTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2763,66 +3182,20 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  typeTrgmSimilarity: Float
+  endpointTrgmSimilarity: Float
+  authMethodTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, embeddingDistance }
-  delete: { id }
-```
-
-### TOOL: memory
-
-CRUD operations for Memory records.
-
-```
-SUBCOMMANDS:
-  agent-db memory list                               List all records
-  agent-db memory get --id <value>              Get one record
-  agent-db memory create --entityId <value> --content <value> --embeddingDistance <value> [--memoryType <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db memory update --id <value> [--entityId <value>] [--content <value>] [--memoryType <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-db memory delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  content: String
-  memoryType: String
-  agentId: UUID
-  importance: Int
-  verified: Boolean
-  source: String
-  relatedEntityType: String
-  relatedEntityId: UUID
-  tags: String
-  embeddingText: String
-  embedding: Vector
-  embeddingDistance: Float
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  content: String
-  memoryType: String (optional, has backend default)
-  agentId: UUID (optional, has backend default)
-  importance: Int (optional, has backend default)
-  verified: Boolean (optional, has backend default)
-  source: String (optional, has backend default)
-  relatedEntityType: String (optional, has backend default)
-  relatedEntityId: UUID (optional, has backend default)
-  tags: String (optional, has backend default)
-  embeddingText: String (optional, has backend default)
-  embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, content, memoryType, agentId, importance, verified, source, relatedEntityType, relatedEntityId, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, content, memoryType, agentId, importance, verified, source, relatedEntityType, relatedEntityId, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, content, memoryType, agentId, importance, verified, source, relatedEntityType, relatedEntityId, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, content, memoryType, agentId, importance, verified, source, relatedEntityType, relatedEntityId, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, endpointTrgmSimilarity, authMethodTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, endpointTrgmSimilarity, authMethodTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, endpointTrgmSimilarity, authMethodTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, endpointTrgmSimilarity, authMethodTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2834,8 +3207,8 @@ CRUD operations for Recipe records.
 SUBCOMMANDS:
   agent-db recipe list                               List all records
   agent-db recipe get --id <value>              Get one record
-  agent-db recipe create --entityId <value> --name <value> --embeddingDistance <value> [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db recipe update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db recipe create --entityId <value> --name <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --cuisineTrgmSimilarity <value> --difficultyTrgmSimilarity <value> --sourceUrlTrgmSimilarity <value> --imageUrlTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db recipe update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--cuisineTrgmSimilarity <value>] [--difficultyTrgmSimilarity <value>] [--sourceUrlTrgmSimilarity <value>] [--imageUrlTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db recipe delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2857,7 +3230,15 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  cuisineTrgmSimilarity: Float
+  difficultyTrgmSimilarity: Float
+  sourceUrlTrgmSimilarity: Float
+  imageUrlTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2875,13 +3256,21 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  cuisineTrgmSimilarity: Float
+  difficultyTrgmSimilarity: Float
+  sourceUrlTrgmSimilarity: Float
+  imageUrlTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, cuisineTrgmSimilarity, difficultyTrgmSimilarity, sourceUrlTrgmSimilarity, imageUrlTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, cuisineTrgmSimilarity, difficultyTrgmSimilarity, sourceUrlTrgmSimilarity, imageUrlTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, cuisineTrgmSimilarity, difficultyTrgmSimilarity, sourceUrlTrgmSimilarity, imageUrlTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, cuisineTrgmSimilarity, difficultyTrgmSimilarity, sourceUrlTrgmSimilarity, imageUrlTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2893,8 +3282,8 @@ CRUD operations for Trip records.
 SUBCOMMANDS:
   agent-db trip list                               List all records
   agent-db trip get --id <value>              Get one record
-  agent-db trip create --entityId <value> --name <value> --embeddingDistance <value> [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db trip update --id <value> [--entityId <value>] [--name <value>] [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db trip create --entityId <value> --name <value> --nameTrgmSimilarity <value> --destinationTrgmSimilarity <value> --statusTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db trip update --id <value> [--entityId <value>] [--name <value>] [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--nameTrgmSimilarity <value>] [--destinationTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db trip delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2911,7 +3300,13 @@ INPUT FIELDS:
   tags: String
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  destinationTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2924,13 +3319,240 @@ EDITABLE FIELDS (for create/update):
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  destinationTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, nameTrgmSimilarity, destinationTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, nameTrgmSimilarity, destinationTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, nameTrgmSimilarity, destinationTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, nameTrgmSimilarity, destinationTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete: { id }
+```
+
+### TOOL: calendar-event
+
+CRUD operations for CalendarEvent records.
+
+```
+SUBCOMMANDS:
+  agent-db calendar-event list                               List all records
+  agent-db calendar-event get --id <value>              Get one record
+  agent-db calendar-event create --entityId <value> --title <value> --startAt <value> --remoteIdTrgmSimilarity <value> --titleTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --locationTrgmSimilarity <value> --recurrenceRuleTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--calendarAccountId <value>] [--remoteId <value>] [--description <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db calendar-event update --id <value> [--entityId <value>] [--calendarAccountId <value>] [--remoteId <value>] [--title <value>] [--description <value>] [--startAt <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--remoteIdTrgmSimilarity <value>] [--titleTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--locationTrgmSimilarity <value>] [--recurrenceRuleTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agent-db calendar-event delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  calendarAccountId: UUID
+  remoteId: String
+  title: String
+  description: String
+  startAt: Datetime
+  endAt: Datetime
+  allDay: Boolean
+  location: String
+  recurrenceRule: String
+  status: String
+  tags: String
+  embeddingText: String
+  embedding: Vector
+  remoteIdTrgmSimilarity: Float
+  titleTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  locationTrgmSimilarity: Float
+  recurrenceRuleTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  calendarAccountId: UUID (optional, has backend default)
+  remoteId: String (optional, has backend default)
+  title: String
+  description: String (optional, has backend default)
+  startAt: Datetime
+  endAt: Datetime (optional, has backend default)
+  allDay: Boolean (optional, has backend default)
+  location: String (optional, has backend default)
+  recurrenceRule: String (optional, has backend default)
+  status: String (optional, has backend default)
+  tags: String (optional, has backend default)
+  embeddingText: String (optional, has backend default)
+  embedding: Vector (optional, has backend default)
+  remoteIdTrgmSimilarity: Float
+  titleTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  locationTrgmSimilarity: Float
+  recurrenceRuleTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, remoteIdTrgmSimilarity, titleTrgmSimilarity, descriptionTrgmSimilarity, locationTrgmSimilarity, recurrenceRuleTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, remoteIdTrgmSimilarity, titleTrgmSimilarity, descriptionTrgmSimilarity, locationTrgmSimilarity, recurrenceRuleTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, remoteIdTrgmSimilarity, titleTrgmSimilarity, descriptionTrgmSimilarity, locationTrgmSimilarity, recurrenceRuleTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, remoteIdTrgmSimilarity, titleTrgmSimilarity, descriptionTrgmSimilarity, locationTrgmSimilarity, recurrenceRuleTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete: { id }
+```
+
+### TOOL: message
+
+CRUD operations for Message records.
+
+```
+SUBCOMMANDS:
+  agent-db message list                               List all records
+  agent-db message get --id <value>              Get one record
+  agent-db message create --entityId <value> --threadIdTrgmSimilarity <value> --remoteIdTrgmSimilarity <value> --fromAddressTrgmSimilarity <value> --subjectTrgmSimilarity <value> --bodyTextTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db message update --id <value> [--entityId <value>] [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--threadIdTrgmSimilarity <value>] [--remoteIdTrgmSimilarity <value>] [--fromAddressTrgmSimilarity <value>] [--subjectTrgmSimilarity <value>] [--bodyTextTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agent-db message delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  emailAccountId: UUID
+  threadId: String
+  remoteId: String
+  fromAddress: String
+  toAddresses: String
+  subject: String
+  bodyText: String
+  receivedAt: Datetime
+  tags: String
+  embeddingText: String
+  embedding: Vector
+  threadIdTrgmSimilarity: Float
+  remoteIdTrgmSimilarity: Float
+  fromAddressTrgmSimilarity: Float
+  subjectTrgmSimilarity: Float
+  bodyTextTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  emailAccountId: UUID (optional, has backend default)
+  threadId: String (optional, has backend default)
+  remoteId: String (optional, has backend default)
+  fromAddress: String (optional, has backend default)
+  toAddresses: String (optional, has backend default)
+  subject: String (optional, has backend default)
+  bodyText: String (optional, has backend default)
+  receivedAt: Datetime (optional, has backend default)
+  tags: String (optional, has backend default)
+  embeddingText: String (optional, has backend default)
+  embedding: Vector (optional, has backend default)
+  threadIdTrgmSimilarity: Float
+  remoteIdTrgmSimilarity: Float
+  fromAddressTrgmSimilarity: Float
+  subjectTrgmSimilarity: Float
+  bodyTextTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, threadIdTrgmSimilarity, remoteIdTrgmSimilarity, fromAddressTrgmSimilarity, subjectTrgmSimilarity, bodyTextTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, threadIdTrgmSimilarity, remoteIdTrgmSimilarity, fromAddressTrgmSimilarity, subjectTrgmSimilarity, bodyTextTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, threadIdTrgmSimilarity, remoteIdTrgmSimilarity, fromAddressTrgmSimilarity, subjectTrgmSimilarity, bodyTextTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, threadIdTrgmSimilarity, remoteIdTrgmSimilarity, fromAddressTrgmSimilarity, subjectTrgmSimilarity, bodyTextTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete: { id }
+```
+
+### TOOL: memory
+
+CRUD operations for Memory records.
+
+```
+SUBCOMMANDS:
+  agent-db memory list                               List all records
+  agent-db memory get --id <value>              Get one record
+  agent-db memory create --entityId <value> --content <value> --contentTrgmSimilarity <value> --memoryTypeTrgmSimilarity <value> --memoryCategoryTrgmSimilarity <value> --sourceTrgmSimilarity <value> --relatedEntityTypeTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--memoryType <value>] [--memoryCategory <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db memory update --id <value> [--entityId <value>] [--content <value>] [--memoryType <value>] [--memoryCategory <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--contentTrgmSimilarity <value>] [--memoryTypeTrgmSimilarity <value>] [--memoryCategoryTrgmSimilarity <value>] [--sourceTrgmSimilarity <value>] [--relatedEntityTypeTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agent-db memory delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  content: String
+  memoryType: String
+  memoryCategory: String
+  agentId: UUID
+  importance: Int
+  verified: Boolean
+  source: String
+  relatedEntityType: String
+  relatedEntityId: UUID
+  abstract: String
+  overview: String
+  activeCount: Int
+  lastAccessedAt: Datetime
+  tags: String
+  embeddingText: String
+  embedding: Vector
+  contentTrgmSimilarity: Float
+  memoryTypeTrgmSimilarity: Float
+  memoryCategoryTrgmSimilarity: Float
+  sourceTrgmSimilarity: Float
+  relatedEntityTypeTrgmSimilarity: Float
+  abstractTrgmSimilarity: Float
+  overviewTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  content: String
+  memoryType: String (optional, has backend default)
+  memoryCategory: String (optional, has backend default)
+  agentId: UUID (optional, has backend default)
+  importance: Int (optional, has backend default)
+  verified: Boolean (optional, has backend default)
+  source: String (optional, has backend default)
+  relatedEntityType: String (optional, has backend default)
+  relatedEntityId: UUID (optional, has backend default)
+  abstract: String (optional, has backend default)
+  overview: String (optional, has backend default)
+  activeCount: Int (optional, has backend default)
+  lastAccessedAt: Datetime (optional, has backend default)
+  tags: String (optional, has backend default)
+  embeddingText: String (optional, has backend default)
+  embedding: Vector (optional, has backend default)
+  contentTrgmSimilarity: Float
+  memoryTypeTrgmSimilarity: Float
+  memoryCategoryTrgmSimilarity: Float
+  sourceTrgmSimilarity: Float
+  relatedEntityTypeTrgmSimilarity: Float
+  abstractTrgmSimilarity: Float
+  overviewTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, content, memoryType, memoryCategory, agentId, importance, verified, source, relatedEntityType, relatedEntityId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, memoryTypeTrgmSimilarity, memoryCategoryTrgmSimilarity, sourceTrgmSimilarity, relatedEntityTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, content, memoryType, memoryCategory, agentId, importance, verified, source, relatedEntityType, relatedEntityId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, memoryTypeTrgmSimilarity, memoryCategoryTrgmSimilarity, sourceTrgmSimilarity, relatedEntityTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, content, memoryType, memoryCategory, agentId, importance, verified, source, relatedEntityType, relatedEntityId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, memoryTypeTrgmSimilarity, memoryCategoryTrgmSimilarity, sourceTrgmSimilarity, relatedEntityTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, content, memoryType, memoryCategory, agentId, importance, verified, source, relatedEntityType, relatedEntityId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, memoryTypeTrgmSimilarity, memoryCategoryTrgmSimilarity, sourceTrgmSimilarity, relatedEntityTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -2942,8 +3564,8 @@ CRUD operations for Rule records.
 SUBCOMMANDS:
   agent-db rule list                               List all records
   agent-db rule get --id <value>              Get one record
-  agent-db rule create --entityId <value> --title <value> --embeddingDistance <value> --triggerConceptDistance <value> [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>]
-  agent-db rule update --id <value> [--entityId <value>] [--title <value>] [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>] [--embeddingDistance <value>] [--triggerConceptDistance <value>]
+  agent-db rule create --entityId <value> --title <value> --titleTrgmSimilarity <value> --contentTrgmSimilarity <value> --kindTrgmSimilarity <value> --severityTrgmSimilarity <value> --slugTrgmSimilarity <value> --verificationTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --triggerConceptVectorDistance <value> --searchScore <value> [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>]
+  agent-db rule update --id <value> [--entityId <value>] [--title <value>] [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>] [--titleTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--kindTrgmSimilarity <value>] [--severityTrgmSimilarity <value>] [--slugTrgmSimilarity <value>] [--verificationTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--triggerConceptVectorDistance <value>] [--searchScore <value>]
   agent-db rule delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -2962,8 +3584,16 @@ INPUT FIELDS:
   embeddingText: String
   embedding: Vector
   triggerConcept: Vector
-  embeddingDistance: Float
-  triggerConceptDistance: Float
+  titleTrgmSimilarity: Float
+  contentTrgmSimilarity: Float
+  kindTrgmSimilarity: Float
+  severityTrgmSimilarity: Float
+  slugTrgmSimilarity: Float
+  verificationTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  triggerConceptVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -2978,77 +3608,95 @@ EDITABLE FIELDS (for create/update):
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
   triggerConcept: Vector (optional, has backend default)
-  embeddingDistance: Float
-  triggerConceptDistance: Float
+  titleTrgmSimilarity: Float
+  contentTrgmSimilarity: Float
+  kindTrgmSimilarity: Float
+  severityTrgmSimilarity: Float
+  slugTrgmSimilarity: Float
+  verificationTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  triggerConceptVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, embeddingDistance, triggerConceptDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, embeddingDistance, triggerConceptDistance }
-  create: { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, embeddingDistance, triggerConceptDistance }
-  update: { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, embeddingDistance, triggerConceptDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, titleTrgmSimilarity, contentTrgmSimilarity, kindTrgmSimilarity, severityTrgmSimilarity, slugTrgmSimilarity, verificationTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, triggerConceptVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, titleTrgmSimilarity, contentTrgmSimilarity, kindTrgmSimilarity, severityTrgmSimilarity, slugTrgmSimilarity, verificationTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, triggerConceptVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, titleTrgmSimilarity, contentTrgmSimilarity, kindTrgmSimilarity, severityTrgmSimilarity, slugTrgmSimilarity, verificationTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, triggerConceptVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, titleTrgmSimilarity, contentTrgmSimilarity, kindTrgmSimilarity, severityTrgmSimilarity, slugTrgmSimilarity, verificationTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, triggerConceptVectorDistance, searchScore }
   delete: { id }
 ```
 
-### TOOL: skill
+### TOOL: task
 
-CRUD operations for Skill records.
+CRUD operations for Task records.
 
 ```
 SUBCOMMANDS:
-  agent-db skill list                               List all records
-  agent-db skill get --id <value>              Get one record
-  agent-db skill create --entityId <value> --name <value> --embeddingDistance <value> --intentTriggerDistance <value> [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>]
-  agent-db skill update --id <value> [--entityId <value>] [--name <value>] [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>] [--embeddingDistance <value>] [--intentTriggerDistance <value>]
-  agent-db skill delete --id <value>           Delete one record
+  agent-db task list                               List all records
+  agent-db task get --id <value>              Get one record
+  agent-db task create --entityId <value> --title <value> --titleTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --statusTrgmSimilarity <value> --taskTypeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db task update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--titleTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--taskTypeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agent-db task delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
   entityId: UUID
   createdAt: Datetime
   updatedAt: Datetime
-  name: String
-  slug: String
+  title: String
   description: String
-  content: String
-  procedure: String
-  interface: JSON
-  requirements: JSON
-  filePath: String
-  contentHash: String
-  category: String
-  isActive: Boolean
+  status: String
+  priority: Int
+  projectId: UUID
+  taskType: String
+  assignedAgentId: UUID
+  parentTaskId: UUID
+  dueDate: Datetime
+  completedAt: Datetime
+  conversationId: UUID
+  dependencies: UUID
   tags: String
   embeddingText: String
   embedding: Vector
-  intentTrigger: Vector
-  embeddingDistance: Float
-  intentTriggerDistance: Float
+  titleTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  taskTypeTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
-  name: String
-  slug: String (optional, has backend default)
+  title: String
   description: String (optional, has backend default)
-  content: String (optional, has backend default)
-  procedure: String (optional, has backend default)
-  interface: JSON (optional, has backend default)
-  requirements: JSON (optional, has backend default)
-  filePath: String (optional, has backend default)
-  contentHash: String (optional, has backend default)
-  category: String (optional, has backend default)
-  isActive: Boolean (optional, has backend default)
+  status: String (optional, has backend default)
+  priority: Int (optional, has backend default)
+  projectId: UUID (optional, has backend default)
+  taskType: String (optional, has backend default)
+  assignedAgentId: UUID (optional, has backend default)
+  parentTaskId: UUID (optional, has backend default)
+  dueDate: Datetime (optional, has backend default)
+  completedAt: Datetime (optional, has backend default)
+  conversationId: UUID (optional, has backend default)
+  dependencies: UUID (optional, has backend default)
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  intentTrigger: Vector (optional, has backend default)
-  embeddingDistance: Float
-  intentTriggerDistance: Float
+  titleTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  taskTypeTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, filePath, contentHash, category, isActive, tags, embeddingText, embedding, intentTrigger, embeddingDistance, intentTriggerDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, filePath, contentHash, category, isActive, tags, embeddingText, embedding, intentTrigger, embeddingDistance, intentTriggerDistance }
-  create: { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, filePath, contentHash, category, isActive, tags, embeddingText, embedding, intentTrigger, embeddingDistance, intentTriggerDistance }
-  update: { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, filePath, contentHash, category, isActive, tags, embeddingText, embedding, intentTrigger, embeddingDistance, intentTriggerDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, taskTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, taskTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, taskTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, taskTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -3060,8 +3708,8 @@ CRUD operations for Agent records.
 SUBCOMMANDS:
   agent-db agent list                               List all records
   agent-db agent get --id <value>              Get one record
-  agent-db agent create --entityId <value> --name <value> --embeddingDistance <value> [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db agent update --id <value> [--entityId <value>] [--name <value>] [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
+  agent-db agent create --entityId <value> --name <value> --nameTrgmSimilarity <value> --roleTrgmSimilarity <value> --statusTrgmSimilarity <value> --personaTrgmSimilarity <value> --backstoryTrgmSimilarity <value> --communicationStyleTrgmSimilarity <value> --systemPromptTrgmSimilarity <value> --preferredModelTrgmSimilarity <value> --moodTrgmSimilarity <value> --focusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db agent update --id <value> [--entityId <value>] [--name <value>] [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>] [--nameTrgmSimilarity <value>] [--roleTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--personaTrgmSimilarity <value>] [--backstoryTrgmSimilarity <value>] [--communicationStyleTrgmSimilarity <value>] [--systemPromptTrgmSimilarity <value>] [--preferredModelTrgmSimilarity <value>] [--moodTrgmSimilarity <value>] [--focusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db agent delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -3086,7 +3734,19 @@ INPUT FIELDS:
   lastActiveAt: Datetime
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  roleTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  personaTrgmSimilarity: Float
+  backstoryTrgmSimilarity: Float
+  communicationStyleTrgmSimilarity: Float
+  systemPromptTrgmSimilarity: Float
+  preferredModelTrgmSimilarity: Float
+  moodTrgmSimilarity: Float
+  focusTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -3107,27 +3767,39 @@ EDITABLE FIELDS (for create/update):
   lastActiveAt: Datetime (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  roleTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  personaTrgmSimilarity: Float
+  backstoryTrgmSimilarity: Float
+  communicationStyleTrgmSimilarity: Float
+  systemPromptTrgmSimilarity: Float
+  preferredModelTrgmSimilarity: Float
+  moodTrgmSimilarity: Float
+  focusTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
-### TOOL: task
+### TOOL: session
 
-CRUD operations for Task records.
+CRUD operations for Session records.
 
 ```
 SUBCOMMANDS:
-  agent-db task list                               List all records
-  agent-db task get --id <value>              Get one record
-  agent-db task create --entityId <value> --title <value> --embeddingDistance <value> [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db task update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingDistance <value>]
-  agent-db task delete --id <value>           Delete one record
+  agent-db session list                               List all records
+  agent-db session get --id <value>              Get one record
+  agent-db session create --entityId <value> --uagentTrgmSimilarity <value> --fingerprintModeTrgmSimilarity <value> --csrfSecretTrgmSimilarity <value> --searchScore <value> [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--sessionSummary <value>] [--archivedMessages <value>] [--compressionCount <value>] [--archivedAt <value>] [--extractedMemoryIds <value>] [--contextsUsed <value>] [--skillsUsed <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db session update --id <value> [--entityId <value>] [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--sessionSummary <value>] [--archivedMessages <value>] [--compressionCount <value>] [--archivedAt <value>] [--extractedMemoryIds <value>] [--contextsUsed <value>] [--skillsUsed <value>] [--embeddingText <value>] [--embedding <value>] [--uagentTrgmSimilarity <value>] [--fingerprintModeTrgmSimilarity <value>] [--csrfSecretTrgmSimilarity <value>] [--searchScore <value>]
+  agent-db session delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3135,46 +3807,151 @@ INPUT FIELDS:
   createdAt: Datetime
   updatedAt: Datetime
   title: String
-  description: String
+  agentId: UUID
+  startedAt: Datetime
+  endedAt: Datetime
   status: String
-  priority: Int
-  projectId: UUID
-  taskType: String
-  assignedAgentId: UUID
-  parentTaskId: UUID
-  dueDate: Datetime
-  completedAt: Datetime
-  conversationId: UUID
-  dependencies: UUID
-  tags: String
+  contextSummary: String
+  sessionSummary: String
+  archivedMessages: JSON
+  compressionCount: Int
+  archivedAt: Datetime
+  extractedMemoryIds: UUID
+  contextsUsed: JSON
+  skillsUsed: UUID
   embeddingText: String
   embedding: Vector
-  embeddingDistance: Float
+  uagentTrgmSimilarity: Float
+  fingerprintModeTrgmSimilarity: Float
+  csrfSecretTrgmSimilarity: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
-  title: String
-  description: String (optional, has backend default)
+  title: String (optional, has backend default)
+  agentId: UUID (optional, has backend default)
+  startedAt: Datetime (optional, has backend default)
+  endedAt: Datetime (optional, has backend default)
   status: String (optional, has backend default)
-  priority: Int (optional, has backend default)
-  projectId: UUID (optional, has backend default)
-  taskType: String (optional, has backend default)
-  assignedAgentId: UUID (optional, has backend default)
-  parentTaskId: UUID (optional, has backend default)
-  dueDate: Datetime (optional, has backend default)
-  completedAt: Datetime (optional, has backend default)
-  conversationId: UUID (optional, has backend default)
-  dependencies: UUID (optional, has backend default)
+  contextSummary: String (optional, has backend default)
+  sessionSummary: String (optional, has backend default)
+  archivedMessages: JSON (optional, has backend default)
+  compressionCount: Int (optional, has backend default)
+  archivedAt: Datetime (optional, has backend default)
+  extractedMemoryIds: UUID (optional, has backend default)
+  contextsUsed: JSON (optional, has backend default)
+  skillsUsed: UUID (optional, has backend default)
+  embeddingText: String (optional, has backend default)
+  embedding: Vector (optional, has backend default)
+  uagentTrgmSimilarity: Float
+  fingerprintModeTrgmSimilarity: Float
+  csrfSecretTrgmSimilarity: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  delete: { id }
+```
+
+### TOOL: skill
+
+CRUD operations for Skill records.
+
+```
+SUBCOMMANDS:
+  agent-db skill list                               List all records
+  agent-db skill get --id <value>              Get one record
+  agent-db skill create --entityId <value> --name <value> --nameTrgmSimilarity <value> --slugTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --contentTrgmSimilarity <value> --procedureTrgmSimilarity <value> --filePathTrgmSimilarity <value> --contentHashTrgmSimilarity <value> --categoryTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --intentTriggerVectorDistance <value> --searchScore <value> [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--prerequisites <value>] [--alwaysLoad <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>]
+  agent-db skill update --id <value> [--entityId <value>] [--name <value>] [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--prerequisites <value>] [--alwaysLoad <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>] [--nameTrgmSimilarity <value>] [--slugTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--procedureTrgmSimilarity <value>] [--filePathTrgmSimilarity <value>] [--contentHashTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--intentTriggerVectorDistance <value>] [--searchScore <value>]
+  agent-db skill delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  name: String
+  slug: String
+  description: String
+  content: String
+  procedure: String
+  interface: JSON
+  requirements: JSON
+  prerequisites: JSON
+  alwaysLoad: Boolean
+  filePath: String
+  contentHash: String
+  category: String
+  isActive: Boolean
+  abstract: String
+  overview: String
+  activeCount: Int
+  lastAccessedAt: Datetime
+  tags: String
+  embeddingText: String
+  embedding: Vector
+  intentTrigger: Vector
+  nameTrgmSimilarity: Float
+  slugTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  contentTrgmSimilarity: Float
+  procedureTrgmSimilarity: Float
+  filePathTrgmSimilarity: Float
+  contentHashTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  abstractTrgmSimilarity: Float
+  overviewTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  intentTriggerVectorDistance: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  name: String
+  slug: String (optional, has backend default)
+  description: String (optional, has backend default)
+  content: String (optional, has backend default)
+  procedure: String (optional, has backend default)
+  interface: JSON (optional, has backend default)
+  requirements: JSON (optional, has backend default)
+  prerequisites: JSON (optional, has backend default)
+  alwaysLoad: Boolean (optional, has backend default)
+  filePath: String (optional, has backend default)
+  contentHash: String (optional, has backend default)
+  category: String (optional, has backend default)
+  isActive: Boolean (optional, has backend default)
+  abstract: String (optional, has backend default)
+  overview: String (optional, has backend default)
+  activeCount: Int (optional, has backend default)
+  lastAccessedAt: Datetime (optional, has backend default)
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
-  embeddingDistance: Float
+  intentTrigger: Vector (optional, has backend default)
+  nameTrgmSimilarity: Float
+  slugTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  contentTrgmSimilarity: Float
+  procedureTrgmSimilarity: Float
+  filePathTrgmSimilarity: Float
+  contentHashTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  abstractTrgmSimilarity: Float
+  overviewTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  intentTriggerVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, prerequisites, alwaysLoad, filePath, contentHash, category, isActive, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, intentTrigger, nameTrgmSimilarity, slugTrgmSimilarity, descriptionTrgmSimilarity, contentTrgmSimilarity, procedureTrgmSimilarity, filePathTrgmSimilarity, contentHashTrgmSimilarity, categoryTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, intentTriggerVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, prerequisites, alwaysLoad, filePath, contentHash, category, isActive, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, intentTrigger, nameTrgmSimilarity, slugTrgmSimilarity, descriptionTrgmSimilarity, contentTrgmSimilarity, procedureTrgmSimilarity, filePathTrgmSimilarity, contentHashTrgmSimilarity, categoryTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, intentTriggerVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, prerequisites, alwaysLoad, filePath, contentHash, category, isActive, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, intentTrigger, nameTrgmSimilarity, slugTrgmSimilarity, descriptionTrgmSimilarity, contentTrgmSimilarity, procedureTrgmSimilarity, filePathTrgmSimilarity, contentHashTrgmSimilarity, categoryTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, intentTriggerVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, prerequisites, alwaysLoad, filePath, contentHash, category, isActive, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, intentTrigger, nameTrgmSimilarity, slugTrgmSimilarity, descriptionTrgmSimilarity, contentTrgmSimilarity, procedureTrgmSimilarity, filePathTrgmSimilarity, contentHashTrgmSimilarity, categoryTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, intentTriggerVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -3186,8 +3963,8 @@ CRUD operations for Project records.
 SUBCOMMANDS:
   agent-db project list                               List all records
   agent-db project get --id <value>              Get one record
-  agent-db project create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
-  agent-db project update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db project create --entityId <value> --name <value> --searchTsvRank <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
+  agent-db project update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db project delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -3205,7 +3982,12 @@ INPUT FIELDS:
   embedding: Vector
   searchTsv: FullText
   searchTsvRank: Float
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -3219,13 +4001,18 @@ EDITABLE FIELDS (for create/update):
   embedding: Vector (optional, has backend default)
   searchTsv: FullText (optional, has backend default)
   searchTsvRank: Float
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, nameTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, nameTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, nameTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, nameTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -3237,8 +4024,8 @@ CRUD operations for Document records.
 SUBCOMMANDS:
   agent-db document list                               List all records
   agent-db document get --id <value>              Get one record
-  agent-db document create --entityId <value> --title <value> --searchTsvRank <value> --embeddingDistance <value> [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
-  agent-db document update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db document create --entityId <value> --title <value> --searchTsvRank <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --contentTrgmSimilarity <value> --sourceTypeTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--parentDocumentId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
+  agent-db document update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--parentDocumentId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--sourceTypeTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db document delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -3252,12 +4039,25 @@ INPUT FIELDS:
   sourceType: String
   isRead: Boolean
   savedAt: Datetime
+  parentDocumentId: UUID
+  abstract: String
+  overview: String
+  activeCount: Int
+  lastAccessedAt: Datetime
   tags: String
   embeddingText: String
   embedding: Vector
   searchTsv: FullText
   searchTsvRank: Float
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  contentTrgmSimilarity: Float
+  sourceTypeTrgmSimilarity: Float
+  abstractTrgmSimilarity: Float
+  overviewTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -3267,18 +4067,31 @@ EDITABLE FIELDS (for create/update):
   sourceType: String (optional, has backend default)
   isRead: Boolean (optional, has backend default)
   savedAt: Datetime (optional, has backend default)
+  parentDocumentId: UUID (optional, has backend default)
+  abstract: String (optional, has backend default)
+  overview: String (optional, has backend default)
+  activeCount: Int (optional, has backend default)
+  lastAccessedAt: Datetime (optional, has backend default)
   tags: String (optional, has backend default)
   embeddingText: String (optional, has backend default)
   embedding: Vector (optional, has backend default)
   searchTsv: FullText (optional, has backend default)
   searchTsvRank: Float
-  embeddingDistance: Float
+  titleTrgmSimilarity: Float
+  urlTrgmSimilarity: Float
+  contentTrgmSimilarity: Float
+  sourceTypeTrgmSimilarity: Float
+  abstractTrgmSimilarity: Float
+  overviewTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, parentDocumentId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, titleTrgmSimilarity, urlTrgmSimilarity, contentTrgmSimilarity, sourceTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, parentDocumentId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, titleTrgmSimilarity, urlTrgmSimilarity, contentTrgmSimilarity, sourceTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, parentDocumentId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, titleTrgmSimilarity, urlTrgmSimilarity, contentTrgmSimilarity, sourceTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, parentDocumentId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, titleTrgmSimilarity, urlTrgmSimilarity, contentTrgmSimilarity, sourceTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -3290,8 +4103,8 @@ CRUD operations for Company records.
 SUBCOMMANDS:
   agent-db company list                               List all records
   agent-db company get --id <value>              Get one record
-  agent-db company create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-db company update --id <value> [--entityId <value>] [--name <value>] [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db company create --entityId <value> --name <value> --searchTsvRank <value> --nameTrgmSimilarity <value> --domainTrgmSimilarity <value> --industryTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agent-db company update --id <value> [--entityId <value>] [--name <value>] [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--nameTrgmSimilarity <value>] [--domainTrgmSimilarity <value>] [--industryTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db company delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -3309,7 +4122,13 @@ INPUT FIELDS:
   searchTsv: FullText
   mainImageId: UUID
   searchTsvRank: Float
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  domainTrgmSimilarity: Float
+  industryTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -3323,13 +4142,19 @@ EDITABLE FIELDS (for create/update):
   searchTsv: FullText (optional, has backend default)
   mainImageId: UUID (optional, has backend default)
   searchTsvRank: Float
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  domainTrgmSimilarity: Float
+  industryTrgmSimilarity: Float
+  descriptionTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, domainTrgmSimilarity, industryTrgmSimilarity, descriptionTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, domainTrgmSimilarity, industryTrgmSimilarity, descriptionTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, domainTrgmSimilarity, industryTrgmSimilarity, descriptionTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, domainTrgmSimilarity, industryTrgmSimilarity, descriptionTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -3341,8 +4166,8 @@ CRUD operations for Event records.
 SUBCOMMANDS:
   agent-db event list                               List all records
   agent-db event get --id <value>              Get one record
-  agent-db event create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-db event update --id <value> [--entityId <value>] [--name <value>] [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db event create --entityId <value> --name <value> --searchTsvRank <value> --nameTrgmSimilarity <value> --eventTypeTrgmSimilarity <value> --locationTrgmSimilarity <value> --cityTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agent-db event update --id <value> [--entityId <value>] [--name <value>] [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--nameTrgmSimilarity <value>] [--eventTypeTrgmSimilarity <value>] [--locationTrgmSimilarity <value>] [--cityTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db event delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -3363,7 +4188,14 @@ INPUT FIELDS:
   searchTsv: FullText
   mainImageId: UUID
   searchTsvRank: Float
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  eventTypeTrgmSimilarity: Float
+  locationTrgmSimilarity: Float
+  cityTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -3380,13 +4212,20 @@ EDITABLE FIELDS (for create/update):
   searchTsv: FullText (optional, has backend default)
   mainImageId: UUID (optional, has backend default)
   searchTsvRank: Float
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  eventTypeTrgmSimilarity: Float
+  locationTrgmSimilarity: Float
+  cityTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, eventTypeTrgmSimilarity, locationTrgmSimilarity, cityTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, eventTypeTrgmSimilarity, locationTrgmSimilarity, cityTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, eventTypeTrgmSimilarity, locationTrgmSimilarity, cityTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, eventTypeTrgmSimilarity, locationTrgmSimilarity, cityTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -3398,8 +4237,8 @@ CRUD operations for Contact records.
 SUBCOMMANDS:
   agent-db contact list                               List all records
   agent-db contact get --id <value>              Get one record
-  agent-db contact create --entityId <value> --firstName <value> --searchTsvRank <value> --embeddingDistance <value> [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-db contact update --id <value> [--entityId <value>] [--firstName <value>] [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db contact create --entityId <value> --firstName <value> --searchTsvRank <value> --firstNameTrgmSimilarity <value> --lastNameTrgmSimilarity <value> --emailTrgmSimilarity <value> --phoneTrgmSimilarity <value> --headlineTrgmSimilarity <value> --bioTrgmSimilarity <value> --locationTrgmSimilarity <value> --relationshipTypeTrgmSimilarity <value> --howWeMetTrgmSimilarity <value> --twitterHandleTrgmSimilarity <value> --linkedinUrlTrgmSimilarity <value> --githubUsernameTrgmSimilarity <value> --instagramHandleTrgmSimilarity <value> --websiteTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agent-db contact update --id <value> [--entityId <value>] [--firstName <value>] [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--firstNameTrgmSimilarity <value>] [--lastNameTrgmSimilarity <value>] [--emailTrgmSimilarity <value>] [--phoneTrgmSimilarity <value>] [--headlineTrgmSimilarity <value>] [--bioTrgmSimilarity <value>] [--locationTrgmSimilarity <value>] [--relationshipTypeTrgmSimilarity <value>] [--howWeMetTrgmSimilarity <value>] [--twitterHandleTrgmSimilarity <value>] [--linkedinUrlTrgmSimilarity <value>] [--githubUsernameTrgmSimilarity <value>] [--instagramHandleTrgmSimilarity <value>] [--websiteTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -3428,7 +4267,23 @@ INPUT FIELDS:
   searchTsv: FullText
   mainImageId: UUID
   searchTsvRank: Float
-  embeddingDistance: Float
+  firstNameTrgmSimilarity: Float
+  lastNameTrgmSimilarity: Float
+  emailTrgmSimilarity: Float
+  phoneTrgmSimilarity: Float
+  headlineTrgmSimilarity: Float
+  bioTrgmSimilarity: Float
+  locationTrgmSimilarity: Float
+  relationshipTypeTrgmSimilarity: Float
+  howWeMetTrgmSimilarity: Float
+  twitterHandleTrgmSimilarity: Float
+  linkedinUrlTrgmSimilarity: Float
+  githubUsernameTrgmSimilarity: Float
+  instagramHandleTrgmSimilarity: Float
+  websiteTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -3453,13 +4308,29 @@ EDITABLE FIELDS (for create/update):
   searchTsv: FullText (optional, has backend default)
   mainImageId: UUID (optional, has backend default)
   searchTsvRank: Float
-  embeddingDistance: Float
+  firstNameTrgmSimilarity: Float
+  lastNameTrgmSimilarity: Float
+  emailTrgmSimilarity: Float
+  phoneTrgmSimilarity: Float
+  headlineTrgmSimilarity: Float
+  bioTrgmSimilarity: Float
+  locationTrgmSimilarity: Float
+  relationshipTypeTrgmSimilarity: Float
+  howWeMetTrgmSimilarity: Float
+  twitterHandleTrgmSimilarity: Float
+  linkedinUrlTrgmSimilarity: Float
+  githubUsernameTrgmSimilarity: Float
+  instagramHandleTrgmSimilarity: Float
+  websiteTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, firstNameTrgmSimilarity, lastNameTrgmSimilarity, emailTrgmSimilarity, phoneTrgmSimilarity, headlineTrgmSimilarity, bioTrgmSimilarity, locationTrgmSimilarity, relationshipTypeTrgmSimilarity, howWeMetTrgmSimilarity, twitterHandleTrgmSimilarity, linkedinUrlTrgmSimilarity, githubUsernameTrgmSimilarity, instagramHandleTrgmSimilarity, websiteTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, firstNameTrgmSimilarity, lastNameTrgmSimilarity, emailTrgmSimilarity, phoneTrgmSimilarity, headlineTrgmSimilarity, bioTrgmSimilarity, locationTrgmSimilarity, relationshipTypeTrgmSimilarity, howWeMetTrgmSimilarity, twitterHandleTrgmSimilarity, linkedinUrlTrgmSimilarity, githubUsernameTrgmSimilarity, instagramHandleTrgmSimilarity, websiteTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, firstNameTrgmSimilarity, lastNameTrgmSimilarity, emailTrgmSimilarity, phoneTrgmSimilarity, headlineTrgmSimilarity, bioTrgmSimilarity, locationTrgmSimilarity, relationshipTypeTrgmSimilarity, howWeMetTrgmSimilarity, twitterHandleTrgmSimilarity, linkedinUrlTrgmSimilarity, githubUsernameTrgmSimilarity, instagramHandleTrgmSimilarity, websiteTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, firstNameTrgmSimilarity, lastNameTrgmSimilarity, emailTrgmSimilarity, phoneTrgmSimilarity, headlineTrgmSimilarity, bioTrgmSimilarity, locationTrgmSimilarity, relationshipTypeTrgmSimilarity, howWeMetTrgmSimilarity, twitterHandleTrgmSimilarity, linkedinUrlTrgmSimilarity, githubUsernameTrgmSimilarity, instagramHandleTrgmSimilarity, websiteTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -3471,8 +4342,8 @@ CRUD operations for Venue records.
 SUBCOMMANDS:
   agent-db venue list                               List all records
   agent-db venue get --id <value>              Get one record
-  agent-db venue create --entityId <value> --name <value> --searchTsvRank <value> --embeddingDistance <value> [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-db venue update --id <value> [--entityId <value>] [--name <value>] [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingDistance <value>]
+  agent-db venue create --entityId <value> --name <value> --searchTsvRank <value> --nameTrgmSimilarity <value> --addressTrgmSimilarity <value> --neighborhoodTrgmSimilarity <value> --cityTrgmSimilarity <value> --categoryTrgmSimilarity <value> --statusTrgmSimilarity <value> --googlePlaceIdTrgmSimilarity <value> --priceLevelTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agent-db venue update --id <value> [--entityId <value>] [--name <value>] [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--nameTrgmSimilarity <value>] [--addressTrgmSimilarity <value>] [--neighborhoodTrgmSimilarity <value>] [--cityTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--googlePlaceIdTrgmSimilarity <value>] [--priceLevelTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
   agent-db venue delete --id <value>           Delete one record
 
 INPUT FIELDS:
@@ -3497,7 +4368,18 @@ INPUT FIELDS:
   searchTsv: FullText
   mainImageId: UUID
   searchTsvRank: Float
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  addressTrgmSimilarity: Float
+  neighborhoodTrgmSimilarity: Float
+  cityTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  googlePlaceIdTrgmSimilarity: Float
+  priceLevelTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 EDITABLE FIELDS (for create/update):
   entityId: UUID
@@ -3518,13 +4400,24 @@ EDITABLE FIELDS (for create/update):
   searchTsv: FullText (optional, has backend default)
   mainImageId: UUID (optional, has backend default)
   searchTsvRank: Float
-  embeddingDistance: Float
+  nameTrgmSimilarity: Float
+  addressTrgmSimilarity: Float
+  neighborhoodTrgmSimilarity: Float
+  cityTrgmSimilarity: Float
+  categoryTrgmSimilarity: Float
+  statusTrgmSimilarity: Float
+  googlePlaceIdTrgmSimilarity: Float
+  priceLevelTrgmSimilarity: Float
+  notesTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
 
 OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }]
-  get:    { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  create: { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  update: { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
+  list:   [{ id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, addressTrgmSimilarity, neighborhoodTrgmSimilarity, cityTrgmSimilarity, categoryTrgmSimilarity, statusTrgmSimilarity, googlePlaceIdTrgmSimilarity, priceLevelTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, addressTrgmSimilarity, neighborhoodTrgmSimilarity, cityTrgmSimilarity, categoryTrgmSimilarity, statusTrgmSimilarity, googlePlaceIdTrgmSimilarity, priceLevelTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, addressTrgmSimilarity, neighborhoodTrgmSimilarity, cityTrgmSimilarity, categoryTrgmSimilarity, statusTrgmSimilarity, googlePlaceIdTrgmSimilarity, priceLevelTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, addressTrgmSimilarity, neighborhoodTrgmSimilarity, cityTrgmSimilarity, categoryTrgmSimilarity, statusTrgmSimilarity, googlePlaceIdTrgmSimilarity, priceLevelTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 

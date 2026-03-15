@@ -6,7 +6,7 @@
 
 
 CREATE TRIGGER app_permission_defaults_insert_trg
-BEFORE INSERT ON agent_db_permissions_public.app_permission_defaults
+BEFORE INSERT ON "agent_db_permissions_public".app_permission_defaults
 FOR EACH ROW
 EXECUTE PROCEDURE utils.ensure_singleton ( );
 

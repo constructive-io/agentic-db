@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_invites_public/tables/invites/table
 
 
-CREATE POLICY auth_del ON agent_db_invites_public.invites
+CREATE POLICY auth_del ON "agent_db_invites_public".invites
 FOR DELETE
 TO authenticated
 USING (

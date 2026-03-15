@@ -20,6 +20,8 @@ const fieldSchema: FieldSchema = {
   onSuccessStep: 'int',
   onFailureStep: 'int',
   timeoutMs: 'int',
+  actionTypeTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nworkflow-step <command>\n\nCommands:\n  list                  List all workflowStep records\n  get                   Get a workflowStep by ID\n  create                Create a new workflowStep\n  update                Update an existing workflowStep\n  delete                Delete a workflowStep\n\n  --help, -h            Show this help message\n';

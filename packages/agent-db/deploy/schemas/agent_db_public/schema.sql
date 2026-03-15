@@ -4,5 +4,5 @@
 
 
 
-CREATE SCHEMA agent_db_public;
+CREATE SCHEMA "agent_db_public";
 

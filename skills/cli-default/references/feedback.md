@@ -9,8 +9,8 @@ CRUD operations for Feedback records via agent-db CLI
 ```bash
 agent-db feedback list
 agent-db feedback get --id <value>
-agent-db feedback create --entityId <value> --targetType <value> --targetId <value> [--rating <value>] [--comment <value>] [--source <value>]
-agent-db feedback update --id <value> [--entityId <value>] [--targetType <value>] [--targetId <value>] [--rating <value>] [--comment <value>] [--source <value>]
+agent-db feedback create --entityId <value> --targetType <value> --targetId <value> --targetTypeTrgmSimilarity <value> --commentTrgmSimilarity <value> --sourceTrgmSimilarity <value> --searchScore <value> [--rating <value>] [--comment <value>] [--source <value>]
+agent-db feedback update --id <value> [--entityId <value>] [--targetType <value>] [--targetId <value>] [--rating <value>] [--comment <value>] [--source <value>] [--targetTypeTrgmSimilarity <value>] [--commentTrgmSimilarity <value>] [--sourceTrgmSimilarity <value>] [--searchScore <value>]
 agent-db feedback delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-db feedback list
 ### Create a feedback
 
 ```bash
-agent-db feedback create --entityId <value> --targetType <value> --targetId <value> [--rating <value>] [--comment <value>] [--source <value>]
+agent-db feedback create --entityId <value> --targetType <value> --targetId <value> --targetTypeTrgmSimilarity <value> --commentTrgmSimilarity <value> --sourceTrgmSimilarity <value> --searchScore <value> [--rating <value>] [--comment <value>] [--source <value>]
 ```
 
 ### Get a feedback by id

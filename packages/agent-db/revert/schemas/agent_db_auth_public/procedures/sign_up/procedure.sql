@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION agent_db_auth_public.sign_up;
+DROP FUNCTION "agent_db_auth_public".sign_up;
 
 
 

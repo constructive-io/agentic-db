@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/tasks/table
--- requires: schemas/agent_db_app_public/tables/venue_links/constraints/venue_links_venue_id_fkey/constraint
+-- requires: schemas/agent_db_app_public/tables/deal_contacts/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.tasks 
+ALTER TABLE "agent_db_app_public".tasks 
   ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
 

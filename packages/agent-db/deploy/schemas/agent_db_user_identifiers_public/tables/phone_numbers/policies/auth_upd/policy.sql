@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_user_identifiers_public/tables/phone_numbers/table
 
 
-CREATE POLICY auth_upd ON agent_db_user_identifiers_public.phone_numbers
+CREATE POLICY auth_upd ON "agent_db_user_identifiers_public".phone_numbers
 FOR UPDATE
 TO authenticated
 USING (

@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_invites_public/tables/claimed_invites/table
 
 
-CREATE POLICY auth_sel_receiver ON agent_db_invites_public.claimed_invites
+CREATE POLICY auth_sel_receiver ON "agent_db_invites_public".claimed_invites
 FOR SELECT
 TO authenticated
 USING (

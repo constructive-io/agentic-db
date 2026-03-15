@@ -5,16 +5,16 @@
 
 
 
-CREATE FUNCTION agent_db_memberships_private.app_admin_grants_apply_tg ()
+CREATE FUNCTION "agent_db_memberships_private".app_admin_grants_apply_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 BEGIN
     IF (NEW.is_grant IS TRUE) THEN 
-        UPDATE agent_db_memberships_public.app_memberships 
+        UPDATE "agent_db_memberships_public".app_memberships 
             SET is_admin = TRUE
         WHERE actor_id = NEW.actor_id; 
     ELSE 
-        UPDATE agent_db_memberships_public.app_memberships 
+        UPDATE "agent_db_memberships_public".app_memberships 
             SET is_admin = FALSE
         WHERE actor_id = NEW.actor_id
         AND is_owner = FALSE; -- cannot set owners 

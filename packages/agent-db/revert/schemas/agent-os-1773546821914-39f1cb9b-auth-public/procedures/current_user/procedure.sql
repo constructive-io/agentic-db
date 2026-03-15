@@ -1,0 +1,8 @@
+-- Revert: schemas/agent-os-1773546821914-39f1cb9b-auth-public/procedures/current_user/procedure
+
+
+
+
+DROP FUNCTION "agent-os-1773546821914-39f1cb9b-auth-public"."current_user";
+
+

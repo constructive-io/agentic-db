@@ -9,8 +9,8 @@ CRUD operations for Milestone records via agent-db CLI
 ```bash
 agent-db milestone list
 agent-db milestone get --id <value>
-agent-db milestone create --entityId <value> --name <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
-agent-db milestone update --id <value> [--entityId <value>] [--projectId <value>] [--name <value>] [--dueDate <value>] [--status <value>]
+agent-db milestone create --entityId <value> --name <value> --nameTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
+agent-db milestone update --id <value> [--entityId <value>] [--projectId <value>] [--name <value>] [--dueDate <value>] [--status <value>] [--nameTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
 agent-db milestone delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-db milestone list
 ### Create a milestone
 
 ```bash
-agent-db milestone create --entityId <value> --name <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
+agent-db milestone create --entityId <value> --name <value> --nameTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
 ```
 
 ### Get a milestone by id

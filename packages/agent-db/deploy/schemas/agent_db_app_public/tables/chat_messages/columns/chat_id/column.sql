@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/chat_messages/table
--- requires: schemas/agent_db_app_public/tables/execution_log/constraints/execution_logs_session_id_fkey/constraint
+-- requires: schemas/agent_db_app_public/tables/chat_messages/columns/updated_at/alterations/alt0000004341
 
 
-ALTER TABLE agent_db_app_public.chat_messages 
+ALTER TABLE "agent_db_app_public".chat_messages 
   ADD COLUMN chat_id uuid;
 

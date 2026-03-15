@@ -27,7 +27,15 @@ const fieldSchema: FieldSchema = {
   tags: 'string',
   embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  nameTrgmSimilarity: 'float',
+  descriptionTrgmSimilarity: 'float',
+  cuisineTrgmSimilarity: 'float',
+  difficultyTrgmSimilarity: 'float',
+  sourceUrlTrgmSimilarity: 'float',
+  imageUrlTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nrecipe <command>\n\nCommands:\n  list                  List all recipe records\n  get                   Get a recipe by ID\n  create                Create a new recipe\n  update                Update an existing recipe\n  delete                Delete a recipe\n\n  --help, -h            Show this help message\n';
@@ -99,7 +107,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -145,7 +152,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -306,7 +312,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -476,7 +481,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

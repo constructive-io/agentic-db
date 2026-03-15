@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_user_identifiers_public/tables/crypto_addresses/columns/updated_at/column
 
 
-CREATE INDEX crypto_addresses_updated_at_idx ON agent_db_user_identifiers_public.crypto_addresses ( updated_at );
+CREATE INDEX crypto_addresses_updated_at_idx ON "agent_db_user_identifiers_public".crypto_addresses ( updated_at );
 

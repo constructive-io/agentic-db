@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION agent_db_auth_public.set_password;
+DROP FUNCTION "agent_db_auth_public".set_password;
 
 

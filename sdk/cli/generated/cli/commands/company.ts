@@ -23,7 +23,13 @@ const fieldSchema: FieldSchema = {
   searchTsv: 'string',
   mainImageId: 'uuid',
   searchTsvRank: 'float',
-  embeddingDistance: 'float',
+  nameTrgmSimilarity: 'float',
+  domainTrgmSimilarity: 'float',
+  industryTrgmSimilarity: 'float',
+  descriptionTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\ncompany <command>\n\nCommands:\n  list                  List all company records\n  get                   Get a company by ID\n  create                Create a new company\n  update                Update an existing company\n  delete                Delete a company\n\n  --help, -h            Show this help message\n';
@@ -90,8 +96,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -132,8 +136,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -249,8 +251,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -375,8 +375,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();

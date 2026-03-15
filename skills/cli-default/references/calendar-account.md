@@ -9,8 +9,8 @@ CRUD operations for CalendarAccount records via agent-db CLI
 ```bash
 agent-db calendar-account list
 agent-db calendar-account get --id <value>
-agent-db calendar-account create --entityId <value> --email <value> [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
-agent-db calendar-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
+agent-db calendar-account create --entityId <value> --email <value> --emailTrgmSimilarity <value> --providerTrgmSimilarity <value> --syncTokenTrgmSimilarity <value> --searchScore <value> [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
+agent-db calendar-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>] [--emailTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--syncTokenTrgmSimilarity <value>] [--searchScore <value>]
 agent-db calendar-account delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-db calendar-account list
 ### Create a calendarAccount
 
 ```bash
-agent-db calendar-account create --entityId <value> --email <value> [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
+agent-db calendar-account create --entityId <value> --email <value> --emailTrgmSimilarity <value> --providerTrgmSimilarity <value> --syncTokenTrgmSimilarity <value> --searchScore <value> [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
 ```
 
 ### Get a calendarAccount by id

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/projects/table
--- requires: schemas/agent_db_app_public/tables/projects/columns/due_date/column
+-- requires: schemas/agent_db_app_public/tables/projects/columns/embedding_text/column
 
 
-ALTER TABLE agent_db_app_public.projects 
+ALTER TABLE "agent_db_app_public".projects 
   ADD COLUMN embedding vector(768);
 

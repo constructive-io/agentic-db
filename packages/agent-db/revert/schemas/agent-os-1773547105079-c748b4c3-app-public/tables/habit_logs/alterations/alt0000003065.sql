@@ -1,0 +1,7 @@
+-- Revert: schemas/agent-os-1773547105079-c748b4c3-app-public/tables/habit_logs/alterations/alt0000003065
+
+
+ALTER TABLE "agent-os-1773547105079-c748b4c3-app-public".habit_logs 
+  ENABLE ROW LEVEL SECURITY;
+
+

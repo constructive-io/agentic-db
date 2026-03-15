@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_permissions_public/tables/app_permissions/table
 
 
-ALTER TABLE agent_db_permissions_public.app_permissions 
+ALTER TABLE "agent_db_permissions_public".app_permissions 
   ADD COLUMN bitstr bit(24);
 

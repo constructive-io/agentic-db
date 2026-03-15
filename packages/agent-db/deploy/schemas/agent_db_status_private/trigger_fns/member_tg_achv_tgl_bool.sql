@@ -6,7 +6,7 @@
 
 
 
-CREATE FUNCTION agent_db_status_private.member_tg_achv_tgl_bool ()
+CREATE FUNCTION "agent_db_status_private".member_tg_achv_tgl_bool ()
   RETURNS TRIGGER
   AS $$
 DECLARE
@@ -21,9 +21,9 @@ BEGIN
         EXECUTE format('SELECT ($1).%s', TG_ARGV[1])
         USING NEW INTO entity_id;
         IF (is_true IS TRUE) THEN
-            PERFORM agent_db_status_private.member_completed_step(task_name, entity_id);
+            PERFORM "agent_db_status_private".member_completed_step(task_name, entity_id);
         ELSE
-            PERFORM agent_db_status_private.member_incompleted_step(task_name, entity_id);
+            PERFORM "agent_db_status_private".member_incompleted_step(task_name, entity_id);
         END IF;
         RETURN NEW;
     END IF;
@@ -31,5 +31,5 @@ END;
 $$
 LANGUAGE 'plpgsql'
 VOLATILE;
-GRANT EXECUTE ON FUNCTION agent_db_status_private.member_tg_achv_tgl_bool TO authenticated;
+GRANT EXECUTE ON FUNCTION "agent_db_status_private".member_tg_achv_tgl_bool TO authenticated;
 

@@ -1,0 +1,7 @@
+-- Revert: schemas/agent_db_memberships_public/tables/org_chart_edge_grants/columns/child_id/alterations/alt0000003749
+
+
+ALTER TABLE "agent_db_memberships_public".org_chart_edge_grants 
+  ALTER COLUMN child_id DROP NOT NULL;
+
+

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/venues/table
--- requires: schemas/agent_db_app_public/tables/venues/columns/tags/column
+-- requires: schemas/agent_db_app_public/tables/venues/columns/embedding_text/column
 
 
-ALTER TABLE agent_db_app_public.venues 
+ALTER TABLE "agent_db_app_public".venues 
   ADD COLUMN embedding vector(768);
 

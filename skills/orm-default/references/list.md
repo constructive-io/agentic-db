@@ -9,7 +9,7 @@ ORM operations for List records
 ```typescript
 db.list.findMany({ select: { id: true } }).execute()
 db.list.findOne({ id: '<value>', select: { id: true } }).execute()
-db.list.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', type: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.list.create({ data: { entityId: '<value>', name: '<value>', description: '<value>', type: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', nameTrgmSimilarity: '<value>', descriptionTrgmSimilarity: '<value>', typeTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.list.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.list.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.list.findMany({
 
 ```typescript
 const item = await db.list.create({
-  data: { entityId: 'value', name: 'value', description: 'value', type: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', name: 'value', description: 'value', type: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', nameTrgmSimilarity: 'value', descriptionTrgmSimilarity: 'value', typeTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

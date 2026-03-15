@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION agent_db_permissions_public.org_permissions_get_mask;
+DROP FUNCTION "agent_db_permissions_public".org_permissions_get_mask;
 
 

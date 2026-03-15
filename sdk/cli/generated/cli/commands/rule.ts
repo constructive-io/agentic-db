@@ -24,8 +24,16 @@ const fieldSchema: FieldSchema = {
   embeddingText: 'string',
   embedding: 'string',
   triggerConcept: 'string',
-  embeddingDistance: 'float',
-  triggerConceptDistance: 'float',
+  titleTrgmSimilarity: 'float',
+  contentTrgmSimilarity: 'float',
+  kindTrgmSimilarity: 'float',
+  severityTrgmSimilarity: 'float',
+  slugTrgmSimilarity: 'float',
+  verificationTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  triggerConceptVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nrule <command>\n\nCommands:\n  list                  List all rule records\n  get                   Get a rule by ID\n  create                Create a new rule\n  update                Update an existing rule\n  delete                Delete a rule\n\n  --help, -h            Show this help message\n';
@@ -94,8 +102,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           embeddingText: true,
           embedding: true,
           triggerConcept: true,
-          embeddingDistance: true,
-          triggerConceptDistance: true,
         },
       })
       .execute();
@@ -138,8 +144,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           embeddingText: true,
           embedding: true,
           triggerConcept: true,
-          embeddingDistance: true,
-          triggerConceptDistance: true,
         },
       })
       .execute();
@@ -273,8 +277,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           triggerConcept: true,
-          embeddingDistance: true,
-          triggerConceptDistance: true,
         },
       })
       .execute();
@@ -417,8 +419,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           triggerConcept: true,
-          embeddingDistance: true,
-          triggerConceptDistance: true,
         },
       })
       .execute();

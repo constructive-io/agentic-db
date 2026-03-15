@@ -27,14 +27,10 @@ agent-db auth set-token <your-token>
 | `auth` | Manage authentication tokens |
 | `config` | Manage config key-value store (per-context) |
 | `agent-prompt` | agentPrompt CRUD operations |
-| `process` | process CRUD operations |
-| `scheduled-job` | scheduledJob CRUD operations |
-| `agent-tool` | agentTool CRUD operations |
-| `agent-skill` | agentSkill CRUD operations |
 | `agent-rule` | agentRule CRUD operations |
+| `agent-skill` | agentSkill CRUD operations |
+| `agent-tool` | agentTool CRUD operations |
 | `calendar-event-contact` | calendarEventContact CRUD operations |
-| `calendar-event` | calendarEvent CRUD operations |
-| `interaction` | interaction CRUD operations |
 | `company-event` | companyEvent CRUD operations |
 | `company-image` | companyImage CRUD operations |
 | `contact-company` | contactCompany CRUD operations |
@@ -45,61 +41,68 @@ agent-db auth set-token <your-token>
 | `event-venue` | eventVenue CRUD operations |
 | `expense-contact` | expenseContact CRUD operations |
 | `goal-habit` | goalHabit CRUD operations |
-| `habit-log` | habitLog CRUD operations |
 | `goal-project` | goalProject CRUD operations |
-| `milestone` | milestone CRUD operations |
 | `project-contact` | projectContact CRUD operations |
 | `task-contact` | taskContact CRUD operations |
 | `venue-image` | venueImage CRUD operations |
 | `file` | file CRUD operations |
-| `chunk` | chunk CRUD operations |
+| `milestone` | milestone CRUD operations |
 | `calendar-account` | calendarAccount CRUD operations |
 | `tag` | tag CRUD operations |
 | `feedback` | feedback CRUD operations |
 | `attachment` | attachment CRUD operations |
 | `email-account` | emailAccount CRUD operations |
-| `message` | message CRUD operations |
 | `activity-log` | activityLog CRUD operations |
+| `context-relation` | contextRelation CRUD operations |
 | `user-setting` | userSetting CRUD operations |
 | `execution-log` | executionLog CRUD operations |
 | `webhook` | webhook CRUD operations |
 | `notification` | notification CRUD operations |
+| `process` | process CRUD operations |
 | `workflow-run` | workflowRun CRUD operations |
-| `workflow-step` | workflowStep CRUD operations |
 | `integration` | integration CRUD operations |
 | `skill-execution` | skillExecution CRUD operations |
 | `chat` | chat CRUD operations |
-| `chat-message` | chatMessage CRUD operations |
+| `chunk` | chunk CRUD operations |
 | `thread` | thread CRUD operations |
-| `session` | session CRUD operations |
+| `chat-message` | chatMessage CRUD operations |
+| `session-archive` | sessionArchive CRUD operations |
 | `reminder` | reminder CRUD operations |
 | `image` | image CRUD operations |
+| `workflow-step` | workflowStep CRUD operations |
 | `list-item` | listItem CRUD operations |
 | `company-link` | companyLink CRUD operations |
 | `contact-link` | contactLink CRUD operations |
 | `event-link` | eventLink CRUD operations |
 | `venue-link` | venueLink CRUD operations |
+| `agent-spawn` | agentSpawn CRUD operations |
+| `scheduled-job` | scheduledJob CRUD operations |
 | `habit` | habit CRUD operations |
 | `workflow` | workflow CRUD operations |
+| `habit-log` | habitLog CRUD operations |
 | `expense` | expense CRUD operations |
 | `billing-subscription` | billingSubscription CRUD operations |
 | `idea` | idea CRUD operations |
 | `list` | list CRUD operations |
-| `note` | note CRUD operations |
+| `interaction` | interaction CRUD operations |
 | `repository` | repository CRUD operations |
 | `deal` | deal CRUD operations |
 | `goal` | goal CRUD operations |
+| `note` | note CRUD operations |
 | `prompt` | prompt CRUD operations |
 | `blueprint` | blueprint CRUD operations |
 | `template` | template CRUD operations |
 | `tool` | tool CRUD operations |
-| `memory` | memory CRUD operations |
 | `recipe` | recipe CRUD operations |
 | `trip` | trip CRUD operations |
+| `calendar-event` | calendarEvent CRUD operations |
+| `message` | message CRUD operations |
+| `memory` | memory CRUD operations |
 | `rule` | rule CRUD operations |
-| `skill` | skill CRUD operations |
-| `agent` | agent CRUD operations |
 | `task` | task CRUD operations |
+| `agent` | agent CRUD operations |
+| `session` | session CRUD operations |
+| `skill` | skill CRUD operations |
 | `project` | project CRUD operations |
 | `document` | document CRUD operations |
 | `company` | company CRUD operations |
@@ -171,91 +174,28 @@ CRUD operations for AgentPrompt records.
 
 **Required create fields:** `agentId`, `promptId`, `entityId`
 
-### `process`
+### `agent-rule`
 
-CRUD operations for Process records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all process records |
-| `get` | Get a process by id |
-| `create` | Create a new process |
-| `update` | Update an existing process |
-| `delete` | Delete a process |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `pid` | Int |
-| `agentId` | UUID |
-| `command` | String |
-| `startedAt` | Datetime |
-| `endedAt` | Datetime |
-| `status` | String |
-| `exitCode` | Int |
-| `logsPath` | String |
-
-**Required create fields:** `entityId`
-**Optional create fields (backend defaults):** `pid`, `agentId`, `command`, `startedAt`, `endedAt`, `status`, `exitCode`, `logsPath`
-
-### `scheduled-job`
-
-CRUD operations for ScheduledJob records.
+CRUD operations for AgentRule records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all scheduledJob records |
-| `get` | Get a scheduledJob by id |
-| `create` | Create a new scheduledJob |
-| `update` | Update an existing scheduledJob |
-| `delete` | Delete a scheduledJob |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `name` | String |
-| `schedule` | String |
-| `command` | String |
-| `agentId` | UUID |
-| `active` | Boolean |
-| `lastRun` | Datetime |
-| `nextRun` | Datetime |
-
-**Required create fields:** `entityId`, `name`, `schedule`, `command`
-**Optional create fields (backend defaults):** `agentId`, `active`, `lastRun`, `nextRun`
-
-### `agent-tool`
-
-CRUD operations for AgentTool records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentTool records |
-| `get` | Get a agentTool by id |
-| `create` | Create a new agentTool |
-| `update` | Update an existing agentTool |
-| `delete` | Delete a agentTool |
+| `list` | List all agentRule records |
+| `get` | Get a agentRule by id |
+| `create` | Create a new agentRule |
+| `update` | Update an existing agentRule |
+| `delete` | Delete a agentRule |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `agentId` | UUID |
-| `toolId` | UUID |
+| `ruleId` | UUID |
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Required create fields:** `agentId`, `toolId`, `entityId`
+**Required create fields:** `agentId`, `ruleId`, `entityId`
 
 ### `agent-skill`
 
@@ -280,28 +220,28 @@ CRUD operations for AgentSkill records.
 
 **Required create fields:** `agentId`, `skillId`, `entityId`
 
-### `agent-rule`
+### `agent-tool`
 
-CRUD operations for AgentRule records.
+CRUD operations for AgentTool records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all agentRule records |
-| `get` | Get a agentRule by id |
-| `create` | Create a new agentRule |
-| `update` | Update an existing agentRule |
-| `delete` | Delete a agentRule |
+| `list` | List all agentTool records |
+| `get` | Get a agentTool by id |
+| `create` | Create a new agentTool |
+| `update` | Update an existing agentTool |
+| `delete` | Delete a agentTool |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `agentId` | UUID |
-| `ruleId` | UUID |
+| `toolId` | UUID |
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Required create fields:** `agentId`, `ruleId`, `entityId`
+**Required create fields:** `agentId`, `toolId`, `entityId`
 
 ### `calendar-event-contact`
 
@@ -325,77 +265,6 @@ CRUD operations for CalendarEventContact records.
 | `entityId` | UUID |
 
 **Required create fields:** `calendarEventId`, `contactId`, `entityId`
-
-### `calendar-event`
-
-CRUD operations for CalendarEvent records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all calendarEvent records |
-| `get` | Get a calendarEvent by id |
-| `create` | Create a new calendarEvent |
-| `update` | Update an existing calendarEvent |
-| `delete` | Delete a calendarEvent |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `calendarAccountId` | UUID |
-| `remoteId` | String |
-| `title` | String |
-| `description` | String |
-| `startAt` | Datetime |
-| `endAt` | Datetime |
-| `allDay` | Boolean |
-| `location` | String |
-| `recurrenceRule` | String |
-| `status` | String |
-| `tags` | String |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingDistance` | Float |
-
-**Required create fields:** `entityId`, `title`, `startAt`, `embeddingDistance`
-**Optional create fields (backend defaults):** `calendarAccountId`, `remoteId`, `description`, `endAt`, `allDay`, `location`, `recurrenceRule`, `status`, `tags`, `embeddingText`, `embedding`
-
-### `interaction`
-
-CRUD operations for Interaction records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all interaction records |
-| `get` | Get a interaction by id |
-| `create` | Create a new interaction |
-| `update` | Update an existing interaction |
-| `delete` | Delete a interaction |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `contactId` | UUID |
-| `type` | String |
-| `occurredAt` | Datetime |
-| `summary` | String |
-| `sentiment` | String |
-| `tags` | String |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingDistance` | Float |
-
-**Required create fields:** `entityId`, `contactId`, `type`, `occurredAt`, `embeddingDistance`
-**Optional create fields (backend defaults):** `summary`, `sentiment`, `tags`, `embeddingText`, `embedding`
 
 ### `company-event`
 
@@ -627,44 +496,6 @@ CRUD operations for GoalHabit records.
 
 **Required create fields:** `goalId`, `habitId`, `entityId`
 
-### `habit-log`
-
-CRUD operations for HabitLog records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all habitLog records |
-| `get` | Get a habitLog by id |
-| `create` | Create a new habitLog |
-| `update` | Update an existing habitLog |
-| `delete` | Delete a habitLog |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `habitId` | UUID |
-| `completedAt` | Datetime |
-| `activityType` | String |
-| `durationMinutes` | BigFloat |
-| `distance` | BigFloat |
-| `distanceUnit` | String |
-| `reps` | Int |
-| `sets` | Int |
-| `weightAmount` | BigFloat |
-| `weightUnit` | String |
-| `calories` | BigFloat |
-| `data` | JSON |
-| `notes` | String |
-| `tags` | String |
-
-**Required create fields:** `entityId`, `habitId`, `completedAt`
-**Optional create fields (backend defaults):** `activityType`, `durationMinutes`, `distance`, `distanceUnit`, `reps`, `sets`, `weightAmount`, `weightUnit`, `calories`, `data`, `notes`, `tags`
-
 ### `goal-project`
 
 CRUD operations for GoalProject records.
@@ -687,34 +518,6 @@ CRUD operations for GoalProject records.
 | `entityId` | UUID |
 
 **Required create fields:** `goalId`, `projectId`, `entityId`
-
-### `milestone`
-
-CRUD operations for Milestone records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all milestone records |
-| `get` | Get a milestone by id |
-| `create` | Create a new milestone |
-| `update` | Update an existing milestone |
-| `delete` | Delete a milestone |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `projectId` | UUID |
-| `name` | String |
-| `dueDate` | Datetime |
-| `status` | String |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `projectId`, `dueDate`, `status`
 
 ### `project-contact`
 
@@ -809,21 +612,25 @@ CRUD operations for File records.
 | `path` | String |
 | `language` | String |
 | `hash` | String |
+| `pathTrgmSimilarity` | Float |
+| `languageTrgmSimilarity` | Float |
+| `hashTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `path`
+**Required create fields:** `entityId`, `path`, `pathTrgmSimilarity`, `languageTrgmSimilarity`, `hashTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `repositoryId`, `language`, `hash`
 
-### `chunk`
+### `milestone`
 
-CRUD operations for Chunk records.
+CRUD operations for Milestone records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all chunk records |
-| `get` | Get a chunk by id |
-| `create` | Create a new chunk |
-| `update` | Update an existing chunk |
-| `delete` | Delete a chunk |
+| `list` | List all milestone records |
+| `get` | Get a milestone by id |
+| `create` | Create a new milestone |
+| `update` | Update an existing milestone |
+| `delete` | Delete a milestone |
 
 **Fields:**
 
@@ -833,17 +640,16 @@ CRUD operations for Chunk records.
 | `entityId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `fileId` | UUID |
-| `repositoryId` | UUID |
-| `content` | String |
-| `startLine` | Int |
-| `endLine` | Int |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `projectId` | UUID |
+| `name` | String |
+| `dueDate` | Datetime |
+| `status` | String |
+| `nameTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `content`, `embeddingDistance`
-**Optional create fields (backend defaults):** `fileId`, `repositoryId`, `startLine`, `endLine`, `embeddingText`, `embedding`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `statusTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `projectId`, `dueDate`, `status`
 
 ### `calendar-account`
 
@@ -869,8 +675,12 @@ CRUD operations for CalendarAccount records.
 | `provider` | String |
 | `syncToken` | String |
 | `lastSyncedAt` | Datetime |
+| `emailTrgmSimilarity` | Float |
+| `providerTrgmSimilarity` | Float |
+| `syncTokenTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `email`
+**Required create fields:** `entityId`, `email`, `emailTrgmSimilarity`, `providerTrgmSimilarity`, `syncTokenTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `provider`, `syncToken`, `lastSyncedAt`
 
 ### `tag`
@@ -897,8 +707,12 @@ CRUD operations for Tag records.
 | `color` | String |
 | `category` | String |
 | `usageCount` | Int |
+| `nameTrgmSimilarity` | Float |
+| `colorTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `colorTrgmSimilarity`, `categoryTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `color`, `category`, `usageCount`
 
 ### `feedback`
@@ -926,8 +740,12 @@ CRUD operations for Feedback records.
 | `rating` | Int |
 | `comment` | String |
 | `source` | String |
+| `targetTypeTrgmSimilarity` | Float |
+| `commentTrgmSimilarity` | Float |
+| `sourceTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `targetType`, `targetId`
+**Required create fields:** `entityId`, `targetType`, `targetId`, `targetTypeTrgmSimilarity`, `commentTrgmSimilarity`, `sourceTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `rating`, `comment`, `source`
 
 ### `attachment`
@@ -956,8 +774,13 @@ CRUD operations for Attachment records.
 | `sizeBytes` | Int |
 | `attachableType` | String |
 | `attachableId` | UUID |
+| `urlTrgmSimilarity` | Float |
+| `filenameTrgmSimilarity` | Float |
+| `mimeTypeTrgmSimilarity` | Float |
+| `attachableTypeTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`
+**Required create fields:** `entityId`, `url`, `urlTrgmSimilarity`, `filenameTrgmSimilarity`, `mimeTypeTrgmSimilarity`, `attachableTypeTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `filename`, `mimeType`, `sizeBytes`, `attachableType`, `attachableId`
 
 ### `email-account`
@@ -983,45 +806,12 @@ CRUD operations for EmailAccount records.
 | `email` | String |
 | `provider` | String |
 | `syncState` | JSON |
+| `emailTrgmSimilarity` | Float |
+| `providerTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `email`
+**Required create fields:** `entityId`, `email`, `emailTrgmSimilarity`, `providerTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `provider`, `syncState`
-
-### `message`
-
-CRUD operations for Message records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all message records |
-| `get` | Get a message by id |
-| `create` | Create a new message |
-| `update` | Update an existing message |
-| `delete` | Delete a message |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `emailAccountId` | UUID |
-| `threadId` | String |
-| `remoteId` | String |
-| `fromAddress` | String |
-| `toAddresses` | String |
-| `subject` | String |
-| `bodyText` | String |
-| `receivedAt` | Datetime |
-| `tags` | String |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingDistance` | Float |
-
-**Required create fields:** `entityId`, `embeddingDistance`
-**Optional create fields (backend defaults):** `emailAccountId`, `threadId`, `remoteId`, `fromAddress`, `toAddresses`, `subject`, `bodyText`, `receivedAt`, `tags`, `embeddingText`, `embedding`
 
 ### `activity-log`
 
@@ -1049,9 +839,49 @@ CRUD operations for ActivityLog records.
 | `targetType` | String |
 | `targetId` | UUID |
 | `metadata` | JSON |
+| `actorTypeTrgmSimilarity` | Float |
+| `actionTrgmSimilarity` | Float |
+| `targetTypeTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `actorType`, `action`, `targetType`, `targetId`
+**Required create fields:** `entityId`, `actorType`, `action`, `targetType`, `targetId`, `actorTypeTrgmSimilarity`, `actionTrgmSimilarity`, `targetTypeTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `actorId`, `metadata`
+
+### `context-relation`
+
+CRUD operations for ContextRelation records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all contextRelation records |
+| `get` | Get a contextRelation by id |
+| `create` | Create a new contextRelation |
+| `update` | Update an existing contextRelation |
+| `delete` | Delete a contextRelation |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `fromType` | String |
+| `fromId` | UUID |
+| `toType` | String |
+| `toId` | UUID |
+| `relationKind` | String |
+| `reason` | String |
+| `strength` | BigFloat |
+| `fromTypeTrgmSimilarity` | Float |
+| `toTypeTrgmSimilarity` | Float |
+| `relationKindTrgmSimilarity` | Float |
+| `reasonTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `fromType`, `fromId`, `toType`, `toId`, `fromTypeTrgmSimilarity`, `toTypeTrgmSimilarity`, `relationKindTrgmSimilarity`, `reasonTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `relationKind`, `reason`, `strength`
 
 ### `user-setting`
 
@@ -1076,8 +906,11 @@ CRUD operations for UserSetting records.
 | `key` | String |
 | `value` | JSON |
 | `category` | String |
+| `keyTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `key`
+**Required create fields:** `entityId`, `key`, `keyTrgmSimilarity`, `categoryTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `value`, `category`
 
 ### `execution-log`
@@ -1106,8 +939,12 @@ CRUD operations for ExecutionLog records.
 | `output` | String |
 | `toolCalls` | JSON |
 | `durationMs` | Int |
+| `stepNameTrgmSimilarity` | Float |
+| `inputTrgmSimilarity` | Float |
+| `outputTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`
+**Required create fields:** `entityId`, `stepNameTrgmSimilarity`, `inputTrgmSimilarity`, `outputTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `sessionId`, `stepName`, `input`, `output`, `toolCalls`, `durationMs`
 
 ### `webhook`
@@ -1135,8 +972,12 @@ CRUD operations for Webhook records.
 | `eventType` | String |
 | `secret` | String |
 | `isActive` | Boolean |
+| `urlTrgmSimilarity` | Float |
+| `eventTypeTrgmSimilarity` | Float |
+| `secretTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`, `eventType`
+**Required create fields:** `entityId`, `url`, `eventType`, `urlTrgmSimilarity`, `eventTypeTrgmSimilarity`, `secretTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `integrationId`, `secret`, `isActive`
 
 ### `notification`
@@ -1167,9 +1008,52 @@ CRUD operations for Notification records.
 | `actionUrl` | String |
 | `sourceEntityId` | UUID |
 | `sourceEntityType` | String |
+| `titleTrgmSimilarity` | Float |
+| `bodyTrgmSimilarity` | Float |
+| `typeTrgmSimilarity` | Float |
+| `priorityTrgmSimilarity` | Float |
+| `actionUrlTrgmSimilarity` | Float |
+| `sourceEntityTypeTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`
+**Required create fields:** `entityId`, `titleTrgmSimilarity`, `bodyTrgmSimilarity`, `typeTrgmSimilarity`, `priorityTrgmSimilarity`, `actionUrlTrgmSimilarity`, `sourceEntityTypeTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `title`, `body`, `type`, `priority`, `readAt`, `actionUrl`, `sourceEntityId`, `sourceEntityType`
+
+### `process`
+
+CRUD operations for Process records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all process records |
+| `get` | Get a process by id |
+| `create` | Create a new process |
+| `update` | Update an existing process |
+| `delete` | Delete a process |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `pid` | Int |
+| `agentId` | UUID |
+| `command` | String |
+| `startedAt` | Datetime |
+| `endedAt` | Datetime |
+| `status` | String |
+| `exitCode` | Int |
+| `logsPath` | String |
+| `commandTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `logsPathTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `commandTrgmSimilarity`, `statusTrgmSimilarity`, `logsPathTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `pid`, `agentId`, `command`, `startedAt`, `endedAt`, `status`, `exitCode`, `logsPath`
 
 ### `workflow-run`
 
@@ -1198,40 +1082,12 @@ CRUD operations for WorkflowRun records.
 | `input` | JSON |
 | `output` | JSON |
 | `error` | String |
+| `statusTrgmSimilarity` | Float |
+| `errorTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `workflowId`
+**Required create fields:** `entityId`, `workflowId`, `statusTrgmSimilarity`, `errorTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `status`, `startedAt`, `completedAt`, `input`, `output`, `error`
-
-### `workflow-step`
-
-CRUD operations for WorkflowStep records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all workflowStep records |
-| `get` | Get a workflowStep by id |
-| `create` | Create a new workflowStep |
-| `update` | Update an existing workflowStep |
-| `delete` | Delete a workflowStep |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `workflowId` | UUID |
-| `stepOrder` | Int |
-| `actionType` | String |
-| `actionConfig` | JSON |
-| `onSuccessStep` | Int |
-| `onFailureStep` | Int |
-| `timeoutMs` | Int |
-
-**Required create fields:** `entityId`, `workflowId`, `stepOrder`, `actionType`
-**Optional create fields (backend defaults):** `actionConfig`, `onSuccessStep`, `onFailureStep`, `timeoutMs`
 
 ### `integration`
 
@@ -1260,8 +1116,14 @@ CRUD operations for Integration records.
 | `config` | JSON |
 | `status` | String |
 | `lastSyncedAt` | Datetime |
+| `nameTrgmSimilarity` | Float |
+| `providerTrgmSimilarity` | Float |
+| `typeTrgmSimilarity` | Float |
+| `credentialsRefTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `provider`
+**Required create fields:** `entityId`, `name`, `provider`, `nameTrgmSimilarity`, `providerTrgmSimilarity`, `typeTrgmSimilarity`, `credentialsRefTrgmSimilarity`, `statusTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `type`, `credentialsRef`, `config`, `status`, `lastSyncedAt`
 
 ### `skill-execution`
@@ -1294,8 +1156,11 @@ CRUD operations for SkillExecution records.
 | `input` | JSON |
 | `output` | JSON |
 | `error` | String |
+| `statusTrgmSimilarity` | Float |
+| `errorTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `skillId`
+**Required create fields:** `entityId`, `skillId`, `statusTrgmSimilarity`, `errorTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `agentId`, `sessionId`, `status`, `startedAt`, `completedAt`, `durationMs`, `input`, `output`, `error`
 
 ### `chat`
@@ -1322,10 +1187,84 @@ CRUD operations for Chat records.
 | `startedAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `embeddingDistance`
+**Required create fields:** `entityId`, `titleTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `title`, `startedAt`, `embeddingText`, `embedding`
+
+### `chunk`
+
+CRUD operations for Chunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all chunk records |
+| `get` | Get a chunk by id |
+| `create` | Create a new chunk |
+| `update` | Update an existing chunk |
+| `delete` | Delete a chunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `fileId` | UUID |
+| `repositoryId` | UUID |
+| `content` | String |
+| `startLine` | Int |
+| `endLine` | Int |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `content`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `fileId`, `repositoryId`, `startLine`, `endLine`, `embeddingText`, `embedding`
+
+### `thread`
+
+CRUD operations for Thread records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all thread records |
+| `get` | Get a thread by id |
+| `create` | Create a new thread |
+| `update` | Update an existing thread |
+| `delete` | Delete a thread |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `title` | String |
+| `summary` | String |
+| `status` | String |
+| `parentThreadId` | UUID |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `titleTrgmSimilarity` | Float |
+| `summaryTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `title`, `titleTrgmSimilarity`, `summaryTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `summary`, `status`, `parentThreadId`, `embeddingText`, `embedding`
 
 ### `chat-message`
 
@@ -1354,22 +1293,26 @@ CRUD operations for ChatMessage records.
 | `toolCalls` | JSON |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `roleTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `embeddingDistance`
+**Required create fields:** `entityId`, `roleTrgmSimilarity`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `chatId`, `threadId`, `role`, `content`, `toolCalls`, `embeddingText`, `embedding`
 
-### `thread`
+### `session-archive`
 
-CRUD operations for Thread records.
+CRUD operations for SessionArchive records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all thread records |
-| `get` | Get a thread by id |
-| `create` | Create a new thread |
-| `update` | Update an existing thread |
-| `delete` | Delete a thread |
+| `list` | List all sessionArchive records |
+| `get` | Get a sessionArchive by id |
+| `create` | Create a new sessionArchive |
+| `update` | Update an existing sessionArchive |
+| `delete` | Delete a sessionArchive |
 
 **Fields:**
 
@@ -1379,49 +1322,21 @@ CRUD operations for Thread records.
 | `entityId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `title` | String |
+| `sessionId` | UUID |
+| `archiveIndex` | Int |
 | `summary` | String |
-| `status` | String |
-| `parentThreadId` | UUID |
+| `messageRangeStart` | Int |
+| `messageRangeEnd` | Int |
+| `rawMessages` | JSON |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `summaryTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`, `embeddingDistance`
-**Optional create fields (backend defaults):** `summary`, `status`, `parentThreadId`, `embeddingText`, `embedding`
-
-### `session`
-
-CRUD operations for Session records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all session records |
-| `get` | Get a session by id |
-| `create` | Create a new session |
-| `update` | Update an existing session |
-| `delete` | Delete a session |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `title` | String |
-| `agentId` | UUID |
-| `startedAt` | Datetime |
-| `endedAt` | Datetime |
-| `status` | String |
-| `contextSummary` | String |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingDistance` | Float |
-
-**Required create fields:** `entityId`, `embeddingDistance`
-**Optional create fields (backend defaults):** `title`, `agentId`, `startedAt`, `endedAt`, `status`, `contextSummary`, `embeddingText`, `embedding`
+**Required create fields:** `entityId`, `sessionId`, `archiveIndex`, `summary`, `summaryTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `messageRangeStart`, `messageRangeEnd`, `rawMessages`, `embeddingText`, `embedding`
 
 ### `reminder`
 
@@ -1452,9 +1367,15 @@ CRUD operations for Reminder records.
 | `relatedEntityType` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `recurrenceTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `relatedEntityTypeTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`, `embeddingDistance`
+**Required create fields:** `entityId`, `title`, `titleTrgmSimilarity`, `recurrenceTrgmSimilarity`, `statusTrgmSimilarity`, `relatedEntityTypeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `dueAt`, `completedAt`, `recurrence`, `status`, `relatedEntityId`, `relatedEntityType`, `embeddingText`, `embedding`
 
 ### `image`
@@ -1482,10 +1403,47 @@ CRUD operations for Image records.
 | `altText` | String |
 | `caption` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `urlTrgmSimilarity` | Float |
+| `altTextTrgmSimilarity` | Float |
+| `captionTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`, `embeddingDistance`
+**Required create fields:** `entityId`, `url`, `urlTrgmSimilarity`, `altTextTrgmSimilarity`, `captionTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `meta`, `altText`, `caption`, `embedding`
+
+### `workflow-step`
+
+CRUD operations for WorkflowStep records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all workflowStep records |
+| `get` | Get a workflowStep by id |
+| `create` | Create a new workflowStep |
+| `update` | Update an existing workflowStep |
+| `delete` | Delete a workflowStep |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `workflowId` | UUID |
+| `stepOrder` | Int |
+| `actionType` | String |
+| `actionConfig` | JSON |
+| `onSuccessStep` | Int |
+| `onFailureStep` | Int |
+| `timeoutMs` | Int |
+| `actionTypeTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `workflowId`, `stepOrder`, `actionType`, `actionTypeTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `actionConfig`, `onSuccessStep`, `onFailureStep`, `timeoutMs`
 
 ### `list-item`
 
@@ -1513,8 +1471,11 @@ CRUD operations for ListItem records.
 | `isChecked` | Boolean |
 | `refId` | UUID |
 | `refType` | String |
+| `contentTrgmSimilarity` | Float |
+| `refTypeTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `listId`
+**Required create fields:** `entityId`, `listId`, `contentTrgmSimilarity`, `refTypeTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `content`, `position`, `isChecked`, `refId`, `refType`
 
 ### `company-link`
@@ -1541,9 +1502,12 @@ CRUD operations for CompanyLink records.
 | `url` | String |
 | `embedding` | Vector |
 | `companyId` | UUID |
-| `embeddingDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `urlTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`, `companyId`, `embeddingDistance`
+**Required create fields:** `entityId`, `url`, `companyId`, `titleTrgmSimilarity`, `urlTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `title`, `embedding`
 
 ### `contact-link`
@@ -1570,9 +1534,12 @@ CRUD operations for ContactLink records.
 | `url` | String |
 | `embedding` | Vector |
 | `contactId` | UUID |
-| `embeddingDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `urlTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`, `contactId`, `embeddingDistance`
+**Required create fields:** `entityId`, `url`, `contactId`, `titleTrgmSimilarity`, `urlTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `title`, `embedding`
 
 ### `event-link`
@@ -1599,9 +1566,12 @@ CRUD operations for EventLink records.
 | `url` | String |
 | `embedding` | Vector |
 | `eventId` | UUID |
-| `embeddingDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `urlTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`, `eventId`, `embeddingDistance`
+**Required create fields:** `entityId`, `url`, `eventId`, `titleTrgmSimilarity`, `urlTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `title`, `embedding`
 
 ### `venue-link`
@@ -1628,10 +1598,94 @@ CRUD operations for VenueLink records.
 | `url` | String |
 | `embedding` | Vector |
 | `venueId` | UUID |
-| `embeddingDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `urlTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `url`, `venueId`, `embeddingDistance`
+**Required create fields:** `entityId`, `url`, `venueId`, `titleTrgmSimilarity`, `urlTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `title`, `embedding`
+
+### `agent-spawn`
+
+CRUD operations for AgentSpawn records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all agentSpawn records |
+| `get` | Get a agentSpawn by id |
+| `create` | Create a new agentSpawn |
+| `update` | Update an existing agentSpawn |
+| `delete` | Delete a agentSpawn |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `parentAgentId` | UUID |
+| `childAgentId` | UUID |
+| `sessionId` | UUID |
+| `task` | String |
+| `status` | String |
+| `result` | JSON |
+| `maxIterations` | Int |
+| `startedAt` | Datetime |
+| `completedAt` | Datetime |
+| `agentId` | UUID |
+| `taskTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `parentAgentId`, `task`, `agentId`, `taskTrgmSimilarity`, `statusTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `childAgentId`, `sessionId`, `status`, `result`, `maxIterations`, `startedAt`, `completedAt`
+
+### `scheduled-job`
+
+CRUD operations for ScheduledJob records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all scheduledJob records |
+| `get` | Get a scheduledJob by id |
+| `create` | Create a new scheduledJob |
+| `update` | Update an existing scheduledJob |
+| `delete` | Delete a scheduledJob |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `scheduleType` | String |
+| `scheduleExpr` | String |
+| `runAt` | Datetime |
+| `command` | String |
+| `message` | String |
+| `agentId` | UUID |
+| `sessionId` | UUID |
+| `isActive` | Boolean |
+| `deleteAfterRun` | Boolean |
+| `lastRunAt` | Datetime |
+| `nextRunAt` | Datetime |
+| `runCount` | Int |
+| `lastResult` | JSON |
+| `nameTrgmSimilarity` | Float |
+| `scheduleTypeTrgmSimilarity` | Float |
+| `scheduleExprTrgmSimilarity` | Float |
+| `commandTrgmSimilarity` | Float |
+| `messageTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `name`, `scheduleType`, `command`, `nameTrgmSimilarity`, `scheduleTypeTrgmSimilarity`, `scheduleExprTrgmSimilarity`, `commandTrgmSimilarity`, `messageTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `scheduleExpr`, `runAt`, `message`, `agentId`, `sessionId`, `isActive`, `deleteAfterRun`, `lastRunAt`, `nextRunAt`, `runCount`, `lastResult`
 
 ### `habit`
 
@@ -1660,8 +1714,12 @@ CRUD operations for Habit records.
 | `bestStreak` | Int |
 | `category` | String |
 | `tags` | String |
+| `nameTrgmSimilarity` | Float |
+| `frequencyTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `frequencyTrgmSimilarity`, `categoryTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `frequency`, `targetCount`, `currentStreak`, `bestStreak`, `category`, `tags`
 
 ### `workflow`
@@ -1690,9 +1748,56 @@ CRUD operations for Workflow records.
 | `triggerConfig` | JSON |
 | `isActive` | Boolean |
 | `tags` | String |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `triggerTypeTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `triggerTypeTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `description`, `triggerType`, `triggerConfig`, `isActive`, `tags`
+
+### `habit-log`
+
+CRUD operations for HabitLog records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all habitLog records |
+| `get` | Get a habitLog by id |
+| `create` | Create a new habitLog |
+| `update` | Update an existing habitLog |
+| `delete` | Delete a habitLog |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `habitId` | UUID |
+| `completedAt` | Datetime |
+| `activityType` | String |
+| `durationMinutes` | BigFloat |
+| `distance` | BigFloat |
+| `distanceUnit` | String |
+| `reps` | Int |
+| `sets` | Int |
+| `weightAmount` | BigFloat |
+| `weightUnit` | String |
+| `calories` | BigFloat |
+| `data` | JSON |
+| `notes` | String |
+| `tags` | String |
+| `activityTypeTrgmSimilarity` | Float |
+| `distanceUnitTrgmSimilarity` | Float |
+| `weightUnitTrgmSimilarity` | Float |
+| `notesTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `habitId`, `completedAt`, `activityTypeTrgmSimilarity`, `distanceUnitTrgmSimilarity`, `weightUnitTrgmSimilarity`, `notesTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `activityType`, `durationMinutes`, `distance`, `distanceUnit`, `reps`, `sets`, `weightAmount`, `weightUnit`, `calories`, `data`, `notes`, `tags`
 
 ### `expense`
 
@@ -1723,8 +1828,14 @@ CRUD operations for Expense records.
 | `receiptUrl` | String |
 | `isRecurring` | Boolean |
 | `tags` | String |
+| `currencyTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `merchantTrgmSimilarity` | Float |
+| `receiptUrlTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`
+**Required create fields:** `entityId`, `currencyTrgmSimilarity`, `categoryTrgmSimilarity`, `descriptionTrgmSimilarity`, `merchantTrgmSimilarity`, `receiptUrlTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `amount`, `currency`, `date`, `category`, `description`, `merchant`, `receiptUrl`, `isRecurring`, `tags`
 
 ### `billing-subscription`
@@ -1757,8 +1868,15 @@ CRUD operations for BillingSubscription records.
 | `status` | String |
 | `tags` | String |
 | `notes` | String |
+| `nameTrgmSimilarity` | Float |
+| `currencyTrgmSimilarity` | Float |
+| `frequencyTrgmSimilarity` | Float |
+| `providerTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `notesTrgmSimilarity` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `currencyTrgmSimilarity`, `frequencyTrgmSimilarity`, `providerTrgmSimilarity`, `statusTrgmSimilarity`, `notesTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `amount`, `currency`, `frequency`, `provider`, `nextBillingDate`, `cancellationDate`, `status`, `tags`, `notes`
 
 ### `idea`
@@ -1787,9 +1905,14 @@ CRUD operations for Idea records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `sourceTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `content`, `embeddingDistance`
+**Required create fields:** `entityId`, `content`, `contentTrgmSimilarity`, `sourceTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `source`, `status`, `tags`, `embeddingText`, `embedding`
 
 ### `list`
@@ -1818,22 +1941,27 @@ CRUD operations for List records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `typeTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `typeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `description`, `type`, `tags`, `embeddingText`, `embedding`
 
-### `note`
+### `interaction`
 
-CRUD operations for Note records.
+CRUD operations for Interaction records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all note records |
-| `get` | Get a note by id |
-| `create` | Create a new note |
-| `update` | Update an existing note |
-| `delete` | Delete a note |
+| `list` | List all interaction records |
+| `get` | Get a interaction by id |
+| `create` | Create a new interaction |
+| `update` | Update an existing interaction |
+| `delete` | Delete a interaction |
 
 **Fields:**
 
@@ -1843,16 +1971,23 @@ CRUD operations for Note records.
 | `entityId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `content` | String |
-| `notableType` | String |
-| `notableId` | UUID |
+| `contactId` | UUID |
+| `type` | String |
+| `occurredAt` | Datetime |
+| `summary` | String |
+| `sentiment` | String |
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `typeTrgmSimilarity` | Float |
+| `summaryTrgmSimilarity` | Float |
+| `sentimentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `content`, `embeddingDistance`
-**Optional create fields (backend defaults):** `notableType`, `notableId`, `tags`, `embeddingText`, `embedding`
+**Required create fields:** `entityId`, `contactId`, `type`, `occurredAt`, `typeTrgmSimilarity`, `summaryTrgmSimilarity`, `sentimentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `summary`, `sentiment`, `tags`, `embeddingText`, `embedding`
 
 ### `repository`
 
@@ -1882,9 +2017,15 @@ CRUD operations for Repository records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `urlTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `defaultBranchTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `urlTrgmSimilarity`, `descriptionTrgmSimilarity`, `defaultBranchTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `url`, `description`, `defaultBranch`, `lastSyncedAt`, `tags`, `embeddingText`, `embedding`
 
 ### `deal`
@@ -1916,9 +2057,15 @@ CRUD operations for Deal records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `stageTrgmSimilarity` | Float |
+| `currencyTrgmSimilarity` | Float |
+| `notesTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `stageTrgmSimilarity`, `currencyTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `stage`, `value`, `currency`, `expectedCloseDate`, `notes`, `tags`, `embeddingText`, `embedding`
 
 ### `goal`
@@ -1950,10 +2097,57 @@ CRUD operations for Goal records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`, `embeddingDistance`
+**Required create fields:** `entityId`, `title`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `statusTrgmSimilarity`, `categoryTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `description`, `targetDate`, `status`, `category`, `progressPct`, `tags`, `embeddingText`, `embedding`
+
+### `note`
+
+CRUD operations for Note records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all note records |
+| `get` | Get a note by id |
+| `create` | Create a new note |
+| `update` | Update an existing note |
+| `delete` | Delete a note |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `content` | String |
+| `notableType` | String |
+| `notableId` | UUID |
+| `abstract` | String |
+| `overview` | String |
+| `activeCount` | Int |
+| `lastAccessedAt` | Datetime |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `contentTrgmSimilarity` | Float |
+| `notableTypeTrgmSimilarity` | Float |
+| `abstractTrgmSimilarity` | Float |
+| `overviewTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `content`, `contentTrgmSimilarity`, `notableTypeTrgmSimilarity`, `abstractTrgmSimilarity`, `overviewTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `notableType`, `notableId`, `abstract`, `overview`, `activeCount`, `lastAccessedAt`, `tags`, `embeddingText`, `embedding`
 
 ### `prompt`
 
@@ -1984,9 +2178,15 @@ CRUD operations for Prompt records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `typeTrgmSimilarity` | Float |
+| `modelTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `content`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `content`, `nameTrgmSimilarity`, `contentTrgmSimilarity`, `typeTrgmSimilarity`, `modelTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `type`, `model`, `version`, `isActive`, `tags`, `embeddingText`, `embedding`
 
 ### `blueprint`
@@ -2016,9 +2216,13 @@ CRUD operations for Blueprint records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `triggerConditionsTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`, `embeddingDistance`
+**Required create fields:** `entityId`, `title`, `titleTrgmSimilarity`, `triggerConditionsTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `steps`, `triggerConditions`, `conversationId`, `tags`, `embeddingText`, `embedding`
 
 ### `template`
@@ -2050,9 +2254,14 @@ CRUD operations for Template records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `typeTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `content`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `content`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `typeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `description`, `type`, `variables`, `isActive`, `tags`, `embeddingText`, `embedding`
 
 ### `tool`
@@ -2086,46 +2295,17 @@ CRUD operations for Tool records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `typeTrgmSimilarity` | Float |
+| `endpointTrgmSimilarity` | Float |
+| `authMethodTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `typeTrgmSimilarity`, `endpointTrgmSimilarity`, `authMethodTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `description`, `type`, `inputSchema`, `outputSchema`, `endpoint`, `authMethod`, `isActive`, `tags`, `embeddingText`, `embedding`
-
-### `memory`
-
-CRUD operations for Memory records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all memory records |
-| `get` | Get a memory by id |
-| `create` | Create a new memory |
-| `update` | Update an existing memory |
-| `delete` | Delete a memory |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `content` | String |
-| `memoryType` | String |
-| `agentId` | UUID |
-| `importance` | Int |
-| `verified` | Boolean |
-| `source` | String |
-| `relatedEntityType` | String |
-| `relatedEntityId` | UUID |
-| `tags` | String |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingDistance` | Float |
-
-**Required create fields:** `entityId`, `content`, `embeddingDistance`
-**Optional create fields (backend defaults):** `memoryType`, `agentId`, `importance`, `verified`, `source`, `relatedEntityType`, `relatedEntityId`, `tags`, `embeddingText`, `embedding`
 
 ### `recipe`
 
@@ -2161,9 +2341,17 @@ CRUD operations for Recipe records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `cuisineTrgmSimilarity` | Float |
+| `difficultyTrgmSimilarity` | Float |
+| `sourceUrlTrgmSimilarity` | Float |
+| `imageUrlTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `cuisineTrgmSimilarity`, `difficultyTrgmSimilarity`, `sourceUrlTrgmSimilarity`, `imageUrlTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `description`, `cuisine`, `prepTimeMinutes`, `cookTimeMinutes`, `servings`, `difficulty`, `ingredients`, `instructions`, `sourceUrl`, `imageUrl`, `tags`, `embeddingText`, `embedding`
 
 ### `trip`
@@ -2195,10 +2383,155 @@ CRUD operations for Trip records.
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `destinationTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `notesTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `destinationTrgmSimilarity`, `statusTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `destination`, `startDate`, `endDate`, `status`, `notes`, `tags`, `embeddingText`, `embedding`
+
+### `calendar-event`
+
+CRUD operations for CalendarEvent records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all calendarEvent records |
+| `get` | Get a calendarEvent by id |
+| `create` | Create a new calendarEvent |
+| `update` | Update an existing calendarEvent |
+| `delete` | Delete a calendarEvent |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `calendarAccountId` | UUID |
+| `remoteId` | String |
+| `title` | String |
+| `description` | String |
+| `startAt` | Datetime |
+| `endAt` | Datetime |
+| `allDay` | Boolean |
+| `location` | String |
+| `recurrenceRule` | String |
+| `status` | String |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `remoteIdTrgmSimilarity` | Float |
+| `titleTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `locationTrgmSimilarity` | Float |
+| `recurrenceRuleTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `title`, `startAt`, `remoteIdTrgmSimilarity`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `locationTrgmSimilarity`, `recurrenceRuleTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `calendarAccountId`, `remoteId`, `description`, `endAt`, `allDay`, `location`, `recurrenceRule`, `status`, `tags`, `embeddingText`, `embedding`
+
+### `message`
+
+CRUD operations for Message records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all message records |
+| `get` | Get a message by id |
+| `create` | Create a new message |
+| `update` | Update an existing message |
+| `delete` | Delete a message |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `emailAccountId` | UUID |
+| `threadId` | String |
+| `remoteId` | String |
+| `fromAddress` | String |
+| `toAddresses` | String |
+| `subject` | String |
+| `bodyText` | String |
+| `receivedAt` | Datetime |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `threadIdTrgmSimilarity` | Float |
+| `remoteIdTrgmSimilarity` | Float |
+| `fromAddressTrgmSimilarity` | Float |
+| `subjectTrgmSimilarity` | Float |
+| `bodyTextTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `threadIdTrgmSimilarity`, `remoteIdTrgmSimilarity`, `fromAddressTrgmSimilarity`, `subjectTrgmSimilarity`, `bodyTextTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `emailAccountId`, `threadId`, `remoteId`, `fromAddress`, `toAddresses`, `subject`, `bodyText`, `receivedAt`, `tags`, `embeddingText`, `embedding`
+
+### `memory`
+
+CRUD operations for Memory records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all memory records |
+| `get` | Get a memory by id |
+| `create` | Create a new memory |
+| `update` | Update an existing memory |
+| `delete` | Delete a memory |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `content` | String |
+| `memoryType` | String |
+| `memoryCategory` | String |
+| `agentId` | UUID |
+| `importance` | Int |
+| `verified` | Boolean |
+| `source` | String |
+| `relatedEntityType` | String |
+| `relatedEntityId` | UUID |
+| `abstract` | String |
+| `overview` | String |
+| `activeCount` | Int |
+| `lastAccessedAt` | Datetime |
+| `tags` | String |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `contentTrgmSimilarity` | Float |
+| `memoryTypeTrgmSimilarity` | Float |
+| `memoryCategoryTrgmSimilarity` | Float |
+| `sourceTrgmSimilarity` | Float |
+| `relatedEntityTypeTrgmSimilarity` | Float |
+| `abstractTrgmSimilarity` | Float |
+| `overviewTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `content`, `contentTrgmSimilarity`, `memoryTypeTrgmSimilarity`, `memoryCategoryTrgmSimilarity`, `sourceTrgmSimilarity`, `relatedEntityTypeTrgmSimilarity`, `abstractTrgmSimilarity`, `overviewTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `memoryType`, `memoryCategory`, `agentId`, `importance`, `verified`, `source`, `relatedEntityType`, `relatedEntityId`, `abstract`, `overview`, `activeCount`, `lastAccessedAt`, `tags`, `embeddingText`, `embedding`
 
 ### `rule`
 
@@ -2231,23 +2564,31 @@ CRUD operations for Rule records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `triggerConcept` | Vector |
-| `embeddingDistance` | Float |
-| `triggerConceptDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `kindTrgmSimilarity` | Float |
+| `severityTrgmSimilarity` | Float |
+| `slugTrgmSimilarity` | Float |
+| `verificationTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `triggerConceptVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`, `embeddingDistance`, `triggerConceptDistance`
+**Required create fields:** `entityId`, `title`, `titleTrgmSimilarity`, `contentTrgmSimilarity`, `kindTrgmSimilarity`, `severityTrgmSimilarity`, `slugTrgmSimilarity`, `verificationTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `triggerConceptVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `content`, `kind`, `severity`, `isActive`, `slug`, `verification`, `tags`, `embeddingText`, `embedding`, `triggerConcept`
 
-### `skill`
+### `task`
 
-CRUD operations for Skill records.
+CRUD operations for Task records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all skill records |
-| `get` | Get a skill by id |
-| `create` | Create a new skill |
-| `update` | Update an existing skill |
-| `delete` | Delete a skill |
+| `list` | List all task records |
+| `get` | Get a task by id |
+| `create` | Create a new task |
+| `update` | Update an existing task |
+| `delete` | Delete a task |
 
 **Fields:**
 
@@ -2257,26 +2598,31 @@ CRUD operations for Skill records.
 | `entityId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `name` | String |
-| `slug` | String |
+| `title` | String |
 | `description` | String |
-| `content` | String |
-| `procedure` | String |
-| `interface` | JSON |
-| `requirements` | JSON |
-| `filePath` | String |
-| `contentHash` | String |
-| `category` | String |
-| `isActive` | Boolean |
+| `status` | String |
+| `priority` | Int |
+| `projectId` | UUID |
+| `taskType` | String |
+| `assignedAgentId` | UUID |
+| `parentTaskId` | UUID |
+| `dueDate` | Datetime |
+| `completedAt` | Datetime |
+| `conversationId` | UUID |
+| `dependencies` | UUID |
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `intentTrigger` | Vector |
-| `embeddingDistance` | Float |
-| `intentTriggerDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `taskTypeTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `embeddingDistance`, `intentTriggerDistance`
-**Optional create fields (backend defaults):** `slug`, `description`, `content`, `procedure`, `interface`, `requirements`, `filePath`, `contentHash`, `category`, `isActive`, `tags`, `embeddingText`, `embedding`, `intentTrigger`
+**Required create fields:** `entityId`, `title`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `statusTrgmSimilarity`, `taskTypeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `description`, `status`, `priority`, `projectId`, `taskType`, `assignedAgentId`, `parentTaskId`, `dueDate`, `completedAt`, `conversationId`, `dependencies`, `tags`, `embeddingText`, `embedding`
 
 ### `agent`
 
@@ -2315,22 +2661,34 @@ CRUD operations for Agent records.
 | `lastActiveAt` | Datetime |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `roleTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `personaTrgmSimilarity` | Float |
+| `backstoryTrgmSimilarity` | Float |
+| `communicationStyleTrgmSimilarity` | Float |
+| `systemPromptTrgmSimilarity` | Float |
+| `preferredModelTrgmSimilarity` | Float |
+| `moodTrgmSimilarity` | Float |
+| `focusTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `roleTrgmSimilarity`, `statusTrgmSimilarity`, `personaTrgmSimilarity`, `backstoryTrgmSimilarity`, `communicationStyleTrgmSimilarity`, `systemPromptTrgmSimilarity`, `preferredModelTrgmSimilarity`, `moodTrgmSimilarity`, `focusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `role`, `capabilities`, `config`, `status`, `persona`, `backstory`, `communicationStyle`, `systemPrompt`, `preferredModel`, `fallbackModels`, `temperature`, `mood`, `focus`, `lastActiveAt`, `embeddingText`, `embedding`
 
-### `task`
+### `session`
 
-CRUD operations for Task records.
+CRUD operations for Session records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all task records |
-| `get` | Get a task by id |
-| `create` | Create a new task |
-| `update` | Update an existing task |
-| `delete` | Delete a task |
+| `list` | List all session records |
+| `get` | Get a session by id |
+| `create` | Create a new session |
+| `update` | Update an existing session |
+| `delete` | Delete a session |
 
 **Fields:**
 
@@ -2341,24 +2699,86 @@ CRUD operations for Task records.
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 | `title` | String |
-| `description` | String |
+| `agentId` | UUID |
+| `startedAt` | Datetime |
+| `endedAt` | Datetime |
 | `status` | String |
-| `priority` | Int |
-| `projectId` | UUID |
-| `taskType` | String |
-| `assignedAgentId` | UUID |
-| `parentTaskId` | UUID |
-| `dueDate` | Datetime |
-| `completedAt` | Datetime |
-| `conversationId` | UUID |
-| `dependencies` | UUID |
+| `contextSummary` | String |
+| `sessionSummary` | String |
+| `archivedMessages` | JSON |
+| `compressionCount` | Int |
+| `archivedAt` | Datetime |
+| `extractedMemoryIds` | UUID |
+| `contextsUsed` | JSON |
+| `skillsUsed` | UUID |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `uagentTrgmSimilarity` | Float |
+| `fingerprintModeTrgmSimilarity` | Float |
+| `csrfSecretTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `uagentTrgmSimilarity`, `fingerprintModeTrgmSimilarity`, `csrfSecretTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `title`, `agentId`, `startedAt`, `endedAt`, `status`, `contextSummary`, `sessionSummary`, `archivedMessages`, `compressionCount`, `archivedAt`, `extractedMemoryIds`, `contextsUsed`, `skillsUsed`, `embeddingText`, `embedding`
+
+### `skill`
+
+CRUD operations for Skill records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all skill records |
+| `get` | Get a skill by id |
+| `create` | Create a new skill |
+| `update` | Update an existing skill |
+| `delete` | Delete a skill |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `name` | String |
+| `slug` | String |
+| `description` | String |
+| `content` | String |
+| `procedure` | String |
+| `interface` | JSON |
+| `requirements` | JSON |
+| `prerequisites` | JSON |
+| `alwaysLoad` | Boolean |
+| `filePath` | String |
+| `contentHash` | String |
+| `category` | String |
+| `isActive` | Boolean |
+| `abstract` | String |
+| `overview` | String |
+| `activeCount` | Int |
+| `lastAccessedAt` | Datetime |
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
-| `embeddingDistance` | Float |
+| `intentTrigger` | Vector |
+| `nameTrgmSimilarity` | Float |
+| `slugTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `procedureTrgmSimilarity` | Float |
+| `filePathTrgmSimilarity` | Float |
+| `contentHashTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `abstractTrgmSimilarity` | Float |
+| `overviewTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `intentTriggerVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`, `embeddingDistance`
-**Optional create fields (backend defaults):** `description`, `status`, `priority`, `projectId`, `taskType`, `assignedAgentId`, `parentTaskId`, `dueDate`, `completedAt`, `conversationId`, `dependencies`, `tags`, `embeddingText`, `embedding`
+**Required create fields:** `entityId`, `name`, `nameTrgmSimilarity`, `slugTrgmSimilarity`, `descriptionTrgmSimilarity`, `contentTrgmSimilarity`, `procedureTrgmSimilarity`, `filePathTrgmSimilarity`, `contentHashTrgmSimilarity`, `categoryTrgmSimilarity`, `abstractTrgmSimilarity`, `overviewTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `intentTriggerVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `slug`, `description`, `content`, `procedure`, `interface`, `requirements`, `prerequisites`, `alwaysLoad`, `filePath`, `contentHash`, `category`, `isActive`, `abstract`, `overview`, `activeCount`, `lastAccessedAt`, `tags`, `embeddingText`, `embedding`, `intentTrigger`
 
 ### `project`
 
@@ -2390,9 +2810,14 @@ CRUD operations for Project records.
 | `embedding` | Vector |
 | `searchTsv` | FullText |
 | `searchTsvRank` | Float |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `searchTsvRank`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `searchTsvRank`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `description`, `status`, `startDate`, `dueDate`, `tags`, `embeddingText`, `embedding`, `searchTsv`
 
 ### `document`
@@ -2421,15 +2846,28 @@ CRUD operations for Document records.
 | `sourceType` | String |
 | `isRead` | Boolean |
 | `savedAt` | Datetime |
+| `parentDocumentId` | UUID |
+| `abstract` | String |
+| `overview` | String |
+| `activeCount` | Int |
+| `lastAccessedAt` | Datetime |
 | `tags` | String |
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `searchTsv` | FullText |
 | `searchTsvRank` | Float |
-| `embeddingDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `urlTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `sourceTypeTrgmSimilarity` | Float |
+| `abstractTrgmSimilarity` | Float |
+| `overviewTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `title`, `searchTsvRank`, `embeddingDistance`
-**Optional create fields (backend defaults):** `url`, `content`, `sourceType`, `isRead`, `savedAt`, `tags`, `embeddingText`, `embedding`, `searchTsv`
+**Required create fields:** `entityId`, `title`, `searchTsvRank`, `titleTrgmSimilarity`, `urlTrgmSimilarity`, `contentTrgmSimilarity`, `sourceTypeTrgmSimilarity`, `abstractTrgmSimilarity`, `overviewTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `url`, `content`, `sourceType`, `isRead`, `savedAt`, `parentDocumentId`, `abstract`, `overview`, `activeCount`, `lastAccessedAt`, `tags`, `embeddingText`, `embedding`, `searchTsv`
 
 ### `company`
 
@@ -2461,9 +2899,15 @@ CRUD operations for Company records.
 | `searchTsv` | FullText |
 | `mainImageId` | UUID |
 | `searchTsvRank` | Float |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `domainTrgmSimilarity` | Float |
+| `industryTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `searchTsvRank`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `searchTsvRank`, `nameTrgmSimilarity`, `domainTrgmSimilarity`, `industryTrgmSimilarity`, `descriptionTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `domain`, `industry`, `description`, `tags`, `embeddingText`, `embedding`, `searchTsv`, `mainImageId`
 
 ### `event`
@@ -2499,9 +2943,16 @@ CRUD operations for Event records.
 | `searchTsv` | FullText |
 | `mainImageId` | UUID |
 | `searchTsvRank` | Float |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `eventTypeTrgmSimilarity` | Float |
+| `locationTrgmSimilarity` | Float |
+| `cityTrgmSimilarity` | Float |
+| `notesTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `searchTsvRank`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `searchTsvRank`, `nameTrgmSimilarity`, `eventTypeTrgmSimilarity`, `locationTrgmSimilarity`, `cityTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notes`, `tags`, `embeddingText`, `embedding`, `searchTsv`, `mainImageId`
 
 ### `contact`
@@ -2545,9 +2996,25 @@ CRUD operations for Contact records.
 | `searchTsv` | FullText |
 | `mainImageId` | UUID |
 | `searchTsvRank` | Float |
-| `embeddingDistance` | Float |
+| `firstNameTrgmSimilarity` | Float |
+| `lastNameTrgmSimilarity` | Float |
+| `emailTrgmSimilarity` | Float |
+| `phoneTrgmSimilarity` | Float |
+| `headlineTrgmSimilarity` | Float |
+| `bioTrgmSimilarity` | Float |
+| `locationTrgmSimilarity` | Float |
+| `relationshipTypeTrgmSimilarity` | Float |
+| `howWeMetTrgmSimilarity` | Float |
+| `twitterHandleTrgmSimilarity` | Float |
+| `linkedinUrlTrgmSimilarity` | Float |
+| `githubUsernameTrgmSimilarity` | Float |
+| `instagramHandleTrgmSimilarity` | Float |
+| `websiteTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `firstName`, `searchTsvRank`, `embeddingDistance`
+**Required create fields:** `entityId`, `firstName`, `searchTsvRank`, `firstNameTrgmSimilarity`, `lastNameTrgmSimilarity`, `emailTrgmSimilarity`, `phoneTrgmSimilarity`, `headlineTrgmSimilarity`, `bioTrgmSimilarity`, `locationTrgmSimilarity`, `relationshipTypeTrgmSimilarity`, `howWeMetTrgmSimilarity`, `twitterHandleTrgmSimilarity`, `linkedinUrlTrgmSimilarity`, `githubUsernameTrgmSimilarity`, `instagramHandleTrgmSimilarity`, `websiteTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipType`, `howWeMet`, `twitterHandle`, `linkedinUrl`, `githubUsername`, `instagramHandle`, `website`, `tags`, `embeddingText`, `embedding`, `searchTsv`, `mainImageId`
 
 ### `venue`
@@ -2587,9 +3054,20 @@ CRUD operations for Venue records.
 | `searchTsv` | FullText |
 | `mainImageId` | UUID |
 | `searchTsvRank` | Float |
-| `embeddingDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `addressTrgmSimilarity` | Float |
+| `neighborhoodTrgmSimilarity` | Float |
+| `cityTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `googlePlaceIdTrgmSimilarity` | Float |
+| `priceLevelTrgmSimilarity` | Float |
+| `notesTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`, `searchTsvRank`, `embeddingDistance`
+**Required create fields:** `entityId`, `name`, `searchTsvRank`, `nameTrgmSimilarity`, `addressTrgmSimilarity`, `neighborhoodTrgmSimilarity`, `cityTrgmSimilarity`, `categoryTrgmSimilarity`, `statusTrgmSimilarity`, `googlePlaceIdTrgmSimilarity`, `priceLevelTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `embeddingText`, `embedding`, `searchTsv`, `mainImageId`
 
 ## Output

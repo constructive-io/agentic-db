@@ -1,0 +1,7 @@
+-- Revert: schemas/agent_db_app_public/tables/workflow_steps/columns/action_type/alterations/alt0000004414
+
+
+ALTER TABLE "agent_db_app_public".workflow_steps 
+  ALTER COLUMN action_type DROP NOT NULL;
+
+

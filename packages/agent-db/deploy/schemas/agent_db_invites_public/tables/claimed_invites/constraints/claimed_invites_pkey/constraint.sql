@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_invites_public/tables/claimed_invites/table
 
 
-ALTER TABLE agent_db_invites_public.claimed_invites 
+ALTER TABLE "agent_db_invites_public".claimed_invites 
   ADD CONSTRAINT claimed_invites_pkey PRIMARY KEY (id);
 

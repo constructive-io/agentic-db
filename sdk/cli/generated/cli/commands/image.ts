@@ -18,7 +18,11 @@ const fieldSchema: FieldSchema = {
   altText: 'string',
   caption: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  urlTrgmSimilarity: 'float',
+  altTextTrgmSimilarity: 'float',
+  captionTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nimage <command>\n\nCommands:\n  list                  List all image records\n  get                   Get a image by ID\n  create                Create a new image\n  update                Update an existing image\n  delete                Delete a image\n\n  --help, -h            Show this help message\n';
@@ -81,7 +85,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           altText: true,
           caption: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -118,7 +121,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           altText: true,
           caption: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -198,7 +200,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           altText: true,
           caption: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -287,7 +288,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           altText: true,
           caption: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

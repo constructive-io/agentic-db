@@ -5,16 +5,16 @@
 
 
 
-CREATE FUNCTION agent_db_profiles_private.app_profile_definition_grants_apply_tg ()
+CREATE FUNCTION "agent_db_profiles_private".app_profile_definition_grants_apply_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 BEGIN
     IF (NEW.is_grant IS TRUE) THEN
-        INSERT INTO agent_db_profiles_public.app_profile_permissions (profile_id, permission_id)
+        INSERT INTO "agent_db_profiles_public".app_profile_permissions (profile_id, permission_id)
         VALUES (NEW.profile_id, NEW.permission_id)
         ON CONFLICT (profile_id, permission_id) DO NOTHING;
     ELSE
-        DELETE FROM agent_db_profiles_public.app_profile_permissions
+        DELETE FROM "agent_db_profiles_public".app_profile_permissions
         WHERE profile_id = NEW.profile_id
         AND permission_id = NEW.permission_id;
     END IF;

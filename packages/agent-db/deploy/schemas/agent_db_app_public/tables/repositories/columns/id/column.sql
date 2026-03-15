@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/repositories/table
--- requires: schemas/agent_db_app_public/tables/milestones/constraints/milestones_project_id_fkey/constraint
+-- requires: schemas/agent_db_app_public/tables/project_contacts/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.repositories 
+ALTER TABLE "agent_db_app_public".repositories 
   ADD COLUMN id uuid;
 

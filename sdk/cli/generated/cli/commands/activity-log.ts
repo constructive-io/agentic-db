@@ -19,6 +19,10 @@ const fieldSchema: FieldSchema = {
   targetType: 'string',
   targetId: 'uuid',
   metadata: 'json',
+  actorTypeTrgmSimilarity: 'float',
+  actionTrgmSimilarity: 'float',
+  targetTypeTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nactivity-log <command>\n\nCommands:\n  list                  List all activityLog records\n  get                   Get a activityLog by ID\n  create                Create a new activityLog\n  update                Update an existing activityLog\n  delete                Delete a activityLog\n\n  --help, -h            Show this help message\n';

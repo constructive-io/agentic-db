@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_limits_public/tables/app_limit_defaults/table
 
 
-ALTER TABLE agent_db_limits_public.app_limit_defaults 
+ALTER TABLE "agent_db_limits_public".app_limit_defaults 
   ADD CONSTRAINT app_limit_defaults_name_key 
     UNIQUE (name);
 

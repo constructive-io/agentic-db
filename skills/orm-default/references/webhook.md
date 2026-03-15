@@ -9,7 +9,7 @@ ORM operations for Webhook records
 ```typescript
 db.webhook.findMany({ select: { id: true } }).execute()
 db.webhook.findOne({ id: '<value>', select: { id: true } }).execute()
-db.webhook.create({ data: { entityId: '<value>', integrationId: '<value>', url: '<value>', eventType: '<value>', secret: '<value>', isActive: '<value>' }, select: { id: true } }).execute()
+db.webhook.create({ data: { entityId: '<value>', integrationId: '<value>', url: '<value>', eventType: '<value>', secret: '<value>', isActive: '<value>', urlTrgmSimilarity: '<value>', eventTypeTrgmSimilarity: '<value>', secretTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.webhook.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.webhook.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.webhook.findMany({
 
 ```typescript
 const item = await db.webhook.create({
-  data: { entityId: 'value', integrationId: 'value', url: 'value', eventType: 'value', secret: 'value', isActive: 'value' },
+  data: { entityId: 'value', integrationId: 'value', url: 'value', eventType: 'value', secret: 'value', isActive: 'value', urlTrgmSimilarity: 'value', eventTypeTrgmSimilarity: 'value', secretTrgmSimilarity: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

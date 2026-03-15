@@ -6,9 +6,9 @@
 -- requires: schemas/agent_db_user_identifiers_public/tables/crypto_addresses/table
 
 
-ALTER TABLE agent_db_user_identifiers_public.crypto_addresses 
+ALTER TABLE "agent_db_user_identifiers_public".crypto_addresses 
   ADD CONSTRAINT crypto_addresses_owner_id_fkey 
     FOREIGN KEY(owner_id) 
-    REFERENCES agent_db_users_public.users (id) 
+    REFERENCES "agent_db_users_public".users (id) 
     ON DELETE CASCADE;
 

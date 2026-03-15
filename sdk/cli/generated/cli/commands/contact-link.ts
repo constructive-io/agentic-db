@@ -17,7 +17,10 @@ const fieldSchema: FieldSchema = {
   url: 'string',
   embedding: 'string',
   contactId: 'uuid',
-  embeddingDistance: 'float',
+  titleTrgmSimilarity: 'float',
+  urlTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\ncontact-link <command>\n\nCommands:\n  list                  List all contactLink records\n  get                   Get a contactLink by ID\n  create                Create a new contactLink\n  update                Update an existing contactLink\n  delete                Delete a contactLink\n\n  --help, -h            Show this help message\n';
@@ -79,7 +82,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           url: true,
           embedding: true,
           contactId: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -115,7 +117,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           url: true,
           embedding: true,
           contactId: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -188,7 +189,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           url: true,
           embedding: true,
           contactId: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -267,7 +267,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           url: true,
           embedding: true,
           contactId: true,
-          embeddingDistance: true,
         },
       })
       .execute();

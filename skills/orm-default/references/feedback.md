@@ -9,7 +9,7 @@ ORM operations for Feedback records
 ```typescript
 db.feedback.findMany({ select: { id: true } }).execute()
 db.feedback.findOne({ id: '<value>', select: { id: true } }).execute()
-db.feedback.create({ data: { entityId: '<value>', targetType: '<value>', targetId: '<value>', rating: '<value>', comment: '<value>', source: '<value>' }, select: { id: true } }).execute()
+db.feedback.create({ data: { entityId: '<value>', targetType: '<value>', targetId: '<value>', rating: '<value>', comment: '<value>', source: '<value>', targetTypeTrgmSimilarity: '<value>', commentTrgmSimilarity: '<value>', sourceTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.feedback.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.feedback.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.feedback.findMany({
 
 ```typescript
 const item = await db.feedback.create({
-  data: { entityId: 'value', targetType: 'value', targetId: 'value', rating: 'value', comment: 'value', source: 'value' },
+  data: { entityId: 'value', targetType: 'value', targetId: 'value', rating: 'value', comment: 'value', source: 'value', targetTypeTrgmSimilarity: 'value', commentTrgmSimilarity: 'value', sourceTrgmSimilarity: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

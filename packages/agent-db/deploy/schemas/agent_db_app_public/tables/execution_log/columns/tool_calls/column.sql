@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/execution_log/columns/output/column
 
 
-ALTER TABLE agent_db_app_public.execution_log 
+ALTER TABLE "agent_db_app_public".execution_log 
   ADD COLUMN tool_calls jsonb;
 

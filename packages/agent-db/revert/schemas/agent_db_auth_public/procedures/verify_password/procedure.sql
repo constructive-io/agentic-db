@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION agent_db_auth_public.verify_password;
+DROP FUNCTION "agent_db_auth_public".verify_password;
 
 
 

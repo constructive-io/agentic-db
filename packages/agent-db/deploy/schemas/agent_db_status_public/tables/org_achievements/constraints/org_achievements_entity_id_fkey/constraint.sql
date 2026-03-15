@@ -6,9 +6,9 @@
 -- requires: schemas/agent_db_status_public/tables/org_achievements/table
 
 
-ALTER TABLE agent_db_status_public.org_achievements 
+ALTER TABLE "agent_db_status_public".org_achievements 
   ADD CONSTRAINT org_achievements_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agent_db_users_public.users (id) 
+    REFERENCES "agent_db_users_public".users (id) 
     ON DELETE CASCADE;
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/messages/table
--- requires: schemas/agent_db_app_public/tables/messages/columns/updated_at/alterations/alt0000001161
+-- requires: schemas/agent_db_app_public/tables/messages/columns/email_account_id/column
 
 
-ALTER TABLE agent_db_app_public.messages 
+ALTER TABLE "agent_db_app_public".messages 
   ADD COLUMN thread_id text;
 

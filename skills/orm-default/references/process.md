@@ -9,7 +9,7 @@ ORM operations for Process records
 ```typescript
 db.process.findMany({ select: { id: true } }).execute()
 db.process.findOne({ id: '<value>', select: { id: true } }).execute()
-db.process.create({ data: { entityId: '<value>', pid: '<value>', agentId: '<value>', command: '<value>', startedAt: '<value>', endedAt: '<value>', status: '<value>', exitCode: '<value>', logsPath: '<value>' }, select: { id: true } }).execute()
+db.process.create({ data: { entityId: '<value>', pid: '<value>', agentId: '<value>', command: '<value>', startedAt: '<value>', endedAt: '<value>', status: '<value>', exitCode: '<value>', logsPath: '<value>', commandTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', logsPathTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.process.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.process.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.process.findMany({
 
 ```typescript
 const item = await db.process.create({
-  data: { entityId: 'value', pid: 'value', agentId: 'value', command: 'value', startedAt: 'value', endedAt: 'value', status: 'value', exitCode: 'value', logsPath: 'value' },
+  data: { entityId: 'value', pid: 'value', agentId: 'value', command: 'value', startedAt: 'value', endedAt: 'value', status: 'value', exitCode: 'value', logsPath: 'value', commandTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', logsPathTrgmSimilarity: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

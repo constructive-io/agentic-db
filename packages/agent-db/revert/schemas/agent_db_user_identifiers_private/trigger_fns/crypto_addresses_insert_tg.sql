@@ -4,9 +4,9 @@
 
 
 DROP TRIGGER trigger_name
-    ON agent_db_user_identifiers_public.crypto_addresses;
+    ON "agent_db_user_identifiers_public".crypto_addresses;
 
-DROP FUNCTION agent_db_user_identifiers_private.crypto_addresses_insert_tg;
+DROP FUNCTION "agent_db_user_identifiers_private".crypto_addresses_insert_tg;
 
 
 

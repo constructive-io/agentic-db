@@ -20,6 +20,10 @@ const fieldSchema: FieldSchema = {
   bestStreak: 'int',
   category: 'string',
   tags: 'string',
+  nameTrgmSimilarity: 'float',
+  frequencyTrgmSimilarity: 'float',
+  categoryTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nhabit <command>\n\nCommands:\n  list                  List all habit records\n  get                   Get a habit by ID\n  create                Create a new habit\n  update                Update an existing habit\n  delete                Delete a habit\n\n  --help, -h            Show this help message\n';

@@ -6,14 +6,14 @@
 
 
 
-CREATE FUNCTION agent_db_auth_public."current_user"()
-    RETURNS agent_db_users_public.users
+CREATE FUNCTION "agent_db_auth_public"."current_user"()
+    RETURNS "agent_db_users_public".users
 AS $$
 DECLARE
-  v_user agent_db_users_public.users;
+  v_user "agent_db_users_public".users;
 BEGIN
-  IF agent_db_auth_public.current_user_id() IS NOT NULL THEN
-     SELECT * FROM agent_db_users_public.users WHERE id = agent_db_auth_public.current_user_id() INTO v_user;
+  IF "agent_db_auth_public".current_user_id() IS NOT NULL THEN
+     SELECT * FROM "agent_db_users_public".users WHERE id = "agent_db_auth_public".current_user_id() INTO v_user;
      RETURN v_user;
   ELSE
      RETURN NULL;
@@ -21,5 +21,5 @@ BEGIN
 END;
 $$
 LANGUAGE 'plpgsql' STABLE;
-GRANT EXECUTE ON FUNCTION agent_db_auth_public."current_user" TO authenticated;
+GRANT EXECUTE ON FUNCTION "agent_db_auth_public"."current_user" TO authenticated;
 

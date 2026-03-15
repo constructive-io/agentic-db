@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_status_public/tables/app_level_requirements/table
 
 
-ALTER TABLE agent_db_status_public.app_level_requirements 
+ALTER TABLE "agent_db_status_public".app_level_requirements 
   ADD CONSTRAINT app_level_requirements_pkey PRIMARY KEY (id);
 

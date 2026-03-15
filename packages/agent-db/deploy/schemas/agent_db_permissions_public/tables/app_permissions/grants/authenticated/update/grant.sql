@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_permissions_public/tables/app_permissions/table
 
 
-GRANT UPDATE ON agent_db_permissions_public.app_permissions TO authenticated;
+GRANT UPDATE ON "agent_db_permissions_public".app_permissions TO authenticated;
 

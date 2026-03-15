@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_invites_public/tables/invites/table
 
 
-ALTER TABLE agent_db_invites_public.invites 
+ALTER TABLE "agent_db_invites_public".invites 
   ADD CONSTRAINT invites_invite_token_key 
     UNIQUE (invite_token);
 

@@ -20,7 +20,10 @@ const fieldSchema: FieldSchema = {
   endLine: 'int',
   embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  contentTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nchunk <command>\n\nCommands:\n  list                  List all chunk records\n  get                   Get a chunk by ID\n  create                Create a new chunk\n  update                Update an existing chunk\n  delete                Delete a chunk\n\n  --help, -h            Show this help message\n';
@@ -85,7 +88,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           endLine: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -124,7 +126,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           endLine: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -222,7 +223,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           endLine: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -329,7 +329,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           endLine: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();

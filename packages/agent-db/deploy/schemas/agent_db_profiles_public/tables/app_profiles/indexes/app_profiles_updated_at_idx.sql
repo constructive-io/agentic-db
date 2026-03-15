@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_profiles_public/tables/app_profiles/columns/updated_at/column
 
 
-CREATE INDEX app_profiles_updated_at_idx ON agent_db_profiles_public.app_profiles ( updated_at );
+CREATE INDEX app_profiles_updated_at_idx ON "agent_db_profiles_public".app_profiles ( updated_at );
 

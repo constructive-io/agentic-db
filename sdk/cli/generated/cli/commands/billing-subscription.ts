@@ -26,6 +26,13 @@ const fieldSchema: FieldSchema = {
   status: 'string',
   tags: 'string',
   notes: 'string',
+  nameTrgmSimilarity: 'float',
+  currencyTrgmSimilarity: 'float',
+  frequencyTrgmSimilarity: 'float',
+  providerTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  notesTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nbilling-subscription <command>\n\nCommands:\n  list                  List all billingSubscription records\n  get                   Get a billingSubscription by ID\n  create                Create a new billingSubscription\n  update                Update an existing billingSubscription\n  delete                Delete a billingSubscription\n\n  --help, -h            Show this help message\n';

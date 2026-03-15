@@ -1,0 +1,7 @@
+-- Revert: schemas/agent-os-1773546821914-39f1cb9b-memberships-public/tables/org_grants/columns/permissions/alterations/alt0000000420
+
+
+ALTER TABLE "agent-os-1773546821914-39f1cb9b-memberships-public".org_grants 
+  ALTER COLUMN permissions DROP NOT NULL;
+
+

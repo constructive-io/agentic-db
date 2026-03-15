@@ -9,7 +9,7 @@ ORM operations for HabitLog records
 ```typescript
 db.habitLog.findMany({ select: { id: true } }).execute()
 db.habitLog.findOne({ id: '<value>', select: { id: true } }).execute()
-db.habitLog.create({ data: { entityId: '<value>', habitId: '<value>', completedAt: '<value>', activityType: '<value>', durationMinutes: '<value>', distance: '<value>', distanceUnit: '<value>', reps: '<value>', sets: '<value>', weightAmount: '<value>', weightUnit: '<value>', calories: '<value>', data: '<value>', notes: '<value>', tags: '<value>' }, select: { id: true } }).execute()
+db.habitLog.create({ data: { entityId: '<value>', habitId: '<value>', completedAt: '<value>', activityType: '<value>', durationMinutes: '<value>', distance: '<value>', distanceUnit: '<value>', reps: '<value>', sets: '<value>', weightAmount: '<value>', weightUnit: '<value>', calories: '<value>', data: '<value>', notes: '<value>', tags: '<value>', activityTypeTrgmSimilarity: '<value>', distanceUnitTrgmSimilarity: '<value>', weightUnitTrgmSimilarity: '<value>', notesTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.habitLog.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.habitLog.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.habitLog.findMany({
 
 ```typescript
 const item = await db.habitLog.create({
-  data: { entityId: 'value', habitId: 'value', completedAt: 'value', activityType: 'value', durationMinutes: 'value', distance: 'value', distanceUnit: 'value', reps: 'value', sets: 'value', weightAmount: 'value', weightUnit: 'value', calories: 'value', data: 'value', notes: 'value', tags: 'value' },
+  data: { entityId: 'value', habitId: 'value', completedAt: 'value', activityType: 'value', durationMinutes: 'value', distance: 'value', distanceUnit: 'value', reps: 'value', sets: 'value', weightAmount: 'value', weightUnit: 'value', calories: 'value', data: 'value', notes: 'value', tags: 'value', activityTypeTrgmSimilarity: 'value', distanceUnitTrgmSimilarity: 'value', weightUnitTrgmSimilarity: 'value', notesTrgmSimilarity: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

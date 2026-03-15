@@ -9,7 +9,7 @@ ORM operations for Chat records
 ```typescript
 db.chat.findMany({ select: { id: true } }).execute()
 db.chat.findOne({ id: '<value>', select: { id: true } }).execute()
-db.chat.create({ data: { entityId: '<value>', title: '<value>', startedAt: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.chat.create({ data: { entityId: '<value>', title: '<value>', startedAt: '<value>', embeddingText: '<value>', embedding: '<value>', titleTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.chat.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.chat.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.chat.findMany({
 
 ```typescript
 const item = await db.chat.create({
-  data: { entityId: 'value', title: 'value', startedAt: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', title: 'value', startedAt: 'value', embeddingText: 'value', embedding: 'value', titleTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

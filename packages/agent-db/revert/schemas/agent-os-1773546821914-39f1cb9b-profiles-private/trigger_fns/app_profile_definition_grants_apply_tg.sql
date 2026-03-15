@@ -1,0 +1,9 @@
+-- Revert: schemas/agent-os-1773546821914-39f1cb9b-profiles-private/trigger_fns/app_profile_definition_grants_apply_tg
+
+
+
+
+DROP FUNCTION "agent-os-1773546821914-39f1cb9b-profiles-private".app_profile_definition_grants_apply_tg;
+
+
+

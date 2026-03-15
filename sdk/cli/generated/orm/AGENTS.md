@@ -52,122 +52,34 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
-### MODEL: process
+### MODEL: agentRule
 
-Access: `db.process`
-
-```
-METHODS:
-  db.process.findMany({ select, where?, orderBy?, first?, offset? })
-  db.process.findOne({ id, select })
-  db.process.create({ data: { entityId, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath }, select })
-  db.process.update({ where: { id }, data, select })
-  db.process.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  pid: number
-  agentId: string
-  command: string
-  startedAt: string
-  endedAt: string
-  status: string
-  exitCode: number
-  logsPath: string
-
-EDITABLE FIELDS:
-  entityId: string
-  pid: number
-  agentId: string
-  command: string
-  startedAt: string
-  endedAt: string
-  status: string
-  exitCode: number
-  logsPath: string
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath }]
-  findOne:  { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath }
-  create:   { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath }
-  update:   { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath }
-  delete:   { id }
-```
-
-### MODEL: scheduledJob
-
-Access: `db.scheduledJob`
+Access: `db.agentRule`
 
 ```
 METHODS:
-  db.scheduledJob.findMany({ select, where?, orderBy?, first?, offset? })
-  db.scheduledJob.findOne({ id, select })
-  db.scheduledJob.create({ data: { entityId, name, schedule, command, agentId, active, lastRun, nextRun }, select })
-  db.scheduledJob.update({ where: { id }, data, select })
-  db.scheduledJob.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  name: string
-  schedule: string
-  command: string
-  agentId: string
-  active: boolean
-  lastRun: string
-  nextRun: string
-
-EDITABLE FIELDS:
-  entityId: string
-  name: string
-  schedule: string
-  command: string
-  agentId: string
-  active: boolean
-  lastRun: string
-  nextRun: string
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, schedule, command, agentId, active, lastRun, nextRun }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, schedule, command, agentId, active, lastRun, nextRun }
-  create:   { id, entityId, createdAt, updatedAt, name, schedule, command, agentId, active, lastRun, nextRun }
-  update:   { id, entityId, createdAt, updatedAt, name, schedule, command, agentId, active, lastRun, nextRun }
-  delete:   { id }
-```
-
-### MODEL: agentTool
-
-Access: `db.agentTool`
-
-```
-METHODS:
-  db.agentTool.findMany({ select, where?, orderBy?, first?, offset? })
-  db.agentTool.findOne({ id, select })
-  db.agentTool.create({ data: { agentId, toolId, entityId }, select })
-  db.agentTool.update({ where: { id }, data, select })
-  db.agentTool.delete({ where: { id } })
+  db.agentRule.findMany({ select, where?, orderBy?, first?, offset? })
+  db.agentRule.findOne({ id, select })
+  db.agentRule.create({ data: { agentId, ruleId, entityId }, select })
+  db.agentRule.update({ where: { id }, data, select })
+  db.agentRule.delete({ where: { id } })
 
 FIELDS:
   agentId: string
-  toolId: string
+  ruleId: string
   id: string (primary key)
   entityId: string
 
 EDITABLE FIELDS:
   agentId: string
-  toolId: string
+  ruleId: string
   entityId: string
 
 OUTPUT: Promise<JSON>
-  findMany: [{ agentId, toolId, id, entityId }]
-  findOne:  { agentId, toolId, id, entityId }
-  create:   { agentId, toolId, id, entityId }
-  update:   { agentId, toolId, id, entityId }
+  findMany: [{ agentId, ruleId, id, entityId }]
+  findOne:  { agentId, ruleId, id, entityId }
+  create:   { agentId, ruleId, id, entityId }
+  update:   { agentId, ruleId, id, entityId }
   delete:   { id }
 ```
 
@@ -202,34 +114,34 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
-### MODEL: agentRule
+### MODEL: agentTool
 
-Access: `db.agentRule`
+Access: `db.agentTool`
 
 ```
 METHODS:
-  db.agentRule.findMany({ select, where?, orderBy?, first?, offset? })
-  db.agentRule.findOne({ id, select })
-  db.agentRule.create({ data: { agentId, ruleId, entityId }, select })
-  db.agentRule.update({ where: { id }, data, select })
-  db.agentRule.delete({ where: { id } })
+  db.agentTool.findMany({ select, where?, orderBy?, first?, offset? })
+  db.agentTool.findOne({ id, select })
+  db.agentTool.create({ data: { agentId, toolId, entityId }, select })
+  db.agentTool.update({ where: { id }, data, select })
+  db.agentTool.delete({ where: { id } })
 
 FIELDS:
   agentId: string
-  ruleId: string
+  toolId: string
   id: string (primary key)
   entityId: string
 
 EDITABLE FIELDS:
   agentId: string
-  ruleId: string
+  toolId: string
   entityId: string
 
 OUTPUT: Promise<JSON>
-  findMany: [{ agentId, ruleId, id, entityId }]
-  findOne:  { agentId, ruleId, id, entityId }
-  create:   { agentId, ruleId, id, entityId }
-  update:   { agentId, ruleId, id, entityId }
+  findMany: [{ agentId, toolId, id, entityId }]
+  findOne:  { agentId, toolId, id, entityId }
+  create:   { agentId, toolId, id, entityId }
+  update:   { agentId, toolId, id, entityId }
   delete:   { id }
 ```
 
@@ -261,110 +173,6 @@ OUTPUT: Promise<JSON>
   findOne:  { calendarEventId, contactId, id, entityId }
   create:   { calendarEventId, contactId, id, entityId }
   update:   { calendarEventId, contactId, id, entityId }
-  delete:   { id }
-```
-
-### MODEL: calendarEvent
-
-Access: `db.calendarEvent`
-
-```
-METHODS:
-  db.calendarEvent.findMany({ select, where?, orderBy?, first?, offset? })
-  db.calendarEvent.findOne({ id, select })
-  db.calendarEvent.create({ data: { entityId, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, embeddingDistance }, select })
-  db.calendarEvent.update({ where: { id }, data, select })
-  db.calendarEvent.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  calendarAccountId: string
-  remoteId: string
-  title: string
-  description: string
-  startAt: string
-  endAt: string
-  allDay: boolean
-  location: string
-  recurrenceRule: string
-  status: string
-  tags: string[]
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
-
-EDITABLE FIELDS:
-  entityId: string
-  calendarAccountId: string
-  remoteId: string
-  title: string
-  description: string
-  startAt: string
-  endAt: string
-  allDay: boolean
-  location: string
-  recurrenceRule: string
-  status: string
-  tags: string[]
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, embeddingDistance }
-  delete:   { id }
-```
-
-### MODEL: interaction
-
-Access: `db.interaction`
-
-```
-METHODS:
-  db.interaction.findMany({ select, where?, orderBy?, first?, offset? })
-  db.interaction.findOne({ id, select })
-  db.interaction.create({ data: { entityId, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, embeddingDistance }, select })
-  db.interaction.update({ where: { id }, data, select })
-  db.interaction.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  contactId: string
-  type: string
-  occurredAt: string
-  summary: string
-  sentiment: string
-  tags: string[]
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
-
-EDITABLE FIELDS:
-  entityId: string
-  contactId: string
-  type: string
-  occurredAt: string
-  summary: string
-  sentiment: string
-  tags: string[]
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, embeddingDistance }
   delete:   { id }
 ```
 
@@ -678,63 +486,6 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
-### MODEL: habitLog
-
-Access: `db.habitLog`
-
-```
-METHODS:
-  db.habitLog.findMany({ select, where?, orderBy?, first?, offset? })
-  db.habitLog.findOne({ id, select })
-  db.habitLog.create({ data: { entityId, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags }, select })
-  db.habitLog.update({ where: { id }, data, select })
-  db.habitLog.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  habitId: string
-  completedAt: string
-  activityType: string
-  durationMinutes: string
-  distance: string
-  distanceUnit: string
-  reps: number
-  sets: number
-  weightAmount: string
-  weightUnit: string
-  calories: string
-  data: unknown
-  notes: string
-  tags: string[]
-
-EDITABLE FIELDS:
-  entityId: string
-  habitId: string
-  completedAt: string
-  activityType: string
-  durationMinutes: string
-  distance: string
-  distanceUnit: string
-  reps: number
-  sets: number
-  weightAmount: string
-  weightUnit: string
-  calories: string
-  data: unknown
-  notes: string
-  tags: string[]
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags }]
-  findOne:  { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags }
-  create:   { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags }
-  update:   { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags }
-  delete:   { id }
-```
-
 ### MODEL: goalProject
 
 Access: `db.goalProject`
@@ -763,43 +514,6 @@ OUTPUT: Promise<JSON>
   findOne:  { goalId, projectId, id, entityId }
   create:   { goalId, projectId, id, entityId }
   update:   { goalId, projectId, id, entityId }
-  delete:   { id }
-```
-
-### MODEL: milestone
-
-Access: `db.milestone`
-
-```
-METHODS:
-  db.milestone.findMany({ select, where?, orderBy?, first?, offset? })
-  db.milestone.findOne({ id, select })
-  db.milestone.create({ data: { entityId, projectId, name, dueDate, status }, select })
-  db.milestone.update({ where: { id }, data, select })
-  db.milestone.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  projectId: string
-  name: string
-  dueDate: string
-  status: string
-
-EDITABLE FIELDS:
-  entityId: string
-  projectId: string
-  name: string
-  dueDate: string
-  status: string
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, projectId, name, dueDate, status }]
-  findOne:  { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status }
-  create:   { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status }
-  update:   { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status }
   delete:   { id }
 ```
 
@@ -904,7 +618,7 @@ Access: `db.file`
 METHODS:
   db.file.findMany({ select, where?, orderBy?, first?, offset? })
   db.file.findOne({ id, select })
-  db.file.create({ data: { entityId, repositoryId, path, language, hash }, select })
+  db.file.create({ data: { entityId, repositoryId, path, language, hash, pathTrgmSimilarity, languageTrgmSimilarity, hashTrgmSimilarity, searchScore }, select })
   db.file.update({ where: { id }, data, select })
   db.file.delete({ where: { id } })
 
@@ -917,6 +631,10 @@ FIELDS:
   path: string
   language: string
   hash: string
+  pathTrgmSimilarity: number
+  languageTrgmSimilarity: number
+  hashTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -924,57 +642,59 @@ EDITABLE FIELDS:
   path: string
   language: string
   hash: string
+  pathTrgmSimilarity: number
+  languageTrgmSimilarity: number
+  hashTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, repositoryId, path, language, hash }]
-  findOne:  { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash }
-  create:   { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash }
-  update:   { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash }
+  findMany: [{ id, entityId, createdAt, updatedAt, repositoryId, path, language, hash, pathTrgmSimilarity, languageTrgmSimilarity, hashTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash, pathTrgmSimilarity, languageTrgmSimilarity, hashTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash, pathTrgmSimilarity, languageTrgmSimilarity, hashTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, repositoryId, path, language, hash, pathTrgmSimilarity, languageTrgmSimilarity, hashTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
-### MODEL: chunk
+### MODEL: milestone
 
-Access: `db.chunk`
+Access: `db.milestone`
 
 ```
 METHODS:
-  db.chunk.findMany({ select, where?, orderBy?, first?, offset? })
-  db.chunk.findOne({ id, select })
-  db.chunk.create({ data: { entityId, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, embeddingDistance }, select })
-  db.chunk.update({ where: { id }, data, select })
-  db.chunk.delete({ where: { id } })
+  db.milestone.findMany({ select, where?, orderBy?, first?, offset? })
+  db.milestone.findOne({ id, select })
+  db.milestone.create({ data: { entityId, projectId, name, dueDate, status, nameTrgmSimilarity, statusTrgmSimilarity, searchScore }, select })
+  db.milestone.update({ where: { id }, data, select })
+  db.milestone.delete({ where: { id } })
 
 FIELDS:
   id: string (primary key)
   entityId: string
   createdAt: string
   updatedAt: string
-  fileId: string
-  repositoryId: string
-  content: string
-  startLine: number
-  endLine: number
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
+  projectId: string
+  name: string
+  dueDate: string
+  status: string
+  nameTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
-  fileId: string
-  repositoryId: string
-  content: string
-  startLine: number
-  endLine: number
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
+  projectId: string
+  name: string
+  dueDate: string
+  status: string
+  nameTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, projectId, name, dueDate, status, nameTrgmSimilarity, statusTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status, nameTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status, nameTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, projectId, name, dueDate, status, nameTrgmSimilarity, statusTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -986,7 +706,7 @@ Access: `db.calendarAccount`
 METHODS:
   db.calendarAccount.findMany({ select, where?, orderBy?, first?, offset? })
   db.calendarAccount.findOne({ id, select })
-  db.calendarAccount.create({ data: { entityId, email, provider, syncToken, lastSyncedAt }, select })
+  db.calendarAccount.create({ data: { entityId, email, provider, syncToken, lastSyncedAt, emailTrgmSimilarity, providerTrgmSimilarity, syncTokenTrgmSimilarity, searchScore }, select })
   db.calendarAccount.update({ where: { id }, data, select })
   db.calendarAccount.delete({ where: { id } })
 
@@ -999,6 +719,10 @@ FIELDS:
   provider: string
   syncToken: string
   lastSyncedAt: string
+  emailTrgmSimilarity: number
+  providerTrgmSimilarity: number
+  syncTokenTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1006,12 +730,16 @@ EDITABLE FIELDS:
   provider: string
   syncToken: string
   lastSyncedAt: string
+  emailTrgmSimilarity: number
+  providerTrgmSimilarity: number
+  syncTokenTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt }]
-  findOne:  { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt }
-  create:   { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt }
-  update:   { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt }
+  findMany: [{ id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt, emailTrgmSimilarity, providerTrgmSimilarity, syncTokenTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt, emailTrgmSimilarity, providerTrgmSimilarity, syncTokenTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt, emailTrgmSimilarity, providerTrgmSimilarity, syncTokenTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, email, provider, syncToken, lastSyncedAt, emailTrgmSimilarity, providerTrgmSimilarity, syncTokenTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1023,7 +751,7 @@ Access: `db.tag`
 METHODS:
   db.tag.findMany({ select, where?, orderBy?, first?, offset? })
   db.tag.findOne({ id, select })
-  db.tag.create({ data: { entityId, name, color, category, usageCount }, select })
+  db.tag.create({ data: { entityId, name, color, category, usageCount, nameTrgmSimilarity, colorTrgmSimilarity, categoryTrgmSimilarity, searchScore }, select })
   db.tag.update({ where: { id }, data, select })
   db.tag.delete({ where: { id } })
 
@@ -1036,6 +764,10 @@ FIELDS:
   color: string
   category: string
   usageCount: number
+  nameTrgmSimilarity: number
+  colorTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1043,12 +775,16 @@ EDITABLE FIELDS:
   color: string
   category: string
   usageCount: number
+  nameTrgmSimilarity: number
+  colorTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, color, category, usageCount }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, color, category, usageCount }
-  create:   { id, entityId, createdAt, updatedAt, name, color, category, usageCount }
-  update:   { id, entityId, createdAt, updatedAt, name, color, category, usageCount }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, color, category, usageCount, nameTrgmSimilarity, colorTrgmSimilarity, categoryTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, color, category, usageCount, nameTrgmSimilarity, colorTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, color, category, usageCount, nameTrgmSimilarity, colorTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, color, category, usageCount, nameTrgmSimilarity, colorTrgmSimilarity, categoryTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1060,7 +796,7 @@ Access: `db.feedback`
 METHODS:
   db.feedback.findMany({ select, where?, orderBy?, first?, offset? })
   db.feedback.findOne({ id, select })
-  db.feedback.create({ data: { entityId, targetType, targetId, rating, comment, source }, select })
+  db.feedback.create({ data: { entityId, targetType, targetId, rating, comment, source, targetTypeTrgmSimilarity, commentTrgmSimilarity, sourceTrgmSimilarity, searchScore }, select })
   db.feedback.update({ where: { id }, data, select })
   db.feedback.delete({ where: { id } })
 
@@ -1074,6 +810,10 @@ FIELDS:
   rating: number
   comment: string
   source: string
+  targetTypeTrgmSimilarity: number
+  commentTrgmSimilarity: number
+  sourceTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1082,12 +822,16 @@ EDITABLE FIELDS:
   rating: number
   comment: string
   source: string
+  targetTypeTrgmSimilarity: number
+  commentTrgmSimilarity: number
+  sourceTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source }]
-  findOne:  { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source }
-  create:   { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source }
-  update:   { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source }
+  findMany: [{ id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source, targetTypeTrgmSimilarity, commentTrgmSimilarity, sourceTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source, targetTypeTrgmSimilarity, commentTrgmSimilarity, sourceTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source, targetTypeTrgmSimilarity, commentTrgmSimilarity, sourceTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, targetType, targetId, rating, comment, source, targetTypeTrgmSimilarity, commentTrgmSimilarity, sourceTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1099,7 +843,7 @@ Access: `db.attachment`
 METHODS:
   db.attachment.findMany({ select, where?, orderBy?, first?, offset? })
   db.attachment.findOne({ id, select })
-  db.attachment.create({ data: { entityId, url, filename, mimeType, sizeBytes, attachableType, attachableId }, select })
+  db.attachment.create({ data: { entityId, url, filename, mimeType, sizeBytes, attachableType, attachableId, urlTrgmSimilarity, filenameTrgmSimilarity, mimeTypeTrgmSimilarity, attachableTypeTrgmSimilarity, searchScore }, select })
   db.attachment.update({ where: { id }, data, select })
   db.attachment.delete({ where: { id } })
 
@@ -1114,6 +858,11 @@ FIELDS:
   sizeBytes: number
   attachableType: string
   attachableId: string
+  urlTrgmSimilarity: number
+  filenameTrgmSimilarity: number
+  mimeTypeTrgmSimilarity: number
+  attachableTypeTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1123,12 +872,17 @@ EDITABLE FIELDS:
   sizeBytes: number
   attachableType: string
   attachableId: string
+  urlTrgmSimilarity: number
+  filenameTrgmSimilarity: number
+  mimeTypeTrgmSimilarity: number
+  attachableTypeTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId }]
-  findOne:  { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId }
-  create:   { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId }
-  update:   { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId }
+  findMany: [{ id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId, urlTrgmSimilarity, filenameTrgmSimilarity, mimeTypeTrgmSimilarity, attachableTypeTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId, urlTrgmSimilarity, filenameTrgmSimilarity, mimeTypeTrgmSimilarity, attachableTypeTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId, urlTrgmSimilarity, filenameTrgmSimilarity, mimeTypeTrgmSimilarity, attachableTypeTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, url, filename, mimeType, sizeBytes, attachableType, attachableId, urlTrgmSimilarity, filenameTrgmSimilarity, mimeTypeTrgmSimilarity, attachableTypeTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1140,7 +894,7 @@ Access: `db.emailAccount`
 METHODS:
   db.emailAccount.findMany({ select, where?, orderBy?, first?, offset? })
   db.emailAccount.findOne({ id, select })
-  db.emailAccount.create({ data: { entityId, email, provider, syncState }, select })
+  db.emailAccount.create({ data: { entityId, email, provider, syncState, emailTrgmSimilarity, providerTrgmSimilarity, searchScore }, select })
   db.emailAccount.update({ where: { id }, data, select })
   db.emailAccount.delete({ where: { id } })
 
@@ -1152,71 +906,24 @@ FIELDS:
   email: string
   provider: string
   syncState: unknown
+  emailTrgmSimilarity: number
+  providerTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
   email: string
   provider: string
   syncState: unknown
+  emailTrgmSimilarity: number
+  providerTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, email, provider, syncState }]
-  findOne:  { id, entityId, createdAt, updatedAt, email, provider, syncState }
-  create:   { id, entityId, createdAt, updatedAt, email, provider, syncState }
-  update:   { id, entityId, createdAt, updatedAt, email, provider, syncState }
-  delete:   { id }
-```
-
-### MODEL: message
-
-Access: `db.message`
-
-```
-METHODS:
-  db.message.findMany({ select, where?, orderBy?, first?, offset? })
-  db.message.findOne({ id, select })
-  db.message.create({ data: { entityId, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, embeddingDistance }, select })
-  db.message.update({ where: { id }, data, select })
-  db.message.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  emailAccountId: string
-  threadId: string
-  remoteId: string
-  fromAddress: string
-  toAddresses: string[]
-  subject: string
-  bodyText: string
-  receivedAt: string
-  tags: string[]
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
-
-EDITABLE FIELDS:
-  entityId: string
-  emailAccountId: string
-  threadId: string
-  remoteId: string
-  fromAddress: string
-  toAddresses: string[]
-  subject: string
-  bodyText: string
-  receivedAt: string
-  tags: string[]
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, email, provider, syncState, emailTrgmSimilarity, providerTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, email, provider, syncState, emailTrgmSimilarity, providerTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, email, provider, syncState, emailTrgmSimilarity, providerTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, email, provider, syncState, emailTrgmSimilarity, providerTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1228,7 +935,7 @@ Access: `db.activityLog`
 METHODS:
   db.activityLog.findMany({ select, where?, orderBy?, first?, offset? })
   db.activityLog.findOne({ id, select })
-  db.activityLog.create({ data: { entityId, actorType, actorId, action, targetType, targetId, metadata }, select })
+  db.activityLog.create({ data: { entityId, actorType, actorId, action, targetType, targetId, metadata, actorTypeTrgmSimilarity, actionTrgmSimilarity, targetTypeTrgmSimilarity, searchScore }, select })
   db.activityLog.update({ where: { id }, data, select })
   db.activityLog.delete({ where: { id } })
 
@@ -1243,6 +950,10 @@ FIELDS:
   targetType: string
   targetId: string
   metadata: unknown
+  actorTypeTrgmSimilarity: number
+  actionTrgmSimilarity: number
+  targetTypeTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1252,12 +963,69 @@ EDITABLE FIELDS:
   targetType: string
   targetId: string
   metadata: unknown
+  actorTypeTrgmSimilarity: number
+  actionTrgmSimilarity: number
+  targetTypeTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata }]
-  findOne:  { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata }
-  create:   { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata }
-  update:   { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata }
+  findMany: [{ id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata, actorTypeTrgmSimilarity, actionTrgmSimilarity, targetTypeTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata, actorTypeTrgmSimilarity, actionTrgmSimilarity, targetTypeTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata, actorTypeTrgmSimilarity, actionTrgmSimilarity, targetTypeTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, actorType, actorId, action, targetType, targetId, metadata, actorTypeTrgmSimilarity, actionTrgmSimilarity, targetTypeTrgmSimilarity, searchScore }
+  delete:   { id }
+```
+
+### MODEL: contextRelation
+
+Access: `db.contextRelation`
+
+```
+METHODS:
+  db.contextRelation.findMany({ select, where?, orderBy?, first?, offset? })
+  db.contextRelation.findOne({ id, select })
+  db.contextRelation.create({ data: { entityId, fromType, fromId, toType, toId, relationKind, reason, strength, fromTypeTrgmSimilarity, toTypeTrgmSimilarity, relationKindTrgmSimilarity, reasonTrgmSimilarity, searchScore }, select })
+  db.contextRelation.update({ where: { id }, data, select })
+  db.contextRelation.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  fromType: string
+  fromId: string
+  toType: string
+  toId: string
+  relationKind: string
+  reason: string
+  strength: string
+  fromTypeTrgmSimilarity: number
+  toTypeTrgmSimilarity: number
+  relationKindTrgmSimilarity: number
+  reasonTrgmSimilarity: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  fromType: string
+  fromId: string
+  toType: string
+  toId: string
+  relationKind: string
+  reason: string
+  strength: string
+  fromTypeTrgmSimilarity: number
+  toTypeTrgmSimilarity: number
+  relationKindTrgmSimilarity: number
+  reasonTrgmSimilarity: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, fromType, fromId, toType, toId, relationKind, reason, strength, fromTypeTrgmSimilarity, toTypeTrgmSimilarity, relationKindTrgmSimilarity, reasonTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, fromType, fromId, toType, toId, relationKind, reason, strength, fromTypeTrgmSimilarity, toTypeTrgmSimilarity, relationKindTrgmSimilarity, reasonTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, fromType, fromId, toType, toId, relationKind, reason, strength, fromTypeTrgmSimilarity, toTypeTrgmSimilarity, relationKindTrgmSimilarity, reasonTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, fromType, fromId, toType, toId, relationKind, reason, strength, fromTypeTrgmSimilarity, toTypeTrgmSimilarity, relationKindTrgmSimilarity, reasonTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1269,7 +1037,7 @@ Access: `db.userSetting`
 METHODS:
   db.userSetting.findMany({ select, where?, orderBy?, first?, offset? })
   db.userSetting.findOne({ id, select })
-  db.userSetting.create({ data: { entityId, key, value, category }, select })
+  db.userSetting.create({ data: { entityId, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }, select })
   db.userSetting.update({ where: { id }, data, select })
   db.userSetting.delete({ where: { id } })
 
@@ -1281,18 +1049,24 @@ FIELDS:
   key: string
   value: unknown
   category: string
+  keyTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
   key: string
   value: unknown
   category: string
+  keyTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, key, value, category }]
-  findOne:  { id, entityId, createdAt, updatedAt, key, value, category }
-  create:   { id, entityId, createdAt, updatedAt, key, value, category }
-  update:   { id, entityId, createdAt, updatedAt, key, value, category }
+  findMany: [{ id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1304,7 +1078,7 @@ Access: `db.executionLog`
 METHODS:
   db.executionLog.findMany({ select, where?, orderBy?, first?, offset? })
   db.executionLog.findOne({ id, select })
-  db.executionLog.create({ data: { entityId, sessionId, stepName, input, output, toolCalls, durationMs }, select })
+  db.executionLog.create({ data: { entityId, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }, select })
   db.executionLog.update({ where: { id }, data, select })
   db.executionLog.delete({ where: { id } })
 
@@ -1319,6 +1093,10 @@ FIELDS:
   output: string
   toolCalls: unknown
   durationMs: number
+  stepNameTrgmSimilarity: number
+  inputTrgmSimilarity: number
+  outputTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1328,12 +1106,16 @@ EDITABLE FIELDS:
   output: string
   toolCalls: unknown
   durationMs: number
+  stepNameTrgmSimilarity: number
+  inputTrgmSimilarity: number
+  outputTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs }]
-  findOne:  { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs }
-  create:   { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs }
-  update:   { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs }
+  findMany: [{ id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1345,7 +1127,7 @@ Access: `db.webhook`
 METHODS:
   db.webhook.findMany({ select, where?, orderBy?, first?, offset? })
   db.webhook.findOne({ id, select })
-  db.webhook.create({ data: { entityId, integrationId, url, eventType, secret, isActive }, select })
+  db.webhook.create({ data: { entityId, integrationId, url, eventType, secret, isActive, urlTrgmSimilarity, eventTypeTrgmSimilarity, secretTrgmSimilarity, searchScore }, select })
   db.webhook.update({ where: { id }, data, select })
   db.webhook.delete({ where: { id } })
 
@@ -1359,6 +1141,10 @@ FIELDS:
   eventType: string
   secret: string
   isActive: boolean
+  urlTrgmSimilarity: number
+  eventTypeTrgmSimilarity: number
+  secretTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1367,12 +1153,16 @@ EDITABLE FIELDS:
   eventType: string
   secret: string
   isActive: boolean
+  urlTrgmSimilarity: number
+  eventTypeTrgmSimilarity: number
+  secretTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive }]
-  findOne:  { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive }
-  create:   { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive }
-  update:   { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive }
+  findMany: [{ id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive, urlTrgmSimilarity, eventTypeTrgmSimilarity, secretTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive, urlTrgmSimilarity, eventTypeTrgmSimilarity, secretTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive, urlTrgmSimilarity, eventTypeTrgmSimilarity, secretTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, integrationId, url, eventType, secret, isActive, urlTrgmSimilarity, eventTypeTrgmSimilarity, secretTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1384,7 +1174,7 @@ Access: `db.notification`
 METHODS:
   db.notification.findMany({ select, where?, orderBy?, first?, offset? })
   db.notification.findOne({ id, select })
-  db.notification.create({ data: { entityId, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType }, select })
+  db.notification.create({ data: { entityId, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType, titleTrgmSimilarity, bodyTrgmSimilarity, typeTrgmSimilarity, priorityTrgmSimilarity, actionUrlTrgmSimilarity, sourceEntityTypeTrgmSimilarity, searchScore }, select })
   db.notification.update({ where: { id }, data, select })
   db.notification.delete({ where: { id } })
 
@@ -1401,6 +1191,13 @@ FIELDS:
   actionUrl: string
   sourceEntityId: string
   sourceEntityType: string
+  titleTrgmSimilarity: number
+  bodyTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  priorityTrgmSimilarity: number
+  actionUrlTrgmSimilarity: number
+  sourceEntityTypeTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1412,12 +1209,72 @@ EDITABLE FIELDS:
   actionUrl: string
   sourceEntityId: string
   sourceEntityType: string
+  titleTrgmSimilarity: number
+  bodyTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  priorityTrgmSimilarity: number
+  actionUrlTrgmSimilarity: number
+  sourceEntityTypeTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType }
-  create:   { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType }
-  update:   { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType, titleTrgmSimilarity, bodyTrgmSimilarity, typeTrgmSimilarity, priorityTrgmSimilarity, actionUrlTrgmSimilarity, sourceEntityTypeTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType, titleTrgmSimilarity, bodyTrgmSimilarity, typeTrgmSimilarity, priorityTrgmSimilarity, actionUrlTrgmSimilarity, sourceEntityTypeTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType, titleTrgmSimilarity, bodyTrgmSimilarity, typeTrgmSimilarity, priorityTrgmSimilarity, actionUrlTrgmSimilarity, sourceEntityTypeTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, body, type, priority, readAt, actionUrl, sourceEntityId, sourceEntityType, titleTrgmSimilarity, bodyTrgmSimilarity, typeTrgmSimilarity, priorityTrgmSimilarity, actionUrlTrgmSimilarity, sourceEntityTypeTrgmSimilarity, searchScore }
+  delete:   { id }
+```
+
+### MODEL: process
+
+Access: `db.process`
+
+```
+METHODS:
+  db.process.findMany({ select, where?, orderBy?, first?, offset? })
+  db.process.findOne({ id, select })
+  db.process.create({ data: { entityId, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath, commandTrgmSimilarity, statusTrgmSimilarity, logsPathTrgmSimilarity, searchScore }, select })
+  db.process.update({ where: { id }, data, select })
+  db.process.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  pid: number
+  agentId: string
+  command: string
+  startedAt: string
+  endedAt: string
+  status: string
+  exitCode: number
+  logsPath: string
+  commandTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  logsPathTrgmSimilarity: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  pid: number
+  agentId: string
+  command: string
+  startedAt: string
+  endedAt: string
+  status: string
+  exitCode: number
+  logsPath: string
+  commandTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  logsPathTrgmSimilarity: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath, commandTrgmSimilarity, statusTrgmSimilarity, logsPathTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath, commandTrgmSimilarity, statusTrgmSimilarity, logsPathTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath, commandTrgmSimilarity, statusTrgmSimilarity, logsPathTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, pid, agentId, command, startedAt, endedAt, status, exitCode, logsPath, commandTrgmSimilarity, statusTrgmSimilarity, logsPathTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1429,7 +1286,7 @@ Access: `db.workflowRun`
 METHODS:
   db.workflowRun.findMany({ select, where?, orderBy?, first?, offset? })
   db.workflowRun.findOne({ id, select })
-  db.workflowRun.create({ data: { entityId, workflowId, status, startedAt, completedAt, input, output, error }, select })
+  db.workflowRun.create({ data: { entityId, workflowId, status, startedAt, completedAt, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }, select })
   db.workflowRun.update({ where: { id }, data, select })
   db.workflowRun.delete({ where: { id } })
 
@@ -1445,6 +1302,9 @@ FIELDS:
   input: unknown
   output: unknown
   error: string
+  statusTrgmSimilarity: number
+  errorTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1455,55 +1315,15 @@ EDITABLE FIELDS:
   input: unknown
   output: unknown
   error: string
+  statusTrgmSimilarity: number
+  errorTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error }]
-  findOne:  { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error }
-  create:   { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error }
-  update:   { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error }
-  delete:   { id }
-```
-
-### MODEL: workflowStep
-
-Access: `db.workflowStep`
-
-```
-METHODS:
-  db.workflowStep.findMany({ select, where?, orderBy?, first?, offset? })
-  db.workflowStep.findOne({ id, select })
-  db.workflowStep.create({ data: { entityId, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs }, select })
-  db.workflowStep.update({ where: { id }, data, select })
-  db.workflowStep.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  workflowId: string
-  stepOrder: number
-  actionType: string
-  actionConfig: unknown
-  onSuccessStep: number
-  onFailureStep: number
-  timeoutMs: number
-
-EDITABLE FIELDS:
-  entityId: string
-  workflowId: string
-  stepOrder: number
-  actionType: string
-  actionConfig: unknown
-  onSuccessStep: number
-  onFailureStep: number
-  timeoutMs: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs }]
-  findOne:  { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs }
-  create:   { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs }
-  update:   { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs }
+  findMany: [{ id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, workflowId, status, startedAt, completedAt, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1515,7 +1335,7 @@ Access: `db.integration`
 METHODS:
   db.integration.findMany({ select, where?, orderBy?, first?, offset? })
   db.integration.findOne({ id, select })
-  db.integration.create({ data: { entityId, name, provider, type, credentialsRef, config, status, lastSyncedAt }, select })
+  db.integration.create({ data: { entityId, name, provider, type, credentialsRef, config, status, lastSyncedAt, nameTrgmSimilarity, providerTrgmSimilarity, typeTrgmSimilarity, credentialsRefTrgmSimilarity, statusTrgmSimilarity, searchScore }, select })
   db.integration.update({ where: { id }, data, select })
   db.integration.delete({ where: { id } })
 
@@ -1531,6 +1351,12 @@ FIELDS:
   config: unknown
   status: string
   lastSyncedAt: string
+  nameTrgmSimilarity: number
+  providerTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  credentialsRefTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1541,12 +1367,18 @@ EDITABLE FIELDS:
   config: unknown
   status: string
   lastSyncedAt: string
+  nameTrgmSimilarity: number
+  providerTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  credentialsRefTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt }
-  create:   { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt }
-  update:   { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt, nameTrgmSimilarity, providerTrgmSimilarity, typeTrgmSimilarity, credentialsRefTrgmSimilarity, statusTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt, nameTrgmSimilarity, providerTrgmSimilarity, typeTrgmSimilarity, credentialsRefTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt, nameTrgmSimilarity, providerTrgmSimilarity, typeTrgmSimilarity, credentialsRefTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, provider, type, credentialsRef, config, status, lastSyncedAt, nameTrgmSimilarity, providerTrgmSimilarity, typeTrgmSimilarity, credentialsRefTrgmSimilarity, statusTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1558,7 +1390,7 @@ Access: `db.skillExecution`
 METHODS:
   db.skillExecution.findMany({ select, where?, orderBy?, first?, offset? })
   db.skillExecution.findOne({ id, select })
-  db.skillExecution.create({ data: { entityId, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error }, select })
+  db.skillExecution.create({ data: { entityId, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }, select })
   db.skillExecution.update({ where: { id }, data, select })
   db.skillExecution.delete({ where: { id } })
 
@@ -1577,6 +1409,9 @@ FIELDS:
   input: unknown
   output: unknown
   error: string
+  statusTrgmSimilarity: number
+  errorTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1590,12 +1425,15 @@ EDITABLE FIELDS:
   input: unknown
   output: unknown
   error: string
+  statusTrgmSimilarity: number
+  errorTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error }]
-  findOne:  { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error }
-  create:   { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error }
-  update:   { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error }
+  findMany: [{ id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, skillId, agentId, sessionId, status, startedAt, completedAt, durationMs, input, output, error, statusTrgmSimilarity, errorTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1607,7 +1445,7 @@ Access: `db.chat`
 METHODS:
   db.chat.findMany({ select, where?, orderBy?, first?, offset? })
   db.chat.findOne({ id, select })
-  db.chat.create({ data: { entityId, title, startedAt, embeddingText, embedding, embeddingDistance }, select })
+  db.chat.create({ data: { entityId, title, startedAt, embeddingText, embedding, titleTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.chat.update({ where: { id }, data, select })
   db.chat.delete({ where: { id } })
 
@@ -1620,7 +1458,10 @@ FIELDS:
   startedAt: string
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1628,13 +1469,120 @@ EDITABLE FIELDS:
   startedAt: string
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, titleTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, titleTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, titleTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, startedAt, embeddingText, embedding, titleTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete:   { id }
+```
+
+### MODEL: chunk
+
+Access: `db.chunk`
+
+```
+METHODS:
+  db.chunk.findMany({ select, where?, orderBy?, first?, offset? })
+  db.chunk.findOne({ id, select })
+  db.chunk.create({ data: { entityId, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
+  db.chunk.update({ where: { id }, data, select })
+  db.chunk.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  fileId: string
+  repositoryId: string
+  content: string
+  startLine: number
+  endLine: number
+  embeddingText: string
+  embedding: number[]
+  contentTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  fileId: string
+  repositoryId: string
+  content: string
+  startLine: number
+  endLine: number
+  embeddingText: string
+  embedding: number[]
+  contentTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, fileId, repositoryId, content, startLine, endLine, embeddingText, embedding, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete:   { id }
+```
+
+### MODEL: thread
+
+Access: `db.thread`
+
+```
+METHODS:
+  db.thread.findMany({ select, where?, orderBy?, first?, offset? })
+  db.thread.findOne({ id, select })
+  db.thread.create({ data: { entityId, title, summary, status, parentThreadId, embeddingText, embedding, titleTrgmSimilarity, summaryTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
+  db.thread.update({ where: { id }, data, select })
+  db.thread.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  title: string
+  summary: string
+  status: string
+  parentThreadId: string
+  embeddingText: string
+  embedding: number[]
+  titleTrgmSimilarity: number
+  summaryTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  title: string
+  summary: string
+  status: string
+  parentThreadId: string
+  embeddingText: string
+  embedding: number[]
+  titleTrgmSimilarity: number
+  summaryTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, titleTrgmSimilarity, summaryTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, titleTrgmSimilarity, summaryTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, titleTrgmSimilarity, summaryTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, titleTrgmSimilarity, summaryTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -1646,7 +1594,7 @@ Access: `db.chatMessage`
 METHODS:
   db.chatMessage.findMany({ select, where?, orderBy?, first?, offset? })
   db.chatMessage.findOne({ id, select })
-  db.chatMessage.create({ data: { entityId, chatId, threadId, role, content, toolCalls, embeddingText, embedding, embeddingDistance }, select })
+  db.chatMessage.create({ data: { entityId, chatId, threadId, role, content, toolCalls, embeddingText, embedding, roleTrgmSimilarity, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.chatMessage.update({ where: { id }, data, select })
   db.chatMessage.delete({ where: { id } })
 
@@ -1662,7 +1610,11 @@ FIELDS:
   toolCalls: unknown
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  roleTrgmSimilarity: number
+  contentTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1673,103 +1625,70 @@ EDITABLE FIELDS:
   toolCalls: unknown
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  roleTrgmSimilarity: number
+  contentTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, roleTrgmSimilarity, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, roleTrgmSimilarity, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, roleTrgmSimilarity, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, chatId, threadId, role, content, toolCalls, embeddingText, embedding, roleTrgmSimilarity, contentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
-### MODEL: thread
+### MODEL: sessionArchive
 
-Access: `db.thread`
+Access: `db.sessionArchive`
 
 ```
 METHODS:
-  db.thread.findMany({ select, where?, orderBy?, first?, offset? })
-  db.thread.findOne({ id, select })
-  db.thread.create({ data: { entityId, title, summary, status, parentThreadId, embeddingText, embedding, embeddingDistance }, select })
-  db.thread.update({ where: { id }, data, select })
-  db.thread.delete({ where: { id } })
+  db.sessionArchive.findMany({ select, where?, orderBy?, first?, offset? })
+  db.sessionArchive.findOne({ id, select })
+  db.sessionArchive.create({ data: { entityId, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
+  db.sessionArchive.update({ where: { id }, data, select })
+  db.sessionArchive.delete({ where: { id } })
 
 FIELDS:
   id: string (primary key)
   entityId: string
   createdAt: string
   updatedAt: string
-  title: string
+  sessionId: string
+  archiveIndex: number
   summary: string
-  status: string
-  parentThreadId: string
+  messageRangeStart: number
+  messageRangeEnd: number
+  rawMessages: unknown
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  summaryTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
-  title: string
+  sessionId: string
+  archiveIndex: number
   summary: string
-  status: string
-  parentThreadId: string
+  messageRangeStart: number
+  messageRangeEnd: number
+  rawMessages: unknown
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  summaryTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, summary, status, parentThreadId, embeddingText, embedding, embeddingDistance }
-  delete:   { id }
-```
-
-### MODEL: session
-
-Access: `db.session`
-
-```
-METHODS:
-  db.session.findMany({ select, where?, orderBy?, first?, offset? })
-  db.session.findOne({ id, select })
-  db.session.create({ data: { entityId, title, agentId, startedAt, endedAt, status, contextSummary, embeddingText, embedding, embeddingDistance }, select })
-  db.session.update({ where: { id }, data, select })
-  db.session.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  title: string
-  agentId: string
-  startedAt: string
-  endedAt: string
-  status: string
-  contextSummary: string
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
-
-EDITABLE FIELDS:
-  entityId: string
-  title: string
-  agentId: string
-  startedAt: string
-  endedAt: string
-  status: string
-  contextSummary: string
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -1781,7 +1700,7 @@ Access: `db.reminder`
 METHODS:
   db.reminder.findMany({ select, where?, orderBy?, first?, offset? })
   db.reminder.findOne({ id, select })
-  db.reminder.create({ data: { entityId, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, embeddingDistance }, select })
+  db.reminder.create({ data: { entityId, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, titleTrgmSimilarity, recurrenceTrgmSimilarity, statusTrgmSimilarity, relatedEntityTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.reminder.update({ where: { id }, data, select })
   db.reminder.delete({ where: { id } })
 
@@ -1799,7 +1718,13 @@ FIELDS:
   relatedEntityType: string
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  recurrenceTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  relatedEntityTypeTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1812,13 +1737,19 @@ EDITABLE FIELDS:
   relatedEntityType: string
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  recurrenceTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  relatedEntityTypeTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, titleTrgmSimilarity, recurrenceTrgmSimilarity, statusTrgmSimilarity, relatedEntityTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, titleTrgmSimilarity, recurrenceTrgmSimilarity, statusTrgmSimilarity, relatedEntityTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, titleTrgmSimilarity, recurrenceTrgmSimilarity, statusTrgmSimilarity, relatedEntityTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, dueAt, completedAt, recurrence, status, relatedEntityId, relatedEntityType, embeddingText, embedding, titleTrgmSimilarity, recurrenceTrgmSimilarity, statusTrgmSimilarity, relatedEntityTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -1830,7 +1761,7 @@ Access: `db.image`
 METHODS:
   db.image.findMany({ select, where?, orderBy?, first?, offset? })
   db.image.findOne({ id, select })
-  db.image.create({ data: { entityId, url, meta, altText, caption, embedding, embeddingDistance }, select })
+  db.image.create({ data: { entityId, url, meta, altText, caption, embedding, urlTrgmSimilarity, altTextTrgmSimilarity, captionTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.image.update({ where: { id }, data, select })
   db.image.delete({ where: { id } })
 
@@ -1844,7 +1775,11 @@ FIELDS:
   altText: string
   caption: string
   embedding: number[]
-  embeddingDistance: number
+  urlTrgmSimilarity: number
+  altTextTrgmSimilarity: number
+  captionTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1853,13 +1788,64 @@ EDITABLE FIELDS:
   altText: string
   caption: string
   embedding: number[]
-  embeddingDistance: number
+  urlTrgmSimilarity: number
+  altTextTrgmSimilarity: number
+  captionTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, urlTrgmSimilarity, altTextTrgmSimilarity, captionTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, urlTrgmSimilarity, altTextTrgmSimilarity, captionTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, urlTrgmSimilarity, altTextTrgmSimilarity, captionTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, url, meta, altText, caption, embedding, urlTrgmSimilarity, altTextTrgmSimilarity, captionTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete:   { id }
+```
+
+### MODEL: workflowStep
+
+Access: `db.workflowStep`
+
+```
+METHODS:
+  db.workflowStep.findMany({ select, where?, orderBy?, first?, offset? })
+  db.workflowStep.findOne({ id, select })
+  db.workflowStep.create({ data: { entityId, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs, actionTypeTrgmSimilarity, searchScore }, select })
+  db.workflowStep.update({ where: { id }, data, select })
+  db.workflowStep.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  workflowId: string
+  stepOrder: number
+  actionType: string
+  actionConfig: unknown
+  onSuccessStep: number
+  onFailureStep: number
+  timeoutMs: number
+  actionTypeTrgmSimilarity: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  workflowId: string
+  stepOrder: number
+  actionType: string
+  actionConfig: unknown
+  onSuccessStep: number
+  onFailureStep: number
+  timeoutMs: number
+  actionTypeTrgmSimilarity: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs, actionTypeTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs, actionTypeTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs, actionTypeTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, workflowId, stepOrder, actionType, actionConfig, onSuccessStep, onFailureStep, timeoutMs, actionTypeTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1871,7 +1857,7 @@ Access: `db.listItem`
 METHODS:
   db.listItem.findMany({ select, where?, orderBy?, first?, offset? })
   db.listItem.findOne({ id, select })
-  db.listItem.create({ data: { entityId, listId, content, position, isChecked, refId, refType }, select })
+  db.listItem.create({ data: { entityId, listId, content, position, isChecked, refId, refType, contentTrgmSimilarity, refTypeTrgmSimilarity, searchScore }, select })
   db.listItem.update({ where: { id }, data, select })
   db.listItem.delete({ where: { id } })
 
@@ -1886,6 +1872,9 @@ FIELDS:
   isChecked: boolean
   refId: string
   refType: string
+  contentTrgmSimilarity: number
+  refTypeTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1895,12 +1884,15 @@ EDITABLE FIELDS:
   isChecked: boolean
   refId: string
   refType: string
+  contentTrgmSimilarity: number
+  refTypeTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType }]
-  findOne:  { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType }
-  create:   { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType }
-  update:   { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType }
+  findMany: [{ id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType, contentTrgmSimilarity, refTypeTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType, contentTrgmSimilarity, refTypeTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType, contentTrgmSimilarity, refTypeTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, listId, content, position, isChecked, refId, refType, contentTrgmSimilarity, refTypeTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -1912,7 +1904,7 @@ Access: `db.companyLink`
 METHODS:
   db.companyLink.findMany({ select, where?, orderBy?, first?, offset? })
   db.companyLink.findOne({ id, select })
-  db.companyLink.create({ data: { entityId, title, url, embedding, companyId, embeddingDistance }, select })
+  db.companyLink.create({ data: { entityId, title, url, embedding, companyId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.companyLink.update({ where: { id }, data, select })
   db.companyLink.delete({ where: { id } })
 
@@ -1925,7 +1917,10 @@ FIELDS:
   url: string
   embedding: number[]
   companyId: string
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1933,13 +1928,16 @@ EDITABLE FIELDS:
   url: string
   embedding: number[]
   companyId: string
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, url, embedding, companyId, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, url, embedding, companyId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, url, embedding, companyId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -1951,7 +1949,7 @@ Access: `db.contactLink`
 METHODS:
   db.contactLink.findMany({ select, where?, orderBy?, first?, offset? })
   db.contactLink.findOne({ id, select })
-  db.contactLink.create({ data: { entityId, title, url, embedding, contactId, embeddingDistance }, select })
+  db.contactLink.create({ data: { entityId, title, url, embedding, contactId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.contactLink.update({ where: { id }, data, select })
   db.contactLink.delete({ where: { id } })
 
@@ -1964,7 +1962,10 @@ FIELDS:
   url: string
   embedding: number[]
   contactId: string
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -1972,13 +1973,16 @@ EDITABLE FIELDS:
   url: string
   embedding: number[]
   contactId: string
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, url, embedding, contactId, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, url, embedding, contactId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, url, embedding, contactId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -1990,7 +1994,7 @@ Access: `db.eventLink`
 METHODS:
   db.eventLink.findMany({ select, where?, orderBy?, first?, offset? })
   db.eventLink.findOne({ id, select })
-  db.eventLink.create({ data: { entityId, title, url, embedding, eventId, embeddingDistance }, select })
+  db.eventLink.create({ data: { entityId, title, url, embedding, eventId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.eventLink.update({ where: { id }, data, select })
   db.eventLink.delete({ where: { id } })
 
@@ -2003,7 +2007,10 @@ FIELDS:
   url: string
   embedding: number[]
   eventId: string
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2011,13 +2018,16 @@ EDITABLE FIELDS:
   url: string
   embedding: number[]
   eventId: string
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, url, embedding, eventId, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, url, embedding, eventId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, url, embedding, eventId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2029,7 +2039,7 @@ Access: `db.venueLink`
 METHODS:
   db.venueLink.findMany({ select, where?, orderBy?, first?, offset? })
   db.venueLink.findOne({ id, select })
-  db.venueLink.create({ data: { entityId, title, url, embedding, venueId, embeddingDistance }, select })
+  db.venueLink.create({ data: { entityId, title, url, embedding, venueId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.venueLink.update({ where: { id }, data, select })
   db.venueLink.delete({ where: { id } })
 
@@ -2042,7 +2052,10 @@ FIELDS:
   url: string
   embedding: number[]
   venueId: string
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2050,13 +2063,140 @@ EDITABLE FIELDS:
   url: string
   embedding: number[]
   venueId: string
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, url, embedding, venueId, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, url, embedding, venueId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, url, embedding, venueId, titleTrgmSimilarity, urlTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete:   { id }
+```
+
+### MODEL: agentSpawn
+
+Access: `db.agentSpawn`
+
+```
+METHODS:
+  db.agentSpawn.findMany({ select, where?, orderBy?, first?, offset? })
+  db.agentSpawn.findOne({ id, select })
+  db.agentSpawn.create({ data: { entityId, parentAgentId, childAgentId, sessionId, task, status, result, maxIterations, startedAt, completedAt, agentId, taskTrgmSimilarity, statusTrgmSimilarity, searchScore }, select })
+  db.agentSpawn.update({ where: { id }, data, select })
+  db.agentSpawn.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  parentAgentId: string
+  childAgentId: string
+  sessionId: string
+  task: string
+  status: string
+  result: unknown
+  maxIterations: number
+  startedAt: string
+  completedAt: string
+  agentId: string
+  taskTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  parentAgentId: string
+  childAgentId: string
+  sessionId: string
+  task: string
+  status: string
+  result: unknown
+  maxIterations: number
+  startedAt: string
+  completedAt: string
+  agentId: string
+  taskTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, parentAgentId, childAgentId, sessionId, task, status, result, maxIterations, startedAt, completedAt, agentId, taskTrgmSimilarity, statusTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, parentAgentId, childAgentId, sessionId, task, status, result, maxIterations, startedAt, completedAt, agentId, taskTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, parentAgentId, childAgentId, sessionId, task, status, result, maxIterations, startedAt, completedAt, agentId, taskTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, parentAgentId, childAgentId, sessionId, task, status, result, maxIterations, startedAt, completedAt, agentId, taskTrgmSimilarity, statusTrgmSimilarity, searchScore }
+  delete:   { id }
+```
+
+### MODEL: scheduledJob
+
+Access: `db.scheduledJob`
+
+```
+METHODS:
+  db.scheduledJob.findMany({ select, where?, orderBy?, first?, offset? })
+  db.scheduledJob.findOne({ id, select })
+  db.scheduledJob.create({ data: { entityId, name, scheduleType, scheduleExpr, runAt, command, message, agentId, sessionId, isActive, deleteAfterRun, lastRunAt, nextRunAt, runCount, lastResult, nameTrgmSimilarity, scheduleTypeTrgmSimilarity, scheduleExprTrgmSimilarity, commandTrgmSimilarity, messageTrgmSimilarity, searchScore }, select })
+  db.scheduledJob.update({ where: { id }, data, select })
+  db.scheduledJob.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  name: string
+  scheduleType: string
+  scheduleExpr: string
+  runAt: string
+  command: string
+  message: string
+  agentId: string
+  sessionId: string
+  isActive: boolean
+  deleteAfterRun: boolean
+  lastRunAt: string
+  nextRunAt: string
+  runCount: number
+  lastResult: unknown
+  nameTrgmSimilarity: number
+  scheduleTypeTrgmSimilarity: number
+  scheduleExprTrgmSimilarity: number
+  commandTrgmSimilarity: number
+  messageTrgmSimilarity: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  name: string
+  scheduleType: string
+  scheduleExpr: string
+  runAt: string
+  command: string
+  message: string
+  agentId: string
+  sessionId: string
+  isActive: boolean
+  deleteAfterRun: boolean
+  lastRunAt: string
+  nextRunAt: string
+  runCount: number
+  lastResult: unknown
+  nameTrgmSimilarity: number
+  scheduleTypeTrgmSimilarity: number
+  scheduleExprTrgmSimilarity: number
+  commandTrgmSimilarity: number
+  messageTrgmSimilarity: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, name, scheduleType, scheduleExpr, runAt, command, message, agentId, sessionId, isActive, deleteAfterRun, lastRunAt, nextRunAt, runCount, lastResult, nameTrgmSimilarity, scheduleTypeTrgmSimilarity, scheduleExprTrgmSimilarity, commandTrgmSimilarity, messageTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, scheduleType, scheduleExpr, runAt, command, message, agentId, sessionId, isActive, deleteAfterRun, lastRunAt, nextRunAt, runCount, lastResult, nameTrgmSimilarity, scheduleTypeTrgmSimilarity, scheduleExprTrgmSimilarity, commandTrgmSimilarity, messageTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, scheduleType, scheduleExpr, runAt, command, message, agentId, sessionId, isActive, deleteAfterRun, lastRunAt, nextRunAt, runCount, lastResult, nameTrgmSimilarity, scheduleTypeTrgmSimilarity, scheduleExprTrgmSimilarity, commandTrgmSimilarity, messageTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, scheduleType, scheduleExpr, runAt, command, message, agentId, sessionId, isActive, deleteAfterRun, lastRunAt, nextRunAt, runCount, lastResult, nameTrgmSimilarity, scheduleTypeTrgmSimilarity, scheduleExprTrgmSimilarity, commandTrgmSimilarity, messageTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -2068,7 +2208,7 @@ Access: `db.habit`
 METHODS:
   db.habit.findMany({ select, where?, orderBy?, first?, offset? })
   db.habit.findOne({ id, select })
-  db.habit.create({ data: { entityId, name, frequency, targetCount, currentStreak, bestStreak, category, tags }, select })
+  db.habit.create({ data: { entityId, name, frequency, targetCount, currentStreak, bestStreak, category, tags, nameTrgmSimilarity, frequencyTrgmSimilarity, categoryTrgmSimilarity, searchScore }, select })
   db.habit.update({ where: { id }, data, select })
   db.habit.delete({ where: { id } })
 
@@ -2084,6 +2224,10 @@ FIELDS:
   bestStreak: number
   category: string
   tags: string[]
+  nameTrgmSimilarity: number
+  frequencyTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2094,12 +2238,16 @@ EDITABLE FIELDS:
   bestStreak: number
   category: string
   tags: string[]
+  nameTrgmSimilarity: number
+  frequencyTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags }
-  create:   { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags }
-  update:   { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags, nameTrgmSimilarity, frequencyTrgmSimilarity, categoryTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags, nameTrgmSimilarity, frequencyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags, nameTrgmSimilarity, frequencyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, frequency, targetCount, currentStreak, bestStreak, category, tags, nameTrgmSimilarity, frequencyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -2111,7 +2259,7 @@ Access: `db.workflow`
 METHODS:
   db.workflow.findMany({ select, where?, orderBy?, first?, offset? })
   db.workflow.findOne({ id, select })
-  db.workflow.create({ data: { entityId, name, description, triggerType, triggerConfig, isActive, tags }, select })
+  db.workflow.create({ data: { entityId, name, description, triggerType, triggerConfig, isActive, tags, nameTrgmSimilarity, descriptionTrgmSimilarity, triggerTypeTrgmSimilarity, searchScore }, select })
   db.workflow.update({ where: { id }, data, select })
   db.workflow.delete({ where: { id } })
 
@@ -2126,6 +2274,10 @@ FIELDS:
   triggerConfig: unknown
   isActive: boolean
   tags: string[]
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  triggerTypeTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2135,12 +2287,83 @@ EDITABLE FIELDS:
   triggerConfig: unknown
   isActive: boolean
   tags: string[]
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  triggerTypeTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags }
-  create:   { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags }
-  update:   { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags, nameTrgmSimilarity, descriptionTrgmSimilarity, triggerTypeTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags, nameTrgmSimilarity, descriptionTrgmSimilarity, triggerTypeTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags, nameTrgmSimilarity, descriptionTrgmSimilarity, triggerTypeTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, description, triggerType, triggerConfig, isActive, tags, nameTrgmSimilarity, descriptionTrgmSimilarity, triggerTypeTrgmSimilarity, searchScore }
+  delete:   { id }
+```
+
+### MODEL: habitLog
+
+Access: `db.habitLog`
+
+```
+METHODS:
+  db.habitLog.findMany({ select, where?, orderBy?, first?, offset? })
+  db.habitLog.findOne({ id, select })
+  db.habitLog.create({ data: { entityId, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags, activityTypeTrgmSimilarity, distanceUnitTrgmSimilarity, weightUnitTrgmSimilarity, notesTrgmSimilarity, searchScore }, select })
+  db.habitLog.update({ where: { id }, data, select })
+  db.habitLog.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  habitId: string
+  completedAt: string
+  activityType: string
+  durationMinutes: string
+  distance: string
+  distanceUnit: string
+  reps: number
+  sets: number
+  weightAmount: string
+  weightUnit: string
+  calories: string
+  data: unknown
+  notes: string
+  tags: string[]
+  activityTypeTrgmSimilarity: number
+  distanceUnitTrgmSimilarity: number
+  weightUnitTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  habitId: string
+  completedAt: string
+  activityType: string
+  durationMinutes: string
+  distance: string
+  distanceUnit: string
+  reps: number
+  sets: number
+  weightAmount: string
+  weightUnit: string
+  calories: string
+  data: unknown
+  notes: string
+  tags: string[]
+  activityTypeTrgmSimilarity: number
+  distanceUnitTrgmSimilarity: number
+  weightUnitTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags, activityTypeTrgmSimilarity, distanceUnitTrgmSimilarity, weightUnitTrgmSimilarity, notesTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags, activityTypeTrgmSimilarity, distanceUnitTrgmSimilarity, weightUnitTrgmSimilarity, notesTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags, activityTypeTrgmSimilarity, distanceUnitTrgmSimilarity, weightUnitTrgmSimilarity, notesTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, habitId, completedAt, activityType, durationMinutes, distance, distanceUnit, reps, sets, weightAmount, weightUnit, calories, data, notes, tags, activityTypeTrgmSimilarity, distanceUnitTrgmSimilarity, weightUnitTrgmSimilarity, notesTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -2152,7 +2375,7 @@ Access: `db.expense`
 METHODS:
   db.expense.findMany({ select, where?, orderBy?, first?, offset? })
   db.expense.findOne({ id, select })
-  db.expense.create({ data: { entityId, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags }, select })
+  db.expense.create({ data: { entityId, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags, currencyTrgmSimilarity, categoryTrgmSimilarity, descriptionTrgmSimilarity, merchantTrgmSimilarity, receiptUrlTrgmSimilarity, searchScore }, select })
   db.expense.update({ where: { id }, data, select })
   db.expense.delete({ where: { id } })
 
@@ -2170,6 +2393,12 @@ FIELDS:
   receiptUrl: string
   isRecurring: boolean
   tags: string[]
+  currencyTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  merchantTrgmSimilarity: number
+  receiptUrlTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2182,12 +2411,18 @@ EDITABLE FIELDS:
   receiptUrl: string
   isRecurring: boolean
   tags: string[]
+  currencyTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  merchantTrgmSimilarity: number
+  receiptUrlTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags }]
-  findOne:  { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags }
-  create:   { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags }
-  update:   { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags }
+  findMany: [{ id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags, currencyTrgmSimilarity, categoryTrgmSimilarity, descriptionTrgmSimilarity, merchantTrgmSimilarity, receiptUrlTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags, currencyTrgmSimilarity, categoryTrgmSimilarity, descriptionTrgmSimilarity, merchantTrgmSimilarity, receiptUrlTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags, currencyTrgmSimilarity, categoryTrgmSimilarity, descriptionTrgmSimilarity, merchantTrgmSimilarity, receiptUrlTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, amount, currency, date, category, description, merchant, receiptUrl, isRecurring, tags, currencyTrgmSimilarity, categoryTrgmSimilarity, descriptionTrgmSimilarity, merchantTrgmSimilarity, receiptUrlTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -2199,7 +2434,7 @@ Access: `db.billingSubscription`
 METHODS:
   db.billingSubscription.findMany({ select, where?, orderBy?, first?, offset? })
   db.billingSubscription.findOne({ id, select })
-  db.billingSubscription.create({ data: { entityId, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes }, select })
+  db.billingSubscription.create({ data: { entityId, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes, nameTrgmSimilarity, currencyTrgmSimilarity, frequencyTrgmSimilarity, providerTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, searchScore }, select })
   db.billingSubscription.update({ where: { id }, data, select })
   db.billingSubscription.delete({ where: { id } })
 
@@ -2218,6 +2453,13 @@ FIELDS:
   status: string
   tags: string[]
   notes: string
+  nameTrgmSimilarity: number
+  currencyTrgmSimilarity: number
+  frequencyTrgmSimilarity: number
+  providerTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2231,12 +2473,19 @@ EDITABLE FIELDS:
   status: string
   tags: string[]
   notes: string
+  nameTrgmSimilarity: number
+  currencyTrgmSimilarity: number
+  frequencyTrgmSimilarity: number
+  providerTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes }
-  create:   { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes }
-  update:   { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes, nameTrgmSimilarity, currencyTrgmSimilarity, frequencyTrgmSimilarity, providerTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes, nameTrgmSimilarity, currencyTrgmSimilarity, frequencyTrgmSimilarity, providerTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes, nameTrgmSimilarity, currencyTrgmSimilarity, frequencyTrgmSimilarity, providerTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, amount, currency, frequency, provider, nextBillingDate, cancellationDate, status, tags, notes, nameTrgmSimilarity, currencyTrgmSimilarity, frequencyTrgmSimilarity, providerTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 
@@ -2248,7 +2497,7 @@ Access: `db.idea`
 METHODS:
   db.idea.findMany({ select, where?, orderBy?, first?, offset? })
   db.idea.findOne({ id, select })
-  db.idea.create({ data: { entityId, content, source, status, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.idea.create({ data: { entityId, content, source, status, tags, embeddingText, embedding, contentTrgmSimilarity, sourceTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.idea.update({ where: { id }, data, select })
   db.idea.delete({ where: { id } })
 
@@ -2263,7 +2512,12 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  contentTrgmSimilarity: number
+  sourceTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2273,13 +2527,18 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  contentTrgmSimilarity: number
+  sourceTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, contentTrgmSimilarity, sourceTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, contentTrgmSimilarity, sourceTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, contentTrgmSimilarity, sourceTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, content, source, status, tags, embeddingText, embedding, contentTrgmSimilarity, sourceTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2291,7 +2550,7 @@ Access: `db.list`
 METHODS:
   db.list.findMany({ select, where?, orderBy?, first?, offset? })
   db.list.findOne({ id, select })
-  db.list.create({ data: { entityId, name, description, type, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.list.create({ data: { entityId, name, description, type, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.list.update({ where: { id }, data, select })
   db.list.delete({ where: { id } })
 
@@ -2306,7 +2565,12 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2316,56 +2580,75 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, description, type, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
-### MODEL: note
+### MODEL: interaction
 
-Access: `db.note`
+Access: `db.interaction`
 
 ```
 METHODS:
-  db.note.findMany({ select, where?, orderBy?, first?, offset? })
-  db.note.findOne({ id, select })
-  db.note.create({ data: { entityId, content, notableType, notableId, tags, embeddingText, embedding, embeddingDistance }, select })
-  db.note.update({ where: { id }, data, select })
-  db.note.delete({ where: { id } })
+  db.interaction.findMany({ select, where?, orderBy?, first?, offset? })
+  db.interaction.findOne({ id, select })
+  db.interaction.create({ data: { entityId, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, typeTrgmSimilarity, summaryTrgmSimilarity, sentimentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
+  db.interaction.update({ where: { id }, data, select })
+  db.interaction.delete({ where: { id } })
 
 FIELDS:
   id: string (primary key)
   entityId: string
   createdAt: string
   updatedAt: string
-  content: string
-  notableType: string
-  notableId: string
+  contactId: string
+  type: string
+  occurredAt: string
+  summary: string
+  sentiment: string
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  typeTrgmSimilarity: number
+  summaryTrgmSimilarity: number
+  sentimentTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
-  content: string
-  notableType: string
-  notableId: string
+  contactId: string
+  type: string
+  occurredAt: string
+  summary: string
+  sentiment: string
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  typeTrgmSimilarity: number
+  summaryTrgmSimilarity: number
+  sentimentTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, content, notableType, notableId, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, content, notableType, notableId, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, content, notableType, notableId, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, content, notableType, notableId, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, typeTrgmSimilarity, summaryTrgmSimilarity, sentimentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, typeTrgmSimilarity, summaryTrgmSimilarity, sentimentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, typeTrgmSimilarity, summaryTrgmSimilarity, sentimentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, contactId, type, occurredAt, summary, sentiment, tags, embeddingText, embedding, typeTrgmSimilarity, summaryTrgmSimilarity, sentimentTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2377,7 +2660,7 @@ Access: `db.repository`
 METHODS:
   db.repository.findMany({ select, where?, orderBy?, first?, offset? })
   db.repository.findOne({ id, select })
-  db.repository.create({ data: { entityId, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.repository.create({ data: { entityId, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, nameTrgmSimilarity, urlTrgmSimilarity, descriptionTrgmSimilarity, defaultBranchTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.repository.update({ where: { id }, data, select })
   db.repository.delete({ where: { id } })
 
@@ -2394,7 +2677,13 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  defaultBranchTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2406,13 +2695,19 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  defaultBranchTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, nameTrgmSimilarity, urlTrgmSimilarity, descriptionTrgmSimilarity, defaultBranchTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, nameTrgmSimilarity, urlTrgmSimilarity, descriptionTrgmSimilarity, defaultBranchTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, nameTrgmSimilarity, urlTrgmSimilarity, descriptionTrgmSimilarity, defaultBranchTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, url, description, defaultBranch, lastSyncedAt, tags, embeddingText, embedding, nameTrgmSimilarity, urlTrgmSimilarity, descriptionTrgmSimilarity, defaultBranchTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2424,7 +2719,7 @@ Access: `db.deal`
 METHODS:
   db.deal.findMany({ select, where?, orderBy?, first?, offset? })
   db.deal.findOne({ id, select })
-  db.deal.create({ data: { entityId, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.deal.create({ data: { entityId, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, nameTrgmSimilarity, stageTrgmSimilarity, currencyTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.deal.update({ where: { id }, data, select })
   db.deal.delete({ where: { id } })
 
@@ -2442,7 +2737,13 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  stageTrgmSimilarity: number
+  currencyTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2455,13 +2756,19 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  stageTrgmSimilarity: number
+  currencyTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, nameTrgmSimilarity, stageTrgmSimilarity, currencyTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, nameTrgmSimilarity, stageTrgmSimilarity, currencyTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, nameTrgmSimilarity, stageTrgmSimilarity, currencyTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, stage, value, currency, expectedCloseDate, notes, tags, embeddingText, embedding, nameTrgmSimilarity, stageTrgmSimilarity, currencyTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2473,7 +2780,7 @@ Access: `db.goal`
 METHODS:
   db.goal.findMany({ select, where?, orderBy?, first?, offset? })
   db.goal.findOne({ id, select })
-  db.goal.create({ data: { entityId, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.goal.create({ data: { entityId, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, categoryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.goal.update({ where: { id }, data, select })
   db.goal.delete({ where: { id } })
 
@@ -2491,7 +2798,13 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2504,13 +2817,82 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, categoryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, categoryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, categoryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, description, targetDate, status, category, progressPct, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, categoryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete:   { id }
+```
+
+### MODEL: note
+
+Access: `db.note`
+
+```
+METHODS:
+  db.note.findMany({ select, where?, orderBy?, first?, offset? })
+  db.note.findOne({ id, select })
+  db.note.create({ data: { entityId, content, notableType, notableId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, notableTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
+  db.note.update({ where: { id }, data, select })
+  db.note.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  content: string
+  notableType: string
+  notableId: string
+  abstract: string
+  overview: string
+  activeCount: number
+  lastAccessedAt: string
+  tags: string[]
+  embeddingText: string
+  embedding: number[]
+  contentTrgmSimilarity: number
+  notableTypeTrgmSimilarity: number
+  abstractTrgmSimilarity: number
+  overviewTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  content: string
+  notableType: string
+  notableId: string
+  abstract: string
+  overview: string
+  activeCount: number
+  lastAccessedAt: string
+  tags: string[]
+  embeddingText: string
+  embedding: number[]
+  contentTrgmSimilarity: number
+  notableTypeTrgmSimilarity: number
+  abstractTrgmSimilarity: number
+  overviewTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, content, notableType, notableId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, notableTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, content, notableType, notableId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, notableTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, content, notableType, notableId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, notableTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, content, notableType, notableId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, notableTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2522,7 +2904,7 @@ Access: `db.prompt`
 METHODS:
   db.prompt.findMany({ select, where?, orderBy?, first?, offset? })
   db.prompt.findOne({ id, select })
-  db.prompt.create({ data: { entityId, name, content, type, model, version, isActive, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.prompt.create({ data: { entityId, name, content, type, model, version, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, contentTrgmSimilarity, typeTrgmSimilarity, modelTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.prompt.update({ where: { id }, data, select })
   db.prompt.delete({ where: { id } })
 
@@ -2540,7 +2922,13 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  contentTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  modelTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2553,13 +2941,19 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  contentTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  modelTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, contentTrgmSimilarity, typeTrgmSimilarity, modelTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, contentTrgmSimilarity, typeTrgmSimilarity, modelTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, contentTrgmSimilarity, typeTrgmSimilarity, modelTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, content, type, model, version, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, contentTrgmSimilarity, typeTrgmSimilarity, modelTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2571,7 +2965,7 @@ Access: `db.blueprint`
 METHODS:
   db.blueprint.findMany({ select, where?, orderBy?, first?, offset? })
   db.blueprint.findOne({ id, select })
-  db.blueprint.create({ data: { entityId, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.blueprint.create({ data: { entityId, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, titleTrgmSimilarity, triggerConditionsTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.blueprint.update({ where: { id }, data, select })
   db.blueprint.delete({ where: { id } })
 
@@ -2587,7 +2981,11 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  triggerConditionsTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2598,13 +2996,17 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  triggerConditionsTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, titleTrgmSimilarity, triggerConditionsTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, titleTrgmSimilarity, triggerConditionsTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, titleTrgmSimilarity, triggerConditionsTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, steps, triggerConditions, conversationId, tags, embeddingText, embedding, titleTrgmSimilarity, triggerConditionsTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2616,7 +3018,7 @@ Access: `db.template`
 METHODS:
   db.template.findMany({ select, where?, orderBy?, first?, offset? })
   db.template.findOne({ id, select })
-  db.template.create({ data: { entityId, name, description, type, content, variables, isActive, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.template.create({ data: { entityId, name, description, type, content, variables, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.template.update({ where: { id }, data, select })
   db.template.delete({ where: { id } })
 
@@ -2634,7 +3036,12 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2647,13 +3054,18 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, description, type, content, variables, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2665,7 +3077,7 @@ Access: `db.tool`
 METHODS:
   db.tool.findMany({ select, where?, orderBy?, first?, offset? })
   db.tool.findOne({ id, select })
-  db.tool.create({ data: { entityId, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.tool.create({ data: { entityId, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, endpointTrgmSimilarity, authMethodTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.tool.update({ where: { id }, data, select })
   db.tool.delete({ where: { id } })
 
@@ -2685,7 +3097,14 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  endpointTrgmSimilarity: number
+  authMethodTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2700,66 +3119,20 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  typeTrgmSimilarity: number
+  endpointTrgmSimilarity: number
+  authMethodTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, embeddingDistance }
-  delete:   { id }
-```
-
-### MODEL: memory
-
-Access: `db.memory`
-
-```
-METHODS:
-  db.memory.findMany({ select, where?, orderBy?, first?, offset? })
-  db.memory.findOne({ id, select })
-  db.memory.create({ data: { entityId, content, memoryType, agentId, importance, verified, source, relatedEntityType, relatedEntityId, tags, embeddingText, embedding, embeddingDistance }, select })
-  db.memory.update({ where: { id }, data, select })
-  db.memory.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  content: string
-  memoryType: string
-  agentId: string
-  importance: number
-  verified: boolean
-  source: string
-  relatedEntityType: string
-  relatedEntityId: string
-  tags: string[]
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
-
-EDITABLE FIELDS:
-  entityId: string
-  content: string
-  memoryType: string
-  agentId: string
-  importance: number
-  verified: boolean
-  source: string
-  relatedEntityType: string
-  relatedEntityId: string
-  tags: string[]
-  embeddingText: string
-  embedding: number[]
-  embeddingDistance: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, content, memoryType, agentId, importance, verified, source, relatedEntityType, relatedEntityId, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, content, memoryType, agentId, importance, verified, source, relatedEntityType, relatedEntityId, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, content, memoryType, agentId, importance, verified, source, relatedEntityType, relatedEntityId, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, content, memoryType, agentId, importance, verified, source, relatedEntityType, relatedEntityId, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, endpointTrgmSimilarity, authMethodTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, endpointTrgmSimilarity, authMethodTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, endpointTrgmSimilarity, authMethodTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, description, type, inputSchema, outputSchema, endpoint, authMethod, isActive, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, typeTrgmSimilarity, endpointTrgmSimilarity, authMethodTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2771,7 +3144,7 @@ Access: `db.recipe`
 METHODS:
   db.recipe.findMany({ select, where?, orderBy?, first?, offset? })
   db.recipe.findOne({ id, select })
-  db.recipe.create({ data: { entityId, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.recipe.create({ data: { entityId, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, cuisineTrgmSimilarity, difficultyTrgmSimilarity, sourceUrlTrgmSimilarity, imageUrlTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.recipe.update({ where: { id }, data, select })
   db.recipe.delete({ where: { id } })
 
@@ -2794,7 +3167,15 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  cuisineTrgmSimilarity: number
+  difficultyTrgmSimilarity: number
+  sourceUrlTrgmSimilarity: number
+  imageUrlTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2812,13 +3193,21 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  cuisineTrgmSimilarity: number
+  difficultyTrgmSimilarity: number
+  sourceUrlTrgmSimilarity: number
+  imageUrlTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, cuisineTrgmSimilarity, difficultyTrgmSimilarity, sourceUrlTrgmSimilarity, imageUrlTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, cuisineTrgmSimilarity, difficultyTrgmSimilarity, sourceUrlTrgmSimilarity, imageUrlTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, cuisineTrgmSimilarity, difficultyTrgmSimilarity, sourceUrlTrgmSimilarity, imageUrlTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, description, cuisine, prepTimeMinutes, cookTimeMinutes, servings, difficulty, ingredients, instructions, sourceUrl, imageUrl, tags, embeddingText, embedding, nameTrgmSimilarity, descriptionTrgmSimilarity, cuisineTrgmSimilarity, difficultyTrgmSimilarity, sourceUrlTrgmSimilarity, imageUrlTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2830,7 +3219,7 @@ Access: `db.trip`
 METHODS:
   db.trip.findMany({ select, where?, orderBy?, first?, offset? })
   db.trip.findOne({ id, select })
-  db.trip.create({ data: { entityId, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, embeddingDistance }, select })
+  db.trip.create({ data: { entityId, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, nameTrgmSimilarity, destinationTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.trip.update({ where: { id }, data, select })
   db.trip.delete({ where: { id } })
 
@@ -2848,7 +3237,13 @@ FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  destinationTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2861,13 +3256,240 @@ EDITABLE FIELDS:
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  destinationTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, nameTrgmSimilarity, destinationTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, nameTrgmSimilarity, destinationTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, nameTrgmSimilarity, destinationTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, destination, startDate, endDate, status, notes, tags, embeddingText, embedding, nameTrgmSimilarity, destinationTrgmSimilarity, statusTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete:   { id }
+```
+
+### MODEL: calendarEvent
+
+Access: `db.calendarEvent`
+
+```
+METHODS:
+  db.calendarEvent.findMany({ select, where?, orderBy?, first?, offset? })
+  db.calendarEvent.findOne({ id, select })
+  db.calendarEvent.create({ data: { entityId, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, remoteIdTrgmSimilarity, titleTrgmSimilarity, descriptionTrgmSimilarity, locationTrgmSimilarity, recurrenceRuleTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
+  db.calendarEvent.update({ where: { id }, data, select })
+  db.calendarEvent.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  calendarAccountId: string
+  remoteId: string
+  title: string
+  description: string
+  startAt: string
+  endAt: string
+  allDay: boolean
+  location: string
+  recurrenceRule: string
+  status: string
+  tags: string[]
+  embeddingText: string
+  embedding: number[]
+  remoteIdTrgmSimilarity: number
+  titleTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  locationTrgmSimilarity: number
+  recurrenceRuleTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  calendarAccountId: string
+  remoteId: string
+  title: string
+  description: string
+  startAt: string
+  endAt: string
+  allDay: boolean
+  location: string
+  recurrenceRule: string
+  status: string
+  tags: string[]
+  embeddingText: string
+  embedding: number[]
+  remoteIdTrgmSimilarity: number
+  titleTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  locationTrgmSimilarity: number
+  recurrenceRuleTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, remoteIdTrgmSimilarity, titleTrgmSimilarity, descriptionTrgmSimilarity, locationTrgmSimilarity, recurrenceRuleTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, remoteIdTrgmSimilarity, titleTrgmSimilarity, descriptionTrgmSimilarity, locationTrgmSimilarity, recurrenceRuleTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, remoteIdTrgmSimilarity, titleTrgmSimilarity, descriptionTrgmSimilarity, locationTrgmSimilarity, recurrenceRuleTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, calendarAccountId, remoteId, title, description, startAt, endAt, allDay, location, recurrenceRule, status, tags, embeddingText, embedding, remoteIdTrgmSimilarity, titleTrgmSimilarity, descriptionTrgmSimilarity, locationTrgmSimilarity, recurrenceRuleTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete:   { id }
+```
+
+### MODEL: message
+
+Access: `db.message`
+
+```
+METHODS:
+  db.message.findMany({ select, where?, orderBy?, first?, offset? })
+  db.message.findOne({ id, select })
+  db.message.create({ data: { entityId, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, threadIdTrgmSimilarity, remoteIdTrgmSimilarity, fromAddressTrgmSimilarity, subjectTrgmSimilarity, bodyTextTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
+  db.message.update({ where: { id }, data, select })
+  db.message.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  emailAccountId: string
+  threadId: string
+  remoteId: string
+  fromAddress: string
+  toAddresses: string[]
+  subject: string
+  bodyText: string
+  receivedAt: string
+  tags: string[]
+  embeddingText: string
+  embedding: number[]
+  threadIdTrgmSimilarity: number
+  remoteIdTrgmSimilarity: number
+  fromAddressTrgmSimilarity: number
+  subjectTrgmSimilarity: number
+  bodyTextTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  emailAccountId: string
+  threadId: string
+  remoteId: string
+  fromAddress: string
+  toAddresses: string[]
+  subject: string
+  bodyText: string
+  receivedAt: string
+  tags: string[]
+  embeddingText: string
+  embedding: number[]
+  threadIdTrgmSimilarity: number
+  remoteIdTrgmSimilarity: number
+  fromAddressTrgmSimilarity: number
+  subjectTrgmSimilarity: number
+  bodyTextTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, threadIdTrgmSimilarity, remoteIdTrgmSimilarity, fromAddressTrgmSimilarity, subjectTrgmSimilarity, bodyTextTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, threadIdTrgmSimilarity, remoteIdTrgmSimilarity, fromAddressTrgmSimilarity, subjectTrgmSimilarity, bodyTextTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, threadIdTrgmSimilarity, remoteIdTrgmSimilarity, fromAddressTrgmSimilarity, subjectTrgmSimilarity, bodyTextTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, emailAccountId, threadId, remoteId, fromAddress, toAddresses, subject, bodyText, receivedAt, tags, embeddingText, embedding, threadIdTrgmSimilarity, remoteIdTrgmSimilarity, fromAddressTrgmSimilarity, subjectTrgmSimilarity, bodyTextTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete:   { id }
+```
+
+### MODEL: memory
+
+Access: `db.memory`
+
+```
+METHODS:
+  db.memory.findMany({ select, where?, orderBy?, first?, offset? })
+  db.memory.findOne({ id, select })
+  db.memory.create({ data: { entityId, content, memoryType, memoryCategory, agentId, importance, verified, source, relatedEntityType, relatedEntityId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, memoryTypeTrgmSimilarity, memoryCategoryTrgmSimilarity, sourceTrgmSimilarity, relatedEntityTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
+  db.memory.update({ where: { id }, data, select })
+  db.memory.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  content: string
+  memoryType: string
+  memoryCategory: string
+  agentId: string
+  importance: number
+  verified: boolean
+  source: string
+  relatedEntityType: string
+  relatedEntityId: string
+  abstract: string
+  overview: string
+  activeCount: number
+  lastAccessedAt: string
+  tags: string[]
+  embeddingText: string
+  embedding: number[]
+  contentTrgmSimilarity: number
+  memoryTypeTrgmSimilarity: number
+  memoryCategoryTrgmSimilarity: number
+  sourceTrgmSimilarity: number
+  relatedEntityTypeTrgmSimilarity: number
+  abstractTrgmSimilarity: number
+  overviewTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  content: string
+  memoryType: string
+  memoryCategory: string
+  agentId: string
+  importance: number
+  verified: boolean
+  source: string
+  relatedEntityType: string
+  relatedEntityId: string
+  abstract: string
+  overview: string
+  activeCount: number
+  lastAccessedAt: string
+  tags: string[]
+  embeddingText: string
+  embedding: number[]
+  contentTrgmSimilarity: number
+  memoryTypeTrgmSimilarity: number
+  memoryCategoryTrgmSimilarity: number
+  sourceTrgmSimilarity: number
+  relatedEntityTypeTrgmSimilarity: number
+  abstractTrgmSimilarity: number
+  overviewTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, content, memoryType, memoryCategory, agentId, importance, verified, source, relatedEntityType, relatedEntityId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, memoryTypeTrgmSimilarity, memoryCategoryTrgmSimilarity, sourceTrgmSimilarity, relatedEntityTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, content, memoryType, memoryCategory, agentId, importance, verified, source, relatedEntityType, relatedEntityId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, memoryTypeTrgmSimilarity, memoryCategoryTrgmSimilarity, sourceTrgmSimilarity, relatedEntityTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, content, memoryType, memoryCategory, agentId, importance, verified, source, relatedEntityType, relatedEntityId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, memoryTypeTrgmSimilarity, memoryCategoryTrgmSimilarity, sourceTrgmSimilarity, relatedEntityTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, content, memoryType, memoryCategory, agentId, importance, verified, source, relatedEntityType, relatedEntityId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, contentTrgmSimilarity, memoryTypeTrgmSimilarity, memoryCategoryTrgmSimilarity, sourceTrgmSimilarity, relatedEntityTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2879,7 +3501,7 @@ Access: `db.rule`
 METHODS:
   db.rule.findMany({ select, where?, orderBy?, first?, offset? })
   db.rule.findOne({ id, select })
-  db.rule.create({ data: { entityId, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, embeddingDistance, triggerConceptDistance }, select })
+  db.rule.create({ data: { entityId, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, titleTrgmSimilarity, contentTrgmSimilarity, kindTrgmSimilarity, severityTrgmSimilarity, slugTrgmSimilarity, verificationTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, triggerConceptVectorDistance, searchScore }, select })
   db.rule.update({ where: { id }, data, select })
   db.rule.delete({ where: { id } })
 
@@ -2899,8 +3521,16 @@ FIELDS:
   embeddingText: string
   embedding: number[]
   triggerConcept: number[]
-  embeddingDistance: number
-  triggerConceptDistance: number
+  titleTrgmSimilarity: number
+  contentTrgmSimilarity: number
+  kindTrgmSimilarity: number
+  severityTrgmSimilarity: number
+  slugTrgmSimilarity: number
+  verificationTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  triggerConceptVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -2915,77 +3545,95 @@ EDITABLE FIELDS:
   embeddingText: string
   embedding: number[]
   triggerConcept: number[]
-  embeddingDistance: number
-  triggerConceptDistance: number
+  titleTrgmSimilarity: number
+  contentTrgmSimilarity: number
+  kindTrgmSimilarity: number
+  severityTrgmSimilarity: number
+  slugTrgmSimilarity: number
+  verificationTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  triggerConceptVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, embeddingDistance, triggerConceptDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, embeddingDistance, triggerConceptDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, embeddingDistance, triggerConceptDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, embeddingDistance, triggerConceptDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, titleTrgmSimilarity, contentTrgmSimilarity, kindTrgmSimilarity, severityTrgmSimilarity, slugTrgmSimilarity, verificationTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, triggerConceptVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, titleTrgmSimilarity, contentTrgmSimilarity, kindTrgmSimilarity, severityTrgmSimilarity, slugTrgmSimilarity, verificationTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, triggerConceptVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, titleTrgmSimilarity, contentTrgmSimilarity, kindTrgmSimilarity, severityTrgmSimilarity, slugTrgmSimilarity, verificationTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, triggerConceptVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, content, kind, severity, isActive, slug, verification, tags, embeddingText, embedding, triggerConcept, titleTrgmSimilarity, contentTrgmSimilarity, kindTrgmSimilarity, severityTrgmSimilarity, slugTrgmSimilarity, verificationTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, triggerConceptVectorDistance, searchScore }
   delete:   { id }
 ```
 
-### MODEL: skill
+### MODEL: task
 
-Access: `db.skill`
+Access: `db.task`
 
 ```
 METHODS:
-  db.skill.findMany({ select, where?, orderBy?, first?, offset? })
-  db.skill.findOne({ id, select })
-  db.skill.create({ data: { entityId, name, slug, description, content, procedure, interface, requirements, filePath, contentHash, category, isActive, tags, embeddingText, embedding, intentTrigger, embeddingDistance, intentTriggerDistance }, select })
-  db.skill.update({ where: { id }, data, select })
-  db.skill.delete({ where: { id } })
+  db.task.findMany({ select, where?, orderBy?, first?, offset? })
+  db.task.findOne({ id, select })
+  db.task.create({ data: { entityId, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, taskTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
+  db.task.update({ where: { id }, data, select })
+  db.task.delete({ where: { id } })
 
 FIELDS:
   id: string (primary key)
   entityId: string
   createdAt: string
   updatedAt: string
-  name: string
-  slug: string
+  title: string
   description: string
-  content: string
-  procedure: string
-  interface: unknown
-  requirements: unknown
-  filePath: string
-  contentHash: string
-  category: string
-  isActive: boolean
+  status: string
+  priority: number
+  projectId: string
+  taskType: string
+  assignedAgentId: string
+  parentTaskId: string
+  dueDate: string
+  completedAt: string
+  conversationId: string
+  dependencies: string[]
   tags: string[]
   embeddingText: string
   embedding: number[]
-  intentTrigger: number[]
-  embeddingDistance: number
-  intentTriggerDistance: number
+  titleTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  taskTypeTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
-  name: string
-  slug: string
+  title: string
   description: string
-  content: string
-  procedure: string
-  interface: unknown
-  requirements: unknown
-  filePath: string
-  contentHash: string
-  category: string
-  isActive: boolean
+  status: string
+  priority: number
+  projectId: string
+  taskType: string
+  assignedAgentId: string
+  parentTaskId: string
+  dueDate: string
+  completedAt: string
+  conversationId: string
+  dependencies: string[]
   tags: string[]
   embeddingText: string
   embedding: number[]
-  intentTrigger: number[]
-  embeddingDistance: number
-  intentTriggerDistance: number
+  titleTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  taskTypeTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, filePath, contentHash, category, isActive, tags, embeddingText, embedding, intentTrigger, embeddingDistance, intentTriggerDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, filePath, contentHash, category, isActive, tags, embeddingText, embedding, intentTrigger, embeddingDistance, intentTriggerDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, filePath, contentHash, category, isActive, tags, embeddingText, embedding, intentTrigger, embeddingDistance, intentTriggerDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, filePath, contentHash, category, isActive, tags, embeddingText, embedding, intentTrigger, embeddingDistance, intentTriggerDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, taskTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, taskTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, taskTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, titleTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, taskTypeTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -2997,7 +3645,7 @@ Access: `db.agent`
 METHODS:
   db.agent.findMany({ select, where?, orderBy?, first?, offset? })
   db.agent.findOne({ id, select })
-  db.agent.create({ data: { entityId, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingDistance }, select })
+  db.agent.create({ data: { entityId, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.agent.update({ where: { id }, data, select })
   db.agent.delete({ where: { id } })
 
@@ -3023,7 +3671,19 @@ FIELDS:
   lastActiveAt: string
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  roleTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  personaTrgmSimilarity: number
+  backstoryTrgmSimilarity: number
+  communicationStyleTrgmSimilarity: number
+  systemPromptTrgmSimilarity: number
+  preferredModelTrgmSimilarity: number
+  moodTrgmSimilarity: number
+  focusTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -3044,27 +3704,39 @@ EDITABLE FIELDS:
   lastActiveAt: string
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  roleTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  personaTrgmSimilarity: number
+  backstoryTrgmSimilarity: number
+  communicationStyleTrgmSimilarity: number
+  systemPromptTrgmSimilarity: number
+  preferredModelTrgmSimilarity: number
+  moodTrgmSimilarity: number
+  focusTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
-### MODEL: task
+### MODEL: session
 
-Access: `db.task`
+Access: `db.session`
 
 ```
 METHODS:
-  db.task.findMany({ select, where?, orderBy?, first?, offset? })
-  db.task.findOne({ id, select })
-  db.task.create({ data: { entityId, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, embeddingDistance }, select })
-  db.task.update({ where: { id }, data, select })
-  db.task.delete({ where: { id } })
+  db.session.findMany({ select, where?, orderBy?, first?, offset? })
+  db.session.findOne({ id, select })
+  db.session.create({ data: { entityId, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }, select })
+  db.session.update({ where: { id }, data, select })
+  db.session.delete({ where: { id } })
 
 FIELDS:
   id: string (primary key)
@@ -3072,46 +3744,151 @@ FIELDS:
   createdAt: string
   updatedAt: string
   title: string
-  description: string
+  agentId: string
+  startedAt: string
+  endedAt: string
   status: string
-  priority: number
-  projectId: string
-  taskType: string
-  assignedAgentId: string
-  parentTaskId: string
-  dueDate: string
-  completedAt: string
-  conversationId: string
-  dependencies: string[]
-  tags: string[]
+  contextSummary: string
+  sessionSummary: string
+  archivedMessages: unknown
+  compressionCount: number
+  archivedAt: string
+  extractedMemoryIds: string[]
+  contextsUsed: unknown
+  skillsUsed: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  uagentTrgmSimilarity: number
+  fingerprintModeTrgmSimilarity: number
+  csrfSecretTrgmSimilarity: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
   title: string
-  description: string
+  agentId: string
+  startedAt: string
+  endedAt: string
   status: string
-  priority: number
-  projectId: string
-  taskType: string
-  assignedAgentId: string
-  parentTaskId: string
-  dueDate: string
-  completedAt: string
-  conversationId: string
-  dependencies: string[]
+  contextSummary: string
+  sessionSummary: string
+  archivedMessages: unknown
+  compressionCount: number
+  archivedAt: string
+  extractedMemoryIds: string[]
+  contextsUsed: unknown
+  skillsUsed: string[]
+  embeddingText: string
+  embedding: number[]
+  uagentTrgmSimilarity: number
+  fingerprintModeTrgmSimilarity: number
+  csrfSecretTrgmSimilarity: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  delete:   { id }
+```
+
+### MODEL: skill
+
+Access: `db.skill`
+
+```
+METHODS:
+  db.skill.findMany({ select, where?, orderBy?, first?, offset? })
+  db.skill.findOne({ id, select })
+  db.skill.create({ data: { entityId, name, slug, description, content, procedure, interface, requirements, prerequisites, alwaysLoad, filePath, contentHash, category, isActive, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, intentTrigger, nameTrgmSimilarity, slugTrgmSimilarity, descriptionTrgmSimilarity, contentTrgmSimilarity, procedureTrgmSimilarity, filePathTrgmSimilarity, contentHashTrgmSimilarity, categoryTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, intentTriggerVectorDistance, searchScore }, select })
+  db.skill.update({ where: { id }, data, select })
+  db.skill.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  name: string
+  slug: string
+  description: string
+  content: string
+  procedure: string
+  interface: unknown
+  requirements: unknown
+  prerequisites: unknown
+  alwaysLoad: boolean
+  filePath: string
+  contentHash: string
+  category: string
+  isActive: boolean
+  abstract: string
+  overview: string
+  activeCount: number
+  lastAccessedAt: string
   tags: string[]
   embeddingText: string
   embedding: number[]
-  embeddingDistance: number
+  intentTrigger: number[]
+  nameTrgmSimilarity: number
+  slugTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  contentTrgmSimilarity: number
+  procedureTrgmSimilarity: number
+  filePathTrgmSimilarity: number
+  contentHashTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  abstractTrgmSimilarity: number
+  overviewTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  intentTriggerVectorDistance: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  name: string
+  slug: string
+  description: string
+  content: string
+  procedure: string
+  interface: unknown
+  requirements: unknown
+  prerequisites: unknown
+  alwaysLoad: boolean
+  filePath: string
+  contentHash: string
+  category: string
+  isActive: boolean
+  abstract: string
+  overview: string
+  activeCount: number
+  lastAccessedAt: string
+  tags: string[]
+  embeddingText: string
+  embedding: number[]
+  intentTrigger: number[]
+  nameTrgmSimilarity: number
+  slugTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  contentTrgmSimilarity: number
+  procedureTrgmSimilarity: number
+  filePathTrgmSimilarity: number
+  contentHashTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  abstractTrgmSimilarity: number
+  overviewTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  intentTriggerVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, description, status, priority, projectId, taskType, assignedAgentId, parentTaskId, dueDate, completedAt, conversationId, dependencies, tags, embeddingText, embedding, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, prerequisites, alwaysLoad, filePath, contentHash, category, isActive, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, intentTrigger, nameTrgmSimilarity, slugTrgmSimilarity, descriptionTrgmSimilarity, contentTrgmSimilarity, procedureTrgmSimilarity, filePathTrgmSimilarity, contentHashTrgmSimilarity, categoryTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, intentTriggerVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, prerequisites, alwaysLoad, filePath, contentHash, category, isActive, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, intentTrigger, nameTrgmSimilarity, slugTrgmSimilarity, descriptionTrgmSimilarity, contentTrgmSimilarity, procedureTrgmSimilarity, filePathTrgmSimilarity, contentHashTrgmSimilarity, categoryTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, intentTriggerVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, prerequisites, alwaysLoad, filePath, contentHash, category, isActive, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, intentTrigger, nameTrgmSimilarity, slugTrgmSimilarity, descriptionTrgmSimilarity, contentTrgmSimilarity, procedureTrgmSimilarity, filePathTrgmSimilarity, contentHashTrgmSimilarity, categoryTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, intentTriggerVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, slug, description, content, procedure, interface, requirements, prerequisites, alwaysLoad, filePath, contentHash, category, isActive, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, intentTrigger, nameTrgmSimilarity, slugTrgmSimilarity, descriptionTrgmSimilarity, contentTrgmSimilarity, procedureTrgmSimilarity, filePathTrgmSimilarity, contentHashTrgmSimilarity, categoryTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, intentTriggerVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -3123,7 +3900,7 @@ Access: `db.project`
 METHODS:
   db.project.findMany({ select, where?, orderBy?, first?, offset? })
   db.project.findOne({ id, select })
-  db.project.create({ data: { entityId, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }, select })
+  db.project.create({ data: { entityId, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, nameTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.project.update({ where: { id }, data, select })
   db.project.delete({ where: { id } })
 
@@ -3142,7 +3919,12 @@ FIELDS:
   embedding: number[]
   searchTsv: string
   searchTsvRank: number
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -3156,13 +3938,18 @@ EDITABLE FIELDS:
   embedding: number[]
   searchTsv: string
   searchTsvRank: number
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, nameTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, nameTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, nameTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, description, status, startDate, dueDate, tags, embeddingText, embedding, searchTsv, searchTsvRank, nameTrgmSimilarity, descriptionTrgmSimilarity, statusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -3174,7 +3961,7 @@ Access: `db.document`
 METHODS:
   db.document.findMany({ select, where?, orderBy?, first?, offset? })
   db.document.findOne({ id, select })
-  db.document.create({ data: { entityId, title, url, content, sourceType, isRead, savedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }, select })
+  db.document.create({ data: { entityId, title, url, content, sourceType, isRead, savedAt, parentDocumentId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, titleTrgmSimilarity, urlTrgmSimilarity, contentTrgmSimilarity, sourceTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.document.update({ where: { id }, data, select })
   db.document.delete({ where: { id } })
 
@@ -3189,12 +3976,25 @@ FIELDS:
   sourceType: string
   isRead: boolean
   savedAt: string
+  parentDocumentId: string
+  abstract: string
+  overview: string
+  activeCount: number
+  lastAccessedAt: string
   tags: string[]
   embeddingText: string
   embedding: number[]
   searchTsv: string
   searchTsvRank: number
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  contentTrgmSimilarity: number
+  sourceTypeTrgmSimilarity: number
+  abstractTrgmSimilarity: number
+  overviewTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -3204,18 +4004,31 @@ EDITABLE FIELDS:
   sourceType: string
   isRead: boolean
   savedAt: string
+  parentDocumentId: string
+  abstract: string
+  overview: string
+  activeCount: number
+  lastAccessedAt: string
   tags: string[]
   embeddingText: string
   embedding: number[]
   searchTsv: string
   searchTsvRank: number
-  embeddingDistance: number
+  titleTrgmSimilarity: number
+  urlTrgmSimilarity: number
+  contentTrgmSimilarity: number
+  sourceTypeTrgmSimilarity: number
+  abstractTrgmSimilarity: number
+  overviewTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, parentDocumentId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, titleTrgmSimilarity, urlTrgmSimilarity, contentTrgmSimilarity, sourceTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, parentDocumentId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, titleTrgmSimilarity, urlTrgmSimilarity, contentTrgmSimilarity, sourceTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, parentDocumentId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, titleTrgmSimilarity, urlTrgmSimilarity, contentTrgmSimilarity, sourceTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, url, content, sourceType, isRead, savedAt, parentDocumentId, abstract, overview, activeCount, lastAccessedAt, tags, embeddingText, embedding, searchTsv, searchTsvRank, titleTrgmSimilarity, urlTrgmSimilarity, contentTrgmSimilarity, sourceTypeTrgmSimilarity, abstractTrgmSimilarity, overviewTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -3227,7 +4040,7 @@ Access: `db.company`
 METHODS:
   db.company.findMany({ select, where?, orderBy?, first?, offset? })
   db.company.findOne({ id, select })
-  db.company.create({ data: { entityId, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }, select })
+  db.company.create({ data: { entityId, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, domainTrgmSimilarity, industryTrgmSimilarity, descriptionTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.company.update({ where: { id }, data, select })
   db.company.delete({ where: { id } })
 
@@ -3246,7 +4059,13 @@ FIELDS:
   searchTsv: string
   mainImageId: string
   searchTsvRank: number
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  domainTrgmSimilarity: number
+  industryTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -3260,13 +4079,19 @@ EDITABLE FIELDS:
   searchTsv: string
   mainImageId: string
   searchTsvRank: number
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  domainTrgmSimilarity: number
+  industryTrgmSimilarity: number
+  descriptionTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, domainTrgmSimilarity, industryTrgmSimilarity, descriptionTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, domainTrgmSimilarity, industryTrgmSimilarity, descriptionTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, domainTrgmSimilarity, industryTrgmSimilarity, descriptionTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, domain, industry, description, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, domainTrgmSimilarity, industryTrgmSimilarity, descriptionTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -3278,7 +4103,7 @@ Access: `db.event`
 METHODS:
   db.event.findMany({ select, where?, orderBy?, first?, offset? })
   db.event.findOne({ id, select })
-  db.event.create({ data: { entityId, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }, select })
+  db.event.create({ data: { entityId, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, eventTypeTrgmSimilarity, locationTrgmSimilarity, cityTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.event.update({ where: { id }, data, select })
   db.event.delete({ where: { id } })
 
@@ -3300,7 +4125,14 @@ FIELDS:
   searchTsv: string
   mainImageId: string
   searchTsvRank: number
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  eventTypeTrgmSimilarity: number
+  locationTrgmSimilarity: number
+  cityTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -3317,13 +4149,20 @@ EDITABLE FIELDS:
   searchTsv: string
   mainImageId: string
   searchTsvRank: number
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  eventTypeTrgmSimilarity: number
+  locationTrgmSimilarity: number
+  cityTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, eventTypeTrgmSimilarity, locationTrgmSimilarity, cityTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, eventTypeTrgmSimilarity, locationTrgmSimilarity, cityTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, eventTypeTrgmSimilarity, locationTrgmSimilarity, cityTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, eventType, location, city, startedAt, endedAt, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, eventTypeTrgmSimilarity, locationTrgmSimilarity, cityTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -3335,7 +4174,7 @@ Access: `db.contact`
 METHODS:
   db.contact.findMany({ select, where?, orderBy?, first?, offset? })
   db.contact.findOne({ id, select })
-  db.contact.create({ data: { entityId, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }, select })
+  db.contact.create({ data: { entityId, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, firstNameTrgmSimilarity, lastNameTrgmSimilarity, emailTrgmSimilarity, phoneTrgmSimilarity, headlineTrgmSimilarity, bioTrgmSimilarity, locationTrgmSimilarity, relationshipTypeTrgmSimilarity, howWeMetTrgmSimilarity, twitterHandleTrgmSimilarity, linkedinUrlTrgmSimilarity, githubUsernameTrgmSimilarity, instagramHandleTrgmSimilarity, websiteTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.contact.update({ where: { id }, data, select })
   db.contact.delete({ where: { id } })
 
@@ -3365,7 +4204,23 @@ FIELDS:
   searchTsv: string
   mainImageId: string
   searchTsvRank: number
-  embeddingDistance: number
+  firstNameTrgmSimilarity: number
+  lastNameTrgmSimilarity: number
+  emailTrgmSimilarity: number
+  phoneTrgmSimilarity: number
+  headlineTrgmSimilarity: number
+  bioTrgmSimilarity: number
+  locationTrgmSimilarity: number
+  relationshipTypeTrgmSimilarity: number
+  howWeMetTrgmSimilarity: number
+  twitterHandleTrgmSimilarity: number
+  linkedinUrlTrgmSimilarity: number
+  githubUsernameTrgmSimilarity: number
+  instagramHandleTrgmSimilarity: number
+  websiteTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -3390,13 +4245,29 @@ EDITABLE FIELDS:
   searchTsv: string
   mainImageId: string
   searchTsvRank: number
-  embeddingDistance: number
+  firstNameTrgmSimilarity: number
+  lastNameTrgmSimilarity: number
+  emailTrgmSimilarity: number
+  phoneTrgmSimilarity: number
+  headlineTrgmSimilarity: number
+  bioTrgmSimilarity: number
+  locationTrgmSimilarity: number
+  relationshipTypeTrgmSimilarity: number
+  howWeMetTrgmSimilarity: number
+  twitterHandleTrgmSimilarity: number
+  linkedinUrlTrgmSimilarity: number
+  githubUsernameTrgmSimilarity: number
+  instagramHandleTrgmSimilarity: number
+  websiteTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, firstNameTrgmSimilarity, lastNameTrgmSimilarity, emailTrgmSimilarity, phoneTrgmSimilarity, headlineTrgmSimilarity, bioTrgmSimilarity, locationTrgmSimilarity, relationshipTypeTrgmSimilarity, howWeMetTrgmSimilarity, twitterHandleTrgmSimilarity, linkedinUrlTrgmSimilarity, githubUsernameTrgmSimilarity, instagramHandleTrgmSimilarity, websiteTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, firstNameTrgmSimilarity, lastNameTrgmSimilarity, emailTrgmSimilarity, phoneTrgmSimilarity, headlineTrgmSimilarity, bioTrgmSimilarity, locationTrgmSimilarity, relationshipTypeTrgmSimilarity, howWeMetTrgmSimilarity, twitterHandleTrgmSimilarity, linkedinUrlTrgmSimilarity, githubUsernameTrgmSimilarity, instagramHandleTrgmSimilarity, websiteTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, firstNameTrgmSimilarity, lastNameTrgmSimilarity, emailTrgmSimilarity, phoneTrgmSimilarity, headlineTrgmSimilarity, bioTrgmSimilarity, locationTrgmSimilarity, relationshipTypeTrgmSimilarity, howWeMetTrgmSimilarity, twitterHandleTrgmSimilarity, linkedinUrlTrgmSimilarity, githubUsernameTrgmSimilarity, instagramHandleTrgmSimilarity, websiteTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, firstName, lastName, email, phone, headline, bio, location, birthday, relationshipType, howWeMet, twitterHandle, linkedinUrl, githubUsername, instagramHandle, website, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, firstNameTrgmSimilarity, lastNameTrgmSimilarity, emailTrgmSimilarity, phoneTrgmSimilarity, headlineTrgmSimilarity, bioTrgmSimilarity, locationTrgmSimilarity, relationshipTypeTrgmSimilarity, howWeMetTrgmSimilarity, twitterHandleTrgmSimilarity, linkedinUrlTrgmSimilarity, githubUsernameTrgmSimilarity, instagramHandleTrgmSimilarity, websiteTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -3408,7 +4279,7 @@ Access: `db.venue`
 METHODS:
   db.venue.findMany({ select, where?, orderBy?, first?, offset? })
   db.venue.findOne({ id, select })
-  db.venue.create({ data: { entityId, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }, select })
+  db.venue.create({ data: { entityId, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, addressTrgmSimilarity, neighborhoodTrgmSimilarity, cityTrgmSimilarity, categoryTrgmSimilarity, statusTrgmSimilarity, googlePlaceIdTrgmSimilarity, priceLevelTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
   db.venue.update({ where: { id }, data, select })
   db.venue.delete({ where: { id } })
 
@@ -3434,7 +4305,18 @@ FIELDS:
   searchTsv: string
   mainImageId: string
   searchTsvRank: number
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  addressTrgmSimilarity: number
+  neighborhoodTrgmSimilarity: number
+  cityTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  googlePlaceIdTrgmSimilarity: number
+  priceLevelTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 EDITABLE FIELDS:
   entityId: string
@@ -3455,13 +4337,24 @@ EDITABLE FIELDS:
   searchTsv: string
   mainImageId: string
   searchTsvRank: number
-  embeddingDistance: number
+  nameTrgmSimilarity: number
+  addressTrgmSimilarity: number
+  neighborhoodTrgmSimilarity: number
+  cityTrgmSimilarity: number
+  categoryTrgmSimilarity: number
+  statusTrgmSimilarity: number
+  googlePlaceIdTrgmSimilarity: number
+  priceLevelTrgmSimilarity: number
+  notesTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
 
 OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }]
-  findOne:  { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  create:   { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
-  update:   { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, embeddingDistance }
+  findMany: [{ id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, addressTrgmSimilarity, neighborhoodTrgmSimilarity, cityTrgmSimilarity, categoryTrgmSimilarity, statusTrgmSimilarity, googlePlaceIdTrgmSimilarity, priceLevelTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, addressTrgmSimilarity, neighborhoodTrgmSimilarity, cityTrgmSimilarity, categoryTrgmSimilarity, statusTrgmSimilarity, googlePlaceIdTrgmSimilarity, priceLevelTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, addressTrgmSimilarity, neighborhoodTrgmSimilarity, cityTrgmSimilarity, categoryTrgmSimilarity, statusTrgmSimilarity, googlePlaceIdTrgmSimilarity, priceLevelTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, name, address, neighborhood, city, category, status, googlePlaceId, rating, priceLevel, isFavorite, notes, tags, embeddingText, embedding, searchTsv, mainImageId, searchTsvRank, nameTrgmSimilarity, addressTrgmSimilarity, neighborhoodTrgmSimilarity, cityTrgmSimilarity, categoryTrgmSimilarity, statusTrgmSimilarity, googlePlaceIdTrgmSimilarity, priceLevelTrgmSimilarity, notesTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 

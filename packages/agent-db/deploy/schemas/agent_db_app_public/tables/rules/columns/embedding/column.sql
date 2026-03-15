@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/rules/table
--- requires: schemas/agent_db_app_public/tables/rules/columns/tags/column
+-- requires: schemas/agent_db_app_public/tables/rules/columns/embedding_text/column
 
 
-ALTER TABLE agent_db_app_public.rules 
+ALTER TABLE "agent_db_app_public".rules 
   ADD COLUMN embedding vector(768);
 

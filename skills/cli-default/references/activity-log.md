@@ -9,8 +9,8 @@ CRUD operations for ActivityLog records via agent-db CLI
 ```bash
 agent-db activity-log list
 agent-db activity-log get --id <value>
-agent-db activity-log create --entityId <value> --actorType <value> --action <value> --targetType <value> --targetId <value> [--actorId <value>] [--metadata <value>]
-agent-db activity-log update --id <value> [--entityId <value>] [--actorType <value>] [--actorId <value>] [--action <value>] [--targetType <value>] [--targetId <value>] [--metadata <value>]
+agent-db activity-log create --entityId <value> --actorType <value> --action <value> --targetType <value> --targetId <value> --actorTypeTrgmSimilarity <value> --actionTrgmSimilarity <value> --targetTypeTrgmSimilarity <value> --searchScore <value> [--actorId <value>] [--metadata <value>]
+agent-db activity-log update --id <value> [--entityId <value>] [--actorType <value>] [--actorId <value>] [--action <value>] [--targetType <value>] [--targetId <value>] [--metadata <value>] [--actorTypeTrgmSimilarity <value>] [--actionTrgmSimilarity <value>] [--targetTypeTrgmSimilarity <value>] [--searchScore <value>]
 agent-db activity-log delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-db activity-log list
 ### Create a activityLog
 
 ```bash
-agent-db activity-log create --entityId <value> --actorType <value> --action <value> --targetType <value> --targetId <value> [--actorId <value>] [--metadata <value>]
+agent-db activity-log create --entityId <value> --actorType <value> --action <value> --targetType <value> --targetId <value> --actorTypeTrgmSimilarity <value> --actionTrgmSimilarity <value> --targetTypeTrgmSimilarity <value> --searchScore <value> [--actorId <value>] [--metadata <value>]
 ```
 
 ### Get a activityLog by id

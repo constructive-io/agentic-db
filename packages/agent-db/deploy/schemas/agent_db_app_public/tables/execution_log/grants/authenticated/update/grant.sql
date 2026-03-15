@@ -3,8 +3,8 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/execution_log/table
--- requires: schemas/agent_db_app_public/tables/blueprints/columns/embedding/column
+-- requires: schemas/agent_db_app_public/tables/sessions/columns/embedding/column
 
 
-GRANT UPDATE ON agent_db_app_public.execution_log TO authenticated;
+GRANT UPDATE ON "agent_db_app_public".execution_log TO authenticated;
 

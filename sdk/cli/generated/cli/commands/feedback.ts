@@ -18,6 +18,10 @@ const fieldSchema: FieldSchema = {
   rating: 'int',
   comment: 'string',
   source: 'string',
+  targetTypeTrgmSimilarity: 'float',
+  commentTrgmSimilarity: 'float',
+  sourceTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nfeedback <command>\n\nCommands:\n  list                  List all feedback records\n  get                   Get a feedback by ID\n  create                Create a new feedback\n  update                Update an existing feedback\n  delete                Delete a feedback\n\n  --help, -h            Show this help message\n';

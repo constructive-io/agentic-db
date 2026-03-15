@@ -16,6 +16,9 @@ const fieldSchema: FieldSchema = {
   key: 'string',
   value: 'json',
   category: 'string',
+  keyTrgmSimilarity: 'float',
+  categoryTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nuser-setting <command>\n\nCommands:\n  list                  List all userSetting records\n  get                   Get a userSetting by ID\n  create                Create a new userSetting\n  update                Update an existing userSetting\n  delete                Delete a userSetting\n\n  --help, -h            Show this help message\n';

@@ -9,8 +9,8 @@ CRUD operations for Habit records via agent-db CLI
 ```bash
 agent-db habit list
 agent-db habit get --id <value>
-agent-db habit create --entityId <value> --name <value> [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
-agent-db habit update --id <value> [--entityId <value>] [--name <value>] [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
+agent-db habit create --entityId <value> --name <value> --nameTrgmSimilarity <value> --frequencyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
+agent-db habit update --id <value> [--entityId <value>] [--name <value>] [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>] [--nameTrgmSimilarity <value>] [--frequencyTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--searchScore <value>]
 agent-db habit delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-db habit list
 ### Create a habit
 
 ```bash
-agent-db habit create --entityId <value> --name <value> [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
+agent-db habit create --entityId <value> --name <value> --nameTrgmSimilarity <value> --frequencyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
 ```
 
 ### Get a habit by id

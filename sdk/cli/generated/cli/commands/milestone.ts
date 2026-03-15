@@ -17,6 +17,9 @@ const fieldSchema: FieldSchema = {
   name: 'string',
   dueDate: 'string',
   status: 'string',
+  nameTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nmilestone <command>\n\nCommands:\n  list                  List all milestone records\n  get                   Get a milestone by ID\n  create                Create a new milestone\n  update                Update an existing milestone\n  delete                Delete a milestone\n\n  --help, -h            Show this help message\n';

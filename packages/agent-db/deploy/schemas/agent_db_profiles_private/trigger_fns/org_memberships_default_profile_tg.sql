@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION agent_db_profiles_private.org_memberships_default_profile_tg ()
+CREATE FUNCTION "agent_db_profiles_private".org_memberships_default_profile_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
@@ -13,7 +13,7 @@ DECLARE
 BEGIN
     IF (NEW.profile_id IS NULL) THEN
         SELECT id INTO v_default_profile_id
-        FROM agent_db_profiles_public.org_profiles
+        FROM "agent_db_profiles_public".org_profiles
         WHERE is_default = true
         AND entity_id = NEW.entity_id
         LIMIT 1;

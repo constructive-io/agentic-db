@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_profiles_public/tables/org_profile_grants/table
 
 
-GRANT INSERT ON agent_db_profiles_public.org_profile_grants TO authenticated;
+GRANT INSERT ON "agent_db_profiles_public".org_profile_grants TO authenticated;
 

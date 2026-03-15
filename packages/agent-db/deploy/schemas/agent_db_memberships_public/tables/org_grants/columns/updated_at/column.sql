@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_memberships_public/tables/org_grants/table
 
 
-ALTER TABLE agent_db_memberships_public.org_grants 
+ALTER TABLE "agent_db_memberships_public".org_grants 
   ADD COLUMN updated_at timestamptz;
 

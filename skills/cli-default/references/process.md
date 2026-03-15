@@ -9,8 +9,8 @@ CRUD operations for Process records via agent-db CLI
 ```bash
 agent-db process list
 agent-db process get --id <value>
-agent-db process create --entityId <value> [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
-agent-db process update --id <value> [--entityId <value>] [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
+agent-db process create --entityId <value> --commandTrgmSimilarity <value> --statusTrgmSimilarity <value> --logsPathTrgmSimilarity <value> --searchScore <value> [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
+agent-db process update --id <value> [--entityId <value>] [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>] [--commandTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--logsPathTrgmSimilarity <value>] [--searchScore <value>]
 agent-db process delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-db process list
 ### Create a process
 
 ```bash
-agent-db process create --entityId <value> [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
+agent-db process create --entityId <value> --commandTrgmSimilarity <value> --statusTrgmSimilarity <value> --logsPathTrgmSimilarity <value> --searchScore <value> [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
 ```
 
 ### Get a process by id

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/chunks/table
--- requires: schemas/agent_db_app_public/tables/chunks/columns/end_line/column
+-- requires: schemas/agent_db_app_public/tables/chunks/columns/embedding_text/column
 
 
-ALTER TABLE agent_db_app_public.chunks 
+ALTER TABLE "agent_db_app_public".chunks 
   ADD COLUMN embedding vector(768);
 

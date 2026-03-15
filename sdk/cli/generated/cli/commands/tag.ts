@@ -17,6 +17,10 @@ const fieldSchema: FieldSchema = {
   color: 'string',
   category: 'string',
   usageCount: 'int',
+  nameTrgmSimilarity: 'float',
+  colorTrgmSimilarity: 'float',
+  categoryTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\ntag <command>\n\nCommands:\n  list                  List all tag records\n  get                   Get a tag by ID\n  create                Create a new tag\n  update                Update an existing tag\n  delete                Delete a tag\n\n  --help, -h            Show this help message\n';

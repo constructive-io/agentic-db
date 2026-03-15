@@ -1,0 +1,6 @@
+-- Revert: schemas/agent-os-1773547105079-c748b4c3-memberships-public/tables/org_memberships/columns/entity_id/alterations/alt0000001937
+
+
+COMMENT ON COLUMN "agent-os-1773547105079-c748b4c3-memberships-public".org_memberships.entity_id IS NULL;
+
+

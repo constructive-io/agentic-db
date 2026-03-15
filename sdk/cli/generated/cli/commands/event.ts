@@ -26,7 +26,14 @@ const fieldSchema: FieldSchema = {
   searchTsv: 'string',
   mainImageId: 'uuid',
   searchTsvRank: 'float',
-  embeddingDistance: 'float',
+  nameTrgmSimilarity: 'float',
+  eventTypeTrgmSimilarity: 'float',
+  locationTrgmSimilarity: 'float',
+  cityTrgmSimilarity: 'float',
+  notesTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nevent <command>\n\nCommands:\n  list                  List all event records\n  get                   Get a event by ID\n  create                Create a new event\n  update                Update an existing event\n  delete                Delete a event\n\n  --help, -h            Show this help message\n';
@@ -96,8 +103,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -141,8 +146,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -285,8 +288,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -438,8 +439,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();

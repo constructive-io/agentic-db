@@ -9,7 +9,7 @@ ORM operations for Habit records
 ```typescript
 db.habit.findMany({ select: { id: true } }).execute()
 db.habit.findOne({ id: '<value>', select: { id: true } }).execute()
-db.habit.create({ data: { entityId: '<value>', name: '<value>', frequency: '<value>', targetCount: '<value>', currentStreak: '<value>', bestStreak: '<value>', category: '<value>', tags: '<value>' }, select: { id: true } }).execute()
+db.habit.create({ data: { entityId: '<value>', name: '<value>', frequency: '<value>', targetCount: '<value>', currentStreak: '<value>', bestStreak: '<value>', category: '<value>', tags: '<value>', nameTrgmSimilarity: '<value>', frequencyTrgmSimilarity: '<value>', categoryTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.habit.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.habit.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.habit.findMany({
 
 ```typescript
 const item = await db.habit.create({
-  data: { entityId: 'value', name: 'value', frequency: 'value', targetCount: 'value', currentStreak: 'value', bestStreak: 'value', category: 'value', tags: 'value' },
+  data: { entityId: 'value', name: 'value', frequency: 'value', targetCount: 'value', currentStreak: 'value', bestStreak: 'value', category: 'value', tags: 'value', nameTrgmSimilarity: 'value', frequencyTrgmSimilarity: 'value', categoryTrgmSimilarity: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

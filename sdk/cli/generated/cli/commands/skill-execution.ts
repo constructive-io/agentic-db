@@ -23,6 +23,9 @@ const fieldSchema: FieldSchema = {
   input: 'json',
   output: 'json',
   error: 'string',
+  statusTrgmSimilarity: 'float',
+  errorTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nskill-execution <command>\n\nCommands:\n  list                  List all skillExecution records\n  get                   Get a skillExecution by ID\n  create                Create a new skillExecution\n  update                Update an existing skillExecution\n  delete                Delete a skillExecution\n\n  --help, -h            Show this help message\n';

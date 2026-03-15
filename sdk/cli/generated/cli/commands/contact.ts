@@ -34,7 +34,23 @@ const fieldSchema: FieldSchema = {
   searchTsv: 'string',
   mainImageId: 'uuid',
   searchTsvRank: 'float',
-  embeddingDistance: 'float',
+  firstNameTrgmSimilarity: 'float',
+  lastNameTrgmSimilarity: 'float',
+  emailTrgmSimilarity: 'float',
+  phoneTrgmSimilarity: 'float',
+  headlineTrgmSimilarity: 'float',
+  bioTrgmSimilarity: 'float',
+  locationTrgmSimilarity: 'float',
+  relationshipTypeTrgmSimilarity: 'float',
+  howWeMetTrgmSimilarity: 'float',
+  twitterHandleTrgmSimilarity: 'float',
+  linkedinUrlTrgmSimilarity: 'float',
+  githubUsernameTrgmSimilarity: 'float',
+  instagramHandleTrgmSimilarity: 'float',
+  websiteTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\ncontact <command>\n\nCommands:\n  list                  List all contact records\n  get                   Get a contact by ID\n  create                Create a new contact\n  update                Update an existing contact\n  delete                Delete a contact\n\n  --help, -h            Show this help message\n';
@@ -112,8 +128,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -165,8 +179,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -381,8 +393,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -606,8 +616,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embedding: true,
           searchTsv: true,
           mainImageId: true,
-          searchTsvRank: true,
-          embeddingDistance: true,
         },
       })
       .execute();

@@ -1,0 +1,7 @@
+-- Revert: schemas/agent-os-1773547105079-c748b4c3-app-public/tables/execution_log/columns/step_name/column
+
+
+ALTER TABLE "agent-os-1773547105079-c748b4c3-app-public".execution_log 
+  DROP COLUMN step_name RESTRICT;
+
+

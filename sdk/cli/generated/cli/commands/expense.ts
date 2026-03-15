@@ -22,6 +22,12 @@ const fieldSchema: FieldSchema = {
   receiptUrl: 'string',
   isRecurring: 'boolean',
   tags: 'string',
+  currencyTrgmSimilarity: 'float',
+  categoryTrgmSimilarity: 'float',
+  descriptionTrgmSimilarity: 'float',
+  merchantTrgmSimilarity: 'float',
+  receiptUrlTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nexpense <command>\n\nCommands:\n  list                  List all expense records\n  get                   Get a expense by ID\n  create                Create a new expense\n  update                Update an existing expense\n  delete                Delete a expense\n\n  --help, -h            Show this help message\n';

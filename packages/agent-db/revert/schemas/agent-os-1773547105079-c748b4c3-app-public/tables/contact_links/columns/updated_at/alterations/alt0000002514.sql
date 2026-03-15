@@ -1,0 +1,7 @@
+-- Revert: schemas/agent-os-1773547105079-c748b4c3-app-public/tables/contact_links/columns/updated_at/alterations/alt0000002514
+
+
+ALTER TABLE "agent-os-1773547105079-c748b4c3-app-public".contact_links 
+  ALTER COLUMN updated_at DROP NOT NULL;
+
+

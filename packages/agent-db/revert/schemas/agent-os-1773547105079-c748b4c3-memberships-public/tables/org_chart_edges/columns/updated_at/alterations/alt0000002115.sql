@@ -1,0 +1,7 @@
+-- Revert: schemas/agent-os-1773547105079-c748b4c3-memberships-public/tables/org_chart_edges/columns/updated_at/alterations/alt0000002115
+
+
+ALTER TABLE "agent-os-1773547105079-c748b4c3-memberships-public".org_chart_edges 
+  ALTER COLUMN updated_at DROP DEFAULT;
+
+

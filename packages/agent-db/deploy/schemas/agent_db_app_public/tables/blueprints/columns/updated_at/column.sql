@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/blueprints/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.blueprints 
+ALTER TABLE "agent_db_app_public".blueprints 
   ADD COLUMN updated_at timestamptz;
 

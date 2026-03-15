@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_auth_private/tables/app_auth_settings/table
 
 
-GRANT UPDATE ON agent_db_auth_private.app_auth_settings TO authenticated;
+GRANT UPDATE ON "agent_db_auth_private".app_auth_settings TO authenticated;
 

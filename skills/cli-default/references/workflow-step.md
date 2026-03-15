@@ -9,8 +9,8 @@ CRUD operations for WorkflowStep records via agent-db CLI
 ```bash
 agent-db workflow-step list
 agent-db workflow-step get --id <value>
-agent-db workflow-step create --entityId <value> --workflowId <value> --stepOrder <value> --actionType <value> [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
-agent-db workflow-step update --id <value> [--entityId <value>] [--workflowId <value>] [--stepOrder <value>] [--actionType <value>] [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
+agent-db workflow-step create --entityId <value> --workflowId <value> --stepOrder <value> --actionType <value> --actionTypeTrgmSimilarity <value> --searchScore <value> [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
+agent-db workflow-step update --id <value> [--entityId <value>] [--workflowId <value>] [--stepOrder <value>] [--actionType <value>] [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>] [--actionTypeTrgmSimilarity <value>] [--searchScore <value>]
 agent-db workflow-step delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-db workflow-step list
 ### Create a workflowStep
 
 ```bash
-agent-db workflow-step create --entityId <value> --workflowId <value> --stepOrder <value> --actionType <value> [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
+agent-db workflow-step create --entityId <value> --workflowId <value> --stepOrder <value> --actionType <value> --actionTypeTrgmSimilarity <value> --searchScore <value> [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
 ```
 
 ### Get a workflowStep by id

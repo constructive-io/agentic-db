@@ -5,13 +5,13 @@
 
 
 
-CREATE FUNCTION agent_db_permissions_public.org_permissions_get_mask (ids uuid[])
+CREATE FUNCTION "agent_db_permissions_public".org_permissions_get_mask (ids uuid[])
   RETURNS bit varying
 AS $CODEZ$
     SELECT bit_or(bitstr) FROM 
-      agent_db_permissions_public.org_permissions
+      "agent_db_permissions_public".org_permissions
     WHERE id = ANY (ids);
 $CODEZ$
 LANGUAGE sql STABLE;
-GRANT EXECUTE ON FUNCTION agent_db_permissions_public.org_permissions_get_mask TO authenticated;
+GRANT EXECUTE ON FUNCTION "agent_db_permissions_public".org_permissions_get_mask TO authenticated;
 

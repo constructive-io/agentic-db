@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/chats/table
--- requires: schemas/agent_db_app_public/tables/chats/columns/started_at/alterations/alt0000001084
+-- requires: schemas/agent_db_app_public/tables/chats/columns/embedding_text/column
 
 
-ALTER TABLE agent_db_app_public.chats 
+ALTER TABLE "agent_db_app_public".chats 
   ADD COLUMN embedding vector(768);
 

@@ -19,6 +19,10 @@ const fieldSchema: FieldSchema = {
   triggerConfig: 'json',
   isActive: 'boolean',
   tags: 'string',
+  nameTrgmSimilarity: 'float',
+  descriptionTrgmSimilarity: 'float',
+  triggerTypeTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nworkflow <command>\n\nCommands:\n  list                  List all workflow records\n  get                   Get a workflow by ID\n  create                Create a new workflow\n  update                Update an existing workflow\n  delete                Delete a workflow\n\n  --help, -h            Show this help message\n';

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/expenses/columns/date/column
 
 
-ALTER TABLE agent_db_app_public.expenses 
+ALTER TABLE "agent_db_app_public".expenses 
   ADD COLUMN category text;
 

@@ -1,8 +1,8 @@
 {
-  "name": "agentic-db",
+  "name": "agent-db",
   "version": "0.0.1",
   "author": "Dan Lynch <pyramation@gmail.com>",
-  "description": "pgpm-installable agentic-db SQL module for the Agent OS personal database",
+  "description": "pgpm-installable agent-db SQL module for the Agent OS personal database",
   "homepage": "https://github.com/pyramation-studio/agent-os",
   "license": "SEE LICENSE IN LICENSE",
   "publishConfig": {

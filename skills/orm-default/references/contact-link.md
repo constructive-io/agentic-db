@@ -9,7 +9,7 @@ ORM operations for ContactLink records
 ```typescript
 db.contactLink.findMany({ select: { id: true } }).execute()
 db.contactLink.findOne({ id: '<value>', select: { id: true } }).execute()
-db.contactLink.create({ data: { entityId: '<value>', title: '<value>', url: '<value>', embedding: '<value>', contactId: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.contactLink.create({ data: { entityId: '<value>', title: '<value>', url: '<value>', embedding: '<value>', contactId: '<value>', titleTrgmSimilarity: '<value>', urlTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.contactLink.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.contactLink.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.contactLink.findMany({
 
 ```typescript
 const item = await db.contactLink.create({
-  data: { entityId: 'value', title: 'value', url: 'value', embedding: 'value', contactId: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', title: 'value', url: 'value', embedding: 'value', contactId: 'value', titleTrgmSimilarity: 'value', urlTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

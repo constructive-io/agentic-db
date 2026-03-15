@@ -1,0 +1,7 @@
+-- Revert: schemas/agent-os-1773547105079-c748b4c3-user-identifiers-public/tables/emails/columns/is_verified/column
+
+
+ALTER TABLE "agent-os-1773547105079-c748b4c3-user-identifiers-public".emails 
+  DROP COLUMN is_verified RESTRICT;
+
+

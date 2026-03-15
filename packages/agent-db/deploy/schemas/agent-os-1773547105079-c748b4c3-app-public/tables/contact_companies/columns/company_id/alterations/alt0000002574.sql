@@ -1,0 +1,12 @@
+-- Deploy: schemas/agent-os-1773547105079-c748b4c3-app-public/tables/contact_companies/columns/company_id/alterations/alt0000002574
+-- made with <3 @ launchql.com
+
+-- requires: schemas/agent-os-1773547105079-c748b4c3-app-public/schema
+-- requires: schemas/agent-os-1773547105079-c748b4c3-app-public/tables/contact_companies/table
+-- requires: schemas/agent-os-1773547105079-c748b4c3-app-public/tables/contact_companies/columns/company_id/column
+-- requires: schemas/agent-os-1773547105079-c748b4c3-app-public/tables/venue_links/constraints/venue_links_venue_id_fkey/constraint
+
+
+ALTER TABLE "agent-os-1773547105079-c748b4c3-app-public".contact_companies 
+  ALTER COLUMN company_id SET NOT NULL;
+

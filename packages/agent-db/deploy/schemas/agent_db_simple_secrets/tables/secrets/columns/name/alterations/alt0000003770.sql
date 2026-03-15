@@ -1,0 +1,9 @@
+-- Deploy: schemas/agent_db_simple_secrets/tables/secrets/columns/name/alterations/alt0000003770
+-- made with <3 @ launchql.com
+
+-- requires: schemas/agent_db_simple_secrets/schema
+-- requires: schemas/agent_db_simple_secrets/tables/secrets/columns/name/column
+
+
+COMMENT ON COLUMN "agent_db_simple_secrets".secrets.name IS E'Key name identifying the secret (e.g. totp_seed, verification_token)';
+

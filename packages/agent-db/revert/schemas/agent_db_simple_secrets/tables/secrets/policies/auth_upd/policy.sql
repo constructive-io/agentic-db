@@ -1,6 +1,6 @@
 -- Revert: schemas/agent_db_simple_secrets/tables/secrets/policies/auth_upd/policy
 
 
-DROP POLICY auth_upd ON agent_db_simple_secrets.secrets;
+DROP POLICY auth_upd ON "agent_db_simple_secrets".secrets;
 
 

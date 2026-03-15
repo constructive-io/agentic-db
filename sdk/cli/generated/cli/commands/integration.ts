@@ -20,6 +20,12 @@ const fieldSchema: FieldSchema = {
   config: 'json',
   status: 'string',
   lastSyncedAt: 'string',
+  nameTrgmSimilarity: 'float',
+  providerTrgmSimilarity: 'float',
+  typeTrgmSimilarity: 'float',
+  credentialsRefTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nintegration <command>\n\nCommands:\n  list                  List all integration records\n  get                   Get a integration by ID\n  create                Create a new integration\n  update                Update an existing integration\n  delete                Delete a integration\n\n  --help, -h            Show this help message\n';

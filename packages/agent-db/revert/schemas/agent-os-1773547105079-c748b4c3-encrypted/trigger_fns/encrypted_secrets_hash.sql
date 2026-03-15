@@ -1,0 +1,8 @@
+-- Revert: schemas/agent-os-1773547105079-c748b4c3-encrypted/trigger_fns/encrypted_secrets_hash
+
+
+
+
+DROP FUNCTION "agent-os-1773547105079-c748b4c3-encrypted".encrypted_secrets_hash;
+
+

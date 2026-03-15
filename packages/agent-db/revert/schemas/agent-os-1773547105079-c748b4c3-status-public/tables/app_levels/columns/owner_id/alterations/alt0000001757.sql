@@ -1,0 +1,6 @@
+-- Revert: schemas/agent-os-1773547105079-c748b4c3-status-public/tables/app_levels/columns/owner_id/alterations/alt0000001757
+
+
+COMMENT ON COLUMN "agent-os-1773547105079-c748b4c3-status-public".app_levels.owner_id IS NULL;
+
+

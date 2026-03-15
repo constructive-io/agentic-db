@@ -19,6 +19,10 @@ const fieldSchema: FieldSchema = {
   output: 'string',
   toolCalls: 'json',
   durationMs: 'int',
+  stepNameTrgmSimilarity: 'float',
+  inputTrgmSimilarity: 'float',
+  outputTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nexecution-log <command>\n\nCommands:\n  list                  List all executionLog records\n  get                   Get a executionLog by ID\n  create                Create a new executionLog\n  update                Update an existing executionLog\n  delete                Delete a executionLog\n\n  --help, -h            Show this help message\n';

@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION agent_db_profiles_private.app_profile_permissions_recompute_tg ()
+CREATE FUNCTION "agent_db_profiles_private".app_profile_permissions_recompute_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
@@ -19,10 +19,10 @@ BEGIN
     END IF;
     SELECT COALESCE(bit_or(p.bitstr), lpad('', 24, '0')::bit(24))
     INTO v_permissions
-    FROM agent_db_profiles_public.app_profile_permissions pp
-    JOIN agent_db_permissions_public.app_permissions p ON p.id = pp.permission_id
+    FROM "agent_db_profiles_public".app_profile_permissions pp
+    JOIN "agent_db_permissions_public".app_permissions p ON p.id = pp.permission_id
     WHERE pp.profile_id = v_profile_id;
-    UPDATE agent_db_profiles_public.app_profiles
+    UPDATE "agent_db_profiles_public".app_profiles
     SET permissions = v_permissions
     WHERE id = v_profile_id;
     IF (TG_OP = 'DELETE') THEN

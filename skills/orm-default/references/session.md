@@ -9,7 +9,7 @@ ORM operations for Session records
 ```typescript
 db.session.findMany({ select: { id: true } }).execute()
 db.session.findOne({ id: '<value>', select: { id: true } }).execute()
-db.session.create({ data: { entityId: '<value>', title: '<value>', agentId: '<value>', startedAt: '<value>', endedAt: '<value>', status: '<value>', contextSummary: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.session.create({ data: { entityId: '<value>', title: '<value>', agentId: '<value>', startedAt: '<value>', endedAt: '<value>', status: '<value>', contextSummary: '<value>', sessionSummary: '<value>', archivedMessages: '<value>', compressionCount: '<value>', archivedAt: '<value>', extractedMemoryIds: '<value>', contextsUsed: '<value>', skillsUsed: '<value>', embeddingText: '<value>', embedding: '<value>', uagentTrgmSimilarity: '<value>', fingerprintModeTrgmSimilarity: '<value>', csrfSecretTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.session.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.session.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.session.findMany({
 
 ```typescript
 const item = await db.session.create({
-  data: { entityId: 'value', title: 'value', agentId: 'value', startedAt: 'value', endedAt: 'value', status: 'value', contextSummary: 'value', embeddingText: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', title: 'value', agentId: 'value', startedAt: 'value', endedAt: 'value', status: 'value', contextSummary: 'value', sessionSummary: 'value', archivedMessages: 'value', compressionCount: 'value', archivedAt: 'value', extractedMemoryIds: 'value', contextsUsed: 'value', skillsUsed: 'value', embeddingText: 'value', embedding: 'value', uagentTrgmSimilarity: 'value', fingerprintModeTrgmSimilarity: 'value', csrfSecretTrgmSimilarity: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

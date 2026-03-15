@@ -9,7 +9,7 @@ ORM operations for Rule records
 ```typescript
 db.rule.findMany({ select: { id: true } }).execute()
 db.rule.findOne({ id: '<value>', select: { id: true } }).execute()
-db.rule.create({ data: { entityId: '<value>', title: '<value>', content: '<value>', kind: '<value>', severity: '<value>', isActive: '<value>', slug: '<value>', verification: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', triggerConcept: '<value>', embeddingDistance: '<value>', triggerConceptDistance: '<value>' }, select: { id: true } }).execute()
+db.rule.create({ data: { entityId: '<value>', title: '<value>', content: '<value>', kind: '<value>', severity: '<value>', isActive: '<value>', slug: '<value>', verification: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', triggerConcept: '<value>', titleTrgmSimilarity: '<value>', contentTrgmSimilarity: '<value>', kindTrgmSimilarity: '<value>', severityTrgmSimilarity: '<value>', slugTrgmSimilarity: '<value>', verificationTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', triggerConceptVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.rule.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.rule.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.rule.findMany({
 
 ```typescript
 const item = await db.rule.create({
-  data: { entityId: 'value', title: 'value', content: 'value', kind: 'value', severity: 'value', isActive: 'value', slug: 'value', verification: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', triggerConcept: 'value', embeddingDistance: 'value', triggerConceptDistance: 'value' },
+  data: { entityId: 'value', title: 'value', content: 'value', kind: 'value', severity: 'value', isActive: 'value', slug: 'value', verification: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', triggerConcept: 'value', titleTrgmSimilarity: 'value', contentTrgmSimilarity: 'value', kindTrgmSimilarity: 'value', severityTrgmSimilarity: 'value', slugTrgmSimilarity: 'value', verificationTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', triggerConceptVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

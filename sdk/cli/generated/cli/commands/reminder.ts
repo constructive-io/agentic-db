@@ -22,7 +22,13 @@ const fieldSchema: FieldSchema = {
   relatedEntityType: 'string',
   embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  titleTrgmSimilarity: 'float',
+  recurrenceTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  relatedEntityTypeTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nreminder <command>\n\nCommands:\n  list                  List all reminder records\n  get                   Get a reminder by ID\n  create                Create a new reminder\n  update                Update an existing reminder\n  delete                Delete a reminder\n\n  --help, -h            Show this help message\n';
@@ -89,7 +95,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           relatedEntityType: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -130,7 +135,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           relatedEntityType: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -246,7 +250,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           relatedEntityType: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
@@ -371,7 +374,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           relatedEntityType: true,
           embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
         },
       })
       .execute();
