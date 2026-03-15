@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_limits_public/tables/app_limit_defaults/columns/name/alterations/alt0000000059
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_limits_public/schema
 -- requires: schemas/agent_db_limits_public/tables/app_limit_defaults/columns/name/column

@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_invites_public/tables/invites/columns/sender_id/alterations/alt0000000755
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_invites_public/schema
 -- requires: schemas/agent_db_invites_public/tables/invites/table

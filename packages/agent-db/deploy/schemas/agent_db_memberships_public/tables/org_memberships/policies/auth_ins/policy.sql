@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_public/tables/org_memberships/policies/auth_ins/policy
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_memberships_public/schema
 -- requires: schemas/agent_db_memberships_public/tables/org_memberships/table

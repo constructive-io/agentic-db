@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_private/trigger_fns/app_memberships_utg
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_memberships_private/schema
 

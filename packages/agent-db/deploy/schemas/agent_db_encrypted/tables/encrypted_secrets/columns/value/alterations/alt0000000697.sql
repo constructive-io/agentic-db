@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_encrypted/tables/encrypted_secrets/columns/value/alterations/alt0000000697
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_encrypted/schema
 -- requires: schemas/agent_db_encrypted/tables/encrypted_secrets/columns/value/column

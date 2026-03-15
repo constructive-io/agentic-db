@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_invites_public/procedures/submit_org_invite_code/procedure
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_invites_public/schema
 

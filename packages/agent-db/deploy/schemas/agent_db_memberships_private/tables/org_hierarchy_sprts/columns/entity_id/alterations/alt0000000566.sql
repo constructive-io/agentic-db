@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_private/tables/org_hierarchy_sprts/columns/entity_id/alterations/alt0000000566
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_memberships_private/schema
 -- requires: schemas/agent_db_memberships_private/tables/org_hierarchy_sprts/columns/entity_id/column

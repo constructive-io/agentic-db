@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_profiles_public/tables/org_profiles/columns/description/alterations/alt0000000442
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_profiles_public/schema
 -- requires: schemas/agent_db_profiles_public/tables/org_profiles/columns/description/column

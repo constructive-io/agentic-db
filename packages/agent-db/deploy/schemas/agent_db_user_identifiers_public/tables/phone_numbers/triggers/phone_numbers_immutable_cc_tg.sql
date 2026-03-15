@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_user_identifiers_public/tables/phone_numbers/triggers/phone_numbers_immutable_cc_tg
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_user_identifiers_public/schema
 -- requires: schemas/agent_db_user_identifiers_public/tables/phone_numbers/table

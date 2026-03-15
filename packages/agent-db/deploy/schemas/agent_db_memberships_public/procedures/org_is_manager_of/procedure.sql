@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_public/procedures/org_is_manager_of/procedure
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_memberships_public/schema
 

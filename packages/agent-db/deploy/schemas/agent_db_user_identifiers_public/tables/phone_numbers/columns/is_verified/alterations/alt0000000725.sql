@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_user_identifiers_public/tables/phone_numbers/columns/is_verified/alterations/alt0000000725
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_user_identifiers_public/schema
 -- requires: schemas/agent_db_user_identifiers_public/tables/phone_numbers/table

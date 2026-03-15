@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_limits_public/tables/org_limit_defaults/constraints/org_limit_defaults_pkey/constraint
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_limits_public/schema
 -- requires: schemas/agent_db_limits_public/tables/org_limit_defaults/table

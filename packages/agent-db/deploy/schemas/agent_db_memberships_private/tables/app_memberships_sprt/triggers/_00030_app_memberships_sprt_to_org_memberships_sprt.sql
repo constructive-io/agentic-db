@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_private/tables/app_memberships_sprt/triggers/_00030_app_memberships_sprt_to_org_memberships_sprt
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_memberships_private/schema
 -- requires: schemas/agent_db_memberships_private/schema

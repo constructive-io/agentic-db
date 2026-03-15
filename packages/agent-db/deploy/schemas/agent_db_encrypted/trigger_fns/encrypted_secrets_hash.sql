@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_encrypted/trigger_fns/encrypted_secrets_hash
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_encrypted/schema
 

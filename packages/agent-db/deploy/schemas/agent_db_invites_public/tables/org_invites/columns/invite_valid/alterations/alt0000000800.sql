@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_invites_public/tables/org_invites/columns/invite_valid/alterations/alt0000000800
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_invites_public/schema
 -- requires: schemas/agent_db_invites_public/tables/org_invites/table

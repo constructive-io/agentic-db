@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_auth_private/tables/session_credentials/columns/expires_at/alterations/alt0000000640
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_auth_private/schema
 -- requires: schemas/agent_db_auth_private/tables/session_credentials/columns/expires_at/column

@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_profiles_private/trigger_fns/app_profile_grants_apply_tg
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_profiles_private/schema
 

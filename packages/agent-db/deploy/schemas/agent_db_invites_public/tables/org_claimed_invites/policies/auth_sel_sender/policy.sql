@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_invites_public/tables/org_claimed_invites/policies/auth_sel_sender/policy
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_invites_public/schema
 -- requires: schemas/agent_db_invites_public/tables/org_claimed_invites/table

@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_profiles_public/tables/org_profile_grants/indexes/org_profile_grants_updated_at_idx
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_profiles_public/schema
 -- requires: schemas/agent_db_profiles_public/tables/org_profile_grants/table

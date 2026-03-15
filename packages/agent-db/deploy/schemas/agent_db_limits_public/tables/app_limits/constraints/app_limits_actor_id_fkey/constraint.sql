@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_limits_public/tables/app_limits/constraints/app_limits_actor_id_fkey/constraint
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_limits_public/schema
 -- requires: schemas/agent_db_users_public/tables/users/table

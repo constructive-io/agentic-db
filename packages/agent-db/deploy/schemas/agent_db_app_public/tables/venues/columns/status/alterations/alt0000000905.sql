@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_app_public/tables/venues/columns/status/alterations/alt0000000905
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/venues/table

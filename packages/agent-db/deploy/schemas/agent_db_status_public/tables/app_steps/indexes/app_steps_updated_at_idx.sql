@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_status_public/tables/app_steps/indexes/app_steps_updated_at_idx
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_status_public/schema
 -- requires: schemas/agent_db_status_public/tables/app_steps/table

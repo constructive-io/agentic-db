@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_status_private/trigger_fns/member_tg_achv_tgl
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_status_private/schema
 -- requires: schemas/agent_db_status_private/procedures/member_completed_step/procedure

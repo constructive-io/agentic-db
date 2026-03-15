@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_auth_public/procedures/sign_in_one_time_token/procedure
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_auth_public/schema
 

@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_app_public/tables/skill_executions/indexes/skill_executions_status_idx
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/skill_executions/table

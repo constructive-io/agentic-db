@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_user_identifiers_public/schema/default_function_privs/administrator
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_user_identifiers_public/schema
 

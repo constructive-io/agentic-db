@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_public/tables/org_memberships/constraints/org_memberships_profile_id_fkey/constraint
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_memberships_public/schema
 -- requires: schemas/agent_db_profiles_public/tables/org_profiles/table

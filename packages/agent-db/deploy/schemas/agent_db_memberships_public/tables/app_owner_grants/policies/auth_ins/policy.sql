@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_public/tables/app_owner_grants/policies/auth_ins/policy
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_memberships_public/schema
 -- requires: schemas/agent_db_memberships_public/tables/app_owner_grants/table

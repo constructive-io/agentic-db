@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_logging_public/tables/audit_logs/constraints/audit_logs_actor_id_fkey/constraint
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_logging_public/schema
 -- requires: schemas/agent_db_users_public/tables/users/table

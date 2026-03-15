@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_public/tables/org_chart_edge_grants/columns/created_at/alterations/alt0000000590
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_memberships_public/schema
 -- requires: schemas/agent_db_memberships_public/tables/org_chart_edge_grants/table

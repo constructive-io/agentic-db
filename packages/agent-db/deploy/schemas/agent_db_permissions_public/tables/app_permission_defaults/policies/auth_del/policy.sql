@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_permissions_public/tables/app_permission_defaults/policies/auth_del/policy
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_permissions_public/schema
 -- requires: schemas/agent_db_permissions_public/tables/app_permission_defaults/table

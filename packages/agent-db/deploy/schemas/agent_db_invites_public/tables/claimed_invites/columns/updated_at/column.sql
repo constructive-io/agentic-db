@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_invites_public/tables/claimed_invites/columns/updated_at/column
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_invites_public/schema
 -- requires: schemas/agent_db_invites_public/tables/claimed_invites/table

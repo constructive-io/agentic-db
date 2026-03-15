@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_simple_secrets/tables/secrets/alterations/alt0000000593
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_simple_secrets/schema
 -- requires: schemas/agent_db_simple_secrets/tables/secrets/table

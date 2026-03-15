@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_permissions_private/trigger_fns/org_permissions_bitnum_tg
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_permissions_private/schema
 

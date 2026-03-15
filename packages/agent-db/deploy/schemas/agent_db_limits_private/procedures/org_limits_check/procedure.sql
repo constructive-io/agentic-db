@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_limits_private/procedures/org_limits_check/procedure
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_limits_private/schema
 

@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_status_private/trigger_fns/tg_upd_achv
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_status_private/schema
 -- requires: schemas/agent_db_status_private/procedures/upsert_achve/procedure

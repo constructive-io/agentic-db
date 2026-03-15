@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_user_identifiers_private/trigger_fns/crypto_addresses_insert_tg
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_user_identifiers_private/schema
 

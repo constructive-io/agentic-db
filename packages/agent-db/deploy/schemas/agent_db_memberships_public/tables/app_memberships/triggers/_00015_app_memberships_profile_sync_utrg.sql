@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_public/tables/app_memberships/triggers/_00015_app_memberships_profile_sync_utrg
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_profiles_private/schema
 -- requires: schemas/agent_db_memberships_public/schema

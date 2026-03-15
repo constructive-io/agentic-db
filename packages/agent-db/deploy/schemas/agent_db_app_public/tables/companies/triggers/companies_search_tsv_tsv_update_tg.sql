@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_app_public/tables/companies/triggers/companies_search_tsv_tsv_update_tg
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_private/schema
 -- requires: schemas/agent_db_app_public/schema

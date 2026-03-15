@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_user_identifiers_public/tables/crypto_addresses/columns/is_primary/alterations/alt0000000745
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_user_identifiers_public/schema
 -- requires: schemas/agent_db_user_identifiers_public/tables/crypto_addresses/table

@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_profiles_public/tables/org_profile_permissions/constraints/org_profile_permissions_permission_id_fkey/constraint
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_profiles_public/schema
 -- requires: schemas/agent_db_permissions_public/tables/org_permissions/table

@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_profiles_public/tables/app_profile_permissions/triggers/app_profile_permissions_recompute_trg
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_profiles_public/schema
 -- requires: schemas/agent_db_profiles_private/schema

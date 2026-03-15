@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_limits_public/tables/org_limit_defaults/grants/authenticated/insert/grant
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_limits_public/schema
 -- requires: schemas/agent_db_limits_public/tables/org_limit_defaults/table

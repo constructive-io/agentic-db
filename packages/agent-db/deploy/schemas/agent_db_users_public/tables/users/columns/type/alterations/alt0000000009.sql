@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_users_public/tables/users/columns/type/alterations/alt0000000009
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_users_public/schema
 -- requires: schemas/agent_db_users_public/tables/users/table

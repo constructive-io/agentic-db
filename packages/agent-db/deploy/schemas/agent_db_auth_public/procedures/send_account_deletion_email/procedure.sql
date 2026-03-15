@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_auth_public/procedures/send_account_deletion_email/procedure
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_auth_public/schema
 

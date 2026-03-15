@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_public/tables/org_chart_edges/triggers/_99990_org_edge_update_sprt
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_memberships_public/schema
 -- requires: schemas/agent_db_memberships_private/schema

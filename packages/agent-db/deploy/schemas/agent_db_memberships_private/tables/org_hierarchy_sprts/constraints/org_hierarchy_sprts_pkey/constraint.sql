@@ -1,5 +1,5 @@
 -- Deploy: schemas/agent_db_memberships_private/tables/org_hierarchy_sprts/constraints/org_hierarchy_sprts_pkey/constraint
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_memberships_private/schema
 -- requires: schemas/agent_db_memberships_private/tables/org_hierarchy_sprts/table
