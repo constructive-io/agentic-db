@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/activity_log/table
--- requires: schemas/agent_db_app_public/tables/activity_log/columns/action/alterations/alt0000004469
+-- requires: schemas/agent_db_app_public/tables/activity_log/columns/action/alterations/alt0000004517
 
 
 ALTER TABLE "agent_db_app_public".activity_log 

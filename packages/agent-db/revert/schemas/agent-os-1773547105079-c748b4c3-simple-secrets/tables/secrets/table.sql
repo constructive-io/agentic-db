@@ -1,6 +1,0 @@
--- Revert: schemas/agent-os-1773547105079-c748b4c3-simple-secrets/tables/secrets/table
-
-
-DROP TABLE "agent-os-1773547105079-c748b4c3-simple-secrets".secrets;
-
-

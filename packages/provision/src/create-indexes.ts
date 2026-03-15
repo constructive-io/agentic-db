@@ -82,15 +82,16 @@ const BM25_INDEXES: IndexDef[] = [
   table,
   column: 'embedding_text',
   method: 'bm25',
+  options: { text_config: 'english' },
 }));
 
 // Extra BM25 on long-form content fields
 const BM25_EXTRA: IndexDef[] = [
-  { table: 'notes', column: 'content', method: 'bm25' },
-  { table: 'messages', column: 'body_text', method: 'bm25' },
-  { table: 'documents', column: 'content', method: 'bm25' },
-  { table: 'chat_messages', column: 'content', method: 'bm25' },
-  { table: 'prompts', column: 'content', method: 'bm25' },
+  { table: 'notes', column: 'content', method: 'bm25', options: { text_config: 'english' } },
+  { table: 'messages', column: 'body_text', method: 'bm25', options: { text_config: 'english' } },
+  { table: 'documents', column: 'content', method: 'bm25', options: { text_config: 'english' } },
+  { table: 'chat_messages', column: 'content', method: 'bm25', options: { text_config: 'english' } },
+  { table: 'prompts', column: 'content', method: 'bm25', options: { text_config: 'english' } },
   // activity_log has no description field — skip
 ];
 
@@ -548,7 +549,8 @@ async function main() {
               name: indexName,
               fieldIds: [fieldId],
               accessMethod: idx.method,
-              ...(idx.options ? { indexParams: idx.options } : {}),
+              ...(idx.opclass ? { opClasses: [idx.opclass] } : {}),
+              ...(idx.options ? { options: idx.options } : {}),
             },
             select: { id: true },
           })

@@ -104,6 +104,10 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           skillsUsed: true,
           embeddingText: true,
           embedding: true,
+          uagentTrgmSimilarity: true,
+          fingerprintModeTrgmSimilarity: true,
+          csrfSecretTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -150,6 +154,10 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           skillsUsed: true,
           embeddingText: true,
           embedding: true,
+          uagentTrgmSimilarity: true,
+          fingerprintModeTrgmSimilarity: true,
+          csrfSecretTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -320,6 +328,10 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           skillsUsed: true,
           embeddingText: true,
           embedding: true,
+          uagentTrgmSimilarity: true,
+          fingerprintModeTrgmSimilarity: true,
+          csrfSecretTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -499,6 +511,10 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           skillsUsed: true,
           embeddingText: true,
           embedding: true,
+          uagentTrgmSimilarity: true,
+          fingerprintModeTrgmSimilarity: true,
+          csrfSecretTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/sessions/table
--- requires: schemas/agent_db_app_public/tables/sessions/columns/updated_at/alterations/alt0000004315
+-- requires: schemas/agent_db_app_public/tables/sessions/columns/updated_at/alterations/alt0000004363
 
 
 ALTER TABLE "agent_db_app_public".sessions 

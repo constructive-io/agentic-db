@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773546821914-39f1cb9b-app-public/tables/tools/columns/input_schema/column
-
-
-ALTER TABLE "agent-os-1773546821914-39f1cb9b-app-public".tools 
-  DROP COLUMN input_schema RESTRICT;
-
-

@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/skills/table
--- requires: schemas/agent_db_app_public/tables/skills/columns/always_load/alterations/alt0000004252
+-- requires: schemas/agent_db_app_public/tables/skills/columns/always_load/alterations/alt0000004300
 
 
 ALTER TABLE "agent_db_app_public".skills 

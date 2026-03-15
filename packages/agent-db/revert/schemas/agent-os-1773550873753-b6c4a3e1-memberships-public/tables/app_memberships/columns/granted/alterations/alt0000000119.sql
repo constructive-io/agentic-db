@@ -1,0 +1,6 @@
+-- Revert: schemas/agent-os-1773550873753-b6c4a3e1-memberships-public/tables/app_memberships/columns/granted/alterations/alt0000000119
+
+
+COMMENT ON COLUMN "agent-os-1773550873753-b6c4a3e1-memberships-public".app_memberships.granted IS NULL;
+
+

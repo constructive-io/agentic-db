@@ -86,6 +86,8 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           onSuccessStep: true,
           onFailureStep: true,
           timeoutMs: true,
+          actionTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -124,6 +126,8 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           onSuccessStep: true,
           onFailureStep: true,
           timeoutMs: true,
+          actionTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -222,6 +226,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           onSuccessStep: true,
           onFailureStep: true,
           timeoutMs: true,
+          actionTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -326,6 +332,8 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           onSuccessStep: true,
           onFailureStep: true,
           timeoutMs: true,
+          actionTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

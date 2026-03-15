@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/workflow_runs/table
--- requires: schemas/agent_db_app_public/tables/workflow_runs/columns/status/alterations/alt0000004424
+-- requires: schemas/agent_db_app_public/tables/workflow_runs/columns/status/alterations/alt0000004472
 
 
 ALTER TABLE "agent_db_app_public".workflow_runs 

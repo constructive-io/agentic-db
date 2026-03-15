@@ -1,0 +1,6 @@
+-- Verify: schemas/agent-os-1773551593867-bac64076-memberships-public/tables/app_admin_grants/indexes/app_admin_grants_created_at_idx
+
+
+SELECT verify_index('agent-os-1773551593867-bac64076-memberships-public.app_admin_grants', 'app_admin_grants_created_at_idx');
+
+

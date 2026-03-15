@@ -237,9 +237,63 @@ export interface AgentPrompt {
   id: string;
   entityId?: string | null;
 }
-export interface AgentRule {
+export interface Process {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  pid?: number | null;
   agentId?: string | null;
-  ruleId?: string | null;
+  command?: string | null;
+  startedAt?: string | null;
+  endedAt?: string | null;
+  status?: string | null;
+  exitCode?: number | null;
+  logsPath?: string | null;
+  /** TRGM similarity when searching `command`. Returns null when no trgm search filter is active. */
+  commandTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `logsPath`. Returns null when no trgm search filter is active. */
+  logsPathTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface ScheduledJob {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  name?: string | null;
+  scheduleType?: string | null;
+  scheduleExpr?: string | null;
+  runAt?: string | null;
+  command?: string | null;
+  message?: string | null;
+  agentId?: string | null;
+  sessionId?: string | null;
+  isActive?: boolean | null;
+  deleteAfterRun?: boolean | null;
+  lastRunAt?: string | null;
+  nextRunAt?: string | null;
+  runCount?: number | null;
+  lastResult?: Record<string, unknown> | null;
+  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
+  nameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `scheduleType`. Returns null when no trgm search filter is active. */
+  scheduleTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `scheduleExpr`. Returns null when no trgm search filter is active. */
+  scheduleExprTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `command`. Returns null when no trgm search filter is active. */
+  commandTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `message`. Returns null when no trgm search filter is active. */
+  messageTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface AgentTool {
+  agentId?: string | null;
+  toolId?: string | null;
   id: string;
   entityId?: string | null;
 }
@@ -249,9 +303,9 @@ export interface AgentSkill {
   id: string;
   entityId?: string | null;
 }
-export interface AgentTool {
+export interface AgentRule {
   agentId?: string | null;
-  toolId?: string | null;
+  ruleId?: string | null;
   id: string;
   entityId?: string | null;
 }
@@ -260,6 +314,73 @@ export interface CalendarEventContact {
   contactId?: string | null;
   id: string;
   entityId?: string | null;
+}
+export interface CalendarEvent {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  calendarAccountId?: string | null;
+  remoteId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  startAt?: string | null;
+  endAt?: string | null;
+  allDay?: boolean | null;
+  location?: string | null;
+  recurrenceRule?: string | null;
+  status?: string | null;
+  tags?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** TRGM similarity when searching `remoteId`. Returns null when no trgm search filter is active. */
+  remoteIdTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `location`. Returns null when no trgm search filter is active. */
+  locationTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `recurrenceRule`. Returns null when no trgm search filter is active. */
+  recurrenceRuleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface Interaction {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
+  type?: string | null;
+  occurredAt?: string | null;
+  summary?: string | null;
+  sentiment?: string | null;
+  tags?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** TRGM similarity when searching `type`. Returns null when no trgm search filter is active. */
+  typeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
+  summaryTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `sentiment`. Returns null when no trgm search filter is active. */
+  sentimentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface CompanyEvent {
   companyId?: string | null;
@@ -321,11 +442,57 @@ export interface GoalHabit {
   id: string;
   entityId?: string | null;
 }
+export interface HabitLog {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  habitId?: string | null;
+  completedAt?: string | null;
+  activityType?: string | null;
+  durationMinutes?: string | null;
+  distance?: string | null;
+  distanceUnit?: string | null;
+  reps?: number | null;
+  sets?: number | null;
+  weightAmount?: string | null;
+  weightUnit?: string | null;
+  calories?: string | null;
+  data?: Record<string, unknown> | null;
+  notes?: string | null;
+  tags?: string | null;
+  /** TRGM similarity when searching `activityType`. Returns null when no trgm search filter is active. */
+  activityTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `distanceUnit`. Returns null when no trgm search filter is active. */
+  distanceUnitTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `weightUnit`. Returns null when no trgm search filter is active. */
+  weightUnitTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
+  notesTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface GoalProject {
   goalId?: string | null;
   projectId?: string | null;
   id: string;
   entityId?: string | null;
+}
+export interface Milestone {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  projectId?: string | null;
+  name?: string | null;
+  dueDate?: string | null;
+  status?: string | null;
+  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
+  nameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface ProjectContact {
   projectId?: string | null;
@@ -363,19 +530,26 @@ export interface File {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface Milestone {
+export interface Chunk {
   id: string;
   entityId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  projectId?: string | null;
-  name?: string | null;
-  dueDate?: string | null;
-  status?: string | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
+  fileId?: string | null;
+  repositoryId?: string | null;
+  content?: string | null;
+  startLine?: number | null;
+  endLine?: number | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -471,6 +645,43 @@ export interface EmailAccount {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface Message {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  emailAccountId?: string | null;
+  threadId?: string | null;
+  remoteId?: string | null;
+  fromAddress?: string | null;
+  toAddresses?: string | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  receivedAt?: string | null;
+  tags?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  /** BM25 score when searching `bodyText`. Returns null when no bm25 search filter is active. */
+  bodyTextBm25Score?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** TRGM similarity when searching `threadId`. Returns null when no trgm search filter is active. */
+  threadIdTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `remoteId`. Returns null when no trgm search filter is active. */
+  remoteIdTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `fromAddress`. Returns null when no trgm search filter is active. */
+  fromAddressTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `subject`. Returns null when no trgm search filter is active. */
+  subjectTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `bodyText`. Returns null when no trgm search filter is active. */
+  bodyTextTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface ActivityLog {
   id: string;
   entityId?: string | null;
@@ -549,6 +760,30 @@ export interface ExecutionLog {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface SessionArchive {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  sessionId?: string | null;
+  archiveIndex?: number | null;
+  summary?: string | null;
+  messageRangeStart?: number | null;
+  messageRangeEnd?: number | null;
+  rawMessages?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
+  summaryTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Webhook {
   id: string;
   entityId?: string | null;
@@ -596,28 +831,6 @@ export interface Notification {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface Process {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  pid?: number | null;
-  agentId?: string | null;
-  command?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  status?: string | null;
-  exitCode?: number | null;
-  logsPath?: string | null;
-  /** TRGM similarity when searching `command`. Returns null when no trgm search filter is active. */
-  commandTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `logsPath`. Returns null when no trgm search filter is active. */
-  logsPathTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
 export interface WorkflowRun {
   id: string;
   entityId?: string | null;
@@ -634,6 +847,23 @@ export interface WorkflowRun {
   statusTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `error`. Returns null when no trgm search filter is active. */
   errorTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface WorkflowStep {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  workflowId?: string | null;
+  stepOrder?: number | null;
+  actionType?: string | null;
+  actionConfig?: Record<string, unknown> | null;
+  onSuccessStep?: number | null;
+  onFailureStep?: number | null;
+  timeoutMs?: number | null;
+  /** TRGM similarity when searching `actionType`. Returns null when no trgm search filter is active. */
+  actionTypeTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -693,6 +923,8 @@ export interface Chat {
   startedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
   titleTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
@@ -702,18 +934,24 @@ export interface Chat {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface Chunk {
+export interface ChatMessage {
   id: string;
   entityId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  fileId?: string | null;
-  repositoryId?: string | null;
+  chatId?: string | null;
+  threadId?: string | null;
+  role?: string | null;
   content?: string | null;
-  startLine?: number | null;
-  endLine?: number | null;
+  toolCalls?: Record<string, unknown> | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
+  contentBm25Score?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** TRGM similarity when searching `role`. Returns null when no trgm search filter is active. */
+  roleTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
   contentTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
@@ -734,57 +972,14 @@ export interface Thread {
   parentThreadId?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
   titleTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
   summaryTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
   statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface ChatMessage {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  chatId?: string | null;
-  threadId?: string | null;
-  role?: string | null;
-  content?: string | null;
-  toolCalls?: Record<string, unknown> | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  /** TRGM similarity when searching `role`. Returns null when no trgm search filter is active. */
-  roleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface SessionArchive {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  sessionId?: string | null;
-  archiveIndex?: number | null;
-  summary?: string | null;
-  messageRangeStart?: number | null;
-  messageRangeEnd?: number | null;
-  rawMessages?: Record<string, unknown> | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
-  summaryTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -806,6 +1001,8 @@ export interface Reminder {
   relatedEntityType?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
   titleTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `recurrence`. Returns null when no trgm search filter is active. */
@@ -839,23 +1036,6 @@ export interface Image {
   captionTrgmSimilarity?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface WorkflowStep {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  workflowId?: string | null;
-  stepOrder?: number | null;
-  actionType?: string | null;
-  actionConfig?: Record<string, unknown> | null;
-  onSuccessStep?: number | null;
-  onFailureStep?: number | null;
-  timeoutMs?: number | null;
-  /** TRGM similarity when searching `actionType`. Returns null when no trgm search filter is active. */
-  actionTypeTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -971,38 +1151,6 @@ export interface AgentSpawn {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface ScheduledJob {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  name?: string | null;
-  scheduleType?: string | null;
-  scheduleExpr?: string | null;
-  runAt?: string | null;
-  command?: string | null;
-  message?: string | null;
-  agentId?: string | null;
-  sessionId?: string | null;
-  isActive?: boolean | null;
-  deleteAfterRun?: boolean | null;
-  lastRunAt?: string | null;
-  nextRunAt?: string | null;
-  runCount?: number | null;
-  lastResult?: Record<string, unknown> | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `scheduleType`. Returns null when no trgm search filter is active. */
-  scheduleTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `scheduleExpr`. Returns null when no trgm search filter is active. */
-  scheduleExprTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `command`. Returns null when no trgm search filter is active. */
-  commandTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `message`. Returns null when no trgm search filter is active. */
-  messageTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
 export interface Habit {
   id: string;
   entityId?: string | null;
@@ -1041,36 +1189,6 @@ export interface Workflow {
   descriptionTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `triggerType`. Returns null when no trgm search filter is active. */
   triggerTypeTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface HabitLog {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  habitId?: string | null;
-  completedAt?: string | null;
-  activityType?: string | null;
-  durationMinutes?: string | null;
-  distance?: string | null;
-  distanceUnit?: string | null;
-  reps?: number | null;
-  sets?: number | null;
-  weightAmount?: string | null;
-  weightUnit?: string | null;
-  calories?: string | null;
-  data?: Record<string, unknown> | null;
-  notes?: string | null;
-  tags?: string | null;
-  /** TRGM similarity when searching `activityType`. Returns null when no trgm search filter is active. */
-  activityTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `distanceUnit`. Returns null when no trgm search filter is active. */
-  distanceUnitTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `weightUnit`. Returns null when no trgm search filter is active. */
-  weightUnitTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
-  notesTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1142,6 +1260,8 @@ export interface Idea {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
   contentTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `source`. Returns null when no trgm search filter is active. */
@@ -1166,38 +1286,14 @@ export interface List {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
   descriptionTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `type`. Returns null when no trgm search filter is active. */
   typeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface Interaction {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  contactId?: string | null;
-  type?: string | null;
-  occurredAt?: string | null;
-  summary?: string | null;
-  sentiment?: string | null;
-  tags?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  /** TRGM similarity when searching `type`. Returns null when no trgm search filter is active. */
-  typeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
-  summaryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `sentiment`. Returns null when no trgm search filter is active. */
-  sentimentTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1218,6 +1314,8 @@ export interface Repository {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `url`. Returns null when no trgm search filter is active. */
@@ -1247,6 +1345,8 @@ export interface Deal {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `stage`. Returns null when no trgm search filter is active. */
@@ -1276,6 +1376,8 @@ export interface Goal {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
   titleTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
@@ -1306,6 +1408,10 @@ export interface Note {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
+  contentBm25Score?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
   contentTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `notableType`. Returns null when no trgm search filter is active. */
@@ -1335,6 +1441,10 @@ export interface Prompt {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
+  contentBm25Score?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
@@ -1362,6 +1472,8 @@ export interface Blueprint {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
   titleTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `triggerConditions`. Returns null when no trgm search filter is active. */
@@ -1387,6 +1499,8 @@ export interface Template {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
@@ -1416,6 +1530,8 @@ export interface Tool {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
@@ -1452,6 +1568,8 @@ export interface Recipe {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
@@ -1485,6 +1603,8 @@ export interface Trip {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `destination`. Returns null when no trgm search filter is active. */
@@ -1493,76 +1613,6 @@ export interface Trip {
   statusTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
   notesTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface CalendarEvent {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  calendarAccountId?: string | null;
-  remoteId?: string | null;
-  title?: string | null;
-  description?: string | null;
-  startAt?: string | null;
-  endAt?: string | null;
-  allDay?: boolean | null;
-  location?: string | null;
-  recurrenceRule?: string | null;
-  status?: string | null;
-  tags?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  /** TRGM similarity when searching `remoteId`. Returns null when no trgm search filter is active. */
-  remoteIdTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `location`. Returns null when no trgm search filter is active. */
-  locationTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `recurrenceRule`. Returns null when no trgm search filter is active. */
-  recurrenceRuleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface Message {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  emailAccountId?: string | null;
-  threadId?: string | null;
-  remoteId?: string | null;
-  fromAddress?: string | null;
-  toAddresses?: string | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  receivedAt?: string | null;
-  tags?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  /** TRGM similarity when searching `threadId`. Returns null when no trgm search filter is active. */
-  threadIdTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `remoteId`. Returns null when no trgm search filter is active. */
-  remoteIdTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `fromAddress`. Returns null when no trgm search filter is active. */
-  fromAddressTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `subject`. Returns null when no trgm search filter is active. */
-  subjectTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `bodyText`. Returns null when no trgm search filter is active. */
-  bodyTextTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1591,6 +1641,8 @@ export interface Memory {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
   contentTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `memoryType`. Returns null when no trgm search filter is active. */
@@ -1628,6 +1680,8 @@ export interface Rule {
   embeddingText?: string | null;
   embedding?: number[] | null;
   triggerConcept?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
   titleTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
@@ -1669,6 +1723,8 @@ export interface Task {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
   titleTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
@@ -1706,6 +1762,8 @@ export interface Agent {
   lastActiveAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `role`. Returns null when no trgm search filter is active. */
@@ -1788,6 +1846,8 @@ export interface Skill {
   embeddingText?: string | null;
   embedding?: number[] | null;
   intentTrigger?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `slug`. Returns null when no trgm search filter is active. */
@@ -1833,6 +1893,8 @@ export interface Project {
   searchTsv?: string | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
@@ -1868,6 +1930,10 @@ export interface Document {
   searchTsv?: string | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
+  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
+  contentBm25Score?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
   titleTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `url`. Returns null when no trgm search filter is active. */
@@ -1903,6 +1969,8 @@ export interface Company {
   mainImageId?: string | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `domain`. Returns null when no trgm search filter is active. */
@@ -1937,6 +2005,8 @@ export interface Event {
   mainImageId?: string | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `eventType`. Returns null when no trgm search filter is active. */
@@ -1981,6 +2051,8 @@ export interface Contact {
   mainImageId?: string | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `firstName`. Returns null when no trgm search filter is active. */
   firstNameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `lastName`. Returns null when no trgm search filter is active. */
@@ -2039,6 +2111,8 @@ export interface Venue {
   mainImageId?: string | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
   nameTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `address`. Returns null when no trgm search filter is active. */
@@ -2081,20 +2155,32 @@ export interface AgentPromptRelations {
   agent?: Agent | null;
   prompt?: Prompt | null;
 }
-export interface AgentRuleRelations {
+export interface ProcessRelations {
   agent?: Agent | null;
-  rule?: Rule | null;
 }
-export interface AgentSkillRelations {
+export interface ScheduledJobRelations {
   agent?: Agent | null;
-  skill?: Skill | null;
 }
 export interface AgentToolRelations {
   agent?: Agent | null;
   tool?: Tool | null;
 }
+export interface AgentSkillRelations {
+  agent?: Agent | null;
+  skill?: Skill | null;
+}
+export interface AgentRuleRelations {
+  agent?: Agent | null;
+  rule?: Rule | null;
+}
 export interface CalendarEventContactRelations {
   calendarEvent?: CalendarEvent | null;
+  contact?: Contact | null;
+}
+export interface CalendarEventRelations {
+  calendarAccount?: CalendarAccount | null;
+}
+export interface InteractionRelations {
   contact?: Contact | null;
 }
 export interface CompanyEventRelations {
@@ -2137,8 +2223,14 @@ export interface GoalHabitRelations {
   goal?: Goal | null;
   habit?: Habit | null;
 }
+export interface HabitLogRelations {
+  habit?: Habit | null;
+}
 export interface GoalProjectRelations {
   goal?: Goal | null;
+  project?: Project | null;
+}
+export interface MilestoneRelations {
   project?: Project | null;
 }
 export interface ProjectContactRelations {
@@ -2155,53 +2247,61 @@ export interface VenueImageRelations {
 }
 export interface FileRelations {
   repository?: Repository | null;
+  chunks?: ConnectionResult<Chunk>;
 }
-export interface MilestoneRelations {
-  project?: Project | null;
+export interface ChunkRelations {
+  file?: File | null;
+  repository?: Repository | null;
 }
-export interface CalendarAccountRelations {}
+export interface CalendarAccountRelations {
+  calendarEvents?: ConnectionResult<CalendarEvent>;
+}
 export interface TagRelations {}
 export interface FeedbackRelations {}
 export interface AttachmentRelations {}
-export interface EmailAccountRelations {}
+export interface EmailAccountRelations {
+  messages?: ConnectionResult<Message>;
+}
+export interface MessageRelations {
+  emailAccount?: EmailAccount | null;
+}
 export interface ActivityLogRelations {}
 export interface ContextRelationRelations {}
 export interface UserSettingRelations {}
 export interface ExecutionLogRelations {
   session?: Session | null;
 }
+export interface SessionArchiveRelations {
+  session?: Session | null;
+}
 export interface WebhookRelations {
   integration?: Integration | null;
 }
 export interface NotificationRelations {}
-export interface ProcessRelations {
-  agent?: Agent | null;
-}
 export interface WorkflowRunRelations {
   workflow?: Workflow | null;
 }
-export interface IntegrationRelations {}
-export interface SkillExecutionRelations {}
-export interface ChatRelations {}
-export interface ChunkRelations {
-  file?: File | null;
-  repository?: Repository | null;
+export interface WorkflowStepRelations {
+  workflow?: Workflow | null;
 }
-export interface ThreadRelations {
-  parentThread?: Thread | null;
+export interface IntegrationRelations {
+  webhooks?: ConnectionResult<Webhook>;
+}
+export interface SkillExecutionRelations {}
+export interface ChatRelations {
+  chatMessages?: ConnectionResult<ChatMessage>;
 }
 export interface ChatMessageRelations {
   chat?: Chat | null;
   thread?: Thread | null;
 }
-export interface SessionArchiveRelations {
-  session?: Session | null;
+export interface ThreadRelations {
+  parentThread?: Thread | null;
+  chatMessages?: ConnectionResult<ChatMessage>;
+  threadsByParentThreadId?: ConnectionResult<Thread>;
 }
 export interface ReminderRelations {}
 export interface ImageRelations {}
-export interface WorkflowStepRelations {
-  workflow?: Workflow | null;
-}
 export interface ListItemRelations {
   list?: List | null;
 }
@@ -2220,48 +2320,62 @@ export interface VenueLinkRelations {
 export interface AgentSpawnRelations {
   agent?: Agent | null;
 }
-export interface ScheduledJobRelations {
-  agent?: Agent | null;
+export interface HabitRelations {
+  habitLogs?: ConnectionResult<HabitLog>;
 }
-export interface HabitRelations {}
-export interface WorkflowRelations {}
-export interface HabitLogRelations {
-  habit?: Habit | null;
+export interface WorkflowRelations {
+  workflowSteps?: ConnectionResult<WorkflowStep>;
+  workflowRuns?: ConnectionResult<WorkflowRun>;
 }
 export interface ExpenseRelations {}
 export interface BillingSubscriptionRelations {}
 export interface IdeaRelations {}
-export interface ListRelations {}
-export interface InteractionRelations {
-  contact?: Contact | null;
+export interface ListRelations {
+  listItems?: ConnectionResult<ListItem>;
 }
-export interface RepositoryRelations {}
+export interface RepositoryRelations {
+  files?: ConnectionResult<File>;
+  chunks?: ConnectionResult<Chunk>;
+}
 export interface DealRelations {}
 export interface GoalRelations {}
 export interface NoteRelations {}
-export interface PromptRelations {}
+export interface PromptRelations {
+  agentPrompts?: ConnectionResult<AgentPrompt>;
+}
 export interface BlueprintRelations {}
 export interface TemplateRelations {}
-export interface ToolRelations {}
+export interface ToolRelations {
+  agentTools?: ConnectionResult<AgentTool>;
+}
 export interface RecipeRelations {}
 export interface TripRelations {}
-export interface CalendarEventRelations {
-  calendarAccount?: CalendarAccount | null;
-}
-export interface MessageRelations {
-  emailAccount?: EmailAccount | null;
-}
 export interface MemoryRelations {}
-export interface RuleRelations {}
+export interface RuleRelations {
+  agentRules?: ConnectionResult<AgentRule>;
+}
 export interface TaskRelations {
   parentTask?: Task | null;
 }
-export interface AgentRelations {}
+export interface AgentRelations {
+  processes?: ConnectionResult<Process>;
+  scheduledJobs?: ConnectionResult<ScheduledJob>;
+  agentTools?: ConnectionResult<AgentTool>;
+  agentSkills?: ConnectionResult<AgentSkill>;
+  agentRules?: ConnectionResult<AgentRule>;
+  agentPrompts?: ConnectionResult<AgentPrompt>;
+}
 export interface SessionRelations {
   agent?: Agent | null;
+  executionLogs?: ConnectionResult<ExecutionLog>;
+  sessionArchives?: ConnectionResult<SessionArchive>;
 }
-export interface SkillRelations {}
-export interface ProjectRelations {}
+export interface SkillRelations {
+  agentSkills?: ConnectionResult<AgentSkill>;
+}
+export interface ProjectRelations {
+  milestones?: ConnectionResult<Milestone>;
+}
 export interface DocumentRelations {}
 export interface CompanyRelations {
   mainImage?: Image | null;
@@ -2271,17 +2385,22 @@ export interface EventRelations {
 }
 export interface ContactRelations {
   mainImage?: Image | null;
+  interactions?: ConnectionResult<Interaction>;
 }
 export interface VenueRelations {
   mainImage?: Image | null;
 }
 // ============ Entity Types With Relations ============
 export type AgentPromptWithRelations = AgentPrompt & AgentPromptRelations;
-export type AgentRuleWithRelations = AgentRule & AgentRuleRelations;
-export type AgentSkillWithRelations = AgentSkill & AgentSkillRelations;
+export type ProcessWithRelations = Process & ProcessRelations;
+export type ScheduledJobWithRelations = ScheduledJob & ScheduledJobRelations;
 export type AgentToolWithRelations = AgentTool & AgentToolRelations;
+export type AgentSkillWithRelations = AgentSkill & AgentSkillRelations;
+export type AgentRuleWithRelations = AgentRule & AgentRuleRelations;
 export type CalendarEventContactWithRelations = CalendarEventContact &
   CalendarEventContactRelations;
+export type CalendarEventWithRelations = CalendarEvent & CalendarEventRelations;
+export type InteractionWithRelations = Interaction & InteractionRelations;
 export type CompanyEventWithRelations = CompanyEvent & CompanyEventRelations;
 export type CompanyImageWithRelations = CompanyImage & CompanyImageRelations;
 export type ContactCompanyWithRelations = ContactCompany & ContactCompanyRelations;
@@ -2292,50 +2411,48 @@ export type EventImageWithRelations = EventImage & EventImageRelations;
 export type EventVenueWithRelations = EventVenue & EventVenueRelations;
 export type ExpenseContactWithRelations = ExpenseContact & ExpenseContactRelations;
 export type GoalHabitWithRelations = GoalHabit & GoalHabitRelations;
+export type HabitLogWithRelations = HabitLog & HabitLogRelations;
 export type GoalProjectWithRelations = GoalProject & GoalProjectRelations;
+export type MilestoneWithRelations = Milestone & MilestoneRelations;
 export type ProjectContactWithRelations = ProjectContact & ProjectContactRelations;
 export type TaskContactWithRelations = TaskContact & TaskContactRelations;
 export type VenueImageWithRelations = VenueImage & VenueImageRelations;
 export type FileWithRelations = File & FileRelations;
-export type MilestoneWithRelations = Milestone & MilestoneRelations;
+export type ChunkWithRelations = Chunk & ChunkRelations;
 export type CalendarAccountWithRelations = CalendarAccount & CalendarAccountRelations;
 export type TagWithRelations = Tag & TagRelations;
 export type FeedbackWithRelations = Feedback & FeedbackRelations;
 export type AttachmentWithRelations = Attachment & AttachmentRelations;
 export type EmailAccountWithRelations = EmailAccount & EmailAccountRelations;
+export type MessageWithRelations = Message & MessageRelations;
 export type ActivityLogWithRelations = ActivityLog & ActivityLogRelations;
 export type ContextRelationWithRelations = ContextRelation & ContextRelationRelations;
 export type UserSettingWithRelations = UserSetting & UserSettingRelations;
 export type ExecutionLogWithRelations = ExecutionLog & ExecutionLogRelations;
+export type SessionArchiveWithRelations = SessionArchive & SessionArchiveRelations;
 export type WebhookWithRelations = Webhook & WebhookRelations;
 export type NotificationWithRelations = Notification & NotificationRelations;
-export type ProcessWithRelations = Process & ProcessRelations;
 export type WorkflowRunWithRelations = WorkflowRun & WorkflowRunRelations;
+export type WorkflowStepWithRelations = WorkflowStep & WorkflowStepRelations;
 export type IntegrationWithRelations = Integration & IntegrationRelations;
 export type SkillExecutionWithRelations = SkillExecution & SkillExecutionRelations;
 export type ChatWithRelations = Chat & ChatRelations;
-export type ChunkWithRelations = Chunk & ChunkRelations;
-export type ThreadWithRelations = Thread & ThreadRelations;
 export type ChatMessageWithRelations = ChatMessage & ChatMessageRelations;
-export type SessionArchiveWithRelations = SessionArchive & SessionArchiveRelations;
+export type ThreadWithRelations = Thread & ThreadRelations;
 export type ReminderWithRelations = Reminder & ReminderRelations;
 export type ImageWithRelations = Image & ImageRelations;
-export type WorkflowStepWithRelations = WorkflowStep & WorkflowStepRelations;
 export type ListItemWithRelations = ListItem & ListItemRelations;
 export type CompanyLinkWithRelations = CompanyLink & CompanyLinkRelations;
 export type ContactLinkWithRelations = ContactLink & ContactLinkRelations;
 export type EventLinkWithRelations = EventLink & EventLinkRelations;
 export type VenueLinkWithRelations = VenueLink & VenueLinkRelations;
 export type AgentSpawnWithRelations = AgentSpawn & AgentSpawnRelations;
-export type ScheduledJobWithRelations = ScheduledJob & ScheduledJobRelations;
 export type HabitWithRelations = Habit & HabitRelations;
 export type WorkflowWithRelations = Workflow & WorkflowRelations;
-export type HabitLogWithRelations = HabitLog & HabitLogRelations;
 export type ExpenseWithRelations = Expense & ExpenseRelations;
 export type BillingSubscriptionWithRelations = BillingSubscription & BillingSubscriptionRelations;
 export type IdeaWithRelations = Idea & IdeaRelations;
 export type ListWithRelations = List & ListRelations;
-export type InteractionWithRelations = Interaction & InteractionRelations;
 export type RepositoryWithRelations = Repository & RepositoryRelations;
 export type DealWithRelations = Deal & DealRelations;
 export type GoalWithRelations = Goal & GoalRelations;
@@ -2346,8 +2463,6 @@ export type TemplateWithRelations = Template & TemplateRelations;
 export type ToolWithRelations = Tool & ToolRelations;
 export type RecipeWithRelations = Recipe & RecipeRelations;
 export type TripWithRelations = Trip & TripRelations;
-export type CalendarEventWithRelations = CalendarEvent & CalendarEventRelations;
-export type MessageWithRelations = Message & MessageRelations;
 export type MemoryWithRelations = Memory & MemoryRelations;
 export type RuleWithRelations = Rule & RuleRelations;
 export type TaskWithRelations = Task & TaskRelations;
@@ -2373,28 +2488,54 @@ export type AgentPromptSelect = {
     select: PromptSelect;
   };
 };
-export type AgentRuleSelect = {
-  agentId?: boolean;
-  ruleId?: boolean;
+export type ProcessSelect = {
   id?: boolean;
   entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  pid?: boolean;
+  agentId?: boolean;
+  command?: boolean;
+  startedAt?: boolean;
+  endedAt?: boolean;
+  status?: boolean;
+  exitCode?: boolean;
+  logsPath?: boolean;
+  commandTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  logsPathTrgmSimilarity?: boolean;
+  searchScore?: boolean;
   agent?: {
     select: AgentSelect;
-  };
-  rule?: {
-    select: RuleSelect;
   };
 };
-export type AgentSkillSelect = {
-  agentId?: boolean;
-  skillId?: boolean;
+export type ScheduledJobSelect = {
   id?: boolean;
   entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  name?: boolean;
+  scheduleType?: boolean;
+  scheduleExpr?: boolean;
+  runAt?: boolean;
+  command?: boolean;
+  message?: boolean;
+  agentId?: boolean;
+  sessionId?: boolean;
+  isActive?: boolean;
+  deleteAfterRun?: boolean;
+  lastRunAt?: boolean;
+  nextRunAt?: boolean;
+  runCount?: boolean;
+  lastResult?: boolean;
+  nameTrgmSimilarity?: boolean;
+  scheduleTypeTrgmSimilarity?: boolean;
+  scheduleExprTrgmSimilarity?: boolean;
+  commandTrgmSimilarity?: boolean;
+  messageTrgmSimilarity?: boolean;
+  searchScore?: boolean;
   agent?: {
     select: AgentSelect;
-  };
-  skill?: {
-    select: SkillSelect;
   };
 };
 export type AgentToolSelect = {
@@ -2409,6 +2550,30 @@ export type AgentToolSelect = {
     select: ToolSelect;
   };
 };
+export type AgentSkillSelect = {
+  agentId?: boolean;
+  skillId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  skill?: {
+    select: SkillSelect;
+  };
+};
+export type AgentRuleSelect = {
+  agentId?: boolean;
+  ruleId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  rule?: {
+    select: RuleSelect;
+  };
+};
 export type CalendarEventContactSelect = {
   calendarEventId?: boolean;
   contactId?: boolean;
@@ -2417,6 +2582,62 @@ export type CalendarEventContactSelect = {
   calendarEvent?: {
     select: CalendarEventSelect;
   };
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type CalendarEventSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  calendarAccountId?: boolean;
+  remoteId?: boolean;
+  title?: boolean;
+  description?: boolean;
+  startAt?: boolean;
+  endAt?: boolean;
+  allDay?: boolean;
+  location?: boolean;
+  recurrenceRule?: boolean;
+  status?: boolean;
+  tags?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
+  remoteIdTrgmSimilarity?: boolean;
+  titleTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  locationTrgmSimilarity?: boolean;
+  recurrenceRuleTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  calendarAccount?: {
+    select: CalendarAccountSelect;
+  };
+};
+export type InteractionSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
+  type?: boolean;
+  occurredAt?: boolean;
+  summary?: boolean;
+  sentiment?: boolean;
+  tags?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
+  typeTrgmSimilarity?: boolean;
+  summaryTrgmSimilarity?: boolean;
+  sentimentTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
   contact?: {
     select: ContactSelect;
   };
@@ -2541,6 +2762,34 @@ export type GoalHabitSelect = {
     select: HabitSelect;
   };
 };
+export type HabitLogSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  habitId?: boolean;
+  completedAt?: boolean;
+  activityType?: boolean;
+  durationMinutes?: boolean;
+  distance?: boolean;
+  distanceUnit?: boolean;
+  reps?: boolean;
+  sets?: boolean;
+  weightAmount?: boolean;
+  weightUnit?: boolean;
+  calories?: boolean;
+  data?: boolean;
+  notes?: boolean;
+  tags?: boolean;
+  activityTypeTrgmSimilarity?: boolean;
+  distanceUnitTrgmSimilarity?: boolean;
+  weightUnitTrgmSimilarity?: boolean;
+  notesTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  habit?: {
+    select: HabitSelect;
+  };
+};
 export type GoalProjectSelect = {
   goalId?: boolean;
   projectId?: boolean;
@@ -2549,6 +2798,22 @@ export type GoalProjectSelect = {
   goal?: {
     select: GoalSelect;
   };
+  project?: {
+    select: ProjectSelect;
+  };
+};
+export type MilestoneSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  projectId?: boolean;
+  name?: boolean;
+  dueDate?: boolean;
+  status?: boolean;
+  nameTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  searchScore?: boolean;
   project?: {
     select: ProjectSelect;
   };
@@ -2605,21 +2870,35 @@ export type FileSelect = {
   repository?: {
     select: RepositorySelect;
   };
+  chunks?: {
+    select: ChunkSelect;
+    first?: number;
+    filter?: ChunkFilter;
+    orderBy?: ChunkOrderBy[];
+  };
 };
-export type MilestoneSelect = {
+export type ChunkSelect = {
   id?: boolean;
   entityId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
-  projectId?: boolean;
-  name?: boolean;
-  dueDate?: boolean;
-  status?: boolean;
-  nameTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
+  fileId?: boolean;
+  repositoryId?: boolean;
+  content?: boolean;
+  startLine?: boolean;
+  endLine?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
+  contentTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  embeddingVectorDistance?: boolean;
   searchScore?: boolean;
-  project?: {
-    select: ProjectSelect;
+  file?: {
+    select: FileSelect;
+  };
+  repository?: {
+    select: RepositorySelect;
   };
 };
 export type CalendarAccountSelect = {
@@ -2635,6 +2914,12 @@ export type CalendarAccountSelect = {
   providerTrgmSimilarity?: boolean;
   syncTokenTrgmSimilarity?: boolean;
   searchScore?: boolean;
+  calendarEvents?: {
+    select: CalendarEventSelect;
+    first?: number;
+    filter?: CalendarEventFilter;
+    orderBy?: CalendarEventOrderBy[];
+  };
 };
 export type TagSelect = {
   id?: boolean;
@@ -2693,6 +2978,42 @@ export type EmailAccountSelect = {
   emailTrgmSimilarity?: boolean;
   providerTrgmSimilarity?: boolean;
   searchScore?: boolean;
+  messages?: {
+    select: MessageSelect;
+    first?: number;
+    filter?: MessageFilter;
+    orderBy?: MessageOrderBy[];
+  };
+};
+export type MessageSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  emailAccountId?: boolean;
+  threadId?: boolean;
+  remoteId?: boolean;
+  fromAddress?: boolean;
+  toAddresses?: boolean;
+  subject?: boolean;
+  bodyText?: boolean;
+  receivedAt?: boolean;
+  tags?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  bodyTextBm25Score?: boolean;
+  embeddingTextBm25Score?: boolean;
+  threadIdTrgmSimilarity?: boolean;
+  remoteIdTrgmSimilarity?: boolean;
+  fromAddressTrgmSimilarity?: boolean;
+  subjectTrgmSimilarity?: boolean;
+  bodyTextTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  emailAccount?: {
+    select: EmailAccountSelect;
+  };
 };
 export type ActivityLogSelect = {
   id?: boolean;
@@ -2759,6 +3080,28 @@ export type ExecutionLogSelect = {
     select: SessionSelect;
   };
 };
+export type SessionArchiveSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  sessionId?: boolean;
+  archiveIndex?: boolean;
+  summary?: boolean;
+  messageRangeStart?: boolean;
+  messageRangeEnd?: boolean;
+  rawMessages?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
+  summaryTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  session?: {
+    select: SessionSelect;
+  };
+};
 export type WebhookSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -2798,27 +3141,6 @@ export type NotificationSelect = {
   sourceEntityTypeTrgmSimilarity?: boolean;
   searchScore?: boolean;
 };
-export type ProcessSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  pid?: boolean;
-  agentId?: boolean;
-  command?: boolean;
-  startedAt?: boolean;
-  endedAt?: boolean;
-  status?: boolean;
-  exitCode?: boolean;
-  logsPath?: boolean;
-  commandTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  logsPathTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-};
 export type WorkflowRunSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -2833,6 +3155,24 @@ export type WorkflowRunSelect = {
   error?: boolean;
   statusTrgmSimilarity?: boolean;
   errorTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  workflow?: {
+    select: WorkflowSelect;
+  };
+};
+export type WorkflowStepSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  workflowId?: boolean;
+  stepOrder?: boolean;
+  actionType?: boolean;
+  actionConfig?: boolean;
+  onSuccessStep?: boolean;
+  onFailureStep?: boolean;
+  timeoutMs?: boolean;
+  actionTypeTrgmSimilarity?: boolean;
   searchScore?: boolean;
   workflow?: {
     select: WorkflowSelect;
@@ -2856,6 +3196,12 @@ export type IntegrationSelect = {
   credentialsRefTrgmSimilarity?: boolean;
   statusTrgmSimilarity?: boolean;
   searchScore?: boolean;
+  webhooks?: {
+    select: WebhookSelect;
+    first?: number;
+    filter?: WebhookFilter;
+    orderBy?: WebhookOrderBy[];
+  };
 };
 export type SkillExecutionSelect = {
   id?: boolean;
@@ -2885,53 +3231,16 @@ export type ChatSelect = {
   startedAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   titleTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
-};
-export type ChunkSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  fileId?: boolean;
-  repositoryId?: boolean;
-  content?: boolean;
-  startLine?: boolean;
-  endLine?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  file?: {
-    select: FileSelect;
-  };
-  repository?: {
-    select: RepositorySelect;
-  };
-};
-export type ThreadSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  title?: boolean;
-  summary?: boolean;
-  status?: boolean;
-  parentThreadId?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  titleTrgmSimilarity?: boolean;
-  summaryTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  parentThread?: {
-    select: ThreadSelect;
+  chatMessages?: {
+    select: ChatMessageSelect;
+    first?: number;
+    filter?: ChatMessageFilter;
+    orderBy?: ChatMessageOrderBy[];
   };
 };
 export type ChatMessageSelect = {
@@ -2946,6 +3255,8 @@ export type ChatMessageSelect = {
   toolCalls?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  contentBm25Score?: boolean;
+  embeddingTextBm25Score?: boolean;
   roleTrgmSimilarity?: boolean;
   contentTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
@@ -2958,25 +3269,38 @@ export type ChatMessageSelect = {
     select: ThreadSelect;
   };
 };
-export type SessionArchiveSelect = {
+export type ThreadSelect = {
   id?: boolean;
   entityId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
-  sessionId?: boolean;
-  archiveIndex?: boolean;
+  title?: boolean;
   summary?: boolean;
-  messageRangeStart?: boolean;
-  messageRangeEnd?: boolean;
-  rawMessages?: boolean;
+  status?: boolean;
+  parentThreadId?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
+  titleTrgmSimilarity?: boolean;
   summaryTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
-  session?: {
-    select: SessionSelect;
+  parentThread?: {
+    select: ThreadSelect;
+  };
+  chatMessages?: {
+    select: ChatMessageSelect;
+    first?: number;
+    filter?: ChatMessageFilter;
+    orderBy?: ChatMessageOrderBy[];
+  };
+  threadsByParentThreadId?: {
+    select: ThreadSelect;
+    first?: number;
+    filter?: ThreadFilter;
+    orderBy?: ThreadOrderBy[];
   };
 };
 export type ReminderSelect = {
@@ -2993,6 +3317,7 @@ export type ReminderSelect = {
   relatedEntityType?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   titleTrgmSimilarity?: boolean;
   recurrenceTrgmSimilarity?: boolean;
   statusTrgmSimilarity?: boolean;
@@ -3016,24 +3341,6 @@ export type ImageSelect = {
   captionTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
-};
-export type WorkflowStepSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  workflowId?: boolean;
-  stepOrder?: boolean;
-  actionType?: boolean;
-  actionConfig?: boolean;
-  onSuccessStep?: boolean;
-  onFailureStep?: boolean;
-  timeoutMs?: boolean;
-  actionTypeTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  workflow?: {
-    select: WorkflowSelect;
-  };
 };
 export type ListItemSelect = {
   id?: boolean;
@@ -3143,35 +3450,6 @@ export type AgentSpawnSelect = {
     select: AgentSelect;
   };
 };
-export type ScheduledJobSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  name?: boolean;
-  scheduleType?: boolean;
-  scheduleExpr?: boolean;
-  runAt?: boolean;
-  command?: boolean;
-  message?: boolean;
-  agentId?: boolean;
-  sessionId?: boolean;
-  isActive?: boolean;
-  deleteAfterRun?: boolean;
-  lastRunAt?: boolean;
-  nextRunAt?: boolean;
-  runCount?: boolean;
-  lastResult?: boolean;
-  nameTrgmSimilarity?: boolean;
-  scheduleTypeTrgmSimilarity?: boolean;
-  scheduleExprTrgmSimilarity?: boolean;
-  commandTrgmSimilarity?: boolean;
-  messageTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-};
 export type HabitSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -3188,6 +3466,12 @@ export type HabitSelect = {
   frequencyTrgmSimilarity?: boolean;
   categoryTrgmSimilarity?: boolean;
   searchScore?: boolean;
+  habitLogs?: {
+    select: HabitLogSelect;
+    first?: number;
+    filter?: HabitLogFilter;
+    orderBy?: HabitLogOrderBy[];
+  };
 };
 export type WorkflowSelect = {
   id?: boolean;
@@ -3204,33 +3488,17 @@ export type WorkflowSelect = {
   descriptionTrgmSimilarity?: boolean;
   triggerTypeTrgmSimilarity?: boolean;
   searchScore?: boolean;
-};
-export type HabitLogSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  habitId?: boolean;
-  completedAt?: boolean;
-  activityType?: boolean;
-  durationMinutes?: boolean;
-  distance?: boolean;
-  distanceUnit?: boolean;
-  reps?: boolean;
-  sets?: boolean;
-  weightAmount?: boolean;
-  weightUnit?: boolean;
-  calories?: boolean;
-  data?: boolean;
-  notes?: boolean;
-  tags?: boolean;
-  activityTypeTrgmSimilarity?: boolean;
-  distanceUnitTrgmSimilarity?: boolean;
-  weightUnitTrgmSimilarity?: boolean;
-  notesTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  habit?: {
-    select: HabitSelect;
+  workflowSteps?: {
+    select: WorkflowStepSelect;
+    first?: number;
+    filter?: WorkflowStepFilter;
+    orderBy?: WorkflowStepOrderBy[];
+  };
+  workflowRuns?: {
+    select: WorkflowRunSelect;
+    first?: number;
+    filter?: WorkflowRunFilter;
+    orderBy?: WorkflowRunOrderBy[];
   };
 };
 export type ExpenseSelect = {
@@ -3288,6 +3556,7 @@ export type IdeaSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   contentTrgmSimilarity?: boolean;
   sourceTrgmSimilarity?: boolean;
   statusTrgmSimilarity?: boolean;
@@ -3306,34 +3575,18 @@ export type ListSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   descriptionTrgmSimilarity?: boolean;
   typeTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
-};
-export type InteractionSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  contactId?: boolean;
-  type?: boolean;
-  occurredAt?: boolean;
-  summary?: boolean;
-  sentiment?: boolean;
-  tags?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  typeTrgmSimilarity?: boolean;
-  summaryTrgmSimilarity?: boolean;
-  sentimentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  contact?: {
-    select: ContactSelect;
+  listItems?: {
+    select: ListItemSelect;
+    first?: number;
+    filter?: ListItemFilter;
+    orderBy?: ListItemOrderBy[];
   };
 };
 export type RepositorySelect = {
@@ -3349,6 +3602,7 @@ export type RepositorySelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   urlTrgmSimilarity?: boolean;
   descriptionTrgmSimilarity?: boolean;
@@ -3356,6 +3610,18 @@ export type RepositorySelect = {
   embeddingTextTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
+  files?: {
+    select: FileSelect;
+    first?: number;
+    filter?: FileFilter;
+    orderBy?: FileOrderBy[];
+  };
+  chunks?: {
+    select: ChunkSelect;
+    first?: number;
+    filter?: ChunkFilter;
+    orderBy?: ChunkOrderBy[];
+  };
 };
 export type DealSelect = {
   id?: boolean;
@@ -3371,6 +3637,7 @@ export type DealSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   stageTrgmSimilarity?: boolean;
   currencyTrgmSimilarity?: boolean;
@@ -3393,6 +3660,7 @@ export type GoalSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   titleTrgmSimilarity?: boolean;
   descriptionTrgmSimilarity?: boolean;
   statusTrgmSimilarity?: boolean;
@@ -3416,6 +3684,8 @@ export type NoteSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  contentBm25Score?: boolean;
+  embeddingTextBm25Score?: boolean;
   contentTrgmSimilarity?: boolean;
   notableTypeTrgmSimilarity?: boolean;
   abstractTrgmSimilarity?: boolean;
@@ -3438,6 +3708,8 @@ export type PromptSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  contentBm25Score?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   contentTrgmSimilarity?: boolean;
   typeTrgmSimilarity?: boolean;
@@ -3445,6 +3717,12 @@ export type PromptSelect = {
   embeddingTextTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
+  agentPrompts?: {
+    select: AgentPromptSelect;
+    first?: number;
+    filter?: AgentPromptFilter;
+    orderBy?: AgentPromptOrderBy[];
+  };
 };
 export type BlueprintSelect = {
   id?: boolean;
@@ -3458,6 +3736,7 @@ export type BlueprintSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   titleTrgmSimilarity?: boolean;
   triggerConditionsTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
@@ -3478,6 +3757,7 @@ export type TemplateSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   descriptionTrgmSimilarity?: boolean;
   typeTrgmSimilarity?: boolean;
@@ -3501,6 +3781,7 @@ export type ToolSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   descriptionTrgmSimilarity?: boolean;
   typeTrgmSimilarity?: boolean;
@@ -3509,6 +3790,12 @@ export type ToolSelect = {
   embeddingTextTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
+  agentTools?: {
+    select: AgentToolSelect;
+    first?: number;
+    filter?: AgentToolFilter;
+    orderBy?: AgentToolOrderBy[];
+  };
 };
 export type RecipeSelect = {
   id?: boolean;
@@ -3529,6 +3816,7 @@ export type RecipeSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   descriptionTrgmSimilarity?: boolean;
   cuisineTrgmSimilarity?: boolean;
@@ -3553,6 +3841,7 @@ export type TripSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   destinationTrgmSimilarity?: boolean;
   statusTrgmSimilarity?: boolean;
@@ -3560,65 +3849,6 @@ export type TripSelect = {
   embeddingTextTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
-};
-export type CalendarEventSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  calendarAccountId?: boolean;
-  remoteId?: boolean;
-  title?: boolean;
-  description?: boolean;
-  startAt?: boolean;
-  endAt?: boolean;
-  allDay?: boolean;
-  location?: boolean;
-  recurrenceRule?: boolean;
-  status?: boolean;
-  tags?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  remoteIdTrgmSimilarity?: boolean;
-  titleTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  locationTrgmSimilarity?: boolean;
-  recurrenceRuleTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  calendarAccount?: {
-    select: CalendarAccountSelect;
-  };
-};
-export type MessageSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  emailAccountId?: boolean;
-  threadId?: boolean;
-  remoteId?: boolean;
-  fromAddress?: boolean;
-  toAddresses?: boolean;
-  subject?: boolean;
-  bodyText?: boolean;
-  receivedAt?: boolean;
-  tags?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  threadIdTrgmSimilarity?: boolean;
-  remoteIdTrgmSimilarity?: boolean;
-  fromAddressTrgmSimilarity?: boolean;
-  subjectTrgmSimilarity?: boolean;
-  bodyTextTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  emailAccount?: {
-    select: EmailAccountSelect;
-  };
 };
 export type MemorySelect = {
   id?: boolean;
@@ -3641,6 +3871,7 @@ export type MemorySelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   contentTrgmSimilarity?: boolean;
   memoryTypeTrgmSimilarity?: boolean;
   memoryCategoryTrgmSimilarity?: boolean;
@@ -3668,6 +3899,7 @@ export type RuleSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   triggerConcept?: boolean;
+  embeddingTextBm25Score?: boolean;
   titleTrgmSimilarity?: boolean;
   contentTrgmSimilarity?: boolean;
   kindTrgmSimilarity?: boolean;
@@ -3678,6 +3910,12 @@ export type RuleSelect = {
   embeddingVectorDistance?: boolean;
   triggerConceptVectorDistance?: boolean;
   searchScore?: boolean;
+  agentRules?: {
+    select: AgentRuleSelect;
+    first?: number;
+    filter?: AgentRuleFilter;
+    orderBy?: AgentRuleOrderBy[];
+  };
 };
 export type TaskSelect = {
   id?: boolean;
@@ -3699,6 +3937,7 @@ export type TaskSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   titleTrgmSimilarity?: boolean;
   descriptionTrgmSimilarity?: boolean;
   statusTrgmSimilarity?: boolean;
@@ -3732,6 +3971,7 @@ export type AgentSelect = {
   lastActiveAt?: boolean;
   embeddingText?: boolean;
   embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   roleTrgmSimilarity?: boolean;
   statusTrgmSimilarity?: boolean;
@@ -3745,6 +3985,42 @@ export type AgentSelect = {
   embeddingTextTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
+  processes?: {
+    select: ProcessSelect;
+    first?: number;
+    filter?: ProcessFilter;
+    orderBy?: ProcessOrderBy[];
+  };
+  scheduledJobs?: {
+    select: ScheduledJobSelect;
+    first?: number;
+    filter?: ScheduledJobFilter;
+    orderBy?: ScheduledJobOrderBy[];
+  };
+  agentTools?: {
+    select: AgentToolSelect;
+    first?: number;
+    filter?: AgentToolFilter;
+    orderBy?: AgentToolOrderBy[];
+  };
+  agentSkills?: {
+    select: AgentSkillSelect;
+    first?: number;
+    filter?: AgentSkillFilter;
+    orderBy?: AgentSkillOrderBy[];
+  };
+  agentRules?: {
+    select: AgentRuleSelect;
+    first?: number;
+    filter?: AgentRuleFilter;
+    orderBy?: AgentRuleOrderBy[];
+  };
+  agentPrompts?: {
+    select: AgentPromptSelect;
+    first?: number;
+    filter?: AgentPromptFilter;
+    orderBy?: AgentPromptOrderBy[];
+  };
 };
 export type SessionSelect = {
   id?: boolean;
@@ -3773,6 +4049,18 @@ export type SessionSelect = {
   agent?: {
     select: AgentSelect;
   };
+  executionLogs?: {
+    select: ExecutionLogSelect;
+    first?: number;
+    filter?: ExecutionLogFilter;
+    orderBy?: ExecutionLogOrderBy[];
+  };
+  sessionArchives?: {
+    select: SessionArchiveSelect;
+    first?: number;
+    filter?: SessionArchiveFilter;
+    orderBy?: SessionArchiveOrderBy[];
+  };
 };
 export type SkillSelect = {
   id?: boolean;
@@ -3800,6 +4088,7 @@ export type SkillSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   intentTrigger?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   slugTrgmSimilarity?: boolean;
   descriptionTrgmSimilarity?: boolean;
@@ -3814,6 +4103,12 @@ export type SkillSelect = {
   embeddingVectorDistance?: boolean;
   intentTriggerVectorDistance?: boolean;
   searchScore?: boolean;
+  agentSkills?: {
+    select: AgentSkillSelect;
+    first?: number;
+    filter?: AgentSkillFilter;
+    orderBy?: AgentSkillOrderBy[];
+  };
 };
 export type ProjectSelect = {
   id?: boolean;
@@ -3830,12 +4125,19 @@ export type ProjectSelect = {
   embedding?: boolean;
   searchTsv?: boolean;
   searchTsvRank?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   descriptionTrgmSimilarity?: boolean;
   statusTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
+  milestones?: {
+    select: MilestoneSelect;
+    first?: number;
+    filter?: MilestoneFilter;
+    orderBy?: MilestoneOrderBy[];
+  };
 };
 export type DocumentSelect = {
   id?: boolean;
@@ -3858,6 +4160,8 @@ export type DocumentSelect = {
   embedding?: boolean;
   searchTsv?: boolean;
   searchTsvRank?: boolean;
+  contentBm25Score?: boolean;
+  embeddingTextBm25Score?: boolean;
   titleTrgmSimilarity?: boolean;
   urlTrgmSimilarity?: boolean;
   contentTrgmSimilarity?: boolean;
@@ -3883,6 +4187,7 @@ export type CompanySelect = {
   searchTsv?: boolean;
   mainImageId?: boolean;
   searchTsvRank?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   domainTrgmSimilarity?: boolean;
   industryTrgmSimilarity?: boolean;
@@ -3912,6 +4217,7 @@ export type EventSelect = {
   searchTsv?: boolean;
   mainImageId?: boolean;
   searchTsvRank?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   eventTypeTrgmSimilarity?: boolean;
   locationTrgmSimilarity?: boolean;
@@ -3950,6 +4256,7 @@ export type ContactSelect = {
   searchTsv?: boolean;
   mainImageId?: boolean;
   searchTsvRank?: boolean;
+  embeddingTextBm25Score?: boolean;
   firstNameTrgmSimilarity?: boolean;
   lastNameTrgmSimilarity?: boolean;
   emailTrgmSimilarity?: boolean;
@@ -3969,6 +4276,12 @@ export type ContactSelect = {
   searchScore?: boolean;
   mainImage?: {
     select: ImageSelect;
+  };
+  interactions?: {
+    select: InteractionSelect;
+    first?: number;
+    filter?: InteractionFilter;
+    orderBy?: InteractionOrderBy[];
   };
 };
 export type VenueSelect = {
@@ -3993,6 +4306,7 @@ export type VenueSelect = {
   searchTsv?: boolean;
   mainImageId?: boolean;
   searchTsvRank?: boolean;
+  embeddingTextBm25Score?: boolean;
   nameTrgmSimilarity?: boolean;
   addressTrgmSimilarity?: boolean;
   neighborhoodTrgmSimilarity?: boolean;
@@ -4019,23 +4333,55 @@ export interface AgentPromptFilter {
   or?: AgentPromptFilter[];
   not?: AgentPromptFilter;
 }
-export interface AgentRuleFilter {
-  agentId?: UUIDFilter;
-  ruleId?: UUIDFilter;
+export interface ProcessFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
-  and?: AgentRuleFilter[];
-  or?: AgentRuleFilter[];
-  not?: AgentRuleFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  pid?: IntFilter;
+  agentId?: UUIDFilter;
+  command?: StringFilter;
+  startedAt?: DatetimeFilter;
+  endedAt?: DatetimeFilter;
+  status?: StringFilter;
+  exitCode?: IntFilter;
+  logsPath?: StringFilter;
+  commandTrgmSimilarity?: FloatFilter;
+  statusTrgmSimilarity?: FloatFilter;
+  logsPathTrgmSimilarity?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: ProcessFilter[];
+  or?: ProcessFilter[];
+  not?: ProcessFilter;
 }
-export interface AgentSkillFilter {
-  agentId?: UUIDFilter;
-  skillId?: UUIDFilter;
+export interface ScheduledJobFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
-  and?: AgentSkillFilter[];
-  or?: AgentSkillFilter[];
-  not?: AgentSkillFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  name?: StringFilter;
+  scheduleType?: StringFilter;
+  scheduleExpr?: StringFilter;
+  runAt?: DatetimeFilter;
+  command?: StringFilter;
+  message?: StringFilter;
+  agentId?: UUIDFilter;
+  sessionId?: UUIDFilter;
+  isActive?: BooleanFilter;
+  deleteAfterRun?: BooleanFilter;
+  lastRunAt?: DatetimeFilter;
+  nextRunAt?: DatetimeFilter;
+  runCount?: IntFilter;
+  lastResult?: JSONFilter;
+  nameTrgmSimilarity?: FloatFilter;
+  scheduleTypeTrgmSimilarity?: FloatFilter;
+  scheduleExprTrgmSimilarity?: FloatFilter;
+  commandTrgmSimilarity?: FloatFilter;
+  messageTrgmSimilarity?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: ScheduledJobFilter[];
+  or?: ScheduledJobFilter[];
+  not?: ScheduledJobFilter;
 }
 export interface AgentToolFilter {
   agentId?: UUIDFilter;
@@ -4046,6 +4392,24 @@ export interface AgentToolFilter {
   or?: AgentToolFilter[];
   not?: AgentToolFilter;
 }
+export interface AgentSkillFilter {
+  agentId?: UUIDFilter;
+  skillId?: UUIDFilter;
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  and?: AgentSkillFilter[];
+  or?: AgentSkillFilter[];
+  not?: AgentSkillFilter;
+}
+export interface AgentRuleFilter {
+  agentId?: UUIDFilter;
+  ruleId?: UUIDFilter;
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  and?: AgentRuleFilter[];
+  or?: AgentRuleFilter[];
+  not?: AgentRuleFilter;
+}
 export interface CalendarEventContactFilter {
   calendarEventId?: UUIDFilter;
   contactId?: UUIDFilter;
@@ -4054,6 +4418,62 @@ export interface CalendarEventContactFilter {
   and?: CalendarEventContactFilter[];
   or?: CalendarEventContactFilter[];
   not?: CalendarEventContactFilter;
+}
+export interface CalendarEventFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  calendarAccountId?: UUIDFilter;
+  remoteId?: StringFilter;
+  title?: StringFilter;
+  description?: StringFilter;
+  startAt?: DatetimeFilter;
+  endAt?: DatetimeFilter;
+  allDay?: BooleanFilter;
+  location?: StringFilter;
+  recurrenceRule?: StringFilter;
+  status?: StringFilter;
+  tags?: StringFilter;
+  embeddingText?: StringFilter;
+  embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
+  remoteIdTrgmSimilarity?: FloatFilter;
+  titleTrgmSimilarity?: FloatFilter;
+  descriptionTrgmSimilarity?: FloatFilter;
+  locationTrgmSimilarity?: FloatFilter;
+  recurrenceRuleTrgmSimilarity?: FloatFilter;
+  statusTrgmSimilarity?: FloatFilter;
+  embeddingTextTrgmSimilarity?: FloatFilter;
+  embeddingVectorDistance?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: CalendarEventFilter[];
+  or?: CalendarEventFilter[];
+  not?: CalendarEventFilter;
+}
+export interface InteractionFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  contactId?: UUIDFilter;
+  type?: StringFilter;
+  occurredAt?: DatetimeFilter;
+  summary?: StringFilter;
+  sentiment?: StringFilter;
+  tags?: StringFilter;
+  embeddingText?: StringFilter;
+  embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
+  typeTrgmSimilarity?: FloatFilter;
+  summaryTrgmSimilarity?: FloatFilter;
+  sentimentTrgmSimilarity?: FloatFilter;
+  embeddingTextTrgmSimilarity?: FloatFilter;
+  embeddingVectorDistance?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: InteractionFilter[];
+  or?: InteractionFilter[];
+  not?: InteractionFilter;
 }
 export interface CompanyEventFilter {
   companyId?: UUIDFilter;
@@ -4145,6 +4565,34 @@ export interface GoalHabitFilter {
   or?: GoalHabitFilter[];
   not?: GoalHabitFilter;
 }
+export interface HabitLogFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  habitId?: UUIDFilter;
+  completedAt?: DatetimeFilter;
+  activityType?: StringFilter;
+  durationMinutes?: BigFloatFilter;
+  distance?: BigFloatFilter;
+  distanceUnit?: StringFilter;
+  reps?: IntFilter;
+  sets?: IntFilter;
+  weightAmount?: BigFloatFilter;
+  weightUnit?: StringFilter;
+  calories?: BigFloatFilter;
+  data?: JSONFilter;
+  notes?: StringFilter;
+  tags?: StringFilter;
+  activityTypeTrgmSimilarity?: FloatFilter;
+  distanceUnitTrgmSimilarity?: FloatFilter;
+  weightUnitTrgmSimilarity?: FloatFilter;
+  notesTrgmSimilarity?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: HabitLogFilter[];
+  or?: HabitLogFilter[];
+  not?: HabitLogFilter;
+}
 export interface GoalProjectFilter {
   goalId?: UUIDFilter;
   projectId?: UUIDFilter;
@@ -4153,6 +4601,22 @@ export interface GoalProjectFilter {
   and?: GoalProjectFilter[];
   or?: GoalProjectFilter[];
   not?: GoalProjectFilter;
+}
+export interface MilestoneFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  projectId?: UUIDFilter;
+  name?: StringFilter;
+  dueDate?: DatetimeFilter;
+  status?: StringFilter;
+  nameTrgmSimilarity?: FloatFilter;
+  statusTrgmSimilarity?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: MilestoneFilter[];
+  or?: MilestoneFilter[];
+  not?: MilestoneFilter;
 }
 export interface ProjectContactFilter {
   projectId?: UUIDFilter;
@@ -4198,21 +4662,26 @@ export interface FileFilter {
   or?: FileFilter[];
   not?: FileFilter;
 }
-export interface MilestoneFilter {
+export interface ChunkFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
   createdAt?: DatetimeFilter;
   updatedAt?: DatetimeFilter;
-  projectId?: UUIDFilter;
-  name?: StringFilter;
-  dueDate?: DatetimeFilter;
-  status?: StringFilter;
-  nameTrgmSimilarity?: FloatFilter;
-  statusTrgmSimilarity?: FloatFilter;
+  fileId?: UUIDFilter;
+  repositoryId?: UUIDFilter;
+  content?: StringFilter;
+  startLine?: IntFilter;
+  endLine?: IntFilter;
+  embeddingText?: StringFilter;
+  embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
+  contentTrgmSimilarity?: FloatFilter;
+  embeddingTextTrgmSimilarity?: FloatFilter;
+  embeddingVectorDistance?: FloatFilter;
   searchScore?: FloatFilter;
-  and?: MilestoneFilter[];
-  or?: MilestoneFilter[];
-  not?: MilestoneFilter;
+  and?: ChunkFilter[];
+  or?: ChunkFilter[];
+  not?: ChunkFilter;
 }
 export interface CalendarAccountFilter {
   id?: UUIDFilter;
@@ -4301,6 +4770,36 @@ export interface EmailAccountFilter {
   or?: EmailAccountFilter[];
   not?: EmailAccountFilter;
 }
+export interface MessageFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  emailAccountId?: UUIDFilter;
+  threadId?: StringFilter;
+  remoteId?: StringFilter;
+  fromAddress?: StringFilter;
+  toAddresses?: StringFilter;
+  subject?: StringFilter;
+  bodyText?: StringFilter;
+  receivedAt?: DatetimeFilter;
+  tags?: StringFilter;
+  embeddingText?: StringFilter;
+  embedding?: VectorFilter;
+  bodyTextBm25Score?: FloatFilter;
+  embeddingTextBm25Score?: FloatFilter;
+  threadIdTrgmSimilarity?: FloatFilter;
+  remoteIdTrgmSimilarity?: FloatFilter;
+  fromAddressTrgmSimilarity?: FloatFilter;
+  subjectTrgmSimilarity?: FloatFilter;
+  bodyTextTrgmSimilarity?: FloatFilter;
+  embeddingTextTrgmSimilarity?: FloatFilter;
+  embeddingVectorDistance?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: MessageFilter[];
+  or?: MessageFilter[];
+  not?: MessageFilter;
+}
 export interface ActivityLogFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
@@ -4375,6 +4874,28 @@ export interface ExecutionLogFilter {
   or?: ExecutionLogFilter[];
   not?: ExecutionLogFilter;
 }
+export interface SessionArchiveFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  sessionId?: UUIDFilter;
+  archiveIndex?: IntFilter;
+  summary?: StringFilter;
+  messageRangeStart?: IntFilter;
+  messageRangeEnd?: IntFilter;
+  rawMessages?: JSONFilter;
+  embeddingText?: StringFilter;
+  embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
+  summaryTrgmSimilarity?: FloatFilter;
+  embeddingTextTrgmSimilarity?: FloatFilter;
+  embeddingVectorDistance?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: SessionArchiveFilter[];
+  or?: SessionArchiveFilter[];
+  not?: SessionArchiveFilter;
+}
 export interface WebhookFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
@@ -4417,27 +4938,6 @@ export interface NotificationFilter {
   or?: NotificationFilter[];
   not?: NotificationFilter;
 }
-export interface ProcessFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  pid?: IntFilter;
-  agentId?: UUIDFilter;
-  command?: StringFilter;
-  startedAt?: DatetimeFilter;
-  endedAt?: DatetimeFilter;
-  status?: StringFilter;
-  exitCode?: IntFilter;
-  logsPath?: StringFilter;
-  commandTrgmSimilarity?: FloatFilter;
-  statusTrgmSimilarity?: FloatFilter;
-  logsPathTrgmSimilarity?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: ProcessFilter[];
-  or?: ProcessFilter[];
-  not?: ProcessFilter;
-}
 export interface WorkflowRunFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
@@ -4456,6 +4956,24 @@ export interface WorkflowRunFilter {
   and?: WorkflowRunFilter[];
   or?: WorkflowRunFilter[];
   not?: WorkflowRunFilter;
+}
+export interface WorkflowStepFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  workflowId?: UUIDFilter;
+  stepOrder?: IntFilter;
+  actionType?: StringFilter;
+  actionConfig?: JSONFilter;
+  onSuccessStep?: IntFilter;
+  onFailureStep?: IntFilter;
+  timeoutMs?: IntFilter;
+  actionTypeTrgmSimilarity?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: WorkflowStepFilter[];
+  or?: WorkflowStepFilter[];
+  not?: WorkflowStepFilter;
 }
 export interface IntegrationFilter {
   id?: UUIDFilter;
@@ -4510,6 +5028,7 @@ export interface ChatFilter {
   startedAt?: DatetimeFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   titleTrgmSimilarity?: FloatFilter;
   embeddingTextTrgmSimilarity?: FloatFilter;
   embeddingVectorDistance?: FloatFilter;
@@ -4517,47 +5036,6 @@ export interface ChatFilter {
   and?: ChatFilter[];
   or?: ChatFilter[];
   not?: ChatFilter;
-}
-export interface ChunkFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  fileId?: UUIDFilter;
-  repositoryId?: UUIDFilter;
-  content?: StringFilter;
-  startLine?: IntFilter;
-  endLine?: IntFilter;
-  embeddingText?: StringFilter;
-  embedding?: VectorFilter;
-  contentTrgmSimilarity?: FloatFilter;
-  embeddingTextTrgmSimilarity?: FloatFilter;
-  embeddingVectorDistance?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: ChunkFilter[];
-  or?: ChunkFilter[];
-  not?: ChunkFilter;
-}
-export interface ThreadFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  title?: StringFilter;
-  summary?: StringFilter;
-  status?: StringFilter;
-  parentThreadId?: UUIDFilter;
-  embeddingText?: StringFilter;
-  embedding?: VectorFilter;
-  titleTrgmSimilarity?: FloatFilter;
-  summaryTrgmSimilarity?: FloatFilter;
-  statusTrgmSimilarity?: FloatFilter;
-  embeddingTextTrgmSimilarity?: FloatFilter;
-  embeddingVectorDistance?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: ThreadFilter[];
-  or?: ThreadFilter[];
-  not?: ThreadFilter;
 }
 export interface ChatMessageFilter {
   id?: UUIDFilter;
@@ -4571,6 +5049,8 @@ export interface ChatMessageFilter {
   toolCalls?: JSONFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  contentBm25Score?: FloatFilter;
+  embeddingTextBm25Score?: FloatFilter;
   roleTrgmSimilarity?: FloatFilter;
   contentTrgmSimilarity?: FloatFilter;
   embeddingTextTrgmSimilarity?: FloatFilter;
@@ -4580,26 +5060,27 @@ export interface ChatMessageFilter {
   or?: ChatMessageFilter[];
   not?: ChatMessageFilter;
 }
-export interface SessionArchiveFilter {
+export interface ThreadFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
   createdAt?: DatetimeFilter;
   updatedAt?: DatetimeFilter;
-  sessionId?: UUIDFilter;
-  archiveIndex?: IntFilter;
+  title?: StringFilter;
   summary?: StringFilter;
-  messageRangeStart?: IntFilter;
-  messageRangeEnd?: IntFilter;
-  rawMessages?: JSONFilter;
+  status?: StringFilter;
+  parentThreadId?: UUIDFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
+  titleTrgmSimilarity?: FloatFilter;
   summaryTrgmSimilarity?: FloatFilter;
+  statusTrgmSimilarity?: FloatFilter;
   embeddingTextTrgmSimilarity?: FloatFilter;
   embeddingVectorDistance?: FloatFilter;
   searchScore?: FloatFilter;
-  and?: SessionArchiveFilter[];
-  or?: SessionArchiveFilter[];
-  not?: SessionArchiveFilter;
+  and?: ThreadFilter[];
+  or?: ThreadFilter[];
+  not?: ThreadFilter;
 }
 export interface ReminderFilter {
   id?: UUIDFilter;
@@ -4615,6 +5096,7 @@ export interface ReminderFilter {
   relatedEntityType?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   titleTrgmSimilarity?: FloatFilter;
   recurrenceTrgmSimilarity?: FloatFilter;
   statusTrgmSimilarity?: FloatFilter;
@@ -4644,24 +5126,6 @@ export interface ImageFilter {
   and?: ImageFilter[];
   or?: ImageFilter[];
   not?: ImageFilter;
-}
-export interface WorkflowStepFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  workflowId?: UUIDFilter;
-  stepOrder?: IntFilter;
-  actionType?: StringFilter;
-  actionConfig?: JSONFilter;
-  onSuccessStep?: IntFilter;
-  onFailureStep?: IntFilter;
-  timeoutMs?: IntFilter;
-  actionTypeTrgmSimilarity?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: WorkflowStepFilter[];
-  or?: WorkflowStepFilter[];
-  not?: WorkflowStepFilter;
 }
 export interface ListItemFilter {
   id?: UUIDFilter;
@@ -4771,35 +5235,6 @@ export interface AgentSpawnFilter {
   or?: AgentSpawnFilter[];
   not?: AgentSpawnFilter;
 }
-export interface ScheduledJobFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  name?: StringFilter;
-  scheduleType?: StringFilter;
-  scheduleExpr?: StringFilter;
-  runAt?: DatetimeFilter;
-  command?: StringFilter;
-  message?: StringFilter;
-  agentId?: UUIDFilter;
-  sessionId?: UUIDFilter;
-  isActive?: BooleanFilter;
-  deleteAfterRun?: BooleanFilter;
-  lastRunAt?: DatetimeFilter;
-  nextRunAt?: DatetimeFilter;
-  runCount?: IntFilter;
-  lastResult?: JSONFilter;
-  nameTrgmSimilarity?: FloatFilter;
-  scheduleTypeTrgmSimilarity?: FloatFilter;
-  scheduleExprTrgmSimilarity?: FloatFilter;
-  commandTrgmSimilarity?: FloatFilter;
-  messageTrgmSimilarity?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: ScheduledJobFilter[];
-  or?: ScheduledJobFilter[];
-  not?: ScheduledJobFilter;
-}
 export interface HabitFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
@@ -4838,34 +5273,6 @@ export interface WorkflowFilter {
   and?: WorkflowFilter[];
   or?: WorkflowFilter[];
   not?: WorkflowFilter;
-}
-export interface HabitLogFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  habitId?: UUIDFilter;
-  completedAt?: DatetimeFilter;
-  activityType?: StringFilter;
-  durationMinutes?: BigFloatFilter;
-  distance?: BigFloatFilter;
-  distanceUnit?: StringFilter;
-  reps?: IntFilter;
-  sets?: IntFilter;
-  weightAmount?: BigFloatFilter;
-  weightUnit?: StringFilter;
-  calories?: BigFloatFilter;
-  data?: JSONFilter;
-  notes?: StringFilter;
-  tags?: StringFilter;
-  activityTypeTrgmSimilarity?: FloatFilter;
-  distanceUnitTrgmSimilarity?: FloatFilter;
-  weightUnitTrgmSimilarity?: FloatFilter;
-  notesTrgmSimilarity?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: HabitLogFilter[];
-  or?: HabitLogFilter[];
-  not?: HabitLogFilter;
 }
 export interface ExpenseFilter {
   id?: UUIDFilter;
@@ -4928,6 +5335,7 @@ export interface IdeaFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   contentTrgmSimilarity?: FloatFilter;
   sourceTrgmSimilarity?: FloatFilter;
   statusTrgmSimilarity?: FloatFilter;
@@ -4949,6 +5357,7 @@ export interface ListFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   descriptionTrgmSimilarity?: FloatFilter;
   typeTrgmSimilarity?: FloatFilter;
@@ -4958,29 +5367,6 @@ export interface ListFilter {
   and?: ListFilter[];
   or?: ListFilter[];
   not?: ListFilter;
-}
-export interface InteractionFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  contactId?: UUIDFilter;
-  type?: StringFilter;
-  occurredAt?: DatetimeFilter;
-  summary?: StringFilter;
-  sentiment?: StringFilter;
-  tags?: StringFilter;
-  embeddingText?: StringFilter;
-  embedding?: VectorFilter;
-  typeTrgmSimilarity?: FloatFilter;
-  summaryTrgmSimilarity?: FloatFilter;
-  sentimentTrgmSimilarity?: FloatFilter;
-  embeddingTextTrgmSimilarity?: FloatFilter;
-  embeddingVectorDistance?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: InteractionFilter[];
-  or?: InteractionFilter[];
-  not?: InteractionFilter;
 }
 export interface RepositoryFilter {
   id?: UUIDFilter;
@@ -4995,6 +5381,7 @@ export interface RepositoryFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   urlTrgmSimilarity?: FloatFilter;
   descriptionTrgmSimilarity?: FloatFilter;
@@ -5020,6 +5407,7 @@ export interface DealFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   stageTrgmSimilarity?: FloatFilter;
   currencyTrgmSimilarity?: FloatFilter;
@@ -5045,6 +5433,7 @@ export interface GoalFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   titleTrgmSimilarity?: FloatFilter;
   descriptionTrgmSimilarity?: FloatFilter;
   statusTrgmSimilarity?: FloatFilter;
@@ -5071,6 +5460,8 @@ export interface NoteFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  contentBm25Score?: FloatFilter;
+  embeddingTextBm25Score?: FloatFilter;
   contentTrgmSimilarity?: FloatFilter;
   notableTypeTrgmSimilarity?: FloatFilter;
   abstractTrgmSimilarity?: FloatFilter;
@@ -5096,6 +5487,8 @@ export interface PromptFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  contentBm25Score?: FloatFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   contentTrgmSimilarity?: FloatFilter;
   typeTrgmSimilarity?: FloatFilter;
@@ -5119,6 +5512,7 @@ export interface BlueprintFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   titleTrgmSimilarity?: FloatFilter;
   triggerConditionsTrgmSimilarity?: FloatFilter;
   embeddingTextTrgmSimilarity?: FloatFilter;
@@ -5142,6 +5536,7 @@ export interface TemplateFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   descriptionTrgmSimilarity?: FloatFilter;
   typeTrgmSimilarity?: FloatFilter;
@@ -5168,6 +5563,7 @@ export interface ToolFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   descriptionTrgmSimilarity?: FloatFilter;
   typeTrgmSimilarity?: FloatFilter;
@@ -5199,6 +5595,7 @@ export interface RecipeFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   descriptionTrgmSimilarity?: FloatFilter;
   cuisineTrgmSimilarity?: FloatFilter;
@@ -5226,6 +5623,7 @@ export interface TripFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   destinationTrgmSimilarity?: FloatFilter;
   statusTrgmSimilarity?: FloatFilter;
@@ -5236,65 +5634,6 @@ export interface TripFilter {
   and?: TripFilter[];
   or?: TripFilter[];
   not?: TripFilter;
-}
-export interface CalendarEventFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  calendarAccountId?: UUIDFilter;
-  remoteId?: StringFilter;
-  title?: StringFilter;
-  description?: StringFilter;
-  startAt?: DatetimeFilter;
-  endAt?: DatetimeFilter;
-  allDay?: BooleanFilter;
-  location?: StringFilter;
-  recurrenceRule?: StringFilter;
-  status?: StringFilter;
-  tags?: StringFilter;
-  embeddingText?: StringFilter;
-  embedding?: VectorFilter;
-  remoteIdTrgmSimilarity?: FloatFilter;
-  titleTrgmSimilarity?: FloatFilter;
-  descriptionTrgmSimilarity?: FloatFilter;
-  locationTrgmSimilarity?: FloatFilter;
-  recurrenceRuleTrgmSimilarity?: FloatFilter;
-  statusTrgmSimilarity?: FloatFilter;
-  embeddingTextTrgmSimilarity?: FloatFilter;
-  embeddingVectorDistance?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: CalendarEventFilter[];
-  or?: CalendarEventFilter[];
-  not?: CalendarEventFilter;
-}
-export interface MessageFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  emailAccountId?: UUIDFilter;
-  threadId?: StringFilter;
-  remoteId?: StringFilter;
-  fromAddress?: StringFilter;
-  toAddresses?: StringFilter;
-  subject?: StringFilter;
-  bodyText?: StringFilter;
-  receivedAt?: DatetimeFilter;
-  tags?: StringFilter;
-  embeddingText?: StringFilter;
-  embedding?: VectorFilter;
-  threadIdTrgmSimilarity?: FloatFilter;
-  remoteIdTrgmSimilarity?: FloatFilter;
-  fromAddressTrgmSimilarity?: FloatFilter;
-  subjectTrgmSimilarity?: FloatFilter;
-  bodyTextTrgmSimilarity?: FloatFilter;
-  embeddingTextTrgmSimilarity?: FloatFilter;
-  embeddingVectorDistance?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: MessageFilter[];
-  or?: MessageFilter[];
-  not?: MessageFilter;
 }
 export interface MemoryFilter {
   id?: UUIDFilter;
@@ -5317,6 +5656,7 @@ export interface MemoryFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   contentTrgmSimilarity?: FloatFilter;
   memoryTypeTrgmSimilarity?: FloatFilter;
   memoryCategoryTrgmSimilarity?: FloatFilter;
@@ -5347,6 +5687,7 @@ export interface RuleFilter {
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
   triggerConcept?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   titleTrgmSimilarity?: FloatFilter;
   contentTrgmSimilarity?: FloatFilter;
   kindTrgmSimilarity?: FloatFilter;
@@ -5381,6 +5722,7 @@ export interface TaskFilter {
   tags?: StringFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   titleTrgmSimilarity?: FloatFilter;
   descriptionTrgmSimilarity?: FloatFilter;
   statusTrgmSimilarity?: FloatFilter;
@@ -5414,6 +5756,7 @@ export interface AgentFilter {
   lastActiveAt?: DatetimeFilter;
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   roleTrgmSimilarity?: FloatFilter;
   statusTrgmSimilarity?: FloatFilter;
@@ -5485,6 +5828,7 @@ export interface SkillFilter {
   embeddingText?: StringFilter;
   embedding?: VectorFilter;
   intentTrigger?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   slugTrgmSimilarity?: FloatFilter;
   descriptionTrgmSimilarity?: FloatFilter;
@@ -5518,6 +5862,7 @@ export interface ProjectFilter {
   embedding?: VectorFilter;
   searchTsv?: FullTextFilter;
   searchTsvRank?: FloatFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   descriptionTrgmSimilarity?: FloatFilter;
   statusTrgmSimilarity?: FloatFilter;
@@ -5549,6 +5894,8 @@ export interface DocumentFilter {
   embedding?: VectorFilter;
   searchTsv?: FullTextFilter;
   searchTsvRank?: FloatFilter;
+  contentBm25Score?: FloatFilter;
+  embeddingTextBm25Score?: FloatFilter;
   titleTrgmSimilarity?: FloatFilter;
   urlTrgmSimilarity?: FloatFilter;
   contentTrgmSimilarity?: FloatFilter;
@@ -5577,6 +5924,7 @@ export interface CompanyFilter {
   searchTsv?: FullTextFilter;
   mainImageId?: UUIDFilter;
   searchTsvRank?: FloatFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   domainTrgmSimilarity?: FloatFilter;
   industryTrgmSimilarity?: FloatFilter;
@@ -5606,6 +5954,7 @@ export interface EventFilter {
   searchTsv?: FullTextFilter;
   mainImageId?: UUIDFilter;
   searchTsvRank?: FloatFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   eventTypeTrgmSimilarity?: FloatFilter;
   locationTrgmSimilarity?: FloatFilter;
@@ -5644,6 +5993,7 @@ export interface ContactFilter {
   searchTsv?: FullTextFilter;
   mainImageId?: UUIDFilter;
   searchTsvRank?: FloatFilter;
+  embeddingTextBm25Score?: FloatFilter;
   firstNameTrgmSimilarity?: FloatFilter;
   lastNameTrgmSimilarity?: FloatFilter;
   emailTrgmSimilarity?: FloatFilter;
@@ -5687,6 +6037,7 @@ export interface VenueFilter {
   searchTsv?: FullTextFilter;
   mainImageId?: UUIDFilter;
   searchTsvRank?: FloatFilter;
+  embeddingTextBm25Score?: FloatFilter;
   nameTrgmSimilarity?: FloatFilter;
   addressTrgmSimilarity?: FloatFilter;
   neighborhoodTrgmSimilarity?: FloatFilter;
@@ -5716,14 +6067,102 @@ export type AgentPromptOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
-export type AgentRuleOrderBy =
+export type ProcessOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'PID_ASC'
+  | 'PID_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'COMMAND_ASC'
+  | 'COMMAND_DESC'
+  | 'STARTED_AT_ASC'
+  | 'STARTED_AT_DESC'
+  | 'ENDED_AT_ASC'
+  | 'ENDED_AT_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'EXIT_CODE_ASC'
+  | 'EXIT_CODE_DESC'
+  | 'LOGS_PATH_ASC'
+  | 'LOGS_PATH_DESC'
+  | 'COMMAND_TRGM_SIMILARITY_ASC'
+  | 'COMMAND_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'LOGS_PATH_TRGM_SIMILARITY_ASC'
+  | 'LOGS_PATH_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type ScheduledJobOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'SCHEDULE_TYPE_ASC'
+  | 'SCHEDULE_TYPE_DESC'
+  | 'SCHEDULE_EXPR_ASC'
+  | 'SCHEDULE_EXPR_DESC'
+  | 'RUN_AT_ASC'
+  | 'RUN_AT_DESC'
+  | 'COMMAND_ASC'
+  | 'COMMAND_DESC'
+  | 'MESSAGE_ASC'
+  | 'MESSAGE_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'SESSION_ID_ASC'
+  | 'SESSION_ID_DESC'
+  | 'IS_ACTIVE_ASC'
+  | 'IS_ACTIVE_DESC'
+  | 'DELETE_AFTER_RUN_ASC'
+  | 'DELETE_AFTER_RUN_DESC'
+  | 'LAST_RUN_AT_ASC'
+  | 'LAST_RUN_AT_DESC'
+  | 'NEXT_RUN_AT_ASC'
+  | 'NEXT_RUN_AT_DESC'
+  | 'RUN_COUNT_ASC'
+  | 'RUN_COUNT_DESC'
+  | 'LAST_RESULT_ASC'
+  | 'LAST_RESULT_DESC'
+  | 'NAME_TRGM_SIMILARITY_ASC'
+  | 'NAME_TRGM_SIMILARITY_DESC'
+  | 'SCHEDULE_TYPE_TRGM_SIMILARITY_ASC'
+  | 'SCHEDULE_TYPE_TRGM_SIMILARITY_DESC'
+  | 'SCHEDULE_EXPR_TRGM_SIMILARITY_ASC'
+  | 'SCHEDULE_EXPR_TRGM_SIMILARITY_DESC'
+  | 'COMMAND_TRGM_SIMILARITY_ASC'
+  | 'COMMAND_TRGM_SIMILARITY_DESC'
+  | 'MESSAGE_TRGM_SIMILARITY_ASC'
+  | 'MESSAGE_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type AgentToolOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
   | 'NATURAL'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
-  | 'RULE_ID_ASC'
-  | 'RULE_ID_DESC'
+  | 'TOOL_ID_ASC'
+  | 'TOOL_ID_DESC'
   | 'ID_ASC'
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
@@ -5740,14 +6179,14 @@ export type AgentSkillOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
-export type AgentToolOrderBy =
+export type AgentRuleOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
   | 'NATURAL'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
-  | 'TOOL_ID_ASC'
-  | 'TOOL_ID_DESC'
+  | 'RULE_ID_ASC'
+  | 'RULE_ID_DESC'
   | 'ID_ASC'
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
@@ -5764,6 +6203,108 @@ export type CalendarEventContactOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type CalendarEventOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'CALENDAR_ACCOUNT_ID_ASC'
+  | 'CALENDAR_ACCOUNT_ID_DESC'
+  | 'REMOTE_ID_ASC'
+  | 'REMOTE_ID_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'DESCRIPTION_ASC'
+  | 'DESCRIPTION_DESC'
+  | 'START_AT_ASC'
+  | 'START_AT_DESC'
+  | 'END_AT_ASC'
+  | 'END_AT_DESC'
+  | 'ALL_DAY_ASC'
+  | 'ALL_DAY_DESC'
+  | 'LOCATION_ASC'
+  | 'LOCATION_DESC'
+  | 'RECURRENCE_RULE_ASC'
+  | 'RECURRENCE_RULE_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'REMOTE_ID_TRGM_SIMILARITY_ASC'
+  | 'REMOTE_ID_TRGM_SIMILARITY_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'LOCATION_TRGM_SIMILARITY_ASC'
+  | 'LOCATION_TRGM_SIMILARITY_DESC'
+  | 'RECURRENCE_RULE_TRGM_SIMILARITY_ASC'
+  | 'RECURRENCE_RULE_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC'
+  | 'LOCATION_GEO_ASC'
+  | 'LOCATION_GEO_DESC';
+export type InteractionOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'TYPE_ASC'
+  | 'TYPE_DESC'
+  | 'OCCURRED_AT_ASC'
+  | 'OCCURRED_AT_DESC'
+  | 'SUMMARY_ASC'
+  | 'SUMMARY_DESC'
+  | 'SENTIMENT_ASC'
+  | 'SENTIMENT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'TYPE_TRGM_SIMILARITY_ASC'
+  | 'TYPE_TRGM_SIMILARITY_DESC'
+  | 'SUMMARY_TRGM_SIMILARITY_ASC'
+  | 'SUMMARY_TRGM_SIMILARITY_DESC'
+  | 'SENTIMENT_TRGM_SIMILARITY_ASC'
+  | 'SENTIMENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type CompanyEventOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -5884,6 +6425,56 @@ export type GoalHabitOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type HabitLogOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'HABIT_ID_ASC'
+  | 'HABIT_ID_DESC'
+  | 'COMPLETED_AT_ASC'
+  | 'COMPLETED_AT_DESC'
+  | 'ACTIVITY_TYPE_ASC'
+  | 'ACTIVITY_TYPE_DESC'
+  | 'DURATION_MINUTES_ASC'
+  | 'DURATION_MINUTES_DESC'
+  | 'DISTANCE_ASC'
+  | 'DISTANCE_DESC'
+  | 'DISTANCE_UNIT_ASC'
+  | 'DISTANCE_UNIT_DESC'
+  | 'REPS_ASC'
+  | 'REPS_DESC'
+  | 'SETS_ASC'
+  | 'SETS_DESC'
+  | 'WEIGHT_AMOUNT_ASC'
+  | 'WEIGHT_AMOUNT_DESC'
+  | 'WEIGHT_UNIT_ASC'
+  | 'WEIGHT_UNIT_DESC'
+  | 'CALORIES_ASC'
+  | 'CALORIES_DESC'
+  | 'DATA_ASC'
+  | 'DATA_DESC'
+  | 'NOTES_ASC'
+  | 'NOTES_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'ACTIVITY_TYPE_TRGM_SIMILARITY_ASC'
+  | 'ACTIVITY_TYPE_TRGM_SIMILARITY_DESC'
+  | 'DISTANCE_UNIT_TRGM_SIMILARITY_ASC'
+  | 'DISTANCE_UNIT_TRGM_SIMILARITY_DESC'
+  | 'WEIGHT_UNIT_TRGM_SIMILARITY_ASC'
+  | 'WEIGHT_UNIT_TRGM_SIMILARITY_DESC'
+  | 'NOTES_TRGM_SIMILARITY_ASC'
+  | 'NOTES_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type GoalProjectOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -5896,6 +6487,32 @@ export type GoalProjectOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type MilestoneOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'PROJECT_ID_ASC'
+  | 'PROJECT_ID_DESC'
+  | 'NAME_ASC'
+  | 'NAME_DESC'
+  | 'DUE_DATE_ASC'
+  | 'DUE_DATE_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'NAME_TRGM_SIMILARITY_ASC'
+  | 'NAME_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ProjectContactOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -5960,7 +6577,7 @@ export type FileOrderBy =
   | 'HASH_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type MilestoneOrderBy =
+export type ChunkOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
   | 'NATURAL'
@@ -5972,18 +6589,28 @@ export type MilestoneOrderBy =
   | 'CREATED_AT_DESC'
   | 'UPDATED_AT_ASC'
   | 'UPDATED_AT_DESC'
-  | 'PROJECT_ID_ASC'
-  | 'PROJECT_ID_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'DUE_DATE_ASC'
-  | 'DUE_DATE_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'FILE_ID_ASC'
+  | 'FILE_ID_DESC'
+  | 'REPOSITORY_ID_ASC'
+  | 'REPOSITORY_ID_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'START_LINE_ASC'
+  | 'START_LINE_DESC'
+  | 'END_LINE_ASC'
+  | 'END_LINE_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type CalendarAccountOrderBy =
@@ -6130,6 +6757,60 @@ export type EmailAccountOrderBy =
   | 'PROVIDER_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type MessageOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMAIL_ACCOUNT_ID_ASC'
+  | 'EMAIL_ACCOUNT_ID_DESC'
+  | 'THREAD_ID_ASC'
+  | 'THREAD_ID_DESC'
+  | 'REMOTE_ID_ASC'
+  | 'REMOTE_ID_DESC'
+  | 'FROM_ADDRESS_ASC'
+  | 'FROM_ADDRESS_DESC'
+  | 'TO_ADDRESSES_ASC'
+  | 'TO_ADDRESSES_DESC'
+  | 'SUBJECT_ASC'
+  | 'SUBJECT_DESC'
+  | 'BODY_TEXT_ASC'
+  | 'BODY_TEXT_DESC'
+  | 'RECEIVED_AT_ASC'
+  | 'RECEIVED_AT_DESC'
+  | 'TAGS_ASC'
+  | 'TAGS_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'BODY_TEXT_BM25_SCORE_ASC'
+  | 'BODY_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'THREAD_ID_TRGM_SIMILARITY_ASC'
+  | 'THREAD_ID_TRGM_SIMILARITY_DESC'
+  | 'REMOTE_ID_TRGM_SIMILARITY_ASC'
+  | 'REMOTE_ID_TRGM_SIMILARITY_DESC'
+  | 'FROM_ADDRESS_TRGM_SIMILARITY_ASC'
+  | 'FROM_ADDRESS_TRGM_SIMILARITY_DESC'
+  | 'SUBJECT_TRGM_SIMILARITY_ASC'
+  | 'SUBJECT_TRGM_SIMILARITY_DESC'
+  | 'BODY_TEXT_TRGM_SIMILARITY_ASC'
+  | 'BODY_TEXT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ActivityLogOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -6254,6 +6935,44 @@ export type ExecutionLogOrderBy =
   | 'OUTPUT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type SessionArchiveOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'SESSION_ID_ASC'
+  | 'SESSION_ID_DESC'
+  | 'ARCHIVE_INDEX_ASC'
+  | 'ARCHIVE_INDEX_DESC'
+  | 'SUMMARY_ASC'
+  | 'SUMMARY_DESC'
+  | 'MESSAGE_RANGE_START_ASC'
+  | 'MESSAGE_RANGE_START_DESC'
+  | 'MESSAGE_RANGE_END_ASC'
+  | 'MESSAGE_RANGE_END_DESC'
+  | 'RAW_MESSAGES_ASC'
+  | 'RAW_MESSAGES_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'SUMMARY_TRGM_SIMILARITY_ASC'
+  | 'SUMMARY_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type WebhookOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -6326,42 +7045,6 @@ export type NotificationOrderBy =
   | 'SOURCE_ENTITY_TYPE_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type ProcessOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'PID_ASC'
-  | 'PID_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'COMMAND_ASC'
-  | 'COMMAND_DESC'
-  | 'STARTED_AT_ASC'
-  | 'STARTED_AT_DESC'
-  | 'ENDED_AT_ASC'
-  | 'ENDED_AT_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'EXIT_CODE_ASC'
-  | 'EXIT_CODE_DESC'
-  | 'LOGS_PATH_ASC'
-  | 'LOGS_PATH_DESC'
-  | 'COMMAND_TRGM_SIMILARITY_ASC'
-  | 'COMMAND_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'LOGS_PATH_TRGM_SIMILARITY_ASC'
-  | 'LOGS_PATH_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
 export type WorkflowRunOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -6392,6 +7075,36 @@ export type WorkflowRunOrderBy =
   | 'STATUS_TRGM_SIMILARITY_DESC'
   | 'ERROR_TRGM_SIMILARITY_ASC'
   | 'ERROR_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type WorkflowStepOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'WORKFLOW_ID_ASC'
+  | 'WORKFLOW_ID_DESC'
+  | 'STEP_ORDER_ASC'
+  | 'STEP_ORDER_DESC'
+  | 'ACTION_TYPE_ASC'
+  | 'ACTION_TYPE_DESC'
+  | 'ACTION_CONFIG_ASC'
+  | 'ACTION_CONFIG_DESC'
+  | 'ON_SUCCESS_STEP_ASC'
+  | 'ON_SUCCESS_STEP_DESC'
+  | 'ON_FAILURE_STEP_ASC'
+  | 'ON_FAILURE_STEP_DESC'
+  | 'TIMEOUT_MS_ASC'
+  | 'TIMEOUT_MS_DESC'
+  | 'ACTION_TYPE_TRGM_SIMILARITY_ASC'
+  | 'ACTION_TYPE_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type IntegrationOrderBy =
@@ -6490,78 +7203,10 @@ export type ChatOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'TITLE_TRGM_SIMILARITY_ASC'
   | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type ChunkOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'FILE_ID_ASC'
-  | 'FILE_ID_DESC'
-  | 'REPOSITORY_ID_ASC'
-  | 'REPOSITORY_ID_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'START_LINE_ASC'
-  | 'START_LINE_DESC'
-  | 'END_LINE_ASC'
-  | 'END_LINE_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type ThreadOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'SUMMARY_ASC'
-  | 'SUMMARY_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'PARENT_THREAD_ID_ASC'
-  | 'PARENT_THREAD_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'SUMMARY_TRGM_SIMILARITY_ASC'
-  | 'SUMMARY_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -6594,6 +7239,10 @@ export type ChatMessageOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'CONTENT_BM25_SCORE_ASC'
+  | 'CONTENT_BM25_SCORE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'ROLE_TRGM_SIMILARITY_ASC'
   | 'ROLE_TRGM_SIMILARITY_DESC'
   | 'CONTENT_TRGM_SIMILARITY_ASC'
@@ -6604,7 +7253,7 @@ export type ChatMessageOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type SessionArchiveOrderBy =
+export type ThreadOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
   | 'NATURAL'
@@ -6616,24 +7265,26 @@ export type SessionArchiveOrderBy =
   | 'CREATED_AT_DESC'
   | 'UPDATED_AT_ASC'
   | 'UPDATED_AT_DESC'
-  | 'SESSION_ID_ASC'
-  | 'SESSION_ID_DESC'
-  | 'ARCHIVE_INDEX_ASC'
-  | 'ARCHIVE_INDEX_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
   | 'SUMMARY_ASC'
   | 'SUMMARY_DESC'
-  | 'MESSAGE_RANGE_START_ASC'
-  | 'MESSAGE_RANGE_START_DESC'
-  | 'MESSAGE_RANGE_END_ASC'
-  | 'MESSAGE_RANGE_END_DESC'
-  | 'RAW_MESSAGES_ASC'
-  | 'RAW_MESSAGES_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'PARENT_THREAD_ID_ASC'
+  | 'PARENT_THREAD_ID_DESC'
   | 'EMBEDDING_TEXT_ASC'
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
   | 'SUMMARY_TRGM_SIMILARITY_ASC'
   | 'SUMMARY_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -6670,6 +7321,8 @@ export type ReminderOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'TITLE_TRGM_SIMILARITY_ASC'
   | 'TITLE_TRGM_SIMILARITY_DESC'
   | 'RECURRENCE_TRGM_SIMILARITY_ASC'
@@ -6714,36 +7367,6 @@ export type ImageOrderBy =
   | 'CAPTION_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type WorkflowStepOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'WORKFLOW_ID_ASC'
-  | 'WORKFLOW_ID_DESC'
-  | 'STEP_ORDER_ASC'
-  | 'STEP_ORDER_DESC'
-  | 'ACTION_TYPE_ASC'
-  | 'ACTION_TYPE_DESC'
-  | 'ACTION_CONFIG_ASC'
-  | 'ACTION_CONFIG_DESC'
-  | 'ON_SUCCESS_STEP_ASC'
-  | 'ON_SUCCESS_STEP_DESC'
-  | 'ON_FAILURE_STEP_ASC'
-  | 'ON_FAILURE_STEP_DESC'
-  | 'TIMEOUT_MS_ASC'
-  | 'TIMEOUT_MS_DESC'
-  | 'ACTION_TYPE_TRGM_SIMILARITY_ASC'
-  | 'ACTION_TYPE_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ListItemOrderBy =
@@ -6926,58 +7549,6 @@ export type AgentSpawnOrderBy =
   | 'STATUS_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type ScheduledJobOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'NAME_ASC'
-  | 'NAME_DESC'
-  | 'SCHEDULE_TYPE_ASC'
-  | 'SCHEDULE_TYPE_DESC'
-  | 'SCHEDULE_EXPR_ASC'
-  | 'SCHEDULE_EXPR_DESC'
-  | 'RUN_AT_ASC'
-  | 'RUN_AT_DESC'
-  | 'COMMAND_ASC'
-  | 'COMMAND_DESC'
-  | 'MESSAGE_ASC'
-  | 'MESSAGE_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'SESSION_ID_ASC'
-  | 'SESSION_ID_DESC'
-  | 'IS_ACTIVE_ASC'
-  | 'IS_ACTIVE_DESC'
-  | 'DELETE_AFTER_RUN_ASC'
-  | 'DELETE_AFTER_RUN_DESC'
-  | 'LAST_RUN_AT_ASC'
-  | 'LAST_RUN_AT_DESC'
-  | 'NEXT_RUN_AT_ASC'
-  | 'NEXT_RUN_AT_DESC'
-  | 'RUN_COUNT_ASC'
-  | 'RUN_COUNT_DESC'
-  | 'LAST_RESULT_ASC'
-  | 'LAST_RESULT_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'SCHEDULE_TYPE_TRGM_SIMILARITY_ASC'
-  | 'SCHEDULE_TYPE_TRGM_SIMILARITY_DESC'
-  | 'SCHEDULE_EXPR_TRGM_SIMILARITY_ASC'
-  | 'SCHEDULE_EXPR_TRGM_SIMILARITY_DESC'
-  | 'COMMAND_TRGM_SIMILARITY_ASC'
-  | 'COMMAND_TRGM_SIMILARITY_DESC'
-  | 'MESSAGE_TRGM_SIMILARITY_ASC'
-  | 'MESSAGE_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
 export type HabitOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -7042,56 +7613,6 @@ export type WorkflowOrderBy =
   | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
   | 'TRIGGER_TYPE_TRGM_SIMILARITY_ASC'
   | 'TRIGGER_TYPE_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type HabitLogOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'HABIT_ID_ASC'
-  | 'HABIT_ID_DESC'
-  | 'COMPLETED_AT_ASC'
-  | 'COMPLETED_AT_DESC'
-  | 'ACTIVITY_TYPE_ASC'
-  | 'ACTIVITY_TYPE_DESC'
-  | 'DURATION_MINUTES_ASC'
-  | 'DURATION_MINUTES_DESC'
-  | 'DISTANCE_ASC'
-  | 'DISTANCE_DESC'
-  | 'DISTANCE_UNIT_ASC'
-  | 'DISTANCE_UNIT_DESC'
-  | 'REPS_ASC'
-  | 'REPS_DESC'
-  | 'SETS_ASC'
-  | 'SETS_DESC'
-  | 'WEIGHT_AMOUNT_ASC'
-  | 'WEIGHT_AMOUNT_DESC'
-  | 'WEIGHT_UNIT_ASC'
-  | 'WEIGHT_UNIT_DESC'
-  | 'CALORIES_ASC'
-  | 'CALORIES_DESC'
-  | 'DATA_ASC'
-  | 'DATA_DESC'
-  | 'NOTES_ASC'
-  | 'NOTES_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'ACTIVITY_TYPE_TRGM_SIMILARITY_ASC'
-  | 'ACTIVITY_TYPE_TRGM_SIMILARITY_DESC'
-  | 'DISTANCE_UNIT_TRGM_SIMILARITY_ASC'
-  | 'DISTANCE_UNIT_TRGM_SIMILARITY_DESC'
-  | 'WEIGHT_UNIT_TRGM_SIMILARITY_ASC'
-  | 'WEIGHT_UNIT_TRGM_SIMILARITY_DESC'
-  | 'NOTES_TRGM_SIMILARITY_ASC'
-  | 'NOTES_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ExpenseOrderBy =
@@ -7206,6 +7727,8 @@ export type IdeaOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'CONTENT_TRGM_SIMILARITY_ASC'
   | 'CONTENT_TRGM_SIMILARITY_DESC'
   | 'SOURCE_TRGM_SIMILARITY_ASC'
@@ -7242,52 +7765,14 @@ export type ListOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
   | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
   | 'TYPE_TRGM_SIMILARITY_ASC'
   | 'TYPE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type InteractionOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC'
-  | 'TYPE_ASC'
-  | 'TYPE_DESC'
-  | 'OCCURRED_AT_ASC'
-  | 'OCCURRED_AT_DESC'
-  | 'SUMMARY_ASC'
-  | 'SUMMARY_DESC'
-  | 'SENTIMENT_ASC'
-  | 'SENTIMENT_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'TYPE_TRGM_SIMILARITY_ASC'
-  | 'TYPE_TRGM_SIMILARITY_DESC'
-  | 'SUMMARY_TRGM_SIMILARITY_ASC'
-  | 'SUMMARY_TRGM_SIMILARITY_DESC'
-  | 'SENTIMENT_TRGM_SIMILARITY_ASC'
-  | 'SENTIMENT_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -7322,6 +7807,8 @@ export type RepositoryOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'URL_TRGM_SIMILARITY_ASC'
@@ -7366,6 +7853,8 @@ export type DealOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'STAGE_TRGM_SIMILARITY_ASC'
@@ -7410,6 +7899,8 @@ export type GoalOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'TITLE_TRGM_SIMILARITY_ASC'
   | 'TITLE_TRGM_SIMILARITY_DESC'
   | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
@@ -7456,6 +7947,10 @@ export type NoteOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'CONTENT_BM25_SCORE_ASC'
+  | 'CONTENT_BM25_SCORE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'CONTENT_TRGM_SIMILARITY_ASC'
   | 'CONTENT_TRGM_SIMILARITY_DESC'
   | 'NOTABLE_TYPE_TRGM_SIMILARITY_ASC'
@@ -7500,6 +7995,10 @@ export type PromptOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'CONTENT_BM25_SCORE_ASC'
+  | 'CONTENT_BM25_SCORE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'CONTENT_TRGM_SIMILARITY_ASC'
@@ -7540,6 +8039,8 @@ export type BlueprintOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'TITLE_TRGM_SIMILARITY_ASC'
   | 'TITLE_TRGM_SIMILARITY_DESC'
   | 'TRIGGER_CONDITIONS_TRGM_SIMILARITY_ASC'
@@ -7580,6 +8081,8 @@ export type TemplateOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
@@ -7626,6 +8129,8 @@ export type ToolOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
@@ -7682,6 +8187,8 @@ export type RecipeOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
@@ -7730,6 +8237,8 @@ export type TripOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'DESTINATION_TRGM_SIMILARITY_ASC'
@@ -7743,113 +8252,9 @@ export type TripOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type CalendarEventOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'CALENDAR_ACCOUNT_ID_ASC'
-  | 'CALENDAR_ACCOUNT_ID_DESC'
-  | 'REMOTE_ID_ASC'
-  | 'REMOTE_ID_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'DESCRIPTION_ASC'
-  | 'DESCRIPTION_DESC'
-  | 'START_AT_ASC'
-  | 'START_AT_DESC'
-  | 'END_AT_ASC'
-  | 'END_AT_DESC'
-  | 'ALL_DAY_ASC'
-  | 'ALL_DAY_DESC'
-  | 'LOCATION_ASC'
-  | 'LOCATION_DESC'
-  | 'RECURRENCE_RULE_ASC'
-  | 'RECURRENCE_RULE_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'REMOTE_ID_TRGM_SIMILARITY_ASC'
-  | 'REMOTE_ID_TRGM_SIMILARITY_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'LOCATION_TRGM_SIMILARITY_ASC'
-  | 'LOCATION_TRGM_SIMILARITY_DESC'
-  | 'RECURRENCE_RULE_TRGM_SIMILARITY_ASC'
-  | 'RECURRENCE_RULE_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type MessageOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMAIL_ACCOUNT_ID_ASC'
-  | 'EMAIL_ACCOUNT_ID_DESC'
-  | 'THREAD_ID_ASC'
-  | 'THREAD_ID_DESC'
-  | 'REMOTE_ID_ASC'
-  | 'REMOTE_ID_DESC'
-  | 'FROM_ADDRESS_ASC'
-  | 'FROM_ADDRESS_DESC'
-  | 'TO_ADDRESSES_ASC'
-  | 'TO_ADDRESSES_DESC'
-  | 'SUBJECT_ASC'
-  | 'SUBJECT_DESC'
-  | 'BODY_TEXT_ASC'
-  | 'BODY_TEXT_DESC'
-  | 'RECEIVED_AT_ASC'
-  | 'RECEIVED_AT_DESC'
-  | 'TAGS_ASC'
-  | 'TAGS_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'THREAD_ID_TRGM_SIMILARITY_ASC'
-  | 'THREAD_ID_TRGM_SIMILARITY_DESC'
-  | 'REMOTE_ID_TRGM_SIMILARITY_ASC'
-  | 'REMOTE_ID_TRGM_SIMILARITY_DESC'
-  | 'FROM_ADDRESS_TRGM_SIMILARITY_ASC'
-  | 'FROM_ADDRESS_TRGM_SIMILARITY_DESC'
-  | 'SUBJECT_TRGM_SIMILARITY_ASC'
-  | 'SUBJECT_TRGM_SIMILARITY_DESC'
-  | 'BODY_TEXT_TRGM_SIMILARITY_ASC'
-  | 'BODY_TEXT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
+  | 'SEARCH_SCORE_DESC'
+  | 'DESTINATION_GEO_ASC'
+  | 'DESTINATION_GEO_DESC';
 export type MemoryOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -7894,6 +8299,8 @@ export type MemoryOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'CONTENT_TRGM_SIMILARITY_ASC'
   | 'CONTENT_TRGM_SIMILARITY_DESC'
   | 'MEMORY_TYPE_TRGM_SIMILARITY_ASC'
@@ -7948,6 +8355,8 @@ export type RuleOrderBy =
   | 'EMBEDDING_DESC'
   | 'TRIGGER_CONCEPT_ASC'
   | 'TRIGGER_CONCEPT_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'TITLE_TRGM_SIMILARITY_ASC'
   | 'TITLE_TRGM_SIMILARITY_DESC'
   | 'CONTENT_TRGM_SIMILARITY_ASC'
@@ -8010,6 +8419,8 @@ export type TaskOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'TITLE_TRGM_SIMILARITY_ASC'
   | 'TITLE_TRGM_SIMILARITY_DESC'
   | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
@@ -8070,6 +8481,8 @@ export type AgentOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'ROLE_TRGM_SIMILARITY_ASC'
@@ -8200,6 +8613,8 @@ export type SkillOrderBy =
   | 'EMBEDDING_DESC'
   | 'INTENT_TRIGGER_ASC'
   | 'INTENT_TRIGGER_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'SLUG_TRGM_SIMILARITY_ASC'
@@ -8260,6 +8675,8 @@ export type ProjectOrderBy =
   | 'SEARCH_TSV_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
@@ -8316,6 +8733,10 @@ export type DocumentOrderBy =
   | 'SEARCH_TSV_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
+  | 'CONTENT_BM25_SCORE_ASC'
+  | 'CONTENT_BM25_SCORE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'TITLE_TRGM_SIMILARITY_ASC'
   | 'TITLE_TRGM_SIMILARITY_DESC'
   | 'URL_TRGM_SIMILARITY_ASC'
@@ -8366,6 +8787,8 @@ export type CompanyOrderBy =
   | 'MAIN_IMAGE_ID_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'DOMAIN_TRGM_SIMILARITY_ASC'
@@ -8418,6 +8841,8 @@ export type EventOrderBy =
   | 'MAIN_IMAGE_ID_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'EVENT_TYPE_TRGM_SIMILARITY_ASC'
@@ -8488,6 +8913,8 @@ export type ContactOrderBy =
   | 'MAIN_IMAGE_ID_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'FIRST_NAME_TRGM_SIMILARITY_ASC'
   | 'FIRST_NAME_TRGM_SIMILARITY_DESC'
   | 'LAST_NAME_TRGM_SIMILARITY_ASC'
@@ -8521,7 +8948,9 @@ export type ContactOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
+  | 'SEARCH_SCORE_DESC'
+  | 'LOCATION_GEO_ASC'
+  | 'LOCATION_GEO_DESC';
 export type VenueOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -8568,6 +8997,8 @@ export type VenueOrderBy =
   | 'MAIN_IMAGE_ID_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
   | 'NAME_TRGM_SIMILARITY_DESC'
   | 'ADDRESS_TRGM_SIMILARITY_ASC'
@@ -8591,7 +9022,9 @@ export type VenueOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
+  | 'SEARCH_SCORE_DESC'
+  | 'LOCATION_ASC'
+  | 'LOCATION_DESC';
 // ============ CRUD Input Types ============
 export interface CreateAgentPromptInput {
   clientMutationId?: string;
@@ -8615,47 +9048,93 @@ export interface DeleteAgentPromptInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateAgentRuleInput {
+export interface CreateProcessInput {
   clientMutationId?: string;
-  agentRule: {
-    agentId: string;
-    ruleId: string;
+  process: {
     entityId: string;
+    pid?: number;
+    agentId?: string;
+    command?: string;
+    startedAt?: string;
+    endedAt?: string;
+    status?: string;
+    exitCode?: number;
+    logsPath?: string;
   };
 }
-export interface AgentRulePatch {
-  agentId?: string | null;
-  ruleId?: string | null;
+export interface ProcessPatch {
   entityId?: string | null;
+  pid?: number | null;
+  agentId?: string | null;
+  command?: string | null;
+  startedAt?: string | null;
+  endedAt?: string | null;
+  status?: string | null;
+  exitCode?: number | null;
+  logsPath?: string | null;
+  commandTrgmSimilarity?: number | null;
+  statusTrgmSimilarity?: number | null;
+  logsPathTrgmSimilarity?: number | null;
+  searchScore?: number | null;
 }
-export interface UpdateAgentRuleInput {
+export interface UpdateProcessInput {
   clientMutationId?: string;
   id: string;
-  agentRulePatch: AgentRulePatch;
+  processPatch: ProcessPatch;
 }
-export interface DeleteAgentRuleInput {
+export interface DeleteProcessInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateAgentSkillInput {
+export interface CreateScheduledJobInput {
   clientMutationId?: string;
-  agentSkill: {
-    agentId: string;
-    skillId: string;
+  scheduledJob: {
     entityId: string;
+    name: string;
+    scheduleType: string;
+    scheduleExpr?: string;
+    runAt?: string;
+    command: string;
+    message?: string;
+    agentId?: string;
+    sessionId?: string;
+    isActive?: boolean;
+    deleteAfterRun?: boolean;
+    lastRunAt?: string;
+    nextRunAt?: string;
+    runCount?: number;
+    lastResult?: Record<string, unknown>;
   };
 }
-export interface AgentSkillPatch {
-  agentId?: string | null;
-  skillId?: string | null;
+export interface ScheduledJobPatch {
   entityId?: string | null;
+  name?: string | null;
+  scheduleType?: string | null;
+  scheduleExpr?: string | null;
+  runAt?: string | null;
+  command?: string | null;
+  message?: string | null;
+  agentId?: string | null;
+  sessionId?: string | null;
+  isActive?: boolean | null;
+  deleteAfterRun?: boolean | null;
+  lastRunAt?: string | null;
+  nextRunAt?: string | null;
+  runCount?: number | null;
+  lastResult?: Record<string, unknown> | null;
+  nameTrgmSimilarity?: number | null;
+  scheduleTypeTrgmSimilarity?: number | null;
+  scheduleExprTrgmSimilarity?: number | null;
+  commandTrgmSimilarity?: number | null;
+  messageTrgmSimilarity?: number | null;
+  searchScore?: number | null;
 }
-export interface UpdateAgentSkillInput {
+export interface UpdateScheduledJobInput {
   clientMutationId?: string;
   id: string;
-  agentSkillPatch: AgentSkillPatch;
+  scheduledJobPatch: ScheduledJobPatch;
 }
-export interface DeleteAgentSkillInput {
+export interface DeleteScheduledJobInput {
   clientMutationId?: string;
   id: string;
 }
@@ -8681,6 +9160,50 @@ export interface DeleteAgentToolInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateAgentSkillInput {
+  clientMutationId?: string;
+  agentSkill: {
+    agentId: string;
+    skillId: string;
+    entityId: string;
+  };
+}
+export interface AgentSkillPatch {
+  agentId?: string | null;
+  skillId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateAgentSkillInput {
+  clientMutationId?: string;
+  id: string;
+  agentSkillPatch: AgentSkillPatch;
+}
+export interface DeleteAgentSkillInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateAgentRuleInput {
+  clientMutationId?: string;
+  agentRule: {
+    agentId: string;
+    ruleId: string;
+    entityId: string;
+  };
+}
+export interface AgentRulePatch {
+  agentId?: string | null;
+  ruleId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateAgentRuleInput {
+  clientMutationId?: string;
+  id: string;
+  agentRulePatch: AgentRulePatch;
+}
+export interface DeleteAgentRuleInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateCalendarEventContactInput {
   clientMutationId?: string;
   calendarEventContact: {
@@ -8700,6 +9223,101 @@ export interface UpdateCalendarEventContactInput {
   calendarEventContactPatch: CalendarEventContactPatch;
 }
 export interface DeleteCalendarEventContactInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCalendarEventInput {
+  clientMutationId?: string;
+  calendarEvent: {
+    entityId: string;
+    calendarAccountId?: string;
+    remoteId?: string;
+    title: string;
+    description?: string;
+    startAt: string;
+    endAt?: string;
+    allDay?: boolean;
+    location?: string;
+    recurrenceRule?: string;
+    status?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+  };
+}
+export interface CalendarEventPatch {
+  entityId?: string | null;
+  calendarAccountId?: string | null;
+  remoteId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  startAt?: string | null;
+  endAt?: string | null;
+  allDay?: boolean | null;
+  location?: string | null;
+  recurrenceRule?: string | null;
+  status?: string | null;
+  tags?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
+  remoteIdTrgmSimilarity?: number | null;
+  titleTrgmSimilarity?: number | null;
+  descriptionTrgmSimilarity?: number | null;
+  locationTrgmSimilarity?: number | null;
+  recurrenceRuleTrgmSimilarity?: number | null;
+  statusTrgmSimilarity?: number | null;
+  embeddingTextTrgmSimilarity?: number | null;
+  embeddingVectorDistance?: number | null;
+  searchScore?: number | null;
+}
+export interface UpdateCalendarEventInput {
+  clientMutationId?: string;
+  id: string;
+  calendarEventPatch: CalendarEventPatch;
+}
+export interface DeleteCalendarEventInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateInteractionInput {
+  clientMutationId?: string;
+  interaction: {
+    entityId: string;
+    contactId: string;
+    type: string;
+    occurredAt: string;
+    summary?: string;
+    sentiment?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+  };
+}
+export interface InteractionPatch {
+  entityId?: string | null;
+  contactId?: string | null;
+  type?: string | null;
+  occurredAt?: string | null;
+  summary?: string | null;
+  sentiment?: string | null;
+  tags?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
+  typeTrgmSimilarity?: number | null;
+  summaryTrgmSimilarity?: number | null;
+  sentimentTrgmSimilarity?: number | null;
+  embeddingTextTrgmSimilarity?: number | null;
+  embeddingVectorDistance?: number | null;
+  searchScore?: number | null;
+}
+export interface UpdateInteractionInput {
+  clientMutationId?: string;
+  id: string;
+  interactionPatch: InteractionPatch;
+}
+export interface DeleteInteractionInput {
   clientMutationId?: string;
   id: string;
 }
@@ -8923,6 +9541,57 @@ export interface DeleteGoalHabitInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateHabitLogInput {
+  clientMutationId?: string;
+  habitLog: {
+    entityId: string;
+    habitId: string;
+    completedAt: string;
+    activityType?: string;
+    durationMinutes?: string;
+    distance?: string;
+    distanceUnit?: string;
+    reps?: number;
+    sets?: number;
+    weightAmount?: string;
+    weightUnit?: string;
+    calories?: string;
+    data?: Record<string, unknown>;
+    notes?: string;
+    tags?: string[];
+  };
+}
+export interface HabitLogPatch {
+  entityId?: string | null;
+  habitId?: string | null;
+  completedAt?: string | null;
+  activityType?: string | null;
+  durationMinutes?: string | null;
+  distance?: string | null;
+  distanceUnit?: string | null;
+  reps?: number | null;
+  sets?: number | null;
+  weightAmount?: string | null;
+  weightUnit?: string | null;
+  calories?: string | null;
+  data?: Record<string, unknown> | null;
+  notes?: string | null;
+  tags?: string | null;
+  activityTypeTrgmSimilarity?: number | null;
+  distanceUnitTrgmSimilarity?: number | null;
+  weightUnitTrgmSimilarity?: number | null;
+  notesTrgmSimilarity?: number | null;
+  searchScore?: number | null;
+}
+export interface UpdateHabitLogInput {
+  clientMutationId?: string;
+  id: string;
+  habitLogPatch: HabitLogPatch;
+}
+export interface DeleteHabitLogInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateGoalProjectInput {
   clientMutationId?: string;
   goalProject: {
@@ -8942,6 +9611,35 @@ export interface UpdateGoalProjectInput {
   goalProjectPatch: GoalProjectPatch;
 }
 export interface DeleteGoalProjectInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateMilestoneInput {
+  clientMutationId?: string;
+  milestone: {
+    entityId: string;
+    projectId?: string;
+    name: string;
+    dueDate?: string;
+    status?: string;
+  };
+}
+export interface MilestonePatch {
+  entityId?: string | null;
+  projectId?: string | null;
+  name?: string | null;
+  dueDate?: string | null;
+  status?: string | null;
+  nameTrgmSimilarity?: number | null;
+  statusTrgmSimilarity?: number | null;
+  searchScore?: number | null;
+}
+export interface UpdateMilestoneInput {
+  clientMutationId?: string;
+  id: string;
+  milestonePatch: MilestonePatch;
+}
+export interface DeleteMilestoneInput {
   clientMutationId?: string;
   id: string;
 }
@@ -9041,32 +9739,40 @@ export interface DeleteFileInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateMilestoneInput {
+export interface CreateChunkInput {
   clientMutationId?: string;
-  milestone: {
+  chunk: {
     entityId: string;
-    projectId?: string;
-    name: string;
-    dueDate?: string;
-    status?: string;
+    fileId?: string;
+    repositoryId?: string;
+    content: string;
+    startLine?: number;
+    endLine?: number;
+    embeddingText?: string;
+    embedding?: number[];
   };
 }
-export interface MilestonePatch {
+export interface ChunkPatch {
   entityId?: string | null;
-  projectId?: string | null;
-  name?: string | null;
-  dueDate?: string | null;
-  status?: string | null;
-  nameTrgmSimilarity?: number | null;
-  statusTrgmSimilarity?: number | null;
+  fileId?: string | null;
+  repositoryId?: string | null;
+  content?: string | null;
+  startLine?: number | null;
+  endLine?: number | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
+  contentTrgmSimilarity?: number | null;
+  embeddingTextTrgmSimilarity?: number | null;
+  embeddingVectorDistance?: number | null;
   searchScore?: number | null;
 }
-export interface UpdateMilestoneInput {
+export interface UpdateChunkInput {
   clientMutationId?: string;
   id: string;
-  milestonePatch: MilestonePatch;
+  chunkPatch: ChunkPatch;
 }
-export interface DeleteMilestoneInput {
+export interface DeleteChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -9224,6 +9930,56 @@ export interface DeleteEmailAccountInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateMessageInput {
+  clientMutationId?: string;
+  message: {
+    entityId: string;
+    emailAccountId?: string;
+    threadId?: string;
+    remoteId?: string;
+    fromAddress?: string;
+    toAddresses?: string[];
+    subject?: string;
+    bodyText?: string;
+    receivedAt?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+  };
+}
+export interface MessagePatch {
+  entityId?: string | null;
+  emailAccountId?: string | null;
+  threadId?: string | null;
+  remoteId?: string | null;
+  fromAddress?: string | null;
+  toAddresses?: string | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  receivedAt?: string | null;
+  tags?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  bodyTextBm25Score?: number | null;
+  embeddingTextBm25Score?: number | null;
+  threadIdTrgmSimilarity?: number | null;
+  remoteIdTrgmSimilarity?: number | null;
+  fromAddressTrgmSimilarity?: number | null;
+  subjectTrgmSimilarity?: number | null;
+  bodyTextTrgmSimilarity?: number | null;
+  embeddingTextTrgmSimilarity?: number | null;
+  embeddingVectorDistance?: number | null;
+  searchScore?: number | null;
+}
+export interface UpdateMessageInput {
+  clientMutationId?: string;
+  id: string;
+  messagePatch: MessagePatch;
+}
+export interface DeleteMessageInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateActivityLogInput {
   clientMutationId?: string;
   activityLog: {
@@ -9356,6 +10112,45 @@ export interface DeleteExecutionLogInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateSessionArchiveInput {
+  clientMutationId?: string;
+  sessionArchive: {
+    entityId: string;
+    sessionId: string;
+    archiveIndex: number;
+    summary: string;
+    messageRangeStart?: number;
+    messageRangeEnd?: number;
+    rawMessages?: Record<string, unknown>;
+    embeddingText?: string;
+    embedding?: number[];
+  };
+}
+export interface SessionArchivePatch {
+  entityId?: string | null;
+  sessionId?: string | null;
+  archiveIndex?: number | null;
+  summary?: string | null;
+  messageRangeStart?: number | null;
+  messageRangeEnd?: number | null;
+  rawMessages?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
+  summaryTrgmSimilarity?: number | null;
+  embeddingTextTrgmSimilarity?: number | null;
+  embeddingVectorDistance?: number | null;
+  searchScore?: number | null;
+}
+export interface UpdateSessionArchiveInput {
+  clientMutationId?: string;
+  id: string;
+  sessionArchivePatch: SessionArchivePatch;
+}
+export interface DeleteSessionArchiveInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateWebhookInput {
   clientMutationId?: string;
   webhook: {
@@ -9429,44 +10224,6 @@ export interface DeleteNotificationInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateProcessInput {
-  clientMutationId?: string;
-  process: {
-    entityId: string;
-    pid?: number;
-    agentId?: string;
-    command?: string;
-    startedAt?: string;
-    endedAt?: string;
-    status?: string;
-    exitCode?: number;
-    logsPath?: string;
-  };
-}
-export interface ProcessPatch {
-  entityId?: string | null;
-  pid?: number | null;
-  agentId?: string | null;
-  command?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  status?: string | null;
-  exitCode?: number | null;
-  logsPath?: string | null;
-  commandTrgmSimilarity?: number | null;
-  statusTrgmSimilarity?: number | null;
-  logsPathTrgmSimilarity?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateProcessInput {
-  clientMutationId?: string;
-  id: string;
-  processPatch: ProcessPatch;
-}
-export interface DeleteProcessInput {
-  clientMutationId?: string;
-  id: string;
-}
 export interface CreateWorkflowRunInput {
   clientMutationId?: string;
   workflowRun: {
@@ -9499,6 +10256,40 @@ export interface UpdateWorkflowRunInput {
   workflowRunPatch: WorkflowRunPatch;
 }
 export interface DeleteWorkflowRunInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateWorkflowStepInput {
+  clientMutationId?: string;
+  workflowStep: {
+    entityId: string;
+    workflowId: string;
+    stepOrder: number;
+    actionType: string;
+    actionConfig?: Record<string, unknown>;
+    onSuccessStep?: number;
+    onFailureStep?: number;
+    timeoutMs?: number;
+  };
+}
+export interface WorkflowStepPatch {
+  entityId?: string | null;
+  workflowId?: string | null;
+  stepOrder?: number | null;
+  actionType?: string | null;
+  actionConfig?: Record<string, unknown> | null;
+  onSuccessStep?: number | null;
+  onFailureStep?: number | null;
+  timeoutMs?: number | null;
+  actionTypeTrgmSimilarity?: number | null;
+  searchScore?: number | null;
+}
+export interface UpdateWorkflowStepInput {
+  clientMutationId?: string;
+  id: string;
+  workflowStepPatch: WorkflowStepPatch;
+}
+export interface DeleteWorkflowStepInput {
   clientMutationId?: string;
   id: string;
 }
@@ -9597,6 +10388,7 @@ export interface ChatPatch {
   startedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   titleTrgmSimilarity?: number | null;
   embeddingTextTrgmSimilarity?: number | null;
   embeddingVectorDistance?: number | null;
@@ -9608,78 +10400,6 @@ export interface UpdateChatInput {
   chatPatch: ChatPatch;
 }
 export interface DeleteChatInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateChunkInput {
-  clientMutationId?: string;
-  chunk: {
-    entityId: string;
-    fileId?: string;
-    repositoryId?: string;
-    content: string;
-    startLine?: number;
-    endLine?: number;
-    embeddingText?: string;
-    embedding?: number[];
-  };
-}
-export interface ChunkPatch {
-  entityId?: string | null;
-  fileId?: string | null;
-  repositoryId?: string | null;
-  content?: string | null;
-  startLine?: number | null;
-  endLine?: number | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  contentTrgmSimilarity?: number | null;
-  embeddingTextTrgmSimilarity?: number | null;
-  embeddingVectorDistance?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateChunkInput {
-  clientMutationId?: string;
-  id: string;
-  chunkPatch: ChunkPatch;
-}
-export interface DeleteChunkInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateThreadInput {
-  clientMutationId?: string;
-  thread: {
-    entityId: string;
-    title: string;
-    summary?: string;
-    status?: string;
-    parentThreadId?: string;
-    embeddingText?: string;
-    embedding?: number[];
-  };
-}
-export interface ThreadPatch {
-  entityId?: string | null;
-  title?: string | null;
-  summary?: string | null;
-  status?: string | null;
-  parentThreadId?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  titleTrgmSimilarity?: number | null;
-  summaryTrgmSimilarity?: number | null;
-  statusTrgmSimilarity?: number | null;
-  embeddingTextTrgmSimilarity?: number | null;
-  embeddingVectorDistance?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateThreadInput {
-  clientMutationId?: string;
-  id: string;
-  threadPatch: ThreadPatch;
-}
-export interface DeleteThreadInput {
   clientMutationId?: string;
   id: string;
 }
@@ -9705,6 +10425,8 @@ export interface ChatMessagePatch {
   toolCalls?: Record<string, unknown> | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  contentBm25Score?: number | null;
+  embeddingTextBm25Score?: number | null;
   roleTrgmSimilarity?: number | null;
   contentTrgmSimilarity?: number | null;
   embeddingTextTrgmSimilarity?: number | null;
@@ -9720,41 +10442,40 @@ export interface DeleteChatMessageInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateSessionArchiveInput {
+export interface CreateThreadInput {
   clientMutationId?: string;
-  sessionArchive: {
+  thread: {
     entityId: string;
-    sessionId: string;
-    archiveIndex: number;
-    summary: string;
-    messageRangeStart?: number;
-    messageRangeEnd?: number;
-    rawMessages?: Record<string, unknown>;
+    title: string;
+    summary?: string;
+    status?: string;
+    parentThreadId?: string;
     embeddingText?: string;
     embedding?: number[];
   };
 }
-export interface SessionArchivePatch {
+export interface ThreadPatch {
   entityId?: string | null;
-  sessionId?: string | null;
-  archiveIndex?: number | null;
+  title?: string | null;
   summary?: string | null;
-  messageRangeStart?: number | null;
-  messageRangeEnd?: number | null;
-  rawMessages?: Record<string, unknown> | null;
+  status?: string | null;
+  parentThreadId?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
+  titleTrgmSimilarity?: number | null;
   summaryTrgmSimilarity?: number | null;
+  statusTrgmSimilarity?: number | null;
   embeddingTextTrgmSimilarity?: number | null;
   embeddingVectorDistance?: number | null;
   searchScore?: number | null;
 }
-export interface UpdateSessionArchiveInput {
+export interface UpdateThreadInput {
   clientMutationId?: string;
   id: string;
-  sessionArchivePatch: SessionArchivePatch;
+  threadPatch: ThreadPatch;
 }
-export interface DeleteSessionArchiveInput {
+export interface DeleteThreadInput {
   clientMutationId?: string;
   id: string;
 }
@@ -9784,6 +10505,7 @@ export interface ReminderPatch {
   relatedEntityType?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   titleTrgmSimilarity?: number | null;
   recurrenceTrgmSimilarity?: number | null;
   statusTrgmSimilarity?: number | null;
@@ -9831,40 +10553,6 @@ export interface UpdateImageInput {
   imagePatch: ImagePatch;
 }
 export interface DeleteImageInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateWorkflowStepInput {
-  clientMutationId?: string;
-  workflowStep: {
-    entityId: string;
-    workflowId: string;
-    stepOrder: number;
-    actionType: string;
-    actionConfig?: Record<string, unknown>;
-    onSuccessStep?: number;
-    onFailureStep?: number;
-    timeoutMs?: number;
-  };
-}
-export interface WorkflowStepPatch {
-  entityId?: string | null;
-  workflowId?: string | null;
-  stepOrder?: number | null;
-  actionType?: string | null;
-  actionConfig?: Record<string, unknown> | null;
-  onSuccessStep?: number | null;
-  onFailureStep?: number | null;
-  timeoutMs?: number | null;
-  actionTypeTrgmSimilarity?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateWorkflowStepInput {
-  clientMutationId?: string;
-  id: string;
-  workflowStepPatch: WorkflowStepPatch;
-}
-export interface DeleteWorkflowStepInput {
   clientMutationId?: string;
   id: string;
 }
@@ -10062,58 +10750,6 @@ export interface DeleteAgentSpawnInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateScheduledJobInput {
-  clientMutationId?: string;
-  scheduledJob: {
-    entityId: string;
-    name: string;
-    scheduleType: string;
-    scheduleExpr?: string;
-    runAt?: string;
-    command: string;
-    message?: string;
-    agentId?: string;
-    sessionId?: string;
-    isActive?: boolean;
-    deleteAfterRun?: boolean;
-    lastRunAt?: string;
-    nextRunAt?: string;
-    runCount?: number;
-    lastResult?: Record<string, unknown>;
-  };
-}
-export interface ScheduledJobPatch {
-  entityId?: string | null;
-  name?: string | null;
-  scheduleType?: string | null;
-  scheduleExpr?: string | null;
-  runAt?: string | null;
-  command?: string | null;
-  message?: string | null;
-  agentId?: string | null;
-  sessionId?: string | null;
-  isActive?: boolean | null;
-  deleteAfterRun?: boolean | null;
-  lastRunAt?: string | null;
-  nextRunAt?: string | null;
-  runCount?: number | null;
-  lastResult?: Record<string, unknown> | null;
-  nameTrgmSimilarity?: number | null;
-  scheduleTypeTrgmSimilarity?: number | null;
-  scheduleExprTrgmSimilarity?: number | null;
-  commandTrgmSimilarity?: number | null;
-  messageTrgmSimilarity?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateScheduledJobInput {
-  clientMutationId?: string;
-  id: string;
-  scheduledJobPatch: ScheduledJobPatch;
-}
-export interface DeleteScheduledJobInput {
-  clientMutationId?: string;
-  id: string;
-}
 export interface CreateHabitInput {
   clientMutationId?: string;
   habit: {
@@ -10181,57 +10817,6 @@ export interface UpdateWorkflowInput {
   workflowPatch: WorkflowPatch;
 }
 export interface DeleteWorkflowInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateHabitLogInput {
-  clientMutationId?: string;
-  habitLog: {
-    entityId: string;
-    habitId: string;
-    completedAt: string;
-    activityType?: string;
-    durationMinutes?: string;
-    distance?: string;
-    distanceUnit?: string;
-    reps?: number;
-    sets?: number;
-    weightAmount?: string;
-    weightUnit?: string;
-    calories?: string;
-    data?: Record<string, unknown>;
-    notes?: string;
-    tags?: string[];
-  };
-}
-export interface HabitLogPatch {
-  entityId?: string | null;
-  habitId?: string | null;
-  completedAt?: string | null;
-  activityType?: string | null;
-  durationMinutes?: string | null;
-  distance?: string | null;
-  distanceUnit?: string | null;
-  reps?: number | null;
-  sets?: number | null;
-  weightAmount?: string | null;
-  weightUnit?: string | null;
-  calories?: string | null;
-  data?: Record<string, unknown> | null;
-  notes?: string | null;
-  tags?: string | null;
-  activityTypeTrgmSimilarity?: number | null;
-  distanceUnitTrgmSimilarity?: number | null;
-  weightUnitTrgmSimilarity?: number | null;
-  notesTrgmSimilarity?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateHabitLogInput {
-  clientMutationId?: string;
-  id: string;
-  habitLogPatch: HabitLogPatch;
-}
-export interface DeleteHabitLogInput {
   clientMutationId?: string;
   id: string;
 }
@@ -10342,6 +10927,7 @@ export interface IdeaPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   contentTrgmSimilarity?: number | null;
   sourceTrgmSimilarity?: number | null;
   statusTrgmSimilarity?: number | null;
@@ -10378,6 +10964,7 @@ export interface ListPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   descriptionTrgmSimilarity?: number | null;
   typeTrgmSimilarity?: number | null;
@@ -10391,46 +10978,6 @@ export interface UpdateListInput {
   listPatch: ListPatch;
 }
 export interface DeleteListInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateInteractionInput {
-  clientMutationId?: string;
-  interaction: {
-    entityId: string;
-    contactId: string;
-    type: string;
-    occurredAt: string;
-    summary?: string;
-    sentiment?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-  };
-}
-export interface InteractionPatch {
-  entityId?: string | null;
-  contactId?: string | null;
-  type?: string | null;
-  occurredAt?: string | null;
-  summary?: string | null;
-  sentiment?: string | null;
-  tags?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  typeTrgmSimilarity?: number | null;
-  summaryTrgmSimilarity?: number | null;
-  sentimentTrgmSimilarity?: number | null;
-  embeddingTextTrgmSimilarity?: number | null;
-  embeddingVectorDistance?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateInteractionInput {
-  clientMutationId?: string;
-  id: string;
-  interactionPatch: InteractionPatch;
-}
-export interface DeleteInteractionInput {
   clientMutationId?: string;
   id: string;
 }
@@ -10458,6 +11005,7 @@ export interface RepositoryPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   urlTrgmSimilarity?: number | null;
   descriptionTrgmSimilarity?: number | null;
@@ -10501,6 +11049,7 @@ export interface DealPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   stageTrgmSimilarity?: number | null;
   currencyTrgmSimilarity?: number | null;
@@ -10544,6 +11093,7 @@ export interface GoalPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   titleTrgmSimilarity?: number | null;
   descriptionTrgmSimilarity?: number | null;
   statusTrgmSimilarity?: number | null;
@@ -10589,6 +11139,8 @@ export interface NotePatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  contentBm25Score?: number | null;
+  embeddingTextBm25Score?: number | null;
   contentTrgmSimilarity?: number | null;
   notableTypeTrgmSimilarity?: number | null;
   abstractTrgmSimilarity?: number | null;
@@ -10632,6 +11184,8 @@ export interface PromptPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  contentBm25Score?: number | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   contentTrgmSimilarity?: number | null;
   typeTrgmSimilarity?: number | null;
@@ -10671,6 +11225,7 @@ export interface BlueprintPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   titleTrgmSimilarity?: number | null;
   triggerConditionsTrgmSimilarity?: number | null;
   embeddingTextTrgmSimilarity?: number | null;
@@ -10712,6 +11267,7 @@ export interface TemplatePatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   descriptionTrgmSimilarity?: number | null;
   typeTrgmSimilarity?: number | null;
@@ -10758,6 +11314,7 @@ export interface ToolPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   descriptionTrgmSimilarity?: number | null;
   typeTrgmSimilarity?: number | null;
@@ -10812,6 +11369,7 @@ export interface RecipePatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   descriptionTrgmSimilarity?: number | null;
   cuisineTrgmSimilarity?: number | null;
@@ -10857,6 +11415,7 @@ export interface TripPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   destinationTrgmSimilarity?: number | null;
   statusTrgmSimilarity?: number | null;
@@ -10871,107 +11430,6 @@ export interface UpdateTripInput {
   tripPatch: TripPatch;
 }
 export interface DeleteTripInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateCalendarEventInput {
-  clientMutationId?: string;
-  calendarEvent: {
-    entityId: string;
-    calendarAccountId?: string;
-    remoteId?: string;
-    title: string;
-    description?: string;
-    startAt: string;
-    endAt?: string;
-    allDay?: boolean;
-    location?: string;
-    recurrenceRule?: string;
-    status?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-  };
-}
-export interface CalendarEventPatch {
-  entityId?: string | null;
-  calendarAccountId?: string | null;
-  remoteId?: string | null;
-  title?: string | null;
-  description?: string | null;
-  startAt?: string | null;
-  endAt?: string | null;
-  allDay?: boolean | null;
-  location?: string | null;
-  recurrenceRule?: string | null;
-  status?: string | null;
-  tags?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  remoteIdTrgmSimilarity?: number | null;
-  titleTrgmSimilarity?: number | null;
-  descriptionTrgmSimilarity?: number | null;
-  locationTrgmSimilarity?: number | null;
-  recurrenceRuleTrgmSimilarity?: number | null;
-  statusTrgmSimilarity?: number | null;
-  embeddingTextTrgmSimilarity?: number | null;
-  embeddingVectorDistance?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateCalendarEventInput {
-  clientMutationId?: string;
-  id: string;
-  calendarEventPatch: CalendarEventPatch;
-}
-export interface DeleteCalendarEventInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateMessageInput {
-  clientMutationId?: string;
-  message: {
-    entityId: string;
-    emailAccountId?: string;
-    threadId?: string;
-    remoteId?: string;
-    fromAddress?: string;
-    toAddresses?: string[];
-    subject?: string;
-    bodyText?: string;
-    receivedAt?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-  };
-}
-export interface MessagePatch {
-  entityId?: string | null;
-  emailAccountId?: string | null;
-  threadId?: string | null;
-  remoteId?: string | null;
-  fromAddress?: string | null;
-  toAddresses?: string | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  receivedAt?: string | null;
-  tags?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  threadIdTrgmSimilarity?: number | null;
-  remoteIdTrgmSimilarity?: number | null;
-  fromAddressTrgmSimilarity?: number | null;
-  subjectTrgmSimilarity?: number | null;
-  bodyTextTrgmSimilarity?: number | null;
-  embeddingTextTrgmSimilarity?: number | null;
-  embeddingVectorDistance?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateMessageInput {
-  clientMutationId?: string;
-  id: string;
-  messagePatch: MessagePatch;
-}
-export interface DeleteMessageInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11015,6 +11473,7 @@ export interface MemoryPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   contentTrgmSimilarity?: number | null;
   memoryTypeTrgmSimilarity?: number | null;
   memoryCategoryTrgmSimilarity?: number | null;
@@ -11065,6 +11524,7 @@ export interface RulePatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   triggerConcept?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   titleTrgmSimilarity?: number | null;
   contentTrgmSimilarity?: number | null;
   kindTrgmSimilarity?: number | null;
@@ -11123,6 +11583,7 @@ export interface TaskPatch {
   tags?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   titleTrgmSimilarity?: number | null;
   descriptionTrgmSimilarity?: number | null;
   statusTrgmSimilarity?: number | null;
@@ -11182,6 +11643,7 @@ export interface AgentPatch {
   lastActiveAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   roleTrgmSimilarity?: number | null;
   statusTrgmSimilarity?: number | null;
@@ -11307,6 +11769,7 @@ export interface SkillPatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   intentTrigger?: number[] | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   slugTrgmSimilarity?: number | null;
   descriptionTrgmSimilarity?: number | null;
@@ -11358,6 +11821,7 @@ export interface ProjectPatch {
   embedding?: number[] | null;
   searchTsv?: string | null;
   searchTsvRank?: number | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   descriptionTrgmSimilarity?: number | null;
   statusTrgmSimilarity?: number | null;
@@ -11413,6 +11877,8 @@ export interface DocumentPatch {
   embedding?: number[] | null;
   searchTsv?: string | null;
   searchTsvRank?: number | null;
+  contentBm25Score?: number | null;
+  embeddingTextBm25Score?: number | null;
   titleTrgmSimilarity?: number | null;
   urlTrgmSimilarity?: number | null;
   contentTrgmSimilarity?: number | null;
@@ -11459,6 +11925,7 @@ export interface CompanyPatch {
   searchTsv?: string | null;
   mainImageId?: string | null;
   searchTsvRank?: number | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   domainTrgmSimilarity?: number | null;
   industryTrgmSimilarity?: number | null;
@@ -11509,6 +11976,7 @@ export interface EventPatch {
   searchTsv?: string | null;
   mainImageId?: string | null;
   searchTsvRank?: number | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   eventTypeTrgmSimilarity?: number | null;
   locationTrgmSimilarity?: number | null;
@@ -11576,6 +12044,7 @@ export interface ContactPatch {
   searchTsv?: string | null;
   mainImageId?: string | null;
   searchTsvRank?: number | null;
+  embeddingTextBm25Score?: number | null;
   firstNameTrgmSimilarity?: number | null;
   lastNameTrgmSimilarity?: number | null;
   emailTrgmSimilarity?: number | null;
@@ -11644,6 +12113,7 @@ export interface VenuePatch {
   searchTsv?: string | null;
   mainImageId?: string | null;
   searchTsvRank?: number | null;
+  embeddingTextBm25Score?: number | null;
   nameTrgmSimilarity?: number | null;
   addressTrgmSimilarity?: number | null;
   neighborhoodTrgmSimilarity?: number | null;
@@ -11667,7 +12137,71 @@ export interface DeleteVenueInput {
   id: string;
 }
 // ============ Connection Fields Map ============
-export const connectionFieldsMap = {} as Record<string, Record<string, string>>;
+export const connectionFieldsMap = {
+  File: {
+    chunks: 'Chunk',
+  },
+  CalendarAccount: {
+    calendarEvents: 'CalendarEvent',
+  },
+  EmailAccount: {
+    messages: 'Message',
+  },
+  Integration: {
+    webhooks: 'Webhook',
+  },
+  Chat: {
+    chatMessages: 'ChatMessage',
+  },
+  Thread: {
+    chatMessages: 'ChatMessage',
+    threadsByParentThreadId: 'Thread',
+  },
+  Habit: {
+    habitLogs: 'HabitLog',
+  },
+  Workflow: {
+    workflowSteps: 'WorkflowStep',
+    workflowRuns: 'WorkflowRun',
+  },
+  List: {
+    listItems: 'ListItem',
+  },
+  Repository: {
+    files: 'File',
+    chunks: 'Chunk',
+  },
+  Prompt: {
+    agentPrompts: 'AgentPrompt',
+  },
+  Tool: {
+    agentTools: 'AgentTool',
+  },
+  Rule: {
+    agentRules: 'AgentRule',
+  },
+  Agent: {
+    processes: 'Process',
+    scheduledJobs: 'ScheduledJob',
+    agentTools: 'AgentTool',
+    agentSkills: 'AgentSkill',
+    agentRules: 'AgentRule',
+    agentPrompts: 'AgentPrompt',
+  },
+  Session: {
+    executionLogs: 'ExecutionLog',
+    sessionArchives: 'SessionArchive',
+  },
+  Skill: {
+    agentSkills: 'AgentSkill',
+  },
+  Project: {
+    milestones: 'Milestone',
+  },
+  Contact: {
+    interactions: 'Interaction',
+  },
+} as Record<string, Record<string, string>>;
 // ============ Payload/Return Types (for custom operations) ============
 export interface CreateAgentPromptPayload {
   clientMutationId?: string | null;
@@ -11714,94 +12248,94 @@ export type DeleteAgentPromptPayloadSelect = {
     select: AgentPromptEdgeSelect;
   };
 };
-export interface CreateAgentRulePayload {
+export interface CreateProcessPayload {
   clientMutationId?: string | null;
-  /** The `AgentRule` that was created by this mutation. */
-  agentRule?: AgentRule | null;
-  agentRuleEdge?: AgentRuleEdge | null;
+  /** The `Process` that was created by this mutation. */
+  process?: Process | null;
+  processEdge?: ProcessEdge | null;
 }
-export type CreateAgentRulePayloadSelect = {
+export type CreateProcessPayloadSelect = {
   clientMutationId?: boolean;
-  agentRule?: {
-    select: AgentRuleSelect;
+  process?: {
+    select: ProcessSelect;
   };
-  agentRuleEdge?: {
-    select: AgentRuleEdgeSelect;
+  processEdge?: {
+    select: ProcessEdgeSelect;
   };
 };
-export interface UpdateAgentRulePayload {
+export interface UpdateProcessPayload {
   clientMutationId?: string | null;
-  /** The `AgentRule` that was updated by this mutation. */
-  agentRule?: AgentRule | null;
-  agentRuleEdge?: AgentRuleEdge | null;
+  /** The `Process` that was updated by this mutation. */
+  process?: Process | null;
+  processEdge?: ProcessEdge | null;
 }
-export type UpdateAgentRulePayloadSelect = {
+export type UpdateProcessPayloadSelect = {
   clientMutationId?: boolean;
-  agentRule?: {
-    select: AgentRuleSelect;
+  process?: {
+    select: ProcessSelect;
   };
-  agentRuleEdge?: {
-    select: AgentRuleEdgeSelect;
+  processEdge?: {
+    select: ProcessEdgeSelect;
   };
 };
-export interface DeleteAgentRulePayload {
+export interface DeleteProcessPayload {
   clientMutationId?: string | null;
-  /** The `AgentRule` that was deleted by this mutation. */
-  agentRule?: AgentRule | null;
-  agentRuleEdge?: AgentRuleEdge | null;
+  /** The `Process` that was deleted by this mutation. */
+  process?: Process | null;
+  processEdge?: ProcessEdge | null;
 }
-export type DeleteAgentRulePayloadSelect = {
+export type DeleteProcessPayloadSelect = {
   clientMutationId?: boolean;
-  agentRule?: {
-    select: AgentRuleSelect;
+  process?: {
+    select: ProcessSelect;
   };
-  agentRuleEdge?: {
-    select: AgentRuleEdgeSelect;
+  processEdge?: {
+    select: ProcessEdgeSelect;
   };
 };
-export interface CreateAgentSkillPayload {
+export interface CreateScheduledJobPayload {
   clientMutationId?: string | null;
-  /** The `AgentSkill` that was created by this mutation. */
-  agentSkill?: AgentSkill | null;
-  agentSkillEdge?: AgentSkillEdge | null;
+  /** The `ScheduledJob` that was created by this mutation. */
+  scheduledJob?: ScheduledJob | null;
+  scheduledJobEdge?: ScheduledJobEdge | null;
 }
-export type CreateAgentSkillPayloadSelect = {
+export type CreateScheduledJobPayloadSelect = {
   clientMutationId?: boolean;
-  agentSkill?: {
-    select: AgentSkillSelect;
+  scheduledJob?: {
+    select: ScheduledJobSelect;
   };
-  agentSkillEdge?: {
-    select: AgentSkillEdgeSelect;
+  scheduledJobEdge?: {
+    select: ScheduledJobEdgeSelect;
   };
 };
-export interface UpdateAgentSkillPayload {
+export interface UpdateScheduledJobPayload {
   clientMutationId?: string | null;
-  /** The `AgentSkill` that was updated by this mutation. */
-  agentSkill?: AgentSkill | null;
-  agentSkillEdge?: AgentSkillEdge | null;
+  /** The `ScheduledJob` that was updated by this mutation. */
+  scheduledJob?: ScheduledJob | null;
+  scheduledJobEdge?: ScheduledJobEdge | null;
 }
-export type UpdateAgentSkillPayloadSelect = {
+export type UpdateScheduledJobPayloadSelect = {
   clientMutationId?: boolean;
-  agentSkill?: {
-    select: AgentSkillSelect;
+  scheduledJob?: {
+    select: ScheduledJobSelect;
   };
-  agentSkillEdge?: {
-    select: AgentSkillEdgeSelect;
+  scheduledJobEdge?: {
+    select: ScheduledJobEdgeSelect;
   };
 };
-export interface DeleteAgentSkillPayload {
+export interface DeleteScheduledJobPayload {
   clientMutationId?: string | null;
-  /** The `AgentSkill` that was deleted by this mutation. */
-  agentSkill?: AgentSkill | null;
-  agentSkillEdge?: AgentSkillEdge | null;
+  /** The `ScheduledJob` that was deleted by this mutation. */
+  scheduledJob?: ScheduledJob | null;
+  scheduledJobEdge?: ScheduledJobEdge | null;
 }
-export type DeleteAgentSkillPayloadSelect = {
+export type DeleteScheduledJobPayloadSelect = {
   clientMutationId?: boolean;
-  agentSkill?: {
-    select: AgentSkillSelect;
+  scheduledJob?: {
+    select: ScheduledJobSelect;
   };
-  agentSkillEdge?: {
-    select: AgentSkillEdgeSelect;
+  scheduledJobEdge?: {
+    select: ScheduledJobEdgeSelect;
   };
 };
 export interface CreateAgentToolPayload {
@@ -11849,6 +12383,96 @@ export type DeleteAgentToolPayloadSelect = {
     select: AgentToolEdgeSelect;
   };
 };
+export interface CreateAgentSkillPayload {
+  clientMutationId?: string | null;
+  /** The `AgentSkill` that was created by this mutation. */
+  agentSkill?: AgentSkill | null;
+  agentSkillEdge?: AgentSkillEdge | null;
+}
+export type CreateAgentSkillPayloadSelect = {
+  clientMutationId?: boolean;
+  agentSkill?: {
+    select: AgentSkillSelect;
+  };
+  agentSkillEdge?: {
+    select: AgentSkillEdgeSelect;
+  };
+};
+export interface UpdateAgentSkillPayload {
+  clientMutationId?: string | null;
+  /** The `AgentSkill` that was updated by this mutation. */
+  agentSkill?: AgentSkill | null;
+  agentSkillEdge?: AgentSkillEdge | null;
+}
+export type UpdateAgentSkillPayloadSelect = {
+  clientMutationId?: boolean;
+  agentSkill?: {
+    select: AgentSkillSelect;
+  };
+  agentSkillEdge?: {
+    select: AgentSkillEdgeSelect;
+  };
+};
+export interface DeleteAgentSkillPayload {
+  clientMutationId?: string | null;
+  /** The `AgentSkill` that was deleted by this mutation. */
+  agentSkill?: AgentSkill | null;
+  agentSkillEdge?: AgentSkillEdge | null;
+}
+export type DeleteAgentSkillPayloadSelect = {
+  clientMutationId?: boolean;
+  agentSkill?: {
+    select: AgentSkillSelect;
+  };
+  agentSkillEdge?: {
+    select: AgentSkillEdgeSelect;
+  };
+};
+export interface CreateAgentRulePayload {
+  clientMutationId?: string | null;
+  /** The `AgentRule` that was created by this mutation. */
+  agentRule?: AgentRule | null;
+  agentRuleEdge?: AgentRuleEdge | null;
+}
+export type CreateAgentRulePayloadSelect = {
+  clientMutationId?: boolean;
+  agentRule?: {
+    select: AgentRuleSelect;
+  };
+  agentRuleEdge?: {
+    select: AgentRuleEdgeSelect;
+  };
+};
+export interface UpdateAgentRulePayload {
+  clientMutationId?: string | null;
+  /** The `AgentRule` that was updated by this mutation. */
+  agentRule?: AgentRule | null;
+  agentRuleEdge?: AgentRuleEdge | null;
+}
+export type UpdateAgentRulePayloadSelect = {
+  clientMutationId?: boolean;
+  agentRule?: {
+    select: AgentRuleSelect;
+  };
+  agentRuleEdge?: {
+    select: AgentRuleEdgeSelect;
+  };
+};
+export interface DeleteAgentRulePayload {
+  clientMutationId?: string | null;
+  /** The `AgentRule` that was deleted by this mutation. */
+  agentRule?: AgentRule | null;
+  agentRuleEdge?: AgentRuleEdge | null;
+}
+export type DeleteAgentRulePayloadSelect = {
+  clientMutationId?: boolean;
+  agentRule?: {
+    select: AgentRuleSelect;
+  };
+  agentRuleEdge?: {
+    select: AgentRuleEdgeSelect;
+  };
+};
 export interface CreateCalendarEventContactPayload {
   clientMutationId?: string | null;
   /** The `CalendarEventContact` that was created by this mutation. */
@@ -11892,6 +12516,96 @@ export type DeleteCalendarEventContactPayloadSelect = {
   };
   calendarEventContactEdge?: {
     select: CalendarEventContactEdgeSelect;
+  };
+};
+export interface CreateCalendarEventPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEvent` that was created by this mutation. */
+  calendarEvent?: CalendarEvent | null;
+  calendarEventEdge?: CalendarEventEdge | null;
+}
+export type CreateCalendarEventPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  calendarEventEdge?: {
+    select: CalendarEventEdgeSelect;
+  };
+};
+export interface UpdateCalendarEventPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEvent` that was updated by this mutation. */
+  calendarEvent?: CalendarEvent | null;
+  calendarEventEdge?: CalendarEventEdge | null;
+}
+export type UpdateCalendarEventPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  calendarEventEdge?: {
+    select: CalendarEventEdgeSelect;
+  };
+};
+export interface DeleteCalendarEventPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEvent` that was deleted by this mutation. */
+  calendarEvent?: CalendarEvent | null;
+  calendarEventEdge?: CalendarEventEdge | null;
+}
+export type DeleteCalendarEventPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  calendarEventEdge?: {
+    select: CalendarEventEdgeSelect;
+  };
+};
+export interface CreateInteractionPayload {
+  clientMutationId?: string | null;
+  /** The `Interaction` that was created by this mutation. */
+  interaction?: Interaction | null;
+  interactionEdge?: InteractionEdge | null;
+}
+export type CreateInteractionPayloadSelect = {
+  clientMutationId?: boolean;
+  interaction?: {
+    select: InteractionSelect;
+  };
+  interactionEdge?: {
+    select: InteractionEdgeSelect;
+  };
+};
+export interface UpdateInteractionPayload {
+  clientMutationId?: string | null;
+  /** The `Interaction` that was updated by this mutation. */
+  interaction?: Interaction | null;
+  interactionEdge?: InteractionEdge | null;
+}
+export type UpdateInteractionPayloadSelect = {
+  clientMutationId?: boolean;
+  interaction?: {
+    select: InteractionSelect;
+  };
+  interactionEdge?: {
+    select: InteractionEdgeSelect;
+  };
+};
+export interface DeleteInteractionPayload {
+  clientMutationId?: string | null;
+  /** The `Interaction` that was deleted by this mutation. */
+  interaction?: Interaction | null;
+  interactionEdge?: InteractionEdge | null;
+}
+export type DeleteInteractionPayloadSelect = {
+  clientMutationId?: boolean;
+  interaction?: {
+    select: InteractionSelect;
+  };
+  interactionEdge?: {
+    select: InteractionEdgeSelect;
   };
 };
 export interface CreateCompanyEventPayload {
@@ -12344,6 +13058,51 @@ export type DeleteGoalHabitPayloadSelect = {
     select: GoalHabitEdgeSelect;
   };
 };
+export interface CreateHabitLogPayload {
+  clientMutationId?: string | null;
+  /** The `HabitLog` that was created by this mutation. */
+  habitLog?: HabitLog | null;
+  habitLogEdge?: HabitLogEdge | null;
+}
+export type CreateHabitLogPayloadSelect = {
+  clientMutationId?: boolean;
+  habitLog?: {
+    select: HabitLogSelect;
+  };
+  habitLogEdge?: {
+    select: HabitLogEdgeSelect;
+  };
+};
+export interface UpdateHabitLogPayload {
+  clientMutationId?: string | null;
+  /** The `HabitLog` that was updated by this mutation. */
+  habitLog?: HabitLog | null;
+  habitLogEdge?: HabitLogEdge | null;
+}
+export type UpdateHabitLogPayloadSelect = {
+  clientMutationId?: boolean;
+  habitLog?: {
+    select: HabitLogSelect;
+  };
+  habitLogEdge?: {
+    select: HabitLogEdgeSelect;
+  };
+};
+export interface DeleteHabitLogPayload {
+  clientMutationId?: string | null;
+  /** The `HabitLog` that was deleted by this mutation. */
+  habitLog?: HabitLog | null;
+  habitLogEdge?: HabitLogEdge | null;
+}
+export type DeleteHabitLogPayloadSelect = {
+  clientMutationId?: boolean;
+  habitLog?: {
+    select: HabitLogSelect;
+  };
+  habitLogEdge?: {
+    select: HabitLogEdgeSelect;
+  };
+};
 export interface CreateGoalProjectPayload {
   clientMutationId?: string | null;
   /** The `GoalProject` that was created by this mutation. */
@@ -12387,6 +13146,51 @@ export type DeleteGoalProjectPayloadSelect = {
   };
   goalProjectEdge?: {
     select: GoalProjectEdgeSelect;
+  };
+};
+export interface CreateMilestonePayload {
+  clientMutationId?: string | null;
+  /** The `Milestone` that was created by this mutation. */
+  milestone?: Milestone | null;
+  milestoneEdge?: MilestoneEdge | null;
+}
+export type CreateMilestonePayloadSelect = {
+  clientMutationId?: boolean;
+  milestone?: {
+    select: MilestoneSelect;
+  };
+  milestoneEdge?: {
+    select: MilestoneEdgeSelect;
+  };
+};
+export interface UpdateMilestonePayload {
+  clientMutationId?: string | null;
+  /** The `Milestone` that was updated by this mutation. */
+  milestone?: Milestone | null;
+  milestoneEdge?: MilestoneEdge | null;
+}
+export type UpdateMilestonePayloadSelect = {
+  clientMutationId?: boolean;
+  milestone?: {
+    select: MilestoneSelect;
+  };
+  milestoneEdge?: {
+    select: MilestoneEdgeSelect;
+  };
+};
+export interface DeleteMilestonePayload {
+  clientMutationId?: string | null;
+  /** The `Milestone` that was deleted by this mutation. */
+  milestone?: Milestone | null;
+  milestoneEdge?: MilestoneEdge | null;
+}
+export type DeleteMilestonePayloadSelect = {
+  clientMutationId?: boolean;
+  milestone?: {
+    select: MilestoneSelect;
+  };
+  milestoneEdge?: {
+    select: MilestoneEdgeSelect;
   };
 };
 export interface CreateProjectContactPayload {
@@ -12569,49 +13373,49 @@ export type DeleteFilePayloadSelect = {
     select: FileEdgeSelect;
   };
 };
-export interface CreateMilestonePayload {
+export interface CreateChunkPayload {
   clientMutationId?: string | null;
-  /** The `Milestone` that was created by this mutation. */
-  milestone?: Milestone | null;
-  milestoneEdge?: MilestoneEdge | null;
+  /** The `Chunk` that was created by this mutation. */
+  chunk?: Chunk | null;
+  chunkEdge?: ChunkEdge | null;
 }
-export type CreateMilestonePayloadSelect = {
+export type CreateChunkPayloadSelect = {
   clientMutationId?: boolean;
-  milestone?: {
-    select: MilestoneSelect;
+  chunk?: {
+    select: ChunkSelect;
   };
-  milestoneEdge?: {
-    select: MilestoneEdgeSelect;
+  chunkEdge?: {
+    select: ChunkEdgeSelect;
   };
 };
-export interface UpdateMilestonePayload {
+export interface UpdateChunkPayload {
   clientMutationId?: string | null;
-  /** The `Milestone` that was updated by this mutation. */
-  milestone?: Milestone | null;
-  milestoneEdge?: MilestoneEdge | null;
+  /** The `Chunk` that was updated by this mutation. */
+  chunk?: Chunk | null;
+  chunkEdge?: ChunkEdge | null;
 }
-export type UpdateMilestonePayloadSelect = {
+export type UpdateChunkPayloadSelect = {
   clientMutationId?: boolean;
-  milestone?: {
-    select: MilestoneSelect;
+  chunk?: {
+    select: ChunkSelect;
   };
-  milestoneEdge?: {
-    select: MilestoneEdgeSelect;
+  chunkEdge?: {
+    select: ChunkEdgeSelect;
   };
 };
-export interface DeleteMilestonePayload {
+export interface DeleteChunkPayload {
   clientMutationId?: string | null;
-  /** The `Milestone` that was deleted by this mutation. */
-  milestone?: Milestone | null;
-  milestoneEdge?: MilestoneEdge | null;
+  /** The `Chunk` that was deleted by this mutation. */
+  chunk?: Chunk | null;
+  chunkEdge?: ChunkEdge | null;
 }
-export type DeleteMilestonePayloadSelect = {
+export type DeleteChunkPayloadSelect = {
   clientMutationId?: boolean;
-  milestone?: {
-    select: MilestoneSelect;
+  chunk?: {
+    select: ChunkSelect;
   };
-  milestoneEdge?: {
-    select: MilestoneEdgeSelect;
+  chunkEdge?: {
+    select: ChunkEdgeSelect;
   };
 };
 export interface CreateCalendarAccountPayload {
@@ -12839,6 +13643,51 @@ export type DeleteEmailAccountPayloadSelect = {
     select: EmailAccountEdgeSelect;
   };
 };
+export interface CreateMessagePayload {
+  clientMutationId?: string | null;
+  /** The `Message` that was created by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
+}
+export type CreateMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+  messageEdge?: {
+    select: MessageEdgeSelect;
+  };
+};
+export interface UpdateMessagePayload {
+  clientMutationId?: string | null;
+  /** The `Message` that was updated by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
+}
+export type UpdateMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+  messageEdge?: {
+    select: MessageEdgeSelect;
+  };
+};
+export interface DeleteMessagePayload {
+  clientMutationId?: string | null;
+  /** The `Message` that was deleted by this mutation. */
+  message?: Message | null;
+  messageEdge?: MessageEdge | null;
+}
+export type DeleteMessagePayloadSelect = {
+  clientMutationId?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+  messageEdge?: {
+    select: MessageEdgeSelect;
+  };
+};
 export interface CreateActivityLogPayload {
   clientMutationId?: string | null;
   /** The `ActivityLog` that was created by this mutation. */
@@ -13019,6 +13868,51 @@ export type DeleteExecutionLogPayloadSelect = {
     select: ExecutionLogEdgeSelect;
   };
 };
+export interface CreateSessionArchivePayload {
+  clientMutationId?: string | null;
+  /** The `SessionArchive` that was created by this mutation. */
+  sessionArchive?: SessionArchive | null;
+  sessionArchiveEdge?: SessionArchiveEdge | null;
+}
+export type CreateSessionArchivePayloadSelect = {
+  clientMutationId?: boolean;
+  sessionArchive?: {
+    select: SessionArchiveSelect;
+  };
+  sessionArchiveEdge?: {
+    select: SessionArchiveEdgeSelect;
+  };
+};
+export interface UpdateSessionArchivePayload {
+  clientMutationId?: string | null;
+  /** The `SessionArchive` that was updated by this mutation. */
+  sessionArchive?: SessionArchive | null;
+  sessionArchiveEdge?: SessionArchiveEdge | null;
+}
+export type UpdateSessionArchivePayloadSelect = {
+  clientMutationId?: boolean;
+  sessionArchive?: {
+    select: SessionArchiveSelect;
+  };
+  sessionArchiveEdge?: {
+    select: SessionArchiveEdgeSelect;
+  };
+};
+export interface DeleteSessionArchivePayload {
+  clientMutationId?: string | null;
+  /** The `SessionArchive` that was deleted by this mutation. */
+  sessionArchive?: SessionArchive | null;
+  sessionArchiveEdge?: SessionArchiveEdge | null;
+}
+export type DeleteSessionArchivePayloadSelect = {
+  clientMutationId?: boolean;
+  sessionArchive?: {
+    select: SessionArchiveSelect;
+  };
+  sessionArchiveEdge?: {
+    select: SessionArchiveEdgeSelect;
+  };
+};
 export interface CreateWebhookPayload {
   clientMutationId?: string | null;
   /** The `Webhook` that was created by this mutation. */
@@ -13109,51 +14003,6 @@ export type DeleteNotificationPayloadSelect = {
     select: NotificationEdgeSelect;
   };
 };
-export interface CreateProcessPayload {
-  clientMutationId?: string | null;
-  /** The `Process` that was created by this mutation. */
-  process?: Process | null;
-  processEdge?: ProcessEdge | null;
-}
-export type CreateProcessPayloadSelect = {
-  clientMutationId?: boolean;
-  process?: {
-    select: ProcessSelect;
-  };
-  processEdge?: {
-    select: ProcessEdgeSelect;
-  };
-};
-export interface UpdateProcessPayload {
-  clientMutationId?: string | null;
-  /** The `Process` that was updated by this mutation. */
-  process?: Process | null;
-  processEdge?: ProcessEdge | null;
-}
-export type UpdateProcessPayloadSelect = {
-  clientMutationId?: boolean;
-  process?: {
-    select: ProcessSelect;
-  };
-  processEdge?: {
-    select: ProcessEdgeSelect;
-  };
-};
-export interface DeleteProcessPayload {
-  clientMutationId?: string | null;
-  /** The `Process` that was deleted by this mutation. */
-  process?: Process | null;
-  processEdge?: ProcessEdge | null;
-}
-export type DeleteProcessPayloadSelect = {
-  clientMutationId?: boolean;
-  process?: {
-    select: ProcessSelect;
-  };
-  processEdge?: {
-    select: ProcessEdgeSelect;
-  };
-};
 export interface CreateWorkflowRunPayload {
   clientMutationId?: string | null;
   /** The `WorkflowRun` that was created by this mutation. */
@@ -13197,6 +14046,51 @@ export type DeleteWorkflowRunPayloadSelect = {
   };
   workflowRunEdge?: {
     select: WorkflowRunEdgeSelect;
+  };
+};
+export interface CreateWorkflowStepPayload {
+  clientMutationId?: string | null;
+  /** The `WorkflowStep` that was created by this mutation. */
+  workflowStep?: WorkflowStep | null;
+  workflowStepEdge?: WorkflowStepEdge | null;
+}
+export type CreateWorkflowStepPayloadSelect = {
+  clientMutationId?: boolean;
+  workflowStep?: {
+    select: WorkflowStepSelect;
+  };
+  workflowStepEdge?: {
+    select: WorkflowStepEdgeSelect;
+  };
+};
+export interface UpdateWorkflowStepPayload {
+  clientMutationId?: string | null;
+  /** The `WorkflowStep` that was updated by this mutation. */
+  workflowStep?: WorkflowStep | null;
+  workflowStepEdge?: WorkflowStepEdge | null;
+}
+export type UpdateWorkflowStepPayloadSelect = {
+  clientMutationId?: boolean;
+  workflowStep?: {
+    select: WorkflowStepSelect;
+  };
+  workflowStepEdge?: {
+    select: WorkflowStepEdgeSelect;
+  };
+};
+export interface DeleteWorkflowStepPayload {
+  clientMutationId?: string | null;
+  /** The `WorkflowStep` that was deleted by this mutation. */
+  workflowStep?: WorkflowStep | null;
+  workflowStepEdge?: WorkflowStepEdge | null;
+}
+export type DeleteWorkflowStepPayloadSelect = {
+  clientMutationId?: boolean;
+  workflowStep?: {
+    select: WorkflowStepSelect;
+  };
+  workflowStepEdge?: {
+    select: WorkflowStepEdgeSelect;
   };
 };
 export interface CreateIntegrationPayload {
@@ -13334,96 +14228,6 @@ export type DeleteChatPayloadSelect = {
     select: ChatEdgeSelect;
   };
 };
-export interface CreateChunkPayload {
-  clientMutationId?: string | null;
-  /** The `Chunk` that was created by this mutation. */
-  chunk?: Chunk | null;
-  chunkEdge?: ChunkEdge | null;
-}
-export type CreateChunkPayloadSelect = {
-  clientMutationId?: boolean;
-  chunk?: {
-    select: ChunkSelect;
-  };
-  chunkEdge?: {
-    select: ChunkEdgeSelect;
-  };
-};
-export interface UpdateChunkPayload {
-  clientMutationId?: string | null;
-  /** The `Chunk` that was updated by this mutation. */
-  chunk?: Chunk | null;
-  chunkEdge?: ChunkEdge | null;
-}
-export type UpdateChunkPayloadSelect = {
-  clientMutationId?: boolean;
-  chunk?: {
-    select: ChunkSelect;
-  };
-  chunkEdge?: {
-    select: ChunkEdgeSelect;
-  };
-};
-export interface DeleteChunkPayload {
-  clientMutationId?: string | null;
-  /** The `Chunk` that was deleted by this mutation. */
-  chunk?: Chunk | null;
-  chunkEdge?: ChunkEdge | null;
-}
-export type DeleteChunkPayloadSelect = {
-  clientMutationId?: boolean;
-  chunk?: {
-    select: ChunkSelect;
-  };
-  chunkEdge?: {
-    select: ChunkEdgeSelect;
-  };
-};
-export interface CreateThreadPayload {
-  clientMutationId?: string | null;
-  /** The `Thread` that was created by this mutation. */
-  thread?: Thread | null;
-  threadEdge?: ThreadEdge | null;
-}
-export type CreateThreadPayloadSelect = {
-  clientMutationId?: boolean;
-  thread?: {
-    select: ThreadSelect;
-  };
-  threadEdge?: {
-    select: ThreadEdgeSelect;
-  };
-};
-export interface UpdateThreadPayload {
-  clientMutationId?: string | null;
-  /** The `Thread` that was updated by this mutation. */
-  thread?: Thread | null;
-  threadEdge?: ThreadEdge | null;
-}
-export type UpdateThreadPayloadSelect = {
-  clientMutationId?: boolean;
-  thread?: {
-    select: ThreadSelect;
-  };
-  threadEdge?: {
-    select: ThreadEdgeSelect;
-  };
-};
-export interface DeleteThreadPayload {
-  clientMutationId?: string | null;
-  /** The `Thread` that was deleted by this mutation. */
-  thread?: Thread | null;
-  threadEdge?: ThreadEdge | null;
-}
-export type DeleteThreadPayloadSelect = {
-  clientMutationId?: boolean;
-  thread?: {
-    select: ThreadSelect;
-  };
-  threadEdge?: {
-    select: ThreadEdgeSelect;
-  };
-};
 export interface CreateChatMessagePayload {
   clientMutationId?: string | null;
   /** The `ChatMessage` that was created by this mutation. */
@@ -13469,49 +14273,49 @@ export type DeleteChatMessagePayloadSelect = {
     select: ChatMessageEdgeSelect;
   };
 };
-export interface CreateSessionArchivePayload {
+export interface CreateThreadPayload {
   clientMutationId?: string | null;
-  /** The `SessionArchive` that was created by this mutation. */
-  sessionArchive?: SessionArchive | null;
-  sessionArchiveEdge?: SessionArchiveEdge | null;
+  /** The `Thread` that was created by this mutation. */
+  thread?: Thread | null;
+  threadEdge?: ThreadEdge | null;
 }
-export type CreateSessionArchivePayloadSelect = {
+export type CreateThreadPayloadSelect = {
   clientMutationId?: boolean;
-  sessionArchive?: {
-    select: SessionArchiveSelect;
+  thread?: {
+    select: ThreadSelect;
   };
-  sessionArchiveEdge?: {
-    select: SessionArchiveEdgeSelect;
+  threadEdge?: {
+    select: ThreadEdgeSelect;
   };
 };
-export interface UpdateSessionArchivePayload {
+export interface UpdateThreadPayload {
   clientMutationId?: string | null;
-  /** The `SessionArchive` that was updated by this mutation. */
-  sessionArchive?: SessionArchive | null;
-  sessionArchiveEdge?: SessionArchiveEdge | null;
+  /** The `Thread` that was updated by this mutation. */
+  thread?: Thread | null;
+  threadEdge?: ThreadEdge | null;
 }
-export type UpdateSessionArchivePayloadSelect = {
+export type UpdateThreadPayloadSelect = {
   clientMutationId?: boolean;
-  sessionArchive?: {
-    select: SessionArchiveSelect;
+  thread?: {
+    select: ThreadSelect;
   };
-  sessionArchiveEdge?: {
-    select: SessionArchiveEdgeSelect;
+  threadEdge?: {
+    select: ThreadEdgeSelect;
   };
 };
-export interface DeleteSessionArchivePayload {
+export interface DeleteThreadPayload {
   clientMutationId?: string | null;
-  /** The `SessionArchive` that was deleted by this mutation. */
-  sessionArchive?: SessionArchive | null;
-  sessionArchiveEdge?: SessionArchiveEdge | null;
+  /** The `Thread` that was deleted by this mutation. */
+  thread?: Thread | null;
+  threadEdge?: ThreadEdge | null;
 }
-export type DeleteSessionArchivePayloadSelect = {
+export type DeleteThreadPayloadSelect = {
   clientMutationId?: boolean;
-  sessionArchive?: {
-    select: SessionArchiveSelect;
+  thread?: {
+    select: ThreadSelect;
   };
-  sessionArchiveEdge?: {
-    select: SessionArchiveEdgeSelect;
+  threadEdge?: {
+    select: ThreadEdgeSelect;
   };
 };
 export interface CreateReminderPayload {
@@ -13602,51 +14406,6 @@ export type DeleteImagePayloadSelect = {
   };
   imageEdge?: {
     select: ImageEdgeSelect;
-  };
-};
-export interface CreateWorkflowStepPayload {
-  clientMutationId?: string | null;
-  /** The `WorkflowStep` that was created by this mutation. */
-  workflowStep?: WorkflowStep | null;
-  workflowStepEdge?: WorkflowStepEdge | null;
-}
-export type CreateWorkflowStepPayloadSelect = {
-  clientMutationId?: boolean;
-  workflowStep?: {
-    select: WorkflowStepSelect;
-  };
-  workflowStepEdge?: {
-    select: WorkflowStepEdgeSelect;
-  };
-};
-export interface UpdateWorkflowStepPayload {
-  clientMutationId?: string | null;
-  /** The `WorkflowStep` that was updated by this mutation. */
-  workflowStep?: WorkflowStep | null;
-  workflowStepEdge?: WorkflowStepEdge | null;
-}
-export type UpdateWorkflowStepPayloadSelect = {
-  clientMutationId?: boolean;
-  workflowStep?: {
-    select: WorkflowStepSelect;
-  };
-  workflowStepEdge?: {
-    select: WorkflowStepEdgeSelect;
-  };
-};
-export interface DeleteWorkflowStepPayload {
-  clientMutationId?: string | null;
-  /** The `WorkflowStep` that was deleted by this mutation. */
-  workflowStep?: WorkflowStep | null;
-  workflowStepEdge?: WorkflowStepEdge | null;
-}
-export type DeleteWorkflowStepPayloadSelect = {
-  clientMutationId?: boolean;
-  workflowStep?: {
-    select: WorkflowStepSelect;
-  };
-  workflowStepEdge?: {
-    select: WorkflowStepEdgeSelect;
   };
 };
 export interface CreateListItemPayload {
@@ -13919,51 +14678,6 @@ export type DeleteAgentSpawnPayloadSelect = {
     select: AgentSpawnEdgeSelect;
   };
 };
-export interface CreateScheduledJobPayload {
-  clientMutationId?: string | null;
-  /** The `ScheduledJob` that was created by this mutation. */
-  scheduledJob?: ScheduledJob | null;
-  scheduledJobEdge?: ScheduledJobEdge | null;
-}
-export type CreateScheduledJobPayloadSelect = {
-  clientMutationId?: boolean;
-  scheduledJob?: {
-    select: ScheduledJobSelect;
-  };
-  scheduledJobEdge?: {
-    select: ScheduledJobEdgeSelect;
-  };
-};
-export interface UpdateScheduledJobPayload {
-  clientMutationId?: string | null;
-  /** The `ScheduledJob` that was updated by this mutation. */
-  scheduledJob?: ScheduledJob | null;
-  scheduledJobEdge?: ScheduledJobEdge | null;
-}
-export type UpdateScheduledJobPayloadSelect = {
-  clientMutationId?: boolean;
-  scheduledJob?: {
-    select: ScheduledJobSelect;
-  };
-  scheduledJobEdge?: {
-    select: ScheduledJobEdgeSelect;
-  };
-};
-export interface DeleteScheduledJobPayload {
-  clientMutationId?: string | null;
-  /** The `ScheduledJob` that was deleted by this mutation. */
-  scheduledJob?: ScheduledJob | null;
-  scheduledJobEdge?: ScheduledJobEdge | null;
-}
-export type DeleteScheduledJobPayloadSelect = {
-  clientMutationId?: boolean;
-  scheduledJob?: {
-    select: ScheduledJobSelect;
-  };
-  scheduledJobEdge?: {
-    select: ScheduledJobEdgeSelect;
-  };
-};
 export interface CreateHabitPayload {
   clientMutationId?: string | null;
   /** The `Habit` that was created by this mutation. */
@@ -14052,51 +14766,6 @@ export type DeleteWorkflowPayloadSelect = {
   };
   workflowEdge?: {
     select: WorkflowEdgeSelect;
-  };
-};
-export interface CreateHabitLogPayload {
-  clientMutationId?: string | null;
-  /** The `HabitLog` that was created by this mutation. */
-  habitLog?: HabitLog | null;
-  habitLogEdge?: HabitLogEdge | null;
-}
-export type CreateHabitLogPayloadSelect = {
-  clientMutationId?: boolean;
-  habitLog?: {
-    select: HabitLogSelect;
-  };
-  habitLogEdge?: {
-    select: HabitLogEdgeSelect;
-  };
-};
-export interface UpdateHabitLogPayload {
-  clientMutationId?: string | null;
-  /** The `HabitLog` that was updated by this mutation. */
-  habitLog?: HabitLog | null;
-  habitLogEdge?: HabitLogEdge | null;
-}
-export type UpdateHabitLogPayloadSelect = {
-  clientMutationId?: boolean;
-  habitLog?: {
-    select: HabitLogSelect;
-  };
-  habitLogEdge?: {
-    select: HabitLogEdgeSelect;
-  };
-};
-export interface DeleteHabitLogPayload {
-  clientMutationId?: string | null;
-  /** The `HabitLog` that was deleted by this mutation. */
-  habitLog?: HabitLog | null;
-  habitLogEdge?: HabitLogEdge | null;
-}
-export type DeleteHabitLogPayloadSelect = {
-  clientMutationId?: boolean;
-  habitLog?: {
-    select: HabitLogSelect;
-  };
-  habitLogEdge?: {
-    select: HabitLogEdgeSelect;
   };
 };
 export interface CreateExpensePayload {
@@ -14277,51 +14946,6 @@ export type DeleteListPayloadSelect = {
   };
   listEdge?: {
     select: ListEdgeSelect;
-  };
-};
-export interface CreateInteractionPayload {
-  clientMutationId?: string | null;
-  /** The `Interaction` that was created by this mutation. */
-  interaction?: Interaction | null;
-  interactionEdge?: InteractionEdge | null;
-}
-export type CreateInteractionPayloadSelect = {
-  clientMutationId?: boolean;
-  interaction?: {
-    select: InteractionSelect;
-  };
-  interactionEdge?: {
-    select: InteractionEdgeSelect;
-  };
-};
-export interface UpdateInteractionPayload {
-  clientMutationId?: string | null;
-  /** The `Interaction` that was updated by this mutation. */
-  interaction?: Interaction | null;
-  interactionEdge?: InteractionEdge | null;
-}
-export type UpdateInteractionPayloadSelect = {
-  clientMutationId?: boolean;
-  interaction?: {
-    select: InteractionSelect;
-  };
-  interactionEdge?: {
-    select: InteractionEdgeSelect;
-  };
-};
-export interface DeleteInteractionPayload {
-  clientMutationId?: string | null;
-  /** The `Interaction` that was deleted by this mutation. */
-  interaction?: Interaction | null;
-  interactionEdge?: InteractionEdge | null;
-}
-export type DeleteInteractionPayloadSelect = {
-  clientMutationId?: boolean;
-  interaction?: {
-    select: InteractionSelect;
-  };
-  interactionEdge?: {
-    select: InteractionEdgeSelect;
   };
 };
 export interface CreateRepositoryPayload {
@@ -14772,96 +15396,6 @@ export type DeleteTripPayloadSelect = {
   };
   tripEdge?: {
     select: TripEdgeSelect;
-  };
-};
-export interface CreateCalendarEventPayload {
-  clientMutationId?: string | null;
-  /** The `CalendarEvent` that was created by this mutation. */
-  calendarEvent?: CalendarEvent | null;
-  calendarEventEdge?: CalendarEventEdge | null;
-}
-export type CreateCalendarEventPayloadSelect = {
-  clientMutationId?: boolean;
-  calendarEvent?: {
-    select: CalendarEventSelect;
-  };
-  calendarEventEdge?: {
-    select: CalendarEventEdgeSelect;
-  };
-};
-export interface UpdateCalendarEventPayload {
-  clientMutationId?: string | null;
-  /** The `CalendarEvent` that was updated by this mutation. */
-  calendarEvent?: CalendarEvent | null;
-  calendarEventEdge?: CalendarEventEdge | null;
-}
-export type UpdateCalendarEventPayloadSelect = {
-  clientMutationId?: boolean;
-  calendarEvent?: {
-    select: CalendarEventSelect;
-  };
-  calendarEventEdge?: {
-    select: CalendarEventEdgeSelect;
-  };
-};
-export interface DeleteCalendarEventPayload {
-  clientMutationId?: string | null;
-  /** The `CalendarEvent` that was deleted by this mutation. */
-  calendarEvent?: CalendarEvent | null;
-  calendarEventEdge?: CalendarEventEdge | null;
-}
-export type DeleteCalendarEventPayloadSelect = {
-  clientMutationId?: boolean;
-  calendarEvent?: {
-    select: CalendarEventSelect;
-  };
-  calendarEventEdge?: {
-    select: CalendarEventEdgeSelect;
-  };
-};
-export interface CreateMessagePayload {
-  clientMutationId?: string | null;
-  /** The `Message` that was created by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
-}
-export type CreateMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
-  };
-  messageEdge?: {
-    select: MessageEdgeSelect;
-  };
-};
-export interface UpdateMessagePayload {
-  clientMutationId?: string | null;
-  /** The `Message` that was updated by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
-}
-export type UpdateMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
-  };
-  messageEdge?: {
-    select: MessageEdgeSelect;
-  };
-};
-export interface DeleteMessagePayload {
-  clientMutationId?: string | null;
-  /** The `Message` that was deleted by this mutation. */
-  message?: Message | null;
-  messageEdge?: MessageEdge | null;
-}
-export type DeleteMessagePayloadSelect = {
-  clientMutationId?: boolean;
-  message?: {
-    select: MessageSelect;
-  };
-  messageEdge?: {
-    select: MessageEdgeSelect;
   };
 };
 export interface CreateMemoryPayload {
@@ -15416,28 +15950,28 @@ export type AgentPromptEdgeSelect = {
     select: AgentPromptSelect;
   };
 };
-/** A `AgentRule` edge in the connection. */
-export interface AgentRuleEdge {
+/** A `Process` edge in the connection. */
+export interface ProcessEdge {
   cursor?: string | null;
-  /** The `AgentRule` at the end of the edge. */
-  node?: AgentRule | null;
+  /** The `Process` at the end of the edge. */
+  node?: Process | null;
 }
-export type AgentRuleEdgeSelect = {
+export type ProcessEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: AgentRuleSelect;
+    select: ProcessSelect;
   };
 };
-/** A `AgentSkill` edge in the connection. */
-export interface AgentSkillEdge {
+/** A `ScheduledJob` edge in the connection. */
+export interface ScheduledJobEdge {
   cursor?: string | null;
-  /** The `AgentSkill` at the end of the edge. */
-  node?: AgentSkill | null;
+  /** The `ScheduledJob` at the end of the edge. */
+  node?: ScheduledJob | null;
 }
-export type AgentSkillEdgeSelect = {
+export type ScheduledJobEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: AgentSkillSelect;
+    select: ScheduledJobSelect;
   };
 };
 /** A `AgentTool` edge in the connection. */
@@ -15452,6 +15986,30 @@ export type AgentToolEdgeSelect = {
     select: AgentToolSelect;
   };
 };
+/** A `AgentSkill` edge in the connection. */
+export interface AgentSkillEdge {
+  cursor?: string | null;
+  /** The `AgentSkill` at the end of the edge. */
+  node?: AgentSkill | null;
+}
+export type AgentSkillEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: AgentSkillSelect;
+  };
+};
+/** A `AgentRule` edge in the connection. */
+export interface AgentRuleEdge {
+  cursor?: string | null;
+  /** The `AgentRule` at the end of the edge. */
+  node?: AgentRule | null;
+}
+export type AgentRuleEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: AgentRuleSelect;
+  };
+};
 /** A `CalendarEventContact` edge in the connection. */
 export interface CalendarEventContactEdge {
   cursor?: string | null;
@@ -15462,6 +16020,30 @@ export type CalendarEventContactEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: CalendarEventContactSelect;
+  };
+};
+/** A `CalendarEvent` edge in the connection. */
+export interface CalendarEventEdge {
+  cursor?: string | null;
+  /** The `CalendarEvent` at the end of the edge. */
+  node?: CalendarEvent | null;
+}
+export type CalendarEventEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CalendarEventSelect;
+  };
+};
+/** A `Interaction` edge in the connection. */
+export interface InteractionEdge {
+  cursor?: string | null;
+  /** The `Interaction` at the end of the edge. */
+  node?: Interaction | null;
+}
+export type InteractionEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: InteractionSelect;
   };
 };
 /** A `CompanyEvent` edge in the connection. */
@@ -15584,6 +16166,18 @@ export type GoalHabitEdgeSelect = {
     select: GoalHabitSelect;
   };
 };
+/** A `HabitLog` edge in the connection. */
+export interface HabitLogEdge {
+  cursor?: string | null;
+  /** The `HabitLog` at the end of the edge. */
+  node?: HabitLog | null;
+}
+export type HabitLogEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: HabitLogSelect;
+  };
+};
 /** A `GoalProject` edge in the connection. */
 export interface GoalProjectEdge {
   cursor?: string | null;
@@ -15594,6 +16188,18 @@ export type GoalProjectEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: GoalProjectSelect;
+  };
+};
+/** A `Milestone` edge in the connection. */
+export interface MilestoneEdge {
+  cursor?: string | null;
+  /** The `Milestone` at the end of the edge. */
+  node?: Milestone | null;
+}
+export type MilestoneEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: MilestoneSelect;
   };
 };
 /** A `ProjectContact` edge in the connection. */
@@ -15644,16 +16250,16 @@ export type FileEdgeSelect = {
     select: FileSelect;
   };
 };
-/** A `Milestone` edge in the connection. */
-export interface MilestoneEdge {
+/** A `Chunk` edge in the connection. */
+export interface ChunkEdge {
   cursor?: string | null;
-  /** The `Milestone` at the end of the edge. */
-  node?: Milestone | null;
+  /** The `Chunk` at the end of the edge. */
+  node?: Chunk | null;
 }
-export type MilestoneEdgeSelect = {
+export type ChunkEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: MilestoneSelect;
+    select: ChunkSelect;
   };
 };
 /** A `CalendarAccount` edge in the connection. */
@@ -15716,6 +16322,18 @@ export type EmailAccountEdgeSelect = {
     select: EmailAccountSelect;
   };
 };
+/** A `Message` edge in the connection. */
+export interface MessageEdge {
+  cursor?: string | null;
+  /** The `Message` at the end of the edge. */
+  node?: Message | null;
+}
+export type MessageEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: MessageSelect;
+  };
+};
 /** A `ActivityLog` edge in the connection. */
 export interface ActivityLogEdge {
   cursor?: string | null;
@@ -15764,6 +16382,18 @@ export type ExecutionLogEdgeSelect = {
     select: ExecutionLogSelect;
   };
 };
+/** A `SessionArchive` edge in the connection. */
+export interface SessionArchiveEdge {
+  cursor?: string | null;
+  /** The `SessionArchive` at the end of the edge. */
+  node?: SessionArchive | null;
+}
+export type SessionArchiveEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: SessionArchiveSelect;
+  };
+};
 /** A `Webhook` edge in the connection. */
 export interface WebhookEdge {
   cursor?: string | null;
@@ -15788,18 +16418,6 @@ export type NotificationEdgeSelect = {
     select: NotificationSelect;
   };
 };
-/** A `Process` edge in the connection. */
-export interface ProcessEdge {
-  cursor?: string | null;
-  /** The `Process` at the end of the edge. */
-  node?: Process | null;
-}
-export type ProcessEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ProcessSelect;
-  };
-};
 /** A `WorkflowRun` edge in the connection. */
 export interface WorkflowRunEdge {
   cursor?: string | null;
@@ -15810,6 +16428,18 @@ export type WorkflowRunEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: WorkflowRunSelect;
+  };
+};
+/** A `WorkflowStep` edge in the connection. */
+export interface WorkflowStepEdge {
+  cursor?: string | null;
+  /** The `WorkflowStep` at the end of the edge. */
+  node?: WorkflowStep | null;
+}
+export type WorkflowStepEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: WorkflowStepSelect;
   };
 };
 /** A `Integration` edge in the connection. */
@@ -15848,30 +16478,6 @@ export type ChatEdgeSelect = {
     select: ChatSelect;
   };
 };
-/** A `Chunk` edge in the connection. */
-export interface ChunkEdge {
-  cursor?: string | null;
-  /** The `Chunk` at the end of the edge. */
-  node?: Chunk | null;
-}
-export type ChunkEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ChunkSelect;
-  };
-};
-/** A `Thread` edge in the connection. */
-export interface ThreadEdge {
-  cursor?: string | null;
-  /** The `Thread` at the end of the edge. */
-  node?: Thread | null;
-}
-export type ThreadEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ThreadSelect;
-  };
-};
 /** A `ChatMessage` edge in the connection. */
 export interface ChatMessageEdge {
   cursor?: string | null;
@@ -15884,16 +16490,16 @@ export type ChatMessageEdgeSelect = {
     select: ChatMessageSelect;
   };
 };
-/** A `SessionArchive` edge in the connection. */
-export interface SessionArchiveEdge {
+/** A `Thread` edge in the connection. */
+export interface ThreadEdge {
   cursor?: string | null;
-  /** The `SessionArchive` at the end of the edge. */
-  node?: SessionArchive | null;
+  /** The `Thread` at the end of the edge. */
+  node?: Thread | null;
 }
-export type SessionArchiveEdgeSelect = {
+export type ThreadEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: SessionArchiveSelect;
+    select: ThreadSelect;
   };
 };
 /** A `Reminder` edge in the connection. */
@@ -15918,18 +16524,6 @@ export type ImageEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ImageSelect;
-  };
-};
-/** A `WorkflowStep` edge in the connection. */
-export interface WorkflowStepEdge {
-  cursor?: string | null;
-  /** The `WorkflowStep` at the end of the edge. */
-  node?: WorkflowStep | null;
-}
-export type WorkflowStepEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: WorkflowStepSelect;
   };
 };
 /** A `ListItem` edge in the connection. */
@@ -16004,18 +16598,6 @@ export type AgentSpawnEdgeSelect = {
     select: AgentSpawnSelect;
   };
 };
-/** A `ScheduledJob` edge in the connection. */
-export interface ScheduledJobEdge {
-  cursor?: string | null;
-  /** The `ScheduledJob` at the end of the edge. */
-  node?: ScheduledJob | null;
-}
-export type ScheduledJobEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ScheduledJobSelect;
-  };
-};
 /** A `Habit` edge in the connection. */
 export interface HabitEdge {
   cursor?: string | null;
@@ -16038,18 +16620,6 @@ export type WorkflowEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: WorkflowSelect;
-  };
-};
-/** A `HabitLog` edge in the connection. */
-export interface HabitLogEdge {
-  cursor?: string | null;
-  /** The `HabitLog` at the end of the edge. */
-  node?: HabitLog | null;
-}
-export type HabitLogEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: HabitLogSelect;
   };
 };
 /** A `Expense` edge in the connection. */
@@ -16098,18 +16668,6 @@ export type ListEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ListSelect;
-  };
-};
-/** A `Interaction` edge in the connection. */
-export interface InteractionEdge {
-  cursor?: string | null;
-  /** The `Interaction` at the end of the edge. */
-  node?: Interaction | null;
-}
-export type InteractionEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: InteractionSelect;
   };
 };
 /** A `Repository` edge in the connection. */
@@ -16230,30 +16788,6 @@ export type TripEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: TripSelect;
-  };
-};
-/** A `CalendarEvent` edge in the connection. */
-export interface CalendarEventEdge {
-  cursor?: string | null;
-  /** The `CalendarEvent` at the end of the edge. */
-  node?: CalendarEvent | null;
-}
-export type CalendarEventEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: CalendarEventSelect;
-  };
-};
-/** A `Message` edge in the connection. */
-export interface MessageEdge {
-  cursor?: string | null;
-  /** The `Message` at the end of the edge. */
-  node?: Message | null;
-}
-export type MessageEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: MessageSelect;
   };
 };
 /** A `Memory` edge in the connection. */

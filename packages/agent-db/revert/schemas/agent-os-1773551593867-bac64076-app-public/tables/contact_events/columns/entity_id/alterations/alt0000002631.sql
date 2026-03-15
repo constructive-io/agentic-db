@@ -1,0 +1,7 @@
+-- Revert: schemas/agent-os-1773551593867-bac64076-app-public/tables/contact_events/columns/entity_id/alterations/alt0000002631
+
+
+ALTER TABLE "agent-os-1773551593867-bac64076-app-public".contact_events 
+  ALTER COLUMN entity_id DROP NOT NULL;
+
+

@@ -1,6 +1,0 @@
--- Revert: schemas/agent-os-1773547105079-c748b4c3-status-public/tables/app_steps/columns/name/alterations/alt0000001730
-
-
-COMMENT ON COLUMN "agent-os-1773547105079-c748b4c3-status-public".app_steps.name IS NULL;
-
-

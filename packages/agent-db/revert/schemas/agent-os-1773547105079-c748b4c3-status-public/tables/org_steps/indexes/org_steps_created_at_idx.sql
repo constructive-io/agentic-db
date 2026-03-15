@@ -1,6 +1,0 @@
--- Revert: schemas/agent-os-1773547105079-c748b4c3-status-public/tables/org_steps/indexes/org_steps_created_at_idx
-
-
-DROP INDEX "agent-os-1773547105079-c748b4c3-status-public".org_steps_created_at_idx;
-
-

@@ -1,0 +1,6 @@
+-- Revert: schemas/agent-os-1773551593867-bac64076-profiles-public/tables/org_profiles/columns/permissions/alterations/alt0000002054
+
+
+COMMENT ON COLUMN "agent-os-1773551593867-bac64076-profiles-public".org_profiles.permissions IS NULL;
+
+

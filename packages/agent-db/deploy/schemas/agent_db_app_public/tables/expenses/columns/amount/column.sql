@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/expenses/table
--- requires: schemas/agent_db_app_public/tables/expenses/columns/updated_at/alterations/alt0000004577
+-- requires: schemas/agent_db_app_public/tables/expenses/columns/updated_at/alterations/alt0000004625
 
 
 ALTER TABLE "agent_db_app_public".expenses 

@@ -1,0 +1,7 @@
+-- Revert: schemas/agent_db_app_public/tables/chunks/columns/updated_at/alterations/alt0000004577
+
+
+ALTER TABLE "agent_db_app_public".chunks 
+  ALTER COLUMN updated_at DROP NOT NULL;
+
+

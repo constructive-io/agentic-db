@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/context_relations/table
--- requires: schemas/agent_db_app_public/tables/context_relations/columns/updated_at/alterations/alt0000004444
+-- requires: schemas/agent_db_app_public/tables/context_relations/columns/updated_at/alterations/alt0000004492
 
 
 ALTER TABLE "agent_db_app_public".context_relations 

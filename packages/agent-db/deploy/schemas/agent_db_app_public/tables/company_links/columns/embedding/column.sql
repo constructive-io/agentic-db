@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/company_links/table
--- requires: schemas/agent_db_app_public/tables/company_links/columns/url/alterations/alt0000004134
+-- requires: schemas/agent_db_app_public/tables/company_links/columns/url/alterations/alt0000004182
 
 
 ALTER TABLE "agent_db_app_public".company_links 

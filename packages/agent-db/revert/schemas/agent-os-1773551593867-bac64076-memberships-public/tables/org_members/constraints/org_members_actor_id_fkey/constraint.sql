@@ -1,0 +1,7 @@
+-- Revert: schemas/agent-os-1773551593867-bac64076-memberships-public/tables/org_members/constraints/org_members_actor_id_fkey/constraint
+
+
+ALTER TABLE "agent-os-1773551593867-bac64076-memberships-public".org_members 
+  DROP CONSTRAINT org_members_actor_id_fkey;
+
+

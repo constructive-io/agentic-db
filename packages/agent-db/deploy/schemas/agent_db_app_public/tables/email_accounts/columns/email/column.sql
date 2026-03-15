@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/email_accounts/table
--- requires: schemas/agent_db_app_public/tables/email_accounts/columns/updated_at/alterations/alt0000004539
+-- requires: schemas/agent_db_app_public/tables/email_accounts/columns/updated_at/alterations/alt0000004587
 
 
 ALTER TABLE "agent_db_app_public".email_accounts 

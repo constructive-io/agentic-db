@@ -103,6 +103,11 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           data: true,
           notes: true,
           tags: true,
+          activityTypeTrgmSimilarity: true,
+          distanceUnitTrgmSimilarity: true,
+          weightUnitTrgmSimilarity: true,
+          notesTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -148,6 +153,11 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           data: true,
           notes: true,
           tags: true,
+          activityTypeTrgmSimilarity: true,
+          distanceUnitTrgmSimilarity: true,
+          weightUnitTrgmSimilarity: true,
+          notesTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -307,6 +317,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           data: true,
           notes: true,
           tags: true,
+          activityTypeTrgmSimilarity: true,
+          distanceUnitTrgmSimilarity: true,
+          weightUnitTrgmSimilarity: true,
+          notesTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -475,6 +490,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           data: true,
           notes: true,
           tags: true,
+          activityTypeTrgmSimilarity: true,
+          distanceUnitTrgmSimilarity: true,
+          weightUnitTrgmSimilarity: true,
+          notesTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

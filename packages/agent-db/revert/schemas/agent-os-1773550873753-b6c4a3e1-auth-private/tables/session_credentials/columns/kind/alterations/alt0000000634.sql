@@ -1,0 +1,7 @@
+-- Revert: schemas/agent-os-1773550873753-b6c4a3e1-auth-private/tables/session_credentials/columns/kind/alterations/alt0000000634
+
+
+ALTER TABLE "agent-os-1773550873753-b6c4a3e1-auth-private".session_credentials 
+  ALTER COLUMN kind DROP NOT NULL;
+
+

@@ -1,0 +1,10 @@
+-- Revert: schemas/agent-os-1773551593867-bac64076-app-public/tables/companies/columns/created_at/alterations/alt0000002481
+
+
+
+
+ALTER TABLE "agent-os-1773551593867-bac64076-app-public".companies 
+    ALTER COLUMN created_at DROP DEFAULT;
+
+
+

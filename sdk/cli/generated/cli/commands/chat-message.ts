@@ -20,6 +20,8 @@ const fieldSchema: FieldSchema = {
   toolCalls: 'json',
   embeddingText: 'string',
   embedding: 'string',
+  contentBm25Score: 'float',
+  embeddingTextBm25Score: 'float',
   roleTrgmSimilarity: 'float',
   contentTrgmSimilarity: 'float',
   embeddingTextTrgmSimilarity: 'float',
@@ -89,6 +91,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           toolCalls: true,
           embeddingText: true,
           embedding: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          roleTrgmSimilarity: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -127,6 +136,13 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           toolCalls: true,
           embeddingText: true,
           embedding: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          roleTrgmSimilarity: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -228,6 +244,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           toolCalls: true,
           embeddingText: true,
           embedding: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          roleTrgmSimilarity: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -335,6 +358,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           toolCalls: true,
           embeddingText: true,
           embedding: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          roleTrgmSimilarity: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

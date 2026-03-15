@@ -81,6 +81,9 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           name: true,
           dueDate: true,
           status: true,
+          nameTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -116,6 +119,9 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           name: true,
           dueDate: true,
           status: true,
+          nameTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -186,6 +192,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           name: true,
           dueDate: true,
           status: true,
+          nameTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -265,6 +274,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           name: true,
           dueDate: true,
           status: true,
+          nameTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

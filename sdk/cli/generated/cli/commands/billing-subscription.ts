@@ -100,6 +100,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           status: true,
           tags: true,
           notes: true,
+          nameTrgmSimilarity: true,
+          currencyTrgmSimilarity: true,
+          frequencyTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          notesTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -141,6 +148,13 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           status: true,
           tags: true,
           notes: true,
+          nameTrgmSimilarity: true,
+          currencyTrgmSimilarity: true,
+          frequencyTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          notesTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -268,6 +282,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           status: true,
           tags: true,
           notes: true,
+          nameTrgmSimilarity: true,
+          currencyTrgmSimilarity: true,
+          frequencyTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          notesTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -401,6 +422,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           status: true,
           tags: true,
           notes: true,
+          nameTrgmSimilarity: true,
+          currencyTrgmSimilarity: true,
+          frequencyTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          notesTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

@@ -1,0 +1,14 @@
+-- Deploy: schemas/agent-os-1773551593867-bac64076-memberships-public/tables/org_admin_grants/triggers/org_admin_grants_insert_trg
+-- made with <3 @ launchql.com
+
+-- requires: schemas/agent-os-1773551593867-bac64076-memberships-public/schema
+-- requires: schemas/agent-os-1773551593867-bac64076-memberships-private/schema
+-- requires: schemas/agent-os-1773551593867-bac64076-memberships-public/tables/org_admin_grants/table
+-- requires: schemas/agent-os-1773551593867-bac64076-memberships-private/trigger_fns/org_admin_grants_apply_tg
+
+
+CREATE TRIGGER org_admin_grants_insert_trg
+BEFORE INSERT ON "agent-os-1773551593867-bac64076-memberships-public".org_admin_grants
+FOR EACH ROW
+EXECUTE PROCEDURE "agent-os-1773551593867-bac64076-memberships-private".org_admin_grants_apply_tg ( );
+

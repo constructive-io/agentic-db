@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773546821914-39f1cb9b-limits-public/tables/app_limit_defaults/alterations/alt0000000054
-
-
-ALTER TABLE "agent-os-1773546821914-39f1cb9b-limits-public".app_limit_defaults 
-  ENABLE ROW LEVEL SECURITY;
-
-

@@ -1,0 +1,11 @@
+-- Deploy: schemas/agent-os-1773551593867-bac64076-app-public/tables/task_contacts/constraints/task_contacts_pkey/constraint
+-- made with <3 @ launchql.com
+
+-- requires: schemas/agent-os-1773551593867-bac64076-app-public/schema
+-- requires: schemas/agent-os-1773551593867-bac64076-app-public/tables/task_contacts/table
+-- requires: schemas/agent-os-1773551593867-bac64076-app-public/tables/list_items/constraints/list_items_list_id_fkey/constraint
+
+
+ALTER TABLE "agent-os-1773551593867-bac64076-app-public".task_contacts 
+  ADD CONSTRAINT task_contacts_pkey PRIMARY KEY (id);
+

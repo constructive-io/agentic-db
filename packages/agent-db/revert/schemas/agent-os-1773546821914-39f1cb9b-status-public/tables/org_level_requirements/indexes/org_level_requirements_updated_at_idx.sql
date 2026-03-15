@@ -1,6 +1,0 @@
--- Revert: schemas/agent-os-1773546821914-39f1cb9b-status-public/tables/org_level_requirements/indexes/org_level_requirements_updated_at_idx
-
-
-DROP INDEX "agent-os-1773546821914-39f1cb9b-status-public".org_level_requirements_updated_at_idx;
-
-

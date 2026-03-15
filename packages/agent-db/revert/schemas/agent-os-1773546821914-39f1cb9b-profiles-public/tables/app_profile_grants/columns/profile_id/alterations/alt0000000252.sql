@@ -1,6 +1,0 @@
--- Revert: schemas/agent-os-1773546821914-39f1cb9b-profiles-public/tables/app_profile_grants/columns/profile_id/alterations/alt0000000252
-
-
-COMMENT ON COLUMN "agent-os-1773546821914-39f1cb9b-profiles-public".app_profile_grants.profile_id IS NULL;
-
-

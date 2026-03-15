@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/blueprints/table
--- requires: schemas/agent_db_app_public/tables/blueprints/columns/title/alterations/alt0000004360
+-- requires: schemas/agent_db_app_public/tables/blueprints/columns/title/alterations/alt0000004408
 
 
 ALTER TABLE "agent_db_app_public".blueprints 

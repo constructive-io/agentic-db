@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/deals/table
--- requires: schemas/agent_db_app_public/tables/deals/columns/currency/alterations/alt0000004056
+-- requires: schemas/agent_db_app_public/tables/deals/columns/currency/alterations/alt0000004104
 
 
 ALTER TABLE "agent_db_app_public".deals 

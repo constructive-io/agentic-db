@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/threads/table
--- requires: schemas/agent_db_app_public/tables/threads/columns/updated_at/alterations/alt0000004349
+-- requires: schemas/agent_db_app_public/tables/threads/columns/updated_at/alterations/alt0000004397
 
 
 ALTER TABLE "agent_db_app_public".threads 

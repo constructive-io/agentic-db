@@ -1,0 +1,10 @@
+-- Revert: schemas/agent-os-1773550873753-b6c4a3e1-app-public/tables/venues/columns/is_favorite/alterations/alt0000000906
+
+
+
+
+ALTER TABLE "agent-os-1773550873753-b6c4a3e1-app-public".venues 
+    ALTER COLUMN is_favorite DROP DEFAULT;
+
+
+

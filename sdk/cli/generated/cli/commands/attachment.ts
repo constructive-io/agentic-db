@@ -87,6 +87,11 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           sizeBytes: true,
           attachableType: true,
           attachableId: true,
+          urlTrgmSimilarity: true,
+          filenameTrgmSimilarity: true,
+          mimeTypeTrgmSimilarity: true,
+          attachableTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -124,6 +129,11 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           sizeBytes: true,
           attachableType: true,
           attachableId: true,
+          urlTrgmSimilarity: true,
+          filenameTrgmSimilarity: true,
+          mimeTypeTrgmSimilarity: true,
+          attachableTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -212,6 +222,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           sizeBytes: true,
           attachableType: true,
           attachableId: true,
+          urlTrgmSimilarity: true,
+          filenameTrgmSimilarity: true,
+          mimeTypeTrgmSimilarity: true,
+          attachableTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -309,6 +324,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           sizeBytes: true,
           attachableType: true,
           attachableId: true,
+          urlTrgmSimilarity: true,
+          filenameTrgmSimilarity: true,
+          mimeTypeTrgmSimilarity: true,
+          attachableTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

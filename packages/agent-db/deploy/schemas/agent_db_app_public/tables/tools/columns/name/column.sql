@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/tools/table
--- requires: schemas/agent_db_app_public/tables/tools/columns/updated_at/alterations/alt0000004391
+-- requires: schemas/agent_db_app_public/tables/tools/columns/updated_at/alterations/alt0000004439
 
 
 ALTER TABLE "agent_db_app_public".tools 

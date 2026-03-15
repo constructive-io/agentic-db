@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/interactions/table
--- requires: schemas/agent_db_app_public/tables/interactions/columns/occurred_at/alterations/alt0000004097
+-- requires: schemas/agent_db_app_public/tables/interactions/columns/occurred_at/alterations/alt0000004145
 
 
 ALTER TABLE "agent_db_app_public".interactions 

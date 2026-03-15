@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773547105079-c748b4c3-app-public/tables/user_settings/constraints/user_settings_entity_id_fkey/constraint
-
-
-ALTER TABLE "agent-os-1773547105079-c748b4c3-app-public".user_settings 
-  DROP CONSTRAINT user_settings_entity_id_fkey;
-
-

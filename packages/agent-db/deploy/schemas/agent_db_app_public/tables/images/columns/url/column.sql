@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/images/table
--- requires: schemas/agent_db_app_public/tables/images/columns/updated_at/alterations/alt0000004026
+-- requires: schemas/agent_db_app_public/tables/images/columns/updated_at/alterations/alt0000004074
 
 
 ALTER TABLE "agent_db_app_public".images 

@@ -22,6 +22,7 @@ const fieldSchema: FieldSchema = {
   relatedEntityType: 'string',
   embeddingText: 'string',
   embedding: 'string',
+  embeddingTextBm25Score: 'float',
   titleTrgmSimilarity: 'float',
   recurrenceTrgmSimilarity: 'float',
   statusTrgmSimilarity: 'float',
@@ -95,6 +96,14 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           relatedEntityType: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          recurrenceTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          relatedEntityTypeTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -135,6 +144,14 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           relatedEntityType: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          recurrenceTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          relatedEntityTypeTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -250,6 +267,14 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           relatedEntityType: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          recurrenceTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          relatedEntityTypeTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -374,6 +399,14 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           relatedEntityType: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          recurrenceTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          relatedEntityTypeTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

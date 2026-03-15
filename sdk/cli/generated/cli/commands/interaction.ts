@@ -21,6 +21,7 @@ const fieldSchema: FieldSchema = {
   tags: 'string',
   embeddingText: 'string',
   embedding: 'string',
+  embeddingTextBm25Score: 'float',
   typeTrgmSimilarity: 'float',
   summaryTrgmSimilarity: 'float',
   sentimentTrgmSimilarity: 'float',
@@ -92,6 +93,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          typeTrgmSimilarity: true,
+          summaryTrgmSimilarity: true,
+          sentimentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -131,6 +139,13 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           tags: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          typeTrgmSimilarity: true,
+          summaryTrgmSimilarity: true,
+          sentimentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -238,6 +253,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          typeTrgmSimilarity: true,
+          summaryTrgmSimilarity: true,
+          sentimentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -351,6 +373,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          typeTrgmSimilarity: true,
+          summaryTrgmSimilarity: true,
+          sentimentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

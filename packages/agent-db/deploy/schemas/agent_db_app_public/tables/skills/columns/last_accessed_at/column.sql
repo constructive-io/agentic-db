@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/skills/table
--- requires: schemas/agent_db_app_public/tables/skills/columns/active_count/alterations/alt0000004254
+-- requires: schemas/agent_db_app_public/tables/skills/columns/active_count/alterations/alt0000004302
 
 
 ALTER TABLE "agent_db_app_public".skills 

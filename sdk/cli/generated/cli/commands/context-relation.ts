@@ -89,6 +89,11 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           relationKind: true,
           reason: true,
           strength: true,
+          fromTypeTrgmSimilarity: true,
+          toTypeTrgmSimilarity: true,
+          relationKindTrgmSimilarity: true,
+          reasonTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -127,6 +132,11 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           relationKind: true,
           reason: true,
           strength: true,
+          fromTypeTrgmSimilarity: true,
+          toTypeTrgmSimilarity: true,
+          relationKindTrgmSimilarity: true,
+          reasonTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -224,6 +234,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           relationKind: true,
           reason: true,
           strength: true,
+          fromTypeTrgmSimilarity: true,
+          toTypeTrgmSimilarity: true,
+          relationKindTrgmSimilarity: true,
+          reasonTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -327,6 +342,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           relationKind: true,
           reason: true,
           strength: true,
+          fromTypeTrgmSimilarity: true,
+          toTypeTrgmSimilarity: true,
+          relationKindTrgmSimilarity: true,
+          reasonTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

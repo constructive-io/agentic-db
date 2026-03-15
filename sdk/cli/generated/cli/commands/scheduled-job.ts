@@ -104,6 +104,12 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           nextRunAt: true,
           runCount: true,
           lastResult: true,
+          nameTrgmSimilarity: true,
+          scheduleTypeTrgmSimilarity: true,
+          scheduleExprTrgmSimilarity: true,
+          commandTrgmSimilarity: true,
+          messageTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -149,6 +155,12 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           nextRunAt: true,
           runCount: true,
           lastResult: true,
+          nameTrgmSimilarity: true,
+          scheduleTypeTrgmSimilarity: true,
+          scheduleExprTrgmSimilarity: true,
+          commandTrgmSimilarity: true,
+          messageTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -310,6 +322,12 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           nextRunAt: true,
           runCount: true,
           lastResult: true,
+          nameTrgmSimilarity: true,
+          scheduleTypeTrgmSimilarity: true,
+          scheduleExprTrgmSimilarity: true,
+          commandTrgmSimilarity: true,
+          messageTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -477,6 +495,12 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           nextRunAt: true,
           runCount: true,
           lastResult: true,
+          nameTrgmSimilarity: true,
+          scheduleTypeTrgmSimilarity: true,
+          scheduleExprTrgmSimilarity: true,
+          commandTrgmSimilarity: true,
+          messageTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

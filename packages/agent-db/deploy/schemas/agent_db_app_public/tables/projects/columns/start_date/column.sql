@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/projects/table
--- requires: schemas/agent_db_app_public/tables/projects/columns/status/alterations/alt0000004488
+-- requires: schemas/agent_db_app_public/tables/projects/columns/status/alterations/alt0000004536
 
 
 ALTER TABLE "agent_db_app_public".projects 

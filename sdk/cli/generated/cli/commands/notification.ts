@@ -93,6 +93,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           actionUrl: true,
           sourceEntityId: true,
           sourceEntityType: true,
+          titleTrgmSimilarity: true,
+          bodyTrgmSimilarity: true,
+          typeTrgmSimilarity: true,
+          priorityTrgmSimilarity: true,
+          actionUrlTrgmSimilarity: true,
+          sourceEntityTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -132,6 +139,13 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           actionUrl: true,
           sourceEntityId: true,
           sourceEntityType: true,
+          titleTrgmSimilarity: true,
+          bodyTrgmSimilarity: true,
+          typeTrgmSimilarity: true,
+          priorityTrgmSimilarity: true,
+          actionUrlTrgmSimilarity: true,
+          sourceEntityTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -242,6 +256,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           actionUrl: true,
           sourceEntityId: true,
           sourceEntityType: true,
+          titleTrgmSimilarity: true,
+          bodyTrgmSimilarity: true,
+          typeTrgmSimilarity: true,
+          priorityTrgmSimilarity: true,
+          actionUrlTrgmSimilarity: true,
+          sourceEntityTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -358,6 +379,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           actionUrl: true,
           sourceEntityId: true,
           sourceEntityType: true,
+          titleTrgmSimilarity: true,
+          bodyTrgmSimilarity: true,
+          typeTrgmSimilarity: true,
+          priorityTrgmSimilarity: true,
+          actionUrlTrgmSimilarity: true,
+          sourceEntityTypeTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

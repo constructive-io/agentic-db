@@ -23,6 +23,7 @@ const fieldSchema: FieldSchema = {
   embedding: 'string',
   searchTsv: 'string',
   searchTsvRank: 'float',
+  embeddingTextBm25Score: 'float',
   nameTrgmSimilarity: 'float',
   descriptionTrgmSimilarity: 'float',
   statusTrgmSimilarity: 'float',
@@ -95,6 +96,14 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           embeddingText: true,
           embedding: true,
           searchTsv: true,
+          searchTsvRank: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -135,6 +144,14 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           embeddingText: true,
           embedding: true,
           searchTsv: true,
+          searchTsvRank: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -250,6 +267,14 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           searchTsv: true,
+          searchTsvRank: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -374,6 +399,14 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           searchTsv: true,
+          searchTsvRank: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/prompts/table
--- requires: schemas/agent_db_app_public/tables/prompts/columns/version/alterations/alt0000004276
+-- requires: schemas/agent_db_app_public/tables/prompts/columns/version/alterations/alt0000004324
 
 
 ALTER TABLE "agent_db_app_public".prompts 

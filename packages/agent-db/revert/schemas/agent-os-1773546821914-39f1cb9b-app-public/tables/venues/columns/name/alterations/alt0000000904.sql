@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773546821914-39f1cb9b-app-public/tables/venues/columns/name/alterations/alt0000000904
-
-
-ALTER TABLE "agent-os-1773546821914-39f1cb9b-app-public".venues 
-  ALTER COLUMN name DROP NOT NULL;
-
-

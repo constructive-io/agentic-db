@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/processes/table
--- requires: schemas/agent_db_app_public/tables/processes/columns/status/alterations/alt0000004369
+-- requires: schemas/agent_db_app_public/tables/processes/columns/status/alterations/alt0000004417
 
 
 ALTER TABLE "agent_db_app_public".processes 

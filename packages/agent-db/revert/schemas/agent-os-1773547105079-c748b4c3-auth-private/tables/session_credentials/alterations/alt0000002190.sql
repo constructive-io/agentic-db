@@ -1,6 +1,0 @@
--- Revert: schemas/agent-os-1773547105079-c748b4c3-auth-private/tables/session_credentials/alterations/alt0000002190
-
-
-COMMENT ON TABLE "agent-os-1773547105079-c748b4c3-auth-private".session_credentials IS NULL;
-
-

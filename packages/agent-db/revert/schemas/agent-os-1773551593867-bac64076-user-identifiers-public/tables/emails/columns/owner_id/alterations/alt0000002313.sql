@@ -1,0 +1,10 @@
+-- Revert: schemas/agent-os-1773551593867-bac64076-user-identifiers-public/tables/emails/columns/owner_id/alterations/alt0000002313
+
+
+
+
+ALTER TABLE "agent-os-1773551593867-bac64076-user-identifiers-public".emails 
+    ALTER COLUMN owner_id DROP DEFAULT;
+
+
+

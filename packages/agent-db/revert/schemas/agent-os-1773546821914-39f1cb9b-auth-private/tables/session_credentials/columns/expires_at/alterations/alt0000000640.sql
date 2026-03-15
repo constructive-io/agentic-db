@@ -1,6 +1,0 @@
--- Revert: schemas/agent-os-1773546821914-39f1cb9b-auth-private/tables/session_credentials/columns/expires_at/alterations/alt0000000640
-
-
-COMMENT ON COLUMN "agent-os-1773546821914-39f1cb9b-auth-private".session_credentials.expires_at IS NULL;
-
-

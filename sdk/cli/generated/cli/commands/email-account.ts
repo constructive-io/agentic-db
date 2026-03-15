@@ -79,6 +79,9 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           email: true,
           provider: true,
           syncState: true,
+          emailTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -113,6 +116,9 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           email: true,
           provider: true,
           syncState: true,
+          emailTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -177,6 +183,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           email: true,
           provider: true,
           syncState: true,
+          emailTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -247,6 +256,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           email: true,
           provider: true,
           syncState: true,
+          emailTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

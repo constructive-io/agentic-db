@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773547105079-c748b4c3-app-public/tables/notifications/alterations/alt0000003095
-
-
-ALTER TABLE "agent-os-1773547105079-c748b4c3-app-public".notifications 
-  ENABLE ROW LEVEL SECURITY;
-
-

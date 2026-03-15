@@ -1,0 +1,10 @@
+-- Revert: schemas/agent-os-1773550873753-b6c4a3e1-status-public/tables/app_steps/columns/actor_id/alterations/alt0000000167
+
+
+
+
+ALTER TABLE "agent-os-1773550873753-b6c4a3e1-status-public".app_steps 
+    ALTER COLUMN actor_id DROP DEFAULT;
+
+
+

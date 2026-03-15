@@ -17,6 +17,7 @@ const fieldSchema: FieldSchema = {
   startedAt: 'string',
   embeddingText: 'string',
   embedding: 'string',
+  embeddingTextBm25Score: 'float',
   titleTrgmSimilarity: 'float',
   embeddingTextTrgmSimilarity: 'float',
   embeddingVectorDistance: 'float',
@@ -82,6 +83,11 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           startedAt: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -117,6 +123,11 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           startedAt: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -188,6 +199,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -268,6 +284,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           embeddingText: true,
           embedding: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

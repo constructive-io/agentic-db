@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/habits/table
--- requires: schemas/agent_db_app_public/tables/habits/columns/best_streak/alterations/alt0000004673
+-- requires: schemas/agent_db_app_public/tables/habits/columns/best_streak/alterations/alt0000004721
 
 
 ALTER TABLE "agent_db_app_public".habits 

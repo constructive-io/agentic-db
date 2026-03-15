@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/scheduled_jobs/table
--- requires: schemas/agent_db_app_public/tables/scheduled_jobs/columns/delete_after_run/alterations/alt0000004382
+-- requires: schemas/agent_db_app_public/tables/scheduled_jobs/columns/delete_after_run/alterations/alt0000004430
 
 
 ALTER TABLE "agent_db_app_public".scheduled_jobs 

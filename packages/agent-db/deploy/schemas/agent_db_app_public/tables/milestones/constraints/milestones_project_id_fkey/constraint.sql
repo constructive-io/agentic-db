@@ -4,7 +4,7 @@
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/projects/table
 -- requires: schemas/agent_db_app_public/tables/milestones/table
--- requires: schemas/agent_db_app_public/tables/milestones/columns/status/alterations/alt0000004498
+-- requires: schemas/agent_db_app_public/tables/milestones/columns/status/alterations/alt0000004546
 
 
 ALTER TABLE "agent_db_app_public".milestones 

@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773546821914-39f1cb9b-profiles-public/tables/org_profiles/columns/created_at/alterations/alt0000000452
-
-
-ALTER TABLE "agent-os-1773546821914-39f1cb9b-profiles-public".org_profiles 
-  ALTER COLUMN created_at DROP DEFAULT;
-
-

@@ -3,7 +3,7 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/tasks/table
--- requires: schemas/agent_db_app_public/tables/tasks/columns/task_type/alterations/alt0000004221
+-- requires: schemas/agent_db_app_public/tables/tasks/columns/task_type/alterations/alt0000004269
 
 
 ALTER TABLE "agent_db_app_public".tasks 
