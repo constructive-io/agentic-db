@@ -9,7 +9,7 @@ ORM operations for Note records
 ```typescript
 db.note.findMany({ select: { id: true } }).execute()
 db.note.findOne({ id: '<value>', select: { id: true } }).execute()
-db.note.create({ data: { entityId: '<value>', content: '<value>', notableType: '<value>', notableId: '<value>', abstract: '<value>', overview: '<value>', activeCount: '<value>', lastAccessedAt: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', contentTrgmSimilarity: '<value>', notableTypeTrgmSimilarity: '<value>', abstractTrgmSimilarity: '<value>', overviewTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
+db.note.create({ data: { entityId: '<value>', content: '<value>', notableType: '<value>', notableId: '<value>', abstract: '<value>', overview: '<value>', activeCount: '<value>', lastAccessedAt: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', contentBm25Score: '<value>', embeddingTextBm25Score: '<value>', contentTrgmSimilarity: '<value>', notableTypeTrgmSimilarity: '<value>', abstractTrgmSimilarity: '<value>', overviewTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.note.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.note.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.note.findMany({
 
 ```typescript
 const item = await db.note.create({
-  data: { entityId: 'value', content: 'value', notableType: 'value', notableId: 'value', abstract: 'value', overview: 'value', activeCount: 'value', lastAccessedAt: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', contentTrgmSimilarity: 'value', notableTypeTrgmSimilarity: 'value', abstractTrgmSimilarity: 'value', overviewTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
+  data: { entityId: 'value', content: 'value', notableType: 'value', notableId: 'value', abstract: 'value', overview: 'value', activeCount: 'value', lastAccessedAt: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', contentBm25Score: 'value', embeddingTextBm25Score: 'value', contentTrgmSimilarity: 'value', notableTypeTrgmSimilarity: 'value', abstractTrgmSimilarity: 'value', overviewTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

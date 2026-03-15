@@ -9,7 +9,7 @@ ORM operations for Goal records
 ```typescript
 db.goal.findMany({ select: { id: true } }).execute()
 db.goal.findOne({ id: '<value>', select: { id: true } }).execute()
-db.goal.create({ data: { entityId: '<value>', title: '<value>', description: '<value>', targetDate: '<value>', status: '<value>', category: '<value>', progressPct: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', titleTrgmSimilarity: '<value>', descriptionTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', categoryTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
+db.goal.create({ data: { entityId: '<value>', title: '<value>', description: '<value>', targetDate: '<value>', status: '<value>', category: '<value>', progressPct: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingTextBm25Score: '<value>', titleTrgmSimilarity: '<value>', descriptionTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', categoryTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.goal.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.goal.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.goal.findMany({
 
 ```typescript
 const item = await db.goal.create({
-  data: { entityId: 'value', title: 'value', description: 'value', targetDate: 'value', status: 'value', category: 'value', progressPct: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', titleTrgmSimilarity: 'value', descriptionTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', categoryTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
+  data: { entityId: 'value', title: 'value', description: 'value', targetDate: 'value', status: 'value', category: 'value', progressPct: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', embeddingTextBm25Score: 'value', titleTrgmSimilarity: 'value', descriptionTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', categoryTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

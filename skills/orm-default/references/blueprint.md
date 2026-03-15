@@ -9,7 +9,7 @@ ORM operations for Blueprint records
 ```typescript
 db.blueprint.findMany({ select: { id: true } }).execute()
 db.blueprint.findOne({ id: '<value>', select: { id: true } }).execute()
-db.blueprint.create({ data: { entityId: '<value>', title: '<value>', steps: '<value>', triggerConditions: '<value>', conversationId: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', titleTrgmSimilarity: '<value>', triggerConditionsTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
+db.blueprint.create({ data: { entityId: '<value>', title: '<value>', steps: '<value>', triggerConditions: '<value>', conversationId: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingTextBm25Score: '<value>', titleTrgmSimilarity: '<value>', triggerConditionsTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.blueprint.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.blueprint.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.blueprint.findMany({
 
 ```typescript
 const item = await db.blueprint.create({
-  data: { entityId: 'value', title: 'value', steps: 'value', triggerConditions: 'value', conversationId: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', titleTrgmSimilarity: 'value', triggerConditionsTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
+  data: { entityId: 'value', title: 'value', steps: 'value', triggerConditions: 'value', conversationId: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', embeddingTextBm25Score: 'value', titleTrgmSimilarity: 'value', triggerConditionsTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

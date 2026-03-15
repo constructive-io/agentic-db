@@ -9,7 +9,7 @@ ORM operations for SessionArchive records
 ```typescript
 db.sessionArchive.findMany({ select: { id: true } }).execute()
 db.sessionArchive.findOne({ id: '<value>', select: { id: true } }).execute()
-db.sessionArchive.create({ data: { entityId: '<value>', sessionId: '<value>', archiveIndex: '<value>', summary: '<value>', messageRangeStart: '<value>', messageRangeEnd: '<value>', rawMessages: '<value>', embeddingText: '<value>', embedding: '<value>', summaryTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
+db.sessionArchive.create({ data: { entityId: '<value>', sessionId: '<value>', archiveIndex: '<value>', summary: '<value>', messageRangeStart: '<value>', messageRangeEnd: '<value>', rawMessages: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingTextBm25Score: '<value>', summaryTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.sessionArchive.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.sessionArchive.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.sessionArchive.findMany({
 
 ```typescript
 const item = await db.sessionArchive.create({
-  data: { entityId: 'value', sessionId: 'value', archiveIndex: 'value', summary: 'value', messageRangeStart: 'value', messageRangeEnd: 'value', rawMessages: 'value', embeddingText: 'value', embedding: 'value', summaryTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
+  data: { entityId: 'value', sessionId: 'value', archiveIndex: 'value', summary: 'value', messageRangeStart: 'value', messageRangeEnd: 'value', rawMessages: 'value', embeddingText: 'value', embedding: 'value', embeddingTextBm25Score: 'value', summaryTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

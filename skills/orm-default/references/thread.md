@@ -9,7 +9,7 @@ ORM operations for Thread records
 ```typescript
 db.thread.findMany({ select: { id: true } }).execute()
 db.thread.findOne({ id: '<value>', select: { id: true } }).execute()
-db.thread.create({ data: { entityId: '<value>', title: '<value>', summary: '<value>', status: '<value>', parentThreadId: '<value>', embeddingText: '<value>', embedding: '<value>', titleTrgmSimilarity: '<value>', summaryTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
+db.thread.create({ data: { entityId: '<value>', title: '<value>', summary: '<value>', status: '<value>', parentThreadId: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingTextBm25Score: '<value>', titleTrgmSimilarity: '<value>', summaryTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.thread.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.thread.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.thread.findMany({
 
 ```typescript
 const item = await db.thread.create({
-  data: { entityId: 'value', title: 'value', summary: 'value', status: 'value', parentThreadId: 'value', embeddingText: 'value', embedding: 'value', titleTrgmSimilarity: 'value', summaryTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
+  data: { entityId: 'value', title: 'value', summary: 'value', status: 'value', parentThreadId: 'value', embeddingText: 'value', embedding: 'value', embeddingTextBm25Score: 'value', titleTrgmSimilarity: 'value', summaryTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

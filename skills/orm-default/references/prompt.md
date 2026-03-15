@@ -9,7 +9,7 @@ ORM operations for Prompt records
 ```typescript
 db.prompt.findMany({ select: { id: true } }).execute()
 db.prompt.findOne({ id: '<value>', select: { id: true } }).execute()
-db.prompt.create({ data: { entityId: '<value>', name: '<value>', content: '<value>', type: '<value>', model: '<value>', version: '<value>', isActive: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', nameTrgmSimilarity: '<value>', contentTrgmSimilarity: '<value>', typeTrgmSimilarity: '<value>', modelTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
+db.prompt.create({ data: { entityId: '<value>', name: '<value>', content: '<value>', type: '<value>', model: '<value>', version: '<value>', isActive: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', contentBm25Score: '<value>', embeddingTextBm25Score: '<value>', nameTrgmSimilarity: '<value>', contentTrgmSimilarity: '<value>', typeTrgmSimilarity: '<value>', modelTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.prompt.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.prompt.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.prompt.findMany({
 
 ```typescript
 const item = await db.prompt.create({
-  data: { entityId: 'value', name: 'value', content: 'value', type: 'value', model: 'value', version: 'value', isActive: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', nameTrgmSimilarity: 'value', contentTrgmSimilarity: 'value', typeTrgmSimilarity: 'value', modelTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
+  data: { entityId: 'value', name: 'value', content: 'value', type: 'value', model: 'value', version: 'value', isActive: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', contentBm25Score: 'value', embeddingTextBm25Score: 'value', nameTrgmSimilarity: 'value', contentTrgmSimilarity: 'value', typeTrgmSimilarity: 'value', modelTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

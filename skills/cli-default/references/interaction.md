@@ -9,8 +9,8 @@ CRUD operations for Interaction records via agent-db CLI
 ```bash
 agent-db interaction list
 agent-db interaction get --id <value>
-agent-db interaction create --entityId <value> --contactId <value> --type <value> --occurredAt <value> --typeTrgmSimilarity <value> --summaryTrgmSimilarity <value> --sentimentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-agent-db interaction update --id <value> [--entityId <value>] [--contactId <value>] [--type <value>] [--occurredAt <value>] [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--typeTrgmSimilarity <value>] [--summaryTrgmSimilarity <value>] [--sentimentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+agent-db interaction create --entityId <value> --contactId <value> --type <value> --occurredAt <value> --embeddingTextBm25Score <value> --typeTrgmSimilarity <value> --summaryTrgmSimilarity <value> --sentimentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db interaction update --id <value> [--entityId <value>] [--contactId <value>] [--type <value>] [--occurredAt <value>] [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--typeTrgmSimilarity <value>] [--summaryTrgmSimilarity <value>] [--sentimentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
 agent-db interaction delete --id <value>
 ```
 
@@ -25,7 +25,7 @@ agent-db interaction list
 ### Create a interaction
 
 ```bash
-agent-db interaction create --entityId <value> --contactId <value> --type <value> --occurredAt <value> --typeTrgmSimilarity <value> --summaryTrgmSimilarity <value> --sentimentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+agent-db interaction create --entityId <value> --contactId <value> --type <value> --occurredAt <value> --embeddingTextBm25Score <value> --typeTrgmSimilarity <value> --summaryTrgmSimilarity <value> --sentimentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
 ```
 
 ### Get a interaction by id
