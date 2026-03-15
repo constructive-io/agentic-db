@@ -1,0 +1,23 @@
+-- Deploy schemas/metaschema_public/tables/trigger_function/table to pg
+
+-- requires: schemas/metaschema_public/schema
+-- requires: schemas/metaschema_public/tables/database/table
+
+BEGIN;
+
+CREATE TABLE metaschema_public.trigger_function (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  database_id uuid NOT NULL,
+
+  name text NOT NULL,
+  code text,
+
+  --
+  CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
+  UNIQUE (database_id, name)
+);
+
+COMMENT ON CONSTRAINT db_fkey ON metaschema_public.trigger_function IS E'@omit manyToMany';
+CREATE INDEX trigger_function_database_id_idx ON metaschema_public.trigger_function ( database_id );
+
+COMMIT;
