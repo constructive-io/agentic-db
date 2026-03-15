@@ -6,6 +6,19 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import contextCmd from './commands/context';
 import authCmd from './commands/auth';
+import agentPromptCmd from './commands/agent-prompt';
+import sessionCmd from './commands/session';
+import executionLogCmd from './commands/execution-log';
+import sessionArchiveCmd from './commands/session-archive';
+import processCmd from './commands/process';
+import scheduledJobCmd from './commands/scheduled-job';
+import agentToolCmd from './commands/agent-tool';
+import agentSkillCmd from './commands/agent-skill';
+import agentRuleCmd from './commands/agent-rule';
+import calendarEventContactCmd from './commands/calendar-event-contact';
+import calendarEventCmd from './commands/calendar-event';
+import interactionCmd from './commands/interaction';
+import companyEventCmd from './commands/company-event';
 import companyImageCmd from './commands/company-image';
 import contactCompanyCmd from './commands/contact-company';
 import contactEventCmd from './commands/contact-event';
@@ -13,36 +26,92 @@ import contactImageCmd from './commands/contact-image';
 import dealContactCmd from './commands/deal-contact';
 import eventImageCmd from './commands/event-image';
 import eventVenueCmd from './commands/event-venue';
+import expenseContactCmd from './commands/expense-contact';
+import goalHabitCmd from './commands/goal-habit';
+import habitLogCmd from './commands/habit-log';
+import goalProjectCmd from './commands/goal-project';
+import milestoneCmd from './commands/milestone';
+import projectContactCmd from './commands/project-contact';
+import taskContactCmd from './commands/task-contact';
 import venueImageCmd from './commands/venue-image';
-import calendarSyncCmd from './commands/calendar-sync';
 import fileCmd from './commands/file';
+import chunkCmd from './commands/chunk';
+import calendarAccountCmd from './commands/calendar-account';
+import tagCmd from './commands/tag';
+import feedbackCmd from './commands/feedback';
+import attachmentCmd from './commands/attachment';
 import emailAccountCmd from './commands/email-account';
 import messageCmd from './commands/message';
-import executionLogCmd from './commands/execution-log';
+import activityLogCmd from './commands/activity-log';
+import contextRelationCmd from './commands/context-relation';
+import userSettingCmd from './commands/user-setting';
+import webhookCmd from './commands/webhook';
+import notificationCmd from './commands/notification';
+import workflowRunCmd from './commands/workflow-run';
+import workflowStepCmd from './commands/workflow-step';
+import integrationCmd from './commands/integration';
+import skillExecutionCmd from './commands/skill-execution';
 import chatCmd from './commands/chat';
-import projectCmd from './commands/project';
-import repositoryCmd from './commands/repository';
-import sessionCmd from './commands/session';
-import blueprintCmd from './commands/blueprint';
-import imageCmd from './commands/image';
-import milestoneCmd from './commands/milestone';
 import chatMessageCmd from './commands/chat-message';
-import chunkCmd from './commands/chunk';
-import memoryCmd from './commands/memory';
-import dealCmd from './commands/deal';
-import documentCmd from './commands/document';
-import taskCmd from './commands/task';
-import ruleCmd from './commands/rule';
-import skillCmd from './commands/skill';
+import threadCmd from './commands/thread';
+import reminderCmd from './commands/reminder';
+import imageCmd from './commands/image';
+import listItemCmd from './commands/list-item';
+import companyLinkCmd from './commands/company-link';
+import contactLinkCmd from './commands/contact-link';
+import eventLinkCmd from './commands/event-link';
+import venueLinkCmd from './commands/venue-link';
+import agentSpawnCmd from './commands/agent-spawn';
+import habitCmd from './commands/habit';
+import workflowCmd from './commands/workflow';
 import expenseCmd from './commands/expense';
+import billingSubscriptionCmd from './commands/billing-subscription';
+import ideaCmd from './commands/idea';
+import listCmd from './commands/list';
+import repositoryCmd from './commands/repository';
+import dealCmd from './commands/deal';
+import goalCmd from './commands/goal';
 import noteCmd from './commands/note';
+import promptCmd from './commands/prompt';
+import blueprintCmd from './commands/blueprint';
+import templateCmd from './commands/template';
+import toolCmd from './commands/tool';
+import recipeCmd from './commands/recipe';
+import tripCmd from './commands/trip';
+import memoryCmd from './commands/memory';
+import ruleCmd from './commands/rule';
+import taskCmd from './commands/task';
+import agentCmd from './commands/agent';
+import skillCmd from './commands/skill';
+import projectCmd from './commands/project';
+import documentCmd from './commands/document';
 import companyCmd from './commands/company';
-import venueCmd from './commands/venue';
 import eventCmd from './commands/event';
 import contactCmd from './commands/contact';
-const createCommandMap = () => ({
+import venueCmd from './commands/venue';
+const createCommandMap: () => Record<
+  string,
+  (
+    argv: Partial<Record<string, unknown>>,
+    prompter: Inquirerer,
+    options: CLIOptions
+  ) => Promise<void>
+> = () => ({
   context: contextCmd,
   auth: authCmd,
+  'agent-prompt': agentPromptCmd,
+  session: sessionCmd,
+  'execution-log': executionLogCmd,
+  'session-archive': sessionArchiveCmd,
+  process: processCmd,
+  'scheduled-job': scheduledJobCmd,
+  'agent-tool': agentToolCmd,
+  'agent-skill': agentSkillCmd,
+  'agent-rule': agentRuleCmd,
+  'calendar-event-contact': calendarEventContactCmd,
+  'calendar-event': calendarEventCmd,
+  interaction: interactionCmd,
+  'company-event': companyEventCmd,
   'company-image': companyImageCmd,
   'contact-company': contactCompanyCmd,
   'contact-event': contactEventCmd,
@@ -50,36 +119,72 @@ const createCommandMap = () => ({
   'deal-contact': dealContactCmd,
   'event-image': eventImageCmd,
   'event-venue': eventVenueCmd,
+  'expense-contact': expenseContactCmd,
+  'goal-habit': goalHabitCmd,
+  'habit-log': habitLogCmd,
+  'goal-project': goalProjectCmd,
+  milestone: milestoneCmd,
+  'project-contact': projectContactCmd,
+  'task-contact': taskContactCmd,
   'venue-image': venueImageCmd,
-  'calendar-sync': calendarSyncCmd,
   file: fileCmd,
+  chunk: chunkCmd,
+  'calendar-account': calendarAccountCmd,
+  tag: tagCmd,
+  feedback: feedbackCmd,
+  attachment: attachmentCmd,
   'email-account': emailAccountCmd,
   message: messageCmd,
-  'execution-log': executionLogCmd,
+  'activity-log': activityLogCmd,
+  'context-relation': contextRelationCmd,
+  'user-setting': userSettingCmd,
+  webhook: webhookCmd,
+  notification: notificationCmd,
+  'workflow-run': workflowRunCmd,
+  'workflow-step': workflowStepCmd,
+  integration: integrationCmd,
+  'skill-execution': skillExecutionCmd,
   chat: chatCmd,
-  project: projectCmd,
-  repository: repositoryCmd,
-  session: sessionCmd,
-  blueprint: blueprintCmd,
-  image: imageCmd,
-  milestone: milestoneCmd,
   'chat-message': chatMessageCmd,
-  chunk: chunkCmd,
-  memory: memoryCmd,
-  deal: dealCmd,
-  document: documentCmd,
-  task: taskCmd,
-  rule: ruleCmd,
-  skill: skillCmd,
+  thread: threadCmd,
+  reminder: reminderCmd,
+  image: imageCmd,
+  'list-item': listItemCmd,
+  'company-link': companyLinkCmd,
+  'contact-link': contactLinkCmd,
+  'event-link': eventLinkCmd,
+  'venue-link': venueLinkCmd,
+  'agent-spawn': agentSpawnCmd,
+  habit: habitCmd,
+  workflow: workflowCmd,
   expense: expenseCmd,
+  'billing-subscription': billingSubscriptionCmd,
+  idea: ideaCmd,
+  list: listCmd,
+  repository: repositoryCmd,
+  deal: dealCmd,
+  goal: goalCmd,
   note: noteCmd,
+  prompt: promptCmd,
+  blueprint: blueprintCmd,
+  template: templateCmd,
+  tool: toolCmd,
+  recipe: recipeCmd,
+  trip: tripCmd,
+  memory: memoryCmd,
+  rule: ruleCmd,
+  task: taskCmd,
+  agent: agentCmd,
+  skill: skillCmd,
+  project: projectCmd,
+  document: documentCmd,
   company: companyCmd,
-  venue: venueCmd,
   event: eventCmd,
   contact: contactCmd,
+  venue: venueCmd,
 });
 const usage =
-  '\nagentic-db <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  company-image        companyImage CRUD operations\n  contact-company      contactCompany CRUD operations\n  contact-event        contactEvent CRUD operations\n  contact-image        contactImage CRUD operations\n  deal-contact         dealContact CRUD operations\n  event-image          eventImage CRUD operations\n  event-venue          eventVenue CRUD operations\n  venue-image          venueImage CRUD operations\n  calendar-sync        calendarSync CRUD operations\n  file                 file CRUD operations\n  email-account        emailAccount CRUD operations\n  message              message CRUD operations\n  execution-log        executionLog CRUD operations\n  chat                 chat CRUD operations\n  project              project CRUD operations\n  repository           repository CRUD operations\n  session              session CRUD operations\n  blueprint            blueprint CRUD operations\n  image                image CRUD operations\n  milestone            milestone CRUD operations\n  chat-message         chatMessage CRUD operations\n  chunk                chunk CRUD operations\n  memory               memory CRUD operations\n  deal                 deal CRUD operations\n  document             document CRUD operations\n  task                 task CRUD operations\n  rule                 rule CRUD operations\n  skill                skill CRUD operations\n  expense              expense CRUD operations\n  note                 note CRUD operations\n  company              company CRUD operations\n  venue                venue CRUD operations\n  event                event CRUD operations\n  contact              contact CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
+  '\nagent-db <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  agent-prompt         agentPrompt CRUD operations\n  session              session CRUD operations\n  execution-log        executionLog CRUD operations\n  session-archive      sessionArchive CRUD operations\n  process              process CRUD operations\n  scheduled-job        scheduledJob CRUD operations\n  agent-tool           agentTool CRUD operations\n  agent-skill          agentSkill CRUD operations\n  agent-rule           agentRule CRUD operations\n  calendar-event-contact calendarEventContact CRUD operations\n  calendar-event       calendarEvent CRUD operations\n  interaction          interaction CRUD operations\n  company-event        companyEvent CRUD operations\n  company-image        companyImage CRUD operations\n  contact-company      contactCompany CRUD operations\n  contact-event        contactEvent CRUD operations\n  contact-image        contactImage CRUD operations\n  deal-contact         dealContact CRUD operations\n  event-image          eventImage CRUD operations\n  event-venue          eventVenue CRUD operations\n  expense-contact      expenseContact CRUD operations\n  goal-habit           goalHabit CRUD operations\n  habit-log            habitLog CRUD operations\n  goal-project         goalProject CRUD operations\n  milestone            milestone CRUD operations\n  project-contact      projectContact CRUD operations\n  task-contact         taskContact CRUD operations\n  venue-image          venueImage CRUD operations\n  file                 file CRUD operations\n  chunk                chunk CRUD operations\n  calendar-account     calendarAccount CRUD operations\n  tag                  tag CRUD operations\n  feedback             feedback CRUD operations\n  attachment           attachment CRUD operations\n  email-account        emailAccount CRUD operations\n  message              message CRUD operations\n  activity-log         activityLog CRUD operations\n  context-relation     contextRelation CRUD operations\n  user-setting         userSetting CRUD operations\n  webhook              webhook CRUD operations\n  notification         notification CRUD operations\n  workflow-run         workflowRun CRUD operations\n  workflow-step        workflowStep CRUD operations\n  integration          integration CRUD operations\n  skill-execution      skillExecution CRUD operations\n  chat                 chat CRUD operations\n  chat-message         chatMessage CRUD operations\n  thread               thread CRUD operations\n  reminder             reminder CRUD operations\n  image                image CRUD operations\n  list-item            listItem CRUD operations\n  company-link         companyLink CRUD operations\n  contact-link         contactLink CRUD operations\n  event-link           eventLink CRUD operations\n  venue-link           venueLink CRUD operations\n  agent-spawn          agentSpawn CRUD operations\n  habit                habit CRUD operations\n  workflow             workflow CRUD operations\n  expense              expense CRUD operations\n  billing-subscription billingSubscription CRUD operations\n  idea                 idea CRUD operations\n  list                 list CRUD operations\n  repository           repository CRUD operations\n  deal                 deal CRUD operations\n  goal                 goal CRUD operations\n  note                 note CRUD operations\n  prompt               prompt CRUD operations\n  blueprint            blueprint CRUD operations\n  template             template CRUD operations\n  tool                 tool CRUD operations\n  recipe               recipe CRUD operations\n  trip                 trip CRUD operations\n  memory               memory CRUD operations\n  rule                 rule CRUD operations\n  task                 task CRUD operations\n  agent                agent CRUD operations\n  skill                skill CRUD operations\n  project              project CRUD operations\n  document             document CRUD operations\n  company              company CRUD operations\n  event                event CRUD operations\n  contact              contact CRUD operations\n  venue                venue CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
 export const commands = async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -100,7 +205,7 @@ export const commands = async (
         options: Object.keys(commandMap),
       },
     ]);
-    command = answer.command;
+    command = answer.command as string;
   }
   const commandFn = commandMap[command];
   if (!commandFn) {

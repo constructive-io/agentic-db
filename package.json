@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/pyramation-studio/agentic-db"
+    "url": "https://github.com/pyramation-studio/agent-os"
   },
   "license": "MIT",
   "publishConfig": {
@@ -19,7 +19,7 @@
     "deps": "pnpm up -r -i -L"
   },
   "devDependencies": {
-    "@constructive-io/graphql-codegen": "4.14.3",
+    "@constructive-io/graphql-codegen": "4.14.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.3",
     "@typescript-eslint/eslint-plugin": "^8.50.1",

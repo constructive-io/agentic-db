@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { NodeHttpAdapter } from '@constructive-io/node';
 import { config } from './config';
-import { createClient } from '@agentic-sdk/sdk';
+import { createClient } from '@agentic-db/sdk';
 
 // Load root .env
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });

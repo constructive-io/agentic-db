@@ -6,17 +6,27 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateChatMessageInput, ChatMessagePatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
+  chatId: 'uuid',
+  threadId: 'uuid',
   role: 'string',
   content: 'string',
   toolCalls: 'json',
+  embeddingText: 'string',
   embedding: 'string',
-  chatId: 'uuid',
-  embeddingDistance: 'float',
+  contentBm25Score: 'float',
+  embeddingTextBm25Score: 'float',
+  roleTrgmSimilarity: 'float',
+  contentTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nchat-message <command>\n\nCommands:\n  list                  List all chatMessage records\n  get                   Get a chatMessage by ID\n  create                Create a new chatMessage\n  update                Update an existing chatMessage\n  delete                Delete a chatMessage\n\n  --help, -h            Show this help message\n';
@@ -39,7 +49,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -74,12 +84,20 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          chatId: true,
+          threadId: true,
           role: true,
           content: true,
           toolCalls: true,
+          embeddingText: true,
           embedding: true,
-          chatId: true,
-          embeddingDistance: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          roleTrgmSimilarity: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -105,18 +123,26 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.chatMessage
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          chatId: true,
+          threadId: true,
           role: true,
           content: true,
           toolCalls: true,
+          embeddingText: true,
           embedding: true,
-          chatId: true,
-          embeddingDistance: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          roleTrgmSimilarity: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -140,66 +166,91 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'chatId',
+        message: 'chatId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'threadId',
+        message: 'threadId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'role',
         message: 'role',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'content',
         message: 'content',
         required: false,
+        skipPrompt: true,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'toolCalls',
         message: 'toolCalls',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'chatId',
-        message: 'chatId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(
+      answers,
+      fieldSchema
+    ) as CreateChatMessageInput['chatMessage'];
     const client = getClient();
     const result = await client.chatMessage
       .create({
         data: {
           entityId: cleanedData.entityId,
+          chatId: cleanedData.chatId,
+          threadId: cleanedData.threadId,
           role: cleanedData.role,
           content: cleanedData.content,
           toolCalls: cleanedData.toolCalls,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          chatId: cleanedData.chatId,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          chatId: true,
+          threadId: true,
           role: true,
           content: true,
           toolCalls: true,
+          embeddingText: true,
           embedding: true,
-          chatId: true,
-          embeddingDistance: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          roleTrgmSimilarity: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -229,43 +280,56 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'chatId',
+        message: 'chatId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'threadId',
+        message: 'threadId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'role',
         message: 'role',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'content',
         message: 'content',
         required: false,
+        skipPrompt: true,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'toolCalls',
         message: 'toolCalls',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'chatId',
-        message: 'chatId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as ChatMessagePatch;
     const client = getClient();
     const result = await client.chatMessage
       .update({
@@ -274,24 +338,33 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           entityId: cleanedData.entityId,
+          chatId: cleanedData.chatId,
+          threadId: cleanedData.threadId,
           role: cleanedData.role,
           content: cleanedData.content,
           toolCalls: cleanedData.toolCalls,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          chatId: cleanedData.chatId,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          chatId: true,
+          threadId: true,
           role: true,
           content: true,
           toolCalls: true,
+          embeddingText: true,
           embedding: true,
-          chatId: true,
-          embeddingDistance: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          roleTrgmSimilarity: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

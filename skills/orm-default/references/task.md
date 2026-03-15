@@ -9,7 +9,7 @@ ORM operations for Task records
 ```typescript
 db.task.findMany({ select: { id: true } }).execute()
 db.task.findOne({ id: '<value>', select: { id: true } }).execute()
-db.task.create({ data: { entityId: '<value>', title: '<value>', description: '<value>', status: '<value>', priority: '<value>', tags: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.task.create({ data: { entityId: '<value>', title: '<value>', description: '<value>', status: '<value>', priority: '<value>', projectId: '<value>', taskType: '<value>', assignedAgentId: '<value>', parentTaskId: '<value>', dueDate: '<value>', completedAt: '<value>', conversationId: '<value>', dependencies: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingTextBm25Score: '<value>', titleTrgmSimilarity: '<value>', descriptionTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', taskTypeTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.task.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.task.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.task.findMany({
 
 ```typescript
 const item = await db.task.create({
-  data: { entityId: 'value', title: 'value', description: 'value', status: 'value', priority: 'value', tags: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', title: 'value', description: 'value', status: 'value', priority: 'value', projectId: 'value', taskType: 'value', assignedAgentId: 'value', parentTaskId: 'value', dueDate: 'value', completedAt: 'value', conversationId: 'value', dependencies: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', embeddingTextBm25Score: 'value', titleTrgmSimilarity: 'value', descriptionTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', taskTypeTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

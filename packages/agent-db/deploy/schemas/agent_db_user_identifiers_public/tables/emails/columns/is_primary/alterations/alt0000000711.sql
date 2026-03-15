@@ -1,0 +1,12 @@
+-- Deploy: schemas/agent_db_user_identifiers_public/tables/emails/columns/is_primary/alterations/alt0000000711
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agent_db_user_identifiers_public/schema
+-- requires: schemas/agent_db_user_identifiers_public/tables/emails/table
+-- requires: schemas/agent_db_user_identifiers_public/tables/emails/columns/is_primary/column
+
+
+
+ALTER TABLE agent_db_user_identifiers_public.emails 
+    ALTER COLUMN is_primary SET DEFAULT false;
+

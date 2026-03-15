@@ -9,7 +9,7 @@ ORM operations for Image records
 ```typescript
 db.image.findMany({ select: { id: true } }).execute()
 db.image.findOne({ id: '<value>', select: { id: true } }).execute()
-db.image.create({ data: { entityId: '<value>', url: '<value>', meta: '<value>', altText: '<value>', caption: '<value>', embedding: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.image.create({ data: { entityId: '<value>', url: '<value>', meta: '<value>', altText: '<value>', caption: '<value>', embedding: '<value>', urlTrgmSimilarity: '<value>', altTextTrgmSimilarity: '<value>', captionTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.image.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.image.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.image.findMany({
 
 ```typescript
 const item = await db.image.create({
-  data: { entityId: 'value', url: 'value', meta: 'value', altText: 'value', caption: 'value', embedding: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', url: 'value', meta: 'value', altText: 'value', caption: 'value', embedding: 'value', urlTrgmSimilarity: 'value', altTextTrgmSimilarity: 'value', captionTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

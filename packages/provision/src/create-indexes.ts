@@ -1,355 +1,639 @@
 /**
- * create-indexes.ts — Apply comprehensive indexing strategy via Constructive SDK
- * 
- * Strategy:
- * - GIN: All `tags` columns (citext[])
- * - HNSW: All `embedding` columns (vector)
- * - BM25: Content-heavy text fields (notes, tasks, etc.)
- * - Trigram: Name/Title fields (typo tolerance, autocomplete)
- * - TSVector: Multi-field weighted search (e.g. contacts)
- * - B-Tree: Standard lookups (FKs, status, dates)
+ * create-indexes.ts — Comprehensive indexing strategy
+ *
+ * Index types:
+ *   HNSW   — pgvector semantic similarity (m=16, ef_construction=128)
+ *   BM25   — ParadeDB keyword search on embedding_text + content fields
+ *   GIN    — tags (citext[]) and tsvector columns
+ *   Trigram — fuzzy name/title matching (pg_trgm)
+ *   B-Tree — FKs, status, dates, lookups
+ *   GIST   — PostGIS geography(Point,4326) spatial proximity
+ *
+ * TSVector configuration for 6 entities:
+ *   contacts, companies, events, venues, projects, documents
  */
 
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+import {
+  createPlatformClient,
+  requireDatabaseId,
+  withRetry,
+} from './helpers';
 
-import { createClient } from './sdk/platform/orm/index';
-import { NodeHttpAdapter } from './sdk/node-http-adapter';
-import { withRetry } from './helpers';
+const databaseId = requireDatabaseId();
+const client = createPlatformClient();
 
-const databaseId = process.env.DATABASE_ID;
-const accessToken = process.env.ACCESS_TOKEN;
+// ---------------------------------------------------------------------------
+// Index definitions (declarative — resolved to IDs at runtime)
+// ---------------------------------------------------------------------------
 
-if (!databaseId || !accessToken) {
-  console.error('❌ Missing DATABASE_ID or ACCESS_TOKEN in .env');
-  process.exit(1);
+interface IndexDef {
+  table: string;
+  column: string;
+  method: string;
+  opclass?: string;
+  options?: Record<string, unknown>;
 }
 
-const PLATFORM_ENDPOINT = 'http://[::1]:3000/graphql';
-const PLATFORM_HOST = 'api.localhost';
+// HNSW indexes on embedding columns (vector cosine similarity)
+const HNSW_INDEXES: IndexDef[] = [
+  'contacts', 'companies', 'deals', 'events', 'venues', 'notes',
+  'interactions',
+  'tasks', 'rules', 'memories', 'skills', 'goals',
+  'prompts',
+  'agents', 'sessions', 'chats', 'chat_messages', 'threads', 'blueprints',
+  'tools',
+  'projects',
+  'repositories', 'chunks',
+  'messages', 'calendar_events', 'documents',
+  'trips',
+  'ideas', 'reminders', 'lists',
+  'recipes', 'templates',
+  'session_archives',
+].map((table) => ({
+  table,
+  column: 'embedding',
+  method: 'hnsw',
+  opclass: 'vector_cosine_ops',
+  options: { m: 16, ef_construction: 128 },
+}));
 
-const adapter = new NodeHttpAdapter(PLATFORM_ENDPOINT, {
-  Host: PLATFORM_HOST,
-  Authorization: `Bearer ${accessToken}`,
-});
-const client = createClient({ adapter });
+// Extra HNSW indexes on secondary vector columns
+const HNSW_EXTRA: IndexDef[] = [
+  { table: 'rules', column: 'trigger_concept', method: 'hnsw', opclass: 'vector_cosine_ops', options: { m: 16, ef_construction: 128 } },
+  { table: 'skills', column: 'intent_trigger', method: 'hnsw', opclass: 'vector_cosine_ops', options: { m: 16, ef_construction: 128 } },
+];
 
-// --- Configuration ---
+// BM25 indexes on embedding_text (keyword search for hybrid RAG)
+const BM25_INDEXES: IndexDef[] = [
+  'contacts', 'companies', 'deals', 'events', 'venues', 'notes',
+  'interactions',
+  'tasks', 'rules', 'memories', 'skills', 'goals',
+  'prompts',
+  'agents', 'sessions', 'chats', 'chat_messages', 'threads', 'blueprints',
+  'tools',
+  'projects',
+  'repositories', 'chunks',
+  'messages', 'calendar_events', 'documents',
+  'trips',
+  'ideas', 'reminders', 'lists',
+  'recipes', 'templates',
+  'session_archives',
+].map((table) => ({
+  table,
+  column: 'embedding_text',
+  method: 'bm25',
+  options: { text_config: 'english' },
+}));
 
-interface IndexConfig {
-  gin?: string[];      // GIN on scalar/array (e.g. tags)
-  bm25?: string[];     // BM25 on text
-  trigram?: string[];  // GIN Trigram on text
-  btree?: string[];    // Standard B-Tree
-  hnsw?: string[];     // HNSW on vector
-  // TSVector is special, handled separately
-}
+// Extra BM25 on long-form content fields
+const BM25_EXTRA: IndexDef[] = [
+  { table: 'notes', column: 'content', method: 'bm25', options: { text_config: 'english' } },
+  { table: 'messages', column: 'body_text', method: 'bm25', options: { text_config: 'english' } },
+  { table: 'documents', column: 'content', method: 'bm25', options: { text_config: 'english' } },
+  { table: 'chat_messages', column: 'content', method: 'bm25', options: { text_config: 'english' } },
+  { table: 'prompts', column: 'content', method: 'bm25', options: { text_config: 'english' } },
+  // activity_log has no description field — skip
+];
 
-const INDEX_MAP: Record<string, IndexConfig> = {
+// GIN indexes on tags (citext[]) columns
+const GIN_TAG_INDEXES: IndexDef[] = [
+  'contacts', 'companies', 'deals', 'events', 'venues', 'notes',
+  'interactions',
+  'tasks', 'rules', 'memories', 'skills', 'goals',
+  'prompts',
+  'blueprints',
+  'tools',
+  'projects',
+  'repositories',
+  'messages', 'calendar_events', 'expenses', 'documents',
+  'billing_subscriptions', 'trips',
+  'ideas', 'habits', 'habit_logs', 'lists',
+  'recipes', 'templates',
+].map((table) => ({
+  table,
+  column: 'tags',
+  method: 'gin',
+}));
+
+// GIN indexes on JSONB columns (containment queries)
+const GIN_JSONB_INDEXES: IndexDef[] = [
+  { table: 'habit_logs', column: 'data', method: 'gin' },
+  { table: 'tools', column: 'input_schema', method: 'gin' },
+  { table: 'workflow_steps', column: 'action_config', method: 'gin' },
+  { table: 'recipes', column: 'ingredients', method: 'gin' },
+  { table: 'user_settings', column: 'value', method: 'gin' },
+  { table: 'integrations', column: 'config', method: 'gin' },
+  { table: 'skill_executions', column: 'input', method: 'gin' },
+  { table: 'skill_executions', column: 'output', method: 'gin' },
+];
+
+// GIN indexes on tsvector columns
+const GIN_TSV_INDEXES: IndexDef[] = [
+  'contacts', 'companies', 'events', 'venues', 'projects', 'documents',
+].map((table) => ({
+  table,
+  column: 'search_tsv',
+  method: 'gin',
+}));
+
+// Trigram indexes on name/title fields (fuzzy matching)
+const TRGM_INDEXES: IndexDef[] = [
+  { table: 'contacts', column: 'first_name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'contacts', column: 'last_name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'companies', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'events', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'venues', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'projects', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'tasks', column: 'title', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'skills', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'goals', column: 'title', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'blueprints', column: 'title', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'calendar_events', column: 'title', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'documents', column: 'title', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'lists', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'agents', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'repositories', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'tools', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'recipes', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'templates', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'trips', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'billing_subscriptions', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'integrations', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'workflows', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'ideas', column: 'content', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'reminders', column: 'title', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'habits', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+  { table: 'prompts', column: 'name', method: 'gin', opclass: 'gin_trgm_ops' },
+];
+
+// B-Tree indexes on FKs, status, dates, lookups
+const BTREE_INDEXES: IndexDef[] = [
   // CRM
-  contacts: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    trigram: ['first_name', 'last_name'], // For typo-tolerant name search
-    btree: ['email'] 
-  },
-  companies: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    bm25: ['description'], 
-    trigram: ['name'],
-    btree: ['domain'] 
-  },
-  events: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    bm25: ['notes'], 
-    trigram: ['name'],
-    btree: ['started_at', 'event_type'] 
-  },
-  venues: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    bm25: ['notes'], 
-    trigram: ['name'],
-    btree: ['city'] 
-  },
-  notes: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    bm25: ['content']
-  },
-  messages: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    bm25: ['body_text'], 
-    btree: ['sent_at', 'thread_id', 'email_account_id'] 
-  },
-  expenses: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    bm25: ['description', 'merchant'], 
-    btree: ['date', 'category'] 
-  },
-  
+  { table: 'contacts', column: 'email', method: 'btree' },
+  { table: 'contacts', column: 'relationship_type', method: 'btree' },
+  { table: 'companies', column: 'domain', method: 'btree' },
+  { table: 'deals', column: 'stage', method: 'btree' },
+  { table: 'deals', column: 'expected_close_date', method: 'btree' },
+  { table: 'events', column: 'started_at', method: 'btree' },
+  { table: 'events', column: 'event_type', method: 'btree' },
+  { table: 'venues', column: 'city', method: 'btree' },
+  { table: 'venues', column: 'category', method: 'btree' },
+  { table: 'notes', column: 'notable_type', method: 'btree' },
+  { table: 'interactions', column: 'contact_id', method: 'btree' },
+  { table: 'interactions', column: 'type', method: 'btree' },
+  { table: 'interactions', column: 'occurred_at', method: 'btree' },
   // Agent
-  tasks: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    bm25: ['description'], 
-    btree: ['status', 'priority'] 
-  },
-  rules: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    bm25: ['content'], 
-    btree: ['kind', 'is_active'] 
-  },
-  skills: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    bm25: ['content', 'description'], 
-    trigram: ['name']
-  },
-  memories: { 
-    gin: ['tags'], 
-    hnsw: ['embedding'],
-    bm25: ['content'] 
-  },
-  
-  // Codebase
-  repositories: { 
-    hnsw: ['embedding'],
-    bm25: ['description'], 
-    trigram: ['name'] 
-  },
-  files: { 
-    btree: ['path'] 
-  },
-  chunks: { 
-    hnsw: ['embedding'],
-    bm25: ['content']
-  },
-  
+  { table: 'tasks', column: 'status', method: 'btree' },
+  { table: 'tasks', column: 'priority', method: 'btree' },
+  { table: 'tasks', column: 'project_id', method: 'btree' },
+  { table: 'tasks', column: 'assigned_agent_id', method: 'btree' },
+  { table: 'tasks', column: 'due_date', method: 'btree' },
+  { table: 'rules', column: 'kind', method: 'btree' },
+  { table: 'rules', column: 'is_active', method: 'btree' },
+  { table: 'memories', column: 'importance', method: 'btree' },
+  { table: 'memories', column: 'verified', method: 'btree' },
+  { table: 'skills', column: 'is_active', method: 'btree' },
+  { table: 'goals', column: 'status', method: 'btree' },
+  { table: 'goals', column: 'category', method: 'btree' },
+  { table: 'goals', column: 'target_date', method: 'btree' },
   // Runtime
-  sessions: { 
-    hnsw: ['embedding'],
-    bm25: ['context_summary'], 
-    btree: ['status', 'started_at'] 
+  { table: 'agents', column: 'status', method: 'btree' },
+  { table: 'sessions', column: 'status', method: 'btree' },
+  { table: 'sessions', column: 'started_at', method: 'btree' },
+  { table: 'sessions', column: 'agent_id', method: 'btree' },
+  { table: 'execution_log', column: 'session_id', method: 'btree' },
+  { table: 'chats', column: 'started_at', method: 'btree' },
+  { table: 'chat_messages', column: 'chat_id', method: 'btree' },
+  { table: 'chat_messages', column: 'thread_id', method: 'btree' },
+  { table: 'chat_messages', column: 'role', method: 'btree' },
+  { table: 'threads', column: 'status', method: 'btree' },
+  { table: 'threads', column: 'parent_thread_id', method: 'btree' },
+  { table: 'processes', column: 'agent_id', method: 'btree' },
+  { table: 'processes', column: 'status', method: 'btree' },
+  { table: 'scheduled_jobs', column: 'is_active', method: 'btree' },
+  { table: 'scheduled_jobs', column: 'next_run_at', method: 'btree' },
+  { table: 'scheduled_jobs', column: 'schedule_type', method: 'btree' },
+  { table: 'scheduled_jobs', column: 'agent_id', method: 'btree' },
+  // New OpenViking-inspired tables
+  { table: 'memories', column: 'memory_category', method: 'btree' },
+  { table: 'memories', column: 'active_count', method: 'btree' },
+  { table: 'memories', column: 'last_accessed_at', method: 'btree' },
+  { table: 'skills', column: 'active_count', method: 'btree' },
+  { table: 'skills', column: 'last_accessed_at', method: 'btree' },
+  { table: 'notes', column: 'active_count', method: 'btree' },
+  { table: 'notes', column: 'last_accessed_at', method: 'btree' },
+  { table: 'documents', column: 'active_count', method: 'btree' },
+  { table: 'documents', column: 'last_accessed_at', method: 'btree' },
+  { table: 'agent_spawns', column: 'parent_agent_id', method: 'btree' },
+  { table: 'agent_spawns', column: 'status', method: 'btree' },
+  { table: 'context_relations', column: 'from_type', method: 'btree' },
+  { table: 'context_relations', column: 'from_id', method: 'btree' },
+  { table: 'context_relations', column: 'to_type', method: 'btree' },
+  { table: 'context_relations', column: 'to_id', method: 'btree' },
+  { table: 'session_archives', column: 'session_id', method: 'btree' },
+  { table: 'sessions', column: 'archived_at', method: 'btree' },
+  { table: 'sessions', column: 'compression_count', method: 'btree' },
+  // Projects
+  { table: 'projects', column: 'status', method: 'btree' },
+  { table: 'projects', column: 'start_date', method: 'btree' },
+  { table: 'projects', column: 'due_date', method: 'btree' },
+  { table: 'milestones', column: 'project_id', method: 'btree' },
+  { table: 'milestones', column: 'due_date', method: 'btree' },
+  { table: 'milestones', column: 'status', method: 'btree' },
+  // Codebase
+  { table: 'files', column: 'repository_id', method: 'btree' },
+  { table: 'files', column: 'path', method: 'btree' },
+  { table: 'files', column: 'language', method: 'btree' },
+  { table: 'chunks', column: 'file_id', method: 'btree' },
+  { table: 'chunks', column: 'repository_id', method: 'btree' },
+  // Life OS
+  { table: 'email_accounts', column: 'email', method: 'btree' },
+  { table: 'messages', column: 'received_at', method: 'btree' },
+  { table: 'messages', column: 'thread_id', method: 'btree' },
+  { table: 'messages', column: 'email_account_id', method: 'btree' },
+  { table: 'calendar_accounts', column: 'email', method: 'btree' },
+  { table: 'calendar_events', column: 'start_at', method: 'btree' },
+  { table: 'calendar_events', column: 'end_at', method: 'btree' },
+  { table: 'calendar_events', column: 'calendar_account_id', method: 'btree' },
+  { table: 'calendar_events', column: 'status', method: 'btree' },
+  { table: 'expenses', column: 'date', method: 'btree' },
+  { table: 'expenses', column: 'category', method: 'btree' },
+  { table: 'expenses', column: 'merchant', method: 'btree' },
+  { table: 'documents', column: 'source_type', method: 'btree' },
+  { table: 'documents', column: 'is_read', method: 'btree' },
+  { table: 'repositories', column: 'last_synced_at', method: 'btree' },
+  // Autonomy
+  { table: 'ideas', column: 'status', method: 'btree' },
+  { table: 'ideas', column: 'source', method: 'btree' },
+  { table: 'reminders', column: 'due_at', method: 'btree' },
+  { table: 'reminders', column: 'status', method: 'btree' },
+  { table: 'habits', column: 'frequency', method: 'btree' },
+  { table: 'habits', column: 'category', method: 'btree' },
+  { table: 'habit_logs', column: 'habit_id', method: 'btree' },
+  { table: 'habit_logs', column: 'completed_at', method: 'btree' },
+  { table: 'habit_logs', column: 'activity_type', method: 'btree' },
+  { table: 'habit_logs', column: 'duration_minutes', method: 'btree' },
+  { table: 'habit_logs', column: 'distance', method: 'btree' },
+  { table: 'habit_logs', column: 'calories', method: 'btree' },
+  { table: 'list_items', column: 'list_id', method: 'btree' },
+  { table: 'list_items', column: 'position', method: 'btree' },
+  { table: 'notifications', column: 'type', method: 'btree' },
+  { table: 'notifications', column: 'priority', method: 'btree' },
+  { table: 'notifications', column: 'read_at', method: 'btree' },
+  { table: 'recipes', column: 'cuisine', method: 'btree' },
+  { table: 'recipes', column: 'difficulty', method: 'btree' },
+  { table: 'templates', column: 'type', method: 'btree' },
+  { table: 'templates', column: 'is_active', method: 'btree' },
+  // Runtime — tools, MCP, workflows, activity_log
+  { table: 'tools', column: 'type', method: 'btree' },
+  { table: 'tools', column: 'is_active', method: 'btree' },
+  { table: 'workflows', column: 'is_active', method: 'btree' },
+  { table: 'workflow_steps', column: 'workflow_id', method: 'btree' },
+  { table: 'workflow_steps', column: 'step_order', method: 'btree' },
+  { table: 'workflow_runs', column: 'workflow_id', method: 'btree' },
+  { table: 'workflow_runs', column: 'status', method: 'btree' },
+  { table: 'workflow_runs', column: 'started_at', method: 'btree' },
+  { table: 'activity_log', column: 'target_type', method: 'btree' },
+  { table: 'activity_log', column: 'target_id', method: 'btree' },
+  { table: 'activity_log', column: 'action', method: 'btree' },
+  // activity_log uses created_at from DataTimestamps (auto-managed)
+  { table: 'agent_tools', column: 'agent_id', method: 'btree' },
+  { table: 'agent_tools', column: 'tool_id', method: 'btree' },
+  { table: 'agent_skills', column: 'agent_id', method: 'btree' },
+  { table: 'agent_skills', column: 'skill_id', method: 'btree' },
+  { table: 'agent_rules', column: 'agent_id', method: 'btree' },
+  { table: 'agent_rules', column: 'rule_id', method: 'btree' },
+  { table: 'agent_prompts', column: 'agent_id', method: 'btree' },
+  { table: 'agent_prompts', column: 'prompt_id', method: 'btree' },
+  // Skill executions
+  { table: 'skill_executions', column: 'skill_id', method: 'btree' },
+  { table: 'skill_executions', column: 'agent_id', method: 'btree' },
+  { table: 'skill_executions', column: 'session_id', method: 'btree' },
+  { table: 'skill_executions', column: 'status', method: 'btree' },
+  { table: 'skill_executions', column: 'started_at', method: 'btree' },
+  // Agent soul/state
+  { table: 'agents', column: 'preferred_model', method: 'btree' },
+  { table: 'agents', column: 'last_active_at', method: 'btree' },
+  // Memory enhancements
+  { table: 'memories', column: 'memory_type', method: 'btree' },
+  { table: 'memories', column: 'agent_id', method: 'btree' },
+  { table: 'memories', column: 'related_entity_type', method: 'btree' },
+  { table: 'memories', column: 'related_entity_id', method: 'btree' },
+  // Skills
+  { table: 'skills', column: 'category', method: 'btree' },
+  // Agent — prompts, feedback
+  { table: 'prompts', column: 'type', method: 'btree' },
+  { table: 'prompts', column: 'is_active', method: 'btree' },
+  { table: 'feedback', column: 'target_type', method: 'btree' },
+  { table: 'feedback', column: 'target_id', method: 'btree' },
+  { table: 'feedback', column: 'rating', method: 'btree' },
+  // CRM — social / attachments
+  { table: 'contacts', column: 'twitter_handle', method: 'btree' },
+  { table: 'contacts', column: 'github_username', method: 'btree' },
+  { table: 'tags', column: 'name', method: 'btree' },
+  { table: 'tags', column: 'category', method: 'btree' },
+  { table: 'attachments', column: 'attachable_type', method: 'btree' },
+  { table: 'attachments', column: 'attachable_id', method: 'btree' },
+  // Life OS — integrations, webhooks, subscriptions, trips
+  { table: 'integrations', column: 'provider', method: 'btree' },
+  { table: 'integrations', column: 'status', method: 'btree' },
+  { table: 'webhooks', column: 'integration_id', method: 'btree' },
+  { table: 'webhooks', column: 'event_type', method: 'btree' },
+  { table: 'user_settings', column: 'key', method: 'btree' },
+  { table: 'user_settings', column: 'category', method: 'btree' },
+  { table: 'billing_subscriptions', column: 'status', method: 'btree' },
+  { table: 'billing_subscriptions', column: 'next_billing_date', method: 'btree' },
+  { table: 'trips', column: 'start_date', method: 'btree' },
+  { table: 'trips', column: 'end_date', method: 'btree' },
+  { table: 'trips', column: 'status', method: 'btree' },
+  // Codebase — repos->chunks direct
+  { table: 'venues', column: 'is_favorite', method: 'btree' },
+  { table: 'venues', column: 'google_place_id', method: 'btree' },
+  // Tasks
+  { table: 'tasks', column: 'task_type', method: 'btree' },
+];
+
+// GIST indexes on geography columns (spatial proximity queries)
+const GIST_GEO_INDEXES: IndexDef[] = [
+  { table: 'venues', column: 'location', method: 'gist' },
+  { table: 'contacts', column: 'location_geo', method: 'gist' },
+  { table: 'calendar_events', column: 'location_geo', method: 'gist' },
+  { table: 'trips', column: 'destination_geo', method: 'gist' },
+];
+
+// Combine all indexes
+const ALL_INDEXES: IndexDef[] = [
+  ...HNSW_INDEXES,
+  ...HNSW_EXTRA,
+  ...BM25_INDEXES,
+  ...BM25_EXTRA,
+  ...GIN_TAG_INDEXES,
+  ...GIN_JSONB_INDEXES,
+  ...GIN_TSV_INDEXES,
+  ...TRGM_INDEXES,
+  ...BTREE_INDEXES,
+  ...GIST_GEO_INDEXES,
+];
+
+// ---------------------------------------------------------------------------
+// TSVector configuration (weighted multi-field search)
+// ---------------------------------------------------------------------------
+
+interface TsvConfig {
+  table: string;
+  tsvColumn: string;
+  sources: { field: string; weight: 'A' | 'B' | 'C' | 'D' }[];
+}
+
+const TSV_CONFIGS: TsvConfig[] = [
+  {
+    table: 'contacts',
+    tsvColumn: 'search_tsv',
+    sources: [
+      { field: 'first_name', weight: 'A' },
+      { field: 'last_name', weight: 'A' },
+      { field: 'headline', weight: 'B' },
+      { field: 'bio', weight: 'C' },
+    ],
   },
-  blueprints: { 
-    hnsw: ['embedding'],
-    bm25: ['trigger_conditions'], 
-    trigram: ['title'] 
+  {
+    table: 'companies',
+    tsvColumn: 'search_tsv',
+    sources: [
+      { field: 'name', weight: 'A' },
+      { field: 'description', weight: 'B' },
+      { field: 'industry', weight: 'C' },
+    ],
   },
-  chat_messages: { 
-    hnsw: ['embedding'],
-    bm25: ['content'], 
-    btree: ['role'] 
+  {
+    table: 'events',
+    tsvColumn: 'search_tsv',
+    sources: [
+      { field: 'name', weight: 'A' },
+      { field: 'notes', weight: 'B' },
+      { field: 'location', weight: 'C' },
+    ],
+  },
+  {
+    table: 'venues',
+    tsvColumn: 'search_tsv',
+    sources: [
+      { field: 'name', weight: 'A' },
+      { field: 'notes', weight: 'B' },
+      { field: 'neighborhood', weight: 'C' },
+    ],
+  },
+  {
+    table: 'projects',
+    tsvColumn: 'search_tsv',
+    sources: [
+      { field: 'name', weight: 'A' },
+      { field: 'description', weight: 'B' },
+    ],
+  },
+  {
+    table: 'documents',
+    tsvColumn: 'search_tsv',
+    sources: [
+      { field: 'title', weight: 'A' },
+      { field: 'content', weight: 'B' },
+    ],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Helpers — resolve table/field names to UUIDs
+// ---------------------------------------------------------------------------
+
+type TableMap = Map<string, string>; // tableName -> tableId
+type FieldMap = Map<string, Map<string, string>>; // tableName -> (fieldName -> fieldId)
+
+async function fetchAllTables(): Promise<TableMap> {
+  const map: TableMap = new Map();
+  // Fetch all tables (no filter param — filter client-side by databaseId)
+  const result = await withRetry(() =>
+    client.table
+      .findMany({
+        first: 500,
+        select: { id: true, name: true, databaseId: true },
+      })
+      .unwrap()
+  );
+  const nodes = (result as any)?.tables?.nodes ?? [];
+  for (const n of nodes) {
+    if (n.name && n.id && n.databaseId === databaseId) {
+      map.set(n.name, n.id);
+    }
   }
-};
+  return map;
+}
+
+async function buildFieldMap(tables: TableMap): Promise<FieldMap> {
+  const fieldMap: FieldMap = new Map();
+  // Build reverse lookup: tableId -> tableName
+  const idToName = new Map<string, string>();
+  for (const [name, id] of tables) {
+    idToName.set(id, name);
+    fieldMap.set(name, new Map());
+  }
+  // Fetch ALL fields in one call, then group client-side
+  let offset = 0;
+  const pageSize = 500;
+  let hasMore = true;
+  while (hasMore) {
+    const result = await withRetry(() =>
+      client.field
+        .findMany({
+          first: pageSize,
+          offset,
+          select: { id: true, name: true, tableId: true },
+        })
+        .unwrap()
+    );
+    const nodes = (result as any)?.fields?.nodes ?? [];
+    for (const n of nodes) {
+      if (!n.name || !n.id || !n.tableId) continue;
+      const tableName = idToName.get(n.tableId);
+      if (tableName) {
+        fieldMap.get(tableName)!.set(n.name, n.id);
+      }
+    }
+    hasMore = nodes.length === pageSize;
+    offset += pageSize;
+  }
+  return fieldMap;
+}
+
+// ---------------------------------------------------------------------------
+// Main
+// ---------------------------------------------------------------------------
 
 async function main() {
-  console.log('\n🔍 Applying Comprehensive Indexes (SDK)...\n');
-  console.log(`   Database: ${process.env.DATABASE_NAME}`);
-  console.log(`   ID: ${databaseId}`);
+  console.log('\n\ud83d\uddc2\ufe0f  Creating Indexes\n');
+  console.log(`   Total indexes to create: ${ALL_INDEXES.length}`);
 
-  // 1. Fetch Tables
-  const tables = await fetchTables();
-  console.log(`   Found ${tables.size} tables.`);
+  // Step 1: Resolve all table/field names to IDs
+  console.log('\n   Resolving table and field IDs...');
+  const tables = await fetchAllTables();
+  const fields = await buildFieldMap(tables);
+  console.log(`   Found ${tables.size} tables\n`);
 
-  // 2. Iterate Config
-  for (const [tableName, config] of Object.entries(INDEX_MAP)) {
-    const tableId = tables.get(tableName);
+  let created = 0;
+  let skipped = 0;
+  let errors = 0;
+
+  // Step 2: Create all indexes
+  for (const idx of ALL_INDEXES) {
+    const indexName = `idx_${idx.table}_${idx.column}_${idx.method}`;
+    const tableId = tables.get(idx.table);
     if (!tableId) {
-      console.log(`   ⚠️ Table '${tableName}' not found (skipping)`);
+      console.log(`   \u26a0 ${indexName}: table '${idx.table}' not found, skipping`);
+      skipped++;
       continue;
     }
-    
-    console.log(`\n   ${tableName}...`);
-    
-    // Fetch Fields
-    const fields = await fetchFields(tableId);
-    
-    // Apply Indexes
-    await applyIndexes(tableId, tableName, config, fields);
-  }
+    const tableFields = fields.get(idx.table);
+    const fieldId = tableFields?.get(idx.column);
+    if (!fieldId) {
+      console.log(`   \u26a0 ${indexName}: field '${idx.column}' not found on '${idx.table}', skipping`);
+      skipped++;
+      continue;
+    }
 
-  // 3. Special Case: TSVector for Contacts (Weighted Multi-Field)
-  const contactsId = tables.get('contacts');
-  if (contactsId) {
-    console.log('\n   contacts (TSVector setup)...');
-    await setupContactsTsVector(contactsId);
-  }
-
-  console.log('\n✅ Indexing Complete!');
-}
-
-// --- Helpers ---
-
-async function fetchTables() {
-  const result = await client.secureTableProvision.findMany({
-    where: { databaseId: { equalTo: databaseId } },
-    select: { tableId: true, tableName: true }
-  }).execute();
-  
-  if (!result.ok) throw new Error('Failed to list tables: ' + JSON.stringify(result.errors));
-  
-  const map = new Map<string, string>();
-  result.data.secureTableProvisions.nodes.forEach(t => {
-    if (t.tableName && t.tableId) map.set(t.tableName, t.tableId);
-  });
-  return map;
-}
-
-async function fetchFields(tableId: string) {
-  const result = await client.field.findMany({
-    where: { tableId: { equalTo: tableId } },
-    select: { id: true, name: true }
-  }).execute();
-  
-  if (!result.ok) throw new Error('Failed to list fields: ' + JSON.stringify(result.errors));
-  
-  const map = new Map<string, string>();
-  result.data.fields.nodes.forEach(f => {
-    map.set(f.name, f.id);
-  });
-  return map;
-}
-
-async function createIndex(tableId: string, name: string, fieldIds: string[], method: string, opts: any = {}) {
-  process.stdout.write(`      + ${name} (${method})... `);
-  try {
-    const result = await withRetry(() => client.index.create({
-      data: {
-        databaseId: databaseId!,
-        tableId,
-        name,
-        fieldIds,
-        accessMethod: method,
-        ...opts
-      },
-      select: { id: true }
-    }).unwrap());
-    console.log('✅');
-  } catch (e: any) {
-    if (e.message?.includes("duplicate") || e.message?.includes("exists") || e.message?.includes("already exists") || (e.errors && e.errors[0]?.message.includes("already exists"))) {
-      console.log('✅ (exists)');
-    } else {
-      console.log(`❌ ${e.message}`);
+    try {
+      await withRetry(() =>
+        client.index
+          .create({
+            data: {
+              databaseId,
+              tableId,
+              name: indexName,
+              fieldIds: [fieldId],
+              accessMethod: idx.method,
+              ...(idx.opclass ? { opClasses: [idx.opclass] } : {}),
+              ...(idx.options ? { options: idx.options } : {}),
+            },
+            select: { id: true },
+          })
+          .unwrap()
+      );
+      created++;
+      console.log(`   \u2713 ${indexName}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes('already exists') || msg.includes('exists')) {
+        skipped++;
+        console.log(`   \u2022 ${indexName} (exists)`);
+      } else {
+        errors++;
+        console.error(`   \u2717 ${indexName}: ${msg.slice(0, 120)}`);
+      }
     }
   }
-}
 
-async function applyIndexes(tableId: string, tableName: string, config: IndexConfig, fields: Map<string, string>) {
-  // GIN (Tags)
-  for (const col of config.gin || []) {
-    const fid = fields.get(col);
-    if (!fid) { console.log(`      ⚠️ Field '${col}' missing`); continue; }
-    await createIndex(tableId, `idx_${tableName}_${col}_gin`, [fid], 'gin');
-  }
+  // Step 3: TSVector configuration (weighted multi-field search)
+  console.log('\n\ud83d\udcc4 Configuring TSVector (weighted multi-field search)\n');
 
-  // HNSW (Vectors)
-  for (const col of config.hnsw || []) {
-    const fid = fields.get(col);
-    if (!fid) { console.log(`      ⚠️ Field '${col}' missing`); continue; }
-    // HNSW needs opclass for vectors
-    await createIndex(tableId, `idx_${tableName}_${col}_hnsw`, [fid], 'hnsw', {
-      opClasses: ['vector_cosine_ops'],
-      indexParams: { m: 16, ef_construction: 64 }
-    });
-  }
+  for (const tsv of TSV_CONFIGS) {
+    const tableId = tables.get(tsv.table);
+    if (!tableId) {
+      console.log(`   \u26a0 ${tsv.table}.${tsv.tsvColumn}: table not found, skipping`);
+      continue;
+    }
+    const tableFields = fields.get(tsv.table);
+    if (!tableFields) continue;
 
-  // BM25 (Text)
-  for (const col of config.bm25 || []) {
-    const fid = fields.get(col);
-    if (!fid) { console.log(`      ⚠️ Field '${col}' missing`); continue; }
-    await createIndex(tableId, `idx_${tableName}_${col}_bm25`, [fid], 'bm25', {
-      options: { text_config: 'english' }
-    });
-  }
+    const tsvFieldId = tableFields.get(tsv.tsvColumn);
+    if (!tsvFieldId) {
+      console.log(`   \u26a0 ${tsv.table}.${tsv.tsvColumn}: tsvector field not found, skipping`);
+      continue;
+    }
 
-  // Trigram (Fuzzy)
-  for (const col of config.trigram || []) {
-    const fid = fields.get(col);
-    if (!fid) { console.log(`      ⚠️ Field '${col}' missing`); continue; }
-    await createIndex(tableId, `idx_${tableName}_${col}_trgm`, [fid], 'gin', {
-      opClasses: ['gin_trgm_ops']
-    });
-  }
+    const sourceFieldIds: string[] = [];
+    const weights: string[] = [];
+    const langs: string[] = [];
+    let missingSource = false;
 
-  // B-Tree (Standard)
-  for (const col of config.btree || []) {
-    const fid = fields.get(col);
-    if (!fid) { console.log(`      ⚠️ Field '${col}' missing`); continue; }
-    await createIndex(tableId, `idx_${tableName}_${col}`, [fid], 'btree');
-  }
-}
-
-async function setupContactsTsVector(tableId: string) {
-  const fields = await fetchFields(tableId);
-  
-  // 1. Create tsvector column if missing
-  if (!fields.has('search_tsv')) {
-    process.stdout.write(`      + search_tsv column... `);
-    const fRes = await withRetry(() => client.field.create({
-      data: { databaseId: databaseId!, tableId, name: 'search_tsv', type: 'tsvector' },
-      select: { id: true }
-    }).unwrap());
-    fields.set('search_tsv', fRes.createField?.field?.id!);
-    console.log('✅');
-  }
-
-  // 2. Create GIN index on it
-  const tsvId = fields.get('search_tsv')!;
-  await createIndex(tableId, 'idx_contacts_search_tsv_gin', [tsvId], 'gin');
-
-  // 3. Configure triggers (Weighted Search)
-  // A: Name, B: Headline, C: Bio
-  const sourceFields: string[] = [];
-  const weights: string[] = [];
-  const langs: string[] = [];
-
-  const addSource = (col: string, weight: string) => {
-    const fid = fields.get(col);
-    if (fid) {
-      sourceFields.push(fid);
-      weights.push(weight);
+    for (const src of tsv.sources) {
+      const fid = tableFields.get(src.field);
+      if (!fid) {
+        console.log(`   \u26a0 ${tsv.table}: source field '${src.field}' not found, skipping TSV config`);
+        missingSource = true;
+        break;
+      }
+      sourceFieldIds.push(fid);
+      weights.push(src.weight);
       langs.push('english');
     }
-  };
 
-  addSource('first_name', 'A');
-  addSource('last_name', 'A');
-  addSource('headline', 'B');
-  addSource('bio', 'C');
+    if (missingSource) continue;
 
-  process.stdout.write(`      + FullTextSearch config... `);
-  // Check if exists
-  const existing = await client.fullTextSearch.findMany({
-    where: { fieldId: { equalTo: tsvId } },
-    select: { id: true }
-  }).execute();
-
-  if (existing.ok && existing.data.fullTextSearches.nodes.length > 0) {
-    console.log('✅ (exists)');
-  } else {
-    await withRetry(() => client.fullTextSearch.create({
-      data: {
-        tableId,
-        fieldId: tsvId,
-        fieldIds: sourceFields,
-        weights,
-        langs
-      },
-      select: { id: true }
-    }).unwrap());
-    console.log('✅');
+    try {
+      await withRetry(() =>
+        client.fullTextSearch
+          .create({
+            data: {
+              tableId,
+              fieldId: tsvFieldId,
+              fieldIds: sourceFieldIds,
+              weights,
+              langs,
+            },
+            select: { id: true },
+          })
+          .unwrap()
+      );
+      console.log(`   \u2713 ${tsv.table}.${tsv.tsvColumn}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes('already exists') || msg.includes('exists')) {
+        console.log(`   \u2022 ${tsv.table}.${tsv.tsvColumn} (exists)`);
+      } else {
+        console.error(`   \u2717 ${tsv.table}.${tsv.tsvColumn}: ${msg.slice(0, 120)}`);
+      }
+    }
   }
+
+  console.log(`\n\u2705 Indexes complete! Created: ${created}, Skipped: ${skipped}, Errors: ${errors}\n`);
 }
 
-main().catch((err) => {
-  console.error('\n❌ Error:', err.message ?? err);
-  process.exit(1);
-});
+export { main as default };

@@ -1,0 +1,7 @@
+-- Revert: schemas/agent_db_app_public/tables/skills/columns/active_count/column
+
+
+ALTER TABLE agent_db_app_public.skills 
+  DROP COLUMN active_count RESTRICT;
+
+

@@ -1,0 +1,27 @@
+-- Deploy: schemas/agent_db_memberships_public/procedures/org_is_manager_of/procedure
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agent_db_memberships_public/schema
+
+
+CREATE FUNCTION agent_db_memberships_public.org_is_manager_of(
+  IN p_entity_id uuid,
+  IN p_manager_id uuid,
+  IN p_user_id uuid,
+  IN p_max_depth int DEFAULT NULL
+) RETURNS boolean AS $_PGFN_$
+
+        BEGIN
+            RETURN EXISTS (
+                SELECT 1
+                FROM agent_db_memberships_private.org_hierarchy_sprts h
+                WHERE h.entity_id = p_entity_id
+                    AND h.ancestor_id = p_manager_id
+                    AND h.descendant_id = p_user_id
+                    AND h.ancestor_id != h.descendant_id
+                    AND (p_max_depth IS NULL OR h.depth <= p_max_depth)
+            );
+        END;
+        
+$_PGFN_$ LANGUAGE plpgsql STABLE SECURITY DEFINER;
+

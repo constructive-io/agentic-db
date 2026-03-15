@@ -1,0 +1,15 @@
+-- Deploy: schemas/agent_db_app_public/tables/event_venues/constraints/event_venues_event_id_fkey/constraint
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agent_db_app_public/schema
+-- requires: schemas/agent_db_app_public/tables/events/table
+-- requires: schemas/agent_db_app_public/tables/event_venues/table
+-- requires: schemas/agent_db_app_public/tables/company_events/policies/auth_del_entity_membership/policy
+
+
+ALTER TABLE agent_db_app_public.event_venues 
+  ADD CONSTRAINT event_venues_event_id_fkey 
+    FOREIGN KEY(event_id) 
+    REFERENCES agent_db_app_public.events (id) 
+    ON DELETE CASCADE;
+

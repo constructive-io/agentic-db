@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Milestone records via agentic-db CLI
+CRUD operations for Milestone records via agent-db CLI
 
 ## Usage
 
 ```bash
-agentic-db milestone list
-agentic-db milestone get --id <value>
-agentic-db milestone create --entityId <value> --name <value> --dueDate <value> --embedding <value> --projectId <value> --embeddingDistance <value>
-agentic-db milestone update --id <value> [--entityId <value>] [--name <value>] [--dueDate <value>] [--embedding <value>] [--projectId <value>] [--embeddingDistance <value>]
-agentic-db milestone delete --id <value>
+agent-db milestone list
+agent-db milestone get --id <value>
+agent-db milestone create --entityId <value> --name <value> --nameTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
+agent-db milestone update --id <value> [--entityId <value>] [--projectId <value>] [--name <value>] [--dueDate <value>] [--status <value>] [--nameTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
+agent-db milestone delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agentic-db milestone delete --id <value>
 ### List all milestone records
 
 ```bash
-agentic-db milestone list
+agent-db milestone list
 ```
 
 ### Create a milestone
 
 ```bash
-agentic-db milestone create --entityId "value" --name "value" --dueDate "value" --embedding "value" --projectId "value" --embeddingDistance "value"
+agent-db milestone create --entityId <value> --name <value> --nameTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
 ```
 
 ### Get a milestone by id
 
 ```bash
-agentic-db milestone get --id <value>
+agent-db milestone get --id <value>
 ```

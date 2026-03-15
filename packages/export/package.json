@@ -1,0 +1,12 @@
+{
+  "name": "@agentic-db/export",
+  "version": "0.0.1",
+  "private": true,
+  "description": "pgpm export wrapper for agent-db schema",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "export": "pgpm export --extensionName agent-db --metaExtensionName agent-db-services --author \"Dan Lynch <pyramation@gmail.com>\"",
+    "export:interactive": "pgpm export"
+  }
+}

@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateCompanyInput, CompanyPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -16,10 +18,19 @@ const fieldSchema = {
   industry: 'string',
   description: 'string',
   tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
+  searchTsv: 'string',
   mainImageId: 'uuid',
-  imageId: 'uuid',
-  embeddingDistance: 'float',
+  searchTsvRank: 'float',
+  embeddingTextBm25Score: 'float',
+  nameTrgmSimilarity: 'float',
+  domainTrgmSimilarity: 'float',
+  industryTrgmSimilarity: 'float',
+  descriptionTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\ncompany <command>\n\nCommands:\n  list                  List all company records\n  get                   Get a company by ID\n  create                Create a new company\n  update                Update an existing company\n  delete                Delete a company\n\n  --help, -h            Show this help message\n';
@@ -42,7 +53,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -82,10 +93,19 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           industry: true,
           description: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
           mainImageId: true,
-          imageId: true,
-          embeddingDistance: true,
+          searchTsvRank: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          domainTrgmSimilarity: true,
+          industryTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -111,7 +131,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.company
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -122,10 +142,19 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           industry: true,
           description: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
           mainImageId: true,
-          imageId: true,
-          embeddingDistance: true,
+          searchTsvRank: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          domainTrgmSimilarity: true,
+          industryTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -158,52 +187,60 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'domain',
         message: 'domain',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'industry',
         message: 'industry',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'searchTsv',
+        message: 'searchTsv',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'mainImageId',
         message: 'mainImageId',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'imageId',
-        message: 'imageId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateCompanyInput['company'];
     const client = getClient();
     const result = await client.company
       .create({
@@ -214,10 +251,10 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           industry: cleanedData.industry,
           description: cleanedData.description,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
+          searchTsv: cleanedData.searchTsv,
           mainImageId: cleanedData.mainImageId,
-          imageId: cleanedData.imageId,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -229,10 +266,19 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           industry: true,
           description: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
           mainImageId: true,
-          imageId: true,
-          embeddingDistance: true,
+          searchTsvRank: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          domainTrgmSimilarity: true,
+          industryTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -271,52 +317,60 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'domain',
         message: 'domain',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'industry',
         message: 'industry',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'searchTsv',
+        message: 'searchTsv',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'mainImageId',
         message: 'mainImageId',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'imageId',
-        message: 'imageId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CompanyPatch;
     const client = getClient();
     const result = await client.company
       .update({
@@ -330,10 +384,10 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           industry: cleanedData.industry,
           description: cleanedData.description,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
+          searchTsv: cleanedData.searchTsv,
           mainImageId: cleanedData.mainImageId,
-          imageId: cleanedData.imageId,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -345,10 +399,19 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           industry: true,
           description: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
+          searchTsv: true,
           mainImageId: true,
-          imageId: true,
-          embeddingDistance: true,
+          searchTsvRank: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          domainTrgmSimilarity: true,
+          industryTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

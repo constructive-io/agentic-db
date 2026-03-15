@@ -9,7 +9,7 @@ ORM operations for Chunk records
 ```typescript
 db.chunk.findMany({ select: { id: true } }).execute()
 db.chunk.findOne({ id: '<value>', select: { id: true } }).execute()
-db.chunk.create({ data: { entityId: '<value>', content: '<value>', startLine: '<value>', endLine: '<value>', embedding: '<value>', fileId: '<value>', repositoryId: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.chunk.create({ data: { entityId: '<value>', fileId: '<value>', repositoryId: '<value>', content: '<value>', startLine: '<value>', endLine: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingTextBm25Score: '<value>', contentTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.chunk.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.chunk.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.chunk.findMany({
 
 ```typescript
 const item = await db.chunk.create({
-  data: { entityId: 'value', content: 'value', startLine: 'value', endLine: 'value', embedding: 'value', fileId: 'value', repositoryId: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', fileId: 'value', repositoryId: 'value', content: 'value', startLine: 'value', endLine: 'value', embeddingText: 'value', embedding: 'value', embeddingTextBm25Score: 'value', contentTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

@@ -6,15 +6,22 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateChatInput, ChatPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
   title: 'string',
   startedAt: 'string',
+  embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  embeddingTextBm25Score: 'float',
+  titleTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nchat <command>\n\nCommands:\n  list                  List all chat records\n  get                   Get a chat by ID\n  create                Create a new chat\n  update                Update an existing chat\n  delete                Delete a chat\n\n  --help, -h            Show this help message\n';
@@ -37,7 +44,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -74,8 +81,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           updatedAt: true,
           title: true,
           startedAt: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -101,7 +113,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.chat
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -109,8 +121,13 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           updatedAt: true,
           title: true,
           startedAt: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -137,28 +154,32 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'title',
         message: 'title',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'startedAt',
         message: 'startedAt',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateChatInput['chat'];
     const client = getClient();
     const result = await client.chat
       .create({
@@ -166,8 +187,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           entityId: cleanedData.entityId,
           title: cleanedData.title,
           startedAt: cleanedData.startedAt,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -176,8 +197,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           updatedAt: true,
           title: true,
           startedAt: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -210,28 +236,32 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'title',
         message: 'title',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'startedAt',
         message: 'startedAt',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as ChatPatch;
     const client = getClient();
     const result = await client.chat
       .update({
@@ -242,8 +272,8 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           entityId: cleanedData.entityId,
           title: cleanedData.title,
           startedAt: cleanedData.startedAt,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -252,8 +282,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           updatedAt: true,
           title: true,
           startedAt: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

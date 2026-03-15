@@ -6,16 +6,20 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateMilestoneInput, MilestonePatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
+  projectId: 'uuid',
   name: 'string',
   dueDate: 'string',
-  embedding: 'string',
-  projectId: 'uuid',
-  embeddingDistance: 'float',
+  status: 'string',
+  nameTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nmilestone <command>\n\nCommands:\n  list                  List all milestone records\n  get                   Get a milestone by ID\n  create                Create a new milestone\n  update                Update an existing milestone\n  delete                Delete a milestone\n\n  --help, -h            Show this help message\n';
@@ -38,7 +42,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -73,11 +77,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          projectId: true,
           name: true,
           dueDate: true,
-          embedding: true,
-          projectId: true,
-          embeddingDistance: true,
+          status: true,
+          nameTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -103,17 +109,19 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.milestone
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          projectId: true,
           name: true,
           dueDate: true,
-          embedding: true,
-          projectId: true,
-          embeddingDistance: true,
+          status: true,
+          nameTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -137,6 +145,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'projectId',
+        message: 'projectId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'name',
         message: 'name',
         required: true,
@@ -146,49 +161,40 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'dueDate',
         message: 'dueDate',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'embedding',
-        message: 'embedding',
+        name: 'status',
+        message: 'status',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'projectId',
-        message: 'projectId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateMilestoneInput['milestone'];
     const client = getClient();
     const result = await client.milestone
       .create({
         data: {
           entityId: cleanedData.entityId,
+          projectId: cleanedData.projectId,
           name: cleanedData.name,
           dueDate: cleanedData.dueDate,
-          embedding: cleanedData.embedding,
-          projectId: cleanedData.projectId,
-          embeddingDistance: cleanedData.embeddingDistance,
+          status: cleanedData.status,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          projectId: true,
           name: true,
           dueDate: true,
-          embedding: true,
-          projectId: true,
-          embeddingDistance: true,
+          status: true,
+          nameTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -218,6 +224,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'projectId',
+        message: 'projectId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'name',
         message: 'name',
         required: false,
@@ -227,28 +240,18 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'dueDate',
         message: 'dueDate',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
-        name: 'embedding',
-        message: 'embedding',
+        name: 'status',
+        message: 'status',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'projectId',
-        message: 'projectId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as MilestonePatch;
     const client = getClient();
     const result = await client.milestone
       .update({
@@ -257,22 +260,23 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           entityId: cleanedData.entityId,
+          projectId: cleanedData.projectId,
           name: cleanedData.name,
           dueDate: cleanedData.dueDate,
-          embedding: cleanedData.embedding,
-          projectId: cleanedData.projectId,
-          embeddingDistance: cleanedData.embeddingDistance,
+          status: cleanedData.status,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          projectId: true,
           name: true,
           dueDate: true,
-          embedding: true,
-          projectId: true,
-          embeddingDistance: true,
+          status: true,
+          nameTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

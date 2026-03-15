@@ -1,110 +1,176 @@
 /**
- * codebase.ts — Provision Codebase Intelligence schema using inline fields
+ * codebase.ts \u2014 Codebase domain schema
+ *
+ * Tables: repositories, files, chunks
  */
 
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-dotenv.config({ path: path.resolve(__dirname, '../../../../.env') });
+import {
+  createPlatformClient,
+  requireDatabaseId,
+  withRetry,
+  entityGrants,
+  entityPolicyData,
+} from '../helpers';
 
-import { createClient } from '../sdk/platform/orm/index';
-import { NodeHttpAdapter } from '../sdk/node-http-adapter';
-import { withRetry, entityGrants, entityPolicyData } from '../helpers';
+const databaseId = requireDatabaseId();
+const client = createPlatformClient();
 
-const databaseId = process.env.DATABASE_ID;
-const accessToken = process.env.ACCESS_TOKEN;
 
-if (!databaseId || !accessToken) {
-  console.error('Missing DATABASE_ID or ACCESS_TOKEN in .env');
-  process.exit(1);
-}
-
-const PLATFORM_ENDPOINT = 'http://[::1]:3000/graphql';
-const PLATFORM_HOST = 'api.localhost';
-
-const adapter = new NodeHttpAdapter(PLATFORM_ENDPOINT, {
-  Host: PLATFORM_HOST,
-  Authorization: `Bearer ${accessToken}`,
-});
-const client = createClient({ adapter });
-
-interface FieldDef {
-  name: string;
-  type: string;
-  is_required?: boolean;
-  default?: string;
-}
-
-async function createOrgTable(tableName: string, fields: FieldDef[] = []): Promise<string> {
+async function createOrgTable(tableName: string): Promise<string> {
   const result = await withRetry(() =>
-    client.secureTableProvision.create({
-      data: {
-        databaseId,
-        tableName,
-        nodeType: 'DataEntityMembership',
-        useRls: true,
-        grantRoles: ['authenticated'],
-        grantPrivileges: entityGrants,
-        policyType: 'AuthzEntityMembership',
-        policyPermissive: true,
-        policyData: entityPolicyData,
-        ...(fields.length > 0 ? { fields: fields as any } : {}),
-      },
-      select: { id: true, tableId: true },
-    }).unwrap()
+    client.secureTableProvision
+      .create({
+        data: {
+          databaseId,
+          tableName,
+          nodeType: 'DataEntityMembership',
+          useRls: true,
+          grantRoles: ['authenticated'],
+          grantPrivileges: entityGrants,
+          policyType: 'AuthzEntityMembership',
+          policyPermissive: true,
+          policyData: entityPolicyData,
+        },
+        select: { id: true, tableId: true },
+      })
+      .unwrap()
   );
-  const tableId = result.createSecureTableProvision?.secureTableProvision?.tableId;
+  const tableId =
+    result.createSecureTableProvision?.secureTableProvision?.tableId;
   if (!tableId) throw new Error(`No tableId for ${tableName}`);
 
-  await withRetry(() => client.secureTableProvision.create({ data: { databaseId, tableId, nodeType: 'DataTimestamps', nodeData: { include_id: false } as any }, select: { id: true } }).unwrap());
-  console.log(`   + ${tableName} (${fields.length} fields)`);
+  await withRetry(() =>
+    client.secureTableProvision
+      .create({
+        data: {
+          databaseId,
+          tableId,
+          nodeType: 'DataTimestamps',
+          nodeData: { include_id: false } as any,
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log(`   \u2713 ${tableName}`);
   return tableId;
 }
 
-async function main() {
-  console.log('\nProvisioning Codebase Schema\n');
-
-  const reposId = await createOrgTable('repositories', [
-    { name: 'name', type: 'text', is_required: true },
-    { name: 'url', type: 'text' },
-    { name: 'description', type: 'text' },
-    { name: 'default_branch', type: 'text' },
-    { name: 'last_synced_at', type: 'timestamptz' },
-    { name: 'embedding', type: 'vector(768)' },
-  ]);
-
-  const filesId = await createOrgTable('files', [
-    { name: 'path', type: 'text', is_required: true },
-    { name: 'language', type: 'text' },
-    { name: 'hash', type: 'text' },
-  ]);
-
-  const chunksId = await createOrgTable('chunks', [
-    { name: 'content', type: 'text', is_required: true },
-    { name: 'start_line', type: 'integer' },
-    { name: 'end_line', type: 'integer' },
-    { name: 'embedding', type: 'vector(768)' },
-  ]);
-
-  console.log('\nRelations...');
-  await withRetry(() => client.relationProvision.create({
-    data: { databaseId, relationType: 'RelationHasMany', sourceTableId: reposId, targetTableId: filesId, deleteAction: 'c' },
-    select: { id: true },
-  }).unwrap());
-  console.log('   + repositories -> files');
-
-  await withRetry(() => client.relationProvision.create({
-    data: { databaseId, relationType: 'RelationHasMany', sourceTableId: filesId, targetTableId: chunksId, deleteAction: 'c' },
-    select: { id: true },
-  }).unwrap());
-  console.log('   + files -> chunks');
-
-  await withRetry(() => client.relationProvision.create({
-    data: { databaseId, relationType: 'RelationHasMany', sourceTableId: reposId, targetTableId: chunksId, deleteAction: 'c' },
-    select: { id: true },
-  }).unwrap());
-  console.log('   + repositories -> chunks');
-
-  console.log('\nCodebase Schema complete!\n');
+async function addField(
+  tableId: string,
+  name: string,
+  type: string,
+  opts: { isRequired?: boolean; defaultValue?: string } = {}
+): Promise<string> {
+  const result = await withRetry(() =>
+    client.field
+      .create({
+        data: {
+          tableId,
+          name,
+          type,
+          isRequired: opts.isRequired ?? false,
+          label: name,
+          ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}),
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log(`      + ${name} (${type})`);
+  return result.createField?.field?.id!;
 }
 
-main().catch((err) => { console.error(err.message ?? err); process.exit(1); });
+
+async function main() {
+  console.log('\n\ud83d\udcbb Codebase Schema\n');
+
+  // -- Repositories ---------------------------------------------------------
+  console.log('\ud83d\udce6 repositories...');
+  const reposId = await createOrgTable('repositories');
+  await addField(reposId, 'name', 'text', { isRequired: true });
+  await addField(reposId, 'url', 'text');
+  await addField(reposId, 'description', 'text');
+  await addField(reposId, 'default_branch', 'text');
+  await addField(reposId, 'last_synced_at', 'timestamptz');
+  await addField(reposId, 'tags', 'citext[]');
+  await addField(reposId, 'embedding_text', 'text');
+  await addField(reposId, 'embedding', 'vector(768)');
+
+  // -- Files ----------------------------------------------------------------
+  console.log('\n\ud83d\udcc4 files...');
+  const filesId = await createOrgTable('files');
+  await addField(filesId, 'repository_id', 'uuid');
+  await addField(filesId, 'path', 'text', { isRequired: true });
+  await addField(filesId, 'language', 'text');
+  await addField(filesId, 'hash', 'text');
+
+  // -- Chunks ---------------------------------------------------------------
+  console.log('\n\ud83e\udde9 chunks...');
+  const chunksId = await createOrgTable('chunks');
+  await addField(chunksId, 'file_id', 'uuid');
+  await addField(chunksId, 'repository_id', 'uuid');
+  await addField(chunksId, 'content', 'text', { isRequired: true });
+  await addField(chunksId, 'start_line', 'int');
+  await addField(chunksId, 'end_line', 'int');
+  await addField(chunksId, 'embedding_text', 'text');
+  await addField(chunksId, 'embedding', 'vector(768)');
+
+  // -- Relations ------------------------------------------------------------
+  console.log('\n\ud83d\udd17 Relations...');
+
+  // repos -> files (HasMany)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: reposId,
+          targetTableId: filesId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 repositories -> files');
+
+  // files -> chunks (HasMany)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: filesId,
+          targetTableId: chunksId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 files -> chunks');
+
+  // repos -> chunks (HasMany, shortcut for direct repo->chunk queries)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: reposId,
+          targetTableId: chunksId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 repositories -> chunks');
+
+  console.log('\n\u2705 Codebase Schema complete!\n');
+}
+
+export { main as default };

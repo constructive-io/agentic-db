@@ -5,6 +5,19 @@
  */
 import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
+import { AgentPromptModel } from './models/agentPrompt';
+import { SessionModel } from './models/session';
+import { ExecutionLogModel } from './models/executionLog';
+import { SessionArchiveModel } from './models/sessionArchive';
+import { ProcessModel } from './models/process';
+import { ScheduledJobModel } from './models/scheduledJob';
+import { AgentToolModel } from './models/agentTool';
+import { AgentSkillModel } from './models/agentSkill';
+import { AgentRuleModel } from './models/agentRule';
+import { CalendarEventContactModel } from './models/calendarEventContact';
+import { CalendarEventModel } from './models/calendarEvent';
+import { InteractionModel } from './models/interaction';
+import { CompanyEventModel } from './models/companyEvent';
 import { CompanyImageModel } from './models/companyImage';
 import { ContactCompanyModel } from './models/contactCompany';
 import { ContactEventModel } from './models/contactEvent';
@@ -12,33 +25,69 @@ import { ContactImageModel } from './models/contactImage';
 import { DealContactModel } from './models/dealContact';
 import { EventImageModel } from './models/eventImage';
 import { EventVenueModel } from './models/eventVenue';
+import { ExpenseContactModel } from './models/expenseContact';
+import { GoalHabitModel } from './models/goalHabit';
+import { HabitLogModel } from './models/habitLog';
+import { GoalProjectModel } from './models/goalProject';
+import { MilestoneModel } from './models/milestone';
+import { ProjectContactModel } from './models/projectContact';
+import { TaskContactModel } from './models/taskContact';
 import { VenueImageModel } from './models/venueImage';
-import { CalendarSyncModel } from './models/calendarSync';
 import { FileModel } from './models/file';
+import { ChunkModel } from './models/chunk';
+import { CalendarAccountModel } from './models/calendarAccount';
+import { TagModel } from './models/tag';
+import { FeedbackModel } from './models/feedback';
+import { AttachmentModel } from './models/attachment';
 import { EmailAccountModel } from './models/emailAccount';
 import { MessageModel } from './models/message';
-import { ExecutionLogModel } from './models/executionLog';
+import { ActivityLogModel } from './models/activityLog';
+import { ContextRelationModel } from './models/contextRelation';
+import { UserSettingModel } from './models/userSetting';
+import { WebhookModel } from './models/webhook';
+import { NotificationModel } from './models/notification';
+import { WorkflowRunModel } from './models/workflowRun';
+import { WorkflowStepModel } from './models/workflowStep';
+import { IntegrationModel } from './models/integration';
+import { SkillExecutionModel } from './models/skillExecution';
 import { ChatModel } from './models/chat';
-import { ProjectModel } from './models/project';
-import { RepositoryModel } from './models/repository';
-import { SessionModel } from './models/session';
-import { BlueprintModel } from './models/blueprint';
-import { ImageModel } from './models/image';
-import { MilestoneModel } from './models/milestone';
 import { ChatMessageModel } from './models/chatMessage';
-import { ChunkModel } from './models/chunk';
-import { MemoryModel } from './models/memory';
-import { DealModel } from './models/deal';
-import { DocumentModel } from './models/document';
-import { TaskModel } from './models/task';
-import { RuleModel } from './models/rule';
-import { SkillModel } from './models/skill';
+import { ThreadModel } from './models/thread';
+import { ReminderModel } from './models/reminder';
+import { ImageModel } from './models/image';
+import { ListItemModel } from './models/listItem';
+import { CompanyLinkModel } from './models/companyLink';
+import { ContactLinkModel } from './models/contactLink';
+import { EventLinkModel } from './models/eventLink';
+import { VenueLinkModel } from './models/venueLink';
+import { AgentSpawnModel } from './models/agentSpawn';
+import { HabitModel } from './models/habit';
+import { WorkflowModel } from './models/workflow';
 import { ExpenseModel } from './models/expense';
+import { BillingSubscriptionModel } from './models/billingSubscription';
+import { IdeaModel } from './models/idea';
+import { ListModel } from './models/list';
+import { RepositoryModel } from './models/repository';
+import { DealModel } from './models/deal';
+import { GoalModel } from './models/goal';
 import { NoteModel } from './models/note';
+import { PromptModel } from './models/prompt';
+import { BlueprintModel } from './models/blueprint';
+import { TemplateModel } from './models/template';
+import { ToolModel } from './models/tool';
+import { RecipeModel } from './models/recipe';
+import { TripModel } from './models/trip';
+import { MemoryModel } from './models/memory';
+import { RuleModel } from './models/rule';
+import { TaskModel } from './models/task';
+import { AgentModel } from './models/agent';
+import { SkillModel } from './models/skill';
+import { ProjectModel } from './models/project';
+import { DocumentModel } from './models/document';
 import { CompanyModel } from './models/company';
-import { VenueModel } from './models/venue';
 import { EventModel } from './models/event';
 import { ContactModel } from './models/contact';
+import { VenueModel } from './models/venue';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
 export { GraphQLRequestError } from './client';
 export { QueryBuilder } from './query-builder';
@@ -71,6 +120,19 @@ export { NodeHttpAdapter } from './node-fetch';
 export function createClient(config: OrmClientConfig) {
   const client = new OrmClient(config);
   return {
+    agentPrompt: new AgentPromptModel(client),
+    session: new SessionModel(client),
+    executionLog: new ExecutionLogModel(client),
+    sessionArchive: new SessionArchiveModel(client),
+    process: new ProcessModel(client),
+    scheduledJob: new ScheduledJobModel(client),
+    agentTool: new AgentToolModel(client),
+    agentSkill: new AgentSkillModel(client),
+    agentRule: new AgentRuleModel(client),
+    calendarEventContact: new CalendarEventContactModel(client),
+    calendarEvent: new CalendarEventModel(client),
+    interaction: new InteractionModel(client),
+    companyEvent: new CompanyEventModel(client),
     companyImage: new CompanyImageModel(client),
     contactCompany: new ContactCompanyModel(client),
     contactEvent: new ContactEventModel(client),
@@ -78,32 +140,68 @@ export function createClient(config: OrmClientConfig) {
     dealContact: new DealContactModel(client),
     eventImage: new EventImageModel(client),
     eventVenue: new EventVenueModel(client),
+    expenseContact: new ExpenseContactModel(client),
+    goalHabit: new GoalHabitModel(client),
+    habitLog: new HabitLogModel(client),
+    goalProject: new GoalProjectModel(client),
+    milestone: new MilestoneModel(client),
+    projectContact: new ProjectContactModel(client),
+    taskContact: new TaskContactModel(client),
     venueImage: new VenueImageModel(client),
-    calendarSync: new CalendarSyncModel(client),
     file: new FileModel(client),
+    chunk: new ChunkModel(client),
+    calendarAccount: new CalendarAccountModel(client),
+    tag: new TagModel(client),
+    feedback: new FeedbackModel(client),
+    attachment: new AttachmentModel(client),
     emailAccount: new EmailAccountModel(client),
     message: new MessageModel(client),
-    executionLog: new ExecutionLogModel(client),
+    activityLog: new ActivityLogModel(client),
+    contextRelation: new ContextRelationModel(client),
+    userSetting: new UserSettingModel(client),
+    webhook: new WebhookModel(client),
+    notification: new NotificationModel(client),
+    workflowRun: new WorkflowRunModel(client),
+    workflowStep: new WorkflowStepModel(client),
+    integration: new IntegrationModel(client),
+    skillExecution: new SkillExecutionModel(client),
     chat: new ChatModel(client),
-    project: new ProjectModel(client),
-    repository: new RepositoryModel(client),
-    session: new SessionModel(client),
-    blueprint: new BlueprintModel(client),
-    image: new ImageModel(client),
-    milestone: new MilestoneModel(client),
     chatMessage: new ChatMessageModel(client),
-    chunk: new ChunkModel(client),
-    memory: new MemoryModel(client),
-    deal: new DealModel(client),
-    document: new DocumentModel(client),
-    task: new TaskModel(client),
-    rule: new RuleModel(client),
-    skill: new SkillModel(client),
+    thread: new ThreadModel(client),
+    reminder: new ReminderModel(client),
+    image: new ImageModel(client),
+    listItem: new ListItemModel(client),
+    companyLink: new CompanyLinkModel(client),
+    contactLink: new ContactLinkModel(client),
+    eventLink: new EventLinkModel(client),
+    venueLink: new VenueLinkModel(client),
+    agentSpawn: new AgentSpawnModel(client),
+    habit: new HabitModel(client),
+    workflow: new WorkflowModel(client),
     expense: new ExpenseModel(client),
+    billingSubscription: new BillingSubscriptionModel(client),
+    idea: new IdeaModel(client),
+    list: new ListModel(client),
+    repository: new RepositoryModel(client),
+    deal: new DealModel(client),
+    goal: new GoalModel(client),
     note: new NoteModel(client),
+    prompt: new PromptModel(client),
+    blueprint: new BlueprintModel(client),
+    template: new TemplateModel(client),
+    tool: new ToolModel(client),
+    recipe: new RecipeModel(client),
+    trip: new TripModel(client),
+    memory: new MemoryModel(client),
+    rule: new RuleModel(client),
+    task: new TaskModel(client),
+    agent: new AgentModel(client),
+    skill: new SkillModel(client),
+    project: new ProjectModel(client),
+    document: new DocumentModel(client),
     company: new CompanyModel(client),
-    venue: new VenueModel(client),
     event: new EventModel(client),
     contact: new ContactModel(client),
+    venue: new VenueModel(client),
   };
 }

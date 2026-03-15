@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateEmailAccountInput, EmailAccountPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -14,6 +16,9 @@ const fieldSchema = {
   email: 'string',
   provider: 'string',
   syncState: 'json',
+  emailTrgmSimilarity: 'float',
+  providerTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nemail-account <command>\n\nCommands:\n  list                  List all emailAccount records\n  get                   Get a emailAccount by ID\n  create                Create a new emailAccount\n  update                Update an existing emailAccount\n  delete                Delete a emailAccount\n\n  --help, -h            Show this help message\n';
@@ -36,7 +41,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -74,6 +79,9 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           email: true,
           provider: true,
           syncState: true,
+          emailTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -99,7 +107,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.emailAccount
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -108,6 +116,9 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           email: true,
           provider: true,
           syncState: true,
+          emailTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -140,16 +151,21 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'provider',
         message: 'provider',
         required: false,
+        skipPrompt: true,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'syncState',
         message: 'syncState',
         required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(
+      answers,
+      fieldSchema
+    ) as CreateEmailAccountInput['emailAccount'];
     const client = getClient();
     const result = await client.emailAccount
       .create({
@@ -167,6 +183,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           email: true,
           provider: true,
           syncState: true,
+          emailTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -205,16 +224,18 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'provider',
         message: 'provider',
         required: false,
+        skipPrompt: true,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'syncState',
         message: 'syncState',
         required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as EmailAccountPatch;
     const client = getClient();
     const result = await client.emailAccount
       .update({
@@ -235,6 +256,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           email: true,
           provider: true,
           syncState: true,
+          emailTrgmSimilarity: true,
+          providerTrgmSimilarity: true,
+          searchScore: true,
         },
       })
       .execute();

@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateTaskInput, TaskPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -15,9 +17,25 @@ const fieldSchema = {
   description: 'string',
   status: 'string',
   priority: 'int',
+  projectId: 'uuid',
+  taskType: 'string',
+  assignedAgentId: 'uuid',
+  parentTaskId: 'uuid',
+  dueDate: 'string',
+  completedAt: 'string',
+  conversationId: 'uuid',
+  dependencies: 'uuid',
   tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  embeddingTextBm25Score: 'float',
+  titleTrgmSimilarity: 'float',
+  descriptionTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  taskTypeTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\ntask <command>\n\nCommands:\n  list                  List all task records\n  get                   Get a task by ID\n  create                Create a new task\n  update                Update an existing task\n  delete                Delete a task\n\n  --help, -h            Show this help message\n';
@@ -40,7 +58,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -79,9 +97,25 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           description: true,
           status: true,
           priority: true,
+          projectId: true,
+          taskType: true,
+          assignedAgentId: true,
+          parentTaskId: true,
+          dueDate: true,
+          completedAt: true,
+          conversationId: true,
+          dependencies: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          taskTypeTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -107,7 +141,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.task
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -117,9 +151,25 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           description: true,
           status: true,
           priority: true,
+          projectId: true,
+          taskType: true,
+          assignedAgentId: true,
+          parentTaskId: true,
+          dueDate: true,
+          completedAt: true,
+          conversationId: true,
+          dependencies: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          taskTypeTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -152,40 +202,102 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'status',
         message: 'status',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'priority',
         message: 'priority',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'projectId',
+        message: 'projectId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'taskType',
+        message: 'taskType',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'assignedAgentId',
+        message: 'assignedAgentId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'parentTaskId',
+        message: 'parentTaskId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'dueDate',
+        message: 'dueDate',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'completedAt',
+        message: 'completedAt',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'conversationId',
+        message: 'conversationId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'dependencies',
+        message: 'dependencies',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateTaskInput['task'];
     const client = getClient();
     const result = await client.task
       .create({
@@ -195,9 +307,17 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           description: cleanedData.description,
           status: cleanedData.status,
           priority: cleanedData.priority,
+          projectId: cleanedData.projectId,
+          taskType: cleanedData.taskType,
+          assignedAgentId: cleanedData.assignedAgentId,
+          parentTaskId: cleanedData.parentTaskId,
+          dueDate: cleanedData.dueDate,
+          completedAt: cleanedData.completedAt,
+          conversationId: cleanedData.conversationId,
+          dependencies: cleanedData.dependencies,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -208,9 +328,25 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           description: true,
           status: true,
           priority: true,
+          projectId: true,
+          taskType: true,
+          assignedAgentId: true,
+          parentTaskId: true,
+          dueDate: true,
+          completedAt: true,
+          conversationId: true,
+          dependencies: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          taskTypeTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -249,40 +385,102 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'status',
         message: 'status',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'priority',
         message: 'priority',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'projectId',
+        message: 'projectId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'taskType',
+        message: 'taskType',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'assignedAgentId',
+        message: 'assignedAgentId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'parentTaskId',
+        message: 'parentTaskId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'dueDate',
+        message: 'dueDate',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'completedAt',
+        message: 'completedAt',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'conversationId',
+        message: 'conversationId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'dependencies',
+        message: 'dependencies',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as TaskPatch;
     const client = getClient();
     const result = await client.task
       .update({
@@ -295,9 +493,17 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           description: cleanedData.description,
           status: cleanedData.status,
           priority: cleanedData.priority,
+          projectId: cleanedData.projectId,
+          taskType: cleanedData.taskType,
+          assignedAgentId: cleanedData.assignedAgentId,
+          parentTaskId: cleanedData.parentTaskId,
+          dueDate: cleanedData.dueDate,
+          completedAt: cleanedData.completedAt,
+          conversationId: cleanedData.conversationId,
+          dependencies: cleanedData.dependencies,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -308,9 +514,25 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           description: true,
           status: true,
           priority: true,
+          projectId: true,
+          taskType: true,
+          assignedAgentId: true,
+          parentTaskId: true,
+          dueDate: true,
+          completedAt: true,
+          conversationId: true,
+          dependencies: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          titleTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          statusTrgmSimilarity: true,
+          taskTypeTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

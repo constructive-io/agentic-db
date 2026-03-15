@@ -6,16 +6,32 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateNoteInput, NotePatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
   content: 'string',
+  notableType: 'string',
+  notableId: 'uuid',
+  abstract: 'string',
+  overview: 'string',
+  activeCount: 'int',
+  lastAccessedAt: 'string',
   tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
-  contactId: 'uuid',
-  embeddingDistance: 'float',
+  contentBm25Score: 'float',
+  embeddingTextBm25Score: 'float',
+  contentTrgmSimilarity: 'float',
+  notableTypeTrgmSimilarity: 'float',
+  abstractTrgmSimilarity: 'float',
+  overviewTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nnote <command>\n\nCommands:\n  list                  List all note records\n  get                   Get a note by ID\n  create                Create a new note\n  update                Update an existing note\n  delete                Delete a note\n\n  --help, -h            Show this help message\n';
@@ -38,7 +54,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -74,10 +90,24 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           createdAt: true,
           updatedAt: true,
           content: true,
+          notableType: true,
+          notableId: true,
+          abstract: true,
+          overview: true,
+          activeCount: true,
+          lastAccessedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          contactId: true,
-          embeddingDistance: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          contentTrgmSimilarity: true,
+          notableTypeTrgmSimilarity: true,
+          abstractTrgmSimilarity: true,
+          overviewTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -103,17 +133,31 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.note
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
           content: true,
+          notableType: true,
+          notableId: true,
+          abstract: true,
+          overview: true,
+          activeCount: true,
+          lastAccessedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          contactId: true,
-          embeddingDistance: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          contentTrgmSimilarity: true,
+          notableTypeTrgmSimilarity: true,
+          abstractTrgmSimilarity: true,
+          overviewTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -143,41 +187,85 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'notableType',
+        message: 'notableType',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'notableId',
+        message: 'notableId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'abstract',
+        message: 'abstract',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'overview',
+        message: 'overview',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'activeCount',
+        message: 'activeCount',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'lastAccessedAt',
+        message: 'lastAccessedAt',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'contactId',
-        message: 'contactId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateNoteInput['note'];
     const client = getClient();
     const result = await client.note
       .create({
         data: {
           entityId: cleanedData.entityId,
           content: cleanedData.content,
+          notableType: cleanedData.notableType,
+          notableId: cleanedData.notableId,
+          abstract: cleanedData.abstract,
+          overview: cleanedData.overview,
+          activeCount: cleanedData.activeCount,
+          lastAccessedAt: cleanedData.lastAccessedAt,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          contactId: cleanedData.contactId,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -185,10 +273,24 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           createdAt: true,
           updatedAt: true,
           content: true,
+          notableType: true,
+          notableId: true,
+          abstract: true,
+          overview: true,
+          activeCount: true,
+          lastAccessedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          contactId: true,
-          embeddingDistance: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          contentTrgmSimilarity: true,
+          notableTypeTrgmSimilarity: true,
+          abstractTrgmSimilarity: true,
+          overviewTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -224,31 +326,70 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'notableType',
+        message: 'notableType',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'notableId',
+        message: 'notableId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'abstract',
+        message: 'abstract',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'overview',
+        message: 'overview',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'activeCount',
+        message: 'activeCount',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'lastAccessedAt',
+        message: 'lastAccessedAt',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'tags',
         message: 'tags',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'contactId',
-        message: 'contactId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as NotePatch;
     const client = getClient();
     const result = await client.note
       .update({
@@ -258,10 +399,15 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         data: {
           entityId: cleanedData.entityId,
           content: cleanedData.content,
+          notableType: cleanedData.notableType,
+          notableId: cleanedData.notableId,
+          abstract: cleanedData.abstract,
+          overview: cleanedData.overview,
+          activeCount: cleanedData.activeCount,
+          lastAccessedAt: cleanedData.lastAccessedAt,
           tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          contactId: cleanedData.contactId,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -269,10 +415,24 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           createdAt: true,
           updatedAt: true,
           content: true,
+          notableType: true,
+          notableId: true,
+          abstract: true,
+          overview: true,
+          activeCount: true,
+          lastAccessedAt: true,
           tags: true,
+          embeddingText: true,
           embedding: true,
-          contactId: true,
-          embeddingDistance: true,
+          contentBm25Score: true,
+          embeddingTextBm25Score: true,
+          contentTrgmSimilarity: true,
+          notableTypeTrgmSimilarity: true,
+          abstractTrgmSimilarity: true,
+          overviewTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

@@ -1,0 +1,10 @@
+-- Deploy: schemas/agent_db_memberships_public/tables/app_owner_grants/columns/updated_at/column
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agent_db_memberships_public/schema
+-- requires: schemas/agent_db_memberships_public/tables/app_owner_grants/table
+
+
+ALTER TABLE agent_db_memberships_public.app_owner_grants 
+  ADD COLUMN updated_at timestamptz;
+

@@ -6,18 +6,25 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateChunkInput, ChunkPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
+  fileId: 'uuid',
+  repositoryId: 'uuid',
   content: 'string',
   startLine: 'int',
   endLine: 'int',
+  embeddingText: 'string',
   embedding: 'string',
-  fileId: 'uuid',
-  repositoryId: 'uuid',
-  embeddingDistance: 'float',
+  embeddingTextBm25Score: 'float',
+  contentTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nchunk <command>\n\nCommands:\n  list                  List all chunk records\n  get                   Get a chunk by ID\n  create                Create a new chunk\n  update                Update an existing chunk\n  delete                Delete a chunk\n\n  --help, -h            Show this help message\n';
@@ -40,7 +47,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -75,13 +82,18 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          fileId: true,
+          repositoryId: true,
           content: true,
           startLine: true,
           endLine: true,
+          embeddingText: true,
           embedding: true,
-          fileId: true,
-          repositoryId: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -107,19 +119,24 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.chunk
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          fileId: true,
+          repositoryId: true,
           content: true,
           startLine: true,
           endLine: true,
+          embeddingText: true,
           embedding: true,
-          fileId: true,
-          repositoryId: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -143,6 +160,20 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'fileId',
+        message: 'fileId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'repositoryId',
+        message: 'repositoryId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'content',
         message: 'content',
         required: true,
@@ -152,65 +183,62 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'startLine',
         message: 'startLine',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'endLine',
         message: 'endLine',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'fileId',
-        message: 'fileId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'repositoryId',
-        message: 'repositoryId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateChunkInput['chunk'];
     const client = getClient();
     const result = await client.chunk
       .create({
         data: {
           entityId: cleanedData.entityId,
+          fileId: cleanedData.fileId,
+          repositoryId: cleanedData.repositoryId,
           content: cleanedData.content,
           startLine: cleanedData.startLine,
           endLine: cleanedData.endLine,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          fileId: cleanedData.fileId,
-          repositoryId: cleanedData.repositoryId,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          fileId: true,
+          repositoryId: true,
           content: true,
           startLine: true,
           endLine: true,
+          embeddingText: true,
           embedding: true,
-          fileId: true,
-          repositoryId: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -240,6 +268,20 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'fileId',
+        message: 'fileId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'repositoryId',
+        message: 'repositoryId',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'content',
         message: 'content',
         required: false,
@@ -249,40 +291,32 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'startLine',
         message: 'startLine',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'endLine',
         message: 'endLine',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'fileId',
-        message: 'fileId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'repositoryId',
-        message: 'repositoryId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as ChunkPatch;
     const client = getClient();
     const result = await client.chunk
       .update({
@@ -291,26 +325,31 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           entityId: cleanedData.entityId,
+          fileId: cleanedData.fileId,
+          repositoryId: cleanedData.repositoryId,
           content: cleanedData.content,
           startLine: cleanedData.startLine,
           endLine: cleanedData.endLine,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          fileId: cleanedData.fileId,
-          repositoryId: cleanedData.repositoryId,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
           entityId: true,
           createdAt: true,
           updatedAt: true,
+          fileId: true,
+          repositoryId: true,
           content: true,
           startLine: true,
           endLine: true,
+          embeddingText: true,
           embedding: true,
-          fileId: true,
-          repositoryId: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          contentTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

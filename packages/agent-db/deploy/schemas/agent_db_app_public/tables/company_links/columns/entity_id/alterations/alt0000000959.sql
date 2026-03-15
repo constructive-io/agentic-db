@@ -1,0 +1,12 @@
+-- Deploy: schemas/agent_db_app_public/tables/company_links/columns/entity_id/alterations/alt0000000959
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agent_db_app_public/schema
+-- requires: schemas/agent_db_app_public/tables/company_links/table
+-- requires: schemas/agent_db_app_public/tables/company_links/columns/entity_id/column
+-- requires: schemas/agent_db_app_public/tables/contact_links/columns/embedding/column
+
+
+ALTER TABLE agent_db_app_public.company_links 
+  ALTER COLUMN entity_id SET NOT NULL;
+

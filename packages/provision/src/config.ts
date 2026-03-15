@@ -1,29 +1,40 @@
+/**
+ * config.ts — Centralized configuration for Agent OS provisioning
+ *
+ * Endpoints:
+ *   api.localhost    → Platform API (Constructive SDK: schema builder)
+ *   auth.localhost   → Auth API (sign up, sign in)
+ *   app-public-*     → Generated app API (data CRUD, RAG — not used here)
+ */
+
 import 'dotenv/config';
 
 export const config = {
+  /** Platform API endpoint — schema builder (secureTableProvision, field, relation, index) */
   apiEndpoint: process.env.API_ENDPOINT || 'http://api.localhost:3000/graphql',
+
+  /** Auth API endpoint — sign up / sign in */
   authEndpoint: process.env.AUTH_ENDPOINT || 'http://auth.localhost:3000/graphql',
-  databaseName: process.env.DATABASE_NAME || 'agentic-db',
+
+  /** Database name (set by create-db, read by provision) */
+  databaseName: process.env.DATABASE_NAME || 'agent-os',
+
+  /** Database ID (set by create-db, read by provision scripts) */
   databaseId: process.env.DATABASE_ID,
-  adminEmail: process.env.ADMIN_EMAIL || 'admin@agentic-db.local',
+
+  /** Admin email for sign up */
+  adminEmail: process.env.ADMIN_EMAIL || 'admin@agent-os.local',
+
+  /** Admin password for sign up */
   adminPassword: process.env.ADMIN_PASSWORD || 'AgentOS2026!',
-  get authHeaders() {
-    return this.accessToken ? { Authorization: `Bearer ${this.accessToken}` } : {};
-  },
+
+  /** Access token (set by create-db, read by provision scripts) */
   accessToken: process.env.ACCESS_TOKEN,
-  get appEndpoint() {
-    return `http://app-public-${this.databaseName}.localhost:3000/graphql`;
-  }
+
+  /** Auth headers derived from access token */
+  get authHeaders(): Record<string, string> {
+    return this.accessToken
+      ? { Authorization: `Bearer ${this.accessToken}` }
+      : {};
+  },
 };
-
-export function getAuthHeaders(token?: string): Record<string, string> {
-  return token ? { Authorization: `Bearer ${token}` } : {};
-}
-
-export function getAppEndpoint(dbName: string): string {
-  return `http://app-public-${dbName}.localhost:3000/graphql`;
-}
-
-export function getAuthEndpointForDb(dbName: string): string {
-  return `http://auth-${dbName}.localhost:3000/graphql`;
-}

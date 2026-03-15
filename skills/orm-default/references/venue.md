@@ -9,7 +9,7 @@ ORM operations for Venue records
 ```typescript
 db.venue.findMany({ select: { id: true } }).execute()
 db.venue.findOne({ id: '<value>', select: { id: true } }).execute()
-db.venue.create({ data: { entityId: '<value>', name: '<value>', neighborhood: '<value>', city: '<value>', status: '<value>', notes: '<value>', tags: '<value>', embedding: '<value>', mainImageId: '<value>', embeddingDistance: '<value>' }, select: { id: true } }).execute()
+db.venue.create({ data: { entityId: '<value>', name: '<value>', address: '<value>', neighborhood: '<value>', city: '<value>', category: '<value>', status: '<value>', googlePlaceId: '<value>', rating: '<value>', priceLevel: '<value>', isFavorite: '<value>', notes: '<value>', tags: '<value>', embeddingText: '<value>', embedding: '<value>', searchTsv: '<value>', mainImageId: '<value>', searchTsvRank: '<value>', embeddingTextBm25Score: '<value>', nameTrgmSimilarity: '<value>', addressTrgmSimilarity: '<value>', neighborhoodTrgmSimilarity: '<value>', cityTrgmSimilarity: '<value>', categoryTrgmSimilarity: '<value>', statusTrgmSimilarity: '<value>', googlePlaceIdTrgmSimilarity: '<value>', priceLevelTrgmSimilarity: '<value>', notesTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute()
 db.venue.update({ where: { id: '<value>' }, data: { entityId: '<new>' }, select: { id: true } }).execute()
 db.venue.delete({ where: { id: '<value>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.venue.findMany({
 
 ```typescript
 const item = await db.venue.create({
-  data: { entityId: 'value', name: 'value', neighborhood: 'value', city: 'value', status: 'value', notes: 'value', tags: 'value', embedding: 'value', mainImageId: 'value', embeddingDistance: 'value' },
+  data: { entityId: 'value', name: 'value', address: 'value', neighborhood: 'value', city: 'value', category: 'value', status: 'value', googlePlaceId: 'value', rating: 'value', priceLevel: 'value', isFavorite: 'value', notes: 'value', tags: 'value', embeddingText: 'value', embedding: 'value', searchTsv: 'value', mainImageId: 'value', searchTsvRank: 'value', embeddingTextBm25Score: 'value', nameTrgmSimilarity: 'value', addressTrgmSimilarity: 'value', neighborhoodTrgmSimilarity: 'value', cityTrgmSimilarity: 'value', categoryTrgmSimilarity: 'value', statusTrgmSimilarity: 'value', googlePlaceIdTrgmSimilarity: 'value', priceLevelTrgmSimilarity: 'value', notesTrgmSimilarity: 'value', embeddingTextTrgmSimilarity: 'value', embeddingVectorDistance: 'value', searchScore: 'value' },
   select: { id: true }
 }).execute();
 ```

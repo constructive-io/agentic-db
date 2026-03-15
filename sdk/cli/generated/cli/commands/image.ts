@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateImageInput, ImagePatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -16,7 +18,11 @@ const fieldSchema = {
   altText: 'string',
   caption: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  urlTrgmSimilarity: 'float',
+  altTextTrgmSimilarity: 'float',
+  captionTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nimage <command>\n\nCommands:\n  list                  List all image records\n  get                   Get a image by ID\n  create                Create a new image\n  update                Update an existing image\n  delete                Delete a image\n\n  --help, -h            Show this help message\n';
@@ -39,7 +45,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -79,7 +85,11 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           altText: true,
           caption: true,
           embedding: true,
-          embeddingDistance: true,
+          urlTrgmSimilarity: true,
+          altTextTrgmSimilarity: true,
+          captionTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -105,7 +115,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.image
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -116,7 +126,11 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           altText: true,
           caption: true,
           embedding: true,
-          embeddingDistance: true,
+          urlTrgmSimilarity: true,
+          altTextTrgmSimilarity: true,
+          captionTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -145,38 +159,36 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: true,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'meta',
         message: 'meta',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'altText',
         message: 'altText',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'caption',
         message: 'caption',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateImageInput['image'];
     const client = getClient();
     const result = await client.image
       .create({
@@ -187,7 +199,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           altText: cleanedData.altText,
           caption: cleanedData.caption,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -199,7 +210,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           altText: true,
           caption: true,
           embedding: true,
-          embeddingDistance: true,
+          urlTrgmSimilarity: true,
+          altTextTrgmSimilarity: true,
+          captionTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -234,38 +249,36 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
       },
       {
-        type: 'text',
+        type: 'json',
         name: 'meta',
         message: 'meta',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'altText',
         message: 'altText',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'caption',
         message: 'caption',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as ImagePatch;
     const client = getClient();
     const result = await client.image
       .update({
@@ -279,7 +292,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           altText: cleanedData.altText,
           caption: cleanedData.caption,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -291,7 +303,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           altText: true,
           caption: true,
           embedding: true,
-          embeddingDistance: true,
+          urlTrgmSimilarity: true,
+          altTextTrgmSimilarity: true,
+          captionTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();

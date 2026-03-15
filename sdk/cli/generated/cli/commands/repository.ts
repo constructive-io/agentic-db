@@ -6,7 +6,9 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
 import { coerceAnswers, stripUndefined } from '../utils';
-const fieldSchema = {
+import type { FieldSchema } from '../utils';
+import type { CreateRepositoryInput, RepositoryPatch } from '../../orm/input-types';
+const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
   createdAt: 'string',
@@ -16,8 +18,17 @@ const fieldSchema = {
   description: 'string',
   defaultBranch: 'string',
   lastSyncedAt: 'string',
+  tags: 'string',
+  embeddingText: 'string',
   embedding: 'string',
-  embeddingDistance: 'float',
+  embeddingTextBm25Score: 'float',
+  nameTrgmSimilarity: 'float',
+  urlTrgmSimilarity: 'float',
+  descriptionTrgmSimilarity: 'float',
+  defaultBranchTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  embeddingVectorDistance: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nrepository <command>\n\nCommands:\n  list                  List all repository records\n  get                   Get a repository by ID\n  create                Create a new repository\n  update                Update an existing repository\n  delete                Delete a repository\n\n  --help, -h            Show this help message\n';
@@ -40,7 +51,7 @@ export default async (
         options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
-    return handleTableSubcommand(answer.subcommand, newArgv, prompter);
+    return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
   }
   return handleTableSubcommand(subcommand, newArgv, prompter);
 };
@@ -80,8 +91,17 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           description: true,
           defaultBranch: true,
           lastSyncedAt: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          urlTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          defaultBranchTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -107,7 +127,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
     const client = getClient();
     const result = await client.repository
       .findOne({
-        id: answers.id,
+        id: answers.id as string,
         select: {
           id: true,
           entityId: true,
@@ -118,8 +138,17 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           description: true,
           defaultBranch: true,
           lastSyncedAt: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          urlTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          defaultBranchTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -152,40 +181,53 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'url',
         message: 'url',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'defaultBranch',
         message: 'defaultBranch',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'lastSyncedAt',
         message: 'lastSyncedAt',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: true,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CreateRepositoryInput['repository'];
     const client = getClient();
     const result = await client.repository
       .create({
@@ -196,8 +238,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           description: cleanedData.description,
           defaultBranch: cleanedData.defaultBranch,
           lastSyncedAt: cleanedData.lastSyncedAt,
+          tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -209,8 +252,17 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           description: true,
           defaultBranch: true,
           lastSyncedAt: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          urlTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          defaultBranchTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -249,40 +301,53 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'url',
         message: 'url',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'description',
         message: 'description',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'defaultBranch',
         message: 'defaultBranch',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'lastSyncedAt',
         message: 'lastSyncedAt',
         required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'tags',
+        message: 'tags',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
         name: 'embedding',
         message: 'embedding',
         required: false,
-      },
-      {
-        type: 'text',
-        name: 'embeddingDistance',
-        message: 'embeddingDistance',
-        required: false,
+        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as RepositoryPatch;
     const client = getClient();
     const result = await client.repository
       .update({
@@ -296,8 +361,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           description: cleanedData.description,
           defaultBranch: cleanedData.defaultBranch,
           lastSyncedAt: cleanedData.lastSyncedAt,
+          tags: cleanedData.tags,
+          embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          embeddingDistance: cleanedData.embeddingDistance,
         },
         select: {
           id: true,
@@ -309,8 +375,17 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           description: true,
           defaultBranch: true,
           lastSyncedAt: true,
+          tags: true,
+          embeddingText: true,
           embedding: true,
-          embeddingDistance: true,
+          embeddingTextBm25Score: true,
+          nameTrgmSimilarity: true,
+          urlTrgmSimilarity: true,
+          descriptionTrgmSimilarity: true,
+          defaultBranchTrgmSimilarity: true,
+          embeddingTextTrgmSimilarity: true,
+          embeddingVectorDistance: true,
+          searchScore: true,
         },
       })
       .execute();
