@@ -6,8 +6,7 @@ import { NodeHttpAdapter } from '../sdk/node-http-adapter';
 import { withRetry } from '../helpers';
 
 const databaseId = process.env.DATABASE_ID;
-const accessToken = process.env.ACCESS_TOKEN;
-const adapter = new NodeHttpAdapter('http://[::1]:3000/graphql', { Host: 'meta.localhost', Authorization: `Bearer ${accessToken}` });
+const adapter = new NodeHttpAdapter(process.env.META_ENDPOINT || 'http://localhost:3000/graphql', { 'X-Meta-Schema': 'true' });
 const client = createClient({ adapter });
 
 async function addField(tableId: string, name: string, type: string, opts: { isRequired?: boolean; defaultValue?: string } = {}): Promise<string> {

@@ -98,12 +98,84 @@ async function main() {
   // 2. Connect to the database
   const db = await getPgPool({ database: dbname });
 
+  // ---------------------------------------------------------------------------
+  // Ensure pgpm-compatible schema aliases exist.
+  //
+  // With CONSTRUCTIVE_SIMPLE_SCHEMA_NAMES=true the metaschema schemas are named
+  // metaschema_public / services_public instead of the collections_public /
+  // meta_public that pgpm's exportMigrations hardcodes. Create alias views so
+  // pgpm export works regardless of the naming mode.
+  // ---------------------------------------------------------------------------
+  console.log('  Ensuring pgpm-compatible schema aliases...');
+  await db.query(`
+    -- collections_public aliases (metaschema_public)
+    DO $$ BEGIN
+      IF NOT EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'collections_public')
+         AND EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'metaschema_public') THEN
+        CREATE SCHEMA collections_public;
+        CREATE VIEW collections_public.database AS SELECT * FROM metaschema_public.database;
+        CREATE VIEW collections_public.schema AS SELECT * FROM metaschema_public.schema;
+        CREATE VIEW collections_public."table" AS SELECT * FROM metaschema_public."table";
+        CREATE VIEW collections_public.field AS SELECT * FROM metaschema_public.field;
+        CREATE VIEW collections_public.database_extension AS
+          SELECT NULL::uuid AS id, NULL::uuid AS database_id, NULL::text AS extension_name WHERE false;
+      END IF;
+    END $$;
+
+    -- meta_public aliases (services_public)
+    DO $$ BEGIN
+      IF NOT EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'meta_public')
+         AND EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'services_public') THEN
+        CREATE SCHEMA meta_public;
+        CREATE VIEW meta_public.domains AS SELECT * FROM services_public.domains;
+        CREATE VIEW meta_public.apis AS SELECT * FROM services_public.apis;
+        CREATE VIEW meta_public.sites AS SELECT * FROM services_public.sites;
+        CREATE VIEW meta_public.apps AS SELECT * FROM services_public.apps;
+        CREATE VIEW meta_public.site_themes AS SELECT * FROM services_public.site_themes;
+        CREATE VIEW meta_public.api_modules AS SELECT * FROM services_public.api_modules;
+        CREATE VIEW meta_public.api_schemata AS SELECT * FROM services_public.api_schemas;
+      END IF;
+    END $$;
+
+    -- Stub views for tables that may not exist yet
+    DO $$ BEGIN
+      PERFORM 1 FROM information_schema.views WHERE table_schema = 'meta_public' AND table_name = 'api_extensions';
+      IF NOT FOUND AND EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'meta_public') THEN
+        CREATE VIEW meta_public.api_extensions AS
+          SELECT NULL::uuid AS id, NULL::uuid AS database_id, NULL::uuid AS api_id, NULL::text AS schema_name WHERE false;
+      END IF;
+    END $$;
+    DO $$ BEGIN
+      PERFORM 1 FROM information_schema.views WHERE table_schema = 'meta_public' AND table_name = 'rls_module';
+      IF NOT FOUND AND EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'meta_public') THEN
+        CREATE VIEW meta_public.rls_module AS
+          SELECT NULL::uuid AS id, NULL::uuid AS database_id WHERE false;
+      END IF;
+    END $$;
+    DO $$ BEGIN
+      PERFORM 1 FROM information_schema.views WHERE table_schema = 'meta_public' AND table_name = 'user_auth_module';
+      IF NOT FOUND AND EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'meta_public') THEN
+        CREATE VIEW meta_public.user_auth_module AS
+          SELECT NULL::uuid AS id, NULL::uuid AS database_id WHERE false;
+      END IF;
+    END $$;
+  `);
+
   // 3. Get the database ID (either from env or latest provisioned)
+  // With CONSTRUCTIVE_SIMPLE_SCHEMA_NAMES=true the metaschema lives in
+  // metaschema_public instead of collections_public. Try both.
   let databaseId = process.env.DATABASE_ID;
   if (!databaseId) {
-    const result = await db.query(
-      `SELECT id, name FROM collections_public.database WHERE name != 'constructive' ORDER BY name DESC LIMIT 1`
-    );
+    let result;
+    try {
+      result = await db.query(
+        `SELECT id, name FROM collections_public.database WHERE name != 'constructive' ORDER BY name DESC LIMIT 1`
+      );
+    } catch {
+      result = await db.query(
+        `SELECT id, name FROM metaschema_public.database WHERE name != 'constructive' ORDER BY name DESC LIMIT 1`
+      );
+    }
     if (result.rows.length === 0) {
       console.error('No provisioned databases found in collections_public.database');
       process.exit(1);
@@ -115,10 +187,18 @@ async function main() {
   }
 
   // 4. Get all schema names for this database
-  const schemasResult = await db.query(
-    `SELECT schema_name FROM collections_public.schema WHERE database_id = $1 ORDER BY schema_name`,
-    [databaseId]
-  );
+  let schemasResult;
+  try {
+    schemasResult = await db.query(
+      `SELECT schema_name FROM collections_public.schema WHERE database_id = $1 ORDER BY schema_name`,
+      [databaseId]
+    );
+  } catch {
+    schemasResult = await db.query(
+      `SELECT schema_name FROM metaschema_public.schema WHERE database_id = $1 ORDER BY schema_name`,
+      [databaseId]
+    );
+  }
   const schema_names = schemasResult.rows.map((r: { schema_name: string }) => r.schema_name);
   console.log(`  schemas: ${schema_names.length}`);
 

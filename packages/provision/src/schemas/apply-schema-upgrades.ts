@@ -7,19 +7,17 @@ import { NodeHttpAdapter } from '../sdk/node-http-adapter';
 import { withRetry, entityGrants, entityPolicyData } from '../helpers';
 
 const databaseId = process.env.DATABASE_ID;
-const accessToken = process.env.ACCESS_TOKEN;
 
-if (!databaseId || !accessToken) {
-  console.error('❌ Missing DATABASE_ID or ACCESS_TOKEN in .env');
+
+if (!databaseId) {
+  console.error('❌ Missing DATABASE_ID in env');
   process.exit(1);
 }
 
-const PLATFORM_ENDPOINT = 'http://[::1]:3000/graphql';
-const PLATFORM_HOST = 'meta.localhost';
+const PLATFORM_ENDPOINT = process.env.META_ENDPOINT || 'http://localhost:3000/graphql';
 
 const adapter = new NodeHttpAdapter(PLATFORM_ENDPOINT, {
-  Host: PLATFORM_HOST,
-  Authorization: `Bearer ${accessToken}`,
+  'X-Meta-Schema': 'true',
 });
 const client = createClient({ adapter });
 

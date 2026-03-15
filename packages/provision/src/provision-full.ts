@@ -1,62 +1,46 @@
 /**
- * provision-full.ts — Master provisioning script for Agent OS v2
- * Provisions DB, then runs ALL schema modules in order.
+ * provision-full.ts — Master provisioning script for Agent DB
+ *
+ * Uses header-based routing (X-Meta-Schema) so it works on a fresh database
+ * without requiring domain entries. Runs in admin mode with the meta-schema
+ * endpoint to provision the database and all schema modules.
  */
 
-import { auth, public_, NodeHttpAdapter } from '@constructive-io/node';
-import { config } from './config';
-import { withRetry, entityGrants, entityPolicyData } from './helpers';
-import * as dotenv from 'dotenv';
+import { public_, NodeHttpAdapter } from '@constructive-io/node';
+import { withRetry } from './helpers';
 import * as path from 'path';
 import * as fs from 'fs';
 import { execSync } from 'child_process';
+import { randomUUID } from 'crypto';
 
 async function main() {
-  const ts = Date.now();
-  const databaseName = `agent-os-v2-${ts}`;
-  const uniqueEmail = config.adminEmail.replace('@', `+${ts}@`);
+  const databaseName = process.env.DATABASE_NAME || 'agent-db';
 
-  console.log('\n🚀 Agent-OS v2 Full Provisioning\n');
+  console.log('\n🚀 Agent DB — Full Provisioning\n');
   console.log(`   Database: ${databaseName}`);
-  console.log(`   Admin: ${uniqueEmail}`);
 
-  // --- Step 1: Sign up & Create DB ---
-  
-  const authAdapter = new NodeHttpAdapter(config.authEndpoint);
-  const authClient = auth.createClient({ adapter: authAdapter });
+  // --- Step 1: Create DB via meta-schema endpoint ---
+  //
+  // Uses X-Meta-Schema header routing (works on fresh databases without
+  // domain entries). The server must be started with API_IS_PUBLIC=false.
 
-  const signUpResult = await authClient.mutation.signUp(
-    { input: { email: uniqueEmail, password: config.adminPassword } },
-    { select: { result: { select: { userId: true, accessToken: true } } } }
-  ).execute();
+  const metaEndpoint = process.env.META_ENDPOINT || 'http://localhost:3000/graphql';
+  const ownerId = process.env.OWNER_ID || randomUUID();
 
-  if (!signUpResult.ok) {
-    console.error('❌ Sign up failed:', JSON.stringify(signUpResult, null, 2));
-    process.exit(1);
-  }
+  console.log(`   Owner ID: ${ownerId}`);
 
-  const data = (signUpResult as any).data;
-  const userId = data?.signUp?.result?.userId;
-  const accessToken = data?.signUp?.result?.accessToken;
-
-  if (!accessToken || !userId) {
-    console.error('❌ No token/userId');
-    process.exit(1);
-  }
-  console.log(`✅ Signed up (ID: ${userId})`);
-
-  console.log(`\n🗄️  Provisioning DB...`);
-  const metaEndpoint = process.env.META_ENDPOINT || 'http://meta.localhost:3000/graphql';
   const apiAdapter = new NodeHttpAdapter(metaEndpoint, {
-    Authorization: `Bearer ${accessToken}`,
+    'X-Meta-Schema': 'true',
   });
   const apiClient = public_.createClient({ adapter: apiAdapter });
+
+  console.log(`\n🗄️  Provisioning DB...`);
 
   const provisionResult = await withRetry(() =>
     apiClient.databaseProvisionModule.create({
       data: {
         databaseName,
-        ownerId: userId,
+        ownerId,
         subdomain: databaseName,
         domain: 'localhost',
         modules: ['all'],
@@ -72,6 +56,7 @@ async function main() {
   
   if (!dbProv || !dbProv.databaseId) {
     console.error(`❌ DB Provision Failed: ${dbProv?.errorMessage || 'unknown'}`);
+    console.error('Full result:', JSON.stringify(provisionResult, null, 2));
     process.exit(1);
   }
 
@@ -79,11 +64,14 @@ async function main() {
   console.log(`✅ DB Ready: ${databaseId}`);
 
   // --- Step 2: Run Schema Scripts ---
-  
+  //
+  // Each schema script uses X-Meta-Schema header routing (via META_ENDPOINT)
+  // and the DATABASE_ID to create tables, fields, indexes, etc.
+
   const childEnv = { 
     ...process.env, 
-    DATABASE_ID: databaseId, 
-    ACCESS_TOKEN: accessToken
+    DATABASE_ID: databaseId,
+    META_ENDPOINT: metaEndpoint,
   };
 
   const schemaDir = path.resolve(__dirname, 'schemas');
@@ -115,7 +103,8 @@ async function main() {
   // --- Step 3: Success ---
   console.log('\n✨✨✨ ALL SYSTEMS GO ✨✨✨');
   console.log(`\nDatabase: ${databaseName}`);
-  console.log(`User: ${uniqueEmail}`);
+  console.log(`Database ID: ${databaseId}`);
+  console.log(`Owner ID: ${ownerId}`);
   
   const envPath = path.resolve(__dirname, '../../../../.env');
   console.log(`\nUpdating .env at: ${envPath}`);
@@ -129,10 +118,10 @@ async function main() {
     console.warn('⚠️ Could not read .env, creating new one.');
   }
   
-  const newEnvVars: any = {
+  const newEnvVars: Record<string, string> = {
     DATABASE_ID: databaseId,
-    ACCESS_TOKEN: accessToken,
-    DATABASE_NAME: databaseName
+    DATABASE_NAME: databaseName,
+    OWNER_ID: ownerId,
   };
 
   let newContent = envContent;
