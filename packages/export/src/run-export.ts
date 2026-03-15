@@ -234,6 +234,31 @@ async function main() {
   console.log(`\nExport complete! Output: ${path.join(outdir, extensionName)}`);
 
   // ---------------------------------------------------------------------------
+  // Remove non-agent-db schemas from the export.
+  //
+  // exportMigrations scans ALL schemas in the database via
+  // information_schema.schemata, not just the ones we pass in schema_names.
+  // This means constructive platform schemas (constructive-*, services-*, etc.)
+  // leak into the export. Remove any schema directory that isn't in our
+  // schema_names list.
+  // ---------------------------------------------------------------------------
+  const schemaNameSet = new Set(schema_names);
+  for (const modName of [extensionName, metaExtensionName]) {
+    for (const subdir of ['deploy/schemas', 'revert/schemas', 'verify/schemas']) {
+      const schemasDir = path.join(outdir, modName, subdir);
+      if (!fs.existsSync(schemasDir)) continue;
+      for (const entry of fs.readdirSync(schemasDir)) {
+        if (!schemaNameSet.has(entry)) {
+          const fullPath = path.join(schemasDir, entry);
+          fs.rmSync(fullPath, { recursive: true, force: true });
+          console.log(`  Removed non-agent-db schema: ${subdir}/${entry}`);
+        }
+      }
+    }
+  }
+  console.log('Non-agent-db schemas cleaned up.');
+
+  // ---------------------------------------------------------------------------
   // Fix boilerplate template files
   //
   // pgpm 0.2.6's preparePackage calls project.initModule() with lowercase keys
