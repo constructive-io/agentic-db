@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/events/table
--- requires: schemas/agent_db_app_public/tables/events/columns/name/alterations/alt0000004113
+-- requires: schemas/agent_db_app_public/tables/events/columns/name/alterations/alt0000000895
 
 
-ALTER TABLE "agent_db_app_public".events 
+ALTER TABLE agent_db_app_public.events 
   ADD COLUMN event_type text;
 

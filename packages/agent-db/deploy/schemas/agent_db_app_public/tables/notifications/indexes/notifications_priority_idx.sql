@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/notifications/indexes/notifications_type_idx
 
 
-CREATE INDEX notifications_priority_idx ON "agent_db_app_public".notifications USING BTREE ( priority );
+CREATE INDEX notifications_priority_idx ON agent_db_app_public.notifications USING BTREE ( priority );
 

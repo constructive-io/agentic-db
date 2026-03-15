@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/agent_skills/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".agent_rules 
+ALTER TABLE agent_db_app_public.agent_rules 
   ADD CONSTRAINT agent_rules_pkey PRIMARY KEY (id);
 

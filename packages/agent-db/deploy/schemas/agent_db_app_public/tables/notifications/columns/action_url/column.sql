@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/notifications/columns/read_at/column
 
 
-ALTER TABLE "agent_db_app_public".notifications 
+ALTER TABLE agent_db_app_public.notifications 
   ADD COLUMN action_url text;
 

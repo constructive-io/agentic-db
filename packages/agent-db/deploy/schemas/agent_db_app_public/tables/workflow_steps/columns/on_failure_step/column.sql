@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/workflow_steps/columns/on_success_step/column
 
 
-ALTER TABLE "agent_db_app_public".workflow_steps 
+ALTER TABLE agent_db_app_public.workflow_steps 
   ADD COLUMN on_failure_step int;
 

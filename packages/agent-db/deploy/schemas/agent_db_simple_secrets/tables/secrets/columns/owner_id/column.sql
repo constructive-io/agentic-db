@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_simple_secrets/tables/secrets/table
 
 
-ALTER TABLE "agent_db_simple_secrets".secrets 
+ALTER TABLE agent_db_simple_secrets.secrets 
   ADD COLUMN owner_id uuid;
 

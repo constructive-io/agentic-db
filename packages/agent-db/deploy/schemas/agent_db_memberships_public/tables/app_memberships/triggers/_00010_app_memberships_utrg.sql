@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _00010_app_memberships_utrg
-BEFORE UPDATE ON "agent_db_memberships_public".app_memberships
+BEFORE UPDATE ON agent_db_memberships_public.app_memberships
 FOR EACH ROW
-EXECUTE PROCEDURE "agent_db_memberships_private".app_memberships_utg ( );
+EXECUTE PROCEDURE agent_db_memberships_private.app_memberships_utg ( );
 

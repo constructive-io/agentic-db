@@ -5,11 +5,11 @@
 
 
 
-CREATE FUNCTION "agent_db_public".uuid_generate_v4 ()
+CREATE FUNCTION agent_db_public.uuid_generate_v4 ()
     RETURNS uuid
 AS $$
-    SELECT uuids.pseudo_order_seed_uuid('83edebcb-feeb-493f-9742-2d9b7b29abf5');
+    SELECT uuids.pseudo_order_seed_uuid('9085366f-6c6f-49b7-a4c9-c82d816fded5');
 $$
 LANGUAGE sql;
-GRANT EXECUTE ON FUNCTION "agent_db_public".uuid_generate_v4 TO public;
+GRANT EXECUTE ON FUNCTION agent_db_public.uuid_generate_v4 TO public;
 

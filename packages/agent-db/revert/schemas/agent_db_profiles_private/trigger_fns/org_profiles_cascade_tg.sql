@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION "agent_db_profiles_private".org_profiles_cascade_tg;
+DROP FUNCTION agent_db_profiles_private.org_profiles_cascade_tg;
 
 
 

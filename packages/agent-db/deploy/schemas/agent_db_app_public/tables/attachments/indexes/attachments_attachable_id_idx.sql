@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/attachments/indexes/attachments_attachable_type_idx
 
 
-CREATE INDEX attachments_attachable_id_idx ON "agent_db_app_public".attachments USING BTREE ( attachable_id );
+CREATE INDEX attachments_attachable_id_idx ON agent_db_app_public.attachments USING BTREE ( attachable_id );
 

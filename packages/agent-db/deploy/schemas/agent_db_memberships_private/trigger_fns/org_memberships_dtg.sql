@@ -5,18 +5,18 @@
 
 
 
-CREATE FUNCTION "agent_db_memberships_private".org_memberships_dtg ()
+CREATE FUNCTION agent_db_memberships_private.org_memberships_dtg ()
   RETURNS TRIGGER
 AS $CODEZ$
 BEGIN
     IF (
-        SELECT count(*) = 0 FROM "agent_db_memberships_public".org_memberships 
+        SELECT count(*) = 0 FROM agent_db_memberships_public.org_memberships 
         WHERE is_owner = TRUE
         AND entity_id = OLD.entity_id
         AND actor_id <> OLD.actor_id
     ) THEN 
         IF (
-            SELECT count(*) > 0 FROM "agent_db_memberships_public".org_memberships 
+            SELECT count(*) > 0 FROM agent_db_memberships_public.org_memberships 
             WHERE entity_id = OLD.entity_id
             AND actor_id <> OLD.actor_id
         ) THEN 

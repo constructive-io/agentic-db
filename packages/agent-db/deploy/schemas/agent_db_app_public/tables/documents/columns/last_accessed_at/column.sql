@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/documents/table
--- requires: schemas/agent_db_app_public/tables/documents/columns/active_count/alterations/alt0000004638
+-- requires: schemas/agent_db_app_public/tables/documents/columns/active_count/alterations/alt0000001420
 
 
-ALTER TABLE "agent_db_app_public".documents 
+ALTER TABLE agent_db_app_public.documents 
   ADD COLUMN last_accessed_at timestamptz;
 

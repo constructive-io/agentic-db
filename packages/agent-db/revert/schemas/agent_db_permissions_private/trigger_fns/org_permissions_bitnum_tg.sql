@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agent_db_permissions_private".org_permissions_bitnum_tg;
+DROP FUNCTION agent_db_permissions_private.org_permissions_bitnum_tg;
 
 

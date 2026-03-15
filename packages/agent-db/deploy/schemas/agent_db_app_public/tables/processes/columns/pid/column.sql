@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/processes/table
--- requires: schemas/agent_db_app_public/tables/processes/columns/updated_at/alterations/alt0000004416
+-- requires: schemas/agent_db_app_public/tables/processes/columns/updated_at/alterations/alt0000001198
 
 
-ALTER TABLE "agent_db_app_public".processes 
+ALTER TABLE agent_db_app_public.processes 
   ADD COLUMN pid int;
 

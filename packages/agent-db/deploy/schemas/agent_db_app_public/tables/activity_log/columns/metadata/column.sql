@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/activity_log/table
--- requires: schemas/agent_db_app_public/tables/activity_log/columns/target_id/alterations/alt0000004519
+-- requires: schemas/agent_db_app_public/tables/activity_log/columns/target_id/alterations/alt0000001301
 
 
-ALTER TABLE "agent_db_app_public".activity_log 
+ALTER TABLE agent_db_app_public.activity_log 
   ADD COLUMN metadata jsonb;
 

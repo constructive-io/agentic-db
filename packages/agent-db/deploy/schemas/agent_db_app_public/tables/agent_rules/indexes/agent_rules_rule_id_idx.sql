@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/agent_rules/indexes/agent_rules_agent_id_idx
 
 
-CREATE INDEX agent_rules_rule_id_idx ON "agent_db_app_public".agent_rules USING BTREE ( rule_id );
+CREATE INDEX agent_rules_rule_id_idx ON agent_db_app_public.agent_rules USING BTREE ( rule_id );
 

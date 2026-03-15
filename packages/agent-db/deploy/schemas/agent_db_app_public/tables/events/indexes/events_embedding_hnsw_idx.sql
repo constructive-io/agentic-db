@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/deals/indexes/deals_embedding_hnsw_idx
 
 
-CREATE INDEX events_embedding_hnsw_idx ON "agent_db_app_public".events USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
+CREATE INDEX events_embedding_hnsw_idx ON agent_db_app_public.events USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
 

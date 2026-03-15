@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/habits/columns/tags/column
 
 
-GRANT INSERT ON "agent_db_app_public".habit_logs TO authenticated;
+GRANT INSERT ON agent_db_app_public.habit_logs TO authenticated;
 

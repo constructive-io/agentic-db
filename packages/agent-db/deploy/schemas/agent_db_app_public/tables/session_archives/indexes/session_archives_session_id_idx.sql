@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/context_relations/indexes/context_relations_to_id_idx
 
 
-CREATE INDEX session_archives_session_id_idx ON "agent_db_app_public".session_archives USING BTREE ( session_id );
+CREATE INDEX session_archives_session_id_idx ON agent_db_app_public.session_archives USING BTREE ( session_id );
 

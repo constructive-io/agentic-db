@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_user_identifiers_public/tables/crypto_addresses/table
 
 
-CREATE POLICY auth_sel ON "agent_db_user_identifiers_public".crypto_addresses
+CREATE POLICY auth_sel ON agent_db_user_identifiers_public.crypto_addresses
 FOR SELECT
 TO authenticated
 USING (

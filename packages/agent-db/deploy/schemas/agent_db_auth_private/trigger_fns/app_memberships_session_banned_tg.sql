@@ -5,13 +5,13 @@
 
 
 
-CREATE FUNCTION "agent_db_auth_private".app_memberships_session_banned_tg ()
+CREATE FUNCTION agent_db_auth_private.app_memberships_session_banned_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
 BEGIN
     -- Revoke all sessions for the user when banned/disabled
-    UPDATE "agent_db_auth_private".sessions 
+    UPDATE agent_db_auth_private.sessions 
         SET revoked_at = NOW()
         WHERE user_id = NEW.actor_id
         AND revoked_at IS NULL;

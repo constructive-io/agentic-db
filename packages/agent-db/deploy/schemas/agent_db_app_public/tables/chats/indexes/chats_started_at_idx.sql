@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/execution_log/indexes/execution_logs_session_id_idx
 
 
-CREATE INDEX chats_started_at_idx ON "agent_db_app_public".chats USING BTREE ( started_at );
+CREATE INDEX chats_started_at_idx ON agent_db_app_public.chats USING BTREE ( started_at );
 

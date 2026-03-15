@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/interactions/indexes/interactions_occurred_at_idx
 
 
-CREATE INDEX tasks_status_idx ON "agent_db_app_public".tasks USING BTREE ( status );
+CREATE INDEX tasks_status_idx ON agent_db_app_public.tasks USING BTREE ( status );
 

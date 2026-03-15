@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER org_profile_grants_apply_trg
-AFTER INSERT ON "agent_db_profiles_public".org_profile_grants
+AFTER INSERT ON agent_db_profiles_public.org_profile_grants
 FOR EACH ROW
-EXECUTE PROCEDURE "agent_db_profiles_private".org_profile_grants_apply_tg ( );
+EXECUTE PROCEDURE agent_db_profiles_private.org_profile_grants_apply_tg ( );
 

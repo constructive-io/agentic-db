@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773551593867-bac64076-app-public/tables/feedback/alterations/alt0000002727
-
-
-ALTER TABLE "agent-os-1773551593867-bac64076-app-public".feedback 
-  ENABLE ROW LEVEL SECURITY;
-
-

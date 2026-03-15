@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/attachments/columns/attachable_id/column
 
 
-CREATE TABLE "agent_db_app_public".contact_links ();
+CREATE TABLE agent_db_app_public.contact_links ();
 

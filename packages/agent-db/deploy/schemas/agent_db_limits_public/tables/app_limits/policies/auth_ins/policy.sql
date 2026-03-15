@@ -5,12 +5,12 @@
 -- requires: schemas/agent_db_limits_public/tables/app_limits/table
 
 
-CREATE POLICY auth_ins ON "agent_db_limits_public".app_limits
+CREATE POLICY auth_ins ON agent_db_limits_public.app_limits
 FOR INSERT
 TO authenticated
 WITH CHECK (
   EXISTS (SELECT 1
-  FROM "agent_db_memberships_private".app_memberships_sprt AS app_sprt
+  FROM agent_db_memberships_private.app_memberships_sprt AS app_sprt
   WHERE
       app_sprt.actor_id = jwt_public.current_user_id() AND (app_sprt.permissions & '000000000000000000100000') = '000000000000000000100000')
 );

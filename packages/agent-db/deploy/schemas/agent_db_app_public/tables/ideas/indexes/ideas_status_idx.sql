@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/repositories/indexes/repositories_last_synced_at_idx
 
 
-CREATE INDEX ideas_status_idx ON "agent_db_app_public".ideas USING BTREE ( status );
+CREATE INDEX ideas_status_idx ON agent_db_app_public.ideas USING BTREE ( status );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/interactions/columns/contact_id/column
 
 
-CREATE INDEX interactions_contact_id_idx ON "agent_db_app_public".interactions USING BTREE ( contact_id );
+CREATE INDEX interactions_contact_id_idx ON agent_db_app_public.interactions USING BTREE ( contact_id );
 

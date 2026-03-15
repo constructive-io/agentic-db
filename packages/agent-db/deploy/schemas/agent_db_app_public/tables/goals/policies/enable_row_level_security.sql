@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/skills/columns/intent_trigger/column
 
 
-ALTER TABLE "agent_db_app_public".goals 
+ALTER TABLE agent_db_app_public.goals 
   ENABLE ROW LEVEL SECURITY;
 

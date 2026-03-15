@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/blueprints/columns/embedding/column
 
 
-CREATE TABLE "agent_db_app_public".processes ();
+CREATE TABLE agent_db_app_public.processes ();
 

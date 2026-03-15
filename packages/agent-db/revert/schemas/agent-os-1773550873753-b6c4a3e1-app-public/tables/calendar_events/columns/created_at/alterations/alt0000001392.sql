@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773550873753-b6c4a3e1-app-public/tables/calendar_events/columns/created_at/alterations/alt0000001392
-
-
-ALTER TABLE "agent-os-1773550873753-b6c4a3e1-app-public".calendar_events 
-  ALTER COLUMN created_at DROP NOT NULL;
-
-

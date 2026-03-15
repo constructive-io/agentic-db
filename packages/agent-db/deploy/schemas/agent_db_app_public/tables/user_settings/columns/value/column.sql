@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/user_settings/table
--- requires: schemas/agent_db_app_public/tables/user_settings/columns/key/alterations/alt0000004669
+-- requires: schemas/agent_db_app_public/tables/user_settings/columns/key/alterations/alt0000001451
 
 
-ALTER TABLE "agent_db_app_public".user_settings 
+ALTER TABLE agent_db_app_public.user_settings 
   ADD COLUMN value jsonb;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/events/indexes/events_tags_gin_idx
 
 
-CREATE INDEX venues_tags_gin_idx ON "agent_db_app_public".venues USING GIN ( tags );
+CREATE INDEX venues_tags_gin_idx ON agent_db_app_public.venues USING GIN ( tags );
 

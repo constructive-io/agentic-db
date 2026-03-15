@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/contacts/columns/twitter_handle/column
 
 
-CREATE INDEX contacts_twitter_handle_idx ON "agent_db_app_public".contacts USING BTREE ( twitter_handle );
+CREATE INDEX contacts_twitter_handle_idx ON agent_db_app_public.contacts USING BTREE ( twitter_handle );
 

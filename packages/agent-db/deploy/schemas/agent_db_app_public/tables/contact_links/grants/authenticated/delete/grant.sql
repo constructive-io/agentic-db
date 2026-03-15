@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/attachments/columns/attachable_id/column
 
 
-GRANT DELETE ON "agent_db_app_public".contact_links TO authenticated;
+GRANT DELETE ON agent_db_app_public.contact_links TO authenticated;
 

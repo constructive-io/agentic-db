@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/blueprints/indexes/blueprints_title_gin_idx
 
 
-CREATE INDEX calendar_events_title_gin_idx ON "agent_db_app_public".calendar_events USING gin ( title gin_trgm_ops );
+CREATE INDEX calendar_events_title_gin_idx ON agent_db_app_public.calendar_events USING gin ( title gin_trgm_ops );
 

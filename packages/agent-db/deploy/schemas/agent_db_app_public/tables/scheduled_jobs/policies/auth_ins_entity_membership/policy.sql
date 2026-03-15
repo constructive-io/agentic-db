@@ -6,12 +6,12 @@
 -- requires: schemas/agent_db_app_public/tables/processes/columns/logs_path/column
 
 
-CREATE POLICY auth_ins_entity_membership ON "agent_db_app_public".scheduled_jobs
+CREATE POLICY auth_ins_entity_membership ON agent_db_app_public.scheduled_jobs
 FOR INSERT
 TO authenticated
 WITH CHECK (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM "agent_db_memberships_private".org_memberships_sprt AS org_sprt
+  FROM agent_db_memberships_private.org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

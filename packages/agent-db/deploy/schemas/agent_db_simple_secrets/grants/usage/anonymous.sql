@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_simple_secrets/schema
 
 
-GRANT USAGE ON SCHEMA "agent_db_simple_secrets" TO anonymous;
+GRANT USAGE ON SCHEMA agent_db_simple_secrets TO anonymous;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/memories/columns/importance/column
 
 
-CREATE INDEX memories_importance_idx ON "agent_db_app_public".memories USING BTREE ( importance );
+CREATE INDEX memories_importance_idx ON agent_db_app_public.memories USING BTREE ( importance );
 

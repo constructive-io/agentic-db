@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/projects/columns/search_tsv/column
 
 
-GRANT SELECT ON "agent_db_app_public".milestones TO authenticated;
+GRANT SELECT ON agent_db_app_public.milestones TO authenticated;
 

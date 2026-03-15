@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/activity_log/columns/metadata/column
 
 
-ALTER TABLE "agent_db_app_public".sessions 
+ALTER TABLE agent_db_app_public.sessions 
   ADD CONSTRAINT sessions_agent_id_fkey 
     FOREIGN KEY(agent_id) 
-    REFERENCES "agent_db_app_public".agents (id) 
+    REFERENCES agent_db_app_public.agents (id) 
     ON DELETE CASCADE;
 

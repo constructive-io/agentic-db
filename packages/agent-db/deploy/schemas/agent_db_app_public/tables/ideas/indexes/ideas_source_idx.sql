@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/ideas/indexes/ideas_status_idx
 
 
-CREATE INDEX ideas_source_idx ON "agent_db_app_public".ideas USING BTREE ( source );
+CREATE INDEX ideas_source_idx ON agent_db_app_public.ideas USING BTREE ( source );
 

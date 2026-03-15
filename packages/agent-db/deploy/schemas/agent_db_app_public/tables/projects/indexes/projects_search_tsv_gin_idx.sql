@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/venues/indexes/venues_search_tsv_gin_idx
 
 
-CREATE INDEX projects_search_tsv_gin_idx ON "agent_db_app_public".projects USING GIN ( search_tsv );
+CREATE INDEX projects_search_tsv_gin_idx ON agent_db_app_public.projects USING GIN ( search_tsv );
 

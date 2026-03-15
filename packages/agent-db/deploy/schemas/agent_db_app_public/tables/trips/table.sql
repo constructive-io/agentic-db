@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/billing_subscriptions/columns/notes/column
 
 
-CREATE TABLE "agent_db_app_public".trips ();
+CREATE TABLE agent_db_app_public.trips ();
 

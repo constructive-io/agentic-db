@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_invites_public/tables/invites/table
 
 
-GRANT SELECT ON "agent_db_invites_public".invites TO authenticated;
+GRANT SELECT ON agent_db_invites_public.invites TO authenticated;
 

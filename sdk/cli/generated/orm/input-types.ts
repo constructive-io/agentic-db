@@ -237,6 +237,79 @@ export interface AgentPrompt {
   id: string;
   entityId?: string | null;
 }
+export interface Session {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  title?: string | null;
+  agentId?: string | null;
+  startedAt?: string | null;
+  endedAt?: string | null;
+  status?: string | null;
+  contextSummary?: string | null;
+  sessionSummary?: string | null;
+  archivedMessages?: Record<string, unknown> | null;
+  compressionCount?: number | null;
+  archivedAt?: string | null;
+  extractedMemoryIds?: string | null;
+  contextsUsed?: Record<string, unknown> | null;
+  skillsUsed?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  /** TRGM similarity when searching `uagent`. Returns null when no trgm search filter is active. */
+  uagentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `fingerprintMode`. Returns null when no trgm search filter is active. */
+  fingerprintModeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `csrfSecret`. Returns null when no trgm search filter is active. */
+  csrfSecretTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface ExecutionLog {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  sessionId?: string | null;
+  stepName?: string | null;
+  input?: string | null;
+  output?: string | null;
+  toolCalls?: Record<string, unknown> | null;
+  durationMs?: number | null;
+  /** TRGM similarity when searching `stepName`. Returns null when no trgm search filter is active. */
+  stepNameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `input`. Returns null when no trgm search filter is active. */
+  inputTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `output`. Returns null when no trgm search filter is active. */
+  outputTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface SessionArchive {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  sessionId?: string | null;
+  archiveIndex?: number | null;
+  summary?: string | null;
+  messageRangeStart?: number | null;
+  messageRangeEnd?: number | null;
+  rawMessages?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
+  summaryTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Process {
   id: string;
   entityId?: string | null;
@@ -737,50 +810,6 @@ export interface UserSetting {
   keyTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
   categoryTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface ExecutionLog {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  sessionId?: string | null;
-  stepName?: string | null;
-  input?: string | null;
-  output?: string | null;
-  toolCalls?: Record<string, unknown> | null;
-  durationMs?: number | null;
-  /** TRGM similarity when searching `stepName`. Returns null when no trgm search filter is active. */
-  stepNameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `input`. Returns null when no trgm search filter is active. */
-  inputTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `output`. Returns null when no trgm search filter is active. */
-  outputTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface SessionArchive {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  sessionId?: string | null;
-  archiveIndex?: number | null;
-  summary?: string | null;
-  messageRangeStart?: number | null;
-  messageRangeEnd?: number | null;
-  rawMessages?: Record<string, unknown> | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
-  summaryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1791,35 +1820,6 @@ export interface Agent {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface Session {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  title?: string | null;
-  agentId?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  status?: string | null;
-  contextSummary?: string | null;
-  sessionSummary?: string | null;
-  archivedMessages?: Record<string, unknown> | null;
-  compressionCount?: number | null;
-  archivedAt?: string | null;
-  extractedMemoryIds?: string | null;
-  contextsUsed?: Record<string, unknown> | null;
-  skillsUsed?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  /** TRGM similarity when searching `uagent`. Returns null when no trgm search filter is active. */
-  uagentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `fingerprintMode`. Returns null when no trgm search filter is active. */
-  fingerprintModeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `csrfSecret`. Returns null when no trgm search filter is active. */
-  csrfSecretTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
 export interface Skill {
   id: string;
   entityId?: string | null;
@@ -2155,6 +2155,17 @@ export interface AgentPromptRelations {
   agent?: Agent | null;
   prompt?: Prompt | null;
 }
+export interface SessionRelations {
+  agent?: Agent | null;
+  executionLogs?: ConnectionResult<ExecutionLog>;
+  sessionArchives?: ConnectionResult<SessionArchive>;
+}
+export interface ExecutionLogRelations {
+  session?: Session | null;
+}
+export interface SessionArchiveRelations {
+  session?: Session | null;
+}
 export interface ProcessRelations {
   agent?: Agent | null;
 }
@@ -2268,12 +2279,6 @@ export interface MessageRelations {
 export interface ActivityLogRelations {}
 export interface ContextRelationRelations {}
 export interface UserSettingRelations {}
-export interface ExecutionLogRelations {
-  session?: Session | null;
-}
-export interface SessionArchiveRelations {
-  session?: Session | null;
-}
 export interface WebhookRelations {
   integration?: Integration | null;
 }
@@ -2358,17 +2363,13 @@ export interface TaskRelations {
   parentTask?: Task | null;
 }
 export interface AgentRelations {
+  sessions?: ConnectionResult<Session>;
   processes?: ConnectionResult<Process>;
   scheduledJobs?: ConnectionResult<ScheduledJob>;
   agentTools?: ConnectionResult<AgentTool>;
   agentSkills?: ConnectionResult<AgentSkill>;
   agentRules?: ConnectionResult<AgentRule>;
   agentPrompts?: ConnectionResult<AgentPrompt>;
-}
-export interface SessionRelations {
-  agent?: Agent | null;
-  executionLogs?: ConnectionResult<ExecutionLog>;
-  sessionArchives?: ConnectionResult<SessionArchive>;
 }
 export interface SkillRelations {
   agentSkills?: ConnectionResult<AgentSkill>;
@@ -2392,6 +2393,9 @@ export interface VenueRelations {
 }
 // ============ Entity Types With Relations ============
 export type AgentPromptWithRelations = AgentPrompt & AgentPromptRelations;
+export type SessionWithRelations = Session & SessionRelations;
+export type ExecutionLogWithRelations = ExecutionLog & ExecutionLogRelations;
+export type SessionArchiveWithRelations = SessionArchive & SessionArchiveRelations;
 export type ProcessWithRelations = Process & ProcessRelations;
 export type ScheduledJobWithRelations = ScheduledJob & ScheduledJobRelations;
 export type AgentToolWithRelations = AgentTool & AgentToolRelations;
@@ -2428,8 +2432,6 @@ export type MessageWithRelations = Message & MessageRelations;
 export type ActivityLogWithRelations = ActivityLog & ActivityLogRelations;
 export type ContextRelationWithRelations = ContextRelation & ContextRelationRelations;
 export type UserSettingWithRelations = UserSetting & UserSettingRelations;
-export type ExecutionLogWithRelations = ExecutionLog & ExecutionLogRelations;
-export type SessionArchiveWithRelations = SessionArchive & SessionArchiveRelations;
 export type WebhookWithRelations = Webhook & WebhookRelations;
 export type NotificationWithRelations = Notification & NotificationRelations;
 export type WorkflowRunWithRelations = WorkflowRun & WorkflowRunRelations;
@@ -2467,7 +2469,6 @@ export type MemoryWithRelations = Memory & MemoryRelations;
 export type RuleWithRelations = Rule & RuleRelations;
 export type TaskWithRelations = Task & TaskRelations;
 export type AgentWithRelations = Agent & AgentRelations;
-export type SessionWithRelations = Session & SessionRelations;
 export type SkillWithRelations = Skill & SkillRelations;
 export type ProjectWithRelations = Project & ProjectRelations;
 export type DocumentWithRelations = Document & DocumentRelations;
@@ -2486,6 +2487,87 @@ export type AgentPromptSelect = {
   };
   prompt?: {
     select: PromptSelect;
+  };
+};
+export type SessionSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  title?: boolean;
+  agentId?: boolean;
+  startedAt?: boolean;
+  endedAt?: boolean;
+  status?: boolean;
+  contextSummary?: boolean;
+  sessionSummary?: boolean;
+  archivedMessages?: boolean;
+  compressionCount?: boolean;
+  archivedAt?: boolean;
+  extractedMemoryIds?: boolean;
+  contextsUsed?: boolean;
+  skillsUsed?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  uagentTrgmSimilarity?: boolean;
+  fingerprintModeTrgmSimilarity?: boolean;
+  csrfSecretTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  executionLogs?: {
+    select: ExecutionLogSelect;
+    first?: number;
+    filter?: ExecutionLogFilter;
+    orderBy?: ExecutionLogOrderBy[];
+  };
+  sessionArchives?: {
+    select: SessionArchiveSelect;
+    first?: number;
+    filter?: SessionArchiveFilter;
+    orderBy?: SessionArchiveOrderBy[];
+  };
+};
+export type ExecutionLogSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  sessionId?: boolean;
+  stepName?: boolean;
+  input?: boolean;
+  output?: boolean;
+  toolCalls?: boolean;
+  durationMs?: boolean;
+  stepNameTrgmSimilarity?: boolean;
+  inputTrgmSimilarity?: boolean;
+  outputTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  session?: {
+    select: SessionSelect;
+  };
+};
+export type SessionArchiveSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  sessionId?: boolean;
+  archiveIndex?: boolean;
+  summary?: boolean;
+  messageRangeStart?: boolean;
+  messageRangeEnd?: boolean;
+  rawMessages?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingTextBm25Score?: boolean;
+  summaryTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  session?: {
+    select: SessionSelect;
   };
 };
 export type ProcessSelect = {
@@ -3060,47 +3142,6 @@ export type UserSettingSelect = {
   keyTrgmSimilarity?: boolean;
   categoryTrgmSimilarity?: boolean;
   searchScore?: boolean;
-};
-export type ExecutionLogSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  sessionId?: boolean;
-  stepName?: boolean;
-  input?: boolean;
-  output?: boolean;
-  toolCalls?: boolean;
-  durationMs?: boolean;
-  stepNameTrgmSimilarity?: boolean;
-  inputTrgmSimilarity?: boolean;
-  outputTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  session?: {
-    select: SessionSelect;
-  };
-};
-export type SessionArchiveSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  sessionId?: boolean;
-  archiveIndex?: boolean;
-  summary?: boolean;
-  messageRangeStart?: boolean;
-  messageRangeEnd?: boolean;
-  rawMessages?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingTextBm25Score?: boolean;
-  summaryTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  session?: {
-    select: SessionSelect;
-  };
 };
 export type WebhookSelect = {
   id?: boolean;
@@ -3985,6 +4026,12 @@ export type AgentSelect = {
   embeddingTextTrgmSimilarity?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
+  sessions?: {
+    select: SessionSelect;
+    first?: number;
+    filter?: SessionFilter;
+    orderBy?: SessionOrderBy[];
+  };
   processes?: {
     select: ProcessSelect;
     first?: number;
@@ -4020,46 +4067,6 @@ export type AgentSelect = {
     first?: number;
     filter?: AgentPromptFilter;
     orderBy?: AgentPromptOrderBy[];
-  };
-};
-export type SessionSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  title?: boolean;
-  agentId?: boolean;
-  startedAt?: boolean;
-  endedAt?: boolean;
-  status?: boolean;
-  contextSummary?: boolean;
-  sessionSummary?: boolean;
-  archivedMessages?: boolean;
-  compressionCount?: boolean;
-  archivedAt?: boolean;
-  extractedMemoryIds?: boolean;
-  contextsUsed?: boolean;
-  skillsUsed?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  uagentTrgmSimilarity?: boolean;
-  fingerprintModeTrgmSimilarity?: boolean;
-  csrfSecretTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  executionLogs?: {
-    select: ExecutionLogSelect;
-    first?: number;
-    filter?: ExecutionLogFilter;
-    orderBy?: ExecutionLogOrderBy[];
-  };
-  sessionArchives?: {
-    select: SessionArchiveSelect;
-    first?: number;
-    filter?: SessionArchiveFilter;
-    orderBy?: SessionArchiveOrderBy[];
   };
 };
 export type SkillSelect = {
@@ -4332,6 +4339,75 @@ export interface AgentPromptFilter {
   and?: AgentPromptFilter[];
   or?: AgentPromptFilter[];
   not?: AgentPromptFilter;
+}
+export interface SessionFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  title?: StringFilter;
+  agentId?: UUIDFilter;
+  startedAt?: DatetimeFilter;
+  endedAt?: DatetimeFilter;
+  status?: StringFilter;
+  contextSummary?: StringFilter;
+  sessionSummary?: StringFilter;
+  archivedMessages?: JSONFilter;
+  compressionCount?: IntFilter;
+  archivedAt?: DatetimeFilter;
+  extractedMemoryIds?: UUIDFilter;
+  contextsUsed?: JSONFilter;
+  skillsUsed?: UUIDFilter;
+  embeddingText?: StringFilter;
+  embedding?: VectorFilter;
+  uagentTrgmSimilarity?: FloatFilter;
+  fingerprintModeTrgmSimilarity?: FloatFilter;
+  csrfSecretTrgmSimilarity?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: SessionFilter[];
+  or?: SessionFilter[];
+  not?: SessionFilter;
+}
+export interface ExecutionLogFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  sessionId?: UUIDFilter;
+  stepName?: StringFilter;
+  input?: StringFilter;
+  output?: StringFilter;
+  toolCalls?: JSONFilter;
+  durationMs?: IntFilter;
+  stepNameTrgmSimilarity?: FloatFilter;
+  inputTrgmSimilarity?: FloatFilter;
+  outputTrgmSimilarity?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: ExecutionLogFilter[];
+  or?: ExecutionLogFilter[];
+  not?: ExecutionLogFilter;
+}
+export interface SessionArchiveFilter {
+  id?: UUIDFilter;
+  entityId?: UUIDFilter;
+  createdAt?: DatetimeFilter;
+  updatedAt?: DatetimeFilter;
+  sessionId?: UUIDFilter;
+  archiveIndex?: IntFilter;
+  summary?: StringFilter;
+  messageRangeStart?: IntFilter;
+  messageRangeEnd?: IntFilter;
+  rawMessages?: JSONFilter;
+  embeddingText?: StringFilter;
+  embedding?: VectorFilter;
+  embeddingTextBm25Score?: FloatFilter;
+  summaryTrgmSimilarity?: FloatFilter;
+  embeddingTextTrgmSimilarity?: FloatFilter;
+  embeddingVectorDistance?: FloatFilter;
+  searchScore?: FloatFilter;
+  and?: SessionArchiveFilter[];
+  or?: SessionArchiveFilter[];
+  not?: SessionArchiveFilter;
 }
 export interface ProcessFilter {
   id?: UUIDFilter;
@@ -4854,47 +4930,6 @@ export interface UserSettingFilter {
   and?: UserSettingFilter[];
   or?: UserSettingFilter[];
   not?: UserSettingFilter;
-}
-export interface ExecutionLogFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  sessionId?: UUIDFilter;
-  stepName?: StringFilter;
-  input?: StringFilter;
-  output?: StringFilter;
-  toolCalls?: JSONFilter;
-  durationMs?: IntFilter;
-  stepNameTrgmSimilarity?: FloatFilter;
-  inputTrgmSimilarity?: FloatFilter;
-  outputTrgmSimilarity?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: ExecutionLogFilter[];
-  or?: ExecutionLogFilter[];
-  not?: ExecutionLogFilter;
-}
-export interface SessionArchiveFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  sessionId?: UUIDFilter;
-  archiveIndex?: IntFilter;
-  summary?: StringFilter;
-  messageRangeStart?: IntFilter;
-  messageRangeEnd?: IntFilter;
-  rawMessages?: JSONFilter;
-  embeddingText?: StringFilter;
-  embedding?: VectorFilter;
-  embeddingTextBm25Score?: FloatFilter;
-  summaryTrgmSimilarity?: FloatFilter;
-  embeddingTextTrgmSimilarity?: FloatFilter;
-  embeddingVectorDistance?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: SessionArchiveFilter[];
-  or?: SessionArchiveFilter[];
-  not?: SessionArchiveFilter;
 }
 export interface WebhookFilter {
   id?: UUIDFilter;
@@ -5774,34 +5809,6 @@ export interface AgentFilter {
   or?: AgentFilter[];
   not?: AgentFilter;
 }
-export interface SessionFilter {
-  id?: UUIDFilter;
-  entityId?: UUIDFilter;
-  createdAt?: DatetimeFilter;
-  updatedAt?: DatetimeFilter;
-  title?: StringFilter;
-  agentId?: UUIDFilter;
-  startedAt?: DatetimeFilter;
-  endedAt?: DatetimeFilter;
-  status?: StringFilter;
-  contextSummary?: StringFilter;
-  sessionSummary?: StringFilter;
-  archivedMessages?: JSONFilter;
-  compressionCount?: IntFilter;
-  archivedAt?: DatetimeFilter;
-  extractedMemoryIds?: UUIDFilter;
-  contextsUsed?: JSONFilter;
-  skillsUsed?: UUIDFilter;
-  embeddingText?: StringFilter;
-  embedding?: VectorFilter;
-  uagentTrgmSimilarity?: FloatFilter;
-  fingerprintModeTrgmSimilarity?: FloatFilter;
-  csrfSecretTrgmSimilarity?: FloatFilter;
-  searchScore?: FloatFilter;
-  and?: SessionFilter[];
-  or?: SessionFilter[];
-  not?: SessionFilter;
-}
 export interface SkillFilter {
   id?: UUIDFilter;
   entityId?: UUIDFilter;
@@ -6067,6 +6074,126 @@ export type AgentPromptOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type SessionOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'STARTED_AT_ASC'
+  | 'STARTED_AT_DESC'
+  | 'ENDED_AT_ASC'
+  | 'ENDED_AT_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'CONTEXT_SUMMARY_ASC'
+  | 'CONTEXT_SUMMARY_DESC'
+  | 'SESSION_SUMMARY_ASC'
+  | 'SESSION_SUMMARY_DESC'
+  | 'ARCHIVED_MESSAGES_ASC'
+  | 'ARCHIVED_MESSAGES_DESC'
+  | 'COMPRESSION_COUNT_ASC'
+  | 'COMPRESSION_COUNT_DESC'
+  | 'ARCHIVED_AT_ASC'
+  | 'ARCHIVED_AT_DESC'
+  | 'EXTRACTED_MEMORY_IDS_ASC'
+  | 'EXTRACTED_MEMORY_IDS_DESC'
+  | 'CONTEXTS_USED_ASC'
+  | 'CONTEXTS_USED_DESC'
+  | 'SKILLS_USED_ASC'
+  | 'SKILLS_USED_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'UAGENT_TRGM_SIMILARITY_ASC'
+  | 'UAGENT_TRGM_SIMILARITY_DESC'
+  | 'FINGERPRINT_MODE_TRGM_SIMILARITY_ASC'
+  | 'FINGERPRINT_MODE_TRGM_SIMILARITY_DESC'
+  | 'CSRF_SECRET_TRGM_SIMILARITY_ASC'
+  | 'CSRF_SECRET_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type ExecutionLogOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'SESSION_ID_ASC'
+  | 'SESSION_ID_DESC'
+  | 'STEP_NAME_ASC'
+  | 'STEP_NAME_DESC'
+  | 'INPUT_ASC'
+  | 'INPUT_DESC'
+  | 'OUTPUT_ASC'
+  | 'OUTPUT_DESC'
+  | 'TOOL_CALLS_ASC'
+  | 'TOOL_CALLS_DESC'
+  | 'DURATION_MS_ASC'
+  | 'DURATION_MS_DESC'
+  | 'STEP_NAME_TRGM_SIMILARITY_ASC'
+  | 'STEP_NAME_TRGM_SIMILARITY_DESC'
+  | 'INPUT_TRGM_SIMILARITY_ASC'
+  | 'INPUT_TRGM_SIMILARITY_DESC'
+  | 'OUTPUT_TRGM_SIMILARITY_ASC'
+  | 'OUTPUT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type SessionArchiveOrderBy =
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'SESSION_ID_ASC'
+  | 'SESSION_ID_DESC'
+  | 'ARCHIVE_INDEX_ASC'
+  | 'ARCHIVE_INDEX_DESC'
+  | 'SUMMARY_ASC'
+  | 'SUMMARY_DESC'
+  | 'MESSAGE_RANGE_START_ASC'
+  | 'MESSAGE_RANGE_START_DESC'
+  | 'MESSAGE_RANGE_END_ASC'
+  | 'MESSAGE_RANGE_END_DESC'
+  | 'RAW_MESSAGES_ASC'
+  | 'RAW_MESSAGES_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'SUMMARY_TRGM_SIMILARITY_ASC'
+  | 'SUMMARY_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ProcessOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -6901,76 +7028,6 @@ export type UserSettingOrderBy =
   | 'KEY_TRGM_SIMILARITY_DESC'
   | 'CATEGORY_TRGM_SIMILARITY_ASC'
   | 'CATEGORY_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type ExecutionLogOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'SESSION_ID_ASC'
-  | 'SESSION_ID_DESC'
-  | 'STEP_NAME_ASC'
-  | 'STEP_NAME_DESC'
-  | 'INPUT_ASC'
-  | 'INPUT_DESC'
-  | 'OUTPUT_ASC'
-  | 'OUTPUT_DESC'
-  | 'TOOL_CALLS_ASC'
-  | 'TOOL_CALLS_DESC'
-  | 'DURATION_MS_ASC'
-  | 'DURATION_MS_DESC'
-  | 'STEP_NAME_TRGM_SIMILARITY_ASC'
-  | 'STEP_NAME_TRGM_SIMILARITY_DESC'
-  | 'INPUT_TRGM_SIMILARITY_ASC'
-  | 'INPUT_TRGM_SIMILARITY_DESC'
-  | 'OUTPUT_TRGM_SIMILARITY_ASC'
-  | 'OUTPUT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type SessionArchiveOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'SESSION_ID_ASC'
-  | 'SESSION_ID_DESC'
-  | 'ARCHIVE_INDEX_ASC'
-  | 'ARCHIVE_INDEX_DESC'
-  | 'SUMMARY_ASC'
-  | 'SUMMARY_DESC'
-  | 'MESSAGE_RANGE_START_ASC'
-  | 'MESSAGE_RANGE_START_DESC'
-  | 'MESSAGE_RANGE_END_ASC'
-  | 'MESSAGE_RANGE_END_DESC'
-  | 'RAW_MESSAGES_ASC'
-  | 'RAW_MESSAGES_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'SUMMARY_TRGM_SIMILARITY_ASC'
-  | 'SUMMARY_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type WebhookOrderBy =
@@ -8509,56 +8566,6 @@ export type AgentOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type SessionOrderBy =
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'NATURAL'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'STARTED_AT_ASC'
-  | 'STARTED_AT_DESC'
-  | 'ENDED_AT_ASC'
-  | 'ENDED_AT_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'CONTEXT_SUMMARY_ASC'
-  | 'CONTEXT_SUMMARY_DESC'
-  | 'SESSION_SUMMARY_ASC'
-  | 'SESSION_SUMMARY_DESC'
-  | 'ARCHIVED_MESSAGES_ASC'
-  | 'ARCHIVED_MESSAGES_DESC'
-  | 'COMPRESSION_COUNT_ASC'
-  | 'COMPRESSION_COUNT_DESC'
-  | 'ARCHIVED_AT_ASC'
-  | 'ARCHIVED_AT_DESC'
-  | 'EXTRACTED_MEMORY_IDS_ASC'
-  | 'EXTRACTED_MEMORY_IDS_DESC'
-  | 'CONTEXTS_USED_ASC'
-  | 'CONTEXTS_USED_DESC'
-  | 'SKILLS_USED_ASC'
-  | 'SKILLS_USED_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'UAGENT_TRGM_SIMILARITY_ASC'
-  | 'UAGENT_TRGM_SIMILARITY_DESC'
-  | 'FINGERPRINT_MODE_TRGM_SIMILARITY_ASC'
-  | 'FINGERPRINT_MODE_TRGM_SIMILARITY_DESC'
-  | 'CSRF_SECRET_TRGM_SIMILARITY_ASC'
-  | 'CSRF_SECRET_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
 export type SkillOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -9045,6 +9052,131 @@ export interface UpdateAgentPromptInput {
   agentPromptPatch: AgentPromptPatch;
 }
 export interface DeleteAgentPromptInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateSessionInput {
+  clientMutationId?: string;
+  session: {
+    entityId: string;
+    title?: string;
+    agentId?: string;
+    startedAt?: string;
+    endedAt?: string;
+    status?: string;
+    contextSummary?: string;
+    sessionSummary?: string;
+    archivedMessages?: Record<string, unknown>;
+    compressionCount?: number;
+    archivedAt?: string;
+    extractedMemoryIds?: string[];
+    contextsUsed?: Record<string, unknown>;
+    skillsUsed?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+  };
+}
+export interface SessionPatch {
+  entityId?: string | null;
+  title?: string | null;
+  agentId?: string | null;
+  startedAt?: string | null;
+  endedAt?: string | null;
+  status?: string | null;
+  contextSummary?: string | null;
+  sessionSummary?: string | null;
+  archivedMessages?: Record<string, unknown> | null;
+  compressionCount?: number | null;
+  archivedAt?: string | null;
+  extractedMemoryIds?: string | null;
+  contextsUsed?: Record<string, unknown> | null;
+  skillsUsed?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  uagentTrgmSimilarity?: number | null;
+  fingerprintModeTrgmSimilarity?: number | null;
+  csrfSecretTrgmSimilarity?: number | null;
+  searchScore?: number | null;
+}
+export interface UpdateSessionInput {
+  clientMutationId?: string;
+  id: string;
+  sessionPatch: SessionPatch;
+}
+export interface DeleteSessionInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateExecutionLogInput {
+  clientMutationId?: string;
+  executionLog: {
+    entityId: string;
+    sessionId?: string;
+    stepName?: string;
+    input?: string;
+    output?: string;
+    toolCalls?: Record<string, unknown>;
+    durationMs?: number;
+  };
+}
+export interface ExecutionLogPatch {
+  entityId?: string | null;
+  sessionId?: string | null;
+  stepName?: string | null;
+  input?: string | null;
+  output?: string | null;
+  toolCalls?: Record<string, unknown> | null;
+  durationMs?: number | null;
+  stepNameTrgmSimilarity?: number | null;
+  inputTrgmSimilarity?: number | null;
+  outputTrgmSimilarity?: number | null;
+  searchScore?: number | null;
+}
+export interface UpdateExecutionLogInput {
+  clientMutationId?: string;
+  id: string;
+  executionLogPatch: ExecutionLogPatch;
+}
+export interface DeleteExecutionLogInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateSessionArchiveInput {
+  clientMutationId?: string;
+  sessionArchive: {
+    entityId: string;
+    sessionId: string;
+    archiveIndex: number;
+    summary: string;
+    messageRangeStart?: number;
+    messageRangeEnd?: number;
+    rawMessages?: Record<string, unknown>;
+    embeddingText?: string;
+    embedding?: number[];
+  };
+}
+export interface SessionArchivePatch {
+  entityId?: string | null;
+  sessionId?: string | null;
+  archiveIndex?: number | null;
+  summary?: string | null;
+  messageRangeStart?: number | null;
+  messageRangeEnd?: number | null;
+  rawMessages?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingTextBm25Score?: number | null;
+  summaryTrgmSimilarity?: number | null;
+  embeddingTextTrgmSimilarity?: number | null;
+  embeddingVectorDistance?: number | null;
+  searchScore?: number | null;
+}
+export interface UpdateSessionArchiveInput {
+  clientMutationId?: string;
+  id: string;
+  sessionArchivePatch: SessionArchivePatch;
+}
+export interface DeleteSessionArchiveInput {
   clientMutationId?: string;
   id: string;
 }
@@ -10075,79 +10207,6 @@ export interface UpdateUserSettingInput {
   userSettingPatch: UserSettingPatch;
 }
 export interface DeleteUserSettingInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateExecutionLogInput {
-  clientMutationId?: string;
-  executionLog: {
-    entityId: string;
-    sessionId?: string;
-    stepName?: string;
-    input?: string;
-    output?: string;
-    toolCalls?: Record<string, unknown>;
-    durationMs?: number;
-  };
-}
-export interface ExecutionLogPatch {
-  entityId?: string | null;
-  sessionId?: string | null;
-  stepName?: string | null;
-  input?: string | null;
-  output?: string | null;
-  toolCalls?: Record<string, unknown> | null;
-  durationMs?: number | null;
-  stepNameTrgmSimilarity?: number | null;
-  inputTrgmSimilarity?: number | null;
-  outputTrgmSimilarity?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateExecutionLogInput {
-  clientMutationId?: string;
-  id: string;
-  executionLogPatch: ExecutionLogPatch;
-}
-export interface DeleteExecutionLogInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateSessionArchiveInput {
-  clientMutationId?: string;
-  sessionArchive: {
-    entityId: string;
-    sessionId: string;
-    archiveIndex: number;
-    summary: string;
-    messageRangeStart?: number;
-    messageRangeEnd?: number;
-    rawMessages?: Record<string, unknown>;
-    embeddingText?: string;
-    embedding?: number[];
-  };
-}
-export interface SessionArchivePatch {
-  entityId?: string | null;
-  sessionId?: string | null;
-  archiveIndex?: number | null;
-  summary?: string | null;
-  messageRangeStart?: number | null;
-  messageRangeEnd?: number | null;
-  rawMessages?: Record<string, unknown> | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingTextBm25Score?: number | null;
-  summaryTrgmSimilarity?: number | null;
-  embeddingTextTrgmSimilarity?: number | null;
-  embeddingVectorDistance?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateSessionArchiveInput {
-  clientMutationId?: string;
-  id: string;
-  sessionArchivePatch: SessionArchivePatch;
-}
-export interface DeleteSessionArchiveInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11667,58 +11726,6 @@ export interface DeleteAgentInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateSessionInput {
-  clientMutationId?: string;
-  session: {
-    entityId: string;
-    title?: string;
-    agentId?: string;
-    startedAt?: string;
-    endedAt?: string;
-    status?: string;
-    contextSummary?: string;
-    sessionSummary?: string;
-    archivedMessages?: Record<string, unknown>;
-    compressionCount?: number;
-    archivedAt?: string;
-    extractedMemoryIds?: string[];
-    contextsUsed?: Record<string, unknown>;
-    skillsUsed?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-  };
-}
-export interface SessionPatch {
-  entityId?: string | null;
-  title?: string | null;
-  agentId?: string | null;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  status?: string | null;
-  contextSummary?: string | null;
-  sessionSummary?: string | null;
-  archivedMessages?: Record<string, unknown> | null;
-  compressionCount?: number | null;
-  archivedAt?: string | null;
-  extractedMemoryIds?: string | null;
-  contextsUsed?: Record<string, unknown> | null;
-  skillsUsed?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  uagentTrgmSimilarity?: number | null;
-  fingerprintModeTrgmSimilarity?: number | null;
-  csrfSecretTrgmSimilarity?: number | null;
-  searchScore?: number | null;
-}
-export interface UpdateSessionInput {
-  clientMutationId?: string;
-  id: string;
-  sessionPatch: SessionPatch;
-}
-export interface DeleteSessionInput {
-  clientMutationId?: string;
-  id: string;
-}
 export interface CreateSkillInput {
   clientMutationId?: string;
   skill: {
@@ -12138,6 +12145,10 @@ export interface DeleteVenueInput {
 }
 // ============ Connection Fields Map ============
 export const connectionFieldsMap = {
+  Session: {
+    executionLogs: 'ExecutionLog',
+    sessionArchives: 'SessionArchive',
+  },
   File: {
     chunks: 'Chunk',
   },
@@ -12181,16 +12192,13 @@ export const connectionFieldsMap = {
     agentRules: 'AgentRule',
   },
   Agent: {
+    sessions: 'Session',
     processes: 'Process',
     scheduledJobs: 'ScheduledJob',
     agentTools: 'AgentTool',
     agentSkills: 'AgentSkill',
     agentRules: 'AgentRule',
     agentPrompts: 'AgentPrompt',
-  },
-  Session: {
-    executionLogs: 'ExecutionLog',
-    sessionArchives: 'SessionArchive',
   },
   Skill: {
     agentSkills: 'AgentSkill',
@@ -12246,6 +12254,141 @@ export type DeleteAgentPromptPayloadSelect = {
   };
   agentPromptEdge?: {
     select: AgentPromptEdgeSelect;
+  };
+};
+export interface CreateSessionPayload {
+  clientMutationId?: string | null;
+  /** The `Session` that was created by this mutation. */
+  session?: Session | null;
+  sessionEdge?: SessionEdge | null;
+}
+export type CreateSessionPayloadSelect = {
+  clientMutationId?: boolean;
+  session?: {
+    select: SessionSelect;
+  };
+  sessionEdge?: {
+    select: SessionEdgeSelect;
+  };
+};
+export interface UpdateSessionPayload {
+  clientMutationId?: string | null;
+  /** The `Session` that was updated by this mutation. */
+  session?: Session | null;
+  sessionEdge?: SessionEdge | null;
+}
+export type UpdateSessionPayloadSelect = {
+  clientMutationId?: boolean;
+  session?: {
+    select: SessionSelect;
+  };
+  sessionEdge?: {
+    select: SessionEdgeSelect;
+  };
+};
+export interface DeleteSessionPayload {
+  clientMutationId?: string | null;
+  /** The `Session` that was deleted by this mutation. */
+  session?: Session | null;
+  sessionEdge?: SessionEdge | null;
+}
+export type DeleteSessionPayloadSelect = {
+  clientMutationId?: boolean;
+  session?: {
+    select: SessionSelect;
+  };
+  sessionEdge?: {
+    select: SessionEdgeSelect;
+  };
+};
+export interface CreateExecutionLogPayload {
+  clientMutationId?: string | null;
+  /** The `ExecutionLog` that was created by this mutation. */
+  executionLog?: ExecutionLog | null;
+  executionLogEdge?: ExecutionLogEdge | null;
+}
+export type CreateExecutionLogPayloadSelect = {
+  clientMutationId?: boolean;
+  executionLog?: {
+    select: ExecutionLogSelect;
+  };
+  executionLogEdge?: {
+    select: ExecutionLogEdgeSelect;
+  };
+};
+export interface UpdateExecutionLogPayload {
+  clientMutationId?: string | null;
+  /** The `ExecutionLog` that was updated by this mutation. */
+  executionLog?: ExecutionLog | null;
+  executionLogEdge?: ExecutionLogEdge | null;
+}
+export type UpdateExecutionLogPayloadSelect = {
+  clientMutationId?: boolean;
+  executionLog?: {
+    select: ExecutionLogSelect;
+  };
+  executionLogEdge?: {
+    select: ExecutionLogEdgeSelect;
+  };
+};
+export interface DeleteExecutionLogPayload {
+  clientMutationId?: string | null;
+  /** The `ExecutionLog` that was deleted by this mutation. */
+  executionLog?: ExecutionLog | null;
+  executionLogEdge?: ExecutionLogEdge | null;
+}
+export type DeleteExecutionLogPayloadSelect = {
+  clientMutationId?: boolean;
+  executionLog?: {
+    select: ExecutionLogSelect;
+  };
+  executionLogEdge?: {
+    select: ExecutionLogEdgeSelect;
+  };
+};
+export interface CreateSessionArchivePayload {
+  clientMutationId?: string | null;
+  /** The `SessionArchive` that was created by this mutation. */
+  sessionArchive?: SessionArchive | null;
+  sessionArchiveEdge?: SessionArchiveEdge | null;
+}
+export type CreateSessionArchivePayloadSelect = {
+  clientMutationId?: boolean;
+  sessionArchive?: {
+    select: SessionArchiveSelect;
+  };
+  sessionArchiveEdge?: {
+    select: SessionArchiveEdgeSelect;
+  };
+};
+export interface UpdateSessionArchivePayload {
+  clientMutationId?: string | null;
+  /** The `SessionArchive` that was updated by this mutation. */
+  sessionArchive?: SessionArchive | null;
+  sessionArchiveEdge?: SessionArchiveEdge | null;
+}
+export type UpdateSessionArchivePayloadSelect = {
+  clientMutationId?: boolean;
+  sessionArchive?: {
+    select: SessionArchiveSelect;
+  };
+  sessionArchiveEdge?: {
+    select: SessionArchiveEdgeSelect;
+  };
+};
+export interface DeleteSessionArchivePayload {
+  clientMutationId?: string | null;
+  /** The `SessionArchive` that was deleted by this mutation. */
+  sessionArchive?: SessionArchive | null;
+  sessionArchiveEdge?: SessionArchiveEdge | null;
+}
+export type DeleteSessionArchivePayloadSelect = {
+  clientMutationId?: boolean;
+  sessionArchive?: {
+    select: SessionArchiveSelect;
+  };
+  sessionArchiveEdge?: {
+    select: SessionArchiveEdgeSelect;
   };
 };
 export interface CreateProcessPayload {
@@ -13821,96 +13964,6 @@ export type DeleteUserSettingPayloadSelect = {
   };
   userSettingEdge?: {
     select: UserSettingEdgeSelect;
-  };
-};
-export interface CreateExecutionLogPayload {
-  clientMutationId?: string | null;
-  /** The `ExecutionLog` that was created by this mutation. */
-  executionLog?: ExecutionLog | null;
-  executionLogEdge?: ExecutionLogEdge | null;
-}
-export type CreateExecutionLogPayloadSelect = {
-  clientMutationId?: boolean;
-  executionLog?: {
-    select: ExecutionLogSelect;
-  };
-  executionLogEdge?: {
-    select: ExecutionLogEdgeSelect;
-  };
-};
-export interface UpdateExecutionLogPayload {
-  clientMutationId?: string | null;
-  /** The `ExecutionLog` that was updated by this mutation. */
-  executionLog?: ExecutionLog | null;
-  executionLogEdge?: ExecutionLogEdge | null;
-}
-export type UpdateExecutionLogPayloadSelect = {
-  clientMutationId?: boolean;
-  executionLog?: {
-    select: ExecutionLogSelect;
-  };
-  executionLogEdge?: {
-    select: ExecutionLogEdgeSelect;
-  };
-};
-export interface DeleteExecutionLogPayload {
-  clientMutationId?: string | null;
-  /** The `ExecutionLog` that was deleted by this mutation. */
-  executionLog?: ExecutionLog | null;
-  executionLogEdge?: ExecutionLogEdge | null;
-}
-export type DeleteExecutionLogPayloadSelect = {
-  clientMutationId?: boolean;
-  executionLog?: {
-    select: ExecutionLogSelect;
-  };
-  executionLogEdge?: {
-    select: ExecutionLogEdgeSelect;
-  };
-};
-export interface CreateSessionArchivePayload {
-  clientMutationId?: string | null;
-  /** The `SessionArchive` that was created by this mutation. */
-  sessionArchive?: SessionArchive | null;
-  sessionArchiveEdge?: SessionArchiveEdge | null;
-}
-export type CreateSessionArchivePayloadSelect = {
-  clientMutationId?: boolean;
-  sessionArchive?: {
-    select: SessionArchiveSelect;
-  };
-  sessionArchiveEdge?: {
-    select: SessionArchiveEdgeSelect;
-  };
-};
-export interface UpdateSessionArchivePayload {
-  clientMutationId?: string | null;
-  /** The `SessionArchive` that was updated by this mutation. */
-  sessionArchive?: SessionArchive | null;
-  sessionArchiveEdge?: SessionArchiveEdge | null;
-}
-export type UpdateSessionArchivePayloadSelect = {
-  clientMutationId?: boolean;
-  sessionArchive?: {
-    select: SessionArchiveSelect;
-  };
-  sessionArchiveEdge?: {
-    select: SessionArchiveEdgeSelect;
-  };
-};
-export interface DeleteSessionArchivePayload {
-  clientMutationId?: string | null;
-  /** The `SessionArchive` that was deleted by this mutation. */
-  sessionArchive?: SessionArchive | null;
-  sessionArchiveEdge?: SessionArchiveEdge | null;
-}
-export type DeleteSessionArchivePayloadSelect = {
-  clientMutationId?: boolean;
-  sessionArchive?: {
-    select: SessionArchiveSelect;
-  };
-  sessionArchiveEdge?: {
-    select: SessionArchiveEdgeSelect;
   };
 };
 export interface CreateWebhookPayload {
@@ -15578,51 +15631,6 @@ export type DeleteAgentPayloadSelect = {
     select: AgentEdgeSelect;
   };
 };
-export interface CreateSessionPayload {
-  clientMutationId?: string | null;
-  /** The `Session` that was created by this mutation. */
-  session?: Session | null;
-  sessionEdge?: SessionEdge | null;
-}
-export type CreateSessionPayloadSelect = {
-  clientMutationId?: boolean;
-  session?: {
-    select: SessionSelect;
-  };
-  sessionEdge?: {
-    select: SessionEdgeSelect;
-  };
-};
-export interface UpdateSessionPayload {
-  clientMutationId?: string | null;
-  /** The `Session` that was updated by this mutation. */
-  session?: Session | null;
-  sessionEdge?: SessionEdge | null;
-}
-export type UpdateSessionPayloadSelect = {
-  clientMutationId?: boolean;
-  session?: {
-    select: SessionSelect;
-  };
-  sessionEdge?: {
-    select: SessionEdgeSelect;
-  };
-};
-export interface DeleteSessionPayload {
-  clientMutationId?: string | null;
-  /** The `Session` that was deleted by this mutation. */
-  session?: Session | null;
-  sessionEdge?: SessionEdge | null;
-}
-export type DeleteSessionPayloadSelect = {
-  clientMutationId?: boolean;
-  session?: {
-    select: SessionSelect;
-  };
-  sessionEdge?: {
-    select: SessionEdgeSelect;
-  };
-};
 export interface CreateSkillPayload {
   clientMutationId?: string | null;
   /** The `Skill` that was created by this mutation. */
@@ -15948,6 +15956,42 @@ export type AgentPromptEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: AgentPromptSelect;
+  };
+};
+/** A `Session` edge in the connection. */
+export interface SessionEdge {
+  cursor?: string | null;
+  /** The `Session` at the end of the edge. */
+  node?: Session | null;
+}
+export type SessionEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: SessionSelect;
+  };
+};
+/** A `ExecutionLog` edge in the connection. */
+export interface ExecutionLogEdge {
+  cursor?: string | null;
+  /** The `ExecutionLog` at the end of the edge. */
+  node?: ExecutionLog | null;
+}
+export type ExecutionLogEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ExecutionLogSelect;
+  };
+};
+/** A `SessionArchive` edge in the connection. */
+export interface SessionArchiveEdge {
+  cursor?: string | null;
+  /** The `SessionArchive` at the end of the edge. */
+  node?: SessionArchive | null;
+}
+export type SessionArchiveEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: SessionArchiveSelect;
   };
 };
 /** A `Process` edge in the connection. */
@@ -16368,30 +16412,6 @@ export type UserSettingEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: UserSettingSelect;
-  };
-};
-/** A `ExecutionLog` edge in the connection. */
-export interface ExecutionLogEdge {
-  cursor?: string | null;
-  /** The `ExecutionLog` at the end of the edge. */
-  node?: ExecutionLog | null;
-}
-export type ExecutionLogEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ExecutionLogSelect;
-  };
-};
-/** A `SessionArchive` edge in the connection. */
-export interface SessionArchiveEdge {
-  cursor?: string | null;
-  /** The `SessionArchive` at the end of the edge. */
-  node?: SessionArchive | null;
-}
-export type SessionArchiveEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: SessionArchiveSelect;
   };
 };
 /** A `Webhook` edge in the connection. */
@@ -16836,18 +16856,6 @@ export type AgentEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: AgentSelect;
-  };
-};
-/** A `Session` edge in the connection. */
-export interface SessionEdge {
-  cursor?: string | null;
-  /** The `Session` at the end of the edge. */
-  node?: Session | null;
-}
-export type SessionEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: SessionSelect;
   };
 };
 /** A `Skill` edge in the connection. */

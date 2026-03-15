@@ -1,0 +1,12 @@
+-- Deploy: schemas/agent_db_app_public/tables/goal_projects/columns/entity_id/alterations/alt0000001579
+-- made with <3 @ launchql.com
+
+-- requires: schemas/agent_db_app_public/schema
+-- requires: schemas/agent_db_app_public/tables/goal_projects/table
+-- requires: schemas/agent_db_app_public/tables/goal_projects/columns/entity_id/column
+-- requires: schemas/agent_db_app_public/tables/goal_habits/policies/auth_del_entity_membership/policy
+
+
+ALTER TABLE agent_db_app_public.goal_projects 
+  ALTER COLUMN entity_id SET NOT NULL;
+

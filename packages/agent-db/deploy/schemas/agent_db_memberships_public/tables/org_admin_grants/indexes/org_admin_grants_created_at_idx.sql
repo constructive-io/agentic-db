@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_memberships_public/tables/org_admin_grants/columns/created_at/column
 
 
-CREATE INDEX org_admin_grants_created_at_idx ON "agent_db_memberships_public".org_admin_grants ( created_at );
+CREATE INDEX org_admin_grants_created_at_idx ON agent_db_memberships_public.org_admin_grants ( created_at );
 

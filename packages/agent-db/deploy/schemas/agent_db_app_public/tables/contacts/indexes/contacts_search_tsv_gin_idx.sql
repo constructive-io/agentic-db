@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/skill_executions/indexes/skill_executions_output_gin_idx
 
 
-CREATE INDEX contacts_search_tsv_gin_idx ON "agent_db_app_public".contacts USING GIN ( search_tsv );
+CREATE INDEX contacts_search_tsv_gin_idx ON agent_db_app_public.contacts USING GIN ( search_tsv );
 

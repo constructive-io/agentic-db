@@ -4,9 +4,9 @@
 
 
 DROP TRIGGER trigger_name
-    ON "agent_db_user_identifiers_public".emails;
+    ON agent_db_user_identifiers_public.emails;
 
-DROP FUNCTION "agent_db_user_identifiers_private".emails_insert_tg;
+DROP FUNCTION agent_db_user_identifiers_private.emails_insert_tg;
 
 
 

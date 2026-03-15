@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/prompts/table
--- requires: schemas/agent_db_app_public/tables/prompts/columns/is_active/alterations/alt0000004325
+-- requires: schemas/agent_db_app_public/tables/prompts/columns/is_active/alterations/alt0000001107
 
 
-ALTER TABLE "agent_db_app_public".prompts 
+ALTER TABLE agent_db_app_public.prompts 
   ADD COLUMN tags citext[];
 

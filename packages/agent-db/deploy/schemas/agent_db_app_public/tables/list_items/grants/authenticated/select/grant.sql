@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/lists/columns/embedding/column
 
 
-GRANT SELECT ON "agent_db_app_public".list_items TO authenticated;
+GRANT SELECT ON agent_db_app_public.list_items TO authenticated;
 

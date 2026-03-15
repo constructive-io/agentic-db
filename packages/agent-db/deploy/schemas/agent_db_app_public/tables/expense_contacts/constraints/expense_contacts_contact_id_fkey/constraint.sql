@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/calendar_event_contacts/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".expense_contacts 
+ALTER TABLE agent_db_app_public.expense_contacts 
   ADD CONSTRAINT expense_contacts_contact_id_fkey 
     FOREIGN KEY(contact_id) 
-    REFERENCES "agent_db_app_public".contacts (id) 
+    REFERENCES agent_db_app_public.contacts (id) 
     ON DELETE CASCADE;
 

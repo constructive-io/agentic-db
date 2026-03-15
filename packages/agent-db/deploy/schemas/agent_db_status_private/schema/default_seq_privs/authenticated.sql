@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_status_private/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA "agent_db_status_private" GRANT USAGE ON SEQUENCES TO authenticated;
+ALTER DEFAULT PRIVILEGES IN SCHEMA agent_db_status_private GRANT USAGE ON SEQUENCES TO authenticated;
 

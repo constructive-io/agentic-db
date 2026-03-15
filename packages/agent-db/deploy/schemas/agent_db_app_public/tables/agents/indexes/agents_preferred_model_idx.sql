@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/skill_executions/indexes/skill_executions_started_at_idx
 
 
-CREATE INDEX agents_preferred_model_idx ON "agent_db_app_public".agents USING BTREE ( preferred_model );
+CREATE INDEX agents_preferred_model_idx ON agent_db_app_public.agents USING BTREE ( preferred_model );
 

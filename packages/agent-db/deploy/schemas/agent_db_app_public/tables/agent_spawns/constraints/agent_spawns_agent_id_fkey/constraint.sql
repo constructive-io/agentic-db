@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/session_archives/constraints/session_archives_session_id_fkey/constraint
 
 
-ALTER TABLE "agent_db_app_public".agent_spawns 
+ALTER TABLE agent_db_app_public.agent_spawns 
   ADD CONSTRAINT agent_spawns_agent_id_fkey 
     FOREIGN KEY(agent_id) 
-    REFERENCES "agent_db_app_public".agents (id) 
+    REFERENCES agent_db_app_public.agents (id) 
     ON DELETE CASCADE;
 

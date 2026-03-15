@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/integrations/columns/credentials_ref/column
 
 
-ALTER TABLE "agent_db_app_public".integrations 
+ALTER TABLE agent_db_app_public.integrations 
   ADD COLUMN config jsonb;
 

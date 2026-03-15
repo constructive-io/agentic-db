@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_encrypted/schema
 
 
-CREATE TABLE "agent_db_encrypted".encrypted_secrets ();
+CREATE TABLE agent_db_encrypted.encrypted_secrets ();
 

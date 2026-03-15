@@ -15,7 +15,7 @@ ORM client for the default API — provides typed CRUD operations for 83 tables 
 // Import the ORM client
 import { db } from './orm';
 
-// Available models: agentPrompt, process, scheduledJob, agentTool, agentSkill, agentRule, calendarEventContact, calendarEvent, ...
+// Available models: agentPrompt, session, executionLog, sessionArchive, process, scheduledJob, agentTool, agentSkill, ...
 db.<model>.findMany({ select: { id: true } }).execute()
 db.<model>.findOne({ id: '<value>', select: { id: true } }).execute()
 db.<model>.create({ data: { ... }, select: { id: true } }).execute()
@@ -38,6 +38,9 @@ const items = await db.agentPrompt.findMany({
 See the `references/` directory for detailed per-entity API documentation:
 
 - [agent-prompt](references/agent-prompt.md)
+- [session](references/session.md)
+- [execution-log](references/execution-log.md)
+- [session-archive](references/session-archive.md)
 - [process](references/process.md)
 - [scheduled-job](references/scheduled-job.md)
 - [agent-tool](references/agent-tool.md)
@@ -73,8 +76,6 @@ See the `references/` directory for detailed per-entity API documentation:
 - [activity-log](references/activity-log.md)
 - [context-relation](references/context-relation.md)
 - [user-setting](references/user-setting.md)
-- [execution-log](references/execution-log.md)
-- [session-archive](references/session-archive.md)
 - [webhook](references/webhook.md)
 - [notification](references/notification.md)
 - [workflow-run](references/workflow-run.md)
@@ -112,7 +113,6 @@ See the `references/` directory for detailed per-entity API documentation:
 - [rule](references/rule.md)
 - [task](references/task.md)
 - [agent](references/agent.md)
-- [session](references/session.md)
 - [skill](references/skill.md)
 - [project](references/project.md)
 - [document](references/document.md)

@@ -1,6 +1,6 @@
 -- Revert: schemas/agent_db_app_public/tables/execution_log/grants/authenticated/insert/grant
 
 
-REVOKE INSERT ON "agent_db_app_public".execution_log FROM authenticated;
+REVOKE INSERT ON agent_db_app_public.execution_log FROM authenticated;
 
 

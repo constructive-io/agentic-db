@@ -27,6 +27,9 @@ agent-db auth set-token <your-token>
 | `auth` | Manage authentication tokens |
 | `config` | Manage config key-value store (per-context) |
 | `agent-prompt` | agentPrompt CRUD operations |
+| `session` | session CRUD operations |
+| `execution-log` | executionLog CRUD operations |
+| `session-archive` | sessionArchive CRUD operations |
 | `process` | process CRUD operations |
 | `scheduled-job` | scheduledJob CRUD operations |
 | `agent-tool` | agentTool CRUD operations |
@@ -62,8 +65,6 @@ agent-db auth set-token <your-token>
 | `activity-log` | activityLog CRUD operations |
 | `context-relation` | contextRelation CRUD operations |
 | `user-setting` | userSetting CRUD operations |
-| `execution-log` | executionLog CRUD operations |
-| `session-archive` | sessionArchive CRUD operations |
 | `webhook` | webhook CRUD operations |
 | `notification` | notification CRUD operations |
 | `workflow-run` | workflowRun CRUD operations |
@@ -101,7 +102,6 @@ agent-db auth set-token <your-token>
 | `rule` | rule CRUD operations |
 | `task` | task CRUD operations |
 | `agent` | agent CRUD operations |
-| `session` | session CRUD operations |
 | `skill` | skill CRUD operations |
 | `project` | project CRUD operations |
 | `document` | document CRUD operations |
@@ -173,6 +173,120 @@ CRUD operations for AgentPrompt records.
 | `entityId` | UUID |
 
 **Required create fields:** `agentId`, `promptId`, `entityId`
+
+### `session`
+
+CRUD operations for Session records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all session records |
+| `get` | Get a session by id |
+| `create` | Create a new session |
+| `update` | Update an existing session |
+| `delete` | Delete a session |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `title` | String |
+| `agentId` | UUID |
+| `startedAt` | Datetime |
+| `endedAt` | Datetime |
+| `status` | String |
+| `contextSummary` | String |
+| `sessionSummary` | String |
+| `archivedMessages` | JSON |
+| `compressionCount` | Int |
+| `archivedAt` | Datetime |
+| `extractedMemoryIds` | UUID |
+| `contextsUsed` | JSON |
+| `skillsUsed` | UUID |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `uagentTrgmSimilarity` | Float |
+| `fingerprintModeTrgmSimilarity` | Float |
+| `csrfSecretTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `uagentTrgmSimilarity`, `fingerprintModeTrgmSimilarity`, `csrfSecretTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `title`, `agentId`, `startedAt`, `endedAt`, `status`, `contextSummary`, `sessionSummary`, `archivedMessages`, `compressionCount`, `archivedAt`, `extractedMemoryIds`, `contextsUsed`, `skillsUsed`, `embeddingText`, `embedding`
+
+### `execution-log`
+
+CRUD operations for ExecutionLog records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all executionLog records |
+| `get` | Get a executionLog by id |
+| `create` | Create a new executionLog |
+| `update` | Update an existing executionLog |
+| `delete` | Delete a executionLog |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `sessionId` | UUID |
+| `stepName` | String |
+| `input` | String |
+| `output` | String |
+| `toolCalls` | JSON |
+| `durationMs` | Int |
+| `stepNameTrgmSimilarity` | Float |
+| `inputTrgmSimilarity` | Float |
+| `outputTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `stepNameTrgmSimilarity`, `inputTrgmSimilarity`, `outputTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `sessionId`, `stepName`, `input`, `output`, `toolCalls`, `durationMs`
+
+### `session-archive`
+
+CRUD operations for SessionArchive records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all sessionArchive records |
+| `get` | Get a sessionArchive by id |
+| `create` | Create a new sessionArchive |
+| `update` | Update an existing sessionArchive |
+| `delete` | Delete a sessionArchive |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `sessionId` | UUID |
+| `archiveIndex` | Int |
+| `summary` | String |
+| `messageRangeStart` | Int |
+| `messageRangeEnd` | Int |
+| `rawMessages` | JSON |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingTextBm25Score` | Float |
+| `summaryTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `sessionId`, `archiveIndex`, `summary`, `embeddingTextBm25Score`, `summaryTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
+**Optional create fields (backend defaults):** `messageRangeStart`, `messageRangeEnd`, `rawMessages`, `embeddingText`, `embedding`
 
 ### `process`
 
@@ -1202,77 +1316,6 @@ CRUD operations for UserSetting records.
 
 **Required create fields:** `entityId`, `key`, `keyTrgmSimilarity`, `categoryTrgmSimilarity`, `searchScore`
 **Optional create fields (backend defaults):** `value`, `category`
-
-### `execution-log`
-
-CRUD operations for ExecutionLog records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all executionLog records |
-| `get` | Get a executionLog by id |
-| `create` | Create a new executionLog |
-| `update` | Update an existing executionLog |
-| `delete` | Delete a executionLog |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `sessionId` | UUID |
-| `stepName` | String |
-| `input` | String |
-| `output` | String |
-| `toolCalls` | JSON |
-| `durationMs` | Int |
-| `stepNameTrgmSimilarity` | Float |
-| `inputTrgmSimilarity` | Float |
-| `outputTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `stepNameTrgmSimilarity`, `inputTrgmSimilarity`, `outputTrgmSimilarity`, `searchScore`
-**Optional create fields (backend defaults):** `sessionId`, `stepName`, `input`, `output`, `toolCalls`, `durationMs`
-
-### `session-archive`
-
-CRUD operations for SessionArchive records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all sessionArchive records |
-| `get` | Get a sessionArchive by id |
-| `create` | Create a new sessionArchive |
-| `update` | Update an existing sessionArchive |
-| `delete` | Delete a sessionArchive |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `sessionId` | UUID |
-| `archiveIndex` | Int |
-| `summary` | String |
-| `messageRangeStart` | Int |
-| `messageRangeEnd` | Int |
-| `rawMessages` | JSON |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingTextBm25Score` | Float |
-| `summaryTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `sessionId`, `archiveIndex`, `summary`, `embeddingTextBm25Score`, `summaryTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
-**Optional create fields (backend defaults):** `messageRangeStart`, `messageRangeEnd`, `rawMessages`, `embeddingText`, `embedding`
 
 ### `webhook`
 
@@ -2706,49 +2749,6 @@ CRUD operations for Agent records.
 
 **Required create fields:** `entityId`, `name`, `embeddingTextBm25Score`, `nameTrgmSimilarity`, `roleTrgmSimilarity`, `statusTrgmSimilarity`, `personaTrgmSimilarity`, `backstoryTrgmSimilarity`, `communicationStyleTrgmSimilarity`, `systemPromptTrgmSimilarity`, `preferredModelTrgmSimilarity`, `moodTrgmSimilarity`, `focusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `embeddingVectorDistance`, `searchScore`
 **Optional create fields (backend defaults):** `role`, `capabilities`, `config`, `status`, `persona`, `backstory`, `communicationStyle`, `systemPrompt`, `preferredModel`, `fallbackModels`, `temperature`, `mood`, `focus`, `lastActiveAt`, `embeddingText`, `embedding`
-
-### `session`
-
-CRUD operations for Session records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all session records |
-| `get` | Get a session by id |
-| `create` | Create a new session |
-| `update` | Update an existing session |
-| `delete` | Delete a session |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `title` | String |
-| `agentId` | UUID |
-| `startedAt` | Datetime |
-| `endedAt` | Datetime |
-| `status` | String |
-| `contextSummary` | String |
-| `sessionSummary` | String |
-| `archivedMessages` | JSON |
-| `compressionCount` | Int |
-| `archivedAt` | Datetime |
-| `extractedMemoryIds` | UUID |
-| `contextsUsed` | JSON |
-| `skillsUsed` | UUID |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `uagentTrgmSimilarity` | Float |
-| `fingerprintModeTrgmSimilarity` | Float |
-| `csrfSecretTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `uagentTrgmSimilarity`, `fingerprintModeTrgmSimilarity`, `csrfSecretTrgmSimilarity`, `searchScore`
-**Optional create fields (backend defaults):** `title`, `agentId`, `startedAt`, `endedAt`, `status`, `contextSummary`, `sessionSummary`, `archivedMessages`, `compressionCount`, `archivedAt`, `extractedMemoryIds`, `contextsUsed`, `skillsUsed`, `embeddingText`, `embedding`
 
 ### `skill`
 

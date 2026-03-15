@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/tags/columns/category/column
 
 
-ALTER TABLE "agent_db_app_public".tags 
+ALTER TABLE agent_db_app_public.tags 
   ADD COLUMN usage_count int;
 

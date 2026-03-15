@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/images/columns/embedding/column
 
 
-GRANT DELETE ON "agent_db_app_public".contacts TO authenticated;
+GRANT DELETE ON agent_db_app_public.contacts TO authenticated;
 

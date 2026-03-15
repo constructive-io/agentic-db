@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/repositories/columns/default_branch/column
 
 
-ALTER TABLE "agent_db_app_public".repositories 
+ALTER TABLE agent_db_app_public.repositories 
   ADD COLUMN last_synced_at timestamptz;
 

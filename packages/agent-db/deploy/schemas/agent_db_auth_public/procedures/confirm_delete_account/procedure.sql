@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION "agent_db_auth_public".confirm_delete_account (
+CREATE FUNCTION agent_db_auth_public.confirm_delete_account (
   user_id uuid,
   token text
 )
@@ -17,27 +17,27 @@ DECLARE
   account_deletion_email_sent_at timestamptz;
   first_failed_account_deletion_email_attempt timestamptz;
 BEGIN
-  account_deletion_email_sent_at = "agent_db_simple_secrets".get(confirm_delete_account.user_id, 'account_deletion_email_sent_at');
+  account_deletion_email_sent_at = agent_db_simple_secrets.get(confirm_delete_account.user_id, 'account_deletion_email_sent_at');
   IF (account_deletion_email_sent_at IS NOT NULL AND 
     account_deletion_email_sent_at + v_expires_interval < NOW() 
   ) THEN 
     
-    PERFORM "agent_db_simple_secrets".del(confirm_delete_account.user_id, ARRAY[
+    PERFORM agent_db_simple_secrets.del(confirm_delete_account.user_id, ARRAY[
         'account_deletion_email_sent_at',
         'account_deletion_email_attempts',
         'first_failed_account_deletion_email_attempt'
     ]);
-    PERFORM "agent_db_encrypted".del(confirm_delete_account.user_id, 'account_deletion_token');
+    PERFORM agent_db_encrypted.del(confirm_delete_account.user_id, 'account_deletion_token');
     RETURN FALSE;
   END IF;
-  IF ("agent_db_encrypted".verify (confirm_delete_account.user_id, 'account_deletion_token', confirm_delete_account.token) ) THEN
-    PERFORM "agent_db_simple_secrets".del(confirm_delete_account.user_id, ARRAY[
+  IF (agent_db_encrypted.verify (confirm_delete_account.user_id, 'account_deletion_token', confirm_delete_account.token) ) THEN
+    PERFORM agent_db_simple_secrets.del(confirm_delete_account.user_id, ARRAY[
         'account_deletion_email_sent_at',
         'account_deletion_email_attempts',
         'first_failed_account_deletion_email_attempt'
     ]);
-    PERFORM "agent_db_encrypted".del(confirm_delete_account.user_id, 'account_deletion_token');
-    DELETE FROM "agent_db_users_public".users WHERE id = confirm_delete_account.user_id;
+    PERFORM agent_db_encrypted.del(confirm_delete_account.user_id, 'account_deletion_token');
+    DELETE FROM agent_db_users_public.users WHERE id = confirm_delete_account.user_id;
     RETURN TRUE;
   ELSE
     IF (
@@ -49,8 +49,8 @@ BEGIN
     ELSE 
         account_deletion_email_attempts = account_deletion_email_attempts + 1;
     END IF;
-    PERFORM "agent_db_simple_secrets".set(confirm_delete_account.user_id, 'account_deletion_email_attempts', account_deletion_email_attempts);
-    PERFORM "agent_db_simple_secrets".set(confirm_delete_account.user_id, 'first_failed_account_deletion_email_attempt', first_failed_account_deletion_email_attempt);
+    PERFORM agent_db_simple_secrets.set(confirm_delete_account.user_id, 'account_deletion_email_attempts', account_deletion_email_attempts);
+    PERFORM agent_db_simple_secrets.set(confirm_delete_account.user_id, 'first_failed_account_deletion_email_attempt', first_failed_account_deletion_email_attempt);
     RETURN FALSE;
   END IF;
 END;
@@ -58,5 +58,5 @@ $$
 LANGUAGE 'plpgsql'
 VOLATILE
 SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION "agent_db_auth_public".confirm_delete_account TO anonymous, authenticated;
+GRANT EXECUTE ON FUNCTION agent_db_auth_public.confirm_delete_account TO anonymous, authenticated;
 

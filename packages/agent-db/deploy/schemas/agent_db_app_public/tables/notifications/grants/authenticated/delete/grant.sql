@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/list_items/columns/ref_type/column
 
 
-GRANT DELETE ON "agent_db_app_public".notifications TO authenticated;
+GRANT DELETE ON agent_db_app_public.notifications TO authenticated;
 

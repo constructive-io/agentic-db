@@ -1,8 +1,0 @@
--- Deploy: schemas/agent-os-1773550873753-b6c4a3e1-permissions-public/grants/usage/anonymous
--- made with <3 @ launchql.com
-
--- requires: schemas/agent-os-1773550873753-b6c4a3e1-permissions-public/schema
-
-
-GRANT USAGE ON SCHEMA "agent-os-1773550873753-b6c4a3e1-permissions-public" TO anonymous;
-

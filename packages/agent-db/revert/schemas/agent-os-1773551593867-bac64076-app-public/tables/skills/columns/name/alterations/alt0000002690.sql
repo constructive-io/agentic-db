@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773551593867-bac64076-app-public/tables/skills/columns/name/alterations/alt0000002690
-
-
-ALTER TABLE "agent-os-1773551593867-bac64076-app-public".skills 
-  ALTER COLUMN name DROP NOT NULL;
-
-

@@ -4,7 +4,7 @@
 -- requires: schemas/agent_db_memberships_public/schema
 
 
-CREATE FUNCTION "agent_db_memberships_public".org_get_subordinates(
+CREATE FUNCTION agent_db_memberships_public.org_get_subordinates(
   IN p_entity_id uuid,
   IN p_user_id uuid,
   IN p_max_depth int DEFAULT NULL
@@ -13,7 +13,7 @@ CREATE FUNCTION "agent_db_memberships_public".org_get_subordinates(
         BEGIN
             RETURN QUERY
             SELECT descendant_id AS user_id, h.depth
-            FROM "agent_db_memberships_private".org_hierarchy_sprts h
+            FROM agent_db_memberships_private.org_hierarchy_sprts h
             WHERE h.entity_id = p_entity_id
                 AND h.ancestor_id = p_user_id
                 AND h.descendant_id != p_user_id

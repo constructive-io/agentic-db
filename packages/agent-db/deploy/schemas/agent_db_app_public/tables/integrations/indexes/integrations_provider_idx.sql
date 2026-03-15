@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/attachments/indexes/attachments_attachable_id_idx
 
 
-CREATE INDEX integrations_provider_idx ON "agent_db_app_public".integrations USING BTREE ( provider );
+CREATE INDEX integrations_provider_idx ON agent_db_app_public.integrations USING BTREE ( provider );
 

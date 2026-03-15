@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/tools/columns/embedding/column
 
 
-CREATE TABLE "agent_db_app_public".workflows ();
+CREATE TABLE agent_db_app_public.workflows ();
 

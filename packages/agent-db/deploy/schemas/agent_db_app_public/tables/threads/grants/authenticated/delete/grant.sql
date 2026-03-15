@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/chat_messages/columns/embedding/column
 
 
-GRANT DELETE ON "agent_db_app_public".threads TO authenticated;
+GRANT DELETE ON agent_db_app_public.threads TO authenticated;
 

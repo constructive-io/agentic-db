@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/contact_links/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".company_links 
+ALTER TABLE agent_db_app_public.company_links 
   ADD CONSTRAINT company_links_pkey PRIMARY KEY (id);
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/memories/indexes/memories_related_entity_type_idx
 
 
-CREATE INDEX memories_related_entity_id_idx ON "agent_db_app_public".memories USING BTREE ( related_entity_id );
+CREATE INDEX memories_related_entity_id_idx ON agent_db_app_public.memories USING BTREE ( related_entity_id );
 

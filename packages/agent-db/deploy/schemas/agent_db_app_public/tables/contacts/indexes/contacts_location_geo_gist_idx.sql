@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/venues/indexes/venues_location_gist_idx
 
 
-CREATE INDEX contacts_location_geo_gist_idx ON "agent_db_app_public".contacts USING GIST ( location_geo );
+CREATE INDEX contacts_location_geo_gist_idx ON agent_db_app_public.contacts USING GIST ( location_geo );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/chunks/indexes/chunks_repository_id_idx
 
 
-CREATE INDEX email_accounts_email_idx ON "agent_db_app_public".email_accounts USING BTREE ( email );
+CREATE INDEX email_accounts_email_idx ON agent_db_app_public.email_accounts USING BTREE ( email );
 

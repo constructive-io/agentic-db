@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_encrypted/schema
 
 
-GRANT USAGE ON SCHEMA "agent_db_encrypted" TO authenticated;
+GRANT USAGE ON SCHEMA agent_db_encrypted TO authenticated;
 

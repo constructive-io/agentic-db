@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/goals/indexes/goals_target_date_idx
 
 
-CREATE INDEX agents_status_idx ON "agent_db_app_public".agents USING BTREE ( status );
+CREATE INDEX agents_status_idx ON agent_db_app_public.agents USING BTREE ( status );
 

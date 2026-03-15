@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773550873753-b6c4a3e1-app-public/tables/milestones/alterations/alt0000001319
-
-
-ALTER TABLE "agent-os-1773550873753-b6c4a3e1-app-public".milestones 
-  ENABLE ROW LEVEL SECURITY;
-
-

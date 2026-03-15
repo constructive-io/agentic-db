@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/skills/columns/intent_trigger/column
 
 
-GRANT INSERT ON "agent_db_app_public".goals TO authenticated;
+GRANT INSERT ON agent_db_app_public.goals TO authenticated;
 

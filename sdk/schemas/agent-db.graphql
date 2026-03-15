@@ -2471,6 +2471,35 @@ type Agent {
   embeddingText: String
   embedding: Vector
 
+  """Reads and enables pagination through a set of `Session`."""
+  sessions(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    where: SessionFilter
+
+    """The method to use when ordering `Session`."""
+    orderBy: [SessionOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SessionConnection!
+
   """Reads and enables pagination through a set of `Process`."""
   processes(
     """Only read the first `n` values of the set."""
@@ -2740,54 +2769,119 @@ A pgvector embedding — array of floats. Dimensions must match the column (e.g.
 """
 scalar Vector
 
-"""A connection to a list of `Process` values."""
-type ProcessConnection {
-  """A list of `Process` objects."""
-  nodes: [Process]!
+"""A connection to a list of `Session` values."""
+type SessionConnection {
+  """A list of `Session` objects."""
+  nodes: [Session]!
 
   """
-  A list of edges which contains the `Process` and cursor to aid in pagination.
+  A list of edges which contains the `Session` and cursor to aid in pagination.
   """
-  edges: [ProcessEdge]!
+  edges: [SessionEdge]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  """The count of *all* `Process` you could get from the connection."""
+  """The count of *all* `Session` you could get from the connection."""
   totalCount: Int!
 }
 
-type Process {
+type Session {
   id: UUID!
   entityId: UUID!
   createdAt: Datetime!
   updatedAt: Datetime!
-  pid: Int
+  title: String
   agentId: UUID
-  command: String
   startedAt: Datetime
   endedAt: Datetime
   status: String
-  exitCode: Int
-  logsPath: String
+  contextSummary: String
+  sessionSummary: String
+  archivedMessages: JSON
+  compressionCount: Int
+  archivedAt: Datetime
+  extractedMemoryIds: [UUID]
+  contextsUsed: JSON
+  skillsUsed: [UUID]
+  embeddingText: String
+  embedding: Vector
 
-  """Reads a single `Agent` that is related to this `Process`."""
+  """Reads a single `Agent` that is related to this `Session`."""
   agent: Agent
 
-  """
-  TRGM similarity when searching `command`. Returns null when no trgm search filter is active.
-  """
-  commandTrgmSimilarity: Float
+  """Reads and enables pagination through a set of `ExecutionLog`."""
+  executionLogs(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    where: ExecutionLogFilter
+
+    """The method to use when ordering `ExecutionLog`."""
+    orderBy: [ExecutionLogOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ExecutionLogConnection!
+
+  """Reads and enables pagination through a set of `SessionArchive`."""
+  sessionArchives(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    where: SessionArchiveFilter
+
+    """The method to use when ordering `SessionArchive`."""
+    orderBy: [SessionArchiveOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SessionArchiveConnection!
 
   """
-  TRGM similarity when searching `status`. Returns null when no trgm search filter is active.
+  TRGM similarity when searching `uagent`. Returns null when no trgm search filter is active.
   """
-  statusTrgmSimilarity: Float
+  uagentTrgmSimilarity: Float
 
   """
-  TRGM similarity when searching `logsPath`. Returns null when no trgm search filter is active.
+  TRGM similarity when searching `fingerprintMode`. Returns null when no trgm search filter is active.
   """
-  logsPathTrgmSimilarity: Float
+  fingerprintModeTrgmSimilarity: Float
+
+  """
+  TRGM similarity when searching `csrfSecret`. Returns null when no trgm search filter is active.
+  """
+  csrfSecretTrgmSimilarity: Float
 
   """
   Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active.
@@ -2795,13 +2889,66 @@ type Process {
   searchScore: Float
 }
 
-"""A `Process` edge in the connection."""
-type ProcessEdge {
+"""A connection to a list of `ExecutionLog` values."""
+type ExecutionLogConnection {
+  """A list of `ExecutionLog` objects."""
+  nodes: [ExecutionLog]!
+
+  """
+  A list of edges which contains the `ExecutionLog` and cursor to aid in pagination.
+  """
+  edges: [ExecutionLogEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `ExecutionLog` you could get from the connection."""
+  totalCount: Int!
+}
+
+type ExecutionLog {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  sessionId: UUID
+  stepName: String
+  input: String
+  output: String
+  toolCalls: JSON
+  durationMs: Int
+
+  """Reads a single `Session` that is related to this `ExecutionLog`."""
+  session: Session
+
+  """
+  TRGM similarity when searching `stepName`. Returns null when no trgm search filter is active.
+  """
+  stepNameTrgmSimilarity: Float
+
+  """
+  TRGM similarity when searching `input`. Returns null when no trgm search filter is active.
+  """
+  inputTrgmSimilarity: Float
+
+  """
+  TRGM similarity when searching `output`. Returns null when no trgm search filter is active.
+  """
+  outputTrgmSimilarity: Float
+
+  """
+  Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active.
+  """
+  searchScore: Float
+}
+
+"""A `ExecutionLog` edge in the connection."""
+type ExecutionLogEdge {
   """A cursor for use in pagination."""
   cursor: Cursor
 
-  """The `Process` at the end of the edge."""
-  node: Process
+  """The `ExecutionLog` at the end of the edge."""
+  node: ExecutionLog
 }
 
 """A location in a connection that can be used for resuming pagination."""
@@ -2823,9 +2970,9 @@ type PageInfo {
 }
 
 """
-A filter to be used against `Process` object types. All fields are combined with a logical ‘and.’
+A filter to be used against `ExecutionLog` object types. All fields are combined with a logical ‘and.’
 """
-input ProcessFilter {
+input ExecutionLogFilter {
   """Filter by the object’s `id` field."""
   id: UUIDFilter
 
@@ -2838,53 +2985,47 @@ input ProcessFilter {
   """Filter by the object’s `updatedAt` field."""
   updatedAt: DatetimeFilter
 
-  """Filter by the object’s `pid` field."""
-  pid: IntFilter
+  """Filter by the object’s `sessionId` field."""
+  sessionId: UUIDFilter
 
-  """Filter by the object’s `agentId` field."""
-  agentId: UUIDFilter
+  """Filter by the object’s `stepName` field."""
+  stepName: StringFilter
 
-  """Filter by the object’s `command` field."""
-  command: StringFilter
+  """Filter by the object’s `input` field."""
+  input: StringFilter
 
-  """Filter by the object’s `startedAt` field."""
-  startedAt: DatetimeFilter
+  """Filter by the object’s `output` field."""
+  output: StringFilter
 
-  """Filter by the object’s `endedAt` field."""
-  endedAt: DatetimeFilter
+  """Filter by the object’s `toolCalls` field."""
+  toolCalls: JSONFilter
 
-  """Filter by the object’s `status` field."""
-  status: StringFilter
-
-  """Filter by the object’s `exitCode` field."""
-  exitCode: IntFilter
-
-  """Filter by the object’s `logsPath` field."""
-  logsPath: StringFilter
+  """Filter by the object’s `durationMs` field."""
+  durationMs: IntFilter
 
   """Checks for all expressions in this list."""
-  and: [ProcessFilter!]
+  and: [ExecutionLogFilter!]
 
   """Checks for any expressions in this list."""
-  or: [ProcessFilter!]
+  or: [ExecutionLogFilter!]
 
   """Negates the expression."""
-  not: ProcessFilter
+  not: ExecutionLogFilter
 
-  """Filter by the object’s `agent` relation."""
-  agent: AgentFilter
+  """Filter by the object’s `session` relation."""
+  session: SessionFilter
 
-  """A related `agent` exists."""
-  agentExists: Boolean
+  """A related `session` exists."""
+  sessionExists: Boolean
 
-  """TRGM search on the `command` column."""
-  trgmCommand: TrgmSearchInput
+  """TRGM search on the `step_name` column."""
+  trgmStepName: TrgmSearchInput
 
-  """TRGM search on the `status` column."""
-  trgmStatus: TrgmSearchInput
+  """TRGM search on the `input` column."""
+  trgmInput: TrgmSearchInput
 
-  """TRGM search on the `logs_path` column."""
-  trgmLogsPath: TrgmSearchInput
+  """TRGM search on the `output` column."""
+  trgmOutput: TrgmSearchInput
 
   """
   Composite full-text search. Provide a search string and it will be dispatched
@@ -2977,48 +3118,6 @@ input DatetimeFilter {
 
   """Greater than or equal to the specified value."""
   greaterThanOrEqualTo: Datetime
-}
-
-"""
-A filter to be used against Int fields. All fields are combined with a logical ‘and.’
-"""
-input IntFilter {
-  """
-  Is null (if `true` is specified) or is not null (if `false` is specified).
-  """
-  isNull: Boolean
-
-  """Equal to the specified value."""
-  equalTo: Int
-
-  """Not equal to the specified value."""
-  notEqualTo: Int
-
-  """
-  Not equal to the specified value, treating null like an ordinary value.
-  """
-  distinctFrom: Int
-
-  """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: Int
-
-  """Included in the specified list."""
-  in: [Int!]
-
-  """Not included in the specified list."""
-  notIn: [Int!]
-
-  """Less than the specified value."""
-  lessThan: Int
-
-  """Less than or equal to the specified value."""
-  lessThanOrEqualTo: Int
-
-  """Greater than the specified value."""
-  greaterThan: Int
-
-  """Greater than or equal to the specified value."""
-  greaterThanOrEqualTo: Int
 }
 
 """
@@ -3177,6 +3276,304 @@ input TrgmSearchInput {
 }
 
 """
+A filter to be used against JSON fields. All fields are combined with a logical ‘and.’
+"""
+input JSONFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: JSON
+
+  """Not equal to the specified value."""
+  notEqualTo: JSON
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: JSON
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: JSON
+
+  """Included in the specified list."""
+  in: [JSON!]
+
+  """Not included in the specified list."""
+  notIn: [JSON!]
+
+  """Less than the specified value."""
+  lessThan: JSON
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: JSON
+
+  """Greater than the specified value."""
+  greaterThan: JSON
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: JSON
+
+  """Contains the specified JSON."""
+  contains: JSON
+
+  """Contains the specified key."""
+  containsKey: String
+
+  """Contains all of the specified keys."""
+  containsAllKeys: [String!]
+
+  """Contains any of the specified keys."""
+  containsAnyKeys: [String!]
+
+  """Contained by the specified JSON."""
+  containedBy: JSON
+}
+
+"""
+A filter to be used against Int fields. All fields are combined with a logical ‘and.’
+"""
+input IntFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: Int
+
+  """Not equal to the specified value."""
+  notEqualTo: Int
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: Int
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: Int
+
+  """Included in the specified list."""
+  in: [Int!]
+
+  """Not included in the specified list."""
+  notIn: [Int!]
+
+  """Less than the specified value."""
+  lessThan: Int
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: Int
+
+  """Greater than the specified value."""
+  greaterThan: Int
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: Int
+}
+
+"""
+A filter to be used against `Session` object types. All fields are combined with a logical ‘and.’
+"""
+input SessionFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `title` field."""
+  title: StringFilter
+
+  """Filter by the object’s `agentId` field."""
+  agentId: UUIDFilter
+
+  """Filter by the object’s `startedAt` field."""
+  startedAt: DatetimeFilter
+
+  """Filter by the object’s `endedAt` field."""
+  endedAt: DatetimeFilter
+
+  """Filter by the object’s `status` field."""
+  status: StringFilter
+
+  """Filter by the object’s `contextSummary` field."""
+  contextSummary: StringFilter
+
+  """Filter by the object’s `sessionSummary` field."""
+  sessionSummary: StringFilter
+
+  """Filter by the object’s `archivedMessages` field."""
+  archivedMessages: JSONFilter
+
+  """Filter by the object’s `compressionCount` field."""
+  compressionCount: IntFilter
+
+  """Filter by the object’s `archivedAt` field."""
+  archivedAt: DatetimeFilter
+
+  """Filter by the object’s `extractedMemoryIds` field."""
+  extractedMemoryIds: UUIDListFilter
+
+  """Filter by the object’s `contextsUsed` field."""
+  contextsUsed: JSONFilter
+
+  """Filter by the object’s `skillsUsed` field."""
+  skillsUsed: UUIDListFilter
+
+  """Filter by the object’s `embeddingText` field."""
+  embeddingText: StringFilter
+
+  """Filter by the object’s `embedding` field."""
+  embedding: VectorFilter
+
+  """Checks for all expressions in this list."""
+  and: [SessionFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [SessionFilter!]
+
+  """Negates the expression."""
+  not: SessionFilter
+
+  """Filter by the object’s `agent` relation."""
+  agent: AgentFilter
+
+  """A related `agent` exists."""
+  agentExists: Boolean
+
+  """Filter by the object’s `executionLogs` relation."""
+  executionLogs: SessionToManyExecutionLogFilter
+
+  """`executionLogs` exist."""
+  executionLogsExist: Boolean
+
+  """Filter by the object’s `sessionArchives` relation."""
+  sessionArchives: SessionToManySessionArchiveFilter
+
+  """`sessionArchives` exist."""
+  sessionArchivesExist: Boolean
+
+  """TRGM search on the `uagent` column."""
+  trgmUagent: TrgmSearchInput
+
+  """TRGM search on the `fingerprint_mode` column."""
+  trgmFingerprintMode: TrgmSearchInput
+
+  """TRGM search on the `csrf_secret` column."""
+  trgmCsrfSecret: TrgmSearchInput
+
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
+}
+
+"""
+A filter to be used against UUID List fields. All fields are combined with a logical ‘and.’
+"""
+input UUIDListFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: [UUID]
+
+  """Not equal to the specified value."""
+  notEqualTo: [UUID]
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: [UUID]
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: [UUID]
+
+  """Less than the specified value."""
+  lessThan: [UUID]
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: [UUID]
+
+  """Greater than the specified value."""
+  greaterThan: [UUID]
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: [UUID]
+
+  """Contains the specified list of values."""
+  contains: [UUID]
+
+  """Contained by the specified list of values."""
+  containedBy: [UUID]
+
+  """Overlaps the specified list of values."""
+  overlaps: [UUID]
+
+  """Any array item is equal to the specified value."""
+  anyEqualTo: UUID
+
+  """Any array item is not equal to the specified value."""
+  anyNotEqualTo: UUID
+
+  """Any array item is less than the specified value."""
+  anyLessThan: UUID
+
+  """Any array item is less than or equal to the specified value."""
+  anyLessThanOrEqualTo: UUID
+
+  """Any array item is greater than the specified value."""
+  anyGreaterThan: UUID
+
+  """Any array item is greater than or equal to the specified value."""
+  anyGreaterThanOrEqualTo: UUID
+}
+
+"""
+A filter to be used against Vector fields. All fields are combined with a logical ‘and.’
+"""
+input VectorFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: Vector
+
+  """Not equal to the specified value."""
+  notEqualTo: Vector
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: Vector
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: Vector
+
+  """Included in the specified list."""
+  in: [Vector!]
+
+  """Not included in the specified list."""
+  notIn: [Vector!]
+}
+
+"""
 A filter to be used against `Agent` object types. All fields are combined with a logical ‘and.’
 """
 input AgentFilter {
@@ -3251,6 +3648,12 @@ input AgentFilter {
 
   """Negates the expression."""
   not: AgentFilter
+
+  """Filter by the object’s `sessions` relation."""
+  sessions: AgentToManySessionFilter
+
+  """`sessions` exist."""
+  sessionsExist: Boolean
 
   """Filter by the object’s `processes` relation."""
   processes: AgentToManyProcessFilter
@@ -3334,63 +3737,6 @@ input AgentFilter {
   fields are populated.
   """
   fullTextSearch: String
-}
-
-"""
-A filter to be used against JSON fields. All fields are combined with a logical ‘and.’
-"""
-input JSONFilter {
-  """
-  Is null (if `true` is specified) or is not null (if `false` is specified).
-  """
-  isNull: Boolean
-
-  """Equal to the specified value."""
-  equalTo: JSON
-
-  """Not equal to the specified value."""
-  notEqualTo: JSON
-
-  """
-  Not equal to the specified value, treating null like an ordinary value.
-  """
-  distinctFrom: JSON
-
-  """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: JSON
-
-  """Included in the specified list."""
-  in: [JSON!]
-
-  """Not included in the specified list."""
-  notIn: [JSON!]
-
-  """Less than the specified value."""
-  lessThan: JSON
-
-  """Less than or equal to the specified value."""
-  lessThanOrEqualTo: JSON
-
-  """Greater than the specified value."""
-  greaterThan: JSON
-
-  """Greater than or equal to the specified value."""
-  greaterThanOrEqualTo: JSON
-
-  """Contains the specified JSON."""
-  contains: JSON
-
-  """Contains the specified key."""
-  containsKey: String
-
-  """Contains all of the specified keys."""
-  containsAllKeys: [String!]
-
-  """Contains any of the specified keys."""
-  containsAnyKeys: [String!]
-
-  """Contained by the specified JSON."""
-  containedBy: JSON
 }
 
 """
@@ -3499,33 +3845,17 @@ input BigFloatFilter {
 }
 
 """
-A filter to be used against Vector fields. All fields are combined with a logical ‘and.’
+A filter to be used against many `Session` object types. All fields are combined with a logical ‘and.’
 """
-input VectorFilter {
-  """
-  Is null (if `true` is specified) or is not null (if `false` is specified).
-  """
-  isNull: Boolean
+input AgentToManySessionFilter {
+  """Filters to entities where at least one related entity matches."""
+  some: SessionFilter
 
-  """Equal to the specified value."""
-  equalTo: Vector
+  """Filters to entities where every related entity matches."""
+  every: SessionFilter
 
-  """Not equal to the specified value."""
-  notEqualTo: Vector
-
-  """
-  Not equal to the specified value, treating null like an ordinary value.
-  """
-  distinctFrom: Vector
-
-  """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: Vector
-
-  """Included in the specified list."""
-  in: [Vector!]
-
-  """Not included in the specified list."""
-  notIn: [Vector!]
+  """Filters to entities where no related entity matches."""
+  none: SessionFilter
 }
 
 """
@@ -3540,6 +3870,79 @@ input AgentToManyProcessFilter {
 
   """Filters to entities where no related entity matches."""
   none: ProcessFilter
+}
+
+"""
+A filter to be used against `Process` object types. All fields are combined with a logical ‘and.’
+"""
+input ProcessFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `pid` field."""
+  pid: IntFilter
+
+  """Filter by the object’s `agentId` field."""
+  agentId: UUIDFilter
+
+  """Filter by the object’s `command` field."""
+  command: StringFilter
+
+  """Filter by the object’s `startedAt` field."""
+  startedAt: DatetimeFilter
+
+  """Filter by the object’s `endedAt` field."""
+  endedAt: DatetimeFilter
+
+  """Filter by the object’s `status` field."""
+  status: StringFilter
+
+  """Filter by the object’s `exitCode` field."""
+  exitCode: IntFilter
+
+  """Filter by the object’s `logsPath` field."""
+  logsPath: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [ProcessFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [ProcessFilter!]
+
+  """Negates the expression."""
+  not: ProcessFilter
+
+  """Filter by the object’s `agent` relation."""
+  agent: AgentFilter
+
+  """A related `agent` exists."""
+  agentExists: Boolean
+
+  """TRGM search on the `command` column."""
+  trgmCommand: TrgmSearchInput
+
+  """TRGM search on the `status` column."""
+  trgmStatus: TrgmSearchInput
+
+  """TRGM search on the `logs_path` column."""
+  trgmLogsPath: TrgmSearchInput
+
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
 }
 
 """
@@ -4412,6 +4815,324 @@ input PromptToManyAgentPromptFilter {
 
   """Filters to entities where no related entity matches."""
   none: AgentPromptFilter
+}
+
+"""
+A filter to be used against many `ExecutionLog` object types. All fields are combined with a logical ‘and.’
+"""
+input SessionToManyExecutionLogFilter {
+  """Filters to entities where at least one related entity matches."""
+  some: ExecutionLogFilter
+
+  """Filters to entities where every related entity matches."""
+  every: ExecutionLogFilter
+
+  """Filters to entities where no related entity matches."""
+  none: ExecutionLogFilter
+}
+
+"""
+A filter to be used against many `SessionArchive` object types. All fields are combined with a logical ‘and.’
+"""
+input SessionToManySessionArchiveFilter {
+  """Filters to entities where at least one related entity matches."""
+  some: SessionArchiveFilter
+
+  """Filters to entities where every related entity matches."""
+  every: SessionArchiveFilter
+
+  """Filters to entities where no related entity matches."""
+  none: SessionArchiveFilter
+}
+
+"""
+A filter to be used against `SessionArchive` object types. All fields are combined with a logical ‘and.’
+"""
+input SessionArchiveFilter {
+  """Filter by the object’s `id` field."""
+  id: UUIDFilter
+
+  """Filter by the object’s `entityId` field."""
+  entityId: UUIDFilter
+
+  """Filter by the object’s `createdAt` field."""
+  createdAt: DatetimeFilter
+
+  """Filter by the object’s `updatedAt` field."""
+  updatedAt: DatetimeFilter
+
+  """Filter by the object’s `sessionId` field."""
+  sessionId: UUIDFilter
+
+  """Filter by the object’s `archiveIndex` field."""
+  archiveIndex: IntFilter
+
+  """Filter by the object’s `summary` field."""
+  summary: StringFilter
+
+  """Filter by the object’s `messageRangeStart` field."""
+  messageRangeStart: IntFilter
+
+  """Filter by the object’s `messageRangeEnd` field."""
+  messageRangeEnd: IntFilter
+
+  """Filter by the object’s `rawMessages` field."""
+  rawMessages: JSONFilter
+
+  """Filter by the object’s `embeddingText` field."""
+  embeddingText: StringFilter
+
+  """Filter by the object’s `embedding` field."""
+  embedding: VectorFilter
+
+  """Checks for all expressions in this list."""
+  and: [SessionArchiveFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [SessionArchiveFilter!]
+
+  """Negates the expression."""
+  not: SessionArchiveFilter
+
+  """Filter by the object’s `session` relation."""
+  session: SessionFilter
+
+  """BM25 search on the `embedding_text` column."""
+  bm25EmbeddingText: Bm25SearchInput
+
+  """TRGM search on the `summary` column."""
+  trgmSummary: TrgmSearchInput
+
+  """TRGM search on the `embedding_text` column."""
+  trgmEmbeddingText: TrgmSearchInput
+
+  """VECTOR search on the `embedding` column."""
+  vectorEmbedding: VectorNearbyInput
+
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
+}
+
+"""Methods to use when ordering `ExecutionLog`."""
+enum ExecutionLogOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  SESSION_ID_ASC
+  SESSION_ID_DESC
+  STEP_NAME_TRGM_SIMILARITY_ASC
+  STEP_NAME_TRGM_SIMILARITY_DESC
+  INPUT_TRGM_SIMILARITY_ASC
+  INPUT_TRGM_SIMILARITY_DESC
+  OUTPUT_TRGM_SIMILARITY_ASC
+  OUTPUT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
+"""A connection to a list of `SessionArchive` values."""
+type SessionArchiveConnection {
+  """A list of `SessionArchive` objects."""
+  nodes: [SessionArchive]!
+
+  """
+  A list of edges which contains the `SessionArchive` and cursor to aid in pagination.
+  """
+  edges: [SessionArchiveEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `SessionArchive` you could get from the connection."""
+  totalCount: Int!
+}
+
+type SessionArchive {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  sessionId: UUID!
+  archiveIndex: Int!
+  summary: String!
+  messageRangeStart: Int
+  messageRangeEnd: Int
+  rawMessages: JSON
+  embeddingText: String
+  embedding: Vector
+
+  """Reads a single `Session` that is related to this `SessionArchive`."""
+  session: Session
+
+  """
+  BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active.
+  """
+  embeddingTextBm25Score: Float
+
+  """
+  TRGM similarity when searching `summary`. Returns null when no trgm search filter is active.
+  """
+  summaryTrgmSimilarity: Float
+
+  """
+  TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active.
+  """
+  embeddingTextTrgmSimilarity: Float
+
+  """
+  VECTOR distance when searching `embedding`. Returns null when no vector search filter is active.
+  """
+  embeddingVectorDistance: Float
+
+  """
+  Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active.
+  """
+  searchScore: Float
+}
+
+"""A `SessionArchive` edge in the connection."""
+type SessionArchiveEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `SessionArchive` at the end of the edge."""
+  node: SessionArchive
+}
+
+"""Methods to use when ordering `SessionArchive`."""
+enum SessionArchiveOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  SESSION_ID_ASC
+  SESSION_ID_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  SUMMARY_TRGM_SIMILARITY_ASC
+  SUMMARY_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
+"""A `Session` edge in the connection."""
+type SessionEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Session` at the end of the edge."""
+  node: Session
+}
+
+"""Methods to use when ordering `Session`."""
+enum SessionOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  AGENT_ID_ASC
+  AGENT_ID_DESC
+  STARTED_AT_ASC
+  STARTED_AT_DESC
+  STATUS_ASC
+  STATUS_DESC
+  COMPRESSION_COUNT_ASC
+  COMPRESSION_COUNT_DESC
+  ARCHIVED_AT_ASC
+  ARCHIVED_AT_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  UAGENT_TRGM_SIMILARITY_ASC
+  UAGENT_TRGM_SIMILARITY_DESC
+  FINGERPRINT_MODE_TRGM_SIMILARITY_ASC
+  FINGERPRINT_MODE_TRGM_SIMILARITY_DESC
+  CSRF_SECRET_TRGM_SIMILARITY_ASC
+  CSRF_SECRET_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
+"""A connection to a list of `Process` values."""
+type ProcessConnection {
+  """A list of `Process` objects."""
+  nodes: [Process]!
+
+  """
+  A list of edges which contains the `Process` and cursor to aid in pagination.
+  """
+  edges: [ProcessEdge]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Process` you could get from the connection."""
+  totalCount: Int!
+}
+
+type Process {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  pid: Int
+  agentId: UUID
+  command: String
+  startedAt: Datetime
+  endedAt: Datetime
+  status: String
+  exitCode: Int
+  logsPath: String
+
+  """Reads a single `Agent` that is related to this `Process`."""
+  agent: Agent
+
+  """
+  TRGM similarity when searching `command`. Returns null when no trgm search filter is active.
+  """
+  commandTrgmSimilarity: Float
+
+  """
+  TRGM similarity when searching `status`. Returns null when no trgm search filter is active.
+  """
+  statusTrgmSimilarity: Float
+
+  """
+  TRGM similarity when searching `logsPath`. Returns null when no trgm search filter is active.
+  """
+  logsPathTrgmSimilarity: Float
+
+  """
+  Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active.
+  """
+  searchScore: Float
+}
+
+"""A `Process` edge in the connection."""
+type ProcessEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Process` at the end of the edge."""
+  node: Process
 }
 
 """Methods to use when ordering `Process`."""
@@ -9127,69 +9848,6 @@ input TaskFilter {
   fullTextSearch: String
 }
 
-"""
-A filter to be used against UUID List fields. All fields are combined with a logical ‘and.’
-"""
-input UUIDListFilter {
-  """
-  Is null (if `true` is specified) or is not null (if `false` is specified).
-  """
-  isNull: Boolean
-
-  """Equal to the specified value."""
-  equalTo: [UUID]
-
-  """Not equal to the specified value."""
-  notEqualTo: [UUID]
-
-  """
-  Not equal to the specified value, treating null like an ordinary value.
-  """
-  distinctFrom: [UUID]
-
-  """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: [UUID]
-
-  """Less than the specified value."""
-  lessThan: [UUID]
-
-  """Less than or equal to the specified value."""
-  lessThanOrEqualTo: [UUID]
-
-  """Greater than the specified value."""
-  greaterThan: [UUID]
-
-  """Greater than or equal to the specified value."""
-  greaterThanOrEqualTo: [UUID]
-
-  """Contains the specified list of values."""
-  contains: [UUID]
-
-  """Contained by the specified list of values."""
-  containedBy: [UUID]
-
-  """Overlaps the specified list of values."""
-  overlaps: [UUID]
-
-  """Any array item is equal to the specified value."""
-  anyEqualTo: UUID
-
-  """Any array item is not equal to the specified value."""
-  anyNotEqualTo: UUID
-
-  """Any array item is less than the specified value."""
-  anyLessThan: UUID
-
-  """Any array item is less than or equal to the specified value."""
-  anyLessThanOrEqualTo: UUID
-
-  """Any array item is greater than the specified value."""
-  anyGreaterThan: UUID
-
-  """Any array item is greater than or equal to the specified value."""
-  anyGreaterThanOrEqualTo: UUID
-}
-
 """Methods to use when ordering `TaskContact`."""
 enum TaskContactOrderBy {
   NATURAL
@@ -11176,558 +11834,6 @@ enum UserSettingOrderBy {
   CATEGORY_TRGM_SIMILARITY_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
-}
-
-"""A connection to a list of `ExecutionLog` values."""
-type ExecutionLogConnection {
-  """A list of `ExecutionLog` objects."""
-  nodes: [ExecutionLog]!
-
-  """
-  A list of edges which contains the `ExecutionLog` and cursor to aid in pagination.
-  """
-  edges: [ExecutionLogEdge]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `ExecutionLog` you could get from the connection."""
-  totalCount: Int!
-}
-
-type ExecutionLog {
-  id: UUID!
-  entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
-  sessionId: UUID
-  stepName: String
-  input: String
-  output: String
-  toolCalls: JSON
-  durationMs: Int
-
-  """Reads a single `Session` that is related to this `ExecutionLog`."""
-  session: Session
-
-  """
-  TRGM similarity when searching `stepName`. Returns null when no trgm search filter is active.
-  """
-  stepNameTrgmSimilarity: Float
-
-  """
-  TRGM similarity when searching `input`. Returns null when no trgm search filter is active.
-  """
-  inputTrgmSimilarity: Float
-
-  """
-  TRGM similarity when searching `output`. Returns null when no trgm search filter is active.
-  """
-  outputTrgmSimilarity: Float
-
-  """
-  Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active.
-  """
-  searchScore: Float
-}
-
-type Session {
-  id: UUID!
-  entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
-  title: String
-  agentId: UUID
-  startedAt: Datetime
-  endedAt: Datetime
-  status: String
-  contextSummary: String
-  sessionSummary: String
-  archivedMessages: JSON
-  compressionCount: Int
-  archivedAt: Datetime
-  extractedMemoryIds: [UUID]
-  contextsUsed: JSON
-  skillsUsed: [UUID]
-  embeddingText: String
-  embedding: Vector
-
-  """Reads a single `Agent` that is related to this `Session`."""
-  agent: Agent
-
-  """Reads and enables pagination through a set of `ExecutionLog`."""
-  executionLogs(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    where: ExecutionLogFilter
-
-    """The method to use when ordering `ExecutionLog`."""
-    orderBy: [ExecutionLogOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ExecutionLogConnection!
-
-  """Reads and enables pagination through a set of `SessionArchive`."""
-  sessionArchives(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    where: SessionArchiveFilter
-
-    """The method to use when ordering `SessionArchive`."""
-    orderBy: [SessionArchiveOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SessionArchiveConnection!
-
-  """
-  TRGM similarity when searching `uagent`. Returns null when no trgm search filter is active.
-  """
-  uagentTrgmSimilarity: Float
-
-  """
-  TRGM similarity when searching `fingerprintMode`. Returns null when no trgm search filter is active.
-  """
-  fingerprintModeTrgmSimilarity: Float
-
-  """
-  TRGM similarity when searching `csrfSecret`. Returns null when no trgm search filter is active.
-  """
-  csrfSecretTrgmSimilarity: Float
-
-  """
-  Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active.
-  """
-  searchScore: Float
-}
-
-"""
-A filter to be used against `ExecutionLog` object types. All fields are combined with a logical ‘and.’
-"""
-input ExecutionLogFilter {
-  """Filter by the object’s `id` field."""
-  id: UUIDFilter
-
-  """Filter by the object’s `entityId` field."""
-  entityId: UUIDFilter
-
-  """Filter by the object’s `createdAt` field."""
-  createdAt: DatetimeFilter
-
-  """Filter by the object’s `updatedAt` field."""
-  updatedAt: DatetimeFilter
-
-  """Filter by the object’s `sessionId` field."""
-  sessionId: UUIDFilter
-
-  """Filter by the object’s `stepName` field."""
-  stepName: StringFilter
-
-  """Filter by the object’s `input` field."""
-  input: StringFilter
-
-  """Filter by the object’s `output` field."""
-  output: StringFilter
-
-  """Filter by the object’s `toolCalls` field."""
-  toolCalls: JSONFilter
-
-  """Filter by the object’s `durationMs` field."""
-  durationMs: IntFilter
-
-  """Checks for all expressions in this list."""
-  and: [ExecutionLogFilter!]
-
-  """Checks for any expressions in this list."""
-  or: [ExecutionLogFilter!]
-
-  """Negates the expression."""
-  not: ExecutionLogFilter
-
-  """Filter by the object’s `session` relation."""
-  session: SessionFilter
-
-  """A related `session` exists."""
-  sessionExists: Boolean
-
-  """TRGM search on the `step_name` column."""
-  trgmStepName: TrgmSearchInput
-
-  """TRGM search on the `input` column."""
-  trgmInput: TrgmSearchInput
-
-  """TRGM search on the `output` column."""
-  trgmOutput: TrgmSearchInput
-
-  """
-  Composite full-text search. Provide a search string and it will be dispatched
-  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
-  fields are populated.
-  """
-  fullTextSearch: String
-}
-
-"""
-A filter to be used against `Session` object types. All fields are combined with a logical ‘and.’
-"""
-input SessionFilter {
-  """Filter by the object’s `id` field."""
-  id: UUIDFilter
-
-  """Filter by the object’s `entityId` field."""
-  entityId: UUIDFilter
-
-  """Filter by the object’s `createdAt` field."""
-  createdAt: DatetimeFilter
-
-  """Filter by the object’s `updatedAt` field."""
-  updatedAt: DatetimeFilter
-
-  """Filter by the object’s `title` field."""
-  title: StringFilter
-
-  """Filter by the object’s `agentId` field."""
-  agentId: UUIDFilter
-
-  """Filter by the object’s `startedAt` field."""
-  startedAt: DatetimeFilter
-
-  """Filter by the object’s `endedAt` field."""
-  endedAt: DatetimeFilter
-
-  """Filter by the object’s `status` field."""
-  status: StringFilter
-
-  """Filter by the object’s `contextSummary` field."""
-  contextSummary: StringFilter
-
-  """Filter by the object’s `sessionSummary` field."""
-  sessionSummary: StringFilter
-
-  """Filter by the object’s `archivedMessages` field."""
-  archivedMessages: JSONFilter
-
-  """Filter by the object’s `compressionCount` field."""
-  compressionCount: IntFilter
-
-  """Filter by the object’s `archivedAt` field."""
-  archivedAt: DatetimeFilter
-
-  """Filter by the object’s `extractedMemoryIds` field."""
-  extractedMemoryIds: UUIDListFilter
-
-  """Filter by the object’s `contextsUsed` field."""
-  contextsUsed: JSONFilter
-
-  """Filter by the object’s `skillsUsed` field."""
-  skillsUsed: UUIDListFilter
-
-  """Filter by the object’s `embeddingText` field."""
-  embeddingText: StringFilter
-
-  """Filter by the object’s `embedding` field."""
-  embedding: VectorFilter
-
-  """Checks for all expressions in this list."""
-  and: [SessionFilter!]
-
-  """Checks for any expressions in this list."""
-  or: [SessionFilter!]
-
-  """Negates the expression."""
-  not: SessionFilter
-
-  """Filter by the object’s `agent` relation."""
-  agent: AgentFilter
-
-  """A related `agent` exists."""
-  agentExists: Boolean
-
-  """Filter by the object’s `executionLogs` relation."""
-  executionLogs: SessionToManyExecutionLogFilter
-
-  """`executionLogs` exist."""
-  executionLogsExist: Boolean
-
-  """Filter by the object’s `sessionArchives` relation."""
-  sessionArchives: SessionToManySessionArchiveFilter
-
-  """`sessionArchives` exist."""
-  sessionArchivesExist: Boolean
-
-  """TRGM search on the `uagent` column."""
-  trgmUagent: TrgmSearchInput
-
-  """TRGM search on the `fingerprint_mode` column."""
-  trgmFingerprintMode: TrgmSearchInput
-
-  """TRGM search on the `csrf_secret` column."""
-  trgmCsrfSecret: TrgmSearchInput
-
-  """
-  Composite full-text search. Provide a search string and it will be dispatched
-  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
-  fields are populated.
-  """
-  fullTextSearch: String
-}
-
-"""
-A filter to be used against many `ExecutionLog` object types. All fields are combined with a logical ‘and.’
-"""
-input SessionToManyExecutionLogFilter {
-  """Filters to entities where at least one related entity matches."""
-  some: ExecutionLogFilter
-
-  """Filters to entities where every related entity matches."""
-  every: ExecutionLogFilter
-
-  """Filters to entities where no related entity matches."""
-  none: ExecutionLogFilter
-}
-
-"""
-A filter to be used against many `SessionArchive` object types. All fields are combined with a logical ‘and.’
-"""
-input SessionToManySessionArchiveFilter {
-  """Filters to entities where at least one related entity matches."""
-  some: SessionArchiveFilter
-
-  """Filters to entities where every related entity matches."""
-  every: SessionArchiveFilter
-
-  """Filters to entities where no related entity matches."""
-  none: SessionArchiveFilter
-}
-
-"""
-A filter to be used against `SessionArchive` object types. All fields are combined with a logical ‘and.’
-"""
-input SessionArchiveFilter {
-  """Filter by the object’s `id` field."""
-  id: UUIDFilter
-
-  """Filter by the object’s `entityId` field."""
-  entityId: UUIDFilter
-
-  """Filter by the object’s `createdAt` field."""
-  createdAt: DatetimeFilter
-
-  """Filter by the object’s `updatedAt` field."""
-  updatedAt: DatetimeFilter
-
-  """Filter by the object’s `sessionId` field."""
-  sessionId: UUIDFilter
-
-  """Filter by the object’s `archiveIndex` field."""
-  archiveIndex: IntFilter
-
-  """Filter by the object’s `summary` field."""
-  summary: StringFilter
-
-  """Filter by the object’s `messageRangeStart` field."""
-  messageRangeStart: IntFilter
-
-  """Filter by the object’s `messageRangeEnd` field."""
-  messageRangeEnd: IntFilter
-
-  """Filter by the object’s `rawMessages` field."""
-  rawMessages: JSONFilter
-
-  """Filter by the object’s `embeddingText` field."""
-  embeddingText: StringFilter
-
-  """Filter by the object’s `embedding` field."""
-  embedding: VectorFilter
-
-  """Checks for all expressions in this list."""
-  and: [SessionArchiveFilter!]
-
-  """Checks for any expressions in this list."""
-  or: [SessionArchiveFilter!]
-
-  """Negates the expression."""
-  not: SessionArchiveFilter
-
-  """Filter by the object’s `session` relation."""
-  session: SessionFilter
-
-  """BM25 search on the `embedding_text` column."""
-  bm25EmbeddingText: Bm25SearchInput
-
-  """TRGM search on the `summary` column."""
-  trgmSummary: TrgmSearchInput
-
-  """TRGM search on the `embedding_text` column."""
-  trgmEmbeddingText: TrgmSearchInput
-
-  """VECTOR search on the `embedding` column."""
-  vectorEmbedding: VectorNearbyInput
-
-  """
-  Composite full-text search. Provide a search string and it will be dispatched
-  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
-  fields are populated.
-  """
-  fullTextSearch: String
-}
-
-"""Methods to use when ordering `ExecutionLog`."""
-enum ExecutionLogOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  ID_ASC
-  ID_DESC
-  SESSION_ID_ASC
-  SESSION_ID_DESC
-  STEP_NAME_TRGM_SIMILARITY_ASC
-  STEP_NAME_TRGM_SIMILARITY_DESC
-  INPUT_TRGM_SIMILARITY_ASC
-  INPUT_TRGM_SIMILARITY_DESC
-  OUTPUT_TRGM_SIMILARITY_ASC
-  OUTPUT_TRGM_SIMILARITY_DESC
-  SEARCH_SCORE_ASC
-  SEARCH_SCORE_DESC
-}
-
-"""A connection to a list of `SessionArchive` values."""
-type SessionArchiveConnection {
-  """A list of `SessionArchive` objects."""
-  nodes: [SessionArchive]!
-
-  """
-  A list of edges which contains the `SessionArchive` and cursor to aid in pagination.
-  """
-  edges: [SessionArchiveEdge]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `SessionArchive` you could get from the connection."""
-  totalCount: Int!
-}
-
-type SessionArchive {
-  id: UUID!
-  entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
-  sessionId: UUID!
-  archiveIndex: Int!
-  summary: String!
-  messageRangeStart: Int
-  messageRangeEnd: Int
-  rawMessages: JSON
-  embeddingText: String
-  embedding: Vector
-
-  """Reads a single `Session` that is related to this `SessionArchive`."""
-  session: Session
-
-  """
-  BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active.
-  """
-  embeddingTextBm25Score: Float
-
-  """
-  TRGM similarity when searching `summary`. Returns null when no trgm search filter is active.
-  """
-  summaryTrgmSimilarity: Float
-
-  """
-  TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active.
-  """
-  embeddingTextTrgmSimilarity: Float
-
-  """
-  VECTOR distance when searching `embedding`. Returns null when no vector search filter is active.
-  """
-  embeddingVectorDistance: Float
-
-  """
-  Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Returns null when no search filters are active.
-  """
-  searchScore: Float
-}
-
-"""A `SessionArchive` edge in the connection."""
-type SessionArchiveEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `SessionArchive` at the end of the edge."""
-  node: SessionArchive
-}
-
-"""Methods to use when ordering `SessionArchive`."""
-enum SessionArchiveOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  ID_ASC
-  ID_DESC
-  SESSION_ID_ASC
-  SESSION_ID_DESC
-  EMBEDDING_TEXT_ASC
-  EMBEDDING_TEXT_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_TEXT_BM25_SCORE_ASC
-  EMBEDDING_TEXT_BM25_SCORE_DESC
-  SUMMARY_TRGM_SIMILARITY_ASC
-  SUMMARY_TRGM_SIMILARITY_DESC
-  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
-  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
-  EMBEDDING_VECTOR_DISTANCE_ASC
-  EMBEDDING_VECTOR_DISTANCE_DESC
-  SEARCH_SCORE_ASC
-  SEARCH_SCORE_DESC
-}
-
-"""A `ExecutionLog` edge in the connection."""
-type ExecutionLogEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `ExecutionLog` at the end of the edge."""
-  node: ExecutionLog
 }
 
 """A connection to a list of `Webhook` values."""
@@ -17180,49 +17286,6 @@ enum AgentOrderBy {
   EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
   EMBEDDING_VECTOR_DISTANCE_DESC
-  SEARCH_SCORE_ASC
-  SEARCH_SCORE_DESC
-}
-
-"""A connection to a list of `Session` values."""
-type SessionConnection {
-  """A list of `Session` objects."""
-  nodes: [Session]!
-
-  """
-  A list of edges which contains the `Session` and cursor to aid in pagination.
-  """
-  edges: [SessionEdge]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `Session` you could get from the connection."""
-  totalCount: Int!
-}
-
-"""A `Session` edge in the connection."""
-type SessionEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `Session` at the end of the edge."""
-  node: Session
-}
-
-"""Methods to use when ordering `Session`."""
-enum SessionOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  ID_ASC
-  ID_DESC
-  UAGENT_TRGM_SIMILARITY_ASC
-  UAGENT_TRGM_SIMILARITY_DESC
-  FINGERPRINT_MODE_TRGM_SIMILARITY_ASC
-  FINGERPRINT_MODE_TRGM_SIMILARITY_DESC
-  CSRF_SECRET_TRGM_SIMILARITY_ASC
-  CSRF_SECRET_TRGM_SIMILARITY_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
 }

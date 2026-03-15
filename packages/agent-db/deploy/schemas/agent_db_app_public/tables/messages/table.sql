@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/email_accounts/columns/sync_state/column
 
 
-CREATE TABLE "agent_db_app_public".messages ();
+CREATE TABLE agent_db_app_public.messages ();
 

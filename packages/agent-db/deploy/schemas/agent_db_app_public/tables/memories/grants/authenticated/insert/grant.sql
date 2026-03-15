@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/rules/columns/trigger_concept/column
 
 
-GRANT INSERT ON "agent_db_app_public".memories TO authenticated;
+GRANT INSERT ON agent_db_app_public.memories TO authenticated;
 

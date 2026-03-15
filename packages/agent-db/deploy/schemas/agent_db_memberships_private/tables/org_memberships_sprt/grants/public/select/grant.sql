@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_memberships_private/tables/org_memberships_sprt/table
 
 
-GRANT SELECT ON "agent_db_memberships_private".org_memberships_sprt TO public;
+GRANT SELECT ON agent_db_memberships_private.org_memberships_sprt TO public;
 

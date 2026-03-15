@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER companies_search_tsv_tsv_update_tg
-BEFORE UPDATE ON "agent_db_app_public".companies
+BEFORE UPDATE ON agent_db_app_public.companies
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.industry IS DISTINCT FROM NEW.industry)
-EXECUTE PROCEDURE "agent_db_private".companies_search_tsv_tsv ( );
+EXECUTE PROCEDURE agent_db_private.companies_search_tsv_tsv ( );
 

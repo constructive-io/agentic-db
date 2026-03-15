@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/lists/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".list_items 
+ALTER TABLE agent_db_app_public.list_items 
   ADD COLUMN id uuid;
 

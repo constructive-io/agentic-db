@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/deals/columns/expected_close_date/column
 
 
-CREATE INDEX deals_expected_close_date_idx ON "agent_db_app_public".deals USING BTREE ( expected_close_date );
+CREATE INDEX deals_expected_close_date_idx ON agent_db_app_public.deals USING BTREE ( expected_close_date );
 

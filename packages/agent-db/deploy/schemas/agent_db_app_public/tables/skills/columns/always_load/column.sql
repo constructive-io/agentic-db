@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/skills/columns/prerequisites/column
 
 
-ALTER TABLE "agent_db_app_public".skills 
+ALTER TABLE agent_db_app_public.skills 
   ADD COLUMN always_load bool;
 

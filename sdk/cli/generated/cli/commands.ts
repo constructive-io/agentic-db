@@ -7,6 +7,9 @@ import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import contextCmd from './commands/context';
 import authCmd from './commands/auth';
 import agentPromptCmd from './commands/agent-prompt';
+import sessionCmd from './commands/session';
+import executionLogCmd from './commands/execution-log';
+import sessionArchiveCmd from './commands/session-archive';
 import processCmd from './commands/process';
 import scheduledJobCmd from './commands/scheduled-job';
 import agentToolCmd from './commands/agent-tool';
@@ -42,8 +45,6 @@ import messageCmd from './commands/message';
 import activityLogCmd from './commands/activity-log';
 import contextRelationCmd from './commands/context-relation';
 import userSettingCmd from './commands/user-setting';
-import executionLogCmd from './commands/execution-log';
-import sessionArchiveCmd from './commands/session-archive';
 import webhookCmd from './commands/webhook';
 import notificationCmd from './commands/notification';
 import workflowRunCmd from './commands/workflow-run';
@@ -81,7 +82,6 @@ import memoryCmd from './commands/memory';
 import ruleCmd from './commands/rule';
 import taskCmd from './commands/task';
 import agentCmd from './commands/agent';
-import sessionCmd from './commands/session';
 import skillCmd from './commands/skill';
 import projectCmd from './commands/project';
 import documentCmd from './commands/document';
@@ -100,6 +100,9 @@ const createCommandMap: () => Record<
   context: contextCmd,
   auth: authCmd,
   'agent-prompt': agentPromptCmd,
+  session: sessionCmd,
+  'execution-log': executionLogCmd,
+  'session-archive': sessionArchiveCmd,
   process: processCmd,
   'scheduled-job': scheduledJobCmd,
   'agent-tool': agentToolCmd,
@@ -135,8 +138,6 @@ const createCommandMap: () => Record<
   'activity-log': activityLogCmd,
   'context-relation': contextRelationCmd,
   'user-setting': userSettingCmd,
-  'execution-log': executionLogCmd,
-  'session-archive': sessionArchiveCmd,
   webhook: webhookCmd,
   notification: notificationCmd,
   'workflow-run': workflowRunCmd,
@@ -174,7 +175,6 @@ const createCommandMap: () => Record<
   rule: ruleCmd,
   task: taskCmd,
   agent: agentCmd,
-  session: sessionCmd,
   skill: skillCmd,
   project: projectCmd,
   document: documentCmd,
@@ -184,7 +184,7 @@ const createCommandMap: () => Record<
   venue: venueCmd,
 });
 const usage =
-  '\nagent-db <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  agent-prompt         agentPrompt CRUD operations\n  process              process CRUD operations\n  scheduled-job        scheduledJob CRUD operations\n  agent-tool           agentTool CRUD operations\n  agent-skill          agentSkill CRUD operations\n  agent-rule           agentRule CRUD operations\n  calendar-event-contact calendarEventContact CRUD operations\n  calendar-event       calendarEvent CRUD operations\n  interaction          interaction CRUD operations\n  company-event        companyEvent CRUD operations\n  company-image        companyImage CRUD operations\n  contact-company      contactCompany CRUD operations\n  contact-event        contactEvent CRUD operations\n  contact-image        contactImage CRUD operations\n  deal-contact         dealContact CRUD operations\n  event-image          eventImage CRUD operations\n  event-venue          eventVenue CRUD operations\n  expense-contact      expenseContact CRUD operations\n  goal-habit           goalHabit CRUD operations\n  habit-log            habitLog CRUD operations\n  goal-project         goalProject CRUD operations\n  milestone            milestone CRUD operations\n  project-contact      projectContact CRUD operations\n  task-contact         taskContact CRUD operations\n  venue-image          venueImage CRUD operations\n  file                 file CRUD operations\n  chunk                chunk CRUD operations\n  calendar-account     calendarAccount CRUD operations\n  tag                  tag CRUD operations\n  feedback             feedback CRUD operations\n  attachment           attachment CRUD operations\n  email-account        emailAccount CRUD operations\n  message              message CRUD operations\n  activity-log         activityLog CRUD operations\n  context-relation     contextRelation CRUD operations\n  user-setting         userSetting CRUD operations\n  execution-log        executionLog CRUD operations\n  session-archive      sessionArchive CRUD operations\n  webhook              webhook CRUD operations\n  notification         notification CRUD operations\n  workflow-run         workflowRun CRUD operations\n  workflow-step        workflowStep CRUD operations\n  integration          integration CRUD operations\n  skill-execution      skillExecution CRUD operations\n  chat                 chat CRUD operations\n  chat-message         chatMessage CRUD operations\n  thread               thread CRUD operations\n  reminder             reminder CRUD operations\n  image                image CRUD operations\n  list-item            listItem CRUD operations\n  company-link         companyLink CRUD operations\n  contact-link         contactLink CRUD operations\n  event-link           eventLink CRUD operations\n  venue-link           venueLink CRUD operations\n  agent-spawn          agentSpawn CRUD operations\n  habit                habit CRUD operations\n  workflow             workflow CRUD operations\n  expense              expense CRUD operations\n  billing-subscription billingSubscription CRUD operations\n  idea                 idea CRUD operations\n  list                 list CRUD operations\n  repository           repository CRUD operations\n  deal                 deal CRUD operations\n  goal                 goal CRUD operations\n  note                 note CRUD operations\n  prompt               prompt CRUD operations\n  blueprint            blueprint CRUD operations\n  template             template CRUD operations\n  tool                 tool CRUD operations\n  recipe               recipe CRUD operations\n  trip                 trip CRUD operations\n  memory               memory CRUD operations\n  rule                 rule CRUD operations\n  task                 task CRUD operations\n  agent                agent CRUD operations\n  session              session CRUD operations\n  skill                skill CRUD operations\n  project              project CRUD operations\n  document             document CRUD operations\n  company              company CRUD operations\n  event                event CRUD operations\n  contact              contact CRUD operations\n  venue                venue CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
+  '\nagent-db <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  agent-prompt         agentPrompt CRUD operations\n  session              session CRUD operations\n  execution-log        executionLog CRUD operations\n  session-archive      sessionArchive CRUD operations\n  process              process CRUD operations\n  scheduled-job        scheduledJob CRUD operations\n  agent-tool           agentTool CRUD operations\n  agent-skill          agentSkill CRUD operations\n  agent-rule           agentRule CRUD operations\n  calendar-event-contact calendarEventContact CRUD operations\n  calendar-event       calendarEvent CRUD operations\n  interaction          interaction CRUD operations\n  company-event        companyEvent CRUD operations\n  company-image        companyImage CRUD operations\n  contact-company      contactCompany CRUD operations\n  contact-event        contactEvent CRUD operations\n  contact-image        contactImage CRUD operations\n  deal-contact         dealContact CRUD operations\n  event-image          eventImage CRUD operations\n  event-venue          eventVenue CRUD operations\n  expense-contact      expenseContact CRUD operations\n  goal-habit           goalHabit CRUD operations\n  habit-log            habitLog CRUD operations\n  goal-project         goalProject CRUD operations\n  milestone            milestone CRUD operations\n  project-contact      projectContact CRUD operations\n  task-contact         taskContact CRUD operations\n  venue-image          venueImage CRUD operations\n  file                 file CRUD operations\n  chunk                chunk CRUD operations\n  calendar-account     calendarAccount CRUD operations\n  tag                  tag CRUD operations\n  feedback             feedback CRUD operations\n  attachment           attachment CRUD operations\n  email-account        emailAccount CRUD operations\n  message              message CRUD operations\n  activity-log         activityLog CRUD operations\n  context-relation     contextRelation CRUD operations\n  user-setting         userSetting CRUD operations\n  webhook              webhook CRUD operations\n  notification         notification CRUD operations\n  workflow-run         workflowRun CRUD operations\n  workflow-step        workflowStep CRUD operations\n  integration          integration CRUD operations\n  skill-execution      skillExecution CRUD operations\n  chat                 chat CRUD operations\n  chat-message         chatMessage CRUD operations\n  thread               thread CRUD operations\n  reminder             reminder CRUD operations\n  image                image CRUD operations\n  list-item            listItem CRUD operations\n  company-link         companyLink CRUD operations\n  contact-link         contactLink CRUD operations\n  event-link           eventLink CRUD operations\n  venue-link           venueLink CRUD operations\n  agent-spawn          agentSpawn CRUD operations\n  habit                habit CRUD operations\n  workflow             workflow CRUD operations\n  expense              expense CRUD operations\n  billing-subscription billingSubscription CRUD operations\n  idea                 idea CRUD operations\n  list                 list CRUD operations\n  repository           repository CRUD operations\n  deal                 deal CRUD operations\n  goal                 goal CRUD operations\n  note                 note CRUD operations\n  prompt               prompt CRUD operations\n  blueprint            blueprint CRUD operations\n  template             template CRUD operations\n  tool                 tool CRUD operations\n  recipe               recipe CRUD operations\n  trip                 trip CRUD operations\n  memory               memory CRUD operations\n  rule                 rule CRUD operations\n  task                 task CRUD operations\n  agent                agent CRUD operations\n  skill                skill CRUD operations\n  project              project CRUD operations\n  document             document CRUD operations\n  company              company CRUD operations\n  event                event CRUD operations\n  contact              contact CRUD operations\n  venue                venue CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
 export const commands = async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,

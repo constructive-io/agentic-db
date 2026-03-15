@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/memories/indexes/memories_related_entity_id_idx
 
 
-CREATE INDEX skills_category_idx ON "agent_db_app_public".skills USING BTREE ( category );
+CREATE INDEX skills_category_idx ON agent_db_app_public.skills USING BTREE ( category );
 

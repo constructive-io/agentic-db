@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_users_public/tables/users/table
 
 
-ALTER TABLE "agent_db_users_public".users 
+ALTER TABLE agent_db_users_public.users 
   ADD CONSTRAINT users_username_key 
     UNIQUE (username);
 

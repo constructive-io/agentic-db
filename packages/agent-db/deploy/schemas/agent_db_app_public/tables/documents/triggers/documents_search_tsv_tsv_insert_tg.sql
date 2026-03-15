@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER documents_search_tsv_tsv_insert_tg
-BEFORE INSERT ON "agent_db_app_public".documents
+BEFORE INSERT ON agent_db_app_public.documents
 FOR EACH ROW
-EXECUTE PROCEDURE "agent_db_private".documents_search_tsv_tsv ( );
+EXECUTE PROCEDURE agent_db_private.documents_search_tsv_tsv ( );
 

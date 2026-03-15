@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/prompts/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".skill_executions 
+ALTER TABLE agent_db_app_public.skill_executions 
   ADD COLUMN id uuid;
 

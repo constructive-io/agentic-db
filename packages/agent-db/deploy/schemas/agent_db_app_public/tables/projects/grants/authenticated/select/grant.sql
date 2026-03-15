@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/agent_spawns/constraints/agent_spawns_agent_id_fkey/constraint
 
 
-GRANT SELECT ON "agent_db_app_public".projects TO authenticated;
+GRANT SELECT ON agent_db_app_public.projects TO authenticated;
 

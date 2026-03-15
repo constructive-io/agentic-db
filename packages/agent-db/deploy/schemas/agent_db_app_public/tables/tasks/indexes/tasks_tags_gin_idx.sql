@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/interactions/indexes/interactions_tags_gin_idx
 
 
-CREATE INDEX tasks_tags_gin_idx ON "agent_db_app_public".tasks USING GIN ( tags );
+CREATE INDEX tasks_tags_gin_idx ON agent_db_app_public.tasks USING GIN ( tags );
 

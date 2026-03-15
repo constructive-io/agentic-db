@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/workflows/indexes/workflows_is_active_idx
 
 
-CREATE INDEX workflow_steps_workflow_id_idx ON "agent_db_app_public".workflow_steps USING BTREE ( workflow_id );
+CREATE INDEX workflow_steps_workflow_id_idx ON agent_db_app_public.workflow_steps USING BTREE ( workflow_id );
 

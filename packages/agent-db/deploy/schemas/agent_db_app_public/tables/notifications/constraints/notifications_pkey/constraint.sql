@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/list_items/columns/ref_type/column
 
 
-ALTER TABLE "agent_db_app_public".notifications 
+ALTER TABLE agent_db_app_public.notifications 
   ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
 

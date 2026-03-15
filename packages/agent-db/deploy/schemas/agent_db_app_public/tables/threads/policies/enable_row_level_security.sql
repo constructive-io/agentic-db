@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/chat_messages/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".threads 
+ALTER TABLE agent_db_app_public.threads 
   ENABLE ROW LEVEL SECURITY;
 

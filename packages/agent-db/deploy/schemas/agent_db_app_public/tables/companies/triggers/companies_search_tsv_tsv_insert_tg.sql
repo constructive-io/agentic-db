@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER companies_search_tsv_tsv_insert_tg
-BEFORE INSERT ON "agent_db_app_public".companies
+BEFORE INSERT ON agent_db_app_public.companies
 FOR EACH ROW
-EXECUTE PROCEDURE "agent_db_private".companies_search_tsv_tsv ( );
+EXECUTE PROCEDURE agent_db_private.companies_search_tsv_tsv ( );
 

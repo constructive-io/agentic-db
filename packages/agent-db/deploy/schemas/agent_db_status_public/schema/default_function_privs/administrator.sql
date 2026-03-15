@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_status_public/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA "agent_db_status_public" GRANT ALL ON FUNCTIONS TO administrator;
+ALTER DEFAULT PRIVILEGES IN SCHEMA agent_db_status_public GRANT ALL ON FUNCTIONS TO administrator;
 

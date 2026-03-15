@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agent_db_encrypted".del;
+DROP FUNCTION agent_db_encrypted.del;
 
 

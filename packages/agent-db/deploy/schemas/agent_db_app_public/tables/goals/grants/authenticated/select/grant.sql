@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/skills/columns/intent_trigger/column
 
 
-GRANT SELECT ON "agent_db_app_public".goals TO authenticated;
+GRANT SELECT ON agent_db_app_public.goals TO authenticated;
 

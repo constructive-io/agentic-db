@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/context_relations/columns/reason/column
 
 
-ALTER TABLE "agent_db_app_public".context_relations 
+ALTER TABLE agent_db_app_public.context_relations 
   ADD COLUMN strength numeric;
 

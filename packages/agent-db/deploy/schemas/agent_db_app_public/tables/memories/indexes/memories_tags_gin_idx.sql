@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/rules/indexes/rules_tags_gin_idx
 
 
-CREATE INDEX memories_tags_gin_idx ON "agent_db_app_public".memories USING GIN ( tags );
+CREATE INDEX memories_tags_gin_idx ON agent_db_app_public.memories USING GIN ( tags );
 

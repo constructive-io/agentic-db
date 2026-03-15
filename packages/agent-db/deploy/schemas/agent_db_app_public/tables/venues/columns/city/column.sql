@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/venues/columns/neighborhood/column
 
 
-ALTER TABLE "agent_db_app_public".venues 
+ALTER TABLE agent_db_app_public.venues 
   ADD COLUMN city text;
 

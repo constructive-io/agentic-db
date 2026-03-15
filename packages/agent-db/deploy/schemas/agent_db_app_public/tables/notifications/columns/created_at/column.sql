@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/notifications/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".notifications 
+ALTER TABLE agent_db_app_public.notifications 
   ADD COLUMN created_at timestamptz;
 

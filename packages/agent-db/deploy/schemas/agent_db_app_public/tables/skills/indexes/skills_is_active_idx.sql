@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/memories/indexes/memories_verified_idx
 
 
-CREATE INDEX skills_is_active_idx ON "agent_db_app_public".skills USING BTREE ( is_active );
+CREATE INDEX skills_is_active_idx ON agent_db_app_public.skills USING BTREE ( is_active );
 

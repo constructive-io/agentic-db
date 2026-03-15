@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _00015_org_memberships_profile_sync_utrg
-BEFORE UPDATE ON "agent_db_memberships_public".org_memberships
+BEFORE UPDATE ON agent_db_memberships_public.org_memberships
 FOR EACH ROW
-EXECUTE PROCEDURE "agent_db_profiles_private".org_memberships_profile_sync_tg ( );
+EXECUTE PROCEDURE agent_db_profiles_private.org_memberships_profile_sync_tg ( );
 

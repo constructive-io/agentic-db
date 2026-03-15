@@ -1,6 +1,0 @@
--- Revert: schemas/agent-os-1773550873753-b6c4a3e1-memberships-public/tables/app_memberships/policies/auth_sel_own/policy
-
-
-DROP POLICY auth_sel_own ON "agent-os-1773550873753-b6c4a3e1-memberships-public".app_memberships;
-
-

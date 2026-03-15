@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/rules/columns/trigger_concept/column
 
 
-CREATE TABLE "agent_db_app_public".memories ();
+CREATE TABLE agent_db_app_public.memories ();
 

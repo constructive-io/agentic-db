@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/contacts/indexes/contacts_relationship_type_idx
 
 
-CREATE INDEX companies_domain_idx ON "agent_db_app_public".companies USING BTREE ( domain );
+CREATE INDEX companies_domain_idx ON agent_db_app_public.companies USING BTREE ( domain );
 

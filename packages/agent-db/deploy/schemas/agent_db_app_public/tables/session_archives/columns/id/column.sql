@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/context_relations/columns/strength/column
 
 
-ALTER TABLE "agent_db_app_public".session_archives 
+ALTER TABLE agent_db_app_public.session_archives 
   ADD COLUMN id uuid;
 

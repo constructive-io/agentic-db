@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/files/indexes/files_repository_id_idx
 
 
-CREATE INDEX files_path_idx ON "agent_db_app_public".files USING BTREE ( path );
+CREATE INDEX files_path_idx ON agent_db_app_public.files USING BTREE ( path );
 

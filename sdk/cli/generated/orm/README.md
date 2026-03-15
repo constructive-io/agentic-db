@@ -22,6 +22,9 @@ const db = createClient({
 | Model | Operations |
 |-------|------------|
 | `agentPrompt` | findMany, findOne, create, update, delete |
+| `session` | findMany, findOne, create, update, delete |
+| `executionLog` | findMany, findOne, create, update, delete |
+| `sessionArchive` | findMany, findOne, create, update, delete |
 | `process` | findMany, findOne, create, update, delete |
 | `scheduledJob` | findMany, findOne, create, update, delete |
 | `agentTool` | findMany, findOne, create, update, delete |
@@ -57,8 +60,6 @@ const db = createClient({
 | `activityLog` | findMany, findOne, create, update, delete |
 | `contextRelation` | findMany, findOne, create, update, delete |
 | `userSetting` | findMany, findOne, create, update, delete |
-| `executionLog` | findMany, findOne, create, update, delete |
-| `sessionArchive` | findMany, findOne, create, update, delete |
 | `webhook` | findMany, findOne, create, update, delete |
 | `notification` | findMany, findOne, create, update, delete |
 | `workflowRun` | findMany, findOne, create, update, delete |
@@ -96,7 +97,6 @@ const db = createClient({
 | `rule` | findMany, findOne, create, update, delete |
 | `task` | findMany, findOne, create, update, delete |
 | `agent` | findMany, findOne, create, update, delete |
-| `session` | findMany, findOne, create, update, delete |
 | `skill` | findMany, findOne, create, update, delete |
 | `project` | findMany, findOne, create, update, delete |
 | `document` | findMany, findOne, create, update, delete |
@@ -137,6 +137,144 @@ const updated = await db.agentPrompt.update({ where: { id: '<value>' }, data: { 
 
 // Delete
 const deleted = await db.agentPrompt.delete({ where: { id: '<value>' } }).execute();
+```
+
+### `db.session`
+
+CRUD operations for Session records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `title` | String | Yes |
+| `agentId` | UUID | Yes |
+| `startedAt` | Datetime | Yes |
+| `endedAt` | Datetime | Yes |
+| `status` | String | Yes |
+| `contextSummary` | String | Yes |
+| `sessionSummary` | String | Yes |
+| `archivedMessages` | JSON | Yes |
+| `compressionCount` | Int | Yes |
+| `archivedAt` | Datetime | Yes |
+| `extractedMemoryIds` | UUID | Yes |
+| `contextsUsed` | JSON | Yes |
+| `skillsUsed` | UUID | Yes |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `uagentTrgmSimilarity` | Float | Yes |
+| `fingerprintModeTrgmSimilarity` | Float | Yes |
+| `csrfSecretTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all session records
+const items = await db.session.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, agentId: true, startedAt: true, endedAt: true, status: true, contextSummary: true, sessionSummary: true, archivedMessages: true, compressionCount: true, archivedAt: true, extractedMemoryIds: true, contextsUsed: true, skillsUsed: true, embeddingText: true, embedding: true, uagentTrgmSimilarity: true, fingerprintModeTrgmSimilarity: true, csrfSecretTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.session.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, agentId: true, startedAt: true, endedAt: true, status: true, contextSummary: true, sessionSummary: true, archivedMessages: true, compressionCount: true, archivedAt: true, extractedMemoryIds: true, contextsUsed: true, skillsUsed: true, embeddingText: true, embedding: true, uagentTrgmSimilarity: true, fingerprintModeTrgmSimilarity: true, csrfSecretTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.session.create({ data: { entityId: '<value>', title: '<value>', agentId: '<value>', startedAt: '<value>', endedAt: '<value>', status: '<value>', contextSummary: '<value>', sessionSummary: '<value>', archivedMessages: '<value>', compressionCount: '<value>', archivedAt: '<value>', extractedMemoryIds: '<value>', contextsUsed: '<value>', skillsUsed: '<value>', embeddingText: '<value>', embedding: '<value>', uagentTrgmSimilarity: '<value>', fingerprintModeTrgmSimilarity: '<value>', csrfSecretTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.session.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.session.delete({ where: { id: '<value>' } }).execute();
+```
+
+### `db.executionLog`
+
+CRUD operations for ExecutionLog records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `sessionId` | UUID | Yes |
+| `stepName` | String | Yes |
+| `input` | String | Yes |
+| `output` | String | Yes |
+| `toolCalls` | JSON | Yes |
+| `durationMs` | Int | Yes |
+| `stepNameTrgmSimilarity` | Float | Yes |
+| `inputTrgmSimilarity` | Float | Yes |
+| `outputTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all executionLog records
+const items = await db.executionLog.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, sessionId: true, stepName: true, input: true, output: true, toolCalls: true, durationMs: true, stepNameTrgmSimilarity: true, inputTrgmSimilarity: true, outputTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.executionLog.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, sessionId: true, stepName: true, input: true, output: true, toolCalls: true, durationMs: true, stepNameTrgmSimilarity: true, inputTrgmSimilarity: true, outputTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.executionLog.create({ data: { entityId: '<value>', sessionId: '<value>', stepName: '<value>', input: '<value>', output: '<value>', toolCalls: '<value>', durationMs: '<value>', stepNameTrgmSimilarity: '<value>', inputTrgmSimilarity: '<value>', outputTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.executionLog.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.executionLog.delete({ where: { id: '<value>' } }).execute();
+```
+
+### `db.sessionArchive`
+
+CRUD operations for SessionArchive records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `sessionId` | UUID | Yes |
+| `archiveIndex` | Int | Yes |
+| `summary` | String | Yes |
+| `messageRangeStart` | Int | Yes |
+| `messageRangeEnd` | Int | Yes |
+| `rawMessages` | JSON | Yes |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `summaryTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all sessionArchive records
+const items = await db.sessionArchive.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, sessionId: true, archiveIndex: true, summary: true, messageRangeStart: true, messageRangeEnd: true, rawMessages: true, embeddingText: true, embedding: true, embeddingTextBm25Score: true, summaryTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.sessionArchive.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, sessionId: true, archiveIndex: true, summary: true, messageRangeStart: true, messageRangeEnd: true, rawMessages: true, embeddingText: true, embedding: true, embeddingTextBm25Score: true, summaryTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.sessionArchive.create({ data: { entityId: '<value>', sessionId: '<value>', archiveIndex: '<value>', summary: '<value>', messageRangeStart: '<value>', messageRangeEnd: '<value>', rawMessages: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingTextBm25Score: '<value>', summaryTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.sessionArchive.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.sessionArchive.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.process`
@@ -1464,93 +1602,6 @@ const updated = await db.userSetting.update({ where: { id: '<value>' }, data: { 
 
 // Delete
 const deleted = await db.userSetting.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.executionLog`
-
-CRUD operations for ExecutionLog records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `sessionId` | UUID | Yes |
-| `stepName` | String | Yes |
-| `input` | String | Yes |
-| `output` | String | Yes |
-| `toolCalls` | JSON | Yes |
-| `durationMs` | Int | Yes |
-| `stepNameTrgmSimilarity` | Float | Yes |
-| `inputTrgmSimilarity` | Float | Yes |
-| `outputTrgmSimilarity` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all executionLog records
-const items = await db.executionLog.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, sessionId: true, stepName: true, input: true, output: true, toolCalls: true, durationMs: true, stepNameTrgmSimilarity: true, inputTrgmSimilarity: true, outputTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.executionLog.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, sessionId: true, stepName: true, input: true, output: true, toolCalls: true, durationMs: true, stepNameTrgmSimilarity: true, inputTrgmSimilarity: true, outputTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.executionLog.create({ data: { entityId: '<value>', sessionId: '<value>', stepName: '<value>', input: '<value>', output: '<value>', toolCalls: '<value>', durationMs: '<value>', stepNameTrgmSimilarity: '<value>', inputTrgmSimilarity: '<value>', outputTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.executionLog.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.executionLog.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.sessionArchive`
-
-CRUD operations for SessionArchive records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `sessionId` | UUID | Yes |
-| `archiveIndex` | Int | Yes |
-| `summary` | String | Yes |
-| `messageRangeStart` | Int | Yes |
-| `messageRangeEnd` | Int | Yes |
-| `rawMessages` | JSON | Yes |
-| `embeddingText` | String | Yes |
-| `embedding` | Vector | Yes |
-| `embeddingTextBm25Score` | Float | Yes |
-| `summaryTrgmSimilarity` | Float | Yes |
-| `embeddingTextTrgmSimilarity` | Float | Yes |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all sessionArchive records
-const items = await db.sessionArchive.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, sessionId: true, archiveIndex: true, summary: true, messageRangeStart: true, messageRangeEnd: true, rawMessages: true, embeddingText: true, embedding: true, embeddingTextBm25Score: true, summaryTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.sessionArchive.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, sessionId: true, archiveIndex: true, summary: true, messageRangeStart: true, messageRangeEnd: true, rawMessages: true, embeddingText: true, embedding: true, embeddingTextBm25Score: true, summaryTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.sessionArchive.create({ data: { entityId: '<value>', sessionId: '<value>', archiveIndex: '<value>', summary: '<value>', messageRangeStart: '<value>', messageRangeEnd: '<value>', rawMessages: '<value>', embeddingText: '<value>', embedding: '<value>', embeddingTextBm25Score: '<value>', summaryTrgmSimilarity: '<value>', embeddingTextTrgmSimilarity: '<value>', embeddingVectorDistance: '<value>', searchScore: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.sessionArchive.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.sessionArchive.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.webhook`
@@ -3280,57 +3331,6 @@ const updated = await db.agent.update({ where: { id: '<value>' }, data: { entity
 
 // Delete
 const deleted = await db.agent.delete({ where: { id: '<value>' } }).execute();
-```
-
-### `db.session`
-
-CRUD operations for Session records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `title` | String | Yes |
-| `agentId` | UUID | Yes |
-| `startedAt` | Datetime | Yes |
-| `endedAt` | Datetime | Yes |
-| `status` | String | Yes |
-| `contextSummary` | String | Yes |
-| `sessionSummary` | String | Yes |
-| `archivedMessages` | JSON | Yes |
-| `compressionCount` | Int | Yes |
-| `archivedAt` | Datetime | Yes |
-| `extractedMemoryIds` | UUID | Yes |
-| `contextsUsed` | JSON | Yes |
-| `skillsUsed` | UUID | Yes |
-| `embeddingText` | String | Yes |
-| `embedding` | Vector | Yes |
-| `uagentTrgmSimilarity` | Float | Yes |
-| `fingerprintModeTrgmSimilarity` | Float | Yes |
-| `csrfSecretTrgmSimilarity` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all session records
-const items = await db.session.findMany({ select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, agentId: true, startedAt: true, endedAt: true, status: true, contextSummary: true, sessionSummary: true, archivedMessages: true, compressionCount: true, archivedAt: true, extractedMemoryIds: true, contextsUsed: true, skillsUsed: true, embeddingText: true, embedding: true, uagentTrgmSimilarity: true, fingerprintModeTrgmSimilarity: true, csrfSecretTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.session.findOne({ id: '<value>', select: { id: true, entityId: true, createdAt: true, updatedAt: true, title: true, agentId: true, startedAt: true, endedAt: true, status: true, contextSummary: true, sessionSummary: true, archivedMessages: true, compressionCount: true, archivedAt: true, extractedMemoryIds: true, contextsUsed: true, skillsUsed: true, embeddingText: true, embedding: true, uagentTrgmSimilarity: true, fingerprintModeTrgmSimilarity: true, csrfSecretTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.session.create({ data: { entityId: '<value>', title: '<value>', agentId: '<value>', startedAt: '<value>', endedAt: '<value>', status: '<value>', contextSummary: '<value>', sessionSummary: '<value>', archivedMessages: '<value>', compressionCount: '<value>', archivedAt: '<value>', extractedMemoryIds: '<value>', contextsUsed: '<value>', skillsUsed: '<value>', embeddingText: '<value>', embedding: '<value>', uagentTrgmSimilarity: '<value>', fingerprintModeTrgmSimilarity: '<value>', csrfSecretTrgmSimilarity: '<value>', searchScore: '<value>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.session.update({ where: { id: '<value>' }, data: { entityId: '<new-value>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.session.delete({ where: { id: '<value>' } }).execute();
 ```
 
 ### `db.skill`

@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/notes/columns/embedding/column
 
 
-CREATE TABLE "agent_db_app_public".interactions ();
+CREATE TABLE agent_db_app_public.interactions ();
 

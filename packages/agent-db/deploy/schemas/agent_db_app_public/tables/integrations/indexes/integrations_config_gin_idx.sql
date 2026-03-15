@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/user_settings/indexes/user_settings_value_gin_idx
 
 
-CREATE INDEX integrations_config_gin_idx ON "agent_db_app_public".integrations USING GIN ( config );
+CREATE INDEX integrations_config_gin_idx ON agent_db_app_public.integrations USING GIN ( config );
 

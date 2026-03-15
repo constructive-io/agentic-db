@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/agent_rules/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".agent_prompts 
+ALTER TABLE agent_db_app_public.agent_prompts 
   ADD CONSTRAINT agent_prompts_prompt_id_fkey 
     FOREIGN KEY(prompt_id) 
-    REFERENCES "agent_db_app_public".prompts (id) 
+    REFERENCES agent_db_app_public.prompts (id) 
     ON DELETE CASCADE;
 

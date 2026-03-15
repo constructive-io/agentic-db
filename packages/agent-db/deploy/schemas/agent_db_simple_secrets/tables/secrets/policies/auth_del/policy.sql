@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_simple_secrets/tables/secrets/table
 
 
-CREATE POLICY auth_del ON "agent_db_simple_secrets".secrets
+CREATE POLICY auth_del ON agent_db_simple_secrets.secrets
 FOR DELETE
 TO authenticated
 USING (

@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agent_db_encrypted".get;
+DROP FUNCTION agent_db_encrypted.get;
 
 

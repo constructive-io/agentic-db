@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/milestones/indexes/milestones_due_date_idx
 
 
-CREATE INDEX milestones_status_idx ON "agent_db_app_public".milestones USING BTREE ( status );
+CREATE INDEX milestones_status_idx ON agent_db_app_public.milestones USING BTREE ( status );
 

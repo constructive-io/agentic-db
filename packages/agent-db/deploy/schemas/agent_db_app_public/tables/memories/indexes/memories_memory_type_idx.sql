@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/agents/indexes/agents_last_active_at_idx
 
 
-CREATE INDEX memories_memory_type_idx ON "agent_db_app_public".memories USING BTREE ( memory_type );
+CREATE INDEX memories_memory_type_idx ON agent_db_app_public.memories USING BTREE ( memory_type );
 

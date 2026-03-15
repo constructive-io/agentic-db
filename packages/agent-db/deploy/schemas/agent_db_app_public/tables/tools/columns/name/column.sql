@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/tools/table
--- requires: schemas/agent_db_app_public/tables/tools/columns/updated_at/alterations/alt0000004439
+-- requires: schemas/agent_db_app_public/tables/tools/columns/updated_at/alterations/alt0000001221
 
 
-ALTER TABLE "agent_db_app_public".tools 
+ALTER TABLE agent_db_app_public.tools 
   ADD COLUMN name text;
 

@@ -5,20 +5,20 @@
 
 
 
-CREATE FUNCTION "agent_db_memberships_private".app_owner_grants_apply_tg ()
+CREATE FUNCTION agent_db_memberships_private.app_owner_grants_apply_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 BEGIN
     IF (NEW.is_grant IS TRUE) THEN 
-        UPDATE "agent_db_memberships_public".app_memberships 
+        UPDATE agent_db_memberships_public.app_memberships 
             SET is_owner = TRUE
         WHERE actor_id = NEW.actor_id; 
     ELSE 
-        UPDATE "agent_db_memberships_public".app_memberships 
+        UPDATE agent_db_memberships_public.app_memberships 
             SET is_owner = FALSE
         WHERE actor_id = NEW.actor_id; 
         IF (
-            SELECT count(*) < 1 FROM "agent_db_memberships_public".app_memberships
+            SELECT count(*) < 1 FROM agent_db_memberships_public.app_memberships
             WHERE is_owner = TRUE
         ) THEN 
             RAISE EXCEPTION 'REQUIRES_ONE_OWNER';

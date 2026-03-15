@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/templates/indexes/templates_is_active_idx
 
 
-CREATE INDEX tools_type_idx ON "agent_db_app_public".tools USING BTREE ( type );
+CREATE INDEX tools_type_idx ON agent_db_app_public.tools USING BTREE ( type );
 

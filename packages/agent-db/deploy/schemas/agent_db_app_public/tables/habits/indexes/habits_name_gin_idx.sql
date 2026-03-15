@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/reminders/indexes/reminders_title_gin_idx
 
 
-CREATE INDEX habits_name_gin_idx ON "agent_db_app_public".habits USING gin ( name gin_trgm_ops );
+CREATE INDEX habits_name_gin_idx ON agent_db_app_public.habits USING gin ( name gin_trgm_ops );
 

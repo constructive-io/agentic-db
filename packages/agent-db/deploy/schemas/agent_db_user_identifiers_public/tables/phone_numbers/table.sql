@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_user_identifiers_public/schema
 
 
-CREATE TABLE "agent_db_user_identifiers_public".phone_numbers ();
+CREATE TABLE agent_db_user_identifiers_public.phone_numbers ();
 

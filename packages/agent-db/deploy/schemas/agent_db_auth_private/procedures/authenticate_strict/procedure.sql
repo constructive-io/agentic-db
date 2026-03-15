@@ -13,7 +13,7 @@
 
 
 
-CREATE FUNCTION "agent_db_auth_private".authenticate_strict (token_str text)
+CREATE FUNCTION agent_db_auth_private.authenticate_strict (token_str text)
     RETURNS TABLE (
         id uuid,
         user_id uuid
@@ -23,8 +23,8 @@ SELECT
     cred.id,
     sess.user_id
 FROM
-    "agent_db_auth_private".session_credentials AS cred
-    JOIN "agent_db_auth_private".sessions AS sess ON sess.id = cred.session_id
+    agent_db_auth_private.session_credentials AS cred
+    JOIN agent_db_auth_private.sessions AS sess ON sess.id = cred.session_id
 WHERE
     cred.secret_hash = digest(authenticate_strict.token_str, 'sha256')
     AND EXTRACT(EPOCH FROM (cred.expires_at - NOW())) > 0
@@ -44,6 +44,6 @@ WHERE
 $$
 LANGUAGE 'sql' STABLE
 SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION "agent_db_auth_private".authenticate_strict TO anonymous;
-GRANT EXECUTE ON FUNCTION "agent_db_auth_private".authenticate_strict TO authenticated;
+GRANT EXECUTE ON FUNCTION agent_db_auth_private.authenticate_strict TO anonymous;
+GRANT EXECUTE ON FUNCTION agent_db_auth_private.authenticate_strict TO authenticated;
 

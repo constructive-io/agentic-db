@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/skills/indexes/skills_embedding_hnsw_idx
 
 
-CREATE INDEX goals_embedding_hnsw_idx ON "agent_db_app_public".goals USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
+CREATE INDEX goals_embedding_hnsw_idx ON agent_db_app_public.goals USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
 

@@ -5,16 +5,16 @@
 
 
 
-CREATE FUNCTION "agent_db_memberships_private".app_memberships_itg ()
+CREATE FUNCTION agent_db_memberships_private.app_memberships_itg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
     bitlen int = bit_length(NEW.permissions);
     defaults bit varying;
-    memdefs "agent_db_memberships_public".app_membership_defaults;
+    memdefs agent_db_memberships_public.app_membership_defaults;
 BEGIN
     SELECT * FROM
-        "agent_db_memberships_public".app_membership_defaults t 
+        agent_db_memberships_public.app_membership_defaults t 
     LIMIT 1 
     INTO memdefs;
     IF (FOUND) THEN 
@@ -38,7 +38,7 @@ BEGIN
         NEW.is_banned IS FALSE 
     ) INTO NEW.is_active;
     SELECT permissions FROM
-        "agent_db_permissions_public".app_permission_defaults t 
+        agent_db_permissions_public.app_permission_defaults t 
     LIMIT 1 
     INTO defaults;
     IF (NOT FOUND) THEN 

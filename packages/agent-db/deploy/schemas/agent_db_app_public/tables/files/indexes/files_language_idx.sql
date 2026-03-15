@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/files/columns/language/column
 
 
-CREATE INDEX files_language_idx ON "agent_db_app_public".files USING BTREE ( language );
+CREATE INDEX files_language_idx ON agent_db_app_public.files USING BTREE ( language );
 

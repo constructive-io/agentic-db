@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _99990_org_edge_update_sprt
-AFTER UPDATE ON "agent_db_memberships_public".org_chart_edges
+AFTER UPDATE ON agent_db_memberships_public.org_chart_edges
 FOR EACH ROW
-EXECUTE PROCEDURE "agent_db_memberships_private".org_org_chart_edge_update_tg ( );
+EXECUTE PROCEDURE agent_db_memberships_private.org_org_chart_edge_update_tg ( );
 

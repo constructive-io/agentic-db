@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/chunks/columns/file_id/column
 
 
-ALTER TABLE "agent_db_app_public".chunks 
+ALTER TABLE agent_db_app_public.chunks 
   ADD COLUMN repository_id uuid;
 

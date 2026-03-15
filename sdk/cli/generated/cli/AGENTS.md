@@ -115,6 +115,177 @@ OUTPUT: JSON
   delete: { id }
 ```
 
+### TOOL: session
+
+CRUD operations for Session records.
+
+```
+SUBCOMMANDS:
+  agent-db session list                               List all records
+  agent-db session get --id <value>              Get one record
+  agent-db session create --entityId <value> --uagentTrgmSimilarity <value> --fingerprintModeTrgmSimilarity <value> --csrfSecretTrgmSimilarity <value> --searchScore <value> [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--sessionSummary <value>] [--archivedMessages <value>] [--compressionCount <value>] [--archivedAt <value>] [--extractedMemoryIds <value>] [--contextsUsed <value>] [--skillsUsed <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db session update --id <value> [--entityId <value>] [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--sessionSummary <value>] [--archivedMessages <value>] [--compressionCount <value>] [--archivedAt <value>] [--extractedMemoryIds <value>] [--contextsUsed <value>] [--skillsUsed <value>] [--embeddingText <value>] [--embedding <value>] [--uagentTrgmSimilarity <value>] [--fingerprintModeTrgmSimilarity <value>] [--csrfSecretTrgmSimilarity <value>] [--searchScore <value>]
+  agent-db session delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  title: String
+  agentId: UUID
+  startedAt: Datetime
+  endedAt: Datetime
+  status: String
+  contextSummary: String
+  sessionSummary: String
+  archivedMessages: JSON
+  compressionCount: Int
+  archivedAt: Datetime
+  extractedMemoryIds: UUID
+  contextsUsed: JSON
+  skillsUsed: UUID
+  embeddingText: String
+  embedding: Vector
+  uagentTrgmSimilarity: Float
+  fingerprintModeTrgmSimilarity: Float
+  csrfSecretTrgmSimilarity: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  title: String (optional, has backend default)
+  agentId: UUID (optional, has backend default)
+  startedAt: Datetime (optional, has backend default)
+  endedAt: Datetime (optional, has backend default)
+  status: String (optional, has backend default)
+  contextSummary: String (optional, has backend default)
+  sessionSummary: String (optional, has backend default)
+  archivedMessages: JSON (optional, has backend default)
+  compressionCount: Int (optional, has backend default)
+  archivedAt: Datetime (optional, has backend default)
+  extractedMemoryIds: UUID (optional, has backend default)
+  contextsUsed: JSON (optional, has backend default)
+  skillsUsed: UUID (optional, has backend default)
+  embeddingText: String (optional, has backend default)
+  embedding: Vector (optional, has backend default)
+  uagentTrgmSimilarity: Float
+  fingerprintModeTrgmSimilarity: Float
+  csrfSecretTrgmSimilarity: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  delete: { id }
+```
+
+### TOOL: execution-log
+
+CRUD operations for ExecutionLog records.
+
+```
+SUBCOMMANDS:
+  agent-db execution-log list                               List all records
+  agent-db execution-log get --id <value>              Get one record
+  agent-db execution-log create --entityId <value> --stepNameTrgmSimilarity <value> --inputTrgmSimilarity <value> --outputTrgmSimilarity <value> --searchScore <value> [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
+  agent-db execution-log update --id <value> [--entityId <value>] [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>] [--stepNameTrgmSimilarity <value>] [--inputTrgmSimilarity <value>] [--outputTrgmSimilarity <value>] [--searchScore <value>]
+  agent-db execution-log delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  sessionId: UUID
+  stepName: String
+  input: String
+  output: String
+  toolCalls: JSON
+  durationMs: Int
+  stepNameTrgmSimilarity: Float
+  inputTrgmSimilarity: Float
+  outputTrgmSimilarity: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  sessionId: UUID (optional, has backend default)
+  stepName: String (optional, has backend default)
+  input: String (optional, has backend default)
+  output: String (optional, has backend default)
+  toolCalls: JSON (optional, has backend default)
+  durationMs: Int (optional, has backend default)
+  stepNameTrgmSimilarity: Float
+  inputTrgmSimilarity: Float
+  outputTrgmSimilarity: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
+  create: { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
+  update: { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
+  delete: { id }
+```
+
+### TOOL: session-archive
+
+CRUD operations for SessionArchive records.
+
+```
+SUBCOMMANDS:
+  agent-db session-archive list                               List all records
+  agent-db session-archive get --id <value>              Get one record
+  agent-db session-archive create --entityId <value> --sessionId <value> --archiveIndex <value> --summary <value> --embeddingTextBm25Score <value> --summaryTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--messageRangeStart <value>] [--messageRangeEnd <value>] [--rawMessages <value>] [--embeddingText <value>] [--embedding <value>]
+  agent-db session-archive update --id <value> [--entityId <value>] [--sessionId <value>] [--archiveIndex <value>] [--summary <value>] [--messageRangeStart <value>] [--messageRangeEnd <value>] [--rawMessages <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--summaryTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agent-db session-archive delete --id <value>           Delete one record
+
+INPUT FIELDS:
+  id: UUID (primary key)
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  sessionId: UUID
+  archiveIndex: Int
+  summary: String
+  messageRangeStart: Int
+  messageRangeEnd: Int
+  rawMessages: JSON
+  embeddingText: String
+  embedding: Vector
+  embeddingTextBm25Score: Float
+  summaryTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+EDITABLE FIELDS (for create/update):
+  entityId: UUID
+  sessionId: UUID
+  archiveIndex: Int
+  summary: String
+  messageRangeStart: Int (optional, has backend default)
+  messageRangeEnd: Int (optional, has backend default)
+  rawMessages: JSON (optional, has backend default)
+  embeddingText: String (optional, has backend default)
+  embedding: Vector (optional, has backend default)
+  embeddingTextBm25Score: Float
+  summaryTrgmSimilarity: Float
+  embeddingTextTrgmSimilarity: Float
+  embeddingVectorDistance: Float
+  searchScore: Float
+
+OUTPUT: JSON
+  list:   [{ id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  get:    { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create: { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update: { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete: { id }
+```
+
 ### TOOL: process
 
 CRUD operations for Process records.
@@ -1577,110 +1748,6 @@ OUTPUT: JSON
   get:    { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
   create: { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
   update: { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
-  delete: { id }
-```
-
-### TOOL: execution-log
-
-CRUD operations for ExecutionLog records.
-
-```
-SUBCOMMANDS:
-  agent-db execution-log list                               List all records
-  agent-db execution-log get --id <value>              Get one record
-  agent-db execution-log create --entityId <value> --stepNameTrgmSimilarity <value> --inputTrgmSimilarity <value> --outputTrgmSimilarity <value> --searchScore <value> [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
-  agent-db execution-log update --id <value> [--entityId <value>] [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>] [--stepNameTrgmSimilarity <value>] [--inputTrgmSimilarity <value>] [--outputTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db execution-log delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  sessionId: UUID
-  stepName: String
-  input: String
-  output: String
-  toolCalls: JSON
-  durationMs: Int
-  stepNameTrgmSimilarity: Float
-  inputTrgmSimilarity: Float
-  outputTrgmSimilarity: Float
-  searchScore: Float
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  sessionId: UUID (optional, has backend default)
-  stepName: String (optional, has backend default)
-  input: String (optional, has backend default)
-  output: String (optional, has backend default)
-  toolCalls: JSON (optional, has backend default)
-  durationMs: Int (optional, has backend default)
-  stepNameTrgmSimilarity: Float
-  inputTrgmSimilarity: Float
-  outputTrgmSimilarity: Float
-  searchScore: Float
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }]
-  get:    { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
-  create: { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
-  update: { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
-  delete: { id }
-```
-
-### TOOL: session-archive
-
-CRUD operations for SessionArchive records.
-
-```
-SUBCOMMANDS:
-  agent-db session-archive list                               List all records
-  agent-db session-archive get --id <value>              Get one record
-  agent-db session-archive create --entityId <value> --sessionId <value> --archiveIndex <value> --summary <value> --embeddingTextBm25Score <value> --summaryTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--messageRangeStart <value>] [--messageRangeEnd <value>] [--rawMessages <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db session-archive update --id <value> [--entityId <value>] [--sessionId <value>] [--archiveIndex <value>] [--summary <value>] [--messageRangeStart <value>] [--messageRangeEnd <value>] [--rawMessages <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--summaryTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db session-archive delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  sessionId: UUID
-  archiveIndex: Int
-  summary: String
-  messageRangeStart: Int
-  messageRangeEnd: Int
-  rawMessages: JSON
-  embeddingText: String
-  embedding: Vector
-  embeddingTextBm25Score: Float
-  summaryTrgmSimilarity: Float
-  embeddingTextTrgmSimilarity: Float
-  embeddingVectorDistance: Float
-  searchScore: Float
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  sessionId: UUID
-  archiveIndex: Int
-  summary: String
-  messageRangeStart: Int (optional, has backend default)
-  messageRangeEnd: Int (optional, has backend default)
-  rawMessages: JSON (optional, has backend default)
-  embeddingText: String (optional, has backend default)
-  embedding: Vector (optional, has backend default)
-  embeddingTextBm25Score: Float
-  summaryTrgmSimilarity: Float
-  embeddingTextTrgmSimilarity: Float
-  embeddingVectorDistance: Float
-  searchScore: Float
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
-  get:    { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
-  create: { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
-  update: { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete: { id }
 ```
 
@@ -3844,73 +3911,6 @@ OUTPUT: JSON
   get:    { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingTextBm25Score, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   create: { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingTextBm25Score, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   update: { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingTextBm25Score, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
-  delete: { id }
-```
-
-### TOOL: session
-
-CRUD operations for Session records.
-
-```
-SUBCOMMANDS:
-  agent-db session list                               List all records
-  agent-db session get --id <value>              Get one record
-  agent-db session create --entityId <value> --uagentTrgmSimilarity <value> --fingerprintModeTrgmSimilarity <value> --csrfSecretTrgmSimilarity <value> --searchScore <value> [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--sessionSummary <value>] [--archivedMessages <value>] [--compressionCount <value>] [--archivedAt <value>] [--extractedMemoryIds <value>] [--contextsUsed <value>] [--skillsUsed <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db session update --id <value> [--entityId <value>] [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--sessionSummary <value>] [--archivedMessages <value>] [--compressionCount <value>] [--archivedAt <value>] [--extractedMemoryIds <value>] [--contextsUsed <value>] [--skillsUsed <value>] [--embeddingText <value>] [--embedding <value>] [--uagentTrgmSimilarity <value>] [--fingerprintModeTrgmSimilarity <value>] [--csrfSecretTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db session delete --id <value>           Delete one record
-
-INPUT FIELDS:
-  id: UUID (primary key)
-  entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
-  title: String
-  agentId: UUID
-  startedAt: Datetime
-  endedAt: Datetime
-  status: String
-  contextSummary: String
-  sessionSummary: String
-  archivedMessages: JSON
-  compressionCount: Int
-  archivedAt: Datetime
-  extractedMemoryIds: UUID
-  contextsUsed: JSON
-  skillsUsed: UUID
-  embeddingText: String
-  embedding: Vector
-  uagentTrgmSimilarity: Float
-  fingerprintModeTrgmSimilarity: Float
-  csrfSecretTrgmSimilarity: Float
-  searchScore: Float
-
-EDITABLE FIELDS (for create/update):
-  entityId: UUID
-  title: String (optional, has backend default)
-  agentId: UUID (optional, has backend default)
-  startedAt: Datetime (optional, has backend default)
-  endedAt: Datetime (optional, has backend default)
-  status: String (optional, has backend default)
-  contextSummary: String (optional, has backend default)
-  sessionSummary: String (optional, has backend default)
-  archivedMessages: JSON (optional, has backend default)
-  compressionCount: Int (optional, has backend default)
-  archivedAt: Datetime (optional, has backend default)
-  extractedMemoryIds: UUID (optional, has backend default)
-  contextsUsed: JSON (optional, has backend default)
-  skillsUsed: UUID (optional, has backend default)
-  embeddingText: String (optional, has backend default)
-  embedding: Vector (optional, has backend default)
-  uagentTrgmSimilarity: Float
-  fingerprintModeTrgmSimilarity: Float
-  csrfSecretTrgmSimilarity: Float
-  searchScore: Float
-
-OUTPUT: JSON
-  list:   [{ id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }]
-  get:    { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
-  create: { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
-  update: { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
   delete: { id }
 ```
 

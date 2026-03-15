@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_memberships_public/tables/org_membership_defaults/table
 
 
-GRANT DELETE ON "agent_db_memberships_public".org_membership_defaults TO authenticated;
+GRANT DELETE ON agent_db_memberships_public.org_membership_defaults TO authenticated;
 

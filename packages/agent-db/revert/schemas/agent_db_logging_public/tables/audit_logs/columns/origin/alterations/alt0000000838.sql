@@ -1,0 +1,10 @@
+-- Revert: schemas/agent_db_logging_public/tables/audit_logs/columns/origin/alterations/alt0000000838
+
+
+
+
+ALTER TABLE agent_db_logging_public.audit_logs 
+    ALTER COLUMN origin DROP DEFAULT;
+
+
+

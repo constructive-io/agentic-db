@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/interactions/constraints/interactions_contact_id_fkey/constraint
 
 
-ALTER TABLE "agent_db_app_public".contact_links 
+ALTER TABLE agent_db_app_public.contact_links 
   ADD CONSTRAINT contact_links_contact_id_fkey 
     FOREIGN KEY(contact_id) 
-    REFERENCES "agent_db_app_public".contacts (id) 
+    REFERENCES agent_db_app_public.contacts (id) 
     ON DELETE CASCADE;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/companies/columns/tags/column
 
 
-ALTER TABLE "agent_db_app_public".companies 
+ALTER TABLE agent_db_app_public.companies 
   ADD COLUMN embedding_text text;
 

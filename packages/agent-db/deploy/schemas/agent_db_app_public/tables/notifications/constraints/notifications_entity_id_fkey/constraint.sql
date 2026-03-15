@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/list_items/columns/ref_type/column
 
 
-ALTER TABLE "agent_db_app_public".notifications 
+ALTER TABLE agent_db_app_public.notifications 
   ADD CONSTRAINT notifications_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES "agent_db_users_public".users (id) 
+    REFERENCES agent_db_users_public.users (id) 
     ON DELETE CASCADE;
 

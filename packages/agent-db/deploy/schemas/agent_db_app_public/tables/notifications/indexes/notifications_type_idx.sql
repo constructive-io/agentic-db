@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/list_items/indexes/list_items_position_idx
 
 
-CREATE INDEX notifications_type_idx ON "agent_db_app_public".notifications USING BTREE ( type );
+CREATE INDEX notifications_type_idx ON agent_db_app_public.notifications USING BTREE ( type );
 

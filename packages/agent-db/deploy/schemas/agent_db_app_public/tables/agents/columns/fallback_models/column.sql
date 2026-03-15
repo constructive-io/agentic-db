@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/agents/columns/preferred_model/column
 
 
-ALTER TABLE "agent_db_app_public".agents 
+ALTER TABLE agent_db_app_public.agents 
   ADD COLUMN fallback_models text[];
 

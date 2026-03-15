@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_permissions_public/schema
 
 
-CREATE TABLE "agent_db_permissions_public".org_permissions ();
+CREATE TABLE agent_db_permissions_public.org_permissions ();
 

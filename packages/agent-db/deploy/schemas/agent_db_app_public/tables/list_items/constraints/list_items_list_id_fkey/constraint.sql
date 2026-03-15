@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/habit_logs/constraints/habit_logs_habit_id_fkey/constraint
 
 
-ALTER TABLE "agent_db_app_public".list_items 
+ALTER TABLE agent_db_app_public.list_items 
   ADD CONSTRAINT list_items_list_id_fkey 
     FOREIGN KEY(list_id) 
-    REFERENCES "agent_db_app_public".lists (id) 
+    REFERENCES agent_db_app_public.lists (id) 
     ON DELETE CASCADE;
 

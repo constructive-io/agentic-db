@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/billing_subscriptions/indexes/billing_subscriptions_next_billing_date_idx
 
 
-CREATE INDEX trips_start_date_idx ON "agent_db_app_public".trips USING BTREE ( start_date );
+CREATE INDEX trips_start_date_idx ON agent_db_app_public.trips USING BTREE ( start_date );
 

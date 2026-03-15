@@ -3,15 +3,15 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/attachments/table
--- requires: schemas/agent_db_app_public/tables/tags/columns/usage_count/alterations/alt0000004155
+-- requires: schemas/agent_db_app_public/tables/tags/columns/usage_count/alterations/alt0000000937
 
 
-CREATE POLICY auth_ins_entity_membership ON "agent_db_app_public".attachments
+CREATE POLICY auth_ins_entity_membership ON agent_db_app_public.attachments
 FOR INSERT
 TO authenticated
 WITH CHECK (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM "agent_db_memberships_private".org_memberships_sprt AS org_sprt
+  FROM agent_db_memberships_private.org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

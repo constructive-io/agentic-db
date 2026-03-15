@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/milestones/table
--- requires: schemas/agent_db_app_public/tables/milestones/columns/updated_at/alterations/alt0000004544
+-- requires: schemas/agent_db_app_public/tables/milestones/columns/updated_at/alterations/alt0000001326
 
 
-ALTER TABLE "agent_db_app_public".milestones 
+ALTER TABLE agent_db_app_public.milestones 
   ADD COLUMN project_id uuid;
 

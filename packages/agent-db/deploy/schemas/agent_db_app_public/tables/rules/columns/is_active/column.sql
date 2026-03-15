@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/rules/columns/severity/column
 
 
-ALTER TABLE "agent_db_app_public".rules 
+ALTER TABLE agent_db_app_public.rules 
   ADD COLUMN is_active bool;
 

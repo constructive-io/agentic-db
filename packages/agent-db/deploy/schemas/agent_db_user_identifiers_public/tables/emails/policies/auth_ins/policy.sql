@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_user_identifiers_public/tables/emails/table
 
 
-CREATE POLICY auth_ins ON "agent_db_user_identifiers_public".emails
+CREATE POLICY auth_ins ON agent_db_user_identifiers_public.emails
 FOR INSERT
 TO authenticated
 WITH CHECK (

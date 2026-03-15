@@ -1,7 +1,0 @@
--- Revert: schemas/agent-os-1773550873753-b6c4a3e1-app-public/tables/expense_contacts/columns/expense_id/column
-
-
-ALTER TABLE "agent-os-1773550873753-b6c4a3e1-app-public".expense_contacts 
-  DROP COLUMN expense_id RESTRICT;
-
-

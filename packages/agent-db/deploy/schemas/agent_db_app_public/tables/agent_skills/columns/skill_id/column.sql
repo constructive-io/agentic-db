@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/expense_contacts/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".agent_skills 
+ALTER TABLE agent_db_app_public.agent_skills 
   ADD COLUMN skill_id uuid;
 

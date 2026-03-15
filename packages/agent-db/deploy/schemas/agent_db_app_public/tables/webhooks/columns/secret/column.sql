@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/webhooks/table
--- requires: schemas/agent_db_app_public/tables/webhooks/columns/event_type/alterations/alt0000004659
+-- requires: schemas/agent_db_app_public/tables/webhooks/columns/event_type/alterations/alt0000001441
 
 
-ALTER TABLE "agent_db_app_public".webhooks 
+ALTER TABLE agent_db_app_public.webhooks 
   ADD COLUMN secret text;
 

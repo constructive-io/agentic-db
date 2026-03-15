@@ -1,6 +1,6 @@
 -- Revert: schemas/agent_db_app_public/tables/goals/grants/authenticated/update/grant
 
 
-REVOKE UPDATE ON "agent_db_app_public".goals FROM authenticated;
+REVOKE UPDATE ON agent_db_app_public.goals FROM authenticated;
 
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/activity_log/indexes/activity_logs_target_type_idx
 
 
-CREATE INDEX activity_logs_target_id_idx ON "agent_db_app_public".activity_log USING BTREE ( target_id );
+CREATE INDEX activity_logs_target_id_idx ON agent_db_app_public.activity_log USING BTREE ( target_id );
 

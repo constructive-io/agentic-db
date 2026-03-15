@@ -1,6 +1,0 @@
--- Revert: schemas/agent-os-1773550873753-b6c4a3e1-auth-private/tables/sessions/columns/last_password_verified/alterations/alt0000000623
-
-
-COMMENT ON COLUMN "agent-os-1773550873753-b6c4a3e1-auth-private".sessions.last_password_verified IS NULL;
-
-

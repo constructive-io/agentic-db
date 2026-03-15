@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/companies/columns/main_image_id/column
 
 
-ALTER TABLE "agent_db_app_public".deals 
+ALTER TABLE agent_db_app_public.deals 
   ADD COLUMN entity_id uuid;
 

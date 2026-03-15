@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/agents/columns/mood/column
 
 
-ALTER TABLE "agent_db_app_public".agents 
+ALTER TABLE agent_db_app_public.agents 
   ADD COLUMN focus text;
 

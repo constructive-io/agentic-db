@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/notifications/columns/source_entity_type/column
 
 
-GRANT DELETE ON "agent_db_app_public".recipes TO authenticated;
+GRANT DELETE ON agent_db_app_public.recipes TO authenticated;
 

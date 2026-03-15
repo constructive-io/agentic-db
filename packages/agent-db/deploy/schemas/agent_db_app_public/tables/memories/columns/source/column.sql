@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/memories/table
--- requires: schemas/agent_db_app_public/tables/memories/columns/verified/alterations/alt0000004289
+-- requires: schemas/agent_db_app_public/tables/memories/columns/verified/alterations/alt0000001071
 
 
-ALTER TABLE "agent_db_app_public".memories 
+ALTER TABLE agent_db_app_public.memories 
   ADD COLUMN source text;
 

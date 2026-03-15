@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_auth_private/tables/app_auth_settings/table
 
 
-ALTER TABLE "agent_db_auth_private".app_auth_settings 
+ALTER TABLE agent_db_auth_private.app_auth_settings 
   ADD COLUMN default_session_duration interval;
 

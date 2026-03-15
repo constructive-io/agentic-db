@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/venues/indexes/venues_category_idx
 
 
-CREATE INDEX notes_notable_type_idx ON "agent_db_app_public".notes USING BTREE ( notable_type );
+CREATE INDEX notes_notable_type_idx ON agent_db_app_public.notes USING BTREE ( notable_type );
 

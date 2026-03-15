@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/venues/indexes/venues_embedding_hnsw_idx
 
 
-CREATE INDEX notes_embedding_hnsw_idx ON "agent_db_app_public".notes USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
+CREATE INDEX notes_embedding_hnsw_idx ON agent_db_app_public.notes USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
 

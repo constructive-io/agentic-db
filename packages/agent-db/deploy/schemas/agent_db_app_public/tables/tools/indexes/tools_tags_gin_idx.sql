@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/blueprints/indexes/blueprints_tags_gin_idx
 
 
-CREATE INDEX tools_tags_gin_idx ON "agent_db_app_public".tools USING GIN ( tags );
+CREATE INDEX tools_tags_gin_idx ON agent_db_app_public.tools USING GIN ( tags );
 

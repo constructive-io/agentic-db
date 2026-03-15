@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/attachments/columns/attachable_type/column
 
 
-ALTER TABLE "agent_db_app_public".attachments 
+ALTER TABLE agent_db_app_public.attachments 
   ADD COLUMN attachable_id uuid;
 

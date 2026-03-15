@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/skill_executions/columns/error/column
 
 
-GRANT SELECT ON "agent_db_app_public".feedback TO authenticated;
+GRANT SELECT ON agent_db_app_public.feedback TO authenticated;
 

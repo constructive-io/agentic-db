@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/feedback/indexes/feedbacks_target_id_idx
 
 
-CREATE INDEX feedbacks_rating_idx ON "agent_db_app_public".feedback USING BTREE ( rating );
+CREATE INDEX feedbacks_rating_idx ON agent_db_app_public.feedback USING BTREE ( rating );
 

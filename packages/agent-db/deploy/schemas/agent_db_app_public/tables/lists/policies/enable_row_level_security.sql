@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/habit_logs/columns/tags/column
 
 
-ALTER TABLE "agent_db_app_public".lists 
+ALTER TABLE agent_db_app_public.lists 
   ENABLE ROW LEVEL SECURITY;
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/agent_spawns/columns/completed_at/column
 
 
-GRANT SELECT ON "agent_db_app_public".context_relations TO authenticated;
+GRANT SELECT ON agent_db_app_public.context_relations TO authenticated;
 

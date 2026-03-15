@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/workflow_steps/constraints/workflow_steps_workflow_id_fkey/constraint
 
 
-ALTER TABLE "agent_db_app_public".workflow_runs 
+ALTER TABLE agent_db_app_public.workflow_runs 
   ADD CONSTRAINT workflow_runs_workflow_id_fkey 
     FOREIGN KEY(workflow_id) 
-    REFERENCES "agent_db_app_public".workflows (id) 
+    REFERENCES agent_db_app_public.workflows (id) 
     ON DELETE CASCADE;
 

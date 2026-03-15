@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/prompts/indexes/prompts_name_gin_idx
 
 
-CREATE INDEX contacts_email_idx ON "agent_db_app_public".contacts USING BTREE ( email );
+CREATE INDEX contacts_email_idx ON agent_db_app_public.contacts USING BTREE ( email );
 

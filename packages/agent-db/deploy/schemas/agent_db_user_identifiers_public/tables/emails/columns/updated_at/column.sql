@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_user_identifiers_public/tables/emails/table
 
 
-ALTER TABLE "agent_db_user_identifiers_public".emails 
+ALTER TABLE agent_db_user_identifiers_public.emails 
   ADD COLUMN updated_at timestamptz;
 

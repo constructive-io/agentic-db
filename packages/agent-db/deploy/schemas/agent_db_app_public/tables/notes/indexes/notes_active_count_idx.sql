@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/skills/indexes/skills_last_accessed_at_idx
 
 
-CREATE INDEX notes_active_count_idx ON "agent_db_app_public".notes USING BTREE ( active_count );
+CREATE INDEX notes_active_count_idx ON agent_db_app_public.notes USING BTREE ( active_count );
 

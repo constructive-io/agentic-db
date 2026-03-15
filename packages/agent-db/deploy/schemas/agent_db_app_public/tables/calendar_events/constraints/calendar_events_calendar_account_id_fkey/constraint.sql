@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/messages/constraints/messages_email_account_id_fkey/constraint
 
 
-ALTER TABLE "agent_db_app_public".calendar_events 
+ALTER TABLE agent_db_app_public.calendar_events 
   ADD CONSTRAINT calendar_events_calendar_account_id_fkey 
     FOREIGN KEY(calendar_account_id) 
-    REFERENCES "agent_db_app_public".calendar_accounts (id) 
+    REFERENCES agent_db_app_public.calendar_accounts (id) 
     ON DELETE CASCADE;
 

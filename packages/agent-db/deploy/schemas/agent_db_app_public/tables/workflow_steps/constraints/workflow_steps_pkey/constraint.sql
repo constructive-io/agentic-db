@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/workflows/columns/tags/column
 
 
-ALTER TABLE "agent_db_app_public".workflow_steps 
+ALTER TABLE agent_db_app_public.workflow_steps 
   ADD CONSTRAINT workflow_steps_pkey PRIMARY KEY (id);
 

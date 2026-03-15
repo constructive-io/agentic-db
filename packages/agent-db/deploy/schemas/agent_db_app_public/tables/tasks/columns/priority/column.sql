@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/tasks/table
--- requires: schemas/agent_db_app_public/tables/tasks/columns/status/alterations/alt0000004268
+-- requires: schemas/agent_db_app_public/tables/tasks/columns/status/alterations/alt0000001050
 
 
-ALTER TABLE "agent_db_app_public".tasks 
+ALTER TABLE agent_db_app_public.tasks 
   ADD COLUMN priority int;
 

@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_app_public/tables/trips/indexes/trips_destination_geo_gist_idx
 
 
-CREATE FUNCTION "agent_db_private".contacts_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agent_db_private.contacts_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
 
 BEGIN
 NEW.search_tsv = (setweight(to_tsvector('english', COALESCE(NEW.bio, '')), 'C') || (setweight(to_tsvector('english', COALESCE(NEW.headline, '')), 'B') || (setweight(to_tsvector('english', COALESCE(NEW.last_name, '')), 'A') || setweight(to_tsvector('english', COALESCE(NEW.first_name, '')), 'A'))));

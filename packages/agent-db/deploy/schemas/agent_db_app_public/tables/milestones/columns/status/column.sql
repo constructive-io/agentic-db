@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/milestones/columns/due_date/column
 
 
-ALTER TABLE "agent_db_app_public".milestones 
+ALTER TABLE agent_db_app_public.milestones 
   ADD COLUMN status text;
 

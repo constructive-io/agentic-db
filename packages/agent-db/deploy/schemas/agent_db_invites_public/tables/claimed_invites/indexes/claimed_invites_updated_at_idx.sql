@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_invites_public/tables/claimed_invites/columns/updated_at/column
 
 
-CREATE INDEX claimed_invites_updated_at_idx ON "agent_db_invites_public".claimed_invites ( updated_at );
+CREATE INDEX claimed_invites_updated_at_idx ON agent_db_invites_public.claimed_invites ( updated_at );
 

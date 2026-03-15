@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_users_public/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA "agent_db_users_public" GRANT ALL ON FUNCTIONS TO anonymous;
+ALTER DEFAULT PRIVILEGES IN SCHEMA agent_db_users_public GRANT ALL ON FUNCTIONS TO anonymous;
 

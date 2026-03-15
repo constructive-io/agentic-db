@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/goals/table
--- requires: schemas/agent_db_app_public/tables/goals/columns/title/alterations/alt0000004311
+-- requires: schemas/agent_db_app_public/tables/goals/columns/title/alterations/alt0000001093
 
 
-ALTER TABLE "agent_db_app_public".goals 
+ALTER TABLE agent_db_app_public.goals 
   ADD COLUMN description text;
 

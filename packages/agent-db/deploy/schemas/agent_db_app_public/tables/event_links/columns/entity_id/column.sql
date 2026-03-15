@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/company_links/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".event_links 
+ALTER TABLE agent_db_app_public.event_links 
   ADD COLUMN entity_id uuid;
 

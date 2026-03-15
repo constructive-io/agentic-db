@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/workflows/columns/tags/column
 
 
-ALTER TABLE "agent_db_app_public".workflow_steps 
+ALTER TABLE agent_db_app_public.workflow_steps 
   ADD COLUMN entity_id uuid;
 

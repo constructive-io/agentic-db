@@ -52,6 +52,177 @@ OUTPUT: Promise<JSON>
   delete:   { id }
 ```
 
+### MODEL: session
+
+Access: `db.session`
+
+```
+METHODS:
+  db.session.findMany({ select, where?, orderBy?, first?, offset? })
+  db.session.findOne({ id, select })
+  db.session.create({ data: { entityId, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }, select })
+  db.session.update({ where: { id }, data, select })
+  db.session.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  title: string
+  agentId: string
+  startedAt: string
+  endedAt: string
+  status: string
+  contextSummary: string
+  sessionSummary: string
+  archivedMessages: unknown
+  compressionCount: number
+  archivedAt: string
+  extractedMemoryIds: string[]
+  contextsUsed: unknown
+  skillsUsed: string[]
+  embeddingText: string
+  embedding: number[]
+  uagentTrgmSimilarity: number
+  fingerprintModeTrgmSimilarity: number
+  csrfSecretTrgmSimilarity: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  title: string
+  agentId: string
+  startedAt: string
+  endedAt: string
+  status: string
+  contextSummary: string
+  sessionSummary: string
+  archivedMessages: unknown
+  compressionCount: number
+  archivedAt: string
+  extractedMemoryIds: string[]
+  contextsUsed: unknown
+  skillsUsed: string[]
+  embeddingText: string
+  embedding: number[]
+  uagentTrgmSimilarity: number
+  fingerprintModeTrgmSimilarity: number
+  csrfSecretTrgmSimilarity: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
+  delete:   { id }
+```
+
+### MODEL: executionLog
+
+Access: `db.executionLog`
+
+```
+METHODS:
+  db.executionLog.findMany({ select, where?, orderBy?, first?, offset? })
+  db.executionLog.findOne({ id, select })
+  db.executionLog.create({ data: { entityId, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }, select })
+  db.executionLog.update({ where: { id }, data, select })
+  db.executionLog.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  sessionId: string
+  stepName: string
+  input: string
+  output: string
+  toolCalls: unknown
+  durationMs: number
+  stepNameTrgmSimilarity: number
+  inputTrgmSimilarity: number
+  outputTrgmSimilarity: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  sessionId: string
+  stepName: string
+  input: string
+  output: string
+  toolCalls: unknown
+  durationMs: number
+  stepNameTrgmSimilarity: number
+  inputTrgmSimilarity: number
+  outputTrgmSimilarity: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
+  delete:   { id }
+```
+
+### MODEL: sessionArchive
+
+Access: `db.sessionArchive`
+
+```
+METHODS:
+  db.sessionArchive.findMany({ select, where?, orderBy?, first?, offset? })
+  db.sessionArchive.findOne({ id, select })
+  db.sessionArchive.create({ data: { entityId, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
+  db.sessionArchive.update({ where: { id }, data, select })
+  db.sessionArchive.delete({ where: { id } })
+
+FIELDS:
+  id: string (primary key)
+  entityId: string
+  createdAt: string
+  updatedAt: string
+  sessionId: string
+  archiveIndex: number
+  summary: string
+  messageRangeStart: number
+  messageRangeEnd: number
+  rawMessages: unknown
+  embeddingText: string
+  embedding: number[]
+  embeddingTextBm25Score: number
+  summaryTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+EDITABLE FIELDS:
+  entityId: string
+  sessionId: string
+  archiveIndex: number
+  summary: string
+  messageRangeStart: number
+  messageRangeEnd: number
+  rawMessages: unknown
+  embeddingText: string
+  embedding: number[]
+  embeddingTextBm25Score: number
+  summaryTrgmSimilarity: number
+  embeddingTextTrgmSimilarity: number
+  embeddingVectorDistance: number
+  searchScore: number
+
+OUTPUT: Promise<JSON>
+  findMany: [{ id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
+  findOne:  { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  create:   { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  update:   { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
+  delete:   { id }
+```
+
 ### MODEL: process
 
 Access: `db.process`
@@ -1514,110 +1685,6 @@ OUTPUT: Promise<JSON>
   findOne:  { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
   create:   { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
   update:   { id, entityId, createdAt, updatedAt, key, value, category, keyTrgmSimilarity, categoryTrgmSimilarity, searchScore }
-  delete:   { id }
-```
-
-### MODEL: executionLog
-
-Access: `db.executionLog`
-
-```
-METHODS:
-  db.executionLog.findMany({ select, where?, orderBy?, first?, offset? })
-  db.executionLog.findOne({ id, select })
-  db.executionLog.create({ data: { entityId, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }, select })
-  db.executionLog.update({ where: { id }, data, select })
-  db.executionLog.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  sessionId: string
-  stepName: string
-  input: string
-  output: string
-  toolCalls: unknown
-  durationMs: number
-  stepNameTrgmSimilarity: number
-  inputTrgmSimilarity: number
-  outputTrgmSimilarity: number
-  searchScore: number
-
-EDITABLE FIELDS:
-  entityId: string
-  sessionId: string
-  stepName: string
-  input: string
-  output: string
-  toolCalls: unknown
-  durationMs: number
-  stepNameTrgmSimilarity: number
-  inputTrgmSimilarity: number
-  outputTrgmSimilarity: number
-  searchScore: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }]
-  findOne:  { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
-  create:   { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
-  update:   { id, entityId, createdAt, updatedAt, sessionId, stepName, input, output, toolCalls, durationMs, stepNameTrgmSimilarity, inputTrgmSimilarity, outputTrgmSimilarity, searchScore }
-  delete:   { id }
-```
-
-### MODEL: sessionArchive
-
-Access: `db.sessionArchive`
-
-```
-METHODS:
-  db.sessionArchive.findMany({ select, where?, orderBy?, first?, offset? })
-  db.sessionArchive.findOne({ id, select })
-  db.sessionArchive.create({ data: { entityId, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }, select })
-  db.sessionArchive.update({ where: { id }, data, select })
-  db.sessionArchive.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  sessionId: string
-  archiveIndex: number
-  summary: string
-  messageRangeStart: number
-  messageRangeEnd: number
-  rawMessages: unknown
-  embeddingText: string
-  embedding: number[]
-  embeddingTextBm25Score: number
-  summaryTrgmSimilarity: number
-  embeddingTextTrgmSimilarity: number
-  embeddingVectorDistance: number
-  searchScore: number
-
-EDITABLE FIELDS:
-  entityId: string
-  sessionId: string
-  archiveIndex: number
-  summary: string
-  messageRangeStart: number
-  messageRangeEnd: number
-  rawMessages: unknown
-  embeddingText: string
-  embedding: number[]
-  embeddingTextBm25Score: number
-  summaryTrgmSimilarity: number
-  embeddingTextTrgmSimilarity: number
-  embeddingVectorDistance: number
-  searchScore: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }]
-  findOne:  { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
-  create:   { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
-  update:   { id, entityId, createdAt, updatedAt, sessionId, archiveIndex, summary, messageRangeStart, messageRangeEnd, rawMessages, embeddingText, embedding, embeddingTextBm25Score, summaryTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   delete:   { id }
 ```
 
@@ -3781,73 +3848,6 @@ OUTPUT: Promise<JSON>
   findOne:  { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingTextBm25Score, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   create:   { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingTextBm25Score, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
   update:   { id, entityId, createdAt, updatedAt, name, role, capabilities, config, status, persona, backstory, communicationStyle, systemPrompt, preferredModel, fallbackModels, temperature, mood, focus, lastActiveAt, embeddingText, embedding, embeddingTextBm25Score, nameTrgmSimilarity, roleTrgmSimilarity, statusTrgmSimilarity, personaTrgmSimilarity, backstoryTrgmSimilarity, communicationStyleTrgmSimilarity, systemPromptTrgmSimilarity, preferredModelTrgmSimilarity, moodTrgmSimilarity, focusTrgmSimilarity, embeddingTextTrgmSimilarity, embeddingVectorDistance, searchScore }
-  delete:   { id }
-```
-
-### MODEL: session
-
-Access: `db.session`
-
-```
-METHODS:
-  db.session.findMany({ select, where?, orderBy?, first?, offset? })
-  db.session.findOne({ id, select })
-  db.session.create({ data: { entityId, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }, select })
-  db.session.update({ where: { id }, data, select })
-  db.session.delete({ where: { id } })
-
-FIELDS:
-  id: string (primary key)
-  entityId: string
-  createdAt: string
-  updatedAt: string
-  title: string
-  agentId: string
-  startedAt: string
-  endedAt: string
-  status: string
-  contextSummary: string
-  sessionSummary: string
-  archivedMessages: unknown
-  compressionCount: number
-  archivedAt: string
-  extractedMemoryIds: string[]
-  contextsUsed: unknown
-  skillsUsed: string[]
-  embeddingText: string
-  embedding: number[]
-  uagentTrgmSimilarity: number
-  fingerprintModeTrgmSimilarity: number
-  csrfSecretTrgmSimilarity: number
-  searchScore: number
-
-EDITABLE FIELDS:
-  entityId: string
-  title: string
-  agentId: string
-  startedAt: string
-  endedAt: string
-  status: string
-  contextSummary: string
-  sessionSummary: string
-  archivedMessages: unknown
-  compressionCount: number
-  archivedAt: string
-  extractedMemoryIds: string[]
-  contextsUsed: unknown
-  skillsUsed: string[]
-  embeddingText: string
-  embedding: number[]
-  uagentTrgmSimilarity: number
-  fingerprintModeTrgmSimilarity: number
-  csrfSecretTrgmSimilarity: number
-  searchScore: number
-
-OUTPUT: Promise<JSON>
-  findMany: [{ id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }]
-  findOne:  { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
-  create:   { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
-  update:   { id, entityId, createdAt, updatedAt, title, agentId, startedAt, endedAt, status, contextSummary, sessionSummary, archivedMessages, compressionCount, archivedAt, extractedMemoryIds, contextsUsed, skillsUsed, embeddingText, embedding, uagentTrgmSimilarity, fingerprintModeTrgmSimilarity, csrfSecretTrgmSimilarity, searchScore }
   delete:   { id }
 ```
 

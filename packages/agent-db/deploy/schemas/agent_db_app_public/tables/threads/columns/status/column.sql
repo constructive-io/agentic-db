@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/threads/columns/summary/column
 
 
-ALTER TABLE "agent_db_app_public".threads 
+ALTER TABLE agent_db_app_public.threads 
   ADD COLUMN status text;
 

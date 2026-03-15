@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/reminders/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".habits 
+ALTER TABLE agent_db_app_public.habits 
   ADD COLUMN entity_id uuid;
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/list_items/columns/ref_type/column
 
 
-CREATE TABLE "agent_db_app_public".notifications ();
+CREATE TABLE agent_db_app_public.notifications ();
 

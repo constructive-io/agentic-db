@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/workflow_runs/columns/started_at/column
 
 
-ALTER TABLE "agent_db_app_public".workflow_runs 
+ALTER TABLE agent_db_app_public.workflow_runs 
   ADD COLUMN completed_at timestamptz;
 

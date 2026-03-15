@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/workflow_runs/columns/error/column
 
 
-ALTER TABLE "agent_db_app_public".agent_spawns 
+ALTER TABLE agent_db_app_public.agent_spawns 
   ENABLE ROW LEVEL SECURITY;
 

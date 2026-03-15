@@ -6,12 +6,12 @@
 -- requires: schemas/agent_db_app_public/tables/billing_subscriptions/columns/notes/column
 
 
-CREATE POLICY auth_del_entity_membership ON "agent_db_app_public".trips
+CREATE POLICY auth_del_entity_membership ON agent_db_app_public.trips
 FOR DELETE
 TO authenticated
 USING (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM "agent_db_memberships_private".org_memberships_sprt AS org_sprt
+  FROM agent_db_memberships_private.org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

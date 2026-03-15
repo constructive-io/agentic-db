@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/agent_tools/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".session_archives 
+ALTER TABLE agent_db_app_public.session_archives 
   ADD CONSTRAINT session_archives_session_id_fkey 
     FOREIGN KEY(session_id) 
-    REFERENCES "agent_db_app_public".sessions (id) 
+    REFERENCES agent_db_app_public.sessions (id) 
     ON DELETE CASCADE;
 

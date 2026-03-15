@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/contacts/indexes/contacts_location_geo_gist_idx
 
 
-CREATE INDEX calendar_events_location_geo_gist_idx ON "agent_db_app_public".calendar_events USING GIST ( location_geo );
+CREATE INDEX calendar_events_location_geo_gist_idx ON agent_db_app_public.calendar_events USING GIST ( location_geo );
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/context_relations/columns/strength/column
 
 
-CREATE TABLE "agent_db_app_public".session_archives ();
+CREATE TABLE agent_db_app_public.session_archives ();
 

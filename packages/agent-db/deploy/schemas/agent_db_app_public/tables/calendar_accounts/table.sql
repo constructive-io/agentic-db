@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/messages/columns/embedding/column
 
 
-CREATE TABLE "agent_db_app_public".calendar_accounts ();
+CREATE TABLE agent_db_app_public.calendar_accounts ();
 

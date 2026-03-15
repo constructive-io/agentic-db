@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER events_search_tsv_tsv_update_tg
-BEFORE UPDATE ON "agent_db_app_public".events
+BEFORE UPDATE ON agent_db_app_public.events
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.notes IS DISTINCT FROM NEW.notes OR OLD.location IS DISTINCT FROM NEW.location)
-EXECUTE PROCEDURE "agent_db_private".events_search_tsv_tsv ( );
+EXECUTE PROCEDURE agent_db_private.events_search_tsv_tsv ( );
 

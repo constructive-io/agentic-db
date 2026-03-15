@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/contacts/columns/main_image_id/column
 
 
-ALTER TABLE "agent_db_app_public".companies 
+ALTER TABLE agent_db_app_public.companies 
   ADD CONSTRAINT companies_pkey PRIMARY KEY (id);
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/notes/table
--- requires: schemas/agent_db_app_public/tables/notes/columns/content/alterations/alt0000004133
+-- requires: schemas/agent_db_app_public/tables/notes/columns/content/alterations/alt0000000915
 
 
-ALTER TABLE "agent_db_app_public".notes 
+ALTER TABLE agent_db_app_public.notes 
   ADD COLUMN notable_type text;
 

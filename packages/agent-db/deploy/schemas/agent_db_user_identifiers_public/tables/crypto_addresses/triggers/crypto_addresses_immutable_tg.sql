@@ -6,7 +6,7 @@
 
 
 CREATE TRIGGER crypto_addresses_immutable_tg
-BEFORE UPDATE ON "agent_db_user_identifiers_public".crypto_addresses
+BEFORE UPDATE ON agent_db_user_identifiers_public.crypto_addresses
 FOR EACH ROW
 WHEN (OLD.address IS DISTINCT FROM NEW.address AND OLD.address IS NOT NULL)
 EXECUTE PROCEDURE utils.throw ( 'IMMUTABLE_PROPERTY', 'address' );

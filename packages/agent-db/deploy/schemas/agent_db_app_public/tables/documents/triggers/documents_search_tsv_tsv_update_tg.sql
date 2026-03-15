@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER documents_search_tsv_tsv_update_tg
-BEFORE UPDATE ON "agent_db_app_public".documents
+BEFORE UPDATE ON agent_db_app_public.documents
 FOR EACH ROW
 WHEN (OLD.title IS DISTINCT FROM NEW.title OR OLD.content IS DISTINCT FROM NEW.content)
-EXECUTE PROCEDURE "agent_db_private".documents_search_tsv_tsv ( );
+EXECUTE PROCEDURE agent_db_private.documents_search_tsv_tsv ( );
 

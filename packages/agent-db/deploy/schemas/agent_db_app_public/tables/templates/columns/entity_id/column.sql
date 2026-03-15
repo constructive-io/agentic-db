@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/recipes/columns/embedding/column
 
 
-ALTER TABLE "agent_db_app_public".templates 
+ALTER TABLE agent_db_app_public.templates 
   ADD COLUMN entity_id uuid;
 

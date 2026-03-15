@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/skills/table
--- requires: schemas/agent_db_app_public/tables/skills/columns/is_active/alterations/alt0000004301
+-- requires: schemas/agent_db_app_public/tables/skills/columns/is_active/alterations/alt0000001083
 
 
-ALTER TABLE "agent_db_app_public".skills 
+ALTER TABLE agent_db_app_public.skills 
   ADD COLUMN abstract text;
 

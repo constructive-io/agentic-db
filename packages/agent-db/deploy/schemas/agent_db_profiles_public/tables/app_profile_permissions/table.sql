@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_profiles_public/schema
 
 
-CREATE TABLE "agent_db_profiles_public".app_profile_permissions ();
+CREATE TABLE agent_db_profiles_public.app_profile_permissions ();
 

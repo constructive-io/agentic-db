@@ -1,9 +1,0 @@
--- Deploy: schemas/agent-os-1773551593867-bac64076-limits-public/tables/org_limits/columns/actor_id/alterations/alt0000001909
--- made with <3 @ launchql.com
-
--- requires: schemas/agent-os-1773551593867-bac64076-limits-public/schema
--- requires: schemas/agent-os-1773551593867-bac64076-limits-public/tables/org_limits/columns/actor_id/column
-
-
-COMMENT ON COLUMN "agent-os-1773551593867-bac64076-limits-public".org_limits.actor_id IS 'User whose usage is being tracked against this limit';
-

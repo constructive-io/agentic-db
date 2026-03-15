@@ -6,9 +6,9 @@
 -- requires: schemas/agent_db_profiles_public/tables/org_profile_permissions/table
 
 
-ALTER TABLE "agent_db_profiles_public".org_profile_permissions 
+ALTER TABLE agent_db_profiles_public.org_profile_permissions 
   ADD CONSTRAINT org_profile_permissions_profile_id_fkey 
     FOREIGN KEY(profile_id) 
-    REFERENCES "agent_db_profiles_public".org_profiles (id) 
+    REFERENCES agent_db_profiles_public.org_profiles (id) 
     ON DELETE CASCADE;
 

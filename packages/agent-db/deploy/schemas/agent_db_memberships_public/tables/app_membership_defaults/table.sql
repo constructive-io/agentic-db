@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_memberships_public/schema
 
 
-CREATE TABLE "agent_db_memberships_public".app_membership_defaults ();
+CREATE TABLE agent_db_memberships_public.app_membership_defaults ();
 

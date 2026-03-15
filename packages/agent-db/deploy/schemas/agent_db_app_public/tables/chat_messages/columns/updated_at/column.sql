@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/chat_messages/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agent_db_app_public".chat_messages 
+ALTER TABLE agent_db_app_public.chat_messages 
   ADD COLUMN updated_at timestamptz;
 

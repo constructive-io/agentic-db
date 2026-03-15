@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_user_identifiers_public/tables/crypto_addresses/table
 
 
-GRANT SELECT ON "agent_db_user_identifiers_public".crypto_addresses TO authenticated;
+GRANT SELECT ON agent_db_user_identifiers_public.crypto_addresses TO authenticated;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/habit_logs/indexes/habit_logs_calories_idx
 
 
-CREATE INDEX list_items_list_id_idx ON "agent_db_app_public".list_items USING BTREE ( list_id );
+CREATE INDEX list_items_list_id_idx ON agent_db_app_public.list_items USING BTREE ( list_id );
 

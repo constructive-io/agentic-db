@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/context_relations/columns/strength/column
 
 
-GRANT DELETE ON "agent_db_app_public".session_archives TO authenticated;
+GRANT DELETE ON agent_db_app_public.session_archives TO authenticated;
 

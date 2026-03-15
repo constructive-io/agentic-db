@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/workflow_runs/indexes/workflow_runs_started_at_idx
 
 
-CREATE INDEX activity_logs_target_type_idx ON "agent_db_app_public".activity_log USING BTREE ( target_type );
+CREATE INDEX activity_logs_target_type_idx ON agent_db_app_public.activity_log USING BTREE ( target_type );
 

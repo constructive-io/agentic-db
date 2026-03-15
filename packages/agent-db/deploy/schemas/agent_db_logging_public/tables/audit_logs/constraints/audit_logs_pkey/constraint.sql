@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_logging_public/tables/audit_logs/table
 
 
-ALTER TABLE "agent_db_logging_public".audit_logs 
+ALTER TABLE agent_db_logging_public.audit_logs 
   ADD CONSTRAINT audit_logs_pkey PRIMARY KEY (id);
 

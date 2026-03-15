@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/execution_log/columns/step_name/column
 
 
-ALTER TABLE "agent_db_app_public".execution_log 
+ALTER TABLE agent_db_app_public.execution_log 
   ADD COLUMN input text;
 

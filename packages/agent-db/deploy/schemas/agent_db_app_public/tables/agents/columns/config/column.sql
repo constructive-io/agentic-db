@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/agents/columns/capabilities/column
 
 
-ALTER TABLE "agent_db_app_public".agents 
+ALTER TABLE agent_db_app_public.agents 
   ADD COLUMN config jsonb;
 

@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION "agent_db_auth_private".authenticate_strict;
+DROP FUNCTION agent_db_auth_private.authenticate_strict;
 
 
 

@@ -6,6 +6,9 @@
 import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
 import { AgentPromptModel } from './models/agentPrompt';
+import { SessionModel } from './models/session';
+import { ExecutionLogModel } from './models/executionLog';
+import { SessionArchiveModel } from './models/sessionArchive';
 import { ProcessModel } from './models/process';
 import { ScheduledJobModel } from './models/scheduledJob';
 import { AgentToolModel } from './models/agentTool';
@@ -41,8 +44,6 @@ import { MessageModel } from './models/message';
 import { ActivityLogModel } from './models/activityLog';
 import { ContextRelationModel } from './models/contextRelation';
 import { UserSettingModel } from './models/userSetting';
-import { ExecutionLogModel } from './models/executionLog';
-import { SessionArchiveModel } from './models/sessionArchive';
 import { WebhookModel } from './models/webhook';
 import { NotificationModel } from './models/notification';
 import { WorkflowRunModel } from './models/workflowRun';
@@ -80,7 +81,6 @@ import { MemoryModel } from './models/memory';
 import { RuleModel } from './models/rule';
 import { TaskModel } from './models/task';
 import { AgentModel } from './models/agent';
-import { SessionModel } from './models/session';
 import { SkillModel } from './models/skill';
 import { ProjectModel } from './models/project';
 import { DocumentModel } from './models/document';
@@ -121,6 +121,9 @@ export function createClient(config: OrmClientConfig) {
   const client = new OrmClient(config);
   return {
     agentPrompt: new AgentPromptModel(client),
+    session: new SessionModel(client),
+    executionLog: new ExecutionLogModel(client),
+    sessionArchive: new SessionArchiveModel(client),
     process: new ProcessModel(client),
     scheduledJob: new ScheduledJobModel(client),
     agentTool: new AgentToolModel(client),
@@ -156,8 +159,6 @@ export function createClient(config: OrmClientConfig) {
     activityLog: new ActivityLogModel(client),
     contextRelation: new ContextRelationModel(client),
     userSetting: new UserSettingModel(client),
-    executionLog: new ExecutionLogModel(client),
-    sessionArchive: new SessionArchiveModel(client),
     webhook: new WebhookModel(client),
     notification: new NotificationModel(client),
     workflowRun: new WorkflowRunModel(client),
@@ -195,7 +196,6 @@ export function createClient(config: OrmClientConfig) {
     rule: new RuleModel(client),
     task: new TaskModel(client),
     agent: new AgentModel(client),
-    session: new SessionModel(client),
     skill: new SkillModel(client),
     project: new ProjectModel(client),
     document: new DocumentModel(client),

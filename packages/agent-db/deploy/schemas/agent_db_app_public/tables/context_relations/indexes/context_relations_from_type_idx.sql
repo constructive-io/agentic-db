@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/agent_spawns/indexes/agent_spawns_status_idx
 
 
-CREATE INDEX context_relations_from_type_idx ON "agent_db_app_public".context_relations USING BTREE ( from_type );
+CREATE INDEX context_relations_from_type_idx ON agent_db_app_public.context_relations USING BTREE ( from_type );
 

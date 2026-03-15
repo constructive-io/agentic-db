@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/goals/columns/embedding/column
 
 
-GRANT UPDATE ON "agent_db_app_public".prompts TO authenticated;
+GRANT UPDATE ON agent_db_app_public.prompts TO authenticated;
 

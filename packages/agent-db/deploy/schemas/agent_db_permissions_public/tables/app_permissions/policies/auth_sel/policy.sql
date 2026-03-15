@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_permissions_public/tables/app_permissions/table
 
 
-CREATE POLICY auth_sel ON "agent_db_permissions_public".app_permissions
+CREATE POLICY auth_sel ON agent_db_permissions_public.app_permissions
 FOR SELECT
 TO authenticated
 USING (

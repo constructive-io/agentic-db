@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_status_public/tables/app_steps/table
 
 
-ALTER TABLE "agent_db_status_public".app_steps 
+ALTER TABLE agent_db_status_public.app_steps 
   ADD COLUMN count int;
 
