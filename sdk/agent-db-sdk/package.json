@@ -4,9 +4,9 @@
   "description": "Type-safe SDK for agent-db database",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
   "publishConfig": {
     "access": "public",
     "directory": "dist"

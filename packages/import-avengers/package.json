@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "Import data from Avengers DB to Agent-OS",
   "private": true,
-  "main": "dist/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
   "publishConfig": {
     "access": "public",
     "directory": "dist"

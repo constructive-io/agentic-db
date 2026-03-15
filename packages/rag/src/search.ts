@@ -23,15 +23,15 @@ function toResult(table: TableName, node: any, nameFn: (n: any) => string): Sear
     table,
     id: node.id,
     name: nameFn(node),
-    score: Math.max(0, 1 - ((node.embeddingDistance ?? 2.0) / 2.0)),
+    score: Math.max(0, 1 - ((node.embeddingVectorDistance ?? 2.0) / 2.0)),
     data: node,
   };
 }
 
 async function searchContacts(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.contact.findMany({
-    condition: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, firstName: true, lastName: true, headline: true, bio: true, embeddingDistance: true },
+    where: VECTOR_CONDITION(qe), first: limit,
+    select: { id: true, firstName: true, lastName: true, headline: true, bio: true, embeddingVectorDistance: true },
   }).execute();
   return (res.data?.contacts?.nodes || []).map((n: any) =>
     toResult('contacts', n, (x) => `${x.firstName || ''} ${x.lastName || ''}`.trim()));
@@ -39,72 +39,72 @@ async function searchContacts(client: SDKClient, qe: number[], limit: number): P
 
 async function searchCompanies(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.company.findMany({
-    condition: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, name: true, description: true, embeddingDistance: true },
+    where: VECTOR_CONDITION(qe), first: limit,
+    select: { id: true, name: true, description: true, embeddingVectorDistance: true },
   }).execute();
   return (res.data?.companies?.nodes || []).map((n: any) => toResult('companies', n, (x) => x.name || 'Untitled'));
 }
 
 async function searchEvents(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.event.findMany({
-    condition: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, name: true, notes: true, embeddingDistance: true },
+    where: VECTOR_CONDITION(qe), first: limit,
+    select: { id: true, name: true, notes: true, embeddingVectorDistance: true },
   }).execute();
   return (res.data?.events?.nodes || []).map((n: any) => toResult('events', n, (x) => x.name || 'Untitled'));
 }
 
 async function searchVenues(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.venue.findMany({
-    condition: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, name: true, embeddingDistance: true },
+    where: VECTOR_CONDITION(qe), first: limit,
+    select: { id: true, name: true, embeddingVectorDistance: true },
   }).execute();
   return (res.data?.venues?.nodes || []).map((n: any) => toResult('venues', n, (x) => x.name || 'Untitled'));
 }
 
 async function searchNotes(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.note.findMany({
-    condition: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, content: true, embeddingDistance: true },
+    where: VECTOR_CONDITION(qe), first: limit,
+    select: { id: true, content: true, embeddingVectorDistance: true },
   }).execute();
   return (res.data?.notes?.nodes || []).map((n: any) => toResult('notes', n, (x) => (x.content || '').slice(0, 80) || 'Untitled'));
 }
 
 async function searchExpenses(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.expense.findMany({
-    condition: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, description: true, amount: true, embeddingDistance: true },
+    where: VECTOR_CONDITION(qe), first: limit,
+    select: { id: true, description: true, amount: true, embeddingVectorDistance: true },
   }).execute();
   return (res.data?.expenses?.nodes || []).map((n: any) => toResult('expenses', n, (x) => `${x.description} ($${x.amount})`));
 }
 
 async function searchTasks(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.task.findMany({
-    condition: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, title: true, embeddingDistance: true },
+    where: VECTOR_CONDITION(qe), first: limit,
+    select: { id: true, title: true, embeddingVectorDistance: true },
   }).execute();
   return (res.data?.tasks?.nodes || []).map((n: any) => toResult('tasks', n, (x) => x.title || 'Untitled'));
 }
 
 async function searchMemories(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.memory.findMany({
-    condition: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, content: true, embeddingDistance: true },
+    where: VECTOR_CONDITION(qe), first: limit,
+    select: { id: true, content: true, embeddingVectorDistance: true },
   }).execute();
   return (res.data?.memories?.nodes || []).map((n: any) => toResult('memories', n, (x) => (x.content || '').slice(0, 80) || 'Untitled'));
 }
 
 async function searchSkills(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.skill.findMany({
-    condition: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, name: true, embeddingDistance: true },
+    where: VECTOR_CONDITION(qe), first: limit,
+    select: { id: true, name: true, embeddingVectorDistance: true },
   }).execute();
   return (res.data?.skills?.nodes || []).map((n: any) => toResult('skills', n, (x) => x.name || 'Untitled'));
 }
 
 async function searchRules(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.rule.findMany({
-    condition: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, title: true, embeddingDistance: true },
+    where: VECTOR_CONDITION(qe), first: limit,
+    select: { id: true, title: true, embeddingVectorDistance: true },
   }).execute();
   return (res.data?.rules?.nodes || []).map((n: any) => toResult('rules', n, (x) => x.title || 'Untitled'));
 }
