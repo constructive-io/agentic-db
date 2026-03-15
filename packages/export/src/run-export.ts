@@ -134,6 +134,8 @@ async function main() {
         CREATE VIEW meta_public.site_themes AS SELECT * FROM services_public.site_themes;
         CREATE VIEW meta_public.api_modules AS SELECT * FROM services_public.api_modules;
         CREATE VIEW meta_public.api_schemata AS SELECT * FROM services_public.api_schemas;
+        CREATE VIEW meta_public.site_modules AS SELECT * FROM services_public.site_modules;
+        CREATE VIEW meta_public.site_metadata AS SELECT * FROM services_public.site_metadata;
       END IF;
     END $$;
 

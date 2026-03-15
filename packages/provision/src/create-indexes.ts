@@ -48,6 +48,7 @@ const HNSW_INDEXES: IndexDef[] = [
   'trips',
   'ideas', 'reminders', 'lists',
   'recipes', 'templates',
+  'session_archives',
 ].map((table) => ({
   table,
   column: 'embedding',
@@ -76,6 +77,7 @@ const BM25_INDEXES: IndexDef[] = [
   'trips',
   'ideas', 'reminders', 'lists',
   'recipes', 'templates',
+  'session_archives',
 ].map((table) => ({
   table,
   column: 'embedding_text',
@@ -207,9 +209,29 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'threads', column: 'parent_thread_id', method: 'btree' },
   { table: 'processes', column: 'agent_id', method: 'btree' },
   { table: 'processes', column: 'status', method: 'btree' },
-  { table: 'scheduled_jobs', column: 'active', method: 'btree' },
-  { table: 'scheduled_jobs', column: 'next_run', method: 'btree' },
+  { table: 'scheduled_jobs', column: 'is_active', method: 'btree' },
+  { table: 'scheduled_jobs', column: 'next_run_at', method: 'btree' },
+  { table: 'scheduled_jobs', column: 'schedule_type', method: 'btree' },
   { table: 'scheduled_jobs', column: 'agent_id', method: 'btree' },
+  // New OpenViking-inspired tables
+  { table: 'memories', column: 'memory_category', method: 'btree' },
+  { table: 'memories', column: 'active_count', method: 'btree' },
+  { table: 'memories', column: 'last_accessed_at', method: 'btree' },
+  { table: 'skills', column: 'active_count', method: 'btree' },
+  { table: 'skills', column: 'last_accessed_at', method: 'btree' },
+  { table: 'notes', column: 'active_count', method: 'btree' },
+  { table: 'notes', column: 'last_accessed_at', method: 'btree' },
+  { table: 'documents', column: 'active_count', method: 'btree' },
+  { table: 'documents', column: 'last_accessed_at', method: 'btree' },
+  { table: 'agent_spawns', column: 'parent_agent_id', method: 'btree' },
+  { table: 'agent_spawns', column: 'status', method: 'btree' },
+  { table: 'context_relations', column: 'from_type', method: 'btree' },
+  { table: 'context_relations', column: 'from_id', method: 'btree' },
+  { table: 'context_relations', column: 'to_type', method: 'btree' },
+  { table: 'context_relations', column: 'to_id', method: 'btree' },
+  { table: 'session_archives', column: 'session_id', method: 'btree' },
+  { table: 'sessions', column: 'archived_at', method: 'btree' },
+  { table: 'sessions', column: 'compression_count', method: 'btree' },
   // Projects
   { table: 'projects', column: 'status', method: 'btree' },
   { table: 'projects', column: 'start_date', method: 'btree' },
@@ -427,44 +449,56 @@ type FieldMap = Map<string, Map<string, string>>; // tableName -> (fieldName -> 
 
 async function fetchAllTables(): Promise<TableMap> {
   const map: TableMap = new Map();
+  // Fetch all tables (no filter param — filter client-side by databaseId)
   const result = await withRetry(() =>
     client.table
       .findMany({
-        where: { databaseId: { equalTo: databaseId } },
         first: 500,
-        select: { id: true, name: true },
+        select: { id: true, name: true, databaseId: true },
       })
       .unwrap()
   );
   const nodes = (result as any)?.tables?.nodes ?? [];
   for (const n of nodes) {
-    if (n.name && n.id) map.set(n.name, n.id);
-  }
-  return map;
-}
-
-async function fetchFields(tableId: string): Promise<Map<string, string>> {
-  const map = new Map<string, string>();
-  const result = await withRetry(() =>
-    client.field
-      .findMany({
-        where: { tableId: { equalTo: tableId } },
-        first: 200,
-        select: { id: true, name: true },
-      })
-      .unwrap()
-  );
-  const nodes = (result as any)?.fields?.nodes ?? [];
-  for (const n of nodes) {
-    if (n.name && n.id) map.set(n.name, n.id);
+    if (n.name && n.id && n.databaseId === databaseId) {
+      map.set(n.name, n.id);
+    }
   }
   return map;
 }
 
 async function buildFieldMap(tables: TableMap): Promise<FieldMap> {
   const fieldMap: FieldMap = new Map();
-  for (const [tableName, tableId] of tables) {
-    fieldMap.set(tableName, await fetchFields(tableId));
+  // Build reverse lookup: tableId -> tableName
+  const idToName = new Map<string, string>();
+  for (const [name, id] of tables) {
+    idToName.set(id, name);
+    fieldMap.set(name, new Map());
+  }
+  // Fetch ALL fields in one call, then group client-side
+  let offset = 0;
+  const pageSize = 500;
+  let hasMore = true;
+  while (hasMore) {
+    const result = await withRetry(() =>
+      client.field
+        .findMany({
+          first: pageSize,
+          offset,
+          select: { id: true, name: true, tableId: true },
+        })
+        .unwrap()
+    );
+    const nodes = (result as any)?.fields?.nodes ?? [];
+    for (const n of nodes) {
+      if (!n.name || !n.id || !n.tableId) continue;
+      const tableName = idToName.get(n.tableId);
+      if (tableName) {
+        fieldMap.get(tableName)!.set(n.name, n.id);
+      }
+    }
+    hasMore = nodes.length === pageSize;
+    offset += pageSize;
   }
   return fieldMap;
 }

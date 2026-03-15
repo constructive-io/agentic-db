@@ -32,18 +32,20 @@ const client = createPlatformClient();
 
 async function fetchAllTables(): Promise<Map<string, string>> {
   const map = new Map<string, string>();
+  // Fetch all tables (no filter param — filter client-side by databaseId)
   const result = await withRetry(() =>
     client.table
       .findMany({
-        where: { databaseId: { equalTo: databaseId } },
         first: 500,
-        select: { id: true, name: true },
+        select: { id: true, name: true, databaseId: true },
       })
       .unwrap()
   );
   const nodes = (result as any)?.tables?.nodes ?? [];
   for (const n of nodes) {
-    if (n.name && n.id) map.set(n.name, n.id);
+    if (n.name && n.id && n.databaseId === databaseId) {
+      map.set(n.name, n.id);
+    }
   }
   return map;
 }
