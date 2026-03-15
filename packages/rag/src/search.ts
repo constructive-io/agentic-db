@@ -2,7 +2,7 @@ import { config } from './config';
 import { authenticate, createAuthenticatedClient } from './client';
 import { embed } from './ollama';
 
-type TableName = 'contacts' | 'companies' | 'events' | 'venues' | 'notes' | 'expenses' | 'tasks' | 'memories' | 'skills' | 'rules';
+export type TableName = 'contacts' | 'companies' | 'events' | 'venues' | 'notes' | 'expenses' | 'tasks' | 'memories' | 'skills' | 'rules';
 
 interface SearchResult {
   table: TableName;
@@ -109,7 +109,7 @@ async function searchRules(client: SDKClient, qe: number[], limit: number): Prom
   return (res.data?.rules?.nodes || []).map((n: any) => toResult('rules', n, (x) => x.title || 'Untitled'));
 }
 
-const TABLE_SEARCH: Record<TableName, (client: SDKClient, qe: number[], limit: number) => Promise<SearchResult[]>> = {
+export const TABLE_SEARCH: Record<TableName, (client: SDKClient, qe: number[], limit: number) => Promise<SearchResult[]>> = {
   contacts: searchContacts, companies: searchCompanies, events: searchEvents,
   venues: searchVenues, notes: searchNotes, expenses: searchExpenses,
   tasks: searchTasks, memories: searchMemories, skills: searchSkills, rules: searchRules,

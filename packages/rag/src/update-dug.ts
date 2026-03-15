@@ -31,7 +31,7 @@ async function main() {
       firstName: contactData.firstName,
       headline: contactData.headline,
       bio: contactData.bio,
-      tags: contactData.tags,
+      tags: contactData.tags.join(','),
       embedding: contactEmbedding
     },
     select: { id: true, firstName: true }

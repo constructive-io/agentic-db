@@ -1,65 +1,29 @@
 /**
- * Ollama API client for embeddings and chat
+ * Ollama API client for embeddings and chat via agentic-kit
  */
 import { config } from './config';
+import OllamaClient, { ChatMessage } from '@agentic-kit/ollama';
 
-export interface EmbeddingResponse {
-  embedding: number[];
-}
+export type { ChatMessage };
 
-export interface ChatMessage {
-  role: 'system' | 'user' | 'assistant';
-  content: string;
-}
-
-export interface ChatResponse {
-  message: {
-    role: string;
-    content: string;
-  };
-}
+const client = new OllamaClient(config.ollamaUrl);
 
 /**
- * Generate embeddings using Ollama nomic-embed-text
+ * Generate embeddings using Ollama nomic-embed-text via agentic-kit
  */
 export async function embed(text: string): Promise<number[]> {
-  const response = await fetch(`${config.ollamaUrl}/api/embeddings`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: config.embeddingModel,
-      prompt: text,
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Ollama embed failed: ${response.status}`);
-  }
-
-  const data = await response.json() as EmbeddingResponse;
-  return data.embedding;
+  return client.generateEmbedding(text, config.embeddingModel);
 }
 
 /**
- * Chat with Ollama LLM
+ * Chat with Ollama LLM via agentic-kit
  */
 export async function chat(messages: ChatMessage[]): Promise<string> {
-  const response = await fetch(`${config.ollamaUrl}/api/chat`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: config.chatModel,
-      messages,
-      stream: false,
-    }),
+  const result = await client.generate({
+    model: config.chatModel,
+    messages,
   });
-
-  if (!response.ok) {
-    throw new Error(`Ollama chat failed: ${response.status}`);
-  }
-
-  const data = await response.json() as ChatResponse;
-  return data.message.content;
+  return result as string;
 }
 
 /**
