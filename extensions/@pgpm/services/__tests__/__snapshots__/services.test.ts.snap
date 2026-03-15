@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`services functionality should handle complete meta workflow with services 1`] = `
+{
+  "hash": null,
+  "id": "[ID]",
+  "label": null,
+  "name": "my-meta-db",
+  "owner_id": "[ID]",
+  "schema_hash": null,
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 2`] = `
+{
+  "anon_role": "anonymous",
+  "database_id": "[ID]",
+  "dbname": "test-database",
+  "id": "[ID]",
+  "is_public": true,
+  "name": "public",
+  "role_name": "authenticated",
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 3`] = `
+{
+  "anon_role": "administrator",
+  "database_id": "[ID]",
+  "dbname": "test-database",
+  "id": "[ID]",
+  "is_public": true,
+  "name": "admin",
+  "role_name": "administrator",
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 4`] = `
+{
+  "apple_touch_icon": null,
+  "database_id": "[ID]",
+  "dbname": "test-database",
+  "description": "Website Description",
+  "favicon": null,
+  "id": "[ID]",
+  "logo": null,
+  "og_image": null,
+  "title": "Website Title",
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 5`] = `
+{
+  "api_id": "[ID]",
+  "database_id": "[ID]",
+  "domain": "pgpm.io",
+  "id": "[ID]",
+  "site_id": null,
+  "subdomain": "api",
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 6`] = `
+{
+  "api_id": null,
+  "database_id": "[ID]",
+  "domain": "pgpm.io",
+  "id": "[ID]",
+  "site_id": "[ID]",
+  "subdomain": "app",
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 7`] = `
+{
+  "api_id": "[ID]",
+  "database_id": "[ID]",
+  "domain": "pgpm.io",
+  "id": "[ID]",
+  "site_id": null,
+  "subdomain": "admin",
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 8`] = `
+{
+  "data": {
+    "supportEmail": "support@interweb.co",
+  },
+  "database_id": "[ID]",
+  "id": "[ID]",
+  "name": "legal-emails",
+  "site_id": "[ID]",
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 9`] = `
+{
+  "api_id": "[ID]",
+  "data": {
+    "authenticate": "authenticate",
+    "authenticate_schema": "services_private",
+  },
+  "database_id": "[ID]",
+  "id": "[ID]",
+  "name": "rls_module",
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 10`] = `
+{
+  "data": {
+    "auth_schema": "services_public",
+    "forgot_password": "forgot_password",
+    "reset_password": "reset_password",
+    "send_verification_email": "send_verification_email",
+    "set_password": "set_password",
+    "sign_in": "login",
+    "sign_up": "register",
+    "verify_email": "verify_email",
+  },
+  "database_id": "[ID]",
+  "id": "[ID]",
+  "name": "user_auth_module",
+  "site_id": "[ID]",
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 11`] = `
+{
+  "api_id": "[ID]",
+  "database_id": "[ID]",
+  "id": "[ID]",
+  "schema_id": "[ID]",
+}
+`;
+
+exports[`services functionality should handle complete meta workflow with services 12`] = `
+{
+  "api_id": "[ID]",
+  "database_id": "[ID]",
+  "id": "[ID]",
+  "schema_id": "[ID]",
+}
+`;

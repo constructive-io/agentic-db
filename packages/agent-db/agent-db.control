@@ -2,6 +2,6 @@
 comment = 'agent-db extension'
 default_version = '0.0.1'
 module_pathname = '$libdir/agent-db'
-requires = 'plpgsql,uuid-ossp,citext,pgcrypto,btree_gist,postgis,hstore,db_meta,launchql-inflection,launchql-uuid,launchql-utils,launchql-ext-jobs,launchql-jwt-claims,launchql-stamps,launchql-base32,launchql-totp,launchql-ext-types,launchql-ext-default-roles'
+requires = 'btree_gin,btree_gist,citext,hstore,metaschema,metaschema-modules,metaschema-schema,pg_textsearch,pg_trgm,pgcrypto,pgpm-base32,pgpm-database-jobs,pgpm-inflection,pgpm-jwt-claims,pgpm-stamps,pgpm-totp,pgpm-types,pgpm-utils,pgpm-uuid,pgpm-verify,plpgsql,postgis,services,uuid-ossp,vector'
 relocatable = false
 superuser = false

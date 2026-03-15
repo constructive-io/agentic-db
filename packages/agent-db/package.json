@@ -22,6 +22,11 @@
     "test:watch": "jest --watch"
   },
   "keywords": [],
+  "dependencies": {
+    "@pgpm/db-meta-modules": "0.15.5",
+    "@pgpm/metaschema-modules": "0.18.0",
+    "@pgpm/services": "0.18.0"
+  },
   "devDependencies": {
     "pgsql-test": "^2.13.2"
   }

@@ -1,0 +1,7 @@
+# services extension
+comment = 'services extension - schemas for module registration and service configuration'
+default_version = '0.1.0'
+module_pathname = '$libdir/services'
+requires = 'plpgsql,metaschema-schema,pgpm-verify'
+relocatable = false
+superuser = false

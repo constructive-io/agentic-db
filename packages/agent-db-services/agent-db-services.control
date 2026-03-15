@@ -2,6 +2,6 @@
 comment = 'agent-db-services extension'
 default_version = '0.0.1'
 module_pathname = '$libdir/agent-db-services'
-requires = 'plpgsql,db_meta,db_meta_modules'
+requires = 'plpgsql,metaschema-schema,metaschema-modules,services'
 relocatable = false
 superuser = false
