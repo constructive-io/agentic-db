@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/reminders/columns/embedding/column
 
 
-CREATE TABLE agent_db_app_public.habits ();
+CREATE TABLE "agent_db_app_public".habits ();
 

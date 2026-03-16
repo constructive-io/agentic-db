@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/scheduled_jobs/columns/last_result/column
 
 
-CREATE TABLE agent_db_app_public.tools ();
+CREATE TABLE "agent_db_app_public".tools ();
 

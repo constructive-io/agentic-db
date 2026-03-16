@@ -1,7 +1,0 @@
--- Revert: schemas/agent_db_app_public/tables/agent_spawns/columns/entity_id/alterations/alt0000001258
-
-
-ALTER TABLE agent_db_app_public.agent_spawns 
-  ALTER COLUMN entity_id DROP NOT NULL;
-
-

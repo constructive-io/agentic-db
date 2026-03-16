@@ -6,7 +6,7 @@
 
 
 
-CREATE FUNCTION agent_db_status_public.member_steps_achieved (
+CREATE FUNCTION "agent_db_status_public".member_steps_achieved (
   vlevel text,
   ventity_id uuid,
   vrole_id uuid DEFAULT jwt_public.current_user_id()
@@ -17,7 +17,7 @@ DECLARE
   c int;
 BEGIN
   SELECT COUNT(*) FROM
-    agent_db_status_public.member_steps_required(
+    "agent_db_status_public".member_steps_required(
       vlevel,
       ventity_id,
       vrole_id
@@ -27,5 +27,5 @@ BEGIN
 END;
 $CODEZ$
 LANGUAGE plpgsql STABLE;
-GRANT EXECUTE ON FUNCTION agent_db_status_public.member_steps_achieved TO authenticated;
+GRANT EXECUTE ON FUNCTION "agent_db_status_public".member_steps_achieved TO authenticated;
 

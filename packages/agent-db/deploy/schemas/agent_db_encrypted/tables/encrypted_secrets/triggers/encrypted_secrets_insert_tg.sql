@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER encrypted_secrets_insert_tg
-BEFORE INSERT ON agent_db_encrypted.encrypted_secrets
+BEFORE INSERT ON "agent_db_encrypted".encrypted_secrets
 FOR EACH ROW
-EXECUTE PROCEDURE agent_db_encrypted.encrypted_secrets_hash ( );
+EXECUTE PROCEDURE "agent_db_encrypted".encrypted_secrets_hash ( );
 

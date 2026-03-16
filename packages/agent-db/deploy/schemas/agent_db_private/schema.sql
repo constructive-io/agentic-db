@@ -4,5 +4,5 @@
 
 
 
-CREATE SCHEMA agent_db_private;
+CREATE SCHEMA "agent_db_private";
 

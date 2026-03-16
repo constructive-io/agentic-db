@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/lists/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.lists 
+ALTER TABLE "agent_db_app_public".lists 
   ADD COLUMN created_at timestamptz;
 

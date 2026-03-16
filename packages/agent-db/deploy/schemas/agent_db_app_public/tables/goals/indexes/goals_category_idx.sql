@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/goals/indexes/goals_status_idx
 
 
-CREATE INDEX goals_category_idx ON agent_db_app_public.goals USING BTREE ( category );
+CREATE INDEX goals_category_idx ON "agent_db_app_public".goals USING BTREE ( category );
 

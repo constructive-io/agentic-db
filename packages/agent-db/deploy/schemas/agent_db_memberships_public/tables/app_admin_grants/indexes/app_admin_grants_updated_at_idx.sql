@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_memberships_public/tables/app_admin_grants/columns/updated_at/column
 
 
-CREATE INDEX app_admin_grants_updated_at_idx ON agent_db_memberships_public.app_admin_grants ( updated_at );
+CREATE INDEX app_admin_grants_updated_at_idx ON "agent_db_memberships_public".app_admin_grants ( updated_at );
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_invites_public/tables/invites/columns/invite_valid/column
 
 
-CREATE INDEX invites_invite_valid_idx ON agent_db_invites_public.invites USING BTREE ( invite_valid );
+CREATE INDEX invites_invite_valid_idx ON "agent_db_invites_public".invites USING BTREE ( invite_valid );
 

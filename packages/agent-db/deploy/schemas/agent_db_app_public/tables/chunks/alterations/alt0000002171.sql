@@ -1,0 +1,11 @@
+-- Deploy: schemas/agent_db_app_public/tables/chunks/alterations/alt0000002171
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agent_db_app_public/schema
+-- requires: schemas/agent_db_app_public/tables/chunks/table
+-- requires: schemas/agent_db_app_public/tables/files/columns/hash/column
+
+
+ALTER TABLE "agent_db_app_public".chunks 
+  DISABLE ROW LEVEL SECURITY;
+

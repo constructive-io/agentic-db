@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/workflow_steps/columns/timeout_ms/column
 
 
-ALTER TABLE agent_db_app_public.workflow_runs 
+ALTER TABLE "agent_db_app_public".workflow_runs 
   ADD COLUMN entity_id uuid;
 

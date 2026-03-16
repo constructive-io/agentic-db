@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _00020_org_validate_not_in_hierarchy
-BEFORE UPDATE ON agent_db_memberships_public.org_memberships
+BEFORE UPDATE ON "agent_db_memberships_public".org_memberships
 FOR EACH ROW
-EXECUTE PROCEDURE agent_db_memberships_private.org_membership_validate_not_in_hierarchy_tg ( );
+EXECUTE PROCEDURE "agent_db_memberships_private".org_membership_validate_not_in_hierarchy_tg ( );
 

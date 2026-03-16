@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/contact_links/columns/embedding/column
 
 
-ALTER TABLE agent_db_app_public.company_links 
+ALTER TABLE "agent_db_app_public".company_links 
   ENABLE ROW LEVEL SECURITY;
 

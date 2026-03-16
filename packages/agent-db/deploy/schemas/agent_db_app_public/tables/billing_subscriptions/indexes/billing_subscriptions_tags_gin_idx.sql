@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/billing_subscriptions/columns/tags/column
 
 
-CREATE INDEX billing_subscriptions_tags_gin_idx ON agent_db_app_public.billing_subscriptions USING GIN ( tags );
+CREATE INDEX billing_subscriptions_tags_gin_idx ON "agent_db_app_public".billing_subscriptions USING GIN ( tags );
 

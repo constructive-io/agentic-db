@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/scheduled_jobs/columns/last_run_at/column
 
 
-ALTER TABLE agent_db_app_public.scheduled_jobs 
+ALTER TABLE "agent_db_app_public".scheduled_jobs 
   ADD COLUMN next_run_at timestamptz;
 

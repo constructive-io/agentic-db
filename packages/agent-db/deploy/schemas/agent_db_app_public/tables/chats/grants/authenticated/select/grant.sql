@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/execution_log/columns/duration_ms/column
 
 
-GRANT SELECT ON agent_db_app_public.chats TO authenticated;
+GRANT SELECT ON "agent_db_app_public".chats TO authenticated;
 

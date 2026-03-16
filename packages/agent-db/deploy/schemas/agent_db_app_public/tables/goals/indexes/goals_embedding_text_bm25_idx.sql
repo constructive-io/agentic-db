@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/skills/indexes/skills_embedding_text_bm25_idx
 
 
-CREATE INDEX goals_embedding_text_bm25_idx ON agent_db_app_public.goals USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX goals_embedding_text_bm25_idx ON "agent_db_app_public".goals USING bm25 ( embedding_text ) WITH ( text_config = english );
 

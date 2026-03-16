@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/notes/indexes/notes_content_bm25_idx
 
 
-CREATE INDEX messages_body_text_bm25_idx ON agent_db_app_public.messages USING bm25 ( body_text ) WITH ( text_config = english );
+CREATE INDEX messages_body_text_bm25_idx ON "agent_db_app_public".messages USING bm25 ( body_text ) WITH ( text_config = english );
 

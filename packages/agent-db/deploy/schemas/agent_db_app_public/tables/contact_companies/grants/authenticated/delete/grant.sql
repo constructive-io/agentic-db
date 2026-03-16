@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/venue_links/constraints/venue_links_venue_id_fkey/constraint
 
 
-GRANT DELETE ON agent_db_app_public.contact_companies TO authenticated;
+GRANT DELETE ON "agent_db_app_public".contact_companies TO authenticated;
 

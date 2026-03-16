@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/contacts/indexes/contacts_tags_gin_idx
 
 
-CREATE INDEX companies_tags_gin_idx ON agent_db_app_public.companies USING GIN ( tags );
+CREATE INDEX companies_tags_gin_idx ON "agent_db_app_public".companies USING GIN ( tags );
 

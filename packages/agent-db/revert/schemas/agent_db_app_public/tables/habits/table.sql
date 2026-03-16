@@ -1,6 +1,6 @@
 -- Revert: schemas/agent_db_app_public/tables/habits/table
 
 
-DROP TABLE agent_db_app_public.habits;
+DROP TABLE "agent_db_app_public".habits;
 
 

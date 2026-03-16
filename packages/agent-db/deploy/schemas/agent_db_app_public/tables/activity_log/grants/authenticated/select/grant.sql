@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/session_archives/columns/embedding/column
 
 
-GRANT SELECT ON agent_db_app_public.activity_log TO authenticated;
+GRANT SELECT ON "agent_db_app_public".activity_log TO authenticated;
 

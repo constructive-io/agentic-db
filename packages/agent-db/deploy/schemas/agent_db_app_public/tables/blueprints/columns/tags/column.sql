@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/blueprints/columns/conversation_id/column
 
 
-ALTER TABLE agent_db_app_public.blueprints 
+ALTER TABLE "agent_db_app_public".blueprints 
   ADD COLUMN tags citext[];
 

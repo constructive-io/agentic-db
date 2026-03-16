@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/email_accounts/columns/sync_state/column
 
 
-GRANT SELECT ON agent_db_app_public.messages TO authenticated;
+GRANT SELECT ON "agent_db_app_public".messages TO authenticated;
 

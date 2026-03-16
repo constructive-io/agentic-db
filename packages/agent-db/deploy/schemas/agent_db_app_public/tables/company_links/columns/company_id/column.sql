@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/contact_links/constraints/contact_links_contact_id_fkey/constraint
 
 
-ALTER TABLE agent_db_app_public.company_links 
+ALTER TABLE "agent_db_app_public".company_links 
   ADD COLUMN company_id uuid;
 

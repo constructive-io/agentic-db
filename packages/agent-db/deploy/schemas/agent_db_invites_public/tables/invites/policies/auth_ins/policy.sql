@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_invites_public/tables/invites/table
 
 
-CREATE POLICY auth_ins ON agent_db_invites_public.invites
+CREATE POLICY auth_ins ON "agent_db_invites_public".invites
 FOR INSERT
 TO authenticated
 WITH CHECK (

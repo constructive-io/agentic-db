@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/templates/columns/embedding/column
 
 
-ALTER TABLE agent_db_app_public.habit_logs 
+ALTER TABLE "agent_db_app_public".habit_logs 
   ADD CONSTRAINT habit_logs_habit_id_fkey 
     FOREIGN KEY(habit_id) 
-    REFERENCES agent_db_app_public.habits (id) 
+    REFERENCES "agent_db_app_public".habits (id) 
     ON DELETE CASCADE;
 

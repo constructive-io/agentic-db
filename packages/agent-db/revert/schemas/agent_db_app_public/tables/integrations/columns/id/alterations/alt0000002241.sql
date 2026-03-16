@@ -1,0 +1,10 @@
+-- Revert: schemas/agent_db_app_public/tables/integrations/columns/id/alterations/alt0000002241
+
+
+
+
+ALTER TABLE "agent_db_app_public".integrations 
+    ALTER COLUMN id DROP DEFAULT;
+
+
+

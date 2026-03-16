@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/agents/columns/last_active_at/column
 
 
-ALTER TABLE agent_db_app_public.agents 
+ALTER TABLE "agent_db_app_public".agents 
   ADD COLUMN embedding_text text;
 

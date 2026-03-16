@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/milestones/constraints/milestones_project_id_fkey/constraint
 
 
-GRANT SELECT ON agent_db_app_public.project_contacts TO authenticated;
+GRANT SELECT ON "agent_db_app_public".project_contacts TO authenticated;
 

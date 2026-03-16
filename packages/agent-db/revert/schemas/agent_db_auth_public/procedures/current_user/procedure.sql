@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION agent_db_auth_public."current_user";
+DROP FUNCTION "agent_db_auth_public"."current_user";
 
 

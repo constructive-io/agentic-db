@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/goal_projects/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.calendar_event_contacts 
+ALTER TABLE "agent_db_app_public".calendar_event_contacts 
   ADD CONSTRAINT calendar_event_contacts_pkey PRIMARY KEY (id);
 

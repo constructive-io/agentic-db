@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_simple_secrets/schema
 
 
-CREATE TABLE agent_db_simple_secrets.secrets ();
+CREATE TABLE "agent_db_simple_secrets".secrets ();
 

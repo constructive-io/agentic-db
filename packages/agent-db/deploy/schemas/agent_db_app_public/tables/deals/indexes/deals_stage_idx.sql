@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/companies/indexes/companies_domain_idx
 
 
-CREATE INDEX deals_stage_idx ON agent_db_app_public.deals USING BTREE ( stage );
+CREATE INDEX deals_stage_idx ON "agent_db_app_public".deals USING BTREE ( stage );
 

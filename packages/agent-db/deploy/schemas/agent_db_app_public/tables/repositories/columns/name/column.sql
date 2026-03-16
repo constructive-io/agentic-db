@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/repositories/table
--- requires: schemas/agent_db_app_public/tables/repositories/columns/updated_at/alterations/alt0000001342
+-- requires: schemas/agent_db_app_public/tables/repositories/columns/updated_at/alterations/alt0000002160
 
 
-ALTER TABLE agent_db_app_public.repositories 
+ALTER TABLE "agent_db_app_public".repositories 
   ADD COLUMN name text;
 

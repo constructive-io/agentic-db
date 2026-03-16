@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/user_settings/columns/category/column
 
 
-GRANT DELETE ON agent_db_app_public.billing_subscriptions TO authenticated;
+GRANT DELETE ON "agent_db_app_public".billing_subscriptions TO authenticated;
 

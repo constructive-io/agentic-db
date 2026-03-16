@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/contacts/columns/github_username/column
 
 
-ALTER TABLE agent_db_app_public.contacts 
+ALTER TABLE "agent_db_app_public".contacts 
   ADD COLUMN instagram_handle text;
 

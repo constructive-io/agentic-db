@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/trips/indexes/trips_tags_gin_idx
 
 
-CREATE INDEX ideas_tags_gin_idx ON agent_db_app_public.ideas USING GIN ( tags );
+CREATE INDEX ideas_tags_gin_idx ON "agent_db_app_public".ideas USING GIN ( tags );
 

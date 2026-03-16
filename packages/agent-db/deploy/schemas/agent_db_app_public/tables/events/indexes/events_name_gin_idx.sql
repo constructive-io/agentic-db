@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/companies/indexes/companies_name_gin_idx
 
 
-CREATE INDEX events_name_gin_idx ON agent_db_app_public.events USING gin ( name gin_trgm_ops );
+CREATE INDEX events_name_gin_idx ON "agent_db_app_public".events USING gin ( name gin_trgm_ops );
 

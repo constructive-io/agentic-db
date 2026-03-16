@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_profiles_public/tables/app_profile_grants/table
 
 
-ALTER TABLE agent_db_profiles_public.app_profile_grants 
+ALTER TABLE "agent_db_profiles_public".app_profile_grants 
   ADD COLUMN membership_id uuid;
 

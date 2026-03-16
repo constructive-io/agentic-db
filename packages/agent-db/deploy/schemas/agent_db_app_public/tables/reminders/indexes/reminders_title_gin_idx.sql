@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/ideas/indexes/ideas_content_gin_idx
 
 
-CREATE INDEX reminders_title_gin_idx ON agent_db_app_public.reminders USING gin ( title gin_trgm_ops );
+CREATE INDEX reminders_title_gin_idx ON "agent_db_app_public".reminders USING gin ( title gin_trgm_ops );
 

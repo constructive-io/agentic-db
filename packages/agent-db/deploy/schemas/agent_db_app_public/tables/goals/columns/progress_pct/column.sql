@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/goals/columns/category/column
 
 
-ALTER TABLE agent_db_app_public.goals 
+ALTER TABLE "agent_db_app_public".goals 
   ADD COLUMN progress_pct int;
 

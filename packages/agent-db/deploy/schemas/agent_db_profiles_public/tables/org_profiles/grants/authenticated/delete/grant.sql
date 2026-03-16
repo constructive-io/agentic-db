@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_profiles_public/tables/org_profiles/table
 
 
-GRANT DELETE ON agent_db_profiles_public.org_profiles TO authenticated;
+GRANT DELETE ON "agent_db_profiles_public".org_profiles TO authenticated;
 

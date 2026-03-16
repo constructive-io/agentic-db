@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION agent_db_auth_public.check_password (
+CREATE FUNCTION "agent_db_auth_public".check_password (
   password text
 )
   RETURNS void
@@ -842,5 +842,5 @@ BEGIN
 END;
 $$
 LANGUAGE 'plpgsql';
-GRANT EXECUTE ON FUNCTION agent_db_auth_public.check_password TO public;
+GRANT EXECUTE ON FUNCTION "agent_db_auth_public".check_password TO public;
 

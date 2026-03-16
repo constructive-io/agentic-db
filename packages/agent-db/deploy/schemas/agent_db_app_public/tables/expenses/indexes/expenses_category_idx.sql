@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/expenses/indexes/expenses_date_idx
 
 
-CREATE INDEX expenses_category_idx ON agent_db_app_public.expenses USING BTREE ( category );
+CREATE INDEX expenses_category_idx ON "agent_db_app_public".expenses USING BTREE ( category );
 

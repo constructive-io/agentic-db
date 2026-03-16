@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/billing_subscriptions/columns/notes/column
 
 
-GRANT DELETE ON agent_db_app_public.trips TO authenticated;
+GRANT DELETE ON "agent_db_app_public".trips TO authenticated;
 

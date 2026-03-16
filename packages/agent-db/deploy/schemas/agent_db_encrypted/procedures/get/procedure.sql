@@ -8,7 +8,7 @@
 
 
 
-CREATE FUNCTION agent_db_encrypted.get (
+CREATE FUNCTION "agent_db_encrypted".get (
   owner_id uuid,
   secret_name text,
   default_value text default null
@@ -16,12 +16,12 @@ CREATE FUNCTION agent_db_encrypted.get (
   RETURNS text
   AS $$
 DECLARE
-  v_secret agent_db_encrypted.encrypted_secrets;
+  v_secret "agent_db_encrypted".encrypted_secrets;
 BEGIN
   SELECT
     *
   FROM
-    agent_db_encrypted.encrypted_secrets s
+    "agent_db_encrypted".encrypted_secrets s
   WHERE
     s.name = get.secret_name
     AND s.owner_id = get.owner_id
@@ -40,5 +40,5 @@ END
 $$
 LANGUAGE 'plpgsql'
 STABLE;
-GRANT EXECUTE ON FUNCTION agent_db_encrypted.get TO authenticated;
+GRANT EXECUTE ON FUNCTION "agent_db_encrypted".get TO authenticated;
 

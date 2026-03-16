@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/threads/columns/embedding/column
 
 
-GRANT UPDATE ON agent_db_app_public.blueprints TO authenticated;
+GRANT UPDATE ON "agent_db_app_public".blueprints TO authenticated;
 

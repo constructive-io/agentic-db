@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/events/columns/started_at/column
 
 
-ALTER TABLE agent_db_app_public.events 
+ALTER TABLE "agent_db_app_public".events 
   ADD COLUMN ended_at timestamptz;
 

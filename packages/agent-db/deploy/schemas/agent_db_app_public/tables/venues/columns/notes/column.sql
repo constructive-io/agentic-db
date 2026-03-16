@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/venues/table
--- requires: schemas/agent_db_app_public/tables/venues/columns/is_favorite/alterations/alt0000000906
+-- requires: schemas/agent_db_app_public/tables/venues/columns/is_favorite/alterations/alt0000001758
 
 
-ALTER TABLE agent_db_app_public.venues 
+ALTER TABLE "agent_db_app_public".venues 
   ADD COLUMN notes text;
 

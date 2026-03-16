@@ -6,9 +6,9 @@
 -- requires: schemas/agent_db_app_public/tables/chat_messages/constraints/chat_messages_thread_id_fkey/constraint
 
 
-ALTER TABLE agent_db_app_public.threads 
+ALTER TABLE "agent_db_app_public".threads 
   ADD CONSTRAINT threads_parent_thread_id_fkey 
     FOREIGN KEY(parent_thread_id) 
-    REFERENCES agent_db_app_public.threads (id) 
+    REFERENCES "agent_db_app_public".threads (id) 
     ON DELETE SET NULL;
 

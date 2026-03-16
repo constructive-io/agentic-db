@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/habit_logs/indexes/habit_logs_data_gin_idx
 
 
-CREATE INDEX tools_input_schema_gin_idx ON agent_db_app_public.tools USING GIN ( input_schema );
+CREATE INDEX tools_input_schema_gin_idx ON "agent_db_app_public".tools USING GIN ( input_schema );
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/session_archives/columns/embedding/column
 
 
-ALTER TABLE agent_db_app_public.activity_log 
+ALTER TABLE "agent_db_app_public".activity_log 
   ADD COLUMN id uuid;
 

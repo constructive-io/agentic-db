@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/threads/columns/parent_thread_id/column
 
 
-CREATE INDEX threads_parent_thread_id_idx ON agent_db_app_public.threads USING BTREE ( parent_thread_id );
+CREATE INDEX threads_parent_thread_id_idx ON "agent_db_app_public".threads USING BTREE ( parent_thread_id );
 

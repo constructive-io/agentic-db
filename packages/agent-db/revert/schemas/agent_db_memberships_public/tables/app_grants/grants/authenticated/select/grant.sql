@@ -1,6 +1,6 @@
 -- Revert: schemas/agent_db_memberships_public/tables/app_grants/grants/authenticated/select/grant
 
 
-REVOKE SELECT ON agent_db_memberships_public.app_grants FROM authenticated;
+REVOKE SELECT ON "agent_db_memberships_public".app_grants FROM authenticated;
 
 

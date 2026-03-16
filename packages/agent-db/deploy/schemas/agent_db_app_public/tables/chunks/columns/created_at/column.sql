@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/chunks/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.chunks 
+ALTER TABLE "agent_db_app_public".chunks 
   ADD COLUMN created_at timestamptz;
 

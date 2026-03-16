@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/habit_logs/columns/tags/column
 
 
-GRANT UPDATE ON agent_db_app_public.lists TO authenticated;
+GRANT UPDATE ON "agent_db_app_public".lists TO authenticated;
 

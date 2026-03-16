@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/reminders/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.reminders 
+ALTER TABLE "agent_db_app_public".reminders 
   ADD COLUMN created_at timestamptz;
 

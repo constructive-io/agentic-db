@@ -6,9 +6,9 @@
 -- requires: schemas/agent_db_invites_public/tables/org_claimed_invites/table
 
 
-ALTER TABLE agent_db_invites_public.org_claimed_invites 
+ALTER TABLE "agent_db_invites_public".org_claimed_invites 
   ADD CONSTRAINT org_claimed_invites_receiver_id_fkey 
     FOREIGN KEY(receiver_id) 
-    REFERENCES agent_db_users_public.users (id) 
+    REFERENCES "agent_db_users_public".users (id) 
     ON DELETE CASCADE;
 

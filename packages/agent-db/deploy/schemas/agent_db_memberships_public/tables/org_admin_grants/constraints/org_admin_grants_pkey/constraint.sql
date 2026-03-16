@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_memberships_public/tables/org_admin_grants/table
 
 
-ALTER TABLE agent_db_memberships_public.org_admin_grants 
+ALTER TABLE "agent_db_memberships_public".org_admin_grants 
   ADD CONSTRAINT org_admin_grants_pkey PRIMARY KEY (id);
 

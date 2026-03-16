@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/interactions/table
--- requires: schemas/agent_db_app_public/tables/interactions/columns/contact_id/alterations/alt0000000925
+-- requires: schemas/agent_db_app_public/tables/interactions/columns/contact_id/alterations/alt0000001777
 
 
-ALTER TABLE agent_db_app_public.interactions 
+ALTER TABLE "agent_db_app_public".interactions 
   ADD COLUMN type text;
 

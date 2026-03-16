@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/documents/indexes/documents_search_tsv_gin_idx
 
 
-CREATE INDEX contacts_first_name_gin_idx ON agent_db_app_public.contacts USING gin ( first_name gin_trgm_ops );
+CREATE INDEX contacts_first_name_gin_idx ON "agent_db_app_public".contacts USING gin ( first_name gin_trgm_ops );
 

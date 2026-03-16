@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_limits_private/schema
 
 
-GRANT USAGE ON SCHEMA agent_db_limits_private TO anonymous;
+GRANT USAGE ON SCHEMA "agent_db_limits_private" TO anonymous;
 

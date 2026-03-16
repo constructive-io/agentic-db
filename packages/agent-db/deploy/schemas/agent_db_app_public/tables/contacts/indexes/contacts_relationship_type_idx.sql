@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/contacts/columns/relationship_type/column
 
 
-CREATE INDEX contacts_relationship_type_idx ON agent_db_app_public.contacts USING BTREE ( relationship_type );
+CREATE INDEX contacts_relationship_type_idx ON "agent_db_app_public".contacts USING BTREE ( relationship_type );
 

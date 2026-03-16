@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_profiles_public/tables/org_profile_grants/columns/updated_at/column
 
 
-CREATE INDEX org_profile_grants_updated_at_idx ON agent_db_profiles_public.org_profile_grants ( updated_at );
+CREATE INDEX org_profile_grants_updated_at_idx ON "agent_db_profiles_public".org_profile_grants ( updated_at );
 

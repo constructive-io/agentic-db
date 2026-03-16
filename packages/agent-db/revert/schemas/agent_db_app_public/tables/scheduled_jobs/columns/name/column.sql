@@ -1,7 +1,7 @@
 -- Revert: schemas/agent_db_app_public/tables/scheduled_jobs/columns/name/column
 
 
-ALTER TABLE agent_db_app_public.scheduled_jobs 
+ALTER TABLE "agent_db_app_public".scheduled_jobs 
   DROP COLUMN name RESTRICT;
 
 

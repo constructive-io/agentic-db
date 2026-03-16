@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/integrations/table
+-- requires: schemas/agent_db_app_public/tables/tags/indexes/tags_category_idx
 -- requires: schemas/agent_db_app_public/tables/integrations/columns/provider/column
--- requires: schemas/agent_db_app_public/tables/attachments/indexes/attachments_attachable_id_idx
 
 
-CREATE INDEX integrations_provider_idx ON agent_db_app_public.integrations USING BTREE ( provider );
+CREATE INDEX integrations_provider_idx ON "agent_db_app_public".integrations USING BTREE ( provider );
 

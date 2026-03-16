@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/tasks/indexes/tasks_due_date_idx
 
 
-CREATE INDEX rules_kind_idx ON agent_db_app_public.rules USING BTREE ( kind );
+CREATE INDEX rules_kind_idx ON "agent_db_app_public".rules USING BTREE ( kind );
 

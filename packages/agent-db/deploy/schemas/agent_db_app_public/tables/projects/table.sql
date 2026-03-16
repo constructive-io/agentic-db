@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/agent_spawns/constraints/agent_spawns_agent_id_fkey/constraint
 
 
-CREATE TABLE agent_db_app_public.projects ();
+CREATE TABLE "agent_db_app_public".projects ();
 

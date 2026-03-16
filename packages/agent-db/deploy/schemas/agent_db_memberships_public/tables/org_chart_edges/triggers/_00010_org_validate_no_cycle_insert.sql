@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _00010_org_validate_no_cycle_insert
-BEFORE INSERT ON agent_db_memberships_public.org_chart_edges
+BEFORE INSERT ON "agent_db_memberships_public".org_chart_edges
 FOR EACH ROW
-EXECUTE PROCEDURE agent_db_memberships_private.org_org_chart_validate_no_cycle_tg ( );
+EXECUTE PROCEDURE "agent_db_memberships_private".org_org_chart_validate_no_cycle_tg ( );
 

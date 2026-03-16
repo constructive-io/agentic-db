@@ -1,6 +1,6 @@
 -- Revert: schemas/agent_db_app_public/tables/agent_prompts/grants/authenticated/delete/grant
 
 
-REVOKE DELETE ON agent_db_app_public.agent_prompts FROM authenticated;
+REVOKE DELETE ON "agent_db_app_public".agent_prompts FROM authenticated;
 
 

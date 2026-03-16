@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_users_public/tables/users/table
 
 
-GRANT UPDATE (username, display_name, profile_picture) ON agent_db_users_public.users TO authenticated;
+GRANT UPDATE (username, display_name, profile_picture) ON "agent_db_users_public".users TO authenticated;
 

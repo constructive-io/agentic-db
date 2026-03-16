@@ -1,6 +1,6 @@
 -- Revert: schemas/agent_db_permissions_public/tables/org_permissions/triggers/org_permissions_insert_trg
 
 
-DROP TRIGGER org_permissions_insert_trg ON agent_db_permissions_public.org_permissions;
+DROP TRIGGER org_permissions_insert_trg ON "agent_db_permissions_public".org_permissions;
 
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/habit_logs/columns/distance/column
 
 
-ALTER TABLE agent_db_app_public.habit_logs 
+ALTER TABLE "agent_db_app_public".habit_logs 
   ADD COLUMN distance_unit text;
 

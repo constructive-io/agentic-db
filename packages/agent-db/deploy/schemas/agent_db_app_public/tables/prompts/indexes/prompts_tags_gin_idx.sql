@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/goals/indexes/goals_tags_gin_idx
 
 
-CREATE INDEX prompts_tags_gin_idx ON agent_db_app_public.prompts USING GIN ( tags );
+CREATE INDEX prompts_tags_gin_idx ON "agent_db_app_public".prompts USING GIN ( tags );
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/tools/columns/embedding/column
 
 
-ALTER TABLE agent_db_app_public.workflows 
+ALTER TABLE "agent_db_app_public".workflows 
   ADD COLUMN id uuid;
 

@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER users_search_tsv_tsv_insert_tg
-BEFORE INSERT ON agent_db_users_public.users
+BEFORE INSERT ON "agent_db_users_public".users
 FOR EACH ROW
-EXECUTE PROCEDURE agent_db_private.users_search_tsv_tsv ( );
+EXECUTE PROCEDURE "agent_db_private".users_search_tsv_tsv ( );
 

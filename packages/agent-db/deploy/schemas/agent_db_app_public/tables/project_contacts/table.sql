@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/milestones/constraints/milestones_project_id_fkey/constraint
 
 
-CREATE TABLE agent_db_app_public.project_contacts ();
+CREATE TABLE "agent_db_app_public".project_contacts ();
 

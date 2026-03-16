@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/recipes/indexes/recipes_tags_gin_idx
 
 
-CREATE INDEX templates_tags_gin_idx ON agent_db_app_public.templates USING GIN ( tags );
+CREATE INDEX templates_tags_gin_idx ON "agent_db_app_public".templates USING GIN ( tags );
 

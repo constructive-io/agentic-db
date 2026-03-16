@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER app_steps_after_insert_tgr
-AFTER INSERT ON agent_db_status_public.app_steps
+AFTER INSERT ON "agent_db_status_public".app_steps
 FOR EACH ROW
-EXECUTE PROCEDURE agent_db_status_private.tg_upd_achv ( );
+EXECUTE PROCEDURE "agent_db_status_private".tg_upd_achv ( );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/repositories/columns/last_synced_at/column
 
 
-CREATE INDEX repositories_last_synced_at_idx ON agent_db_app_public.repositories USING BTREE ( last_synced_at );
+CREATE INDEX repositories_last_synced_at_idx ON "agent_db_app_public".repositories USING BTREE ( last_synced_at );
 

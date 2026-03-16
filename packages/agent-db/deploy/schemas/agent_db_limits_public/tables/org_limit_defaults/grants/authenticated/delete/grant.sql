@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_limits_public/tables/org_limit_defaults/table
 
 
-GRANT DELETE ON agent_db_limits_public.org_limit_defaults TO authenticated;
+GRANT DELETE ON "agent_db_limits_public".org_limit_defaults TO authenticated;
 

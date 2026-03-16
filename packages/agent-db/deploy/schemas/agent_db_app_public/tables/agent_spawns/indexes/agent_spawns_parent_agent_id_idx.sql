@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/documents/indexes/documents_last_accessed_at_idx
 
 
-CREATE INDEX agent_spawns_parent_agent_id_idx ON agent_db_app_public.agent_spawns USING BTREE ( parent_agent_id );
+CREATE INDEX agent_spawns_parent_agent_id_idx ON "agent_db_app_public".agent_spawns USING BTREE ( parent_agent_id );
 

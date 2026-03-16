@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/messages/indexes/messages_embedding_text_bm25_idx
 
 
-CREATE INDEX calendar_events_embedding_text_bm25_idx ON agent_db_app_public.calendar_events USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX calendar_events_embedding_text_bm25_idx ON "agent_db_app_public".calendar_events USING bm25 ( embedding_text ) WITH ( text_config = english );
 

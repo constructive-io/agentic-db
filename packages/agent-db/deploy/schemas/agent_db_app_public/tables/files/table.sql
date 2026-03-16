@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/repositories/columns/embedding/column
 
 
-CREATE TABLE agent_db_app_public.files ();
+CREATE TABLE "agent_db_app_public".files ();
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/project_contacts/policies/auth_del_entity_membership/policy
 
 
-CREATE TABLE agent_db_app_public.repositories ();
+CREATE TABLE "agent_db_app_public".repositories ();
 

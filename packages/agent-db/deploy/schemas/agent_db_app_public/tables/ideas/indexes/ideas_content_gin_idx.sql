@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/workflows/indexes/workflows_name_gin_idx
 
 
-CREATE INDEX ideas_content_gin_idx ON agent_db_app_public.ideas USING gin ( content gin_trgm_ops );
+CREATE INDEX ideas_content_gin_idx ON "agent_db_app_public".ideas USING gin ( content gin_trgm_ops );
 

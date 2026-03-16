@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION agent_db_auth_public.sign_out;
+DROP FUNCTION "agent_db_auth_public".sign_out;
 
 
 

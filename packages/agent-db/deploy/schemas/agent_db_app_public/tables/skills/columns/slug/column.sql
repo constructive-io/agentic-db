@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/skills/table
--- requires: schemas/agent_db_app_public/tables/skills/columns/name/alterations/alt0000001081
+-- requires: schemas/agent_db_app_public/tables/skills/columns/name/alterations/alt0000001924
 
 
-ALTER TABLE agent_db_app_public.skills 
+ALTER TABLE "agent_db_app_public".skills 
   ADD COLUMN slug text;
 

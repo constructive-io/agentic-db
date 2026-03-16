@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/skill_executions/columns/output/column
 
 
-ALTER TABLE agent_db_app_public.skill_executions 
+ALTER TABLE "agent_db_app_public".skill_executions 
   ADD COLUMN error text;
 

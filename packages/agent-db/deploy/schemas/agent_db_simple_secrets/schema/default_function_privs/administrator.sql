@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_simple_secrets/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA agent_db_simple_secrets GRANT ALL ON FUNCTIONS TO administrator;
+ALTER DEFAULT PRIVILEGES IN SCHEMA "agent_db_simple_secrets" GRANT ALL ON FUNCTIONS TO administrator;
 

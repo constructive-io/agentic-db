@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/processes/indexes/processes_agent_id_idx
 
 
-CREATE INDEX processes_status_idx ON agent_db_app_public.processes USING BTREE ( status );
+CREATE INDEX processes_status_idx ON "agent_db_app_public".processes USING BTREE ( status );
 

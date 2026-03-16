@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/sessions/indexes/sessions_compression_count_idx
 
 
-CREATE INDEX projects_status_idx ON agent_db_app_public.projects USING BTREE ( status );
+CREATE INDEX projects_status_idx ON "agent_db_app_public".projects USING BTREE ( status );
 

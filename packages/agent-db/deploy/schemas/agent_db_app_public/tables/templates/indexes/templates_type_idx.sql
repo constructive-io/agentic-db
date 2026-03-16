@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/recipes/indexes/recipes_difficulty_idx
 
 
-CREATE INDEX templates_type_idx ON agent_db_app_public.templates USING BTREE ( type );
+CREATE INDEX templates_type_idx ON "agent_db_app_public".templates USING BTREE ( type );
 

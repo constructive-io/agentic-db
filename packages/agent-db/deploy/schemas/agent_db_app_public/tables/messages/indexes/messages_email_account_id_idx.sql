@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/messages/columns/email_account_id/column
 
 
-CREATE INDEX messages_email_account_id_idx ON agent_db_app_public.messages USING BTREE ( email_account_id );
+CREATE INDEX messages_email_account_id_idx ON "agent_db_app_public".messages USING BTREE ( email_account_id );
 
