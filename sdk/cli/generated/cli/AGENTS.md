@@ -1,21 +1,21 @@
-# agent-db CLI - Agent Reference
+# agentic-db CLI - Agent Reference
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 > This document is structured for LLM/agent consumption.
 
 ## OVERVIEW
 
-`agent-db` is a CLI tool for interacting with a GraphQL API.
+`agentic-db` is a CLI tool for interacting with a GraphQL API.
 All commands output JSON to stdout. All commands accept `--help` or `-h` for usage.
-Configuration is stored at `~/.agent-db/config/` via appstash.
+Configuration is stored at `~/.agentic-db/config/` via appstash.
 
 ## PREREQUISITES
 
 Before running any data commands, you must:
 
-1. Create a context: `agent-db context create <name> --endpoint <url>`
-2. Activate it: `agent-db context use <name>`
-3. Authenticate: `agent-db auth set-token <token>`
+1. Create a context: `agentic-db context create <name> --endpoint <url>`
+2. Activate it: `agentic-db context use <name>`
+3. Authenticate: `agentic-db auth set-token <token>`
 
 ## TOOLS
 
@@ -25,11 +25,11 @@ Manage named API endpoint contexts (like kubectl contexts).
 
 ```
 SUBCOMMANDS:
-  agent-db context create <name> --endpoint <url>   Create a new context
-  agent-db context list                              List all contexts
-  agent-db context use <name>                        Set active context
-  agent-db context current                           Show active context
-  agent-db context delete <name>                     Delete a context
+  agentic-db context create <name> --endpoint <url>   Create a new context
+  agentic-db context list                              List all contexts
+  agentic-db context use <name>                        Set active context
+  agentic-db context current                           Show active context
+  agentic-db context delete <name>                     Delete a context
 
 INPUT:
   name:     string (required) - Context identifier
@@ -49,9 +49,9 @@ Manage authentication tokens per context.
 
 ```
 SUBCOMMANDS:
-  agent-db auth set-token <token>   Store bearer token for current context
-  agent-db auth status               Show auth status for all contexts
-  agent-db auth logout                Remove credentials for current context
+  agentic-db auth set-token <token>   Store bearer token for current context
+  agentic-db auth status               Show auth status for all contexts
+  agentic-db auth logout                Remove credentials for current context
 
 INPUT:
   token: string (required for set-token) - Bearer token value
@@ -68,10 +68,10 @@ Manage per-context key-value configuration variables.
 
 ```
 SUBCOMMANDS:
-  agent-db config get <key>             Get a config value
-  agent-db config set <key> <value>     Set a config value
-  agent-db config list                  List all config values
-  agent-db config delete <key>          Delete a config value
+  agentic-db config get <key>             Get a config value
+  agentic-db config set <key> <value>     Set a config value
+  agentic-db config list                  List all config values
+  agentic-db config delete <key>          Delete a config value
 
 INPUT:
   key:   string (required for get/set/delete) - Variable name
@@ -90,11 +90,11 @@ CRUD operations for AgentPrompt records.
 
 ```
 SUBCOMMANDS:
-  agent-db agent-prompt list                               List all records
-  agent-db agent-prompt get --id <value>              Get one record
-  agent-db agent-prompt create --agentId <value> --promptId <value> --entityId <value>
-  agent-db agent-prompt update --id <value> [--agentId <value>] [--promptId <value>] [--entityId <value>]
-  agent-db agent-prompt delete --id <value>           Delete one record
+  agentic-db agent-prompt list                               List all records
+  agentic-db agent-prompt get --id <value>              Get one record
+  agentic-db agent-prompt create --agentId <value> --promptId <value> --entityId <value>
+  agentic-db agent-prompt update --id <value> [--agentId <value>] [--promptId <value>] [--entityId <value>]
+  agentic-db agent-prompt delete --id <value>           Delete one record
 
 INPUT FIELDS:
   agentId: UUID
@@ -121,11 +121,11 @@ CRUD operations for Session records.
 
 ```
 SUBCOMMANDS:
-  agent-db session list                               List all records
-  agent-db session get --id <value>              Get one record
-  agent-db session create --entityId <value> --uagentTrgmSimilarity <value> --fingerprintModeTrgmSimilarity <value> --csrfSecretTrgmSimilarity <value> --searchScore <value> [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--sessionSummary <value>] [--archivedMessages <value>] [--compressionCount <value>] [--archivedAt <value>] [--extractedMemoryIds <value>] [--contextsUsed <value>] [--skillsUsed <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db session update --id <value> [--entityId <value>] [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--sessionSummary <value>] [--archivedMessages <value>] [--compressionCount <value>] [--archivedAt <value>] [--extractedMemoryIds <value>] [--contextsUsed <value>] [--skillsUsed <value>] [--embeddingText <value>] [--embedding <value>] [--uagentTrgmSimilarity <value>] [--fingerprintModeTrgmSimilarity <value>] [--csrfSecretTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db session delete --id <value>           Delete one record
+  agentic-db session list                               List all records
+  agentic-db session get --id <value>              Get one record
+  agentic-db session create --entityId <value> --uagentTrgmSimilarity <value> --fingerprintModeTrgmSimilarity <value> --csrfSecretTrgmSimilarity <value> --searchScore <value> [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--sessionSummary <value>] [--archivedMessages <value>] [--compressionCount <value>] [--archivedAt <value>] [--extractedMemoryIds <value>] [--contextsUsed <value>] [--skillsUsed <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db session update --id <value> [--entityId <value>] [--title <value>] [--agentId <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--contextSummary <value>] [--sessionSummary <value>] [--archivedMessages <value>] [--compressionCount <value>] [--archivedAt <value>] [--extractedMemoryIds <value>] [--contextsUsed <value>] [--skillsUsed <value>] [--embeddingText <value>] [--embedding <value>] [--uagentTrgmSimilarity <value>] [--fingerprintModeTrgmSimilarity <value>] [--csrfSecretTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db session delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -188,11 +188,11 @@ CRUD operations for ExecutionLog records.
 
 ```
 SUBCOMMANDS:
-  agent-db execution-log list                               List all records
-  agent-db execution-log get --id <value>              Get one record
-  agent-db execution-log create --entityId <value> --stepNameTrgmSimilarity <value> --inputTrgmSimilarity <value> --outputTrgmSimilarity <value> --searchScore <value> [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
-  agent-db execution-log update --id <value> [--entityId <value>] [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>] [--stepNameTrgmSimilarity <value>] [--inputTrgmSimilarity <value>] [--outputTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db execution-log delete --id <value>           Delete one record
+  agentic-db execution-log list                               List all records
+  agentic-db execution-log get --id <value>              Get one record
+  agentic-db execution-log create --entityId <value> --stepNameTrgmSimilarity <value> --inputTrgmSimilarity <value> --outputTrgmSimilarity <value> --searchScore <value> [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>]
+  agentic-db execution-log update --id <value> [--entityId <value>] [--sessionId <value>] [--stepName <value>] [--input <value>] [--output <value>] [--toolCalls <value>] [--durationMs <value>] [--stepNameTrgmSimilarity <value>] [--inputTrgmSimilarity <value>] [--outputTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db execution-log delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -237,11 +237,11 @@ CRUD operations for SessionArchive records.
 
 ```
 SUBCOMMANDS:
-  agent-db session-archive list                               List all records
-  agent-db session-archive get --id <value>              Get one record
-  agent-db session-archive create --entityId <value> --sessionId <value> --archiveIndex <value> --summary <value> --embeddingTextBm25Score <value> --summaryTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--messageRangeStart <value>] [--messageRangeEnd <value>] [--rawMessages <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db session-archive update --id <value> [--entityId <value>] [--sessionId <value>] [--archiveIndex <value>] [--summary <value>] [--messageRangeStart <value>] [--messageRangeEnd <value>] [--rawMessages <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--summaryTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db session-archive delete --id <value>           Delete one record
+  agentic-db session-archive list                               List all records
+  agentic-db session-archive get --id <value>              Get one record
+  agentic-db session-archive create --entityId <value> --sessionId <value> --archiveIndex <value> --summary <value> --embeddingTextBm25Score <value> --summaryTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--messageRangeStart <value>] [--messageRangeEnd <value>] [--rawMessages <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db session-archive update --id <value> [--entityId <value>] [--sessionId <value>] [--archiveIndex <value>] [--summary <value>] [--messageRangeStart <value>] [--messageRangeEnd <value>] [--rawMessages <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--summaryTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db session-archive delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -292,11 +292,11 @@ CRUD operations for Process records.
 
 ```
 SUBCOMMANDS:
-  agent-db process list                               List all records
-  agent-db process get --id <value>              Get one record
-  agent-db process create --entityId <value> --commandTrgmSimilarity <value> --statusTrgmSimilarity <value> --logsPathTrgmSimilarity <value> --searchScore <value> [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
-  agent-db process update --id <value> [--entityId <value>] [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>] [--commandTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--logsPathTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db process delete --id <value>           Delete one record
+  agentic-db process list                               List all records
+  agentic-db process get --id <value>              Get one record
+  agentic-db process create --entityId <value> --commandTrgmSimilarity <value> --statusTrgmSimilarity <value> --logsPathTrgmSimilarity <value> --searchScore <value> [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>]
+  agentic-db process update --id <value> [--entityId <value>] [--pid <value>] [--agentId <value>] [--command <value>] [--startedAt <value>] [--endedAt <value>] [--status <value>] [--exitCode <value>] [--logsPath <value>] [--commandTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--logsPathTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db process delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -345,11 +345,11 @@ CRUD operations for ScheduledJob records.
 
 ```
 SUBCOMMANDS:
-  agent-db scheduled-job list                               List all records
-  agent-db scheduled-job get --id <value>              Get one record
-  agent-db scheduled-job create --entityId <value> --name <value> --scheduleType <value> --command <value> --nameTrgmSimilarity <value> --scheduleTypeTrgmSimilarity <value> --scheduleExprTrgmSimilarity <value> --commandTrgmSimilarity <value> --messageTrgmSimilarity <value> --searchScore <value> [--scheduleExpr <value>] [--runAt <value>] [--message <value>] [--agentId <value>] [--sessionId <value>] [--isActive <value>] [--deleteAfterRun <value>] [--lastRunAt <value>] [--nextRunAt <value>] [--runCount <value>] [--lastResult <value>]
-  agent-db scheduled-job update --id <value> [--entityId <value>] [--name <value>] [--scheduleType <value>] [--scheduleExpr <value>] [--runAt <value>] [--command <value>] [--message <value>] [--agentId <value>] [--sessionId <value>] [--isActive <value>] [--deleteAfterRun <value>] [--lastRunAt <value>] [--nextRunAt <value>] [--runCount <value>] [--lastResult <value>] [--nameTrgmSimilarity <value>] [--scheduleTypeTrgmSimilarity <value>] [--scheduleExprTrgmSimilarity <value>] [--commandTrgmSimilarity <value>] [--messageTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db scheduled-job delete --id <value>           Delete one record
+  agentic-db scheduled-job list                               List all records
+  agentic-db scheduled-job get --id <value>              Get one record
+  agentic-db scheduled-job create --entityId <value> --name <value> --scheduleType <value> --command <value> --nameTrgmSimilarity <value> --scheduleTypeTrgmSimilarity <value> --scheduleExprTrgmSimilarity <value> --commandTrgmSimilarity <value> --messageTrgmSimilarity <value> --searchScore <value> [--scheduleExpr <value>] [--runAt <value>] [--message <value>] [--agentId <value>] [--sessionId <value>] [--isActive <value>] [--deleteAfterRun <value>] [--lastRunAt <value>] [--nextRunAt <value>] [--runCount <value>] [--lastResult <value>]
+  agentic-db scheduled-job update --id <value> [--entityId <value>] [--name <value>] [--scheduleType <value>] [--scheduleExpr <value>] [--runAt <value>] [--command <value>] [--message <value>] [--agentId <value>] [--sessionId <value>] [--isActive <value>] [--deleteAfterRun <value>] [--lastRunAt <value>] [--nextRunAt <value>] [--runCount <value>] [--lastResult <value>] [--nameTrgmSimilarity <value>] [--scheduleTypeTrgmSimilarity <value>] [--scheduleExprTrgmSimilarity <value>] [--commandTrgmSimilarity <value>] [--messageTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db scheduled-job delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -414,11 +414,11 @@ CRUD operations for AgentTool records.
 
 ```
 SUBCOMMANDS:
-  agent-db agent-tool list                               List all records
-  agent-db agent-tool get --id <value>              Get one record
-  agent-db agent-tool create --agentId <value> --toolId <value> --entityId <value>
-  agent-db agent-tool update --id <value> [--agentId <value>] [--toolId <value>] [--entityId <value>]
-  agent-db agent-tool delete --id <value>           Delete one record
+  agentic-db agent-tool list                               List all records
+  agentic-db agent-tool get --id <value>              Get one record
+  agentic-db agent-tool create --agentId <value> --toolId <value> --entityId <value>
+  agentic-db agent-tool update --id <value> [--agentId <value>] [--toolId <value>] [--entityId <value>]
+  agentic-db agent-tool delete --id <value>           Delete one record
 
 INPUT FIELDS:
   agentId: UUID
@@ -445,11 +445,11 @@ CRUD operations for AgentSkill records.
 
 ```
 SUBCOMMANDS:
-  agent-db agent-skill list                               List all records
-  agent-db agent-skill get --id <value>              Get one record
-  agent-db agent-skill create --agentId <value> --skillId <value> --entityId <value>
-  agent-db agent-skill update --id <value> [--agentId <value>] [--skillId <value>] [--entityId <value>]
-  agent-db agent-skill delete --id <value>           Delete one record
+  agentic-db agent-skill list                               List all records
+  agentic-db agent-skill get --id <value>              Get one record
+  agentic-db agent-skill create --agentId <value> --skillId <value> --entityId <value>
+  agentic-db agent-skill update --id <value> [--agentId <value>] [--skillId <value>] [--entityId <value>]
+  agentic-db agent-skill delete --id <value>           Delete one record
 
 INPUT FIELDS:
   agentId: UUID
@@ -476,11 +476,11 @@ CRUD operations for AgentRule records.
 
 ```
 SUBCOMMANDS:
-  agent-db agent-rule list                               List all records
-  agent-db agent-rule get --id <value>              Get one record
-  agent-db agent-rule create --agentId <value> --ruleId <value> --entityId <value>
-  agent-db agent-rule update --id <value> [--agentId <value>] [--ruleId <value>] [--entityId <value>]
-  agent-db agent-rule delete --id <value>           Delete one record
+  agentic-db agent-rule list                               List all records
+  agentic-db agent-rule get --id <value>              Get one record
+  agentic-db agent-rule create --agentId <value> --ruleId <value> --entityId <value>
+  agentic-db agent-rule update --id <value> [--agentId <value>] [--ruleId <value>] [--entityId <value>]
+  agentic-db agent-rule delete --id <value>           Delete one record
 
 INPUT FIELDS:
   agentId: UUID
@@ -507,11 +507,11 @@ CRUD operations for CalendarEventContact records.
 
 ```
 SUBCOMMANDS:
-  agent-db calendar-event-contact list                               List all records
-  agent-db calendar-event-contact get --id <value>              Get one record
-  agent-db calendar-event-contact create --calendarEventId <value> --contactId <value> --entityId <value>
-  agent-db calendar-event-contact update --id <value> [--calendarEventId <value>] [--contactId <value>] [--entityId <value>]
-  agent-db calendar-event-contact delete --id <value>           Delete one record
+  agentic-db calendar-event-contact list                               List all records
+  agentic-db calendar-event-contact get --id <value>              Get one record
+  agentic-db calendar-event-contact create --calendarEventId <value> --contactId <value> --entityId <value>
+  agentic-db calendar-event-contact update --id <value> [--calendarEventId <value>] [--contactId <value>] [--entityId <value>]
+  agentic-db calendar-event-contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   calendarEventId: UUID
@@ -538,11 +538,11 @@ CRUD operations for CalendarEvent records.
 
 ```
 SUBCOMMANDS:
-  agent-db calendar-event list                               List all records
-  agent-db calendar-event get --id <value>              Get one record
-  agent-db calendar-event create --entityId <value> --title <value> --startAt <value> --embeddingTextBm25Score <value> --remoteIdTrgmSimilarity <value> --titleTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --locationTrgmSimilarity <value> --recurrenceRuleTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--calendarAccountId <value>] [--remoteId <value>] [--description <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db calendar-event update --id <value> [--entityId <value>] [--calendarAccountId <value>] [--remoteId <value>] [--title <value>] [--description <value>] [--startAt <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--remoteIdTrgmSimilarity <value>] [--titleTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--locationTrgmSimilarity <value>] [--recurrenceRuleTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db calendar-event delete --id <value>           Delete one record
+  agentic-db calendar-event list                               List all records
+  agentic-db calendar-event get --id <value>              Get one record
+  agentic-db calendar-event create --entityId <value> --title <value> --startAt <value> --embeddingTextBm25Score <value> --remoteIdTrgmSimilarity <value> --titleTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --locationTrgmSimilarity <value> --recurrenceRuleTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--calendarAccountId <value>] [--remoteId <value>] [--description <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db calendar-event update --id <value> [--entityId <value>] [--calendarAccountId <value>] [--remoteId <value>] [--title <value>] [--description <value>] [--startAt <value>] [--endAt <value>] [--allDay <value>] [--location <value>] [--recurrenceRule <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--remoteIdTrgmSimilarity <value>] [--titleTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--locationTrgmSimilarity <value>] [--recurrenceRuleTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db calendar-event delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -613,11 +613,11 @@ CRUD operations for Interaction records.
 
 ```
 SUBCOMMANDS:
-  agent-db interaction list                               List all records
-  agent-db interaction get --id <value>              Get one record
-  agent-db interaction create --entityId <value> --contactId <value> --type <value> --occurredAt <value> --embeddingTextBm25Score <value> --typeTrgmSimilarity <value> --summaryTrgmSimilarity <value> --sentimentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db interaction update --id <value> [--entityId <value>] [--contactId <value>] [--type <value>] [--occurredAt <value>] [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--typeTrgmSimilarity <value>] [--summaryTrgmSimilarity <value>] [--sentimentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db interaction delete --id <value>           Delete one record
+  agentic-db interaction list                               List all records
+  agentic-db interaction get --id <value>              Get one record
+  agentic-db interaction create --entityId <value> --contactId <value> --type <value> --occurredAt <value> --embeddingTextBm25Score <value> --typeTrgmSimilarity <value> --summaryTrgmSimilarity <value> --sentimentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db interaction update --id <value> [--entityId <value>] [--contactId <value>] [--type <value>] [--occurredAt <value>] [--summary <value>] [--sentiment <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--typeTrgmSimilarity <value>] [--summaryTrgmSimilarity <value>] [--sentimentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db interaction delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -672,11 +672,11 @@ CRUD operations for CompanyEvent records.
 
 ```
 SUBCOMMANDS:
-  agent-db company-event list                               List all records
-  agent-db company-event get --id <value>              Get one record
-  agent-db company-event create --companyId <value> --eventId <value> --entityId <value>
-  agent-db company-event update --id <value> [--companyId <value>] [--eventId <value>] [--entityId <value>]
-  agent-db company-event delete --id <value>           Delete one record
+  agentic-db company-event list                               List all records
+  agentic-db company-event get --id <value>              Get one record
+  agentic-db company-event create --companyId <value> --eventId <value> --entityId <value>
+  agentic-db company-event update --id <value> [--companyId <value>] [--eventId <value>] [--entityId <value>]
+  agentic-db company-event delete --id <value>           Delete one record
 
 INPUT FIELDS:
   companyId: UUID
@@ -703,11 +703,11 @@ CRUD operations for CompanyImage records.
 
 ```
 SUBCOMMANDS:
-  agent-db company-image list                               List all records
-  agent-db company-image get --id <value>              Get one record
-  agent-db company-image create --companyId <value> --imageId <value> --entityId <value>
-  agent-db company-image update --id <value> [--companyId <value>] [--imageId <value>] [--entityId <value>]
-  agent-db company-image delete --id <value>           Delete one record
+  agentic-db company-image list                               List all records
+  agentic-db company-image get --id <value>              Get one record
+  agentic-db company-image create --companyId <value> --imageId <value> --entityId <value>
+  agentic-db company-image update --id <value> [--companyId <value>] [--imageId <value>] [--entityId <value>]
+  agentic-db company-image delete --id <value>           Delete one record
 
 INPUT FIELDS:
   companyId: UUID
@@ -734,11 +734,11 @@ CRUD operations for ContactCompany records.
 
 ```
 SUBCOMMANDS:
-  agent-db contact-company list                               List all records
-  agent-db contact-company get --id <value>              Get one record
-  agent-db contact-company create --contactId <value> --companyId <value> --entityId <value>
-  agent-db contact-company update --id <value> [--contactId <value>] [--companyId <value>] [--entityId <value>]
-  agent-db contact-company delete --id <value>           Delete one record
+  agentic-db contact-company list                               List all records
+  agentic-db contact-company get --id <value>              Get one record
+  agentic-db contact-company create --contactId <value> --companyId <value> --entityId <value>
+  agentic-db contact-company update --id <value> [--contactId <value>] [--companyId <value>] [--entityId <value>]
+  agentic-db contact-company delete --id <value>           Delete one record
 
 INPUT FIELDS:
   contactId: UUID
@@ -765,11 +765,11 @@ CRUD operations for ContactEvent records.
 
 ```
 SUBCOMMANDS:
-  agent-db contact-event list                               List all records
-  agent-db contact-event get --id <value>              Get one record
-  agent-db contact-event create --contactId <value> --eventId <value> --entityId <value>
-  agent-db contact-event update --id <value> [--contactId <value>] [--eventId <value>] [--entityId <value>]
-  agent-db contact-event delete --id <value>           Delete one record
+  agentic-db contact-event list                               List all records
+  agentic-db contact-event get --id <value>              Get one record
+  agentic-db contact-event create --contactId <value> --eventId <value> --entityId <value>
+  agentic-db contact-event update --id <value> [--contactId <value>] [--eventId <value>] [--entityId <value>]
+  agentic-db contact-event delete --id <value>           Delete one record
 
 INPUT FIELDS:
   contactId: UUID
@@ -796,11 +796,11 @@ CRUD operations for ContactImage records.
 
 ```
 SUBCOMMANDS:
-  agent-db contact-image list                               List all records
-  agent-db contact-image get --id <value>              Get one record
-  agent-db contact-image create --contactId <value> --imageId <value> --entityId <value>
-  agent-db contact-image update --id <value> [--contactId <value>] [--imageId <value>] [--entityId <value>]
-  agent-db contact-image delete --id <value>           Delete one record
+  agentic-db contact-image list                               List all records
+  agentic-db contact-image get --id <value>              Get one record
+  agentic-db contact-image create --contactId <value> --imageId <value> --entityId <value>
+  agentic-db contact-image update --id <value> [--contactId <value>] [--imageId <value>] [--entityId <value>]
+  agentic-db contact-image delete --id <value>           Delete one record
 
 INPUT FIELDS:
   contactId: UUID
@@ -827,11 +827,11 @@ CRUD operations for DealContact records.
 
 ```
 SUBCOMMANDS:
-  agent-db deal-contact list                               List all records
-  agent-db deal-contact get --id <value>              Get one record
-  agent-db deal-contact create --dealId <value> --contactId <value> --entityId <value>
-  agent-db deal-contact update --id <value> [--dealId <value>] [--contactId <value>] [--entityId <value>]
-  agent-db deal-contact delete --id <value>           Delete one record
+  agentic-db deal-contact list                               List all records
+  agentic-db deal-contact get --id <value>              Get one record
+  agentic-db deal-contact create --dealId <value> --contactId <value> --entityId <value>
+  agentic-db deal-contact update --id <value> [--dealId <value>] [--contactId <value>] [--entityId <value>]
+  agentic-db deal-contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   dealId: UUID
@@ -858,11 +858,11 @@ CRUD operations for EventImage records.
 
 ```
 SUBCOMMANDS:
-  agent-db event-image list                               List all records
-  agent-db event-image get --id <value>              Get one record
-  agent-db event-image create --eventId <value> --imageId <value> --entityId <value>
-  agent-db event-image update --id <value> [--eventId <value>] [--imageId <value>] [--entityId <value>]
-  agent-db event-image delete --id <value>           Delete one record
+  agentic-db event-image list                               List all records
+  agentic-db event-image get --id <value>              Get one record
+  agentic-db event-image create --eventId <value> --imageId <value> --entityId <value>
+  agentic-db event-image update --id <value> [--eventId <value>] [--imageId <value>] [--entityId <value>]
+  agentic-db event-image delete --id <value>           Delete one record
 
 INPUT FIELDS:
   eventId: UUID
@@ -889,11 +889,11 @@ CRUD operations for EventVenue records.
 
 ```
 SUBCOMMANDS:
-  agent-db event-venue list                               List all records
-  agent-db event-venue get --id <value>              Get one record
-  agent-db event-venue create --eventId <value> --venueId <value> --entityId <value>
-  agent-db event-venue update --id <value> [--eventId <value>] [--venueId <value>] [--entityId <value>]
-  agent-db event-venue delete --id <value>           Delete one record
+  agentic-db event-venue list                               List all records
+  agentic-db event-venue get --id <value>              Get one record
+  agentic-db event-venue create --eventId <value> --venueId <value> --entityId <value>
+  agentic-db event-venue update --id <value> [--eventId <value>] [--venueId <value>] [--entityId <value>]
+  agentic-db event-venue delete --id <value>           Delete one record
 
 INPUT FIELDS:
   eventId: UUID
@@ -920,11 +920,11 @@ CRUD operations for ExpenseContact records.
 
 ```
 SUBCOMMANDS:
-  agent-db expense-contact list                               List all records
-  agent-db expense-contact get --id <value>              Get one record
-  agent-db expense-contact create --expenseId <value> --contactId <value> --entityId <value>
-  agent-db expense-contact update --id <value> [--expenseId <value>] [--contactId <value>] [--entityId <value>]
-  agent-db expense-contact delete --id <value>           Delete one record
+  agentic-db expense-contact list                               List all records
+  agentic-db expense-contact get --id <value>              Get one record
+  agentic-db expense-contact create --expenseId <value> --contactId <value> --entityId <value>
+  agentic-db expense-contact update --id <value> [--expenseId <value>] [--contactId <value>] [--entityId <value>]
+  agentic-db expense-contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   expenseId: UUID
@@ -951,11 +951,11 @@ CRUD operations for GoalHabit records.
 
 ```
 SUBCOMMANDS:
-  agent-db goal-habit list                               List all records
-  agent-db goal-habit get --id <value>              Get one record
-  agent-db goal-habit create --goalId <value> --habitId <value> --entityId <value>
-  agent-db goal-habit update --id <value> [--goalId <value>] [--habitId <value>] [--entityId <value>]
-  agent-db goal-habit delete --id <value>           Delete one record
+  agentic-db goal-habit list                               List all records
+  agentic-db goal-habit get --id <value>              Get one record
+  agentic-db goal-habit create --goalId <value> --habitId <value> --entityId <value>
+  agentic-db goal-habit update --id <value> [--goalId <value>] [--habitId <value>] [--entityId <value>]
+  agentic-db goal-habit delete --id <value>           Delete one record
 
 INPUT FIELDS:
   goalId: UUID
@@ -982,11 +982,11 @@ CRUD operations for HabitLog records.
 
 ```
 SUBCOMMANDS:
-  agent-db habit-log list                               List all records
-  agent-db habit-log get --id <value>              Get one record
-  agent-db habit-log create --entityId <value> --habitId <value> --completedAt <value> --activityTypeTrgmSimilarity <value> --distanceUnitTrgmSimilarity <value> --weightUnitTrgmSimilarity <value> --notesTrgmSimilarity <value> --searchScore <value> [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>]
-  agent-db habit-log update --id <value> [--entityId <value>] [--habitId <value>] [--completedAt <value>] [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>] [--activityTypeTrgmSimilarity <value>] [--distanceUnitTrgmSimilarity <value>] [--weightUnitTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db habit-log delete --id <value>           Delete one record
+  agentic-db habit-log list                               List all records
+  agentic-db habit-log get --id <value>              Get one record
+  agentic-db habit-log create --entityId <value> --habitId <value> --completedAt <value> --activityTypeTrgmSimilarity <value> --distanceUnitTrgmSimilarity <value> --weightUnitTrgmSimilarity <value> --notesTrgmSimilarity <value> --searchScore <value> [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>]
+  agentic-db habit-log update --id <value> [--entityId <value>] [--habitId <value>] [--completedAt <value>] [--activityType <value>] [--durationMinutes <value>] [--distance <value>] [--distanceUnit <value>] [--reps <value>] [--sets <value>] [--weightAmount <value>] [--weightUnit <value>] [--calories <value>] [--data <value>] [--notes <value>] [--tags <value>] [--activityTypeTrgmSimilarity <value>] [--distanceUnitTrgmSimilarity <value>] [--weightUnitTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db habit-log delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1049,11 +1049,11 @@ CRUD operations for GoalProject records.
 
 ```
 SUBCOMMANDS:
-  agent-db goal-project list                               List all records
-  agent-db goal-project get --id <value>              Get one record
-  agent-db goal-project create --goalId <value> --projectId <value> --entityId <value>
-  agent-db goal-project update --id <value> [--goalId <value>] [--projectId <value>] [--entityId <value>]
-  agent-db goal-project delete --id <value>           Delete one record
+  agentic-db goal-project list                               List all records
+  agentic-db goal-project get --id <value>              Get one record
+  agentic-db goal-project create --goalId <value> --projectId <value> --entityId <value>
+  agentic-db goal-project update --id <value> [--goalId <value>] [--projectId <value>] [--entityId <value>]
+  agentic-db goal-project delete --id <value>           Delete one record
 
 INPUT FIELDS:
   goalId: UUID
@@ -1080,11 +1080,11 @@ CRUD operations for Milestone records.
 
 ```
 SUBCOMMANDS:
-  agent-db milestone list                               List all records
-  agent-db milestone get --id <value>              Get one record
-  agent-db milestone create --entityId <value> --name <value> --nameTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
-  agent-db milestone update --id <value> [--entityId <value>] [--projectId <value>] [--name <value>] [--dueDate <value>] [--status <value>] [--nameTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db milestone delete --id <value>           Delete one record
+  agentic-db milestone list                               List all records
+  agentic-db milestone get --id <value>              Get one record
+  agentic-db milestone create --entityId <value> --name <value> --nameTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--projectId <value>] [--dueDate <value>] [--status <value>]
+  agentic-db milestone update --id <value> [--entityId <value>] [--projectId <value>] [--name <value>] [--dueDate <value>] [--status <value>] [--nameTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db milestone delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1123,11 +1123,11 @@ CRUD operations for ProjectContact records.
 
 ```
 SUBCOMMANDS:
-  agent-db project-contact list                               List all records
-  agent-db project-contact get --id <value>              Get one record
-  agent-db project-contact create --projectId <value> --contactId <value> --entityId <value>
-  agent-db project-contact update --id <value> [--projectId <value>] [--contactId <value>] [--entityId <value>]
-  agent-db project-contact delete --id <value>           Delete one record
+  agentic-db project-contact list                               List all records
+  agentic-db project-contact get --id <value>              Get one record
+  agentic-db project-contact create --projectId <value> --contactId <value> --entityId <value>
+  agentic-db project-contact update --id <value> [--projectId <value>] [--contactId <value>] [--entityId <value>]
+  agentic-db project-contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   projectId: UUID
@@ -1154,11 +1154,11 @@ CRUD operations for TaskContact records.
 
 ```
 SUBCOMMANDS:
-  agent-db task-contact list                               List all records
-  agent-db task-contact get --id <value>              Get one record
-  agent-db task-contact create --taskId <value> --contactId <value> --entityId <value>
-  agent-db task-contact update --id <value> [--taskId <value>] [--contactId <value>] [--entityId <value>]
-  agent-db task-contact delete --id <value>           Delete one record
+  agentic-db task-contact list                               List all records
+  agentic-db task-contact get --id <value>              Get one record
+  agentic-db task-contact create --taskId <value> --contactId <value> --entityId <value>
+  agentic-db task-contact update --id <value> [--taskId <value>] [--contactId <value>] [--entityId <value>]
+  agentic-db task-contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   taskId: UUID
@@ -1185,11 +1185,11 @@ CRUD operations for VenueImage records.
 
 ```
 SUBCOMMANDS:
-  agent-db venue-image list                               List all records
-  agent-db venue-image get --id <value>              Get one record
-  agent-db venue-image create --venueId <value> --imageId <value> --entityId <value>
-  agent-db venue-image update --id <value> [--venueId <value>] [--imageId <value>] [--entityId <value>]
-  agent-db venue-image delete --id <value>           Delete one record
+  agentic-db venue-image list                               List all records
+  agentic-db venue-image get --id <value>              Get one record
+  agentic-db venue-image create --venueId <value> --imageId <value> --entityId <value>
+  agentic-db venue-image update --id <value> [--venueId <value>] [--imageId <value>] [--entityId <value>]
+  agentic-db venue-image delete --id <value>           Delete one record
 
 INPUT FIELDS:
   venueId: UUID
@@ -1216,11 +1216,11 @@ CRUD operations for File records.
 
 ```
 SUBCOMMANDS:
-  agent-db file list                               List all records
-  agent-db file get --id <value>              Get one record
-  agent-db file create --entityId <value> --path <value> --pathTrgmSimilarity <value> --languageTrgmSimilarity <value> --hashTrgmSimilarity <value> --searchScore <value> [--repositoryId <value>] [--language <value>] [--hash <value>]
-  agent-db file update --id <value> [--entityId <value>] [--repositoryId <value>] [--path <value>] [--language <value>] [--hash <value>] [--pathTrgmSimilarity <value>] [--languageTrgmSimilarity <value>] [--hashTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db file delete --id <value>           Delete one record
+  agentic-db file list                               List all records
+  agentic-db file get --id <value>              Get one record
+  agentic-db file create --entityId <value> --path <value> --pathTrgmSimilarity <value> --languageTrgmSimilarity <value> --hashTrgmSimilarity <value> --searchScore <value> [--repositoryId <value>] [--language <value>] [--hash <value>]
+  agentic-db file update --id <value> [--entityId <value>] [--repositoryId <value>] [--path <value>] [--language <value>] [--hash <value>] [--pathTrgmSimilarity <value>] [--languageTrgmSimilarity <value>] [--hashTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db file delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1261,11 +1261,11 @@ CRUD operations for Chunk records.
 
 ```
 SUBCOMMANDS:
-  agent-db chunk list                               List all records
-  agent-db chunk get --id <value>              Get one record
-  agent-db chunk create --entityId <value> --content <value> --embeddingTextBm25Score <value> --contentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--fileId <value>] [--repositoryId <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db chunk update --id <value> [--entityId <value>] [--fileId <value>] [--repositoryId <value>] [--content <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--contentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db chunk delete --id <value>           Delete one record
+  agentic-db chunk list                               List all records
+  agentic-db chunk get --id <value>              Get one record
+  agentic-db chunk create --entityId <value> --content <value> --embeddingTextBm25Score <value> --contentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--fileId <value>] [--repositoryId <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db chunk update --id <value> [--entityId <value>] [--fileId <value>] [--repositoryId <value>] [--content <value>] [--startLine <value>] [--endLine <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--contentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db chunk delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1314,11 +1314,11 @@ CRUD operations for CalendarAccount records.
 
 ```
 SUBCOMMANDS:
-  agent-db calendar-account list                               List all records
-  agent-db calendar-account get --id <value>              Get one record
-  agent-db calendar-account create --entityId <value> --email <value> --emailTrgmSimilarity <value> --providerTrgmSimilarity <value> --syncTokenTrgmSimilarity <value> --searchScore <value> [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
-  agent-db calendar-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>] [--emailTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--syncTokenTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db calendar-account delete --id <value>           Delete one record
+  agentic-db calendar-account list                               List all records
+  agentic-db calendar-account get --id <value>              Get one record
+  agentic-db calendar-account create --entityId <value> --email <value> --emailTrgmSimilarity <value> --providerTrgmSimilarity <value> --syncTokenTrgmSimilarity <value> --searchScore <value> [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>]
+  agentic-db calendar-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncToken <value>] [--lastSyncedAt <value>] [--emailTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--syncTokenTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db calendar-account delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1359,11 +1359,11 @@ CRUD operations for Tag records.
 
 ```
 SUBCOMMANDS:
-  agent-db tag list                               List all records
-  agent-db tag get --id <value>              Get one record
-  agent-db tag create --entityId <value> --name <value> --nameTrgmSimilarity <value> --colorTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--color <value>] [--category <value>] [--usageCount <value>]
-  agent-db tag update --id <value> [--entityId <value>] [--name <value>] [--color <value>] [--category <value>] [--usageCount <value>] [--nameTrgmSimilarity <value>] [--colorTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db tag delete --id <value>           Delete one record
+  agentic-db tag list                               List all records
+  agentic-db tag get --id <value>              Get one record
+  agentic-db tag create --entityId <value> --name <value> --nameTrgmSimilarity <value> --colorTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--color <value>] [--category <value>] [--usageCount <value>]
+  agentic-db tag update --id <value> [--entityId <value>] [--name <value>] [--color <value>] [--category <value>] [--usageCount <value>] [--nameTrgmSimilarity <value>] [--colorTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db tag delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1404,11 +1404,11 @@ CRUD operations for Feedback records.
 
 ```
 SUBCOMMANDS:
-  agent-db feedback list                               List all records
-  agent-db feedback get --id <value>              Get one record
-  agent-db feedback create --entityId <value> --targetType <value> --targetId <value> --targetTypeTrgmSimilarity <value> --commentTrgmSimilarity <value> --sourceTrgmSimilarity <value> --searchScore <value> [--rating <value>] [--comment <value>] [--source <value>]
-  agent-db feedback update --id <value> [--entityId <value>] [--targetType <value>] [--targetId <value>] [--rating <value>] [--comment <value>] [--source <value>] [--targetTypeTrgmSimilarity <value>] [--commentTrgmSimilarity <value>] [--sourceTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db feedback delete --id <value>           Delete one record
+  agentic-db feedback list                               List all records
+  agentic-db feedback get --id <value>              Get one record
+  agentic-db feedback create --entityId <value> --targetType <value> --targetId <value> --targetTypeTrgmSimilarity <value> --commentTrgmSimilarity <value> --sourceTrgmSimilarity <value> --searchScore <value> [--rating <value>] [--comment <value>] [--source <value>]
+  agentic-db feedback update --id <value> [--entityId <value>] [--targetType <value>] [--targetId <value>] [--rating <value>] [--comment <value>] [--source <value>] [--targetTypeTrgmSimilarity <value>] [--commentTrgmSimilarity <value>] [--sourceTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db feedback delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1451,11 +1451,11 @@ CRUD operations for Attachment records.
 
 ```
 SUBCOMMANDS:
-  agent-db attachment list                               List all records
-  agent-db attachment get --id <value>              Get one record
-  agent-db attachment create --entityId <value> --url <value> --urlTrgmSimilarity <value> --filenameTrgmSimilarity <value> --mimeTypeTrgmSimilarity <value> --attachableTypeTrgmSimilarity <value> --searchScore <value> [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>]
-  agent-db attachment update --id <value> [--entityId <value>] [--url <value>] [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>] [--urlTrgmSimilarity <value>] [--filenameTrgmSimilarity <value>] [--mimeTypeTrgmSimilarity <value>] [--attachableTypeTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db attachment delete --id <value>           Delete one record
+  agentic-db attachment list                               List all records
+  agentic-db attachment get --id <value>              Get one record
+  agentic-db attachment create --entityId <value> --url <value> --urlTrgmSimilarity <value> --filenameTrgmSimilarity <value> --mimeTypeTrgmSimilarity <value> --attachableTypeTrgmSimilarity <value> --searchScore <value> [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>]
+  agentic-db attachment update --id <value> [--entityId <value>] [--url <value>] [--filename <value>] [--mimeType <value>] [--sizeBytes <value>] [--attachableType <value>] [--attachableId <value>] [--urlTrgmSimilarity <value>] [--filenameTrgmSimilarity <value>] [--mimeTypeTrgmSimilarity <value>] [--attachableTypeTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db attachment delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1502,11 +1502,11 @@ CRUD operations for EmailAccount records.
 
 ```
 SUBCOMMANDS:
-  agent-db email-account list                               List all records
-  agent-db email-account get --id <value>              Get one record
-  agent-db email-account create --entityId <value> --email <value> --emailTrgmSimilarity <value> --providerTrgmSimilarity <value> --searchScore <value> [--provider <value>] [--syncState <value>]
-  agent-db email-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncState <value>] [--emailTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db email-account delete --id <value>           Delete one record
+  agentic-db email-account list                               List all records
+  agentic-db email-account get --id <value>              Get one record
+  agentic-db email-account create --entityId <value> --email <value> --emailTrgmSimilarity <value> --providerTrgmSimilarity <value> --searchScore <value> [--provider <value>] [--syncState <value>]
+  agentic-db email-account update --id <value> [--entityId <value>] [--email <value>] [--provider <value>] [--syncState <value>] [--emailTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db email-account delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1543,11 +1543,11 @@ CRUD operations for Message records.
 
 ```
 SUBCOMMANDS:
-  agent-db message list                               List all records
-  agent-db message get --id <value>              Get one record
-  agent-db message create --entityId <value> --bodyTextBm25Score <value> --embeddingTextBm25Score <value> --threadIdTrgmSimilarity <value> --remoteIdTrgmSimilarity <value> --fromAddressTrgmSimilarity <value> --subjectTrgmSimilarity <value> --bodyTextTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db message update --id <value> [--entityId <value>] [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--bodyTextBm25Score <value>] [--embeddingTextBm25Score <value>] [--threadIdTrgmSimilarity <value>] [--remoteIdTrgmSimilarity <value>] [--fromAddressTrgmSimilarity <value>] [--subjectTrgmSimilarity <value>] [--bodyTextTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db message delete --id <value>           Delete one record
+  agentic-db message list                               List all records
+  agentic-db message get --id <value>              Get one record
+  agentic-db message create --entityId <value> --bodyTextBm25Score <value> --embeddingTextBm25Score <value> --threadIdTrgmSimilarity <value> --remoteIdTrgmSimilarity <value> --fromAddressTrgmSimilarity <value> --subjectTrgmSimilarity <value> --bodyTextTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db message update --id <value> [--entityId <value>] [--emailAccountId <value>] [--threadId <value>] [--remoteId <value>] [--fromAddress <value>] [--toAddresses <value>] [--subject <value>] [--bodyText <value>] [--receivedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--bodyTextBm25Score <value>] [--embeddingTextBm25Score <value>] [--threadIdTrgmSimilarity <value>] [--remoteIdTrgmSimilarity <value>] [--fromAddressTrgmSimilarity <value>] [--subjectTrgmSimilarity <value>] [--bodyTextTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db message delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1614,11 +1614,11 @@ CRUD operations for ActivityLog records.
 
 ```
 SUBCOMMANDS:
-  agent-db activity-log list                               List all records
-  agent-db activity-log get --id <value>              Get one record
-  agent-db activity-log create --entityId <value> --actorType <value> --action <value> --targetType <value> --targetId <value> --actorTypeTrgmSimilarity <value> --actionTrgmSimilarity <value> --targetTypeTrgmSimilarity <value> --searchScore <value> [--actorId <value>] [--metadata <value>]
-  agent-db activity-log update --id <value> [--entityId <value>] [--actorType <value>] [--actorId <value>] [--action <value>] [--targetType <value>] [--targetId <value>] [--metadata <value>] [--actorTypeTrgmSimilarity <value>] [--actionTrgmSimilarity <value>] [--targetTypeTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db activity-log delete --id <value>           Delete one record
+  agentic-db activity-log list                               List all records
+  agentic-db activity-log get --id <value>              Get one record
+  agentic-db activity-log create --entityId <value> --actorType <value> --action <value> --targetType <value> --targetId <value> --actorTypeTrgmSimilarity <value> --actionTrgmSimilarity <value> --targetTypeTrgmSimilarity <value> --searchScore <value> [--actorId <value>] [--metadata <value>]
+  agentic-db activity-log update --id <value> [--entityId <value>] [--actorType <value>] [--actorId <value>] [--action <value>] [--targetType <value>] [--targetId <value>] [--metadata <value>] [--actorTypeTrgmSimilarity <value>] [--actionTrgmSimilarity <value>] [--targetTypeTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db activity-log delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1663,11 +1663,11 @@ CRUD operations for ContextRelation records.
 
 ```
 SUBCOMMANDS:
-  agent-db context-relation list                               List all records
-  agent-db context-relation get --id <value>              Get one record
-  agent-db context-relation create --entityId <value> --fromType <value> --fromId <value> --toType <value> --toId <value> --fromTypeTrgmSimilarity <value> --toTypeTrgmSimilarity <value> --relationKindTrgmSimilarity <value> --reasonTrgmSimilarity <value> --searchScore <value> [--relationKind <value>] [--reason <value>] [--strength <value>]
-  agent-db context-relation update --id <value> [--entityId <value>] [--fromType <value>] [--fromId <value>] [--toType <value>] [--toId <value>] [--relationKind <value>] [--reason <value>] [--strength <value>] [--fromTypeTrgmSimilarity <value>] [--toTypeTrgmSimilarity <value>] [--relationKindTrgmSimilarity <value>] [--reasonTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db context-relation delete --id <value>           Delete one record
+  agentic-db context-relation list                               List all records
+  agentic-db context-relation get --id <value>              Get one record
+  agentic-db context-relation create --entityId <value> --fromType <value> --fromId <value> --toType <value> --toId <value> --fromTypeTrgmSimilarity <value> --toTypeTrgmSimilarity <value> --relationKindTrgmSimilarity <value> --reasonTrgmSimilarity <value> --searchScore <value> [--relationKind <value>] [--reason <value>] [--strength <value>]
+  agentic-db context-relation update --id <value> [--entityId <value>] [--fromType <value>] [--fromId <value>] [--toType <value>] [--toId <value>] [--relationKind <value>] [--reason <value>] [--strength <value>] [--fromTypeTrgmSimilarity <value>] [--toTypeTrgmSimilarity <value>] [--relationKindTrgmSimilarity <value>] [--reasonTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db context-relation delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1716,11 +1716,11 @@ CRUD operations for UserSetting records.
 
 ```
 SUBCOMMANDS:
-  agent-db user-setting list                               List all records
-  agent-db user-setting get --id <value>              Get one record
-  agent-db user-setting create --entityId <value> --key <value> --keyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--value <value>] [--category <value>]
-  agent-db user-setting update --id <value> [--entityId <value>] [--key <value>] [--value <value>] [--category <value>] [--keyTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db user-setting delete --id <value>           Delete one record
+  agentic-db user-setting list                               List all records
+  agentic-db user-setting get --id <value>              Get one record
+  agentic-db user-setting create --entityId <value> --key <value> --keyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--value <value>] [--category <value>]
+  agentic-db user-setting update --id <value> [--entityId <value>] [--key <value>] [--value <value>] [--category <value>] [--keyTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db user-setting delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1757,11 +1757,11 @@ CRUD operations for Webhook records.
 
 ```
 SUBCOMMANDS:
-  agent-db webhook list                               List all records
-  agent-db webhook get --id <value>              Get one record
-  agent-db webhook create --entityId <value> --url <value> --eventType <value> --urlTrgmSimilarity <value> --eventTypeTrgmSimilarity <value> --secretTrgmSimilarity <value> --searchScore <value> [--integrationId <value>] [--secret <value>] [--isActive <value>]
-  agent-db webhook update --id <value> [--entityId <value>] [--integrationId <value>] [--url <value>] [--eventType <value>] [--secret <value>] [--isActive <value>] [--urlTrgmSimilarity <value>] [--eventTypeTrgmSimilarity <value>] [--secretTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db webhook delete --id <value>           Delete one record
+  agentic-db webhook list                               List all records
+  agentic-db webhook get --id <value>              Get one record
+  agentic-db webhook create --entityId <value> --url <value> --eventType <value> --urlTrgmSimilarity <value> --eventTypeTrgmSimilarity <value> --secretTrgmSimilarity <value> --searchScore <value> [--integrationId <value>] [--secret <value>] [--isActive <value>]
+  agentic-db webhook update --id <value> [--entityId <value>] [--integrationId <value>] [--url <value>] [--eventType <value>] [--secret <value>] [--isActive <value>] [--urlTrgmSimilarity <value>] [--eventTypeTrgmSimilarity <value>] [--secretTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db webhook delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1804,11 +1804,11 @@ CRUD operations for Notification records.
 
 ```
 SUBCOMMANDS:
-  agent-db notification list                               List all records
-  agent-db notification get --id <value>              Get one record
-  agent-db notification create --entityId <value> --titleTrgmSimilarity <value> --bodyTrgmSimilarity <value> --typeTrgmSimilarity <value> --priorityTrgmSimilarity <value> --actionUrlTrgmSimilarity <value> --sourceEntityTypeTrgmSimilarity <value> --searchScore <value> [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>]
-  agent-db notification update --id <value> [--entityId <value>] [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>] [--titleTrgmSimilarity <value>] [--bodyTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--priorityTrgmSimilarity <value>] [--actionUrlTrgmSimilarity <value>] [--sourceEntityTypeTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db notification delete --id <value>           Delete one record
+  agentic-db notification list                               List all records
+  agentic-db notification get --id <value>              Get one record
+  agentic-db notification create --entityId <value> --titleTrgmSimilarity <value> --bodyTrgmSimilarity <value> --typeTrgmSimilarity <value> --priorityTrgmSimilarity <value> --actionUrlTrgmSimilarity <value> --sourceEntityTypeTrgmSimilarity <value> --searchScore <value> [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>]
+  agentic-db notification update --id <value> [--entityId <value>] [--title <value>] [--body <value>] [--type <value>] [--priority <value>] [--readAt <value>] [--actionUrl <value>] [--sourceEntityId <value>] [--sourceEntityType <value>] [--titleTrgmSimilarity <value>] [--bodyTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--priorityTrgmSimilarity <value>] [--actionUrlTrgmSimilarity <value>] [--sourceEntityTypeTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db notification delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1863,11 +1863,11 @@ CRUD operations for WorkflowRun records.
 
 ```
 SUBCOMMANDS:
-  agent-db workflow-run list                               List all records
-  agent-db workflow-run get --id <value>              Get one record
-  agent-db workflow-run create --entityId <value> --workflowId <value> --statusTrgmSimilarity <value> --errorTrgmSimilarity <value> --searchScore <value> [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
-  agent-db workflow-run update --id <value> [--entityId <value>] [--workflowId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>] [--statusTrgmSimilarity <value>] [--errorTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db workflow-run delete --id <value>           Delete one record
+  agentic-db workflow-run list                               List all records
+  agentic-db workflow-run get --id <value>              Get one record
+  agentic-db workflow-run create --entityId <value> --workflowId <value> --statusTrgmSimilarity <value> --errorTrgmSimilarity <value> --searchScore <value> [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>]
+  agentic-db workflow-run update --id <value> [--entityId <value>] [--workflowId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--input <value>] [--output <value>] [--error <value>] [--statusTrgmSimilarity <value>] [--errorTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db workflow-run delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1912,11 +1912,11 @@ CRUD operations for WorkflowStep records.
 
 ```
 SUBCOMMANDS:
-  agent-db workflow-step list                               List all records
-  agent-db workflow-step get --id <value>              Get one record
-  agent-db workflow-step create --entityId <value> --workflowId <value> --stepOrder <value> --actionType <value> --actionTypeTrgmSimilarity <value> --searchScore <value> [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
-  agent-db workflow-step update --id <value> [--entityId <value>] [--workflowId <value>] [--stepOrder <value>] [--actionType <value>] [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>] [--actionTypeTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db workflow-step delete --id <value>           Delete one record
+  agentic-db workflow-step list                               List all records
+  agentic-db workflow-step get --id <value>              Get one record
+  agentic-db workflow-step create --entityId <value> --workflowId <value> --stepOrder <value> --actionType <value> --actionTypeTrgmSimilarity <value> --searchScore <value> [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>]
+  agentic-db workflow-step update --id <value> [--entityId <value>] [--workflowId <value>] [--stepOrder <value>] [--actionType <value>] [--actionConfig <value>] [--onSuccessStep <value>] [--onFailureStep <value>] [--timeoutMs <value>] [--actionTypeTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db workflow-step delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -1959,11 +1959,11 @@ CRUD operations for Integration records.
 
 ```
 SUBCOMMANDS:
-  agent-db integration list                               List all records
-  agent-db integration get --id <value>              Get one record
-  agent-db integration create --entityId <value> --name <value> --provider <value> --nameTrgmSimilarity <value> --providerTrgmSimilarity <value> --typeTrgmSimilarity <value> --credentialsRefTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
-  agent-db integration update --id <value> [--entityId <value>] [--name <value>] [--provider <value>] [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>] [--nameTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--credentialsRefTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db integration delete --id <value>           Delete one record
+  agentic-db integration list                               List all records
+  agentic-db integration get --id <value>              Get one record
+  agentic-db integration create --entityId <value> --name <value> --provider <value> --nameTrgmSimilarity <value> --providerTrgmSimilarity <value> --typeTrgmSimilarity <value> --credentialsRefTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>]
+  agentic-db integration update --id <value> [--entityId <value>] [--name <value>] [--provider <value>] [--type <value>] [--credentialsRef <value>] [--config <value>] [--status <value>] [--lastSyncedAt <value>] [--nameTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--credentialsRefTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db integration delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2014,11 +2014,11 @@ CRUD operations for SkillExecution records.
 
 ```
 SUBCOMMANDS:
-  agent-db skill-execution list                               List all records
-  agent-db skill-execution get --id <value>              Get one record
-  agent-db skill-execution create --entityId <value> --skillId <value> --statusTrgmSimilarity <value> --errorTrgmSimilarity <value> --searchScore <value> [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>]
-  agent-db skill-execution update --id <value> [--entityId <value>] [--skillId <value>] [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>] [--statusTrgmSimilarity <value>] [--errorTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db skill-execution delete --id <value>           Delete one record
+  agentic-db skill-execution list                               List all records
+  agentic-db skill-execution get --id <value>              Get one record
+  agentic-db skill-execution create --entityId <value> --skillId <value> --statusTrgmSimilarity <value> --errorTrgmSimilarity <value> --searchScore <value> [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>]
+  agentic-db skill-execution update --id <value> [--entityId <value>] [--skillId <value>] [--agentId <value>] [--sessionId <value>] [--status <value>] [--startedAt <value>] [--completedAt <value>] [--durationMs <value>] [--input <value>] [--output <value>] [--error <value>] [--statusTrgmSimilarity <value>] [--errorTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db skill-execution delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2069,11 +2069,11 @@ CRUD operations for Chat records.
 
 ```
 SUBCOMMANDS:
-  agent-db chat list                               List all records
-  agent-db chat get --id <value>              Get one record
-  agent-db chat create --entityId <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db chat update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db chat delete --id <value>           Delete one record
+  agentic-db chat list                               List all records
+  agentic-db chat get --id <value>              Get one record
+  agentic-db chat create --entityId <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db chat update --id <value> [--entityId <value>] [--title <value>] [--startedAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db chat delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2116,11 +2116,11 @@ CRUD operations for ChatMessage records.
 
 ```
 SUBCOMMANDS:
-  agent-db chat-message list                               List all records
-  agent-db chat-message get --id <value>              Get one record
-  agent-db chat-message create --entityId <value> --contentBm25Score <value> --embeddingTextBm25Score <value> --roleTrgmSimilarity <value> --contentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db chat-message update --id <value> [--entityId <value>] [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>] [--contentBm25Score <value>] [--embeddingTextBm25Score <value>] [--roleTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db chat-message delete --id <value>           Delete one record
+  agentic-db chat-message list                               List all records
+  agentic-db chat-message get --id <value>              Get one record
+  agentic-db chat-message create --entityId <value> --contentBm25Score <value> --embeddingTextBm25Score <value> --roleTrgmSimilarity <value> --contentTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db chat-message update --id <value> [--entityId <value>] [--chatId <value>] [--threadId <value>] [--role <value>] [--content <value>] [--toolCalls <value>] [--embeddingText <value>] [--embedding <value>] [--contentBm25Score <value>] [--embeddingTextBm25Score <value>] [--roleTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db chat-message delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2173,11 +2173,11 @@ CRUD operations for Thread records.
 
 ```
 SUBCOMMANDS:
-  agent-db thread list                               List all records
-  agent-db thread get --id <value>              Get one record
-  agent-db thread create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --summaryTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db thread update --id <value> [--entityId <value>] [--title <value>] [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--summaryTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db thread delete --id <value>           Delete one record
+  agentic-db thread list                               List all records
+  agentic-db thread get --id <value>              Get one record
+  agentic-db thread create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --summaryTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db thread update --id <value> [--entityId <value>] [--title <value>] [--summary <value>] [--status <value>] [--parentThreadId <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--summaryTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db thread delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2228,11 +2228,11 @@ CRUD operations for Reminder records.
 
 ```
 SUBCOMMANDS:
-  agent-db reminder list                               List all records
-  agent-db reminder get --id <value>              Get one record
-  agent-db reminder create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --recurrenceTrgmSimilarity <value> --statusTrgmSimilarity <value> --relatedEntityTypeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db reminder update --id <value> [--entityId <value>] [--title <value>] [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--recurrenceTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--relatedEntityTypeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db reminder delete --id <value>           Delete one record
+  agentic-db reminder list                               List all records
+  agentic-db reminder get --id <value>              Get one record
+  agentic-db reminder create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --recurrenceTrgmSimilarity <value> --statusTrgmSimilarity <value> --relatedEntityTypeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db reminder update --id <value> [--entityId <value>] [--title <value>] [--dueAt <value>] [--completedAt <value>] [--recurrence <value>] [--status <value>] [--relatedEntityId <value>] [--relatedEntityType <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--recurrenceTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--relatedEntityTypeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db reminder delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2291,11 +2291,11 @@ CRUD operations for Image records.
 
 ```
 SUBCOMMANDS:
-  agent-db image list                               List all records
-  agent-db image get --id <value>              Get one record
-  agent-db image create --entityId <value> --url <value> --urlTrgmSimilarity <value> --altTextTrgmSimilarity <value> --captionTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
-  agent-db image update --id <value> [--entityId <value>] [--url <value>] [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>] [--urlTrgmSimilarity <value>] [--altTextTrgmSimilarity <value>] [--captionTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db image delete --id <value>           Delete one record
+  agentic-db image list                               List all records
+  agentic-db image get --id <value>              Get one record
+  agentic-db image create --entityId <value> --url <value> --urlTrgmSimilarity <value> --altTextTrgmSimilarity <value> --captionTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>]
+  agentic-db image update --id <value> [--entityId <value>] [--url <value>] [--meta <value>] [--altText <value>] [--caption <value>] [--embedding <value>] [--urlTrgmSimilarity <value>] [--altTextTrgmSimilarity <value>] [--captionTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db image delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2340,11 +2340,11 @@ CRUD operations for ListItem records.
 
 ```
 SUBCOMMANDS:
-  agent-db list-item list                               List all records
-  agent-db list-item get --id <value>              Get one record
-  agent-db list-item create --entityId <value> --listId <value> --contentTrgmSimilarity <value> --refTypeTrgmSimilarity <value> --searchScore <value> [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>]
-  agent-db list-item update --id <value> [--entityId <value>] [--listId <value>] [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>] [--contentTrgmSimilarity <value>] [--refTypeTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db list-item delete --id <value>           Delete one record
+  agentic-db list-item list                               List all records
+  agentic-db list-item get --id <value>              Get one record
+  agentic-db list-item create --entityId <value> --listId <value> --contentTrgmSimilarity <value> --refTypeTrgmSimilarity <value> --searchScore <value> [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>]
+  agentic-db list-item update --id <value> [--entityId <value>] [--listId <value>] [--content <value>] [--position <value>] [--isChecked <value>] [--refId <value>] [--refType <value>] [--contentTrgmSimilarity <value>] [--refTypeTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db list-item delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2387,11 +2387,11 @@ CRUD operations for CompanyLink records.
 
 ```
 SUBCOMMANDS:
-  agent-db company-link list                               List all records
-  agent-db company-link get --id <value>              Get one record
-  agent-db company-link create --entityId <value> --url <value> --companyId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
-  agent-db company-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--companyId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db company-link delete --id <value>           Delete one record
+  agentic-db company-link list                               List all records
+  agentic-db company-link get --id <value>              Get one record
+  agentic-db company-link create --entityId <value> --url <value> --companyId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
+  agentic-db company-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--companyId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db company-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2432,11 +2432,11 @@ CRUD operations for ContactLink records.
 
 ```
 SUBCOMMANDS:
-  agent-db contact-link list                               List all records
-  agent-db contact-link get --id <value>              Get one record
-  agent-db contact-link create --entityId <value> --url <value> --contactId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
-  agent-db contact-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--contactId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db contact-link delete --id <value>           Delete one record
+  agentic-db contact-link list                               List all records
+  agentic-db contact-link get --id <value>              Get one record
+  agentic-db contact-link create --entityId <value> --url <value> --contactId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
+  agentic-db contact-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--contactId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db contact-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2477,11 +2477,11 @@ CRUD operations for EventLink records.
 
 ```
 SUBCOMMANDS:
-  agent-db event-link list                               List all records
-  agent-db event-link get --id <value>              Get one record
-  agent-db event-link create --entityId <value> --url <value> --eventId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
-  agent-db event-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--eventId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db event-link delete --id <value>           Delete one record
+  agentic-db event-link list                               List all records
+  agentic-db event-link get --id <value>              Get one record
+  agentic-db event-link create --entityId <value> --url <value> --eventId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
+  agentic-db event-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--eventId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db event-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2522,11 +2522,11 @@ CRUD operations for VenueLink records.
 
 ```
 SUBCOMMANDS:
-  agent-db venue-link list                               List all records
-  agent-db venue-link get --id <value>              Get one record
-  agent-db venue-link create --entityId <value> --url <value> --venueId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
-  agent-db venue-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--venueId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db venue-link delete --id <value>           Delete one record
+  agentic-db venue-link list                               List all records
+  agentic-db venue-link get --id <value>              Get one record
+  agentic-db venue-link create --entityId <value> --url <value> --venueId <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--title <value>] [--embedding <value>]
+  agentic-db venue-link update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--embedding <value>] [--venueId <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db venue-link delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2567,11 +2567,11 @@ CRUD operations for AgentSpawn records.
 
 ```
 SUBCOMMANDS:
-  agent-db agent-spawn list                               List all records
-  agent-db agent-spawn get --id <value>              Get one record
-  agent-db agent-spawn create --entityId <value> --parentAgentId <value> --task <value> --agentId <value> --taskTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--childAgentId <value>] [--sessionId <value>] [--status <value>] [--result <value>] [--maxIterations <value>] [--startedAt <value>] [--completedAt <value>]
-  agent-db agent-spawn update --id <value> [--entityId <value>] [--parentAgentId <value>] [--childAgentId <value>] [--sessionId <value>] [--task <value>] [--status <value>] [--result <value>] [--maxIterations <value>] [--startedAt <value>] [--completedAt <value>] [--agentId <value>] [--taskTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db agent-spawn delete --id <value>           Delete one record
+  agentic-db agent-spawn list                               List all records
+  agentic-db agent-spawn get --id <value>              Get one record
+  agentic-db agent-spawn create --entityId <value> --parentAgentId <value> --task <value> --agentId <value> --taskTrgmSimilarity <value> --statusTrgmSimilarity <value> --searchScore <value> [--childAgentId <value>] [--sessionId <value>] [--status <value>] [--result <value>] [--maxIterations <value>] [--startedAt <value>] [--completedAt <value>]
+  agentic-db agent-spawn update --id <value> [--entityId <value>] [--parentAgentId <value>] [--childAgentId <value>] [--sessionId <value>] [--task <value>] [--status <value>] [--result <value>] [--maxIterations <value>] [--startedAt <value>] [--completedAt <value>] [--agentId <value>] [--taskTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db agent-spawn delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2622,11 +2622,11 @@ CRUD operations for Habit records.
 
 ```
 SUBCOMMANDS:
-  agent-db habit list                               List all records
-  agent-db habit get --id <value>              Get one record
-  agent-db habit create --entityId <value> --name <value> --nameTrgmSimilarity <value> --frequencyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
-  agent-db habit update --id <value> [--entityId <value>] [--name <value>] [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>] [--nameTrgmSimilarity <value>] [--frequencyTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db habit delete --id <value>           Delete one record
+  agentic-db habit list                               List all records
+  agentic-db habit get --id <value>              Get one record
+  agentic-db habit create --entityId <value> --name <value> --nameTrgmSimilarity <value> --frequencyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --searchScore <value> [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>]
+  agentic-db habit update --id <value> [--entityId <value>] [--name <value>] [--frequency <value>] [--targetCount <value>] [--currentStreak <value>] [--bestStreak <value>] [--category <value>] [--tags <value>] [--nameTrgmSimilarity <value>] [--frequencyTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db habit delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2673,11 +2673,11 @@ CRUD operations for Workflow records.
 
 ```
 SUBCOMMANDS:
-  agent-db workflow list                               List all records
-  agent-db workflow get --id <value>              Get one record
-  agent-db workflow create --entityId <value> --name <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --triggerTypeTrgmSimilarity <value> --searchScore <value> [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
-  agent-db workflow update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--triggerTypeTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db workflow delete --id <value>           Delete one record
+  agentic-db workflow list                               List all records
+  agentic-db workflow get --id <value>              Get one record
+  agentic-db workflow create --entityId <value> --name <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --triggerTypeTrgmSimilarity <value> --searchScore <value> [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
+  agentic-db workflow update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--triggerTypeTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db workflow delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2722,11 +2722,11 @@ CRUD operations for Expense records.
 
 ```
 SUBCOMMANDS:
-  agent-db expense list                               List all records
-  agent-db expense get --id <value>              Get one record
-  agent-db expense create --entityId <value> --currencyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --merchantTrgmSimilarity <value> --receiptUrlTrgmSimilarity <value> --searchScore <value> [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>]
-  agent-db expense update --id <value> [--entityId <value>] [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>] [--currencyTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--merchantTrgmSimilarity <value>] [--receiptUrlTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db expense delete --id <value>           Delete one record
+  agentic-db expense list                               List all records
+  agentic-db expense get --id <value>              Get one record
+  agentic-db expense create --entityId <value> --currencyTrgmSimilarity <value> --categoryTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --merchantTrgmSimilarity <value> --receiptUrlTrgmSimilarity <value> --searchScore <value> [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>]
+  agentic-db expense update --id <value> [--entityId <value>] [--amount <value>] [--currency <value>] [--date <value>] [--category <value>] [--description <value>] [--merchant <value>] [--receiptUrl <value>] [--isRecurring <value>] [--tags <value>] [--currencyTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--merchantTrgmSimilarity <value>] [--receiptUrlTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db expense delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2781,11 +2781,11 @@ CRUD operations for BillingSubscription records.
 
 ```
 SUBCOMMANDS:
-  agent-db billing-subscription list                               List all records
-  agent-db billing-subscription get --id <value>              Get one record
-  agent-db billing-subscription create --entityId <value> --name <value> --nameTrgmSimilarity <value> --currencyTrgmSimilarity <value> --frequencyTrgmSimilarity <value> --providerTrgmSimilarity <value> --statusTrgmSimilarity <value> --notesTrgmSimilarity <value> --searchScore <value> [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>]
-  agent-db billing-subscription update --id <value> [--entityId <value>] [--name <value>] [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>] [--nameTrgmSimilarity <value>] [--currencyTrgmSimilarity <value>] [--frequencyTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--searchScore <value>]
-  agent-db billing-subscription delete --id <value>           Delete one record
+  agentic-db billing-subscription list                               List all records
+  agentic-db billing-subscription get --id <value>              Get one record
+  agentic-db billing-subscription create --entityId <value> --name <value> --nameTrgmSimilarity <value> --currencyTrgmSimilarity <value> --frequencyTrgmSimilarity <value> --providerTrgmSimilarity <value> --statusTrgmSimilarity <value> --notesTrgmSimilarity <value> --searchScore <value> [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>]
+  agentic-db billing-subscription update --id <value> [--entityId <value>] [--name <value>] [--amount <value>] [--currency <value>] [--frequency <value>] [--provider <value>] [--nextBillingDate <value>] [--cancellationDate <value>] [--status <value>] [--tags <value>] [--notes <value>] [--nameTrgmSimilarity <value>] [--currencyTrgmSimilarity <value>] [--frequencyTrgmSimilarity <value>] [--providerTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--searchScore <value>]
+  agentic-db billing-subscription delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2844,11 +2844,11 @@ CRUD operations for Idea records.
 
 ```
 SUBCOMMANDS:
-  agent-db idea list                               List all records
-  agent-db idea get --id <value>              Get one record
-  agent-db idea create --entityId <value> --content <value> --embeddingTextBm25Score <value> --contentTrgmSimilarity <value> --sourceTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db idea update --id <value> [--entityId <value>] [--content <value>] [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--contentTrgmSimilarity <value>] [--sourceTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db idea delete --id <value>           Delete one record
+  agentic-db idea list                               List all records
+  agentic-db idea get --id <value>              Get one record
+  agentic-db idea create --entityId <value> --content <value> --embeddingTextBm25Score <value> --contentTrgmSimilarity <value> --sourceTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db idea update --id <value> [--entityId <value>] [--content <value>] [--source <value>] [--status <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--contentTrgmSimilarity <value>] [--sourceTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db idea delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2899,11 +2899,11 @@ CRUD operations for List records.
 
 ```
 SUBCOMMANDS:
-  agent-db list list                               List all records
-  agent-db list get --id <value>              Get one record
-  agent-db list create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --typeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db list update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db list delete --id <value>           Delete one record
+  agentic-db list list                               List all records
+  agentic-db list get --id <value>              Get one record
+  agentic-db list create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --typeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db list update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db list delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -2954,11 +2954,11 @@ CRUD operations for Repository records.
 
 ```
 SUBCOMMANDS:
-  agent-db repository list                               List all records
-  agent-db repository get --id <value>              Get one record
-  agent-db repository create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --urlTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --defaultBranchTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db repository update --id <value> [--entityId <value>] [--name <value>] [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--defaultBranchTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db repository delete --id <value>           Delete one record
+  agentic-db repository list                               List all records
+  agentic-db repository get --id <value>              Get one record
+  agentic-db repository create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --urlTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --defaultBranchTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db repository update --id <value> [--entityId <value>] [--name <value>] [--url <value>] [--description <value>] [--defaultBranch <value>] [--lastSyncedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--defaultBranchTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db repository delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3015,11 +3015,11 @@ CRUD operations for Deal records.
 
 ```
 SUBCOMMANDS:
-  agent-db deal list                               List all records
-  agent-db deal get --id <value>              Get one record
-  agent-db deal create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --stageTrgmSimilarity <value> --currencyTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db deal update --id <value> [--entityId <value>] [--name <value>] [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--stageTrgmSimilarity <value>] [--currencyTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db deal delete --id <value>           Delete one record
+  agentic-db deal list                               List all records
+  agentic-db deal get --id <value>              Get one record
+  agentic-db deal create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --stageTrgmSimilarity <value> --currencyTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db deal update --id <value> [--entityId <value>] [--name <value>] [--stage <value>] [--value <value>] [--currency <value>] [--expectedCloseDate <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--stageTrgmSimilarity <value>] [--currencyTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db deal delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3078,11 +3078,11 @@ CRUD operations for Goal records.
 
 ```
 SUBCOMMANDS:
-  agent-db goal list                               List all records
-  agent-db goal get --id <value>              Get one record
-  agent-db goal create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --statusTrgmSimilarity <value> --categoryTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db goal update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db goal delete --id <value>           Delete one record
+  agentic-db goal list                               List all records
+  agentic-db goal get --id <value>              Get one record
+  agentic-db goal create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --statusTrgmSimilarity <value> --categoryTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db goal update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--targetDate <value>] [--status <value>] [--category <value>] [--progressPct <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db goal delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3141,11 +3141,11 @@ CRUD operations for Note records.
 
 ```
 SUBCOMMANDS:
-  agent-db note list                               List all records
-  agent-db note get --id <value>              Get one record
-  agent-db note create --entityId <value> --content <value> --contentBm25Score <value> --embeddingTextBm25Score <value> --contentTrgmSimilarity <value> --notableTypeTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--notableType <value>] [--notableId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db note update --id <value> [--entityId <value>] [--content <value>] [--notableType <value>] [--notableId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--contentBm25Score <value>] [--embeddingTextBm25Score <value>] [--contentTrgmSimilarity <value>] [--notableTypeTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db note delete --id <value>           Delete one record
+  agentic-db note list                               List all records
+  agentic-db note get --id <value>              Get one record
+  agentic-db note create --entityId <value> --content <value> --contentBm25Score <value> --embeddingTextBm25Score <value> --contentTrgmSimilarity <value> --notableTypeTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--notableType <value>] [--notableId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db note update --id <value> [--entityId <value>] [--content <value>] [--notableType <value>] [--notableId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--contentBm25Score <value>] [--embeddingTextBm25Score <value>] [--contentTrgmSimilarity <value>] [--notableTypeTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db note delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3208,11 +3208,11 @@ CRUD operations for Prompt records.
 
 ```
 SUBCOMMANDS:
-  agent-db prompt list                               List all records
-  agent-db prompt get --id <value>              Get one record
-  agent-db prompt create --entityId <value> --name <value> --content <value> --contentBm25Score <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --contentTrgmSimilarity <value> --typeTrgmSimilarity <value> --modelTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db prompt update --id <value> [--entityId <value>] [--name <value>] [--content <value>] [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--contentBm25Score <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--modelTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db prompt delete --id <value>           Delete one record
+  agentic-db prompt list                               List all records
+  agentic-db prompt get --id <value>              Get one record
+  agentic-db prompt create --entityId <value> --name <value> --content <value> --contentBm25Score <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --contentTrgmSimilarity <value> --typeTrgmSimilarity <value> --modelTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db prompt update --id <value> [--entityId <value>] [--name <value>] [--content <value>] [--type <value>] [--model <value>] [--version <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--contentBm25Score <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--modelTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db prompt delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3273,11 +3273,11 @@ CRUD operations for Blueprint records.
 
 ```
 SUBCOMMANDS:
-  agent-db blueprint list                               List all records
-  agent-db blueprint get --id <value>              Get one record
-  agent-db blueprint create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --triggerConditionsTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db blueprint update --id <value> [--entityId <value>] [--title <value>] [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--triggerConditionsTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db blueprint delete --id <value>           Delete one record
+  agentic-db blueprint list                               List all records
+  agentic-db blueprint get --id <value>              Get one record
+  agentic-db blueprint create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --triggerConditionsTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db blueprint update --id <value> [--entityId <value>] [--title <value>] [--steps <value>] [--triggerConditions <value>] [--conversationId <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--triggerConditionsTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db blueprint delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3328,11 +3328,11 @@ CRUD operations for Template records.
 
 ```
 SUBCOMMANDS:
-  agent-db template list                               List all records
-  agent-db template get --id <value>              Get one record
-  agent-db template create --entityId <value> --name <value> --content <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --typeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--type <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db template update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--content <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db template delete --id <value>           Delete one record
+  agentic-db template list                               List all records
+  agentic-db template get --id <value>              Get one record
+  agentic-db template create --entityId <value> --name <value> --content <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --typeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--type <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db template update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--content <value>] [--variables <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db template delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3389,11 +3389,11 @@ CRUD operations for Tool records.
 
 ```
 SUBCOMMANDS:
-  agent-db tool list                               List all records
-  agent-db tool get --id <value>              Get one record
-  agent-db tool create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --typeTrgmSimilarity <value> --endpointTrgmSimilarity <value> --authMethodTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db tool update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--endpointTrgmSimilarity <value>] [--authMethodTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db tool delete --id <value>           Delete one record
+  agentic-db tool list                               List all records
+  agentic-db tool get --id <value>              Get one record
+  agentic-db tool create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --typeTrgmSimilarity <value> --endpointTrgmSimilarity <value> --authMethodTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db tool update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--type <value>] [--inputSchema <value>] [--outputSchema <value>] [--endpoint <value>] [--authMethod <value>] [--isActive <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--typeTrgmSimilarity <value>] [--endpointTrgmSimilarity <value>] [--authMethodTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db tool delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3458,11 +3458,11 @@ CRUD operations for Recipe records.
 
 ```
 SUBCOMMANDS:
-  agent-db recipe list                               List all records
-  agent-db recipe get --id <value>              Get one record
-  agent-db recipe create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --cuisineTrgmSimilarity <value> --difficultyTrgmSimilarity <value> --sourceUrlTrgmSimilarity <value> --imageUrlTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db recipe update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--cuisineTrgmSimilarity <value>] [--difficultyTrgmSimilarity <value>] [--sourceUrlTrgmSimilarity <value>] [--imageUrlTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db recipe delete --id <value>           Delete one record
+  agentic-db recipe list                               List all records
+  agentic-db recipe get --id <value>              Get one record
+  agentic-db recipe create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --cuisineTrgmSimilarity <value> --difficultyTrgmSimilarity <value> --sourceUrlTrgmSimilarity <value> --imageUrlTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db recipe update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--cuisine <value>] [--prepTimeMinutes <value>] [--cookTimeMinutes <value>] [--servings <value>] [--difficulty <value>] [--ingredients <value>] [--instructions <value>] [--sourceUrl <value>] [--imageUrl <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--cuisineTrgmSimilarity <value>] [--difficultyTrgmSimilarity <value>] [--sourceUrlTrgmSimilarity <value>] [--imageUrlTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db recipe delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3535,11 +3535,11 @@ CRUD operations for Trip records.
 
 ```
 SUBCOMMANDS:
-  agent-db trip list                               List all records
-  agent-db trip get --id <value>              Get one record
-  agent-db trip create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --destinationTrgmSimilarity <value> --statusTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db trip update --id <value> [--entityId <value>] [--name <value>] [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--destinationTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db trip delete --id <value>           Delete one record
+  agentic-db trip list                               List all records
+  agentic-db trip get --id <value>              Get one record
+  agentic-db trip create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --destinationTrgmSimilarity <value> --statusTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db trip update --id <value> [--entityId <value>] [--name <value>] [--destination <value>] [--startDate <value>] [--endDate <value>] [--status <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--destinationTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db trip delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3598,11 +3598,11 @@ CRUD operations for Memory records.
 
 ```
 SUBCOMMANDS:
-  agent-db memory list                               List all records
-  agent-db memory get --id <value>              Get one record
-  agent-db memory create --entityId <value> --content <value> --embeddingTextBm25Score <value> --contentTrgmSimilarity <value> --memoryTypeTrgmSimilarity <value> --memoryCategoryTrgmSimilarity <value> --sourceTrgmSimilarity <value> --relatedEntityTypeTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--memoryType <value>] [--memoryCategory <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db memory update --id <value> [--entityId <value>] [--content <value>] [--memoryType <value>] [--memoryCategory <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--contentTrgmSimilarity <value>] [--memoryTypeTrgmSimilarity <value>] [--memoryCategoryTrgmSimilarity <value>] [--sourceTrgmSimilarity <value>] [--relatedEntityTypeTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db memory delete --id <value>           Delete one record
+  agentic-db memory list                               List all records
+  agentic-db memory get --id <value>              Get one record
+  agentic-db memory create --entityId <value> --content <value> --embeddingTextBm25Score <value> --contentTrgmSimilarity <value> --memoryTypeTrgmSimilarity <value> --memoryCategoryTrgmSimilarity <value> --sourceTrgmSimilarity <value> --relatedEntityTypeTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--memoryType <value>] [--memoryCategory <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db memory update --id <value> [--entityId <value>] [--content <value>] [--memoryType <value>] [--memoryCategory <value>] [--agentId <value>] [--importance <value>] [--verified <value>] [--source <value>] [--relatedEntityType <value>] [--relatedEntityId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--contentTrgmSimilarity <value>] [--memoryTypeTrgmSimilarity <value>] [--memoryCategoryTrgmSimilarity <value>] [--sourceTrgmSimilarity <value>] [--relatedEntityTypeTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db memory delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3681,11 +3681,11 @@ CRUD operations for Rule records.
 
 ```
 SUBCOMMANDS:
-  agent-db rule list                               List all records
-  agent-db rule get --id <value>              Get one record
-  agent-db rule create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --contentTrgmSimilarity <value> --kindTrgmSimilarity <value> --severityTrgmSimilarity <value> --slugTrgmSimilarity <value> --verificationTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --triggerConceptVectorDistance <value> --searchScore <value> [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>]
-  agent-db rule update --id <value> [--entityId <value>] [--title <value>] [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--kindTrgmSimilarity <value>] [--severityTrgmSimilarity <value>] [--slugTrgmSimilarity <value>] [--verificationTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--triggerConceptVectorDistance <value>] [--searchScore <value>]
-  agent-db rule delete --id <value>           Delete one record
+  agentic-db rule list                               List all records
+  agentic-db rule get --id <value>              Get one record
+  agentic-db rule create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --contentTrgmSimilarity <value> --kindTrgmSimilarity <value> --severityTrgmSimilarity <value> --slugTrgmSimilarity <value> --verificationTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --triggerConceptVectorDistance <value> --searchScore <value> [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>]
+  agentic-db rule update --id <value> [--entityId <value>] [--title <value>] [--content <value>] [--kind <value>] [--severity <value>] [--isActive <value>] [--slug <value>] [--verification <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--triggerConcept <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--kindTrgmSimilarity <value>] [--severityTrgmSimilarity <value>] [--slugTrgmSimilarity <value>] [--verificationTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--triggerConceptVectorDistance <value>] [--searchScore <value>]
+  agentic-db rule delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3754,11 +3754,11 @@ CRUD operations for Task records.
 
 ```
 SUBCOMMANDS:
-  agent-db task list                               List all records
-  agent-db task get --id <value>              Get one record
-  agent-db task create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --statusTrgmSimilarity <value> --taskTypeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db task update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--taskTypeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db task delete --id <value>           Delete one record
+  agentic-db task list                               List all records
+  agentic-db task get --id <value>              Get one record
+  agentic-db task create --entityId <value> --title <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --statusTrgmSimilarity <value> --taskTypeTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db task update --id <value> [--entityId <value>] [--title <value>] [--description <value>] [--status <value>] [--priority <value>] [--projectId <value>] [--taskType <value>] [--assignedAgentId <value>] [--parentTaskId <value>] [--dueDate <value>] [--completedAt <value>] [--conversationId <value>] [--dependencies <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--taskTypeTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db task delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3829,11 +3829,11 @@ CRUD operations for Agent records.
 
 ```
 SUBCOMMANDS:
-  agent-db agent list                               List all records
-  agent-db agent get --id <value>              Get one record
-  agent-db agent create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --roleTrgmSimilarity <value> --statusTrgmSimilarity <value> --personaTrgmSimilarity <value> --backstoryTrgmSimilarity <value> --communicationStyleTrgmSimilarity <value> --systemPromptTrgmSimilarity <value> --preferredModelTrgmSimilarity <value> --moodTrgmSimilarity <value> --focusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>]
-  agent-db agent update --id <value> [--entityId <value>] [--name <value>] [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--roleTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--personaTrgmSimilarity <value>] [--backstoryTrgmSimilarity <value>] [--communicationStyleTrgmSimilarity <value>] [--systemPromptTrgmSimilarity <value>] [--preferredModelTrgmSimilarity <value>] [--moodTrgmSimilarity <value>] [--focusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db agent delete --id <value>           Delete one record
+  agentic-db agent list                               List all records
+  agentic-db agent get --id <value>              Get one record
+  agentic-db agent create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --roleTrgmSimilarity <value> --statusTrgmSimilarity <value> --personaTrgmSimilarity <value> --backstoryTrgmSimilarity <value> --communicationStyleTrgmSimilarity <value> --systemPromptTrgmSimilarity <value> --preferredModelTrgmSimilarity <value> --moodTrgmSimilarity <value> --focusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>]
+  agentic-db agent update --id <value> [--entityId <value>] [--name <value>] [--role <value>] [--capabilities <value>] [--config <value>] [--status <value>] [--persona <value>] [--backstory <value>] [--communicationStyle <value>] [--systemPrompt <value>] [--preferredModel <value>] [--fallbackModels <value>] [--temperature <value>] [--mood <value>] [--focus <value>] [--lastActiveAt <value>] [--embeddingText <value>] [--embedding <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--roleTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--personaTrgmSimilarity <value>] [--backstoryTrgmSimilarity <value>] [--communicationStyleTrgmSimilarity <value>] [--systemPromptTrgmSimilarity <value>] [--preferredModelTrgmSimilarity <value>] [--moodTrgmSimilarity <value>] [--focusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db agent delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -3920,11 +3920,11 @@ CRUD operations for Skill records.
 
 ```
 SUBCOMMANDS:
-  agent-db skill list                               List all records
-  agent-db skill get --id <value>              Get one record
-  agent-db skill create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --slugTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --contentTrgmSimilarity <value> --procedureTrgmSimilarity <value> --filePathTrgmSimilarity <value> --contentHashTrgmSimilarity <value> --categoryTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --intentTriggerVectorDistance <value> --searchScore <value> [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--prerequisites <value>] [--alwaysLoad <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>]
-  agent-db skill update --id <value> [--entityId <value>] [--name <value>] [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--prerequisites <value>] [--alwaysLoad <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--slugTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--procedureTrgmSimilarity <value>] [--filePathTrgmSimilarity <value>] [--contentHashTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--intentTriggerVectorDistance <value>] [--searchScore <value>]
-  agent-db skill delete --id <value>           Delete one record
+  agentic-db skill list                               List all records
+  agentic-db skill get --id <value>              Get one record
+  agentic-db skill create --entityId <value> --name <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --slugTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --contentTrgmSimilarity <value> --procedureTrgmSimilarity <value> --filePathTrgmSimilarity <value> --contentHashTrgmSimilarity <value> --categoryTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --intentTriggerVectorDistance <value> --searchScore <value> [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--prerequisites <value>] [--alwaysLoad <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>]
+  agentic-db skill update --id <value> [--entityId <value>] [--name <value>] [--slug <value>] [--description <value>] [--content <value>] [--procedure <value>] [--interface <value>] [--requirements <value>] [--prerequisites <value>] [--alwaysLoad <value>] [--filePath <value>] [--contentHash <value>] [--category <value>] [--isActive <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--intentTrigger <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--slugTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--procedureTrgmSimilarity <value>] [--filePathTrgmSimilarity <value>] [--contentHashTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--intentTriggerVectorDistance <value>] [--searchScore <value>]
+  agentic-db skill delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -4021,11 +4021,11 @@ CRUD operations for Project records.
 
 ```
 SUBCOMMANDS:
-  agent-db project list                               List all records
-  agent-db project get --id <value>              Get one record
-  agent-db project create --entityId <value> --name <value> --searchTsvRank <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
-  agent-db project update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db project delete --id <value>           Delete one record
+  agentic-db project list                               List all records
+  agentic-db project get --id <value>              Get one record
+  agentic-db project create --entityId <value> --name <value> --searchTsvRank <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --statusTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
+  agentic-db project update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--status <value>] [--startDate <value>] [--dueDate <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db project delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -4084,11 +4084,11 @@ CRUD operations for Document records.
 
 ```
 SUBCOMMANDS:
-  agent-db document list                               List all records
-  agent-db document get --id <value>              Get one record
-  agent-db document create --entityId <value> --title <value> --searchTsvRank <value> --contentBm25Score <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --contentTrgmSimilarity <value> --sourceTypeTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--parentDocumentId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
-  agent-db document update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--parentDocumentId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--contentBm25Score <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--sourceTypeTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db document delete --id <value>           Delete one record
+  agentic-db document list                               List all records
+  agentic-db document get --id <value>              Get one record
+  agentic-db document create --entityId <value> --title <value> --searchTsvRank <value> --contentBm25Score <value> --embeddingTextBm25Score <value> --titleTrgmSimilarity <value> --urlTrgmSimilarity <value> --contentTrgmSimilarity <value> --sourceTypeTrgmSimilarity <value> --abstractTrgmSimilarity <value> --overviewTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--parentDocumentId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>]
+  agentic-db document update --id <value> [--entityId <value>] [--title <value>] [--url <value>] [--content <value>] [--sourceType <value>] [--isRead <value>] [--savedAt <value>] [--parentDocumentId <value>] [--abstract <value>] [--overview <value>] [--activeCount <value>] [--lastAccessedAt <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--searchTsvRank <value>] [--contentBm25Score <value>] [--embeddingTextBm25Score <value>] [--titleTrgmSimilarity <value>] [--urlTrgmSimilarity <value>] [--contentTrgmSimilarity <value>] [--sourceTypeTrgmSimilarity <value>] [--abstractTrgmSimilarity <value>] [--overviewTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db document delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -4167,11 +4167,11 @@ CRUD operations for Company records.
 
 ```
 SUBCOMMANDS:
-  agent-db company list                               List all records
-  agent-db company get --id <value>              Get one record
-  agent-db company create --entityId <value> --name <value> --searchTsvRank <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --domainTrgmSimilarity <value> --industryTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-db company update --id <value> [--entityId <value>] [--name <value>] [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--domainTrgmSimilarity <value>] [--industryTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db company delete --id <value>           Delete one record
+  agentic-db company list                               List all records
+  agentic-db company get --id <value>              Get one record
+  agentic-db company create --entityId <value> --name <value> --searchTsvRank <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --domainTrgmSimilarity <value> --industryTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agentic-db company update --id <value> [--entityId <value>] [--name <value>] [--domain <value>] [--industry <value>] [--description <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--domainTrgmSimilarity <value>] [--industryTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db company delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -4232,11 +4232,11 @@ CRUD operations for Event records.
 
 ```
 SUBCOMMANDS:
-  agent-db event list                               List all records
-  agent-db event get --id <value>              Get one record
-  agent-db event create --entityId <value> --name <value> --searchTsvRank <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --eventTypeTrgmSimilarity <value> --locationTrgmSimilarity <value> --cityTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-db event update --id <value> [--entityId <value>] [--name <value>] [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--eventTypeTrgmSimilarity <value>] [--locationTrgmSimilarity <value>] [--cityTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db event delete --id <value>           Delete one record
+  agentic-db event list                               List all records
+  agentic-db event get --id <value>              Get one record
+  agentic-db event create --entityId <value> --name <value> --searchTsvRank <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --eventTypeTrgmSimilarity <value> --locationTrgmSimilarity <value> --cityTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agentic-db event update --id <value> [--entityId <value>] [--name <value>] [--eventType <value>] [--location <value>] [--city <value>] [--startedAt <value>] [--endedAt <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--eventTypeTrgmSimilarity <value>] [--locationTrgmSimilarity <value>] [--cityTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db event delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -4305,11 +4305,11 @@ CRUD operations for Contact records.
 
 ```
 SUBCOMMANDS:
-  agent-db contact list                               List all records
-  agent-db contact get --id <value>              Get one record
-  agent-db contact create --entityId <value> --firstName <value> --searchTsvRank <value> --embeddingTextBm25Score <value> --firstNameTrgmSimilarity <value> --lastNameTrgmSimilarity <value> --emailTrgmSimilarity <value> --phoneTrgmSimilarity <value> --headlineTrgmSimilarity <value> --bioTrgmSimilarity <value> --locationTrgmSimilarity <value> --relationshipTypeTrgmSimilarity <value> --howWeMetTrgmSimilarity <value> --twitterHandleTrgmSimilarity <value> --linkedinUrlTrgmSimilarity <value> --githubUsernameTrgmSimilarity <value> --instagramHandleTrgmSimilarity <value> --websiteTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-db contact update --id <value> [--entityId <value>] [--firstName <value>] [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingTextBm25Score <value>] [--firstNameTrgmSimilarity <value>] [--lastNameTrgmSimilarity <value>] [--emailTrgmSimilarity <value>] [--phoneTrgmSimilarity <value>] [--headlineTrgmSimilarity <value>] [--bioTrgmSimilarity <value>] [--locationTrgmSimilarity <value>] [--relationshipTypeTrgmSimilarity <value>] [--howWeMetTrgmSimilarity <value>] [--twitterHandleTrgmSimilarity <value>] [--linkedinUrlTrgmSimilarity <value>] [--githubUsernameTrgmSimilarity <value>] [--instagramHandleTrgmSimilarity <value>] [--websiteTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db contact delete --id <value>           Delete one record
+  agentic-db contact list                               List all records
+  agentic-db contact get --id <value>              Get one record
+  agentic-db contact create --entityId <value> --firstName <value> --searchTsvRank <value> --embeddingTextBm25Score <value> --firstNameTrgmSimilarity <value> --lastNameTrgmSimilarity <value> --emailTrgmSimilarity <value> --phoneTrgmSimilarity <value> --headlineTrgmSimilarity <value> --bioTrgmSimilarity <value> --locationTrgmSimilarity <value> --relationshipTypeTrgmSimilarity <value> --howWeMetTrgmSimilarity <value> --twitterHandleTrgmSimilarity <value> --linkedinUrlTrgmSimilarity <value> --githubUsernameTrgmSimilarity <value> --instagramHandleTrgmSimilarity <value> --websiteTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agentic-db contact update --id <value> [--entityId <value>] [--firstName <value>] [--lastName <value>] [--email <value>] [--phone <value>] [--headline <value>] [--bio <value>] [--location <value>] [--birthday <value>] [--relationshipType <value>] [--howWeMet <value>] [--twitterHandle <value>] [--linkedinUrl <value>] [--githubUsername <value>] [--instagramHandle <value>] [--website <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingTextBm25Score <value>] [--firstNameTrgmSimilarity <value>] [--lastNameTrgmSimilarity <value>] [--emailTrgmSimilarity <value>] [--phoneTrgmSimilarity <value>] [--headlineTrgmSimilarity <value>] [--bioTrgmSimilarity <value>] [--locationTrgmSimilarity <value>] [--relationshipTypeTrgmSimilarity <value>] [--howWeMetTrgmSimilarity <value>] [--twitterHandleTrgmSimilarity <value>] [--linkedinUrlTrgmSimilarity <value>] [--githubUsernameTrgmSimilarity <value>] [--instagramHandleTrgmSimilarity <value>] [--websiteTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db contact delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -4412,11 +4412,11 @@ CRUD operations for Venue records.
 
 ```
 SUBCOMMANDS:
-  agent-db venue list                               List all records
-  agent-db venue get --id <value>              Get one record
-  agent-db venue create --entityId <value> --name <value> --searchTsvRank <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --addressTrgmSimilarity <value> --neighborhoodTrgmSimilarity <value> --cityTrgmSimilarity <value> --categoryTrgmSimilarity <value> --statusTrgmSimilarity <value> --googlePlaceIdTrgmSimilarity <value> --priceLevelTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
-  agent-db venue update --id <value> [--entityId <value>] [--name <value>] [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--addressTrgmSimilarity <value>] [--neighborhoodTrgmSimilarity <value>] [--cityTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--googlePlaceIdTrgmSimilarity <value>] [--priceLevelTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
-  agent-db venue delete --id <value>           Delete one record
+  agentic-db venue list                               List all records
+  agentic-db venue get --id <value>              Get one record
+  agentic-db venue create --entityId <value> --name <value> --searchTsvRank <value> --embeddingTextBm25Score <value> --nameTrgmSimilarity <value> --addressTrgmSimilarity <value> --neighborhoodTrgmSimilarity <value> --cityTrgmSimilarity <value> --categoryTrgmSimilarity <value> --statusTrgmSimilarity <value> --googlePlaceIdTrgmSimilarity <value> --priceLevelTrgmSimilarity <value> --notesTrgmSimilarity <value> --embeddingTextTrgmSimilarity <value> --embeddingVectorDistance <value> --searchScore <value> [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>]
+  agentic-db venue update --id <value> [--entityId <value>] [--name <value>] [--address <value>] [--neighborhood <value>] [--city <value>] [--category <value>] [--status <value>] [--googlePlaceId <value>] [--rating <value>] [--priceLevel <value>] [--isFavorite <value>] [--notes <value>] [--tags <value>] [--embeddingText <value>] [--embedding <value>] [--searchTsv <value>] [--mainImageId <value>] [--searchTsvRank <value>] [--embeddingTextBm25Score <value>] [--nameTrgmSimilarity <value>] [--addressTrgmSimilarity <value>] [--neighborhoodTrgmSimilarity <value>] [--cityTrgmSimilarity <value>] [--categoryTrgmSimilarity <value>] [--statusTrgmSimilarity <value>] [--googlePlaceIdTrgmSimilarity <value>] [--priceLevelTrgmSimilarity <value>] [--notesTrgmSimilarity <value>] [--embeddingTextTrgmSimilarity <value>] [--embeddingVectorDistance <value>] [--searchScore <value>]
+  agentic-db venue delete --id <value>           Delete one record
 
 INPUT FIELDS:
   id: UUID (primary key)
@@ -4500,41 +4500,41 @@ OUTPUT: JSON
 ### Initial setup
 
 ```bash
-agent-db context create dev --endpoint http://localhost:5000/graphql
-agent-db context use dev
-agent-db auth set-token eyJhbGciOiJIUzI1NiIs...
+agentic-db context create dev --endpoint http://localhost:5000/graphql
+agentic-db context use dev
+agentic-db auth set-token eyJhbGciOiJIUzI1NiIs...
 ```
 
 ### CRUD workflow (agent-prompt)
 
 ```bash
 # List all
-agent-db agent-prompt list
+agentic-db agent-prompt list
 
 # Create
-agent-db agent-prompt create --agentId "value" --promptId "value" --entityId "value"
+agentic-db agent-prompt create --agentId "value" --promptId "value" --entityId "value"
 
 # Get by id
-agent-db agent-prompt get --id <value>
+agentic-db agent-prompt get --id <value>
 
 # Update
-agent-db agent-prompt update --id <value> --agentId "new-value"
+agentic-db agent-prompt update --id <value> --agentId "new-value"
 
 # Delete
-agent-db agent-prompt delete --id <value>
+agentic-db agent-prompt delete --id <value>
 ```
 
 ### Piping output
 
 ```bash
 # Pretty print
-agent-db car list | jq '.'
+agentic-db car list | jq '.'
 
 # Extract field
-agent-db car list | jq '.[].id'
+agentic-db car list | jq '.[].id'
 
 # Count results
-agent-db car list | jq 'length'
+agentic-db car list | jq 'length'
 ```
 
 ## ERROR HANDLING

@@ -1,4 +1,4 @@
--- Deploy agent-db-embeddings:001-triggers to pg
+-- Deploy agentic-db-embeddings:001-triggers to pg
 
 BEGIN;
 

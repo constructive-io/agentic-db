@@ -1,7 +1,7 @@
 /**
- * CLI command: agent-db embed [--table contacts] [--all] [--id <uuid>]
+ * CLI command: agentic-db embed [--table contacts] [--all] [--id <uuid>]
  *
- * Generate vector embeddings for records in agent-db tables.
+ * Generate vector embeddings for records in agentic-db tables.
  */
 import { CLIOptions, Inquirerer } from 'inquirerer';
 import { getClient } from '../../generated/cli/executor';
@@ -219,7 +219,7 @@ const ALL_TABLES = Object.keys(TABLE_CONFIGS) as EmbeddableTable[];
 const usage = `
 embed [options]
 
-  Generate vector embeddings for records in agent-db tables.
+  Generate vector embeddings for records in agentic-db tables.
 
 Options:
   --table <name>     Table to embed (required unless --all)
@@ -229,8 +229,8 @@ Options:
 Available tables: ${ALL_TABLES.join(', ')}
 
 Examples:
-  agent-db embed --table contacts
-  agent-db embed --all
+  agentic-db embed --table contacts
+  agentic-db embed --all
 `;
 
 async function embedTable(

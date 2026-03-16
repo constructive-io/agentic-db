@@ -68,7 +68,7 @@ export CONSTRUCTIVE_SIMPLE_SCHEMA_NAMES="true"
 export CONSTRUCTIVE_SCHEMA_USE_UNDERSCORES="true"
 ```
 
-This guarantees schemas are named cleanly (e.g., `agent_db_app_public` instead of `agent-db-services-hash-app-public`).
+This guarantees schemas are named cleanly (e.g., `agentic_db_app_public` instead of `agentic-db-services-hash-app-public`).
 
 ### Migration Workflow
 
@@ -88,9 +88,9 @@ If you need to migrate data from an older schema into the new format, follow the
 3. **Run the Data Migration Script**
    Map the old rows (e.g., floating notes/memories) into the new junction tables (`contact_notes`, `company_notes`, etc.).
 4. **Start the Auto-Embedding Worker**
-   Because of the Postgres triggers in `packages/agent-db-embeddings`, inserting data into the new schema automatically queues embedding jobs.
-   ```bash
-   cd packages/agent-db-worker
+      Because of the Postgres triggers in `packages/embeddings`, inserting data into the new schema automatically queues embedding jobs.
+      ```bash
+      cd packages/worker
    pnpm start
    ```
    *The worker will instantly pick up the jobs and compute vector embeddings via Ollama or Claude for all migrated records!*

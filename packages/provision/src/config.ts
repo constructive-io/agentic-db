@@ -17,13 +17,13 @@ export const config = {
   authEndpoint: process.env.AUTH_ENDPOINT || 'http://auth.localhost:3000/graphql',
 
   /** Database name (set by create-db, read by provision) */
-  databaseName: process.env.DATABASE_NAME || 'agent-os',
+  databaseName: process.env.DATABASE_NAME || 'agentic-db',
 
   /** Database ID (set by create-db, read by provision scripts) */
   databaseId: process.env.DATABASE_ID,
 
   /** Admin email for sign up */
-  adminEmail: process.env.ADMIN_EMAIL || 'admin@agent-os.local',
+  adminEmail: process.env.ADMIN_EMAIL || 'admin@agentic-db.local',
 
   /** Admin password for sign up */
   adminPassword: process.env.ADMIN_PASSWORD || 'AgentOS2026!',

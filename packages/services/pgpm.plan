@@ -1,6 +1,6 @@
 %syntax-version=1.0.0
-%project=agent-db-services
-%uri=agent-db-services
+%project=agentic-db-services
+%uri=agentic-db-services
 
 migrate/database 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined
 migrate/schema [migrate/database] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add undefined

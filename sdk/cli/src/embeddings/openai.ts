@@ -11,7 +11,7 @@ export class OpenAIEmbeddingProvider implements EmbeddingProvider {
   constructor(config: RagProviderConfig) {
     if (!config.openaiApiKey) {
       throw new Error(
-        'OpenAI API key required. Set it via:\n  agent-db config set openaiApiKey <key>'
+        'OpenAI API key required. Set it via:\n  agentic-db config set openaiApiKey <key>'
       );
     }
     this.apiKey = config.openaiApiKey;
@@ -45,7 +45,7 @@ export class OpenAIChatProvider implements ChatProvider {
   constructor(config: RagProviderConfig) {
     if (!config.openaiApiKey) {
       throw new Error(
-        'OpenAI API key required. Set it via:\n  agent-db config set openaiApiKey <key>'
+        'OpenAI API key required. Set it via:\n  agentic-db config set openaiApiKey <key>'
       );
     }
     this.apiKey = config.openaiApiKey;

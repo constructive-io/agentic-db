@@ -1,4 +1,4 @@
-# agent-db-services
+# agentic-db-services
 
 <p align="center" width="100%">
   <img height="250" src="https://raw.githubusercontent.com/constructive-io/constructive/refs/heads/main/assets/outline-logo.svg" />
@@ -8,7 +8,7 @@
   <a href="https://github.com/pyramation-studio/agent-os/actions/workflows/ci.yml">
     <img height="20" src="https://github.com/pyramation-studio/agent-os/actions/workflows/ci.yml/badge.svg" />
   </a>
-   <a href="https://www.npmjs.com/package/agent-db-services"><img height="20" src="https://img.shields.io/github/package-json/v/pyramation-studio/agent-os?filename=packages%2Fagent-db-services%2Fpackage.json"/></a>
+   <a href="https://www.npmjs.com/package/agentic-db-services"><img height="20" src="https://img.shields.io/github/package-json/v/pyramation-studio/agent-os?filename=packages%2Fservices%2Fpackage.json"/></a>
 </p>
 
 ## Developing

@@ -1,12 +1,12 @@
 {
-  "name": "agent-db-embeddings",
+  "name": "@agentic-db/db",
   "version": "0.0.1",
   "author": "Dan Lynch <pyramation@gmail.com>",
-  "description": "agent-db-embeddings",
+  "description": "pgpm-installable agentic-db SQL module for the agentic-db personal database",
   "homepage": "https://github.com/pyramation-studio/agent-os",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "publishConfig": {
-    "access": "restricted",
+    "access": "public",
     "directory": "dist"
   },
   "repository": {
@@ -19,11 +19,15 @@
   "scripts": {
     "lint": "eslint . --fix",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watch"
   },
   "keywords": [],
+  "dependencies": {
+    "@pgpm/db-meta-modules": "0.15.5",
+    "@pgpm/metaschema-modules": "0.18.0",
+    "@pgpm/services": "0.18.0"
+  },
   "devDependencies": {
-    "pgsql-test": "^2.18.15",
-    "makage": "^0.1.10"
+    "pgsql-test": "^2.13.2"
   }
 }

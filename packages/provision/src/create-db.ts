@@ -16,10 +16,10 @@ import * as fs from 'fs';
 
 async function main() {
   const ts = Date.now();
-  const databaseName = `agent-os-${ts}`;
+  const databaseName = `agentic-db-${ts}`;
   const uniqueEmail = config.adminEmail.replace('@', `+${ts}@`);
 
-  console.log('\n🗄️  Agent-OS — Create Database\n');
+  console.log('\n🗄️  Agentic-DB — Create Database\n');
   console.log(`   Database:  ${databaseName}`);
   console.log(`   Admin:     ${uniqueEmail}`);
 

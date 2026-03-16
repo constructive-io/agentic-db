@@ -1,12 +1,12 @@
 {
-  "name": "agent-db-services",
+  "name": "@agentic-db/embeddings",
   "version": "0.0.1",
   "author": "Dan Lynch <pyramation@gmail.com>",
-  "description": "agent-db services metadata extension for API/site configuration",
+  "description": "agentic-db-embeddings",
   "homepage": "https://github.com/pyramation-studio/agent-os",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "publishConfig": {
-    "access": "public",
+    "access": "restricted",
     "directory": "dist"
   },
   "repository": {
@@ -19,10 +19,11 @@
   "scripts": {
     "lint": "eslint . --fix",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watchAll"
   },
   "keywords": [],
   "devDependencies": {
-    "pgsql-test": "^2.13.2"
+    "pgsql-test": "^2.18.15",
+    "makage": "^0.1.10"
   }
 }

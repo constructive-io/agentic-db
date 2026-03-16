@@ -1,0 +1,5 @@
+%syntax-version=1.0.0
+%project=agentic-db-embeddings
+%uri=agentic-db-embeddings
+
+001-triggers

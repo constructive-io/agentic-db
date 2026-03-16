@@ -1,4 +1,4 @@
-# agent-db CLI
+# agentic-db CLI
 
 <p align="center" width="100%">
   <img height="120" src="https://raw.githubusercontent.com/constructive-io/constructive/refs/heads/main/assets/outline-logo.svg" />
@@ -10,13 +10,13 @@
 
 ```bash
 # Create a context pointing at your GraphQL endpoint
-agent-db context create production --endpoint https://api.example.com/graphql
+agentic-db context create production --endpoint https://api.example.com/graphql
 
 # Set the active context
-agent-db context use production
+agentic-db context use production
 
 # Authenticate
-agent-db auth set-token <your-token>
+agentic-db auth set-token <your-token>
 ```
 
 ## Commands
@@ -124,7 +124,7 @@ Manage named API contexts (kubectl-style).
 | `current` | Show current context |
 | `delete <name>` | Delete a context |
 
-Configuration is stored at `~/.agent-db/config/`.
+Configuration is stored at `~/.agentic-db/config/`.
 
 ### `auth`
 
@@ -147,7 +147,7 @@ Manage per-context key-value configuration variables.
 | `list` | List all config values |
 | `delete <key>` | Delete a config value |
 
-Variables are scoped to the active context and stored at `~/.agent-db/config/`.
+Variables are scoped to the active context and stored at `~/.agentic-db/config/`.
 
 ## Table Commands
 
@@ -3112,8 +3112,8 @@ CRUD operations for Venue records.
 All commands output JSON to stdout. Pipe to `jq` for formatting:
 
 ```bash
-agent-db car list | jq '.[]'
-agent-db car get --id <uuid> | jq '.'
+agentic-db car list | jq '.[]'
+agentic-db car get --id <uuid> | jq '.'
 ```
 
 ## Non-Interactive Mode
@@ -3121,7 +3121,7 @@ agent-db car get --id <uuid> | jq '.'
 Use `--no-tty` to skip all interactive prompts (useful for scripts and CI):
 
 ```bash
-agent-db --no-tty car create --name "Sedan" --year 2024
+agentic-db --no-tty car create --name "Sedan" --year 2024
 ```
 
 ---

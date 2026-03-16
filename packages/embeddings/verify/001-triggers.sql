@@ -1,4 +1,4 @@
--- Verify agent-db-embeddings:001-triggers on pg
+-- Verify agentic-db-embeddings:001-triggers on pg
 
 BEGIN;
 

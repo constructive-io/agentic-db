@@ -1,7 +1,7 @@
-# agent-db extension
-comment = 'agent-db extension'
+# agentic-db extension
+comment = 'agentic-db extension'
 default_version = '0.0.1'
-module_pathname = '$libdir/agent-db'
+module_pathname = '$libdir/agentic-db'
 requires = 'btree_gin,btree_gist,citext,hstore,metaschema-modules,metaschema-schema,pg_textsearch,pg_trgm,pgcrypto,pgpm-base32,pgpm-database-jobs,pgpm-inflection,pgpm-jwt-claims,pgpm-stamps,pgpm-totp,pgpm-types,pgpm-utils,pgpm-uuid,pgpm-verify,plpgsql,postgis,services,uuid-ossp,vector'
 relocatable = false
 superuser = false

@@ -1,7 +1,7 @@
 /**
- * CLI command: agent-db search "<query>" [--tables contacts,notes,...]
+ * CLI command: agentic-db search "<query>" [--tables contacts,notes,...]
  *
- * Performs vector similarity search across agent-db tables using the
+ * Performs vector similarity search across agentic-db tables using the
  * generated SDK's VectorNearbyInput condition.
  */
 import { CLIOptions, Inquirerer } from 'inquirerer';
@@ -317,7 +317,7 @@ const ALL_TABLES = Object.keys(TABLE_SEARCH) as TableName[];
 const usage = `
 search <query> [options]
 
-  Semantic search across agent-db tables using vector embeddings.
+  Semantic search across agentic-db tables using vector embeddings.
 
 Options:
   --tables <list>    Comma-separated tables to search (default: all)
@@ -327,9 +327,9 @@ Options:
 Available tables: ${ALL_TABLES.join(', ')}
 
 Examples:
-  agent-db search "AI contacts"
-  agent-db search "dinner last month" --tables events,contacts,expenses
-  agent-db search "project deadlines" --limit 5 --json
+  agentic-db search "AI contacts"
+  agentic-db search "dinner last month" --tables events,contacts,expenses
+  agentic-db search "project deadlines" --limit 5 --json
 `;
 
 export default async (

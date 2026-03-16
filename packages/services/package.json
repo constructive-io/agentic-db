@@ -1,8 +1,8 @@
 {
-  "name": "agent-db",
+  "name": "@agentic-db/services",
   "version": "0.0.1",
   "author": "Dan Lynch <pyramation@gmail.com>",
-  "description": "pgpm-installable agent-db SQL module for the Agent OS personal database",
+  "description": "agentic-db services metadata extension for API/site configuration",
   "homepage": "https://github.com/pyramation-studio/agent-os",
   "license": "SEE LICENSE IN LICENSE",
   "publishConfig": {
@@ -22,11 +22,6 @@
     "test:watch": "jest --watch"
   },
   "keywords": [],
-  "dependencies": {
-    "@pgpm/db-meta-modules": "0.15.5",
-    "@pgpm/metaschema-modules": "0.18.0",
-    "@pgpm/services": "0.18.0"
-  },
   "devDependencies": {
     "pgsql-test": "^2.13.2"
   }

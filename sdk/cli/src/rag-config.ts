@@ -1,14 +1,14 @@
 /**
  * RAG configuration management.
  *
- * Stores RAG provider settings in ~/.config/agent-db/rag.json
+ * Stores RAG provider settings in ~/.config/agentic-db/rag.json
  */
 import { RagProviderConfig, DEFAULT_RAG_CONFIG } from './embeddings/provider';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
 
-const CONFIG_DIR = join(homedir(), '.config', 'agent-db');
+const CONFIG_DIR = join(homedir(), '.config', 'agentic-db');
 const CONFIG_FILE = join(CONFIG_DIR, 'rag.json');
 
 function ensureConfigDir(): void {

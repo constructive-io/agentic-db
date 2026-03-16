@@ -2,14 +2,14 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-Manage authentication tokens for agent-db
+Manage authentication tokens for agentic-db
 
 ## Usage
 
 ```bash
-agent-db auth set-token <token>
-agent-db auth status
-agent-db auth logout
+agentic-db auth set-token <token>
+agentic-db auth status
+agentic-db auth logout
 ```
 
 ## Examples
@@ -17,11 +17,11 @@ agent-db auth logout
 ### Authenticate with a token
 
 ```bash
-agent-db auth set-token eyJhbGciOiJIUzI1NiIs...
+agentic-db auth set-token eyJhbGciOiJIUzI1NiIs...
 ```
 
 ### Check auth status
 
 ```bash
-agent-db auth status
+agentic-db auth status
 ```

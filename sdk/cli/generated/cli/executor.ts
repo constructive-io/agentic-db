@@ -6,7 +6,7 @@
 import { NodeHttpAdapter } from './node-fetch';
 import { createConfigStore } from 'appstash';
 import { createClient } from '../orm';
-const store = createConfigStore('agent-db');
+const store = createConfigStore('agentic-db');
 export const getStore = () => store;
 export function getClient(contextName?: string) {
   let ctx = null;

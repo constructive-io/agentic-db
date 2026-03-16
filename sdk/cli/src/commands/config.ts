@@ -1,5 +1,5 @@
 /**
- * CLI command: agent-db config <subcommand>
+ * CLI command: agentic-db config <subcommand>
  *
  * Manage RAG configuration (embedding provider, models, API keys).
  */
@@ -27,13 +27,13 @@ Subcommands:
 Valid keys: ${VALID_KEYS.join(', ')}
 
 Examples:
-  agent-db config show
-  agent-db config set provider openai
-  agent-db config set openaiApiKey sk-...
-  agent-db config set ollamaUrl http://localhost:11434
-  agent-db config set embeddingModel nomic-embed-text
-  agent-db config set chatModel llama3.2
-  agent-db config reset
+  agentic-db config show
+  agentic-db config set provider openai
+  agentic-db config set openaiApiKey sk-...
+  agentic-db config set ollamaUrl http://localhost:11434
+  agentic-db config set embeddingModel nomic-embed-text
+  agentic-db config set chatModel llama3.2
+  agentic-db config reset
 `;
 
 export default async (

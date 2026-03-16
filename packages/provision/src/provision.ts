@@ -10,7 +10,7 @@
 import { config } from './config';
 import { Pool } from 'pg';
 
-const UUID_SEED = 'agent-db';
+const UUID_SEED = 'agentic-db';
 
 async function run(label: string, mod: string) {
   console.log(`\n${'='.repeat(60)}`);
@@ -26,7 +26,7 @@ async function run(label: string, mod: string) {
 }
 
 async function main() {
-  console.log('\n\ud83d\ude80 Agent OS \u2014 Schema Provisioning\n');
+  console.log('\n\ud83d\ude80 Agentic DB \u2014 Schema Provisioning\n');
   console.log(`   Database:  ${config.databaseName}`);
   console.log(`   DB ID:     ${config.databaseId}`);
   console.log(`   Endpoint:  ${config.apiEndpoint}`);

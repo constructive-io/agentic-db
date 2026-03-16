@@ -1,6 +1,6 @@
 %syntax-version=1.0.0
-%project=agent-db
-%uri=agent-db
+%project=agentic-db
+%uri=agentic-db
 
 schemas/agent_db_public/schema 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add create_schema
 schemas/agent_db_public/grants/usage/administrator [schemas/agent_db_public/schema] 2017-08-11T08:11:51Z Dan Lynch <pyramation@gmail.com> # add grant_usage_on_schema

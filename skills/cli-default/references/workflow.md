@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for Workflow records via agent-db CLI
+CRUD operations for Workflow records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-db workflow list
-agent-db workflow get --id <value>
-agent-db workflow create --entityId <value> --name <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --triggerTypeTrgmSimilarity <value> --searchScore <value> [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
-agent-db workflow update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--triggerTypeTrgmSimilarity <value>] [--searchScore <value>]
-agent-db workflow delete --id <value>
+agentic-db workflow list
+agentic-db workflow get --id <value>
+agentic-db workflow create --entityId <value> --name <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --triggerTypeTrgmSimilarity <value> --searchScore <value> [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
+agentic-db workflow update --id <value> [--entityId <value>] [--name <value>] [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>] [--nameTrgmSimilarity <value>] [--descriptionTrgmSimilarity <value>] [--triggerTypeTrgmSimilarity <value>] [--searchScore <value>]
+agentic-db workflow delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-db workflow delete --id <value>
 ### List all workflow records
 
 ```bash
-agent-db workflow list
+agentic-db workflow list
 ```
 
 ### Create a workflow
 
 ```bash
-agent-db workflow create --entityId <value> --name <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --triggerTypeTrgmSimilarity <value> --searchScore <value> [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
+agentic-db workflow create --entityId <value> --name <value> --nameTrgmSimilarity <value> --descriptionTrgmSimilarity <value> --triggerTypeTrgmSimilarity <value> --searchScore <value> [--description <value>] [--triggerType <value>] [--triggerConfig <value>] [--isActive <value>] [--tags <value>]
 ```
 
 ### Get a workflow by id
 
 ```bash
-agent-db workflow get --id <value>
+agentic-db workflow get --id <value>
 ```

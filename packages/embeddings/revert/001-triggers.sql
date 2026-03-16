@@ -1,4 +1,4 @@
--- Revert agent-db-embeddings:001-triggers from pg
+-- Revert agentic-db-embeddings:001-triggers from pg
 
 BEGIN;
 
