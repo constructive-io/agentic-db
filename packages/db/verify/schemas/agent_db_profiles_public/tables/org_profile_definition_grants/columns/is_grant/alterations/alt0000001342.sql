@@ -1,6 +1,0 @@
--- Verify: schemas/agent_db_profiles_public/tables/org_profile_definition_grants/columns/is_grant/alterations/alt0000001342
-
-
-
-
-

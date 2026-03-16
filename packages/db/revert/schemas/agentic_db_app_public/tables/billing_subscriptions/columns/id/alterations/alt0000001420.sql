@@ -1,0 +1,10 @@
+-- Revert: schemas/agentic_db_app_public/tables/billing_subscriptions/columns/id/alterations/alt0000001420
+
+
+
+
+ALTER TABLE "agentic_db_app_public".billing_subscriptions 
+    ALTER COLUMN id DROP DEFAULT;
+
+
+

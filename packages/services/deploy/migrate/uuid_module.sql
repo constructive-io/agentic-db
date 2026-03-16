@@ -27,7 +27,7 @@ INSERT INTO metaschema_modules_public.uuid_module (
   uuid_function,
   uuid_seed
 ) VALUES
-  ('8063ec9f-401b-46ce-9676-4207f7e98756', '569edc6d-3f84-4a51-a145-e5d82d9c06d3', 'bfc174e0-ab72-4925-5ee9-91915c80ae07', 'uuid_generate_v4', '569edc6d-3f84-4a51-a145-e5d82d9c06d3');
+  ('43b95ca1-8a1b-4cdd-9eea-163c924b36b7', '14d9536f-0092-4ddb-87f8-eddad14902bd', '9bc15f10-1fd4-453f-651b-f69a8ecc64d6', 'uuid_generate_v4', '14d9536f-0092-4ddb-87f8-eddad14902bd');
 
 
 SET session_replication_role TO DEFAULT;

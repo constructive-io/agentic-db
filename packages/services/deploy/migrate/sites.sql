@@ -30,7 +30,7 @@ INSERT INTO services_public.sites (
   apple_touch_icon,
   logo
 ) VALUES
-  ('c4d8ea21-bb91-47e2-9cdb-e72fe517368b', '569edc6d-3f84-4a51-a145-e5d82d9c06d3', 'Agent Os 1773655140238', 'Application powered by Agent Os 1773655140238', '{"url":"https://constructive.io/og_image/constructive.jpg","mime":"image/jpeg"}', 'https://constructive.io/favicon.ico', '{"url":"https://constructive.io/brand/constructive.svg","mime":"image/svg+xml"}', '{"url":"https://constructive.io/brand/constructive.png","mime":"image/png"}');
+  ('294c8823-7c3e-4854-9e72-abba8d097244', '14d9536f-0092-4ddb-87f8-eddad14902bd', 'Agentic Db 1773691587558', 'Application powered by Agentic Db 1773691587558', '{"url":"https://constructive.io/og_image/constructive.jpg","mime":"image/jpeg"}', 'https://constructive.io/favicon.ico', '{"url":"https://constructive.io/brand/constructive.svg","mime":"image/svg+xml"}', '{"url":"https://constructive.io/brand/constructive.png","mime":"image/png"}');
 
 
 SET session_replication_role TO DEFAULT;

@@ -8,7 +8,7 @@
   <a href="https://github.com/pyramation-studio/agent-os/actions/workflows/ci.yml">
     <img height="20" src="https://github.com/pyramation-studio/agent-os/actions/workflows/ci.yml/badge.svg" />
   </a>
-   <a href="https://www.npmjs.com/package/agentic-db"><img height="20" src="https://img.shields.io/github/package-json/v/pyramation-studio/agent-os?filename=packages%2Fdb%2Fpackage.json"/></a>
+   <a href="https://www.npmjs.com/package/agentic-db"><img height="20" src="https://img.shields.io/github/package-json/v/pyramation-studio/agent-os?filename=packages%2Fagentic-db%2Fpackage.json"/></a>
 </p>
 
 ## Developing
@@ -31,7 +31,7 @@ pgpm deploy --database your_db --createdb --yes
 
 ## Credits
 
-**Built by the [Constructive](https://constructive.io) team — creators of modular Postgres tooling for secure, composable backends. If you like our work, contribute on [GitHub](https://github.com/constructive-io).**
+**🛠 Built by the [Constructive](https://constructive.io) team — creators of modular Postgres tooling for secure, composable backends. If you like our work, contribute on [GitHub](https://github.com/constructive-io).**
 
 ## Disclaimer
 

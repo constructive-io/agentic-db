@@ -1,0 +1,6 @@
+-- Verify: schemas/agentic_db_app_public/tables/expenses/columns/is_recurring/alterations/alt0000001375
+
+
+
+
+

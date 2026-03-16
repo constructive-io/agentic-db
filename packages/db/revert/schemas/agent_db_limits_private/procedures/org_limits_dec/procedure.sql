@@ -1,8 +1,0 @@
--- Revert: schemas/agent_db_limits_private/procedures/org_limits_dec/procedure
-
-
-
-
-DROP FUNCTION "agent_db_limits_private".org_limits_dec;
-
-

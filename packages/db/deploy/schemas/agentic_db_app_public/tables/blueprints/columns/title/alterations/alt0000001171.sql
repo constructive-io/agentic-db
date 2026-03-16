@@ -1,0 +1,12 @@
+-- Deploy: schemas/agentic_db_app_public/tables/blueprints/columns/title/alterations/alt0000001171
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/blueprints/table
+-- requires: schemas/agentic_db_app_public/tables/blueprints/columns/title/column
+-- requires: schemas/agentic_db_app_public/tables/blueprints/columns/updated_at/alterations/alt0000001170
+
+
+ALTER TABLE "agentic_db_app_public".blueprints 
+  ALTER COLUMN title SET NOT NULL;
+

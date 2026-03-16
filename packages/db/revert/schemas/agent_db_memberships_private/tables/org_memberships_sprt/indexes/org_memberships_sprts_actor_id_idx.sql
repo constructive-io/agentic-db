@@ -1,6 +1,0 @@
--- Revert: schemas/agent_db_memberships_private/tables/org_memberships_sprt/indexes/org_memberships_sprts_actor_id_idx
-
-
-DROP INDEX "agent_db_memberships_private".org_memberships_sprts_actor_id_idx;
-
-
