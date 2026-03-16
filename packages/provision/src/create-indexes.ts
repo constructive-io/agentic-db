@@ -435,19 +435,51 @@ type FieldMap = Map<string, Map<string, string>>; // tableName -> (fieldName -> 
 
 async function fetchAllTables(): Promise<TableMap> {
   const map: TableMap = new Map();
+  // Track which schema each table came from so we can prefer app_public
+  const tableSchemaIds: Map<string, string> = new Map(); // tableName -> schemaId
+
+  // First, resolve the app_public schema ID for this database
+  const schemasResult = await withRetry(() =>
+    client.schema
+      .findMany({
+        first: 100,
+        select: { id: true, name: true, databaseId: true },
+      })
+      .unwrap()
+  );
+  const schemaNodes = (schemasResult as any)?.schemas?.nodes ?? [];
+  let appPublicSchemaId: string | undefined;
+  for (const s of schemaNodes) {
+    if (s.name === 'app_public' && s.databaseId === databaseId) {
+      appPublicSchemaId = s.id;
+      break;
+    }
+  }
+
   // Fetch all tables (no filter param — filter client-side by databaseId)
   const result = await withRetry(() =>
     client.table
       .findMany({
         first: 500,
-        select: { id: true, name: true, databaseId: true },
+        select: { id: true, name: true, databaseId: true, schemaId: true },
       })
       .unwrap()
   );
   const nodes = (result as any)?.tables?.nodes ?? [];
   for (const n of nodes) {
     if (n.name && n.id && n.databaseId === databaseId) {
-      map.set(n.name, n.id);
+      const existingSchemaId = tableSchemaIds.get(n.name);
+      // If we already have this table name, prefer the app_public version
+      if (existingSchemaId) {
+        if (n.schemaId === appPublicSchemaId) {
+          map.set(n.name, n.id);
+          tableSchemaIds.set(n.name, n.schemaId);
+        }
+        // else keep the existing one
+      } else {
+        map.set(n.name, n.id);
+        tableSchemaIds.set(n.name, n.schemaId ?? '');
+      }
     }
   }
   return map;
