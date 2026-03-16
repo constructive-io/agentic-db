@@ -10,12 +10,12 @@
     "required": true
   },
   {
-    "name": "agent-db-services",
+    "name": "agentic-db-services",
     "message": "Enter the module name",
     "required": true
   },
   {
-    "name": "agent-db services metadata extension for API/site configuration",
+    "name": "agentic-db services metadata extension for API/site configuration",
     "message": "Enter the module description",
     "required": true
   },
