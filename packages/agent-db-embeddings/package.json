@@ -1,0 +1,29 @@
+{
+  "name": "agent-db-embeddings",
+  "version": "0.0.1",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "description": "agent-db-embeddings",
+  "homepage": "https://github.com/pyramation-studio/agent-os",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "restricted",
+    "directory": "dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pyramation-studio/agent-os"
+  },
+  "bugs": {
+    "url": "https://github.com/pyramation-studio/agent-os/issues"
+  },
+  "scripts": {
+    "lint": "eslint . --fix",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "pgsql-test": "^2.18.15",
+    "makage": "^0.1.10"
+  }
+}
