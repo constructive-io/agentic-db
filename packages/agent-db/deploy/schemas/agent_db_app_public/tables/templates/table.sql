@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/recipes/columns/embedding/column
 
 
-CREATE TABLE agent_db_app_public.templates ();
+CREATE TABLE "agent_db_app_public".templates ();
 

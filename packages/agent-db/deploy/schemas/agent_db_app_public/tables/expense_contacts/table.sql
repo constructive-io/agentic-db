@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/calendar_event_contacts/policies/auth_del_entity_membership/policy
 
 
-CREATE TABLE agent_db_app_public.expense_contacts ();
+CREATE TABLE "agent_db_app_public".expense_contacts ();
 

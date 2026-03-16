@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/habit_logs/table
--- requires: schemas/agent_db_app_public/tables/habit_logs/columns/habit_id/alterations/alt0000001512
+-- requires: schemas/agent_db_app_public/tables/habit_logs/columns/habit_id/alterations/alt0000002330
 
 
-ALTER TABLE agent_db_app_public.habit_logs 
+ALTER TABLE "agent_db_app_public".habit_logs 
   ADD COLUMN completed_at timestamptz;
 

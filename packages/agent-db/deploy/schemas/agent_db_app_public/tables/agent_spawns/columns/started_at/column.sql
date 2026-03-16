@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/agent_spawns/table
--- requires: schemas/agent_db_app_public/tables/agent_spawns/columns/max_iterations/alterations/alt0000001266
+-- requires: schemas/agent_db_app_public/tables/agent_spawns/columns/max_iterations/alterations/alt0000002099
 
 
-ALTER TABLE agent_db_app_public.agent_spawns 
+ALTER TABLE "agent_db_app_public".agent_spawns 
   ADD COLUMN started_at timestamptz;
 

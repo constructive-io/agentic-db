@@ -13,13 +13,14 @@
     "provision": "tsx src/provision.ts"
   },
   "dependencies": {
-    "@constructive-io/node": "^0.4.5",
-    "dotenv": "^16.4.5"
+    "@constructive-io/node": "^0.4.7",
+    "dotenv": "^16.4.5",
+    "pg": "^8.20.0"
   },
   "devDependencies": {
+    "@types/node": "^22.19.11",
     "makage": "0.1.12",
     "tsx": "^4.7.1",
-    "@types/node": "^22.19.11",
     "typescript": "^5.1.6"
   }
 }

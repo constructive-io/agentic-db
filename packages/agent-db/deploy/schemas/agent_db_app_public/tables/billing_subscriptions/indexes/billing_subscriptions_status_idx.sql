@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/user_settings/indexes/user_settings_category_idx
 
 
-CREATE INDEX billing_subscriptions_status_idx ON agent_db_app_public.billing_subscriptions USING BTREE ( status );
+CREATE INDEX billing_subscriptions_status_idx ON "agent_db_app_public".billing_subscriptions USING BTREE ( status );
 

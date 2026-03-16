@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/events/columns/search_tsv/column
 
 
-ALTER TABLE agent_db_app_public.events 
+ALTER TABLE "agent_db_app_public".events 
   ADD COLUMN main_image_id uuid;
 

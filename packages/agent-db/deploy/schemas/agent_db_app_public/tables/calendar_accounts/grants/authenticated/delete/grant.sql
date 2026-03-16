@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/messages/columns/embedding/column
 
 
-GRANT DELETE ON agent_db_app_public.calendar_accounts TO authenticated;
+GRANT DELETE ON "agent_db_app_public".calendar_accounts TO authenticated;
 

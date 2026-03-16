@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_invites_public/schema
 
 
-CREATE TABLE agent_db_invites_public.claimed_invites ();
+CREATE TABLE "agent_db_invites_public".claimed_invites ();
 

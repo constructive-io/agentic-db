@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_user_identifiers_public/tables/emails/columns/updated_at/column
 
 
-CREATE INDEX emails_updated_at_idx ON agent_db_user_identifiers_public.emails ( updated_at );
+CREATE INDEX emails_updated_at_idx ON "agent_db_user_identifiers_public".emails ( updated_at );
 

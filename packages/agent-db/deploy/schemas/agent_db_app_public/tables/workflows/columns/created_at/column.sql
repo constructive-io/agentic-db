@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/workflows/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.workflows 
+ALTER TABLE "agent_db_app_public".workflows 
   ADD COLUMN created_at timestamptz;
 

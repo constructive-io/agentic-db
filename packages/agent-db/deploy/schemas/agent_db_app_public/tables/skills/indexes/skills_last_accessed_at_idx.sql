@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/skills/indexes/skills_active_count_idx
 
 
-CREATE INDEX skills_last_accessed_at_idx ON agent_db_app_public.skills USING BTREE ( last_accessed_at );
+CREATE INDEX skills_last_accessed_at_idx ON "agent_db_app_public".skills USING BTREE ( last_accessed_at );
 

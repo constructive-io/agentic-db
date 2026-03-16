@@ -3,8 +3,8 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/recipes/table
--- requires: schemas/agent_db_app_public/tables/notifications/columns/source_entity_type/column
+-- requires: schemas/agent_db_app_public/tables/lists/columns/embedding/column
 
 
-GRANT INSERT ON agent_db_app_public.recipes TO authenticated;
+GRANT INSERT ON "agent_db_app_public".recipes TO authenticated;
 

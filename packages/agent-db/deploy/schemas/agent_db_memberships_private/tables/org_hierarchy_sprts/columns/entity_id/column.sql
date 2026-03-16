@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_memberships_private/tables/org_hierarchy_sprts/table
 
 
-ALTER TABLE agent_db_memberships_private.org_hierarchy_sprts 
+ALTER TABLE "agent_db_memberships_private".org_hierarchy_sprts 
   ADD COLUMN entity_id uuid;
 

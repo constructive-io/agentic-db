@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/companies/columns/embedding/column
 
 
-ALTER TABLE agent_db_app_public.companies 
+ALTER TABLE "agent_db_app_public".companies 
   ADD COLUMN search_tsv tsvector;
 

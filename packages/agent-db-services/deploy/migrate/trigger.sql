@@ -28,8 +28,8 @@ INSERT INTO metaschema_public.trigger (
   event,
   function_name
 ) VALUES
-  ('a0085fbe-7b8f-428c-72f8-db68d8213228', '9085366f-6c6f-49b7-a4c9-c82d816fded5', 'a0088ff1-7a1c-4128-2a86-09094ab2efc2', 'encrypted_secrets_update_tg', NULL, NULL),
-  ('a0088f3c-e652-4f89-0930-85ba668b447f', '9085366f-6c6f-49b7-a4c9-c82d816fded5', 'a0088ff1-7a1c-4128-2a86-09094ab2efc2', 'encrypted_secrets_insert_tg', NULL, NULL);
+  ('bfc189a1-3fac-4344-7f98-923aeeecfbbc', '569edc6d-3f84-4a51-a145-e5d82d9c06d3', 'bfc131f7-8b42-4379-e0d8-989cd25245cd', 'encrypted_secrets_update_tg', NULL, NULL),
+  ('bfc1707c-c569-47d6-1880-804501e4919b', '569edc6d-3f84-4a51-a145-e5d82d9c06d3', 'bfc131f7-8b42-4379-e0d8-989cd25245cd', 'encrypted_secrets_insert_tg', NULL, NULL);
 
 
 SET session_replication_role TO DEFAULT;

@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_profiles_public/tables/org_profiles/table
 
 
-ALTER TABLE agent_db_profiles_public.org_profiles 
+ALTER TABLE "agent_db_profiles_public".org_profiles 
   ADD CONSTRAINT org_profiles_name_entity_id_key 
     UNIQUE (name, entity_id);
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/sessions/columns/archived_at/column
 
 
-ALTER TABLE agent_db_app_public.sessions 
+ALTER TABLE "agent_db_app_public".sessions 
   ADD COLUMN extracted_memory_ids uuid[];
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/user_settings/columns/category/column
 
 
-CREATE TABLE agent_db_app_public.billing_subscriptions ();
+CREATE TABLE "agent_db_app_public".billing_subscriptions ();
 

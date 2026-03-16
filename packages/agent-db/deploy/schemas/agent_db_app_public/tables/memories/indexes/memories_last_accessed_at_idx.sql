@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/memories/indexes/memories_active_count_idx
 
 
-CREATE INDEX memories_last_accessed_at_idx ON agent_db_app_public.memories USING BTREE ( last_accessed_at );
+CREATE INDEX memories_last_accessed_at_idx ON "agent_db_app_public".memories USING BTREE ( last_accessed_at );
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/workflow_steps/table
--- requires: schemas/agent_db_app_public/tables/workflow_steps/columns/action_type/alterations/alt0000001244
+-- requires: schemas/agent_db_app_public/tables/workflow_steps/columns/action_type/alterations/alt0000002077
 
 
-ALTER TABLE agent_db_app_public.workflow_steps 
+ALTER TABLE "agent_db_app_public".workflow_steps 
   ADD COLUMN action_config jsonb;
 

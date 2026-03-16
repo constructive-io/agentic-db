@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/billing_subscriptions/columns/notes/column
 
 
-ALTER TABLE agent_db_app_public.trips 
+ALTER TABLE "agent_db_app_public".trips 
   ADD CONSTRAINT trips_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agent_db_users_public.users (id) 
+    REFERENCES "agent_db_users_public".users (id) 
     ON DELETE CASCADE;
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/workflow_steps/columns/timeout_ms/column
 
 
-GRANT UPDATE ON agent_db_app_public.workflow_runs TO authenticated;
+GRANT UPDATE ON "agent_db_app_public".workflow_runs TO authenticated;
 

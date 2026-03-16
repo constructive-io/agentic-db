@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/milestones/indexes/milestones_status_idx
 
 
-CREATE INDEX files_repository_id_idx ON agent_db_app_public.files USING BTREE ( repository_id );
+CREATE INDEX files_repository_id_idx ON "agent_db_app_public".files USING BTREE ( repository_id );
 

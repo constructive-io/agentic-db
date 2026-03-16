@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/sessions/indexes/sessions_status_idx
 
 
-CREATE INDEX sessions_started_at_idx ON agent_db_app_public.sessions USING BTREE ( started_at );
+CREATE INDEX sessions_started_at_idx ON "agent_db_app_public".sessions USING BTREE ( started_at );
 

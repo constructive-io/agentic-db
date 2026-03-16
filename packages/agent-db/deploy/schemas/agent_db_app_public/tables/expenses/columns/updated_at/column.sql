@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/expenses/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.expenses 
+ALTER TABLE "agent_db_app_public".expenses 
   ADD COLUMN updated_at timestamptz;
 

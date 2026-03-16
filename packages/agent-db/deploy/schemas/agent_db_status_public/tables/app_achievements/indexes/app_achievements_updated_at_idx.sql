@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_status_public/tables/app_achievements/columns/updated_at/column
 
 
-CREATE INDEX app_achievements_updated_at_idx ON agent_db_status_public.app_achievements ( updated_at );
+CREATE INDEX app_achievements_updated_at_idx ON "agent_db_status_public".app_achievements ( updated_at );
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/habits/table
--- requires: schemas/agent_db_app_public/tables/habits/columns/best_streak/alterations/alt0000001503
+-- requires: schemas/agent_db_app_public/tables/habits/columns/best_streak/alterations/alt0000002321
 
 
-ALTER TABLE agent_db_app_public.habits 
+ALTER TABLE "agent_db_app_public".habits 
   ADD COLUMN category text;
 

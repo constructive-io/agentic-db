@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/prompts/columns/embedding/column
 
 
-CREATE TABLE agent_db_app_public.skill_executions ();
+CREATE TABLE "agent_db_app_public".skill_executions ();
 

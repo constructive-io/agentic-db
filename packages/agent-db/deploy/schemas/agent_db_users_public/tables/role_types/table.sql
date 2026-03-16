@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_users_public/schema
 
 
-CREATE TABLE agent_db_users_public.role_types ();
+CREATE TABLE "agent_db_users_public".role_types ();
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_encrypted/tables/encrypted_secrets/table
 
 
-GRANT UPDATE ON agent_db_encrypted.encrypted_secrets TO authenticated;
+GRANT UPDATE ON "agent_db_encrypted".encrypted_secrets TO authenticated;
 

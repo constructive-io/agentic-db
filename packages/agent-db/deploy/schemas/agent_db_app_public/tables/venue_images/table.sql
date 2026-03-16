@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/event_images/policies/auth_del_entity_membership/policy
 
 
-CREATE TABLE agent_db_app_public.venue_images ();
+CREATE TABLE "agent_db_app_public".venue_images ();
 

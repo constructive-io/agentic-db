@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/deals/columns/embedding/column
 
 
-CREATE TABLE agent_db_app_public.events ();
+CREATE TABLE "agent_db_app_public".events ();
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/agent_spawns/columns/child_agent_id/column
 
 
-ALTER TABLE agent_db_app_public.agent_spawns 
+ALTER TABLE "agent_db_app_public".agent_spawns 
   ADD COLUMN session_id uuid;
 

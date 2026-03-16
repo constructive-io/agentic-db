@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/processes/columns/logs_path/column
 
 
-ALTER TABLE agent_db_app_public.scheduled_jobs 
+ALTER TABLE "agent_db_app_public".scheduled_jobs 
   ADD CONSTRAINT scheduled_jobs_pkey PRIMARY KEY (id);
 

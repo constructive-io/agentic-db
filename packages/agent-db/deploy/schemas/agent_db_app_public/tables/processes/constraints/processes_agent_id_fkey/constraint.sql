@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/threads/constraints/threads_parent_thread_id_fkey/constraint
 
 
-ALTER TABLE agent_db_app_public.processes 
+ALTER TABLE "agent_db_app_public".processes 
   ADD CONSTRAINT processes_agent_id_fkey 
     FOREIGN KEY(agent_id) 
-    REFERENCES agent_db_app_public.agents (id) 
+    REFERENCES "agent_db_app_public".agents (id) 
     ON DELETE CASCADE;
 

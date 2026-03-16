@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/integrations/table
--- requires: schemas/agent_db_app_public/tables/integrations/columns/name/alterations/alt0000001429
+-- requires: schemas/agent_db_app_public/tables/integrations/columns/name/alterations/alt0000002247
 
 
-ALTER TABLE agent_db_app_public.integrations 
+ALTER TABLE "agent_db_app_public".integrations 
   ADD COLUMN provider text;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/memories/columns/last_accessed_at/column
 
 
-ALTER TABLE agent_db_app_public.memories 
+ALTER TABLE "agent_db_app_public".memories 
   ADD COLUMN tags citext[];
 

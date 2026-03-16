@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/projects/indexes/projects_name_gin_idx
 
 
-CREATE INDEX tasks_title_gin_idx ON agent_db_app_public.tasks USING gin ( title gin_trgm_ops );
+CREATE INDEX tasks_title_gin_idx ON "agent_db_app_public".tasks USING gin ( title gin_trgm_ops );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/agents/indexes/agents_embedding_text_bm25_idx
 
 
-CREATE INDEX sessions_embedding_text_bm25_idx ON agent_db_app_public.sessions USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX sessions_embedding_text_bm25_idx ON "agent_db_app_public".sessions USING bm25 ( embedding_text ) WITH ( text_config = english );
 

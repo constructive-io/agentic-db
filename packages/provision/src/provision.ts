@@ -8,6 +8,9 @@
  */
 
 import { config } from './config';
+import { Pool } from 'pg';
+
+const UUID_SEED = 'agent-db';
 
 async function run(label: string, mod: string) {
   console.log(`\n${'='.repeat(60)}`);
@@ -34,6 +37,23 @@ async function main() {
     process.exit(1);
   }
 
+  // Enable deterministic UUIDs at the database level so every GraphQL
+  // connection inherits the setting (session vars don't work because
+  // each HTTP request gets a separate pg connection).
+  const pgAvailable = !!process.env.PGHOST;
+  if (pgAvailable) {
+    console.log('\n\ud83c\udfaf Enabling deterministic UUIDs (seed: ' + UUID_SEED + ')...');
+    const pool = new Pool({ database: process.env.PGDATABASE || 'constructive' });
+    const dbName = process.env.PGDATABASE || 'constructive';
+    await pool.query(`ALTER DATABASE "${dbName}" SET metaschema.deterministic_ids = 'true'`);
+    await pool.query(`ALTER DATABASE "${dbName}" SET metaschema.uuid_seed = '${UUID_SEED}'`);
+    await pool.end();
+    console.log('   Deterministic IDs enabled for all new connections.');
+  } else {
+    console.log('\n\u26a0\ufe0f  PGHOST not set — skipping deterministic UUID setup.');
+    console.log('   Run: eval "$(pgpm env)" before provisioning for stable IDs.');
+  }
+
   const schemas = [
     ['CRM',              './schemas/crm'],
     ['Agent Core',       './schemas/agent'],
@@ -48,6 +68,17 @@ async function main() {
 
   for (const [label, mod] of schemas) {
     await run(label, mod);
+  }
+
+  // Reset deterministic UUID settings so normal operation uses random UUIDs
+  if (pgAvailable) {
+    console.log('\n\ud83d\udd04 Resetting deterministic UUID settings...');
+    const pool = new Pool({ database: process.env.PGDATABASE || 'constructive' });
+    const dbName = process.env.PGDATABASE || 'constructive';
+    await pool.query(`ALTER DATABASE "${dbName}" RESET metaschema.deterministic_ids`);
+    await pool.query(`ALTER DATABASE "${dbName}" RESET metaschema.uuid_seed`);
+    await pool.end();
+    console.log('   Settings reset to defaults (random UUIDs).');
   }
 
   console.log('\n\u2728 All schemas provisioned successfully!\n');

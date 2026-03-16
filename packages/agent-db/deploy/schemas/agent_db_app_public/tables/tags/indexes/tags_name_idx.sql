@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/contacts/indexes/contacts_github_username_idx
 
 
-CREATE INDEX tags_name_idx ON agent_db_app_public.tags USING BTREE ( name );
+CREATE INDEX tags_name_idx ON "agent_db_app_public".tags USING BTREE ( name );
 

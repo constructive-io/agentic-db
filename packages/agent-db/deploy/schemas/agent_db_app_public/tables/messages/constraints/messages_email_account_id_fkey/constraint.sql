@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/trips/columns/embedding/column
 
 
-ALTER TABLE agent_db_app_public.messages 
+ALTER TABLE "agent_db_app_public".messages 
   ADD CONSTRAINT messages_email_account_id_fkey 
     FOREIGN KEY(email_account_id) 
-    REFERENCES agent_db_app_public.email_accounts (id) 
+    REFERENCES "agent_db_app_public".email_accounts (id) 
     ON DELETE CASCADE;
 

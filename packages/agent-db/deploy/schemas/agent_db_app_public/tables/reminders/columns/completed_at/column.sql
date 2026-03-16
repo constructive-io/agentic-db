@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/reminders/columns/due_at/column
 
 
-ALTER TABLE agent_db_app_public.reminders 
+ALTER TABLE "agent_db_app_public".reminders 
   ADD COLUMN completed_at timestamptz;
 

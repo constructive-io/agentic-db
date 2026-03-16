@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-CREATE INDEX goals_status_idx ON agent_db_app_public.goals USING BTREE ( status );
+CREATE INDEX goals_status_idx ON "agent_db_app_public".goals USING BTREE ( status );
 

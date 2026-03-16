@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/prompts/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.prompts 
+ALTER TABLE "agent_db_app_public".prompts 
   ADD COLUMN created_at timestamptz;
 

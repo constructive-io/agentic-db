@@ -1,7 +1,7 @@
 -- Revert: schemas/agent_db_profiles_public/tables/app_profile_grants/constraints/app_profile_grants_pkey/constraint
 
 
-ALTER TABLE agent_db_profiles_public.app_profile_grants 
+ALTER TABLE "agent_db_profiles_public".app_profile_grants 
   DROP CONSTRAINT app_profile_grants_pkey;
 
 

@@ -1,0 +1,11 @@
+-- Deploy: schemas/agent_db_limits_public/tables/org_limit_defaults/columns/name/alterations/alt0000001160
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agent_db_limits_public/schema
+-- requires: schemas/agent_db_limits_public/tables/org_limit_defaults/table
+-- requires: schemas/agent_db_limits_public/tables/org_limit_defaults/columns/name/column
+
+
+ALTER TABLE "agent_db_limits_public".org_limit_defaults 
+  ALTER COLUMN name SET NOT NULL;
+

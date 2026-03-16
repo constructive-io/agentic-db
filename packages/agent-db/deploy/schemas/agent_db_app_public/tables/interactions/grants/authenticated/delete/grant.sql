@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/notes/columns/embedding/column
 
 
-GRANT DELETE ON agent_db_app_public.interactions TO authenticated;
+GRANT DELETE ON "agent_db_app_public".interactions TO authenticated;
 

@@ -26,7 +26,7 @@ INSERT INTO metaschema_public.trigger_function (
   name,
   code
 ) VALUES
-  ('a00875d7-3ab3-48f4-15b2-2a4ce3d004a0', '9085366f-6c6f-49b7-a4c9-c82d816fded5', 'encrypted_secrets_hash', NULL);
+  ('bfc18c48-d2bd-4be2-1c85-5f1b149dc5f6', '569edc6d-3f84-4a51-a145-e5d82d9c06d3', 'encrypted_secrets_hash', NULL);
 
 
 SET session_replication_role TO DEFAULT;

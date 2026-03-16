@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/prompts/table
--- requires: schemas/agent_db_app_public/tables/prompts/columns/updated_at/alterations/alt0000001103
+-- requires: schemas/agent_db_app_public/tables/prompts/columns/updated_at/alterations/alt0000001946
 
 
-ALTER TABLE agent_db_app_public.prompts 
+ALTER TABLE "agent_db_app_public".prompts 
   ADD COLUMN name text;
 

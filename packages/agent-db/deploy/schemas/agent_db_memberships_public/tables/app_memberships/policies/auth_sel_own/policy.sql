@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_memberships_public/tables/app_memberships/table
 
 
-CREATE POLICY auth_sel_own ON agent_db_memberships_public.app_memberships
+CREATE POLICY auth_sel_own ON "agent_db_memberships_public".app_memberships
 FOR SELECT
 TO authenticated
 USING (

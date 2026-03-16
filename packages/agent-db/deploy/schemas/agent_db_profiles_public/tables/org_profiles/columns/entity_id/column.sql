@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_profiles_public/tables/org_profiles/table
 
 
-ALTER TABLE agent_db_profiles_public.org_profiles 
+ALTER TABLE "agent_db_profiles_public".org_profiles 
   ADD COLUMN entity_id uuid;
 

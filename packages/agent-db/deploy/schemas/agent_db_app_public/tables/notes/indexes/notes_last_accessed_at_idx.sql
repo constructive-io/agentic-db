@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/notes/columns/last_accessed_at/column
 
 
-CREATE INDEX notes_last_accessed_at_idx ON agent_db_app_public.notes USING BTREE ( last_accessed_at );
+CREATE INDEX notes_last_accessed_at_idx ON "agent_db_app_public".notes USING BTREE ( last_accessed_at );
 

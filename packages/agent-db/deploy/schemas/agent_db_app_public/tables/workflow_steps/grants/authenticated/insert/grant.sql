@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/workflows/columns/tags/column
 
 
-GRANT INSERT ON agent_db_app_public.workflow_steps TO authenticated;
+GRANT INSERT ON "agent_db_app_public".workflow_steps TO authenticated;
 

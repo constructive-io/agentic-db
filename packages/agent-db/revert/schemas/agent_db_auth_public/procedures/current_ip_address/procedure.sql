@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION agent_db_auth_public.current_ip_address;
+DROP FUNCTION "agent_db_auth_public".current_ip_address;
 
 
 

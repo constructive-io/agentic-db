@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/calendar_accounts/indexes/calendar_accounts_email_idx
 
 
-CREATE INDEX calendar_events_start_at_idx ON agent_db_app_public.calendar_events USING BTREE ( start_at );
+CREATE INDEX calendar_events_start_at_idx ON "agent_db_app_public".calendar_events USING BTREE ( start_at );
 

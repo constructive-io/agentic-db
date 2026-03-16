@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/expenses/table
--- requires: schemas/agent_db_app_public/tables/expenses/columns/is_recurring/alterations/alt0000001409
+-- requires: schemas/agent_db_app_public/tables/expenses/columns/is_recurring/alterations/alt0000002227
 
 
-ALTER TABLE agent_db_app_public.expenses 
+ALTER TABLE "agent_db_app_public".expenses 
   ADD COLUMN tags citext[];
 

@@ -5,7 +5,7 @@
 -- requires: schemas/agent_db_app_public/tables/projects/triggers/projects_search_tsv_tsv_update_tg
 
 
-CREATE FUNCTION agent_db_private.documents_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION "agent_db_private".documents_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
 
 BEGIN
 NEW.search_tsv = (setweight(to_tsvector('english', COALESCE(NEW.content, '')), 'B') || setweight(to_tsvector('english', COALESCE(NEW.title, '')), 'A'));

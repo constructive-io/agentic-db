@@ -5,6 +5,6 @@
 -- requires: schemas/agent_db_auth_private/tables/session_credentials/table
 
 
-ALTER TABLE agent_db_auth_private.session_credentials 
+ALTER TABLE "agent_db_auth_private".session_credentials 
   ADD COLUMN last_used_at timestamptz;
 

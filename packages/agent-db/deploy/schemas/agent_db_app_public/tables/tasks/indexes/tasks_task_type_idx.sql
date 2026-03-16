@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/venues/indexes/venues_google_place_id_idx
 
 
-CREATE INDEX tasks_task_type_idx ON agent_db_app_public.tasks USING BTREE ( task_type );
+CREATE INDEX tasks_task_type_idx ON "agent_db_app_public".tasks USING BTREE ( task_type );
 

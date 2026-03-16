@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION agent_db_memberships_private.app_memberships_mask_check;
+DROP FUNCTION "agent_db_memberships_private".app_memberships_mask_check;
 
 

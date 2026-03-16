@@ -2,8 +2,8 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agent_db_app_public/schema
--- requires: schemas/agent_db_app_public/tables/context_relations/columns/strength/column
+-- requires: schemas/agent_db_app_public/tables/agent_spawns/columns/completed_at/column
 
 
-CREATE TABLE agent_db_app_public.session_archives ();
+CREATE TABLE "agent_db_app_public".session_archives ();
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/goals/columns/embedding/column
 
 
-ALTER TABLE agent_db_app_public.prompts 
+ALTER TABLE "agent_db_app_public".prompts 
   ADD CONSTRAINT prompts_pkey PRIMARY KEY (id);
 

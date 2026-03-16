@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/goals/columns/target_date/column
 
 
-ALTER TABLE agent_db_app_public.goals 
+ALTER TABLE "agent_db_app_public".goals 
   ADD COLUMN status text;
 

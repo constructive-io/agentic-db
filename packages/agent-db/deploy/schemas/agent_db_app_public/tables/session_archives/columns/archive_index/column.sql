@@ -3,9 +3,9 @@
 
 -- requires: schemas/agent_db_app_public/schema
 -- requires: schemas/agent_db_app_public/tables/session_archives/table
--- requires: schemas/agent_db_app_public/tables/session_archives/columns/session_id/alterations/alt0000001287
+-- requires: schemas/agent_db_app_public/tables/session_archives/columns/session_id/alterations/alt0000002108
 
 
-ALTER TABLE agent_db_app_public.session_archives 
+ALTER TABLE "agent_db_app_public".session_archives 
   ADD COLUMN archive_index int;
 

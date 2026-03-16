@@ -28,11 +28,11 @@ INSERT INTO services_public.domains (
   domain,
   subdomain
 ) VALUES
-  ('4a8577bc-c87c-4282-97cc-c4bfa3fbe06e', '9085366f-6c6f-49b7-a4c9-c82d816fded5', NULL, '48e35c24-3f44-479e-87ee-70bf57c7e3f2', 'localhost', 'public-agent-os-1773554871345'),
-  ('dec91e3d-7968-45a4-912e-21002f8ce56b', '9085366f-6c6f-49b7-a4c9-c82d816fded5', NULL, 'bd9f2c10-c3a8-416f-8e40-2c7e55c3402d', 'localhost', 'admin-agent-os-1773554871345'),
-  ('6cef9f61-0aed-45fe-8c20-40b89848b9f7', '9085366f-6c6f-49b7-a4c9-c82d816fded5', NULL, '34e804ab-4d43-41ed-b5e9-27616885169e', 'localhost', 'private-agent-os-1773554871345'),
-  ('70a0df1e-45ce-4983-a7a6-4f03678c3d4b', '9085366f-6c6f-49b7-a4c9-c82d816fded5', NULL, 'd3334c11-97f8-4553-ab31-00854a259dd1', 'localhost', 'auth-agent-os-1773554871345'),
-  ('4d8cbe92-61ab-4730-a594-34302c092725', '9085366f-6c6f-49b7-a4c9-c82d816fded5', NULL, 'ca5fd55a-d91b-4152-99ad-beedf645560f', 'localhost', 'app-public-agent-os-1773554871345');
+  ('fd224015-9d98-4178-a5d4-a6a9040a5d12', '569edc6d-3f84-4a51-a145-e5d82d9c06d3', NULL, 'cb1b477d-1947-4d2e-a6f9-c6bab48baec9', 'localhost', 'public-agent-os-1773655140238'),
+  ('8039df28-7a52-4874-bcea-945c266a38ce', '569edc6d-3f84-4a51-a145-e5d82d9c06d3', NULL, '4b3adbc4-62b2-49c5-b315-0f186dad3282', 'localhost', 'admin-agent-os-1773655140238'),
+  ('34316295-18dc-4148-9b82-d960442e9979', '569edc6d-3f84-4a51-a145-e5d82d9c06d3', NULL, '384cd3a3-3268-4289-bc35-3c3535238883', 'localhost', 'private-agent-os-1773655140238'),
+  ('114fcc60-af60-4702-9685-37335d73013b', '569edc6d-3f84-4a51-a145-e5d82d9c06d3', NULL, '9e1460cd-8403-41bd-8335-8f4f0e170d8e', 'localhost', 'auth-agent-os-1773655140238'),
+  ('19a5a6f2-c46b-4a1c-9d59-3db954b4f156', '569edc6d-3f84-4a51-a145-e5d82d9c06d3', NULL, '609e6dda-a463-4150-88e9-edd33a661307', 'localhost', 'app-public-agent-os-1773655140238');
 
 
 SET session_replication_role TO DEFAULT;

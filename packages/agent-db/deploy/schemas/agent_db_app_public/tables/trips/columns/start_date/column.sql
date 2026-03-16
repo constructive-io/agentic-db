@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/trips/columns/destination/column
 
 
-ALTER TABLE agent_db_app_public.trips 
+ALTER TABLE "agent_db_app_public".trips 
   ADD COLUMN start_date date;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/calendar_events/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agent_db_app_public.calendar_events 
+ALTER TABLE "agent_db_app_public".calendar_events 
   ADD COLUMN updated_at timestamptz;
 

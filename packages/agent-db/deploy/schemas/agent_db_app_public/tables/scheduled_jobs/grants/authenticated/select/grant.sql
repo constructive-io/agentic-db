@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/processes/columns/logs_path/column
 
 
-GRANT SELECT ON agent_db_app_public.scheduled_jobs TO authenticated;
+GRANT SELECT ON "agent_db_app_public".scheduled_jobs TO authenticated;
 

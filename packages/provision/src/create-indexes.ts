@@ -49,6 +49,7 @@ const HNSW_INDEXES: IndexDef[] = [
   'ideas', 'reminders', 'lists',
   'recipes', 'templates',
   'session_archives',
+  'activity_log',
 ].map((table) => ({
   table,
   column: 'embedding',
@@ -78,6 +79,7 @@ const BM25_INDEXES: IndexDef[] = [
   'ideas', 'reminders', 'lists',
   'recipes', 'templates',
   'session_archives',
+  'activity_log',
 ].map((table) => ({
   table,
   column: 'embedding_text',
@@ -92,7 +94,7 @@ const BM25_EXTRA: IndexDef[] = [
   { table: 'documents', column: 'content', method: 'bm25', options: { text_config: 'english' } },
   { table: 'chat_messages', column: 'content', method: 'bm25', options: { text_config: 'english' } },
   { table: 'prompts', column: 'content', method: 'bm25', options: { text_config: 'english' } },
-  // activity_log has no description field — skip
+  { table: 'activity_log', column: 'description', method: 'bm25', options: { text_config: 'english' } },
 ];
 
 // GIN indexes on tags (citext[]) columns
@@ -109,6 +111,7 @@ const GIN_TAG_INDEXES: IndexDef[] = [
   'billing_subscriptions', 'trips',
   'ideas', 'habits', 'habit_logs', 'lists',
   'recipes', 'templates',
+  'activity_log',
 ].map((table) => ({
   table,
   column: 'tags',
@@ -125,6 +128,7 @@ const GIN_JSONB_INDEXES: IndexDef[] = [
   { table: 'integrations', column: 'config', method: 'gin' },
   { table: 'skill_executions', column: 'input', method: 'gin' },
   { table: 'skill_executions', column: 'output', method: 'gin' },
+  { table: 'activity_log', column: 'data', method: 'gin' },
 ];
 
 // GIN indexes on tsvector columns
@@ -178,7 +182,6 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'events', column: 'event_type', method: 'btree' },
   { table: 'venues', column: 'city', method: 'btree' },
   { table: 'venues', column: 'category', method: 'btree' },
-  { table: 'notes', column: 'notable_type', method: 'btree' },
   { table: 'interactions', column: 'contact_id', method: 'btree' },
   { table: 'interactions', column: 'type', method: 'btree' },
   { table: 'interactions', column: 'occurred_at', method: 'btree' },
@@ -226,10 +229,6 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'documents', column: 'last_accessed_at', method: 'btree' },
   { table: 'agent_spawns', column: 'parent_agent_id', method: 'btree' },
   { table: 'agent_spawns', column: 'status', method: 'btree' },
-  { table: 'context_relations', column: 'from_type', method: 'btree' },
-  { table: 'context_relations', column: 'from_id', method: 'btree' },
-  { table: 'context_relations', column: 'to_type', method: 'btree' },
-  { table: 'context_relations', column: 'to_id', method: 'btree' },
   { table: 'session_archives', column: 'session_id', method: 'btree' },
   { table: 'sessions', column: 'archived_at', method: 'btree' },
   { table: 'sessions', column: 'compression_count', method: 'btree' },
@@ -275,11 +274,6 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'habit_logs', column: 'duration_minutes', method: 'btree' },
   { table: 'habit_logs', column: 'distance', method: 'btree' },
   { table: 'habit_logs', column: 'calories', method: 'btree' },
-  { table: 'list_items', column: 'list_id', method: 'btree' },
-  { table: 'list_items', column: 'position', method: 'btree' },
-  { table: 'notifications', column: 'type', method: 'btree' },
-  { table: 'notifications', column: 'priority', method: 'btree' },
-  { table: 'notifications', column: 'read_at', method: 'btree' },
   { table: 'recipes', column: 'cuisine', method: 'btree' },
   { table: 'recipes', column: 'difficulty', method: 'btree' },
   { table: 'templates', column: 'type', method: 'btree' },
@@ -293,10 +287,8 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'workflow_runs', column: 'workflow_id', method: 'btree' },
   { table: 'workflow_runs', column: 'status', method: 'btree' },
   { table: 'workflow_runs', column: 'started_at', method: 'btree' },
-  { table: 'activity_log', column: 'target_type', method: 'btree' },
-  { table: 'activity_log', column: 'target_id', method: 'btree' },
-  { table: 'activity_log', column: 'action', method: 'btree' },
-  // activity_log uses created_at from DataTimestamps (auto-managed)
+  { table: 'activity_log', column: 'activity_type', method: 'btree' },
+  { table: 'activity_log', column: 'occurred_at', method: 'btree' },
   { table: 'agent_tools', column: 'agent_id', method: 'btree' },
   { table: 'agent_tools', column: 'tool_id', method: 'btree' },
   { table: 'agent_skills', column: 'agent_id', method: 'btree' },
@@ -317,23 +309,16 @@ const BTREE_INDEXES: IndexDef[] = [
   // Memory enhancements
   { table: 'memories', column: 'memory_type', method: 'btree' },
   { table: 'memories', column: 'agent_id', method: 'btree' },
-  { table: 'memories', column: 'related_entity_type', method: 'btree' },
-  { table: 'memories', column: 'related_entity_id', method: 'btree' },
   // Skills
   { table: 'skills', column: 'category', method: 'btree' },
-  // Agent — prompts, feedback
+  // Agent — prompts
   { table: 'prompts', column: 'type', method: 'btree' },
   { table: 'prompts', column: 'is_active', method: 'btree' },
-  { table: 'feedback', column: 'target_type', method: 'btree' },
-  { table: 'feedback', column: 'target_id', method: 'btree' },
-  { table: 'feedback', column: 'rating', method: 'btree' },
-  // CRM — social / attachments
+  // CRM — social
   { table: 'contacts', column: 'twitter_handle', method: 'btree' },
   { table: 'contacts', column: 'github_username', method: 'btree' },
   { table: 'tags', column: 'name', method: 'btree' },
   { table: 'tags', column: 'category', method: 'btree' },
-  { table: 'attachments', column: 'attachable_type', method: 'btree' },
-  { table: 'attachments', column: 'attachable_id', method: 'btree' },
   // Life OS — integrations, webhooks, subscriptions, trips
   { table: 'integrations', column: 'provider', method: 'btree' },
   { table: 'integrations', column: 'status', method: 'btree' },
@@ -450,19 +435,51 @@ type FieldMap = Map<string, Map<string, string>>; // tableName -> (fieldName -> 
 
 async function fetchAllTables(): Promise<TableMap> {
   const map: TableMap = new Map();
+  // Track which schema each table came from so we can prefer app_public
+  const tableSchemaIds: Map<string, string> = new Map(); // tableName -> schemaId
+
+  // First, resolve the app_public schema ID for this database
+  const schemasResult = await withRetry(() =>
+    client.schema
+      .findMany({
+        first: 100,
+        select: { id: true, name: true, databaseId: true },
+      })
+      .unwrap()
+  );
+  const schemaNodes = (schemasResult as any)?.schemas?.nodes ?? [];
+  let appPublicSchemaId: string | undefined;
+  for (const s of schemaNodes) {
+    if (s.name === 'app_public' && s.databaseId === databaseId) {
+      appPublicSchemaId = s.id;
+      break;
+    }
+  }
+
   // Fetch all tables (no filter param — filter client-side by databaseId)
   const result = await withRetry(() =>
     client.table
       .findMany({
         first: 500,
-        select: { id: true, name: true, databaseId: true },
+        select: { id: true, name: true, databaseId: true, schemaId: true },
       })
       .unwrap()
   );
   const nodes = (result as any)?.tables?.nodes ?? [];
   for (const n of nodes) {
     if (n.name && n.id && n.databaseId === databaseId) {
-      map.set(n.name, n.id);
+      const existingSchemaId = tableSchemaIds.get(n.name);
+      // If we already have this table name, prefer the app_public version
+      if (existingSchemaId) {
+        if (n.schemaId === appPublicSchemaId) {
+          map.set(n.name, n.id);
+          tableSchemaIds.set(n.name, n.schemaId);
+        }
+        // else keep the existing one
+      } else {
+        map.set(n.name, n.id);
+        tableSchemaIds.set(n.name, n.schemaId ?? '');
+      }
     }
   }
   return map;

@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _99990_org_memberships_owners_chk
-BEFORE DELETE ON agent_db_memberships_public.org_memberships
+BEFORE DELETE ON "agent_db_memberships_public".org_memberships
 FOR EACH ROW
-EXECUTE PROCEDURE agent_db_memberships_private.org_memberships_dtg ( );
+EXECUTE PROCEDURE "agent_db_memberships_private".org_memberships_dtg ( );
 

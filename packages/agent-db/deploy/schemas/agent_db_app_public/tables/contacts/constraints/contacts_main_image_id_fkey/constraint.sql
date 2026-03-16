@@ -7,9 +7,9 @@
 -- requires: schemas/agent_db_app_public/tables/venue_links/columns/embedding/column
 
 
-ALTER TABLE agent_db_app_public.contacts 
+ALTER TABLE "agent_db_app_public".contacts 
   ADD CONSTRAINT contacts_main_image_id_fkey 
     FOREIGN KEY(main_image_id) 
-    REFERENCES agent_db_app_public.images (id) 
+    REFERENCES "agent_db_app_public".images (id) 
     ON DELETE SET NULL;
 

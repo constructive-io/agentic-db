@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/agent_prompts/indexes/agent_prompts_prompt_id_idx
 
 
-CREATE INDEX skill_executions_skill_id_idx ON agent_db_app_public.skill_executions USING BTREE ( skill_id );
+CREATE INDEX skill_executions_skill_id_idx ON "agent_db_app_public".skill_executions USING BTREE ( skill_id );
 

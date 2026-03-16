@@ -1,0 +1,7 @@
+-- Revert: schemas/agent_db_app_public/tables/activity_log/columns/entity_id/alterations/alt0000002114
+
+
+ALTER TABLE "agent_db_app_public".activity_log 
+  ALTER COLUMN entity_id DROP NOT NULL;
+
+

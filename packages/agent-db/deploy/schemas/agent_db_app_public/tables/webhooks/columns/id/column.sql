@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/integrations/columns/last_synced_at/column
 
 
-ALTER TABLE agent_db_app_public.webhooks 
+ALTER TABLE "agent_db_app_public".webhooks 
   ADD COLUMN id uuid;
 

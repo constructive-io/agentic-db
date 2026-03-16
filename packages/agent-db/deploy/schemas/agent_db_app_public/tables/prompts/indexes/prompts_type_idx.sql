@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/skills/indexes/skills_category_idx
 
 
-CREATE INDEX prompts_type_idx ON agent_db_app_public.prompts USING BTREE ( type );
+CREATE INDEX prompts_type_idx ON "agent_db_app_public".prompts USING BTREE ( type );
 

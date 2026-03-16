@@ -4,11 +4,11 @@
 -- requires: schemas/agent_db_memberships_private/schema
 
 
-CREATE FUNCTION agent_db_memberships_private.org_org_chart_edge_grants_apply_tg() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION "agent_db_memberships_private".org_org_chart_edge_grants_apply_tg() RETURNS TRIGGER AS $_PGFN_$
 
             BEGIN
                 IF (NEW.is_grant = true) THEN
-                    INSERT INTO agent_db_memberships_public.org_chart_edges (
+                    INSERT INTO "agent_db_memberships_public".org_chart_edges (
                         entity_id, child_id, parent_id, position_title, position_level,
                         created_at, updated_at
                     ) VALUES (
@@ -21,7 +21,7 @@ CREATE FUNCTION agent_db_memberships_private.org_org_chart_edge_grants_apply_tg(
                         position_level = EXCLUDED.position_level,
                         updated_at = now();
                 ELSE
-                    DELETE FROM agent_db_memberships_public.org_chart_edges
+                    DELETE FROM "agent_db_memberships_public".org_chart_edges
                     WHERE entity_id = NEW.entity_id
                         AND child_id = NEW.child_id;
                 END IF;

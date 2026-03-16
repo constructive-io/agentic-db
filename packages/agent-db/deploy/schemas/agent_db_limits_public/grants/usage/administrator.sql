@@ -4,5 +4,5 @@
 -- requires: schemas/agent_db_limits_public/schema
 
 
-GRANT USAGE ON SCHEMA agent_db_limits_public TO administrator;
+GRANT USAGE ON SCHEMA "agent_db_limits_public" TO administrator;
 

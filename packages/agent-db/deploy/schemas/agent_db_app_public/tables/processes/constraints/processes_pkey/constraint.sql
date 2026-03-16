@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/blueprints/columns/embedding/column
 
 
-ALTER TABLE agent_db_app_public.processes 
+ALTER TABLE "agent_db_app_public".processes 
   ADD CONSTRAINT processes_pkey PRIMARY KEY (id);
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/ideas/columns/embedding/column
 
 
-ALTER TABLE agent_db_app_public.reminders 
+ALTER TABLE "agent_db_app_public".reminders 
   ADD COLUMN id uuid;
 

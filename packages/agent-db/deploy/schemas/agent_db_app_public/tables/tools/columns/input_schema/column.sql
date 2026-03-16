@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/tools/columns/type/column
 
 
-ALTER TABLE agent_db_app_public.tools 
+ALTER TABLE "agent_db_app_public".tools 
   ADD COLUMN input_schema jsonb;
 

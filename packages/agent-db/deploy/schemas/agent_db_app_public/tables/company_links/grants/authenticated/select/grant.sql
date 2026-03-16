@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/contact_links/columns/embedding/column
 
 
-GRANT SELECT ON agent_db_app_public.company_links TO authenticated;
+GRANT SELECT ON "agent_db_app_public".company_links TO authenticated;
 

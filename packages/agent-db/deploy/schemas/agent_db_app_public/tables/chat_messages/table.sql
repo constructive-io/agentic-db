@@ -5,5 +5,5 @@
 -- requires: schemas/agent_db_app_public/tables/chats/columns/embedding/column
 
 
-CREATE TABLE agent_db_app_public.chat_messages ();
+CREATE TABLE "agent_db_app_public".chat_messages ();
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/contacts/columns/embedding_text/column
 
 
-ALTER TABLE agent_db_app_public.contacts 
+ALTER TABLE "agent_db_app_public".contacts 
   ADD COLUMN embedding vector(768);
 

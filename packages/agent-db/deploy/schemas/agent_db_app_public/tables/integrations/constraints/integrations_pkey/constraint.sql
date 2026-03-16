@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/documents/columns/search_tsv/column
 
 
-ALTER TABLE agent_db_app_public.integrations 
+ALTER TABLE "agent_db_app_public".integrations 
   ADD CONSTRAINT integrations_pkey PRIMARY KEY (id);
 

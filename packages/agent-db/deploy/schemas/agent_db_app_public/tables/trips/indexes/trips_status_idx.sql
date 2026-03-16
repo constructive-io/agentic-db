@@ -7,5 +7,5 @@
 -- requires: schemas/agent_db_app_public/tables/trips/indexes/trips_end_date_idx
 
 
-CREATE INDEX trips_status_idx ON agent_db_app_public.trips USING BTREE ( status );
+CREATE INDEX trips_status_idx ON "agent_db_app_public".trips USING BTREE ( status );
 

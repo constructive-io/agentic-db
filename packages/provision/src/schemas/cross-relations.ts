@@ -14,6 +14,16 @@
  *   agents   <-> skills     (agent_skills)
  *   agents   <-> rules      (agent_rules)
  *   agents   <-> prompts    (agent_prompts)
+ *   contacts <-> notes      (contact_notes)
+ *   companies <-> notes     (company_notes)
+ *   deals    <-> notes      (deal_notes)
+ *   events   <-> notes      (event_notes)
+ *   tasks    <-> notes      (task_notes)
+ *   contacts <-> memories   (contact_memories)
+ *   companies <-> memories  (company_memories)
+ *
+ * BelongsTo:
+ *   memories -> agents      (agent_id FK)
  */
 
 import {
@@ -139,6 +149,57 @@ const CROSS_RELATIONS: M2NRelation[] = [
     sourceFieldName: 'agent_id',
     targetFieldName: 'prompt_id',
   },
+  // -- Notes M:N junctions (replaces polymorphic notable_type/notable_id) --
+  {
+    sourceTable: 'contacts',
+    targetTable: 'notes',
+    junctionTableName: 'contact_notes',
+    sourceFieldName: 'contact_id',
+    targetFieldName: 'note_id',
+  },
+  {
+    sourceTable: 'companies',
+    targetTable: 'notes',
+    junctionTableName: 'company_notes',
+    sourceFieldName: 'company_id',
+    targetFieldName: 'note_id',
+  },
+  {
+    sourceTable: 'deals',
+    targetTable: 'notes',
+    junctionTableName: 'deal_notes',
+    sourceFieldName: 'deal_id',
+    targetFieldName: 'note_id',
+  },
+  {
+    sourceTable: 'events',
+    targetTable: 'notes',
+    junctionTableName: 'event_notes',
+    sourceFieldName: 'event_id',
+    targetFieldName: 'note_id',
+  },
+  {
+    sourceTable: 'tasks',
+    targetTable: 'notes',
+    junctionTableName: 'task_notes',
+    sourceFieldName: 'task_id',
+    targetFieldName: 'note_id',
+  },
+  // -- Memories M:N junctions (replaces polymorphic related_entity_type/id) --
+  {
+    sourceTable: 'contacts',
+    targetTable: 'memories',
+    junctionTableName: 'contact_memories',
+    sourceFieldName: 'contact_id',
+    targetFieldName: 'memory_id',
+  },
+  {
+    sourceTable: 'companies',
+    targetTable: 'memories',
+    junctionTableName: 'company_memories',
+    sourceFieldName: 'company_id',
+    targetFieldName: 'memory_id',
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -199,6 +260,44 @@ async function main() {
         console.error(`   \u2717 ${rel.junctionTableName}: ${msg.slice(0, 120)}`);
       }
     }
+  }
+
+  // -- BelongsTo: memories -> agents (agent_id FK) --
+  // memories.agent_id was added in agent.ts; now wire up the FK to agents in runtime.ts
+  const memoriesId = tables.get('memories');
+  const agentsId = tables.get('agents');
+  if (memoriesId && agentsId) {
+    try {
+      await withRetry(() =>
+        client.relationProvision
+          .create({
+            data: {
+              databaseId,
+              relationType: 'RelationBelongsTo',
+              sourceTableId: memoriesId,
+              targetTableId: agentsId,
+              fieldName: 'agent_id',
+              sourceFieldName: 'agent_id',
+              targetFieldName: 'id',
+              deleteAction: 'n',
+              isRequired: false,
+            },
+            select: { id: true },
+          })
+          .unwrap()
+      );
+      console.log('   \u2713 memories -> agents (agent_id FK)');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes('already exists') || msg.includes('exists')) {
+        console.log('   \u2022 memories -> agents FK (exists)');
+      } else {
+        console.error(`   \u2717 memories -> agents FK: ${msg.slice(0, 120)}`);
+      }
+    }
+  } else {
+    if (!memoriesId) console.log('   \u26a0 memories -> agents FK: memories table not found');
+    if (!agentsId) console.log('   \u26a0 memories -> agents FK: agents table not found');
   }
 
   console.log(`\n\u2705 Cross-relations complete! Created: ${created}, Skipped: ${skipped}\n`);

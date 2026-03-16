@@ -6,6 +6,6 @@
 -- requires: schemas/agent_db_app_public/tables/notes/columns/overview/column
 
 
-ALTER TABLE agent_db_app_public.notes 
+ALTER TABLE "agent_db_app_public".notes 
   ADD COLUMN active_count int;
 

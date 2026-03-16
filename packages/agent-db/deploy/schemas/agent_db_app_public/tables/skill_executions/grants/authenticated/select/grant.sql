@@ -6,5 +6,5 @@
 -- requires: schemas/agent_db_app_public/tables/prompts/columns/embedding/column
 
 
-GRANT SELECT ON agent_db_app_public.skill_executions TO authenticated;
+GRANT SELECT ON "agent_db_app_public".skill_executions TO authenticated;
 
