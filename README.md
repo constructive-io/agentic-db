@@ -45,6 +45,70 @@ pnpm test:watch
 
 See [Prerequisites](https://constructive.io/learn/quickstart/prerequisites) for detailed setup instructions.
 
+## Database Provisioning & Export Workflow
+
+Because `agentic-db` is built on the Constructive platform, the application schema must be provisioned via the SDK against the platform database (`constructive`), and then exported into `pgpm` modules for standalone installation.
+
+### 1. Point GraphQL Server at the Platform DB
+
+Before running any SDK provisioning commands, the Constructive GraphQL server must be running and connected to the main `constructive` platform database (where `api.localhost` and `auth.localhost` are exposed).
+
+```bash
+# Restart your GraphQL server with:
+PGDATABASE=constructive npm run dev
+```
+
+### 2. Scaffold and Provision the Database
+
+Run the provision scripts to scaffold a new `agentic-db-<timestamp>` database and apply all the tables, relations, search indexes, and RLS policies. The script will automatically enforce clean schema naming (`constructive.simple_schema_names`) via database-level settings.
+
+```bash
+cd packages/provision
+
+# 1. Sign up admin user and create the database via API
+pnpm run create-db
+
+# 2. Run the SDK definitions to build the schema
+pnpm run provision
+```
+
+### 3. Export as a pgpm Module
+
+Now that the database is fully provisioned, you need to export the generated SQL schema and metadata into static `pgpm` packages (`agent-db` and `agent-db-services`). This is what enables you to track schema changes in git and deploy the database anywhere.
+
+```bash
+cd ../export
+
+# Export the generated migrations into the workspace
+pnpm run export
+```
+*This extracts everything from the provisioned database and writes the SQL migrations into your `packages/` directory.*
+
+## Data Migration & Auto-Embedding Pipeline
+
+This repository includes a background worker and Postgres triggers for auto-generating vector embeddings whenever records are created or updated.
+
+### Migration Workflow
+
+If you need to migrate data from an older schema (`agentdb`) into the newly provisioned format, follow these steps:
+
+1. **Backup Existing Data**
+   ```bash
+   pg_dump -U postgres -d agentdb --clean --if-exists > ~/DatabaseBackups/agentdb/agentdb_latest.sql
+   # Commit this file to the db-backups repository via Git LFS
+   ```
+
+2. **Run the Data Migration Script**
+   Map the old rows (e.g., floating notes/memories) into the new junction tables (`contact_notes`, `company_notes`, etc.).
+
+3. **Start the Auto-Embedding Worker**
+   Because of the Postgres triggers in `packages/agent-db-embeddings`, inserting data into the new schema automatically queues embedding jobs.
+   ```bash
+   cd packages/agent-db-worker
+   pnpm run start
+   ```
+   *The worker will instantly pick up the jobs and compute vector embeddings via Ollama or Claude for all migrated records!*
+
 ## Credits
 
 **🛠 Built by the [Constructive](https://constructive.io) team — creators of modular Postgres tooling for secure, composable backends. If you like our work, contribute on [GitHub](https://github.com/constructive-io).**
@@ -54,43 +118,3 @@ See [Prerequisites](https://constructive.io/learn/quickstart/prerequisites) for 
 AS DESCRIBED IN THE LICENSES, THE SOFTWARE IS PROVIDED "AS IS", AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY KIND.
 
 No developer or entity involved in creating this software will be liable for any claims or damages whatsoever associated with your use, inability to use, or your interaction with other users of the code, including any direct, indirect, incidental, special, exemplary, punitive or consequential damages, or loss of profits, cryptocurrencies, tokens, or anything else of value.
-
-## Data Migration & Auto-Embedding Pipeline
-
-This repository includes a background worker and Postgres triggers for auto-generating vector embeddings whenever records are created or updated.
-
-### Provisioning the Database
-To ensure the GraphQL server and database schema align perfectly without hash suffixes or dashes, you must run the provisioning process with the following environment variables:
-
-```bash
-# Set these in your environment or .env file before provisioning
-export CONSTRUCTIVE_SIMPLE_SCHEMA_NAMES="true"
-export CONSTRUCTIVE_SCHEMA_USE_UNDERSCORES="true"
-```
-
-This guarantees schemas are named cleanly (e.g., `agentic_db_app_public` instead of `agentic-db-services-hash-app-public`).
-
-### Migration Workflow
-
-If you need to migrate data from an older schema into the new format, follow these steps:
-
-1. **Backup Existing Data**
-   ```bash
-   pg_dump -U postgres -d agentdb --clean --if-exists > ~/DatabaseBackups/agentdb/agentdb_latest.sql
-   # Commit this file to the db-backups repository via Git LFS
-   ```
-2. **Provision the New Schema**
-   Ensure your environment variables are set (see above), then run the provision scripts.
-   ```bash
-   cd packages/provision
-   pnpm run start
-   ```
-3. **Run the Data Migration Script**
-   Map the old rows (e.g., floating notes/memories) into the new junction tables (`contact_notes`, `company_notes`, etc.).
-4. **Start the Auto-Embedding Worker**
-      Because of the Postgres triggers in `packages/embeddings`, inserting data into the new schema automatically queues embedding jobs.
-      ```bash
-      cd packages/worker
-   pnpm start
-   ```
-   *The worker will instantly pick up the jobs and compute vector embeddings via Ollama or Claude for all migrated records!*
