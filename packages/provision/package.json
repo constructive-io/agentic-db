@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.19.11",
+    "@types/pg": "^8.18.0",
     "makage": "0.1.12",
     "tsx": "^4.7.1",
     "typescript": "^5.1.6"

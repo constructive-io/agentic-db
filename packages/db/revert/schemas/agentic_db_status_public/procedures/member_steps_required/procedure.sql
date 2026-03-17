@@ -1,0 +1,9 @@
+-- Revert: schemas/agentic_db_status_public/procedures/member_steps_required/procedure
+
+
+
+
+DROP FUNCTION function_schema.member_steps_required;
+
+
+

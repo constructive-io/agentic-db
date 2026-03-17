@@ -1,7 +1,0 @@
--- Revert: schemas/agent_db_profiles_public/tables/org_profiles/columns/slug/alterations/alt0000001292
-
-
-ALTER TABLE "agent_db_profiles_public".org_profiles 
-  ALTER COLUMN slug DROP NOT NULL;
-
-

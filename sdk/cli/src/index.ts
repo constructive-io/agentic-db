@@ -1,5 +1,5 @@
 /**
- * Extended CLI entry point for agent-db
+ * Extended CLI entry point for agentic-db
  *
  * Wraps the generated CLI commands and adds RAG-specific commands:
  *   search, ask, embed, config

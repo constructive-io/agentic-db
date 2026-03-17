@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Dan Lynch",
+    "message": "Enter author full name",
+    "required": true
+  },
+  {
+    "name": "pyramation@gmail.com",
+    "message": "Enter author email",
+    "required": true
+  },
+  {
+    "name": "agentic-db-services",
+    "message": "Enter the module name",
+    "required": true
+  },
+  {
+    "name": "agentic-db services metadata extension for API/site configuration",
+    "message": "Enter the module description",
+    "required": true
+  },
+  {
+    "name": "agent-os",
+    "message": "Enter the repository name",
+    "required": true
+  },
+  {
+    "name": "pyramation-studio",
+    "message": "Enter your github username",
+    "required": true
+  },
+  {
+    "name": "public",
+    "message": "Module access?",
+    "choices": [
+      "public",
+      "restricted"
+    ],
+    "type": "list",
+    "required": true
+  }
+]

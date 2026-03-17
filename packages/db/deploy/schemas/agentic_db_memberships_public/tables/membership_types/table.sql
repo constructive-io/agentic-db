@@ -1,0 +1,8 @@
+-- Deploy: schemas/agentic_db_memberships_public/tables/membership_types/table
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_memberships_public/schema
+
+
+CREATE TABLE "agentic_db_memberships_public".membership_types ();
+

@@ -1,35 +1,35 @@
 ---
 name: cli-default
-description: CLI tool (agent-db) for the default API — provides CRUD commands for 83 tables and 0 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 83 tables and 0 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agent-db) for the default API — provides CRUD commands for 83 tables and 0 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 83 tables and 0 custom operations
 
 ## Usage
 
 ```bash
 # Context management
-agent-db context create <name> --endpoint <url>
-agent-db context use <name>
+agentic-db context create <name> --endpoint <url>
+agentic-db context use <name>
 
 # Authentication
-agent-db auth set-token <token>
+agentic-db auth set-token <token>
 
 # Config variables
-agent-db config set <key> <value>
-agent-db config get <key>
+agentic-db config set <key> <value>
+agentic-db config get <key>
 
 # CRUD for any table (e.g. agent-prompt)
-agent-db agent-prompt list
-agent-db agent-prompt get --id <value>
-agent-db agent-prompt create --<field> <value>
+agentic-db agent-prompt list
+agentic-db agent-prompt get --id <value>
+agentic-db agent-prompt create --<field> <value>
 
 # Non-interactive mode (skip all prompts, use flags only)
-agent-db --no-tty agent-prompt list
+agentic-db --no-tty agent-prompt list
 ```
 
 ## Examples
@@ -37,16 +37,16 @@ agent-db --no-tty agent-prompt list
 ### Set up and query
 
 ```bash
-agent-db context create local --endpoint http://localhost:5000/graphql
-agent-db context use local
-agent-db auth set-token <token>
-agent-db agent-prompt list
+agentic-db context create local --endpoint http://localhost:5000/graphql
+agentic-db context use local
+agentic-db auth set-token <token>
+agentic-db agent-prompt list
 ```
 
 ### Non-interactive mode (for scripts and CI)
 
 ```bash
-agent-db --no-tty agent-prompt create --<field> <value>
+agentic-db --no-tty agent-prompt create --<field> <value>
 ```
 
 ## References

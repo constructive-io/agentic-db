@@ -6,7 +6,7 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getStore } from '../executor';
 const usage =
-  '\nagent-db auth <command>\n\nCommands:\n  set-token <token>     Set API token for the current context\n  status                Show authentication status\n  logout                Remove credentials for the current context\n\nOptions:\n  --context <name>      Specify context (defaults to current context)\n\n  --help, -h            Show this help message\n';
+  '\nagentic-db auth <command>\n\nCommands:\n  set-token <token>     Set API token for the current context\n  status                Show authentication status\n  logout                Remove credentials for the current context\n\nOptions:\n  --context <name>      Specify context (defaults to current context)\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,

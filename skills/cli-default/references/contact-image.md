@@ -2,16 +2,16 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CRUD operations for ContactImage records via agent-db CLI
+CRUD operations for ContactImage records via agentic-db CLI
 
 ## Usage
 
 ```bash
-agent-db contact-image list
-agent-db contact-image get --id <value>
-agent-db contact-image create --contactId <value> --imageId <value> --entityId <value>
-agent-db contact-image update --id <value> [--contactId <value>] [--imageId <value>] [--entityId <value>]
-agent-db contact-image delete --id <value>
+agentic-db contact-image list
+agentic-db contact-image get --id <value>
+agentic-db contact-image create --contactId <value> --imageId <value> --entityId <value>
+agentic-db contact-image update --id <value> [--contactId <value>] [--imageId <value>] [--entityId <value>]
+agentic-db contact-image delete --id <value>
 ```
 
 ## Examples
@@ -19,17 +19,17 @@ agent-db contact-image delete --id <value>
 ### List all contactImage records
 
 ```bash
-agent-db contact-image list
+agentic-db contact-image list
 ```
 
 ### Create a contactImage
 
 ```bash
-agent-db contact-image create --contactId <value> --imageId <value> --entityId <value>
+agentic-db contact-image create --contactId <value> --imageId <value> --entityId <value>
 ```
 
 ### Get a contactImage by id
 
 ```bash
-agent-db contact-image get --id <value>
+agentic-db contact-image get --id <value>
 ```

@@ -9,7 +9,7 @@ import * as dotenv from 'dotenv';
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 async function main() {
-  const DATABASE_NAME = process.env.DATABASE_NAME || 'agent-os-1772448876647';
+  const DATABASE_NAME = process.env.DATABASE_NAME || 'agentic-db';
   const APP_HOST = `app-public-${DATABASE_NAME}.localhost`;
   const GRAPHQL_URL = 'http://[::1]:3000/graphql';
 
@@ -20,7 +20,7 @@ async function main() {
     headers: { Host: APP_HOST },
     schemaOnly: true,
     schemaOnlyOutput: path.resolve(__dirname, '..'),
-    schemaOnlyFilename: 'agent-db.graphql',
+    schemaOnlyFilename: 'agentic-db.graphql',
     verbose: true,
   });
 

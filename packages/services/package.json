@@ -1,0 +1,28 @@
+{
+  "name": "@agentic-db/services",
+  "version": "0.0.1",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "description": "agentic-db services metadata extension for API/site configuration",
+  "homepage": "https://github.com/pyramation-studio/agent-os",
+  "license": "SEE LICENSE IN LICENSE",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pyramation-studio/agent-os"
+  },
+  "bugs": {
+    "url": "https://github.com/pyramation-studio/agent-os/issues"
+  },
+  "scripts": {
+    "lint": "eslint . --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "pgsql-test": "^2.13.2"
+  }
+}

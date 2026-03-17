@@ -1,11 +1,11 @@
 # @agentic-db/export
 
-pgpm export wrapper for agent-db schema. Exports the provisioned agent-db database as a pgpm-installable SQL module.
+pgpm export wrapper for agentic-db schema. Exports the provisioned agentic-db database as a pgpm-installable SQL module.
 
 ## Prerequisites
 
 - `pgpm` installed globally (`npm install -g pgpm`)
-- A provisioned agent-db database running locally (via `pnpm run provision` in `packages/provision`)
+- A provisioned agentic-db database running locally (via `pnpm run provision` in `packages/provision`)
 - PostgreSQL connection available (pgpm reads from `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD` env vars, or uses `pgpm env`)
 
 ## Usage
@@ -23,15 +23,15 @@ pnpm run export
 ```
 
 This runs `pgpm export` with:
-- `--extensionName agent-db` — names the output module `agent-db`
-- `--metaExtensionName agent-db-services` — names the services module `agent-db-services`
+- `--extensionName agentic-db` — names the output module `agentic-db`
+- `--metaExtensionName agentic-db-services` — names the services module `agentic-db-services`
 
 ### How it works
 
 1. `pgpm export` connects directly to the PostgreSQL database
 2. Reads metadata from `collections_public.database`, `collections_public.schema`
 3. Reads migration history from `db_migrate.sql_actions`
-4. Uses `makeReplacer()` to auto-rename schemas (e.g. `agent-db-<timestamp>-public` -> `agent_db_public`)
+4. Uses `makeReplacer()` to auto-rename schemas (e.g. `agentic-db-<timestamp>-public` -> `agentic_db_public`)
 5. Outputs a pgpm module with `deploy/`, `revert/`, `verify/`, `.control`, `pgpm.plan`
 
 ### Output
@@ -40,7 +40,7 @@ The exported module lands in the pgpm workspace `packages/` directory (configure
 
 ```bash
 # Install the module into another database
-pgpm install agent-db
+pgpm install agentic-db
 
 # Or publish it
 pgpm package

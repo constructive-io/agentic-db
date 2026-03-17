@@ -1,0 +1,6 @@
+-- Verify: schemas/agentic_db_app_public/tables/habit_logs/grants/authenticated/update/grant
+
+
+SELECT verify_table_grant('agentic_db_app_public.habit_logs', 'update', 'authenticated');
+
+

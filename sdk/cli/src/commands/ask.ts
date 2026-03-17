@@ -1,5 +1,5 @@
 /**
- * CLI command: agent-db ask "<question>" [--tables contacts,notes,...]
+ * CLI command: agentic-db ask "<question>" [--tables contacts,notes,...]
  *
  * RAG pipeline: vector search for context, then LLM generates an answer.
  */
@@ -21,9 +21,9 @@ Options:
   --json             Output raw JSON (context + answer)
 
 Examples:
-  agent-db ask "when did I last meet Dan?"
-  agent-db ask "what are my upcoming deadlines?" --tables tasks,projects
-  agent-db ask "summarize my expenses this month" --top 10
+  agentic-db ask "when did I last meet Dan?"
+  agentic-db ask "what are my upcoming deadlines?" --tables tasks,projects
+  agentic-db ask "summarize my expenses this month" --top 10
 `;
 
 export default async (

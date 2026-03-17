@@ -1,10 +1,10 @@
 /**
- * Non-interactive pgpm export script for agent-db.
+ * Non-interactive pgpm export script for agentic-db.
  *
  * Calls exportMigrations from @pgpmjs/core (pgpm 4.x) to generate
  * installable SQL modules from a provisioned database. pgpm 4.x
  * filters db_migrate.sql_actions by database_id natively, so only
- * agent-db schemas are exported (no constructive platform leakage).
+ * agentic-db schemas are exported (no constructive platform leakage).
  *
  * Usage:
  *   eval "$(pgpm env)" && PGDATABASE=constructive tsx src/run-export.ts
@@ -30,12 +30,12 @@ const path = require('path');
 
 async function main() {
   const workspaceRoot = path.resolve(__dirname, '../../..');
-  const extensionName = process.env.EXTENSION_NAME || 'agent-db';
-  const metaExtensionName = process.env.META_EXTENSION_NAME || 'agent-db-services';
+  const extensionName = process.env.EXTENSION_NAME || 'agentic-db';
+  const metaExtensionName = process.env.META_EXTENSION_NAME || 'agentic-db-services';
   const author = process.env.AUTHOR || 'Dan Lynch <pyramation@gmail.com>';
   const dbname = process.env.PGDATABASE || 'constructive';
   const username = process.env.GITHUB_USERNAME || 'pyramation-studio';
-  const repoName = process.env.REPO_NAME || 'agent-os';
+  const repoName = process.env.REPO_NAME || 'agent-os';  // GitHub repo name stays agent-os
 
   console.log(`\npgpm export (non-interactive)\n`);
   console.log(`  workspace: ${workspaceRoot}`);
@@ -72,7 +72,7 @@ async function main() {
       `SELECT name FROM metaschema_public.database WHERE id = $1`,
       [databaseId]
     );
-    databaseName = result.rows[0]?.name || 'agent-db';
+    databaseName = result.rows[0]?.name || 'agentic-db';
     console.log(`  database_id: ${databaseId} (${databaseName})`);
   }
 
@@ -109,9 +109,9 @@ async function main() {
     schema_names,
     outdir,
     extensionName,
-    extensionDesc: 'pgpm-installable agent-db SQL module for the agentic-db personal database',
+    extensionDesc: 'pgpm-installable agentic-db SQL module for the agentic-db personal database',
     metaExtensionName,
-    metaExtensionDesc: 'agent-db services metadata extension for API/site configuration',
+    metaExtensionDesc: 'agentic-db services metadata extension for API/site configuration',
     repoName,
     username,
   });

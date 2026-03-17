@@ -1,6 +1,0 @@
--- Revert: schemas/agent_db_memberships_public/tables/org_owner_grants/columns/entity_id/alterations/alt0000001264
-
-
-COMMENT ON COLUMN "agent_db_memberships_public".org_owner_grants.entity_id IS NULL;
-
-
