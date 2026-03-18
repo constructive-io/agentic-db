@@ -50,6 +50,20 @@ const HNSW_INDEXES: IndexDef[] = [
   'recipes', 'templates',
   'session_archives',
   'activity_log',
+  // Chunk tables
+  'contact_chunks', 'company_chunks', 'deal_chunks', 'event_chunks',
+  'venue_chunks', 'note_chunks', 'interaction_chunks',
+  'task_chunks', 'rule_chunks', 'memory_chunks', 'skill_chunks',
+  'goal_chunks', 'prompt_chunks',
+  'agent_chunks', 'session_chunks', 'chat_chunks', 'chat_message_chunks',
+  'thread_chunks', 'blueprint_chunks', 'tool_chunks',
+  'session_archive_chunks', 'activity_log_chunks',
+  'project_chunks',
+  'repository_chunks',
+  'message_chunks', 'calendar_event_chunks', 'document_chunks',
+  'trip_chunks',
+  'idea_chunks', 'reminder_chunks', 'list_chunks',
+  'recipe_chunks', 'template_chunks',
 ].map((table) => ({
   table,
   column: 'embedding',
@@ -80,6 +94,20 @@ const BM25_INDEXES: IndexDef[] = [
   'recipes', 'templates',
   'session_archives',
   'activity_log',
+  // Chunk tables
+  'contact_chunks', 'company_chunks', 'deal_chunks', 'event_chunks',
+  'venue_chunks', 'note_chunks', 'interaction_chunks',
+  'task_chunks', 'rule_chunks', 'memory_chunks', 'skill_chunks',
+  'goal_chunks', 'prompt_chunks',
+  'agent_chunks', 'session_chunks', 'chat_chunks', 'chat_message_chunks',
+  'thread_chunks', 'blueprint_chunks', 'tool_chunks',
+  'session_archive_chunks', 'activity_log_chunks',
+  'project_chunks',
+  'repository_chunks',
+  'message_chunks', 'calendar_event_chunks', 'document_chunks',
+  'trip_chunks',
+  'idea_chunks', 'reminder_chunks', 'list_chunks',
+  'recipe_chunks', 'template_chunks',
 ].map((table) => ({
   table,
   column: 'embedding_text',
@@ -336,6 +364,47 @@ const BTREE_INDEXES: IndexDef[] = [
   { table: 'venues', column: 'google_place_id', method: 'btree' },
   // Tasks
   { table: 'tasks', column: 'task_type', method: 'btree' },
+  // Chunk tables — B-tree on chunk_index for ordering
+  // CRM chunks
+  { table: 'contact_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'company_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'deal_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'event_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'venue_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'note_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'interaction_chunks', column: 'chunk_index', method: 'btree' },
+  // Agent chunks
+  { table: 'task_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'rule_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'memory_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'skill_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'goal_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'prompt_chunks', column: 'chunk_index', method: 'btree' },
+  // Runtime chunks
+  { table: 'agent_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'session_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'chat_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'chat_message_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'thread_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'blueprint_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'tool_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'session_archive_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'activity_log_chunks', column: 'chunk_index', method: 'btree' },
+  // Projects chunks
+  { table: 'project_chunks', column: 'chunk_index', method: 'btree' },
+  // Codebase chunks
+  { table: 'repository_chunks', column: 'chunk_index', method: 'btree' },
+  // Life OS chunks
+  { table: 'message_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'calendar_event_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'document_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'trip_chunks', column: 'chunk_index', method: 'btree' },
+  // Autonomy chunks
+  { table: 'idea_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'reminder_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'list_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'recipe_chunks', column: 'chunk_index', method: 'btree' },
+  { table: 'template_chunks', column: 'chunk_index', method: 'btree' },
 ];
 
 // GIST indexes on geography columns (spatial proximity queries)

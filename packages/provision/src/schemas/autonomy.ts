@@ -2,6 +2,7 @@
  * autonomy.ts \u2014 Autonomy domain schema
  *
  * Tables: ideas, reminders, habits, habit_logs, lists, recipes, templates
+ * Chunk tables: idea_chunks, reminder_chunks, list_chunks, recipe_chunks, template_chunks
  * Note: list_items and notifications removed (polymorphic anti-patterns)
  */
 
@@ -180,6 +181,26 @@ async function main() {
   await addField(templatesId, 'embedding_text', 'text');
   await addField(templatesId, 'embedding', 'vector(768)');
 
+  // =========================================================================
+  // Chunk tables (1-to-many for embedding chunking)
+  // =========================================================================
+  console.log('\n\ud83e\udde9 Chunk tables...');
+
+  const createChunkTable = async (name: string): Promise<string> => {
+    const tableId = await createOrgTable(name);
+    await addField(tableId, 'chunk_index', 'int', { isRequired: true });
+    await addField(tableId, 'content', 'text', { isRequired: true });
+    await addField(tableId, 'embedding_text', 'text');
+    await addField(tableId, 'embedding', 'vector(768)');
+    return tableId;
+  };
+
+  const ideaChunksId = await createChunkTable('idea_chunks');
+  const reminderChunksId = await createChunkTable('reminder_chunks');
+  const listChunksId = await createChunkTable('list_chunks');
+  const recipeChunksId = await createChunkTable('recipe_chunks');
+  const templateChunksId = await createChunkTable('template_chunks');
+
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');
 
@@ -199,6 +220,31 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 habits -> habit_logs');
+
+  // Chunk table relations (parent -> chunks, CASCADE delete)
+  const hasMany = async (sourceId: string, targetId: string, label: string) => {
+    await withRetry(() =>
+      client.relationProvision
+        .create({
+          data: {
+            databaseId,
+            relationType: 'RelationHasMany',
+            sourceTableId: sourceId,
+            targetTableId: targetId,
+            deleteAction: 'c',
+          },
+          select: { id: true },
+        })
+        .unwrap()
+    );
+    console.log(`   \u2713 ${label}`);
+  };
+
+  await hasMany(ideasId, ideaChunksId, 'ideas -> idea_chunks');
+  await hasMany(remindersId, reminderChunksId, 'reminders -> reminder_chunks');
+  await hasMany(listsId, listChunksId, 'lists -> list_chunks');
+  await hasMany(recipesId, recipeChunksId, 'recipes -> recipe_chunks');
+  await hasMany(templatesId, templateChunksId, 'templates -> template_chunks');
 
   console.log('\n\u2705 Autonomy Schema complete!\n');
 }

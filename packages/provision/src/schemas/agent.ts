@@ -194,6 +194,27 @@ async function main() {
   await addField(promptsId, 'embedding_text', 'text');
   await addField(promptsId, 'embedding', 'vector(768)');
 
+  // =========================================================================
+  // Chunk tables (1-to-many for embedding chunking)
+  // =========================================================================
+  console.log('\n\ud83e\udde9 Chunk tables...');
+
+  const createChunkTable = async (name: string): Promise<string> => {
+    const tableId = await createOrgTable(name);
+    await addField(tableId, 'chunk_index', 'int', { isRequired: true });
+    await addField(tableId, 'content', 'text', { isRequired: true });
+    await addField(tableId, 'embedding_text', 'text');
+    await addField(tableId, 'embedding', 'vector(768)');
+    return tableId;
+  };
+
+  const taskChunksId = await createChunkTable('task_chunks');
+  const ruleChunksId = await createChunkTable('rule_chunks');
+  const memoryChunksId = await createChunkTable('memory_chunks');
+  const skillChunksId = await createChunkTable('skill_chunks');
+  const goalChunksId = await createChunkTable('goal_chunks');
+  const promptChunksId = await createChunkTable('prompt_chunks');
+
   // -- Skill Executions -----------------------------------------------------
   console.log('\n\u25b6\ufe0f  skill_executions...');
   const skillExecsId = await createOrgTable('skill_executions');
@@ -231,6 +252,32 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 tasks -> tasks (parent)');
+
+  // Chunk table relations (parent -> chunks, CASCADE delete)
+  const hasMany = async (sourceId: string, targetId: string, label: string) => {
+    await withRetry(() =>
+      client.relationProvision
+        .create({
+          data: {
+            databaseId,
+            relationType: 'RelationHasMany',
+            sourceTableId: sourceId,
+            targetTableId: targetId,
+            deleteAction: 'c',
+          },
+          select: { id: true },
+        })
+        .unwrap()
+    );
+    console.log(`   \u2713 ${label}`);
+  };
+
+  await hasMany(tasksId, taskChunksId, 'tasks -> task_chunks');
+  await hasMany(rulesId, ruleChunksId, 'rules -> rule_chunks');
+  await hasMany(memoriesId, memoryChunksId, 'memories -> memory_chunks');
+  await hasMany(skillsId, skillChunksId, 'skills -> skill_chunks');
+  await hasMany(goalsId, goalChunksId, 'goals -> goal_chunks');
+  await hasMany(promptsId, promptChunksId, 'prompts -> prompt_chunks');
 
   // NOTE: memories -> agents FK is created in cross-relations.ts
   // (memories.agent_id references agents.id, but agents is defined in runtime.ts)

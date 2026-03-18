@@ -2,6 +2,7 @@
  * projects.ts \u2014 Projects domain schema
  *
  * Tables: projects, milestones
+ * Chunk tables: project_chunks
  * Relations: projects->milestones (HasMany), projects<->contacts (M:N via cross-relations.ts)
  */
 
@@ -108,6 +109,22 @@ async function main() {
   await addField(milestonesId, 'status', 'text', { defaultValue: "'pending'" });
   // No embeddings — milestones are queried by project_id + status
 
+  // =========================================================================
+  // Chunk tables (1-to-many for embedding chunking)
+  // =========================================================================
+  console.log('\n\ud83e\udde9 Chunk tables...');
+
+  const createChunkTable = async (name: string): Promise<string> => {
+    const tableId = await createOrgTable(name);
+    await addField(tableId, 'chunk_index', 'int', { isRequired: true });
+    await addField(tableId, 'content', 'text', { isRequired: true });
+    await addField(tableId, 'embedding_text', 'text');
+    await addField(tableId, 'embedding', 'vector(768)');
+    return tableId;
+  };
+
+  const projectChunksId = await createChunkTable('project_chunks');
+
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');
 
@@ -127,6 +144,23 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 projects -> milestones');
+
+  // projects -> project_chunks (HasMany, CASCADE delete)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: projectsId,
+          targetTableId: projectChunksId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 projects -> project_chunks');
 
   const m2mOpts = {
     nodeType: 'DataEntityMembership',
