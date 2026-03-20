@@ -1,291 +1,170 @@
 /**
- * agent.ts \u2014 Agent Core domain schema
+ * agent.ts — Agent Core domain schema (blueprint definition)
  *
  * Tables: tasks, rules, memories, skills, goals, prompts, skill_executions
- * Note: feedback table removed (polymorphic anti-pattern)
+ * Chunk tables: task_chunks, rule_chunks, memory_chunks, skill_chunks, goal_chunks, prompt_chunks
  */
 
 import {
-  createPlatformClient,
-  requireDatabaseId,
-  withRetry,
-  entityGrants,
-  entityPolicyData,
-} from '../helpers';
+  type BlueprintDefinition,
+  orgTable,
+  chunkTable,
+  hasManyChunks,
+  provisionBlueprint,
+  f,
+  req,
+  EMBEDDING_FIELDS,
+} from '../blueprint';
 
-const databaseId = requireDatabaseId();
-const client = createPlatformClient();
+// ---------------------------------------------------------------------------
+// Blueprint definition
+// ---------------------------------------------------------------------------
 
+const definition: BlueprintDefinition = {
+  tables: [
+    // -- Tasks ----------------------------------------------------------------
+    orgTable('tasks', [
+      req('title', 'text'),
+      f('description', 'text'),
+      f('status', 'text', { default_value: "'todo'" }),
+      f('priority', 'int'),
+      f('project_id', 'uuid'),
+      f('task_type', 'text', { default_value: "'human'" }),
+      f('assigned_agent_id', 'uuid'),
+      f('parent_task_id', 'uuid'),
+      f('due_date', 'timestamptz'),
+      f('completed_at', 'timestamptz'),
+      f('conversation_id', 'uuid'),
+      f('dependencies', 'uuid[]'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+    ]),
 
-async function createOrgTable(tableName: string): Promise<string> {
-  const result = await withRetry(() =>
-    client.secureTableProvision
-      .create({
-        data: {
-          databaseId,
-          tableName,
-          nodeType: 'DataEntityMembership',
-          useRls: true,
-          grantRoles: ['authenticated'],
-          grantPrivileges: entityGrants,
-          policyType: 'AuthzEntityMembership',
-          policyPermissive: true,
-          policyData: entityPolicyData,
-        },
-        select: { id: true, tableId: true },
-      })
-      .unwrap()
-  );
-  const tableId =
-    result.createSecureTableProvision?.secureTableProvision?.tableId;
-  if (!tableId) throw new Error(`No tableId for ${tableName}`);
+    // -- Rules ----------------------------------------------------------------
+    orgTable('rules', [
+      req('title', 'text'),
+      f('content', 'text'),
+      f('kind', 'text'),
+      f('severity', 'text'),
+      f('is_active', 'bool', { default_value: 'true' }),
+      f('slug', 'text'),
+      f('verification', 'text'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+      f('trigger_concept', 'vector(768)'),
+    ]),
 
-  await withRetry(() =>
-    client.secureTableProvision
-      .create({
-        data: {
-          databaseId,
-          tableId,
-          nodeType: 'DataTimestamps',
-          nodeData: { include_id: false } as any,
-        },
-        select: { id: true },
-      })
-      .unwrap()
-  );
-  console.log(`   \u2713 ${tableName}`);
-  return tableId;
-}
+    // -- Memories -------------------------------------------------------------
+    orgTable('memories', [
+      req('content', 'text'),
+      f('memory_type', 'text'),
+      f('memory_category', 'text'),
+      f('agent_id', 'uuid'),
+      f('importance', 'int'),
+      f('verified', 'bool', { default_value: 'false' }),
+      f('source', 'text'),
+      f('abstract', 'text'),
+      f('overview', 'text'),
+      f('active_count', 'int', { default_value: '0' }),
+      f('last_accessed_at', 'timestamptz'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+    ]),
 
-async function addField(
-  tableId: string,
-  name: string,
-  type: string,
-  opts: { isRequired?: boolean; defaultValue?: string } = {}
-): Promise<string> {
-  const result = await withRetry(() =>
-    client.field
-      .create({
-        data: {
-          tableId,
-          name,
-          type,
-          isRequired: opts.isRequired ?? false,
-          label: name,
-          ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}),
-        },
-        select: { id: true },
-      })
-      .unwrap()
-  );
-  console.log(`      + ${name} (${type})`);
-  return result.createField?.field?.id!;
-}
+    // -- Skills ---------------------------------------------------------------
+    orgTable('skills', [
+      req('name', 'text'),
+      f('slug', 'text'),
+      f('description', 'text'),
+      f('content', 'text'),
+      f('procedure', 'text'),
+      f('interface', 'jsonb'),
+      f('requirements', 'jsonb'),
+      f('prerequisites', 'jsonb'),
+      f('always_load', 'bool', { default_value: 'false' }),
+      f('file_path', 'text'),
+      f('content_hash', 'text'),
+      f('category', 'text'),
+      f('is_active', 'bool', { default_value: 'true' }),
+      f('abstract', 'text'),
+      f('overview', 'text'),
+      f('active_count', 'int', { default_value: '0' }),
+      f('last_accessed_at', 'timestamptz'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+      f('intent_trigger', 'vector(768)'),
+    ]),
 
+    // -- Goals ----------------------------------------------------------------
+    orgTable('goals', [
+      req('title', 'text'),
+      f('description', 'text'),
+      f('target_date', 'timestamptz'),
+      f('status', 'text', { default_value: "'active'" }),
+      f('category', 'text'),
+      f('progress_pct', 'int', { default_value: '0' }),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+    ]),
+
+    // -- Prompts --------------------------------------------------------------
+    orgTable('prompts', [
+      req('name', 'text'),
+      req('content', 'text'),
+      f('type', 'text'),
+      f('model', 'text'),
+      f('version', 'int', { default_value: '1' }),
+      f('is_active', 'bool', { default_value: 'true' }),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+    ]),
+
+    // -- Chunk tables ---------------------------------------------------------
+    chunkTable('tasks'),
+    chunkTable('rules'),
+    chunkTable('memories'),
+    chunkTable('skills'),
+    chunkTable('goals'),
+    chunkTable('prompts'),
+
+    // -- Skill Executions -----------------------------------------------------
+    orgTable('skill_executions', [
+      req('skill_id', 'uuid'),
+      f('agent_id', 'uuid'),
+      f('session_id', 'uuid'),
+      f('status', 'text', { default_value: "'pending'" }),
+      f('started_at', 'timestamptz'),
+      f('completed_at', 'timestamptz'),
+      f('duration_ms', 'int'),
+      f('input', 'jsonb'),
+      f('output', 'jsonb'),
+      f('error', 'text'),
+    ]),
+  ],
+
+  relations: [
+    // tasks self-referential (parent)
+    { $type: 'RelationBelongsTo', source_ref: 'tasks', target_ref: 'tasks', field_name: 'parent_task_id', source_field_name: 'parent_task_id', target_field_name: 'id', delete_action: 'n', is_required: false },
+
+    // Chunk table relations (parent -> chunks, CASCADE delete)
+    hasManyChunks('tasks'),
+    hasManyChunks('rules'),
+    hasManyChunks('memories'),
+    hasManyChunks('skills'),
+    hasManyChunks('goals'),
+    hasManyChunks('prompts'),
+
+    // NOTE: memories -> agents FK is created in cross-relations.ts
+    // NOTE: tasks -> projects, tasks -> agents cross-module relations are in cross-relations.ts
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Main
+// ---------------------------------------------------------------------------
 
 async function main() {
-  console.log('\n\ud83e\udde0 Agent Core Schema\n');
-
-  // -- Tasks ----------------------------------------------------------------
-  console.log('\ud83d\udccc tasks...');
-  const tasksId = await createOrgTable('tasks');
-  await addField(tasksId, 'title', 'text', { isRequired: true });
-  await addField(tasksId, 'description', 'text');
-  await addField(tasksId, 'status', 'text', { defaultValue: "'todo'" });
-  await addField(tasksId, 'priority', 'int');
-  await addField(tasksId, 'project_id', 'uuid');
-  await addField(tasksId, 'task_type', 'text', { defaultValue: "'human'" }); // human | agent | hybrid
-  await addField(tasksId, 'assigned_agent_id', 'uuid');
-  await addField(tasksId, 'parent_task_id', 'uuid');
-  await addField(tasksId, 'due_date', 'timestamptz');
-  await addField(tasksId, 'completed_at', 'timestamptz');
-  await addField(tasksId, 'conversation_id', 'uuid');
-  await addField(tasksId, 'dependencies', 'uuid[]');
-  await addField(tasksId, 'tags', 'citext[]');
-  await addField(tasksId, 'embedding_text', 'text');
-  await addField(tasksId, 'embedding', 'vector(768)');
-
-  // -- Rules ----------------------------------------------------------------
-  console.log('\n\ud83d\udcdc rules...');
-  const rulesId = await createOrgTable('rules');
-  await addField(rulesId, 'title', 'text', { isRequired: true });
-  await addField(rulesId, 'content', 'text');
-  await addField(rulesId, 'kind', 'text');
-  await addField(rulesId, 'severity', 'text');
-  await addField(rulesId, 'is_active', 'bool', { defaultValue: 'true' });
-  await addField(rulesId, 'slug', 'text');
-  await addField(rulesId, 'verification', 'text');
-  await addField(rulesId, 'tags', 'citext[]');
-  await addField(rulesId, 'embedding_text', 'text');
-  await addField(rulesId, 'embedding', 'vector(768)');
-  await addField(rulesId, 'trigger_concept', 'vector(768)');
-
-  // -- Memories -------------------------------------------------------------
-  // Inspired by OpenViking's structured memory categories + tiered content
-  console.log('\n\ud83d\udca1 memories...');
-  const memoriesId = await createOrgTable('memories');
-  await addField(memoriesId, 'content', 'text', { isRequired: true });
-  await addField(memoriesId, 'memory_type', 'text');  // episodic | semantic | reflection
-  await addField(memoriesId, 'memory_category', 'text'); // profile | preferences | entities | events | cases | patterns
-  await addField(memoriesId, 'agent_id', 'uuid');     // whose memory (null = shared)
-  await addField(memoriesId, 'importance', 'int');
-  await addField(memoriesId, 'verified', 'bool', { defaultValue: 'false' });
-  await addField(memoriesId, 'source', 'text');
-  // L0/L1 tiered context (OpenViking pattern: abstract ~256 chars, overview ~4000 chars)
-  await addField(memoriesId, 'abstract', 'text');      // L0: short summary for listing
-  await addField(memoriesId, 'overview', 'text');      // L1: structural overview for context loading
-  // Hotness scoring (OpenViking pattern: frequency × recency)
-  await addField(memoriesId, 'active_count', 'int', { defaultValue: '0' });
-  await addField(memoriesId, 'last_accessed_at', 'timestamptz');
-  await addField(memoriesId, 'tags', 'citext[]');
-  await addField(memoriesId, 'embedding_text', 'text');
-  await addField(memoriesId, 'embedding', 'vector(768)');
-
-  // -- Skills ---------------------------------------------------------------
-  console.log('\n\ud83d\udee0\ufe0f  skills...');
-  const skillsId = await createOrgTable('skills');
-  await addField(skillsId, 'name', 'text', { isRequired: true });
-  await addField(skillsId, 'slug', 'text');
-  await addField(skillsId, 'description', 'text');
-  await addField(skillsId, 'content', 'text');
-  await addField(skillsId, 'procedure', 'text');
-  await addField(skillsId, 'interface', 'jsonb');
-  await addField(skillsId, 'requirements', 'jsonb');
-  await addField(skillsId, 'prerequisites', 'jsonb');  // OpenViking pattern: { bins: [...], env: [...] }
-  await addField(skillsId, 'always_load', 'bool', { defaultValue: 'false' }); // OpenViking: always-loaded skills
-  await addField(skillsId, 'file_path', 'text');
-  await addField(skillsId, 'content_hash', 'text');
-  await addField(skillsId, 'category', 'text');     // code | communication | data | planning | research
-  await addField(skillsId, 'is_active', 'bool', { defaultValue: 'true' });
-  // L0/L1 tiered context
-  await addField(skillsId, 'abstract', 'text');
-  await addField(skillsId, 'overview', 'text');
-  // Hotness scoring
-  await addField(skillsId, 'active_count', 'int', { defaultValue: '0' });
-  await addField(skillsId, 'last_accessed_at', 'timestamptz');
-  await addField(skillsId, 'tags', 'citext[]');
-  await addField(skillsId, 'embedding_text', 'text');
-  await addField(skillsId, 'embedding', 'vector(768)');
-  await addField(skillsId, 'intent_trigger', 'vector(768)');
-
-  // -- Goals ----------------------------------------------------------------
-  console.log('\n\ud83c\udfaf goals...');
-  const goalsId = await createOrgTable('goals');
-  await addField(goalsId, 'title', 'text', { isRequired: true });
-  await addField(goalsId, 'description', 'text');
-  await addField(goalsId, 'target_date', 'timestamptz');
-  await addField(goalsId, 'status', 'text', { defaultValue: "'active'" });
-  await addField(goalsId, 'category', 'text');
-  await addField(goalsId, 'progress_pct', 'int', { defaultValue: '0' });
-  await addField(goalsId, 'tags', 'citext[]');
-  await addField(goalsId, 'embedding_text', 'text');
-  await addField(goalsId, 'embedding', 'vector(768)');
-
-  // -- Prompts --------------------------------------------------------------
-  console.log('\n\ud83d\udcdd prompts...');
-  const promptsId = await createOrgTable('prompts');
-  await addField(promptsId, 'name', 'text', { isRequired: true });
-  await addField(promptsId, 'content', 'text', { isRequired: true });
-  await addField(promptsId, 'type', 'text');        // system | user | template | few_shot
-  await addField(promptsId, 'model', 'text');
-  await addField(promptsId, 'version', 'int', { defaultValue: '1' });
-  await addField(promptsId, 'is_active', 'bool', { defaultValue: 'true' });
-  await addField(promptsId, 'tags', 'citext[]');
-  await addField(promptsId, 'embedding_text', 'text');
-  await addField(promptsId, 'embedding', 'vector(768)');
-
-  // =========================================================================
-  // Chunk tables (1-to-many for embedding chunking)
-  // =========================================================================
-  console.log('\n\ud83e\udde9 Chunk tables...');
-
-  const createChunkTable = async (name: string): Promise<string> => {
-    const tableId = await createOrgTable(name);
-    await addField(tableId, 'chunk_index', 'int', { isRequired: true });
-    await addField(tableId, 'content', 'text', { isRequired: true });
-    await addField(tableId, 'embedding_text', 'text');
-    await addField(tableId, 'embedding', 'vector(768)');
-    return tableId;
-  };
-
-  const taskChunksId = await createChunkTable('task_chunks');
-  const ruleChunksId = await createChunkTable('rule_chunks');
-  const memoryChunksId = await createChunkTable('memory_chunks');
-  const skillChunksId = await createChunkTable('skill_chunks');
-  const goalChunksId = await createChunkTable('goal_chunks');
-  const promptChunksId = await createChunkTable('prompt_chunks');
-
-  // -- Skill Executions -----------------------------------------------------
-  console.log('\n\u25b6\ufe0f  skill_executions...');
-  const skillExecsId = await createOrgTable('skill_executions');
-  await addField(skillExecsId, 'skill_id', 'uuid', { isRequired: true });
-  await addField(skillExecsId, 'agent_id', 'uuid');
-  await addField(skillExecsId, 'session_id', 'uuid');
-  await addField(skillExecsId, 'status', 'text', { defaultValue: "'pending'" }); // pending | running | success | failed | timeout
-  await addField(skillExecsId, 'started_at', 'timestamptz');
-  await addField(skillExecsId, 'completed_at', 'timestamptz');
-  await addField(skillExecsId, 'duration_ms', 'int');
-  await addField(skillExecsId, 'input', 'jsonb');
-  await addField(skillExecsId, 'output', 'jsonb');
-  await addField(skillExecsId, 'error', 'text');
-
-  // -- Relations ------------------------------------------------------------
-  console.log('\n\ud83d\udd17 Relations...');
-
-  // tasks self-referential (parent)
-  await withRetry(() =>
-    client.relationProvision
-      .create({
-        data: {
-          databaseId,
-          relationType: 'RelationBelongsTo',
-          sourceTableId: tasksId,
-          targetTableId: tasksId,
-          fieldName: 'parent_task_id',
-          sourceFieldName: 'parent_task_id',
-          targetFieldName: 'id',
-          deleteAction: 'n',
-          isRequired: false,
-        },
-        select: { id: true },
-      })
-      .unwrap()
-  );
-  console.log('   \u2713 tasks -> tasks (parent)');
-
-  // Chunk table relations (parent -> chunks, CASCADE delete)
-  const hasMany = async (sourceId: string, targetId: string, label: string) => {
-    await withRetry(() =>
-      client.relationProvision
-        .create({
-          data: {
-            databaseId,
-            relationType: 'RelationHasMany',
-            sourceTableId: sourceId,
-            targetTableId: targetId,
-            deleteAction: 'c',
-          },
-          select: { id: true },
-        })
-        .unwrap()
-    );
-    console.log(`   \u2713 ${label}`);
-  };
-
-  await hasMany(tasksId, taskChunksId, 'tasks -> task_chunks');
-  await hasMany(rulesId, ruleChunksId, 'rules -> rule_chunks');
-  await hasMany(memoriesId, memoryChunksId, 'memories -> memory_chunks');
-  await hasMany(skillsId, skillChunksId, 'skills -> skill_chunks');
-  await hasMany(goalsId, goalChunksId, 'goals -> goal_chunks');
-  await hasMany(promptsId, promptChunksId, 'prompts -> prompt_chunks');
-
-  // NOTE: memories -> agents FK is created in cross-relations.ts
-  // (memories.agent_id references agents.id, but agents is defined in runtime.ts)
-
-  // NOTE: tasks -> projects, tasks -> agents, and other cross-module
-  // relations are created in cross-relations.ts after all schemas run.
-
-  console.log('\n\u2705 Agent Core Schema complete!\n');
+  await provisionBlueprint(definition, 'Agent Core Schema');
 }
 
 export { main as default };

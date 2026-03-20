@@ -1,418 +1,228 @@
 /**
- * crm.ts \u2014 CRM domain schema
+ * crm.ts — CRM domain schema (blueprint definition)
  *
  * Tables: images, contacts, companies, deals, events, venues, notes, interactions, tags
  * Chunk tables: contact_chunks, company_chunks, deal_chunks, event_chunks, venue_chunks, note_chunks, interaction_chunks
  * Link tables: contact_links, company_links, event_links, venue_links
  * Relations: M:N junctions, HasMany, BelongsTo (images)
- * Note: attachments table removed (polymorphic anti-pattern)
  */
 
 import {
-  createPlatformClient,
-  requireDatabaseId,
-  withRetry,
-  entityGrants,
-  entityPolicyData,
-} from '../helpers';
-
-const databaseId = requireDatabaseId();
-const client = createPlatformClient();
+  type BlueprintDefinition,
+  orgTable,
+  chunkTable,
+  hasManyChunks,
+  provisionBlueprint,
+  f,
+  req,
+  EMBEDDING_FIELDS,
+  M2M_JUNCTION_OPTS,
+} from '../blueprint';
 
 // ---------------------------------------------------------------------------
-// Table + field helpers
+// Blueprint definition
 // ---------------------------------------------------------------------------
 
-async function createOrgTable(tableName: string): Promise<string> {
-  const result = await withRetry(() =>
-    client.secureTableProvision
-      .create({
-        data: {
-          databaseId,
-          tableName,
-          nodeType: 'DataEntityMembership',
-          useRls: true,
-          grantRoles: ['authenticated'],
-          grantPrivileges: entityGrants,
-          policyType: 'AuthzEntityMembership',
-          policyPermissive: true,
-          policyData: entityPolicyData,
-        },
-        select: { id: true, tableId: true },
-      })
-      .unwrap()
-  );
-  const tableId =
-    result.createSecureTableProvision?.secureTableProvision?.tableId;
-  if (!tableId) throw new Error(`No tableId for ${tableName}`);
+const definition: BlueprintDefinition = {
+  tables: [
+    // -- Images -------------------------------------------------------------
+    orgTable('images', [
+      req('url', 'text'),
+      f('meta', 'jsonb'),
+      f('alt_text', 'text'),
+      f('caption', 'text'),
+      f('embedding', 'vector(768)'),
+    ]),
 
-  await withRetry(() =>
-    client.secureTableProvision
-      .create({
-        data: {
-          databaseId,
-          tableId,
-          nodeType: 'DataTimestamps',
-          nodeData: { include_id: false } as any,
-        },
-        select: { id: true },
-      })
-      .unwrap()
-  );
-  console.log(`   \u2713 ${tableName}`);
-  return tableId;
-}
+    // -- Contacts -----------------------------------------------------------
+    orgTable('contacts', [
+      req('first_name', 'text'),
+      f('last_name', 'text'),
+      f('email', 'text'),
+      f('phone', 'text'),
+      f('headline', 'text'),
+      f('bio', 'text'),
+      f('location', 'text'),
+      f('birthday', 'date'),
+      f('relationship_type', 'text'),
+      f('how_we_met', 'text'),
+      f('twitter_handle', 'text'),
+      f('linkedin_url', 'text'),
+      f('github_username', 'text'),
+      f('instagram_handle', 'text'),
+      f('website', 'text'),
+      f('location_geo', 'geography(Point,4326)'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+      f('search_tsv', 'tsvector'),
+      f('main_image_id', 'uuid'),
+    ]),
 
-async function addField(
-  tableId: string,
-  name: string,
-  type: string,
-  opts: { isRequired?: boolean; defaultValue?: string } = {}
-): Promise<string> {
-  const result = await withRetry(() =>
-    client.field
-      .create({
-        data: {
-          tableId,
-          name,
-          type,
-          isRequired: opts.isRequired ?? false,
-          label: name,
-          ...(opts.defaultValue ? { defaultValue: opts.defaultValue } : {}),
-        },
-        select: { id: true },
-      })
-      .unwrap()
-  );
-  console.log(`      + ${name} (${type})`);
-  return result.createField?.field?.id!;
-}
+    // -- Companies ----------------------------------------------------------
+    orgTable('companies', [
+      req('name', 'text'),
+      f('domain', 'text'),
+      f('industry', 'text'),
+      f('description', 'text'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+      f('search_tsv', 'tsvector'),
+      f('main_image_id', 'uuid'),
+    ]),
+
+    // -- Deals --------------------------------------------------------------
+    orgTable('deals', [
+      req('name', 'text'),
+      f('stage', 'text', { default_value: "'lead'" }),
+      f('value', 'numeric'),
+      f('currency', 'text', { default_value: "'USD'" }),
+      f('expected_close_date', 'timestamptz'),
+      f('notes', 'text'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+    ]),
+
+    // -- Events -------------------------------------------------------------
+    orgTable('events', [
+      req('name', 'text'),
+      f('event_type', 'text'),
+      f('location', 'text'),
+      f('city', 'text'),
+      f('started_at', 'timestamptz'),
+      f('ended_at', 'timestamptz'),
+      f('notes', 'text'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+      f('search_tsv', 'tsvector'),
+      f('main_image_id', 'uuid'),
+    ]),
+
+    // -- Venues -------------------------------------------------------------
+    orgTable('venues', [
+      req('name', 'text'),
+      f('address', 'text'),
+      f('neighborhood', 'text'),
+      f('city', 'text'),
+      f('category', 'text'),
+      f('status', 'text', { default_value: "'potential'" }),
+      f('location', 'geography(Point,4326)'),
+      f('google_place_id', 'text'),
+      f('rating', 'numeric'),
+      f('price_level', 'text'),
+      f('is_favorite', 'bool', { default_value: 'false' }),
+      f('notes', 'text'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+      f('search_tsv', 'tsvector'),
+      f('main_image_id', 'uuid'),
+    ]),
+
+    // -- Notes --------------------------------------------------------------
+    orgTable('notes', [
+      req('content', 'text'),
+      f('abstract', 'text'),
+      f('overview', 'text'),
+      f('active_count', 'int', { default_value: '0' }),
+      f('last_accessed_at', 'timestamptz'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+    ]),
+
+    // -- Interactions -------------------------------------------------------
+    orgTable('interactions', [
+      req('contact_id', 'uuid'),
+      req('type', 'text'),
+      req('occurred_at', 'timestamptz'),
+      f('summary', 'text'),
+      f('sentiment', 'text'),
+      f('tags', 'citext[]'),
+      ...EMBEDDING_FIELDS,
+    ]),
+
+    // -- Tags (centralized) -------------------------------------------------
+    orgTable('tags', [
+      req('name', 'text'),
+      f('color', 'text'),
+      f('category', 'text'),
+      f('usage_count', 'int', { default_value: '0' }),
+    ]),
+
+    // -- Chunk tables -------------------------------------------------------
+    chunkTable('contacts'),
+    chunkTable('companies'),
+    chunkTable('deals'),
+    chunkTable('events'),
+    chunkTable('venues'),
+    chunkTable('notes'),
+    chunkTable('interactions'),
+
+    // -- Link tables --------------------------------------------------------
+    orgTable('contact_links', [
+      f('title', 'text'),
+      req('url', 'text'),
+      f('embedding', 'vector(768)'),
+    ]),
+    orgTable('company_links', [
+      f('title', 'text'),
+      req('url', 'text'),
+      f('embedding', 'vector(768)'),
+    ]),
+    orgTable('event_links', [
+      f('title', 'text'),
+      req('url', 'text'),
+      f('embedding', 'vector(768)'),
+    ]),
+    orgTable('venue_links', [
+      f('title', 'text'),
+      req('url', 'text'),
+      f('embedding', 'vector(768)'),
+    ]),
+  ],
+
+  relations: [
+    // -- BelongsTo: main_image -----------------------------------------------
+    { $type: 'RelationBelongsTo', source_ref: 'contacts',  target_ref: 'images', field_name: 'main_image_id', source_field_name: 'main_image_id', target_field_name: 'id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'companies', target_ref: 'images', field_name: 'main_image_id', source_field_name: 'main_image_id', target_field_name: 'id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'events',    target_ref: 'images', field_name: 'main_image_id', source_field_name: 'main_image_id', target_field_name: 'id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'venues',    target_ref: 'images', field_name: 'main_image_id', source_field_name: 'main_image_id', target_field_name: 'id', delete_action: 'n', is_required: false },
+
+    // -- M:N: image galleries ------------------------------------------------
+    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'images', junction_table_name: 'contact_images', source_field_name: 'contact_id', target_field_name: 'image_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'companies', target_ref: 'images', junction_table_name: 'company_images', source_field_name: 'company_id', target_field_name: 'image_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'events',    target_ref: 'images', junction_table_name: 'event_images',   source_field_name: 'event_id',   target_field_name: 'image_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'venues',    target_ref: 'images', junction_table_name: 'venue_images',   source_field_name: 'venue_id',   target_field_name: 'image_id', is_required: false, data: M2M_JUNCTION_OPTS },
+
+    // -- HasMany: children ---------------------------------------------------
+    { $type: 'RelationHasMany', source_ref: 'contacts',  target_ref: 'interactions',  delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'contacts',  target_ref: 'contact_links', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'companies', target_ref: 'company_links', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'events',    target_ref: 'event_links',   delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'venues',    target_ref: 'venue_links',   delete_action: 'c' },
+
+    // -- HasMany: chunks (CASCADE delete) ------------------------------------
+    hasManyChunks('contacts'),
+    hasManyChunks('companies'),
+    hasManyChunks('deals'),
+    hasManyChunks('events'),
+    hasManyChunks('venues'),
+    hasManyChunks('notes'),
+    hasManyChunks('interactions'),
+
+    // -- M:N: cross-entity junctions -----------------------------------------
+    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'companies', junction_table_name: 'contact_companies', source_field_name: 'contact_id', target_field_name: 'company_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'events',    junction_table_name: 'contact_events',    source_field_name: 'contact_id', target_field_name: 'event_id',   is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'companies', target_ref: 'events',    junction_table_name: 'company_events',    source_field_name: 'company_id', target_field_name: 'event_id',   is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'events',    target_ref: 'venues',    junction_table_name: 'event_venues',      source_field_name: 'event_id',   target_field_name: 'venue_id',   is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'deals',     target_ref: 'contacts',  junction_table_name: 'deal_contacts',     source_field_name: 'deal_id',    target_field_name: 'contact_id', is_required: false, data: M2M_JUNCTION_OPTS },
+  ],
+};
 
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
 async function main() {
-  console.log('\n\ud83d\udccb CRM Schema\n');
-
-  // -- Images ---------------------------------------------------------------
-  console.log('\ud83d\uddbc\ufe0f  images...');
-  const imagesId = await createOrgTable('images');
-  await addField(imagesId, 'url', 'text', { isRequired: true });
-  await addField(imagesId, 'meta', 'jsonb');
-  await addField(imagesId, 'alt_text', 'text');
-  await addField(imagesId, 'caption', 'text');
-  await addField(imagesId, 'embedding', 'vector(768)');
-
-  // -- Contacts -------------------------------------------------------------
-  console.log('\n\ud83d\udc64 contacts...');
-  const contactsId = await createOrgTable('contacts');
-  await addField(contactsId, 'first_name', 'text', { isRequired: true });
-  await addField(contactsId, 'last_name', 'text');
-  await addField(contactsId, 'email', 'text');
-  await addField(contactsId, 'phone', 'text');
-  await addField(contactsId, 'headline', 'text');
-  await addField(contactsId, 'bio', 'text');
-  await addField(contactsId, 'location', 'text');
-  await addField(contactsId, 'birthday', 'date');
-  await addField(contactsId, 'relationship_type', 'text');
-  await addField(contactsId, 'how_we_met', 'text');
-  await addField(contactsId, 'twitter_handle', 'text');
-  await addField(contactsId, 'linkedin_url', 'text');
-  await addField(contactsId, 'github_username', 'text');
-  await addField(contactsId, 'instagram_handle', 'text');
-  await addField(contactsId, 'website', 'text');
-  await addField(contactsId, 'location_geo', 'geography(Point,4326)');
-  await addField(contactsId, 'tags', 'citext[]');
-  await addField(contactsId, 'embedding_text', 'text');
-  await addField(contactsId, 'embedding', 'vector(768)');
-  await addField(contactsId, 'search_tsv', 'tsvector');
-  await addField(contactsId, 'main_image_id', 'uuid');
-
-  // -- Companies ------------------------------------------------------------
-  console.log('\n\ud83c\udfe2 companies...');
-  const companiesId = await createOrgTable('companies');
-  await addField(companiesId, 'name', 'text', { isRequired: true });
-  await addField(companiesId, 'domain', 'text');
-  await addField(companiesId, 'industry', 'text');
-  await addField(companiesId, 'description', 'text');
-  await addField(companiesId, 'tags', 'citext[]');
-  await addField(companiesId, 'embedding_text', 'text');
-  await addField(companiesId, 'embedding', 'vector(768)');
-  await addField(companiesId, 'search_tsv', 'tsvector');
-  await addField(companiesId, 'main_image_id', 'uuid');
-
-  // -- Deals ----------------------------------------------------------------
-  console.log('\n\ud83d\udcb0 deals...');
-  const dealsId = await createOrgTable('deals');
-  await addField(dealsId, 'name', 'text', { isRequired: true });
-  await addField(dealsId, 'stage', 'text', { defaultValue: "'lead'" });
-  await addField(dealsId, 'value', 'numeric');
-  await addField(dealsId, 'currency', 'text', { defaultValue: "'USD'" });
-  await addField(dealsId, 'expected_close_date', 'timestamptz');
-  await addField(dealsId, 'notes', 'text');
-  await addField(dealsId, 'tags', 'citext[]');
-  await addField(dealsId, 'embedding_text', 'text');
-  await addField(dealsId, 'embedding', 'vector(768)');
-
-  // -- Events ---------------------------------------------------------------
-  console.log('\n\ud83d\udcc5 events...');
-  const eventsId = await createOrgTable('events');
-  await addField(eventsId, 'name', 'text', { isRequired: true });
-  await addField(eventsId, 'event_type', 'text');
-  await addField(eventsId, 'location', 'text');
-  await addField(eventsId, 'city', 'text');
-  await addField(eventsId, 'started_at', 'timestamptz');
-  await addField(eventsId, 'ended_at', 'timestamptz');
-  await addField(eventsId, 'notes', 'text');
-  await addField(eventsId, 'tags', 'citext[]');
-  await addField(eventsId, 'embedding_text', 'text');
-  await addField(eventsId, 'embedding', 'vector(768)');
-  await addField(eventsId, 'search_tsv', 'tsvector');
-  await addField(eventsId, 'main_image_id', 'uuid');
-
-  // -- Venues ---------------------------------------------------------------
-  console.log('\n\ud83c\udfdb\ufe0f  venues...');
-  const venuesId = await createOrgTable('venues');
-  await addField(venuesId, 'name', 'text', { isRequired: true });
-  await addField(venuesId, 'address', 'text');
-  await addField(venuesId, 'neighborhood', 'text');
-  await addField(venuesId, 'city', 'text');
-  await addField(venuesId, 'category', 'text');
-  await addField(venuesId, 'status', 'text', { defaultValue: "'potential'" });
-  await addField(venuesId, 'location', 'geography(Point,4326)');
-  await addField(venuesId, 'google_place_id', 'text');
-  await addField(venuesId, 'rating', 'numeric');
-  await addField(venuesId, 'price_level', 'text');
-  await addField(venuesId, 'is_favorite', 'bool', { defaultValue: 'false' });
-  await addField(venuesId, 'notes', 'text');
-  await addField(venuesId, 'tags', 'citext[]');
-  await addField(venuesId, 'embedding_text', 'text');
-  await addField(venuesId, 'embedding', 'vector(768)');
-  await addField(venuesId, 'search_tsv', 'tsvector');
-  await addField(venuesId, 'main_image_id', 'uuid');
-
-  // -- Notes ----------------------------------------------------------------
-  console.log('\n\ud83d\udcdd notes...');
-  const notesId = await createOrgTable('notes');
-  await addField(notesId, 'content', 'text', { isRequired: true });
-  // L0/L1 tiered context
-  await addField(notesId, 'abstract', 'text');
-  await addField(notesId, 'overview', 'text');
-  // Hotness scoring
-  await addField(notesId, 'active_count', 'int', { defaultValue: '0' });
-  await addField(notesId, 'last_accessed_at', 'timestamptz');
-  await addField(notesId, 'tags', 'citext[]');
-  await addField(notesId, 'embedding_text', 'text');
-  await addField(notesId, 'embedding', 'vector(768)');
-
-  // -- Interactions (contact activity log) ----------------------------------
-  console.log('\n\ud83e\udd1d interactions...');
-  const interactionsId = await createOrgTable('interactions');
-  await addField(interactionsId, 'contact_id', 'uuid', { isRequired: true });
-  await addField(interactionsId, 'type', 'text', { isRequired: true });
-  await addField(interactionsId, 'occurred_at', 'timestamptz', {
-    isRequired: true,
-  });
-  await addField(interactionsId, 'summary', 'text');
-  await addField(interactionsId, 'sentiment', 'text');
-  await addField(interactionsId, 'tags', 'citext[]');
-  await addField(interactionsId, 'embedding_text', 'text');
-  await addField(interactionsId, 'embedding', 'vector(768)');
-
-  // -- Tags (centralized) ---------------------------------------------------
-  console.log('\n\ud83c\udff7\ufe0f  tags...');
-  const tagsId = await createOrgTable('tags');
-  await addField(tagsId, 'name', 'text', { isRequired: true });
-  await addField(tagsId, 'color', 'text');
-  await addField(tagsId, 'category', 'text');
-  await addField(tagsId, 'usage_count', 'int', { defaultValue: '0' });
-  // No embeddings — tags are exact-match lookups
-
-  // =========================================================================
-  // Chunk tables (1-to-many for embedding chunking)
-  // =========================================================================
-  console.log('\n\ud83e\udde9 Chunk tables...');
-
-  const createChunkTable = async (name: string): Promise<string> => {
-    const tableId = await createOrgTable(name);
-    await addField(tableId, 'chunk_index', 'int', { isRequired: true });
-    await addField(tableId, 'content', 'text', { isRequired: true });
-    await addField(tableId, 'embedding_text', 'text');
-    await addField(tableId, 'embedding', 'vector(768)');
-    return tableId;
-  };
-
-  const contactChunksId = await createChunkTable('contact_chunks');
-  const companyChunksId = await createChunkTable('company_chunks');
-  const dealChunksId = await createChunkTable('deal_chunks');
-  const eventChunksId = await createChunkTable('event_chunks');
-  const venueChunksId = await createChunkTable('venue_chunks');
-  const noteChunksId = await createChunkTable('note_chunks');
-  const interactionChunksId = await createChunkTable('interaction_chunks');
-
-  // -- Link tables ----------------------------------------------------------
-  console.log('\n\ud83d\udd17 link tables...');
-  const createLinkTable = async (name: string) => {
-    const tableId = await createOrgTable(name);
-    await addField(tableId, 'title', 'text');
-    await addField(tableId, 'url', 'text', { isRequired: true });
-    await addField(tableId, 'embedding', 'vector(768)');
-    return tableId;
-  };
-
-  const contactLinksId = await createLinkTable('contact_links');
-  const companyLinksId = await createLinkTable('company_links');
-  const eventLinksId = await createLinkTable('event_links');
-  const venueLinksId = await createLinkTable('venue_links');
-
-  // =========================================================================
-  // Relations
-  // =========================================================================
-  console.log('\n\ud83d\udd17 Relations...');
-
-  const linkImage = async (sourceId: string, label: string) => {
-    await withRetry(() =>
-      client.relationProvision
-        .create({
-          data: {
-            databaseId,
-            relationType: 'RelationBelongsTo',
-            sourceTableId: sourceId,
-            targetTableId: imagesId,
-            fieldName: 'main_image_id',
-            sourceFieldName: 'main_image_id',
-            targetFieldName: 'id',
-            deleteAction: 'n',
-            isRequired: false,
-          },
-          select: { id: true },
-        })
-        .unwrap()
-    );
-    console.log(`   \u2713 ${label} -> images (main_image)`);
-  };
-
-  await linkImage(contactsId, 'contacts');
-  await linkImage(companiesId, 'companies');
-  await linkImage(eventsId, 'events');
-  await linkImage(venuesId, 'venues');
-
-  const m2mOpts = {
-    nodeType: 'DataEntityMembership',
-    policyType: 'AuthzEntityMembership',
-    policyPermissive: true,
-    policyData: entityPolicyData,
-    grantRoles: ['authenticated'],
-    grantPrivileges: [
-      ['select', '*'],
-      ['insert', '*'],
-      ['delete', '*'],
-    ] as any,
-  };
-
-
-  const linkGallery = async (
-    sourceId: string,
-    label: string,
-    junctionName: string,
-    sourceField: string
-  ) => {
-    await withRetry(() =>
-      client.relationProvision
-        .create({
-          data: {
-            databaseId,
-            relationType: 'RelationManyToMany',
-            sourceTableId: sourceId,
-            targetTableId: imagesId,
-            junctionTableName: junctionName,
-            sourceFieldName: sourceField,
-            targetFieldName: 'image_id',
-            isRequired: false,
-            ...m2mOpts,
-          },
-          select: { id: true },
-        })
-        .unwrap()
-    );
-    console.log(`   \u2713 ${label} <-> images (${junctionName})`);
-  };
-
-  await linkGallery(contactsId, 'contacts', 'contact_images', 'contact_id');
-  await linkGallery(companiesId, 'companies', 'company_images', 'company_id');
-  await linkGallery(eventsId, 'events', 'event_images', 'event_id');
-  await linkGallery(venuesId, 'venues', 'venue_images', 'venue_id');
-
-  const hasMany = async (sourceId: string, targetId: string, label: string) => {
-    await withRetry(() =>
-      client.relationProvision
-        .create({
-          data: {
-            databaseId,
-            relationType: 'RelationHasMany',
-            sourceTableId: sourceId,
-            targetTableId: targetId,
-            deleteAction: 'c',
-          },
-          select: { id: true },
-        })
-        .unwrap()
-    );
-    console.log(`   \u2713 ${label}`);
-  };
-
-  await hasMany(contactsId, interactionsId, 'contacts -> interactions');
-  await hasMany(contactsId, contactLinksId, 'contacts -> contact_links');
-  await hasMany(companiesId, companyLinksId, 'companies -> company_links');
-  await hasMany(eventsId, eventLinksId, 'events -> event_links');
-  await hasMany(venuesId, venueLinksId, 'venues -> venue_links');
-
-  // Chunk table relations (parent -> chunks, CASCADE delete)
-  await hasMany(contactsId, contactChunksId, 'contacts -> contact_chunks');
-  await hasMany(companiesId, companyChunksId, 'companies -> company_chunks');
-  await hasMany(dealsId, dealChunksId, 'deals -> deal_chunks');
-  await hasMany(eventsId, eventChunksId, 'events -> event_chunks');
-  await hasMany(venuesId, venueChunksId, 'venues -> venue_chunks');
-  await hasMany(notesId, noteChunksId, 'notes -> note_chunks');
-  await hasMany(interactionsId, interactionChunksId, 'interactions -> interaction_chunks');
-
-  const manyToMany = async (
-    sourceId: string,
-    targetId: string,
-    junction: string,
-    srcField: string,
-    tgtField: string,
-    label: string
-  ) => {
-    await withRetry(() =>
-      client.relationProvision
-        .create({
-          data: {
-            databaseId,
-            relationType: 'RelationManyToMany',
-            sourceTableId: sourceId,
-            targetTableId: targetId,
-            junctionTableName: junction,
-            sourceFieldName: srcField,
-            targetFieldName: tgtField,
-            isRequired: false,
-            ...m2mOpts,
-          },
-          select: { id: true },
-        })
-        .unwrap()
-    );
-    console.log(`   \u2713 ${label}`);
-  };
-
-  await manyToMany(contactsId, companiesId, 'contact_companies', 'contact_id', 'company_id', 'contacts <-> companies');
-  await manyToMany(contactsId, eventsId, 'contact_events', 'contact_id', 'event_id', 'contacts <-> events');
-  await manyToMany(companiesId, eventsId, 'company_events', 'company_id', 'event_id', 'companies <-> events');
-  await manyToMany(eventsId, venuesId, 'event_venues', 'event_id', 'venue_id', 'events <-> venues');
-  await manyToMany(dealsId, contactsId, 'deal_contacts', 'deal_id', 'contact_id', 'deals <-> contacts');
-
-  console.log('\n\u2705 CRM Schema complete!\n');
+  await provisionBlueprint(definition, 'CRM Schema');
 }
 
 export { main as default };
