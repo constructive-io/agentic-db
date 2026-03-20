@@ -4,6 +4,7 @@
  * Tables: email_accounts, messages, calendar_accounts, calendar_events,
  *         expenses, documents, integrations, webhooks, user_settings,
  *         billing_subscriptions, trips
+ * Chunk tables: message_chunks, calendar_event_chunks, document_chunks, trip_chunks
  */
 
 import {
@@ -225,6 +226,25 @@ async function main() {
   await addField(tripsId, 'embedding_text', 'text');
   await addField(tripsId, 'embedding', 'vector(768)');
 
+  // =========================================================================
+  // Chunk tables (1-to-many for embedding chunking)
+  // =========================================================================
+  console.log('\n\ud83e\udde9 Chunk tables...');
+
+  const createChunkTable = async (name: string): Promise<string> => {
+    const tableId = await createOrgTable(name);
+    await addField(tableId, 'chunk_index', 'int', { isRequired: true });
+    await addField(tableId, 'content', 'text', { isRequired: true });
+    await addField(tableId, 'embedding_text', 'text');
+    await addField(tableId, 'embedding', 'vector(768)');
+    return tableId;
+  };
+
+  const messageChunksId = await createChunkTable('message_chunks');
+  const calendarEventChunksId = await createChunkTable('calendar_event_chunks');
+  const documentChunksId = await createChunkTable('document_chunks');
+  const tripChunksId = await createChunkTable('trip_chunks');
+
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');
 
@@ -278,6 +298,30 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 integrations -> webhooks');
+
+  // Chunk table relations (parent -> chunks, CASCADE delete)
+  const hasMany = async (sourceId: string, targetId: string, label: string) => {
+    await withRetry(() =>
+      client.relationProvision
+        .create({
+          data: {
+            databaseId,
+            relationType: 'RelationHasMany',
+            sourceTableId: sourceId,
+            targetTableId: targetId,
+            deleteAction: 'c',
+          },
+          select: { id: true },
+        })
+        .unwrap()
+    );
+    console.log(`   \u2713 ${label}`);
+  };
+
+  await hasMany(messagesId, messageChunksId, 'messages -> message_chunks');
+  await hasMany(calEventsId, calendarEventChunksId, 'calendar_events -> calendar_event_chunks');
+  await hasMany(documentsId, documentChunksId, 'documents -> document_chunks');
+  await hasMany(tripsId, tripChunksId, 'trips -> trip_chunks');
 
   console.log('\n\u2705 Life OS Schema complete!\n');
 }

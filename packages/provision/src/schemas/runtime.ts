@@ -5,6 +5,9 @@
  *         blueprints, processes, scheduled_jobs, tools,
  *         workflows, workflow_steps, workflow_runs, activity_log,
  *         agent_spawns, session_archives
+ * Chunk tables: agent_chunks, session_chunks, chat_chunks, chat_message_chunks,
+ *              thread_chunks, blueprint_chunks, tool_chunks,
+ *              session_archive_chunks, activity_log_chunks
  * Note: context_relations removed (polymorphic anti-pattern)
  * Note: activity_log simplified to personal activity log (no polymorphic fields)
  */
@@ -304,6 +307,30 @@ async function main() {
   await addField(activityLogId, 'embedding_text', 'text');
   await addField(activityLogId, 'embedding', 'vector(768)');
 
+  // =========================================================================
+  // Chunk tables (1-to-many for embedding chunking)
+  // =========================================================================
+  console.log('\n\ud83e\udde9 Chunk tables...');
+
+  const createChunkTable = async (name: string): Promise<string> => {
+    const tableId = await createOrgTable(name);
+    await addField(tableId, 'chunk_index', 'int', { isRequired: true });
+    await addField(tableId, 'content', 'text', { isRequired: true });
+    await addField(tableId, 'embedding_text', 'text');
+    await addField(tableId, 'embedding', 'vector(768)');
+    return tableId;
+  };
+
+  const agentChunksId = await createChunkTable('agent_chunks');
+  const sessionChunksId = await createChunkTable('session_chunks');
+  const chatChunksId = await createChunkTable('chat_chunks');
+  const chatMessageChunksId = await createChunkTable('chat_message_chunks');
+  const threadChunksId = await createChunkTable('thread_chunks');
+  const blueprintChunksId = await createChunkTable('blueprint_chunks');
+  const toolChunksId = await createChunkTable('tool_chunks');
+  const sessionArchiveChunksId = await createChunkTable('session_archive_chunks');
+  const activityLogChunksId = await createChunkTable('activity_log_chunks');
+
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');
 
@@ -531,6 +558,35 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 agents -> agent_spawns');
+
+  // Chunk table relations (parent -> chunks, CASCADE delete)
+  const hasMany = async (sourceId: string, targetId: string, label: string) => {
+    await withRetry(() =>
+      client.relationProvision
+        .create({
+          data: {
+            databaseId,
+            relationType: 'RelationHasMany',
+            sourceTableId: sourceId,
+            targetTableId: targetId,
+            deleteAction: 'c',
+          },
+          select: { id: true },
+        })
+        .unwrap()
+    );
+    console.log(`   \u2713 ${label}`);
+  };
+
+  await hasMany(agentsId, agentChunksId, 'agents -> agent_chunks');
+  await hasMany(sessionsId, sessionChunksId, 'sessions -> session_chunks');
+  await hasMany(chatsId, chatChunksId, 'chats -> chat_chunks');
+  await hasMany(chatMsgsId, chatMessageChunksId, 'chat_messages -> chat_message_chunks');
+  await hasMany(threadsId, threadChunksId, 'threads -> thread_chunks');
+  await hasMany(blueprintsId, blueprintChunksId, 'blueprints -> blueprint_chunks');
+  await hasMany(toolsId, toolChunksId, 'tools -> tool_chunks');
+  await hasMany(sessionArchivesId, sessionArchiveChunksId, 'session_archives -> session_archive_chunks');
+  await hasMany(activityLogId, activityLogChunksId, 'activity_log -> activity_log_chunks');
 
   console.log('\n\u2705 Agent Runtime Schema complete!\n');
 }

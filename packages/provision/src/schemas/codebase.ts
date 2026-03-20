@@ -2,6 +2,7 @@
  * codebase.ts \u2014 Codebase domain schema
  *
  * Tables: repositories, files, chunks
+ * Chunk tables: repository_chunks
  */
 
 import {
@@ -116,6 +117,22 @@ async function main() {
   await addField(chunksId, 'embedding_text', 'text');
   await addField(chunksId, 'embedding', 'vector(768)');
 
+  // =========================================================================
+  // Chunk tables (1-to-many for embedding chunking)
+  // =========================================================================
+  console.log('\n\ud83e\udde9 Chunk tables...');
+
+  const createChunkTable = async (name: string): Promise<string> => {
+    const tableId = await createOrgTable(name);
+    await addField(tableId, 'chunk_index', 'int', { isRequired: true });
+    await addField(tableId, 'content', 'text', { isRequired: true });
+    await addField(tableId, 'embedding_text', 'text');
+    await addField(tableId, 'embedding', 'vector(768)');
+    return tableId;
+  };
+
+  const repoChunksId = await createChunkTable('repository_chunks');
+
   // -- Relations ------------------------------------------------------------
   console.log('\n\ud83d\udd17 Relations...');
 
@@ -169,6 +186,23 @@ async function main() {
       .unwrap()
   );
   console.log('   \u2713 repositories -> chunks');
+
+  // repos -> repository_chunks (HasMany, CASCADE delete)
+  await withRetry(() =>
+    client.relationProvision
+      .create({
+        data: {
+          databaseId,
+          relationType: 'RelationHasMany',
+          sourceTableId: reposId,
+          targetTableId: repoChunksId,
+          deleteAction: 'c',
+        },
+        select: { id: true },
+      })
+      .unwrap()
+  );
+  console.log('   \u2713 repositories -> repository_chunks');
 
   console.log('\n\u2705 Codebase Schema complete!\n');
 }

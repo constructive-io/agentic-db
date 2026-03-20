@@ -2,6 +2,7 @@
  * crm.ts \u2014 CRM domain schema
  *
  * Tables: images, contacts, companies, deals, events, venues, notes, interactions, tags
+ * Chunk tables: contact_chunks, company_chunks, deal_chunks, event_chunks, venue_chunks, note_chunks, interaction_chunks
  * Link tables: contact_links, company_links, event_links, venue_links
  * Relations: M:N junctions, HasMany, BelongsTo (images)
  * Note: attachments table removed (polymorphic anti-pattern)
@@ -228,6 +229,28 @@ async function main() {
   await addField(tagsId, 'usage_count', 'int', { defaultValue: '0' });
   // No embeddings — tags are exact-match lookups
 
+  // =========================================================================
+  // Chunk tables (1-to-many for embedding chunking)
+  // =========================================================================
+  console.log('\n\ud83e\udde9 Chunk tables...');
+
+  const createChunkTable = async (name: string): Promise<string> => {
+    const tableId = await createOrgTable(name);
+    await addField(tableId, 'chunk_index', 'int', { isRequired: true });
+    await addField(tableId, 'content', 'text', { isRequired: true });
+    await addField(tableId, 'embedding_text', 'text');
+    await addField(tableId, 'embedding', 'vector(768)');
+    return tableId;
+  };
+
+  const contactChunksId = await createChunkTable('contact_chunks');
+  const companyChunksId = await createChunkTable('company_chunks');
+  const dealChunksId = await createChunkTable('deal_chunks');
+  const eventChunksId = await createChunkTable('event_chunks');
+  const venueChunksId = await createChunkTable('venue_chunks');
+  const noteChunksId = await createChunkTable('note_chunks');
+  const interactionChunksId = await createChunkTable('interaction_chunks');
+
   // -- Link tables ----------------------------------------------------------
   console.log('\n\ud83d\udd17 link tables...');
   const createLinkTable = async (name: string) => {
@@ -344,6 +367,15 @@ async function main() {
   await hasMany(companiesId, companyLinksId, 'companies -> company_links');
   await hasMany(eventsId, eventLinksId, 'events -> event_links');
   await hasMany(venuesId, venueLinksId, 'venues -> venue_links');
+
+  // Chunk table relations (parent -> chunks, CASCADE delete)
+  await hasMany(contactsId, contactChunksId, 'contacts -> contact_chunks');
+  await hasMany(companiesId, companyChunksId, 'companies -> company_chunks');
+  await hasMany(dealsId, dealChunksId, 'deals -> deal_chunks');
+  await hasMany(eventsId, eventChunksId, 'events -> event_chunks');
+  await hasMany(venuesId, venueChunksId, 'venues -> venue_chunks');
+  await hasMany(notesId, noteChunksId, 'notes -> note_chunks');
+  await hasMany(interactionsId, interactionChunksId, 'interactions -> interaction_chunks');
 
   const manyToMany = async (
     sourceId: string,
