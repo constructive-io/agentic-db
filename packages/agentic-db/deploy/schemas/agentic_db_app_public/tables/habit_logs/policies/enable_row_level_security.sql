@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/columns/tags/column
 
 
-ALTER TABLE agentic_db_app_public.habit_logs 
+ALTER TABLE "agentic_db_app_public".habit_logs 
   ENABLE ROW LEVEL SECURITY;
 

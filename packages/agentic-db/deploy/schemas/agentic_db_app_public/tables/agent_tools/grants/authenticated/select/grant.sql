@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/threads/indexes/threads_parent_thread_id_idx
 
 
-GRANT SELECT ON agentic_db_app_public.agent_tools TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".agent_tools TO authenticated;
 

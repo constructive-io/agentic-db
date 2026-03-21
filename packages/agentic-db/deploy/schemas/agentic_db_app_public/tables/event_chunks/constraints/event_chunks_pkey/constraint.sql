@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/deal_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.event_chunks 
+ALTER TABLE "agentic_db_app_public".event_chunks 
   ADD CONSTRAINT event_chunks_pkey PRIMARY KEY (id);
 

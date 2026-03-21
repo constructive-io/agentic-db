@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/project_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.milestones 
+ALTER TABLE "agentic_db_app_public".milestones 
   ADD CONSTRAINT milestones_project_id_fkey 
     FOREIGN KEY(project_id) 
-    REFERENCES agentic_db_app_public.projects (id) 
+    REFERENCES "agentic_db_app_public".projects (id) 
     ON DELETE CASCADE;
 

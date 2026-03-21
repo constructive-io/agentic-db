@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/columns/amount/column
 
 
-ALTER TABLE agentic_db_app_public.expenses 
+ALTER TABLE "agentic_db_app_public".expenses 
   ADD COLUMN currency text;
 

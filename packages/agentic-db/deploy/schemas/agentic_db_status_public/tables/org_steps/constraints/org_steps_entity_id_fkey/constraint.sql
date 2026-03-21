@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_status_public/tables/org_steps/table
 
 
-ALTER TABLE agentic_db_status_public.org_steps 
+ALTER TABLE "agentic_db_status_public".org_steps 
   ADD CONSTRAINT org_steps_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_profiles_public/tables/org_profiles/table
 
 
-ALTER TABLE agentic_db_profiles_public.org_profiles 
+ALTER TABLE "agentic_db_profiles_public".org_profiles 
   ENABLE ROW LEVEL SECURITY;
 

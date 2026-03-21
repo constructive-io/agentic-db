@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_skills/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX agent_rules_entity_id_idx ON agentic_db_app_public.agent_rules USING BTREE ( entity_id );
+CREATE INDEX agent_rules_entity_id_idx ON "agentic_db_app_public".agent_rules USING BTREE ( entity_id );
 

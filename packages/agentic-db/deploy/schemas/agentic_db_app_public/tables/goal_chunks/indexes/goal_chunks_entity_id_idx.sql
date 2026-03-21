@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/skill_chunks/columns/embedding/column
 
 
-CREATE INDEX goal_chunks_entity_id_idx ON agentic_db_app_public.goal_chunks USING BTREE ( entity_id );
+CREATE INDEX goal_chunks_entity_id_idx ON "agentic_db_app_public".goal_chunks USING BTREE ( entity_id );
 

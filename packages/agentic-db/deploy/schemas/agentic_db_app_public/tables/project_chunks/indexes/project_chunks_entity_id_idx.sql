@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/project_chunks/table
 -- requires: schemas/agentic_db_app_public/tables/project_chunks/columns/entity_id/column
--- requires: schemas/agentic_db_app_public/tables/milestones/columns/status/alterations/alt0000004376
+-- requires: schemas/agentic_db_app_public/tables/milestones/columns/status/alterations/alt0000002390
 
 
-CREATE INDEX project_chunks_entity_id_idx ON agentic_db_app_public.project_chunks USING BTREE ( entity_id );
+CREATE INDEX project_chunks_entity_id_idx ON "agentic_db_app_public".project_chunks USING BTREE ( entity_id );
 

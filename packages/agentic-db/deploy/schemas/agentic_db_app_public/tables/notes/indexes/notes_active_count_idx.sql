@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/interactions/indexes/interactions_occurred_at_idx
 
 
-CREATE INDEX notes_active_count_idx ON agentic_db_app_public.notes USING BTREE ( active_count );
+CREATE INDEX notes_active_count_idx ON "agentic_db_app_public".notes USING BTREE ( active_count );
 

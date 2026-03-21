@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/recipes/indexes/recipes_ingredients_gin_idx
 
 
-CREATE INDEX ideas_content_gin_idx ON agentic_db_app_public.ideas USING gin ( content gin_trgm_ops );
+CREATE INDEX ideas_content_gin_idx ON "agentic_db_app_public".ideas USING gin ( content gin_trgm_ops );
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_spawns/indexes/agent_spawns_status_idx
 
 
-ALTER TABLE agentic_db_app_public.projects 
+ALTER TABLE "agentic_db_app_public".projects 
   ENABLE ROW LEVEL SECURITY;
 

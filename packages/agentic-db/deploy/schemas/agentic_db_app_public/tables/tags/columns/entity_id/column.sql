@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/interactions/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.tags 
+ALTER TABLE "agentic_db_app_public".tags 
   ADD COLUMN entity_id uuid;
 

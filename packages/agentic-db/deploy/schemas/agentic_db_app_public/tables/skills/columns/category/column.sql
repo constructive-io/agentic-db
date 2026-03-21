@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/columns/content_hash/column
 
 
-ALTER TABLE agentic_db_app_public.skills 
+ALTER TABLE "agentic_db_app_public".skills 
   ADD COLUMN category text;
 

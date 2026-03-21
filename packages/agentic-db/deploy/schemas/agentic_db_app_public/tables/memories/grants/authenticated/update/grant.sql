@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/rules/columns/trigger_concept/column
 
 
-GRANT UPDATE ON agentic_db_app_public.memories TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".memories TO authenticated;
 

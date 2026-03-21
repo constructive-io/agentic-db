@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/document_chunks/columns/embedding/column
 
 
-CREATE INDEX trip_chunks_entity_id_idx ON agentic_db_app_public.trip_chunks USING BTREE ( entity_id );
+CREATE INDEX trip_chunks_entity_id_idx ON "agentic_db_app_public".trip_chunks USING BTREE ( entity_id );
 

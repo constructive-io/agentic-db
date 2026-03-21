@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/documents/columns/source_type/column
 
 
-ALTER TABLE agentic_db_app_public.documents 
+ALTER TABLE "agentic_db_app_public".documents 
   ADD COLUMN is_read bool;
 

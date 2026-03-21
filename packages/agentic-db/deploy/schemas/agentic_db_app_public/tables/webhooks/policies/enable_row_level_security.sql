@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/integrations/columns/last_synced_at/column
 
 
-ALTER TABLE agentic_db_app_public.webhooks 
+ALTER TABLE "agentic_db_app_public".webhooks 
   ENABLE ROW LEVEL SECURITY;
 

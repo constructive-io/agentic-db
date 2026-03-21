@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/events/indexes/events_search_tsv_gin_idx
 
 
-CREATE INDEX venues_search_tsv_gin_idx ON agentic_db_app_public.venues USING GIN ( search_tsv );
+CREATE INDEX venues_search_tsv_gin_idx ON "agentic_db_app_public".venues USING GIN ( search_tsv );
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/blueprints/columns/embedding/column
 
 
-CREATE TABLE agentic_db_app_public.processes ();
+CREATE TABLE "agentic_db_app_public".processes ();
 

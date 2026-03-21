@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memories/columns/embedding/column
 
 
-CREATE TABLE agentic_db_app_public.skills ();
+CREATE TABLE "agentic_db_app_public".skills ();
 

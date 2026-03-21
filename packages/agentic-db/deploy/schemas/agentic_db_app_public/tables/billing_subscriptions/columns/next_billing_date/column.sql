@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/billing_subscriptions/columns/provider/column
 
 
-ALTER TABLE agentic_db_app_public.billing_subscriptions 
+ALTER TABLE "agentic_db_app_public".billing_subscriptions 
   ADD COLUMN next_billing_date date;
 

@@ -1,0 +1,12 @@
+-- Deploy: schemas/agentic_db_users_public/tables/users/columns/display_name/alterations/alt0000000851
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_users_public/schema
+-- requires: schemas/agentic_db_users_public/tables/users/table
+-- requires: schemas/agentic_db_users_public/tables/users/columns/display_name/column
+
+
+ALTER TABLE "agentic_db_users_public".users 
+  ADD CONSTRAINT users_display_name_chk 
+    CHECK (character_length(display_name) <= 256);
+

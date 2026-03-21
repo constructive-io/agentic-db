@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/billing_subscriptions/columns/notes/column
 
 
-GRANT SELECT ON agentic_db_app_public.trips TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".trips TO authenticated;
 

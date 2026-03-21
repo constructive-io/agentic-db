@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/webhooks/indexes/webhooks_integration_id_idx
 
 
-CREATE INDEX message_chunks_message_id_idx ON agentic_db_app_public.message_chunks USING BTREE ( message_id );
+CREATE INDEX message_chunks_message_id_idx ON "agentic_db_app_public".message_chunks USING BTREE ( message_id );
 

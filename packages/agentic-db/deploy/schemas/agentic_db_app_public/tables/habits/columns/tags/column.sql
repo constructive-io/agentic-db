@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/columns/category/column
 
 
-ALTER TABLE agentic_db_app_public.habits 
+ALTER TABLE "agentic_db_app_public".habits 
   ADD COLUMN tags citext[];
 

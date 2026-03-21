@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/repositories/indexes/repositories_last_synced_at_idx
 
 
-CREATE INDEX files_path_idx ON agentic_db_app_public.files USING BTREE ( path );
+CREATE INDEX files_path_idx ON "agentic_db_app_public".files USING BTREE ( path );
 

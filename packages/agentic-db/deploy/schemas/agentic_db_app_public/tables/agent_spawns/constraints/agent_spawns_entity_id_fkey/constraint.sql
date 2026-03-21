@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/workflow_runs/columns/error/column
 
 
-ALTER TABLE agentic_db_app_public.agent_spawns 
+ALTER TABLE "agentic_db_app_public".agent_spawns 
   ADD CONSTRAINT agent_spawns_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

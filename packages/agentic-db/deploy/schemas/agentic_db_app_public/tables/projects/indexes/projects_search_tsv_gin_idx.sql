@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_tags_gin_idx
 
 
-CREATE INDEX projects_search_tsv_gin_idx ON agentic_db_app_public.projects USING GIN ( search_tsv );
+CREATE INDEX projects_search_tsv_gin_idx ON "agentic_db_app_public".projects USING GIN ( search_tsv );
 

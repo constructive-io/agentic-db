@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/sessions/indexes/sessions_archived_at_idx
 
 
-CREATE INDEX sessions_compression_count_idx ON agentic_db_app_public.sessions USING BTREE ( compression_count );
+CREATE INDEX sessions_compression_count_idx ON "agentic_db_app_public".sessions USING BTREE ( compression_count );
 

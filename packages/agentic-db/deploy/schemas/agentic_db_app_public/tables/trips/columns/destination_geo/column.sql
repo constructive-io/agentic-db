@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/trips/columns/notes/column
 
 
-ALTER TABLE agentic_db_app_public.trips 
+ALTER TABLE "agentic_db_app_public".trips 
   ADD COLUMN destination_geo geography(Point,4326);
 

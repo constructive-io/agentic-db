@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/prompt_chunks/indexes/prompt_chunks_prompt_id_idx
 
 
-CREATE INDEX tasks_embedding_hnsw_idx ON agentic_db_app_public.tasks USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
+CREATE INDEX tasks_embedding_hnsw_idx ON "agentic_db_app_public".tasks USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
 

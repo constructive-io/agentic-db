@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/prompts/table
--- requires: schemas/agentic_db_app_public/tables/prompts/columns/version/alterations/alt0000004013
+-- requires: schemas/agentic_db_app_public/tables/prompts/columns/version/alterations/alt0000002027
 
 
-ALTER TABLE agentic_db_app_public.prompts 
+ALTER TABLE "agentic_db_app_public".prompts 
   ADD COLUMN is_active bool;
 

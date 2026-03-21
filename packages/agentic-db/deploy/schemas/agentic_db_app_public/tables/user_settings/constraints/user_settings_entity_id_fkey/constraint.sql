@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_app_public/tables/user_settings/table
--- requires: schemas/agentic_db_app_public/tables/webhooks/columns/is_active/alterations/alt0000004506
+-- requires: schemas/agentic_db_app_public/tables/webhooks/columns/is_active/alterations/alt0000002520
 
 
-ALTER TABLE agentic_db_app_public.user_settings 
+ALTER TABLE "agentic_db_app_public".user_settings 
   ADD CONSTRAINT user_settings_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

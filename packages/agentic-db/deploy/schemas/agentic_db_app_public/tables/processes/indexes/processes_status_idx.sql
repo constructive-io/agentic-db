@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/threads/indexes/threads_status_idx
 
 
-CREATE INDEX processes_status_idx ON agentic_db_app_public.processes USING BTREE ( status );
+CREATE INDEX processes_status_idx ON "agentic_db_app_public".processes USING BTREE ( status );
 

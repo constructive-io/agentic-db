@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/columns/main_image_id/column
 
 
-CREATE TABLE agentic_db_app_public.notes ();
+CREATE TABLE "agentic_db_app_public".notes ();
 

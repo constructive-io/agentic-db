@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tasks/indexes/tasks_due_date_idx
 
 
-CREATE INDEX tasks_task_type_idx ON agentic_db_app_public.tasks USING BTREE ( task_type );
+CREATE INDEX tasks_task_type_idx ON "agentic_db_app_public".tasks USING BTREE ( task_type );
 

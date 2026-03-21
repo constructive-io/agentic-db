@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/project_chunks/columns/embedding/column
 
 
-CREATE INDEX milestones_project_id_idx ON agentic_db_app_public.milestones USING BTREE ( project_id );
+CREATE INDEX milestones_project_id_idx ON "agentic_db_app_public".milestones USING BTREE ( project_id );
 

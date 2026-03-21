@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agents/columns/preferred_model/column
 
 
-CREATE INDEX agents_preferred_model_idx ON agentic_db_app_public.agents USING BTREE ( preferred_model );
+CREATE INDEX agents_preferred_model_idx ON "agentic_db_app_public".agents USING BTREE ( preferred_model );
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/table
--- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/status/alterations/alt0000004463
+-- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/status/alterations/alt0000002477
 
 
-ALTER TABLE agentic_db_app_public.calendar_events 
+ALTER TABLE "agentic_db_app_public".calendar_events 
   ADD COLUMN location_geo geography(Point,4326);
 

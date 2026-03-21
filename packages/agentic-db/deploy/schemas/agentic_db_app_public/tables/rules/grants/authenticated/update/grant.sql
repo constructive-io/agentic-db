@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tasks/columns/embedding/column
 
 
-GRANT UPDATE ON agentic_db_app_public.rules TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".rules TO authenticated;
 

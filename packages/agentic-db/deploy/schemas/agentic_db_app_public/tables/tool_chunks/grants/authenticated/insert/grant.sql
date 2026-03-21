@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/blueprint_chunks/columns/embedding/column
 
 
-GRANT INSERT ON agentic_db_app_public.tool_chunks TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".tool_chunks TO authenticated;
 

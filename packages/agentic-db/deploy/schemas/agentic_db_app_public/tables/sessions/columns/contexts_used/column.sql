@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/sessions/columns/extracted_memory_ids/column
 
 
-ALTER TABLE agentic_db_app_public.sessions 
+ALTER TABLE "agentic_db_app_public".sessions 
   ADD COLUMN contexts_used jsonb;
 

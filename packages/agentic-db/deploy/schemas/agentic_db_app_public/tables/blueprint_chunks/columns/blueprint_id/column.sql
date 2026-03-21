@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/thread_chunks/indexes/thread_chunks_thread_id_idx
 
 
-ALTER TABLE agentic_db_app_public.blueprint_chunks 
+ALTER TABLE "agentic_db_app_public".blueprint_chunks 
   ADD COLUMN blueprint_id uuid;
 

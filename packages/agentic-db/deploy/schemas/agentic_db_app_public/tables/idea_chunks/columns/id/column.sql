@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/templates/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.idea_chunks 
+ALTER TABLE "agentic_db_app_public".idea_chunks 
   ADD COLUMN id uuid;
 

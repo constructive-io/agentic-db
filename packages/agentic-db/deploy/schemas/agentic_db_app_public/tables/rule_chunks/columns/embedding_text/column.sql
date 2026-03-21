@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/rule_chunks/table
--- requires: schemas/agentic_db_app_public/tables/rule_chunks/columns/content/alterations/alt0000004034
+-- requires: schemas/agentic_db_app_public/tables/rule_chunks/columns/content/alterations/alt0000002048
 
 
-ALTER TABLE agentic_db_app_public.rule_chunks 
+ALTER TABLE "agentic_db_app_public".rule_chunks 
   ADD COLUMN embedding_text text;
 

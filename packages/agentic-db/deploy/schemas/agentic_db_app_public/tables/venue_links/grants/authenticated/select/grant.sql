@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/event_links/columns/embedding/column
 
 
-GRANT SELECT ON agentic_db_app_public.venue_links TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".venue_links TO authenticated;
 

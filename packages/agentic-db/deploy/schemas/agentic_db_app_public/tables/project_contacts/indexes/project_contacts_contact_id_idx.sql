@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/project_contacts/columns/contact_id/column
 
 
-CREATE INDEX project_contacts_contact_id_idx ON agentic_db_app_public.project_contacts USING BTREE ( contact_id );
+CREATE INDEX project_contacts_contact_id_idx ON "agentic_db_app_public".project_contacts USING BTREE ( contact_id );
 

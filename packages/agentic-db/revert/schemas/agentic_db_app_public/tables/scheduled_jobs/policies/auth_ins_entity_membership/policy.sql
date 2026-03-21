@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/scheduled_jobs/policies/auth_ins_entity_membership/policy
 
 
-DROP POLICY auth_ins_entity_membership ON agentic_db_app_public.scheduled_jobs;
+DROP POLICY auth_ins_entity_membership ON "agentic_db_app_public".scheduled_jobs;
 
 

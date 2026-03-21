@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/files/indexes/files_language_idx
 
 
-GRANT UPDATE ON agentic_db_app_public.email_accounts TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".email_accounts TO authenticated;
 

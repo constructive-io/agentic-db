@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_links/columns/embedding/column
 
 
-CREATE INDEX company_links_entity_id_idx ON agentic_db_app_public.company_links USING BTREE ( entity_id );
+CREATE INDEX company_links_entity_id_idx ON "agentic_db_app_public".company_links USING BTREE ( entity_id );
 

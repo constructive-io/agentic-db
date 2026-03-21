@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.session_chunks 
+ALTER TABLE "agentic_db_app_public".session_chunks 
   ADD CONSTRAINT session_chunks_pkey PRIMARY KEY (id);
 

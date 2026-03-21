@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/reminders/table
--- requires: schemas/agentic_db_app_public/tables/reminders/columns/title/alterations/alt0000004599
+-- requires: schemas/agentic_db_app_public/tables/reminders/columns/title/alterations/alt0000002613
 
 
-ALTER TABLE agentic_db_app_public.reminders 
+ALTER TABLE "agentic_db_app_public".reminders 
   ADD COLUMN due_at timestamptz;
 

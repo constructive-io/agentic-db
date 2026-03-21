@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_spawns/indexes/agent_spawns_status_idx
 
 
-CREATE TABLE agentic_db_app_public.projects ();
+CREATE TABLE "agentic_db_app_public".projects ();
 

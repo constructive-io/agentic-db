@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_google_place_id_idx
 
 
-CREATE INDEX interactions_type_idx ON agentic_db_app_public.interactions USING BTREE ( type );
+CREATE INDEX interactions_type_idx ON "agentic_db_app_public".interactions USING BTREE ( type );
 

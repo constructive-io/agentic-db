@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/workflow_runs/columns/error/column
 
 
-CREATE TABLE agentic_db_app_public.agent_spawns ();
+CREATE TABLE "agentic_db_app_public".agent_spawns ();
 

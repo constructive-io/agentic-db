@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/triggers/venues_search_tsv_tsv_update_tg
 
 
-ALTER TABLE agentic_db_app_public.tasks 
+ALTER TABLE "agentic_db_app_public".tasks 
   ENABLE ROW LEVEL SECURITY;
 

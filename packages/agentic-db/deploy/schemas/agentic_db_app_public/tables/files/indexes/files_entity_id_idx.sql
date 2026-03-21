@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/repositories/columns/embedding/column
 
 
-CREATE INDEX files_entity_id_idx ON agentic_db_app_public.files USING BTREE ( entity_id );
+CREATE INDEX files_entity_id_idx ON "agentic_db_app_public".files USING BTREE ( entity_id );
 

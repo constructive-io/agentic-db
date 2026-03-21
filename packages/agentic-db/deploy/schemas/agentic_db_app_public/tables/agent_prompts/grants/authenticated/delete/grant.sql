@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_rules/policies/auth_del_entity_membership/policy
 
 
-GRANT DELETE ON agentic_db_app_public.agent_prompts TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".agent_prompts TO authenticated;
 

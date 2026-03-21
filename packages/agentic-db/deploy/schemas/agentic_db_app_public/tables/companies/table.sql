@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/main_image_id/column
 
 
-CREATE TABLE agentic_db_app_public.companies ();
+CREATE TABLE "agentic_db_app_public".companies ();
 

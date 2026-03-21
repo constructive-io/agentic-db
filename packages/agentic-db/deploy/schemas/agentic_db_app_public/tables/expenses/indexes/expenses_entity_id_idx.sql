@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/embedding/column
 
 
-CREATE INDEX expenses_entity_id_idx ON agentic_db_app_public.expenses USING BTREE ( entity_id );
+CREATE INDEX expenses_entity_id_idx ON "agentic_db_app_public".expenses USING BTREE ( entity_id );
 

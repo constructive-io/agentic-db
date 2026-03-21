@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/session_archives/indexes/session_archives_session_id_idx
 
 
-CREATE INDEX agent_spawns_agent_id_idx ON agentic_db_app_public.agent_spawns USING BTREE ( agent_id );
+CREATE INDEX agent_spawns_agent_id_idx ON "agentic_db_app_public".agent_spawns USING BTREE ( agent_id );
 

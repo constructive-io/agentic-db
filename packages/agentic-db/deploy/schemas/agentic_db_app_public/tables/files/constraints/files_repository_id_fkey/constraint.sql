@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/repository_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.files 
+ALTER TABLE "agentic_db_app_public".files 
   ADD CONSTRAINT files_repository_id_fkey 
     FOREIGN KEY(repository_id) 
-    REFERENCES agentic_db_app_public.repositories (id) 
+    REFERENCES "agentic_db_app_public".repositories (id) 
     ON DELETE CASCADE;
 

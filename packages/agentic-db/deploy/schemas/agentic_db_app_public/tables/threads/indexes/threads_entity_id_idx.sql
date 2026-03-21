@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/chat_messages/columns/embedding/column
 
 
-CREATE INDEX threads_entity_id_idx ON agentic_db_app_public.threads USING BTREE ( entity_id );
+CREATE INDEX threads_entity_id_idx ON "agentic_db_app_public".threads USING BTREE ( entity_id );
 

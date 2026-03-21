@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/chats/columns/id/column
 
 
-ALTER TABLE agentic_db_app_public.chats 
+ALTER TABLE "agentic_db_app_public".chats 
   DROP COLUMN id RESTRICT;
 
 

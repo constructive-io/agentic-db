@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/agents/columns/communication_style/column
 
 
-ALTER TABLE agentic_db_app_public.agents 
+ALTER TABLE "agentic_db_app_public".agents 
   ADD COLUMN system_prompt text;
 

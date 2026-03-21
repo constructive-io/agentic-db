@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/events/columns/main_image_id/column
 
 
-CREATE INDEX venues_entity_id_idx ON agentic_db_app_public.venues USING BTREE ( entity_id );
+CREATE INDEX venues_entity_id_idx ON "agentic_db_app_public".venues USING BTREE ( entity_id );
 

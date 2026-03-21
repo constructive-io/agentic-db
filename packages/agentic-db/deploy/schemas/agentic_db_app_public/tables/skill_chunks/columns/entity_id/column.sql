@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/memory_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.skill_chunks 
+ALTER TABLE "agentic_db_app_public".skill_chunks 
   ADD COLUMN entity_id uuid;
 

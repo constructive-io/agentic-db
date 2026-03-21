@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_app_public/tables/skill_executions/columns/error/column
 
 
-ALTER TABLE agentic_db_app_public.tasks 
+ALTER TABLE "agentic_db_app_public".tasks 
   ADD CONSTRAINT tasks_parent_task_id_fkey 
     FOREIGN KEY(parent_task_id) 
-    REFERENCES agentic_db_app_public.tasks (id) 
+    REFERENCES "agentic_db_app_public".tasks (id) 
     ON DELETE SET NULL;
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_status_public/tables/org_achievements/columns/created_at/column
 
 
-CREATE INDEX org_achievements_created_at_idx ON agentic_db_status_public.org_achievements ( created_at );
+CREATE INDEX org_achievements_created_at_idx ON "agentic_db_status_public".org_achievements ( created_at );
 

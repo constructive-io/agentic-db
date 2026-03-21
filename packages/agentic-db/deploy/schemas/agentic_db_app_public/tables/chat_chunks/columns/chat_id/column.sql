@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/session_chunks/indexes/session_chunks_session_id_idx
 
 
-ALTER TABLE agentic_db_app_public.chat_chunks 
+ALTER TABLE "agentic_db_app_public".chat_chunks 
   ADD COLUMN chat_id uuid;
 

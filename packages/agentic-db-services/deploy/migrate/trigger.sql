@@ -28,22 +28,22 @@ INSERT INTO metaschema_public.trigger (
   event,
   function_name
 ) VALUES
-  ('019d0ffe-51fa-7d4d-9b82-af65bdbcf1d7', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '019d0ffe-509c-7e69-b073-260da2d7f651', 'users_search_tsv_tsv_insert_tg', NULL, NULL),
-  ('019d0ffe-51fb-7bb2-bc61-f398985b3ed2', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '019d0ffe-509c-7e69-b073-260da2d7f651', 'users_search_tsv_tsv_update_tg', NULL, NULL),
-  ('019d0ffe-eac6-7757-bd3e-e4a269b50fc1', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '019d0ffe-e83b-7337-abd9-0fb28e7a500c', 'encrypted_secrets_update_tg', NULL, NULL),
-  ('019d0ffe-eac6-7bd2-a770-88536ddd601e', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '019d0ffe-e83b-7337-abd9-0fb28e7a500c', 'encrypted_secrets_insert_tg', NULL, NULL),
-  ('9fd04181-b702-b829-fbe4-be73dbfff82a', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '7b3d0fb7-b3a3-23b6-7ee2-d68565e5e66b', 'contacts_search_tsv_tsv_insert_tg', NULL, NULL),
-  ('432cd293-5745-eee1-a6f6-3732cca3e713', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '7b3d0fb7-b3a3-23b6-7ee2-d68565e5e66b', 'contacts_search_tsv_tsv_update_tg', NULL, NULL),
-  ('4113d72b-f526-4aa5-41f6-2e54610e44c8', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '01d3aadf-533c-bbe1-9620-83bd419b4bdc', 'companies_search_tsv_tsv_insert_tg', NULL, NULL),
-  ('fe0ff89c-ee6d-4f33-bbaf-5978072b7f33', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '01d3aadf-533c-bbe1-9620-83bd419b4bdc', 'companies_search_tsv_tsv_update_tg', NULL, NULL),
-  ('a6c71305-59bd-9acc-7156-8e27c1380429', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '4443ff29-b4e3-c288-df72-696b9078881e', 'events_search_tsv_tsv_insert_tg', NULL, NULL),
-  ('5a7554cc-7920-84d6-7581-521254629647', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '4443ff29-b4e3-c288-df72-696b9078881e', 'events_search_tsv_tsv_update_tg', NULL, NULL),
-  ('1b1b286c-6f85-60d6-04f4-3b934333e3d9', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', 'a1776bf4-7c3d-3c15-fd6d-28a492b89fa1', 'venues_search_tsv_tsv_insert_tg', NULL, NULL),
-  ('a34ad45c-332b-c7d7-6f96-b83395dcbd52', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', 'a1776bf4-7c3d-3c15-fd6d-28a492b89fa1', 'venues_search_tsv_tsv_update_tg', NULL, NULL),
-  ('2aa56be3-b2aa-5ca0-7309-e91f03c12803', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '75eafb68-4369-6fdf-481e-8c610f1eedc1', 'projects_search_tsv_tsv_insert_tg', NULL, NULL),
-  ('e83f6957-bd5a-7865-a224-b4c5c5261b31', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '75eafb68-4369-6fdf-481e-8c610f1eedc1', 'projects_search_tsv_tsv_update_tg', NULL, NULL),
-  ('a6b77f66-fe87-f63b-fb82-64c58557b570', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '71a6b33a-4814-a299-2624-c40fb2f3bb6b', 'documents_search_tsv_tsv_insert_tg', NULL, NULL),
-  ('48600599-05fa-16be-944f-1c271822414b', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', '71a6b33a-4814-a299-2624-c40fb2f3bb6b', 'documents_search_tsv_tsv_update_tg', NULL, NULL);
+  ('019d11d9-5c5e-7a4f-a22e-7a25ccf4d671', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '019d11d9-5aed-7673-b41b-b11528f73f79', 'users_search_tsv_tsv_insert_tg', NULL, NULL),
+  ('019d11d9-5c5f-7b5e-915f-9f99ab351fed', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '019d11d9-5aed-7673-b41b-b11528f73f79', 'users_search_tsv_tsv_update_tg', NULL, NULL),
+  ('019d11da-017f-7deb-8df5-35907e874f24', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '019d11d9-fefc-7ea4-b789-25cce72a1503', 'encrypted_secrets_update_tg', NULL, NULL),
+  ('019d11da-0180-775f-9ecb-bebbe95881fb', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '019d11d9-fefc-7ea4-b789-25cce72a1503', 'encrypted_secrets_insert_tg', NULL, NULL),
+  ('c8fd2ad8-04b6-31ea-e1cb-599ca76ed24a', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '42ead6a6-6a44-9aea-dd48-24dee935bed3', 'contacts_search_tsv_tsv_insert_tg', NULL, NULL),
+  ('96bc60b7-33ea-c97c-1415-9287f92a3c6a', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '42ead6a6-6a44-9aea-dd48-24dee935bed3', 'contacts_search_tsv_tsv_update_tg', NULL, NULL),
+  ('b98b8f45-c9f4-a29e-ca81-be01f9b147be', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '47f03c4a-8c53-e7b7-34eb-0c1cbd52de78', 'companies_search_tsv_tsv_insert_tg', NULL, NULL),
+  ('e60a7a47-e296-48c9-179e-4bcff012f36b', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '47f03c4a-8c53-e7b7-34eb-0c1cbd52de78', 'companies_search_tsv_tsv_update_tg', NULL, NULL),
+  ('9e37e885-a8b3-9945-b02b-cb04ed0b566e', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '68df5543-8685-6a65-d6c5-9e87be4862d4', 'events_search_tsv_tsv_insert_tg', NULL, NULL),
+  ('17f8ca20-1f6a-6c42-39aa-9c0a5ec253ed', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '68df5543-8685-6a65-d6c5-9e87be4862d4', 'events_search_tsv_tsv_update_tg', NULL, NULL),
+  ('c79ef157-2414-f920-a0b5-34842446b186', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '5a36c18f-beff-aae7-efc6-ea0159700669', 'venues_search_tsv_tsv_insert_tg', NULL, NULL),
+  ('7557e8ce-0ccd-c582-5020-a4bf34c70df7', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '5a36c18f-beff-aae7-efc6-ea0159700669', 'venues_search_tsv_tsv_update_tg', NULL, NULL),
+  ('58d1562b-e9c1-9fc2-68b3-598fbe0430e0', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '80e3e300-51f4-c019-b103-bdca3f9cde02', 'projects_search_tsv_tsv_insert_tg', NULL, NULL),
+  ('210c33cc-be5b-df50-b933-e28f782f3eaf', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '80e3e300-51f4-c019-b103-bdca3f9cde02', 'projects_search_tsv_tsv_update_tg', NULL, NULL),
+  ('13b5a3a6-8485-8328-4fcf-a09183540b9c', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '74e9e386-ff33-af2f-d6c0-f6dd0d7ee0b2', 'documents_search_tsv_tsv_insert_tg', NULL, NULL),
+  ('85f6bafb-2f3f-2e46-4799-98e17dd669e9', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '74e9e386-ff33-af2f-d6c0-f6dd0d7ee0b2', 'documents_search_tsv_tsv_update_tg', NULL, NULL);
 
 
 SET session_replication_role TO DEFAULT;

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/sessions/columns/title/column
 
 
-ALTER TABLE agentic_db_app_public.sessions 
+ALTER TABLE "agentic_db_app_public".sessions 
   ADD COLUMN agent_id uuid;
 

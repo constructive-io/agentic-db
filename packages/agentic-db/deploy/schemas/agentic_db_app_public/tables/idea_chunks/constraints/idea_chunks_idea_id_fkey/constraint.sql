@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_logs/indexes/habit_logs_habit_id_idx
 
 
-ALTER TABLE agentic_db_app_public.idea_chunks 
+ALTER TABLE "agentic_db_app_public".idea_chunks 
   ADD CONSTRAINT idea_chunks_idea_id_fkey 
     FOREIGN KEY(idea_id) 
-    REFERENCES agentic_db_app_public.ideas (id) 
+    REFERENCES "agentic_db_app_public".ideas (id) 
     ON DELETE CASCADE;
 

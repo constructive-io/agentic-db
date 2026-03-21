@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_log/indexes/activity_logs_activity_type_idx
 
 
-CREATE INDEX activity_logs_occurred_at_idx ON agentic_db_app_public.activity_log USING BTREE ( occurred_at );
+CREATE INDEX activity_logs_occurred_at_idx ON "agentic_db_app_public".activity_log USING BTREE ( occurred_at );
 

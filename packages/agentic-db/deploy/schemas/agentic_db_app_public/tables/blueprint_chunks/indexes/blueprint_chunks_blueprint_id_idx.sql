@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/thread_chunks/indexes/thread_chunks_thread_id_idx
 
 
-CREATE INDEX blueprint_chunks_blueprint_id_idx ON agentic_db_app_public.blueprint_chunks USING BTREE ( blueprint_id );
+CREATE INDEX blueprint_chunks_blueprint_id_idx ON "agentic_db_app_public".blueprint_chunks USING BTREE ( blueprint_id );
 

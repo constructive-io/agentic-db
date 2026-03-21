@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/skill_executions/columns/error/column
 
 
-CREATE INDEX tasks_parent_task_id_idx ON agentic_db_app_public.tasks USING BTREE ( parent_task_id );
+CREATE INDEX tasks_parent_task_id_idx ON "agentic_db_app_public".tasks USING BTREE ( parent_task_id );
 

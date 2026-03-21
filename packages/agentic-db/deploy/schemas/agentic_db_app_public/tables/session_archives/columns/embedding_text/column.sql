@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/session_archives/columns/raw_messages/column
 
 
-ALTER TABLE agentic_db_app_public.session_archives 
+ALTER TABLE "agentic_db_app_public".session_archives 
   ADD COLUMN embedding_text text;
 

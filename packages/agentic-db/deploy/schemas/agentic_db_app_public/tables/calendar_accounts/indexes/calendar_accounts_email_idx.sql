@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/messages/indexes/messages_thread_id_idx
 
 
-CREATE INDEX calendar_accounts_email_idx ON agentic_db_app_public.calendar_accounts USING BTREE ( email );
+CREATE INDEX calendar_accounts_email_idx ON "agentic_db_app_public".calendar_accounts USING BTREE ( email );
 

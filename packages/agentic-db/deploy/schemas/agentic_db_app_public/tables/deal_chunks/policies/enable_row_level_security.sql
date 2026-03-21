@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/company_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.deal_chunks 
+ALTER TABLE "agentic_db_app_public".deal_chunks 
   ENABLE ROW LEVEL SECURITY;
 

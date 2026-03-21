@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/habit_logs/constraints/habit_logs_pkey/constraint
 
 
-ALTER TABLE agentic_db_app_public.habit_logs 
+ALTER TABLE "agentic_db_app_public".habit_logs 
   DROP CONSTRAINT habit_logs_pkey;
 
 

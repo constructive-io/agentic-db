@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/templates/columns/type/column
 
 
-ALTER TABLE agentic_db_app_public.templates 
+ALTER TABLE "agentic_db_app_public".templates 
   ADD COLUMN content jsonb;
 

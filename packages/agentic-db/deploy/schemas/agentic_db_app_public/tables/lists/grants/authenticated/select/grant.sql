@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_logs/columns/tags/column
 
 
-GRANT SELECT ON agentic_db_app_public.lists TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".lists TO authenticated;
 

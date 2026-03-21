@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/embedding/column
 
 
-GRANT INSERT ON agentic_db_app_public.expenses TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".expenses TO authenticated;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/reminders/indexes/reminders_due_at_idx
 
 
-CREATE INDEX reminders_status_idx ON agentic_db_app_public.reminders USING BTREE ( status );
+CREATE INDEX reminders_status_idx ON "agentic_db_app_public".reminders USING BTREE ( status );
 

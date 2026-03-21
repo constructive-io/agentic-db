@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/company_images/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.event_images 
+ALTER TABLE "agentic_db_app_public".event_images 
   ADD CONSTRAINT event_images_event_id_fkey 
     FOREIGN KEY(event_id) 
-    REFERENCES agentic_db_app_public.events (id) 
+    REFERENCES "agentic_db_app_public".events (id) 
     ON DELETE CASCADE;
 

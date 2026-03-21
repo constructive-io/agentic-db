@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/tasks/columns/completed_at/column
 
 
-ALTER TABLE agentic_db_app_public.tasks 
+ALTER TABLE "agentic_db_app_public".tasks 
   ADD COLUMN conversation_id uuid;
 

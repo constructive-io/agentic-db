@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/user_settings/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.user_settings 
+ALTER TABLE "agentic_db_app_public".user_settings 
   ADD COLUMN created_at timestamptz;
 

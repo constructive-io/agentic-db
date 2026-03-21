@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/workflow_steps/indexes/workflow_steps_action_config_gin_idx
 
 
-CREATE INDEX activity_logs_data_gin_idx ON agentic_db_app_public.activity_log USING GIN ( data );
+CREATE INDEX activity_logs_data_gin_idx ON "agentic_db_app_public".activity_log USING GIN ( data );
 

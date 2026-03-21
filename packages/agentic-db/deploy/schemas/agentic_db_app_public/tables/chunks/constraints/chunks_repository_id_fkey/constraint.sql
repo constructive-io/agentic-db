@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/chunks/indexes/chunks_file_id_idx
 
 
-ALTER TABLE agentic_db_app_public.chunks 
+ALTER TABLE "agentic_db_app_public".chunks 
   ADD CONSTRAINT chunks_repository_id_fkey 
     FOREIGN KEY(repository_id) 
-    REFERENCES agentic_db_app_public.repositories (id) 
+    REFERENCES "agentic_db_app_public".repositories (id) 
     ON DELETE CASCADE;
 

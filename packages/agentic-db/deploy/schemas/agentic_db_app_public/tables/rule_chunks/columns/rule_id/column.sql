@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/task_chunks/indexes/task_chunks_task_id_idx
 
 
-ALTER TABLE agentic_db_app_public.rule_chunks 
+ALTER TABLE "agentic_db_app_public".rule_chunks 
   ADD COLUMN rule_id uuid;
 

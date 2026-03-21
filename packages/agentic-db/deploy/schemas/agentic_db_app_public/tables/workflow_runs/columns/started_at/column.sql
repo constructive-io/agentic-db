@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/workflow_runs/table
--- requires: schemas/agentic_db_app_public/tables/workflow_runs/columns/status/alterations/alt0000004217
+-- requires: schemas/agentic_db_app_public/tables/workflow_runs/columns/status/alterations/alt0000002231
 
 
-ALTER TABLE agentic_db_app_public.workflow_runs 
+ALTER TABLE "agentic_db_app_public".workflow_runs 
   ADD COLUMN started_at timestamptz;
 

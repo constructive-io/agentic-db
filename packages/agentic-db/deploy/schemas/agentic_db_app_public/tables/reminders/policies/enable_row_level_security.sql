@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/ideas/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.reminders 
+ALTER TABLE "agentic_db_app_public".reminders 
   ENABLE ROW LEVEL SECURITY;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/columns/start_date/column
 
 
-ALTER TABLE agentic_db_app_public.projects 
+ALTER TABLE "agentic_db_app_public".projects 
   ADD COLUMN due_date timestamptz;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/chunks/columns/end_line/column
 
 
-ALTER TABLE agentic_db_app_public.chunks 
+ALTER TABLE "agentic_db_app_public".chunks 
   ADD COLUMN embedding_text text;
 

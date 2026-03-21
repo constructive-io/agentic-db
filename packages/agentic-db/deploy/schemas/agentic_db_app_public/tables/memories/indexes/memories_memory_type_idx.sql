@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memories/indexes/memories_last_accessed_at_idx
 
 
-CREATE INDEX memories_memory_type_idx ON agentic_db_app_public.memories USING BTREE ( memory_type );
+CREATE INDEX memories_memory_type_idx ON "agentic_db_app_public".memories USING BTREE ( memory_type );
 

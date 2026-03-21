@@ -6,12 +6,12 @@
 -- requires: schemas/agentic_db_app_public/tables/event_notes/policies/auth_del_entity_membership/policy
 
 
-CREATE POLICY auth_ins_entity_membership ON agentic_db_app_public.task_notes
+CREATE POLICY auth_ins_entity_membership ON "agentic_db_app_public".task_notes
 FOR INSERT
 TO authenticated
 WITH CHECK (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM agentic_db_memberships_private.org_memberships_sprt AS org_sprt
+  FROM "agentic_db_memberships_private".org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

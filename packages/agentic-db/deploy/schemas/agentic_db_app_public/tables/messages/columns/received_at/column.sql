@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/messages/columns/body_text/column
 
 
-ALTER TABLE agentic_db_app_public.messages 
+ALTER TABLE "agentic_db_app_public".messages 
   ADD COLUMN received_at timestamptz;
 

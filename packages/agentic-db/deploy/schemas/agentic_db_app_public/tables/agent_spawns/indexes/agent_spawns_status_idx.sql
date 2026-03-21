@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_spawns/indexes/agent_spawns_parent_agent_id_idx
 
 
-CREATE INDEX agent_spawns_status_idx ON agentic_db_app_public.agent_spawns USING BTREE ( status );
+CREATE INDEX agent_spawns_status_idx ON "agentic_db_app_public".agent_spawns USING BTREE ( status );
 

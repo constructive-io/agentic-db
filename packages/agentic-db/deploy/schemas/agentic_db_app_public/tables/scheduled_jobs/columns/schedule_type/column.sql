@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/scheduled_jobs/table
--- requires: schemas/agentic_db_app_public/tables/scheduled_jobs/columns/name/alterations/alt0000004171
+-- requires: schemas/agentic_db_app_public/tables/scheduled_jobs/columns/name/alterations/alt0000002185
 
 
-ALTER TABLE agentic_db_app_public.scheduled_jobs 
+ALTER TABLE "agentic_db_app_public".scheduled_jobs 
   ADD COLUMN schedule_type text;
 

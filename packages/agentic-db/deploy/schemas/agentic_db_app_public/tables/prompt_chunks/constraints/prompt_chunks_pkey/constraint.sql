@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/goal_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.prompt_chunks 
+ALTER TABLE "agentic_db_app_public".prompt_chunks 
   ADD CONSTRAINT prompt_chunks_pkey PRIMARY KEY (id);
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/workflows/columns/trigger_type/column
 
 
-ALTER TABLE agentic_db_app_public.workflows 
+ALTER TABLE "agentic_db_app_public".workflows 
   ADD COLUMN trigger_config jsonb;
 

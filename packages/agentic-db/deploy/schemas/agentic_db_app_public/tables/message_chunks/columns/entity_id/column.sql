@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/trips/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.message_chunks 
+ALTER TABLE "agentic_db_app_public".message_chunks 
   ADD COLUMN entity_id uuid;
 

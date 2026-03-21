@@ -1,7 +1,0 @@
--- Revert: schemas/agentic_db_app_public/tables/thread_chunks/alterations/alt0000004290
-
-
-ALTER TABLE agentic_db_app_public.thread_chunks 
-  ENABLE ROW LEVEL SECURITY;
-
-

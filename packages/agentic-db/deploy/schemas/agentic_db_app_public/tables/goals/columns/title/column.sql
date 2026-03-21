@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goals/table
--- requires: schemas/agentic_db_app_public/tables/goals/columns/updated_at/alterations/alt0000003999
+-- requires: schemas/agentic_db_app_public/tables/goals/columns/updated_at/alterations/alt0000002013
 
 
-ALTER TABLE agentic_db_app_public.goals 
+ALTER TABLE "agentic_db_app_public".goals 
   ADD COLUMN title text;
 

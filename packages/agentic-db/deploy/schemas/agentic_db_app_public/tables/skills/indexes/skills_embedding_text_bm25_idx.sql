@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_embedding_hnsw_idx
 
 
-CREATE INDEX skills_embedding_text_bm25_idx ON agentic_db_app_public.skills USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX skills_embedding_text_bm25_idx ON "agentic_db_app_public".skills USING bm25 ( embedding_text ) WITH ( text_config = english );
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/scheduled_jobs/columns/last_result/column
 
 
-GRANT UPDATE ON agentic_db_app_public.tools TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".tools TO authenticated;
 

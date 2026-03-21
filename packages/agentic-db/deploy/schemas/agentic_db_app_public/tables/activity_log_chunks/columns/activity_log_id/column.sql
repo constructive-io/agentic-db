@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/session_archive_chunks/indexes/session_archive_chunks_session_archive_id_idx
 
 
-ALTER TABLE agentic_db_app_public.activity_log_chunks 
+ALTER TABLE "agentic_db_app_public".activity_log_chunks 
   ADD COLUMN activity_log_id uuid;
 

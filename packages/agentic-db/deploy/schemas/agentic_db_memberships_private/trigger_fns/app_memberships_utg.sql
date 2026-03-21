@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION agentic_db_memberships_private.app_memberships_utg ()
+CREATE FUNCTION "agentic_db_memberships_private".app_memberships_utg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE

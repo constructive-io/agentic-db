@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/threads/table
--- requires: schemas/agentic_db_app_public/tables/threads/columns/title/alterations/alt0000004143
+-- requires: schemas/agentic_db_app_public/tables/threads/columns/title/alterations/alt0000002157
 
 
-ALTER TABLE agentic_db_app_public.threads 
+ALTER TABLE "agentic_db_app_public".threads 
   ADD COLUMN summary text;
 

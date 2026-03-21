@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/recipes/indexes/recipes_embedding_hnsw_idx
 
 
-CREATE INDEX recipes_embedding_text_bm25_idx ON agentic_db_app_public.recipes USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX recipes_embedding_text_bm25_idx ON "agentic_db_app_public".recipes USING bm25 ( embedding_text ) WITH ( text_config = english );
 

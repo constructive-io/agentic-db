@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_spawns/indexes/agent_spawns_status_idx
 
 
-CREATE INDEX projects_entity_id_idx ON agentic_db_app_public.projects USING BTREE ( entity_id );
+CREATE INDEX projects_entity_id_idx ON "agentic_db_app_public".projects USING BTREE ( entity_id );
 

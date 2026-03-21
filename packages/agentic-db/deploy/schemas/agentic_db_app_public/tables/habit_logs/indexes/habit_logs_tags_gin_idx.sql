@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_tags_gin_idx
 
 
-CREATE INDEX habit_logs_tags_gin_idx ON agentic_db_app_public.habit_logs USING GIN ( tags );
+CREATE INDEX habit_logs_tags_gin_idx ON "agentic_db_app_public".habit_logs USING GIN ( tags );
 

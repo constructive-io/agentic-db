@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memories/columns/embedding/column
 
 
-GRANT SELECT ON agentic_db_app_public.skills TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".skills TO authenticated;
 

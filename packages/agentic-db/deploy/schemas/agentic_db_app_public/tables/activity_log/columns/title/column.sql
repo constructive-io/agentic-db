@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/activity_log/table
--- requires: schemas/agentic_db_app_public/tables/activity_log/columns/activity_type/alterations/alt0000004249
+-- requires: schemas/agentic_db_app_public/tables/activity_log/columns/activity_type/alterations/alt0000002263
 
 
-ALTER TABLE agentic_db_app_public.activity_log 
+ALTER TABLE "agentic_db_app_public".activity_log 
   ADD COLUMN title text;
 

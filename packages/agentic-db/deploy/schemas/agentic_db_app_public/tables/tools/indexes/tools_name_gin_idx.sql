@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/blueprints/indexes/blueprints_title_gin_idx
 
 
-CREATE INDEX tools_name_gin_idx ON agentic_db_app_public.tools USING gin ( name gin_trgm_ops );
+CREATE INDEX tools_name_gin_idx ON "agentic_db_app_public".tools USING gin ( name gin_trgm_ops );
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/skill_executions/columns/started_at/column
 
 
-ALTER TABLE agentic_db_app_public.skill_executions 
+ALTER TABLE "agentic_db_app_public".skill_executions 
   ADD COLUMN completed_at timestamptz;
 

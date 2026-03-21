@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/files/columns/hash/column
 
 
-ALTER TABLE agentic_db_app_public.chunks 
+ALTER TABLE "agentic_db_app_public".chunks 
   ADD CONSTRAINT chunks_pkey PRIMARY KEY (id);
 

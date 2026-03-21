@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/indexes/calendar_events_calendar_account_id_idx
 
 
-CREATE INDEX webhooks_integration_id_idx ON agentic_db_app_public.webhooks USING BTREE ( integration_id );
+CREATE INDEX webhooks_integration_id_idx ON "agentic_db_app_public".webhooks USING BTREE ( integration_id );
 

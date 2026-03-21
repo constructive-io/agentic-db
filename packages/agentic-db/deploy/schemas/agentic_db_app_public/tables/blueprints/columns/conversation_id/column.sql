@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/blueprints/columns/trigger_conditions/column
 
 
-ALTER TABLE agentic_db_app_public.blueprints 
+ALTER TABLE "agentic_db_app_public".blueprints 
   ADD COLUMN conversation_id uuid;
 

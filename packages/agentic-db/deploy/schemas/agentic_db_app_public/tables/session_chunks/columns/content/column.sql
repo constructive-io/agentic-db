@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/session_chunks/table
--- requires: schemas/agentic_db_app_public/tables/session_chunks/columns/chunk_index/alterations/alt0000004268
+-- requires: schemas/agentic_db_app_public/tables/session_chunks/columns/chunk_index/alterations/alt0000002282
 
 
-ALTER TABLE agentic_db_app_public.session_chunks 
+ALTER TABLE "agentic_db_app_public".session_chunks 
   ADD COLUMN content text;
 

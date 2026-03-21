@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_rules/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.agent_prompts 
+ALTER TABLE "agentic_db_app_public".agent_prompts 
   ADD COLUMN agent_id uuid;
 

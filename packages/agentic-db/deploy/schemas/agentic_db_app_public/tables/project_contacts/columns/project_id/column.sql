@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/templates/indexes/templates_is_active_idx
 
 
-ALTER TABLE agentic_db_app_public.project_contacts 
+ALTER TABLE "agentic_db_app_public".project_contacts 
   ADD COLUMN project_id uuid;
 

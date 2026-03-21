@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/lists/columns/embedding/column
 
 
-GRANT SELECT ON agentic_db_app_public.recipes TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".recipes TO authenticated;
 

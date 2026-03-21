@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/columns/receipt_url/column
 
 
-ALTER TABLE agentic_db_app_public.expenses 
+ALTER TABLE "agentic_db_app_public".expenses 
   ADD COLUMN is_recurring bool;
 

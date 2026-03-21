@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_status_idx
 
 
-CREATE INDEX projects_start_date_idx ON agentic_db_app_public.projects USING BTREE ( start_date );
+CREATE INDEX projects_start_date_idx ON "agentic_db_app_public".projects USING BTREE ( start_date );
 

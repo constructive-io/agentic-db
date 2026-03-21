@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/interaction_chunks/columns/embedding/column
 
 
-GRANT UPDATE ON agentic_db_app_public.contact_links TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".contact_links TO authenticated;
 

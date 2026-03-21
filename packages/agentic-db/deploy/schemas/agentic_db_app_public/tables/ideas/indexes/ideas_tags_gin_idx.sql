@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/template_chunks/indexes/template_chunks_chunk_index_idx
 
 
-CREATE INDEX ideas_tags_gin_idx ON agentic_db_app_public.ideas USING GIN ( tags );
+CREATE INDEX ideas_tags_gin_idx ON "agentic_db_app_public".ideas USING GIN ( tags );
 

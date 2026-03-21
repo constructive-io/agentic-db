@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/chat_messages/columns/embedding_text/column
 
 
-ALTER TABLE agentic_db_app_public.chat_messages 
+ALTER TABLE "agentic_db_app_public".chat_messages 
   ADD COLUMN embedding vector(768);
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/notes/table
--- requires: schemas/agentic_db_app_public/tables/notes/columns/content/alterations/alt0000003745
+-- requires: schemas/agentic_db_app_public/tables/notes/columns/content/alterations/alt0000001759
 
 
-ALTER TABLE agentic_db_app_public.notes 
+ALTER TABLE "agentic_db_app_public".notes 
   ADD COLUMN abstract text;
 

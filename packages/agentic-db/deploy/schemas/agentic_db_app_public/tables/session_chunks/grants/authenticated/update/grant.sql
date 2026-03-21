@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_chunks/columns/embedding/column
 
 
-GRANT UPDATE ON agentic_db_app_public.session_chunks TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".session_chunks TO authenticated;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/goals/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.prompts 
+ALTER TABLE "agentic_db_app_public".prompts 
   ENABLE ROW LEVEL SECURITY;
 

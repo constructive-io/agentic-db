@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/document_chunks/indexes/document_chunks_document_id_idx
 
 
-ALTER TABLE agentic_db_app_public.trip_chunks 
+ALTER TABLE "agentic_db_app_public".trip_chunks 
   ADD CONSTRAINT trip_chunks_trip_id_fkey 
     FOREIGN KEY(trip_id) 
-    REFERENCES agentic_db_app_public.trips (id) 
+    REFERENCES "agentic_db_app_public".trips (id) 
     ON DELETE CASCADE;
 

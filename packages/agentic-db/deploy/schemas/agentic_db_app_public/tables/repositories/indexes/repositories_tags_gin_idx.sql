@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/repository_chunks/indexes/repository_chunks_chunk_index_idx
 
 
-CREATE INDEX repositories_tags_gin_idx ON agentic_db_app_public.repositories USING GIN ( tags );
+CREATE INDEX repositories_tags_gin_idx ON "agentic_db_app_public".repositories USING GIN ( tags );
 

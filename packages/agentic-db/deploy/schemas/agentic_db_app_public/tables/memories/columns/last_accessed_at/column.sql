@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/memories/table
--- requires: schemas/agentic_db_app_public/tables/memories/columns/active_count/alterations/alt0000003979
+-- requires: schemas/agentic_db_app_public/tables/memories/columns/active_count/alterations/alt0000001993
 
 
-ALTER TABLE agentic_db_app_public.memories 
+ALTER TABLE "agentic_db_app_public".memories 
   ADD COLUMN last_accessed_at timestamptz;
 

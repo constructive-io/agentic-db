@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/skill_executions/indexes/skill_executions_started_at_idx
 
 
-ALTER TABLE agentic_db_app_public.agents 
+ALTER TABLE "agentic_db_app_public".agents 
   ADD COLUMN id uuid;
 

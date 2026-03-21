@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/expenses/table
--- requires: schemas/agentic_db_app_public/tables/expenses/columns/updated_at/alterations/alt0000004471
+-- requires: schemas/agentic_db_app_public/tables/expenses/columns/updated_at/alterations/alt0000002485
 
 
-ALTER TABLE agentic_db_app_public.expenses 
+ALTER TABLE "agentic_db_app_public".expenses 
   ADD COLUMN amount numeric;
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/repositories/table
--- requires: schemas/agentic_db_app_public/tables/repositories/columns/updated_at/alterations/alt0000004395
+-- requires: schemas/agentic_db_app_public/tables/repositories/columns/updated_at/alterations/alt0000002409
 
 
-ALTER TABLE agentic_db_app_public.repositories 
+ALTER TABLE "agentic_db_app_public".repositories 
   ADD COLUMN name text;
 

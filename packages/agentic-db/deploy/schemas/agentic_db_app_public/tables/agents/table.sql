@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/skill_executions/indexes/skill_executions_started_at_idx
 
 
-CREATE TABLE agentic_db_app_public.agents ();
+CREATE TABLE "agentic_db_app_public".agents ();
 

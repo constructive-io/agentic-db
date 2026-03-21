@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/lists/columns/embedding/column
 
 
-CREATE TABLE agentic_db_app_public.recipes ();
+CREATE TABLE "agentic_db_app_public".recipes ();
 

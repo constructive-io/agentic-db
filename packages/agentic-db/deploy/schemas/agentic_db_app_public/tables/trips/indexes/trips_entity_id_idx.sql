@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/billing_subscriptions/columns/notes/column
 
 
-CREATE INDEX trips_entity_id_idx ON agentic_db_app_public.trips USING BTREE ( entity_id );
+CREATE INDEX trips_entity_id_idx ON "agentic_db_app_public".trips USING BTREE ( entity_id );
 

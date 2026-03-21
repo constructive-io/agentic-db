@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/sessions/columns/started_at/column
 
 
-ALTER TABLE agentic_db_app_public.sessions 
+ALTER TABLE "agentic_db_app_public".sessions 
   ADD COLUMN ended_at timestamptz;
 

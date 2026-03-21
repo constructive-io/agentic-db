@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/memories/columns/memory_type/column
 
 
-ALTER TABLE agentic_db_app_public.memories 
+ALTER TABLE "agentic_db_app_public".memories 
   ADD COLUMN memory_category text;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/thread_chunks/indexes/thread_chunks_chunk_index_idx
 
 
-CREATE INDEX blueprint_chunks_embedding_hnsw_idx ON agentic_db_app_public.blueprint_chunks USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
+CREATE INDEX blueprint_chunks_embedding_hnsw_idx ON "agentic_db_app_public".blueprint_chunks USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
 

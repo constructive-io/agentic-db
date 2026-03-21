@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agents/columns/embedding/column
 
 
-GRANT DELETE ON agentic_db_app_public.sessions TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".sessions TO authenticated;
 

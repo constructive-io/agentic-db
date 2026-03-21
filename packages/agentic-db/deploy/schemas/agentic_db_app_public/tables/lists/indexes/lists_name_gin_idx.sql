@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_name_gin_idx
 
 
-CREATE INDEX lists_name_gin_idx ON agentic_db_app_public.lists USING gin ( name gin_trgm_ops );
+CREATE INDEX lists_name_gin_idx ON "agentic_db_app_public".lists USING gin ( name gin_trgm_ops );
 

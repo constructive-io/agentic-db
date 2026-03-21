@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/embedding/column
 
 
-CREATE TABLE agentic_db_app_public.expenses ();
+CREATE TABLE "agentic_db_app_public".expenses ();
 

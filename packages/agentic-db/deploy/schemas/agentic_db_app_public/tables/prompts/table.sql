@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/goals/columns/embedding/column
 
 
-CREATE TABLE agentic_db_app_public.prompts ();
+CREATE TABLE "agentic_db_app_public".prompts ();
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_log_chunks/indexes/activity_log_chunks_chunk_index_idx
 
 
-CREATE INDEX blueprints_tags_gin_idx ON agentic_db_app_public.blueprints USING GIN ( tags );
+CREATE INDEX blueprints_tags_gin_idx ON "agentic_db_app_public".blueprints USING GIN ( tags );
 

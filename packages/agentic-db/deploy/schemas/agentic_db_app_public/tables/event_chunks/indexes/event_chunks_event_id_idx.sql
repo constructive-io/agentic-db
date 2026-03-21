@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/deal_chunks/indexes/deal_chunks_deal_id_idx
 
 
-CREATE INDEX event_chunks_event_id_idx ON agentic_db_app_public.event_chunks USING BTREE ( event_id );
+CREATE INDEX event_chunks_event_id_idx ON "agentic_db_app_public".event_chunks USING BTREE ( event_id );
 

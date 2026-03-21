@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/execution_log/columns/duration_ms/column
 
 
-GRANT UPDATE ON agentic_db_app_public.chats TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".chats TO authenticated;
 

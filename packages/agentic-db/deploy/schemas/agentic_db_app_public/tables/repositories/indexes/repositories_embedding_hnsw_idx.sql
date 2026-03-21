@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/repository_chunks/indexes/repository_chunks_repository_id_idx
 
 
-CREATE INDEX repositories_embedding_hnsw_idx ON agentic_db_app_public.repositories USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
+CREATE INDEX repositories_embedding_hnsw_idx ON "agentic_db_app_public".repositories USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
 

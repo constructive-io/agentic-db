@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tasks/indexes/tasks_task_type_idx
 
 
-CREATE INDEX rules_kind_idx ON agentic_db_app_public.rules USING BTREE ( kind );
+CREATE INDEX rules_kind_idx ON "agentic_db_app_public".rules USING BTREE ( kind );
 

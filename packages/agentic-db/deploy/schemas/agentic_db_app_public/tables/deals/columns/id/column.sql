@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/companies/columns/main_image_id/column
 
 
-ALTER TABLE agentic_db_app_public.deals 
+ALTER TABLE "agentic_db_app_public".deals 
   ADD COLUMN id uuid;
 

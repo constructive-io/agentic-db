@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_logs/columns/entity_id/column
 
 
-CREATE INDEX habit_logs_entity_id_idx ON agentic_db_app_public.habit_logs USING BTREE ( entity_id );
+CREATE INDEX habit_logs_entity_id_idx ON "agentic_db_app_public".habit_logs USING BTREE ( entity_id );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/recipe_chunks/indexes/recipe_chunks_recipe_id_idx
 
 
-CREATE INDEX template_chunks_template_id_idx ON agentic_db_app_public.template_chunks USING BTREE ( template_id );
+CREATE INDEX template_chunks_template_id_idx ON "agentic_db_app_public".template_chunks USING BTREE ( template_id );
 

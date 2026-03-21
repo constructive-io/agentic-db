@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/project_chunks/table
--- requires: schemas/agentic_db_app_public/tables/milestones/columns/status/alterations/alt0000004376
+-- requires: schemas/agentic_db_app_public/tables/milestones/columns/status/alterations/alt0000002390
 
 
-GRANT INSERT ON agentic_db_app_public.project_chunks TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".project_chunks TO authenticated;
 

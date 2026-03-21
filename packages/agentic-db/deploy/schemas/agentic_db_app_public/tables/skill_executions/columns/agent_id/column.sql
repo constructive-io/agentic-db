@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skill_executions/table
--- requires: schemas/agentic_db_app_public/tables/skill_executions/columns/skill_id/alterations/alt0000004083
+-- requires: schemas/agentic_db_app_public/tables/skill_executions/columns/skill_id/alterations/alt0000002097
 
 
-ALTER TABLE agentic_db_app_public.skill_executions 
+ALTER TABLE "agentic_db_app_public".skill_executions 
   ADD COLUMN agent_id uuid;
 

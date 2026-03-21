@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trip_chunks/indexes/trip_chunks_chunk_index_idx
 
 
-CREATE INDEX messages_tags_gin_idx ON agentic_db_app_public.messages USING GIN ( tags );
+CREATE INDEX messages_tags_gin_idx ON "agentic_db_app_public".messages USING GIN ( tags );
 

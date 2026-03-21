@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/repositories/columns/embedding/column
 
 
-GRANT INSERT ON agentic_db_app_public.files TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".files TO authenticated;
 

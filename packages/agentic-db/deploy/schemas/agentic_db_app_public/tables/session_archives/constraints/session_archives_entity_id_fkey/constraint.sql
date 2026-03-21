@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_spawns/columns/completed_at/column
 
 
-ALTER TABLE agentic_db_app_public.session_archives 
+ALTER TABLE "agentic_db_app_public".session_archives 
   ADD CONSTRAINT session_archives_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

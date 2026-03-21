@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_logs/indexes/habit_logs_habit_id_idx
 
 
-ALTER TABLE agentic_db_app_public.idea_chunks 
+ALTER TABLE "agentic_db_app_public".idea_chunks 
   ADD COLUMN idea_id uuid;
 

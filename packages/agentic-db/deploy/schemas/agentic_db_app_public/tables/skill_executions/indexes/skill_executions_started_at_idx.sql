@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/skill_executions/indexes/skill_executions_status_idx
 
 
-CREATE INDEX skill_executions_started_at_idx ON agentic_db_app_public.skill_executions USING BTREE ( started_at );
+CREATE INDEX skill_executions_started_at_idx ON "agentic_db_app_public".skill_executions USING BTREE ( started_at );
 

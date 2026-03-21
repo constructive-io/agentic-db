@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/calendar_event_chunks/columns/embedding/column
 
 
-GRANT SELECT ON agentic_db_app_public.document_chunks TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".document_chunks TO authenticated;
 

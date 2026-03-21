@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_log/columns/embedding/column
 
 
-CREATE TABLE agentic_db_app_public.agent_chunks ();
+CREATE TABLE "agentic_db_app_public".agent_chunks ();
 

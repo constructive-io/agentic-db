@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_log/columns/embedding_text/column
 
 
-ALTER TABLE agentic_db_app_public.activity_log 
+ALTER TABLE "agentic_db_app_public".activity_log 
   ADD COLUMN embedding vector(768);
 

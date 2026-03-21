@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/prompts/indexes/prompts_name_gin_idx
 
 
-CREATE INDEX tasks_status_idx ON agentic_db_app_public.tasks USING BTREE ( status );
+CREATE INDEX tasks_status_idx ON "agentic_db_app_public".tasks USING BTREE ( status );
 

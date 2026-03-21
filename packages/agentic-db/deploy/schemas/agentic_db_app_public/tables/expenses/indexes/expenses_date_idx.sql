@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/indexes/calendar_events_status_idx
 
 
-CREATE INDEX expenses_date_idx ON agentic_db_app_public.expenses USING BTREE ( date );
+CREATE INDEX expenses_date_idx ON "agentic_db_app_public".expenses USING BTREE ( date );
 

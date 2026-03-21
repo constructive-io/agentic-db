@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/blueprints/columns/embedding/column
 
 
-CREATE INDEX processes_entity_id_idx ON agentic_db_app_public.processes USING BTREE ( entity_id );
+CREATE INDEX processes_entity_id_idx ON "agentic_db_app_public".processes USING BTREE ( entity_id );
 

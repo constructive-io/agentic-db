@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/session_archives/table
--- requires: schemas/agentic_db_app_public/tables/session_archives/columns/summary/alterations/alt0000004240
+-- requires: schemas/agentic_db_app_public/tables/session_archives/columns/summary/alterations/alt0000002254
 
 
-ALTER TABLE agentic_db_app_public.session_archives 
+ALTER TABLE "agentic_db_app_public".session_archives 
   ADD COLUMN message_range_start int;
 

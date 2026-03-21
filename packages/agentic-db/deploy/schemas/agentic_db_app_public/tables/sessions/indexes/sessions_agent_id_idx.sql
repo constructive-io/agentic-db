@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_log_chunks/columns/embedding/column
 
 
-CREATE INDEX sessions_agent_id_idx ON agentic_db_app_public.sessions USING BTREE ( agent_id );
+CREATE INDEX sessions_agent_id_idx ON "agentic_db_app_public".sessions USING BTREE ( agent_id );
 

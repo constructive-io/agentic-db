@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/documents/columns/search_tsv/column
 
 
-CREATE TABLE agentic_db_app_public.integrations ();
+CREATE TABLE "agentic_db_app_public".integrations ();
 

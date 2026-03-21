@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/lists/columns/embedding/column
 
 
-GRANT INSERT ON agentic_db_app_public.recipes TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".recipes TO authenticated;
 

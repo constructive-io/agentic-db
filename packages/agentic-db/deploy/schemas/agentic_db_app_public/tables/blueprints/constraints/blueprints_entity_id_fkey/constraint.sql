@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/threads/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.blueprints 
+ALTER TABLE "agentic_db_app_public".blueprints 
   ADD CONSTRAINT blueprints_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

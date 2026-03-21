@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/billing_subscriptions/table
--- requires: schemas/agentic_db_app_public/tables/billing_subscriptions/columns/currency/alterations/alt0000004525
+-- requires: schemas/agentic_db_app_public/tables/billing_subscriptions/columns/currency/alterations/alt0000002539
 
 
-ALTER TABLE agentic_db_app_public.billing_subscriptions 
+ALTER TABLE "agentic_db_app_public".billing_subscriptions 
   ADD COLUMN frequency text;
 

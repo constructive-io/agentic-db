@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/goals/indexes/goals_title_gin_idx
 
 
-CREATE INDEX prompts_name_gin_idx ON agentic_db_app_public.prompts USING gin ( name gin_trgm_ops );
+CREATE INDEX prompts_name_gin_idx ON "agentic_db_app_public".prompts USING gin ( name gin_trgm_ops );
 

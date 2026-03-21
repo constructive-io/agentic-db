@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/blueprint_chunks/columns/embedding/column
 
 
-CREATE INDEX tool_chunks_entity_id_idx ON agentic_db_app_public.tool_chunks USING BTREE ( entity_id );
+CREATE INDEX tool_chunks_entity_id_idx ON "agentic_db_app_public".tool_chunks USING BTREE ( entity_id );
 

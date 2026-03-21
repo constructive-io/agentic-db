@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/user_settings/table
--- requires: schemas/agentic_db_app_public/tables/user_settings/columns/updated_at/alterations/alt0000004514
+-- requires: schemas/agentic_db_app_public/tables/user_settings/columns/updated_at/alterations/alt0000002528
 
 
-ALTER TABLE agentic_db_app_public.user_settings 
+ALTER TABLE "agentic_db_app_public".user_settings 
   ADD COLUMN key text;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/sessions/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.execution_log 
+ALTER TABLE "agentic_db_app_public".execution_log 
   ADD CONSTRAINT execution_logs_pkey PRIMARY KEY (id);
 

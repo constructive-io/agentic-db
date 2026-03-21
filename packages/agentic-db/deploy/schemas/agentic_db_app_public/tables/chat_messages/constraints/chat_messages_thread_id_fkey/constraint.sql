@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/chat_messages/indexes/chat_messages_chat_id_idx
 
 
-ALTER TABLE agentic_db_app_public.chat_messages 
+ALTER TABLE "agentic_db_app_public".chat_messages 
   ADD CONSTRAINT chat_messages_thread_id_fkey 
     FOREIGN KEY(thread_id) 
-    REFERENCES agentic_db_app_public.threads (id) 
+    REFERENCES "agentic_db_app_public".threads (id) 
     ON DELETE SET NULL;
 

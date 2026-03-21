@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/workflows/table
--- requires: schemas/agentic_db_app_public/tables/workflows/columns/updated_at/alterations/alt0000004194
+-- requires: schemas/agentic_db_app_public/tables/workflows/columns/updated_at/alterations/alt0000002208
 
 
-ALTER TABLE agentic_db_app_public.workflows 
+ALTER TABLE "agentic_db_app_public".workflows 
   ADD COLUMN name text;
 

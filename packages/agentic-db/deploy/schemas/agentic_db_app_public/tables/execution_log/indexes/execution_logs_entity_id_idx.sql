@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/execution_log/columns/entity_id/column
 
 
-CREATE INDEX execution_logs_entity_id_idx ON agentic_db_app_public.execution_log USING BTREE ( entity_id );
+CREATE INDEX execution_logs_entity_id_idx ON "agentic_db_app_public".execution_log USING BTREE ( entity_id );
 

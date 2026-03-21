@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_active_count_idx
 
 
-CREATE INDEX documents_last_accessed_at_idx ON agentic_db_app_public.documents USING BTREE ( last_accessed_at );
+CREATE INDEX documents_last_accessed_at_idx ON "agentic_db_app_public".documents USING BTREE ( last_accessed_at );
 

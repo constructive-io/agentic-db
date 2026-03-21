@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_spawns/indexes/agent_spawns_agent_id_idx
 
 
-CREATE INDEX threads_parent_thread_id_idx ON agentic_db_app_public.threads USING BTREE ( parent_thread_id );
+CREATE INDEX threads_parent_thread_id_idx ON "agentic_db_app_public".threads USING BTREE ( parent_thread_id );
 

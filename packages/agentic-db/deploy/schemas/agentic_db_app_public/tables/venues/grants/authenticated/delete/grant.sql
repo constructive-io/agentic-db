@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/events/columns/main_image_id/column
 
 
-GRANT DELETE ON agentic_db_app_public.venues TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".venues TO authenticated;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/session_archives/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.activity_log 
+ALTER TABLE "agentic_db_app_public".activity_log 
   ENABLE ROW LEVEL SECURITY;
 

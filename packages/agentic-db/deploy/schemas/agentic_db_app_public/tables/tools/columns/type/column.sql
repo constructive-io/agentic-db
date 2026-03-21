@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/tools/columns/description/column
 
 
-ALTER TABLE agentic_db_app_public.tools 
+ALTER TABLE "agentic_db_app_public".tools 
   ADD COLUMN type text;
 

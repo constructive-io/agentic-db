@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.company_chunks 
+ALTER TABLE "agentic_db_app_public".company_chunks 
   ADD COLUMN entity_id uuid;
 

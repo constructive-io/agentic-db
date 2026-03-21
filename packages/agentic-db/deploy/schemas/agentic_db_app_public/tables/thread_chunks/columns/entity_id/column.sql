@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/chat_message_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.thread_chunks 
+ALTER TABLE "agentic_db_app_public".thread_chunks 
   ADD COLUMN entity_id uuid;
 

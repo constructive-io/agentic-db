@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/execution_log/columns/session_id/column
 
 
-CREATE INDEX execution_logs_session_id_idx ON agentic_db_app_public.execution_log USING BTREE ( session_id );
+CREATE INDEX execution_logs_session_id_idx ON "agentic_db_app_public".execution_log USING BTREE ( session_id );
 

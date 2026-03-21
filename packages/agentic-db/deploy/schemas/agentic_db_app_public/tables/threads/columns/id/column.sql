@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/chat_messages/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.threads 
+ALTER TABLE "agentic_db_app_public".threads 
   ADD COLUMN id uuid;
 

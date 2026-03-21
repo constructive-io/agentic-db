@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/documents/columns/search_tsv/column
 
 
-ALTER TABLE agentic_db_app_public.integrations 
+ALTER TABLE "agentic_db_app_public".integrations 
   ENABLE ROW LEVEL SECURITY;
 

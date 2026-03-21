@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/webhooks/columns/secret/column
 
 
-ALTER TABLE agentic_db_app_public.webhooks 
+ALTER TABLE "agentic_db_app_public".webhooks 
   ADD COLUMN is_active bool;
 

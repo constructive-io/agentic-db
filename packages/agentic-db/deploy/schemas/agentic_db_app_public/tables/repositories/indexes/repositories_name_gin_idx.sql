@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/repositories/indexes/repositories_tags_gin_idx
 
 
-CREATE INDEX repositories_name_gin_idx ON agentic_db_app_public.repositories USING gin ( name gin_trgm_ops );
+CREATE INDEX repositories_name_gin_idx ON "agentic_db_app_public".repositories USING gin ( name gin_trgm_ops );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_due_date_idx
 
 
-CREATE INDEX milestones_due_date_idx ON agentic_db_app_public.milestones USING BTREE ( due_date );
+CREATE INDEX milestones_due_date_idx ON "agentic_db_app_public".milestones USING BTREE ( due_date );
 

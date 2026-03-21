@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_spawns/indexes/agent_spawns_status_idx
 
 
-GRANT INSERT ON agentic_db_app_public.projects TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".projects TO authenticated;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/chat_messages/indexes/chat_messages_embedding_text_bm25_idx
 
 
-CREATE INDEX threads_embedding_hnsw_idx ON agentic_db_app_public.threads USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
+CREATE INDEX threads_embedding_hnsw_idx ON "agentic_db_app_public".threads USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
 

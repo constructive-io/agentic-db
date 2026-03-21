@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_spawns/table
--- requires: schemas/agentic_db_app_public/tables/agent_spawns/columns/task/alterations/alt0000004227
+-- requires: schemas/agentic_db_app_public/tables/agent_spawns/columns/task/alterations/alt0000002241
 
 
-ALTER TABLE agentic_db_app_public.agent_spawns 
+ALTER TABLE "agentic_db_app_public".agent_spawns 
   ADD COLUMN status text;
 

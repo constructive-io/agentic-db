@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/workflows/columns/tags/column
 
 
-ALTER TABLE agentic_db_app_public.workflow_steps 
+ALTER TABLE "agentic_db_app_public".workflow_steps 
   ADD CONSTRAINT workflow_steps_pkey PRIMARY KEY (id);
 

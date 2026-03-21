@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/threads/indexes/threads_parent_thread_id_idx
 
 
-CREATE INDEX agent_tools_tool_id_idx ON agentic_db_app_public.agent_tools USING BTREE ( tool_id );
+CREATE INDEX agent_tools_tool_id_idx ON "agentic_db_app_public".agent_tools USING BTREE ( tool_id );
 

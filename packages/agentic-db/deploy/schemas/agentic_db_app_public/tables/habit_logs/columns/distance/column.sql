@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_logs/columns/duration_minutes/column
 
 
-ALTER TABLE agentic_db_app_public.habit_logs 
+ALTER TABLE "agentic_db_app_public".habit_logs 
   ADD COLUMN distance numeric;
 

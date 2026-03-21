@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/calendar_event_chunks/indexes/calendar_event_chunks_calendar_event_id_idx
 
 
-CREATE INDEX document_chunks_document_id_idx ON agentic_db_app_public.document_chunks USING BTREE ( document_id );
+CREATE INDEX document_chunks_document_id_idx ON "agentic_db_app_public".document_chunks USING BTREE ( document_id );
 

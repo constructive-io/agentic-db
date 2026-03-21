@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_logs/columns/tags/column
 
 
-CREATE TABLE agentic_db_app_public.lists ();
+CREATE TABLE "agentic_db_app_public".lists ();
 

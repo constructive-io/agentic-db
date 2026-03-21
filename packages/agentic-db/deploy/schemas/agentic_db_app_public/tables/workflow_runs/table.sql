@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/workflow_steps/columns/timeout_ms/column
 
 
-CREATE TABLE agentic_db_app_public.workflow_runs ();
+CREATE TABLE "agentic_db_app_public".workflow_runs ();
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/location_geo/column
 
 
-CREATE INDEX contacts_location_geo_gist_idx ON agentic_db_app_public.contacts USING GIST ( location_geo );
+CREATE INDEX contacts_location_geo_gist_idx ON "agentic_db_app_public".contacts USING GIST ( location_geo );
 

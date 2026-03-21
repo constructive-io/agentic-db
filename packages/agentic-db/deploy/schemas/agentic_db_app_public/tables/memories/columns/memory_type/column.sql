@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/memories/table
--- requires: schemas/agentic_db_app_public/tables/memories/columns/content/alterations/alt0000003977
+-- requires: schemas/agentic_db_app_public/tables/memories/columns/content/alterations/alt0000001991
 
 
-ALTER TABLE agentic_db_app_public.memories 
+ALTER TABLE "agentic_db_app_public".memories 
   ADD COLUMN memory_type text;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/chunks/indexes/chunks_repository_id_idx
 
 
-ALTER TABLE agentic_db_app_public.repository_chunks 
+ALTER TABLE "agentic_db_app_public".repository_chunks 
   ADD COLUMN repository_id uuid;
 

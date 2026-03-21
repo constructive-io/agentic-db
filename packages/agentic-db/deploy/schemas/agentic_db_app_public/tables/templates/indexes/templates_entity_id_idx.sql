@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/templates/columns/entity_id/column
 
 
-CREATE INDEX templates_entity_id_idx ON agentic_db_app_public.templates USING BTREE ( entity_id );
+CREATE INDEX templates_entity_id_idx ON "agentic_db_app_public".templates USING BTREE ( entity_id );
 

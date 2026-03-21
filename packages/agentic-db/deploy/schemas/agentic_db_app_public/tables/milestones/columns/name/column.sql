@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/milestones/columns/project_id/column
 
 
-ALTER TABLE agentic_db_app_public.milestones 
+ALTER TABLE "agentic_db_app_public".milestones 
   ADD COLUMN name text;
 

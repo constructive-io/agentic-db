@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/scheduled_jobs/columns/last_result/column
 
 
-CREATE INDEX tools_entity_id_idx ON agentic_db_app_public.tools USING BTREE ( entity_id );
+CREATE INDEX tools_entity_id_idx ON "agentic_db_app_public".tools USING BTREE ( entity_id );
 

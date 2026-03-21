@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/webhooks/indexes/webhooks_event_type_idx
 
 
-CREATE INDEX user_settings_key_idx ON agentic_db_app_public.user_settings USING BTREE ( key );
+CREATE INDEX user_settings_key_idx ON "agentic_db_app_public".user_settings USING BTREE ( key );
 

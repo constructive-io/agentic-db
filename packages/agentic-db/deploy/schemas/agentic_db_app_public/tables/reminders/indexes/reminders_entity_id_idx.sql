@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/reminders/columns/entity_id/column
 
 
-CREATE INDEX reminders_entity_id_idx ON agentic_db_app_public.reminders USING BTREE ( entity_id );
+CREATE INDEX reminders_entity_id_idx ON "agentic_db_app_public".reminders USING BTREE ( entity_id );
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/threads/indexes/threads_parent_thread_id_idx
 
 
-ALTER TABLE agentic_db_app_public.agent_tools 
+ALTER TABLE "agentic_db_app_public".agent_tools 
   ADD COLUMN entity_id uuid;
 

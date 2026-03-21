@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
--- requires: schemas/agentic_db_app_public/tables/skills/columns/active_count/alterations/alt0000003991
+-- requires: schemas/agentic_db_app_public/tables/skills/columns/active_count/alterations/alt0000002005
 
 
-ALTER TABLE agentic_db_app_public.skills 
+ALTER TABLE "agentic_db_app_public".skills 
   ADD COLUMN last_accessed_at timestamptz;
 

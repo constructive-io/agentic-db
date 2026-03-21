@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/table
--- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/all_day/alterations/alt0000004462
+-- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/all_day/alterations/alt0000002476
 
 
-ALTER TABLE agentic_db_app_public.calendar_events 
+ALTER TABLE "agentic_db_app_public".calendar_events 
   ADD COLUMN location text;
 

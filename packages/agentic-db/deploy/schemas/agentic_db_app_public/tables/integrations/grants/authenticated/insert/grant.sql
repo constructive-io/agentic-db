@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/documents/columns/search_tsv/column
 
 
-GRANT INSERT ON agentic_db_app_public.integrations TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".integrations TO authenticated;
 

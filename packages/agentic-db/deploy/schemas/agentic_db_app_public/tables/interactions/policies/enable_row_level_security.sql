@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/notes/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.interactions 
+ALTER TABLE "agentic_db_app_public".interactions 
   ENABLE ROW LEVEL SECURITY;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/email_accounts/columns/sync_state/column
 
 
-ALTER TABLE agentic_db_app_public.messages 
+ALTER TABLE "agentic_db_app_public".messages 
   ENABLE ROW LEVEL SECURITY;
 

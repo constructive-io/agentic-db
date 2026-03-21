@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/lists/indexes/lists_tags_gin_idx
 
 
-CREATE INDEX recipes_tags_gin_idx ON agentic_db_app_public.recipes USING GIN ( tags );
+CREATE INDEX recipes_tags_gin_idx ON "agentic_db_app_public".recipes USING GIN ( tags );
 

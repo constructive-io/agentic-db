@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/chats/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.chat_messages 
+ALTER TABLE "agentic_db_app_public".chat_messages 
   ADD CONSTRAINT chat_messages_pkey PRIMARY KEY (id);
 

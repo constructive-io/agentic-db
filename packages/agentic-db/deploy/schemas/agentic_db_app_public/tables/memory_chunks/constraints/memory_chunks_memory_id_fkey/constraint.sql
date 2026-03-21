@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/rule_chunks/indexes/rule_chunks_rule_id_idx
 
 
-ALTER TABLE agentic_db_app_public.memory_chunks 
+ALTER TABLE "agentic_db_app_public".memory_chunks 
   ADD CONSTRAINT memory_chunks_memory_id_fkey 
     FOREIGN KEY(memory_id) 
-    REFERENCES agentic_db_app_public.memories (id) 
+    REFERENCES "agentic_db_app_public".memories (id) 
     ON DELETE CASCADE;
 

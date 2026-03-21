@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/triggers/projects_search_tsv_tsv_update_tg
 
 
-CREATE TABLE agentic_db_app_public.repositories ();
+CREATE TABLE "agentic_db_app_public".repositories ();
 

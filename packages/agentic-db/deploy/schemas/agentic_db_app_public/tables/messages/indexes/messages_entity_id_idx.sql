@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/email_accounts/columns/sync_state/column
 
 
-CREATE INDEX messages_entity_id_idx ON agentic_db_app_public.messages USING BTREE ( entity_id );
+CREATE INDEX messages_entity_id_idx ON "agentic_db_app_public".messages USING BTREE ( entity_id );
 

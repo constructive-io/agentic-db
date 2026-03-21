@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/recipes/table
--- requires: schemas/agentic_db_app_public/tables/recipes/columns/updated_at/alterations/alt0000004639
+-- requires: schemas/agentic_db_app_public/tables/recipes/columns/updated_at/alterations/alt0000002653
 
 
-ALTER TABLE agentic_db_app_public.recipes 
+ALTER TABLE "agentic_db_app_public".recipes 
   ADD COLUMN name text;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/scheduled_jobs/indexes/scheduled_jobs_schedule_type_idx
 
 
-CREATE INDEX tools_type_idx ON agentic_db_app_public.tools USING BTREE ( type );
+CREATE INDEX tools_type_idx ON "agentic_db_app_public".tools USING BTREE ( type );
 

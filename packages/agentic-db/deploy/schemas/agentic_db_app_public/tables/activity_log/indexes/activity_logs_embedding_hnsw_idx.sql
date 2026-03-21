@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/session_archives/indexes/session_archives_embedding_text_bm25_idx
 
 
-CREATE INDEX activity_logs_embedding_hnsw_idx ON agentic_db_app_public.activity_log USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
+CREATE INDEX activity_logs_embedding_hnsw_idx ON "agentic_db_app_public".activity_log USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
 

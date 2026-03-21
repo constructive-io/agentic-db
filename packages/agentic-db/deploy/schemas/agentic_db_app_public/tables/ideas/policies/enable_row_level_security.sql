@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/documents/triggers/documents_search_tsv_tsv_update_tg
 
 
-ALTER TABLE agentic_db_app_public.ideas 
+ALTER TABLE "agentic_db_app_public".ideas 
   ENABLE ROW LEVEL SECURITY;
 

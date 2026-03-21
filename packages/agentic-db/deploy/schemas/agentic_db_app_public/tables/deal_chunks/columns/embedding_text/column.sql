@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deal_chunks/table
--- requires: schemas/agentic_db_app_public/tables/deal_chunks/columns/content/alterations/alt0000003797
+-- requires: schemas/agentic_db_app_public/tables/deal_chunks/columns/content/alterations/alt0000001811
 
 
-ALTER TABLE agentic_db_app_public.deal_chunks 
+ALTER TABLE "agentic_db_app_public".deal_chunks 
   ADD COLUMN embedding_text text;
 

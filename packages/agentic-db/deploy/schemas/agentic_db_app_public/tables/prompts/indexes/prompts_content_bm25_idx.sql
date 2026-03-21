@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_intent_trigger_hnsw_idx
 
 
-CREATE INDEX prompts_content_bm25_idx ON agentic_db_app_public.prompts USING bm25 ( content ) WITH ( text_config = english );
+CREATE INDEX prompts_content_bm25_idx ON "agentic_db_app_public".prompts USING bm25 ( content ) WITH ( text_config = english );
 

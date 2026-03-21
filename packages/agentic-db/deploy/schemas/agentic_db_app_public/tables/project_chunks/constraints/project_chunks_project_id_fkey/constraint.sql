@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/milestones/indexes/milestones_project_id_idx
 
 
-ALTER TABLE agentic_db_app_public.project_chunks 
+ALTER TABLE "agentic_db_app_public".project_chunks 
   ADD CONSTRAINT project_chunks_project_id_fkey 
     FOREIGN KEY(project_id) 
-    REFERENCES agentic_db_app_public.projects (id) 
+    REFERENCES "agentic_db_app_public".projects (id) 
     ON DELETE CASCADE;
 

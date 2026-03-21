@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/columns/tags/column
 
 
-ALTER TABLE agentic_db_app_public.documents 
+ALTER TABLE "agentic_db_app_public".documents 
   ENABLE ROW LEVEL SECURITY;
 

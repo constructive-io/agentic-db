@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_logs/indexes/habit_logs_calories_idx
 
 
-CREATE INDEX recipes_cuisine_idx ON agentic_db_app_public.recipes USING BTREE ( cuisine );
+CREATE INDEX recipes_cuisine_idx ON "agentic_db_app_public".recipes USING BTREE ( cuisine );
 

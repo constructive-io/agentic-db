@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contact_links/table
--- requires: schemas/agentic_db_app_public/tables/contact_links/columns/url/alterations/alt0000003846
+-- requires: schemas/agentic_db_app_public/tables/contact_links/columns/url/alterations/alt0000001860
 
 
-ALTER TABLE agentic_db_app_public.contact_links 
+ALTER TABLE "agentic_db_app_public".contact_links 
   ADD COLUMN embedding vector(768);
 

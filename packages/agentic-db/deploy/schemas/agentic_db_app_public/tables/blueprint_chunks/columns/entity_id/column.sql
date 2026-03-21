@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/thread_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.blueprint_chunks 
+ALTER TABLE "agentic_db_app_public".blueprint_chunks 
   ADD COLUMN entity_id uuid;
 

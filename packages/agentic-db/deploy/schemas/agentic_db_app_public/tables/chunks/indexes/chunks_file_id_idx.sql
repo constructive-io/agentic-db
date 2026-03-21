@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/files/indexes/files_repository_id_idx
 
 
-CREATE INDEX chunks_file_id_idx ON agentic_db_app_public.chunks USING BTREE ( file_id );
+CREATE INDEX chunks_file_id_idx ON "agentic_db_app_public".chunks USING BTREE ( file_id );
 

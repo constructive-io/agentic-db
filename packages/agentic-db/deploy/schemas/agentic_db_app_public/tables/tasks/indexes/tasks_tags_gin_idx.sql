@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/prompt_chunks/indexes/prompt_chunks_chunk_index_idx
 
 
-CREATE INDEX tasks_tags_gin_idx ON agentic_db_app_public.tasks USING GIN ( tags );
+CREATE INDEX tasks_tags_gin_idx ON "agentic_db_app_public".tasks USING GIN ( tags );
 

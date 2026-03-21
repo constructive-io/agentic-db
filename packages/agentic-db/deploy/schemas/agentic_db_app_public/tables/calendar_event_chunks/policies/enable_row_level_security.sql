@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/message_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.calendar_event_chunks 
+ALTER TABLE "agentic_db_app_public".calendar_event_chunks 
   ENABLE ROW LEVEL SECURITY;
 

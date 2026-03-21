@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/idea_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.reminder_chunks 
+ALTER TABLE "agentic_db_app_public".reminder_chunks 
   ADD CONSTRAINT reminder_chunks_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

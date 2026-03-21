@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_log_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.sessions 
+ALTER TABLE "agentic_db_app_public".sessions 
   ADD CONSTRAINT sessions_agent_id_fkey 
     FOREIGN KEY(agent_id) 
-    REFERENCES agentic_db_app_public.agents (id) 
+    REFERENCES "agentic_db_app_public".agents (id) 
     ON DELETE CASCADE;
 

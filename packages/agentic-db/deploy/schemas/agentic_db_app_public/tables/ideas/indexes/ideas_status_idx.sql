@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/templates/indexes/templates_name_gin_idx
 
 
-CREATE INDEX ideas_status_idx ON agentic_db_app_public.ideas USING BTREE ( status );
+CREATE INDEX ideas_status_idx ON "agentic_db_app_public".ideas USING BTREE ( status );
 

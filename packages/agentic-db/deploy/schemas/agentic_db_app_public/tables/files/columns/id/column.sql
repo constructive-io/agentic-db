@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/repositories/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.files 
+ALTER TABLE "agentic_db_app_public".files 
   ADD COLUMN id uuid;
 

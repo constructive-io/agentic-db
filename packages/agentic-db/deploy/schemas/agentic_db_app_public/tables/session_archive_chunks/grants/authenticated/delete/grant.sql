@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_chunks/columns/embedding/column
 
 
-GRANT DELETE ON agentic_db_app_public.session_archive_chunks TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".session_archive_chunks TO authenticated;
 

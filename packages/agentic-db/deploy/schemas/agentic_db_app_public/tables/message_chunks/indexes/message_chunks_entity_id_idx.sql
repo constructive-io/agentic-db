@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/message_chunks/columns/entity_id/column
 
 
-CREATE INDEX message_chunks_entity_id_idx ON agentic_db_app_public.message_chunks USING BTREE ( entity_id );
+CREATE INDEX message_chunks_entity_id_idx ON "agentic_db_app_public".message_chunks USING BTREE ( entity_id );
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/note_chunks/columns/embedding/column
 
 
-CREATE TABLE agentic_db_app_public.interaction_chunks ();
+CREATE TABLE "agentic_db_app_public".interaction_chunks ();
 

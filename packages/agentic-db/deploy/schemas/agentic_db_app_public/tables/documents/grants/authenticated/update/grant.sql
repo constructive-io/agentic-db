@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/columns/tags/column
 
 
-GRANT UPDATE ON agentic_db_app_public.documents TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".documents TO authenticated;
 

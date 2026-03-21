@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/rules/indexes/rules_embedding_hnsw_idx
 
 
-CREATE INDEX rules_embedding_text_bm25_idx ON agentic_db_app_public.rules USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX rules_embedding_text_bm25_idx ON "agentic_db_app_public".rules USING bm25 ( embedding_text ) WITH ( text_config = english );
 

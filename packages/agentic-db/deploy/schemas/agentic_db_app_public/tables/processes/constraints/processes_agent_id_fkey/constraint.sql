@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/chat_messages/indexes/chat_messages_thread_id_idx
 
 
-ALTER TABLE agentic_db_app_public.processes 
+ALTER TABLE "agentic_db_app_public".processes 
   ADD CONSTRAINT processes_agent_id_fkey 
     FOREIGN KEY(agent_id) 
-    REFERENCES agentic_db_app_public.agents (id) 
+    REFERENCES "agentic_db_app_public".agents (id) 
     ON DELETE CASCADE;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/execution_log/columns/session_id/column
 
 
-ALTER TABLE agentic_db_app_public.execution_log 
+ALTER TABLE "agentic_db_app_public".execution_log 
   ADD COLUMN step_name text;
 

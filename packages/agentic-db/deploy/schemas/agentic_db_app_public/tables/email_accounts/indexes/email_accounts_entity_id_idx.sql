@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/email_accounts/columns/entity_id/column
 
 
-CREATE INDEX email_accounts_entity_id_idx ON agentic_db_app_public.email_accounts USING BTREE ( entity_id );
+CREATE INDEX email_accounts_entity_id_idx ON "agentic_db_app_public".email_accounts USING BTREE ( entity_id );
 

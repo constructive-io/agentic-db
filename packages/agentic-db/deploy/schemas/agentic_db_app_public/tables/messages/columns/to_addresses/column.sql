@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/messages/columns/from_address/column
 
 
-ALTER TABLE agentic_db_app_public.messages 
+ALTER TABLE "agentic_db_app_public".messages 
   ADD COLUMN to_addresses text[];
 

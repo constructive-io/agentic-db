@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_log/columns/embedding/column
 
 
-GRANT INSERT ON agentic_db_app_public.agent_chunks TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".agent_chunks TO authenticated;
 

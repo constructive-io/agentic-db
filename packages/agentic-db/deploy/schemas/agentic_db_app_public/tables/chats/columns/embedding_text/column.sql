@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/chats/columns/started_at/column
 
 
-ALTER TABLE agentic_db_app_public.chats 
+ALTER TABLE "agentic_db_app_public".chats 
   ADD COLUMN embedding_text text;
 

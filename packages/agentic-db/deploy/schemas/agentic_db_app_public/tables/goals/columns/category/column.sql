@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goals/table
--- requires: schemas/agentic_db_app_public/tables/goals/columns/status/alterations/alt0000004001
+-- requires: schemas/agentic_db_app_public/tables/goals/columns/status/alterations/alt0000002015
 
 
-ALTER TABLE agentic_db_app_public.goals 
+ALTER TABLE "agentic_db_app_public".goals 
   ADD COLUMN category text;
 

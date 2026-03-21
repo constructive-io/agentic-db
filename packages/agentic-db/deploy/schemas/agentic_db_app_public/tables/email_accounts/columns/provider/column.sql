@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/email_accounts/table
--- requires: schemas/agentic_db_app_public/tables/email_accounts/columns/email/alterations/alt0000004434
+-- requires: schemas/agentic_db_app_public/tables/email_accounts/columns/email/alterations/alt0000002448
 
 
-ALTER TABLE agentic_db_app_public.email_accounts 
+ALTER TABLE "agentic_db_app_public".email_accounts 
   ADD COLUMN provider text;
 

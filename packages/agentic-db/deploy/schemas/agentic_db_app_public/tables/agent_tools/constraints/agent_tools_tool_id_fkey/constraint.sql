@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/threads/indexes/threads_parent_thread_id_idx
 
 
-ALTER TABLE agentic_db_app_public.agent_tools 
+ALTER TABLE "agentic_db_app_public".agent_tools 
   ADD CONSTRAINT agent_tools_tool_id_fkey 
     FOREIGN KEY(tool_id) 
-    REFERENCES agentic_db_app_public.tools (id) 
+    REFERENCES "agentic_db_app_public".tools (id) 
     ON DELETE CASCADE;
 

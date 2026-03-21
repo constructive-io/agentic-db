@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/files/indexes/files_language_idx
 
 
-ALTER TABLE agentic_db_app_public.email_accounts 
+ALTER TABLE "agentic_db_app_public".email_accounts 
   ENABLE ROW LEVEL SECURITY;
 

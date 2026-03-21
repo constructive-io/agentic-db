@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/session_archives/columns/embedding/column
 
 
-CREATE INDEX activity_logs_entity_id_idx ON agentic_db_app_public.activity_log USING BTREE ( entity_id );
+CREATE INDEX activity_logs_entity_id_idx ON "agentic_db_app_public".activity_log USING BTREE ( entity_id );
 

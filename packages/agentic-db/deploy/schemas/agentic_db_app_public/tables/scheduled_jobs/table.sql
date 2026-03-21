@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/processes/columns/logs_path/column
 
 
-CREATE TABLE agentic_db_app_public.scheduled_jobs ();
+CREATE TABLE "agentic_db_app_public".scheduled_jobs ();
 

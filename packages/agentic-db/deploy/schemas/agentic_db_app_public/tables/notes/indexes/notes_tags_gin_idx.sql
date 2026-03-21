@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_tags_gin_idx
 
 
-CREATE INDEX notes_tags_gin_idx ON agentic_db_app_public.notes USING GIN ( tags );
+CREATE INDEX notes_tags_gin_idx ON "agentic_db_app_public".notes USING GIN ( tags );
 

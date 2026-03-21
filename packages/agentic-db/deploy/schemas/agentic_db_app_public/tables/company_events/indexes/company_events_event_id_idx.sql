@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_events/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX company_events_event_id_idx ON agentic_db_app_public.company_events USING BTREE ( event_id );
+CREATE INDEX company_events_event_id_idx ON "agentic_db_app_public".company_events USING BTREE ( event_id );
 

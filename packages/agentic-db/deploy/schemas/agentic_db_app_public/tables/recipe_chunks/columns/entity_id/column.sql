@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/list_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.recipe_chunks 
+ALTER TABLE "agentic_db_app_public".recipe_chunks 
   ADD COLUMN entity_id uuid;
 

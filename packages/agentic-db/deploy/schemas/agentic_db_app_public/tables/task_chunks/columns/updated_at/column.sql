@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/task_chunks/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.task_chunks 
+ALTER TABLE "agentic_db_app_public".task_chunks 
   ADD COLUMN updated_at timestamptz;
 

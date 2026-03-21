@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_logs/columns/completed_at/column
 
 
-CREATE INDEX habit_logs_completed_at_idx ON agentic_db_app_public.habit_logs USING BTREE ( completed_at );
+CREATE INDEX habit_logs_completed_at_idx ON "agentic_db_app_public".habit_logs USING BTREE ( completed_at );
 

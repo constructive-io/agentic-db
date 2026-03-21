@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/columns/merchant/column
 
 
-ALTER TABLE agentic_db_app_public.expenses 
+ALTER TABLE "agentic_db_app_public".expenses 
   ADD COLUMN receipt_url text;
 

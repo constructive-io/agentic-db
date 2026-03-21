@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/email_accounts/columns/email/column
 
 
-CREATE INDEX email_accounts_email_idx ON agentic_db_app_public.email_accounts USING BTREE ( email );
+CREATE INDEX email_accounts_email_idx ON "agentic_db_app_public".email_accounts USING BTREE ( email );
 

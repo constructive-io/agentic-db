@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_chunks/indexes/tool_chunks_tool_id_idx
 
 
-ALTER TABLE agentic_db_app_public.session_archive_chunks 
+ALTER TABLE "agentic_db_app_public".session_archive_chunks 
   ADD CONSTRAINT session_archive_chunks_session_archive_id_fkey 
     FOREIGN KEY(session_archive_id) 
-    REFERENCES agentic_db_app_public.session_archives (id) 
+    REFERENCES "agentic_db_app_public".session_archives (id) 
     ON DELETE CASCADE;
 

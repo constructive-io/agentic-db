@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/prompts/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.task_chunks 
+ALTER TABLE "agentic_db_app_public".task_chunks 
   ENABLE ROW LEVEL SECURITY;
 

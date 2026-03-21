@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/workflows/columns/tags/column
 
 
-GRANT DELETE ON agentic_db_app_public.workflow_steps TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".workflow_steps TO authenticated;
 

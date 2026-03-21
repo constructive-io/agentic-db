@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/list_chunks/indexes/list_chunks_list_id_idx
 
 
-ALTER TABLE agentic_db_app_public.recipe_chunks 
+ALTER TABLE "agentic_db_app_public".recipe_chunks 
   ADD COLUMN recipe_id uuid;
 

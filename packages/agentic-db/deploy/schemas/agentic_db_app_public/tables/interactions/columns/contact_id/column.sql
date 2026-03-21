@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/interactions/table
--- requires: schemas/agentic_db_app_public/tables/interactions/columns/updated_at/alterations/alt0000003754
+-- requires: schemas/agentic_db_app_public/tables/interactions/columns/updated_at/alterations/alt0000001768
 
 
-ALTER TABLE agentic_db_app_public.interactions 
+ALTER TABLE "agentic_db_app_public".interactions 
   ADD COLUMN contact_id uuid;
 

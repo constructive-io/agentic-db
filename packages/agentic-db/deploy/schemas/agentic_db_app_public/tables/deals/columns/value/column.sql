@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deals/table
--- requires: schemas/agentic_db_app_public/tables/deals/columns/stage/alterations/alt0000003715
+-- requires: schemas/agentic_db_app_public/tables/deals/columns/stage/alterations/alt0000001729
 
 
-ALTER TABLE agentic_db_app_public.deals 
+ALTER TABLE "agentic_db_app_public".deals 
   ADD COLUMN value numeric;
 

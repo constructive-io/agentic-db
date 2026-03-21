@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_category_idx
 
 
-CREATE INDEX expenses_merchant_idx ON agentic_db_app_public.expenses USING BTREE ( merchant );
+CREATE INDEX expenses_merchant_idx ON "agentic_db_app_public".expenses USING BTREE ( merchant );
 

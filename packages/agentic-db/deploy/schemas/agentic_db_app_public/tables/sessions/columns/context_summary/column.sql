@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/sessions/table
--- requires: schemas/agentic_db_app_public/tables/sessions/columns/status/alterations/alt0000004109
+-- requires: schemas/agentic_db_app_public/tables/sessions/columns/status/alterations/alt0000002123
 
 
-ALTER TABLE agentic_db_app_public.sessions 
+ALTER TABLE "agentic_db_app_public".sessions 
   ADD COLUMN context_summary text;
 

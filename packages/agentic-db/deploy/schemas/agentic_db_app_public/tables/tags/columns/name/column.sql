@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tags/table
--- requires: schemas/agentic_db_app_public/tables/tags/columns/updated_at/alterations/alt0000003765
+-- requires: schemas/agentic_db_app_public/tables/tags/columns/updated_at/alterations/alt0000001779
 
 
-ALTER TABLE agentic_db_app_public.tags 
+ALTER TABLE "agentic_db_app_public".tags 
   ADD COLUMN name text;
 

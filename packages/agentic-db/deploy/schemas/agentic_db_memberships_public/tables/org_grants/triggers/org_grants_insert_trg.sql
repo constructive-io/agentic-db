@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER org_grants_insert_trg
-BEFORE INSERT ON agentic_db_memberships_public.org_grants
+BEFORE INSERT ON "agentic_db_memberships_public".org_grants
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_memberships_private.org_grants_apply_tg ( );
+EXECUTE PROCEDURE "agentic_db_memberships_private".org_grants_apply_tg ( );
 

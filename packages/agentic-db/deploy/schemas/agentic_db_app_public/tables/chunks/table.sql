@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/files/columns/hash/column
 
 
-CREATE TABLE agentic_db_app_public.chunks ();
+CREATE TABLE "agentic_db_app_public".chunks ();
 

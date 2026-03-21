@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/files/columns/hash/column
 
 
-GRANT UPDATE ON agentic_db_app_public.chunks TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".chunks TO authenticated;
 

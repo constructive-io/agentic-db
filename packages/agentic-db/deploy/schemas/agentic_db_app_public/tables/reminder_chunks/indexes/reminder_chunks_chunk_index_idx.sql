@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/reminder_chunks/indexes/reminder_chunks_embedding_text_bm25_idx
 
 
-CREATE INDEX reminder_chunks_chunk_index_idx ON agentic_db_app_public.reminder_chunks USING BTREE ( chunk_index );
+CREATE INDEX reminder_chunks_chunk_index_idx ON "agentic_db_app_public".reminder_chunks USING BTREE ( chunk_index );
 

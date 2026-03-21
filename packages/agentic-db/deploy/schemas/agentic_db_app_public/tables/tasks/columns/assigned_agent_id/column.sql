@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tasks/table
--- requires: schemas/agentic_db_app_public/tables/tasks/columns/task_type/alterations/alt0000003958
+-- requires: schemas/agentic_db_app_public/tables/tasks/columns/task_type/alterations/alt0000001972
 
 
-ALTER TABLE agentic_db_app_public.tasks 
+ALTER TABLE "agentic_db_app_public".tasks 
   ADD COLUMN assigned_agent_id uuid;
 

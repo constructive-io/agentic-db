@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/rules/columns/trigger_concept/column
 
 
-GRANT DELETE ON agentic_db_app_public.memories TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".memories TO authenticated;
 

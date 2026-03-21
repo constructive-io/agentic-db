@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_log/indexes/activity_logs_tags_gin_idx
 
 
-CREATE INDEX tools_input_schema_gin_idx ON agentic_db_app_public.tools USING GIN ( input_schema );
+CREATE INDEX tools_input_schema_gin_idx ON "agentic_db_app_public".tools USING GIN ( input_schema );
 

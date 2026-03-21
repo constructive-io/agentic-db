@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/recipes/columns/instructions/column
 
 
-ALTER TABLE agentic_db_app_public.recipes 
+ALTER TABLE "agentic_db_app_public".recipes 
   ADD COLUMN source_url text;
 

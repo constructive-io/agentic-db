@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/workflows/indexes/workflows_is_active_idx
 
 
-CREATE INDEX workflow_steps_step_order_idx ON agentic_db_app_public.workflow_steps USING BTREE ( step_order );
+CREATE INDEX workflow_steps_step_order_idx ON "agentic_db_app_public".workflow_steps USING BTREE ( step_order );
 

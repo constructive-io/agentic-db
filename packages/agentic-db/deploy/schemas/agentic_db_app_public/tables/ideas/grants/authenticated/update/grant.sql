@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/documents/triggers/documents_search_tsv_tsv_update_tg
 
 
-GRANT UPDATE ON agentic_db_app_public.ideas TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".ideas TO authenticated;
 

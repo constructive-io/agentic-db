@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_logs/columns/tags/column
 
 
-ALTER TABLE agentic_db_app_public.lists 
+ALTER TABLE "agentic_db_app_public".lists 
   ADD COLUMN entity_id uuid;
 

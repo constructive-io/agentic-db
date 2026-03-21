@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/webhooks/columns/integration_id/column
 
 
-ALTER TABLE agentic_db_app_public.webhooks 
+ALTER TABLE "agentic_db_app_public".webhooks 
   ADD COLUMN url text;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trips/indexes/trips_embedding_hnsw_idx
 
 
-CREATE INDEX trips_embedding_text_bm25_idx ON agentic_db_app_public.trips USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX trips_embedding_text_bm25_idx ON "agentic_db_app_public".trips USING bm25 ( embedding_text ) WITH ( text_config = english );
 

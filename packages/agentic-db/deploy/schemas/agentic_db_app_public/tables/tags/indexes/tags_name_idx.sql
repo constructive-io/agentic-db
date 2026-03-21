@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/notes/indexes/notes_last_accessed_at_idx
 
 
-CREATE INDEX tags_name_idx ON agentic_db_app_public.tags USING BTREE ( name );
+CREATE INDEX tags_name_idx ON "agentic_db_app_public".tags USING BTREE ( name );
 

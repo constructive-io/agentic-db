@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/rule_chunks/indexes/rule_chunks_rule_id_idx
 
 
-ALTER TABLE agentic_db_app_public.memory_chunks 
+ALTER TABLE "agentic_db_app_public".memory_chunks 
   ADD COLUMN memory_id uuid;
 

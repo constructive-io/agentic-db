@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/project_chunks/indexes/project_chunks_embedding_text_bm25_idx
 
 
-CREATE INDEX project_chunks_chunk_index_idx ON agentic_db_app_public.project_chunks USING BTREE ( chunk_index );
+CREATE INDEX project_chunks_chunk_index_idx ON "agentic_db_app_public".project_chunks USING BTREE ( chunk_index );
 

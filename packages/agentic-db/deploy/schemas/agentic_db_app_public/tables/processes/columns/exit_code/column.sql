@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/processes/table
--- requires: schemas/agentic_db_app_public/tables/processes/columns/status/alterations/alt0000004162
+-- requires: schemas/agentic_db_app_public/tables/processes/columns/status/alterations/alt0000002176
 
 
-ALTER TABLE agentic_db_app_public.processes 
+ALTER TABLE "agentic_db_app_public".processes 
   ADD COLUMN exit_code int;
 

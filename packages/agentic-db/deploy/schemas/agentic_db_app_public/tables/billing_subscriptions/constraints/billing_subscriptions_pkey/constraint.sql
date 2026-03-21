@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/user_settings/columns/category/column
 
 
-ALTER TABLE agentic_db_app_public.billing_subscriptions 
+ALTER TABLE "agentic_db_app_public".billing_subscriptions 
   ADD CONSTRAINT billing_subscriptions_pkey PRIMARY KEY (id);
 

@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/sessions/grants/authenticated/select/grant
 
 
-REVOKE SELECT ON agentic_db_app_public.sessions FROM authenticated;
+REVOKE SELECT ON "agentic_db_app_public".sessions FROM authenticated;
 
 

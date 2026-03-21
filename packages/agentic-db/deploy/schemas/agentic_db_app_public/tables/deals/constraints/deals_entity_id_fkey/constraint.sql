@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/companies/columns/main_image_id/column
 
 
-ALTER TABLE agentic_db_app_public.deals 
+ALTER TABLE "agentic_db_app_public".deals 
   ADD CONSTRAINT deals_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

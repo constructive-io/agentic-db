@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/session_chunks/columns/embedding/column
 
 
-GRANT SELECT ON agentic_db_app_public.chat_chunks TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".chat_chunks TO authenticated;
 

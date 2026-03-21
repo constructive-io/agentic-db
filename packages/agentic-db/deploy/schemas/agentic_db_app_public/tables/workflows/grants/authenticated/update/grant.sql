@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tools/columns/embedding/column
 
 
-GRANT UPDATE ON agentic_db_app_public.workflows TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".workflows TO authenticated;
 

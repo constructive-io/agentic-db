@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/processes/columns/logs_path/column
 
 
-GRANT INSERT ON agentic_db_app_public.scheduled_jobs TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".scheduled_jobs TO authenticated;
 

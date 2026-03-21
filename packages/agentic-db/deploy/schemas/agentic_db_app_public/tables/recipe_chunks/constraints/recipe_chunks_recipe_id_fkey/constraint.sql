@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/list_chunks/indexes/list_chunks_list_id_idx
 
 
-ALTER TABLE agentic_db_app_public.recipe_chunks 
+ALTER TABLE "agentic_db_app_public".recipe_chunks 
   ADD CONSTRAINT recipe_chunks_recipe_id_fkey 
     FOREIGN KEY(recipe_id) 
-    REFERENCES agentic_db_app_public.recipes (id) 
+    REFERENCES "agentic_db_app_public".recipes (id) 
     ON DELETE CASCADE;
 

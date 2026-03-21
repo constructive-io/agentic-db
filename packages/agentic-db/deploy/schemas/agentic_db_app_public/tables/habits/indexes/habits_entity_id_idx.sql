@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/reminders/columns/embedding/column
 
 
-CREATE INDEX habits_entity_id_idx ON agentic_db_app_public.habits USING BTREE ( entity_id );
+CREATE INDEX habits_entity_id_idx ON "agentic_db_app_public".habits USING BTREE ( entity_id );
 

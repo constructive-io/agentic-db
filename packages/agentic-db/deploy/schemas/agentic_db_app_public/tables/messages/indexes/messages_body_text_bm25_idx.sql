@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trips/indexes/trips_embedding_text_bm25_idx
 
 
-CREATE INDEX messages_body_text_bm25_idx ON agentic_db_app_public.messages USING bm25 ( body_text ) WITH ( text_config = english );
+CREATE INDEX messages_body_text_bm25_idx ON "agentic_db_app_public".messages USING bm25 ( body_text ) WITH ( text_config = english );
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/processes/columns/logs_path/column
 
 
-ALTER TABLE agentic_db_app_public.scheduled_jobs 
+ALTER TABLE "agentic_db_app_public".scheduled_jobs 
   ADD COLUMN id uuid;
 

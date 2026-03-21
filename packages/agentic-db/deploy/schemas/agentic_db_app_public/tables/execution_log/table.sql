@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/sessions/columns/embedding/column
 
 
-CREATE TABLE agentic_db_app_public.execution_log ();
+CREATE TABLE "agentic_db_app_public".execution_log ();
 

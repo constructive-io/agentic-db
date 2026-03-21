@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/workflow_steps/columns/action_config/column
 
 
-CREATE INDEX workflow_steps_action_config_gin_idx ON agentic_db_app_public.workflow_steps USING GIN ( action_config );
+CREATE INDEX workflow_steps_action_config_gin_idx ON "agentic_db_app_public".workflow_steps USING GIN ( action_config );
 

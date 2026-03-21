@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/templates/indexes/templates_is_active_idx
 
 
-CREATE INDEX project_contacts_entity_id_idx ON agentic_db_app_public.project_contacts USING BTREE ( entity_id );
+CREATE INDEX project_contacts_entity_id_idx ON "agentic_db_app_public".project_contacts USING BTREE ( entity_id );
 

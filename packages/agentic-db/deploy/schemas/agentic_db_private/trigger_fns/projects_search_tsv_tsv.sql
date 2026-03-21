@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/tables/milestones/indexes/milestones_status_idx
 
 
-CREATE FUNCTION agentic_db_private.projects_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION "agentic_db_private".projects_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
 
 BEGIN
 NEW.search_tsv = (setweight(to_tsvector('english', COALESCE(NEW.description, '')), 'B') || setweight(to_tsvector('english', COALESCE(NEW.name, '')), 'A'));

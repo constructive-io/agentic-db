@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/event_links/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.event_links 
+ALTER TABLE "agentic_db_app_public".event_links 
   ADD COLUMN updated_at timestamptz;
 

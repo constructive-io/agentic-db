@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/billing_subscriptions/indexes/billing_subscriptions_status_idx
 
 
-CREATE INDEX billing_subscriptions_next_billing_date_idx ON agentic_db_app_public.billing_subscriptions USING BTREE ( next_billing_date );
+CREATE INDEX billing_subscriptions_next_billing_date_idx ON "agentic_db_app_public".billing_subscriptions USING BTREE ( next_billing_date );
 

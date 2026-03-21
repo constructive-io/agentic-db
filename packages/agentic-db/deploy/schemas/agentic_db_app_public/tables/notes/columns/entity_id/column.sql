@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/columns/main_image_id/column
 
 
-ALTER TABLE agentic_db_app_public.notes 
+ALTER TABLE "agentic_db_app_public".notes 
   ADD COLUMN entity_id uuid;
 

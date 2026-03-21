@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/scheduled_jobs/indexes/scheduled_jobs_agent_id_idx
 
 
-CREATE INDEX workflow_steps_workflow_id_idx ON agentic_db_app_public.workflow_steps USING BTREE ( workflow_id );
+CREATE INDEX workflow_steps_workflow_id_idx ON "agentic_db_app_public".workflow_steps USING BTREE ( workflow_id );
 

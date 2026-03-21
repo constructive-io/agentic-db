@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/columns/search_tsv/column
 
 
-CREATE TABLE agentic_db_app_public.milestones ();
+CREATE TABLE "agentic_db_app_public".milestones ();
 

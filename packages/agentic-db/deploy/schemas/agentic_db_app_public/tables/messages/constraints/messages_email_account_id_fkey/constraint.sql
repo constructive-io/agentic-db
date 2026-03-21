@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/trip_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.messages 
+ALTER TABLE "agentic_db_app_public".messages 
   ADD CONSTRAINT messages_email_account_id_fkey 
     FOREIGN KEY(email_account_id) 
-    REFERENCES agentic_db_app_public.email_accounts (id) 
+    REFERENCES "agentic_db_app_public".email_accounts (id) 
     ON DELETE CASCADE;
 

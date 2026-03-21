@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_log/indexes/activity_logs_data_gin_idx
 
 
-CREATE INDEX agents_name_gin_idx ON agentic_db_app_public.agents USING gin ( name gin_trgm_ops );
+CREATE INDEX agents_name_gin_idx ON "agentic_db_app_public".agents USING gin ( name gin_trgm_ops );
 

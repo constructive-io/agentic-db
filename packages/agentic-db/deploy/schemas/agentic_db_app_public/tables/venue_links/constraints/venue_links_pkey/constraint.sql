@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/event_links/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.venue_links 
+ALTER TABLE "agentic_db_app_public".venue_links 
   ADD CONSTRAINT venue_links_pkey PRIMARY KEY (id);
 

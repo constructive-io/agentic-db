@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/table
--- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/start_at/alterations/alt0000004461
+-- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/start_at/alterations/alt0000002475
 
 
-ALTER TABLE agentic_db_app_public.calendar_events 
+ALTER TABLE "agentic_db_app_public".calendar_events 
   ADD COLUMN end_at timestamptz;
 

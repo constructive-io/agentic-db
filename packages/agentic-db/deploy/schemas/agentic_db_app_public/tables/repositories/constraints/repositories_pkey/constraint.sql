@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/triggers/projects_search_tsv_tsv_update_tg
 
 
-ALTER TABLE agentic_db_app_public.repositories 
+ALTER TABLE "agentic_db_app_public".repositories 
   ADD CONSTRAINT repositories_pkey PRIMARY KEY (id);
 

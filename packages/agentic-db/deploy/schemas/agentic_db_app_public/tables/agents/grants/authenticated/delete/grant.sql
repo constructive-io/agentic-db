@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/skill_executions/indexes/skill_executions_started_at_idx
 
 
-GRANT DELETE ON agentic_db_app_public.agents TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".agents TO authenticated;
 

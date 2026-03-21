@@ -28,11 +28,11 @@ INSERT INTO services_public.domains (
   domain,
   subdomain
 ) VALUES
-  ('019d0ffe-4ec3-77a1-bd5b-f333553107d4', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', NULL, '019d0ffe-4ff2-72b5-b8f1-4f6a3365f133', 'localhost', 'public-agentic-db-1774089817347'),
-  ('019d0ffe-4ec4-77de-98ce-da5bce1736f2', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', NULL, '019d0ffe-4ff4-7679-ad54-fb62c1086ceb', 'localhost', 'admin-agentic-db-1774089817347'),
-  ('019d0ffe-4ec4-7cc5-8b16-5450ee76cc2b', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', NULL, '019d0ffe-4ff4-7ff9-b08d-e9ff3f51d6cf', 'localhost', 'private-agentic-db-1774089817347'),
-  ('019d0ffe-4ec5-7082-b0b6-f6c33fe6041f', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', NULL, '019d0ffe-4ff5-7302-b85c-2b116c4794e7', 'localhost', 'auth-agentic-db-1774089817347'),
-  ('019d0ffe-4ec5-7381-8975-b22e15855c36', '019d0ffe-4d6d-7080-bf5e-4af8af979c90', NULL, '019d0ffe-4ff5-7a58-89d1-af6992861560', 'localhost', 'app-public-agentic-db-1774089817347');
+  ('019d11d9-5930-77ef-9c08-ecb74544b06a', '019d11d9-57e6-748d-91f1-8d571d4d7f22', NULL, '019d11d9-5a42-771c-a432-9a8e4f34b64f', 'localhost', 'public-agentic-db-1774120949709'),
+  ('019d11d9-5931-780d-b962-9d05705779fe', '019d11d9-57e6-748d-91f1-8d571d4d7f22', NULL, '019d11d9-5a44-7dcb-8400-cf43a175a45f', 'localhost', 'admin-agentic-db-1774120949709'),
+  ('019d11d9-5931-7bf3-8c1b-0762c8952ca7', '019d11d9-57e6-748d-91f1-8d571d4d7f22', NULL, '019d11d9-5a45-7682-8ab8-bc539f3566ff', 'localhost', 'private-agentic-db-1774120949709'),
+  ('019d11d9-5932-7140-97cd-350a3455abc9', '019d11d9-57e6-748d-91f1-8d571d4d7f22', NULL, '019d11d9-5a45-7a06-addb-948b85961984', 'localhost', 'auth-agentic-db-1774120949709'),
+  ('019d11d9-5932-7631-b810-7e23dc30f5c9', '019d11d9-57e6-748d-91f1-8d571d4d7f22', NULL, '019d11d9-5a46-71b8-8af3-c025f6e35c27', 'localhost', 'app-public-agentic-db-1774120949709');
 
 
 SET session_replication_role TO DEFAULT;

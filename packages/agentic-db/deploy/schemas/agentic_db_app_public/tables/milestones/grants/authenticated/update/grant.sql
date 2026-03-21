@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/columns/search_tsv/column
 
 
-GRANT UPDATE ON agentic_db_app_public.milestones TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".milestones TO authenticated;
 

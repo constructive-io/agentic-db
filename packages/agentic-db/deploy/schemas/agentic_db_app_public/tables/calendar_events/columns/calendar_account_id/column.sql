@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/table
--- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/updated_at/alterations/alt0000004459
+-- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/updated_at/alterations/alt0000002473
 
 
-ALTER TABLE agentic_db_app_public.calendar_events 
+ALTER TABLE "agentic_db_app_public".calendar_events 
   ADD COLUMN calendar_account_id uuid;
 

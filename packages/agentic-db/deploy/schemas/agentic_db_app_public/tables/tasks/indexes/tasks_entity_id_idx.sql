@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/triggers/venues_search_tsv_tsv_update_tg
 
 
-CREATE INDEX tasks_entity_id_idx ON agentic_db_app_public.tasks USING BTREE ( entity_id );
+CREATE INDEX tasks_entity_id_idx ON "agentic_db_app_public".tasks USING BTREE ( entity_id );
 

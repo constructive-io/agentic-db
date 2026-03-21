@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agents/indexes/agents_last_active_at_idx
 
 
-CREATE INDEX sessions_status_idx ON agentic_db_app_public.sessions USING BTREE ( status );
+CREATE INDEX sessions_status_idx ON "agentic_db_app_public".sessions USING BTREE ( status );
 

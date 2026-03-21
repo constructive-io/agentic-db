@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/deal_chunks/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.event_chunks 
+ALTER TABLE "agentic_db_app_public".event_chunks 
   ADD CONSTRAINT event_chunks_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

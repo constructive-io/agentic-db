@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/prompts/columns/type/column
 
 
-ALTER TABLE agentic_db_app_public.prompts 
+ALTER TABLE "agentic_db_app_public".prompts 
   ADD COLUMN model text;
 

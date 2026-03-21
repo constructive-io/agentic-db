@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contacts/indexes/contacts_twitter_handle_idx
 
 
-CREATE INDEX contacts_github_username_idx ON agentic_db_app_public.contacts USING BTREE ( github_username );
+CREATE INDEX contacts_github_username_idx ON "agentic_db_app_public".contacts USING BTREE ( github_username );
 

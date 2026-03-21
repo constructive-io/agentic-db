@@ -1,0 +1,12 @@
+-- Deploy: schemas/agentic_db_app_public/tables/trip_chunks/columns/trip_id/alterations/alt0000002594
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/trip_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/trip_chunks/columns/trip_id/column
+-- requires: schemas/agentic_db_app_public/tables/document_chunks/indexes/document_chunks_document_id_idx
+
+
+ALTER TABLE "agentic_db_app_public".trip_chunks 
+  ALTER COLUMN trip_id SET NOT NULL;
+

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/messages/columns/embedding/column
 
 
-ALTER TABLE agentic_db_app_public.calendar_accounts 
+ALTER TABLE "agentic_db_app_public".calendar_accounts 
   ENABLE ROW LEVEL SECURITY;
 

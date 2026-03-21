@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/files/columns/repository_id/column
 
 
-ALTER TABLE agentic_db_app_public.files 
+ALTER TABLE "agentic_db_app_public".files 
   ADD COLUMN path text;
 

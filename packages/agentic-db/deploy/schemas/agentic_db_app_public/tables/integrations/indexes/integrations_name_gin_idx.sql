@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/billing_subscriptions/indexes/billing_subscriptions_name_gin_idx
 
 
-CREATE INDEX integrations_name_gin_idx ON agentic_db_app_public.integrations USING gin ( name gin_trgm_ops );
+CREATE INDEX integrations_name_gin_idx ON "agentic_db_app_public".integrations USING gin ( name gin_trgm_ops );
 

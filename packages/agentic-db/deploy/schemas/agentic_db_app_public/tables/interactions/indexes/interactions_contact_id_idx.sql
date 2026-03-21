@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/venue_images/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX interactions_contact_id_idx ON agentic_db_app_public.interactions USING BTREE ( contact_id );
+CREATE INDEX interactions_contact_id_idx ON "agentic_db_app_public".interactions USING BTREE ( contact_id );
 

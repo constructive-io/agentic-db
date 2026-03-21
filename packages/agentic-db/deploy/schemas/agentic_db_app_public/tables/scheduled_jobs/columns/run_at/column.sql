@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/scheduled_jobs/columns/schedule_expr/column
 
 
-ALTER TABLE agentic_db_app_public.scheduled_jobs 
+ALTER TABLE "agentic_db_app_public".scheduled_jobs 
   ADD COLUMN run_at timestamptz;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/interactions/indexes/interactions_embedding_hnsw_idx
 
 
-CREATE INDEX interactions_embedding_text_bm25_idx ON agentic_db_app_public.interactions USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX interactions_embedding_text_bm25_idx ON "agentic_db_app_public".interactions USING bm25 ( embedding_text ) WITH ( text_config = english );
 

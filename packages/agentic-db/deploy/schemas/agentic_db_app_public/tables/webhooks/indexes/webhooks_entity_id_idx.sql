@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/integrations/columns/last_synced_at/column
 
 
-CREATE INDEX webhooks_entity_id_idx ON agentic_db_app_public.webhooks USING BTREE ( entity_id );
+CREATE INDEX webhooks_entity_id_idx ON "agentic_db_app_public".webhooks USING BTREE ( entity_id );
 

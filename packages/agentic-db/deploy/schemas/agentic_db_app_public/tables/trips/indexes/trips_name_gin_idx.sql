@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/integrations/indexes/integrations_name_gin_idx
 
 
-CREATE INDEX trips_name_gin_idx ON agentic_db_app_public.trips USING gin ( name gin_trgm_ops );
+CREATE INDEX trips_name_gin_idx ON "agentic_db_app_public".trips USING gin ( name gin_trgm_ops );
 

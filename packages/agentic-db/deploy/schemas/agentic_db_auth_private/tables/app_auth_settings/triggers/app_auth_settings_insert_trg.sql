@@ -6,7 +6,7 @@
 
 
 CREATE TRIGGER app_auth_settings_insert_trg
-AFTER INSERT ON agentic_db_auth_private.app_auth_settings
+AFTER INSERT ON "agentic_db_auth_private".app_auth_settings
 FOR EACH ROW
 EXECUTE PROCEDURE utils.ensure_singleton ( );
 

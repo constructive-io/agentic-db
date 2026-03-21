@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/goal_chunks/indexes/goal_chunks_goal_id_idx
 
 
-ALTER TABLE agentic_db_app_public.prompt_chunks 
+ALTER TABLE "agentic_db_app_public".prompt_chunks 
   ADD CONSTRAINT prompt_chunks_prompt_id_fkey 
     FOREIGN KEY(prompt_id) 
-    REFERENCES agentic_db_app_public.prompts (id) 
+    REFERENCES "agentic_db_app_public".prompts (id) 
     ON DELETE CASCADE;
 

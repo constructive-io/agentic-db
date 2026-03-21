@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/scheduled_jobs/columns/entity_id/column
 
 
-CREATE INDEX scheduled_jobs_entity_id_idx ON agentic_db_app_public.scheduled_jobs USING BTREE ( entity_id );
+CREATE INDEX scheduled_jobs_entity_id_idx ON "agentic_db_app_public".scheduled_jobs USING BTREE ( entity_id );
 

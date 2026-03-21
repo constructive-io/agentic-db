@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/repository_chunks/columns/entity_id/column
 
 
-CREATE INDEX repository_chunks_entity_id_idx ON agentic_db_app_public.repository_chunks USING BTREE ( entity_id );
+CREATE INDEX repository_chunks_entity_id_idx ON "agentic_db_app_public".repository_chunks USING BTREE ( entity_id );
 

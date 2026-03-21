@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/venue_chunks/columns/embedding/column
 
 
-GRANT UPDATE ON agentic_db_app_public.note_chunks TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".note_chunks TO authenticated;
 

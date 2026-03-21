@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/user_settings/columns/category/column
 
 
-GRANT SELECT ON agentic_db_app_public.billing_subscriptions TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".billing_subscriptions TO authenticated;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/billing_subscriptions/columns/amount/column
 
 
-ALTER TABLE agentic_db_app_public.billing_subscriptions 
+ALTER TABLE "agentic_db_app_public".billing_subscriptions 
   ADD COLUMN currency text;
 

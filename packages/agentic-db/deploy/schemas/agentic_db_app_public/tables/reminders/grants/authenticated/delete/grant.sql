@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/ideas/columns/embedding/column
 
 
-GRANT DELETE ON agentic_db_app_public.reminders TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".reminders TO authenticated;
 

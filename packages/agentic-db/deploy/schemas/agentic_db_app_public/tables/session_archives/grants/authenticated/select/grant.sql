@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_spawns/columns/completed_at/column
 
 
-GRANT SELECT ON agentic_db_app_public.session_archives TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".session_archives TO authenticated;
 

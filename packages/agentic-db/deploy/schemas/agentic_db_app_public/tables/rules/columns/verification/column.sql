@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/rules/columns/slug/column
 
 
-ALTER TABLE agentic_db_app_public.rules 
+ALTER TABLE "agentic_db_app_public".rules 
   ADD COLUMN verification text;
 

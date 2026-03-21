@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/webhooks/indexes/webhooks_integration_id_idx
 
 
-ALTER TABLE agentic_db_app_public.message_chunks 
+ALTER TABLE "agentic_db_app_public".message_chunks 
   ADD COLUMN message_id uuid;
 

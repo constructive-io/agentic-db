@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/integrations/columns/last_synced_at/column
 
 
-GRANT DELETE ON agentic_db_app_public.webhooks TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".webhooks TO authenticated;
 

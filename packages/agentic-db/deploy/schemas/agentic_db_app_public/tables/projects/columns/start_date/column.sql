@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/projects/table
--- requires: schemas/agentic_db_app_public/tables/projects/columns/status/alterations/alt0000004366
+-- requires: schemas/agentic_db_app_public/tables/projects/columns/status/alterations/alt0000002380
 
 
-ALTER TABLE agentic_db_app_public.projects 
+ALTER TABLE "agentic_db_app_public".projects 
   ADD COLUMN start_date timestamptz;
 

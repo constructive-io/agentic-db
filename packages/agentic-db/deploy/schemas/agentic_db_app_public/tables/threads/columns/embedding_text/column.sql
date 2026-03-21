@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/threads/columns/parent_thread_id/column
 
 
-ALTER TABLE agentic_db_app_public.threads 
+ALTER TABLE "agentic_db_app_public".threads 
   ADD COLUMN embedding_text text;
 

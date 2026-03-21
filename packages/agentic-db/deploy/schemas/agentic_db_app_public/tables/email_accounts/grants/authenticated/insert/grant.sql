@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/files/indexes/files_language_idx
 
 
-GRANT INSERT ON agentic_db_app_public.email_accounts TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".email_accounts TO authenticated;
 

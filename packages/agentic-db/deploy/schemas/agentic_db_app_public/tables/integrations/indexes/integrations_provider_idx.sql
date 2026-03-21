@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/documents/indexes/documents_last_accessed_at_idx
 
 
-CREATE INDEX integrations_provider_idx ON agentic_db_app_public.integrations USING BTREE ( provider );
+CREATE INDEX integrations_provider_idx ON "agentic_db_app_public".integrations USING BTREE ( provider );
 

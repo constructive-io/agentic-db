@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/workflow_runs/columns/error/column
 
 
-GRANT UPDATE ON agentic_db_app_public.agent_spawns TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".agent_spawns TO authenticated;
 

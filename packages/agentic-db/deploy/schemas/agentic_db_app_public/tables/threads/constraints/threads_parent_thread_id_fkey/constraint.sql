@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_spawns/indexes/agent_spawns_agent_id_idx
 
 
-ALTER TABLE agentic_db_app_public.threads 
+ALTER TABLE "agentic_db_app_public".threads 
   ADD CONSTRAINT threads_parent_thread_id_fkey 
     FOREIGN KEY(parent_thread_id) 
-    REFERENCES agentic_db_app_public.threads (id) 
+    REFERENCES "agentic_db_app_public".threads (id) 
     ON DELETE SET NULL;
 

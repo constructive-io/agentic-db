@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memories/indexes/memories_tags_gin_idx
 
 
-CREATE INDEX skills_tags_gin_idx ON agentic_db_app_public.skills USING GIN ( tags );
+CREATE INDEX skills_tags_gin_idx ON "agentic_db_app_public".skills USING GIN ( tags );
 

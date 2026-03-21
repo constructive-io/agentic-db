@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tools/table
--- requires: schemas/agentic_db_app_public/tables/tools/columns/is_active/alterations/alt0000004186
+-- requires: schemas/agentic_db_app_public/tables/tools/columns/is_active/alterations/alt0000002200
 
 
-ALTER TABLE agentic_db_app_public.tools 
+ALTER TABLE "agentic_db_app_public".tools 
   ADD COLUMN tags citext[];
 

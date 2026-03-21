@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_links/columns/embedding/column
 
 
-CREATE TABLE agentic_db_app_public.company_links ();
+CREATE TABLE "agentic_db_app_public".company_links ();
 

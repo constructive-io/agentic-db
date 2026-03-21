@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/reminders/columns/embedding_text/column
 
 
-ALTER TABLE agentic_db_app_public.reminders 
+ALTER TABLE "agentic_db_app_public".reminders 
   ADD COLUMN embedding vector(768);
 

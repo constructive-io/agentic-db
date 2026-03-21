@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/processes/indexes/processes_agent_id_idx
 
 
-ALTER TABLE agentic_db_app_public.scheduled_jobs 
+ALTER TABLE "agentic_db_app_public".scheduled_jobs 
   ADD CONSTRAINT scheduled_jobs_agent_id_fkey 
     FOREIGN KEY(agent_id) 
-    REFERENCES agentic_db_app_public.agents (id) 
+    REFERENCES "agentic_db_app_public".agents (id) 
     ON DELETE CASCADE;
 

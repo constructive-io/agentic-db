@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memories/indexes/memories_memory_category_idx
 
 
-CREATE INDEX memories_active_count_idx ON agentic_db_app_public.memories USING BTREE ( active_count );
+CREATE INDEX memories_active_count_idx ON "agentic_db_app_public".memories USING BTREE ( active_count );
 

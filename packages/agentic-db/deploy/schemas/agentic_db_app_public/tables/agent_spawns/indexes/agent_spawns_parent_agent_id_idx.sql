@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_log/indexes/activity_logs_occurred_at_idx
 
 
-CREATE INDEX agent_spawns_parent_agent_id_idx ON agentic_db_app_public.agent_spawns USING BTREE ( parent_agent_id );
+CREATE INDEX agent_spawns_parent_agent_id_idx ON "agentic_db_app_public".agent_spawns USING BTREE ( parent_agent_id );
 

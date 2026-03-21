@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/files/indexes/files_language_idx
 
 
-CREATE TABLE agentic_db_app_public.email_accounts ();
+CREATE TABLE "agentic_db_app_public".email_accounts ();
 
