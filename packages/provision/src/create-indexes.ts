@@ -464,7 +464,7 @@ const TSV_CONFIGS: TsvConfig[] = [
     tsvColumn: 'search_tsv',
     sources: [
       { field: 'name', weight: 'A' },
-      { field: 'notes', weight: 'B' },
+      { field: 'notes_text', weight: 'B' },
       { field: 'location', weight: 'C' },
     ],
   },
