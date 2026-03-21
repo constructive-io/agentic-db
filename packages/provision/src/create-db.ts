@@ -25,7 +25,10 @@ async function main() {
 
   // --- Step 1: Sign up ---
 
-  const authAdapter = new NodeHttpAdapter(config.authEndpoint);
+  const authAdapter = new NodeHttpAdapter(config.authEndpoint, {
+    'X-Meta-Schema': 'true',
+    'X-Schemata': 'constructive_auth_public',
+  });
   const authClient = auth.createClient({ adapter: authAdapter });
 
   const signUpResult = await authClient.mutation

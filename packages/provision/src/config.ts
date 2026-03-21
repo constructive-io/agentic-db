@@ -2,8 +2,8 @@
  * config.ts — Centralized configuration for Agent OS provisioning
  *
  * Endpoints:
- *   api.localhost    → Platform API (Constructive SDK: schema builder)
- *   auth.localhost   → Auth API (sign up, sign in)
+ *   localhost:3000   → Constructive GraphQL Server (header-routed)
+ *     X-Meta-Schema: true  → meta-schema access (auth, platform API)
  *   app-public-*     → Generated app API (data CRUD, RAG — not used here)
  */
 
@@ -11,10 +11,10 @@ import 'dotenv/config';
 
 export const config = {
   /** Platform API endpoint — schema builder (secureTableProvision, field, relation, index) */
-  apiEndpoint: process.env.API_ENDPOINT || 'http://api.localhost:3000/graphql',
+  apiEndpoint: process.env.API_ENDPOINT || 'http://localhost:3000/graphql',
 
   /** Auth API endpoint — sign up / sign in */
-  authEndpoint: process.env.AUTH_ENDPOINT || 'http://auth.localhost:3000/graphql',
+  authEndpoint: process.env.AUTH_ENDPOINT || 'http://localhost:3000/graphql',
 
   /** Database name (set by create-db, read by provision) */
   databaseName: process.env.DATABASE_NAME || 'agentic-db',
