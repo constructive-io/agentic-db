@@ -14,6 +14,12 @@ import {
   f,
   req,
   EMBEDDING_FIELDS,
+  // Index helpers
+  embeddingIndexes,
+  chunkIndexes,
+  btreeIndex,
+  ginIndex,
+  trgmIndex,
 } from '../blueprint';
 
 // ---------------------------------------------------------------------------
@@ -126,6 +132,61 @@ const definition: BlueprintDefinition = {
     hasManyChunks('lists'),
     hasManyChunks('recipes'),
     hasManyChunks('templates'),
+  ],
+
+  // -- Phase 3: Indexes -----------------------------------------------------
+  indexes: [
+    // Embedding indexes (HNSW + BM25)
+    ...embeddingIndexes('ideas'),
+    ...embeddingIndexes('reminders'),
+    ...embeddingIndexes('lists'),
+    ...embeddingIndexes('recipes'),
+    ...embeddingIndexes('templates'),
+
+    // Chunk table indexes
+    ...chunkIndexes('ideas'),
+    ...chunkIndexes('reminders'),
+    ...chunkIndexes('lists'),
+    ...chunkIndexes('recipes'),
+    ...chunkIndexes('templates'),
+
+    // GIN on tags
+    ginIndex('ideas', 'tags'),
+    ginIndex('habits', 'tags'),
+    ginIndex('habit_logs', 'tags'),
+    ginIndex('lists', 'tags'),
+    ginIndex('recipes', 'tags'),
+    ginIndex('templates', 'tags'),
+
+    // GIN on JSONB
+    ginIndex('habit_logs', 'data'),
+    ginIndex('recipes', 'ingredients'),
+
+    // Trigram indexes
+    trgmIndex('ideas', 'content'),
+    trgmIndex('reminders', 'title'),
+    trgmIndex('habits', 'name'),
+    trgmIndex('lists', 'name'),
+    trgmIndex('recipes', 'name'),
+    trgmIndex('templates', 'name'),
+
+    // B-tree indexes
+    btreeIndex('ideas', 'status'),
+    btreeIndex('ideas', 'source'),
+    btreeIndex('reminders', 'due_at'),
+    btreeIndex('reminders', 'status'),
+    btreeIndex('habits', 'frequency'),
+    btreeIndex('habits', 'category'),
+    btreeIndex('habit_logs', 'habit_id'),
+    btreeIndex('habit_logs', 'completed_at'),
+    btreeIndex('habit_logs', 'activity_type'),
+    btreeIndex('habit_logs', 'duration_minutes'),
+    btreeIndex('habit_logs', 'distance'),
+    btreeIndex('habit_logs', 'calories'),
+    btreeIndex('recipes', 'cuisine'),
+    btreeIndex('recipes', 'difficulty'),
+    btreeIndex('templates', 'type'),
+    btreeIndex('templates', 'is_active'),
   ],
 };
 

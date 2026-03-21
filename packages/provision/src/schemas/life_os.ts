@@ -16,6 +16,15 @@ import {
   f,
   req,
   EMBEDDING_FIELDS,
+  // Index helpers
+  embeddingIndexes,
+  chunkIndexes,
+  bm25Index,
+  btreeIndex,
+  ginIndex,
+  trgmIndex,
+  gistGeoIndex,
+  type FullTextSearchDef,
 } from '../blueprint';
 
 // ---------------------------------------------------------------------------
@@ -175,6 +184,89 @@ const definition: BlueprintDefinition = {
     hasManyChunks('calendar_events'),
     hasManyChunks('documents'),
     hasManyChunks('trips'),
+  ],
+
+  // -- Phase 3: Indexes -----------------------------------------------------
+  indexes: [
+    // Embedding indexes (HNSW + BM25)
+    ...embeddingIndexes('messages'),
+    ...embeddingIndexes('calendar_events'),
+    ...embeddingIndexes('documents'),
+    ...embeddingIndexes('trips'),
+
+    // Extra BM25 on long-form content
+    bm25Index('messages', 'body_text'),
+    bm25Index('documents', 'content'),
+
+    // Chunk table indexes
+    ...chunkIndexes('messages'),
+    ...chunkIndexes('calendar_events'),
+    ...chunkIndexes('documents'),
+    ...chunkIndexes('trips'),
+
+    // GIN on tags + tsvector
+    ginIndex('messages', 'tags'),
+    ginIndex('calendar_events', 'tags'),
+    ginIndex('expenses', 'tags'),
+    ginIndex('documents', 'tags'),
+    ginIndex('billing_subscriptions', 'tags'),
+    ginIndex('documents', 'search_tsv'),
+
+    // GIN on JSONB
+    ginIndex('user_settings', 'value'),
+    ginIndex('integrations', 'config'),
+
+    // Trigram
+    trgmIndex('calendar_events', 'title'),
+    trgmIndex('documents', 'title'),
+    trgmIndex('billing_subscriptions', 'name'),
+    trgmIndex('integrations', 'name'),
+    trgmIndex('trips', 'name'),
+
+    // B-tree indexes
+    btreeIndex('email_accounts', 'email'),
+    btreeIndex('messages', 'received_at'),
+    btreeIndex('messages', 'thread_id'),
+    btreeIndex('messages', 'email_account_id'),
+    btreeIndex('calendar_accounts', 'email'),
+    btreeIndex('calendar_events', 'start_at'),
+    btreeIndex('calendar_events', 'end_at'),
+    btreeIndex('calendar_events', 'calendar_account_id'),
+    btreeIndex('calendar_events', 'status'),
+    btreeIndex('expenses', 'date'),
+    btreeIndex('expenses', 'category'),
+    btreeIndex('expenses', 'merchant'),
+    btreeIndex('documents', 'source_type'),
+    btreeIndex('documents', 'is_read'),
+    btreeIndex('documents', 'active_count'),
+    btreeIndex('documents', 'last_accessed_at'),
+    btreeIndex('integrations', 'provider'),
+    btreeIndex('integrations', 'status'),
+    btreeIndex('webhooks', 'integration_id'),
+    btreeIndex('webhooks', 'event_type'),
+    btreeIndex('user_settings', 'key'),
+    btreeIndex('user_settings', 'category'),
+    btreeIndex('billing_subscriptions', 'status'),
+    btreeIndex('billing_subscriptions', 'next_billing_date'),
+    btreeIndex('trips', 'start_date'),
+    btreeIndex('trips', 'end_date'),
+    btreeIndex('trips', 'status'),
+
+    // GIST for geography columns
+    gistGeoIndex('calendar_events', 'location_geo'),
+    gistGeoIndex('trips', 'destination_geo'),
+  ],
+
+  // -- Phase 4: Full-text search configurations -----------------------------
+  full_text_searches: [
+    {
+      table_ref: 'documents',
+      field_name: 'search_tsv',
+      sources: [
+        { field: 'title', weight: 'A' },
+        { field: 'content', weight: 'B' },
+      ],
+    },
   ],
 };
 

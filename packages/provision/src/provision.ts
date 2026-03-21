@@ -72,7 +72,6 @@ async function main() {
     ['Life OS',          './schemas/life_os'],
     ['Autonomy',         './schemas/autonomy'],
     ['Cross-Relations',  './schemas/cross-relations'],
-    ['Indexes',          './create-indexes'],
   ];
 
   for (const [label, mod] of schemas) {

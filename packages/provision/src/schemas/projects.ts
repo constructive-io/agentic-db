@@ -16,6 +16,12 @@ import {
   f,
   req,
   EMBEDDING_FIELDS,
+  // Index helpers
+  embeddingIndexes,
+  chunkIndexes,
+  btreeIndex,
+  ginIndex,
+  trgmIndex,
 } from '../blueprint';
 
 // ---------------------------------------------------------------------------
@@ -54,6 +60,42 @@ const definition: BlueprintDefinition = {
 
     // projects -> project_chunks (HasMany, CASCADE delete)
     hasManyChunks('projects'),
+  ],
+
+  // -- Phase 3: Indexes -----------------------------------------------------
+  indexes: [
+    // Embedding indexes (HNSW + BM25)
+    ...embeddingIndexes('projects'),
+
+    // Chunk table indexes
+    ...chunkIndexes('projects'),
+
+    // GIN on tags + tsvector
+    ginIndex('projects', 'tags'),
+    ginIndex('projects', 'search_tsv'),
+
+    // Trigram for fuzzy matching
+    trgmIndex('projects', 'name'),
+
+    // B-tree indexes
+    btreeIndex('projects', 'status'),
+    btreeIndex('projects', 'start_date'),
+    btreeIndex('projects', 'due_date'),
+    btreeIndex('milestones', 'project_id'),
+    btreeIndex('milestones', 'due_date'),
+    btreeIndex('milestones', 'status'),
+  ],
+
+  // -- Phase 4: Full-text search configurations -----------------------------
+  full_text_searches: [
+    {
+      table_ref: 'projects',
+      field_name: 'search_tsv',
+      sources: [
+        { field: 'name', weight: 'A' },
+        { field: 'description', weight: 'B' },
+      ],
+    },
   ],
 };
 

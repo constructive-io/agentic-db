@@ -17,6 +17,16 @@ import {
   req,
   EMBEDDING_FIELDS,
   M2M_JUNCTION_OPTS,
+  // Index helpers
+  embeddingIndexes,
+  chunkIndexes,
+  hnswIndex,
+  bm25Index,
+  btreeIndex,
+  ginIndex,
+  trgmIndex,
+  gistGeoIndex,
+  type FullTextSearchDef,
 } from '../blueprint';
 
 // ---------------------------------------------------------------------------
@@ -214,6 +224,119 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationManyToMany', source_ref: 'companies', target_ref: 'events',    junction_table_name: 'company_events',    source_field_name: 'company_id', target_field_name: 'event_id',   is_required: false, data: M2M_JUNCTION_OPTS },
     { $type: 'RelationManyToMany', source_ref: 'events',    target_ref: 'venues',    junction_table_name: 'event_venues',      source_field_name: 'event_id',   target_field_name: 'venue_id',   is_required: false, data: M2M_JUNCTION_OPTS },
     { $type: 'RelationManyToMany', source_ref: 'deals',     target_ref: 'contacts',  junction_table_name: 'deal_contacts',     source_field_name: 'deal_id',    target_field_name: 'contact_id', is_required: false, data: M2M_JUNCTION_OPTS },
+  ],
+
+  // -- Phase 3: Indexes -----------------------------------------------------
+  indexes: [
+    // Embedding indexes (HNSW + BM25) for all tables with embeddings
+    ...embeddingIndexes('contacts'),
+    ...embeddingIndexes('companies'),
+    ...embeddingIndexes('deals'),
+    ...embeddingIndexes('events'),
+    ...embeddingIndexes('venues'),
+    ...embeddingIndexes('notes'),
+    ...embeddingIndexes('interactions'),
+
+    // Chunk table indexes (HNSW + BM25 + B-tree chunk_index)
+    ...chunkIndexes('contacts'),
+    ...chunkIndexes('companies'),
+    ...chunkIndexes('deals'),
+    ...chunkIndexes('events'),
+    ...chunkIndexes('venues'),
+    ...chunkIndexes('notes'),
+    ...chunkIndexes('interactions'),
+
+    // Extra BM25 on long-form content fields
+    bm25Index('notes', 'content'),
+
+    // GIN on tags columns
+    ginIndex('contacts', 'tags'),
+    ginIndex('companies', 'tags'),
+    ginIndex('deals', 'tags'),
+    ginIndex('events', 'tags'),
+    ginIndex('venues', 'tags'),
+    ginIndex('notes', 'tags'),
+    ginIndex('interactions', 'tags'),
+
+    // GIN on tsvector columns
+    ginIndex('contacts', 'search_tsv'),
+    ginIndex('companies', 'search_tsv'),
+    ginIndex('events', 'search_tsv'),
+    ginIndex('venues', 'search_tsv'),
+
+    // Trigram indexes for fuzzy matching
+    trgmIndex('contacts', 'first_name'),
+    trgmIndex('contacts', 'last_name'),
+    trgmIndex('companies', 'name'),
+    trgmIndex('events', 'name'),
+    trgmIndex('venues', 'name'),
+
+    // B-tree indexes for lookups/sorting
+    btreeIndex('contacts', 'email'),
+    btreeIndex('contacts', 'relationship_type'),
+    btreeIndex('contacts', 'twitter_handle'),
+    btreeIndex('contacts', 'github_username'),
+    btreeIndex('companies', 'domain'),
+    btreeIndex('deals', 'stage'),
+    btreeIndex('deals', 'expected_close_date'),
+    btreeIndex('events', 'started_at'),
+    btreeIndex('events', 'event_type'),
+    btreeIndex('venues', 'city'),
+    btreeIndex('venues', 'category'),
+    btreeIndex('venues', 'is_favorite'),
+    btreeIndex('venues', 'google_place_id'),
+    btreeIndex('interactions', 'contact_id'),
+    btreeIndex('interactions', 'type'),
+    btreeIndex('interactions', 'occurred_at'),
+    btreeIndex('notes', 'active_count'),
+    btreeIndex('notes', 'last_accessed_at'),
+    btreeIndex('tags', 'name'),
+    btreeIndex('tags', 'category'),
+
+    // GIST for geography columns
+    gistGeoIndex('contacts', 'location_geo'),
+    gistGeoIndex('venues', 'location'),
+  ],
+
+  // -- Phase 4: Full-text search configurations -----------------------------
+  full_text_searches: [
+    {
+      table_ref: 'contacts',
+      field_name: 'search_tsv',
+      sources: [
+        { field: 'first_name', weight: 'A' },
+        { field: 'last_name', weight: 'A' },
+        { field: 'headline', weight: 'B' },
+        { field: 'bio', weight: 'C' },
+      ],
+    },
+    {
+      table_ref: 'companies',
+      field_name: 'search_tsv',
+      sources: [
+        { field: 'name', weight: 'A' },
+        { field: 'description', weight: 'B' },
+        { field: 'industry', weight: 'C' },
+      ],
+    },
+    {
+      table_ref: 'events',
+      field_name: 'search_tsv',
+      sources: [
+        { field: 'name', weight: 'A' },
+        { field: 'notes_text', weight: 'B' },
+        { field: 'location', weight: 'C' },
+      ],
+    },
+    {
+      table_ref: 'venues',
+      field_name: 'search_tsv',
+      sources: [
+        { field: 'name', weight: 'A' },
+        { field: 'notes', weight: 'B' },
+        { field: 'neighborhood', weight: 'C' },
+      ],
+    },
   ],
 };
 

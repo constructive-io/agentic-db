@@ -14,6 +14,14 @@ import {
   f,
   req,
   EMBEDDING_FIELDS,
+  // Index helpers
+  embeddingIndexes,
+  chunkIndexes,
+  hnswIndex,
+  bm25Index,
+  btreeIndex,
+  ginIndex,
+  trgmIndex,
 } from '../blueprint';
 
 // ---------------------------------------------------------------------------
@@ -156,6 +164,81 @@ const definition: BlueprintDefinition = {
 
     // NOTE: memories -> agents FK is created in cross-relations.ts
     // NOTE: tasks -> projects, tasks -> agents cross-module relations are in cross-relations.ts
+  ],
+
+  // -- Phase 3: Indexes -----------------------------------------------------
+  indexes: [
+    // Embedding indexes (HNSW + BM25)
+    ...embeddingIndexes('tasks'),
+    ...embeddingIndexes('rules'),
+    ...embeddingIndexes('memories'),
+    ...embeddingIndexes('skills'),
+    ...embeddingIndexes('goals'),
+    ...embeddingIndexes('prompts'),
+
+    // Extra HNSW on secondary vector columns
+    hnswIndex('rules', 'trigger_concept'),
+    hnswIndex('skills', 'intent_trigger'),
+
+    // Extra BM25 on long-form content
+    bm25Index('prompts', 'content'),
+
+    // Chunk table indexes
+    ...chunkIndexes('tasks'),
+    ...chunkIndexes('rules'),
+    ...chunkIndexes('memories'),
+    ...chunkIndexes('skills'),
+    ...chunkIndexes('goals'),
+    ...chunkIndexes('prompts'),
+
+    // GIN on tags
+    ginIndex('tasks', 'tags'),
+    ginIndex('rules', 'tags'),
+    ginIndex('memories', 'tags'),
+    ginIndex('skills', 'tags'),
+    ginIndex('goals', 'tags'),
+    ginIndex('prompts', 'tags'),
+
+    // Trigram indexes for fuzzy matching
+    trgmIndex('tasks', 'title'),
+    trgmIndex('skills', 'name'),
+    trgmIndex('goals', 'title'),
+    trgmIndex('prompts', 'name'),
+
+    // B-tree indexes
+    btreeIndex('tasks', 'status'),
+    btreeIndex('tasks', 'priority'),
+    btreeIndex('tasks', 'project_id'),
+    btreeIndex('tasks', 'assigned_agent_id'),
+    btreeIndex('tasks', 'due_date'),
+    btreeIndex('tasks', 'task_type'),
+    btreeIndex('rules', 'kind'),
+    btreeIndex('rules', 'is_active'),
+    btreeIndex('memories', 'importance'),
+    btreeIndex('memories', 'verified'),
+    btreeIndex('memories', 'memory_category'),
+    btreeIndex('memories', 'active_count'),
+    btreeIndex('memories', 'last_accessed_at'),
+    btreeIndex('memories', 'memory_type'),
+    btreeIndex('memories', 'agent_id'),
+    btreeIndex('skills', 'is_active'),
+    btreeIndex('skills', 'active_count'),
+    btreeIndex('skills', 'last_accessed_at'),
+    btreeIndex('skills', 'category'),
+    btreeIndex('goals', 'status'),
+    btreeIndex('goals', 'category'),
+    btreeIndex('goals', 'target_date'),
+    btreeIndex('prompts', 'type'),
+    btreeIndex('prompts', 'is_active'),
+
+    // Skill executions
+    ginIndex('skill_executions', 'input'),
+    ginIndex('skill_executions', 'output'),
+    btreeIndex('skill_executions', 'skill_id'),
+    btreeIndex('skill_executions', 'agent_id'),
+    btreeIndex('skill_executions', 'session_id'),
+    btreeIndex('skill_executions', 'status'),
+    btreeIndex('skill_executions', 'started_at'),
   ],
 };
 

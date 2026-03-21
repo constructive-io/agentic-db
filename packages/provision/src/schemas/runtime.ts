@@ -20,6 +20,13 @@ import {
   req,
   EMBEDDING_FIELDS,
   M2M_JUNCTION_OPTS,
+  // Index helpers
+  embeddingIndexes,
+  chunkIndexes,
+  bm25Index,
+  btreeIndex,
+  ginIndex,
+  trgmIndex,
 } from '../blueprint';
 
 // ---------------------------------------------------------------------------
@@ -265,6 +272,88 @@ const definition: BlueprintDefinition = {
     hasManyChunks('tools'),
     hasManyChunks('session_archives'),
     hasManyChunks('activity_log'),
+  ],
+
+  // -- Phase 3: Indexes -----------------------------------------------------
+  indexes: [
+    // Embedding indexes (HNSW + BM25)
+    ...embeddingIndexes('agents'),
+    ...embeddingIndexes('sessions'),
+    ...embeddingIndexes('chats'),
+    ...embeddingIndexes('chat_messages'),
+    ...embeddingIndexes('threads'),
+    ...embeddingIndexes('blueprints'),
+    ...embeddingIndexes('tools'),
+    ...embeddingIndexes('session_archives'),
+    ...embeddingIndexes('activity_log'),
+
+    // Extra BM25 on long-form content
+    bm25Index('chat_messages', 'content'),
+    bm25Index('activity_log', 'description'),
+
+    // Chunk table indexes
+    ...chunkIndexes('agents'),
+    ...chunkIndexes('sessions'),
+    ...chunkIndexes('chats'),
+    ...chunkIndexes('chat_messages'),
+    ...chunkIndexes('threads'),
+    ...chunkIndexes('blueprints'),
+    ...chunkIndexes('tools'),
+    ...chunkIndexes('session_archives'),
+    ...chunkIndexes('activity_log'),
+
+    // GIN on tags
+    ginIndex('blueprints', 'tags'),
+    ginIndex('tools', 'tags'),
+    ginIndex('activity_log', 'tags'),
+
+    // GIN on JSONB
+    ginIndex('tools', 'input_schema'),
+    ginIndex('workflow_steps', 'action_config'),
+    ginIndex('activity_log', 'data'),
+
+    // Trigram indexes
+    trgmIndex('agents', 'name'),
+    trgmIndex('blueprints', 'title'),
+    trgmIndex('tools', 'name'),
+
+    // B-tree indexes
+    btreeIndex('agents', 'status'),
+    btreeIndex('agents', 'preferred_model'),
+    btreeIndex('agents', 'last_active_at'),
+    btreeIndex('sessions', 'status'),
+    btreeIndex('sessions', 'started_at'),
+    btreeIndex('sessions', 'agent_id'),
+    btreeIndex('sessions', 'archived_at'),
+    btreeIndex('sessions', 'compression_count'),
+    btreeIndex('execution_log', 'session_id'),
+    btreeIndex('chats', 'started_at'),
+    btreeIndex('chat_messages', 'chat_id'),
+    btreeIndex('chat_messages', 'thread_id'),
+    btreeIndex('chat_messages', 'role'),
+    btreeIndex('threads', 'status'),
+    btreeIndex('threads', 'parent_thread_id'),
+    btreeIndex('processes', 'agent_id'),
+    btreeIndex('processes', 'status'),
+    btreeIndex('scheduled_jobs', 'is_active'),
+    btreeIndex('scheduled_jobs', 'next_run_at'),
+    btreeIndex('scheduled_jobs', 'schedule_type'),
+    btreeIndex('scheduled_jobs', 'agent_id'),
+    btreeIndex('tools', 'type'),
+    btreeIndex('tools', 'is_active'),
+    btreeIndex('workflows', 'is_active'),
+    btreeIndex('workflow_steps', 'workflow_id'),
+    btreeIndex('workflow_steps', 'step_order'),
+    btreeIndex('workflow_runs', 'workflow_id'),
+    btreeIndex('workflow_runs', 'status'),
+    btreeIndex('workflow_runs', 'started_at'),
+    btreeIndex('activity_log', 'activity_type'),
+    btreeIndex('activity_log', 'occurred_at'),
+    btreeIndex('agent_spawns', 'parent_agent_id'),
+    btreeIndex('agent_spawns', 'status'),
+    btreeIndex('session_archives', 'session_id'),
+
+    // NOTE: agent_tools junction table indexes are auto-created by M:N relation
   ],
 };
 

@@ -14,6 +14,12 @@ import {
   f,
   req,
   EMBEDDING_FIELDS,
+  // Index helpers
+  embeddingIndexes,
+  chunkIndexes,
+  btreeIndex,
+  ginIndex,
+  trgmIndex,
 } from '../blueprint';
 
 // ---------------------------------------------------------------------------
@@ -64,6 +70,30 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'repositories', target_ref: 'chunks', delete_action: 'c' },
     // repos -> repository_chunks (HasMany, CASCADE delete)
     hasManyChunks('repositories'),
+  ],
+
+  // -- Phase 3: Indexes -----------------------------------------------------
+  indexes: [
+    // Embedding indexes (HNSW + BM25)
+    ...embeddingIndexes('repositories'),
+    ...embeddingIndexes('chunks'),
+
+    // Chunk table indexes
+    ...chunkIndexes('repositories'),
+
+    // GIN on tags
+    ginIndex('repositories', 'tags'),
+
+    // Trigram
+    trgmIndex('repositories', 'name'),
+
+    // B-tree indexes
+    btreeIndex('repositories', 'last_synced_at'),
+    btreeIndex('files', 'repository_id'),
+    btreeIndex('files', 'path'),
+    btreeIndex('files', 'language'),
+    btreeIndex('chunks', 'file_id'),
+    btreeIndex('chunks', 'repository_id'),
   ],
 };
 
