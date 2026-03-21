@@ -171,19 +171,112 @@ export function orgTable(
   };
 }
 
-/** Embedding fields shared by most tables */
-export const EMBEDDING_FIELDS: FieldDef[] = [
-  { name: 'embedding_text', type: 'text' },
-  { name: 'embedding', type: 'vector(768)' },
-];
+// ---------------------------------------------------------------------------
+// Data* node helper functions — build NodeDef entries for common patterns
+// ---------------------------------------------------------------------------
 
-/** Standard chunk table fields */
+/**
+ * Create a DataSearch node that orchestrates embedding + BM25 + optional FTS + optional trigram.
+ * This replaces manual EMBEDDING_FIELDS + embeddingIndexes() + bm25Index() + full_text_searches[].
+ *
+ * DataSearch auto-creates:
+ *   - embedding vector(768) + HNSW index + embedding_stale bool + stale trigger + enqueue trigger
+ *   - BM25 index on embedding_text
+ *   - TSVector field + GIN index + populate trigger (if fts configured)
+ *   - @trgmSearch smart tags on specified fields
+ *   - @searchConfig smart tag with unified weights
+ */
+export function dataSearch(opts: {
+  /** Source fields that feed the embedding (for stale tracking) */
+  embedding_source_fields?: string[];
+  /** BM25 field name (default: 'embedding_text') */
+  bm25_field?: string;
+  /** Full-text search config (omit to skip FTS) */
+  fts?: {
+    field_name?: string;
+    source_fields: { field: string; weight: string; lang?: string }[];
+  };
+  /** Field names for trigram fuzzy matching */
+  trgm_fields?: string[];
+}): NodeDef {
+  const data: Record<string, unknown> = {};
+
+  // Embedding config
+  const embeddingConfig: Record<string, unknown> = {};
+  if (opts.embedding_source_fields) {
+    embeddingConfig.source_fields = opts.embedding_source_fields;
+  }
+  data.embedding = embeddingConfig;
+
+  // BM25 config
+  data.bm25 = { field_name: opts.bm25_field ?? 'embedding_text' };
+
+  // FTS config
+  if (opts.fts) {
+    data.full_text_search = {
+      field_name: opts.fts.field_name ?? 'search_tsv',
+      source_fields: opts.fts.source_fields,
+    };
+  }
+
+  // Trigram fields
+  if (opts.trgm_fields && opts.trgm_fields.length > 0) {
+    data.trgm_fields = opts.trgm_fields;
+  }
+
+  return { $type: 'DataSearch', data };
+}
+
+/**
+ * Create a DataPostGIS node for geography/geometry columns.
+ * Replaces manual f('field', 'geography(Point,4326)') + gistGeoIndex().
+ */
+export function dataPostGIS(opts: {
+  field_name: string;
+  use_geography?: boolean;
+  geometry_type?: string;
+  srid?: number;
+}): NodeDef {
+  return {
+    $type: 'DataPostGIS',
+    data: {
+      field_name: opts.field_name,
+      use_geography: opts.use_geography ?? true,
+      geometry_type: opts.geometry_type ?? 'Point',
+      srid: opts.srid ?? 4326,
+    },
+  };
+}
+
+/**
+ * Create a DataEmbedding node for standalone vector columns (secondary embeddings).
+ * Use for extra vector columns like trigger_concept, intent_trigger on rules/skills.
+ */
+export function dataEmbedding(opts: {
+  field_name: string;
+  source_fields?: string[];
+  enqueue_job?: boolean;
+}): NodeDef {
+  return {
+    $type: 'DataEmbedding',
+    data: {
+      field_name: opts.field_name,
+      ...(opts.source_fields ? { source_fields: opts.source_fields } : {}),
+      enqueue_job: opts.enqueue_job ?? false,
+    },
+  };
+}
+
+/** Standard chunk table fields (embedding/embedding_text created by DataSearch node) */
 const CHUNK_FIELDS: FieldDef[] = [
   { name: 'chunk_index', type: 'int', is_required: true },
   { name: 'content', type: 'text', is_required: true },
-  { name: 'embedding_text', type: 'text' },
-  { name: 'embedding', type: 'vector(768)' },
 ];
+
+/** DataSearch node for chunk tables (embedding + BM25, no FTS) */
+const CHUNK_DATA_SEARCH: NodeDef = dataSearch({
+  bm25_field: 'embedding_text',
+});
 
 /**
  * Singularize a table name for chunk table derivation.
@@ -204,7 +297,7 @@ function singularize(plural: string): string {
  */
 export function chunkTable(parentRef: string): TableDef {
   const chunkRef = `${singularize(parentRef)}_chunks`;
-  return orgTable(chunkRef, CHUNK_FIELDS);
+  return orgTable(chunkRef, CHUNK_FIELDS, { data_nodes: [CHUNK_DATA_SEARCH] });
 }
 
 /**
@@ -301,28 +394,6 @@ export function gistGeoIndex(table_ref: string, column: string): IndexDef {
   return { table_ref, column, access_method: 'gist' };
 }
 
-/**
- * Generate standard embedding indexes for a table (HNSW + BM25).
- * Call for every table that has embedding + embedding_text fields.
- */
-export function embeddingIndexes(table_ref: string): IndexDef[] {
-  return [
-    hnswIndex(table_ref),
-    bm25Index(table_ref),
-  ];
-}
-
-/**
- * Generate standard chunk table indexes (HNSW + BM25 + B-tree on chunk_index).
- */
-export function chunkIndexes(parentRef: string): IndexDef[] {
-  const ref = `${singularize(parentRef)}_chunks`;
-  return [
-    hnswIndex(ref),
-    bm25Index(ref),
-    btreeIndex(ref, 'chunk_index'),
-  ];
-}
 
 // ---------------------------------------------------------------------------
 // Provision engine — processes a BlueprintDefinition via the SDK
