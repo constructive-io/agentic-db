@@ -26,7 +26,7 @@
     "export:all": "pnpm run export:pgpm && pnpm run generate:all"
   },
   "devDependencies": {
-    "@constructive-io/graphql-codegen": "4.20.0",
+    "@constructive-io/graphql-codegen": "4.21.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.3",
     "@typescript-eslint/eslint-plugin": "^8.50.1",
