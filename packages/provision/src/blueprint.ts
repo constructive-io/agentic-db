@@ -138,13 +138,24 @@ const CHUNK_FIELDS: FieldDef[] = [
 ];
 
 /**
+ * Singularize a table name for chunk table derivation.
+ * Handles common English plural patterns:
+ *   companies → company, memories → memory, repositories → repository
+ *   contacts → contact, deals → deal, etc.
+ */
+function singularize(plural: string): string {
+  if (plural.endsWith('ies')) return plural.slice(0, -3) + 'y';
+  if (plural.endsWith('ses') || plural.endsWith('xes') || plural.endsWith('zes')) return plural.slice(0, -2);
+  if (plural.endsWith('s') && !plural.endsWith('ss')) return plural.slice(0, -1);
+  return plural;
+}
+
+/**
  * Create a chunk table definition for a parent table.
  * Convention: parent "contacts" → chunk table "contact_chunks"
  */
 export function chunkTable(parentRef: string): TableDef {
-  // Derive chunk table name: "contacts" → "contact_chunks"
-  const singular = parentRef.replace(/s$/, '');
-  const chunkRef = `${singular}_chunks`;
+  const chunkRef = `${singularize(parentRef)}_chunks`;
   return orgTable(chunkRef, CHUNK_FIELDS);
 }
 
@@ -152,11 +163,10 @@ export function chunkTable(parentRef: string): TableDef {
  * Create a HasMany relation (parent → chunks, CASCADE delete).
  */
 export function hasManyChunks(parentRef: string): RelationDef {
-  const singular = parentRef.replace(/s$/, '');
   return {
     $type: 'RelationHasMany',
     source_ref: parentRef,
-    target_ref: `${singular}_chunks`,
+    target_ref: `${singularize(parentRef)}_chunks`,
     delete_action: 'c',
   };
 }
