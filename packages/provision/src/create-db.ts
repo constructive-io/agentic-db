@@ -55,6 +55,7 @@ async function main() {
   console.log('\n   Provisioning database...');
   const apiAdapter = new NodeHttpAdapter(config.apiEndpoint, {
     Authorization: `Bearer ${accessToken}`,
+    'X-Meta-Schema': 'true',
   });
   const apiClient = public_.createClient({ adapter: apiAdapter });
 

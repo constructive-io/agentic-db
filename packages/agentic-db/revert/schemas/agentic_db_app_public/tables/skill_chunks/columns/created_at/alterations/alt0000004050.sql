@@ -1,0 +1,10 @@
+-- Revert: schemas/agentic_db_app_public/tables/skill_chunks/columns/created_at/alterations/alt0000004050
+
+
+
+
+ALTER TABLE agentic_db_app_public.skill_chunks 
+    ALTER COLUMN created_at DROP DEFAULT;
+
+
+

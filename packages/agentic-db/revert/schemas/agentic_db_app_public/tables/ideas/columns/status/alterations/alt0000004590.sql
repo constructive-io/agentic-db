@@ -1,0 +1,10 @@
+-- Revert: schemas/agentic_db_app_public/tables/ideas/columns/status/alterations/alt0000004590
+
+
+
+
+ALTER TABLE agentic_db_app_public.ideas 
+    ALTER COLUMN status DROP DEFAULT;
+
+
+

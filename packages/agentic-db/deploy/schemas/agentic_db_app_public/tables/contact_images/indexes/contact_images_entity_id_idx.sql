@@ -1,0 +1,11 @@
+-- Deploy: schemas/agentic_db_app_public/tables/contact_images/indexes/contact_images_entity_id_idx
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/contact_images/table
+-- requires: schemas/agentic_db_app_public/tables/contact_images/columns/entity_id/column
+-- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_main_image_id_idx
+
+
+CREATE INDEX contact_images_entity_id_idx ON agentic_db_app_public.contact_images USING BTREE ( entity_id );
+

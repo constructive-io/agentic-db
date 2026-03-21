@@ -1,0 +1,11 @@
+-- Deploy: schemas/agentic_db_app_public/tables/venue_chunks/columns/venue_id/column
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/venue_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/event_chunks/indexes/event_chunks_event_id_idx
+
+
+ALTER TABLE agentic_db_app_public.venue_chunks 
+  ADD COLUMN venue_id uuid;
+

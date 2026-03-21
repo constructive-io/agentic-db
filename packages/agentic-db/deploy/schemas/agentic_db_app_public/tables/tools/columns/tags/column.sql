@@ -1,0 +1,11 @@
+-- Deploy: schemas/agentic_db_app_public/tables/tools/columns/tags/column
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/tools/table
+-- requires: schemas/agentic_db_app_public/tables/tools/columns/is_active/alterations/alt0000004186
+
+
+ALTER TABLE agentic_db_app_public.tools 
+  ADD COLUMN tags citext[];
+

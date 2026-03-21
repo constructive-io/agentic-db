@@ -1,0 +1,11 @@
+-- Deploy: schemas/agentic_db_app_public/tables/contacts/indexes/contacts_location_geo_gist_idx
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/contacts/table
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
+-- requires: schemas/agentic_db_app_public/tables/contacts/columns/location_geo/column
+
+
+CREATE INDEX contacts_location_geo_gist_idx ON agentic_db_app_public.contacts USING GIST ( location_geo );
+
