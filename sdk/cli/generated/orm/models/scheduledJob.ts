@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ScheduledJobModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ScheduledJobSelect>(
-    args: FindManyArgs<S, ScheduledJobFilter, ScheduledJobOrderBy> & {
+    args: FindManyArgs<S, ScheduledJobFilter, never, ScheduledJobOrderBy> & {
       select: S;
     } & StrictSelect<S, ScheduledJobSelect>
   ): QueryBuilder<{

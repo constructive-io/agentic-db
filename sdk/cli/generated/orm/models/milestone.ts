@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class MilestoneModel {
   constructor(private client: OrmClient) {}
   findMany<S extends MilestoneSelect>(
-    args: FindManyArgs<S, MilestoneFilter, MilestoneOrderBy> & {
+    args: FindManyArgs<S, MilestoneFilter, never, MilestoneOrderBy> & {
       select: S;
     } & StrictSelect<S, MilestoneSelect>
   ): QueryBuilder<{

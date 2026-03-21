@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class IntegrationModel {
   constructor(private client: OrmClient) {}
   findMany<S extends IntegrationSelect>(
-    args: FindManyArgs<S, IntegrationFilter, IntegrationOrderBy> & {
+    args: FindManyArgs<S, IntegrationFilter, never, IntegrationOrderBy> & {
       select: S;
     } & StrictSelect<S, IntegrationSelect>
   ): QueryBuilder<{

@@ -27,11 +27,6 @@ const fieldSchema: FieldSchema = {
   data: 'json',
   notes: 'string',
   tags: 'string',
-  activityTypeTrgmSimilarity: 'float',
-  distanceUnitTrgmSimilarity: 'float',
-  weightUnitTrgmSimilarity: 'float',
-  notesTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nhabit-log <command>\n\nCommands:\n  list                  List all habitLog records\n  get                   Get a habitLog by ID\n  create                Create a new habitLog\n  update                Update an existing habitLog\n  delete                Delete a habitLog\n\n  --help, -h            Show this help message\n';
@@ -103,11 +98,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           data: true,
           notes: true,
           tags: true,
-          activityTypeTrgmSimilarity: true,
-          distanceUnitTrgmSimilarity: true,
-          weightUnitTrgmSimilarity: true,
-          notesTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -153,11 +143,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           data: true,
           notes: true,
           tags: true,
-          activityTypeTrgmSimilarity: true,
-          distanceUnitTrgmSimilarity: true,
-          weightUnitTrgmSimilarity: true,
-          notesTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -317,11 +302,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           data: true,
           notes: true,
           tags: true,
-          activityTypeTrgmSimilarity: true,
-          distanceUnitTrgmSimilarity: true,
-          weightUnitTrgmSimilarity: true,
-          notesTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -490,11 +470,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           data: true,
           notes: true,
           tags: true,
-          activityTypeTrgmSimilarity: true,
-          distanceUnitTrgmSimilarity: true,
-          weightUnitTrgmSimilarity: true,
-          notesTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

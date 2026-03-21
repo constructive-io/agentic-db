@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class SessionModel {
   constructor(private client: OrmClient) {}
   findMany<S extends SessionSelect>(
-    args: FindManyArgs<S, SessionFilter, SessionOrderBy> & {
+    args: FindManyArgs<S, SessionFilter, never, SessionOrderBy> & {
       select: S;
     } & StrictSelect<S, SessionSelect>
   ): QueryBuilder<{

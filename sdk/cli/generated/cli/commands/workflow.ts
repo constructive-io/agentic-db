@@ -19,10 +19,6 @@ const fieldSchema: FieldSchema = {
   triggerConfig: 'json',
   isActive: 'boolean',
   tags: 'string',
-  nameTrgmSimilarity: 'float',
-  descriptionTrgmSimilarity: 'float',
-  triggerTypeTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nworkflow <command>\n\nCommands:\n  list                  List all workflow records\n  get                   Get a workflow by ID\n  create                Create a new workflow\n  update                Update an existing workflow\n  delete                Delete a workflow\n\n  --help, -h            Show this help message\n';
@@ -86,10 +82,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           triggerConfig: true,
           isActive: true,
           tags: true,
-          nameTrgmSimilarity: true,
-          descriptionTrgmSimilarity: true,
-          triggerTypeTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -127,10 +119,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           triggerConfig: true,
           isActive: true,
           tags: true,
-          nameTrgmSimilarity: true,
-          descriptionTrgmSimilarity: true,
-          triggerTypeTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -219,10 +207,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           triggerConfig: true,
           isActive: true,
           tags: true,
-          nameTrgmSimilarity: true,
-          descriptionTrgmSimilarity: true,
-          triggerTypeTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -320,10 +304,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           triggerConfig: true,
           isActive: true,
           tags: true,
-          nameTrgmSimilarity: true,
-          descriptionTrgmSimilarity: true,
-          triggerTypeTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class TaskContactModel {
   constructor(private client: OrmClient) {}
   findMany<S extends TaskContactSelect>(
-    args: FindManyArgs<S, TaskContactFilter, TaskContactOrderBy> & {
+    args: FindManyArgs<S, TaskContactFilter, never, TaskContactOrderBy> & {
       select: S;
     } & StrictSelect<S, TaskContactSelect>
   ): QueryBuilder<{

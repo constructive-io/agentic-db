@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class VenueImageModel {
   constructor(private client: OrmClient) {}
   findMany<S extends VenueImageSelect>(
-    args: FindManyArgs<S, VenueImageFilter, VenueImageOrderBy> & {
+    args: FindManyArgs<S, VenueImageFilter, never, VenueImageOrderBy> & {
       select: S;
     } & StrictSelect<S, VenueImageSelect>
   ): QueryBuilder<{

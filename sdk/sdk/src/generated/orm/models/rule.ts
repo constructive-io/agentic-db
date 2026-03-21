@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class RuleModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RuleSelect>(
-    args: FindManyArgs<S, RuleFilter, RuleOrderBy> & {
+    args: FindManyArgs<S, RuleFilter, never, RuleOrderBy> & {
       select: S;
     } & StrictSelect<S, RuleSelect>
   ): QueryBuilder<{

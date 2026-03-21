@@ -17,10 +17,6 @@ const fieldSchema: FieldSchema = {
   provider: 'string',
   syncToken: 'string',
   lastSyncedAt: 'string',
-  emailTrgmSimilarity: 'float',
-  providerTrgmSimilarity: 'float',
-  syncTokenTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\ncalendar-account <command>\n\nCommands:\n  list                  List all calendarAccount records\n  get                   Get a calendarAccount by ID\n  create                Create a new calendarAccount\n  update                Update an existing calendarAccount\n  delete                Delete a calendarAccount\n\n  --help, -h            Show this help message\n';
@@ -82,10 +78,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           provider: true,
           syncToken: true,
           lastSyncedAt: true,
-          emailTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          syncTokenTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -121,10 +113,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           provider: true,
           syncToken: true,
           lastSyncedAt: true,
-          emailTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          syncTokenTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -198,10 +186,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           provider: true,
           syncToken: true,
           lastSyncedAt: true,
-          emailTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          syncTokenTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -281,10 +265,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           provider: true,
           syncToken: true,
           lastSyncedAt: true,
-          emailTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          syncTokenTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

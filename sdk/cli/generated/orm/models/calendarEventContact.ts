@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class CalendarEventContactModel {
   constructor(private client: OrmClient) {}
   findMany<S extends CalendarEventContactSelect>(
-    args: FindManyArgs<S, CalendarEventContactFilter, CalendarEventContactOrderBy> & {
+    args: FindManyArgs<S, CalendarEventContactFilter, never, CalendarEventContactOrderBy> & {
       select: S;
     } & StrictSelect<S, CalendarEventContactSelect>
   ): QueryBuilder<{

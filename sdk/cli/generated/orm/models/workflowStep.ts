@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class WorkflowStepModel {
   constructor(private client: OrmClient) {}
   findMany<S extends WorkflowStepSelect>(
-    args: FindManyArgs<S, WorkflowStepFilter, WorkflowStepOrderBy> & {
+    args: FindManyArgs<S, WorkflowStepFilter, never, WorkflowStepOrderBy> & {
       select: S;
     } & StrictSelect<S, WorkflowStepSelect>
   ): QueryBuilder<{

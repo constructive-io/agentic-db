@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class AgentPromptModel {
   constructor(private client: OrmClient) {}
   findMany<S extends AgentPromptSelect>(
-    args: FindManyArgs<S, AgentPromptFilter, AgentPromptOrderBy> & {
+    args: FindManyArgs<S, AgentPromptFilter, never, AgentPromptOrderBy> & {
       select: S;
     } & StrictSelect<S, AgentPromptSelect>
   ): QueryBuilder<{

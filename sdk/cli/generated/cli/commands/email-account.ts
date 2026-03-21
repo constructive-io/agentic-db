@@ -16,9 +16,6 @@ const fieldSchema: FieldSchema = {
   email: 'string',
   provider: 'string',
   syncState: 'json',
-  emailTrgmSimilarity: 'float',
-  providerTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nemail-account <command>\n\nCommands:\n  list                  List all emailAccount records\n  get                   Get a emailAccount by ID\n  create                Create a new emailAccount\n  update                Update an existing emailAccount\n  delete                Delete a emailAccount\n\n  --help, -h            Show this help message\n';
@@ -79,9 +76,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           email: true,
           provider: true,
           syncState: true,
-          emailTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -116,9 +110,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           email: true,
           provider: true,
           syncState: true,
-          emailTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -183,9 +174,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           email: true,
           provider: true,
           syncState: true,
-          emailTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -256,9 +244,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           email: true,
           provider: true,
           syncState: true,
-          emailTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

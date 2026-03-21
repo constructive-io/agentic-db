@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ChunkModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ChunkSelect>(
-    args: FindManyArgs<S, ChunkFilter, ChunkOrderBy> & {
+    args: FindManyArgs<S, ChunkFilter, never, ChunkOrderBy> & {
       select: S;
     } & StrictSelect<S, ChunkSelect>
   ): QueryBuilder<{

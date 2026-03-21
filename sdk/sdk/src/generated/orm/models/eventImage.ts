@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class EventImageModel {
   constructor(private client: OrmClient) {}
   findMany<S extends EventImageSelect>(
-    args: FindManyArgs<S, EventImageFilter, EventImageOrderBy> & {
+    args: FindManyArgs<S, EventImageFilter, never, EventImageOrderBy> & {
       select: S;
     } & StrictSelect<S, EventImageSelect>
   ): QueryBuilder<{

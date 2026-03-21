@@ -21,10 +21,6 @@ const fieldSchema: FieldSchema = {
   status: 'string',
   exitCode: 'int',
   logsPath: 'string',
-  commandTrgmSimilarity: 'float',
-  statusTrgmSimilarity: 'float',
-  logsPathTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nprocess <command>\n\nCommands:\n  list                  List all process records\n  get                   Get a process by ID\n  create                Create a new process\n  update                Update an existing process\n  delete                Delete a process\n\n  --help, -h            Show this help message\n';
@@ -90,10 +86,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           status: true,
           exitCode: true,
           logsPath: true,
-          commandTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          logsPathTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -133,10 +125,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           status: true,
           exitCode: true,
           logsPath: true,
-          commandTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          logsPathTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -244,10 +232,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           status: true,
           exitCode: true,
           logsPath: true,
-          commandTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          logsPathTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -364,10 +348,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           status: true,
           exitCode: true,
           logsPath: true,
-          commandTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          logsPathTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

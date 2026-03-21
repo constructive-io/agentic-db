@@ -22,9 +22,9 @@ const fieldSchema: FieldSchema = {
   embeddingText: 'string',
   embedding: 'string',
   embeddingTextBm25Score: 'float',
+  embeddingVectorDistance: 'float',
   summaryTrgmSimilarity: 'float',
   embeddingTextTrgmSimilarity: 'float',
-  embeddingVectorDistance: 'float',
   searchScore: 'float',
 };
 const usage =
@@ -91,11 +91,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           rawMessages: true,
           embeddingText: true,
           embedding: true,
-          embeddingTextBm25Score: true,
-          summaryTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -135,11 +130,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           rawMessages: true,
           embeddingText: true,
           embedding: true,
-          embeddingTextBm25Score: true,
-          summaryTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -247,11 +237,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           rawMessages: true,
           embeddingText: true,
           embedding: true,
-          embeddingTextBm25Score: true,
-          summaryTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -365,11 +350,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           rawMessages: true,
           embeddingText: true,
           embedding: true,
-          embeddingTextBm25Score: true,
-          summaryTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();

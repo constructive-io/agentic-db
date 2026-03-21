@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class HabitLogModel {
   constructor(private client: OrmClient) {}
   findMany<S extends HabitLogSelect>(
-    args: FindManyArgs<S, HabitLogFilter, HabitLogOrderBy> & {
+    args: FindManyArgs<S, HabitLogFilter, never, HabitLogOrderBy> & {
       select: S;
     } & StrictSelect<S, HabitLogSelect>
   ): QueryBuilder<{

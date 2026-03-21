@@ -17,10 +17,6 @@ const fieldSchema: FieldSchema = {
   color: 'string',
   category: 'string',
   usageCount: 'int',
-  nameTrgmSimilarity: 'float',
-  colorTrgmSimilarity: 'float',
-  categoryTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\ntag <command>\n\nCommands:\n  list                  List all tag records\n  get                   Get a tag by ID\n  create                Create a new tag\n  update                Update an existing tag\n  delete                Delete a tag\n\n  --help, -h            Show this help message\n';
@@ -82,10 +78,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           color: true,
           category: true,
           usageCount: true,
-          nameTrgmSimilarity: true,
-          colorTrgmSimilarity: true,
-          categoryTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -121,10 +113,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           color: true,
           category: true,
           usageCount: true,
-          nameTrgmSimilarity: true,
-          colorTrgmSimilarity: true,
-          categoryTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -195,10 +183,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           color: true,
           category: true,
           usageCount: true,
-          nameTrgmSimilarity: true,
-          colorTrgmSimilarity: true,
-          categoryTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -278,10 +262,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           color: true,
           category: true,
           usageCount: true,
-          nameTrgmSimilarity: true,
-          colorTrgmSimilarity: true,
-          categoryTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

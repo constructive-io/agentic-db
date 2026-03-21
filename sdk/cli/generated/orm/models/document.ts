@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class DocumentModel {
   constructor(private client: OrmClient) {}
   findMany<S extends DocumentSelect>(
-    args: FindManyArgs<S, DocumentFilter, DocumentOrderBy> & {
+    args: FindManyArgs<S, DocumentFilter, never, DocumentOrderBy> & {
       select: S;
     } & StrictSelect<S, DocumentSelect>
   ): QueryBuilder<{

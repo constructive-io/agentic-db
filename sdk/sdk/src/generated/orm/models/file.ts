@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class FileModel {
   constructor(private client: OrmClient) {}
   findMany<S extends FileSelect>(
-    args: FindManyArgs<S, FileFilter, FileOrderBy> & {
+    args: FindManyArgs<S, FileFilter, never, FileOrderBy> & {
       select: S;
     } & StrictSelect<S, FileSelect>
   ): QueryBuilder<{

@@ -27,12 +27,6 @@ const fieldSchema: FieldSchema = {
   nextRunAt: 'string',
   runCount: 'int',
   lastResult: 'json',
-  nameTrgmSimilarity: 'float',
-  scheduleTypeTrgmSimilarity: 'float',
-  scheduleExprTrgmSimilarity: 'float',
-  commandTrgmSimilarity: 'float',
-  messageTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nscheduled-job <command>\n\nCommands:\n  list                  List all scheduledJob records\n  get                   Get a scheduledJob by ID\n  create                Create a new scheduledJob\n  update                Update an existing scheduledJob\n  delete                Delete a scheduledJob\n\n  --help, -h            Show this help message\n';
@@ -104,12 +98,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           nextRunAt: true,
           runCount: true,
           lastResult: true,
-          nameTrgmSimilarity: true,
-          scheduleTypeTrgmSimilarity: true,
-          scheduleExprTrgmSimilarity: true,
-          commandTrgmSimilarity: true,
-          messageTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -155,12 +143,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           nextRunAt: true,
           runCount: true,
           lastResult: true,
-          nameTrgmSimilarity: true,
-          scheduleTypeTrgmSimilarity: true,
-          scheduleExprTrgmSimilarity: true,
-          commandTrgmSimilarity: true,
-          messageTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -322,12 +304,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           nextRunAt: true,
           runCount: true,
           lastResult: true,
-          nameTrgmSimilarity: true,
-          scheduleTypeTrgmSimilarity: true,
-          scheduleExprTrgmSimilarity: true,
-          commandTrgmSimilarity: true,
-          messageTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -495,12 +471,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           nextRunAt: true,
           runCount: true,
           lastResult: true,
-          nameTrgmSimilarity: true,
-          scheduleTypeTrgmSimilarity: true,
-          scheduleExprTrgmSimilarity: true,
-          commandTrgmSimilarity: true,
-          messageTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

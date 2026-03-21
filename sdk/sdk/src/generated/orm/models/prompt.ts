@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class PromptModel {
   constructor(private client: OrmClient) {}
   findMany<S extends PromptSelect>(
-    args: FindManyArgs<S, PromptFilter, PromptOrderBy> & {
+    args: FindManyArgs<S, PromptFilter, never, PromptOrderBy> & {
       select: S;
     } & StrictSelect<S, PromptSelect>
   ): QueryBuilder<{

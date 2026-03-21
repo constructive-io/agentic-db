@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class WebhookModel {
   constructor(private client: OrmClient) {}
   findMany<S extends WebhookSelect>(
-    args: FindManyArgs<S, WebhookFilter, WebhookOrderBy> & {
+    args: FindManyArgs<S, WebhookFilter, never, WebhookOrderBy> & {
       select: S;
     } & StrictSelect<S, WebhookSelect>
   ): QueryBuilder<{

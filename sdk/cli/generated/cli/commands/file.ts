@@ -17,10 +17,6 @@ const fieldSchema: FieldSchema = {
   path: 'string',
   language: 'string',
   hash: 'string',
-  pathTrgmSimilarity: 'float',
-  languageTrgmSimilarity: 'float',
-  hashTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nfile <command>\n\nCommands:\n  list                  List all file records\n  get                   Get a file by ID\n  create                Create a new file\n  update                Update an existing file\n  delete                Delete a file\n\n  --help, -h            Show this help message\n';
@@ -82,10 +78,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           path: true,
           language: true,
           hash: true,
-          pathTrgmSimilarity: true,
-          languageTrgmSimilarity: true,
-          hashTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -121,10 +113,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           path: true,
           language: true,
           hash: true,
-          pathTrgmSimilarity: true,
-          languageTrgmSimilarity: true,
-          hashTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -195,10 +183,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           path: true,
           language: true,
           hash: true,
-          pathTrgmSimilarity: true,
-          languageTrgmSimilarity: true,
-          hashTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -278,10 +262,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           path: true,
           language: true,
           hash: true,
-          pathTrgmSimilarity: true,
-          languageTrgmSimilarity: true,
-          hashTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

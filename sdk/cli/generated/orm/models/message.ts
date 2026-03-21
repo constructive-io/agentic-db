@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class MessageModel {
   constructor(private client: OrmClient) {}
   findMany<S extends MessageSelect>(
-    args: FindManyArgs<S, MessageFilter, MessageOrderBy> & {
+    args: FindManyArgs<S, MessageFilter, never, MessageOrderBy> & {
       select: S;
     } & StrictSelect<S, MessageSelect>
   ): QueryBuilder<{

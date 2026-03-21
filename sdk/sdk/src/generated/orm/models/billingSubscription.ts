@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class BillingSubscriptionModel {
   constructor(private client: OrmClient) {}
   findMany<S extends BillingSubscriptionSelect>(
-    args: FindManyArgs<S, BillingSubscriptionFilter, BillingSubscriptionOrderBy> & {
+    args: FindManyArgs<S, BillingSubscriptionFilter, never, BillingSubscriptionOrderBy> & {
       select: S;
     } & StrictSelect<S, BillingSubscriptionSelect>
   ): QueryBuilder<{

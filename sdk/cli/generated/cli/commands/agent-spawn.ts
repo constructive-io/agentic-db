@@ -23,9 +23,6 @@ const fieldSchema: FieldSchema = {
   startedAt: 'string',
   completedAt: 'string',
   agentId: 'uuid',
-  taskTrgmSimilarity: 'float',
-  statusTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nagent-spawn <command>\n\nCommands:\n  list                  List all agentSpawn records\n  get                   Get a agentSpawn by ID\n  create                Create a new agentSpawn\n  update                Update an existing agentSpawn\n  delete                Delete a agentSpawn\n\n  --help, -h            Show this help message\n';
@@ -93,9 +90,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           startedAt: true,
           completedAt: true,
           agentId: true,
-          taskTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -137,9 +131,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           startedAt: true,
           completedAt: true,
           agentId: true,
-          taskTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -262,9 +253,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           completedAt: true,
           agentId: true,
-          taskTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -396,9 +384,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           completedAt: true,
           agentId: true,
-          taskTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

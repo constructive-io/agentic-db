@@ -24,12 +24,12 @@ const fieldSchema: FieldSchema = {
   embedding: 'string',
   contentBm25Score: 'float',
   embeddingTextBm25Score: 'float',
+  embeddingVectorDistance: 'float',
   nameTrgmSimilarity: 'float',
   contentTrgmSimilarity: 'float',
   typeTrgmSimilarity: 'float',
   modelTrgmSimilarity: 'float',
   embeddingTextTrgmSimilarity: 'float',
-  embeddingVectorDistance: 'float',
   searchScore: 'float',
 };
 const usage =
@@ -97,15 +97,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          contentBm25Score: true,
-          embeddingTextBm25Score: true,
-          nameTrgmSimilarity: true,
-          contentTrgmSimilarity: true,
-          typeTrgmSimilarity: true,
-          modelTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -146,15 +137,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           tags: true,
           embeddingText: true,
           embedding: true,
-          contentBm25Score: true,
-          embeddingTextBm25Score: true,
-          nameTrgmSimilarity: true,
-          contentTrgmSimilarity: true,
-          typeTrgmSimilarity: true,
-          modelTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -269,15 +251,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          contentBm25Score: true,
-          embeddingTextBm25Score: true,
-          nameTrgmSimilarity: true,
-          contentTrgmSimilarity: true,
-          typeTrgmSimilarity: true,
-          modelTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -401,15 +374,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          contentBm25Score: true,
-          embeddingTextBm25Score: true,
-          nameTrgmSimilarity: true,
-          contentTrgmSimilarity: true,
-          typeTrgmSimilarity: true,
-          modelTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();

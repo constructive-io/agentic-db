@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ProcessModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ProcessSelect>(
-    args: FindManyArgs<S, ProcessFilter, ProcessOrderBy> & {
+    args: FindManyArgs<S, ProcessFilter, never, ProcessOrderBy> & {
       select: S;
     } & StrictSelect<S, ProcessSelect>
   ): QueryBuilder<{

@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class RecipeModel {
   constructor(private client: OrmClient) {}
   findMany<S extends RecipeSelect>(
-    args: FindManyArgs<S, RecipeFilter, RecipeOrderBy> & {
+    args: FindManyArgs<S, RecipeFilter, never, RecipeOrderBy> & {
       select: S;
     } & StrictSelect<S, RecipeSelect>
   ): QueryBuilder<{

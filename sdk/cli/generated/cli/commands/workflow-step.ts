@@ -20,8 +20,6 @@ const fieldSchema: FieldSchema = {
   onSuccessStep: 'int',
   onFailureStep: 'int',
   timeoutMs: 'int',
-  actionTypeTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nworkflow-step <command>\n\nCommands:\n  list                  List all workflowStep records\n  get                   Get a workflowStep by ID\n  create                Create a new workflowStep\n  update                Update an existing workflowStep\n  delete                Delete a workflowStep\n\n  --help, -h            Show this help message\n';
@@ -86,8 +84,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           onSuccessStep: true,
           onFailureStep: true,
           timeoutMs: true,
-          actionTypeTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -126,8 +122,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           onSuccessStep: true,
           onFailureStep: true,
           timeoutMs: true,
-          actionTypeTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -226,8 +220,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           onSuccessStep: true,
           onFailureStep: true,
           timeoutMs: true,
-          actionTypeTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -332,8 +324,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           onSuccessStep: true,
           onFailureStep: true,
           timeoutMs: true,
-          actionTypeTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

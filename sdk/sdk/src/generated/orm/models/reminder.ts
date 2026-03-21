@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ReminderModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ReminderSelect>(
-    args: FindManyArgs<S, ReminderFilter, ReminderOrderBy> & {
+    args: FindManyArgs<S, ReminderFilter, never, ReminderOrderBy> & {
       select: S;
     } & StrictSelect<S, ReminderSelect>
   ): QueryBuilder<{

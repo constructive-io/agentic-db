@@ -31,6 +31,7 @@ const fieldSchema: FieldSchema = {
   searchTsvRank: 'float',
   contentBm25Score: 'float',
   embeddingTextBm25Score: 'float',
+  embeddingVectorDistance: 'float',
   titleTrgmSimilarity: 'float',
   urlTrgmSimilarity: 'float',
   contentTrgmSimilarity: 'float',
@@ -38,7 +39,6 @@ const fieldSchema: FieldSchema = {
   abstractTrgmSimilarity: 'float',
   overviewTrgmSimilarity: 'float',
   embeddingTextTrgmSimilarity: 'float',
-  embeddingVectorDistance: 'float',
   searchScore: 'float',
 };
 const usage =
@@ -111,19 +111,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          searchTsv: true,
-          searchTsvRank: true,
-          contentBm25Score: true,
-          embeddingTextBm25Score: true,
-          titleTrgmSimilarity: true,
-          urlTrgmSimilarity: true,
-          contentTrgmSimilarity: true,
-          sourceTypeTrgmSimilarity: true,
-          abstractTrgmSimilarity: true,
-          overviewTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -169,19 +156,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           tags: true,
           embeddingText: true,
           embedding: true,
-          searchTsv: true,
-          searchTsvRank: true,
-          contentBm25Score: true,
-          embeddingTextBm25Score: true,
-          titleTrgmSimilarity: true,
-          urlTrgmSimilarity: true,
-          contentTrgmSimilarity: true,
-          sourceTypeTrgmSimilarity: true,
-          abstractTrgmSimilarity: true,
-          overviewTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -300,13 +274,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
-      {
-        type: 'text',
-        name: 'searchTsv',
-        message: 'searchTsv',
-        required: false,
-        skipPrompt: true,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CreateDocumentInput['document'];
@@ -329,7 +296,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: cleanedData.tags,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          searchTsv: cleanedData.searchTsv,
         },
         select: {
           id: true,
@@ -350,19 +316,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          searchTsv: true,
-          searchTsvRank: true,
-          contentBm25Score: true,
-          embeddingTextBm25Score: true,
-          titleTrgmSimilarity: true,
-          urlTrgmSimilarity: true,
-          contentTrgmSimilarity: true,
-          sourceTypeTrgmSimilarity: true,
-          abstractTrgmSimilarity: true,
-          overviewTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -487,13 +440,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
-      {
-        type: 'text',
-        name: 'searchTsv',
-        message: 'searchTsv',
-        required: false,
-        skipPrompt: true,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as DocumentPatch;
@@ -519,7 +465,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: cleanedData.tags,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          searchTsv: cleanedData.searchTsv,
         },
         select: {
           id: true,
@@ -540,19 +485,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          searchTsv: true,
-          searchTsvRank: true,
-          contentBm25Score: true,
-          embeddingTextBm25Score: true,
-          titleTrgmSimilarity: true,
-          urlTrgmSimilarity: true,
-          contentTrgmSimilarity: true,
-          sourceTypeTrgmSimilarity: true,
-          abstractTrgmSimilarity: true,
-          overviewTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();

@@ -17,8 +17,6 @@ const fieldSchema: FieldSchema = {
   url: 'string',
   embedding: 'string',
   venueId: 'uuid',
-  titleTrgmSimilarity: 'float',
-  urlTrgmSimilarity: 'float',
   embeddingVectorDistance: 'float',
   searchScore: 'float',
 };
@@ -82,10 +80,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           url: true,
           embedding: true,
           venueId: true,
-          titleTrgmSimilarity: true,
-          urlTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -121,10 +115,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           url: true,
           embedding: true,
           venueId: true,
-          titleTrgmSimilarity: true,
-          urlTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -194,10 +184,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           url: true,
           embedding: true,
           venueId: true,
-          titleTrgmSimilarity: true,
-          urlTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -276,10 +262,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           url: true,
           embedding: true,
           venueId: true,
-          titleTrgmSimilarity: true,
-          urlTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();

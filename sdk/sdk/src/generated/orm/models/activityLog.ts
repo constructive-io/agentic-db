@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ActivityLogModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ActivityLogSelect>(
-    args: FindManyArgs<S, ActivityLogFilter, ActivityLogOrderBy> & {
+    args: FindManyArgs<S, ActivityLogFilter, never, ActivityLogOrderBy> & {
       select: S;
     } & StrictSelect<S, ActivityLogSelect>
   ): QueryBuilder<{

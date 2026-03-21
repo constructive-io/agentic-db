@@ -23,9 +23,6 @@ const fieldSchema: FieldSchema = {
   input: 'json',
   output: 'json',
   error: 'string',
-  statusTrgmSimilarity: 'float',
-  errorTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nskill-execution <command>\n\nCommands:\n  list                  List all skillExecution records\n  get                   Get a skillExecution by ID\n  create                Create a new skillExecution\n  update                Update an existing skillExecution\n  delete                Delete a skillExecution\n\n  --help, -h            Show this help message\n';
@@ -93,9 +90,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           input: true,
           output: true,
           error: true,
-          statusTrgmSimilarity: true,
-          errorTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -137,9 +131,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           input: true,
           output: true,
           error: true,
-          statusTrgmSimilarity: true,
-          errorTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -267,9 +258,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           input: true,
           output: true,
           error: true,
-          statusTrgmSimilarity: true,
-          errorTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -403,9 +391,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           input: true,
           output: true,
           error: true,
-          statusTrgmSimilarity: true,
-          errorTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

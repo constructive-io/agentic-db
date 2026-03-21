@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class TagModel {
   constructor(private client: OrmClient) {}
   findMany<S extends TagSelect>(
-    args: FindManyArgs<S, TagFilter, TagOrderBy> & {
+    args: FindManyArgs<S, TagFilter, never, TagOrderBy> & {
       select: S;
     } & StrictSelect<S, TagSelect>
   ): QueryBuilder<{

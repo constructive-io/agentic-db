@@ -16,7 +16,14 @@
     "clean": "pnpm -r run clean",
     "test": "pnpm -r run test",
     "lint": "pnpm -r run lint",
-    "deps": "pnpm up -r -i -L"
+    "deps": "pnpm up -r -i -L",
+    "provision": "pnpm --filter @agentic-db/provision run provision",
+    "export:pgpm": "pnpm --filter @agentic-db/export run export",
+    "export:schema": "pnpm --filter @agentic-db/schemas run export",
+    "generate:sdk": "pnpm --filter @agentic-db/sdk run generate",
+    "generate:cli": "pnpm --filter @agentic-db/cli run generate",
+    "generate:all": "pnpm run export:schema && pnpm run generate:sdk && pnpm run generate:cli",
+    "export:all": "pnpm run export:pgpm && pnpm run generate:all"
   },
   "devDependencies": {
     "@constructive-io/graphql-codegen": "4.20.0",

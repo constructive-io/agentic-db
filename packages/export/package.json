@@ -6,7 +6,10 @@
   "author": "Dan Lynch <pyramation@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "export": "pgpm export --extensionName agentic-db --metaExtensionName agentic-db-services --author \"Dan Lynch <pyramation@gmail.com>\"",
+    "export": "tsx src/run-export.ts",
     "export:interactive": "pgpm export"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0"
   }
 }

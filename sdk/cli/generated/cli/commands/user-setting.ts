@@ -16,9 +16,6 @@ const fieldSchema: FieldSchema = {
   key: 'string',
   value: 'json',
   category: 'string',
-  keyTrgmSimilarity: 'float',
-  categoryTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nuser-setting <command>\n\nCommands:\n  list                  List all userSetting records\n  get                   Get a userSetting by ID\n  create                Create a new userSetting\n  update                Update an existing userSetting\n  delete                Delete a userSetting\n\n  --help, -h            Show this help message\n';
@@ -79,9 +76,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           key: true,
           value: true,
           category: true,
-          keyTrgmSimilarity: true,
-          categoryTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -116,9 +110,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           key: true,
           value: true,
           category: true,
-          keyTrgmSimilarity: true,
-          categoryTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -183,9 +174,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           key: true,
           value: true,
           category: true,
-          keyTrgmSimilarity: true,
-          categoryTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -256,9 +244,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           key: true,
           value: true,
           category: true,
-          keyTrgmSimilarity: true,
-          categoryTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

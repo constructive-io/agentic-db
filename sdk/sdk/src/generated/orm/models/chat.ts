@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ChatModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ChatSelect>(
-    args: FindManyArgs<S, ChatFilter, ChatOrderBy> & {
+    args: FindManyArgs<S, ChatFilter, never, ChatOrderBy> & {
       select: S;
     } & StrictSelect<S, ChatSelect>
   ): QueryBuilder<{

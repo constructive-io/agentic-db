@@ -24,11 +24,11 @@ const fieldSchema: FieldSchema = {
   searchTsv: 'string',
   searchTsvRank: 'float',
   embeddingTextBm25Score: 'float',
+  embeddingVectorDistance: 'float',
   nameTrgmSimilarity: 'float',
   descriptionTrgmSimilarity: 'float',
   statusTrgmSimilarity: 'float',
   embeddingTextTrgmSimilarity: 'float',
-  embeddingVectorDistance: 'float',
   searchScore: 'float',
 };
 const usage =
@@ -95,15 +95,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          searchTsv: true,
-          searchTsvRank: true,
-          embeddingTextBm25Score: true,
-          nameTrgmSimilarity: true,
-          descriptionTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -143,15 +134,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           tags: true,
           embeddingText: true,
           embedding: true,
-          searchTsv: true,
-          searchTsvRank: true,
-          embeddingTextBm25Score: true,
-          nameTrgmSimilarity: true,
-          descriptionTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -228,13 +210,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
-      {
-        type: 'text',
-        name: 'searchTsv',
-        message: 'searchTsv',
-        required: false,
-        skipPrompt: true,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CreateProjectInput['project'];
@@ -251,7 +226,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: cleanedData.tags,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          searchTsv: cleanedData.searchTsv,
         },
         select: {
           id: true,
@@ -266,15 +240,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          searchTsv: true,
-          searchTsvRank: true,
-          embeddingTextBm25Score: true,
-          nameTrgmSimilarity: true,
-          descriptionTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -357,13 +322,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
-      {
-        type: 'text',
-        name: 'searchTsv',
-        message: 'searchTsv',
-        required: false,
-        skipPrompt: true,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as ProjectPatch;
@@ -383,7 +341,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: cleanedData.tags,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
-          searchTsv: cleanedData.searchTsv,
         },
         select: {
           id: true,
@@ -398,15 +355,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
-          searchTsv: true,
-          searchTsvRank: true,
-          embeddingTextBm25Score: true,
-          nameTrgmSimilarity: true,
-          descriptionTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
         },
       })
       .execute();

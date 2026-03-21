@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ListModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ListSelect>(
-    args: FindManyArgs<S, ListFilter, ListOrderBy> & {
+    args: FindManyArgs<S, ListFilter, never, ListOrderBy> & {
       select: S;
     } & StrictSelect<S, ListSelect>
   ): QueryBuilder<{

@@ -28,10 +28,6 @@ const fieldSchema: FieldSchema = {
   skillsUsed: 'uuid',
   embeddingText: 'string',
   embedding: 'string',
-  uagentTrgmSimilarity: 'float',
-  fingerprintModeTrgmSimilarity: 'float',
-  csrfSecretTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nsession <command>\n\nCommands:\n  list                  List all session records\n  get                   Get a session by ID\n  create                Create a new session\n  update                Update an existing session\n  delete                Delete a session\n\n  --help, -h            Show this help message\n';
@@ -104,10 +100,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           skillsUsed: true,
           embeddingText: true,
           embedding: true,
-          uagentTrgmSimilarity: true,
-          fingerprintModeTrgmSimilarity: true,
-          csrfSecretTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -154,10 +146,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           skillsUsed: true,
           embeddingText: true,
           embedding: true,
-          uagentTrgmSimilarity: true,
-          fingerprintModeTrgmSimilarity: true,
-          csrfSecretTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -328,10 +316,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           skillsUsed: true,
           embeddingText: true,
           embedding: true,
-          uagentTrgmSimilarity: true,
-          fingerprintModeTrgmSimilarity: true,
-          csrfSecretTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -511,10 +495,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           skillsUsed: true,
           embeddingText: true,
           embedding: true,
-          uagentTrgmSimilarity: true,
-          fingerprintModeTrgmSimilarity: true,
-          csrfSecretTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();

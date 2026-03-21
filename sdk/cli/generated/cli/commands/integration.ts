@@ -20,12 +20,6 @@ const fieldSchema: FieldSchema = {
   config: 'json',
   status: 'string',
   lastSyncedAt: 'string',
-  nameTrgmSimilarity: 'float',
-  providerTrgmSimilarity: 'float',
-  typeTrgmSimilarity: 'float',
-  credentialsRefTrgmSimilarity: 'float',
-  statusTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nintegration <command>\n\nCommands:\n  list                  List all integration records\n  get                   Get a integration by ID\n  create                Create a new integration\n  update                Update an existing integration\n  delete                Delete a integration\n\n  --help, -h            Show this help message\n';
@@ -90,12 +84,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           config: true,
           status: true,
           lastSyncedAt: true,
-          nameTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          typeTrgmSimilarity: true,
-          credentialsRefTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -134,12 +122,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           config: true,
           status: true,
           lastSyncedAt: true,
-          nameTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          typeTrgmSimilarity: true,
-          credentialsRefTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -239,12 +221,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           config: true,
           status: true,
           lastSyncedAt: true,
-          nameTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          typeTrgmSimilarity: true,
-          credentialsRefTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
@@ -350,12 +326,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           config: true,
           status: true,
           lastSyncedAt: true,
-          nameTrgmSimilarity: true,
-          providerTrgmSimilarity: true,
-          typeTrgmSimilarity: true,
-          credentialsRefTrgmSimilarity: true,
-          statusTrgmSimilarity: true,
-          searchScore: true,
         },
       })
       .execute();
