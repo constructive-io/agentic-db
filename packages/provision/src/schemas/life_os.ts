@@ -210,6 +210,7 @@ const definition: BlueprintDefinition = {
     ginIndex('expenses', 'tags'),
     ginIndex('documents', 'tags'),
     ginIndex('billing_subscriptions', 'tags'),
+    ginIndex('trips', 'tags'),
     ginIndex('documents', 'search_tsv'),
 
     // GIN on JSONB
