@@ -50,9 +50,12 @@ Exports the provisioned database into installable pgpm SQL modules.
   - `sqitch.plan` — Migration ordering
 - `packages/agentic-db-services/` — Services metadata (API/site config)
 
-**Environment variables:**
+**Environment variables (set in `.env` at repo root):**
 - `PGDATABASE` — Database name (default: `constructive`)
-- `DATABASE_ID` — Optional; auto-resolves if not set
+- `DATABASE_ID` — Database UUID; auto-resolves if not set
+- `DATABASE_NAME` — Database name (e.g., `agentic-db-1774120949709`)
+- `ACCESS_TOKEN` — Auth token from `create-db`
+- `APP_SCHEMATA` — App-public schema name for header-based routing (e.g., `agentic-db-1774120949709-edffa638-app-public`)
 - `EXTENSION_NAME` — pgpm module name (default: `agentic-db`)
 - `META_EXTENSION_NAME` — Services module name (default: `agentic-db-services`)
 - `AUTHOR` — Package author (default: `Dan Lynch <pyramation@gmail.com>`)
@@ -87,9 +90,22 @@ Exports the live GraphQL schema via introspection to SDL files.
 2. Converts introspection JSON to SDL (Schema Definition Language)
 3. Writes the SDL to `sdk/schemas/generated/schema.graphql`
 
-**Output:** `sdk/schemas/generated/schema.graphql` (~1,800 types, ~38,000 lines, ~1.3MB)
+**Output:** `sdk/schemas/agentic-db.graphql` (~1,800 types, ~38,000 lines, ~1.3MB)
 
-**Important:** Uses `http.request` (not `fetch`) because Node.js `fetch` cannot override the `Host` header when connecting to IPv6 addresses. The script connects to `[::1]:3000` with a `Host: app-public-<dbname>.localhost` header.
+**Routing modes:** The script supports two routing modes for the cnc server:
+
+1. **Header-based routing** (recommended, when `API_IS_PUBLIC=false`): Uses `X-Schemata` and/or `X-Database-Id` headers. Set `APP_SCHEMATA` env var to the app-public schema name (e.g., `agentic-db-1774120949709-edffa638-app-public`) and/or `DATABASE_ID`.
+2. **Domain-based routing** (when `API_IS_PUBLIC=true`): Uses `Host: app-public-<dbname>.localhost` header. Requires DNS/vhost configuration.
+
+The script auto-detects which mode to use: if `DATABASE_ID` or `APP_SCHEMATA` env vars are set, it uses header-based routing; otherwise falls back to domain-based.
+
+**Important:** Uses `http.request` (not `fetch`) because Node.js `fetch` cannot override the `Host` header when connecting to IPv6 addresses.
+
+**Finding the APP_SCHEMATA value:**
+```bash
+eval "$(pgpm env)"
+psql -d postgres -t -c "SELECT schema_name FROM information_schema.schemata WHERE schema_name LIKE '%app_public%' OR schema_name LIKE '%app-public%';"
+```
 
 **Script:** `sdk/schemas/scripts/export.ts`
 
@@ -170,10 +186,12 @@ pnpm run export:all
 
 - **"Cannot find module '@pgpmjs/core'"**: pgpm < 4.x installed. Run `npm install -g pgpm@4.7.4`.
 - **"No provisioned databases found"**: No database created yet. Run `pnpm run create-db` first.
+- **Schema export HTTP 404**: cnc server is running with `API_IS_PUBLIC=false` but no `APP_SCHEMATA` or `DATABASE_ID` env var set. Find the schema name with `psql -d postgres -t -c "SELECT schema_name FROM information_schema.schemata WHERE schema_name LIKE '%app-public%';"` and set `APP_SCHEMATA` in `.env`.
 - **Schema export returns empty/error**: cnc server not running or database name doesn't match the vhost.
 - **"fetch failed" during schema export**: Node.js IPv6 issue. The script should use `http.request`, not `fetch`.
 - **SDK generate fails "No generators enabled"**: Ensure `orm: true` or `cli: true` is set in the codegen config.
 - **pgpm deploy fails**: Check that the `sqitch.plan` ordering is correct and all dependencies exist.
+- **grafast "more than one version" warning**: Harmless warning from duplicate `grafast` versions in pnpm. Does not affect output.
 
 ## Output Summary
 
@@ -183,6 +201,6 @@ After a full `export:all` run:
 |----------|----------|------|
 | pgpm SQL module | `packages/agentic-db/` | ~20,000 files |
 | Services module | `packages/agentic-db-services/` | ~200 files |
-| GraphQL schema | `sdk/schemas/generated/schema.graphql` | ~1.3MB |
+| GraphQL schema | `sdk/schemas/agentic-db.graphql` | ~1.3MB |
 | SDK models | `sdk/sdk/generated/` | ~118 tables |
 | CLI commands | `sdk/cli/generated/` | ~118 commands |

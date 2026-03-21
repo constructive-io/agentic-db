@@ -274,7 +274,7 @@ function httpPost(
   hostname: string,
   port: number,
   reqPath: string,
-  host: string,
+  headers: Record<string, string | number>,
   body: string,
 ): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -286,8 +286,8 @@ function httpPost(
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Host: host,
           'Content-Length': Buffer.byteLength(body),
+          ...headers,
         },
       },
       (res) => {
@@ -310,22 +310,49 @@ function httpPost(
 
 async function main() {
   const DATABASE_NAME = process.env.DATABASE_NAME || 'agentic-db';
-  const APP_HOST = `app-public-${DATABASE_NAME}.localhost`;
   const CNC_HOST = process.env.CNC_HOST || '::1';
   const CNC_PORT = parseInt(process.env.CNC_PORT || '3000', 10);
   const OUTPUT_DIR = path.resolve(__dirname, '..');
   const OUTPUT_FILE = 'agentic-db.graphql';
 
-  console.log(`\nExporting schema from ${APP_HOST}`);
+  // Derive the app-public schemata name from the database
+  // When API_IS_PUBLIC=false, we use X-Schemata header instead of Host-based routing
+  const DATABASE_ID = process.env.DATABASE_ID;
+  const APP_SCHEMATA = process.env.APP_SCHEMATA; // e.g. "agentic-db-1774120949709-edffa638-app-public"
+
+  // Try header-based routing first (X-Schemata), fall back to domain-based (Host)
+  const useHeaderRouting = !!(DATABASE_ID || APP_SCHEMATA);
+
+  if (useHeaderRouting) {
+    console.log(`\nExporting schema via header-based routing`);
+    if (APP_SCHEMATA) console.log(`  schemata: ${APP_SCHEMATA}`);
+    if (DATABASE_ID) console.log(`  database_id: ${DATABASE_ID}`);
+  } else {
+    console.log(`\nExporting schema via domain-based routing`);
+    console.log(`  host: app-public-${DATABASE_NAME}.localhost`);
+  }
   console.log(`  server: [${CNC_HOST}]:${CNC_PORT}`);
   console.log(`  output: ${path.join(OUTPUT_DIR, OUTPUT_FILE)}\n`);
+
+  // Build request headers based on routing mode
+  const reqHeaders: Record<string, string | number> = {};
+  if (useHeaderRouting) {
+    if (DATABASE_ID) {
+      reqHeaders['X-Database-Id'] = DATABASE_ID;
+    }
+    if (APP_SCHEMATA) {
+      reqHeaders['X-Schemata'] = APP_SCHEMATA;
+    }
+  } else {
+    reqHeaders['Host'] = `app-public-${DATABASE_NAME}.localhost`;
+  }
 
   // 1. Run introspection query
   const raw = await httpPost(
     CNC_HOST,
     CNC_PORT,
     '/graphql',
-    APP_HOST,
+    reqHeaders,
     JSON.stringify({ query: INTROSPECTION_QUERY }),
   );
 
