@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_chunks/table
--- requires: schemas/agentic_db_app_public/tables/skills/triggers/skills_embedding_stale_update_tg
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_intent_trigger_embedding_hnsw_idx
 
 
-GRANT DELETE ON agentic_db_app_public.agent_chunks TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".agent_chunks TO authenticated;
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contact_chunks/table
--- requires: schemas/agentic_db_app_public/tables/contact_chunks/columns/content/alterations/alt0000005650
+-- requires: schemas/agentic_db_app_public/tables/contact_chunks/columns/content/alterations/alt0000000976
 
 
-ALTER TABLE agentic_db_app_public.contact_chunks 
+ALTER TABLE "agentic_db_app_public".contact_chunks 
   ADD COLUMN embedding_text text;
 

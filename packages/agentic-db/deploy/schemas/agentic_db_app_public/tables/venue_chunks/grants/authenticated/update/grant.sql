@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/event_chunks/triggers/event_chunks_enqueue_embedding_update_tg
 
 
-GRANT UPDATE ON agentic_db_app_public.venue_chunks TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".venue_chunks TO authenticated;
 

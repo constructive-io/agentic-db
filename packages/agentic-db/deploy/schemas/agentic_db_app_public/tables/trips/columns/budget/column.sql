@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/trips/table
--- requires: schemas/agentic_db_app_public/tables/trips/columns/status/alterations/alt0000006212
+-- requires: schemas/agentic_db_app_public/tables/trips/columns/status/alterations/alt0000001602
 
 
-ALTER TABLE agentic_db_app_public.trips 
+ALTER TABLE "agentic_db_app_public".trips 
   ADD COLUMN budget numeric;
 

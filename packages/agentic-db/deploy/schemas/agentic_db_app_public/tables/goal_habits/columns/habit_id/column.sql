@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/trip_hiking_trails/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.goal_habits 
+ALTER TABLE "agentic_db_app_public".goal_habits 
   ADD COLUMN habit_id uuid;
 

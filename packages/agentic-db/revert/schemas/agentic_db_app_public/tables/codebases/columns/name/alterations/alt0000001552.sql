@@ -1,0 +1,7 @@
+-- Revert: schemas/agentic_db_app_public/tables/codebases/columns/name/alterations/alt0000001552
+
+
+ALTER TABLE "agentic_db_app_public".codebases 
+  ALTER COLUMN name DROP NOT NULL;
+
+

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_metrics/columns/meta/column
 
 
-GRANT DELETE ON agentic_db_app_public.runtime_schedules TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".runtime_schedules TO authenticated;
 

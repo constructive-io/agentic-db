@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/triggers/habits_enqueue_embedding_update_tg
 
 
-CREATE TABLE agentic_db_app_public.trip_chunks ();
+CREATE TABLE "agentic_db_app_public".trip_chunks ();
 

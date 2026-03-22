@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_tasks/table
--- requires: schemas/agentic_db_app_public/tables/agent_tasks/columns/priority/alterations/alt0000005876
+-- requires: schemas/agentic_db_app_public/tables/agent_tasks/columns/priority/alterations/alt0000001202
 
 
-ALTER TABLE agentic_db_app_public.agent_tasks 
+ALTER TABLE "agentic_db_app_public".agent_tasks 
   ADD COLUMN result text;
 

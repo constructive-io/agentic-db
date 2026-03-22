@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trip_places/policies/auth_del_entity_membership/policy
 
 
-GRANT DELETE ON agentic_db_app_public.trip_hiking_trails TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".trip_hiking_trails TO authenticated;
 

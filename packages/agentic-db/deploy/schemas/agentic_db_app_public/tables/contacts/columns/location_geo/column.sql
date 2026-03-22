@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contacts/table
--- requires: schemas/agentic_db_app_public/tables/contacts/alterations/alt0000005545
+-- requires: schemas/agentic_db_app_public/tables/contacts/alterations/alt0000000871
 
 
-ALTER TABLE agentic_db_app_public.contacts 
+ALTER TABLE "agentic_db_app_public".contacts 
   ADD COLUMN location_geo geography(Point,4326);
 

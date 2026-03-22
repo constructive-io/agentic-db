@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_codebasis_id_idx
 
 
-CREATE INDEX codebas_chunks_codebasis_id_idx ON agentic_db_app_public.codebas_chunks USING BTREE ( codebasis_id );
+CREATE INDEX codebas_chunks_codebasis_id_idx ON "agentic_db_app_public".codebas_chunks USING BTREE ( codebasis_id );
 

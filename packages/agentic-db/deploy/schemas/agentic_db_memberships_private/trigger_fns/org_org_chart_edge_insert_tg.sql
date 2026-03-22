@@ -4,10 +4,10 @@
 -- requires: schemas/agentic_db_memberships_private/schema
 
 
-CREATE FUNCTION agentic_db_memberships_private.org_org_chart_edge_insert_tg() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION "agentic_db_memberships_private".org_org_chart_edge_insert_tg() RETURNS TRIGGER AS $_PGFN_$
 
             BEGIN
-                PERFORM agentic_db_memberships_private.org_rebuild_org_hierarchy_sprt(NEW.entity_id);
+                PERFORM "agentic_db_memberships_private".org_rebuild_org_hierarchy_sprt(NEW.entity_id);
                 RETURN NEW;
             END;
         

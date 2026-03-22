@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_chunks/indexes/contact_chunks_contact_id_idx
 
 
-ALTER TABLE agentic_db_app_public.company_chunks 
+ALTER TABLE "agentic_db_app_public".company_chunks 
   ADD COLUMN company_id uuid;
 

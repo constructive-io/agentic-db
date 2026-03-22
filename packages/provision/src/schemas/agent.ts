@@ -87,8 +87,12 @@ const definition: BlueprintDefinition = {
       f('is_active', 'bool', { default_value: 'true' }),
       f('priority', 'int', { default_value: '0' }),
       f('trigger_concept', 'text'),
+      f('embedding_text', 'text'),
     ], {
       data_nodes: [
+        dataSearch({
+          embedding_source_fields: ['name', 'description', 'trigger_concept'],
+        }),
         dataEmbedding({ field_name: 'trigger_concept_embedding', source_fields: ['trigger_concept'] }),
       ],
     }),
@@ -102,8 +106,12 @@ const definition: BlueprintDefinition = {
       f('config', 'jsonb'),
       f('is_active', 'bool', { default_value: 'true' }),
       f('intent_trigger', 'text'),
+      f('embedding_text', 'text'),
     ], {
       data_nodes: [
+        dataSearch({
+          embedding_source_fields: ['name', 'description', 'intent_trigger'],
+        }),
         dataEmbedding({ field_name: 'intent_trigger_embedding', source_fields: ['intent_trigger'] }),
       ],
     }),
@@ -112,6 +120,8 @@ const definition: BlueprintDefinition = {
     chunkTable('agents'),
     chunkTable('agent_tasks'),
     chunkTable('agent_logs'),
+    chunkTable('rules'),
+    chunkTable('skills'),
   ],
 
   relations: [
@@ -123,6 +133,8 @@ const definition: BlueprintDefinition = {
     hasManyChunks('agents'),
     hasManyChunks('agent_tasks'),
     hasManyChunks('agent_logs'),
+    hasManyChunks('rules'),
+    hasManyChunks('skills'),
 
     { $type: 'RelationManyToMany', source_ref: 'agents', target_ref: 'agents', junction_table_name: 'agent_collaborators', source_field_name: 'agent_id', target_field_name: 'collaborator_id', is_required: false, data: M2M_JUNCTION_OPTS },
   ],

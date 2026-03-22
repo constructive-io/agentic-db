@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/columns/embedding_text/column
 
 
-CREATE INDEX habits_embedding_text_bm25_idx ON agentic_db_app_public.habits USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX habits_embedding_text_bm25_idx ON "agentic_db_app_public".habits USING bm25 ( embedding_text ) WITH ( text_config = english );
 

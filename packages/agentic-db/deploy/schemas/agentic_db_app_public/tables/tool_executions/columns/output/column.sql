@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/columns/input/column
 
 
-ALTER TABLE agentic_db_app_public.tool_executions 
+ALTER TABLE "agentic_db_app_public".tool_executions 
   ADD COLUMN output jsonb;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_states/indexes/runtime_states_data_gin_idx
 
 
-CREATE INDEX runtime_states_state_type_idx ON agentic_db_app_public.runtime_states USING BTREE ( state_type );
+CREATE INDEX runtime_states_state_type_idx ON "agentic_db_app_public".runtime_states USING BTREE ( state_type );
 

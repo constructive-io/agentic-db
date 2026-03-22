@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_chunks/indexes/habit_chunks_habit_id_idx
 
 
-CREATE TABLE agentic_db_app_public.trip_places ();
+CREATE TABLE "agentic_db_app_public".trip_places ();
 

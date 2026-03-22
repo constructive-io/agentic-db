@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contacts/table
--- requires: schemas/agentic_db_app_public/tables/contacts/columns/first_name/alterations/alt0000005540
+-- requires: schemas/agentic_db_app_public/tables/contacts/columns/first_name/alterations/alt0000000866
 
 
-ALTER TABLE agentic_db_app_public.contacts 
+ALTER TABLE "agentic_db_app_public".contacts 
   ADD COLUMN last_name text;
 

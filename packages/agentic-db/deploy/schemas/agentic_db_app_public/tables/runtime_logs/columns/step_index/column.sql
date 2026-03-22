@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_logs/columns/context/column
 
 
-ALTER TABLE agentic_db_app_public.runtime_logs 
+ALTER TABLE "agentic_db_app_public".runtime_logs 
   ADD COLUMN step_index int;
 

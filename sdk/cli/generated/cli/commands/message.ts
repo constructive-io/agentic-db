@@ -20,6 +20,15 @@ const fieldSchema: FieldSchema = {
   meta: 'json',
   toolCalls: 'json',
   toolResults: 'json',
+  embeddingText: 'string',
+  embedding: 'string',
+  embeddingStale: 'boolean',
+  embeddingTextBm25Score: 'float',
+  embeddingVectorDistance: 'float',
+  roleTrgmSimilarity: 'float',
+  contentTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nmessage <command>\n\nCommands:\n  list                  List all message records\n  get                   Get a message by ID\n  create                Create a new message\n  update                Update an existing message\n  delete                Delete a message\n\n  --help, -h            Show this help message\n';
@@ -84,6 +93,9 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           meta: true,
           toolCalls: true,
           toolResults: true,
+          embeddingText: true,
+          embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -122,6 +134,9 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           meta: true,
           toolCalls: true,
           toolResults: true,
+          embeddingText: true,
+          embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -189,6 +204,27 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CreateMessageInput['message'];
@@ -204,6 +240,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           meta: cleanedData.meta,
           toolCalls: cleanedData.toolCalls,
           toolResults: cleanedData.toolResults,
+          embeddingText: cleanedData.embeddingText,
+          embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
         },
         select: {
           id: true,
@@ -217,6 +256,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           meta: true,
           toolCalls: true,
           toolResults: true,
+          embeddingText: true,
+          embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -290,6 +332,27 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as MessagePatch;
@@ -308,6 +371,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           meta: cleanedData.meta,
           toolCalls: cleanedData.toolCalls,
           toolResults: cleanedData.toolResults,
+          embeddingText: cleanedData.embeddingText,
+          embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
         },
         select: {
           id: true,
@@ -321,6 +387,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           meta: true,
           toolCalls: true,
           toolResults: true,
+          embeddingText: true,
+          embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();

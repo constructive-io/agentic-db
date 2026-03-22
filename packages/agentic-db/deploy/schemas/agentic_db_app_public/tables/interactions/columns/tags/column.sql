@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/interactions/columns/sentiment/column
 
 
-ALTER TABLE agentic_db_app_public.interactions 
+ALTER TABLE "agentic_db_app_public".interactions 
   ADD COLUMN tags citext[];
 

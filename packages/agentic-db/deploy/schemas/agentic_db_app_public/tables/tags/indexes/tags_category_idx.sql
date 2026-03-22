@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tags/columns/category/column
 
 
-CREATE INDEX tags_category_idx ON agentic_db_app_public.tags USING BTREE ( category );
+CREATE INDEX tags_category_idx ON "agentic_db_app_public".tags USING BTREE ( category );
 

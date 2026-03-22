@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/events/columns/main_image_id/column
 
 
-ALTER TABLE agentic_db_app_public.events 
+ALTER TABLE "agentic_db_app_public".events 
   ADD COLUMN embedding_stale boolean;
 

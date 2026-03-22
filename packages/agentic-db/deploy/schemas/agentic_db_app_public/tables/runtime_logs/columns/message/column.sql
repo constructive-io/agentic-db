@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_logs/table
--- requires: schemas/agentic_db_app_public/tables/runtime_logs/columns/level/alterations/alt0000005992
+-- requires: schemas/agentic_db_app_public/tables/runtime_logs/columns/level/alterations/alt0000001348
 
 
-ALTER TABLE agentic_db_app_public.runtime_logs 
+ALTER TABLE "agentic_db_app_public".runtime_logs 
   ADD COLUMN message text;
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails/indexes/hiking_trails_location_gist_idx
 
 
-CREATE TABLE agentic_db_app_public.memories ();
+CREATE TABLE "agentic_db_app_public".memories ();
 

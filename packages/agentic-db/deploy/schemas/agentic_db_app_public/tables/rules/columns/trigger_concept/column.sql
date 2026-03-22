@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/rules/table
--- requires: schemas/agentic_db_app_public/tables/rules/columns/priority/alterations/alt0000005904
+-- requires: schemas/agentic_db_app_public/tables/rules/columns/priority/alterations/alt0000001230
 
 
-ALTER TABLE agentic_db_app_public.rules 
+ALTER TABLE "agentic_db_app_public".rules 
   ADD COLUMN trigger_concept text;
 

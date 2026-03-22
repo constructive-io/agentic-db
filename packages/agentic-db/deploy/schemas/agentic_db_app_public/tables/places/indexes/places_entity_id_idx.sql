@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trips/indexes/trips_location_gist_idx
 
 
-CREATE INDEX places_entity_id_idx ON agentic_db_app_public.places USING BTREE ( entity_id );
+CREATE INDEX places_entity_id_idx ON "agentic_db_app_public".places USING BTREE ( entity_id );
 

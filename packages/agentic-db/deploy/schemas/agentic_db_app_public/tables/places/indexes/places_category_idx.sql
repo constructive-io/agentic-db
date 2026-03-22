@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_country_idx
 
 
-CREATE INDEX places_category_idx ON agentic_db_app_public.places USING BTREE ( category );
+CREATE INDEX places_category_idx ON "agentic_db_app_public".places USING BTREE ( category );
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_location_gist_idx
 
 
-GRANT INSERT ON agentic_db_app_public.notes TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".notes TO authenticated;
 

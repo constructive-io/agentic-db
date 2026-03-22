@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/triggers/habits_enqueue_embedding_update_tg
 
 
-GRANT INSERT ON agentic_db_app_public.trip_chunks TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".trip_chunks TO authenticated;
 

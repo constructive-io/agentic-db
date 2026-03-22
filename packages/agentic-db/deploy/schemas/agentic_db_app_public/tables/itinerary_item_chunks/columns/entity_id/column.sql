@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/place_chunks/triggers/place_chunks_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.itinerary_item_chunks 
+ALTER TABLE "agentic_db_app_public".itinerary_item_chunks 
   ADD COLUMN entity_id uuid;
 

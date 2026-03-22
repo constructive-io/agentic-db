@@ -40,6 +40,7 @@ import { ContactLinkModel } from './models/contactLink';
 import { ContactMemoryModel } from './models/contactMemory';
 import { ContactNoteModel } from './models/contactNote';
 import { ProjectModel } from './models/project';
+import { ConversationChunkModel } from './models/conversationChunk';
 import { ConversationModel } from './models/conversation';
 import { DealChunkModel } from './models/dealChunk';
 import { DealContactModel } from './models/dealContact';
@@ -64,12 +65,14 @@ import { InteractionModel } from './models/interaction';
 import { ItineraryItemChunkModel } from './models/itineraryItemChunk';
 import { ItineraryItemModel } from './models/itineraryItem';
 import { MemoryChunkModel } from './models/memoryChunk';
+import { MessageChunkModel } from './models/messageChunk';
 import { MessageModel } from './models/message';
 import { NoteChunkModel } from './models/noteChunk';
 import { PlaceChunkModel } from './models/placeChunk';
 import { PlaceModel } from './models/place';
 import { ProjectChunkModel } from './models/projectChunk';
 import { ProjectContactModel } from './models/projectContact';
+import { RuleChunkModel } from './models/ruleChunk';
 import { RuleModel } from './models/rule';
 import { RuntimeArtifactModel } from './models/runtimeArtifact';
 import { RuntimeConfigModel } from './models/runtimeConfig';
@@ -81,6 +84,7 @@ import { RuntimeScheduleModel } from './models/runtimeSchedule';
 import { RuntimeStateChunkModel } from './models/runtimeStateChunk';
 import { RuntimeStateModel } from './models/runtimeState';
 import { RuntimeStateDependencyModel } from './models/runtimeStateDependency';
+import { SkillChunkModel } from './models/skillChunk';
 import { SkillModel } from './models/skill';
 import { TagModel } from './models/tag';
 import { ToolDefinitionModel } from './models/toolDefinition';
@@ -158,6 +162,7 @@ export function createClient(config: OrmClientConfig) {
     contactMemory: new ContactMemoryModel(client),
     contactNote: new ContactNoteModel(client),
     project: new ProjectModel(client),
+    conversationChunk: new ConversationChunkModel(client),
     conversation: new ConversationModel(client),
     dealChunk: new DealChunkModel(client),
     dealContact: new DealContactModel(client),
@@ -182,12 +187,14 @@ export function createClient(config: OrmClientConfig) {
     itineraryItemChunk: new ItineraryItemChunkModel(client),
     itineraryItem: new ItineraryItemModel(client),
     memoryChunk: new MemoryChunkModel(client),
+    messageChunk: new MessageChunkModel(client),
     message: new MessageModel(client),
     noteChunk: new NoteChunkModel(client),
     placeChunk: new PlaceChunkModel(client),
     place: new PlaceModel(client),
     projectChunk: new ProjectChunkModel(client),
     projectContact: new ProjectContactModel(client),
+    ruleChunk: new RuleChunkModel(client),
     rule: new RuleModel(client),
     runtimeArtifact: new RuntimeArtifactModel(client),
     runtimeConfig: new RuntimeConfigModel(client),
@@ -199,6 +206,7 @@ export function createClient(config: OrmClientConfig) {
     runtimeStateChunk: new RuntimeStateChunkModel(client),
     runtimeState: new RuntimeStateModel(client),
     runtimeStateDependency: new RuntimeStateDependencyModel(client),
+    skillChunk: new SkillChunkModel(client),
     skill: new SkillModel(client),
     tag: new TagModel(client),
     toolDefinition: new ToolDefinitionModel(client),

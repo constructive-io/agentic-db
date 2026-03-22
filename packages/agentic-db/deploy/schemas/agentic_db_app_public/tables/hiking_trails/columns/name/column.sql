@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails/table
--- requires: schemas/agentic_db_app_public/tables/hiking_trails/columns/updated_at/alterations/alt0000006250
+-- requires: schemas/agentic_db_app_public/tables/hiking_trails/columns/updated_at/alterations/alt0000001640
 
 
-ALTER TABLE agentic_db_app_public.hiking_trails 
+ALTER TABLE "agentic_db_app_public".hiking_trails 
   ADD COLUMN name text;
 

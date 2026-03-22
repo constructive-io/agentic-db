@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails/columns/tags/column
 
 
-ALTER TABLE agentic_db_app_public.hiking_trails 
+ALTER TABLE "agentic_db_app_public".hiking_trails 
   ADD COLUMN embedding_text text;
 

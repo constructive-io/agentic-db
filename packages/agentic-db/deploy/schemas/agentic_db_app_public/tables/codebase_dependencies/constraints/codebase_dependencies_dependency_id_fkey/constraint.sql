@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/codebas_chunks/indexes/codebas_chunks_codebasis_id_idx
 
 
-ALTER TABLE agentic_db_app_public.codebase_dependencies 
+ALTER TABLE "agentic_db_app_public".codebase_dependencies 
   ADD CONSTRAINT codebase_dependencies_dependency_id_fkey 
     FOREIGN KEY(dependency_id) 
-    REFERENCES agentic_db_app_public.codebases (id) 
+    REFERENCES "agentic_db_app_public".codebases (id) 
     ON DELETE CASCADE;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_states/columns/started_at/column
 
 
-ALTER TABLE agentic_db_app_public.runtime_states 
+ALTER TABLE "agentic_db_app_public".runtime_states 
   ADD COLUMN ended_at timestamptz;
 

@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_limits_public/schema/default_function_privs/administrator
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA agentic_db_limits_public REVOKE ALL ON FUNCTIONS FROM administrator;
+ALTER DEFAULT PRIVILEGES IN SCHEMA "agentic_db_limits_public" REVOKE ALL ON FUNCTIONS FROM administrator;
 
 

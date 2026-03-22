@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_chunks/indexes/habit_chunks_habit_id_idx
 
 
-GRANT SELECT ON agentic_db_app_public.trip_places TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".trip_places TO authenticated;
 

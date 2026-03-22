@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/goal_chunks/indexes/goal_chunks_goal_id_idx
 
 
-CREATE INDEX habit_chunks_habit_id_idx ON agentic_db_app_public.habit_chunks USING BTREE ( habit_id );
+CREATE INDEX habit_chunks_habit_id_idx ON "agentic_db_app_public".habit_chunks USING BTREE ( habit_id );
 

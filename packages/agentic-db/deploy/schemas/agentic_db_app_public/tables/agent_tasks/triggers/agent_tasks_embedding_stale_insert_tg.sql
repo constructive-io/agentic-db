@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER agent_tasks_embedding_stale_insert_tg
-BEFORE INSERT ON agentic_db_app_public.agent_tasks
+BEFORE INSERT ON "agentic_db_app_public".agent_tasks
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.agent_tasks_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".agent_tasks_embedding_stale ( );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memory_chunks/triggers/memory_chunks_enqueue_embedding_update_tg
 
 
-CREATE INDEX goal_chunks_entity_id_idx ON agentic_db_app_public.goal_chunks USING BTREE ( entity_id );
+CREATE INDEX goal_chunks_entity_id_idx ON "agentic_db_app_public".goal_chunks USING BTREE ( entity_id );
 

@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
--- requires: schemas/agentic_db_app_public/tables/rules/triggers/rules_embedding_stale_update_tg
+-- requires: schemas/agentic_db_app_public/tables/rules/indexes/rules_trigger_concept_embedding_hnsw_idx
 
 
-GRANT SELECT ON agentic_db_app_public.skills TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".skills TO authenticated;
 

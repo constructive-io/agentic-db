@@ -1,6 +1,0 @@
--- Verify: schemas/agentic_db_app_public/tables/runtime_state_chunks/columns/embedding_stale/alterations/alt0000006061
-
-
-
-
-

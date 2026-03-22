@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agents/table
--- requires: schemas/agentic_db_app_public/tables/agents/columns/name/alterations/alt0000005858
+-- requires: schemas/agentic_db_app_public/tables/agents/columns/name/alterations/alt0000001184
 
 
-ALTER TABLE agentic_db_app_public.agents 
+ALTER TABLE "agentic_db_app_public".agents 
   ADD COLUMN description text;
 

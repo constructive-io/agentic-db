@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/codebas_chunks/triggers/codebas_chunks_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.code_chunks 
+ALTER TABLE "agentic_db_app_public".code_chunks 
   ADD COLUMN codebasis_id uuid;
 

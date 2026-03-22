@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_chunks/indexes/habit_chunks_habit_id_idx
 
 
-CREATE INDEX trip_places_entity_id_idx ON agentic_db_app_public.trip_places USING BTREE ( entity_id );
+CREATE INDEX trip_places_entity_id_idx ON "agentic_db_app_public".trip_places USING BTREE ( entity_id );
 

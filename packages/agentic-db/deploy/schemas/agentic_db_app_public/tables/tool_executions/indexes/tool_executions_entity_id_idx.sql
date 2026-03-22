@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/table
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/columns/entity_id/column
--- requires: schemas/agentic_db_app_public/tables/tool_definitions/columns/is_active/alterations/alt0000006106
+-- requires: schemas/agentic_db_app_public/tables/tool_definitions/columns/is_active/alterations/alt0000001494
 
 
-CREATE INDEX tool_executions_entity_id_idx ON agentic_db_app_public.tool_executions USING BTREE ( entity_id );
+CREATE INDEX tool_executions_entity_id_idx ON "agentic_db_app_public".tool_executions USING BTREE ( entity_id );
 

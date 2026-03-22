@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/itinerary_items/indexes/itinerary_items_trip_id_idx
 
 
-ALTER TABLE agentic_db_app_public.itinerary_items 
+ALTER TABLE "agentic_db_app_public".itinerary_items 
   ADD CONSTRAINT itinerary_items_place_id_fkey 
     FOREIGN KEY(place_id) 
-    REFERENCES agentic_db_app_public.places (id) 
+    REFERENCES "agentic_db_app_public".places (id) 
     ON DELETE SET NULL;
 

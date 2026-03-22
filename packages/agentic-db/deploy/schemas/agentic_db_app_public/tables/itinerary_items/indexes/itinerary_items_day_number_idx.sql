@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/itinerary_items/columns/day_number/column
 
 
-CREATE INDEX itinerary_items_day_number_idx ON agentic_db_app_public.itinerary_items USING BTREE ( day_number );
+CREATE INDEX itinerary_items_day_number_idx ON "agentic_db_app_public".itinerary_items USING BTREE ( day_number );
 

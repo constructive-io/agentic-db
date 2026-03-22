@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/venue_chunks/triggers/venue_chunks_enqueue_embedding_update_tg
 
 
-CREATE TABLE agentic_db_app_public.note_chunks ();
+CREATE TABLE "agentic_db_app_public".note_chunks ();
 

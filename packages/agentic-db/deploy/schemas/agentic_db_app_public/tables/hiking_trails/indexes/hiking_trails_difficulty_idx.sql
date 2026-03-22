@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/itinerary_items/indexes/itinerary_items_day_number_idx
 
 
-CREATE INDEX hiking_trails_difficulty_idx ON agentic_db_app_public.hiking_trails USING BTREE ( difficulty );
+CREATE INDEX hiking_trails_difficulty_idx ON "agentic_db_app_public".hiking_trails USING BTREE ( difficulty );
 

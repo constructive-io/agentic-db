@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
 -- requires: schemas/agentic_db_private/trigger_fns/skills_embedding_stale
--- requires: schemas/agentic_db_app_public/tables/skills/columns/intent_trigger/column
+-- requires: schemas/agentic_db_app_public/tables/skills/columns/embedding_text/column
 
 
 CREATE TRIGGER skills_embedding_stale_update_tg
-BEFORE UPDATE ON agentic_db_app_public.skills
+BEFORE UPDATE ON "agentic_db_app_public".skills
 FOR EACH ROW
-WHEN (OLD.intent_trigger IS DISTINCT FROM NEW.intent_trigger)
-EXECUTE PROCEDURE agentic_db_private.skills_embedding_stale ( );
+WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.intent_trigger IS DISTINCT FROM NEW.intent_trigger)
+EXECUTE PROCEDURE "agentic_db_private".skills_embedding_stale ( );
 

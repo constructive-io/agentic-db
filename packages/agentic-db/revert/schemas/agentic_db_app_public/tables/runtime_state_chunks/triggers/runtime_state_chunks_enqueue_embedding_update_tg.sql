@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/runtime_state_chunks/triggers/runtime_state_chunks_enqueue_embedding_update_tg
 
 
-DROP TRIGGER runtime_state_chunks_enqueue_embedding_update_tg ON agentic_db_app_public.runtime_state_chunks;
+DROP TRIGGER runtime_state_chunks_enqueue_embedding_update_tg ON "agentic_db_app_public".runtime_state_chunks;
 
 

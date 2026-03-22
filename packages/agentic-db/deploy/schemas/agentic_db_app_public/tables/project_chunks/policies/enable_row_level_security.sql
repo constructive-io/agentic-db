@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/triggers/projects_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.project_chunks 
+ALTER TABLE "agentic_db_app_public".project_chunks 
   ENABLE ROW LEVEL SECURITY;
 

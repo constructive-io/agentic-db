@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/event_chunks/triggers/event_chunks_enqueue_embedding_update_tg
 
 
-CREATE INDEX venue_chunks_entity_id_idx ON agentic_db_app_public.venue_chunks USING BTREE ( entity_id );
+CREATE INDEX venue_chunks_entity_id_idx ON "agentic_db_app_public".venue_chunks USING BTREE ( entity_id );
 

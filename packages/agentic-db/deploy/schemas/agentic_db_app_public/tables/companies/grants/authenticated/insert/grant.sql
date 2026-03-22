@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contacts/indexes/contacts_location_geo_gist_idx
 
 
-GRANT INSERT ON agentic_db_app_public.companies TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".companies TO authenticated;
 

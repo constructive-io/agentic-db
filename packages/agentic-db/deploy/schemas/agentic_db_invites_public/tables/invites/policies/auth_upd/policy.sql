@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_invites_public/tables/invites/table
 
 
-CREATE POLICY auth_upd ON agentic_db_invites_public.invites
+CREATE POLICY auth_upd ON "agentic_db_invites_public".invites
 FOR UPDATE
 TO authenticated
 USING (

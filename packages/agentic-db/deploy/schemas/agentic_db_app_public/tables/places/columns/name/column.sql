@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/places/table
--- requires: schemas/agentic_db_app_public/tables/places/columns/updated_at/alterations/alt0000006224
+-- requires: schemas/agentic_db_app_public/tables/places/columns/updated_at/alterations/alt0000001614
 
 
-ALTER TABLE agentic_db_app_public.places 
+ALTER TABLE "agentic_db_app_public".places 
   ADD COLUMN name text;
 

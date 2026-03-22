@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trips/indexes/trips_started_at_idx
 
 
-CREATE INDEX places_city_idx ON agentic_db_app_public.places USING BTREE ( city );
+CREATE INDEX places_city_idx ON "agentic_db_app_public".places USING BTREE ( city );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_codebase_id_idx
 
 
-CREATE INDEX code_chunks_file_path_idx ON agentic_db_app_public.code_chunks USING BTREE ( file_path );
+CREATE INDEX code_chunks_file_path_idx ON "agentic_db_app_public".code_chunks USING BTREE ( file_path );
 

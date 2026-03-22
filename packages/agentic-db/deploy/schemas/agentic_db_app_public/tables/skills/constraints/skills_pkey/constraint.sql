@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
--- requires: schemas/agentic_db_app_public/tables/rules/triggers/rules_embedding_stale_update_tg
+-- requires: schemas/agentic_db_app_public/tables/rules/indexes/rules_trigger_concept_embedding_hnsw_idx
 
 
-ALTER TABLE agentic_db_app_public.skills 
+ALTER TABLE "agentic_db_app_public".skills 
   ADD CONSTRAINT skills_pkey PRIMARY KEY (id);
 

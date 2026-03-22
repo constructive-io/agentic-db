@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_app_public/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA agentic_db_app_public GRANT ALL ON FUNCTIONS TO administrator;
+ALTER DEFAULT PRIVILEGES IN SCHEMA "agentic_db_app_public" GRANT ALL ON FUNCTIONS TO administrator;
 

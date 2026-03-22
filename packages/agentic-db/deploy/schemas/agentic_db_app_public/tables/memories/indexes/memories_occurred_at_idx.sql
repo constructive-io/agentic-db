@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails/indexes/hiking_trails_region_idx
 
 
-CREATE INDEX memories_occurred_at_idx ON agentic_db_app_public.memories USING BTREE ( occurred_at );
+CREATE INDEX memories_occurred_at_idx ON "agentic_db_app_public".memories USING BTREE ( occurred_at );
 

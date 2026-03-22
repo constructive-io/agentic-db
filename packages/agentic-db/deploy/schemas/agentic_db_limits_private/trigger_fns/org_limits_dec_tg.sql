@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION agentic_db_limits_private.org_limits_dec_tg ()
+CREATE FUNCTION "agentic_db_limits_private".org_limits_dec_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
@@ -16,14 +16,14 @@ BEGIN
         RAISE EXCEPTION 'LIMIT_TRIGGER_ARGS (%)', TG_NAME;
     ELSIF (TG_NARGS = 1) THEN 
         limitname = TG_ARGV[0];        
-        PERFORM agentic_db_limits_private.org_limits_dec(
+        PERFORM "agentic_db_limits_private".org_limits_dec(
             limitname
         );
     ELSIF (TG_NARGS = 2) THEN 
         limitname = TG_ARGV[0];        
         EXECUTE format('SELECT ($1).%s', TG_ARGV[1])
         USING OLD INTO actor_id;
-        PERFORM agentic_db_limits_private.org_limits_dec(
+        PERFORM "agentic_db_limits_private".org_limits_dec(
             limitname, actor_id
         );
     END IF;

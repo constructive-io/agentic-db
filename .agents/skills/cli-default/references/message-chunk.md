@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db message-chunk list
 agentic-db message-chunk get --id <UUID>
-agentic-db message-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --messageId <UUID> [--embeddingText <String>] [--embedding <Vector>]
-agentic-db message-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--messageId <UUID>]
+agentic-db message-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --messageId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db message-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--messageId <UUID>]
 agentic-db message-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db message-chunk list
 ### Create a messageChunk
 
 ```bash
-agentic-db message-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --messageId <UUID> [--embeddingText <String>] [--embedding <Vector>]
+agentic-db message-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --messageId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a messageChunk by id

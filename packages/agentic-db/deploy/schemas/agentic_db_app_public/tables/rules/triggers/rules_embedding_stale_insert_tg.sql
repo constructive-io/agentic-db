@@ -5,11 +5,11 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/rules/table
 -- requires: schemas/agentic_db_private/trigger_fns/rules_embedding_stale
--- requires: schemas/agentic_db_app_public/tables/rules/columns/trigger_concept/column
+-- requires: schemas/agentic_db_app_public/tables/rules/columns/embedding_text/column
 
 
 CREATE TRIGGER rules_embedding_stale_insert_tg
-BEFORE INSERT ON agentic_db_app_public.rules
+BEFORE INSERT ON "agentic_db_app_public".rules
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.rules_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".rules_embedding_stale ( );
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_profiles_public/tables/org_profile_permissions/table
 
 
-GRANT DELETE ON agentic_db_profiles_public.org_profile_permissions TO authenticated;
+GRANT DELETE ON "agentic_db_profiles_public".org_profile_permissions TO authenticated;
 

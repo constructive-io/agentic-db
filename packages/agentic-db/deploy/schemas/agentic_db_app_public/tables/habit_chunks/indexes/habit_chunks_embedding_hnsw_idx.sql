@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_chunks/columns/embedding_text/column
 
 
-CREATE INDEX habit_chunks_embedding_hnsw_idx ON agentic_db_app_public.habit_chunks USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX habit_chunks_embedding_hnsw_idx ON "agentic_db_app_public".habit_chunks USING hnsw ( embedding vector_cosine_ops );
 

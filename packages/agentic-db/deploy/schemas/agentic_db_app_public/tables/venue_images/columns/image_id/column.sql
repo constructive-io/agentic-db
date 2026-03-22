@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/event_images/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.venue_images 
+ALTER TABLE "agentic_db_app_public".venue_images 
   ADD COLUMN image_id uuid;
 

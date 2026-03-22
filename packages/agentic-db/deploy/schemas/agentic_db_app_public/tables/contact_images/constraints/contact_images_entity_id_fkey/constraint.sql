@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_main_image_id_idx
 
 
-ALTER TABLE agentic_db_app_public.contact_images 
+ALTER TABLE "agentic_db_app_public".contact_images 
   ADD CONSTRAINT contact_images_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

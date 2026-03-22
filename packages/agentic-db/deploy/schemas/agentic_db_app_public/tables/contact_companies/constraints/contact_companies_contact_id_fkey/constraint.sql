@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/interaction_chunks/indexes/interaction_chunks_interaction_id_idx
 
 
-ALTER TABLE agentic_db_app_public.contact_companies 
+ALTER TABLE "agentic_db_app_public".contact_companies 
   ADD CONSTRAINT contact_companies_contact_id_fkey 
     FOREIGN KEY(contact_id) 
-    REFERENCES agentic_db_app_public.contacts (id) 
+    REFERENCES "agentic_db_app_public".contacts (id) 
     ON DELETE CASCADE;
 

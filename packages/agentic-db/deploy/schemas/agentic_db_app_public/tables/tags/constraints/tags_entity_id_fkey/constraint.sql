@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/interactions/triggers/interactions_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.tags 
+ALTER TABLE "agentic_db_app_public".tags 
   ADD CONSTRAINT tags_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

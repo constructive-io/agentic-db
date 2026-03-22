@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/triggers/autonomy_records_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.autonomy_record_chunks 
+ALTER TABLE "agentic_db_app_public".autonomy_record_chunks 
   ADD COLUMN id uuid;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/trips/columns/description/column
 
 
-ALTER TABLE agentic_db_app_public.trips 
+ALTER TABLE "agentic_db_app_public".trips 
   ADD COLUMN destination text;
 

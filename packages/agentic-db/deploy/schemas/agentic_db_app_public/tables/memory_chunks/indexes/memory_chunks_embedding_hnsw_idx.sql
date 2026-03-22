@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memory_chunks/columns/embedding_text/column
 
 
-CREATE INDEX memory_chunks_embedding_hnsw_idx ON agentic_db_app_public.memory_chunks USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX memory_chunks_embedding_hnsw_idx ON "agentic_db_app_public".memory_chunks USING hnsw ( embedding vector_cosine_ops );
 

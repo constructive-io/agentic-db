@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_links/indexes/contact_links_contact_id_idx
 
 
-ALTER TABLE agentic_db_app_public.company_links 
+ALTER TABLE "agentic_db_app_public".company_links 
   ADD CONSTRAINT company_links_company_id_fkey 
     FOREIGN KEY(company_id) 
-    REFERENCES agentic_db_app_public.companies (id) 
+    REFERENCES "agentic_db_app_public".companies (id) 
     ON DELETE CASCADE;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/deals/indexes/deals_tags_gin_idx
 
 
-CREATE INDEX events_tags_gin_idx ON agentic_db_app_public.events USING GIN ( tags );
+CREATE INDEX events_tags_gin_idx ON "agentic_db_app_public".events USING GIN ( tags );
 

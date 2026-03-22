@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER venue_chunks_enqueue_embedding_insert_tg
-AFTER INSERT ON agentic_db_app_public.venue_chunks
+AFTER INSERT ON "agentic_db_app_public".venue_chunks
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE agentic_db_private.venue_chunks_enqueue_embedding ( );
+EXECUTE PROCEDURE "agentic_db_private".venue_chunks_enqueue_embedding ( );
 

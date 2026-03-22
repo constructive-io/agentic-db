@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.autonomy_records 
+ALTER TABLE "agentic_db_app_public".autonomy_records 
   ADD COLUMN created_at timestamptz;
 

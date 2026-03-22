@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/triggers/code_chunks_enqueue_embedding_update_tg
 
 
-GRANT UPDATE ON agentic_db_app_public.codebas_chunks TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".codebas_chunks TO authenticated;
 

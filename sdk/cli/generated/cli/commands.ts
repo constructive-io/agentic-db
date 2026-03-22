@@ -41,6 +41,7 @@ import contactLinkCmd from './commands/contact-link';
 import contactMemoryCmd from './commands/contact-memory';
 import contactNoteCmd from './commands/contact-note';
 import projectCmd from './commands/project';
+import conversationChunkCmd from './commands/conversation-chunk';
 import conversationCmd from './commands/conversation';
 import dealChunkCmd from './commands/deal-chunk';
 import dealContactCmd from './commands/deal-contact';
@@ -65,12 +66,14 @@ import interactionCmd from './commands/interaction';
 import itineraryItemChunkCmd from './commands/itinerary-item-chunk';
 import itineraryItemCmd from './commands/itinerary-item';
 import memoryChunkCmd from './commands/memory-chunk';
+import messageChunkCmd from './commands/message-chunk';
 import messageCmd from './commands/message';
 import noteChunkCmd from './commands/note-chunk';
 import placeChunkCmd from './commands/place-chunk';
 import placeCmd from './commands/place';
 import projectChunkCmd from './commands/project-chunk';
 import projectContactCmd from './commands/project-contact';
+import ruleChunkCmd from './commands/rule-chunk';
 import ruleCmd from './commands/rule';
 import runtimeArtifactCmd from './commands/runtime-artifact';
 import runtimeConfigCmd from './commands/runtime-config';
@@ -82,6 +85,7 @@ import runtimeScheduleCmd from './commands/runtime-schedule';
 import runtimeStateChunkCmd from './commands/runtime-state-chunk';
 import runtimeStateCmd from './commands/runtime-state';
 import runtimeStateDependencyCmd from './commands/runtime-state-dependency';
+import skillChunkCmd from './commands/skill-chunk';
 import skillCmd from './commands/skill';
 import tagCmd from './commands/tag';
 import toolDefinitionCmd from './commands/tool-definition';
@@ -137,6 +141,7 @@ const createCommandMap: () => Record<
   'contact-memory': contactMemoryCmd,
   'contact-note': contactNoteCmd,
   project: projectCmd,
+  'conversation-chunk': conversationChunkCmd,
   conversation: conversationCmd,
   'deal-chunk': dealChunkCmd,
   'deal-contact': dealContactCmd,
@@ -161,12 +166,14 @@ const createCommandMap: () => Record<
   'itinerary-item-chunk': itineraryItemChunkCmd,
   'itinerary-item': itineraryItemCmd,
   'memory-chunk': memoryChunkCmd,
+  'message-chunk': messageChunkCmd,
   message: messageCmd,
   'note-chunk': noteChunkCmd,
   'place-chunk': placeChunkCmd,
   place: placeCmd,
   'project-chunk': projectChunkCmd,
   'project-contact': projectContactCmd,
+  'rule-chunk': ruleChunkCmd,
   rule: ruleCmd,
   'runtime-artifact': runtimeArtifactCmd,
   'runtime-config': runtimeConfigCmd,
@@ -178,6 +185,7 @@ const createCommandMap: () => Record<
   'runtime-state-chunk': runtimeStateChunkCmd,
   'runtime-state': runtimeStateCmd,
   'runtime-state-dependency': runtimeStateDependencyCmd,
+  'skill-chunk': skillChunkCmd,
   skill: skillCmd,
   tag: tagCmd,
   'tool-definition': toolDefinitionCmd,
@@ -190,7 +198,7 @@ const createCommandMap: () => Record<
   'venue-link': venueLinkCmd,
 });
 const usage =
-  '\nagentic-db <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  agent                agent CRUD operations\n  agent-chunk          agentChunk CRUD operations\n  agent-collaborator   agentCollaborator CRUD operations\n  agent-log-chunk      agentLogChunk CRUD operations\n  agent-log            agentLog CRUD operations\n  agent-task-chunk     agentTaskChunk CRUD operations\n  agent-task           agentTask CRUD operations\n  autonomy-record      autonomyRecord CRUD operations\n  autonomy-record-chunk autonomyRecordChunk CRUD operations\n  autonomy-record-link autonomyRecordLink CRUD operations\n  codebas-chunk        codebasChunk CRUD operations\n  codebase-dependency  codebaseDependency CRUD operations\n  codebasis            codebasis CRUD operations\n  code-chunk           codeChunk CRUD operations\n  company-chunk        companyChunk CRUD operations\n  company              company CRUD operations\n  contact              contact CRUD operations\n  company-event        companyEvent CRUD operations\n  event                event CRUD operations\n  company-image        companyImage CRUD operations\n  image                image CRUD operations\n  company-link         companyLink CRUD operations\n  memory               memory CRUD operations\n  company-memory       companyMemory CRUD operations\n  company-note         companyNote CRUD operations\n  note                 note CRUD operations\n  contact-chunk        contactChunk CRUD operations\n  contact-company      contactCompany CRUD operations\n  deal                 deal CRUD operations\n  contact-event        contactEvent CRUD operations\n  contact-image        contactImage CRUD operations\n  contact-link         contactLink CRUD operations\n  contact-memory       contactMemory CRUD operations\n  contact-note         contactNote CRUD operations\n  project              project CRUD operations\n  conversation         conversation CRUD operations\n  deal-chunk           dealChunk CRUD operations\n  deal-contact         dealContact CRUD operations\n  deal-note            dealNote CRUD operations\n  event-chunk          eventChunk CRUD operations\n  event-image          eventImage CRUD operations\n  event-link           eventLink CRUD operations\n  event-note           eventNote CRUD operations\n  event-venue          eventVenue CRUD operations\n  venue                venue CRUD operations\n  goal-chunk           goalChunk CRUD operations\n  goal                 goal CRUD operations\n  goal-habit           goalHabit CRUD operations\n  habit                habit CRUD operations\n  goal-project         goalProject CRUD operations\n  habit-chunk          habitChunk CRUD operations\n  hiking-trail-chunk   hikingTrailChunk CRUD operations\n  hiking-trail         hikingTrail CRUD operations\n  trip                 trip CRUD operations\n  interaction-chunk    interactionChunk CRUD operations\n  interaction          interaction CRUD operations\n  itinerary-item-chunk itineraryItemChunk CRUD operations\n  itinerary-item       itineraryItem CRUD operations\n  memory-chunk         memoryChunk CRUD operations\n  message              message CRUD operations\n  note-chunk           noteChunk CRUD operations\n  place-chunk          placeChunk CRUD operations\n  place                place CRUD operations\n  project-chunk        projectChunk CRUD operations\n  project-contact      projectContact CRUD operations\n  rule                 rule CRUD operations\n  runtime-artifact     runtimeArtifact CRUD operations\n  runtime-config       runtimeConfig CRUD operations\n  runtime-event        runtimeEvent CRUD operations\n  runtime-log-chunk    runtimeLogChunk CRUD operations\n  runtime-log          runtimeLog CRUD operations\n  runtime-metric       runtimeMetric CRUD operations\n  runtime-schedule     runtimeSchedule CRUD operations\n  runtime-state-chunk  runtimeStateChunk CRUD operations\n  runtime-state        runtimeState CRUD operations\n  runtime-state-dependency runtimeStateDependency CRUD operations\n  skill                skill CRUD operations\n  tag                  tag CRUD operations\n  tool-definition      toolDefinition CRUD operations\n  tool-execution       toolExecution CRUD operations\n  trip-chunk           tripChunk CRUD operations\n  trip-hiking-trail    tripHikingTrail CRUD operations\n  trip-place           tripPlace CRUD operations\n  venue-chunk          venueChunk CRUD operations\n  venue-image          venueImage CRUD operations\n  venue-link           venueLink CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
+  '\nagentic-db <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  agent                agent CRUD operations\n  agent-chunk          agentChunk CRUD operations\n  agent-collaborator   agentCollaborator CRUD operations\n  agent-log-chunk      agentLogChunk CRUD operations\n  agent-log            agentLog CRUD operations\n  agent-task-chunk     agentTaskChunk CRUD operations\n  agent-task           agentTask CRUD operations\n  autonomy-record      autonomyRecord CRUD operations\n  autonomy-record-chunk autonomyRecordChunk CRUD operations\n  autonomy-record-link autonomyRecordLink CRUD operations\n  codebas-chunk        codebasChunk CRUD operations\n  codebase-dependency  codebaseDependency CRUD operations\n  codebasis            codebasis CRUD operations\n  code-chunk           codeChunk CRUD operations\n  company-chunk        companyChunk CRUD operations\n  company              company CRUD operations\n  contact              contact CRUD operations\n  company-event        companyEvent CRUD operations\n  event                event CRUD operations\n  company-image        companyImage CRUD operations\n  image                image CRUD operations\n  company-link         companyLink CRUD operations\n  memory               memory CRUD operations\n  company-memory       companyMemory CRUD operations\n  company-note         companyNote CRUD operations\n  note                 note CRUD operations\n  contact-chunk        contactChunk CRUD operations\n  contact-company      contactCompany CRUD operations\n  deal                 deal CRUD operations\n  contact-event        contactEvent CRUD operations\n  contact-image        contactImage CRUD operations\n  contact-link         contactLink CRUD operations\n  contact-memory       contactMemory CRUD operations\n  contact-note         contactNote CRUD operations\n  project              project CRUD operations\n  conversation-chunk   conversationChunk CRUD operations\n  conversation         conversation CRUD operations\n  deal-chunk           dealChunk CRUD operations\n  deal-contact         dealContact CRUD operations\n  deal-note            dealNote CRUD operations\n  event-chunk          eventChunk CRUD operations\n  event-image          eventImage CRUD operations\n  event-link           eventLink CRUD operations\n  event-note           eventNote CRUD operations\n  event-venue          eventVenue CRUD operations\n  venue                venue CRUD operations\n  goal-chunk           goalChunk CRUD operations\n  goal                 goal CRUD operations\n  goal-habit           goalHabit CRUD operations\n  habit                habit CRUD operations\n  goal-project         goalProject CRUD operations\n  habit-chunk          habitChunk CRUD operations\n  hiking-trail-chunk   hikingTrailChunk CRUD operations\n  hiking-trail         hikingTrail CRUD operations\n  trip                 trip CRUD operations\n  interaction-chunk    interactionChunk CRUD operations\n  interaction          interaction CRUD operations\n  itinerary-item-chunk itineraryItemChunk CRUD operations\n  itinerary-item       itineraryItem CRUD operations\n  memory-chunk         memoryChunk CRUD operations\n  message-chunk        messageChunk CRUD operations\n  message              message CRUD operations\n  note-chunk           noteChunk CRUD operations\n  place-chunk          placeChunk CRUD operations\n  place                place CRUD operations\n  project-chunk        projectChunk CRUD operations\n  project-contact      projectContact CRUD operations\n  rule-chunk           ruleChunk CRUD operations\n  rule                 rule CRUD operations\n  runtime-artifact     runtimeArtifact CRUD operations\n  runtime-config       runtimeConfig CRUD operations\n  runtime-event        runtimeEvent CRUD operations\n  runtime-log-chunk    runtimeLogChunk CRUD operations\n  runtime-log          runtimeLog CRUD operations\n  runtime-metric       runtimeMetric CRUD operations\n  runtime-schedule     runtimeSchedule CRUD operations\n  runtime-state-chunk  runtimeStateChunk CRUD operations\n  runtime-state        runtimeState CRUD operations\n  runtime-state-dependency runtimeStateDependency CRUD operations\n  skill-chunk          skillChunk CRUD operations\n  skill                skill CRUD operations\n  tag                  tag CRUD operations\n  tool-definition      toolDefinition CRUD operations\n  tool-execution       toolExecution CRUD operations\n  trip-chunk           tripChunk CRUD operations\n  trip-hiking-trail    tripHikingTrail CRUD operations\n  trip-place           tripPlace CRUD operations\n  venue-chunk          venueChunk CRUD operations\n  venue-image          venueImage CRUD operations\n  venue-link           venueLink CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
 export const commands = async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,

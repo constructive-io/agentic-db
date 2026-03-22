@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_location_gist_idx
 
 
-ALTER TABLE agentic_db_app_public.notes 
+ALTER TABLE "agentic_db_app_public".notes 
   ADD COLUMN id uuid;
 

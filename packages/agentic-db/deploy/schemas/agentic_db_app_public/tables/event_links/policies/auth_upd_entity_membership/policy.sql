@@ -3,15 +3,15 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/event_links/table
--- requires: schemas/agentic_db_app_public/tables/company_links/columns/embedding_stale/alterations/alt0000005753
+-- requires: schemas/agentic_db_app_public/tables/company_links/columns/embedding_stale/alterations/alt0000001079
 
 
-CREATE POLICY auth_upd_entity_membership ON agentic_db_app_public.event_links
+CREATE POLICY auth_upd_entity_membership ON "agentic_db_app_public".event_links
 FOR UPDATE
 TO authenticated
 USING (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM agentic_db_memberships_private.org_memberships_sprt AS org_sprt
+  FROM "agentic_db_memberships_private".org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_states/triggers/runtime_states_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.runtime_logs 
+ALTER TABLE "agentic_db_app_public".runtime_logs 
   ADD COLUMN entity_id uuid;
 

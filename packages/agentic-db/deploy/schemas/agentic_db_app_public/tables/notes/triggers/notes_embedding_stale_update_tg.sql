@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER notes_embedding_stale_update_tg
-BEFORE UPDATE ON agentic_db_app_public.notes
+BEFORE UPDATE ON "agentic_db_app_public".notes
 FOR EACH ROW
 WHEN (OLD.content IS DISTINCT FROM NEW.content OR OLD.abstract IS DISTINCT FROM NEW.abstract)
-EXECUTE PROCEDURE agentic_db_private.notes_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".notes_embedding_stale ( );
 

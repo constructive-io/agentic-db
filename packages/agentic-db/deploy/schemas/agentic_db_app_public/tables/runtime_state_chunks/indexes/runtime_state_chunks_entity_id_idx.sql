@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/table
 -- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/columns/entity_id/column
--- requires: schemas/agentic_db_app_public/tables/runtime_config/columns/is_secret/alterations/alt0000006049
+-- requires: schemas/agentic_db_app_public/tables/runtime_config/columns/is_secret/alterations/alt0000001405
 
 
-CREATE INDEX runtime_state_chunks_entity_id_idx ON agentic_db_app_public.runtime_state_chunks USING BTREE ( entity_id );
+CREATE INDEX runtime_state_chunks_entity_id_idx ON "agentic_db_app_public".runtime_state_chunks USING BTREE ( entity_id );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_tags_gin_idx
 
 
-CREATE INDEX projects_config_gin_idx ON agentic_db_app_public.projects USING GIN ( config );
+CREATE INDEX projects_config_gin_idx ON "agentic_db_app_public".projects USING GIN ( config );
 

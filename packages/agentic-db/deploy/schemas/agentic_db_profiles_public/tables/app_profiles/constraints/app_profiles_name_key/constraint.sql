@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_profiles_public/tables/app_profiles/table
 
 
-ALTER TABLE agentic_db_profiles_public.app_profiles 
+ALTER TABLE "agentic_db_profiles_public".app_profiles 
   ADD CONSTRAINT app_profiles_name_key 
     UNIQUE (name);
 

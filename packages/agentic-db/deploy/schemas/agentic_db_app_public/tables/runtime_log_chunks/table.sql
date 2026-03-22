@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/triggers/runtime_state_chunks_enqueue_embedding_update_tg
 
 
-CREATE TABLE agentic_db_app_public.runtime_log_chunks ();
+CREATE TABLE "agentic_db_app_public".runtime_log_chunks ();
 

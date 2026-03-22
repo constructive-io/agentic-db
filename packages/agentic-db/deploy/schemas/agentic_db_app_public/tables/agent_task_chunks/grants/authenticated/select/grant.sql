@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_chunks/triggers/agent_chunks_enqueue_embedding_update_tg
 
 
-GRANT SELECT ON agentic_db_app_public.agent_task_chunks TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".agent_task_chunks TO authenticated;
 

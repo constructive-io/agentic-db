@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_metrics/indexes/runtime_metrics_runtime_state_id_idx
 
 
-ALTER TABLE agentic_db_app_public.runtime_state_chunks 
+ALTER TABLE "agentic_db_app_public".runtime_state_chunks 
   ADD COLUMN runtime_state_id uuid;
 

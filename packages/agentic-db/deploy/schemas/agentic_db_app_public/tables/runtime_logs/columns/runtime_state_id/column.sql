@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_logs/table
--- requires: schemas/agentic_db_app_public/tables/runtime_logs/columns/updated_at/alterations/alt0000005990
+-- requires: schemas/agentic_db_app_public/tables/runtime_logs/columns/updated_at/alterations/alt0000001346
 
 
-ALTER TABLE agentic_db_app_public.runtime_logs 
+ALTER TABLE "agentic_db_app_public".runtime_logs 
   ADD COLUMN runtime_state_id uuid;
 

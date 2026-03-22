@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/deals/triggers/deals_enqueue_embedding_update_tg
 
 
-GRANT DELETE ON agentic_db_app_public.events TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".events TO authenticated;
 

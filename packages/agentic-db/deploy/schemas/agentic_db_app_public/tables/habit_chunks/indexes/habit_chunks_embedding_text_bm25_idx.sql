@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habit_chunks/columns/embedding_text/column
 
 
-CREATE INDEX habit_chunks_embedding_text_bm25_idx ON agentic_db_app_public.habit_chunks USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX habit_chunks_embedding_text_bm25_idx ON "agentic_db_app_public".habit_chunks USING bm25 ( embedding_text ) WITH ( text_config = english );
 

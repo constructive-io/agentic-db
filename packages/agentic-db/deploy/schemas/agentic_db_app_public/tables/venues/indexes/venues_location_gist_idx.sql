@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venues/table
 -- requires: schemas/agentic_db_app_public/tables/venues/columns/location/column
--- requires: schemas/agentic_db_app_public/tables/venues/alterations/alt0000005603
+-- requires: schemas/agentic_db_app_public/tables/venues/alterations/alt0000000929
 
 
-CREATE INDEX venues_location_gist_idx ON agentic_db_app_public.venues USING GIST ( location );
+CREATE INDEX venues_location_gist_idx ON "agentic_db_app_public".venues USING GIST ( location );
 

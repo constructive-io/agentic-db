@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails/indexes/hiking_trails_location_gist_idx
 
 
-ALTER TABLE agentic_db_app_public.memories 
+ALTER TABLE "agentic_db_app_public".memories 
   ADD CONSTRAINT memories_pkey PRIMARY KEY (id);
 

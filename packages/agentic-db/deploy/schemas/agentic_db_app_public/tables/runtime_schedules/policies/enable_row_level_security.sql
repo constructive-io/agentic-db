@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_metrics/columns/meta/column
 
 
-ALTER TABLE agentic_db_app_public.runtime_schedules 
+ALTER TABLE "agentic_db_app_public".runtime_schedules 
   ENABLE ROW LEVEL SECURITY;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/indexes/autonomy_record_chunks_autonomy_record_id_idx
 
 
-CREATE INDEX autonomy_record_links_source_record_id_idx ON agentic_db_app_public.autonomy_record_links USING BTREE ( source_record_id );
+CREATE INDEX autonomy_record_links_source_record_id_idx ON "agentic_db_app_public".autonomy_record_links USING BTREE ( source_record_id );
 

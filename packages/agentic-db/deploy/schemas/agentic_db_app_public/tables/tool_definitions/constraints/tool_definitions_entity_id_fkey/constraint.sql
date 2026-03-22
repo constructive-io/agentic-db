@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_app_public/tables/tool_definitions/table
--- requires: schemas/agentic_db_app_public/tables/messages/columns/tool_results/column
+-- requires: schemas/agentic_db_app_public/tables/message_chunks/triggers/message_chunks_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.tool_definitions 
+ALTER TABLE "agentic_db_app_public".tool_definitions 
   ADD CONSTRAINT tool_definitions_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

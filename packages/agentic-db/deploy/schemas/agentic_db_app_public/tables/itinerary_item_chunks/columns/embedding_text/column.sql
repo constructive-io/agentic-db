@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/itinerary_item_chunks/table
--- requires: schemas/agentic_db_app_public/tables/itinerary_item_chunks/columns/content/alterations/alt0000006335
+-- requires: schemas/agentic_db_app_public/tables/itinerary_item_chunks/columns/content/alterations/alt0000001725
 
 
-ALTER TABLE agentic_db_app_public.itinerary_item_chunks 
+ALTER TABLE "agentic_db_app_public".itinerary_item_chunks 
   ADD COLUMN embedding_text text;
 

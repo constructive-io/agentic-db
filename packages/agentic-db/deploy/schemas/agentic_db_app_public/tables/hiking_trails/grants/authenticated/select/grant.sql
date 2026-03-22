@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/itinerary_items/triggers/itinerary_items_enqueue_embedding_update_tg
 
 
-GRANT SELECT ON agentic_db_app_public.hiking_trails TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".hiking_trails TO authenticated;
 

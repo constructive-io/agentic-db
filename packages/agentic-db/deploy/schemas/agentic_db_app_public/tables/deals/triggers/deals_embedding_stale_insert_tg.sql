@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER deals_embedding_stale_insert_tg
-BEFORE INSERT ON agentic_db_app_public.deals
+BEFORE INSERT ON "agentic_db_app_public".deals
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.deals_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".deals_embedding_stale ( );
 

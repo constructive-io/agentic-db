@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_log_chunks/triggers/runtime_log_chunks_enqueue_embedding_update_tg
 
 
-GRANT UPDATE ON agentic_db_app_public.conversations TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".conversations TO authenticated;
 

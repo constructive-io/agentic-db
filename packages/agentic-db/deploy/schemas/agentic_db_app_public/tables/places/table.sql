@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trips/indexes/trips_location_gist_idx
 
 
-CREATE TABLE agentic_db_app_public.places ();
+CREATE TABLE "agentic_db_app_public".places ();
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_tool_definition_id_idx
 
 
-GRANT INSERT ON agentic_db_app_public.runtime_state_dependencies TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".runtime_state_dependencies TO authenticated;
 

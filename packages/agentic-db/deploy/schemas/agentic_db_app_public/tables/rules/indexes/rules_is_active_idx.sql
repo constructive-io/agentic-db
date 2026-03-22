@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/rules/indexes/rules_trigger_type_idx
 
 
-CREATE INDEX rules_is_active_idx ON agentic_db_app_public.rules USING BTREE ( is_active );
+CREATE INDEX rules_is_active_idx ON "agentic_db_app_public".rules USING BTREE ( is_active );
 

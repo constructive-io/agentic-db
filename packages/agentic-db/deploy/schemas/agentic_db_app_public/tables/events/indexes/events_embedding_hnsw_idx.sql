@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/events/columns/main_image_id/column
 
 
-CREATE INDEX events_embedding_hnsw_idx ON agentic_db_app_public.events USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX events_embedding_hnsw_idx ON "agentic_db_app_public".events USING hnsw ( embedding vector_cosine_ops );
 

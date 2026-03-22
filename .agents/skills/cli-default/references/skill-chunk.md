@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db skill-chunk list
 agentic-db skill-chunk get --id <UUID>
-agentic-db skill-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --skillId <UUID> [--embeddingText <String>] [--embedding <Vector>]
-agentic-db skill-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--skillId <UUID>]
+agentic-db skill-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --skillId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db skill-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--skillId <UUID>]
 agentic-db skill-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db skill-chunk list
 ### Create a skillChunk
 
 ```bash
-agentic-db skill-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --skillId <UUID> [--embeddingText <String>] [--embedding <Vector>]
+agentic-db skill-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --skillId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a skillChunk by id

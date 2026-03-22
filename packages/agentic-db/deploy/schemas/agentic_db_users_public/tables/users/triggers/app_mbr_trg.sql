@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER app_mbr_trg
-AFTER INSERT ON agentic_db_users_public.users
+AFTER INSERT ON "agentic_db_users_public".users
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_memberships_private.app_mbr_create ( );
+EXECUTE PROCEDURE "agentic_db_memberships_private".app_mbr_create ( );
 

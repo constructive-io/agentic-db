@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/goals/indexes/goals_category_idx
 
 
-CREATE INDEX goals_priority_idx ON agentic_db_app_public.goals USING BTREE ( priority );
+CREATE INDEX goals_priority_idx ON "agentic_db_app_public".goals USING BTREE ( priority );
 

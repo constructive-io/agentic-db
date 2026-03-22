@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER habits_enqueue_embedding_insert_tg
-AFTER INSERT ON agentic_db_app_public.habits
+AFTER INSERT ON "agentic_db_app_public".habits
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE agentic_db_private.habits_enqueue_embedding ( );
+EXECUTE PROCEDURE "agentic_db_private".habits_enqueue_embedding ( );
 

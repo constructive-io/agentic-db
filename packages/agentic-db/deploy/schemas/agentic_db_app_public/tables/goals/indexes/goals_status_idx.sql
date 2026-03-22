@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memories/indexes/memories_mood_idx
 
 
-CREATE INDEX goals_status_idx ON agentic_db_app_public.goals USING BTREE ( status );
+CREATE INDEX goals_status_idx ON "agentic_db_app_public".goals USING BTREE ( status );
 

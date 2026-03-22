@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_record_type_idx
 
 
-CREATE INDEX autonomy_records_status_idx ON agentic_db_app_public.autonomy_records USING BTREE ( status );
+CREATE INDEX autonomy_records_status_idx ON "agentic_db_app_public".autonomy_records USING BTREE ( status );
 

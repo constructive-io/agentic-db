@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_memberships_public/schema
 
 
-CREATE FUNCTION agentic_db_memberships_public.org_is_manager_of(
+CREATE FUNCTION "agentic_db_memberships_public".org_is_manager_of(
   IN p_entity_id uuid,
   IN p_manager_id uuid,
   IN p_user_id uuid,
@@ -14,7 +14,7 @@ CREATE FUNCTION agentic_db_memberships_public.org_is_manager_of(
         BEGIN
             RETURN EXISTS (
                 SELECT 1
-                FROM agentic_db_memberships_private.org_hierarchy_sprts h
+                FROM "agentic_db_memberships_private".org_hierarchy_sprts h
                 WHERE h.entity_id = p_entity_id
                     AND h.ancestor_id = p_manager_id
                     AND h.descendant_id = p_user_id

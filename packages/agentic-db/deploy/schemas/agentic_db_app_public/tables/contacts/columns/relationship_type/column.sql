@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/birthday/column
 
 
-ALTER TABLE agentic_db_app_public.contacts 
+ALTER TABLE "agentic_db_app_public".contacts 
   ADD COLUMN relationship_type text;
 

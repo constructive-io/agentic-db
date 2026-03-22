@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memories/triggers/memories_enqueue_embedding_update_tg
 
 
-GRANT DELETE ON agentic_db_app_public.goals TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".goals TO authenticated;
 

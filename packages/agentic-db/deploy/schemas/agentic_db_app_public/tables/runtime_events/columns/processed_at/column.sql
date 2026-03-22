@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_events/columns/source/column
 
 
-ALTER TABLE agentic_db_app_public.runtime_events 
+ALTER TABLE "agentic_db_app_public".runtime_events 
   ADD COLUMN processed_at timestamptz;
 

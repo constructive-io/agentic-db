@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_city_idx
 
 
-CREATE INDEX venues_category_idx ON agentic_db_app_public.venues USING BTREE ( category );
+CREATE INDEX venues_category_idx ON "agentic_db_app_public".venues USING BTREE ( category );
 

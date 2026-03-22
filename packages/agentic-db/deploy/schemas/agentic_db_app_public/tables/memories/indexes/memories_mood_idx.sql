@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memories/indexes/memories_occurred_at_idx
 
 
-CREATE INDEX memories_mood_idx ON agentic_db_app_public.memories USING BTREE ( mood );
+CREATE INDEX memories_mood_idx ON "agentic_db_app_public".memories USING BTREE ( mood );
 

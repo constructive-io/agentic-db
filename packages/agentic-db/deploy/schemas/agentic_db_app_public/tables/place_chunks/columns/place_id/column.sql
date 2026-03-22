@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/trip_chunks/indexes/trip_chunks_trip_id_idx
 
 
-ALTER TABLE agentic_db_app_public.place_chunks 
+ALTER TABLE "agentic_db_app_public".place_chunks 
   ADD COLUMN place_id uuid;
 

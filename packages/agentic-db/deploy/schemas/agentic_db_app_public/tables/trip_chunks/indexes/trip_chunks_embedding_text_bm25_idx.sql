@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trip_chunks/columns/embedding_text/column
 
 
-CREATE INDEX trip_chunks_embedding_text_bm25_idx ON agentic_db_app_public.trip_chunks USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX trip_chunks_embedding_text_bm25_idx ON "agentic_db_app_public".trip_chunks USING bm25 ( embedding_text ) WITH ( text_config = english );
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memory_chunks/triggers/memory_chunks_enqueue_embedding_update_tg
 
 
-GRANT DELETE ON agentic_db_app_public.goal_chunks TO authenticated;
+GRANT DELETE ON "agentic_db_app_public".goal_chunks TO authenticated;
 

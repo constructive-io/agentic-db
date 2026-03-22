@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/interaction_chunks/triggers/interaction_chunks_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.contact_links 
+ALTER TABLE "agentic_db_app_public".contact_links 
   ADD CONSTRAINT contact_links_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

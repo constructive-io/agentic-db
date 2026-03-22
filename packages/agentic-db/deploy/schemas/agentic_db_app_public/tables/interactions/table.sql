@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/notes/triggers/notes_enqueue_embedding_update_tg
 
 
-CREATE TABLE agentic_db_app_public.interactions ();
+CREATE TABLE "agentic_db_app_public".interactions ();
 

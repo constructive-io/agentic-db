@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trips/triggers/trips_enqueue_embedding_update_tg
 
 
-CREATE INDEX trips_location_gist_idx ON agentic_db_app_public.trips USING GIST ( location );
+CREATE INDEX trips_location_gist_idx ON "agentic_db_app_public".trips USING GIST ( location );
 

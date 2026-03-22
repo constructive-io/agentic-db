@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/indexes/runtime_state_chunks_runtime_state_id_idx
 
 
-ALTER TABLE agentic_db_app_public.runtime_log_chunks 
+ALTER TABLE "agentic_db_app_public".runtime_log_chunks 
   ADD CONSTRAINT runtime_log_chunks_runtime_log_id_fkey 
     FOREIGN KEY(runtime_log_id) 
-    REFERENCES agentic_db_app_public.runtime_logs (id) 
+    REFERENCES "agentic_db_app_public".runtime_logs (id) 
     ON DELETE CASCADE;
 

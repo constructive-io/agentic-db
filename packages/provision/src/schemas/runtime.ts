@@ -111,7 +111,14 @@ const definition: BlueprintDefinition = {
       f('agent_id', 'uuid'),
       f('status', 'text', { default_value: "'active'" }),
       f('meta', 'jsonb'),
-    ]),
+      f('embedding_text', 'text'),
+    ], {
+      data_nodes: [
+        dataSearch({
+          embedding_source_fields: ['title'],
+        }),
+      ],
+    }),
 
     orgTable('messages', [
       req('conversation_id', 'uuid'),
@@ -121,7 +128,17 @@ const definition: BlueprintDefinition = {
       f('meta', 'jsonb'),
       f('tool_calls', 'jsonb'),
       f('tool_results', 'jsonb'),
-    ]),
+      f('embedding_text', 'text'),
+    ], {
+      data_nodes: [
+        dataSearch({
+          embedding_source_fields: ['content'],
+        }),
+      ],
+    }),
+
+    chunkTable('conversations'),
+    chunkTable('messages'),
 
     // -- Tool Definitions & Executions --------------------------------------
     orgTable('tool_definitions', [
@@ -152,6 +169,8 @@ const definition: BlueprintDefinition = {
 
     hasManyChunks('runtime_states'),
     hasManyChunks('runtime_logs'),
+    hasManyChunks('conversations'),
+    hasManyChunks('messages'),
 
     { $type: 'RelationHasMany', source_ref: 'conversations',    target_ref: 'messages',         delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'tool_definitions', target_ref: 'tool_executions',  delete_action: 'c' },

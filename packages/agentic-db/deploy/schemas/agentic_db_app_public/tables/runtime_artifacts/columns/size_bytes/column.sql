@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/columns/meta/column
 
 
-ALTER TABLE agentic_db_app_public.runtime_artifacts 
+ALTER TABLE "agentic_db_app_public".runtime_artifacts 
   ADD COLUMN size_bytes int;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails/indexes/hiking_trails_location_gist_idx
 
 
-CREATE INDEX memories_entity_id_idx ON agentic_db_app_public.memories USING BTREE ( entity_id );
+CREATE INDEX memories_entity_id_idx ON "agentic_db_app_public".memories USING BTREE ( entity_id );
 

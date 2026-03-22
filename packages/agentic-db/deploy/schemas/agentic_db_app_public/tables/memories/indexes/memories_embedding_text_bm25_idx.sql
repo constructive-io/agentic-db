@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/memories/columns/embedding_text/column
 
 
-CREATE INDEX memories_embedding_text_bm25_idx ON agentic_db_app_public.memories USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX memories_embedding_text_bm25_idx ON "agentic_db_app_public".memories USING bm25 ( embedding_text ) WITH ( text_config = english );
 

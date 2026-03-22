@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/columns/size_bytes/column
 
 
-GRANT SELECT ON agentic_db_app_public.runtime_metrics TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".runtime_metrics TO authenticated;
 

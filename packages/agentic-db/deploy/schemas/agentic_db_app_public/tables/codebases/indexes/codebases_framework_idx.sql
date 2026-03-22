@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/codebases/indexes/codebases_language_idx
 
 
-CREATE INDEX codebases_framework_idx ON agentic_db_app_public.codebases USING BTREE ( framework );
+CREATE INDEX codebases_framework_idx ON "agentic_db_app_public".codebases USING BTREE ( framework );
 

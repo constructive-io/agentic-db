@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails/columns/estimated_time_hours/column
 
 
-ALTER TABLE agentic_db_app_public.hiking_trails 
+ALTER TABLE "agentic_db_app_public".hiking_trails 
   ADD COLUMN trail_type text;
 

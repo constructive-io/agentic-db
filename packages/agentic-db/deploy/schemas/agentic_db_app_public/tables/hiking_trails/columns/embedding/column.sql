@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails/columns/embedding_text/column
 
 
-ALTER TABLE agentic_db_app_public.hiking_trails 
+ALTER TABLE "agentic_db_app_public".hiking_trails 
   ADD COLUMN embedding vector(768);
 

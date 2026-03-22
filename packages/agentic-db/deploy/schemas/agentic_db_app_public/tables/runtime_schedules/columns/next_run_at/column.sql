@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_schedules/columns/cron_expression/column
 
 
-ALTER TABLE agentic_db_app_public.runtime_schedules 
+ALTER TABLE "agentic_db_app_public".runtime_schedules 
   ADD COLUMN next_run_at timestamptz;
 

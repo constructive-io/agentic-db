@@ -977,6 +977,28 @@ export interface Project {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface ConversationChunk {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  conversationId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Conversation {
   id: string;
   entityId?: string | null;
@@ -986,6 +1008,21 @@ export interface Conversation {
   agentId?: string | null;
   status?: string | null;
   meta?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface DealChunk {
   id: string;
@@ -1476,6 +1513,28 @@ export interface MemoryChunk {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface MessageChunk {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  messageId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Message {
   id: string;
   entityId?: string | null;
@@ -1488,6 +1547,21 @@ export interface Message {
   meta?: Record<string, unknown> | null;
   toolCalls?: Record<string, unknown> | null;
   toolResults?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `role`. Returns null when no trgm search filter is active. */
+  roleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface NoteChunk {
   id: string;
@@ -1601,6 +1675,28 @@ export interface ProjectContact {
   id: string;
   entityId?: string | null;
 }
+export interface RuleChunk {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  ruleId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Rule {
   id: string;
   entityId?: string | null;
@@ -1615,11 +1711,29 @@ export interface Rule {
   isActive?: boolean | null;
   priority?: number | null;
   triggerConcept?: string | null;
-  triggerConceptEmbedding?: number[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  triggerConceptEmbedding?: number[] | null;
   agentId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
   /** VECTOR distance when searching `triggerConceptEmbedding`. Returns null when no vector search filter is active. */
   triggerConceptEmbeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
+  nameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `triggerType`. Returns null when no trgm search filter is active. */
+  triggerTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `actionType`. Returns null when no trgm search filter is active. */
+  actionTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `triggerConcept`. Returns null when no trgm search filter is active. */
+  triggerConceptTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1786,6 +1900,28 @@ export interface RuntimeStateDependency {
   id: string;
   entityId?: string | null;
 }
+export interface SkillChunk {
+  id: string;
+  entityId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  skillId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Skill {
   id: string;
   entityId?: string | null;
@@ -1798,11 +1934,29 @@ export interface Skill {
   config?: Record<string, unknown> | null;
   isActive?: boolean | null;
   intentTrigger?: string | null;
-  intentTriggerEmbedding?: number[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  intentTriggerEmbedding?: number[] | null;
   agentId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
   /** VECTOR distance when searching `intentTriggerEmbedding`. Returns null when no vector search filter is active. */
   intentTriggerEmbeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
+  nameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
+  categoryTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `implementation`. Returns null when no trgm search filter is active. */
+  implementationTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `intentTrigger`. Returns null when no trgm search filter is active. */
+  intentTriggerTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -2142,8 +2296,12 @@ export interface ProjectRelations {
   projectContacts?: ConnectionResult<ProjectContact>;
   goalProjects?: ConnectionResult<GoalProject>;
 }
+export interface ConversationChunkRelations {
+  conversation?: Conversation | null;
+}
 export interface ConversationRelations {
   messages?: ConnectionResult<Message>;
+  conversationChunks?: ConnectionResult<ConversationChunk>;
 }
 export interface DealChunkRelations {
   deal?: Deal | null;
@@ -2243,8 +2401,12 @@ export interface ItineraryItemRelations {
 export interface MemoryChunkRelations {
   memory?: Memory | null;
 }
+export interface MessageChunkRelations {
+  message?: Message | null;
+}
 export interface MessageRelations {
   conversation?: Conversation | null;
+  messageChunks?: ConnectionResult<MessageChunk>;
 }
 export interface NoteChunkRelations {
   note?: Note | null;
@@ -2265,8 +2427,12 @@ export interface ProjectContactRelations {
   contact?: Contact | null;
   project?: Project | null;
 }
+export interface RuleChunkRelations {
+  rule?: Rule | null;
+}
 export interface RuleRelations {
   agent?: Agent | null;
+  ruleChunks?: ConnectionResult<RuleChunk>;
 }
 export interface RuntimeArtifactRelations {
   runtimeState?: RuntimeState | null;
@@ -2301,8 +2467,12 @@ export interface RuntimeStateDependencyRelations {
   dependency?: RuntimeState | null;
   state?: RuntimeState | null;
 }
+export interface SkillChunkRelations {
+  skill?: Skill | null;
+}
 export interface SkillRelations {
   agent?: Agent | null;
+  skillChunks?: ConnectionResult<SkillChunk>;
 }
 export interface TagRelations {}
 export interface ToolDefinitionRelations {
@@ -2368,6 +2538,7 @@ export type ContactLinkWithRelations = ContactLink & ContactLinkRelations;
 export type ContactMemoryWithRelations = ContactMemory & ContactMemoryRelations;
 export type ContactNoteWithRelations = ContactNote & ContactNoteRelations;
 export type ProjectWithRelations = Project & ProjectRelations;
+export type ConversationChunkWithRelations = ConversationChunk & ConversationChunkRelations;
 export type ConversationWithRelations = Conversation & ConversationRelations;
 export type DealChunkWithRelations = DealChunk & DealChunkRelations;
 export type DealContactWithRelations = DealContact & DealContactRelations;
@@ -2392,12 +2563,14 @@ export type InteractionWithRelations = Interaction & InteractionRelations;
 export type ItineraryItemChunkWithRelations = ItineraryItemChunk & ItineraryItemChunkRelations;
 export type ItineraryItemWithRelations = ItineraryItem & ItineraryItemRelations;
 export type MemoryChunkWithRelations = MemoryChunk & MemoryChunkRelations;
+export type MessageChunkWithRelations = MessageChunk & MessageChunkRelations;
 export type MessageWithRelations = Message & MessageRelations;
 export type NoteChunkWithRelations = NoteChunk & NoteChunkRelations;
 export type PlaceChunkWithRelations = PlaceChunk & PlaceChunkRelations;
 export type PlaceWithRelations = Place & PlaceRelations;
 export type ProjectChunkWithRelations = ProjectChunk & ProjectChunkRelations;
 export type ProjectContactWithRelations = ProjectContact & ProjectContactRelations;
+export type RuleChunkWithRelations = RuleChunk & RuleChunkRelations;
 export type RuleWithRelations = Rule & RuleRelations;
 export type RuntimeArtifactWithRelations = RuntimeArtifact & RuntimeArtifactRelations;
 export type RuntimeConfigWithRelations = RuntimeConfig & RuntimeConfigRelations;
@@ -2410,6 +2583,7 @@ export type RuntimeStateChunkWithRelations = RuntimeStateChunk & RuntimeStateChu
 export type RuntimeStateWithRelations = RuntimeState & RuntimeStateRelations;
 export type RuntimeStateDependencyWithRelations = RuntimeStateDependency &
   RuntimeStateDependencyRelations;
+export type SkillChunkWithRelations = SkillChunk & SkillChunkRelations;
 export type SkillWithRelations = Skill & SkillRelations;
 export type TagWithRelations = Tag & TagRelations;
 export type ToolDefinitionWithRelations = ToolDefinition & ToolDefinitionRelations;
@@ -3725,6 +3899,26 @@ export type ProjectSelect = {
     orderBy?: GoalProjectOrderBy[];
   };
 };
+export type ConversationChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  chunkIndex?: boolean;
+  content?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  conversationId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  conversation?: {
+    select: ConversationSelect;
+  };
+};
 export type ConversationSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -3734,11 +3928,26 @@ export type ConversationSelect = {
   agentId?: boolean;
   status?: boolean;
   meta?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  titleTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
   messages?: {
     select: MessageSelect;
     first?: number;
     filter?: MessageFilter;
     orderBy?: MessageOrderBy[];
+  };
+  conversationChunks?: {
+    select: ConversationChunkSelect;
+    first?: number;
+    filter?: ConversationChunkFilter;
+    orderBy?: ConversationChunkOrderBy[];
   };
 };
 export type DealChunkSelect = {
@@ -4356,6 +4565,26 @@ export type MemoryChunkSelect = {
     select: MemorySelect;
   };
 };
+export type MessageChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  chunkIndex?: boolean;
+  content?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  messageId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+};
 export type MessageSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -4368,8 +4597,23 @@ export type MessageSelect = {
   meta?: boolean;
   toolCalls?: boolean;
   toolResults?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  roleTrgmSimilarity?: boolean;
+  contentTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
   conversation?: {
     select: ConversationSelect;
+  };
+  messageChunks?: {
+    select: MessageChunkSelect;
+    first?: number;
+    filter?: MessageChunkFilter;
+    orderBy?: MessageChunkOrderBy[];
   };
 };
 export type NoteChunkSelect = {
@@ -4497,6 +4741,26 @@ export type ProjectContactSelect = {
     select: ProjectSelect;
   };
 };
+export type RuleChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  chunkIndex?: boolean;
+  content?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  ruleId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  rule?: {
+    select: RuleSelect;
+  };
+};
 export type RuleSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -4511,13 +4775,29 @@ export type RuleSelect = {
   isActive?: boolean;
   priority?: boolean;
   triggerConcept?: boolean;
-  triggerConceptEmbedding?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
   embeddingStale?: boolean;
+  triggerConceptEmbedding?: boolean;
   agentId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
   triggerConceptEmbeddingVectorDistance?: boolean;
+  nameTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  triggerTypeTrgmSimilarity?: boolean;
+  actionTypeTrgmSimilarity?: boolean;
+  triggerConceptTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agent?: {
     select: AgentSelect;
+  };
+  ruleChunks?: {
+    select: RuleChunkSelect;
+    first?: number;
+    filter?: RuleChunkFilter;
+    orderBy?: RuleChunkOrderBy[];
   };
 };
 export type RuntimeArtifactSelect = {
@@ -4735,6 +5015,26 @@ export type RuntimeStateDependencySelect = {
     select: RuntimeStateSelect;
   };
 };
+export type SkillChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  chunkIndex?: boolean;
+  content?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  skillId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  skill?: {
+    select: SkillSelect;
+  };
+};
 export type SkillSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -4747,13 +5047,29 @@ export type SkillSelect = {
   config?: boolean;
   isActive?: boolean;
   intentTrigger?: boolean;
-  intentTriggerEmbedding?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
   embeddingStale?: boolean;
+  intentTriggerEmbedding?: boolean;
   agentId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
   intentTriggerEmbeddingVectorDistance?: boolean;
+  nameTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  categoryTrgmSimilarity?: boolean;
+  implementationTrgmSimilarity?: boolean;
+  intentTriggerTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agent?: {
     select: AgentSelect;
+  };
+  skillChunks?: {
+    select: SkillChunkSelect;
+    first?: number;
+    filter?: SkillChunkFilter;
+    orderBy?: SkillChunkOrderBy[];
   };
 };
 export type TagSelect = {
@@ -6636,6 +6952,51 @@ export interface ProjectFilter {
    */
   fullTextSearch?: string;
 }
+export interface ConversationChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `conversationId` field. */
+  conversationId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ConversationChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ConversationChunkFilter[];
+  /** Negates the expression. */
+  not?: ConversationChunkFilter;
+  /** Filter by the object’s `conversation` relation. */
+  conversation?: ConversationFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
 export interface ConversationFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -6646,13 +7007,19 @@ export interface ConversationFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringFilter;
+  title?: StringTrgmFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringFilter;
+  status?: StringTrgmFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
   and?: ConversationFilter[];
   /** Checks for any expressions in this list. */
@@ -6663,6 +7030,27 @@ export interface ConversationFilter {
   messages?: ConversationToManyMessageFilter;
   /** `messages` exist. */
   messagesExist?: boolean;
+  /** Filter by the object’s `conversationChunks` relation. */
+  conversationChunks?: ConversationToManyConversationChunkFilter;
+  /** `conversationChunks` exist. */
+  conversationChunksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 export interface DealChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -7723,6 +8111,51 @@ export interface MemoryChunkFilter {
    */
   fullTextSearch?: string;
 }
+export interface MessageChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `messageId` field. */
+  messageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: MessageChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: MessageChunkFilter[];
+  /** Negates the expression. */
+  not?: MessageChunkFilter;
+  /** Filter by the object’s `message` relation. */
+  message?: MessageFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
 export interface MessageFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -7735,9 +8168,9 @@ export interface MessageFilter {
   /** Filter by the object’s `conversationId` field. */
   conversationId?: UUIDFilter;
   /** Filter by the object’s `role` field. */
-  role?: StringFilter;
+  role?: StringTrgmFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringFilter;
+  content?: StringTrgmFilter;
   /** Filter by the object’s `tokenCount` field. */
   tokenCount?: IntFilter;
   /** Filter by the object’s `meta` field. */
@@ -7746,6 +8179,12 @@ export interface MessageFilter {
   toolCalls?: JSONFilter;
   /** Filter by the object’s `toolResults` field. */
   toolResults?: JSONFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
   and?: MessageFilter[];
   /** Checks for any expressions in this list. */
@@ -7754,6 +8193,27 @@ export interface MessageFilter {
   not?: MessageFilter;
   /** Filter by the object’s `conversation` relation. */
   conversation?: ConversationFilter;
+  /** Filter by the object’s `messageChunks` relation. */
+  messageChunks?: MessageToManyMessageChunkFilter;
+  /** `messageChunks` exist. */
+  messageChunksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `role` column. */
+  trgmRole?: TrgmSearchInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 export interface NoteChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -7989,6 +8449,51 @@ export interface ProjectContactFilter {
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
 }
+export interface RuleChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `ruleId` field. */
+  ruleId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuleChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuleChunkFilter[];
+  /** Negates the expression. */
+  not?: RuleChunkFilter;
+  /** Filter by the object’s `rule` relation. */
+  rule?: RuleFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
 export interface RuleFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -7999,15 +8504,15 @@ export interface RuleFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringFilter;
+  name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringFilter;
+  description?: StringTrgmFilter;
   /** Filter by the object’s `triggerType` field. */
-  triggerType?: StringFilter;
+  triggerType?: StringTrgmFilter;
   /** Filter by the object’s `triggerConfig` field. */
   triggerConfig?: JSONFilter;
   /** Filter by the object’s `actionType` field. */
-  actionType?: StringFilter;
+  actionType?: StringTrgmFilter;
   /** Filter by the object’s `actionConfig` field. */
   actionConfig?: JSONFilter;
   /** Filter by the object’s `isActive` field. */
@@ -8015,11 +8520,15 @@ export interface RuleFilter {
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `triggerConcept` field. */
-  triggerConcept?: StringFilter;
-  /** Filter by the object’s `triggerConceptEmbedding` field. */
-  triggerConceptEmbedding?: VectorFilter;
+  triggerConcept?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `triggerConceptEmbedding` field. */
+  triggerConceptEmbedding?: VectorFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -8030,8 +8539,35 @@ export interface RuleFilter {
   not?: RuleFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
+  /** Filter by the object’s `ruleChunks` relation. */
+  ruleChunks?: RuleToManyRuleChunkFilter;
+  /** `ruleChunks` exist. */
+  ruleChunksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
   /** VECTOR search on the `trigger_concept_embedding` column. */
   vectorTriggerConceptEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `trigger_type` column. */
+  trgmTriggerType?: TrgmSearchInput;
+  /** TRGM search on the `action_type` column. */
+  trgmActionType?: TrgmSearchInput;
+  /** TRGM search on the `trigger_concept` column. */
+  trgmTriggerConcept?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 export interface RuntimeArtifactFilter {
   /** Filter by the object’s `id` field. */
@@ -8415,6 +8951,51 @@ export interface RuntimeStateDependencyFilter {
   /** Filter by the object’s `state` relation. */
   state?: RuntimeStateFilter;
 }
+export interface SkillChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `skillId` field. */
+  skillId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: SkillChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: SkillChunkFilter[];
+  /** Negates the expression. */
+  not?: SkillChunkFilter;
+  /** Filter by the object’s `skill` relation. */
+  skill?: SkillFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
 export interface SkillFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -8425,23 +9006,27 @@ export interface SkillFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringFilter;
+  name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringFilter;
+  description?: StringTrgmFilter;
   /** Filter by the object’s `category` field. */
-  category?: StringFilter;
+  category?: StringTrgmFilter;
   /** Filter by the object’s `implementation` field. */
-  implementation?: StringFilter;
+  implementation?: StringTrgmFilter;
   /** Filter by the object’s `config` field. */
   config?: JSONFilter;
   /** Filter by the object’s `isActive` field. */
   isActive?: BooleanFilter;
   /** Filter by the object’s `intentTrigger` field. */
-  intentTrigger?: StringFilter;
-  /** Filter by the object’s `intentTriggerEmbedding` field. */
-  intentTriggerEmbedding?: VectorFilter;
+  intentTrigger?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `intentTriggerEmbedding` field. */
+  intentTriggerEmbedding?: VectorFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -8452,8 +9037,35 @@ export interface SkillFilter {
   not?: SkillFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
+  /** Filter by the object’s `skillChunks` relation. */
+  skillChunks?: SkillToManySkillChunkFilter;
+  /** `skillChunks` exist. */
+  skillChunksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
   /** VECTOR search on the `intent_trigger_embedding` column. */
   vectorIntentTriggerEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `category` column. */
+  trgmCategory?: TrgmSearchInput;
+  /** TRGM search on the `implementation` column. */
+  trgmImplementation?: TrgmSearchInput;
+  /** TRGM search on the `intent_trigger` column. */
+  trgmIntentTrigger?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 export interface TagFilter {
   /** Filter by the object’s `id` field. */
@@ -9562,6 +10174,30 @@ export type ProjectOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type ConversationChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'CONVERSATION_ID_ASC'
+  | 'CONVERSATION_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ConversationOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9573,7 +10209,23 @@ export type ConversationOrderBy =
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
   | 'STATUS_ASC'
-  | 'STATUS_DESC';
+  | 'STATUS_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type DealChunkOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -10124,6 +10776,30 @@ export type MemoryChunkOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type MessageChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'MESSAGE_ID_ASC'
+  | 'MESSAGE_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type MessageOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -10135,7 +10811,23 @@ export type MessageOrderBy =
   | 'CONVERSATION_ID_ASC'
   | 'CONVERSATION_ID_DESC'
   | 'ROLE_ASC'
-  | 'ROLE_DESC';
+  | 'ROLE_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'ROLE_TRGM_SIMILARITY_ASC'
+  | 'ROLE_TRGM_SIMILARITY_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type NoteChunkOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -10262,6 +10954,30 @@ export type ProjectContactOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type RuleChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'RULE_ID_ASC'
+  | 'RULE_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type RuleOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -10274,12 +10990,32 @@ export type RuleOrderBy =
   | 'TRIGGER_TYPE_DESC'
   | 'IS_ACTIVE_ASC'
   | 'IS_ACTIVE_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
   | 'TRIGGER_CONCEPT_EMBEDDING_ASC'
   | 'TRIGGER_CONCEPT_EMBEDDING_DESC'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'TRIGGER_CONCEPT_EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'TRIGGER_CONCEPT_EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'NAME_TRGM_SIMILARITY_ASC'
+  | 'NAME_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'TRIGGER_TYPE_TRGM_SIMILARITY_ASC'
+  | 'TRIGGER_TYPE_TRGM_SIMILARITY_DESC'
+  | 'ACTION_TYPE_TRGM_SIMILARITY_ASC'
+  | 'ACTION_TYPE_TRGM_SIMILARITY_DESC'
+  | 'TRIGGER_CONCEPT_TRGM_SIMILARITY_ASC'
+  | 'TRIGGER_CONCEPT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type RuntimeArtifactOrderBy =
@@ -10460,6 +11196,30 @@ export type RuntimeStateDependencyOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type SkillChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'SKILL_ID_ASC'
+  | 'SKILL_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type SkillOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -10472,12 +11232,32 @@ export type SkillOrderBy =
   | 'CATEGORY_DESC'
   | 'IS_ACTIVE_ASC'
   | 'IS_ACTIVE_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
   | 'INTENT_TRIGGER_EMBEDDING_ASC'
   | 'INTENT_TRIGGER_EMBEDDING_DESC'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'INTENT_TRIGGER_EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'INTENT_TRIGGER_EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'NAME_TRGM_SIMILARITY_ASC'
+  | 'NAME_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'CATEGORY_TRGM_SIMILARITY_ASC'
+  | 'CATEGORY_TRGM_SIMILARITY_DESC'
+  | 'IMPLEMENTATION_TRGM_SIMILARITY_ASC'
+  | 'IMPLEMENTATION_TRGM_SIMILARITY_DESC'
+  | 'INTENT_TRIGGER_TRGM_SIMILARITY_ASC'
+  | 'INTENT_TRIGGER_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type TagOrderBy =
@@ -11715,6 +12495,36 @@ export interface DeleteProjectInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateConversationChunkInput {
+  clientMutationId?: string;
+  conversationChunk: {
+    entityId: string;
+    chunkIndex: number;
+    content: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    conversationId: string;
+  };
+}
+export interface ConversationChunkPatch {
+  entityId?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  conversationId?: string | null;
+}
+export interface UpdateConversationChunkInput {
+  clientMutationId?: string;
+  id: string;
+  conversationChunkPatch: ConversationChunkPatch;
+}
+export interface DeleteConversationChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateConversationInput {
   clientMutationId?: string;
   conversation: {
@@ -11723,6 +12533,9 @@ export interface CreateConversationInput {
     agentId?: string;
     status?: string;
     meta?: Record<string, unknown>;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
   };
 }
 export interface ConversationPatch {
@@ -11731,6 +12544,9 @@ export interface ConversationPatch {
   agentId?: string | null;
   status?: string | null;
   meta?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
 }
 export interface UpdateConversationInput {
   clientMutationId?: string;
@@ -12463,6 +13279,36 @@ export interface DeleteMemoryChunkInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateMessageChunkInput {
+  clientMutationId?: string;
+  messageChunk: {
+    entityId: string;
+    chunkIndex: number;
+    content: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    messageId: string;
+  };
+}
+export interface MessageChunkPatch {
+  entityId?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  messageId?: string | null;
+}
+export interface UpdateMessageChunkInput {
+  clientMutationId?: string;
+  id: string;
+  messageChunkPatch: MessageChunkPatch;
+}
+export interface DeleteMessageChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateMessageInput {
   clientMutationId?: string;
   message: {
@@ -12474,6 +13320,9 @@ export interface CreateMessageInput {
     meta?: Record<string, unknown>;
     toolCalls?: Record<string, unknown>;
     toolResults?: Record<string, unknown>;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
   };
 }
 export interface MessagePatch {
@@ -12485,6 +13334,9 @@ export interface MessagePatch {
   meta?: Record<string, unknown> | null;
   toolCalls?: Record<string, unknown> | null;
   toolResults?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
 }
 export interface UpdateMessageInput {
   clientMutationId?: string;
@@ -12649,6 +13501,36 @@ export interface DeleteProjectContactInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateRuleChunkInput {
+  clientMutationId?: string;
+  ruleChunk: {
+    entityId: string;
+    chunkIndex: number;
+    content: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    ruleId: string;
+  };
+}
+export interface RuleChunkPatch {
+  entityId?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  ruleId?: string | null;
+}
+export interface UpdateRuleChunkInput {
+  clientMutationId?: string;
+  id: string;
+  ruleChunkPatch: RuleChunkPatch;
+}
+export interface DeleteRuleChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateRuleInput {
   clientMutationId?: string;
   rule: {
@@ -12662,8 +13544,10 @@ export interface CreateRuleInput {
     isActive?: boolean;
     priority?: number;
     triggerConcept?: string;
-    triggerConceptEmbedding?: number[];
+    embeddingText?: string;
+    embedding?: number[];
     embeddingStale?: boolean;
+    triggerConceptEmbedding?: number[];
     agentId: string;
   };
 }
@@ -12678,8 +13562,10 @@ export interface RulePatch {
   isActive?: boolean | null;
   priority?: number | null;
   triggerConcept?: string | null;
-  triggerConceptEmbedding?: number[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  triggerConceptEmbedding?: number[] | null;
   agentId?: string | null;
 }
 export interface UpdateRuleInput {
@@ -12989,6 +13875,36 @@ export interface DeleteRuntimeStateDependencyInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateSkillChunkInput {
+  clientMutationId?: string;
+  skillChunk: {
+    entityId: string;
+    chunkIndex: number;
+    content: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    skillId: string;
+  };
+}
+export interface SkillChunkPatch {
+  entityId?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  skillId?: string | null;
+}
+export interface UpdateSkillChunkInput {
+  clientMutationId?: string;
+  id: string;
+  skillChunkPatch: SkillChunkPatch;
+}
+export interface DeleteSkillChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateSkillInput {
   clientMutationId?: string;
   skill: {
@@ -13000,8 +13916,10 @@ export interface CreateSkillInput {
     config?: Record<string, unknown>;
     isActive?: boolean;
     intentTrigger?: string;
-    intentTriggerEmbedding?: number[];
+    embeddingText?: string;
+    embedding?: number[];
     embeddingStale?: boolean;
+    intentTriggerEmbedding?: number[];
     agentId: string;
   };
 }
@@ -13014,8 +13932,10 @@ export interface SkillPatch {
   config?: Record<string, unknown> | null;
   isActive?: boolean | null;
   intentTrigger?: string | null;
-  intentTriggerEmbedding?: number[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  intentTriggerEmbedding?: number[] | null;
   agentId?: string | null;
 }
 export interface UpdateSkillInput {
@@ -13401,6 +14321,7 @@ export const connectionFieldsMap = {
   },
   Conversation: {
     messages: 'Message',
+    conversationChunks: 'ConversationChunk',
   },
   Venue: {
     events: 'Event',
@@ -13441,11 +14362,17 @@ export const connectionFieldsMap = {
   ItineraryItem: {
     itineraryItemChunks: 'ItineraryItemChunk',
   },
+  Message: {
+    messageChunks: 'MessageChunk',
+  },
   Place: {
     itineraryItems: 'ItineraryItem',
     placeChunks: 'PlaceChunk',
     tripPlaces: 'TripPlace',
     tripsByTripPlacePlaceIdAndTripId: 'Trip',
+  },
+  Rule: {
+    ruleChunks: 'RuleChunk',
   },
   RuntimeLog: {
     runtimeLogChunks: 'RuntimeLogChunk',
@@ -13459,6 +14386,9 @@ export const connectionFieldsMap = {
     runtimeStateDependenciesByStateId: 'RuntimeStateDependency',
     runtimeStatesByRuntimeStateDependencyDependencyIdAndStateId: 'RuntimeState',
     runtimeStatesByRuntimeStateDependencyStateIdAndDependencyId: 'RuntimeState',
+  },
+  Skill: {
+    skillChunks: 'SkillChunk',
   },
   ToolDefinition: {
     toolExecutions: 'ToolExecution',
@@ -14120,6 +15050,15 @@ export interface ConversationToManyMessageFilter {
   /** Filters to entities where no related entity matches. */
   none?: MessageFilter;
 }
+/** A filter to be used against many `ConversationChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ConversationToManyConversationChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ConversationChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ConversationChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ConversationChunkFilter;
+}
 /** A filter to be used against many `VenueChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueToManyVenueChunkFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14273,6 +15212,15 @@ export interface ItineraryItemToManyItineraryItemChunkFilter {
   /** Filters to entities where no related entity matches. */
   none?: ItineraryItemChunkFilter;
 }
+/** A filter to be used against many `MessageChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface MessageToManyMessageChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: MessageChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: MessageChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: MessageChunkFilter;
+}
 /** A filter to be used against many `ItineraryItem` object types. All fields are combined with a logical ‘and.’ */
 export interface PlaceToManyItineraryItemFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14299,6 +15247,15 @@ export interface PlaceToManyTripPlaceFilter {
   every?: TripPlaceFilter;
   /** Filters to entities where no related entity matches. */
   none?: TripPlaceFilter;
+}
+/** A filter to be used against many `RuleChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface RuleToManyRuleChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RuleChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RuleChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RuleChunkFilter;
 }
 /** A filter to be used against many `RuntimeLogChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeLogToManyRuntimeLogChunkFilter {
@@ -14353,6 +15310,15 @@ export interface RuntimeStateToManyRuntimeStateDependencyFilter {
   every?: RuntimeStateDependencyFilter;
   /** Filters to entities where no related entity matches. */
   none?: RuntimeStateDependencyFilter;
+}
+/** A filter to be used against many `SkillChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface SkillToManySkillChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: SkillChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: SkillChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: SkillChunkFilter;
 }
 /** A filter to be used against many `ToolExecution` object types. All fields are combined with a logical ‘and.’ */
 export interface ToolDefinitionToManyToolExecutionFilter {
@@ -14498,15 +15464,15 @@ export interface RuleFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringFilter;
+  name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringFilter;
+  description?: StringTrgmFilter;
   /** Filter by the object’s `triggerType` field. */
-  triggerType?: StringFilter;
+  triggerType?: StringTrgmFilter;
   /** Filter by the object’s `triggerConfig` field. */
   triggerConfig?: JSONFilter;
   /** Filter by the object’s `actionType` field. */
-  actionType?: StringFilter;
+  actionType?: StringTrgmFilter;
   /** Filter by the object’s `actionConfig` field. */
   actionConfig?: JSONFilter;
   /** Filter by the object’s `isActive` field. */
@@ -14514,11 +15480,15 @@ export interface RuleFilter {
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `triggerConcept` field. */
-  triggerConcept?: StringFilter;
-  /** Filter by the object’s `triggerConceptEmbedding` field. */
-  triggerConceptEmbedding?: VectorFilter;
+  triggerConcept?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `triggerConceptEmbedding` field. */
+  triggerConceptEmbedding?: VectorFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -14529,8 +15499,35 @@ export interface RuleFilter {
   not?: RuleFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
+  /** Filter by the object’s `ruleChunks` relation. */
+  ruleChunks?: RuleToManyRuleChunkFilter;
+  /** `ruleChunks` exist. */
+  ruleChunksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
   /** VECTOR search on the `trigger_concept_embedding` column. */
   vectorTriggerConceptEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `trigger_type` column. */
+  trgmTriggerType?: TrgmSearchInput;
+  /** TRGM search on the `action_type` column. */
+  trgmActionType?: TrgmSearchInput;
+  /** TRGM search on the `trigger_concept` column. */
+  trgmTriggerConcept?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 /** A filter to be used against `Skill` object types. All fields are combined with a logical ‘and.’ */
 export interface SkillFilter {
@@ -14543,23 +15540,27 @@ export interface SkillFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringFilter;
+  name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringFilter;
+  description?: StringTrgmFilter;
   /** Filter by the object’s `category` field. */
-  category?: StringFilter;
+  category?: StringTrgmFilter;
   /** Filter by the object’s `implementation` field. */
-  implementation?: StringFilter;
+  implementation?: StringTrgmFilter;
   /** Filter by the object’s `config` field. */
   config?: JSONFilter;
   /** Filter by the object’s `isActive` field. */
   isActive?: BooleanFilter;
   /** Filter by the object’s `intentTrigger` field. */
-  intentTrigger?: StringFilter;
-  /** Filter by the object’s `intentTriggerEmbedding` field. */
-  intentTriggerEmbedding?: VectorFilter;
+  intentTrigger?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `intentTriggerEmbedding` field. */
+  intentTriggerEmbedding?: VectorFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -14570,8 +15571,35 @@ export interface SkillFilter {
   not?: SkillFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
+  /** Filter by the object’s `skillChunks` relation. */
+  skillChunks?: SkillToManySkillChunkFilter;
+  /** `skillChunks` exist. */
+  skillChunksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
   /** VECTOR search on the `intent_trigger_embedding` column. */
   vectorIntentTriggerEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `category` column. */
+  trgmCategory?: TrgmSearchInput;
+  /** TRGM search on the `implementation` column. */
+  trgmImplementation?: TrgmSearchInput;
+  /** TRGM search on the `intent_trigger` column. */
+  trgmIntentTrigger?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 /** A filter to be used against `AgentChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentChunkFilter {
@@ -16299,9 +17327,9 @@ export interface MessageFilter {
   /** Filter by the object’s `conversationId` field. */
   conversationId?: UUIDFilter;
   /** Filter by the object’s `role` field. */
-  role?: StringFilter;
+  role?: StringTrgmFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringFilter;
+  content?: StringTrgmFilter;
   /** Filter by the object’s `tokenCount` field. */
   tokenCount?: IntFilter;
   /** Filter by the object’s `meta` field. */
@@ -16310,6 +17338,12 @@ export interface MessageFilter {
   toolCalls?: JSONFilter;
   /** Filter by the object’s `toolResults` field. */
   toolResults?: JSONFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
   and?: MessageFilter[];
   /** Checks for any expressions in this list. */
@@ -16318,6 +17352,73 @@ export interface MessageFilter {
   not?: MessageFilter;
   /** Filter by the object’s `conversation` relation. */
   conversation?: ConversationFilter;
+  /** Filter by the object’s `messageChunks` relation. */
+  messageChunks?: MessageToManyMessageChunkFilter;
+  /** `messageChunks` exist. */
+  messageChunksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `role` column. */
+  trgmRole?: TrgmSearchInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+/** A filter to be used against `ConversationChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ConversationChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `conversationId` field. */
+  conversationId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ConversationChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ConversationChunkFilter[];
+  /** Negates the expression. */
+  not?: ConversationChunkFilter;
+  /** Filter by the object’s `conversation` relation. */
+  conversation?: ConversationFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 /** A filter to be used against `VenueChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueChunkFilter {
@@ -16811,6 +17912,52 @@ export interface ItineraryItemChunkFilter {
    */
   fullTextSearch?: string;
 }
+/** A filter to be used against `MessageChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface MessageChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `messageId` field. */
+  messageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: MessageChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: MessageChunkFilter[];
+  /** Negates the expression. */
+  not?: MessageChunkFilter;
+  /** Filter by the object’s `message` relation. */
+  message?: MessageFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
 /** A filter to be used against `PlaceChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface PlaceChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -16841,6 +17988,52 @@ export interface PlaceChunkFilter {
   not?: PlaceChunkFilter;
   /** Filter by the object’s `place` relation. */
   place?: PlaceFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+/** A filter to be used against `RuleChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface RuleChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `ruleId` field. */
+  ruleId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuleChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuleChunkFilter[];
+  /** Negates the expression. */
+  not?: RuleChunkFilter;
+  /** Filter by the object’s `rule` relation. */
+  rule?: RuleFilter;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -17085,6 +18278,52 @@ export interface RuntimeStateDependencyFilter {
   dependency?: RuntimeStateFilter;
   /** Filter by the object’s `state` relation. */
   state?: RuntimeStateFilter;
+}
+/** A filter to be used against `SkillChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface SkillChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `skillId` field. */
+  skillId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: SkillChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: SkillChunkFilter[];
+  /** Negates the expression. */
+  not?: SkillChunkFilter;
+  /** Filter by the object’s `skill` relation. */
+  skill?: SkillFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 /** A filter to be used against `ToolExecution` object types. All fields are combined with a logical ‘and.’ */
 export interface ToolExecutionFilter {
@@ -17367,83 +18606,6 @@ export interface AgentFilter {
    */
   fullTextSearch?: string;
 }
-/** A filter to be used against String fields. All fields are combined with a logical ‘and.’ */
-export interface StringFilter {
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: boolean;
-  /** Equal to the specified value. */
-  equalTo?: string;
-  /** Not equal to the specified value. */
-  notEqualTo?: string;
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: string;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: string;
-  /** Included in the specified list. */
-  in?: string[];
-  /** Not included in the specified list. */
-  notIn?: string[];
-  /** Less than the specified value. */
-  lessThan?: string;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: string;
-  /** Greater than the specified value. */
-  greaterThan?: string;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: string;
-  /** Contains the specified string (case-sensitive). */
-  includes?: string;
-  /** Does not contain the specified string (case-sensitive). */
-  notIncludes?: string;
-  /** Contains the specified string (case-insensitive). */
-  includesInsensitive?: string;
-  /** Does not contain the specified string (case-insensitive). */
-  notIncludesInsensitive?: string;
-  /** Starts with the specified string (case-sensitive). */
-  startsWith?: string;
-  /** Does not start with the specified string (case-sensitive). */
-  notStartsWith?: string;
-  /** Starts with the specified string (case-insensitive). */
-  startsWithInsensitive?: string;
-  /** Does not start with the specified string (case-insensitive). */
-  notStartsWithInsensitive?: string;
-  /** Ends with the specified string (case-sensitive). */
-  endsWith?: string;
-  /** Does not end with the specified string (case-sensitive). */
-  notEndsWith?: string;
-  /** Ends with the specified string (case-insensitive). */
-  endsWithInsensitive?: string;
-  /** Does not end with the specified string (case-insensitive). */
-  notEndsWithInsensitive?: string;
-  /** Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  like?: string;
-  /** Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  notLike?: string;
-  /** Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  likeInsensitive?: string;
-  /** Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  notLikeInsensitive?: string;
-  /** Equal to the specified value (case-insensitive). */
-  equalToInsensitive?: string;
-  /** Not equal to the specified value (case-insensitive). */
-  notEqualToInsensitive?: string;
-  /** Not equal to the specified value, treating null like an ordinary value (case-insensitive). */
-  distinctFromInsensitive?: string;
-  /** Equal to the specified value, treating null like an ordinary value (case-insensitive). */
-  notDistinctFromInsensitive?: string;
-  /** Included in the specified list (case-insensitive). */
-  inInsensitive?: string[];
-  /** Not included in the specified list (case-insensitive). */
-  notInInsensitive?: string[];
-  /** Less than the specified value (case-insensitive). */
-  lessThanInsensitive?: string;
-  /** Less than or equal to the specified value (case-insensitive). */
-  lessThanOrEqualToInsensitive?: string;
-  /** Greater than the specified value (case-insensitive). */
-  greaterThanInsensitive?: string;
-  /** Greater than or equal to the specified value (case-insensitive). */
-  greaterThanOrEqualToInsensitive?: string;
-}
 /** A filter to be used against String List fields. All fields are combined with a logical ‘and.’ */
 export interface StringListFilter {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
@@ -17638,6 +18800,83 @@ export interface CodebasisFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+/** A filter to be used against String fields. All fields are combined with a logical ‘and.’ */
+export interface StringFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: string;
+  /** Not equal to the specified value. */
+  notEqualTo?: string;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: string;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: string;
+  /** Included in the specified list. */
+  in?: string[];
+  /** Not included in the specified list. */
+  notIn?: string[];
+  /** Less than the specified value. */
+  lessThan?: string;
+  /** Less than or equal to the specified value. */
+  lessThanOrEqualTo?: string;
+  /** Greater than the specified value. */
+  greaterThan?: string;
+  /** Greater than or equal to the specified value. */
+  greaterThanOrEqualTo?: string;
+  /** Contains the specified string (case-sensitive). */
+  includes?: string;
+  /** Does not contain the specified string (case-sensitive). */
+  notIncludes?: string;
+  /** Contains the specified string (case-insensitive). */
+  includesInsensitive?: string;
+  /** Does not contain the specified string (case-insensitive). */
+  notIncludesInsensitive?: string;
+  /** Starts with the specified string (case-sensitive). */
+  startsWith?: string;
+  /** Does not start with the specified string (case-sensitive). */
+  notStartsWith?: string;
+  /** Starts with the specified string (case-insensitive). */
+  startsWithInsensitive?: string;
+  /** Does not start with the specified string (case-insensitive). */
+  notStartsWithInsensitive?: string;
+  /** Ends with the specified string (case-sensitive). */
+  endsWith?: string;
+  /** Does not end with the specified string (case-sensitive). */
+  notEndsWith?: string;
+  /** Ends with the specified string (case-insensitive). */
+  endsWithInsensitive?: string;
+  /** Does not end with the specified string (case-insensitive). */
+  notEndsWithInsensitive?: string;
+  /** Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  like?: string;
+  /** Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  notLike?: string;
+  /** Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  likeInsensitive?: string;
+  /** Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  notLikeInsensitive?: string;
+  /** Equal to the specified value (case-insensitive). */
+  equalToInsensitive?: string;
+  /** Not equal to the specified value (case-insensitive). */
+  notEqualToInsensitive?: string;
+  /** Not equal to the specified value, treating null like an ordinary value (case-insensitive). */
+  distinctFromInsensitive?: string;
+  /** Equal to the specified value, treating null like an ordinary value (case-insensitive). */
+  notDistinctFromInsensitive?: string;
+  /** Included in the specified list (case-insensitive). */
+  inInsensitive?: string[];
+  /** Not included in the specified list (case-insensitive). */
+  notInInsensitive?: string[];
+  /** Less than the specified value (case-insensitive). */
+  lessThanInsensitive?: string;
+  /** Less than or equal to the specified value (case-insensitive). */
+  lessThanOrEqualToInsensitive?: string;
+  /** Greater than the specified value (case-insensitive). */
+  greaterThanInsensitive?: string;
+  /** Greater than or equal to the specified value (case-insensitive). */
+  greaterThanOrEqualToInsensitive?: string;
 }
 /** A filter to be used against `Image` object types. All fields are combined with a logical ‘and.’ */
 export interface ImageFilter {
@@ -18078,13 +19317,19 @@ export interface ConversationFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringFilter;
+  title?: StringTrgmFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringFilter;
+  status?: StringTrgmFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
   and?: ConversationFilter[];
   /** Checks for any expressions in this list. */
@@ -18095,6 +19340,27 @@ export interface ConversationFilter {
   messages?: ConversationToManyMessageFilter;
   /** `messages` exist. */
   messagesExist?: boolean;
+  /** Filter by the object’s `conversationChunks` relation. */
+  conversationChunks?: ConversationToManyConversationChunkFilter;
+  /** `conversationChunks` exist. */
+  conversationChunksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 /** A filter to be used against `Habit` object types. All fields are combined with a logical ‘and.’ */
 export interface HabitFilter {
@@ -20087,6 +21353,51 @@ export type DeleteProjectPayloadSelect = {
     select: ProjectEdgeSelect;
   };
 };
+export interface CreateConversationChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ConversationChunk` that was created by this mutation. */
+  conversationChunk?: ConversationChunk | null;
+  conversationChunkEdge?: ConversationChunkEdge | null;
+}
+export type CreateConversationChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  conversationChunk?: {
+    select: ConversationChunkSelect;
+  };
+  conversationChunkEdge?: {
+    select: ConversationChunkEdgeSelect;
+  };
+};
+export interface UpdateConversationChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ConversationChunk` that was updated by this mutation. */
+  conversationChunk?: ConversationChunk | null;
+  conversationChunkEdge?: ConversationChunkEdge | null;
+}
+export type UpdateConversationChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  conversationChunk?: {
+    select: ConversationChunkSelect;
+  };
+  conversationChunkEdge?: {
+    select: ConversationChunkEdgeSelect;
+  };
+};
+export interface DeleteConversationChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ConversationChunk` that was deleted by this mutation. */
+  conversationChunk?: ConversationChunk | null;
+  conversationChunkEdge?: ConversationChunkEdge | null;
+}
+export type DeleteConversationChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  conversationChunk?: {
+    select: ConversationChunkSelect;
+  };
+  conversationChunkEdge?: {
+    select: ConversationChunkEdgeSelect;
+  };
+};
 export interface CreateConversationPayload {
   clientMutationId?: string | null;
   /** The `Conversation` that was created by this mutation. */
@@ -21167,6 +22478,51 @@ export type DeleteMemoryChunkPayloadSelect = {
     select: MemoryChunkEdgeSelect;
   };
 };
+export interface CreateMessageChunkPayload {
+  clientMutationId?: string | null;
+  /** The `MessageChunk` that was created by this mutation. */
+  messageChunk?: MessageChunk | null;
+  messageChunkEdge?: MessageChunkEdge | null;
+}
+export type CreateMessageChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  messageChunk?: {
+    select: MessageChunkSelect;
+  };
+  messageChunkEdge?: {
+    select: MessageChunkEdgeSelect;
+  };
+};
+export interface UpdateMessageChunkPayload {
+  clientMutationId?: string | null;
+  /** The `MessageChunk` that was updated by this mutation. */
+  messageChunk?: MessageChunk | null;
+  messageChunkEdge?: MessageChunkEdge | null;
+}
+export type UpdateMessageChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  messageChunk?: {
+    select: MessageChunkSelect;
+  };
+  messageChunkEdge?: {
+    select: MessageChunkEdgeSelect;
+  };
+};
+export interface DeleteMessageChunkPayload {
+  clientMutationId?: string | null;
+  /** The `MessageChunk` that was deleted by this mutation. */
+  messageChunk?: MessageChunk | null;
+  messageChunkEdge?: MessageChunkEdge | null;
+}
+export type DeleteMessageChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  messageChunk?: {
+    select: MessageChunkSelect;
+  };
+  messageChunkEdge?: {
+    select: MessageChunkEdgeSelect;
+  };
+};
 export interface CreateMessagePayload {
   clientMutationId?: string | null;
   /** The `Message` that was created by this mutation. */
@@ -21435,6 +22791,51 @@ export type DeleteProjectContactPayloadSelect = {
   };
   projectContactEdge?: {
     select: ProjectContactEdgeSelect;
+  };
+};
+export interface CreateRuleChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RuleChunk` that was created by this mutation. */
+  ruleChunk?: RuleChunk | null;
+  ruleChunkEdge?: RuleChunkEdge | null;
+}
+export type CreateRuleChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  ruleChunk?: {
+    select: RuleChunkSelect;
+  };
+  ruleChunkEdge?: {
+    select: RuleChunkEdgeSelect;
+  };
+};
+export interface UpdateRuleChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RuleChunk` that was updated by this mutation. */
+  ruleChunk?: RuleChunk | null;
+  ruleChunkEdge?: RuleChunkEdge | null;
+}
+export type UpdateRuleChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  ruleChunk?: {
+    select: RuleChunkSelect;
+  };
+  ruleChunkEdge?: {
+    select: RuleChunkEdgeSelect;
+  };
+};
+export interface DeleteRuleChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RuleChunk` that was deleted by this mutation. */
+  ruleChunk?: RuleChunk | null;
+  ruleChunkEdge?: RuleChunkEdge | null;
+}
+export type DeleteRuleChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  ruleChunk?: {
+    select: RuleChunkSelect;
+  };
+  ruleChunkEdge?: {
+    select: RuleChunkEdgeSelect;
   };
 };
 export interface CreateRulePayload {
@@ -21930,6 +23331,51 @@ export type DeleteRuntimeStateDependencyPayloadSelect = {
   };
   runtimeStateDependencyEdge?: {
     select: RuntimeStateDependencyEdgeSelect;
+  };
+};
+export interface CreateSkillChunkPayload {
+  clientMutationId?: string | null;
+  /** The `SkillChunk` that was created by this mutation. */
+  skillChunk?: SkillChunk | null;
+  skillChunkEdge?: SkillChunkEdge | null;
+}
+export type CreateSkillChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  skillChunk?: {
+    select: SkillChunkSelect;
+  };
+  skillChunkEdge?: {
+    select: SkillChunkEdgeSelect;
+  };
+};
+export interface UpdateSkillChunkPayload {
+  clientMutationId?: string | null;
+  /** The `SkillChunk` that was updated by this mutation. */
+  skillChunk?: SkillChunk | null;
+  skillChunkEdge?: SkillChunkEdge | null;
+}
+export type UpdateSkillChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  skillChunk?: {
+    select: SkillChunkSelect;
+  };
+  skillChunkEdge?: {
+    select: SkillChunkEdgeSelect;
+  };
+};
+export interface DeleteSkillChunkPayload {
+  clientMutationId?: string | null;
+  /** The `SkillChunk` that was deleted by this mutation. */
+  skillChunk?: SkillChunk | null;
+  skillChunkEdge?: SkillChunkEdge | null;
+}
+export type DeleteSkillChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  skillChunk?: {
+    select: SkillChunkSelect;
+  };
+  skillChunkEdge?: {
+    select: SkillChunkEdgeSelect;
   };
 };
 export interface CreateSkillPayload {
@@ -22802,6 +24248,18 @@ export type ProjectEdgeSelect = {
     select: ProjectSelect;
   };
 };
+/** A `ConversationChunk` edge in the connection. */
+export interface ConversationChunkEdge {
+  cursor?: string | null;
+  /** The `ConversationChunk` at the end of the edge. */
+  node?: ConversationChunk | null;
+}
+export type ConversationChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ConversationChunkSelect;
+  };
+};
 /** A `Conversation` edge in the connection. */
 export interface ConversationEdge {
   cursor?: string | null;
@@ -23090,6 +24548,18 @@ export type MemoryChunkEdgeSelect = {
     select: MemoryChunkSelect;
   };
 };
+/** A `MessageChunk` edge in the connection. */
+export interface MessageChunkEdge {
+  cursor?: string | null;
+  /** The `MessageChunk` at the end of the edge. */
+  node?: MessageChunk | null;
+}
+export type MessageChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: MessageChunkSelect;
+  };
+};
 /** A `Message` edge in the connection. */
 export interface MessageEdge {
   cursor?: string | null;
@@ -23160,6 +24630,18 @@ export type ProjectContactEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ProjectContactSelect;
+  };
+};
+/** A `RuleChunk` edge in the connection. */
+export interface RuleChunkEdge {
+  cursor?: string | null;
+  /** The `RuleChunk` at the end of the edge. */
+  node?: RuleChunk | null;
+}
+export type RuleChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RuleChunkSelect;
   };
 };
 /** A `Rule` edge in the connection. */
@@ -23292,6 +24774,18 @@ export type RuntimeStateDependencyEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: RuntimeStateDependencySelect;
+  };
+};
+/** A `SkillChunk` edge in the connection. */
+export interface SkillChunkEdge {
+  cursor?: string | null;
+  /** The `SkillChunk` at the end of the edge. */
+  node?: SkillChunk | null;
+}
+export type SkillChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: SkillChunkSelect;
   };
 };
 /** A `Skill` edge in the connection. */

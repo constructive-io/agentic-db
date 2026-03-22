@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/interactions/columns/embedding_text/column
 
 
-CREATE INDEX interactions_embedding_hnsw_idx ON agentic_db_app_public.interactions USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX interactions_embedding_hnsw_idx ON "agentic_db_app_public".interactions USING hnsw ( embedding vector_cosine_ops );
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/columns/embedding_text/column
 
 
-ALTER TABLE agentic_db_app_public.projects 
+ALTER TABLE "agentic_db_app_public".projects 
   ADD COLUMN embedding vector(768);
 

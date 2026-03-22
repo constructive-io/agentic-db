@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/columns/embedding_text/column
 
 
-ALTER TABLE agentic_db_app_public.code_chunks 
+ALTER TABLE "agentic_db_app_public".code_chunks 
   ADD COLUMN embedding vector(768);
 

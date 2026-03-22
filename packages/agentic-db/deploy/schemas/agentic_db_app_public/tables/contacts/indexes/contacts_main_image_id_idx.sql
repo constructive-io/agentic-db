@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contacts/table
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/main_image_id/column
--- requires: schemas/agentic_db_app_public/tables/venue_links/columns/embedding_stale/alterations/alt0000005775
+-- requires: schemas/agentic_db_app_public/tables/venue_links/columns/embedding_stale/alterations/alt0000001101
 
 
-CREATE INDEX contacts_main_image_id_idx ON agentic_db_app_public.contacts USING BTREE ( main_image_id );
+CREATE INDEX contacts_main_image_id_idx ON "agentic_db_app_public".contacts USING BTREE ( main_image_id );
 

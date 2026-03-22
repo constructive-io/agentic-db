@@ -17,6 +17,15 @@ const fieldSchema: FieldSchema = {
   agentId: 'uuid',
   status: 'string',
   meta: 'json',
+  embeddingText: 'string',
+  embedding: 'string',
+  embeddingStale: 'boolean',
+  embeddingTextBm25Score: 'float',
+  embeddingVectorDistance: 'float',
+  titleTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
+  searchScore: 'float',
 };
 const usage =
   '\nconversation <command>\n\nCommands:\n  list                  List all conversation records\n  get                   Get a conversation by ID\n  create                Create a new conversation\n  update                Update an existing conversation\n  delete                Delete a conversation\n\n  --help, -h            Show this help message\n';
@@ -78,6 +87,9 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           agentId: true,
           status: true,
           meta: true,
+          embeddingText: true,
+          embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -113,6 +125,9 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           agentId: true,
           status: true,
           meta: true,
+          embeddingText: true,
+          embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -161,6 +176,27 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(
@@ -176,6 +212,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           agentId: cleanedData.agentId,
           status: cleanedData.status,
           meta: cleanedData.meta,
+          embeddingText: cleanedData.embeddingText,
+          embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
         },
         select: {
           id: true,
@@ -186,6 +225,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           agentId: true,
           status: true,
           meta: true,
+          embeddingText: true,
+          embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -240,6 +282,27 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'embeddingText',
+        message: 'embeddingText',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'embedding',
+        message: 'embedding',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as ConversationPatch;
@@ -255,6 +318,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           agentId: cleanedData.agentId,
           status: cleanedData.status,
           meta: cleanedData.meta,
+          embeddingText: cleanedData.embeddingText,
+          embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
         },
         select: {
           id: true,
@@ -265,6 +331,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           agentId: true,
           status: true,
           meta: true,
+          embeddingText: true,
+          embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();

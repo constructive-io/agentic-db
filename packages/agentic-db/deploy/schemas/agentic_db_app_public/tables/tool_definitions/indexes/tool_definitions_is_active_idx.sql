@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_definitions/indexes/tool_definitions_name_idx
 
 
-CREATE INDEX tool_definitions_is_active_idx ON agentic_db_app_public.tool_definitions USING BTREE ( is_active );
+CREATE INDEX tool_definitions_is_active_idx ON "agentic_db_app_public".tool_definitions USING BTREE ( is_active );
 

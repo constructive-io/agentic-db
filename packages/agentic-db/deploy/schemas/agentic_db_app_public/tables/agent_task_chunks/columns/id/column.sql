@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_chunks/triggers/agent_chunks_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.agent_task_chunks 
+ALTER TABLE "agentic_db_app_public".agent_task_chunks 
   ADD COLUMN id uuid;
 

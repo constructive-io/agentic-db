@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/messages/table
--- requires: schemas/agentic_db_app_public/tables/conversations/columns/meta/column
+-- requires: schemas/agentic_db_app_public/tables/conversations/triggers/conversations_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.messages 
+ALTER TABLE "agentic_db_app_public".messages 
   ADD COLUMN entity_id uuid;
 

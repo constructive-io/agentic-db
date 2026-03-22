@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deals/table
--- requires: schemas/agentic_db_app_public/tables/companies/alterations/alt0000005559
+-- requires: schemas/agentic_db_app_public/tables/companies/alterations/alt0000000885
 
 
-GRANT UPDATE ON agentic_db_app_public.deals TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".deals TO authenticated;
 

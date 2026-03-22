@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/itinerary_items/indexes/itinerary_items_trip_id_idx
 
 
-CREATE INDEX itinerary_items_place_id_idx ON agentic_db_app_public.itinerary_items USING BTREE ( place_id );
+CREATE INDEX itinerary_items_place_id_idx ON "agentic_db_app_public".itinerary_items USING BTREE ( place_id );
 

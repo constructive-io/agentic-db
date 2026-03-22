@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contact_links/table
 -- requires: schemas/agentic_db_app_public/tables/contact_links/columns/embedding/column
--- requires: schemas/agentic_db_app_public/tables/contact_links/columns/url/alterations/alt0000005740
+-- requires: schemas/agentic_db_app_public/tables/contact_links/columns/url/alterations/alt0000001066
 
 
-CREATE INDEX contact_links_embedding_hnsw_idx ON agentic_db_app_public.contact_links USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX contact_links_embedding_hnsw_idx ON "agentic_db_app_public".contact_links USING hnsw ( embedding vector_cosine_ops );
 

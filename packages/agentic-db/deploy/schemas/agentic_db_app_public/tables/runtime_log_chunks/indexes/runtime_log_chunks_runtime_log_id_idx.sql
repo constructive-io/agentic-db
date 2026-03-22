@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/indexes/runtime_state_chunks_runtime_state_id_idx
 
 
-CREATE INDEX runtime_log_chunks_runtime_log_id_idx ON agentic_db_app_public.runtime_log_chunks USING BTREE ( runtime_log_id );
+CREATE INDEX runtime_log_chunks_runtime_log_id_idx ON "agentic_db_app_public".runtime_log_chunks USING BTREE ( runtime_log_id );
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/crypto_addresses/table
 
 
-GRANT DELETE ON agentic_db_user_identifiers_public.crypto_addresses TO authenticated;
+GRANT DELETE ON "agentic_db_user_identifiers_public".crypto_addresses TO authenticated;
 

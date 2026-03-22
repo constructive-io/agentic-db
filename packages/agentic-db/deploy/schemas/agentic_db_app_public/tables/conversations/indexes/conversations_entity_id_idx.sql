@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_log_chunks/triggers/runtime_log_chunks_enqueue_embedding_update_tg
 
 
-CREATE INDEX conversations_entity_id_idx ON agentic_db_app_public.conversations USING BTREE ( entity_id );
+CREATE INDEX conversations_entity_id_idx ON "agentic_db_app_public".conversations USING BTREE ( entity_id );
 

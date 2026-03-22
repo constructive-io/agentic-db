@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_location_gist_idx
 
 
-GRANT SELECT ON agentic_db_app_public.itinerary_items TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".itinerary_items TO authenticated;
 

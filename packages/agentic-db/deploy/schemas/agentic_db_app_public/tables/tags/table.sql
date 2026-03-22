@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/interactions/triggers/interactions_enqueue_embedding_update_tg
 
 
-CREATE TABLE agentic_db_app_public.tags ();
+CREATE TABLE "agentic_db_app_public".tags ();
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/habit_chunks/table
--- requires: schemas/agentic_db_app_public/tables/habit_chunks/columns/updated_at/alterations/alt0000006385
+-- requires: schemas/agentic_db_app_public/tables/habit_chunks/columns/updated_at/alterations/alt0000001775
 
 
-ALTER TABLE agentic_db_app_public.habit_chunks 
+ALTER TABLE "agentic_db_app_public".habit_chunks 
   ADD COLUMN chunk_index int;
 

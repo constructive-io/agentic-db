@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_tasks/columns/result/column
 
 
-ALTER TABLE agentic_db_app_public.agent_tasks 
+ALTER TABLE "agentic_db_app_public".agent_tasks 
   ADD COLUMN started_at timestamptz;
 

@@ -6,12 +6,12 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_main_image_id_idx
 
 
-CREATE POLICY auth_ins_entity_membership ON agentic_db_app_public.contact_images
+CREATE POLICY auth_ins_entity_membership ON "agentic_db_app_public".contact_images
 FOR INSERT
 TO authenticated
 WITH CHECK (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM agentic_db_memberships_private.org_memberships_sprt AS org_sprt
+  FROM "agentic_db_memberships_private".org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

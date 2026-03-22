@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
 -- requires: schemas/agentic_db_users_public/tables/users/table
--- requires: schemas/agentic_db_app_public/tables/rules/triggers/rules_embedding_stale_update_tg
+-- requires: schemas/agentic_db_app_public/tables/rules/indexes/rules_trigger_concept_embedding_hnsw_idx
 
 
-ALTER TABLE agentic_db_app_public.skills 
+ALTER TABLE "agentic_db_app_public".skills 
   ADD CONSTRAINT skills_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

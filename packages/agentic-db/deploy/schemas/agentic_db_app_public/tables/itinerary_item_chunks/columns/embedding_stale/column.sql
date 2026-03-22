@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/itinerary_item_chunks/columns/embedding_text/column
 
 
-ALTER TABLE agentic_db_app_public.itinerary_item_chunks 
+ALTER TABLE "agentic_db_app_public".itinerary_item_chunks 
   ADD COLUMN embedding_stale boolean;
 

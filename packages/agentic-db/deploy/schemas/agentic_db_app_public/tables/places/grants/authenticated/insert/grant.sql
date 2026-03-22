@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trips/indexes/trips_location_gist_idx
 
 
-GRANT INSERT ON agentic_db_app_public.places TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".places TO authenticated;
 

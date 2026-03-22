@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/codebases/triggers/codebases_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.code_chunks 
+ALTER TABLE "agentic_db_app_public".code_chunks 
   ADD CONSTRAINT code_chunks_pkey PRIMARY KEY (id);
 

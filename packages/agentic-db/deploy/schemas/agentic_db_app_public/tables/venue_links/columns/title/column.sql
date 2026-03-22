@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venue_links/table
--- requires: schemas/agentic_db_app_public/tables/venue_links/columns/updated_at/alterations/alt0000005772
+-- requires: schemas/agentic_db_app_public/tables/venue_links/columns/updated_at/alterations/alt0000001098
 
 
-ALTER TABLE agentic_db_app_public.venue_links 
+ALTER TABLE "agentic_db_app_public".venue_links 
   ADD COLUMN title text;
 

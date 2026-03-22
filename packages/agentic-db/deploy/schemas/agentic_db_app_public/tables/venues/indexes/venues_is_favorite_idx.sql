@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_category_idx
 
 
-CREATE INDEX venues_is_favorite_idx ON agentic_db_app_public.venues USING BTREE ( is_favorite );
+CREATE INDEX venues_is_favorite_idx ON "agentic_db_app_public".venues USING BTREE ( is_favorite );
 

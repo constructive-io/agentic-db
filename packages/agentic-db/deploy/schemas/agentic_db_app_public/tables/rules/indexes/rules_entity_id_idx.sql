@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_logs/triggers/agent_logs_enqueue_embedding_update_tg
 
 
-CREATE INDEX rules_entity_id_idx ON agentic_db_app_public.rules USING BTREE ( entity_id );
+CREATE INDEX rules_entity_id_idx ON "agentic_db_app_public".rules USING BTREE ( entity_id );
 

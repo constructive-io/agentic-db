@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/codebases/table
--- requires: schemas/agentic_db_app_public/tables/codebases/columns/updated_at/alterations/alt0000006161
+-- requires: schemas/agentic_db_app_public/tables/codebases/columns/updated_at/alterations/alt0000001551
 
 
-ALTER TABLE agentic_db_app_public.codebases 
+ALTER TABLE "agentic_db_app_public".codebases 
   ADD COLUMN name text;
 

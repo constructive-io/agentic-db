@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/codebase_dependencies/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX codebases_tags_gin_idx ON agentic_db_app_public.codebases USING GIN ( tags );
+CREATE INDEX codebases_tags_gin_idx ON "agentic_db_app_public".codebases USING GIN ( tags );
 

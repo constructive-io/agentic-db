@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_collaborators/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX agents_tags_gin_idx ON agentic_db_app_public.agents USING GIN ( tags );
+CREATE INDEX agents_tags_gin_idx ON "agentic_db_app_public".agents USING GIN ( tags );
 

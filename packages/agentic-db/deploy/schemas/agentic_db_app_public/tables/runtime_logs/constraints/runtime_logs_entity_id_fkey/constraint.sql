@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_states/triggers/runtime_states_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.runtime_logs 
+ALTER TABLE "agentic_db_app_public".runtime_logs 
   ADD CONSTRAINT runtime_logs_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

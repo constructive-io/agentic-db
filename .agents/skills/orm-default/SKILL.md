@@ -1,13 +1,13 @@
 ---
 name: orm-default
-description: ORM client for the default API — provides typed CRUD operations for 86 tables and 0 custom operations
+description: ORM client for the default API — provides typed CRUD operations for 90 tables and 0 custom operations
 ---
 
 # orm-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-ORM client for the default API — provides typed CRUD operations for 86 tables and 0 custom operations
+ORM client for the default API — provides typed CRUD operations for 90 tables and 0 custom operations
 
 ## Usage
 
@@ -72,6 +72,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [contact-memory](references/contact-memory.md)
 - [contact-note](references/contact-note.md)
 - [project](references/project.md)
+- [conversation-chunk](references/conversation-chunk.md)
 - [conversation](references/conversation.md)
 - [deal-chunk](references/deal-chunk.md)
 - [deal-contact](references/deal-contact.md)
@@ -96,12 +97,14 @@ See the `references/` directory for detailed per-entity API documentation:
 - [itinerary-item-chunk](references/itinerary-item-chunk.md)
 - [itinerary-item](references/itinerary-item.md)
 - [memory-chunk](references/memory-chunk.md)
+- [message-chunk](references/message-chunk.md)
 - [message](references/message.md)
 - [note-chunk](references/note-chunk.md)
 - [place-chunk](references/place-chunk.md)
 - [place](references/place.md)
 - [project-chunk](references/project-chunk.md)
 - [project-contact](references/project-contact.md)
+- [rule-chunk](references/rule-chunk.md)
 - [rule](references/rule.md)
 - [runtime-artifact](references/runtime-artifact.md)
 - [runtime-config](references/runtime-config.md)
@@ -113,6 +116,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [runtime-state-chunk](references/runtime-state-chunk.md)
 - [runtime-state](references/runtime-state.md)
 - [runtime-state-dependency](references/runtime-state-dependency.md)
+- [skill-chunk](references/skill-chunk.md)
 - [skill](references/skill.md)
 - [tag](references/tag.md)
 - [tool-definition](references/tool-definition.md)

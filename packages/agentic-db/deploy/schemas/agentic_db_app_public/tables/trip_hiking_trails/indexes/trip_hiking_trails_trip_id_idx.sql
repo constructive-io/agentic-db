@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trip_places/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX trip_hiking_trails_trip_id_idx ON agentic_db_app_public.trip_hiking_trails USING BTREE ( trip_id );
+CREATE INDEX trip_hiking_trails_trip_id_idx ON "agentic_db_app_public".trip_hiking_trails USING BTREE ( trip_id );
 

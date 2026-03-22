@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/triggers/projects_enqueue_embedding_update_tg
 
 
-CREATE INDEX project_chunks_entity_id_idx ON agentic_db_app_public.project_chunks USING BTREE ( entity_id );
+CREATE INDEX project_chunks_entity_id_idx ON "agentic_db_app_public".project_chunks USING BTREE ( entity_id );
 

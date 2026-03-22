@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_codebasis_id_idx
 
 
-ALTER TABLE agentic_db_app_public.codebas_chunks 
+ALTER TABLE "agentic_db_app_public".codebas_chunks 
   ADD COLUMN codebasis_id uuid;
 

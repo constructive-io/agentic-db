@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_tasks/triggers/agent_tasks_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.agent_logs 
+ALTER TABLE "agentic_db_app_public".agent_logs 
   ENABLE ROW LEVEL SECURITY;
 

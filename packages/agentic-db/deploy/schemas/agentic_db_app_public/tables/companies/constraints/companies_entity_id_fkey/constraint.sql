@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/contacts/indexes/contacts_location_geo_gist_idx
 
 
-ALTER TABLE agentic_db_app_public.companies 
+ALTER TABLE "agentic_db_app_public".companies 
   ADD CONSTRAINT companies_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

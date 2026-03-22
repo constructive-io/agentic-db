@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venues/table
--- requires: schemas/agentic_db_app_public/tables/events/alterations/alt0000005587
+-- requires: schemas/agentic_db_app_public/tables/events/alterations/alt0000000913
 
 
-ALTER TABLE agentic_db_app_public.venues 
+ALTER TABLE "agentic_db_app_public".venues 
   ADD COLUMN id uuid;
 

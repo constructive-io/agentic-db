@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_states/table
--- requires: schemas/agentic_db_app_public/tables/runtime_states/columns/name/alterations/alt0000005978
+-- requires: schemas/agentic_db_app_public/tables/runtime_states/columns/name/alterations/alt0000001334
 
 
-ALTER TABLE agentic_db_app_public.runtime_states 
+ALTER TABLE "agentic_db_app_public".runtime_states 
   ADD COLUMN state_type text;
 

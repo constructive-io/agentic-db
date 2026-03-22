@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/triggers/projects_enqueue_embedding_update_tg
 
 
-CREATE TABLE agentic_db_app_public.project_chunks ();
+CREATE TABLE "agentic_db_app_public".project_chunks ();
 

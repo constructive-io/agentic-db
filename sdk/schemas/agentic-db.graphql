@@ -765,6 +765,33 @@ enum ContactOrderBy {
   SEARCH_SCORE_DESC
 }
 
+"Methods to use when ordering `ConversationChunk`."
+enum ConversationChunkOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  CONVERSATION_ID_ASC
+  CONVERSATION_ID_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  CONTENT_TRGM_SIMILARITY_ASC
+  CONTENT_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
 "Methods to use when ordering `Conversation`."
 enum ConversationOrderBy {
   NATURAL
@@ -778,6 +805,22 @@ enum ConversationOrderBy {
   AGENT_ID_DESC
   STATUS_ASC
   STATUS_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  TITLE_TRGM_SIMILARITY_ASC
+  TITLE_TRGM_SIMILARITY_DESC
+  STATUS_TRGM_SIMILARITY_ASC
+  STATUS_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
 }
 
 "Methods to use when ordering `DealChunk`."
@@ -1435,6 +1478,33 @@ enum MemoryOrderBy {
   SEARCH_SCORE_DESC
 }
 
+"Methods to use when ordering `MessageChunk`."
+enum MessageChunkOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  MESSAGE_ID_ASC
+  MESSAGE_ID_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  CONTENT_TRGM_SIMILARITY_ASC
+  CONTENT_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
 "Methods to use when ordering `Message`."
 enum MessageOrderBy {
   NATURAL
@@ -1448,6 +1518,22 @@ enum MessageOrderBy {
   CONVERSATION_ID_DESC
   ROLE_ASC
   ROLE_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  ROLE_TRGM_SIMILARITY_ASC
+  ROLE_TRGM_SIMILARITY_DESC
+  CONTENT_TRGM_SIMILARITY_ASC
+  CONTENT_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
 }
 
 "Methods to use when ordering `NoteChunk`."
@@ -1665,6 +1751,33 @@ enum ProjectOrderBy {
   SEARCH_SCORE_DESC
 }
 
+"Methods to use when ordering `RuleChunk`."
+enum RuleChunkOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  RULE_ID_ASC
+  RULE_ID_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  CONTENT_TRGM_SIMILARITY_ASC
+  CONTENT_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
 "Methods to use when ordering `Rule`."
 enum RuleOrderBy {
   NATURAL
@@ -1678,12 +1791,32 @@ enum RuleOrderBy {
   TRIGGER_TYPE_DESC
   IS_ACTIVE_ASC
   IS_ACTIVE_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
   TRIGGER_CONCEPT_EMBEDDING_ASC
   TRIGGER_CONCEPT_EMBEDDING_DESC
   AGENT_ID_ASC
   AGENT_ID_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
   TRIGGER_CONCEPT_EMBEDDING_VECTOR_DISTANCE_ASC
   TRIGGER_CONCEPT_EMBEDDING_VECTOR_DISTANCE_DESC
+  NAME_TRGM_SIMILARITY_ASC
+  NAME_TRGM_SIMILARITY_DESC
+  DESCRIPTION_TRGM_SIMILARITY_ASC
+  DESCRIPTION_TRGM_SIMILARITY_DESC
+  TRIGGER_TYPE_TRGM_SIMILARITY_ASC
+  TRIGGER_TYPE_TRGM_SIMILARITY_DESC
+  ACTION_TYPE_TRGM_SIMILARITY_ASC
+  ACTION_TYPE_TRGM_SIMILARITY_DESC
+  TRIGGER_CONCEPT_TRGM_SIMILARITY_ASC
+  TRIGGER_CONCEPT_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
 }
@@ -1896,6 +2029,33 @@ enum RuntimeStateOrderBy {
   SEARCH_SCORE_DESC
 }
 
+"Methods to use when ordering `SkillChunk`."
+enum SkillChunkOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  SKILL_ID_ASC
+  SKILL_ID_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  CONTENT_TRGM_SIMILARITY_ASC
+  CONTENT_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
 "Methods to use when ordering `Skill`."
 enum SkillOrderBy {
   NATURAL
@@ -1909,12 +2069,32 @@ enum SkillOrderBy {
   CATEGORY_DESC
   IS_ACTIVE_ASC
   IS_ACTIVE_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
   INTENT_TRIGGER_EMBEDDING_ASC
   INTENT_TRIGGER_EMBEDDING_DESC
   AGENT_ID_ASC
   AGENT_ID_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
   INTENT_TRIGGER_EMBEDDING_VECTOR_DISTANCE_ASC
   INTENT_TRIGGER_EMBEDDING_VECTOR_DISTANCE_DESC
+  NAME_TRGM_SIMILARITY_ASC
+  NAME_TRGM_SIMILARITY_DESC
+  DESCRIPTION_TRGM_SIMILARITY_ASC
+  DESCRIPTION_TRGM_SIMILARITY_DESC
+  CATEGORY_TRGM_SIMILARITY_ASC
+  CATEGORY_TRGM_SIMILARITY_DESC
+  IMPLEMENTATION_TRGM_SIMILARITY_ASC
+  IMPLEMENTATION_TRGM_SIMILARITY_DESC
+  INTENT_TRIGGER_TRGM_SIMILARITY_ASC
+  INTENT_TRIGGER_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
 }
@@ -5208,6 +5388,7 @@ type ContactProjectsManyToManyEdge {
   ): ProjectContactConnection!
 }
 
+"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Conversation {
   id: UUID!
   entityId: UUID!
@@ -5217,6 +5398,9 @@ type Conversation {
   agentId: UUID
   status: String
   meta: JSON
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Message`."
   messages(
     "Only read the first `n` values of the set."
@@ -5237,6 +5421,84 @@ type Conversation {
     "The method to use when ordering `Message`."
     orderBy: [MessageOrderBy!] = [PRIMARY_KEY_ASC]
   ): MessageConnection!
+  "Reads and enables pagination through a set of `ConversationChunk`."
+  conversationChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ConversationChunkFilter
+    "The method to use when ordering `ConversationChunk`."
+    orderBy: [ConversationChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ConversationChunkConnection!
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `title`. Returns null when no trgm search filter is active."
+  titleTrgmSimilarity: Float
+  "TRGM similarity when searching `status`. Returns null when no trgm search filter is active."
+  statusTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+type ConversationChunk {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  chunkIndex: Int!
+  content: String!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean!
+  conversationId: UUID!
+  "Reads a single `Conversation` that is related to this `ConversationChunk`."
+  conversation: Conversation
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `content`. Returns null when no trgm search filter is active."
+  contentTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `ConversationChunk` values."
+type ConversationChunkConnection {
+  "A list of `ConversationChunk` objects."
+  nodes: [ConversationChunk]!
+  "A list of edges which contains the `ConversationChunk` and cursor to aid in pagination."
+  edges: [ConversationChunkEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `ConversationChunk` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `ConversationChunk` edge in the connection."
+type ConversationChunkEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `ConversationChunk` at the end of the edge."
+  node: ConversationChunk
 }
 
 "A connection to a list of `Conversation` values."
@@ -5781,6 +6043,24 @@ type CreateContactPayload {
   ): ContactEdge
 }
 
+"The output of our create `ConversationChunk` mutation."
+type CreateConversationChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ConversationChunk` that was created by this mutation."
+  conversationChunk: ConversationChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ConversationChunk`. May be used by Relay 1."
+  conversationChunkEdge(
+    "The method to use when ordering `ConversationChunk`."
+    orderBy: [ConversationChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ConversationChunkEdge
+}
+
 "The output of our create `Conversation` mutation."
 type CreateConversationPayload {
   """
@@ -6249,6 +6529,24 @@ type CreateMemoryPayload {
   ): MemoryEdge
 }
 
+"The output of our create `MessageChunk` mutation."
+type CreateMessageChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `MessageChunk` that was created by this mutation."
+  messageChunk: MessageChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `MessageChunk`. May be used by Relay 1."
+  messageChunkEdge(
+    "The method to use when ordering `MessageChunk`."
+    orderBy: [MessageChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): MessageChunkEdge
+}
+
 "The output of our create `Message` mutation."
 type CreateMessagePayload {
   """
@@ -6391,6 +6689,24 @@ type CreateProjectPayload {
     "The method to use when ordering `Project`."
     orderBy: [ProjectOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ProjectEdge
+}
+
+"The output of our create `RuleChunk` mutation."
+type CreateRuleChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RuleChunk` that was created by this mutation."
+  ruleChunk: RuleChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RuleChunk`. May be used by Relay 1."
+  ruleChunkEdge(
+    "The method to use when ordering `RuleChunk`."
+    orderBy: [RuleChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RuleChunkEdge
 }
 
 "The output of our create `Rule` mutation."
@@ -6589,6 +6905,24 @@ type CreateRuntimeStatePayload {
     "The method to use when ordering `RuntimeState`."
     orderBy: [RuntimeStateOrderBy!]! = [PRIMARY_KEY_ASC]
   ): RuntimeStateEdge
+}
+
+"The output of our create `SkillChunk` mutation."
+type CreateSkillChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `SkillChunk` that was created by this mutation."
+  skillChunk: SkillChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `SkillChunk`. May be used by Relay 1."
+  skillChunkEdge(
+    "The method to use when ordering `SkillChunk`."
+    orderBy: [SkillChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): SkillChunkEdge
 }
 
 "The output of our create `Skill` mutation."
@@ -7671,6 +8005,24 @@ type DeleteContactPayload {
   ): ContactEdge
 }
 
+"The output of our delete `ConversationChunk` mutation."
+type DeleteConversationChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ConversationChunk` that was deleted by this mutation."
+  conversationChunk: ConversationChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ConversationChunk`. May be used by Relay 1."
+  conversationChunkEdge(
+    "The method to use when ordering `ConversationChunk`."
+    orderBy: [ConversationChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ConversationChunkEdge
+}
+
 "The output of our delete `Conversation` mutation."
 type DeleteConversationPayload {
   """
@@ -8139,6 +8491,24 @@ type DeleteMemoryPayload {
   ): MemoryEdge
 }
 
+"The output of our delete `MessageChunk` mutation."
+type DeleteMessageChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `MessageChunk` that was deleted by this mutation."
+  messageChunk: MessageChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `MessageChunk`. May be used by Relay 1."
+  messageChunkEdge(
+    "The method to use when ordering `MessageChunk`."
+    orderBy: [MessageChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): MessageChunkEdge
+}
+
 "The output of our delete `Message` mutation."
 type DeleteMessagePayload {
   """
@@ -8281,6 +8651,24 @@ type DeleteProjectPayload {
     "The method to use when ordering `Project`."
     orderBy: [ProjectOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ProjectEdge
+}
+
+"The output of our delete `RuleChunk` mutation."
+type DeleteRuleChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RuleChunk` that was deleted by this mutation."
+  ruleChunk: RuleChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RuleChunk`. May be used by Relay 1."
+  ruleChunkEdge(
+    "The method to use when ordering `RuleChunk`."
+    orderBy: [RuleChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RuleChunkEdge
 }
 
 "The output of our delete `Rule` mutation."
@@ -8479,6 +8867,24 @@ type DeleteRuntimeStatePayload {
     "The method to use when ordering `RuntimeState`."
     orderBy: [RuntimeStateOrderBy!]! = [PRIMARY_KEY_ASC]
   ): RuntimeStateEdge
+}
+
+"The output of our delete `SkillChunk` mutation."
+type DeleteSkillChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `SkillChunk` that was deleted by this mutation."
+  skillChunk: SkillChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `SkillChunk`. May be used by Relay 1."
+  skillChunkEdge(
+    "The method to use when ordering `SkillChunk`."
+    orderBy: [SkillChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): SkillChunkEdge
 }
 
 "The output of our delete `Skill` mutation."
@@ -11094,6 +11500,7 @@ type MemoryEdge {
   node: Memory
 }
 
+"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Message {
   id: UUID!
   entityId: UUID!
@@ -11106,8 +11513,89 @@ type Message {
   meta: JSON
   toolCalls: JSON
   toolResults: JSON
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean!
   "Reads a single `Conversation` that is related to this `Message`."
   conversation: Conversation
+  "Reads and enables pagination through a set of `MessageChunk`."
+  messageChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: MessageChunkFilter
+    "The method to use when ordering `MessageChunk`."
+    orderBy: [MessageChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MessageChunkConnection!
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `role`. Returns null when no trgm search filter is active."
+  roleTrgmSimilarity: Float
+  "TRGM similarity when searching `content`. Returns null when no trgm search filter is active."
+  contentTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+type MessageChunk {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  chunkIndex: Int!
+  content: String!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean!
+  messageId: UUID!
+  "Reads a single `Message` that is related to this `MessageChunk`."
+  message: Message
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `content`. Returns null when no trgm search filter is active."
+  contentTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `MessageChunk` values."
+type MessageChunkConnection {
+  "A list of `MessageChunk` objects."
+  nodes: [MessageChunk]!
+  "A list of edges which contains the `MessageChunk` and cursor to aid in pagination."
+  edges: [MessageChunkEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `MessageChunk` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `MessageChunk` edge in the connection."
+type MessageChunkEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `MessageChunk` at the end of the edge."
+  node: MessageChunk
 }
 
 "A connection to a list of `Message` values."
@@ -11398,11 +11886,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateVenueImageInput!
   ): CreateVenueImagePayload
-  "Creates a single `Conversation`."
-  createConversation(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateConversationInput!
-  ): CreateConversationPayload
   "Creates a single `Tag`."
   createTag(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11413,11 +11896,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeArtifactInput!
   ): CreateRuntimeArtifactPayload
-  "Creates a single `Message`."
-  createMessage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateMessageInput!
-  ): CreateMessagePayload
   "Creates a single `RuntimeEvent`."
   createRuntimeEvent(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11443,6 +11921,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateToolDefinitionInput!
   ): CreateToolDefinitionPayload
+  "Creates a single `Conversation`."
+  createConversation(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateConversationInput!
+  ): CreateConversationPayload
   "Creates a single `Image`."
   createImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11458,6 +11941,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeLogInput!
   ): CreateRuntimeLogPayload
+  "Creates a single `Message`."
+  createMessage(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateMessageInput!
+  ): CreateMessagePayload
   "Creates a single `RuntimeState`."
   createRuntimeState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11518,6 +12006,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateContactChunkInput!
   ): CreateContactChunkPayload
+  "Creates a single `ConversationChunk`."
+  createConversationChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateConversationChunkInput!
+  ): CreateConversationChunkPayload
   "Creates a single `DealChunk`."
   createDealChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11558,6 +12051,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateMemoryChunkInput!
   ): CreateMemoryChunkPayload
+  "Creates a single `MessageChunk`."
+  createMessageChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateMessageChunkInput!
+  ): CreateMessageChunkPayload
   "Creates a single `NoteChunk`."
   createNoteChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11573,6 +12071,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateProjectChunkInput!
   ): CreateProjectChunkPayload
+  "Creates a single `RuleChunk`."
+  createRuleChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRuleChunkInput!
+  ): CreateRuleChunkPayload
   "Creates a single `RuntimeLogChunk`."
   createRuntimeLogChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11583,6 +12086,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeStateChunkInput!
   ): CreateRuntimeStateChunkPayload
+  "Creates a single `SkillChunk`."
+  createSkillChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateSkillChunkInput!
+  ): CreateSkillChunkPayload
   "Creates a single `TripChunk`."
   createTripChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11828,11 +12336,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateVenueImageInput!
   ): UpdateVenueImagePayload
-  "Updates a single `Conversation` using a unique key and a patch."
-  updateConversation(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateConversationInput!
-  ): UpdateConversationPayload
   "Updates a single `Tag` using a unique key and a patch."
   updateTag(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11843,11 +12346,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeArtifactInput!
   ): UpdateRuntimeArtifactPayload
-  "Updates a single `Message` using a unique key and a patch."
-  updateMessage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateMessageInput!
-  ): UpdateMessagePayload
   "Updates a single `RuntimeEvent` using a unique key and a patch."
   updateRuntimeEvent(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11873,6 +12371,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateToolDefinitionInput!
   ): UpdateToolDefinitionPayload
+  "Updates a single `Conversation` using a unique key and a patch."
+  updateConversation(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateConversationInput!
+  ): UpdateConversationPayload
   "Updates a single `Image` using a unique key and a patch."
   updateImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11888,6 +12391,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeLogInput!
   ): UpdateRuntimeLogPayload
+  "Updates a single `Message` using a unique key and a patch."
+  updateMessage(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateMessageInput!
+  ): UpdateMessagePayload
   "Updates a single `RuntimeState` using a unique key and a patch."
   updateRuntimeState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11948,6 +12456,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateContactChunkInput!
   ): UpdateContactChunkPayload
+  "Updates a single `ConversationChunk` using a unique key and a patch."
+  updateConversationChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateConversationChunkInput!
+  ): UpdateConversationChunkPayload
   "Updates a single `DealChunk` using a unique key and a patch."
   updateDealChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11988,6 +12501,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateMemoryChunkInput!
   ): UpdateMemoryChunkPayload
+  "Updates a single `MessageChunk` using a unique key and a patch."
+  updateMessageChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateMessageChunkInput!
+  ): UpdateMessageChunkPayload
   "Updates a single `NoteChunk` using a unique key and a patch."
   updateNoteChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12003,6 +12521,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateProjectChunkInput!
   ): UpdateProjectChunkPayload
+  "Updates a single `RuleChunk` using a unique key and a patch."
+  updateRuleChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRuleChunkInput!
+  ): UpdateRuleChunkPayload
   "Updates a single `RuntimeLogChunk` using a unique key and a patch."
   updateRuntimeLogChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12013,6 +12536,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeStateChunkInput!
   ): UpdateRuntimeStateChunkPayload
+  "Updates a single `SkillChunk` using a unique key and a patch."
+  updateSkillChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateSkillChunkInput!
+  ): UpdateSkillChunkPayload
   "Updates a single `TripChunk` using a unique key and a patch."
   updateTripChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12258,11 +12786,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteVenueImageInput!
   ): DeleteVenueImagePayload
-  "Deletes a single `Conversation` using a unique key."
-  deleteConversation(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteConversationInput!
-  ): DeleteConversationPayload
   "Deletes a single `Tag` using a unique key."
   deleteTag(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12273,11 +12796,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeArtifactInput!
   ): DeleteRuntimeArtifactPayload
-  "Deletes a single `Message` using a unique key."
-  deleteMessage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteMessageInput!
-  ): DeleteMessagePayload
   "Deletes a single `RuntimeEvent` using a unique key."
   deleteRuntimeEvent(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12303,6 +12821,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteToolDefinitionInput!
   ): DeleteToolDefinitionPayload
+  "Deletes a single `Conversation` using a unique key."
+  deleteConversation(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteConversationInput!
+  ): DeleteConversationPayload
   "Deletes a single `Image` using a unique key."
   deleteImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12318,6 +12841,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeLogInput!
   ): DeleteRuntimeLogPayload
+  "Deletes a single `Message` using a unique key."
+  deleteMessage(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteMessageInput!
+  ): DeleteMessagePayload
   "Deletes a single `RuntimeState` using a unique key."
   deleteRuntimeState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12378,6 +12906,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteContactChunkInput!
   ): DeleteContactChunkPayload
+  "Deletes a single `ConversationChunk` using a unique key."
+  deleteConversationChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteConversationChunkInput!
+  ): DeleteConversationChunkPayload
   "Deletes a single `DealChunk` using a unique key."
   deleteDealChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12418,6 +12951,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteMemoryChunkInput!
   ): DeleteMemoryChunkPayload
+  "Deletes a single `MessageChunk` using a unique key."
+  deleteMessageChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteMessageChunkInput!
+  ): DeleteMessageChunkPayload
   "Deletes a single `NoteChunk` using a unique key."
   deleteNoteChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12433,6 +12971,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteProjectChunkInput!
   ): DeleteProjectChunkPayload
+  "Deletes a single `RuleChunk` using a unique key."
+  deleteRuleChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRuleChunkInput!
+  ): DeleteRuleChunkPayload
   "Deletes a single `RuntimeLogChunk` using a unique key."
   deleteRuntimeLogChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12443,6 +12986,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeStateChunkInput!
   ): DeleteRuntimeStateChunkPayload
+  "Deletes a single `SkillChunk` using a unique key."
+  deleteSkillChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteSkillChunkInput!
+  ): DeleteSkillChunkPayload
   "Deletes a single `TripChunk` using a unique key."
   deleteTripChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14045,26 +14593,6 @@ type Query {
     "The method to use when ordering `VenueImage`."
     orderBy: [VenueImageOrderBy!] = [PRIMARY_KEY_ASC]
   ): VenueImageConnection
-  "Reads and enables pagination through a set of `Conversation`."
-  conversations(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ConversationFilter
-    "The method to use when ordering `Conversation`."
-    orderBy: [ConversationOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ConversationConnection
   "Reads and enables pagination through a set of `Tag`."
   tags(
     "Only read the first `n` values of the set."
@@ -14105,26 +14633,6 @@ type Query {
     "The method to use when ordering `RuntimeArtifact`."
     orderBy: [RuntimeArtifactOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeArtifactConnection
-  "Reads and enables pagination through a set of `Message`."
-  messages(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: MessageFilter
-    "The method to use when ordering `Message`."
-    orderBy: [MessageOrderBy!] = [PRIMARY_KEY_ASC]
-  ): MessageConnection
   "Reads and enables pagination through a set of `RuntimeEvent`."
   runtimeEvents(
     "Only read the first `n` values of the set."
@@ -14225,6 +14733,26 @@ type Query {
     "The method to use when ordering `ToolDefinition`."
     orderBy: [ToolDefinitionOrderBy!] = [PRIMARY_KEY_ASC]
   ): ToolDefinitionConnection
+  "Reads and enables pagination through a set of `Conversation`."
+  conversations(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ConversationFilter
+    "The method to use when ordering `Conversation`."
+    orderBy: [ConversationOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ConversationConnection
   "Reads and enables pagination through a set of `Image`."
   images(
     "Only read the first `n` values of the set."
@@ -14285,6 +14813,26 @@ type Query {
     "The method to use when ordering `RuntimeLog`."
     orderBy: [RuntimeLogOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeLogConnection
+  "Reads and enables pagination through a set of `Message`."
+  messages(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: MessageFilter
+    "The method to use when ordering `Message`."
+    orderBy: [MessageOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MessageConnection
   "Reads and enables pagination through a set of `RuntimeState`."
   runtimeStates(
     "Only read the first `n` values of the set."
@@ -14525,6 +15073,26 @@ type Query {
     "The method to use when ordering `ContactChunk`."
     orderBy: [ContactChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactChunkConnection
+  "Reads and enables pagination through a set of `ConversationChunk`."
+  conversationChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ConversationChunkFilter
+    "The method to use when ordering `ConversationChunk`."
+    orderBy: [ConversationChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ConversationChunkConnection
   "Reads and enables pagination through a set of `DealChunk`."
   dealChunks(
     "Only read the first `n` values of the set."
@@ -14685,6 +15253,26 @@ type Query {
     "The method to use when ordering `MemoryChunk`."
     orderBy: [MemoryChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): MemoryChunkConnection
+  "Reads and enables pagination through a set of `MessageChunk`."
+  messageChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: MessageChunkFilter
+    "The method to use when ordering `MessageChunk`."
+    orderBy: [MessageChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MessageChunkConnection
   "Reads and enables pagination through a set of `NoteChunk`."
   noteChunks(
     "Only read the first `n` values of the set."
@@ -14745,6 +15333,26 @@ type Query {
     "The method to use when ordering `ProjectChunk`."
     orderBy: [ProjectChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectChunkConnection
+  "Reads and enables pagination through a set of `RuleChunk`."
+  ruleChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RuleChunkFilter
+    "The method to use when ordering `RuleChunk`."
+    orderBy: [RuleChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuleChunkConnection
   "Reads and enables pagination through a set of `RuntimeLogChunk`."
   runtimeLogChunks(
     "Only read the first `n` values of the set."
@@ -14785,6 +15393,26 @@ type Query {
     "The method to use when ordering `RuntimeStateChunk`."
     orderBy: [RuntimeStateChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeStateChunkConnection
+  "Reads and enables pagination through a set of `SkillChunk`."
+  skillChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: SkillChunkFilter
+    "The method to use when ordering `SkillChunk`."
+    orderBy: [SkillChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SkillChunkConnection
   "Reads and enables pagination through a set of `TripChunk`."
   tripChunks(
     "Only read the first `n` values of the set."
@@ -15289,6 +15917,7 @@ type Query {
   _meta: MetaSchema
 }
 
+"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Rule {
   id: UUID!
   entityId: UUID!
@@ -15303,15 +15932,99 @@ type Rule {
   isActive: Boolean
   priority: Int
   triggerConcept: String
-  triggerConceptEmbedding: Vector
+  embeddingText: String
+  embedding: Vector
   embeddingStale: Boolean!
+  triggerConceptEmbedding: Vector
   agentId: UUID!
   "Reads a single `Agent` that is related to this `Rule`."
   agent: Agent
+  "Reads and enables pagination through a set of `RuleChunk`."
+  ruleChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RuleChunkFilter
+    "The method to use when ordering `RuleChunk`."
+    orderBy: [RuleChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuleChunkConnection!
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
   "VECTOR distance when searching `triggerConceptEmbedding`. Returns null when no vector search filter is active."
   triggerConceptEmbeddingVectorDistance: Float
+  "TRGM similarity when searching `name`. Returns null when no trgm search filter is active."
+  nameTrgmSimilarity: Float
+  "TRGM similarity when searching `description`. Returns null when no trgm search filter is active."
+  descriptionTrgmSimilarity: Float
+  "TRGM similarity when searching `triggerType`. Returns null when no trgm search filter is active."
+  triggerTypeTrgmSimilarity: Float
+  "TRGM similarity when searching `actionType`. Returns null when no trgm search filter is active."
+  actionTypeTrgmSimilarity: Float
+  "TRGM similarity when searching `triggerConcept`. Returns null when no trgm search filter is active."
+  triggerConceptTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
   "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
+}
+
+"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+type RuleChunk {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  chunkIndex: Int!
+  content: String!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean!
+  ruleId: UUID!
+  "Reads a single `Rule` that is related to this `RuleChunk`."
+  rule: Rule
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `content`. Returns null when no trgm search filter is active."
+  contentTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `RuleChunk` values."
+type RuleChunkConnection {
+  "A list of `RuleChunk` objects."
+  nodes: [RuleChunk]!
+  "A list of edges which contains the `RuleChunk` and cursor to aid in pagination."
+  edges: [RuleChunkEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `RuleChunk` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `RuleChunk` edge in the connection."
+type RuleChunkEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `RuleChunk` at the end of the edge."
+  node: RuleChunk
 }
 
 "A connection to a list of `Rule` values."
@@ -15985,6 +16698,7 @@ type RuntimeStateRuntimeStatesByRuntimeStateDependencyStateIdAndDependencyIdMany
   ): RuntimeStateDependencyConnection!
 }
 
+"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Skill {
   id: UUID!
   entityId: UUID!
@@ -15997,15 +16711,99 @@ type Skill {
   config: JSON
   isActive: Boolean
   intentTrigger: String
-  intentTriggerEmbedding: Vector
+  embeddingText: String
+  embedding: Vector
   embeddingStale: Boolean!
+  intentTriggerEmbedding: Vector
   agentId: UUID!
   "Reads a single `Agent` that is related to this `Skill`."
   agent: Agent
+  "Reads and enables pagination through a set of `SkillChunk`."
+  skillChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: SkillChunkFilter
+    "The method to use when ordering `SkillChunk`."
+    orderBy: [SkillChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SkillChunkConnection!
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
   "VECTOR distance when searching `intentTriggerEmbedding`. Returns null when no vector search filter is active."
   intentTriggerEmbeddingVectorDistance: Float
+  "TRGM similarity when searching `name`. Returns null when no trgm search filter is active."
+  nameTrgmSimilarity: Float
+  "TRGM similarity when searching `description`. Returns null when no trgm search filter is active."
+  descriptionTrgmSimilarity: Float
+  "TRGM similarity when searching `category`. Returns null when no trgm search filter is active."
+  categoryTrgmSimilarity: Float
+  "TRGM similarity when searching `implementation`. Returns null when no trgm search filter is active."
+  implementationTrgmSimilarity: Float
+  "TRGM similarity when searching `intentTrigger`. Returns null when no trgm search filter is active."
+  intentTriggerTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
   "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
+}
+
+"@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+type SkillChunk {
+  id: UUID!
+  entityId: UUID!
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  chunkIndex: Int!
+  content: String!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean!
+  skillId: UUID!
+  "Reads a single `Skill` that is related to this `SkillChunk`."
+  skill: Skill
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `content`. Returns null when no trgm search filter is active."
+  contentTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `SkillChunk` values."
+type SkillChunkConnection {
+  "A list of `SkillChunk` objects."
+  nodes: [SkillChunk]!
+  "A list of edges which contains the `SkillChunk` and cursor to aid in pagination."
+  edges: [SkillChunkEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `SkillChunk` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `SkillChunk` edge in the connection."
+type SkillChunkEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `SkillChunk` at the end of the edge."
+  node: SkillChunk
 }
 
 "A connection to a list of `Skill` values."
@@ -17037,6 +17835,24 @@ type UpdateContactPayload {
   ): ContactEdge
 }
 
+"The output of our update `ConversationChunk` mutation."
+type UpdateConversationChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ConversationChunk` that was updated by this mutation."
+  conversationChunk: ConversationChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ConversationChunk`. May be used by Relay 1."
+  conversationChunkEdge(
+    "The method to use when ordering `ConversationChunk`."
+    orderBy: [ConversationChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ConversationChunkEdge
+}
+
 "The output of our update `Conversation` mutation."
 type UpdateConversationPayload {
   """
@@ -17505,6 +18321,24 @@ type UpdateMemoryPayload {
   ): MemoryEdge
 }
 
+"The output of our update `MessageChunk` mutation."
+type UpdateMessageChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `MessageChunk` that was updated by this mutation."
+  messageChunk: MessageChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `MessageChunk`. May be used by Relay 1."
+  messageChunkEdge(
+    "The method to use when ordering `MessageChunk`."
+    orderBy: [MessageChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): MessageChunkEdge
+}
+
 "The output of our update `Message` mutation."
 type UpdateMessagePayload {
   """
@@ -17647,6 +18481,24 @@ type UpdateProjectPayload {
     "The method to use when ordering `Project`."
     orderBy: [ProjectOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ProjectEdge
+}
+
+"The output of our update `RuleChunk` mutation."
+type UpdateRuleChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RuleChunk` that was updated by this mutation."
+  ruleChunk: RuleChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RuleChunk`. May be used by Relay 1."
+  ruleChunkEdge(
+    "The method to use when ordering `RuleChunk`."
+    orderBy: [RuleChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RuleChunkEdge
 }
 
 "The output of our update `Rule` mutation."
@@ -17845,6 +18697,24 @@ type UpdateRuntimeStatePayload {
     "The method to use when ordering `RuntimeState`."
     orderBy: [RuntimeStateOrderBy!]! = [PRIMARY_KEY_ASC]
   ): RuntimeStateEdge
+}
+
+"The output of our update `SkillChunk` mutation."
+type UpdateSkillChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `SkillChunk` that was updated by this mutation."
+  skillChunk: SkillChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `SkillChunk`. May be used by Relay 1."
+  skillChunkEdge(
+    "The method to use when ordering `SkillChunk`."
+    orderBy: [SkillChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): SkillChunkEdge
 }
 
 "The output of our update `Skill` mutation."
@@ -20928,6 +21798,81 @@ input ContactToManyProjectContactFilter {
   none: ProjectContactFilter
 }
 
+"A filter to be used against `ConversationChunk` object types. All fields are combined with a logical ‘and.’"
+input ConversationChunkFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `chunkIndex` field."
+  chunkIndex: IntFilter
+  "Filter by the object’s `content` field."
+  content: StringTrgmFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `embeddingStale` field."
+  embeddingStale: BooleanFilter
+  "Filter by the object’s `conversationId` field."
+  conversationId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [ConversationChunkFilter!]
+  "Checks for any expressions in this list."
+  or: [ConversationChunkFilter!]
+  "Negates the expression."
+  not: ConversationChunkFilter
+  "Filter by the object’s `conversation` relation."
+  conversation: ConversationFilter
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `content` column."
+  trgmContent: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
+}
+
+"An input for mutations affecting `ConversationChunk`"
+input ConversationChunkInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  chunkIndex: Int!
+  content: String!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+  conversationId: UUID!
+}
+
+"Represents an update to a `ConversationChunk`. Fields that are set will be updated."
+input ConversationChunkPatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  chunkIndex: Int
+  content: String
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+  conversationId: UUID
+}
+
 "A filter to be used against `Conversation` object types. All fields are combined with a logical ‘and.’"
 input ConversationFilter {
   "Filter by the object’s `id` field."
@@ -20939,13 +21884,19 @@ input ConversationFilter {
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
   "Filter by the object’s `title` field."
-  title: StringFilter
+  title: StringTrgmFilter
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
   "Filter by the object’s `status` field."
-  status: StringFilter
+  status: StringTrgmFilter
   "Filter by the object’s `meta` field."
   meta: JSONFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `embeddingStale` field."
+  embeddingStale: BooleanFilter
   "Checks for all expressions in this list."
   and: [ConversationFilter!]
   "Checks for any expressions in this list."
@@ -20956,6 +21907,27 @@ input ConversationFilter {
   messages: ConversationToManyMessageFilter
   "`messages` exist."
   messagesExist: Boolean
+  "Filter by the object’s `conversationChunks` relation."
+  conversationChunks: ConversationToManyConversationChunkFilter
+  "`conversationChunks` exist."
+  conversationChunksExist: Boolean
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `title` column."
+  trgmTitle: TrgmSearchInput
+  "TRGM search on the `status` column."
+  trgmStatus: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
 }
 
 "An input for mutations affecting `Conversation`"
@@ -20968,6 +21940,9 @@ input ConversationInput {
   agentId: UUID
   status: String
   meta: JSON
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
 }
 
 "Represents an update to a `Conversation`. Fields that are set will be updated."
@@ -20980,6 +21955,19 @@ input ConversationPatch {
   agentId: UUID
   status: String
   meta: JSON
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+}
+
+"A filter to be used against many `ConversationChunk` object types. All fields are combined with a logical ‘and.’"
+input ConversationToManyConversationChunkFilter {
+  "Filters to entities where at least one related entity matches."
+  some: ConversationChunkFilter
+  "Filters to entities where every related entity matches."
+  every: ConversationChunkFilter
+  "Filters to entities where no related entity matches."
+  none: ConversationChunkFilter
 }
 
 "A filter to be used against many `Message` object types. All fields are combined with a logical ‘and.’"
@@ -21311,6 +22299,17 @@ input CreateContactNoteInput {
   contactNote: ContactNoteInput!
 }
 
+"All input for the create `ConversationChunk` mutation."
+input CreateConversationChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `ConversationChunk` to be created by this mutation."
+  conversationChunk: ConversationChunkInput!
+}
+
 "All input for the create `Conversation` mutation."
 input CreateConversationInput {
   """
@@ -21597,6 +22596,17 @@ input CreateMemoryInput {
   memory: MemoryInput!
 }
 
+"All input for the create `MessageChunk` mutation."
+input CreateMessageChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `MessageChunk` to be created by this mutation."
+  messageChunk: MessageChunkInput!
+}
+
 "All input for the create `Message` mutation."
 input CreateMessageInput {
   """
@@ -21683,6 +22693,17 @@ input CreateProjectInput {
   clientMutationId: String
   "The `Project` to be created by this mutation."
   project: ProjectInput!
+}
+
+"All input for the create `RuleChunk` mutation."
+input CreateRuleChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `RuleChunk` to be created by this mutation."
+  ruleChunk: RuleChunkInput!
 }
 
 "All input for the create `Rule` mutation."
@@ -21804,6 +22825,17 @@ input CreateRuntimeStateInput {
   clientMutationId: String
   "The `RuntimeState` to be created by this mutation."
   runtimeState: RuntimeStateInput!
+}
+
+"All input for the create `SkillChunk` mutation."
+input CreateSkillChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `SkillChunk` to be created by this mutation."
+  skillChunk: SkillChunkInput!
 }
 
 "All input for the create `Skill` mutation."
@@ -22568,6 +23600,16 @@ input DeleteContactNoteInput {
   id: UUID!
 }
 
+"All input for the `deleteConversationChunk` mutation."
+input DeleteConversationChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
 "All input for the `deleteConversation` mutation."
 input DeleteConversationInput {
   """
@@ -22828,6 +23870,16 @@ input DeleteMemoryInput {
   id: UUID!
 }
 
+"All input for the `deleteMessageChunk` mutation."
+input DeleteMessageChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
 "All input for the `deleteMessage` mutation."
 input DeleteMessageInput {
   """
@@ -22900,6 +23952,16 @@ input DeleteProjectContactInput {
 
 "All input for the `deleteProject` mutation."
 input DeleteProjectInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteRuleChunk` mutation."
+input DeleteRuleChunkInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -23010,6 +24072,16 @@ input DeleteRuntimeStateDependencyInput {
 
 "All input for the `deleteRuntimeState` mutation."
 input DeleteRuntimeStateInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteSkillChunk` mutation."
+input DeleteSkillChunkInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -25166,6 +26238,81 @@ input MemoryToManyMemoryChunkFilter {
   none: MemoryChunkFilter
 }
 
+"A filter to be used against `MessageChunk` object types. All fields are combined with a logical ‘and.’"
+input MessageChunkFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `chunkIndex` field."
+  chunkIndex: IntFilter
+  "Filter by the object’s `content` field."
+  content: StringTrgmFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `embeddingStale` field."
+  embeddingStale: BooleanFilter
+  "Filter by the object’s `messageId` field."
+  messageId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [MessageChunkFilter!]
+  "Checks for any expressions in this list."
+  or: [MessageChunkFilter!]
+  "Negates the expression."
+  not: MessageChunkFilter
+  "Filter by the object’s `message` relation."
+  message: MessageFilter
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `content` column."
+  trgmContent: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
+}
+
+"An input for mutations affecting `MessageChunk`"
+input MessageChunkInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  chunkIndex: Int!
+  content: String!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+  messageId: UUID!
+}
+
+"Represents an update to a `MessageChunk`. Fields that are set will be updated."
+input MessageChunkPatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  chunkIndex: Int
+  content: String
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+  messageId: UUID
+}
+
 "A filter to be used against `Message` object types. All fields are combined with a logical ‘and.’"
 input MessageFilter {
   "Filter by the object’s `id` field."
@@ -25179,9 +26326,9 @@ input MessageFilter {
   "Filter by the object’s `conversationId` field."
   conversationId: UUIDFilter
   "Filter by the object’s `role` field."
-  role: StringFilter
+  role: StringTrgmFilter
   "Filter by the object’s `content` field."
-  content: StringFilter
+  content: StringTrgmFilter
   "Filter by the object’s `tokenCount` field."
   tokenCount: IntFilter
   "Filter by the object’s `meta` field."
@@ -25190,6 +26337,12 @@ input MessageFilter {
   toolCalls: JSONFilter
   "Filter by the object’s `toolResults` field."
   toolResults: JSONFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `embeddingStale` field."
+  embeddingStale: BooleanFilter
   "Checks for all expressions in this list."
   and: [MessageFilter!]
   "Checks for any expressions in this list."
@@ -25198,6 +26351,27 @@ input MessageFilter {
   not: MessageFilter
   "Filter by the object’s `conversation` relation."
   conversation: ConversationFilter
+  "Filter by the object’s `messageChunks` relation."
+  messageChunks: MessageToManyMessageChunkFilter
+  "`messageChunks` exist."
+  messageChunksExist: Boolean
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `role` column."
+  trgmRole: TrgmSearchInput
+  "TRGM search on the `content` column."
+  trgmContent: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
 }
 
 "An input for mutations affecting `Message`"
@@ -25213,6 +26387,9 @@ input MessageInput {
   meta: JSON
   toolCalls: JSON
   toolResults: JSON
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
 }
 
 "Represents an update to a `Message`. Fields that are set will be updated."
@@ -25228,6 +26405,19 @@ input MessagePatch {
   meta: JSON
   toolCalls: JSON
   toolResults: JSON
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+}
+
+"A filter to be used against many `MessageChunk` object types. All fields are combined with a logical ‘and.’"
+input MessageToManyMessageChunkFilter {
+  "Filters to entities where at least one related entity matches."
+  some: MessageChunkFilter
+  "Filters to entities where every related entity matches."
+  every: MessageChunkFilter
+  "Filters to entities where no related entity matches."
+  none: MessageChunkFilter
 }
 
 "A filter to be used against `NoteChunk` object types. All fields are combined with a logical ‘and.’"
@@ -25954,6 +27144,81 @@ input ProjectToManyProjectContactFilter {
   none: ProjectContactFilter
 }
 
+"A filter to be used against `RuleChunk` object types. All fields are combined with a logical ‘and.’"
+input RuleChunkFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `chunkIndex` field."
+  chunkIndex: IntFilter
+  "Filter by the object’s `content` field."
+  content: StringTrgmFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `embeddingStale` field."
+  embeddingStale: BooleanFilter
+  "Filter by the object’s `ruleId` field."
+  ruleId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [RuleChunkFilter!]
+  "Checks for any expressions in this list."
+  or: [RuleChunkFilter!]
+  "Negates the expression."
+  not: RuleChunkFilter
+  "Filter by the object’s `rule` relation."
+  rule: RuleFilter
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `content` column."
+  trgmContent: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
+}
+
+"An input for mutations affecting `RuleChunk`"
+input RuleChunkInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  chunkIndex: Int!
+  content: String!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+  ruleId: UUID!
+}
+
+"Represents an update to a `RuleChunk`. Fields that are set will be updated."
+input RuleChunkPatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  chunkIndex: Int
+  content: String
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+  ruleId: UUID
+}
+
 "A filter to be used against `Rule` object types. All fields are combined with a logical ‘and.’"
 input RuleFilter {
   "Filter by the object’s `id` field."
@@ -25965,15 +27230,15 @@ input RuleFilter {
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
-  name: StringFilter
+  name: StringTrgmFilter
   "Filter by the object’s `description` field."
-  description: StringFilter
+  description: StringTrgmFilter
   "Filter by the object’s `triggerType` field."
-  triggerType: StringFilter
+  triggerType: StringTrgmFilter
   "Filter by the object’s `triggerConfig` field."
   triggerConfig: JSONFilter
   "Filter by the object’s `actionType` field."
-  actionType: StringFilter
+  actionType: StringTrgmFilter
   "Filter by the object’s `actionConfig` field."
   actionConfig: JSONFilter
   "Filter by the object’s `isActive` field."
@@ -25981,11 +27246,15 @@ input RuleFilter {
   "Filter by the object’s `priority` field."
   priority: IntFilter
   "Filter by the object’s `triggerConcept` field."
-  triggerConcept: StringFilter
-  "Filter by the object’s `triggerConceptEmbedding` field."
-  triggerConceptEmbedding: VectorFilter
+  triggerConcept: StringTrgmFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `triggerConceptEmbedding` field."
+  triggerConceptEmbedding: VectorFilter
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
   "Checks for all expressions in this list."
@@ -25996,8 +27265,35 @@ input RuleFilter {
   not: RuleFilter
   "Filter by the object’s `agent` relation."
   agent: AgentFilter
+  "Filter by the object’s `ruleChunks` relation."
+  ruleChunks: RuleToManyRuleChunkFilter
+  "`ruleChunks` exist."
+  ruleChunksExist: Boolean
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
   "VECTOR search on the `trigger_concept_embedding` column."
   vectorTriggerConceptEmbedding: VectorNearbyInput
+  "TRGM search on the `name` column."
+  trgmName: TrgmSearchInput
+  "TRGM search on the `description` column."
+  trgmDescription: TrgmSearchInput
+  "TRGM search on the `trigger_type` column."
+  trgmTriggerType: TrgmSearchInput
+  "TRGM search on the `action_type` column."
+  trgmActionType: TrgmSearchInput
+  "TRGM search on the `trigger_concept` column."
+  trgmTriggerConcept: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
 }
 
 "An input for mutations affecting `Rule`"
@@ -26015,8 +27311,10 @@ input RuleInput {
   isActive: Boolean
   priority: Int
   triggerConcept: String
-  triggerConceptEmbedding: Vector
+  embeddingText: String
+  embedding: Vector
   embeddingStale: Boolean
+  triggerConceptEmbedding: Vector
   agentId: UUID!
 }
 
@@ -26035,9 +27333,21 @@ input RulePatch {
   isActive: Boolean
   priority: Int
   triggerConcept: String
-  triggerConceptEmbedding: Vector
+  embeddingText: String
+  embedding: Vector
   embeddingStale: Boolean
+  triggerConceptEmbedding: Vector
   agentId: UUID
+}
+
+"A filter to be used against many `RuleChunk` object types. All fields are combined with a logical ‘and.’"
+input RuleToManyRuleChunkFilter {
+  "Filters to entities where at least one related entity matches."
+  some: RuleChunkFilter
+  "Filters to entities where every related entity matches."
+  every: RuleChunkFilter
+  "Filters to entities where no related entity matches."
+  none: RuleChunkFilter
 }
 
 "A filter to be used against `RuntimeArtifact` object types. All fields are combined with a logical ‘and.’"
@@ -26776,6 +28086,81 @@ input RuntimeStateToManyRuntimeStateDependencyFilter {
   none: RuntimeStateDependencyFilter
 }
 
+"A filter to be used against `SkillChunk` object types. All fields are combined with a logical ‘and.’"
+input SkillChunkFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `chunkIndex` field."
+  chunkIndex: IntFilter
+  "Filter by the object’s `content` field."
+  content: StringTrgmFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `embeddingStale` field."
+  embeddingStale: BooleanFilter
+  "Filter by the object’s `skillId` field."
+  skillId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [SkillChunkFilter!]
+  "Checks for any expressions in this list."
+  or: [SkillChunkFilter!]
+  "Negates the expression."
+  not: SkillChunkFilter
+  "Filter by the object’s `skill` relation."
+  skill: SkillFilter
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `content` column."
+  trgmContent: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
+}
+
+"An input for mutations affecting `SkillChunk`"
+input SkillChunkInput {
+  id: UUID
+  entityId: UUID!
+  createdAt: Datetime
+  updatedAt: Datetime
+  chunkIndex: Int!
+  content: String!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+  skillId: UUID!
+}
+
+"Represents an update to a `SkillChunk`. Fields that are set will be updated."
+input SkillChunkPatch {
+  id: UUID
+  entityId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  chunkIndex: Int
+  content: String
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+  skillId: UUID
+}
+
 "A filter to be used against `Skill` object types. All fields are combined with a logical ‘and.’"
 input SkillFilter {
   "Filter by the object’s `id` field."
@@ -26787,23 +28172,27 @@ input SkillFilter {
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
-  name: StringFilter
+  name: StringTrgmFilter
   "Filter by the object’s `description` field."
-  description: StringFilter
+  description: StringTrgmFilter
   "Filter by the object’s `category` field."
-  category: StringFilter
+  category: StringTrgmFilter
   "Filter by the object’s `implementation` field."
-  implementation: StringFilter
+  implementation: StringTrgmFilter
   "Filter by the object’s `config` field."
   config: JSONFilter
   "Filter by the object’s `isActive` field."
   isActive: BooleanFilter
   "Filter by the object’s `intentTrigger` field."
-  intentTrigger: StringFilter
-  "Filter by the object’s `intentTriggerEmbedding` field."
-  intentTriggerEmbedding: VectorFilter
+  intentTrigger: StringTrgmFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `intentTriggerEmbedding` field."
+  intentTriggerEmbedding: VectorFilter
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
   "Checks for all expressions in this list."
@@ -26814,8 +28203,35 @@ input SkillFilter {
   not: SkillFilter
   "Filter by the object’s `agent` relation."
   agent: AgentFilter
+  "Filter by the object’s `skillChunks` relation."
+  skillChunks: SkillToManySkillChunkFilter
+  "`skillChunks` exist."
+  skillChunksExist: Boolean
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
   "VECTOR search on the `intent_trigger_embedding` column."
   vectorIntentTriggerEmbedding: VectorNearbyInput
+  "TRGM search on the `name` column."
+  trgmName: TrgmSearchInput
+  "TRGM search on the `description` column."
+  trgmDescription: TrgmSearchInput
+  "TRGM search on the `category` column."
+  trgmCategory: TrgmSearchInput
+  "TRGM search on the `implementation` column."
+  trgmImplementation: TrgmSearchInput
+  "TRGM search on the `intent_trigger` column."
+  trgmIntentTrigger: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
 }
 
 "An input for mutations affecting `Skill`"
@@ -26831,8 +28247,10 @@ input SkillInput {
   config: JSON
   isActive: Boolean
   intentTrigger: String
-  intentTriggerEmbedding: Vector
+  embeddingText: String
+  embedding: Vector
   embeddingStale: Boolean
+  intentTriggerEmbedding: Vector
   agentId: UUID!
 }
 
@@ -26849,9 +28267,21 @@ input SkillPatch {
   config: JSON
   isActive: Boolean
   intentTrigger: String
-  intentTriggerEmbedding: Vector
+  embeddingText: String
+  embedding: Vector
   embeddingStale: Boolean
+  intentTriggerEmbedding: Vector
   agentId: UUID
+}
+
+"A filter to be used against many `SkillChunk` object types. All fields are combined with a logical ‘and.’"
+input SkillToManySkillChunkFilter {
+  "Filters to entities where at least one related entity matches."
+  some: SkillChunkFilter
+  "Filters to entities where every related entity matches."
+  every: SkillChunkFilter
+  "Filters to entities where no related entity matches."
+  none: SkillChunkFilter
 }
 
 "A filter to be used against String fields. All fields are combined with a logical ‘and.’"
@@ -27912,6 +29342,18 @@ input UpdateContactNoteInput {
   contactNotePatch: ContactNotePatch!
 }
 
+"All input for the `updateConversationChunk` mutation."
+input UpdateConversationChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `ConversationChunk` being updated."
+  conversationChunkPatch: ConversationChunkPatch!
+}
+
 "All input for the `updateConversation` mutation."
 input UpdateConversationInput {
   """
@@ -28224,6 +29666,18 @@ input UpdateMemoryInput {
   memoryPatch: MemoryPatch!
 }
 
+"All input for the `updateMessageChunk` mutation."
+input UpdateMessageChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `MessageChunk` being updated."
+  messageChunkPatch: MessageChunkPatch!
+}
+
 "All input for the `updateMessage` mutation."
 input UpdateMessageInput {
   """
@@ -28318,6 +29772,18 @@ input UpdateProjectInput {
   id: UUID!
   "An object where the defined keys will be set on the `Project` being updated."
   projectPatch: ProjectPatch!
+}
+
+"All input for the `updateRuleChunk` mutation."
+input UpdateRuleChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `RuleChunk` being updated."
+  ruleChunkPatch: RuleChunkPatch!
 }
 
 "All input for the `updateRule` mutation."
@@ -28450,6 +29916,18 @@ input UpdateRuntimeStateInput {
   id: UUID!
   "An object where the defined keys will be set on the `RuntimeState` being updated."
   runtimeStatePatch: RuntimeStatePatch!
+}
+
+"All input for the `updateSkillChunk` mutation."
+input UpdateSkillChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `SkillChunk` being updated."
+  skillChunkPatch: SkillChunkPatch!
 }
 
 "All input for the `updateSkill` mutation."

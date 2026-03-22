@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/triggers/habits_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.trip_chunks 
+ALTER TABLE "agentic_db_app_public".trip_chunks 
   ADD CONSTRAINT trip_chunks_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

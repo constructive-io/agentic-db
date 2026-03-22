@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agents/table
--- requires: schemas/agentic_db_app_public/tables/agents/columns/status/alterations/alt0000005861
+-- requires: schemas/agentic_db_app_public/tables/agents/columns/status/alterations/alt0000001187
 
 
-ALTER TABLE agentic_db_app_public.agents 
+ALTER TABLE "agentic_db_app_public".agents 
   ADD COLUMN config jsonb;
 

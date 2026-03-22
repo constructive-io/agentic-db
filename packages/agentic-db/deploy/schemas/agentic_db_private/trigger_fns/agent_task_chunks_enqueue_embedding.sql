@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_task_chunks/columns/embedding_text/column
 
 
-CREATE FUNCTION agentic_db_private.agent_task_chunks_enqueue_embedding() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION "agentic_db_private".agent_task_chunks_enqueue_embedding() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
   PERFORM app_jobs.add_job(jwt_private.current_database_id(), 'generate_embedding', jsonb_build_object('table', 'agent_task_chunks', 'schema', 'agentic_db_app_public', 'id', NEW.id::text, 'field', 'embedding'));
   RETURN NEW;

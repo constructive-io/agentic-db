@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/messages/table
--- requires: schemas/agentic_db_app_public/tables/conversations/columns/meta/column
+-- requires: schemas/agentic_db_app_public/tables/conversations/triggers/conversations_enqueue_embedding_update_tg
 
 
-GRANT SELECT ON agentic_db_app_public.messages TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".messages TO authenticated;
 

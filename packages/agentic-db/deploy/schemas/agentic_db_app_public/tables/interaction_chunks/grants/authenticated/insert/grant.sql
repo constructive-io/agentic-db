@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/note_chunks/triggers/note_chunks_enqueue_embedding_update_tg
 
 
-GRANT INSERT ON agentic_db_app_public.interaction_chunks TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".interaction_chunks TO authenticated;
 

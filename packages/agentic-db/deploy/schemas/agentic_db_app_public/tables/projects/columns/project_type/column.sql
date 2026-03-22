@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/projects/table
--- requires: schemas/agentic_db_app_public/tables/projects/columns/status/alterations/alt0000006135
+-- requires: schemas/agentic_db_app_public/tables/projects/columns/status/alterations/alt0000001525
 
 
-ALTER TABLE agentic_db_app_public.projects 
+ALTER TABLE "agentic_db_app_public".projects 
   ADD COLUMN project_type text;
 

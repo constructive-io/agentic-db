@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/itinerary_item_chunks/triggers/itinerary_item_chunks_enqueue_embedding_update_tg
 
 
-DROP TRIGGER itinerary_item_chunks_enqueue_embedding_update_tg ON agentic_db_app_public.itinerary_item_chunks;
+DROP TRIGGER itinerary_item_chunks_enqueue_embedding_update_tg ON "agentic_db_app_public".itinerary_item_chunks;
 
 

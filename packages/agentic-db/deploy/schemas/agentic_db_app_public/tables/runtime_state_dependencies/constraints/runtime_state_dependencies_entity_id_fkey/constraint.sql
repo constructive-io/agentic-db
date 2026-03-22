@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_tool_definition_id_idx
 
 
-ALTER TABLE agentic_db_app_public.runtime_state_dependencies 
+ALTER TABLE "agentic_db_app_public".runtime_state_dependencies 
   ADD CONSTRAINT runtime_state_dependencies_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

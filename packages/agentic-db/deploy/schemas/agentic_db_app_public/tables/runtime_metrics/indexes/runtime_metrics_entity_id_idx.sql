@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/columns/size_bytes/column
 
 
-CREATE INDEX runtime_metrics_entity_id_idx ON agentic_db_app_public.runtime_metrics USING BTREE ( entity_id );
+CREATE INDEX runtime_metrics_entity_id_idx ON "agentic_db_app_public".runtime_metrics USING BTREE ( entity_id );
 

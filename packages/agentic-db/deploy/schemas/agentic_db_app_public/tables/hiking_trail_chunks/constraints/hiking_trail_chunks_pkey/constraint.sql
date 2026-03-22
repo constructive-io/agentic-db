@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/itinerary_item_chunks/triggers/itinerary_item_chunks_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.hiking_trail_chunks 
+ALTER TABLE "agentic_db_app_public".hiking_trail_chunks 
   ADD CONSTRAINT hiking_trail_chunks_pkey PRIMARY KEY (id);
 

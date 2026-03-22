@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/columns/size_bytes/column
 
 
-ALTER TABLE agentic_db_app_public.runtime_metrics 
+ALTER TABLE "agentic_db_app_public".runtime_metrics 
   ADD COLUMN id uuid;
 

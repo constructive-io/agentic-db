@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/interaction_chunks/triggers/interaction_chunks_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.contact_links 
+ALTER TABLE "agentic_db_app_public".contact_links 
   ENABLE ROW LEVEL SECURITY;
 

@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/table
--- requires: schemas/agentic_db_app_public/tables/runtime_config/columns/is_secret/alterations/alt0000006049
+-- requires: schemas/agentic_db_app_public/tables/runtime_config/columns/is_secret/alterations/alt0000001405
 
 
-ALTER TABLE agentic_db_app_public.runtime_state_chunks 
+ALTER TABLE "agentic_db_app_public".runtime_state_chunks 
   ADD CONSTRAINT runtime_state_chunks_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

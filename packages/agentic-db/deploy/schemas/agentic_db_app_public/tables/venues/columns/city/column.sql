@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/venues/columns/neighborhood/column
 
 
-ALTER TABLE agentic_db_app_public.venues 
+ALTER TABLE "agentic_db_app_public".venues 
   ADD COLUMN city text;
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contacts/table
--- requires: schemas/agentic_db_app_public/tables/contacts/alterations/alt0000005545
+-- requires: schemas/agentic_db_app_public/tables/contacts/alterations/alt0000000871
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/location_geo/column
 
 
-CREATE INDEX contacts_location_geo_gist_idx ON agentic_db_app_public.contacts USING GIST ( location_geo );
+CREATE INDEX contacts_location_geo_gist_idx ON "agentic_db_app_public".contacts USING GIST ( location_geo );
 

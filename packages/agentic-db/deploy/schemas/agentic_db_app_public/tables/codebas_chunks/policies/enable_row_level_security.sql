@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/triggers/code_chunks_enqueue_embedding_update_tg
 
 
-ALTER TABLE agentic_db_app_public.codebas_chunks 
+ALTER TABLE "agentic_db_app_public".codebas_chunks 
   ENABLE ROW LEVEL SECURITY;
 
