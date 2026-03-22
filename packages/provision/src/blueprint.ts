@@ -267,10 +267,11 @@ export function dataEmbedding(opts: {
   };
 }
 
-/** Standard chunk table fields (embedding/embedding_text created by DataSearch node) */
+/** Standard chunk table fields (embedding_text must exist before DataSearch/BM25 node) */
 const CHUNK_FIELDS: FieldDef[] = [
   { name: 'chunk_index', type: 'int', is_required: true },
   { name: 'content', type: 'text', is_required: true },
+  { name: 'embedding_text', type: 'text' },
 ];
 
 /** DataSearch node for chunk tables (embedding + BM25, no FTS) */
