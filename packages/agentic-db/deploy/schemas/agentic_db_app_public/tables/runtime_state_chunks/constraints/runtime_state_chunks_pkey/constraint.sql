@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/table
--- requires: schemas/agentic_db_app_public/tables/runtime_config/columns/is_secret/alterations/alt0000001405
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE "agentic_db_app_public".runtime_state_chunks 
+ALTER TABLE agentic_db_app_public.runtime_state_chunks 
   ADD CONSTRAINT runtime_state_chunks_pkey PRIMARY KEY (id);
 

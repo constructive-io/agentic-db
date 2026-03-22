@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/hiking_trails/columns/estimated_time_hours/column
 
 
-ALTER TABLE "agentic_db_app_public".hiking_trails 
+ALTER TABLE agentic_db_app_public.hiking_trails 
   DROP COLUMN estimated_time_hours RESTRICT;
 
 

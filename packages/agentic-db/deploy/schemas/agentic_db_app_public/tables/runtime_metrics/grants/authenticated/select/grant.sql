@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_metrics/table
--- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/columns/size_bytes/column
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-GRANT SELECT ON "agentic_db_app_public".runtime_metrics TO authenticated;
+GRANT SELECT ON agentic_db_app_public.runtime_metrics TO authenticated;
 

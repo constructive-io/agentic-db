@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/project_chunks/table
 -- requires: schemas/agentic_db_private/trigger_fns/project_chunks_enqueue_embedding
--- requires: schemas/agentic_db_app_public/tables/project_chunks/columns/embedding_text/column
+-- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_status_idx
 
 
 CREATE TRIGGER project_chunks_enqueue_embedding_update_tg
-AFTER UPDATE ON "agentic_db_app_public".project_chunks
+AFTER UPDATE ON agentic_db_app_public.project_chunks
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".project_chunks_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.project_chunks_enqueue_embedding ( );
 

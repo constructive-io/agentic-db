@@ -10,7 +10,6 @@ import type { FieldSchema } from '../utils';
 import type { CreateAgentCollaboratorInput, AgentCollaboratorPatch } from '../../orm/input-types';
 const fieldSchema: FieldSchema = {
   agentId: 'uuid',
-  collaboratorId: 'uuid',
   id: 'uuid',
   entityId: 'uuid',
 };
@@ -67,7 +66,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
       .findMany({
         select: {
           agentId: true,
-          collaboratorId: true,
           id: true,
           entityId: true,
         },
@@ -98,7 +96,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         id: answers.id as string,
         select: {
           agentId: true,
-          collaboratorId: true,
           id: true,
           entityId: true,
         },
@@ -124,12 +121,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'collaboratorId',
-        message: 'collaboratorId',
-        required: true,
-      },
-      {
-        type: 'text',
         name: 'entityId',
         message: 'entityId',
         required: true,
@@ -145,12 +136,10 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       .create({
         data: {
           agentId: cleanedData.agentId,
-          collaboratorId: cleanedData.collaboratorId,
           entityId: cleanedData.entityId,
         },
         select: {
           agentId: true,
-          collaboratorId: true,
           id: true,
           entityId: true,
         },
@@ -182,12 +171,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'collaboratorId',
-        message: 'collaboratorId',
-        required: false,
-      },
-      {
-        type: 'text',
         name: 'entityId',
         message: 'entityId',
         required: false,
@@ -203,12 +186,10 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           agentId: cleanedData.agentId,
-          collaboratorId: cleanedData.collaboratorId,
           entityId: cleanedData.entityId,
         },
         select: {
           agentId: true,
-          collaboratorId: true,
           id: true,
           entityId: true,
         },

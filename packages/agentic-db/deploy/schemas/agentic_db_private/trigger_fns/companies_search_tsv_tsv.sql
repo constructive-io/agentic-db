@@ -2,10 +2,10 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_private/schema
--- requires: schemas/agentic_db_app_public/tables/companies/columns/main_image_id/column
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE FUNCTION "agentic_db_private".companies_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_private.companies_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
 
 BEGIN
 NEW.search_tsv = (setweight(to_tsvector('english', COALESCE(NEW.industry, '')), 'C') || (setweight(to_tsvector('english', COALESCE(NEW.description, '')), 'B') || setweight(to_tsvector('english', COALESCE(NEW.name, '')), 'A')));

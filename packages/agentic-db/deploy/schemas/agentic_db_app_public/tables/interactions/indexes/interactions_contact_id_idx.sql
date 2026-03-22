@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/interactions/table
 -- requires: schemas/agentic_db_app_public/tables/interactions/columns/contact_id/column
--- requires: schemas/agentic_db_app_public/tables/venue_images/policies/auth_del_entity_membership/policy
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX interactions_contact_id_idx ON "agentic_db_app_public".interactions USING BTREE ( contact_id );
+CREATE INDEX interactions_contact_id_idx ON agentic_db_app_public.interactions USING BTREE ( contact_id );
 

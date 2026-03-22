@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_log_chunks/table
--- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/triggers/runtime_state_chunks_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-GRANT SELECT ON "agentic_db_app_public".runtime_log_chunks TO authenticated;
+GRANT SELECT ON agentic_db_app_public.runtime_log_chunks TO authenticated;
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/messages/table
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 -- requires: schemas/agentic_db_app_public/tables/messages/columns/conversation_id/column
--- requires: schemas/agentic_db_app_public/tables/message_chunks/indexes/message_chunks_message_id_idx
 
 
-CREATE INDEX messages_conversation_id_idx ON "agentic_db_app_public".messages USING BTREE ( conversation_id );
+CREATE INDEX messages_conversation_id_idx ON agentic_db_app_public.messages USING BTREE ( conversation_id );
 

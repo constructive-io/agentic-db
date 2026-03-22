@@ -2,8 +2,8 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_app_public/schema
--- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/columns/size_bytes/column
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-CREATE TABLE "agentic_db_app_public".runtime_metrics ();
+CREATE TABLE agentic_db_app_public.runtime_metrics ();
 

@@ -33,14 +33,12 @@ const definition: BlueprintDefinition = {
       f('currency', 'text', { default_value: "'USD'" }),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'destination'],
         }),
         dataPostGIS({ field_name: 'location', use_geography: true }),
-      ],
-    }),
+      ]),
 
     // -- Places -------------------------------------------------------------
     orgTable('places', [
@@ -54,14 +52,12 @@ const definition: BlueprintDefinition = {
       f('notes', 'text'),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'notes'],
         }),
         dataPostGIS({ field_name: 'location', use_geography: true }),
-      ],
-    }),
+      ]),
 
     // -- Itinerary Items ----------------------------------------------------
     orgTable('itinerary_items', [
@@ -77,13 +73,11 @@ const definition: BlueprintDefinition = {
       f('notes', 'text'),
       f('sort_order', 'int', { default_value: '0' }),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'notes'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Hiking Trails ------------------------------------------------------
     orgTable('hiking_trails', [
@@ -98,14 +92,12 @@ const definition: BlueprintDefinition = {
       f('notes', 'text'),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'region'],
         }),
         dataPostGIS({ field_name: 'location', use_geography: true }),
-      ],
-    }),
+      ]),
 
     // -- Memories -----------------------------------------------------------
     orgTable('memories', [
@@ -117,13 +109,11 @@ const definition: BlueprintDefinition = {
       f('importance', 'int', { default_value: '5' }),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['title', 'content'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Goals --------------------------------------------------------------
     orgTable('goals', [
@@ -137,13 +127,11 @@ const definition: BlueprintDefinition = {
       f('progress', 'numeric', { default_value: '0' }),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['title', 'description'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Habits -------------------------------------------------------------
     orgTable('habits', [
@@ -156,13 +144,11 @@ const definition: BlueprintDefinition = {
       f('is_active', 'bool', { default_value: 'true' }),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Chunk tables -------------------------------------------------------
     chunkTable('trips'),
@@ -204,9 +190,9 @@ const definition: BlueprintDefinition = {
     btreeIndex('places', 'city'),
     btreeIndex('places', 'country'),
     btreeIndex('places', 'category'),
-    btreeIndex('itinerary_items', 'trip_id'),
+    // btreeIndex('itinerary_items', 'trip_id'), — auto-created by FK (trips → itinerary_items)
     btreeIndex('itinerary_items', 'day_number'),
-    btreeIndex('itinerary_items', 'place_id'),
+    // btreeIndex('itinerary_items', 'place_id'), — auto-created by FK (BelongsTo places)
     btreeIndex('hiking_trails', 'difficulty'),
     btreeIndex('hiking_trails', 'trail_type'),
     btreeIndex('hiking_trails', 'region'),

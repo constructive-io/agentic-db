@@ -30,13 +30,11 @@ const definition: BlueprintDefinition = {
       f('started_at', 'timestamptz'),
       f('ended_at', 'timestamptz'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'state_type'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Runtime Logs -------------------------------------------------------
     orgTable('runtime_logs', [
@@ -46,13 +44,11 @@ const definition: BlueprintDefinition = {
       f('context', 'jsonb'),
       f('step_index', 'int'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['message'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Runtime Artifacts ---------------------------------------------------
     orgTable('runtime_artifacts', [
@@ -112,13 +108,11 @@ const definition: BlueprintDefinition = {
       f('status', 'text', { default_value: "'active'" }),
       f('meta', 'jsonb'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['title'],
         }),
-      ],
-    }),
+      ]),
 
     orgTable('messages', [
       req('conversation_id', 'uuid'),
@@ -129,13 +123,11 @@ const definition: BlueprintDefinition = {
       f('tool_calls', 'jsonb'),
       f('tool_results', 'jsonb'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['content'],
         }),
-      ],
-    }),
+      ]),
 
     chunkTable('conversations'),
     chunkTable('messages'),
@@ -183,11 +175,11 @@ const definition: BlueprintDefinition = {
     btreeIndex('runtime_states', 'state_type'),
     btreeIndex('runtime_states', 'status'),
     btreeIndex('runtime_states', 'parent_id'),
-    btreeIndex('runtime_logs', 'runtime_state_id'),
+    // btreeIndex('runtime_logs', 'runtime_state_id'), — auto-created by FK (runtime_states → runtime_logs)
     btreeIndex('runtime_logs', 'level'),
-    btreeIndex('runtime_artifacts', 'runtime_state_id'),
+    // btreeIndex('runtime_artifacts', 'runtime_state_id'), — auto-created by FK
     btreeIndex('runtime_artifacts', 'artifact_type'),
-    btreeIndex('runtime_metrics', 'runtime_state_id'),
+    // btreeIndex('runtime_metrics', 'runtime_state_id'), — auto-created by FK
     btreeIndex('runtime_metrics', 'metric_name'),
     btreeIndex('runtime_schedules', 'is_active'),
     btreeIndex('runtime_schedules', 'next_run_at'),
@@ -196,11 +188,11 @@ const definition: BlueprintDefinition = {
     btreeIndex('runtime_config', 'key'),
     btreeIndex('conversations', 'agent_id'),
     btreeIndex('conversations', 'status'),
-    btreeIndex('messages', 'conversation_id'),
+    // btreeIndex('messages', 'conversation_id'), — auto-created by FK (conversations → messages)
     btreeIndex('messages', 'role'),
     btreeIndex('tool_definitions', 'name'),
     btreeIndex('tool_definitions', 'is_active'),
-    btreeIndex('tool_executions', 'tool_definition_id'),
+    // btreeIndex('tool_executions', 'tool_definition_id'), — auto-created by FK
     btreeIndex('tool_executions', 'message_id'),
     btreeIndex('tool_executions', 'status'),
   ],

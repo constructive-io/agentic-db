@@ -12,8 +12,7 @@ import type {
   RuntimeStateDependencyPatch,
 } from '../../orm/input-types';
 const fieldSchema: FieldSchema = {
-  stateId: 'uuid',
-  dependencyId: 'uuid',
+  runtimeStateId: 'uuid',
   id: 'uuid',
   entityId: 'uuid',
 };
@@ -69,8 +68,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
     const result = await client.runtimeStateDependency
       .findMany({
         select: {
-          stateId: true,
-          dependencyId: true,
+          runtimeStateId: true,
           id: true,
           entityId: true,
         },
@@ -100,8 +98,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
       .findOne({
         id: answers.id as string,
         select: {
-          stateId: true,
-          dependencyId: true,
+          runtimeStateId: true,
           id: true,
           entityId: true,
         },
@@ -121,14 +118,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const rawAnswers = await prompter.prompt(argv, [
       {
         type: 'text',
-        name: 'stateId',
-        message: 'stateId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'dependencyId',
-        message: 'dependencyId',
+        name: 'runtimeStateId',
+        message: 'runtimeStateId',
         required: true,
       },
       {
@@ -147,13 +138,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.runtimeStateDependency
       .create({
         data: {
-          stateId: cleanedData.stateId,
-          dependencyId: cleanedData.dependencyId,
+          runtimeStateId: cleanedData.runtimeStateId,
           entityId: cleanedData.entityId,
         },
         select: {
-          stateId: true,
-          dependencyId: true,
+          runtimeStateId: true,
           id: true,
           entityId: true,
         },
@@ -179,14 +168,8 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'stateId',
-        message: 'stateId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'dependencyId',
-        message: 'dependencyId',
+        name: 'runtimeStateId',
+        message: 'runtimeStateId',
         required: false,
       },
       {
@@ -205,13 +188,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          stateId: cleanedData.stateId,
-          dependencyId: cleanedData.dependencyId,
+          runtimeStateId: cleanedData.runtimeStateId,
           entityId: cleanedData.entityId,
         },
         select: {
-          stateId: true,
-          dependencyId: true,
+          runtimeStateId: true,
           id: true,
           entityId: true,
         },

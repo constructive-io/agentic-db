@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skill_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 -- requires: schemas/agentic_db_app_public/tables/skill_chunks/columns/skill_id/column
--- requires: schemas/agentic_db_app_public/tables/rule_chunks/indexes/rule_chunks_rule_id_idx
 
 
-CREATE INDEX skill_chunks_skill_id_idx ON "agentic_db_app_public".skill_chunks USING BTREE ( skill_id );
+CREATE INDEX skill_chunks_skill_id_idx ON agentic_db_app_public.skill_chunks USING BTREE ( skill_id );
 

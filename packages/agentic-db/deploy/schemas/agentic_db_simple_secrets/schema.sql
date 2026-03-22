@@ -4,5 +4,5 @@
 
 
 
-CREATE SCHEMA "agentic_db_simple_secrets";
+CREATE SCHEMA agentic_db_simple_secrets;
 

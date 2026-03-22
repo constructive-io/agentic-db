@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/message_chunks/table
--- requires: schemas/agentic_db_app_public/tables/conversation_chunks/triggers/conversation_chunks_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE "agentic_db_app_public".message_chunks 
+ALTER TABLE agentic_db_app_public.message_chunks 
   ADD COLUMN entity_id uuid;
 

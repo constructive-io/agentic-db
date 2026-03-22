@@ -29,9 +29,7 @@ const definition: BlueprintDefinition = {
       f('meta', 'jsonb'),
       f('alt_text', 'text'),
       f('caption', 'text'),
-    ], {
-      data_nodes: [dataEmbedding({ field_name: 'embedding' })],
-    }),
+    ], [dataEmbedding({ field_name: 'embedding' })]),
 
     // -- Contacts -----------------------------------------------------------
     orgTable('contacts', [
@@ -53,8 +51,7 @@ const definition: BlueprintDefinition = {
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
       f('main_image_id', 'uuid'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['first_name', 'last_name', 'headline', 'bio'],
           fts: {
@@ -69,8 +66,7 @@ const definition: BlueprintDefinition = {
           trgm_fields: ['first_name', 'last_name'],
         }),
         dataPostGIS({ field_name: 'location_geo', use_geography: true }),
-      ],
-    }),
+      ]),
 
     // -- Companies ----------------------------------------------------------
     orgTable('companies', [
@@ -81,8 +77,7 @@ const definition: BlueprintDefinition = {
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
       f('main_image_id', 'uuid'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'industry'],
           fts: {
@@ -95,8 +90,7 @@ const definition: BlueprintDefinition = {
           },
           trgm_fields: ['name'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Deals --------------------------------------------------------------
     orgTable('deals', [
@@ -108,13 +102,11 @@ const definition: BlueprintDefinition = {
       f('notes_text', 'text'),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'notes_text'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Events -------------------------------------------------------------
     orgTable('events', [
@@ -128,8 +120,7 @@ const definition: BlueprintDefinition = {
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
       f('main_image_id', 'uuid'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'notes_text', 'location'],
           fts: {
@@ -142,8 +133,7 @@ const definition: BlueprintDefinition = {
           },
           trgm_fields: ['name'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Venues -------------------------------------------------------------
     orgTable('venues', [
@@ -161,8 +151,7 @@ const definition: BlueprintDefinition = {
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
       f('main_image_id', 'uuid'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'notes', 'neighborhood'],
           fts: {
@@ -176,8 +165,7 @@ const definition: BlueprintDefinition = {
           trgm_fields: ['name'],
         }),
         dataPostGIS({ field_name: 'location', use_geography: true }),
-      ],
-    }),
+      ]),
 
     // -- Notes --------------------------------------------------------------
     orgTable('notes', [
@@ -188,13 +176,11 @@ const definition: BlueprintDefinition = {
       f('last_accessed_at', 'timestamptz'),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['content', 'abstract'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Interactions -------------------------------------------------------
     orgTable('interactions', [
@@ -205,13 +191,11 @@ const definition: BlueprintDefinition = {
       f('sentiment', 'text'),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['summary'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Tags (no embeddings) -----------------------------------------------
     orgTable('tags', [
@@ -231,18 +215,10 @@ const definition: BlueprintDefinition = {
     chunkTable('interactions'),
 
     // -- Link tables (standalone embedding) ---------------------------------
-    orgTable('contact_links', [f('title', 'text'), req('url', 'text')], {
-      data_nodes: [dataEmbedding({ field_name: 'embedding' })],
-    }),
-    orgTable('company_links', [f('title', 'text'), req('url', 'text')], {
-      data_nodes: [dataEmbedding({ field_name: 'embedding' })],
-    }),
-    orgTable('event_links', [f('title', 'text'), req('url', 'text')], {
-      data_nodes: [dataEmbedding({ field_name: 'embedding' })],
-    }),
-    orgTable('venue_links', [f('title', 'text'), req('url', 'text')], {
-      data_nodes: [dataEmbedding({ field_name: 'embedding' })],
-    }),
+    orgTable('contact_links', [f('title', 'text'), req('url', 'text')], [dataEmbedding({ field_name: 'embedding' })]),
+    orgTable('company_links', [f('title', 'text'), req('url', 'text')], [dataEmbedding({ field_name: 'embedding' })]),
+    orgTable('event_links', [f('title', 'text'), req('url', 'text')], [dataEmbedding({ field_name: 'embedding' })]),
+    orgTable('venue_links', [f('title', 'text'), req('url', 'text')], [dataEmbedding({ field_name: 'embedding' })]),
   ],
 
   relations: [
@@ -310,7 +286,7 @@ const definition: BlueprintDefinition = {
     btreeIndex('venues', 'category'),
     btreeIndex('venues', 'is_favorite'),
     btreeIndex('venues', 'google_place_id'),
-    btreeIndex('interactions', 'contact_id'),
+    // btreeIndex('interactions', 'contact_id'), — auto-created by FK (contacts → interactions)
     btreeIndex('interactions', 'type'),
     btreeIndex('interactions', 'occurred_at'),
     btreeIndex('notes', 'active_count'),

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/interactions/table
--- requires: schemas/agentic_db_app_public/tables/interactions/columns/occurred_at/alterations/alt0000000953
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-ALTER TABLE "agentic_db_app_public".interactions 
+ALTER TABLE agentic_db_app_public.interactions 
   ADD COLUMN summary text;
 

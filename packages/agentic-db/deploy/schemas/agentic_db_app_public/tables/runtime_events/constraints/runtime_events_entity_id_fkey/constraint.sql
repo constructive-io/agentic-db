@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_app_public/tables/runtime_events/table
--- requires: schemas/agentic_db_app_public/tables/runtime_schedules/columns/timezone/alterations/alt0000001384
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE "agentic_db_app_public".runtime_events 
+ALTER TABLE agentic_db_app_public.runtime_events 
   ADD CONSTRAINT runtime_events_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE CASCADE;
 

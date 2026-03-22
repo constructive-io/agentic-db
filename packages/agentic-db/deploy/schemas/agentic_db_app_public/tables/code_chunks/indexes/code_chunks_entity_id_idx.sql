@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/table
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/columns/entity_id/column
--- requires: schemas/agentic_db_app_public/tables/codebases/triggers/codebases_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
-CREATE INDEX code_chunks_entity_id_idx ON "agentic_db_app_public".code_chunks USING BTREE ( entity_id );
+CREATE INDEX code_chunks_entity_id_idx ON agentic_db_app_public.code_chunks USING BTREE ( entity_id );
 

@@ -26,7 +26,7 @@ INSERT INTO metaschema_public.database (
   name,
   hash
 ) VALUES
-  ('019d13bc-1f23-7305-9068-cef2ccaf4226', '019d13bc-17f5-7bcd-9387-bb9e47cea71c', 'agentic-db-1774152586440', 'bfc94859-b300-566d-8740-f9e7cdbbbe50');
+  ('8ec84715-45cb-2837-1ed2-48d7fa916c81', '019d143a-d9a6-7b76-bf73-981360d4503c', 'agentic-db-1774160894318', 'af2edd56-794f-5535-ab94-63a046018134');
 
 
 SET session_replication_role TO DEFAULT;

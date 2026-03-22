@@ -9,7 +9,7 @@ ORM operations for AgentCollaborator records
 ```typescript
 db.agentCollaborator.findMany({ select: { id: true } }).execute()
 db.agentCollaborator.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.agentCollaborator.create({ data: { agentId: '<UUID>', collaboratorId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.agentCollaborator.create({ data: { agentId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
 db.agentCollaborator.update({ where: { id: '<UUID>' }, data: { agentId: '<UUID>' }, select: { id: true } }).execute()
 db.agentCollaborator.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.agentCollaborator.findMany({
 
 ```typescript
 const item = await db.agentCollaborator.create({
-  data: { agentId: '<UUID>', collaboratorId: '<UUID>', entityId: '<UUID>' },
+  data: { agentId: '<UUID>', entityId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

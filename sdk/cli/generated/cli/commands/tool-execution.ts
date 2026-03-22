@@ -11,8 +11,6 @@ import type { CreateToolExecutionInput, ToolExecutionPatch } from '../../orm/inp
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  createdAt: 'string',
-  updatedAt: 'string',
   toolDefinitionId: 'uuid',
   messageId: 'uuid',
   input: 'json',
@@ -21,6 +19,8 @@ const fieldSchema: FieldSchema = {
   startedAt: 'string',
   completedAt: 'string',
   error: 'string',
+  createdAt: 'string',
+  updatedAt: 'string',
 };
 const usage =
   '\ntool-execution <command>\n\nCommands:\n  list                  List all toolExecution records\n  get                   Get a toolExecution by ID\n  create                Create a new toolExecution\n  update                Update an existing toolExecution\n  delete                Delete a toolExecution\n\n  --help, -h            Show this help message\n';
@@ -76,8 +76,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           toolDefinitionId: true,
           messageId: true,
           input: true,
@@ -86,6 +84,8 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           startedAt: true,
           completedAt: true,
           error: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -115,8 +115,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           toolDefinitionId: true,
           messageId: true,
           input: true,
@@ -125,6 +123,8 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           startedAt: true,
           completedAt: true,
           error: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -224,8 +224,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           toolDefinitionId: true,
           messageId: true,
           input: true,
@@ -234,6 +232,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           completedAt: true,
           error: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -339,8 +339,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           toolDefinitionId: true,
           messageId: true,
           input: true,
@@ -349,6 +347,8 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           completedAt: true,
           error: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();

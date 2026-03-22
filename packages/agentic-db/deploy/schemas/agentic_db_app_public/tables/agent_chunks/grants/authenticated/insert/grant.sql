@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_chunks/table
--- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_intent_trigger_embedding_hnsw_idx
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-GRANT INSERT ON "agentic_db_app_public".agent_chunks TO authenticated;
+GRANT INSERT ON agentic_db_app_public.agent_chunks TO authenticated;
 

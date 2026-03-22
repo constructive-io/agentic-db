@@ -2,8 +2,8 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_app_public/schema
--- requires: schemas/agentic_db_app_public/tables/projects/triggers/projects_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_status_idx
 
 
-CREATE TABLE "agentic_db_app_public".project_chunks ();
+CREATE TABLE agentic_db_app_public.project_chunks ();
 

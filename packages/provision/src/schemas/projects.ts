@@ -31,13 +31,11 @@ const definition: BlueprintDefinition = {
       f('config', 'jsonb'),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description'],
         }),
-      ],
-    }),
+      ]),
 
     chunkTable('projects'),
   ],

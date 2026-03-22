@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/memory_chunks/table
--- requires: schemas/agentic_db_app_public/tables/hiking_trail_chunks/triggers/hiking_trail_chunks_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-ALTER TABLE "agentic_db_app_public".memory_chunks 
+ALTER TABLE agentic_db_app_public.memory_chunks 
   ENABLE ROW LEVEL SECURITY;
 

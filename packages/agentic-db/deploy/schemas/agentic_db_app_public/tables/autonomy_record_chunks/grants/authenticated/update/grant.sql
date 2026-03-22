@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/table
--- requires: schemas/agentic_db_app_public/tables/autonomy_records/triggers/autonomy_records_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
 
 
-GRANT UPDATE ON "agentic_db_app_public".autonomy_record_chunks TO authenticated;
+GRANT UPDATE ON agentic_db_app_public.autonomy_record_chunks TO authenticated;
 

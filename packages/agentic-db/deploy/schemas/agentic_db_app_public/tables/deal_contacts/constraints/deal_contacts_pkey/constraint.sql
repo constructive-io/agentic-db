@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deal_contacts/table
--- requires: schemas/agentic_db_app_public/tables/event_venues/policies/auth_del_entity_membership/policy
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-ALTER TABLE "agentic_db_app_public".deal_contacts 
+ALTER TABLE agentic_db_app_public.deal_contacts 
   ADD CONSTRAINT deal_contacts_pkey PRIMARY KEY (id);
 

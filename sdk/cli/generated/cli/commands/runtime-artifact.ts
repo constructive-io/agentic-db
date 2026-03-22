@@ -11,14 +11,14 @@ import type { CreateRuntimeArtifactInput, RuntimeArtifactPatch } from '../../orm
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  createdAt: 'string',
-  updatedAt: 'string',
   runtimeStateId: 'uuid',
   name: 'string',
   artifactType: 'string',
   content: 'string',
   meta: 'json',
   sizeBytes: 'int',
+  createdAt: 'string',
+  updatedAt: 'string',
 };
 const usage =
   '\nruntime-artifact <command>\n\nCommands:\n  list                  List all runtimeArtifact records\n  get                   Get a runtimeArtifact by ID\n  create                Create a new runtimeArtifact\n  update                Update an existing runtimeArtifact\n  delete                Delete a runtimeArtifact\n\n  --help, -h            Show this help message\n';
@@ -74,14 +74,14 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           runtimeStateId: true,
           name: true,
           artifactType: true,
           content: true,
           meta: true,
           sizeBytes: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -111,14 +111,14 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           runtimeStateId: true,
           name: true,
           artifactType: true,
           content: true,
           meta: true,
           sizeBytes: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -201,14 +201,14 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           runtimeStateId: true,
           name: true,
           artifactType: true,
           content: true,
           meta: true,
           sizeBytes: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -297,14 +297,14 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           runtimeStateId: true,
           name: true,
           artifactType: true,
           content: true,
           meta: true,
           sizeBytes: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();

@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/emails/table
 
 
-ALTER TABLE "agentic_db_user_identifiers_public".emails 
+ALTER TABLE agentic_db_user_identifiers_public.emails 
   ADD CONSTRAINT emails_email_key 
     UNIQUE (email);
 

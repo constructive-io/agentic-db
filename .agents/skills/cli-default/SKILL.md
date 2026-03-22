@@ -23,13 +23,13 @@ agentic-db auth set-token <token>
 agentic-db config set <key> <value>
 agentic-db config get <key>
 
-# CRUD for any table (e.g. agent)
-agentic-db agent list
-agentic-db agent get --id <value>
-agentic-db agent create --<field> <value>
+# CRUD for any table (e.g. agent-chunk)
+agentic-db agent-chunk list
+agentic-db agent-chunk get --id <value>
+agentic-db agent-chunk create --<field> <value>
 
 # Non-interactive mode (skip all prompts, use flags only)
-agentic-db --no-tty agent list
+agentic-db --no-tty agent-chunk list
 ```
 
 ## Examples
@@ -40,13 +40,13 @@ agentic-db --no-tty agent list
 agentic-db context create local --endpoint http://localhost:5000/graphql
 agentic-db context use local
 agentic-db auth set-token <token>
-agentic-db agent list
+agentic-db agent-chunk list
 ```
 
 ### Non-interactive mode (for scripts and CI)
 
 ```bash
-agentic-db --no-tty agent create --<field> <value>
+agentic-db --no-tty agent-chunk create --<field> <value>
 ```
 
 ## References
@@ -56,15 +56,15 @@ See the `references/` directory for detailed per-entity API documentation:
 - [context](references/context.md)
 - [auth](references/auth.md)
 - [config](references/config.md)
-- [agent](references/agent.md)
 - [agent-chunk](references/agent-chunk.md)
 - [agent-collaborator](references/agent-collaborator.md)
+- [agent](references/agent.md)
 - [agent-log-chunk](references/agent-log-chunk.md)
 - [agent-log](references/agent-log.md)
 - [agent-task-chunk](references/agent-task-chunk.md)
 - [agent-task](references/agent-task.md)
-- [autonomy-record](references/autonomy-record.md)
 - [autonomy-record-chunk](references/autonomy-record-chunk.md)
+- [autonomy-record](references/autonomy-record.md)
 - [autonomy-record-link](references/autonomy-record-link.md)
 - [codebas-chunk](references/codebas-chunk.md)
 - [codebase-dependency](references/codebase-dependency.md)

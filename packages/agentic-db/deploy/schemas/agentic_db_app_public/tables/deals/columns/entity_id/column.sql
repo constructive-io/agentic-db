@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deals/table
--- requires: schemas/agentic_db_app_public/tables/companies/alterations/alt0000000885
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-ALTER TABLE "agentic_db_app_public".deals 
+ALTER TABLE agentic_db_app_public.deals 
   ADD COLUMN entity_id uuid;
 

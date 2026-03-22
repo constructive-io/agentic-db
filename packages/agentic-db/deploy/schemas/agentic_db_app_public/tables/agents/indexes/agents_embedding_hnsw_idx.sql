@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agents/table
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 -- requires: schemas/agentic_db_app_public/tables/agents/columns/embedding/column
--- requires: schemas/agentic_db_app_public/tables/agents/columns/embedding_text/column
 
 
-CREATE INDEX agents_embedding_hnsw_idx ON "agentic_db_app_public".agents USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX agents_embedding_hnsw_idx ON agentic_db_app_public.agents USING hnsw ( embedding vector_cosine_ops );
 

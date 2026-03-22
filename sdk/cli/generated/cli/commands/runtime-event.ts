@@ -11,13 +11,13 @@ import type { CreateRuntimeEventInput, RuntimeEventPatch } from '../../orm/input
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  createdAt: 'string',
-  updatedAt: 'string',
   eventType: 'string',
   payload: 'json',
   source: 'string',
   processedAt: 'string',
   status: 'string',
+  createdAt: 'string',
+  updatedAt: 'string',
 };
 const usage =
   '\nruntime-event <command>\n\nCommands:\n  list                  List all runtimeEvent records\n  get                   Get a runtimeEvent by ID\n  create                Create a new runtimeEvent\n  update                Update an existing runtimeEvent\n  delete                Delete a runtimeEvent\n\n  --help, -h            Show this help message\n';
@@ -73,13 +73,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           eventType: true,
           payload: true,
           source: true,
           processedAt: true,
           status: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -109,13 +109,13 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           eventType: true,
           payload: true,
           source: true,
           processedAt: true,
           status: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -190,13 +190,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           eventType: true,
           payload: true,
           source: true,
           processedAt: true,
           status: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -277,13 +277,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           eventType: true,
           payload: true,
           source: true,
           processedAt: true,
           status: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();

@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_logs/table
--- requires: schemas/agentic_db_app_public/tables/agent_tasks/triggers/agent_tasks_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-GRANT INSERT ON "agentic_db_app_public".agent_logs TO authenticated;
+GRANT INSERT ON agentic_db_app_public.agent_logs TO authenticated;
 

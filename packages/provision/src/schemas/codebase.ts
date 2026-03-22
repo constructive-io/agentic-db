@@ -31,13 +31,11 @@ const definition: BlueprintDefinition = {
       f('config', 'jsonb'),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description'],
         }),
-      ],
-    }),
+      ]),
 
     orgTable('code_chunks', [
       req('codebase_id', 'uuid'),
@@ -50,13 +48,11 @@ const definition: BlueprintDefinition = {
       f('symbol_name', 'text'),
       f('symbol_type', 'text'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['content', 'file_path', 'symbol_name'],
         }),
-      ],
-    }),
+      ]),
 
     chunkTable('codebases'),
   ],
@@ -73,7 +69,7 @@ const definition: BlueprintDefinition = {
     ginIndex('codebases', 'config'),
     btreeIndex('codebases', 'language'),
     btreeIndex('codebases', 'framework'),
-    btreeIndex('code_chunks', 'codebase_id'),
+    // btreeIndex('code_chunks', 'codebase_id'), — auto-created by FK (codebases → code_chunks)
     btreeIndex('code_chunks', 'file_path'),
     btreeIndex('code_chunks', 'symbol_type'),
     btreeIndex('code_chunks', 'language'),

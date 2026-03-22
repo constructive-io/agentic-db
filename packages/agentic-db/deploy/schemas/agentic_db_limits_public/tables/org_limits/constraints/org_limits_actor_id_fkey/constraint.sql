@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_limits_public/tables/org_limits/table
 
 
-ALTER TABLE "agentic_db_limits_public".org_limits 
+ALTER TABLE agentic_db_limits_public.org_limits 
   ADD CONSTRAINT org_limits_actor_id_fkey 
     FOREIGN KEY(actor_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE CASCADE;
 

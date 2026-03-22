@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contacts/table
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/entity_id/column
--- requires: schemas/agentic_db_app_public/tables/images/columns/embedding_stale/alterations/alt0000000857
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX contacts_entity_id_idx ON "agentic_db_app_public".contacts USING BTREE ( entity_id );
+CREATE INDEX contacts_entity_id_idx ON agentic_db_app_public.contacts USING BTREE ( entity_id );
 

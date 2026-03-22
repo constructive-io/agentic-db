@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_log_chunks/table
--- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/indexes/runtime_state_chunks_runtime_state_id_idx
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE "agentic_db_app_public".runtime_log_chunks 
+ALTER TABLE agentic_db_app_public.runtime_log_chunks 
   ADD COLUMN runtime_log_id uuid;
 

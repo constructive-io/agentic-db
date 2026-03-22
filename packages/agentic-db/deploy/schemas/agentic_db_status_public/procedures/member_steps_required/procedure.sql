@@ -7,12 +7,12 @@
 
 
 
-CREATE FUNCTION "agentic_db_status_public".member_steps_required (
+CREATE FUNCTION agentic_db_status_public.member_steps_required (
     vlevel text,
     ventity_id uuid,
     vrole_id uuid DEFAULT jwt_public.current_user_id()
 )
-  RETURNS SETOF "agentic_db_status_public".org_level_requirements
+  RETURNS SETOF agentic_db_status_public.org_level_requirements
 AS $CODEZ$
 BEGIN
   RETURN QUERY
@@ -26,13 +26,13 @@ BEGIN
       org_level_requirements.created_at,
       org_level_requirements.updated_at
     FROM
-      "agentic_db_status_public".org_level_requirements 
-    FULL OUTER JOIN "agentic_db_status_public".org_achievements ON (
+      agentic_db_status_public.org_level_requirements 
+    FULL OUTER JOIN agentic_db_status_public.org_achievements ON (
       org_achievements.name = org_level_requirements.name
       AND org_achievements.actor_id = vrole_id
       AND org_achievements.entity_id = ventity_id
     )	
-    JOIN "agentic_db_status_public".org_levels ON (org_level_requirements.level = org_levels.name)
+    JOIN agentic_db_status_public.org_levels ON (org_level_requirements.level = org_levels.name)
   WHERE
     org_level_requirements.level = vlevel
     AND -1*(coalesce(org_achievements.count,0)-org_level_requirements.required_count) > 0
@@ -40,5 +40,5 @@ BEGIN
 END;
 $CODEZ$
 LANGUAGE plpgsql STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_status_public".member_steps_required TO authenticated;
+GRANT EXECUTE ON FUNCTION agentic_db_status_public.member_steps_required TO authenticated;
 

@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/place_chunks/table
--- requires: schemas/agentic_db_app_public/tables/trip_chunks/triggers/trip_chunks_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-GRANT INSERT ON "agentic_db_app_public".place_chunks TO authenticated;
+GRANT INSERT ON agentic_db_app_public.place_chunks TO authenticated;
 

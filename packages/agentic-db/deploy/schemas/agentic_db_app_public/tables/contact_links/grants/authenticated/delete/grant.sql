@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contact_links/table
--- requires: schemas/agentic_db_app_public/tables/interaction_chunks/triggers/interaction_chunks_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-GRANT DELETE ON "agentic_db_app_public".contact_links TO authenticated;
+GRANT DELETE ON agentic_db_app_public.contact_links TO authenticated;
 

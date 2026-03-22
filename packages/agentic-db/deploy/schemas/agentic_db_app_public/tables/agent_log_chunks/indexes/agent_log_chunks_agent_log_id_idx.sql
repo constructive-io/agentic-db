@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_log_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 -- requires: schemas/agentic_db_app_public/tables/agent_log_chunks/columns/agent_log_id/column
--- requires: schemas/agentic_db_app_public/tables/agent_task_chunks/indexes/agent_task_chunks_agent_task_id_idx
 
 
-CREATE INDEX agent_log_chunks_agent_log_id_idx ON "agentic_db_app_public".agent_log_chunks USING BTREE ( agent_log_id );
+CREATE INDEX agent_log_chunks_agent_log_id_idx ON agentic_db_app_public.agent_log_chunks USING BTREE ( agent_log_id );
 

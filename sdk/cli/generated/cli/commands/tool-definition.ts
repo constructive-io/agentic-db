@@ -11,14 +11,14 @@ import type { CreateToolDefinitionInput, ToolDefinitionPatch } from '../../orm/i
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  createdAt: 'string',
-  updatedAt: 'string',
   name: 'string',
   description: 'string',
   inputSchema: 'json',
   outputSchema: 'json',
   implementation: 'string',
   isActive: 'boolean',
+  createdAt: 'string',
+  updatedAt: 'string',
 };
 const usage =
   '\ntool-definition <command>\n\nCommands:\n  list                  List all toolDefinition records\n  get                   Get a toolDefinition by ID\n  create                Create a new toolDefinition\n  update                Update an existing toolDefinition\n  delete                Delete a toolDefinition\n\n  --help, -h            Show this help message\n';
@@ -74,14 +74,14 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           name: true,
           description: true,
           inputSchema: true,
           outputSchema: true,
           implementation: true,
           isActive: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -111,14 +111,14 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           name: true,
           description: true,
           inputSchema: true,
           outputSchema: true,
           implementation: true,
           isActive: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -202,14 +202,14 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           name: true,
           description: true,
           inputSchema: true,
           outputSchema: true,
           implementation: true,
           isActive: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -299,14 +299,14 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           name: true,
           description: true,
           inputSchema: true,
           outputSchema: true,
           implementation: true,
           isActive: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();

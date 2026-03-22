@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
--- requires: schemas/agentic_db_app_public/tables/skills/columns/updated_at/alterations/alt0000001241
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".skills 
+ALTER TABLE agentic_db_app_public.skills 
   ADD COLUMN name text;
 

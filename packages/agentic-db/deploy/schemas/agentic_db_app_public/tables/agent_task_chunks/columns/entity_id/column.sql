@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_task_chunks/table
--- requires: schemas/agentic_db_app_public/tables/agent_chunks/triggers/agent_chunks_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".agent_task_chunks 
+ALTER TABLE agentic_db_app_public.agent_task_chunks 
   ADD COLUMN entity_id uuid;
 

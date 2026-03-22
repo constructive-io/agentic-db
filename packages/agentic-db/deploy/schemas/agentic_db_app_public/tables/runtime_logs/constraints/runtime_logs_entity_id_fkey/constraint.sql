@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_app_public/tables/runtime_logs/table
--- requires: schemas/agentic_db_app_public/tables/runtime_states/triggers/runtime_states_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE "agentic_db_app_public".runtime_logs 
+ALTER TABLE agentic_db_app_public.runtime_logs 
   ADD CONSTRAINT runtime_logs_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE CASCADE;
 

@@ -29,7 +29,7 @@ INSERT INTO metaschema_modules_public.phone_numbers_module (
   owner_table_id,
   table_name
 ) VALUES
-  ('019d13bc-b8d2-74db-b9a8-540a00d4e324', '019d13bc-1f23-7305-9068-cef2ccaf4226', '019d13bc-b32e-795b-88ad-05e3d9e027f2', '019d13bc-b3f5-7927-836b-995e505c2d9a', '019d13bc-b8d8-7d49-b7f6-755ae8d378b2', '019d13bc-21ae-7eb2-b63f-9fb476e22f09', 'phone_numbers');
+  ('b61e7296-1c75-b688-2dc3-a54687d416f9', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'e3508c8b-866b-4a91-6d3c-645e026ce92b', '34746a8f-5255-defc-7ade-ade252c2a847', '82989a45-5dad-effa-ed9d-32c430b3f2d6', '5d9c849b-e962-041a-de77-54774d5d1e62', 'phone_numbers');
 
 
 SET session_replication_role TO DEFAULT;

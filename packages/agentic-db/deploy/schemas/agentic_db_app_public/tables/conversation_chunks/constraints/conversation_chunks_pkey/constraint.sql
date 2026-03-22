@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/conversation_chunks/table
--- requires: schemas/agentic_db_app_public/tables/messages/triggers/messages_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE "agentic_db_app_public".conversation_chunks 
+ALTER TABLE agentic_db_app_public.conversation_chunks 
   ADD CONSTRAINT conversation_chunks_pkey PRIMARY KEY (id);
 

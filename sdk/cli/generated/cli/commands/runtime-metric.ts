@@ -11,13 +11,13 @@ import type { CreateRuntimeMetricInput, RuntimeMetricPatch } from '../../orm/inp
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  createdAt: 'string',
-  updatedAt: 'string',
   runtimeStateId: 'uuid',
   metricName: 'string',
   metricValue: 'string',
   unit: 'string',
   meta: 'json',
+  createdAt: 'string',
+  updatedAt: 'string',
 };
 const usage =
   '\nruntime-metric <command>\n\nCommands:\n  list                  List all runtimeMetric records\n  get                   Get a runtimeMetric by ID\n  create                Create a new runtimeMetric\n  update                Update an existing runtimeMetric\n  delete                Delete a runtimeMetric\n\n  --help, -h            Show this help message\n';
@@ -73,13 +73,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           runtimeStateId: true,
           metricName: true,
           metricValue: true,
           unit: true,
           meta: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -109,13 +109,13 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           runtimeStateId: true,
           metricName: true,
           metricValue: true,
           unit: true,
           meta: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -189,13 +189,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           runtimeStateId: true,
           metricName: true,
           metricValue: true,
           unit: true,
           meta: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -275,13 +275,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           runtimeStateId: true,
           metricName: true,
           metricValue: true,
           unit: true,
           meta: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();

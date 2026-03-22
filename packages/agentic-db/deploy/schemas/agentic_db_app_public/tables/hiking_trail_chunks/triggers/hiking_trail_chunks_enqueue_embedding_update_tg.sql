@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/hiking_trail_chunks/table
 -- requires: schemas/agentic_db_private/trigger_fns/hiking_trail_chunks_enqueue_embedding
--- requires: schemas/agentic_db_app_public/tables/hiking_trail_chunks/columns/embedding_text/column
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
 CREATE TRIGGER hiking_trail_chunks_enqueue_embedding_update_tg
-AFTER UPDATE ON "agentic_db_app_public".hiking_trail_chunks
+AFTER UPDATE ON agentic_db_app_public.hiking_trail_chunks
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".hiking_trail_chunks_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.hiking_trail_chunks_enqueue_embedding ( );
 

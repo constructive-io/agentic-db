@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/messages/table
--- requires: schemas/agentic_db_app_public/tables/conversations/triggers/conversations_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-GRANT DELETE ON "agentic_db_app_public".messages TO authenticated;
+GRANT DELETE ON agentic_db_app_public.messages TO authenticated;
 

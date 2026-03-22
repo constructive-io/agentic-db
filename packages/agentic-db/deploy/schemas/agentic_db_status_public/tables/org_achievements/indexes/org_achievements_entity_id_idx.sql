@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_status_public/tables/org_achievements/columns/entity_id/column
 
 
-CREATE INDEX org_achievements_entity_id_idx ON "agentic_db_status_public".org_achievements USING BTREE ( entity_id );
+CREATE INDEX org_achievements_entity_id_idx ON agentic_db_status_public.org_achievements USING BTREE ( entity_id );
 

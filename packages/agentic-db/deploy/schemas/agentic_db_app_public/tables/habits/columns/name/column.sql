@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/habits/table
--- requires: schemas/agentic_db_app_public/tables/habits/columns/updated_at/alterations/alt0000001680
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-ALTER TABLE "agentic_db_app_public".habits 
+ALTER TABLE agentic_db_app_public.habits 
   ADD COLUMN name text;
 

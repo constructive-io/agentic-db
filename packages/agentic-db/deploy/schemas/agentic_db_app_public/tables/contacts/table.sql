@@ -2,8 +2,8 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_app_public/schema
--- requires: schemas/agentic_db_app_public/tables/images/columns/embedding_stale/alterations/alt0000000857
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE TABLE "agentic_db_app_public".contacts ();
+CREATE TABLE agentic_db_app_public.contacts ();
 

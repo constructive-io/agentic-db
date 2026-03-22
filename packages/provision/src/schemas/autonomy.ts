@@ -30,13 +30,11 @@ const definition: BlueprintDefinition = {
       f('context', 'jsonb'),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['title', 'content'],
         }),
-      ],
-    }),
+      ]),
 
     chunkTable('autonomy_records'),
   ],

@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tags/table
--- requires: schemas/agentic_db_app_public/tables/interactions/triggers/interactions_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-GRANT UPDATE ON "agentic_db_app_public".tags TO authenticated;
+GRANT UPDATE ON agentic_db_app_public.tags TO authenticated;
 

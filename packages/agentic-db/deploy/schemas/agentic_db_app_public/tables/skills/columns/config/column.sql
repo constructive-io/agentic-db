@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
--- requires: schemas/agentic_db_app_public/tables/skills/columns/implementation/column
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".skills 
+ALTER TABLE agentic_db_app_public.skills 
   ADD COLUMN config jsonb;
 

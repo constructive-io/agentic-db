@@ -9,8 +9,7 @@ import { coerceAnswers, stripUndefined } from '../utils';
 import type { FieldSchema } from '../utils';
 import type { CreateCodebaseDependencyInput, CodebaseDependencyPatch } from '../../orm/input-types';
 const fieldSchema: FieldSchema = {
-  codebaseId: 'uuid',
-  dependencyId: 'uuid',
+  codebasisId: 'uuid',
   id: 'uuid',
   entityId: 'uuid',
 };
@@ -66,8 +65,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
     const result = await client.codebaseDependency
       .findMany({
         select: {
-          codebaseId: true,
-          dependencyId: true,
+          codebasisId: true,
           id: true,
           entityId: true,
         },
@@ -97,8 +95,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
       .findOne({
         id: answers.id as string,
         select: {
-          codebaseId: true,
-          dependencyId: true,
+          codebasisId: true,
           id: true,
           entityId: true,
         },
@@ -118,14 +115,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const rawAnswers = await prompter.prompt(argv, [
       {
         type: 'text',
-        name: 'codebaseId',
-        message: 'codebaseId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'dependencyId',
-        message: 'dependencyId',
+        name: 'codebasisId',
+        message: 'codebasisId',
         required: true,
       },
       {
@@ -144,13 +135,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.codebaseDependency
       .create({
         data: {
-          codebaseId: cleanedData.codebaseId,
-          dependencyId: cleanedData.dependencyId,
+          codebasisId: cleanedData.codebasisId,
           entityId: cleanedData.entityId,
         },
         select: {
-          codebaseId: true,
-          dependencyId: true,
+          codebasisId: true,
           id: true,
           entityId: true,
         },
@@ -176,14 +165,8 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'codebaseId',
-        message: 'codebaseId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'dependencyId',
-        message: 'dependencyId',
+        name: 'codebasisId',
+        message: 'codebasisId',
         required: false,
       },
       {
@@ -202,13 +185,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          codebaseId: cleanedData.codebaseId,
-          dependencyId: cleanedData.dependencyId,
+          codebasisId: cleanedData.codebasisId,
           entityId: cleanedData.entityId,
         },
         select: {
-          codebaseId: true,
-          dependencyId: true,
+          codebasisId: true,
           id: true,
           entityId: true,
         },

@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_profiles_public/tables/app_profile_grants/table
 
 
-ALTER TABLE "agentic_db_profiles_public".app_profile_grants 
+ALTER TABLE agentic_db_profiles_public.app_profile_grants 
   ADD CONSTRAINT app_profile_grants_profile_id_fkey 
     FOREIGN KEY(profile_id) 
-    REFERENCES "agentic_db_profiles_public".app_profiles (id) 
+    REFERENCES agentic_db_profiles_public.app_profiles (id) 
     ON DELETE SET NULL;
 

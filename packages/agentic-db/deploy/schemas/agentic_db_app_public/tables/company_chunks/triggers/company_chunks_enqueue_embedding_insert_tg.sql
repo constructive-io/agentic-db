@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/company_chunks/table
 -- requires: schemas/agentic_db_private/trigger_fns/company_chunks_enqueue_embedding
--- requires: schemas/agentic_db_app_public/tables/company_chunks/columns/embedding_text/column
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
 CREATE TRIGGER company_chunks_enqueue_embedding_insert_tg
-AFTER INSERT ON "agentic_db_app_public".company_chunks
+AFTER INSERT ON agentic_db_app_public.company_chunks
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".company_chunks_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.company_chunks_enqueue_embedding ( );
 

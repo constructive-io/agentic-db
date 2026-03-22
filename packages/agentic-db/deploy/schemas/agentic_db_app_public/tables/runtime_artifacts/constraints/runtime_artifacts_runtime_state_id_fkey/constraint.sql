@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_states/table
 -- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/table
--- requires: schemas/agentic_db_app_public/tables/runtime_logs/indexes/runtime_logs_runtime_state_id_idx
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE "agentic_db_app_public".runtime_artifacts 
+ALTER TABLE agentic_db_app_public.runtime_artifacts 
   ADD CONSTRAINT runtime_artifacts_runtime_state_id_fkey 
     FOREIGN KEY(runtime_state_id) 
-    REFERENCES "agentic_db_app_public".runtime_states (id) 
+    REFERENCES agentic_db_app_public.runtime_states (id) 
     ON DELETE CASCADE;
 

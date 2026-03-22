@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/table
--- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/policies/auth_del_entity_membership/policy
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE "agentic_db_app_public".runtime_artifacts 
+ALTER TABLE agentic_db_app_public.runtime_artifacts 
   ADD COLUMN updated_at timestamptz;
 

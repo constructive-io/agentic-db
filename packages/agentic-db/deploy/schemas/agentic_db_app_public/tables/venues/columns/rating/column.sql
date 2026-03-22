@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venues/table
--- requires: schemas/agentic_db_app_public/tables/venues/columns/google_place_id/column
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-ALTER TABLE "agentic_db_app_public".venues 
+ALTER TABLE agentic_db_app_public.venues 
   ADD COLUMN rating numeric;
 

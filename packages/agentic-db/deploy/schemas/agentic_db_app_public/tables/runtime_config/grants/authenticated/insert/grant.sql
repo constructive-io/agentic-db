@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_config/table
--- requires: schemas/agentic_db_app_public/tables/runtime_events/columns/status/alterations/alt0000001395
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-GRANT INSERT ON "agentic_db_app_public".runtime_config TO authenticated;
+GRANT INSERT ON agentic_db_app_public.runtime_config TO authenticated;
 

@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION "agentic_db_memberships_private".org_memberships_insert_sprt_tg;
+DROP FUNCTION agentic_db_memberships_private.org_memberships_insert_sprt_tg;
 
 
 

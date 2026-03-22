@@ -4,7 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deal_chunks/table
 -- requires: schemas/agentic_db_app_public/tables/deal_chunks/columns/embedding_text/column
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX deal_chunks_embedding_text_bm25_idx ON "agentic_db_app_public".deal_chunks USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX deal_chunks_embedding_text_bm25_idx ON agentic_db_app_public.deal_chunks USING bm25 ( embedding_text ) WITH ( text_config = english );
 

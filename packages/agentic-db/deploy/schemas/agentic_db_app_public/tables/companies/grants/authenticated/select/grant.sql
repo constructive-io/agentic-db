@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/companies/table
--- requires: schemas/agentic_db_app_public/tables/contacts/indexes/contacts_location_geo_gist_idx
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-GRANT SELECT ON "agentic_db_app_public".companies TO authenticated;
+GRANT SELECT ON agentic_db_app_public.companies TO authenticated;
 

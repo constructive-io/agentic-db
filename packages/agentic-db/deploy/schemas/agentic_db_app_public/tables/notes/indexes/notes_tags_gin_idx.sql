@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/notes/table
 -- requires: schemas/agentic_db_app_public/tables/notes/columns/tags/column
--- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_tags_gin_idx
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX notes_tags_gin_idx ON "agentic_db_app_public".notes USING GIN ( tags );
+CREATE INDEX notes_tags_gin_idx ON agentic_db_app_public.notes USING GIN ( tags );
 

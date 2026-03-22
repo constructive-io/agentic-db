@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venue_links/table
 -- requires: schemas/agentic_db_app_public/tables/venue_links/columns/embedding/column
--- requires: schemas/agentic_db_app_public/tables/venue_links/columns/url/alterations/alt0000001099
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX venue_links_embedding_hnsw_idx ON "agentic_db_app_public".venue_links USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX venue_links_embedding_hnsw_idx ON agentic_db_app_public.venue_links USING hnsw ( embedding vector_cosine_ops );
 

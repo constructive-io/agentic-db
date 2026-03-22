@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/places/table
 -- requires: schemas/agentic_db_app_public/tables/places/columns/country/column
--- requires: schemas/agentic_db_app_public/tables/places/indexes/places_city_idx
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE INDEX places_country_idx ON "agentic_db_app_public".places USING BTREE ( country );
+CREATE INDEX places_country_idx ON agentic_db_app_public.places USING BTREE ( country );
 

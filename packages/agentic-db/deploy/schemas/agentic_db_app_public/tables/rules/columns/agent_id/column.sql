@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/rules/table
--- requires: schemas/agentic_db_app_public/tables/agent_logs/indexes/agent_logs_agent_id_idx
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".rules 
+ALTER TABLE agentic_db_app_public.rules 
   ADD COLUMN agent_id uuid;
 

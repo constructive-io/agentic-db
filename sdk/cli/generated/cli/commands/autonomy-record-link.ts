@@ -9,8 +9,7 @@ import { coerceAnswers, stripUndefined } from '../utils';
 import type { FieldSchema } from '../utils';
 import type { CreateAutonomyRecordLinkInput, AutonomyRecordLinkPatch } from '../../orm/input-types';
 const fieldSchema: FieldSchema = {
-  sourceRecordId: 'uuid',
-  targetRecordId: 'uuid',
+  autonomyRecordId: 'uuid',
   id: 'uuid',
   entityId: 'uuid',
 };
@@ -66,8 +65,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
     const result = await client.autonomyRecordLink
       .findMany({
         select: {
-          sourceRecordId: true,
-          targetRecordId: true,
+          autonomyRecordId: true,
           id: true,
           entityId: true,
         },
@@ -97,8 +95,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
       .findOne({
         id: answers.id as string,
         select: {
-          sourceRecordId: true,
-          targetRecordId: true,
+          autonomyRecordId: true,
           id: true,
           entityId: true,
         },
@@ -118,14 +115,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const rawAnswers = await prompter.prompt(argv, [
       {
         type: 'text',
-        name: 'sourceRecordId',
-        message: 'sourceRecordId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'targetRecordId',
-        message: 'targetRecordId',
+        name: 'autonomyRecordId',
+        message: 'autonomyRecordId',
         required: true,
       },
       {
@@ -144,13 +135,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.autonomyRecordLink
       .create({
         data: {
-          sourceRecordId: cleanedData.sourceRecordId,
-          targetRecordId: cleanedData.targetRecordId,
+          autonomyRecordId: cleanedData.autonomyRecordId,
           entityId: cleanedData.entityId,
         },
         select: {
-          sourceRecordId: true,
-          targetRecordId: true,
+          autonomyRecordId: true,
           id: true,
           entityId: true,
         },
@@ -176,14 +165,8 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'sourceRecordId',
-        message: 'sourceRecordId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'targetRecordId',
-        message: 'targetRecordId',
+        name: 'autonomyRecordId',
+        message: 'autonomyRecordId',
         required: false,
       },
       {
@@ -202,13 +185,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          sourceRecordId: cleanedData.sourceRecordId,
-          targetRecordId: cleanedData.targetRecordId,
+          autonomyRecordId: cleanedData.autonomyRecordId,
           entityId: cleanedData.entityId,
         },
         select: {
-          sourceRecordId: true,
-          targetRecordId: true,
+          autonomyRecordId: true,
           id: true,
           entityId: true,
         },

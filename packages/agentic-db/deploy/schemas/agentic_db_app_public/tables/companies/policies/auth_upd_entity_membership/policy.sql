@@ -3,15 +3,15 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/companies/table
--- requires: schemas/agentic_db_app_public/tables/contacts/indexes/contacts_location_geo_gist_idx
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE POLICY auth_upd_entity_membership ON "agentic_db_app_public".companies
+CREATE POLICY auth_upd_entity_membership ON agentic_db_app_public.companies
 FOR UPDATE
 TO authenticated
 USING (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM "agentic_db_memberships_private".org_memberships_sprt AS org_sprt
+  FROM agentic_db_memberships_private.org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

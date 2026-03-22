@@ -4,11 +4,11 @@
  * Mirrors the constructive-db blueprint definition format:
  *   { tables: [...], relations: [...], indexes: [...], full_text_searches: [...] }
  *
- * Each schema module exports a BlueprintDefinition instead of imperative
- * createOrgTable/addField/relationProvision calls. The provisionBlueprint()
- * function processes the definition using the existing SDK.
+ * Each schema module exports a BlueprintDefinition. The provisionBlueprint()
+ * function creates a server-side blueprint record and executes it via the
+ * constructBlueprint mutation (all 4 phases run server-side).
  *
- * Phases:
+ * Phases (server-side):
  *   1. Tables (with fields, nodes, policies, grants)
  *   2. Relations (HasMany, BelongsTo, ManyToMany)
  *   3. Indexes (HNSW, BM25, B-tree, GIN, GIST, trigram)
@@ -45,7 +45,7 @@ export interface TableDef {
   ref: string;
   /** Actual table name in the database */
   table_name: string;
-  /** Node types: first creates the table, rest augment it */
+  /** Node types: first creates the table, rest augment it (including Data* nodes) */
   nodes: (string | NodeDef)[];
   /** Field definitions */
   fields: FieldDef[];
@@ -61,12 +61,6 @@ export interface TableDef {
     policy_name?: string;
     data?: Record<string, unknown>;
   }[];
-  /**
-   * Data nodes that run AFTER fields are created (Phase 1b).
-   * Use for DataSearch, DataEmbedding, DataBm25, DataFullTextSearch, DataPostGIS, etc.
-   * These nodes expect their target fields to already exist on the table.
-   */
-  data_nodes?: NodeDef[];
 }
 
 export interface RelationDef {
@@ -107,7 +101,7 @@ export interface FullTextSearchDef {
   /** Table reference name */
   table_ref: string;
   /** TSVector column name (e.g. 'search_tsv') */
-  field_name: string;
+  field: string;
   /** Source fields with weights and language */
   sources: { field: string; weight: string; lang?: string }[];
 }
@@ -153,21 +147,21 @@ const CRUD_GRANTS: [string, string][] = [
 /**
  * Create a standard org-scoped table definition.
  * All tables in agentic-db share the same nodes, grants, and policies.
+ * Pass extra Data* nodes (DataSearch, DataEmbedding, DataPostGIS, etc.) as the third arg.
  */
 export function orgTable(
   ref: string,
   fields: FieldDef[],
-  opts?: { data_nodes?: NodeDef[] }
+  extraNodes?: NodeDef[]
 ): TableDef {
   return {
     ref,
     table_name: ref,
-    nodes: ORG_NODES,
+    nodes: [...ORG_NODES, ...(extraNodes ?? [])],
     fields,
     grant_roles: ['authenticated'],
     grants: CRUD_GRANTS,
     policies: [ORG_POLICY],
-    ...(opts?.data_nodes ? { data_nodes: opts.data_nodes } : {}),
   };
 }
 
@@ -298,7 +292,7 @@ function singularize(plural: string): string {
  */
 export function chunkTable(parentRef: string): TableDef {
   const chunkRef = `${singularize(parentRef)}_chunks`;
-  return orgTable(chunkRef, CHUNK_FIELDS, { data_nodes: [CHUNK_DATA_SEARCH] });
+  return orgTable(chunkRef, CHUNK_FIELDS, [CHUNK_DATA_SEARCH]);
 }
 
 /**
@@ -397,65 +391,41 @@ export function gistGeoIndex(table_ref: string, column: string): IndexDef {
 
 
 // ---------------------------------------------------------------------------
-// Provision engine — processes a BlueprintDefinition via the SDK
+// Provision engine — server-side constructBlueprint via the SDK
 // ---------------------------------------------------------------------------
 
 const databaseId = requireDatabaseId();
 
 /**
- * Resolve table/field names to UUIDs for Phase 3/4 index creation.
- * Returns a map of tableName -> { tableId, fields: Map<fieldName, fieldId> }
+ * Convert a BlueprintDefinition to the server-side JSON format expected by
+ * construct_blueprint. The TypeScript types mirror the server format closely;
+ * this function handles any remaining field-name differences.
  */
-async function resolveFieldIds(
-  sdk: PlatformClient,
-  refMap: Map<string, string>
-): Promise<Map<string, { tableId: string; fields: Map<string, string> }>> {
-  const result = new Map<string, { tableId: string; fields: Map<string, string> }>();
-
-  // Build reverse map: tableId -> ref
-  const idToRef = new Map<string, string>();
-  for (const [ref, tableId] of refMap) {
-    idToRef.set(tableId, ref);
-    result.set(ref, { tableId, fields: new Map() });
-  }
-
-  // Fetch all fields in pages
-  let offset = 0;
-  const pageSize = 500;
-  let hasMore = true;
-  while (hasMore) {
-    const fieldsResult = await withRetry(() =>
-      sdk.field
-        .findMany({
-          first: pageSize,
-          offset,
-          select: { id: true, name: true, tableId: true },
-        })
-        .unwrap()
-    );
-    const nodes = (fieldsResult as any)?.fields?.nodes ?? [];
-    for (const n of nodes) {
-      if (!n.name || !n.id || !n.tableId) continue;
-      const ref = idToRef.get(n.tableId);
-      if (ref) {
-        result.get(ref)!.fields.set(n.name, n.id);
-      }
-    }
-    hasMore = nodes.length === pageSize;
-    offset += pageSize;
-  }
-
-  return result;
+function toServerDefinition(def: BlueprintDefinition): Record<string, unknown> {
+  return {
+    tables: def.tables.map((t) => ({
+      ref: t.ref,
+      table_name: t.table_name,
+      nodes: t.nodes,
+      fields: t.fields,
+      grant_roles: t.grant_roles,
+      grants: t.grants,
+      policies: t.policies,
+    })),
+    relations: def.relations,
+    indexes: def.indexes ?? [],
+    full_text_searches: def.full_text_searches ?? [],
+  };
 }
 
 /**
- * Provision a blueprint definition using the constructive SDK.
+ * Provision a blueprint definition using the server-side constructBlueprint
+ * mutation. All four phases run server-side in a single transaction:
  *
- * Phase 1: Create all tables (with fields, nodes, policies, grants)
- *   Phase 1b: Apply data_nodes (DataSearch, DataEmbedding, etc.) after fields
- * Phase 2: Create all relations (HasMany, BelongsTo, ManyToMany)
- * Phase 3: Create all indexes (HNSW, BM25, B-tree, GIN, GIST, trigram)
- * Phase 4: Create full-text search configurations (TSVector)
+ *   Phase 1: Create tables (with fields, nodes, policies, grants)
+ *   Phase 2: Create relations (HasMany, BelongsTo, ManyToMany)
+ *   Phase 3: Create indexes (HNSW, BM25, B-tree, GIN, GIST, trigram)
+ *   Phase 4: Create full-text search configurations (TSVector)
  *
  * Returns a ref_map of { ref -> tableId } for cross-schema references.
  */
@@ -465,305 +435,69 @@ export async function provisionBlueprint(
   client?: PlatformClient
 ): Promise<Map<string, string>> {
   const sdk = client ?? createPlatformClient();
-  const refMap = new Map<string, string>();
 
   console.log(`\n\ud83d\udccb ${label}\n`);
 
-  // -- Phase 1: Tables -------------------------------------------------------
-  for (const table of definition.tables) {
-    // First node creates the table
-    const firstNode = table.nodes[0];
-    const nodeType = typeof firstNode === 'string' ? firstNode : firstNode.$type;
-    const nodeData = typeof firstNode === 'string' ? undefined : firstNode.data;
+  // 1. Resolve the database owner_id (needed for blueprint record)
+  const dbResult = await withRetry(() =>
+    sdk.database.findOne({ id: databaseId, select: { ownerId: true } }).unwrap()
+  );
+  const ownerId = (dbResult as any)?.database?.ownerId;
+  if (!ownerId) throw new Error('Could not resolve database owner_id');
 
-    // First policy (if any)
-    const firstPolicy = table.policies[0];
+  // 2. Create a draft blueprint record with the full definition
+  const blueprintName = `agentic_${label.toLowerCase().replace(/[^a-z0-9]+/g, '_')}_${Date.now()}`;
+  const serverDef = toServerDefinition(definition);
 
-    const createData: Record<string, unknown> = {
-      databaseId,
-      tableName: table.table_name,
-      nodeType,
-      ...(nodeData ? { nodeData } : {}),
-      useRls: true,
-      grantRoles: table.grant_roles,
-      grantPrivileges: table.grants as unknown as Record<string, unknown>,
-      ...(firstPolicy
-        ? {
-            policyType: firstPolicy.$type,
-            policyPermissive: firstPolicy.permissive ?? true,
-            ...(firstPolicy.data ? { policyData: firstPolicy.data } : {}),
-          }
-        : {}),
-    };
+  const bpResult = await withRetry(() =>
+    sdk.blueprint.create({
+      data: {
+        ownerId,
+        databaseId,
+        name: blueprintName,
+        displayName: label,
+        definition: serverDef,
+      },
+      select: { id: true },
+    }).unwrap()
+  );
+  const blueprintId = (bpResult as any)?.createBlueprint?.blueprint?.id;
+  if (!blueprintId) throw new Error('Failed to create blueprint record');
 
-    const result = await withRetry(() =>
-      sdk.secureTableProvision
-        .create({
-          data: createData as any,
-          select: { id: true, tableId: true },
-        })
-        .unwrap()
-    );
+  console.log(`   Blueprint: ${blueprintId}`);
 
-    const tableId =
-      (result as any).createSecureTableProvision?.secureTableProvision?.tableId;
-    if (!tableId) throw new Error(`No tableId for ${table.table_name}`);
+  // 3. Execute all 4 phases server-side via constructBlueprint mutation
+  const constructResult = await withRetry(() =>
+    sdk.mutation.constructBlueprint(
+      { input: { blueprintId } },
+      { select: { result: true } }
+    ).unwrap()
+  );
 
-    // Remaining nodes (index 1+): augment existing table
-    for (let i = 1; i < table.nodes.length; i++) {
-      const node = table.nodes[i];
-      const nType = typeof node === 'string' ? node : node.$type;
-      const nData = typeof node === 'string' ? undefined : node.data;
-
-      await withRetry(() =>
-        sdk.secureTableProvision
-          .create({
-            data: {
-              databaseId,
-              tableId,
-              nodeType: nType,
-              ...(nData ? { nodeData: nData } : {}),
-            } as any,
-            select: { id: true },
-          })
-          .unwrap()
-      );
-    }
-
-    // Fields
-    for (const field of table.fields) {
-      await withRetry(() =>
-        sdk.field
-          .create({
-            data: {
-              tableId,
-              name: field.name,
-              type: field.type,
-              isRequired: field.is_required ?? false,
-              label: field.name,
-              ...(field.default_value
-                ? { defaultValue: field.default_value }
-                : {}),
-            },
-            select: { id: true },
-          })
-          .unwrap()
-      );
-    }
-
-    // Phase 1b: Data nodes (run AFTER fields exist)
-    if (table.data_nodes) {
-      for (const dn of table.data_nodes) {
-        await withRetry(() =>
-          sdk.secureTableProvision
-            .create({
-              data: {
-                databaseId,
-                tableId,
-                nodeType: dn.$type,
-                ...(dn.data ? { nodeData: dn.data } : {}),
-              } as any,
-              select: { id: true },
-            })
-            .unwrap()
-        );
-      }
-    }
-
-    refMap.set(table.ref, tableId);
-    console.log(`   \u2713 ${table.table_name} (${table.fields.length} fields)`);
+  const refMapJson = (constructResult as any)?.constructBlueprint?.result;
+  if (!refMapJson) {
+    // Check blueprint status for error details
+    const bpCheck = await sdk.blueprint.findOne({
+      id: blueprintId,
+      select: { status: true, errorDetails: true },
+    }).unwrap();
+    const bp = (bpCheck as any)?.blueprint;
+    throw new Error(`constructBlueprint failed: ${bp?.errorDetails ?? 'unknown error'}`);
   }
 
-  // -- Phase 2: Relations ----------------------------------------------------
-  for (const rel of definition.relations) {
-    const sourceId = refMap.get(rel.source_ref);
-    const targetId = refMap.get(rel.target_ref);
-
-    if (!sourceId) {
-      throw new Error(
-        `Unresolved source_ref "${rel.source_ref}" in relation`
-      );
-    }
-    if (!targetId) {
-      throw new Error(
-        `Unresolved target_ref "${rel.target_ref}" in relation`
-      );
-    }
-
-    const relData: Record<string, unknown> = {
-      databaseId,
-      relationType: rel.$type,
-      sourceTableId: sourceId,
-      targetTableId: targetId,
-      ...(rel.delete_action ? { deleteAction: rel.delete_action } : {}),
-      ...(rel.is_required !== undefined
-        ? { isRequired: rel.is_required }
-        : {}),
-      ...(rel.field_name ? { fieldName: rel.field_name } : {}),
-      ...(rel.source_field_name
-        ? { sourceFieldName: rel.source_field_name }
-        : {}),
-      ...(rel.target_field_name
-        ? { targetFieldName: rel.target_field_name }
-        : {}),
-      ...(rel.junction_table_name
-        ? { junctionTableName: rel.junction_table_name }
-        : {}),
-    };
-
-    // M:N junction table config
-    if (rel.data) {
-      if (rel.data.node_type) relData.nodeType = rel.data.node_type;
-      if (rel.data.policy_type) relData.policyType = rel.data.policy_type;
-      if (rel.data.policy_permissive !== undefined)
-        relData.policyPermissive = rel.data.policy_permissive;
-      if (rel.data.policy_data) relData.policyData = rel.data.policy_data;
-      if (rel.data.grant_roles) relData.grantRoles = rel.data.grant_roles;
-      if (rel.data.grant_privileges)
-        relData.grantPrivileges = rel.data.grant_privileges;
-    }
-
-    await withRetry(() =>
-      sdk.relationProvision
-        .create({
-          data: relData as any,
-          select: { id: true },
-        })
-        .unwrap()
-    );
-
-    const label =
-      rel.$type === 'RelationManyToMany'
-        ? `${rel.source_ref} <-> ${rel.target_ref} (${rel.junction_table_name})`
-        : `${rel.source_ref} -> ${rel.target_ref}`;
-    console.log(`   \u21b3 ${label}`);
+  // 4. Parse ref_map from server response
+  const refMap = new Map<string, string>();
+  for (const [ref, tableId] of Object.entries(refMapJson as Record<string, string>)) {
+    refMap.set(ref, tableId);
   }
 
-  // -- Phase 3: Indexes ------------------------------------------------------
-  if (definition.indexes && definition.indexes.length > 0) {
-    console.log(`\n   \ud83d\uddc2\ufe0f  Phase 3: Creating ${definition.indexes.length} indexes...`);
-
-    // Resolve field IDs for all tables in this blueprint
-    const tableFieldMap = await resolveFieldIds(sdk, refMap);
-
-    let created = 0;
-    let skipped = 0;
-
-    for (const idx of definition.indexes) {
-      const info = tableFieldMap.get(idx.table_ref);
-      if (!info) {
-        console.log(`   \u26a0 idx_${idx.table_ref}_${idx.column}_${idx.access_method}: table '${idx.table_ref}' not in blueprint, skipping`);
-        skipped++;
-        continue;
-      }
-
-      const fieldId = info.fields.get(idx.column);
-      if (!fieldId) {
-        console.log(`   \u26a0 idx_${idx.table_ref}_${idx.column}_${idx.access_method}: field '${idx.column}' not found on '${idx.table_ref}', skipping`);
-        skipped++;
-        continue;
-      }
-
-      const indexName = `idx_${idx.table_ref}_${idx.column}_${idx.access_method}`;
-
-      try {
-        await withRetry(() =>
-          sdk.index
-            .create({
-              data: {
-                databaseId,
-                tableId: info.tableId,
-                name: indexName,
-                fieldIds: [fieldId],
-                accessMethod: idx.access_method,
-                ...(idx.op_classes ? { opClasses: idx.op_classes } : {}),
-                ...(idx.options ? { options: idx.options } : {}),
-              },
-              select: { id: true },
-            })
-            .unwrap()
-        );
-        created++;
-        console.log(`   \u2713 ${indexName}`);
-      } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : String(err);
-        if (msg.includes('already exists') || msg.includes('exists')) {
-          skipped++;
-          console.log(`   \u2022 ${indexName} (exists)`);
-        } else {
-          console.error(`   \u2717 ${indexName}: ${msg.slice(0, 120)}`);
-        }
-      }
-    }
-
-    console.log(`   Indexes: ${created} created, ${skipped} skipped`);
-  }
-
-  // -- Phase 4: Full-text search ---------------------------------------------
-  if (definition.full_text_searches && definition.full_text_searches.length > 0) {
-    console.log(`\n   \ud83d\udcc4 Phase 4: Configuring ${definition.full_text_searches.length} full-text search configs...`);
-
-    // Resolve field IDs if not already done in Phase 3
-    const tableFieldMap = await resolveFieldIds(sdk, refMap);
-
-    for (const fts of definition.full_text_searches) {
-      const info = tableFieldMap.get(fts.table_ref);
-      if (!info) {
-        console.log(`   \u26a0 ${fts.table_ref}.${fts.field_name}: table not in blueprint, skipping`);
-        continue;
-      }
-
-      const tsvFieldId = info.fields.get(fts.field_name);
-      if (!tsvFieldId) {
-        console.log(`   \u26a0 ${fts.table_ref}.${fts.field_name}: tsvector field not found, skipping`);
-        continue;
-      }
-
-      const sourceFieldIds: string[] = [];
-      const weights: string[] = [];
-      const langs: string[] = [];
-      let missingSource = false;
-
-      for (const src of fts.sources) {
-        const fid = info.fields.get(src.field);
-        if (!fid) {
-          console.log(`   \u26a0 ${fts.table_ref}: source field '${src.field}' not found, skipping FTS config`);
-          missingSource = true;
-          break;
-        }
-        sourceFieldIds.push(fid);
-        weights.push(src.weight);
-        langs.push(src.lang ?? 'english');
-      }
-
-      if (missingSource) continue;
-
-      try {
-        await withRetry(() =>
-          sdk.fullTextSearch
-            .create({
-              data: {
-                tableId: info.tableId,
-                fieldId: tsvFieldId,
-                fieldIds: sourceFieldIds,
-                weights,
-                langs,
-              },
-              select: { id: true },
-            })
-            .unwrap()
-        );
-        console.log(`   \u2713 ${fts.table_ref}.${fts.field_name}`);
-      } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : String(err);
-        if (msg.includes('already exists') || msg.includes('exists')) {
-          console.log(`   \u2022 ${fts.table_ref}.${fts.field_name} (exists)`);
-        } else {
-          console.error(`   \u2717 ${fts.table_ref}.${fts.field_name}: ${msg.slice(0, 120)}`);
-        }
-      }
-    }
-  }
+  // Log results
+  const tableCount = definition.tables.length;
+  const relCount = definition.relations.length;
+  const idxCount = definition.indexes?.length ?? 0;
+  const ftsCount = definition.full_text_searches?.length ?? 0;
+  console.log(`   \u2713 ${tableCount} tables, ${relCount} relations, ${idxCount} indexes, ${ftsCount} FTS configs`);
+  console.log(`   ref_map: ${refMap.size} entries\n`);
 
   return refMap;
 }

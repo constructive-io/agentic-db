@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venue_chunks/table
--- requires: schemas/agentic_db_app_public/tables/event_chunks/indexes/event_chunks_event_id_idx
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-ALTER TABLE "agentic_db_app_public".venue_chunks 
+ALTER TABLE agentic_db_app_public.venue_chunks 
   ADD COLUMN venue_id uuid;
 

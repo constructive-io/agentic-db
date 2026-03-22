@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goals/table
 -- requires: schemas/agentic_db_private/trigger_fns/goals_embedding_stale
--- requires: schemas/agentic_db_app_public/tables/goals/columns/embedding_text/column
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
 CREATE TRIGGER goals_embedding_stale_update_tg
-BEFORE UPDATE ON "agentic_db_app_public".goals
+BEFORE UPDATE ON agentic_db_app_public.goals
 FOR EACH ROW
 WHEN (OLD.title IS DISTINCT FROM NEW.title OR OLD.description IS DISTINCT FROM NEW.description)
-EXECUTE PROCEDURE "agentic_db_private".goals_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_private.goals_embedding_stale ( );
 

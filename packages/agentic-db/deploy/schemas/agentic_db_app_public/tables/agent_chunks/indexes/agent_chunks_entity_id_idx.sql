@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 -- requires: schemas/agentic_db_app_public/tables/agent_chunks/columns/entity_id/column
--- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_intent_trigger_embedding_hnsw_idx
 
 
-CREATE INDEX agent_chunks_entity_id_idx ON "agentic_db_app_public".agent_chunks USING BTREE ( entity_id );
+CREATE INDEX agent_chunks_entity_id_idx ON agentic_db_app_public.agent_chunks USING BTREE ( entity_id );
 

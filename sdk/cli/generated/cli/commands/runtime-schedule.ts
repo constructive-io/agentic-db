@@ -11,8 +11,6 @@ import type { CreateRuntimeScheduleInput, RuntimeSchedulePatch } from '../../orm
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  createdAt: 'string',
-  updatedAt: 'string',
   name: 'string',
   cronExpression: 'string',
   nextRunAt: 'string',
@@ -20,6 +18,8 @@ const fieldSchema: FieldSchema = {
   isActive: 'boolean',
   config: 'json',
   timezone: 'string',
+  createdAt: 'string',
+  updatedAt: 'string',
 };
 const usage =
   '\nruntime-schedule <command>\n\nCommands:\n  list                  List all runtimeSchedule records\n  get                   Get a runtimeSchedule by ID\n  create                Create a new runtimeSchedule\n  update                Update an existing runtimeSchedule\n  delete                Delete a runtimeSchedule\n\n  --help, -h            Show this help message\n';
@@ -75,8 +75,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           name: true,
           cronExpression: true,
           nextRunAt: true,
@@ -84,6 +82,8 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           isActive: true,
           config: true,
           timezone: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -113,8 +113,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           name: true,
           cronExpression: true,
           nextRunAt: true,
@@ -122,6 +120,8 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           isActive: true,
           config: true,
           timezone: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -213,8 +213,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           name: true,
           cronExpression: true,
           nextRunAt: true,
@@ -222,6 +220,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           isActive: true,
           config: true,
           timezone: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -319,8 +319,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           name: true,
           cronExpression: true,
           nextRunAt: true,
@@ -328,6 +326,8 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           isActive: true,
           config: true,
           timezone: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();

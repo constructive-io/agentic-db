@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agents/table
 -- requires: schemas/agentic_db_app_public/tables/agent_chunks/table
--- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_agent_id_idx
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".agent_chunks 
+ALTER TABLE agentic_db_app_public.agent_chunks 
   ADD CONSTRAINT agent_chunks_agent_id_fkey 
     FOREIGN KEY(agent_id) 
-    REFERENCES "agentic_db_app_public".agents (id) 
+    REFERENCES agentic_db_app_public.agents (id) 
     ON DELETE CASCADE;
 

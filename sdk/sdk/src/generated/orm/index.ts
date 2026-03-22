@@ -5,15 +5,15 @@
  */
 import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
-import { AgentModel } from './models/agent';
 import { AgentChunkModel } from './models/agentChunk';
 import { AgentCollaboratorModel } from './models/agentCollaborator';
+import { AgentModel } from './models/agent';
 import { AgentLogChunkModel } from './models/agentLogChunk';
 import { AgentLogModel } from './models/agentLog';
 import { AgentTaskChunkModel } from './models/agentTaskChunk';
 import { AgentTaskModel } from './models/agentTask';
-import { AutonomyRecordModel } from './models/autonomyRecord';
 import { AutonomyRecordChunkModel } from './models/autonomyRecordChunk';
+import { AutonomyRecordModel } from './models/autonomyRecord';
 import { AutonomyRecordLinkModel } from './models/autonomyRecordLink';
 import { CodebasChunkModel } from './models/codebasChunk';
 import { CodebaseDependencyModel } from './models/codebaseDependency';
@@ -127,15 +127,15 @@ export { NodeHttpAdapter } from './node-fetch';
 export function createClient(config: OrmClientConfig) {
   const client = new OrmClient(config);
   return {
-    agent: new AgentModel(client),
     agentChunk: new AgentChunkModel(client),
     agentCollaborator: new AgentCollaboratorModel(client),
+    agent: new AgentModel(client),
     agentLogChunk: new AgentLogChunkModel(client),
     agentLog: new AgentLogModel(client),
     agentTaskChunk: new AgentTaskChunkModel(client),
     agentTask: new AgentTaskModel(client),
-    autonomyRecord: new AutonomyRecordModel(client),
     autonomyRecordChunk: new AutonomyRecordChunkModel(client),
+    autonomyRecord: new AutonomyRecordModel(client),
     autonomyRecordLink: new AutonomyRecordLinkModel(client),
     codebasChunk: new CodebasChunkModel(client),
     codebaseDependency: new CodebaseDependencyModel(client),

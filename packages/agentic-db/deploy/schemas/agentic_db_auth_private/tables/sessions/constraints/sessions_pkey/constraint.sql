@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_auth_private/tables/sessions/table
 
 
-ALTER TABLE "agentic_db_auth_private".sessions 
+ALTER TABLE agentic_db_auth_private.sessions 
   ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
 

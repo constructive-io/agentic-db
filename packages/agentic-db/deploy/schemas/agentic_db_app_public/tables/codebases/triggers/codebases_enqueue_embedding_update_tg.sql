@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/codebases/table
 -- requires: schemas/agentic_db_private/trigger_fns/codebases_enqueue_embedding
--- requires: schemas/agentic_db_app_public/tables/codebases/columns/embedding_text/column
+-- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
 CREATE TRIGGER codebases_enqueue_embedding_update_tg
-AFTER UPDATE ON "agentic_db_app_public".codebases
+AFTER UPDATE ON agentic_db_app_public.codebases
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".codebases_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.codebases_enqueue_embedding ( );
 

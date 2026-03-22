@@ -62,8 +62,6 @@ enum AgentCollaboratorOrderBy {
   PRIMARY_KEY_DESC
   AGENT_ID_ASC
   AGENT_ID_DESC
-  COLLABORATOR_ID_ASC
-  COLLABORATOR_ID_DESC
   ID_ASC
   ID_DESC
   ENTITY_ID_ASC
@@ -261,10 +259,8 @@ enum AutonomyRecordLinkOrderBy {
   NATURAL
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
-  SOURCE_RECORD_ID_ASC
-  SOURCE_RECORD_ID_DESC
-  TARGET_RECORD_ID_ASC
-  TARGET_RECORD_ID_DESC
+  AUTONOMY_RECORD_ID_ASC
+  AUTONOMY_RECORD_ID_DESC
   ID_ASC
   ID_DESC
   ENTITY_ID_ASC
@@ -344,10 +340,8 @@ enum CodebaseDependencyOrderBy {
   NATURAL
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
-  CODEBASE_ID_ASC
-  CODEBASE_ID_DESC
-  DEPENDENCY_ID_ASC
-  DEPENDENCY_ID_DESC
+  CODEBASIS_ID_ASC
+  CODEBASIS_ID_DESC
   ID_ASC
   ID_DESC
   ENTITY_ID_ASC
@@ -402,8 +396,6 @@ enum CodeChunkOrderBy {
   ID_DESC
   ENTITY_ID_ASC
   ENTITY_ID_DESC
-  CODEBASE_ID_ASC
-  CODEBASE_ID_DESC
   FILE_PATH_ASC
   FILE_PATH_DESC
   LANGUAGE_ASC
@@ -1984,10 +1976,8 @@ enum RuntimeStateDependencyOrderBy {
   NATURAL
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
-  STATE_ID_ASC
-  STATE_ID_DESC
-  DEPENDENCY_ID_ASC
-  DEPENDENCY_ID_DESC
+  RUNTIME_STATE_ID_ASC
+  RUNTIME_STATE_ID_DESC
   ID_ASC
   ID_DESC
   ENTITY_ID_ASC
@@ -2372,8 +2362,6 @@ enum VenueOrderBy {
 type Agent {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   description: String
   systemPrompt: String
@@ -2383,48 +2371,10 @@ type Agent {
   config: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
-  "Reads and enables pagination through a set of `Agent`."
-  agentsByAgentCollaboratorAgentIdAndCollaboratorId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AgentFilter
-    "The method to use when ordering `Agent`."
-    orderBy: [AgentOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AgentAgentsByAgentCollaboratorAgentIdAndCollaboratorIdManyToManyConnection!
-  "Reads and enables pagination through a set of `Agent`."
-  agentsByAgentCollaboratorCollaboratorIdAndAgentId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AgentFilter
-    "The method to use when ordering `Agent`."
-    orderBy: [AgentOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AgentAgentsByAgentCollaboratorCollaboratorIdAndAgentIdManyToManyConnection!
   "Reads and enables pagination through a set of `AgentTask`."
   agentTasks(
     "Only read the first `n` values of the set."
@@ -2545,26 +2495,6 @@ type Agent {
     "The method to use when ordering `AgentCollaborator`."
     orderBy: [AgentCollaboratorOrderBy!] = [PRIMARY_KEY_ASC]
   ): AgentCollaboratorConnection!
-  "Reads and enables pagination through a set of `AgentCollaborator`."
-  agentCollaboratorsByCollaboratorId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AgentCollaboratorFilter
-    "The method to use when ordering `AgentCollaborator`."
-    orderBy: [AgentCollaboratorOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AgentCollaboratorConnection!
   "Reads and enables pagination through a set of `Memory`."
   memories(
     "Only read the first `n` values of the set."
@@ -2605,95 +2535,15 @@ type Agent {
   searchScore: Float
 }
 
-"A connection to a list of `Agent` values, with data from `AgentCollaborator`."
-type AgentAgentsByAgentCollaboratorAgentIdAndCollaboratorIdManyToManyConnection {
-  "A list of `Agent` objects."
-  nodes: [Agent]!
-  "A list of edges which contains the `Agent`, info from the `AgentCollaborator`, and the cursor to aid in pagination."
-  edges: [AgentAgentsByAgentCollaboratorAgentIdAndCollaboratorIdManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Agent` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Agent` edge in the connection, with data from `AgentCollaborator`."
-type AgentAgentsByAgentCollaboratorAgentIdAndCollaboratorIdManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Agent` at the end of the edge."
-  node: Agent
-  "Reads and enables pagination through a set of `AgentCollaborator`."
-  agentCollaboratorsByCollaboratorId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AgentCollaboratorFilter
-    "The method to use when ordering `AgentCollaborator`."
-    orderBy: [AgentCollaboratorOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AgentCollaboratorConnection!
-}
-
-"A connection to a list of `Agent` values, with data from `AgentCollaborator`."
-type AgentAgentsByAgentCollaboratorCollaboratorIdAndAgentIdManyToManyConnection {
-  "A list of `Agent` objects."
-  nodes: [Agent]!
-  "A list of edges which contains the `Agent`, info from the `AgentCollaborator`, and the cursor to aid in pagination."
-  edges: [AgentAgentsByAgentCollaboratorCollaboratorIdAndAgentIdManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Agent` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Agent` edge in the connection, with data from `AgentCollaborator`."
-type AgentAgentsByAgentCollaboratorCollaboratorIdAndAgentIdManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Agent` at the end of the edge."
-  node: Agent
-  "Reads and enables pagination through a set of `AgentCollaborator`."
-  agentCollaboratorsByAgentId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AgentCollaboratorFilter
-    "The method to use when ordering `AgentCollaborator`."
-    orderBy: [AgentCollaboratorOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AgentCollaboratorConnection!
-}
-
 "@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type AgentChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   agentId: UUID!
@@ -2733,13 +2583,10 @@ type AgentChunkEdge {
 
 type AgentCollaborator {
   agentId: UUID!
-  collaboratorId: UUID!
   id: UUID!
   entityId: UUID!
   "Reads a single `Agent` that is related to this `AgentCollaborator`."
   agent: Agent
-  "Reads a single `Agent` that is related to this `AgentCollaborator`."
-  collaborator: Agent
 }
 
 "A connection to a list of `AgentCollaborator` values."
@@ -2786,14 +2633,14 @@ type AgentEdge {
 type AgentLog {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   agentId: UUID!
   level: String!
   message: String!
   context: JSON
   taskId: UUID
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `Agent` that is related to this `AgentLog`."
@@ -2836,11 +2683,11 @@ type AgentLog {
 type AgentLogChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   agentLogId: UUID!
@@ -2902,8 +2749,6 @@ type AgentLogEdge {
 type AgentTask {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   agentId: UUID!
   title: String!
   description: String
@@ -2914,6 +2759,8 @@ type AgentTask {
   completedAt: Datetime
   meta: JSON
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `Agent` that is related to this `AgentTask`."
@@ -2960,11 +2807,11 @@ type AgentTask {
 type AgentTaskChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   agentTaskId: UUID!
@@ -3026,8 +2873,6 @@ type AgentTaskEdge {
 type AutonomyRecord {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   title: String!
   recordType: String
   content: String
@@ -3037,48 +2882,10 @@ type AutonomyRecord {
   context: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
-  "Reads and enables pagination through a set of `AutonomyRecord`."
-  autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AutonomyRecordFilter
-    "The method to use when ordering `AutonomyRecord`."
-    orderBy: [AutonomyRecordOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AutonomyRecordAutonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordIdManyToManyConnection!
-  "Reads and enables pagination through a set of `AutonomyRecord`."
-  autonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AutonomyRecordFilter
-    "The method to use when ordering `AutonomyRecord`."
-    orderBy: [AutonomyRecordOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AutonomyRecordAutonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordIdManyToManyConnection!
   "Reads and enables pagination through a set of `AutonomyRecordChunk`."
   autonomyRecordChunks(
     "Only read the first `n` values of the set."
@@ -3100,27 +2907,7 @@ type AutonomyRecord {
     orderBy: [AutonomyRecordChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): AutonomyRecordChunkConnection!
   "Reads and enables pagination through a set of `AutonomyRecordLink`."
-  autonomyRecordLinksBySourceRecordId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AutonomyRecordLinkFilter
-    "The method to use when ordering `AutonomyRecordLink`."
-    orderBy: [AutonomyRecordLinkOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AutonomyRecordLinkConnection!
-  "Reads and enables pagination through a set of `AutonomyRecordLink`."
-  autonomyRecordLinksByTargetRecordId(
+  autonomyRecordLinks(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -3159,95 +2946,15 @@ type AutonomyRecord {
   searchScore: Float
 }
 
-"A connection to a list of `AutonomyRecord` values, with data from `AutonomyRecordLink`."
-type AutonomyRecordAutonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordIdManyToManyConnection {
-  "A list of `AutonomyRecord` objects."
-  nodes: [AutonomyRecord]!
-  "A list of edges which contains the `AutonomyRecord`, info from the `AutonomyRecordLink`, and the cursor to aid in pagination."
-  edges: [AutonomyRecordAutonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordIdManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `AutonomyRecord` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `AutonomyRecord` edge in the connection, with data from `AutonomyRecordLink`."
-type AutonomyRecordAutonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordIdManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `AutonomyRecord` at the end of the edge."
-  node: AutonomyRecord
-  "Reads and enables pagination through a set of `AutonomyRecordLink`."
-  autonomyRecordLinksByTargetRecordId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AutonomyRecordLinkFilter
-    "The method to use when ordering `AutonomyRecordLink`."
-    orderBy: [AutonomyRecordLinkOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AutonomyRecordLinkConnection!
-}
-
-"A connection to a list of `AutonomyRecord` values, with data from `AutonomyRecordLink`."
-type AutonomyRecordAutonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordIdManyToManyConnection {
-  "A list of `AutonomyRecord` objects."
-  nodes: [AutonomyRecord]!
-  "A list of edges which contains the `AutonomyRecord`, info from the `AutonomyRecordLink`, and the cursor to aid in pagination."
-  edges: [AutonomyRecordAutonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordIdManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `AutonomyRecord` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `AutonomyRecord` edge in the connection, with data from `AutonomyRecordLink`."
-type AutonomyRecordAutonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordIdManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `AutonomyRecord` at the end of the edge."
-  node: AutonomyRecord
-  "Reads and enables pagination through a set of `AutonomyRecordLink`."
-  autonomyRecordLinksBySourceRecordId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AutonomyRecordLinkFilter
-    "The method to use when ordering `AutonomyRecordLink`."
-    orderBy: [AutonomyRecordLinkOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AutonomyRecordLinkConnection!
-}
-
 "@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type AutonomyRecordChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   autonomyRecordId: UUID!
@@ -3306,14 +3013,11 @@ type AutonomyRecordEdge {
 }
 
 type AutonomyRecordLink {
-  sourceRecordId: UUID!
-  targetRecordId: UUID!
+  autonomyRecordId: UUID!
   id: UUID!
   entityId: UUID!
   "Reads a single `AutonomyRecord` that is related to this `AutonomyRecordLink`."
-  sourceRecord: AutonomyRecord
-  "Reads a single `AutonomyRecord` that is related to this `AutonomyRecordLink`."
-  targetRecord: AutonomyRecord
+  autonomyRecord: AutonomyRecord
 }
 
 "A connection to a list of `AutonomyRecordLink` values."
@@ -3340,11 +3044,11 @@ type AutonomyRecordLinkEdge {
 type CodebasChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   codebasisId: UUID!
@@ -3383,14 +3087,11 @@ type CodebasChunkEdge {
 }
 
 type CodebaseDependency {
-  codebaseId: UUID!
-  dependencyId: UUID!
+  codebasisId: UUID!
   id: UUID!
   entityId: UUID!
   "Reads a single `Codebasis` that is related to this `CodebaseDependency`."
-  codebase: Codebasis
-  "Reads a single `Codebasis` that is related to this `CodebaseDependency`."
-  dependency: Codebasis
+  codebasis: Codebasis
 }
 
 "A connection to a list of `CodebaseDependency` values."
@@ -3417,8 +3118,6 @@ type CodebaseDependencyEdge {
 type Codebasis {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   description: String
   repositoryUrl: String
@@ -3429,48 +3128,10 @@ type Codebasis {
   config: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
-  "Reads and enables pagination through a set of `Codebasis`."
-  codebasesByCodebaseDependencyCodebaseIdAndDependencyId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: CodebasisFilter
-    "The method to use when ordering `Codebasis`."
-    orderBy: [CodebasisOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CodebasisCodebasesByCodebaseDependencyCodebaseIdAndDependencyIdManyToManyConnection!
-  "Reads and enables pagination through a set of `Codebasis`."
-  codebasesByCodebaseDependencyDependencyIdAndCodebaseId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: CodebasisFilter
-    "The method to use when ordering `Codebasis`."
-    orderBy: [CodebasisOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CodebasisCodebasesByCodebaseDependencyDependencyIdAndCodebaseIdManyToManyConnection!
   "Reads and enables pagination through a set of `CodeChunk`."
   codeChunks(
     "Only read the first `n` values of the set."
@@ -3512,27 +3173,7 @@ type Codebasis {
     orderBy: [CodebasChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): CodebasChunkConnection!
   "Reads and enables pagination through a set of `CodebaseDependency`."
-  codebaseDependenciesByCodebaseId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: CodebaseDependencyFilter
-    "The method to use when ordering `CodebaseDependency`."
-    orderBy: [CodebaseDependencyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CodebaseDependencyConnection!
-  "Reads and enables pagination through a set of `CodebaseDependency`."
-  codebaseDependenciesByDependencyId(
+  codebaseDependencies(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -3573,86 +3214,6 @@ type Codebasis {
   searchScore: Float
 }
 
-"A connection to a list of `Codebasis` values, with data from `CodebaseDependency`."
-type CodebasisCodebasesByCodebaseDependencyCodebaseIdAndDependencyIdManyToManyConnection {
-  "A list of `Codebasis` objects."
-  nodes: [Codebasis]!
-  "A list of edges which contains the `Codebasis`, info from the `CodebaseDependency`, and the cursor to aid in pagination."
-  edges: [CodebasisCodebasesByCodebaseDependencyCodebaseIdAndDependencyIdManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Codebasis` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Codebasis` edge in the connection, with data from `CodebaseDependency`."
-type CodebasisCodebasesByCodebaseDependencyCodebaseIdAndDependencyIdManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Codebasis` at the end of the edge."
-  node: Codebasis
-  "Reads and enables pagination through a set of `CodebaseDependency`."
-  codebaseDependenciesByDependencyId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: CodebaseDependencyFilter
-    "The method to use when ordering `CodebaseDependency`."
-    orderBy: [CodebaseDependencyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CodebaseDependencyConnection!
-}
-
-"A connection to a list of `Codebasis` values, with data from `CodebaseDependency`."
-type CodebasisCodebasesByCodebaseDependencyDependencyIdAndCodebaseIdManyToManyConnection {
-  "A list of `Codebasis` objects."
-  nodes: [Codebasis]!
-  "A list of edges which contains the `Codebasis`, info from the `CodebaseDependency`, and the cursor to aid in pagination."
-  edges: [CodebasisCodebasesByCodebaseDependencyDependencyIdAndCodebaseIdManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Codebasis` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Codebasis` edge in the connection, with data from `CodebaseDependency`."
-type CodebasisCodebasesByCodebaseDependencyDependencyIdAndCodebaseIdManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Codebasis` at the end of the edge."
-  node: Codebasis
-  "Reads and enables pagination through a set of `CodebaseDependency`."
-  codebaseDependenciesByCodebaseId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: CodebaseDependencyFilter
-    "The method to use when ordering `CodebaseDependency`."
-    orderBy: [CodebaseDependencyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CodebaseDependencyConnection!
-}
-
 "A connection to a list of `Codebasis` values."
 type CodebasisConnection {
   "A list of `Codebasis` objects."
@@ -3677,8 +3238,6 @@ type CodebasisEdge {
 type CodeChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   codebaseId: UUID!
   filePath: String!
   chunkIndex: Int
@@ -3689,6 +3248,8 @@ type CodeChunk {
   symbolName: String
   symbolType: String
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   codebasisId: UUID!
@@ -3738,8 +3299,6 @@ type CodeChunkEdge {
 type Company {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   domain: String
   industry: String
@@ -3747,6 +3306,8 @@ type Company {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime!
+  updatedAt: Datetime!
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
@@ -4016,11 +3577,11 @@ type Company {
 type CompanyChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   companyId: UUID!
@@ -4263,10 +3824,10 @@ type CompanyImagesByCompanyImageCompanyIdAndImageIdManyToManyEdge {
 type CompanyLink {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   title: String
   url: String!
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   companyId: UUID!
@@ -4444,8 +4005,6 @@ type CompanyNotesManyToManyEdge {
 type Contact {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   firstName: String!
   lastName: String
   email: String
@@ -4464,6 +4023,8 @@ type Contact {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime!
+  updatedAt: Datetime!
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
@@ -4853,11 +4414,11 @@ type Contact {
 type ContactChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   contactId: UUID!
@@ -5171,10 +4732,10 @@ type ContactImagesByContactImageContactIdAndImageIdManyToManyEdge {
 type ContactLink {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   title: String
   url: String!
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   contactId: UUID!
@@ -5392,13 +4953,13 @@ type ContactProjectsManyToManyEdge {
 type Conversation {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   title: String!
   agentId: UUID
   status: String
   meta: JSON
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Message`."
@@ -5459,11 +5020,11 @@ type Conversation {
 type ConversationChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   conversationId: UUID!
@@ -7145,8 +6706,6 @@ type CreateVenuePayload {
 type Deal {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   stage: String
   value: BigFloat
@@ -7155,6 +6714,8 @@ type Deal {
   notesText: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Contact`."
@@ -7279,11 +6840,11 @@ type Deal {
 type DealChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   dealId: UUID!
@@ -9107,8 +8668,6 @@ type DeleteVenuePayload {
 type Event {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   eventType: String
   location: String
@@ -9119,6 +8678,8 @@ type Event {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime!
+  updatedAt: Datetime!
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
@@ -9390,11 +8951,11 @@ type Event {
 type EventChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   eventId: UUID!
@@ -9606,10 +9167,10 @@ type EventImagesByEventImageEventIdAndImageIdManyToManyEdge {
 type EventLink {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   title: String
   url: String!
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   eventId: UUID!
@@ -9787,8 +9348,6 @@ type EventVenuesManyToManyEdge {
 type Goal {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   title: String!
   description: String
   category: String
@@ -9799,6 +9358,8 @@ type Goal {
   progress: BigFloat
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Habit`."
@@ -9923,11 +9484,11 @@ type Goal {
 type GoalChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   goalId: UUID!
@@ -10131,8 +9692,6 @@ type GoalProjectsManyToManyEdge {
 type Habit {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   description: String
   frequency: String
@@ -10142,6 +9701,8 @@ type Habit {
   isActive: Boolean
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Goal`."
@@ -10224,11 +9785,11 @@ type Habit {
 type HabitChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   habitId: UUID!
@@ -10330,8 +9891,6 @@ type HabitGoalsManyToManyEdge {
 type HikingTrail {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   description: String
   difficulty: String
@@ -10343,6 +9902,8 @@ type HikingTrail {
   notes: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Trip`."
@@ -10431,11 +9992,11 @@ type HikingTrail {
 type HikingTrailChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   hikingTrailId: UUID!
@@ -10536,12 +10097,12 @@ type HikingTrailTripsManyToManyEdge {
 type Image {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   url: String!
   meta: JSON
   altText: String
   caption: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Contact`."
@@ -10974,8 +10535,6 @@ type ImageVenuesManyToManyEdge {
 type Interaction {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   contactId: UUID!
   type: String!
   occurredAt: Datetime!
@@ -10983,6 +10542,8 @@ type Interaction {
   sentiment: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `Contact` that is related to this `Interaction`."
@@ -11027,11 +10588,11 @@ type Interaction {
 type InteractionChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   interactionId: UUID!
@@ -11093,8 +10654,6 @@ type InteractionEdge {
 type ItineraryItem {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   tripId: UUID!
   name: String!
   description: String
@@ -11107,6 +10666,8 @@ type ItineraryItem {
   notes: String
   sortOrder: Int
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `Place` that is related to this `ItineraryItem`."
@@ -11155,11 +10716,11 @@ type ItineraryItem {
 type ItineraryItemChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   itineraryItemId: UUID!
@@ -11221,8 +10782,6 @@ type ItineraryItemEdge {
 type Memory {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   title: String!
   content: String
   occurredAt: Datetime
@@ -11231,6 +10790,8 @@ type Memory {
   importance: Int
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   agentId: UUID
@@ -11358,11 +10919,11 @@ type Memory {
 type MemoryChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   memoryId: UUID!
@@ -11504,8 +11065,6 @@ type MemoryEdge {
 type Message {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   conversationId: UUID!
   role: String!
   content: String!
@@ -11514,6 +11073,8 @@ type Message {
   toolCalls: JSON
   toolResults: JSON
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `Conversation` that is related to this `Message`."
@@ -11556,11 +11117,11 @@ type Message {
 type MessageChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   messageId: UUID!
@@ -11781,6 +11342,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateCodebaseDependencyInput!
   ): CreateCodebaseDependencyPayload
+  "Creates a single `RuntimeStateDependency`."
+  createRuntimeStateDependency(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRuntimeStateDependencyInput!
+  ): CreateRuntimeStateDependencyPayload
   "Creates a single `CompanyEvent`."
   createCompanyEvent(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11866,11 +11432,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateProjectContactInput!
   ): CreateProjectContactPayload
-  "Creates a single `RuntimeStateDependency`."
-  createRuntimeStateDependency(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRuntimeStateDependencyInput!
-  ): CreateRuntimeStateDependencyPayload
   "Creates a single `TripHikingTrail`."
   createTripHikingTrail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11921,6 +11482,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateToolDefinitionInput!
   ): CreateToolDefinitionPayload
+  "Creates a single `RuntimeSchedule`."
+  createRuntimeSchedule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRuntimeScheduleInput!
+  ): CreateRuntimeSchedulePayload
   "Creates a single `Conversation`."
   createConversation(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11951,6 +11517,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeStateInput!
   ): CreateRuntimeStatePayload
+  "Creates a single `AgentTask`."
+  createAgentTask(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateAgentTaskInput!
+  ): CreateAgentTaskPayload
   "Creates a single `CompanyLink`."
   createCompanyLink(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12101,16 +11672,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateVenueChunkInput!
   ): CreateVenueChunkPayload
-  "Creates a single `AgentTask`."
-  createAgentTask(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateAgentTaskInput!
-  ): CreateAgentTaskPayload
-  "Creates a single `RuntimeSchedule`."
-  createRuntimeSchedule(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRuntimeScheduleInput!
-  ): CreateRuntimeSchedulePayload
   "Creates a single `CodeChunk`."
   createCodeChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12131,11 +11692,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuleInput!
   ): CreateRulePayload
-  "Creates a single `Interaction`."
-  createInteraction(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateInteractionInput!
-  ): CreateInteractionPayload
   "Creates a single `Note`."
   createNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12151,6 +11707,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateCodebasisInput!
   ): CreateCodebasisPayload
+  "Creates a single `Interaction`."
+  createInteraction(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateInteractionInput!
+  ): CreateInteractionPayload
   "Creates a single `Goal`."
   createGoal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12166,16 +11727,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateProjectInput!
   ): CreateProjectPayload
-  "Creates a single `Habit`."
-  createHabit(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateHabitInput!
-  ): CreateHabitPayload
   "Creates a single `Deal`."
   createDeal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateDealInput!
   ): CreateDealPayload
+  "Creates a single `Habit`."
+  createHabit(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateHabitInput!
+  ): CreateHabitPayload
   "Creates a single `Memory`."
   createMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12231,6 +11792,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateCodebaseDependencyInput!
   ): UpdateCodebaseDependencyPayload
+  "Updates a single `RuntimeStateDependency` using a unique key and a patch."
+  updateRuntimeStateDependency(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRuntimeStateDependencyInput!
+  ): UpdateRuntimeStateDependencyPayload
   "Updates a single `CompanyEvent` using a unique key and a patch."
   updateCompanyEvent(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12316,11 +11882,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateProjectContactInput!
   ): UpdateProjectContactPayload
-  "Updates a single `RuntimeStateDependency` using a unique key and a patch."
-  updateRuntimeStateDependency(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuntimeStateDependencyInput!
-  ): UpdateRuntimeStateDependencyPayload
   "Updates a single `TripHikingTrail` using a unique key and a patch."
   updateTripHikingTrail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12371,6 +11932,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateToolDefinitionInput!
   ): UpdateToolDefinitionPayload
+  "Updates a single `RuntimeSchedule` using a unique key and a patch."
+  updateRuntimeSchedule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRuntimeScheduleInput!
+  ): UpdateRuntimeSchedulePayload
   "Updates a single `Conversation` using a unique key and a patch."
   updateConversation(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12401,6 +11967,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeStateInput!
   ): UpdateRuntimeStatePayload
+  "Updates a single `AgentTask` using a unique key and a patch."
+  updateAgentTask(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateAgentTaskInput!
+  ): UpdateAgentTaskPayload
   "Updates a single `CompanyLink` using a unique key and a patch."
   updateCompanyLink(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12551,16 +12122,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateVenueChunkInput!
   ): UpdateVenueChunkPayload
-  "Updates a single `AgentTask` using a unique key and a patch."
-  updateAgentTask(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateAgentTaskInput!
-  ): UpdateAgentTaskPayload
-  "Updates a single `RuntimeSchedule` using a unique key and a patch."
-  updateRuntimeSchedule(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuntimeScheduleInput!
-  ): UpdateRuntimeSchedulePayload
   "Updates a single `CodeChunk` using a unique key and a patch."
   updateCodeChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12581,11 +12142,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuleInput!
   ): UpdateRulePayload
-  "Updates a single `Interaction` using a unique key and a patch."
-  updateInteraction(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateInteractionInput!
-  ): UpdateInteractionPayload
   "Updates a single `Note` using a unique key and a patch."
   updateNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12601,6 +12157,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateCodebasisInput!
   ): UpdateCodebasisPayload
+  "Updates a single `Interaction` using a unique key and a patch."
+  updateInteraction(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateInteractionInput!
+  ): UpdateInteractionPayload
   "Updates a single `Goal` using a unique key and a patch."
   updateGoal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12616,16 +12177,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateProjectInput!
   ): UpdateProjectPayload
-  "Updates a single `Habit` using a unique key and a patch."
-  updateHabit(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateHabitInput!
-  ): UpdateHabitPayload
   "Updates a single `Deal` using a unique key and a patch."
   updateDeal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateDealInput!
   ): UpdateDealPayload
+  "Updates a single `Habit` using a unique key and a patch."
+  updateHabit(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateHabitInput!
+  ): UpdateHabitPayload
   "Updates a single `Memory` using a unique key and a patch."
   updateMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12681,6 +12242,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteCodebaseDependencyInput!
   ): DeleteCodebaseDependencyPayload
+  "Deletes a single `RuntimeStateDependency` using a unique key."
+  deleteRuntimeStateDependency(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRuntimeStateDependencyInput!
+  ): DeleteRuntimeStateDependencyPayload
   "Deletes a single `CompanyEvent` using a unique key."
   deleteCompanyEvent(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12766,11 +12332,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteProjectContactInput!
   ): DeleteProjectContactPayload
-  "Deletes a single `RuntimeStateDependency` using a unique key."
-  deleteRuntimeStateDependency(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuntimeStateDependencyInput!
-  ): DeleteRuntimeStateDependencyPayload
   "Deletes a single `TripHikingTrail` using a unique key."
   deleteTripHikingTrail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12821,6 +12382,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteToolDefinitionInput!
   ): DeleteToolDefinitionPayload
+  "Deletes a single `RuntimeSchedule` using a unique key."
+  deleteRuntimeSchedule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRuntimeScheduleInput!
+  ): DeleteRuntimeSchedulePayload
   "Deletes a single `Conversation` using a unique key."
   deleteConversation(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12851,6 +12417,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeStateInput!
   ): DeleteRuntimeStatePayload
+  "Deletes a single `AgentTask` using a unique key."
+  deleteAgentTask(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteAgentTaskInput!
+  ): DeleteAgentTaskPayload
   "Deletes a single `CompanyLink` using a unique key."
   deleteCompanyLink(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13001,16 +12572,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteVenueChunkInput!
   ): DeleteVenueChunkPayload
-  "Deletes a single `AgentTask` using a unique key."
-  deleteAgentTask(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteAgentTaskInput!
-  ): DeleteAgentTaskPayload
-  "Deletes a single `RuntimeSchedule` using a unique key."
-  deleteRuntimeSchedule(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuntimeScheduleInput!
-  ): DeleteRuntimeSchedulePayload
   "Deletes a single `CodeChunk` using a unique key."
   deleteCodeChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13031,11 +12592,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuleInput!
   ): DeleteRulePayload
-  "Deletes a single `Interaction` using a unique key."
-  deleteInteraction(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteInteractionInput!
-  ): DeleteInteractionPayload
   "Deletes a single `Note` using a unique key."
   deleteNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13051,6 +12607,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteCodebasisInput!
   ): DeleteCodebasisPayload
+  "Deletes a single `Interaction` using a unique key."
+  deleteInteraction(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteInteractionInput!
+  ): DeleteInteractionPayload
   "Deletes a single `Goal` using a unique key."
   deleteGoal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13066,16 +12627,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteProjectInput!
   ): DeleteProjectPayload
-  "Deletes a single `Habit` using a unique key."
-  deleteHabit(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteHabitInput!
-  ): DeleteHabitPayload
   "Deletes a single `Deal` using a unique key."
   deleteDeal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteDealInput!
   ): DeleteDealPayload
+  "Deletes a single `Habit` using a unique key."
+  deleteHabit(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteHabitInput!
+  ): DeleteHabitPayload
   "Deletes a single `Memory` using a unique key."
   deleteMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13122,8 +12683,6 @@ type Mutation {
 type Note {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   content: String!
   abstract: String
   overview: String
@@ -13131,6 +12690,8 @@ type Note {
   lastAccessedAt: Datetime
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Contact`."
@@ -13335,11 +12896,11 @@ type Note {
 type NoteChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   noteId: UUID!
@@ -13573,8 +13134,6 @@ type PageInfo {
 type Place {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   description: String
   address: String
@@ -13585,6 +13144,8 @@ type Place {
   notes: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Trip`."
@@ -13695,11 +13256,11 @@ type Place {
 type PlaceChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   placeId: UUID!
@@ -13801,8 +13362,6 @@ type PlaceTripsByTripPlacePlaceIdAndTripIdManyToManyEdge {
 type Project {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   description: String
   status: String
@@ -13814,6 +13373,8 @@ type Project {
   config: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Contact`."
@@ -13938,11 +13499,11 @@ type Project {
 type ProjectChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   projectId: UUID!
@@ -14173,6 +13734,26 @@ type Query {
     "The method to use when ordering `CodebaseDependency`."
     orderBy: [CodebaseDependencyOrderBy!] = [PRIMARY_KEY_ASC]
   ): CodebaseDependencyConnection
+  "Reads and enables pagination through a set of `RuntimeStateDependency`."
+  runtimeStateDependencies(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RuntimeStateDependencyFilter
+    "The method to use when ordering `RuntimeStateDependency`."
+    orderBy: [RuntimeStateDependencyOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuntimeStateDependencyConnection
   "Reads and enables pagination through a set of `CompanyEvent`."
   companyEvents(
     "Only read the first `n` values of the set."
@@ -14513,26 +14094,6 @@ type Query {
     "The method to use when ordering `ProjectContact`."
     orderBy: [ProjectContactOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectContactConnection
-  "Reads and enables pagination through a set of `RuntimeStateDependency`."
-  runtimeStateDependencies(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeStateDependencyFilter
-    "The method to use when ordering `RuntimeStateDependency`."
-    orderBy: [RuntimeStateDependencyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeStateDependencyConnection
   "Reads and enables pagination through a set of `TripHikingTrail`."
   tripHikingTrails(
     "Only read the first `n` values of the set."
@@ -14733,6 +14294,26 @@ type Query {
     "The method to use when ordering `ToolDefinition`."
     orderBy: [ToolDefinitionOrderBy!] = [PRIMARY_KEY_ASC]
   ): ToolDefinitionConnection
+  "Reads and enables pagination through a set of `RuntimeSchedule`."
+  runtimeSchedules(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RuntimeScheduleFilter
+    "The method to use when ordering `RuntimeSchedule`."
+    orderBy: [RuntimeScheduleOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuntimeScheduleConnection
   "Reads and enables pagination through a set of `Conversation`."
   conversations(
     "Only read the first `n` values of the set."
@@ -14853,6 +14434,26 @@ type Query {
     "The method to use when ordering `RuntimeState`."
     orderBy: [RuntimeStateOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeStateConnection
+  "Reads and enables pagination through a set of `AgentTask`."
+  agentTasks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: AgentTaskFilter
+    "The method to use when ordering `AgentTask`."
+    orderBy: [AgentTaskOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AgentTaskConnection
   "Reads and enables pagination through a set of `CompanyLink`."
   companyLinks(
     "Only read the first `n` values of the set."
@@ -15453,46 +15054,6 @@ type Query {
     "The method to use when ordering `VenueChunk`."
     orderBy: [VenueChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): VenueChunkConnection
-  "Reads and enables pagination through a set of `AgentTask`."
-  agentTasks(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AgentTaskFilter
-    "The method to use when ordering `AgentTask`."
-    orderBy: [AgentTaskOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AgentTaskConnection
-  "Reads and enables pagination through a set of `RuntimeSchedule`."
-  runtimeSchedules(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeScheduleFilter
-    "The method to use when ordering `RuntimeSchedule`."
-    orderBy: [RuntimeScheduleOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeScheduleConnection
   "Reads and enables pagination through a set of `CodeChunk`."
   codeChunks(
     "Only read the first `n` values of the set."
@@ -15573,26 +15134,6 @@ type Query {
     "The method to use when ordering `Rule`."
     orderBy: [RuleOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuleConnection
-  "Reads and enables pagination through a set of `Interaction`."
-  interactions(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: InteractionFilter
-    "The method to use when ordering `Interaction`."
-    orderBy: [InteractionOrderBy!] = [PRIMARY_KEY_ASC]
-  ): InteractionConnection
   "Reads and enables pagination through a set of `Note`."
   notes(
     "Only read the first `n` values of the set."
@@ -15653,6 +15194,26 @@ type Query {
     "The method to use when ordering `Codebasis`."
     orderBy: [CodebasisOrderBy!] = [PRIMARY_KEY_ASC]
   ): CodebasisConnection
+  "Reads and enables pagination through a set of `Interaction`."
+  interactions(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: InteractionFilter
+    "The method to use when ordering `Interaction`."
+    orderBy: [InteractionOrderBy!] = [PRIMARY_KEY_ASC]
+  ): InteractionConnection
   "Reads and enables pagination through a set of `Goal`."
   goals(
     "Only read the first `n` values of the set."
@@ -15713,26 +15274,6 @@ type Query {
     "The method to use when ordering `Project`."
     orderBy: [ProjectOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectConnection
-  "Reads and enables pagination through a set of `Habit`."
-  habits(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: HabitFilter
-    "The method to use when ordering `Habit`."
-    orderBy: [HabitOrderBy!] = [PRIMARY_KEY_ASC]
-  ): HabitConnection
   "Reads and enables pagination through a set of `Deal`."
   deals(
     "Only read the first `n` values of the set."
@@ -15753,6 +15294,26 @@ type Query {
     "The method to use when ordering `Deal`."
     orderBy: [DealOrderBy!] = [PRIMARY_KEY_ASC]
   ): DealConnection
+  "Reads and enables pagination through a set of `Habit`."
+  habits(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: HabitFilter
+    "The method to use when ordering `Habit`."
+    orderBy: [HabitOrderBy!] = [PRIMARY_KEY_ASC]
+  ): HabitConnection
   "Reads and enables pagination through a set of `Memory`."
   memories(
     "Only read the first `n` values of the set."
@@ -15921,8 +15482,6 @@ type Query {
 type Rule {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   description: String
   triggerType: String
@@ -15933,6 +15492,8 @@ type Rule {
   priority: Int
   triggerConcept: String
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   triggerConceptEmbedding: Vector
@@ -15985,11 +15546,11 @@ type Rule {
 type RuleChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   ruleId: UUID!
@@ -16050,14 +15611,14 @@ type RuleEdge {
 type RuntimeArtifact {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   runtimeStateId: UUID!
   name: String!
   artifactType: String
   content: String
   meta: JSON
   sizeBytes: Int
+  createdAt: Datetime!
+  updatedAt: Datetime!
   "Reads a single `RuntimeState` that is related to this `RuntimeArtifact`."
   runtimeState: RuntimeState
 }
@@ -16085,12 +15646,12 @@ type RuntimeArtifactEdge {
 type RuntimeConfig {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   key: String!
   value: JSON
   description: String
   isSecret: Boolean
+  createdAt: Datetime!
+  updatedAt: Datetime!
 }
 
 "A connection to a list of `RuntimeConfig` values."
@@ -16116,13 +15677,13 @@ type RuntimeConfigEdge {
 type RuntimeEvent {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   eventType: String!
   payload: JSON!
   source: String
   processedAt: Datetime
   status: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
 }
 
 "A connection to a list of `RuntimeEvent` values."
@@ -16149,14 +15710,14 @@ type RuntimeEventEdge {
 type RuntimeLog {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   runtimeStateId: UUID!
   level: String!
   message: String!
   context: JSON
   stepIndex: Int
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `RuntimeState` that is related to this `RuntimeLog`."
@@ -16199,11 +15760,11 @@ type RuntimeLog {
 type RuntimeLogChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   runtimeLogId: UUID!
@@ -16264,13 +15825,13 @@ type RuntimeLogEdge {
 type RuntimeMetric {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   runtimeStateId: UUID!
   metricName: String!
   metricValue: BigFloat!
   unit: String
   meta: JSON
+  createdAt: Datetime!
+  updatedAt: Datetime!
   "Reads a single `RuntimeState` that is related to this `RuntimeMetric`."
   runtimeState: RuntimeState
 }
@@ -16298,8 +15859,6 @@ type RuntimeMetricEdge {
 type RuntimeSchedule {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   cronExpression: String
   nextRunAt: Datetime
@@ -16307,6 +15866,8 @@ type RuntimeSchedule {
   isActive: Boolean
   config: JSON
   timezone: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
 }
 
 "A connection to a list of `RuntimeSchedule` values."
@@ -16333,8 +15894,6 @@ type RuntimeScheduleEdge {
 type RuntimeState {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   stateType: String
   status: String
@@ -16343,48 +15902,10 @@ type RuntimeState {
   startedAt: Datetime
   endedAt: Datetime
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
-  "Reads and enables pagination through a set of `RuntimeState`."
-  runtimeStatesByRuntimeStateDependencyDependencyIdAndStateId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeStateFilter
-    "The method to use when ordering `RuntimeState`."
-    orderBy: [RuntimeStateOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeStateRuntimeStatesByRuntimeStateDependencyDependencyIdAndStateIdManyToManyConnection!
-  "Reads and enables pagination through a set of `RuntimeState`."
-  runtimeStatesByRuntimeStateDependencyStateIdAndDependencyId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeStateFilter
-    "The method to use when ordering `RuntimeState`."
-    orderBy: [RuntimeStateOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeStateRuntimeStatesByRuntimeStateDependencyStateIdAndDependencyIdManyToManyConnection!
   "Reads and enables pagination through a set of `RuntimeLog`."
   runtimeLogs(
     "Only read the first `n` values of the set."
@@ -16466,27 +15987,7 @@ type RuntimeState {
     orderBy: [RuntimeStateChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeStateChunkConnection!
   "Reads and enables pagination through a set of `RuntimeStateDependency`."
-  runtimeStateDependenciesByDependencyId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeStateDependencyFilter
-    "The method to use when ordering `RuntimeStateDependency`."
-    orderBy: [RuntimeStateDependencyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeStateDependencyConnection!
-  "Reads and enables pagination through a set of `RuntimeStateDependency`."
-  runtimeStateDependenciesByStateId(
+  runtimeStateDependencies(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -16525,11 +16026,11 @@ type RuntimeState {
 type RuntimeStateChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   runtimeStateId: UUID!
@@ -16580,14 +16081,11 @@ type RuntimeStateConnection {
 }
 
 type RuntimeStateDependency {
-  stateId: UUID!
-  dependencyId: UUID!
+  runtimeStateId: UUID!
   id: UUID!
   entityId: UUID!
   "Reads a single `RuntimeState` that is related to this `RuntimeStateDependency`."
-  dependency: RuntimeState
-  "Reads a single `RuntimeState` that is related to this `RuntimeStateDependency`."
-  state: RuntimeState
+  runtimeState: RuntimeState
 }
 
 "A connection to a list of `RuntimeStateDependency` values."
@@ -16618,92 +16116,10 @@ type RuntimeStateEdge {
   node: RuntimeState
 }
 
-"A connection to a list of `RuntimeState` values, with data from `RuntimeStateDependency`."
-type RuntimeStateRuntimeStatesByRuntimeStateDependencyDependencyIdAndStateIdManyToManyConnection {
-  "A list of `RuntimeState` objects."
-  nodes: [RuntimeState]!
-  "A list of edges which contains the `RuntimeState`, info from the `RuntimeStateDependency`, and the cursor to aid in pagination."
-  edges: [RuntimeStateRuntimeStatesByRuntimeStateDependencyDependencyIdAndStateIdManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `RuntimeState` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `RuntimeState` edge in the connection, with data from `RuntimeStateDependency`."
-type RuntimeStateRuntimeStatesByRuntimeStateDependencyDependencyIdAndStateIdManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `RuntimeState` at the end of the edge."
-  node: RuntimeState
-  "Reads and enables pagination through a set of `RuntimeStateDependency`."
-  runtimeStateDependenciesByStateId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeStateDependencyFilter
-    "The method to use when ordering `RuntimeStateDependency`."
-    orderBy: [RuntimeStateDependencyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeStateDependencyConnection!
-}
-
-"A connection to a list of `RuntimeState` values, with data from `RuntimeStateDependency`."
-type RuntimeStateRuntimeStatesByRuntimeStateDependencyStateIdAndDependencyIdManyToManyConnection {
-  "A list of `RuntimeState` objects."
-  nodes: [RuntimeState]!
-  "A list of edges which contains the `RuntimeState`, info from the `RuntimeStateDependency`, and the cursor to aid in pagination."
-  edges: [RuntimeStateRuntimeStatesByRuntimeStateDependencyStateIdAndDependencyIdManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `RuntimeState` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `RuntimeState` edge in the connection, with data from `RuntimeStateDependency`."
-type RuntimeStateRuntimeStatesByRuntimeStateDependencyStateIdAndDependencyIdManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `RuntimeState` at the end of the edge."
-  node: RuntimeState
-  "Reads and enables pagination through a set of `RuntimeStateDependency`."
-  runtimeStateDependenciesByDependencyId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeStateDependencyFilter
-    "The method to use when ordering `RuntimeStateDependency`."
-    orderBy: [RuntimeStateDependencyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeStateDependencyConnection!
-}
-
 "@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Skill {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   description: String
   category: String
@@ -16712,6 +16128,8 @@ type Skill {
   isActive: Boolean
   intentTrigger: String
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   intentTriggerEmbedding: Vector
@@ -16764,11 +16182,11 @@ type Skill {
 type SkillChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   skillId: UUID!
@@ -16829,12 +16247,12 @@ type SkillEdge {
 type Tag {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   color: String
   category: String
   usageCount: Int
+  createdAt: Datetime!
+  updatedAt: Datetime!
 }
 
 "A connection to a list of `Tag` values."
@@ -16860,14 +16278,14 @@ type TagEdge {
 type ToolDefinition {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   description: String
   inputSchema: JSON
   outputSchema: JSON
   implementation: String
   isActive: Boolean
+  createdAt: Datetime!
+  updatedAt: Datetime!
   "Reads and enables pagination through a set of `ToolExecution`."
   toolExecutions(
     "Only read the first `n` values of the set."
@@ -16913,8 +16331,6 @@ type ToolDefinitionEdge {
 type ToolExecution {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   toolDefinitionId: UUID!
   messageId: UUID
   input: JSON
@@ -16923,6 +16339,8 @@ type ToolExecution {
   startedAt: Datetime
   completedAt: Datetime
   error: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   "Reads a single `ToolDefinition` that is related to this `ToolExecution`."
   toolDefinition: ToolDefinition
 }
@@ -16951,8 +16369,6 @@ type ToolExecutionEdge {
 type Trip {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   description: String
   destination: String
@@ -16963,6 +16379,8 @@ type Trip {
   currency: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Place`."
@@ -17109,11 +16527,11 @@ type Trip {
 type TripChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   tripId: UUID!
@@ -18937,8 +18355,6 @@ type UpdateVenuePayload {
 type Venue {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   name: String!
   address: String
   neighborhood: String
@@ -18953,6 +18369,8 @@ type Venue {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime!
+  updatedAt: Datetime!
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
@@ -19112,11 +18530,11 @@ type Venue {
 type VenueChunk {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   venueId: UUID!
@@ -19288,10 +18706,10 @@ type VenueImagesByVenueImageVenueIdAndImageIdManyToManyEdge {
 type VenueLink {
   id: UUID!
   entityId: UUID!
-  createdAt: Datetime!
-  updatedAt: Datetime!
   title: String
   url: String!
+  createdAt: Datetime!
+  updatedAt: Datetime!
   embedding: Vector
   embeddingStale: Boolean!
   venueId: UUID!
@@ -19329,16 +18747,16 @@ input AgentChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -19374,11 +18792,11 @@ input AgentChunkFilter {
 input AgentChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   agentId: UUID!
@@ -19388,11 +18806,11 @@ input AgentChunkInput {
 input AgentChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   agentId: UUID
@@ -19402,8 +18820,6 @@ input AgentChunkPatch {
 input AgentCollaboratorFilter {
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
-  "Filter by the object’s `collaboratorId` field."
-  collaboratorId: UUIDFilter
   "Filter by the object’s `id` field."
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
@@ -19416,14 +18832,11 @@ input AgentCollaboratorFilter {
   not: AgentCollaboratorFilter
   "Filter by the object’s `agent` relation."
   agent: AgentFilter
-  "Filter by the object’s `collaborator` relation."
-  collaborator: AgentFilter
 }
 
 "An input for mutations affecting `AgentCollaborator`"
 input AgentCollaboratorInput {
   agentId: UUID!
-  collaboratorId: UUID!
   id: UUID
   entityId: UUID!
 }
@@ -19431,7 +18844,6 @@ input AgentCollaboratorInput {
 "Represents an update to a `AgentCollaborator`. Fields that are set will be updated."
 input AgentCollaboratorPatch {
   agentId: UUID
-  collaboratorId: UUID
   id: UUID
   entityId: UUID
 }
@@ -19442,10 +18854,6 @@ input AgentFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `description` field."
@@ -19464,6 +18872,10 @@ input AgentFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -19498,10 +18910,6 @@ input AgentFilter {
   agentCollaborators: AgentToManyAgentCollaboratorFilter
   "`agentCollaborators` exist."
   agentCollaboratorsExist: Boolean
-  "Filter by the object’s `agentCollaboratorsByCollaboratorId` relation."
-  agentCollaboratorsByCollaboratorId: AgentToManyAgentCollaboratorFilter
-  "`agentCollaboratorsByCollaboratorId` exist."
-  agentCollaboratorsByCollaboratorIdExist: Boolean
   "Filter by the object’s `memories` relation."
   memories: AgentToManyMemoryFilter
   "`memories` exist."
@@ -19535,8 +18943,6 @@ input AgentFilter {
 input AgentInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   description: String
   systemPrompt: String
@@ -19546,6 +18952,8 @@ input AgentInput {
   config: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19556,16 +18964,16 @@ input AgentLogChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -19601,11 +19009,11 @@ input AgentLogChunkFilter {
 input AgentLogChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   agentLogId: UUID!
@@ -19615,11 +19023,11 @@ input AgentLogChunkInput {
 input AgentLogChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   agentLogId: UUID
@@ -19631,10 +19039,6 @@ input AgentLogFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
   "Filter by the object’s `level` field."
@@ -19647,6 +19051,10 @@ input AgentLogFilter {
   taskId: UUIDFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -19686,14 +19094,14 @@ input AgentLogFilter {
 input AgentLogInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   agentId: UUID!
   level: String!
   message: String!
   context: JSON
   taskId: UUID
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19702,14 +19110,14 @@ input AgentLogInput {
 input AgentLogPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   agentId: UUID
   level: String
   message: String
   context: JSON
   taskId: UUID
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19728,8 +19136,6 @@ input AgentLogToManyAgentLogChunkFilter {
 input AgentPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   description: String
   systemPrompt: String
@@ -19739,6 +19145,8 @@ input AgentPatch {
   config: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19749,16 +19157,16 @@ input AgentTaskChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -19794,11 +19202,11 @@ input AgentTaskChunkFilter {
 input AgentTaskChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   agentTaskId: UUID!
@@ -19808,11 +19216,11 @@ input AgentTaskChunkInput {
 input AgentTaskChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   agentTaskId: UUID
@@ -19824,10 +19232,6 @@ input AgentTaskFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
   "Filter by the object’s `title` field."
@@ -19848,6 +19252,10 @@ input AgentTaskFilter {
   meta: JSONFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -19891,8 +19299,6 @@ input AgentTaskFilter {
 input AgentTaskInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   agentId: UUID!
   title: String!
   description: String
@@ -19903,6 +19309,8 @@ input AgentTaskInput {
   completedAt: Datetime
   meta: JSON
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19911,8 +19319,6 @@ input AgentTaskInput {
 input AgentTaskPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   agentId: UUID
   title: String
   description: String
@@ -19923,6 +19329,8 @@ input AgentTaskPatch {
   completedAt: Datetime
   meta: JSON
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -20013,16 +19421,16 @@ input AutonomyRecordChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -20058,11 +19466,11 @@ input AutonomyRecordChunkFilter {
 input AutonomyRecordChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   autonomyRecordId: UUID!
@@ -20072,11 +19480,11 @@ input AutonomyRecordChunkInput {
 input AutonomyRecordChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   autonomyRecordId: UUID
@@ -20088,10 +19496,6 @@ input AutonomyRecordFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `title` field."
   title: StringTrgmFilter
   "Filter by the object’s `recordType` field."
@@ -20110,6 +19514,10 @@ input AutonomyRecordFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -20124,14 +19532,10 @@ input AutonomyRecordFilter {
   autonomyRecordChunks: AutonomyRecordToManyAutonomyRecordChunkFilter
   "`autonomyRecordChunks` exist."
   autonomyRecordChunksExist: Boolean
-  "Filter by the object’s `autonomyRecordLinksBySourceRecordId` relation."
-  autonomyRecordLinksBySourceRecordId: AutonomyRecordToManyAutonomyRecordLinkFilter
-  "`autonomyRecordLinksBySourceRecordId` exist."
-  autonomyRecordLinksBySourceRecordIdExist: Boolean
-  "Filter by the object’s `autonomyRecordLinksByTargetRecordId` relation."
-  autonomyRecordLinksByTargetRecordId: AutonomyRecordToManyAutonomyRecordLinkFilter
-  "`autonomyRecordLinksByTargetRecordId` exist."
-  autonomyRecordLinksByTargetRecordIdExist: Boolean
+  "Filter by the object’s `autonomyRecordLinks` relation."
+  autonomyRecordLinks: AutonomyRecordToManyAutonomyRecordLinkFilter
+  "`autonomyRecordLinks` exist."
+  autonomyRecordLinksExist: Boolean
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -20161,8 +19565,6 @@ input AutonomyRecordFilter {
 input AutonomyRecordInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String!
   recordType: String
   content: String
@@ -20172,16 +19574,16 @@ input AutonomyRecordInput {
   context: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
 
 "A filter to be used against `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’"
 input AutonomyRecordLinkFilter {
-  "Filter by the object’s `sourceRecordId` field."
-  sourceRecordId: UUIDFilter
-  "Filter by the object’s `targetRecordId` field."
-  targetRecordId: UUIDFilter
+  "Filter by the object’s `autonomyRecordId` field."
+  autonomyRecordId: UUIDFilter
   "Filter by the object’s `id` field."
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
@@ -20192,24 +19594,20 @@ input AutonomyRecordLinkFilter {
   or: [AutonomyRecordLinkFilter!]
   "Negates the expression."
   not: AutonomyRecordLinkFilter
-  "Filter by the object’s `sourceRecord` relation."
-  sourceRecord: AutonomyRecordFilter
-  "Filter by the object’s `targetRecord` relation."
-  targetRecord: AutonomyRecordFilter
+  "Filter by the object’s `autonomyRecord` relation."
+  autonomyRecord: AutonomyRecordFilter
 }
 
 "An input for mutations affecting `AutonomyRecordLink`"
 input AutonomyRecordLinkInput {
-  sourceRecordId: UUID!
-  targetRecordId: UUID!
+  autonomyRecordId: UUID!
   id: UUID
   entityId: UUID!
 }
 
 "Represents an update to a `AutonomyRecordLink`. Fields that are set will be updated."
 input AutonomyRecordLinkPatch {
-  sourceRecordId: UUID
-  targetRecordId: UUID
+  autonomyRecordId: UUID
   id: UUID
   entityId: UUID
 }
@@ -20218,8 +19616,6 @@ input AutonomyRecordLinkPatch {
 input AutonomyRecordPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   recordType: String
   content: String
@@ -20229,6 +19625,8 @@ input AutonomyRecordPatch {
   context: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -20319,16 +19717,16 @@ input CodebasChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -20364,11 +19762,11 @@ input CodebasChunkFilter {
 input CodebasChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   codebasisId: UUID!
@@ -20378,11 +19776,11 @@ input CodebasChunkInput {
 input CodebasChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   codebasisId: UUID
@@ -20390,10 +19788,8 @@ input CodebasChunkPatch {
 
 "A filter to be used against `CodebaseDependency` object types. All fields are combined with a logical ‘and.’"
 input CodebaseDependencyFilter {
-  "Filter by the object’s `codebaseId` field."
-  codebaseId: UUIDFilter
-  "Filter by the object’s `dependencyId` field."
-  dependencyId: UUIDFilter
+  "Filter by the object’s `codebasisId` field."
+  codebasisId: UUIDFilter
   "Filter by the object’s `id` field."
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
@@ -20404,24 +19800,20 @@ input CodebaseDependencyFilter {
   or: [CodebaseDependencyFilter!]
   "Negates the expression."
   not: CodebaseDependencyFilter
-  "Filter by the object’s `codebase` relation."
-  codebase: CodebasisFilter
-  "Filter by the object’s `dependency` relation."
-  dependency: CodebasisFilter
+  "Filter by the object’s `codebasis` relation."
+  codebasis: CodebasisFilter
 }
 
 "An input for mutations affecting `CodebaseDependency`"
 input CodebaseDependencyInput {
-  codebaseId: UUID!
-  dependencyId: UUID!
+  codebasisId: UUID!
   id: UUID
   entityId: UUID!
 }
 
 "Represents an update to a `CodebaseDependency`. Fields that are set will be updated."
 input CodebaseDependencyPatch {
-  codebaseId: UUID
-  dependencyId: UUID
+  codebasisId: UUID
   id: UUID
   entityId: UUID
 }
@@ -20432,10 +19824,6 @@ input CodebasisFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `description` field."
@@ -20456,6 +19844,10 @@ input CodebasisFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -20474,14 +19866,10 @@ input CodebasisFilter {
   codebasChunks: CodebasisToManyCodebasChunkFilter
   "`codebasChunks` exist."
   codebasChunksExist: Boolean
-  "Filter by the object’s `codebaseDependenciesByCodebaseId` relation."
-  codebaseDependenciesByCodebaseId: CodebasisToManyCodebaseDependencyFilter
-  "`codebaseDependenciesByCodebaseId` exist."
-  codebaseDependenciesByCodebaseIdExist: Boolean
-  "Filter by the object’s `codebaseDependenciesByDependencyId` relation."
-  codebaseDependenciesByDependencyId: CodebasisToManyCodebaseDependencyFilter
-  "`codebaseDependenciesByDependencyId` exist."
-  codebaseDependenciesByDependencyIdExist: Boolean
+  "Filter by the object’s `codebaseDependencies` relation."
+  codebaseDependencies: CodebasisToManyCodebaseDependencyFilter
+  "`codebaseDependencies` exist."
+  codebaseDependenciesExist: Boolean
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -20513,8 +19901,6 @@ input CodebasisFilter {
 input CodebasisInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   description: String
   repositoryUrl: String
@@ -20525,6 +19911,8 @@ input CodebasisInput {
   config: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -20533,8 +19921,6 @@ input CodebasisInput {
 input CodebasisPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   description: String
   repositoryUrl: String
@@ -20545,6 +19931,8 @@ input CodebasisPatch {
   config: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -20585,10 +19973,6 @@ input CodeChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `codebaseId` field."
   codebaseId: UUIDFilter
   "Filter by the object’s `filePath` field."
@@ -20609,6 +19993,10 @@ input CodeChunkFilter {
   symbolType: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -20652,8 +20040,6 @@ input CodeChunkFilter {
 input CodeChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   codebaseId: UUID!
   filePath: String!
   chunkIndex: Int
@@ -20664,6 +20050,8 @@ input CodeChunkInput {
   symbolName: String
   symbolType: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   codebasisId: UUID!
@@ -20673,8 +20061,6 @@ input CodeChunkInput {
 input CodeChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   codebaseId: UUID
   filePath: String
   chunkIndex: Int
@@ -20685,6 +20071,8 @@ input CodeChunkPatch {
   symbolName: String
   symbolType: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   codebasisId: UUID
@@ -20696,16 +20084,16 @@ input CompanyChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -20741,11 +20129,11 @@ input CompanyChunkFilter {
 input CompanyChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   companyId: UUID!
@@ -20755,11 +20143,11 @@ input CompanyChunkInput {
 input CompanyChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   companyId: UUID
@@ -20809,10 +20197,6 @@ input CompanyFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `domain` field."
@@ -20827,6 +20211,10 @@ input CompanyFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `mainImageId` field."
   mainImageId: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -20938,8 +20326,6 @@ input CompanyImagePatch {
 input CompanyInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   domain: String
   industry: String
@@ -20947,6 +20333,8 @@ input CompanyInput {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -20957,14 +20345,14 @@ input CompanyLinkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `title` field."
   title: StringFilter
   "Filter by the object’s `url` field."
   url: StringFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -20987,10 +20375,10 @@ input CompanyLinkFilter {
 input CompanyLinkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   url: String!
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   companyId: UUID!
@@ -21000,10 +20388,10 @@ input CompanyLinkInput {
 input CompanyLinkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   url: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   companyId: UUID
@@ -21089,8 +20477,6 @@ input CompanyNotePatch {
 input CompanyPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   domain: String
   industry: String
@@ -21098,6 +20484,8 @@ input CompanyPatch {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -21178,16 +20566,16 @@ input ContactChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -21223,11 +20611,11 @@ input ContactChunkFilter {
 input ContactChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   contactId: UUID!
@@ -21237,11 +20625,11 @@ input ContactChunkInput {
 input ContactChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   contactId: UUID
@@ -21329,10 +20717,6 @@ input ContactFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `firstName` field."
   firstName: StringTrgmFilter
   "Filter by the object’s `lastName` field."
@@ -21369,6 +20753,10 @@ input ContactFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `mainImageId` field."
   mainImageId: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -21512,8 +20900,6 @@ input ContactImagePatch {
 input ContactInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   firstName: String!
   lastName: String
   email: String
@@ -21532,6 +20918,8 @@ input ContactInput {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -21542,14 +20930,14 @@ input ContactLinkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `title` field."
   title: StringFilter
   "Filter by the object’s `url` field."
   url: StringFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -21572,10 +20960,10 @@ input ContactLinkFilter {
 input ContactLinkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   url: String!
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   contactId: UUID!
@@ -21585,10 +20973,10 @@ input ContactLinkInput {
 input ContactLinkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   url: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   contactId: UUID
@@ -21674,8 +21062,6 @@ input ContactNotePatch {
 input ContactPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   firstName: String
   lastName: String
   email: String
@@ -21694,6 +21080,8 @@ input ContactPatch {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -21804,16 +21192,16 @@ input ConversationChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -21849,11 +21237,11 @@ input ConversationChunkFilter {
 input ConversationChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   conversationId: UUID!
@@ -21863,11 +21251,11 @@ input ConversationChunkInput {
 input ConversationChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   conversationId: UUID
@@ -21879,10 +21267,6 @@ input ConversationFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `title` field."
   title: StringTrgmFilter
   "Filter by the object’s `agentId` field."
@@ -21893,6 +21277,10 @@ input ConversationFilter {
   meta: JSONFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -21934,13 +21322,13 @@ input ConversationFilter {
 input ConversationInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String!
   agentId: UUID
   status: String
   meta: JSON
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -21949,13 +21337,13 @@ input ConversationInput {
 input ConversationPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   agentId: UUID
   status: String
   meta: JSON
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -23028,16 +22416,16 @@ input DealChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -23073,11 +22461,11 @@ input DealChunkFilter {
 input DealChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   dealId: UUID!
@@ -23087,11 +22475,11 @@ input DealChunkInput {
 input DealChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   dealId: UUID
@@ -23141,10 +22529,6 @@ input DealFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `stage` field."
@@ -23161,6 +22545,10 @@ input DealFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -23210,8 +22598,6 @@ input DealFilter {
 input DealInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   stage: String
   value: BigFloat
@@ -23220,6 +22606,8 @@ input DealInput {
   notesText: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -23266,8 +22654,6 @@ input DealNotePatch {
 input DealPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   stage: String
   value: BigFloat
@@ -23276,6 +22662,8 @@ input DealPatch {
   notesText: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24216,16 +23604,16 @@ input EventChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -24261,11 +23649,11 @@ input EventChunkFilter {
 input EventChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   eventId: UUID!
@@ -24275,11 +23663,11 @@ input EventChunkInput {
 input EventChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   eventId: UUID
@@ -24291,10 +23679,6 @@ input EventFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `eventType` field."
@@ -24315,6 +23699,10 @@ input EventFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `mainImageId` field."
   mainImageId: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -24428,8 +23816,6 @@ input EventImagePatch {
 input EventInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   eventType: String
   location: String
@@ -24440,6 +23826,8 @@ input EventInput {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24450,14 +23838,14 @@ input EventLinkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `title` field."
   title: StringFilter
   "Filter by the object’s `url` field."
   url: StringFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -24480,10 +23868,10 @@ input EventLinkFilter {
 input EventLinkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   url: String!
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   eventId: UUID!
@@ -24493,10 +23881,10 @@ input EventLinkInput {
 input EventLinkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   url: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   eventId: UUID
@@ -24544,8 +23932,6 @@ input EventNotePatch {
 input EventPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   eventType: String
   location: String
@@ -24556,6 +23942,8 @@ input EventPatch {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24694,16 +24082,16 @@ input GoalChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -24739,11 +24127,11 @@ input GoalChunkFilter {
 input GoalChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   goalId: UUID!
@@ -24753,11 +24141,11 @@ input GoalChunkInput {
 input GoalChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   goalId: UUID
@@ -24769,10 +24157,6 @@ input GoalFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `title` field."
   title: StringTrgmFilter
   "Filter by the object’s `description` field."
@@ -24793,6 +24177,10 @@ input GoalFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -24880,8 +24268,6 @@ input GoalHabitPatch {
 input GoalInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String!
   description: String
   category: String
@@ -24892,6 +24278,8 @@ input GoalInput {
   progress: BigFloat
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24900,8 +24288,6 @@ input GoalInput {
 input GoalPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   description: String
   category: String
@@ -24912,6 +24298,8 @@ input GoalPatch {
   progress: BigFloat
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24990,16 +24378,16 @@ input HabitChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25035,11 +24423,11 @@ input HabitChunkFilter {
 input HabitChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   habitId: UUID!
@@ -25049,11 +24437,11 @@ input HabitChunkInput {
 input HabitChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   habitId: UUID
@@ -25065,10 +24453,6 @@ input HabitFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `description` field."
@@ -25087,6 +24471,10 @@ input HabitFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25130,8 +24518,6 @@ input HabitFilter {
 input HabitInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   description: String
   frequency: String
@@ -25141,6 +24527,8 @@ input HabitInput {
   isActive: Boolean
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25149,8 +24537,6 @@ input HabitInput {
 input HabitPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   description: String
   frequency: String
@@ -25160,6 +24546,8 @@ input HabitPatch {
   isActive: Boolean
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25190,16 +24578,16 @@ input HikingTrailChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25235,11 +24623,11 @@ input HikingTrailChunkFilter {
 input HikingTrailChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   hikingTrailId: UUID!
@@ -25249,11 +24637,11 @@ input HikingTrailChunkInput {
 input HikingTrailChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   hikingTrailId: UUID
@@ -25265,10 +24653,6 @@ input HikingTrailFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `description` field."
@@ -25291,6 +24675,10 @@ input HikingTrailFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25340,8 +24728,6 @@ input HikingTrailFilter {
 input HikingTrailInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   description: String
   difficulty: String
@@ -25353,6 +24739,8 @@ input HikingTrailInput {
   notes: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25361,8 +24749,6 @@ input HikingTrailInput {
 input HikingTrailPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   description: String
   difficulty: String
@@ -25374,6 +24760,8 @@ input HikingTrailPatch {
   notes: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25404,10 +24792,6 @@ input ImageFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `url` field."
   url: StringFilter
   "Filter by the object’s `meta` field."
@@ -25416,6 +24800,10 @@ input ImageFilter {
   altText: StringFilter
   "Filter by the object’s `caption` field."
   caption: StringFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25466,12 +24854,12 @@ input ImageFilter {
 input ImageInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   url: String!
   meta: JSON
   altText: String
   caption: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25480,12 +24868,12 @@ input ImageInput {
 input ImagePatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   url: String
   meta: JSON
   altText: String
   caption: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25576,16 +24964,16 @@ input InteractionChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25621,11 +25009,11 @@ input InteractionChunkFilter {
 input InteractionChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   interactionId: UUID!
@@ -25635,11 +25023,11 @@ input InteractionChunkInput {
 input InteractionChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   interactionId: UUID
@@ -25651,10 +25039,6 @@ input InteractionFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `contactId` field."
   contactId: UUIDFilter
   "Filter by the object’s `type` field."
@@ -25669,6 +25053,10 @@ input InteractionFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25710,8 +25098,6 @@ input InteractionFilter {
 input InteractionInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   contactId: UUID!
   type: String!
   occurredAt: Datetime!
@@ -25719,6 +25105,8 @@ input InteractionInput {
   sentiment: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25727,8 +25115,6 @@ input InteractionInput {
 input InteractionPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   contactId: UUID
   type: String
   occurredAt: Datetime
@@ -25736,6 +25122,8 @@ input InteractionPatch {
   sentiment: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25782,16 +25170,16 @@ input ItineraryItemChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25827,11 +25215,11 @@ input ItineraryItemChunkFilter {
 input ItineraryItemChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   itineraryItemId: UUID!
@@ -25841,11 +25229,11 @@ input ItineraryItemChunkInput {
 input ItineraryItemChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   itineraryItemId: UUID
@@ -25857,10 +25245,6 @@ input ItineraryItemFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `tripId` field."
   tripId: UUIDFilter
   "Filter by the object’s `name` field."
@@ -25885,6 +25269,10 @@ input ItineraryItemFilter {
   sortOrder: IntFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25932,8 +25320,6 @@ input ItineraryItemFilter {
 input ItineraryItemInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   tripId: UUID!
   name: String!
   description: String
@@ -25946,6 +25332,8 @@ input ItineraryItemInput {
   notes: String
   sortOrder: Int
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25954,8 +25342,6 @@ input ItineraryItemInput {
 input ItineraryItemPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   tripId: UUID
   name: String
   description: String
@@ -25968,6 +25354,8 @@ input ItineraryItemPatch {
   notes: String
   sortOrder: Int
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26024,16 +25412,16 @@ input MemoryChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26069,11 +25457,11 @@ input MemoryChunkFilter {
 input MemoryChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   memoryId: UUID!
@@ -26083,11 +25471,11 @@ input MemoryChunkInput {
 input MemoryChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   memoryId: UUID
@@ -26099,10 +25487,6 @@ input MemoryFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `title` field."
   title: StringTrgmFilter
   "Filter by the object’s `content` field."
@@ -26119,6 +25503,10 @@ input MemoryFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26174,8 +25562,6 @@ input MemoryFilter {
 input MemoryInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String!
   content: String
   occurredAt: Datetime
@@ -26184,6 +25570,8 @@ input MemoryInput {
   importance: Int
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   agentId: UUID
@@ -26193,8 +25581,6 @@ input MemoryInput {
 input MemoryPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   content: String
   occurredAt: Datetime
@@ -26203,6 +25589,8 @@ input MemoryPatch {
   importance: Int
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   agentId: UUID
@@ -26244,16 +25632,16 @@ input MessageChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26289,11 +25677,11 @@ input MessageChunkFilter {
 input MessageChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   messageId: UUID!
@@ -26303,11 +25691,11 @@ input MessageChunkInput {
 input MessageChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   messageId: UUID
@@ -26319,10 +25707,6 @@ input MessageFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `conversationId` field."
   conversationId: UUIDFilter
   "Filter by the object’s `role` field."
@@ -26339,6 +25723,10 @@ input MessageFilter {
   toolResults: JSONFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26378,8 +25766,6 @@ input MessageFilter {
 input MessageInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   conversationId: UUID!
   role: String!
   content: String!
@@ -26388,6 +25774,8 @@ input MessageInput {
   toolCalls: JSON
   toolResults: JSON
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26396,8 +25784,6 @@ input MessageInput {
 input MessagePatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   conversationId: UUID
   role: String
   content: String
@@ -26406,6 +25792,8 @@ input MessagePatch {
   toolCalls: JSON
   toolResults: JSON
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26426,16 +25814,16 @@ input NoteChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26471,11 +25859,11 @@ input NoteChunkFilter {
 input NoteChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   noteId: UUID!
@@ -26485,11 +25873,11 @@ input NoteChunkInput {
 input NoteChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   noteId: UUID
@@ -26501,10 +25889,6 @@ input NoteFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `abstract` field."
@@ -26519,6 +25903,10 @@ input NoteFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26576,8 +25964,6 @@ input NoteFilter {
 input NoteInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   content: String!
   abstract: String
   overview: String
@@ -26585,6 +25971,8 @@ input NoteInput {
   lastAccessedAt: Datetime
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26593,8 +25981,6 @@ input NoteInput {
 input NotePatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   content: String
   abstract: String
   overview: String
@@ -26602,6 +25988,8 @@ input NotePatch {
   lastAccessedAt: Datetime
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26662,16 +26050,16 @@ input PlaceChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26707,11 +26095,11 @@ input PlaceChunkFilter {
 input PlaceChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   placeId: UUID!
@@ -26721,11 +26109,11 @@ input PlaceChunkInput {
 input PlaceChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   placeId: UUID
@@ -26737,10 +26125,6 @@ input PlaceFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `description` field."
@@ -26761,6 +26145,10 @@ input PlaceFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26816,8 +26204,6 @@ input PlaceFilter {
 input PlaceInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   description: String
   address: String
@@ -26828,6 +26214,8 @@ input PlaceInput {
   notes: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26836,8 +26224,6 @@ input PlaceInput {
 input PlacePatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   description: String
   address: String
@@ -26848,6 +26234,8 @@ input PlacePatch {
   notes: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26888,16 +26276,16 @@ input ProjectChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26933,11 +26321,11 @@ input ProjectChunkFilter {
 input ProjectChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   projectId: UUID!
@@ -26947,11 +26335,11 @@ input ProjectChunkInput {
 input ProjectChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   projectId: UUID
@@ -27001,10 +26389,6 @@ input ProjectFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `description` field."
@@ -27027,6 +26411,10 @@ input ProjectFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -27076,8 +26464,6 @@ input ProjectFilter {
 input ProjectInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   description: String
   status: String
@@ -27089,6 +26475,8 @@ input ProjectInput {
   config: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -27097,8 +26485,6 @@ input ProjectInput {
 input ProjectPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   description: String
   status: String
@@ -27110,6 +26496,8 @@ input ProjectPatch {
   config: JSON
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -27150,16 +26538,16 @@ input RuleChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -27195,11 +26583,11 @@ input RuleChunkFilter {
 input RuleChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   ruleId: UUID!
@@ -27209,11 +26597,11 @@ input RuleChunkInput {
 input RuleChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   ruleId: UUID
@@ -27225,10 +26613,6 @@ input RuleFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `description` field."
@@ -27249,6 +26633,10 @@ input RuleFilter {
   triggerConcept: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -27300,8 +26688,6 @@ input RuleFilter {
 input RuleInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   description: String
   triggerType: String
@@ -27312,6 +26698,8 @@ input RuleInput {
   priority: Int
   triggerConcept: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   triggerConceptEmbedding: Vector
@@ -27322,8 +26710,6 @@ input RuleInput {
 input RulePatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   description: String
   triggerType: String
@@ -27334,6 +26720,8 @@ input RulePatch {
   priority: Int
   triggerConcept: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   triggerConceptEmbedding: Vector
@@ -27356,10 +26744,6 @@ input RuntimeArtifactFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `runtimeStateId` field."
   runtimeStateId: UUIDFilter
   "Filter by the object’s `name` field."
@@ -27372,6 +26756,10 @@ input RuntimeArtifactFilter {
   meta: JSONFilter
   "Filter by the object’s `sizeBytes` field."
   sizeBytes: IntFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [RuntimeArtifactFilter!]
   "Checks for any expressions in this list."
@@ -27386,28 +26774,28 @@ input RuntimeArtifactFilter {
 input RuntimeArtifactInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   runtimeStateId: UUID!
   name: String!
   artifactType: String
   content: String
   meta: JSON
   sizeBytes: Int
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "Represents an update to a `RuntimeArtifact`. Fields that are set will be updated."
 input RuntimeArtifactPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   runtimeStateId: UUID
   name: String
   artifactType: String
   content: String
   meta: JSON
   sizeBytes: Int
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "A filter to be used against `RuntimeConfig` object types. All fields are combined with a logical ‘and.’"
@@ -27416,10 +26804,6 @@ input RuntimeConfigFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `key` field."
   key: StringFilter
   "Filter by the object’s `value` field."
@@ -27428,6 +26812,10 @@ input RuntimeConfigFilter {
   description: StringFilter
   "Filter by the object’s `isSecret` field."
   isSecret: BooleanFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [RuntimeConfigFilter!]
   "Checks for any expressions in this list."
@@ -27440,24 +26828,24 @@ input RuntimeConfigFilter {
 input RuntimeConfigInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   key: String!
   value: JSON
   description: String
   isSecret: Boolean
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "Represents an update to a `RuntimeConfig`. Fields that are set will be updated."
 input RuntimeConfigPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   key: String
   value: JSON
   description: String
   isSecret: Boolean
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "A filter to be used against `RuntimeEvent` object types. All fields are combined with a logical ‘and.’"
@@ -27466,10 +26854,6 @@ input RuntimeEventFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `eventType` field."
   eventType: StringFilter
   "Filter by the object’s `payload` field."
@@ -27480,6 +26864,10 @@ input RuntimeEventFilter {
   processedAt: DatetimeFilter
   "Filter by the object’s `status` field."
   status: StringFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [RuntimeEventFilter!]
   "Checks for any expressions in this list."
@@ -27492,26 +26880,26 @@ input RuntimeEventFilter {
 input RuntimeEventInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   eventType: String!
   payload: JSON!
   source: String
   processedAt: Datetime
   status: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "Represents an update to a `RuntimeEvent`. Fields that are set will be updated."
 input RuntimeEventPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   eventType: String
   payload: JSON
   source: String
   processedAt: Datetime
   status: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "A filter to be used against `RuntimeLogChunk` object types. All fields are combined with a logical ‘and.’"
@@ -27520,16 +26908,16 @@ input RuntimeLogChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -27565,11 +26953,11 @@ input RuntimeLogChunkFilter {
 input RuntimeLogChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   runtimeLogId: UUID!
@@ -27579,11 +26967,11 @@ input RuntimeLogChunkInput {
 input RuntimeLogChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   runtimeLogId: UUID
@@ -27595,10 +26983,6 @@ input RuntimeLogFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `runtimeStateId` field."
   runtimeStateId: UUIDFilter
   "Filter by the object’s `level` field."
@@ -27611,6 +26995,10 @@ input RuntimeLogFilter {
   stepIndex: IntFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -27650,14 +27038,14 @@ input RuntimeLogFilter {
 input RuntimeLogInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   runtimeStateId: UUID!
   level: String!
   message: String!
   context: JSON
   stepIndex: Int
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -27666,14 +27054,14 @@ input RuntimeLogInput {
 input RuntimeLogPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   runtimeStateId: UUID
   level: String
   message: String
   context: JSON
   stepIndex: Int
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -27694,10 +27082,6 @@ input RuntimeMetricFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `runtimeStateId` field."
   runtimeStateId: UUIDFilter
   "Filter by the object’s `metricName` field."
@@ -27708,6 +27092,10 @@ input RuntimeMetricFilter {
   unit: StringFilter
   "Filter by the object’s `meta` field."
   meta: JSONFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [RuntimeMetricFilter!]
   "Checks for any expressions in this list."
@@ -27722,26 +27110,26 @@ input RuntimeMetricFilter {
 input RuntimeMetricInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   runtimeStateId: UUID!
   metricName: String!
   metricValue: BigFloat!
   unit: String
   meta: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "Represents an update to a `RuntimeMetric`. Fields that are set will be updated."
 input RuntimeMetricPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   runtimeStateId: UUID
   metricName: String
   metricValue: BigFloat
   unit: String
   meta: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "A filter to be used against `RuntimeSchedule` object types. All fields are combined with a logical ‘and.’"
@@ -27750,10 +27138,6 @@ input RuntimeScheduleFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringFilter
   "Filter by the object’s `cronExpression` field."
@@ -27768,6 +27152,10 @@ input RuntimeScheduleFilter {
   config: JSONFilter
   "Filter by the object’s `timezone` field."
   timezone: StringFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [RuntimeScheduleFilter!]
   "Checks for any expressions in this list."
@@ -27780,8 +27168,6 @@ input RuntimeScheduleFilter {
 input RuntimeScheduleInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   cronExpression: String
   nextRunAt: Datetime
@@ -27789,14 +27175,14 @@ input RuntimeScheduleInput {
   isActive: Boolean
   config: JSON
   timezone: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "Represents an update to a `RuntimeSchedule`. Fields that are set will be updated."
 input RuntimeSchedulePatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   cronExpression: String
   nextRunAt: Datetime
@@ -27804,6 +27190,8 @@ input RuntimeSchedulePatch {
   isActive: Boolean
   config: JSON
   timezone: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "A filter to be used against `RuntimeStateChunk` object types. All fields are combined with a logical ‘and.’"
@@ -27812,16 +27200,16 @@ input RuntimeStateChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -27857,11 +27245,11 @@ input RuntimeStateChunkFilter {
 input RuntimeStateChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   runtimeStateId: UUID!
@@ -27871,11 +27259,11 @@ input RuntimeStateChunkInput {
 input RuntimeStateChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   runtimeStateId: UUID
@@ -27883,10 +27271,8 @@ input RuntimeStateChunkPatch {
 
 "A filter to be used against `RuntimeStateDependency` object types. All fields are combined with a logical ‘and.’"
 input RuntimeStateDependencyFilter {
-  "Filter by the object’s `stateId` field."
-  stateId: UUIDFilter
-  "Filter by the object’s `dependencyId` field."
-  dependencyId: UUIDFilter
+  "Filter by the object’s `runtimeStateId` field."
+  runtimeStateId: UUIDFilter
   "Filter by the object’s `id` field."
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
@@ -27897,24 +27283,20 @@ input RuntimeStateDependencyFilter {
   or: [RuntimeStateDependencyFilter!]
   "Negates the expression."
   not: RuntimeStateDependencyFilter
-  "Filter by the object’s `dependency` relation."
-  dependency: RuntimeStateFilter
-  "Filter by the object’s `state` relation."
-  state: RuntimeStateFilter
+  "Filter by the object’s `runtimeState` relation."
+  runtimeState: RuntimeStateFilter
 }
 
 "An input for mutations affecting `RuntimeStateDependency`"
 input RuntimeStateDependencyInput {
-  stateId: UUID!
-  dependencyId: UUID!
+  runtimeStateId: UUID!
   id: UUID
   entityId: UUID!
 }
 
 "Represents an update to a `RuntimeStateDependency`. Fields that are set will be updated."
 input RuntimeStateDependencyPatch {
-  stateId: UUID
-  dependencyId: UUID
+  runtimeStateId: UUID
   id: UUID
   entityId: UUID
 }
@@ -27925,10 +27307,6 @@ input RuntimeStateFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `stateType` field."
@@ -27945,6 +27323,10 @@ input RuntimeStateFilter {
   endedAt: DatetimeFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -27971,14 +27353,10 @@ input RuntimeStateFilter {
   runtimeStateChunks: RuntimeStateToManyRuntimeStateChunkFilter
   "`runtimeStateChunks` exist."
   runtimeStateChunksExist: Boolean
-  "Filter by the object’s `runtimeStateDependenciesByDependencyId` relation."
-  runtimeStateDependenciesByDependencyId: RuntimeStateToManyRuntimeStateDependencyFilter
-  "`runtimeStateDependenciesByDependencyId` exist."
-  runtimeStateDependenciesByDependencyIdExist: Boolean
-  "Filter by the object’s `runtimeStateDependenciesByStateId` relation."
-  runtimeStateDependenciesByStateId: RuntimeStateToManyRuntimeStateDependencyFilter
-  "`runtimeStateDependenciesByStateId` exist."
-  runtimeStateDependenciesByStateIdExist: Boolean
+  "Filter by the object’s `runtimeStateDependencies` relation."
+  runtimeStateDependencies: RuntimeStateToManyRuntimeStateDependencyFilter
+  "`runtimeStateDependencies` exist."
+  runtimeStateDependenciesExist: Boolean
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -28004,8 +27382,6 @@ input RuntimeStateFilter {
 input RuntimeStateInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   stateType: String
   status: String
@@ -28014,6 +27390,8 @@ input RuntimeStateInput {
   startedAt: Datetime
   endedAt: Datetime
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -28022,8 +27400,6 @@ input RuntimeStateInput {
 input RuntimeStatePatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   stateType: String
   status: String
@@ -28032,6 +27408,8 @@ input RuntimeStatePatch {
   startedAt: Datetime
   endedAt: Datetime
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -28092,16 +27470,16 @@ input SkillChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -28137,11 +27515,11 @@ input SkillChunkFilter {
 input SkillChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   skillId: UUID!
@@ -28151,11 +27529,11 @@ input SkillChunkInput {
 input SkillChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   skillId: UUID
@@ -28167,10 +27545,6 @@ input SkillFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `description` field."
@@ -28187,6 +27561,10 @@ input SkillFilter {
   intentTrigger: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -28238,8 +27616,6 @@ input SkillFilter {
 input SkillInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   description: String
   category: String
@@ -28248,6 +27624,8 @@ input SkillInput {
   isActive: Boolean
   intentTrigger: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   intentTriggerEmbedding: Vector
@@ -28258,8 +27636,6 @@ input SkillInput {
 input SkillPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   description: String
   category: String
@@ -28268,6 +27644,8 @@ input SkillPatch {
   isActive: Boolean
   intentTrigger: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   intentTriggerEmbedding: Vector
@@ -28490,10 +27868,6 @@ input TagFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringFilter
   "Filter by the object’s `color` field."
@@ -28502,6 +27876,10 @@ input TagFilter {
   category: StringFilter
   "Filter by the object’s `usageCount` field."
   usageCount: IntFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [TagFilter!]
   "Checks for any expressions in this list."
@@ -28514,24 +27892,24 @@ input TagFilter {
 input TagInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   color: String
   category: String
   usageCount: Int
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "Represents an update to a `Tag`. Fields that are set will be updated."
 input TagPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   color: String
   category: String
   usageCount: Int
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "A filter to be used against `ToolDefinition` object types. All fields are combined with a logical ‘and.’"
@@ -28540,10 +27918,6 @@ input ToolDefinitionFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringFilter
   "Filter by the object’s `description` field."
@@ -28556,6 +27930,10 @@ input ToolDefinitionFilter {
   implementation: StringFilter
   "Filter by the object’s `isActive` field."
   isActive: BooleanFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [ToolDefinitionFilter!]
   "Checks for any expressions in this list."
@@ -28572,28 +27950,28 @@ input ToolDefinitionFilter {
 input ToolDefinitionInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   description: String
   inputSchema: JSON
   outputSchema: JSON
   implementation: String
   isActive: Boolean
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "Represents an update to a `ToolDefinition`. Fields that are set will be updated."
 input ToolDefinitionPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   description: String
   inputSchema: JSON
   outputSchema: JSON
   implementation: String
   isActive: Boolean
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "A filter to be used against many `ToolExecution` object types. All fields are combined with a logical ‘and.’"
@@ -28612,10 +27990,6 @@ input ToolExecutionFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `toolDefinitionId` field."
   toolDefinitionId: UUIDFilter
   "Filter by the object’s `messageId` field."
@@ -28632,6 +28006,10 @@ input ToolExecutionFilter {
   completedAt: DatetimeFilter
   "Filter by the object’s `error` field."
   error: StringFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Checks for all expressions in this list."
   and: [ToolExecutionFilter!]
   "Checks for any expressions in this list."
@@ -28646,8 +28024,6 @@ input ToolExecutionFilter {
 input ToolExecutionInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   toolDefinitionId: UUID!
   messageId: UUID
   input: JSON
@@ -28656,14 +28032,14 @@ input ToolExecutionInput {
   startedAt: Datetime
   completedAt: Datetime
   error: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "Represents an update to a `ToolExecution`. Fields that are set will be updated."
 input ToolExecutionPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   toolDefinitionId: UUID
   messageId: UUID
   input: JSON
@@ -28672,6 +28048,8 @@ input ToolExecutionPatch {
   startedAt: Datetime
   completedAt: Datetime
   error: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 "Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold."
@@ -28688,16 +28066,16 @@ input TripChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -28733,11 +28111,11 @@ input TripChunkFilter {
 input TripChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   tripId: UUID!
@@ -28747,11 +28125,11 @@ input TripChunkInput {
 input TripChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   tripId: UUID
@@ -28763,10 +28141,6 @@ input TripFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `description` field."
@@ -28787,6 +28161,10 @@ input TripFilter {
   tags: StringListFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -28880,8 +28258,6 @@ input TripHikingTrailPatch {
 input TripInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   description: String
   destination: String
@@ -28892,6 +28268,8 @@ input TripInput {
   currency: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -28900,8 +28278,6 @@ input TripInput {
 input TripPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   description: String
   destination: String
@@ -28912,6 +28288,8 @@ input TripPatch {
   currency: String
   tags: [String]
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -30136,16 +29514,16 @@ input VenueChunkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `chunkIndex` field."
   chunkIndex: IntFilter
   "Filter by the object’s `content` field."
   content: StringTrgmFilter
   "Filter by the object’s `embeddingText` field."
   embeddingText: StringTrgmFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -30181,11 +29559,11 @@ input VenueChunkFilter {
 input VenueChunkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int!
   content: String!
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   venueId: UUID!
@@ -30195,11 +29573,11 @@ input VenueChunkInput {
 input VenueChunkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   chunkIndex: Int
   content: String
   embeddingText: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   venueId: UUID
@@ -30211,10 +29589,6 @@ input VenueFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `name` field."
   name: StringTrgmFilter
   "Filter by the object’s `address` field."
@@ -30243,6 +29617,10 @@ input VenueFilter {
   embeddingText: StringTrgmFilter
   "Filter by the object’s `mainImageId` field."
   mainImageId: UUIDFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -30352,8 +29730,6 @@ input VenueImagePatch {
 input VenueInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String!
   address: String
   neighborhood: String
@@ -30368,6 +29744,8 @@ input VenueInput {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -30378,14 +29756,14 @@ input VenueLinkFilter {
   id: UUIDFilter
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
   "Filter by the object’s `title` field."
   title: StringFilter
   "Filter by the object’s `url` field."
   url: StringFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -30408,10 +29786,10 @@ input VenueLinkFilter {
 input VenueLinkInput {
   id: UUID
   entityId: UUID!
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   url: String!
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   venueId: UUID!
@@ -30421,10 +29799,10 @@ input VenueLinkInput {
 input VenueLinkPatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   title: String
   url: String
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
   venueId: UUID
@@ -30434,8 +29812,6 @@ input VenueLinkPatch {
 input VenuePatch {
   id: UUID
   entityId: UUID
-  createdAt: Datetime
-  updatedAt: Datetime
   name: String
   address: String
   neighborhood: String
@@ -30450,6 +29826,8 @@ input VenuePatch {
   tags: [String]
   embeddingText: String
   mainImageId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
   embedding: Vector
   embeddingStale: Boolean
 }

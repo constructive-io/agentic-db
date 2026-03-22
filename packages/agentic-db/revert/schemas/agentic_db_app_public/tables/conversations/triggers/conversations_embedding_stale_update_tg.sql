@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/conversations/triggers/conversations_embedding_stale_update_tg
 
 
-DROP TRIGGER conversations_embedding_stale_update_tg ON "agentic_db_app_public".conversations;
+DROP TRIGGER conversations_embedding_stale_update_tg ON agentic_db_app_public.conversations;
 
 

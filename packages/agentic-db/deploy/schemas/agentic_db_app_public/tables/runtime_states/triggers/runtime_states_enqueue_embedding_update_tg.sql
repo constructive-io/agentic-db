@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_states/table
 -- requires: schemas/agentic_db_private/trigger_fns/runtime_states_enqueue_embedding
--- requires: schemas/agentic_db_app_public/tables/runtime_states/columns/embedding_text/column
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
 CREATE TRIGGER runtime_states_enqueue_embedding_update_tg
-AFTER UPDATE ON "agentic_db_app_public".runtime_states
+AFTER UPDATE ON agentic_db_app_public.runtime_states
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".runtime_states_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.runtime_states_enqueue_embedding ( );
 

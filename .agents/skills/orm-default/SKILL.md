@@ -15,7 +15,7 @@ ORM client for the default API — provides typed CRUD operations for 90 tables 
 // Import the ORM client
 import { db } from './orm';
 
-// Available models: agent, agentChunk, agentCollaborator, agentLogChunk, agentLog, agentTaskChunk, agentTask, autonomyRecord, ...
+// Available models: agentChunk, agentCollaborator, agent, agentLogChunk, agentLog, agentTaskChunk, agentTask, autonomyRecordChunk, ...
 db.<model>.findMany({ select: { id: true } }).execute()
 db.<model>.findOne({ id: '<UUID>', select: { id: true } }).execute()
 db.<model>.create({ data: { ... }, select: { id: true } }).execute()
@@ -28,7 +28,7 @@ db.<model>.delete({ where: { id: '<UUID>' } }).execute()
 ### Query records
 
 ```typescript
-const items = await db.agent.findMany({
+const items = await db.agentChunk.findMany({
   select: { id: true }
 }).execute();
 ```
@@ -37,15 +37,15 @@ const items = await db.agent.findMany({
 
 See the `references/` directory for detailed per-entity API documentation:
 
-- [agent](references/agent.md)
 - [agent-chunk](references/agent-chunk.md)
 - [agent-collaborator](references/agent-collaborator.md)
+- [agent](references/agent.md)
 - [agent-log-chunk](references/agent-log-chunk.md)
 - [agent-log](references/agent-log.md)
 - [agent-task-chunk](references/agent-task-chunk.md)
 - [agent-task](references/agent-task.md)
-- [autonomy-record](references/autonomy-record.md)
 - [autonomy-record-chunk](references/autonomy-record-chunk.md)
+- [autonomy-record](references/autonomy-record.md)
 - [autonomy-record-link](references/autonomy-record-link.md)
 - [codebas-chunk](references/codebas-chunk.md)
 - [codebase-dependency](references/codebase-dependency.md)

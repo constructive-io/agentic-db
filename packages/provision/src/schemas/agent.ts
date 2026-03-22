@@ -32,13 +32,11 @@ const definition: BlueprintDefinition = {
       f('config', 'jsonb'),
       f('tags', 'citext[]'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'system_prompt'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Agent Tasks --------------------------------------------------------
     orgTable('agent_tasks', [
@@ -52,13 +50,11 @@ const definition: BlueprintDefinition = {
       f('completed_at', 'timestamptz'),
       f('meta', 'jsonb'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['title', 'description', 'result'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Agent Logs ---------------------------------------------------------
     orgTable('agent_logs', [
@@ -68,13 +64,11 @@ const definition: BlueprintDefinition = {
       f('context', 'jsonb'),
       f('task_id', 'uuid'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['message'],
         }),
-      ],
-    }),
+      ]),
 
     // -- Rules --------------------------------------------------------------
     orgTable('rules', [
@@ -88,14 +82,12 @@ const definition: BlueprintDefinition = {
       f('priority', 'int', { default_value: '0' }),
       f('trigger_concept', 'text'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'trigger_concept'],
         }),
         dataEmbedding({ field_name: 'trigger_concept_embedding', source_fields: ['trigger_concept'] }),
-      ],
-    }),
+      ]),
 
     // -- Skills -------------------------------------------------------------
     orgTable('skills', [
@@ -107,14 +99,12 @@ const definition: BlueprintDefinition = {
       f('is_active', 'bool', { default_value: 'true' }),
       f('intent_trigger', 'text'),
       f('embedding_text', 'text'),
-    ], {
-      data_nodes: [
+    ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'intent_trigger'],
         }),
         dataEmbedding({ field_name: 'intent_trigger_embedding', source_fields: ['intent_trigger'] }),
-      ],
-    }),
+      ]),
 
     // -- Chunk tables -------------------------------------------------------
     chunkTable('agents'),
@@ -143,10 +133,10 @@ const definition: BlueprintDefinition = {
     ginIndex('agents', 'tags'),
     ginIndex('agents', 'config'),
     btreeIndex('agents', 'status'),
-    btreeIndex('agent_tasks', 'agent_id'),
+    // btreeIndex('agent_tasks', 'agent_id'), — auto-created by FK (agents → agent_tasks)
     btreeIndex('agent_tasks', 'status'),
     btreeIndex('agent_tasks', 'priority'),
-    btreeIndex('agent_logs', 'agent_id'),
+    // btreeIndex('agent_logs', 'agent_id'), — auto-created by FK (agents → agent_logs)
     btreeIndex('agent_logs', 'level'),
     btreeIndex('agent_logs', 'task_id'),
     btreeIndex('rules', 'trigger_type'),

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_log_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 -- requires: schemas/agentic_db_app_public/tables/runtime_log_chunks/columns/entity_id/column
--- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/triggers/runtime_state_chunks_enqueue_embedding_update_tg
 
 
-CREATE INDEX runtime_log_chunks_entity_id_idx ON "agentic_db_app_public".runtime_log_chunks USING BTREE ( entity_id );
+CREATE INDEX runtime_log_chunks_entity_id_idx ON agentic_db_app_public.runtime_log_chunks USING BTREE ( entity_id );
 

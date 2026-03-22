@@ -11,12 +11,12 @@ import type { CreateRuntimeConfigInput, RuntimeConfigPatch } from '../../orm/inp
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  createdAt: 'string',
-  updatedAt: 'string',
   key: 'string',
   value: 'json',
   description: 'string',
   isSecret: 'boolean',
+  createdAt: 'string',
+  updatedAt: 'string',
 };
 const usage =
   '\nruntime-config <command>\n\nCommands:\n  list                  List all runtimeConfig records\n  get                   Get a runtimeConfig by ID\n  create                Create a new runtimeConfig\n  update                Update an existing runtimeConfig\n  delete                Delete a runtimeConfig\n\n  --help, -h            Show this help message\n';
@@ -72,12 +72,12 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           key: true,
           value: true,
           description: true,
           isSecret: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -107,12 +107,12 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           key: true,
           value: true,
           description: true,
           isSecret: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -180,12 +180,12 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           key: true,
           value: true,
           description: true,
           isSecret: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();
@@ -259,12 +259,12 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           key: true,
           value: true,
           description: true,
           isSecret: true,
+          createdAt: true,
+          updatedAt: true,
         },
       })
       .execute();

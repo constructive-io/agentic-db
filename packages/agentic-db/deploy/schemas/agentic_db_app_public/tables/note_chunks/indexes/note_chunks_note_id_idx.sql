@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/note_chunks/table
 -- requires: schemas/agentic_db_app_public/tables/note_chunks/columns/note_id/column
--- requires: schemas/agentic_db_app_public/tables/venue_chunks/indexes/venue_chunks_venue_id_idx
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX note_chunks_note_id_idx ON "agentic_db_app_public".note_chunks USING BTREE ( note_id );
+CREATE INDEX note_chunks_note_id_idx ON agentic_db_app_public.note_chunks USING BTREE ( note_id );
 

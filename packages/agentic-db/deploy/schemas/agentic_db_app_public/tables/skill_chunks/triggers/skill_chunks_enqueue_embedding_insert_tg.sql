@@ -4,13 +4,13 @@
 -- requires: schemas/agentic_db_private/schema
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skill_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 -- requires: schemas/agentic_db_private/trigger_fns/skill_chunks_enqueue_embedding
--- requires: schemas/agentic_db_app_public/tables/skill_chunks/columns/embedding_text/column
 
 
 CREATE TRIGGER skill_chunks_enqueue_embedding_insert_tg
-AFTER INSERT ON "agentic_db_app_public".skill_chunks
+AFTER INSERT ON agentic_db_app_public.skill_chunks
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".skill_chunks_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.skill_chunks_enqueue_embedding ( );
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
 -- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/columns/autonomy_record_id/column
--- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/triggers/autonomy_record_chunks_enqueue_embedding_update_tg
 
 
-CREATE INDEX autonomy_record_chunks_autonomy_record_id_idx ON "agentic_db_app_public".autonomy_record_chunks USING BTREE ( autonomy_record_id );
+CREATE INDEX autonomy_record_chunks_autonomy_record_id_idx ON agentic_db_app_public.autonomy_record_chunks USING BTREE ( autonomy_record_id );
 

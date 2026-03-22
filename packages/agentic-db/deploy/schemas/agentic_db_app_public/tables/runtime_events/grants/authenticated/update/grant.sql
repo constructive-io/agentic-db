@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_events/table
--- requires: schemas/agentic_db_app_public/tables/runtime_schedules/columns/timezone/alterations/alt0000001384
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-GRANT UPDATE ON "agentic_db_app_public".runtime_events TO authenticated;
+GRANT UPDATE ON agentic_db_app_public.runtime_events TO authenticated;
 

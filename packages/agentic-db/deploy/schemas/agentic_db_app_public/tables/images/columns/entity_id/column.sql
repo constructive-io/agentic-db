@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-ALTER TABLE "agentic_db_app_public".images 
+ALTER TABLE agentic_db_app_public.images 
   ADD COLUMN entity_id uuid;
 

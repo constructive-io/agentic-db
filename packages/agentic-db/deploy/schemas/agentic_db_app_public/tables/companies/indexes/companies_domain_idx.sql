@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/companies/table
 -- requires: schemas/agentic_db_app_public/tables/companies/columns/domain/column
--- requires: schemas/agentic_db_app_public/tables/contacts/indexes/contacts_github_username_idx
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX companies_domain_idx ON "agentic_db_app_public".companies USING BTREE ( domain );
+CREATE INDEX companies_domain_idx ON agentic_db_app_public.companies USING BTREE ( domain );
 

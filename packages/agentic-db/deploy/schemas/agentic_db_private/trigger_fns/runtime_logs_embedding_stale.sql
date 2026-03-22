@@ -2,10 +2,10 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_private/schema
--- requires: schemas/agentic_db_app_public/tables/runtime_logs/columns/embedding_text/column
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-CREATE FUNCTION "agentic_db_private".runtime_logs_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_private.runtime_logs_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
   SELECT true INTO NEW.embedding_stale;
   SELECT NULL INTO NEW.embedding;

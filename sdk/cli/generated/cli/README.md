@@ -26,15 +26,15 @@ agentic-db auth set-token <your-token>
 | `context` | Manage API contexts (endpoints) |
 | `auth` | Manage authentication tokens |
 | `config` | Manage config key-value store (per-context) |
-| `agent` | agent CRUD operations |
 | `agent-chunk` | agentChunk CRUD operations |
 | `agent-collaborator` | agentCollaborator CRUD operations |
+| `agent` | agent CRUD operations |
 | `agent-log-chunk` | agentLogChunk CRUD operations |
 | `agent-log` | agentLog CRUD operations |
 | `agent-task-chunk` | agentTaskChunk CRUD operations |
 | `agent-task` | agentTask CRUD operations |
-| `autonomy-record` | autonomyRecord CRUD operations |
 | `autonomy-record-chunk` | autonomyRecordChunk CRUD operations |
+| `autonomy-record` | autonomyRecord CRUD operations |
 | `autonomy-record-link` | autonomyRecordLink CRUD operations |
 | `codebas-chunk` | codebasChunk CRUD operations |
 | `codebase-dependency` | codebaseDependency CRUD operations |
@@ -158,53 +158,6 @@ Variables are scoped to the active context and stored at `~/.agentic-db/config/`
 
 ## Table Commands
 
-### `agent`
-
-CRUD operations for Agent records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agent records |
-| `get` | Get a agent by id |
-| `create` | Create a new agent |
-| `update` | Update an existing agent |
-| `delete` | Delete a agent |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `name` | String |
-| `description` | String |
-| `systemPrompt` | String |
-| `model` | String |
-| `temperature` | BigFloat |
-| `status` | String |
-| `config` | JSON |
-| `tags` | String |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `systemPromptTrgmSimilarity` | Float |
-| `modelTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `description`, `systemPrompt`, `model`, `temperature`, `status`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `systemPromptTrgmSimilarity`, `modelTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
 ### `agent-chunk`
 
 CRUD operations for AgentChunk records.
@@ -223,11 +176,11 @@ CRUD operations for AgentChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `agentId` | UUID |
@@ -260,11 +213,57 @@ CRUD operations for AgentCollaborator records.
 | Field | Type |
 |-------|------|
 | `agentId` | UUID |
-| `collaboratorId` | UUID |
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Required create fields:** `agentId`, `collaboratorId`, `entityId`
+**Required create fields:** `agentId`, `entityId`
+
+### `agent`
+
+CRUD operations for Agent records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all agent records |
+| `get` | Get a agent by id |
+| `create` | Create a new agent |
+| `update` | Update an existing agent |
+| `delete` | Delete a agent |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `name` | String |
+| `description` | String |
+| `systemPrompt` | String |
+| `model` | String |
+| `temperature` | BigFloat |
+| `status` | String |
+| `config` | JSON |
+| `tags` | String |
+| `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embedding` | Vector |
+| `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
+| `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `systemPromptTrgmSimilarity` | Float |
+| `modelTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `name`
+**Optional create fields (backend defaults):** `description`, `systemPrompt`, `model`, `temperature`, `status`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `systemPromptTrgmSimilarity`, `modelTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
 
 ### `agent-log-chunk`
 
@@ -284,11 +283,11 @@ CRUD operations for AgentLogChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `agentLogId` | UUID |
@@ -322,14 +321,14 @@ CRUD operations for AgentLog records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `agentId` | UUID |
 | `level` | String |
 | `message` | String |
 | `context` | JSON |
 | `taskId` | UUID |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -363,11 +362,11 @@ CRUD operations for AgentTaskChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `agentTaskId` | UUID |
@@ -401,8 +400,6 @@ CRUD operations for AgentTask records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `agentId` | UUID |
 | `title` | String |
 | `description` | String |
@@ -413,6 +410,8 @@ CRUD operations for AgentTask records.
 | `completedAt` | Datetime |
 | `meta` | JSON |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -427,53 +426,6 @@ CRUD operations for AgentTask records.
 **Required create fields:** `entityId`, `agentId`, `title`
 **Optional create fields (backend defaults):** `description`, `status`, `priority`, `result`, `startedAt`, `completedAt`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `statusTrgmSimilarity`, `resultTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `autonomy-record`
-
-CRUD operations for AutonomyRecord records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all autonomyRecord records |
-| `get` | Get a autonomyRecord by id |
-| `create` | Create a new autonomyRecord |
-| `update` | Update an existing autonomyRecord |
-| `delete` | Delete a autonomyRecord |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `title` | String |
-| `recordType` | String |
-| `content` | String |
-| `status` | String |
-| `priority` | Int |
-| `source` | String |
-| `context` | JSON |
-| `tags` | String |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `titleTrgmSimilarity` | Float |
-| `recordTypeTrgmSimilarity` | Float |
-| `contentTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `sourceTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `title`
-**Optional create fields (backend defaults):** `recordType`, `content`, `status`, `priority`, `source`, `context`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `recordTypeTrgmSimilarity`, `contentTrgmSimilarity`, `statusTrgmSimilarity`, `sourceTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -495,11 +447,11 @@ CRUD operations for AutonomyRecordChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `autonomyRecordId` | UUID |
@@ -512,6 +464,53 @@ CRUD operations for AutonomyRecordChunk records.
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `autonomyRecordId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
+### `autonomy-record`
+
+CRUD operations for AutonomyRecord records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all autonomyRecord records |
+| `get` | Get a autonomyRecord by id |
+| `create` | Create a new autonomyRecord |
+| `update` | Update an existing autonomyRecord |
+| `delete` | Delete a autonomyRecord |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `title` | String |
+| `recordType` | String |
+| `content` | String |
+| `status` | String |
+| `priority` | Int |
+| `source` | String |
+| `context` | JSON |
+| `tags` | String |
+| `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embedding` | Vector |
+| `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
+| `embeddingVectorDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `recordTypeTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `sourceTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `title`
+**Optional create fields (backend defaults):** `recordType`, `content`, `status`, `priority`, `source`, `context`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `recordTypeTrgmSimilarity`, `contentTrgmSimilarity`, `statusTrgmSimilarity`, `sourceTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -531,12 +530,11 @@ CRUD operations for AutonomyRecordLink records.
 
 | Field | Type |
 |-------|------|
-| `sourceRecordId` | UUID |
-| `targetRecordId` | UUID |
+| `autonomyRecordId` | UUID |
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Required create fields:** `sourceRecordId`, `targetRecordId`, `entityId`
+**Required create fields:** `autonomyRecordId`, `entityId`
 
 ### `codebas-chunk`
 
@@ -556,11 +554,11 @@ CRUD operations for CodebasChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `codebasisId` | UUID |
@@ -592,12 +590,11 @@ CRUD operations for CodebaseDependency records.
 
 | Field | Type |
 |-------|------|
-| `codebaseId` | UUID |
-| `dependencyId` | UUID |
+| `codebasisId` | UUID |
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Required create fields:** `codebaseId`, `dependencyId`, `entityId`
+**Required create fields:** `codebasisId`, `entityId`
 
 ### `codebasis`
 
@@ -617,8 +614,6 @@ CRUD operations for Codebasis records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `description` | String |
 | `repositoryUrl` | String |
@@ -629,6 +624,8 @@ CRUD operations for Codebasis records.
 | `config` | JSON |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -666,8 +663,6 @@ CRUD operations for CodeChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `codebaseId` | UUID |
 | `filePath` | String |
 | `chunkIndex` | Int |
@@ -678,6 +673,8 @@ CRUD operations for CodeChunk records.
 | `symbolName` | String |
 | `symbolType` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `codebasisId` | UUID |
@@ -715,11 +712,11 @@ CRUD operations for CompanyChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `companyId` | UUID |
@@ -753,8 +750,6 @@ CRUD operations for Company records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `domain` | String |
 | `industry` | String |
@@ -762,6 +757,8 @@ CRUD operations for Company records.
 | `tags` | String |
 | `embeddingText` | String |
 | `mainImageId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
@@ -799,8 +796,6 @@ CRUD operations for Contact records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `firstName` | String |
 | `lastName` | String |
 | `email` | String |
@@ -819,6 +814,8 @@ CRUD operations for Contact records.
 | `tags` | String |
 | `embeddingText` | String |
 | `mainImageId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
@@ -889,8 +886,6 @@ CRUD operations for Event records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `eventType` | String |
 | `location` | String |
@@ -901,6 +896,8 @@ CRUD operations for Event records.
 | `tags` | String |
 | `embeddingText` | String |
 | `mainImageId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
@@ -962,12 +959,12 @@ CRUD operations for Image records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `url` | String |
 | `meta` | JSON |
 | `altText` | String |
 | `caption` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingVectorDistance` | Float |
@@ -997,10 +994,10 @@ CRUD operations for CompanyLink records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `title` | String |
 | `url` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `companyId` | UUID |
@@ -1031,8 +1028,6 @@ CRUD operations for Memory records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `title` | String |
 | `content` | String |
 | `occurredAt` | Datetime |
@@ -1041,6 +1036,8 @@ CRUD operations for Memory records.
 | `importance` | Int |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `agentId` | UUID |
@@ -1123,8 +1120,6 @@ CRUD operations for Note records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `content` | String |
 | `abstract` | String |
 | `overview` | String |
@@ -1132,6 +1127,8 @@ CRUD operations for Note records.
 | `lastAccessedAt` | Datetime |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `contentBm25Score` | Float |
@@ -1167,11 +1164,11 @@ CRUD operations for ContactChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `contactId` | UUID |
@@ -1228,8 +1225,6 @@ CRUD operations for Deal records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `stage` | String |
 | `value` | BigFloat |
@@ -1238,6 +1233,8 @@ CRUD operations for Deal records.
 | `notesText` | String |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -1319,10 +1316,10 @@ CRUD operations for ContactLink records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `title` | String |
 | `url` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `contactId` | UUID |
@@ -1399,8 +1396,6 @@ CRUD operations for Project records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `description` | String |
 | `status` | String |
@@ -1412,6 +1407,8 @@ CRUD operations for Project records.
 | `config` | JSON |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -1447,11 +1444,11 @@ CRUD operations for ConversationChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `conversationId` | UUID |
@@ -1485,13 +1482,13 @@ CRUD operations for Conversation records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `title` | String |
 | `agentId` | UUID |
 | `status` | String |
 | `meta` | JSON |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -1525,11 +1522,11 @@ CRUD operations for DealChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `dealId` | UUID |
@@ -1609,11 +1606,11 @@ CRUD operations for EventChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `eventId` | UUID |
@@ -1670,10 +1667,10 @@ CRUD operations for EventLink records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `title` | String |
 | `url` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `eventId` | UUID |
@@ -1750,8 +1747,6 @@ CRUD operations for Venue records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `address` | String |
 | `neighborhood` | String |
@@ -1766,6 +1761,8 @@ CRUD operations for Venue records.
 | `tags` | String |
 | `embeddingText` | String |
 | `mainImageId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
@@ -1808,11 +1805,11 @@ CRUD operations for GoalChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `goalId` | UUID |
@@ -1846,8 +1843,6 @@ CRUD operations for Goal records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `title` | String |
 | `description` | String |
 | `category` | String |
@@ -1858,6 +1853,8 @@ CRUD operations for Goal records.
 | `progress` | BigFloat |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -1916,8 +1913,6 @@ CRUD operations for Habit records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `description` | String |
 | `frequency` | String |
@@ -1927,6 +1922,8 @@ CRUD operations for Habit records.
 | `isActive` | Boolean |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -1984,11 +1981,11 @@ CRUD operations for HabitChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `habitId` | UUID |
@@ -2022,11 +2019,11 @@ CRUD operations for HikingTrailChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `hikingTrailId` | UUID |
@@ -2060,8 +2057,6 @@ CRUD operations for HikingTrail records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `description` | String |
 | `difficulty` | String |
@@ -2073,6 +2068,8 @@ CRUD operations for HikingTrail records.
 | `notes` | String |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2110,8 +2107,6 @@ CRUD operations for Trip records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `description` | String |
 | `destination` | String |
@@ -2122,6 +2117,8 @@ CRUD operations for Trip records.
 | `currency` | String |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2158,11 +2155,11 @@ CRUD operations for InteractionChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `interactionId` | UUID |
@@ -2196,8 +2193,6 @@ CRUD operations for Interaction records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `contactId` | UUID |
 | `type` | String |
 | `occurredAt` | Datetime |
@@ -2205,6 +2200,8 @@ CRUD operations for Interaction records.
 | `sentiment` | String |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2239,11 +2236,11 @@ CRUD operations for ItineraryItemChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `itineraryItemId` | UUID |
@@ -2277,8 +2274,6 @@ CRUD operations for ItineraryItem records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `tripId` | UUID |
 | `name` | String |
 | `description` | String |
@@ -2291,6 +2286,8 @@ CRUD operations for ItineraryItem records.
 | `notes` | String |
 | `sortOrder` | Int |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2326,11 +2323,11 @@ CRUD operations for MemoryChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `memoryId` | UUID |
@@ -2364,11 +2361,11 @@ CRUD operations for MessageChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `messageId` | UUID |
@@ -2402,8 +2399,6 @@ CRUD operations for Message records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `conversationId` | UUID |
 | `role` | String |
 | `content` | String |
@@ -2412,6 +2407,8 @@ CRUD operations for Message records.
 | `toolCalls` | JSON |
 | `toolResults` | JSON |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2445,11 +2442,11 @@ CRUD operations for NoteChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `noteId` | UUID |
@@ -2483,11 +2480,11 @@ CRUD operations for PlaceChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `placeId` | UUID |
@@ -2521,8 +2518,6 @@ CRUD operations for Place records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `description` | String |
 | `address` | String |
@@ -2533,6 +2528,8 @@ CRUD operations for Place records.
 | `notes` | String |
 | `tags` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2571,11 +2568,11 @@ CRUD operations for ProjectChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `projectId` | UUID |
@@ -2632,11 +2629,11 @@ CRUD operations for RuleChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `ruleId` | UUID |
@@ -2670,8 +2667,6 @@ CRUD operations for Rule records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `description` | String |
 | `triggerType` | String |
@@ -2682,6 +2677,8 @@ CRUD operations for Rule records.
 | `priority` | Int |
 | `triggerConcept` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `triggerConceptEmbedding` | Vector |
@@ -2721,14 +2718,14 @@ CRUD operations for RuntimeArtifact records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `runtimeStateId` | UUID |
 | `name` | String |
 | `artifactType` | String |
 | `content` | String |
 | `meta` | JSON |
 | `sizeBytes` | Int |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 
 **Required create fields:** `entityId`, `runtimeStateId`, `name`
 **Optional create fields (backend defaults):** `artifactType`, `content`, `meta`, `sizeBytes`
@@ -2751,12 +2748,12 @@ CRUD operations for RuntimeConfig records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `key` | String |
 | `value` | JSON |
 | `description` | String |
 | `isSecret` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 
 **Required create fields:** `entityId`, `key`
 **Optional create fields (backend defaults):** `value`, `description`, `isSecret`
@@ -2779,13 +2776,13 @@ CRUD operations for RuntimeEvent records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `eventType` | String |
 | `payload` | JSON |
 | `source` | String |
 | `processedAt` | Datetime |
 | `status` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 
 **Required create fields:** `entityId`, `eventType`, `payload`
 **Optional create fields (backend defaults):** `source`, `processedAt`, `status`
@@ -2808,11 +2805,11 @@ CRUD operations for RuntimeLogChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `runtimeLogId` | UUID |
@@ -2846,14 +2843,14 @@ CRUD operations for RuntimeLog records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `runtimeStateId` | UUID |
 | `level` | String |
 | `message` | String |
 | `context` | JSON |
 | `stepIndex` | Int |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2887,13 +2884,13 @@ CRUD operations for RuntimeMetric records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `runtimeStateId` | UUID |
 | `metricName` | String |
 | `metricValue` | BigFloat |
 | `unit` | String |
 | `meta` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 
 **Required create fields:** `entityId`, `runtimeStateId`, `metricName`, `metricValue`
 **Optional create fields (backend defaults):** `unit`, `meta`
@@ -2916,8 +2913,6 @@ CRUD operations for RuntimeSchedule records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `cronExpression` | String |
 | `nextRunAt` | Datetime |
@@ -2925,6 +2920,8 @@ CRUD operations for RuntimeSchedule records.
 | `isActive` | Boolean |
 | `config` | JSON |
 | `timezone` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `cronExpression`, `nextRunAt`, `lastRunAt`, `isActive`, `config`, `timezone`
@@ -2947,11 +2944,11 @@ CRUD operations for RuntimeStateChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `runtimeStateId` | UUID |
@@ -2985,8 +2982,6 @@ CRUD operations for RuntimeState records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `stateType` | String |
 | `status` | String |
@@ -2995,6 +2990,8 @@ CRUD operations for RuntimeState records.
 | `startedAt` | Datetime |
 | `endedAt` | Datetime |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -3027,12 +3024,11 @@ CRUD operations for RuntimeStateDependency records.
 
 | Field | Type |
 |-------|------|
-| `stateId` | UUID |
-| `dependencyId` | UUID |
+| `runtimeStateId` | UUID |
 | `id` | UUID |
 | `entityId` | UUID |
 
-**Required create fields:** `stateId`, `dependencyId`, `entityId`
+**Required create fields:** `runtimeStateId`, `entityId`
 
 ### `skill-chunk`
 
@@ -3052,11 +3048,11 @@ CRUD operations for SkillChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `skillId` | UUID |
@@ -3090,8 +3086,6 @@ CRUD operations for Skill records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `description` | String |
 | `category` | String |
@@ -3100,6 +3094,8 @@ CRUD operations for Skill records.
 | `isActive` | Boolean |
 | `intentTrigger` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `intentTriggerEmbedding` | Vector |
@@ -3139,12 +3135,12 @@ CRUD operations for Tag records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `color` | String |
 | `category` | String |
 | `usageCount` | Int |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `color`, `category`, `usageCount`
@@ -3167,14 +3163,14 @@ CRUD operations for ToolDefinition records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `name` | String |
 | `description` | String |
 | `inputSchema` | JSON |
 | `outputSchema` | JSON |
 | `implementation` | String |
 | `isActive` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `description`, `inputSchema`, `outputSchema`, `implementation`, `isActive`
@@ -3197,8 +3193,6 @@ CRUD operations for ToolExecution records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `toolDefinitionId` | UUID |
 | `messageId` | UUID |
 | `input` | JSON |
@@ -3207,6 +3201,8 @@ CRUD operations for ToolExecution records.
 | `startedAt` | Datetime |
 | `completedAt` | Datetime |
 | `error` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 
 **Required create fields:** `entityId`, `toolDefinitionId`
 **Optional create fields (backend defaults):** `messageId`, `input`, `output`, `status`, `startedAt`, `completedAt`, `error`
@@ -3229,11 +3225,11 @@ CRUD operations for TripChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `tripId` | UUID |
@@ -3313,11 +3309,11 @@ CRUD operations for VenueChunk records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `chunkIndex` | Int |
 | `content` | String |
 | `embeddingText` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `venueId` | UUID |
@@ -3374,10 +3370,10 @@ CRUD operations for VenueLink records.
 |-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 | `title` | String |
 | `url` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `venueId` | UUID |

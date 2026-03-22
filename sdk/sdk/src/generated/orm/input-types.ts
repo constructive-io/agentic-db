@@ -231,11 +231,36 @@ export interface UUIDListFilter {
   anyGreaterThanOrEqualTo?: string;
 }
 // ============ Entity Types ============
+export interface AgentChunk {
+  id: string;
+  entityId?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  agentId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface AgentCollaborator {
+  agentId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
 export interface Agent {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   description?: string | null;
   systemPrompt?: string | null;
@@ -245,6 +270,8 @@ export interface Agent {
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -266,42 +293,14 @@ export interface Agent {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface AgentChunk {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  chunkIndex?: number | null;
-  content?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  agentId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface AgentCollaborator {
-  agentId?: string | null;
-  collaboratorId?: string | null;
-  id: string;
-  entityId?: string | null;
-}
 export interface AgentLogChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   agentLogId?: string | null;
@@ -319,14 +318,14 @@ export interface AgentLogChunk {
 export interface AgentLog {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   agentId?: string | null;
   level?: string | null;
   message?: string | null;
   context?: Record<string, unknown> | null;
   taskId?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -345,11 +344,11 @@ export interface AgentLog {
 export interface AgentTaskChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   agentTaskId?: string | null;
@@ -367,8 +366,6 @@ export interface AgentTaskChunk {
 export interface AgentTask {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   agentId?: string | null;
   title?: string | null;
   description?: string | null;
@@ -379,6 +376,8 @@ export interface AgentTask {
   completedAt?: string | null;
   meta?: Record<string, unknown> | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -398,11 +397,31 @@ export interface AgentTask {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface AutonomyRecordChunk {
+  id: string;
+  entityId?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  autonomyRecordId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface AutonomyRecord {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   title?: string | null;
   recordType?: string | null;
   content?: string | null;
@@ -412,6 +431,8 @@ export interface AutonomyRecord {
   context?: Record<string, unknown> | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -433,42 +454,19 @@ export interface AutonomyRecord {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface AutonomyRecordChunk {
-  id: string;
-  entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  chunkIndex?: number | null;
-  content?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  autonomyRecordId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
 export interface AutonomyRecordLink {
-  sourceRecordId?: string | null;
-  targetRecordId?: string | null;
+  autonomyRecordId?: string | null;
   id: string;
   entityId?: string | null;
 }
 export interface CodebasChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   codebasisId?: string | null;
@@ -484,16 +482,13 @@ export interface CodebasChunk {
   searchScore?: number | null;
 }
 export interface CodebaseDependency {
-  codebaseId?: string | null;
-  dependencyId?: string | null;
+  codebasisId?: string | null;
   id: string;
   entityId?: string | null;
 }
 export interface Codebasis {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   description?: string | null;
   repositoryUrl?: string | null;
@@ -504,6 +499,8 @@ export interface Codebasis {
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -530,8 +527,6 @@ export interface Codebasis {
 export interface CodeChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   codebaseId?: string | null;
   filePath?: string | null;
   chunkIndex?: number | null;
@@ -542,6 +537,8 @@ export interface CodeChunk {
   symbolName?: string | null;
   symbolType?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   codebasisId?: string | null;
@@ -567,11 +564,11 @@ export interface CodeChunk {
 export interface CompanyChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   companyId?: string | null;
@@ -589,8 +586,6 @@ export interface CompanyChunk {
 export interface Company {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   domain?: string | null;
   industry?: string | null;
@@ -598,6 +593,8 @@ export interface Company {
   tags?: string[] | null;
   embeddingText?: string | null;
   mainImageId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -623,8 +620,6 @@ export interface Company {
 export interface Contact {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   firstName?: string | null;
   lastName?: string | null;
   email?: string | null;
@@ -643,6 +638,8 @@ export interface Contact {
   tags?: string[] | null;
   embeddingText?: string | null;
   mainImageId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -694,8 +691,6 @@ export interface CompanyEvent {
 export interface Event {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   eventType?: string | null;
   location?: string | null;
@@ -706,6 +701,8 @@ export interface Event {
   tags?: string[] | null;
   embeddingText?: string | null;
   mainImageId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -739,12 +736,12 @@ export interface CompanyImage {
 export interface Image {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   url?: string | null;
   meta?: Record<string, unknown> | null;
   altText?: string | null;
   caption?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -755,10 +752,10 @@ export interface Image {
 export interface CompanyLink {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   title?: string | null;
   url?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   companyId?: string | null;
@@ -770,8 +767,6 @@ export interface CompanyLink {
 export interface Memory {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   title?: string | null;
   content?: string | null;
   occurredAt?: string | null;
@@ -780,6 +775,8 @@ export interface Memory {
   importance?: number | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   agentId?: string | null;
@@ -815,8 +812,6 @@ export interface CompanyNote {
 export interface Note {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   content?: string | null;
   abstract?: string | null;
   overview?: string | null;
@@ -824,6 +819,8 @@ export interface Note {
   lastAccessedAt?: string | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
@@ -846,11 +843,11 @@ export interface Note {
 export interface ContactChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   contactId?: string | null;
@@ -874,8 +871,6 @@ export interface ContactCompany {
 export interface Deal {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   stage?: string | null;
   value?: string | null;
@@ -884,6 +879,8 @@ export interface Deal {
   notesText?: string | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -918,10 +915,10 @@ export interface ContactImage {
 export interface ContactLink {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   title?: string | null;
   url?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   contactId?: string | null;
@@ -945,8 +942,6 @@ export interface ContactNote {
 export interface Project {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   description?: string | null;
   status?: string | null;
@@ -958,6 +953,8 @@ export interface Project {
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -980,11 +977,11 @@ export interface Project {
 export interface ConversationChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   conversationId?: string | null;
@@ -1002,13 +999,13 @@ export interface ConversationChunk {
 export interface Conversation {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   title?: string | null;
   agentId?: string | null;
   status?: string | null;
   meta?: Record<string, unknown> | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1027,11 +1024,11 @@ export interface Conversation {
 export interface DealChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   dealId?: string | null;
@@ -1061,11 +1058,11 @@ export interface DealNote {
 export interface EventChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   eventId?: string | null;
@@ -1089,10 +1086,10 @@ export interface EventImage {
 export interface EventLink {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   title?: string | null;
   url?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   eventId?: string | null;
@@ -1116,8 +1113,6 @@ export interface EventVenue {
 export interface Venue {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   address?: string | null;
   neighborhood?: string | null;
@@ -1132,6 +1127,8 @@ export interface Venue {
   tags?: string[] | null;
   embeddingText?: string | null;
   mainImageId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -1167,11 +1164,11 @@ export interface Venue {
 export interface GoalChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   goalId?: string | null;
@@ -1189,8 +1186,6 @@ export interface GoalChunk {
 export interface Goal {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   title?: string | null;
   description?: string | null;
   category?: string | null;
@@ -1201,6 +1196,8 @@ export interface Goal {
   progress?: string | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1229,8 +1226,6 @@ export interface GoalHabit {
 export interface Habit {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   description?: string | null;
   frequency?: string | null;
@@ -1240,6 +1235,8 @@ export interface Habit {
   isActive?: boolean | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1266,11 +1263,11 @@ export interface GoalProject {
 export interface HabitChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   habitId?: string | null;
@@ -1288,11 +1285,11 @@ export interface HabitChunk {
 export interface HikingTrailChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   hikingTrailId?: string | null;
@@ -1310,8 +1307,6 @@ export interface HikingTrailChunk {
 export interface HikingTrail {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   description?: string | null;
   difficulty?: string | null;
@@ -1323,6 +1318,8 @@ export interface HikingTrail {
   notes?: string | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1349,8 +1346,6 @@ export interface HikingTrail {
 export interface Trip {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   description?: string | null;
   destination?: string | null;
@@ -1361,6 +1356,8 @@ export interface Trip {
   currency?: string | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1385,11 +1382,11 @@ export interface Trip {
 export interface InteractionChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   interactionId?: string | null;
@@ -1407,8 +1404,6 @@ export interface InteractionChunk {
 export interface Interaction {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   contactId?: string | null;
   type?: string | null;
   occurredAt?: string | null;
@@ -1416,6 +1411,8 @@ export interface Interaction {
   sentiment?: string | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1436,11 +1433,11 @@ export interface Interaction {
 export interface ItineraryItemChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   itineraryItemId?: string | null;
@@ -1458,8 +1455,6 @@ export interface ItineraryItemChunk {
 export interface ItineraryItem {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   tripId?: string | null;
   name?: string | null;
   description?: string | null;
@@ -1472,6 +1467,8 @@ export interface ItineraryItem {
   notes?: string | null;
   sortOrder?: number | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1494,11 +1491,11 @@ export interface ItineraryItem {
 export interface MemoryChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   memoryId?: string | null;
@@ -1516,11 +1513,11 @@ export interface MemoryChunk {
 export interface MessageChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   messageId?: string | null;
@@ -1538,8 +1535,6 @@ export interface MessageChunk {
 export interface Message {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   conversationId?: string | null;
   role?: string | null;
   content?: string | null;
@@ -1548,6 +1543,8 @@ export interface Message {
   toolCalls?: Record<string, unknown> | null;
   toolResults?: Record<string, unknown> | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1566,11 +1563,11 @@ export interface Message {
 export interface NoteChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   noteId?: string | null;
@@ -1588,11 +1585,11 @@ export interface NoteChunk {
 export interface PlaceChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   placeId?: string | null;
@@ -1610,8 +1607,6 @@ export interface PlaceChunk {
 export interface Place {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   description?: string | null;
   address?: string | null;
@@ -1622,6 +1617,8 @@ export interface Place {
   notes?: string | null;
   tags?: string[] | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1650,11 +1647,11 @@ export interface Place {
 export interface ProjectChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   projectId?: string | null;
@@ -1678,11 +1675,11 @@ export interface ProjectContact {
 export interface RuleChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   ruleId?: string | null;
@@ -1700,8 +1697,6 @@ export interface RuleChunk {
 export interface Rule {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   description?: string | null;
   triggerType?: string | null;
@@ -1712,6 +1707,8 @@ export interface Rule {
   priority?: number | null;
   triggerConcept?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   triggerConceptEmbedding?: number[] | null;
@@ -1740,44 +1737,44 @@ export interface Rule {
 export interface RuntimeArtifact {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   runtimeStateId?: string | null;
   name?: string | null;
   artifactType?: string | null;
   content?: string | null;
   meta?: Record<string, unknown> | null;
   sizeBytes?: number | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface RuntimeConfig {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   key?: string | null;
   value?: Record<string, unknown> | null;
   description?: string | null;
   isSecret?: boolean | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface RuntimeEvent {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   eventType?: string | null;
   payload?: Record<string, unknown> | null;
   source?: string | null;
   processedAt?: string | null;
   status?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface RuntimeLogChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   runtimeLogId?: string | null;
@@ -1795,14 +1792,14 @@ export interface RuntimeLogChunk {
 export interface RuntimeLog {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   runtimeStateId?: string | null;
   level?: string | null;
   message?: string | null;
   context?: Record<string, unknown> | null;
   stepIndex?: number | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1821,19 +1818,17 @@ export interface RuntimeLog {
 export interface RuntimeMetric {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   runtimeStateId?: string | null;
   metricName?: string | null;
   metricValue?: string | null;
   unit?: string | null;
   meta?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface RuntimeSchedule {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   cronExpression?: string | null;
   nextRunAt?: string | null;
@@ -1841,15 +1836,17 @@ export interface RuntimeSchedule {
   isActive?: boolean | null;
   config?: Record<string, unknown> | null;
   timezone?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface RuntimeStateChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   runtimeStateId?: string | null;
@@ -1867,8 +1864,6 @@ export interface RuntimeStateChunk {
 export interface RuntimeState {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   stateType?: string | null;
   status?: string | null;
@@ -1877,6 +1872,8 @@ export interface RuntimeState {
   startedAt?: string | null;
   endedAt?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1895,19 +1892,18 @@ export interface RuntimeState {
   searchScore?: number | null;
 }
 export interface RuntimeStateDependency {
-  stateId?: string | null;
-  dependencyId?: string | null;
+  runtimeStateId?: string | null;
   id: string;
   entityId?: string | null;
 }
 export interface SkillChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   skillId?: string | null;
@@ -1925,8 +1921,6 @@ export interface SkillChunk {
 export interface Skill {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   description?: string | null;
   category?: string | null;
@@ -1935,6 +1929,8 @@ export interface Skill {
   isActive?: boolean | null;
   intentTrigger?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   intentTriggerEmbedding?: number[] | null;
@@ -1963,30 +1959,28 @@ export interface Skill {
 export interface Tag {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   color?: string | null;
   category?: string | null;
   usageCount?: number | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface ToolDefinition {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   name?: string | null;
   description?: string | null;
   inputSchema?: Record<string, unknown> | null;
   outputSchema?: Record<string, unknown> | null;
   implementation?: string | null;
   isActive?: boolean | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface ToolExecution {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   toolDefinitionId?: string | null;
   messageId?: string | null;
   input?: Record<string, unknown> | null;
@@ -1995,15 +1989,17 @@ export interface ToolExecution {
   startedAt?: string | null;
   completedAt?: string | null;
   error?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface TripChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   tripId?: string | null;
@@ -2033,11 +2029,11 @@ export interface TripPlace {
 export interface VenueChunk {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   chunkIndex?: number | null;
   content?: string | null;
   embeddingText?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   venueId?: string | null;
@@ -2061,10 +2057,10 @@ export interface VenueImage {
 export interface VenueLink {
   id: string;
   entityId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
   title?: string | null;
   url?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   venueId?: string | null;
@@ -2086,6 +2082,12 @@ export interface PageInfo {
   endCursor?: string | null;
 }
 // ============ Entity Relation Types ============
+export interface AgentChunkRelations {
+  agent?: Agent | null;
+}
+export interface AgentCollaboratorRelations {
+  agent?: Agent | null;
+}
 export interface AgentRelations {
   agentTasks?: ConnectionResult<AgentTask>;
   agentLogs?: ConnectionResult<AgentLog>;
@@ -2093,17 +2095,7 @@ export interface AgentRelations {
   skills?: ConnectionResult<Skill>;
   agentChunks?: ConnectionResult<AgentChunk>;
   agentCollaborators?: ConnectionResult<AgentCollaborator>;
-  agentCollaboratorsByCollaboratorId?: ConnectionResult<AgentCollaborator>;
   memories?: ConnectionResult<Memory>;
-  agentsByAgentCollaboratorAgentIdAndCollaboratorId?: ConnectionResult<Agent>;
-  agentsByAgentCollaboratorCollaboratorIdAndAgentId?: ConnectionResult<Agent>;
-}
-export interface AgentChunkRelations {
-  agent?: Agent | null;
-}
-export interface AgentCollaboratorRelations {
-  agent?: Agent | null;
-  collaborator?: Agent | null;
 }
 export interface AgentLogChunkRelations {
   agentLog?: AgentLog | null;
@@ -2119,34 +2111,26 @@ export interface AgentTaskRelations {
   agent?: Agent | null;
   agentTaskChunks?: ConnectionResult<AgentTaskChunk>;
 }
-export interface AutonomyRecordRelations {
-  autonomyRecordChunks?: ConnectionResult<AutonomyRecordChunk>;
-  autonomyRecordLinksBySourceRecordId?: ConnectionResult<AutonomyRecordLink>;
-  autonomyRecordLinksByTargetRecordId?: ConnectionResult<AutonomyRecordLink>;
-  autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId?: ConnectionResult<AutonomyRecord>;
-  autonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordId?: ConnectionResult<AutonomyRecord>;
-}
 export interface AutonomyRecordChunkRelations {
   autonomyRecord?: AutonomyRecord | null;
 }
+export interface AutonomyRecordRelations {
+  autonomyRecordChunks?: ConnectionResult<AutonomyRecordChunk>;
+  autonomyRecordLinks?: ConnectionResult<AutonomyRecordLink>;
+}
 export interface AutonomyRecordLinkRelations {
-  sourceRecord?: AutonomyRecord | null;
-  targetRecord?: AutonomyRecord | null;
+  autonomyRecord?: AutonomyRecord | null;
 }
 export interface CodebasChunkRelations {
   codebasis?: Codebasis | null;
 }
 export interface CodebaseDependencyRelations {
-  codebase?: Codebasis | null;
-  dependency?: Codebasis | null;
+  codebasis?: Codebasis | null;
 }
 export interface CodebasisRelations {
   codeChunks?: ConnectionResult<CodeChunk>;
   codebasChunks?: ConnectionResult<CodebasChunk>;
-  codebaseDependenciesByCodebaseId?: ConnectionResult<CodebaseDependency>;
-  codebaseDependenciesByDependencyId?: ConnectionResult<CodebaseDependency>;
-  codebasesByCodebaseDependencyCodebaseIdAndDependencyId?: ConnectionResult<Codebasis>;
-  codebasesByCodebaseDependencyDependencyIdAndCodebaseId?: ConnectionResult<Codebasis>;
+  codebaseDependencies?: ConnectionResult<CodebaseDependency>;
 }
 export interface CodeChunkRelations {
   codebasis?: Codebasis | null;
@@ -2458,14 +2442,10 @@ export interface RuntimeStateRelations {
   runtimeArtifacts?: ConnectionResult<RuntimeArtifact>;
   runtimeMetrics?: ConnectionResult<RuntimeMetric>;
   runtimeStateChunks?: ConnectionResult<RuntimeStateChunk>;
-  runtimeStateDependenciesByDependencyId?: ConnectionResult<RuntimeStateDependency>;
-  runtimeStateDependenciesByStateId?: ConnectionResult<RuntimeStateDependency>;
-  runtimeStatesByRuntimeStateDependencyDependencyIdAndStateId?: ConnectionResult<RuntimeState>;
-  runtimeStatesByRuntimeStateDependencyStateIdAndDependencyId?: ConnectionResult<RuntimeState>;
+  runtimeStateDependencies?: ConnectionResult<RuntimeStateDependency>;
 }
 export interface RuntimeStateDependencyRelations {
-  dependency?: RuntimeState | null;
-  state?: RuntimeState | null;
+  runtimeState?: RuntimeState | null;
 }
 export interface SkillChunkRelations {
   skill?: Skill | null;
@@ -2503,15 +2483,15 @@ export interface VenueLinkRelations {
   venue?: Venue | null;
 }
 // ============ Entity Types With Relations ============
-export type AgentWithRelations = Agent & AgentRelations;
 export type AgentChunkWithRelations = AgentChunk & AgentChunkRelations;
 export type AgentCollaboratorWithRelations = AgentCollaborator & AgentCollaboratorRelations;
+export type AgentWithRelations = Agent & AgentRelations;
 export type AgentLogChunkWithRelations = AgentLogChunk & AgentLogChunkRelations;
 export type AgentLogWithRelations = AgentLog & AgentLogRelations;
 export type AgentTaskChunkWithRelations = AgentTaskChunk & AgentTaskChunkRelations;
 export type AgentTaskWithRelations = AgentTask & AgentTaskRelations;
-export type AutonomyRecordWithRelations = AutonomyRecord & AutonomyRecordRelations;
 export type AutonomyRecordChunkWithRelations = AutonomyRecordChunk & AutonomyRecordChunkRelations;
+export type AutonomyRecordWithRelations = AutonomyRecord & AutonomyRecordRelations;
 export type AutonomyRecordLinkWithRelations = AutonomyRecordLink & AutonomyRecordLinkRelations;
 export type CodebasChunkWithRelations = CodebasChunk & CodebasChunkRelations;
 export type CodebaseDependencyWithRelations = CodebaseDependency & CodebaseDependencyRelations;
@@ -2595,11 +2575,37 @@ export type VenueChunkWithRelations = VenueChunk & VenueChunkRelations;
 export type VenueImageWithRelations = VenueImage & VenueImageRelations;
 export type VenueLinkWithRelations = VenueLink & VenueLinkRelations;
 // ============ Entity Select Types ============
+export type AgentChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  chunkIndex?: boolean;
+  content?: boolean;
+  embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  agentId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+};
+export type AgentCollaboratorSelect = {
+  agentId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+};
 export type AgentSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   description?: boolean;
   systemPrompt?: boolean;
@@ -2609,6 +2615,8 @@ export type AgentSelect = {
   config?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2656,71 +2664,21 @@ export type AgentSelect = {
     filter?: AgentCollaboratorFilter;
     orderBy?: AgentCollaboratorOrderBy[];
   };
-  agentCollaboratorsByCollaboratorId?: {
-    select: AgentCollaboratorSelect;
-    first?: number;
-    filter?: AgentCollaboratorFilter;
-    orderBy?: AgentCollaboratorOrderBy[];
-  };
   memories?: {
     select: MemorySelect;
     first?: number;
     filter?: MemoryFilter;
     orderBy?: MemoryOrderBy[];
   };
-  agentsByAgentCollaboratorAgentIdAndCollaboratorId?: {
-    select: AgentSelect;
-    first?: number;
-    filter?: AgentFilter;
-    orderBy?: AgentOrderBy[];
-  };
-  agentsByAgentCollaboratorCollaboratorIdAndAgentId?: {
-    select: AgentSelect;
-    first?: number;
-    filter?: AgentFilter;
-    orderBy?: AgentOrderBy[];
-  };
-};
-export type AgentChunkSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  chunkIndex?: boolean;
-  content?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  agentId?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-};
-export type AgentCollaboratorSelect = {
-  agentId?: boolean;
-  collaboratorId?: boolean;
-  id?: boolean;
-  entityId?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  collaborator?: {
-    select: AgentSelect;
-  };
 };
 export type AgentLogChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   agentLogId?: boolean;
@@ -2736,14 +2694,14 @@ export type AgentLogChunkSelect = {
 export type AgentLogSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   agentId?: boolean;
   level?: boolean;
   message?: boolean;
   context?: boolean;
   taskId?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2765,11 +2723,11 @@ export type AgentLogSelect = {
 export type AgentTaskChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   agentTaskId?: boolean;
@@ -2785,8 +2743,6 @@ export type AgentTaskChunkSelect = {
 export type AgentTaskSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   agentId?: boolean;
   title?: boolean;
   description?: boolean;
@@ -2797,6 +2753,8 @@ export type AgentTaskSelect = {
   completedAt?: boolean;
   meta?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2817,11 +2775,29 @@ export type AgentTaskSelect = {
     orderBy?: AgentTaskChunkOrderBy[];
   };
 };
+export type AutonomyRecordChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  chunkIndex?: boolean;
+  content?: boolean;
+  embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  autonomyRecordId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  autonomyRecord?: {
+    select: AutonomyRecordSelect;
+  };
+};
 export type AutonomyRecordSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   title?: boolean;
   recordType?: boolean;
   content?: boolean;
@@ -2831,6 +2807,8 @@ export type AutonomyRecordSelect = {
   context?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2848,71 +2826,29 @@ export type AutonomyRecordSelect = {
     filter?: AutonomyRecordChunkFilter;
     orderBy?: AutonomyRecordChunkOrderBy[];
   };
-  autonomyRecordLinksBySourceRecordId?: {
+  autonomyRecordLinks?: {
     select: AutonomyRecordLinkSelect;
     first?: number;
     filter?: AutonomyRecordLinkFilter;
     orderBy?: AutonomyRecordLinkOrderBy[];
-  };
-  autonomyRecordLinksByTargetRecordId?: {
-    select: AutonomyRecordLinkSelect;
-    first?: number;
-    filter?: AutonomyRecordLinkFilter;
-    orderBy?: AutonomyRecordLinkOrderBy[];
-  };
-  autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId?: {
-    select: AutonomyRecordSelect;
-    first?: number;
-    filter?: AutonomyRecordFilter;
-    orderBy?: AutonomyRecordOrderBy[];
-  };
-  autonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordId?: {
-    select: AutonomyRecordSelect;
-    first?: number;
-    filter?: AutonomyRecordFilter;
-    orderBy?: AutonomyRecordOrderBy[];
-  };
-};
-export type AutonomyRecordChunkSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  chunkIndex?: boolean;
-  content?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  autonomyRecordId?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  autonomyRecord?: {
-    select: AutonomyRecordSelect;
   };
 };
 export type AutonomyRecordLinkSelect = {
-  sourceRecordId?: boolean;
-  targetRecordId?: boolean;
+  autonomyRecordId?: boolean;
   id?: boolean;
   entityId?: boolean;
-  sourceRecord?: {
-    select: AutonomyRecordSelect;
-  };
-  targetRecord?: {
+  autonomyRecord?: {
     select: AutonomyRecordSelect;
   };
 };
 export type CodebasChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   codebasisId?: boolean;
@@ -2926,22 +2862,16 @@ export type CodebasChunkSelect = {
   };
 };
 export type CodebaseDependencySelect = {
-  codebaseId?: boolean;
-  dependencyId?: boolean;
+  codebasisId?: boolean;
   id?: boolean;
   entityId?: boolean;
-  codebase?: {
-    select: CodebasisSelect;
-  };
-  dependency?: {
+  codebasis?: {
     select: CodebasisSelect;
   };
 };
 export type CodebasisSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   description?: boolean;
   repositoryUrl?: boolean;
@@ -2952,6 +2882,8 @@ export type CodebasisSelect = {
   config?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2976,36 +2908,16 @@ export type CodebasisSelect = {
     filter?: CodebasChunkFilter;
     orderBy?: CodebasChunkOrderBy[];
   };
-  codebaseDependenciesByCodebaseId?: {
+  codebaseDependencies?: {
     select: CodebaseDependencySelect;
     first?: number;
     filter?: CodebaseDependencyFilter;
     orderBy?: CodebaseDependencyOrderBy[];
-  };
-  codebaseDependenciesByDependencyId?: {
-    select: CodebaseDependencySelect;
-    first?: number;
-    filter?: CodebaseDependencyFilter;
-    orderBy?: CodebaseDependencyOrderBy[];
-  };
-  codebasesByCodebaseDependencyCodebaseIdAndDependencyId?: {
-    select: CodebasisSelect;
-    first?: number;
-    filter?: CodebasisFilter;
-    orderBy?: CodebasisOrderBy[];
-  };
-  codebasesByCodebaseDependencyDependencyIdAndCodebaseId?: {
-    select: CodebasisSelect;
-    first?: number;
-    filter?: CodebasisFilter;
-    orderBy?: CodebasisOrderBy[];
   };
 };
 export type CodeChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   codebaseId?: boolean;
   filePath?: boolean;
   chunkIndex?: boolean;
@@ -3016,6 +2928,8 @@ export type CodeChunkSelect = {
   symbolName?: boolean;
   symbolType?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   codebasisId?: boolean;
@@ -3035,11 +2949,11 @@ export type CodeChunkSelect = {
 export type CompanyChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   companyId?: boolean;
@@ -3055,8 +2969,6 @@ export type CompanyChunkSelect = {
 export type CompanySelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   domain?: boolean;
   industry?: boolean;
@@ -3064,6 +2976,8 @@ export type CompanySelect = {
   tags?: boolean;
   embeddingText?: boolean;
   mainImageId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
@@ -3155,8 +3069,6 @@ export type CompanySelect = {
 export type ContactSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   firstName?: boolean;
   lastName?: boolean;
   email?: boolean;
@@ -3175,6 +3087,8 @@ export type ContactSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   mainImageId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
@@ -3318,8 +3232,6 @@ export type CompanyEventSelect = {
 export type EventSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   eventType?: boolean;
   location?: boolean;
@@ -3330,6 +3242,8 @@ export type EventSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   mainImageId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
@@ -3434,12 +3348,12 @@ export type CompanyImageSelect = {
 export type ImageSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   url?: boolean;
   meta?: boolean;
   altText?: boolean;
   caption?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingVectorDistance?: boolean;
@@ -3520,10 +3434,10 @@ export type ImageSelect = {
 export type CompanyLinkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   title?: boolean;
   url?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   companyId?: boolean;
@@ -3536,8 +3450,6 @@ export type CompanyLinkSelect = {
 export type MemorySelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   title?: boolean;
   content?: boolean;
   occurredAt?: boolean;
@@ -3546,6 +3458,8 @@ export type MemorySelect = {
   importance?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   agentId?: boolean;
@@ -3618,8 +3532,6 @@ export type CompanyNoteSelect = {
 export type NoteSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   content?: boolean;
   abstract?: boolean;
   overview?: boolean;
@@ -3627,6 +3539,8 @@ export type NoteSelect = {
   lastAccessedAt?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   contentBm25Score?: boolean;
@@ -3695,11 +3609,11 @@ export type NoteSelect = {
 export type ContactChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   contactId?: boolean;
@@ -3727,8 +3641,6 @@ export type ContactCompanySelect = {
 export type DealSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   stage?: boolean;
   value?: boolean;
@@ -3737,6 +3649,8 @@ export type DealSelect = {
   notesText?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -3805,10 +3719,10 @@ export type ContactImageSelect = {
 export type ContactLinkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   title?: boolean;
   url?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   contactId?: boolean;
@@ -3845,8 +3759,6 @@ export type ContactNoteSelect = {
 export type ProjectSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   description?: boolean;
   status?: boolean;
@@ -3858,6 +3770,8 @@ export type ProjectSelect = {
   config?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -3902,11 +3816,11 @@ export type ProjectSelect = {
 export type ConversationChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   conversationId?: boolean;
@@ -3922,13 +3836,13 @@ export type ConversationChunkSelect = {
 export type ConversationSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   title?: boolean;
   agentId?: boolean;
   status?: boolean;
   meta?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -3953,11 +3867,11 @@ export type ConversationSelect = {
 export type DealChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   dealId?: boolean;
@@ -3997,11 +3911,11 @@ export type DealNoteSelect = {
 export type EventChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   eventId?: boolean;
@@ -4029,10 +3943,10 @@ export type EventImageSelect = {
 export type EventLinkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   title?: boolean;
   url?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   eventId?: boolean;
@@ -4069,8 +3983,6 @@ export type EventVenueSelect = {
 export type VenueSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   address?: boolean;
   neighborhood?: boolean;
@@ -4085,6 +3997,8 @@ export type VenueSelect = {
   tags?: boolean;
   embeddingText?: boolean;
   mainImageId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
@@ -4145,11 +4059,11 @@ export type VenueSelect = {
 export type GoalChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   goalId?: boolean;
@@ -4165,8 +4079,6 @@ export type GoalChunkSelect = {
 export type GoalSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   title?: boolean;
   description?: boolean;
   category?: boolean;
@@ -4177,6 +4089,8 @@ export type GoalSelect = {
   progress?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4233,8 +4147,6 @@ export type GoalHabitSelect = {
 export type HabitSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   description?: boolean;
   frequency?: boolean;
@@ -4244,6 +4156,8 @@ export type HabitSelect = {
   isActive?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4287,11 +4201,11 @@ export type GoalProjectSelect = {
 export type HabitChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   habitId?: boolean;
@@ -4307,11 +4221,11 @@ export type HabitChunkSelect = {
 export type HikingTrailChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   hikingTrailId?: boolean;
@@ -4327,8 +4241,6 @@ export type HikingTrailChunkSelect = {
 export type HikingTrailSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   description?: boolean;
   difficulty?: boolean;
@@ -4340,6 +4252,8 @@ export type HikingTrailSelect = {
   notes?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4374,8 +4288,6 @@ export type HikingTrailSelect = {
 export type TripSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   description?: boolean;
   destination?: boolean;
@@ -4386,6 +4298,8 @@ export type TripSelect = {
   currency?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4437,11 +4351,11 @@ export type TripSelect = {
 export type InteractionChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   interactionId?: boolean;
@@ -4457,8 +4371,6 @@ export type InteractionChunkSelect = {
 export type InteractionSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   contactId?: boolean;
   type?: boolean;
   occurredAt?: boolean;
@@ -4466,6 +4378,8 @@ export type InteractionSelect = {
   sentiment?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4488,11 +4402,11 @@ export type InteractionSelect = {
 export type ItineraryItemChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   itineraryItemId?: boolean;
@@ -4508,8 +4422,6 @@ export type ItineraryItemChunkSelect = {
 export type ItineraryItemSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   tripId?: boolean;
   name?: boolean;
   description?: boolean;
@@ -4522,6 +4434,8 @@ export type ItineraryItemSelect = {
   notes?: boolean;
   sortOrder?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4548,11 +4462,11 @@ export type ItineraryItemSelect = {
 export type MemoryChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   memoryId?: boolean;
@@ -4568,11 +4482,11 @@ export type MemoryChunkSelect = {
 export type MessageChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   messageId?: boolean;
@@ -4588,8 +4502,6 @@ export type MessageChunkSelect = {
 export type MessageSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   conversationId?: boolean;
   role?: boolean;
   content?: boolean;
@@ -4598,6 +4510,8 @@ export type MessageSelect = {
   toolCalls?: boolean;
   toolResults?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4619,11 +4533,11 @@ export type MessageSelect = {
 export type NoteChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   noteId?: boolean;
@@ -4639,11 +4553,11 @@ export type NoteChunkSelect = {
 export type PlaceChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   placeId?: boolean;
@@ -4659,8 +4573,6 @@ export type PlaceChunkSelect = {
 export type PlaceSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   description?: boolean;
   address?: boolean;
@@ -4671,6 +4583,8 @@ export type PlaceSelect = {
   notes?: boolean;
   tags?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4712,11 +4626,11 @@ export type PlaceSelect = {
 export type ProjectChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   projectId?: boolean;
@@ -4744,11 +4658,11 @@ export type ProjectContactSelect = {
 export type RuleChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   ruleId?: boolean;
@@ -4764,8 +4678,6 @@ export type RuleChunkSelect = {
 export type RuleSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   description?: boolean;
   triggerType?: boolean;
@@ -4776,6 +4688,8 @@ export type RuleSelect = {
   priority?: boolean;
   triggerConcept?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   triggerConceptEmbedding?: boolean;
@@ -4803,14 +4717,14 @@ export type RuleSelect = {
 export type RuntimeArtifactSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   runtimeStateId?: boolean;
   name?: boolean;
   artifactType?: boolean;
   content?: boolean;
   meta?: boolean;
   sizeBytes?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   runtimeState?: {
     select: RuntimeStateSelect;
   };
@@ -4818,32 +4732,32 @@ export type RuntimeArtifactSelect = {
 export type RuntimeConfigSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   key?: boolean;
   value?: boolean;
   description?: boolean;
   isSecret?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
 };
 export type RuntimeEventSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   eventType?: boolean;
   payload?: boolean;
   source?: boolean;
   processedAt?: boolean;
   status?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
 };
 export type RuntimeLogChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   runtimeLogId?: boolean;
@@ -4859,14 +4773,14 @@ export type RuntimeLogChunkSelect = {
 export type RuntimeLogSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   runtimeStateId?: boolean;
   level?: boolean;
   message?: boolean;
   context?: boolean;
   stepIndex?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4888,13 +4802,13 @@ export type RuntimeLogSelect = {
 export type RuntimeMetricSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   runtimeStateId?: boolean;
   metricName?: boolean;
   metricValue?: boolean;
   unit?: boolean;
   meta?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   runtimeState?: {
     select: RuntimeStateSelect;
   };
@@ -4902,8 +4816,6 @@ export type RuntimeMetricSelect = {
 export type RuntimeScheduleSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   cronExpression?: boolean;
   nextRunAt?: boolean;
@@ -4911,15 +4823,17 @@ export type RuntimeScheduleSelect = {
   isActive?: boolean;
   config?: boolean;
   timezone?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
 };
 export type RuntimeStateChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   runtimeStateId?: boolean;
@@ -4935,8 +4849,6 @@ export type RuntimeStateChunkSelect = {
 export type RuntimeStateSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   stateType?: boolean;
   status?: boolean;
@@ -4945,6 +4857,8 @@ export type RuntimeStateSelect = {
   startedAt?: boolean;
   endedAt?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4978,51 +4892,29 @@ export type RuntimeStateSelect = {
     filter?: RuntimeStateChunkFilter;
     orderBy?: RuntimeStateChunkOrderBy[];
   };
-  runtimeStateDependenciesByDependencyId?: {
+  runtimeStateDependencies?: {
     select: RuntimeStateDependencySelect;
     first?: number;
     filter?: RuntimeStateDependencyFilter;
     orderBy?: RuntimeStateDependencyOrderBy[];
-  };
-  runtimeStateDependenciesByStateId?: {
-    select: RuntimeStateDependencySelect;
-    first?: number;
-    filter?: RuntimeStateDependencyFilter;
-    orderBy?: RuntimeStateDependencyOrderBy[];
-  };
-  runtimeStatesByRuntimeStateDependencyDependencyIdAndStateId?: {
-    select: RuntimeStateSelect;
-    first?: number;
-    filter?: RuntimeStateFilter;
-    orderBy?: RuntimeStateOrderBy[];
-  };
-  runtimeStatesByRuntimeStateDependencyStateIdAndDependencyId?: {
-    select: RuntimeStateSelect;
-    first?: number;
-    filter?: RuntimeStateFilter;
-    orderBy?: RuntimeStateOrderBy[];
   };
 };
 export type RuntimeStateDependencySelect = {
-  stateId?: boolean;
-  dependencyId?: boolean;
+  runtimeStateId?: boolean;
   id?: boolean;
   entityId?: boolean;
-  dependency?: {
-    select: RuntimeStateSelect;
-  };
-  state?: {
+  runtimeState?: {
     select: RuntimeStateSelect;
   };
 };
 export type SkillChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   skillId?: boolean;
@@ -5038,8 +4930,6 @@ export type SkillChunkSelect = {
 export type SkillSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   description?: boolean;
   category?: boolean;
@@ -5048,6 +4938,8 @@ export type SkillSelect = {
   isActive?: boolean;
   intentTrigger?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   intentTriggerEmbedding?: boolean;
@@ -5075,24 +4967,24 @@ export type SkillSelect = {
 export type TagSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   color?: boolean;
   category?: boolean;
   usageCount?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
 };
 export type ToolDefinitionSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   name?: boolean;
   description?: boolean;
   inputSchema?: boolean;
   outputSchema?: boolean;
   implementation?: boolean;
   isActive?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   toolExecutions?: {
     select: ToolExecutionSelect;
     first?: number;
@@ -5103,8 +4995,6 @@ export type ToolDefinitionSelect = {
 export type ToolExecutionSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   toolDefinitionId?: boolean;
   messageId?: boolean;
   input?: boolean;
@@ -5113,6 +5003,8 @@ export type ToolExecutionSelect = {
   startedAt?: boolean;
   completedAt?: boolean;
   error?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   toolDefinition?: {
     select: ToolDefinitionSelect;
   };
@@ -5120,11 +5012,11 @@ export type ToolExecutionSelect = {
 export type TripChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   tripId?: boolean;
@@ -5164,11 +5056,11 @@ export type TripPlaceSelect = {
 export type VenueChunkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   chunkIndex?: boolean;
   content?: boolean;
   embeddingText?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   venueId?: boolean;
@@ -5196,10 +5088,10 @@ export type VenueImageSelect = {
 export type VenueLinkSelect = {
   id?: boolean;
   entityId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
   title?: boolean;
   url?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   venueId?: boolean;
@@ -5210,15 +5102,72 @@ export type VenueLinkSelect = {
   };
 };
 // ============ Table Filter Types ============
+export interface AgentChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AgentChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AgentChunkFilter[];
+  /** Negates the expression. */
+  not?: AgentChunkFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+export interface AgentCollaboratorFilter {
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AgentCollaboratorFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AgentCollaboratorFilter[];
+  /** Negates the expression. */
+  not?: AgentCollaboratorFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+}
 export interface AgentFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -5237,6 +5186,10 @@ export interface AgentFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5271,10 +5224,6 @@ export interface AgentFilter {
   agentCollaborators?: AgentToManyAgentCollaboratorFilter;
   /** `agentCollaborators` exist. */
   agentCollaboratorsExist?: boolean;
-  /** Filter by the object’s `agentCollaboratorsByCollaboratorId` relation. */
-  agentCollaboratorsByCollaboratorId?: AgentToManyAgentCollaboratorFilter;
-  /** `agentCollaboratorsByCollaboratorId` exist. */
-  agentCollaboratorsByCollaboratorIdExist?: boolean;
   /** Filter by the object’s `memories` relation. */
   memories?: AgentToManyMemoryFilter;
   /** `memories` exist. */
@@ -5303,86 +5252,21 @@ export interface AgentFilter {
    */
   fullTextSearch?: string;
 }
-export interface AgentChunkFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `chunkIndex` field. */
-  chunkIndex?: IntFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: AgentChunkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AgentChunkFilter[];
-  /** Negates the expression. */
-  not?: AgentChunkFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface AgentCollaboratorFilter {
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Filter by the object’s `collaboratorId` field. */
-  collaboratorId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: AgentCollaboratorFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AgentCollaboratorFilter[];
-  /** Negates the expression. */
-  not?: AgentCollaboratorFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** Filter by the object’s `collaborator` relation. */
-  collaborator?: AgentFilter;
-}
 export interface AgentLogChunkFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5418,10 +5302,6 @@ export interface AgentLogFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `level` field. */
@@ -5434,6 +5314,10 @@ export interface AgentLogFilter {
   taskId?: UUIDFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5473,16 +5357,16 @@ export interface AgentTaskChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5518,10 +5402,6 @@ export interface AgentTaskFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
@@ -5542,6 +5422,10 @@ export interface AgentTaskFilter {
   meta?: JSONFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5580,94 +5464,21 @@ export interface AgentTaskFilter {
    */
   fullTextSearch?: string;
 }
-export interface AutonomyRecordFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `recordType` field. */
-  recordType?: StringTrgmFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `priority` field. */
-  priority?: IntFilter;
-  /** Filter by the object’s `source` field. */
-  source?: StringTrgmFilter;
-  /** Filter by the object’s `context` field. */
-  context?: JSONFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: AutonomyRecordFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AutonomyRecordFilter[];
-  /** Negates the expression. */
-  not?: AutonomyRecordFilter;
-  /** Filter by the object’s `autonomyRecordChunks` relation. */
-  autonomyRecordChunks?: AutonomyRecordToManyAutonomyRecordChunkFilter;
-  /** `autonomyRecordChunks` exist. */
-  autonomyRecordChunksExist?: boolean;
-  /** Filter by the object’s `autonomyRecordLinksBySourceRecordId` relation. */
-  autonomyRecordLinksBySourceRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
-  /** `autonomyRecordLinksBySourceRecordId` exist. */
-  autonomyRecordLinksBySourceRecordIdExist?: boolean;
-  /** Filter by the object’s `autonomyRecordLinksByTargetRecordId` relation. */
-  autonomyRecordLinksByTargetRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
-  /** `autonomyRecordLinksByTargetRecordId` exist. */
-  autonomyRecordLinksByTargetRecordIdExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `record_type` column. */
-  trgmRecordType?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `source` column. */
-  trgmSource?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
 export interface AutonomyRecordChunkFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5698,11 +5509,78 @@ export interface AutonomyRecordChunkFilter {
    */
   fullTextSearch?: string;
 }
+export interface AutonomyRecordFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `recordType` field. */
+  recordType?: StringTrgmFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `priority` field. */
+  priority?: IntFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringTrgmFilter;
+  /** Filter by the object’s `context` field. */
+  context?: JSONFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: AutonomyRecordFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AutonomyRecordFilter[];
+  /** Negates the expression. */
+  not?: AutonomyRecordFilter;
+  /** Filter by the object’s `autonomyRecordChunks` relation. */
+  autonomyRecordChunks?: AutonomyRecordToManyAutonomyRecordChunkFilter;
+  /** `autonomyRecordChunks` exist. */
+  autonomyRecordChunksExist?: boolean;
+  /** Filter by the object’s `autonomyRecordLinks` relation. */
+  autonomyRecordLinks?: AutonomyRecordToManyAutonomyRecordLinkFilter;
+  /** `autonomyRecordLinks` exist. */
+  autonomyRecordLinksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `record_type` column. */
+  trgmRecordType?: TrgmSearchInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `source` column. */
+  trgmSource?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
 export interface AutonomyRecordLinkFilter {
-  /** Filter by the object’s `sourceRecordId` field. */
-  sourceRecordId?: UUIDFilter;
-  /** Filter by the object’s `targetRecordId` field. */
-  targetRecordId?: UUIDFilter;
+  /** Filter by the object’s `autonomyRecordId` field. */
+  autonomyRecordId?: UUIDFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
@@ -5713,26 +5591,24 @@ export interface AutonomyRecordLinkFilter {
   or?: AutonomyRecordLinkFilter[];
   /** Negates the expression. */
   not?: AutonomyRecordLinkFilter;
-  /** Filter by the object’s `sourceRecord` relation. */
-  sourceRecord?: AutonomyRecordFilter;
-  /** Filter by the object’s `targetRecord` relation. */
-  targetRecord?: AutonomyRecordFilter;
+  /** Filter by the object’s `autonomyRecord` relation. */
+  autonomyRecord?: AutonomyRecordFilter;
 }
 export interface CodebasChunkFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5764,10 +5640,8 @@ export interface CodebasChunkFilter {
   fullTextSearch?: string;
 }
 export interface CodebaseDependencyFilter {
-  /** Filter by the object’s `codebaseId` field. */
-  codebaseId?: UUIDFilter;
-  /** Filter by the object’s `dependencyId` field. */
-  dependencyId?: UUIDFilter;
+  /** Filter by the object’s `codebasisId` field. */
+  codebasisId?: UUIDFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
@@ -5778,20 +5652,14 @@ export interface CodebaseDependencyFilter {
   or?: CodebaseDependencyFilter[];
   /** Negates the expression. */
   not?: CodebaseDependencyFilter;
-  /** Filter by the object’s `codebase` relation. */
-  codebase?: CodebasisFilter;
-  /** Filter by the object’s `dependency` relation. */
-  dependency?: CodebasisFilter;
+  /** Filter by the object’s `codebasis` relation. */
+  codebasis?: CodebasisFilter;
 }
 export interface CodebasisFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -5812,6 +5680,10 @@ export interface CodebasisFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5830,14 +5702,10 @@ export interface CodebasisFilter {
   codebasChunks?: CodebasisToManyCodebasChunkFilter;
   /** `codebasChunks` exist. */
   codebasChunksExist?: boolean;
-  /** Filter by the object’s `codebaseDependenciesByCodebaseId` relation. */
-  codebaseDependenciesByCodebaseId?: CodebasisToManyCodebaseDependencyFilter;
-  /** `codebaseDependenciesByCodebaseId` exist. */
-  codebaseDependenciesByCodebaseIdExist?: boolean;
-  /** Filter by the object’s `codebaseDependenciesByDependencyId` relation. */
-  codebaseDependenciesByDependencyId?: CodebasisToManyCodebaseDependencyFilter;
-  /** `codebaseDependenciesByDependencyId` exist. */
-  codebaseDependenciesByDependencyIdExist?: boolean;
+  /** Filter by the object’s `codebaseDependencies` relation. */
+  codebaseDependencies?: CodebasisToManyCodebaseDependencyFilter;
+  /** `codebaseDependencies` exist. */
+  codebaseDependenciesExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -5869,10 +5737,6 @@ export interface CodeChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `codebaseId` field. */
   codebaseId?: UUIDFilter;
   /** Filter by the object’s `filePath` field. */
@@ -5893,6 +5757,10 @@ export interface CodeChunkFilter {
   symbolType?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5936,16 +5804,16 @@ export interface CompanyChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5981,10 +5849,6 @@ export interface CompanyFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `domain` field. */
@@ -5999,6 +5863,10 @@ export interface CompanyFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -6072,10 +5940,6 @@ export interface ContactFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `firstName` field. */
   firstName?: StringTrgmFilter;
   /** Filter by the object’s `lastName` field. */
@@ -6112,6 +5976,10 @@ export interface ContactFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -6237,10 +6105,6 @@ export interface EventFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `eventType` field. */
@@ -6261,6 +6125,10 @@ export interface EventFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -6356,10 +6224,6 @@ export interface ImageFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `url` field. */
   url?: StringFilter;
   /** Filter by the object’s `meta` field. */
@@ -6368,6 +6232,10 @@ export interface ImageFilter {
   altText?: StringFilter;
   /** Filter by the object’s `caption` field. */
   caption?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6418,14 +6286,14 @@ export interface CompanyLinkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringFilter;
   /** Filter by the object’s `url` field. */
   url?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6448,10 +6316,6 @@ export interface MemoryFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringTrgmFilter;
   /** Filter by the object’s `content` field. */
@@ -6468,6 +6332,10 @@ export interface MemoryFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6563,10 +6431,6 @@ export interface NoteFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `abstract` field. */
@@ -6581,6 +6445,10 @@ export interface NoteFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6638,16 +6506,16 @@ export interface ContactChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6703,10 +6571,6 @@ export interface DealFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `stage` field. */
@@ -6723,6 +6587,10 @@ export interface DealFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6812,14 +6680,14 @@ export interface ContactLinkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringFilter;
   /** Filter by the object’s `url` field. */
   url?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6882,10 +6750,6 @@ export interface ProjectFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -6908,6 +6772,10 @@ export interface ProjectFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6957,16 +6825,16 @@ export interface ConversationChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7002,10 +6870,6 @@ export interface ConversationFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringTrgmFilter;
   /** Filter by the object’s `agentId` field. */
@@ -7016,6 +6880,10 @@ export interface ConversationFilter {
   meta?: JSONFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7057,16 +6925,16 @@ export interface DealChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7142,16 +7010,16 @@ export interface EventChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7207,14 +7075,14 @@ export interface EventLinkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringFilter;
   /** Filter by the object’s `url` field. */
   url?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7277,10 +7145,6 @@ export interface VenueFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `address` field. */
@@ -7309,6 +7173,10 @@ export interface VenueFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -7380,16 +7248,16 @@ export interface GoalChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7425,10 +7293,6 @@ export interface GoalFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -7449,6 +7313,10 @@ export interface GoalFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7518,10 +7386,6 @@ export interface HabitFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -7540,6 +7404,10 @@ export interface HabitFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7603,16 +7471,16 @@ export interface HabitChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7648,16 +7516,16 @@ export interface HikingTrailChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7693,10 +7561,6 @@ export interface HikingTrailFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -7719,6 +7583,10 @@ export interface HikingTrailFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7768,10 +7636,6 @@ export interface TripFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -7792,6 +7656,10 @@ export interface TripFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7847,16 +7715,16 @@ export interface InteractionChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7892,10 +7760,6 @@ export interface InteractionFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
   /** Filter by the object’s `type` field. */
@@ -7910,6 +7774,10 @@ export interface InteractionFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7951,16 +7819,16 @@ export interface ItineraryItemChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7996,10 +7864,6 @@ export interface ItineraryItemFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `tripId` field. */
   tripId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
@@ -8024,6 +7888,10 @@ export interface ItineraryItemFilter {
   sortOrder?: IntFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8071,16 +7939,16 @@ export interface MemoryChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8116,16 +7984,16 @@ export interface MessageChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8161,10 +8029,6 @@ export interface MessageFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `conversationId` field. */
   conversationId?: UUIDFilter;
   /** Filter by the object’s `role` field. */
@@ -8181,6 +8045,10 @@ export interface MessageFilter {
   toolResults?: JSONFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8220,16 +8088,16 @@ export interface NoteChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8265,16 +8133,16 @@ export interface PlaceChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8310,10 +8178,6 @@ export interface PlaceFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -8334,6 +8198,10 @@ export interface PlaceFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8389,16 +8257,16 @@ export interface ProjectChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8454,16 +8322,16 @@ export interface RuleChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8499,10 +8367,6 @@ export interface RuleFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -8523,6 +8387,10 @@ export interface RuleFilter {
   triggerConcept?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8574,10 +8442,6 @@ export interface RuntimeArtifactFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `runtimeStateId` field. */
   runtimeStateId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
@@ -8590,6 +8454,10 @@ export interface RuntimeArtifactFilter {
   meta?: JSONFilter;
   /** Filter by the object’s `sizeBytes` field. */
   sizeBytes?: IntFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeArtifactFilter[];
   /** Checks for any expressions in this list. */
@@ -8604,10 +8472,6 @@ export interface RuntimeConfigFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `key` field. */
   key?: StringFilter;
   /** Filter by the object’s `value` field. */
@@ -8616,6 +8480,10 @@ export interface RuntimeConfigFilter {
   description?: StringFilter;
   /** Filter by the object’s `isSecret` field. */
   isSecret?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeConfigFilter[];
   /** Checks for any expressions in this list. */
@@ -8628,10 +8496,6 @@ export interface RuntimeEventFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `eventType` field. */
   eventType?: StringFilter;
   /** Filter by the object’s `payload` field. */
@@ -8642,6 +8506,10 @@ export interface RuntimeEventFilter {
   processedAt?: DatetimeFilter;
   /** Filter by the object’s `status` field. */
   status?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeEventFilter[];
   /** Checks for any expressions in this list. */
@@ -8654,16 +8522,16 @@ export interface RuntimeLogChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8699,10 +8567,6 @@ export interface RuntimeLogFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `runtimeStateId` field. */
   runtimeStateId?: UUIDFilter;
   /** Filter by the object’s `level` field. */
@@ -8715,6 +8579,10 @@ export interface RuntimeLogFilter {
   stepIndex?: IntFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8754,10 +8622,6 @@ export interface RuntimeMetricFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `runtimeStateId` field. */
   runtimeStateId?: UUIDFilter;
   /** Filter by the object’s `metricName` field. */
@@ -8768,6 +8632,10 @@ export interface RuntimeMetricFilter {
   unit?: StringFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeMetricFilter[];
   /** Checks for any expressions in this list. */
@@ -8782,10 +8650,6 @@ export interface RuntimeScheduleFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringFilter;
   /** Filter by the object’s `cronExpression` field. */
@@ -8800,6 +8664,10 @@ export interface RuntimeScheduleFilter {
   config?: JSONFilter;
   /** Filter by the object’s `timezone` field. */
   timezone?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeScheduleFilter[];
   /** Checks for any expressions in this list. */
@@ -8812,16 +8680,16 @@ export interface RuntimeStateChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8857,10 +8725,6 @@ export interface RuntimeStateFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `stateType` field. */
@@ -8877,6 +8741,10 @@ export interface RuntimeStateFilter {
   endedAt?: DatetimeFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8903,14 +8771,10 @@ export interface RuntimeStateFilter {
   runtimeStateChunks?: RuntimeStateToManyRuntimeStateChunkFilter;
   /** `runtimeStateChunks` exist. */
   runtimeStateChunksExist?: boolean;
-  /** Filter by the object’s `runtimeStateDependenciesByDependencyId` relation. */
-  runtimeStateDependenciesByDependencyId?: RuntimeStateToManyRuntimeStateDependencyFilter;
-  /** `runtimeStateDependenciesByDependencyId` exist. */
-  runtimeStateDependenciesByDependencyIdExist?: boolean;
-  /** Filter by the object’s `runtimeStateDependenciesByStateId` relation. */
-  runtimeStateDependenciesByStateId?: RuntimeStateToManyRuntimeStateDependencyFilter;
-  /** `runtimeStateDependenciesByStateId` exist. */
-  runtimeStateDependenciesByStateIdExist?: boolean;
+  /** Filter by the object’s `runtimeStateDependencies` relation. */
+  runtimeStateDependencies?: RuntimeStateToManyRuntimeStateDependencyFilter;
+  /** `runtimeStateDependencies` exist. */
+  runtimeStateDependenciesExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -8932,10 +8796,8 @@ export interface RuntimeStateFilter {
   fullTextSearch?: string;
 }
 export interface RuntimeStateDependencyFilter {
-  /** Filter by the object’s `stateId` field. */
-  stateId?: UUIDFilter;
-  /** Filter by the object’s `dependencyId` field. */
-  dependencyId?: UUIDFilter;
+  /** Filter by the object’s `runtimeStateId` field. */
+  runtimeStateId?: UUIDFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
@@ -8946,26 +8808,24 @@ export interface RuntimeStateDependencyFilter {
   or?: RuntimeStateDependencyFilter[];
   /** Negates the expression. */
   not?: RuntimeStateDependencyFilter;
-  /** Filter by the object’s `dependency` relation. */
-  dependency?: RuntimeStateFilter;
-  /** Filter by the object’s `state` relation. */
-  state?: RuntimeStateFilter;
+  /** Filter by the object’s `runtimeState` relation. */
+  runtimeState?: RuntimeStateFilter;
 }
 export interface SkillChunkFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -9001,10 +8861,6 @@ export interface SkillFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -9021,6 +8877,10 @@ export interface SkillFilter {
   intentTrigger?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -9072,10 +8932,6 @@ export interface TagFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringFilter;
   /** Filter by the object’s `color` field. */
@@ -9084,6 +8940,10 @@ export interface TagFilter {
   category?: StringFilter;
   /** Filter by the object’s `usageCount` field. */
   usageCount?: IntFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: TagFilter[];
   /** Checks for any expressions in this list. */
@@ -9096,10 +8956,6 @@ export interface ToolDefinitionFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringFilter;
   /** Filter by the object’s `description` field. */
@@ -9112,6 +8968,10 @@ export interface ToolDefinitionFilter {
   implementation?: StringFilter;
   /** Filter by the object’s `isActive` field. */
   isActive?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ToolDefinitionFilter[];
   /** Checks for any expressions in this list. */
@@ -9128,10 +8988,6 @@ export interface ToolExecutionFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `toolDefinitionId` field. */
   toolDefinitionId?: UUIDFilter;
   /** Filter by the object’s `messageId` field. */
@@ -9148,6 +9004,10 @@ export interface ToolExecutionFilter {
   completedAt?: DatetimeFilter;
   /** Filter by the object’s `error` field. */
   error?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ToolExecutionFilter[];
   /** Checks for any expressions in this list. */
@@ -9162,16 +9022,16 @@ export interface TripChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -9247,16 +9107,16 @@ export interface VenueChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -9312,14 +9172,14 @@ export interface VenueLinkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringFilter;
   /** Filter by the object’s `url` field. */
   url?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -9338,6 +9198,40 @@ export interface VenueLinkFilter {
   vectorEmbedding?: VectorNearbyInput;
 }
 // ============ OrderBy Types ============
+export type AgentChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type AgentCollaboratorOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
 export type AgentOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9370,42 +9264,6 @@ export type AgentOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type AgentChunkOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type AgentCollaboratorOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'COLLABORATOR_ID_ASC'
-  | 'COLLABORATOR_ID_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC';
 export type AgentLogChunkOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9518,6 +9376,30 @@ export type AgentTaskOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type AutonomyRecordChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'AUTONOMY_RECORD_ID_ASC'
+  | 'AUTONOMY_RECORD_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type AutonomyRecordOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9556,38 +9438,12 @@ export type AutonomyRecordOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type AutonomyRecordChunkOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'AUTONOMY_RECORD_ID_ASC'
-  | 'AUTONOMY_RECORD_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
 export type AutonomyRecordLinkOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
-  | 'SOURCE_RECORD_ID_ASC'
-  | 'SOURCE_RECORD_ID_DESC'
-  | 'TARGET_RECORD_ID_ASC'
-  | 'TARGET_RECORD_ID_DESC'
+  | 'AUTONOMY_RECORD_ID_ASC'
+  | 'AUTONOMY_RECORD_ID_DESC'
   | 'ID_ASC'
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
@@ -9620,10 +9476,8 @@ export type CodebaseDependencyOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
-  | 'CODEBASE_ID_ASC'
-  | 'CODEBASE_ID_DESC'
-  | 'DEPENDENCY_ID_ASC'
-  | 'DEPENDENCY_ID_DESC'
+  | 'CODEBASIS_ID_ASC'
+  | 'CODEBASIS_ID_DESC'
   | 'ID_ASC'
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
@@ -9672,8 +9526,6 @@ export type CodeChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'CODEBASE_ID_ASC'
-  | 'CODEBASE_ID_DESC'
   | 'FILE_PATH_ASC'
   | 'FILE_PATH_DESC'
   | 'LANGUAGE_ASC'
@@ -11188,10 +11040,8 @@ export type RuntimeStateDependencyOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
-  | 'STATE_ID_ASC'
-  | 'STATE_ID_DESC'
-  | 'DEPENDENCY_ID_ASC'
-  | 'DEPENDENCY_ID_DESC'
+  | 'RUNTIME_STATE_ID_ASC'
+  | 'RUNTIME_STATE_ID_DESC'
   | 'ID_ASC'
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
@@ -11399,6 +11249,56 @@ export type VenueLinkOrderBy =
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 // ============ CRUD Input Types ============
+export interface CreateAgentChunkInput {
+  clientMutationId?: string;
+  agentChunk: {
+    entityId: string;
+    chunkIndex: number;
+    content: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    agentId: string;
+  };
+}
+export interface AgentChunkPatch {
+  entityId?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  agentId?: string | null;
+}
+export interface UpdateAgentChunkInput {
+  clientMutationId?: string;
+  id: string;
+  agentChunkPatch: AgentChunkPatch;
+}
+export interface DeleteAgentChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateAgentCollaboratorInput {
+  clientMutationId?: string;
+  agentCollaborator: {
+    agentId: string;
+    entityId: string;
+  };
+}
+export interface AgentCollaboratorPatch {
+  agentId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateAgentCollaboratorInput {
+  clientMutationId?: string;
+  id: string;
+  agentCollaboratorPatch: AgentCollaboratorPatch;
+}
+export interface DeleteAgentCollaboratorInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateAgentInput {
   clientMutationId?: string;
   agent: {
@@ -11436,58 +11336,6 @@ export interface UpdateAgentInput {
   agentPatch: AgentPatch;
 }
 export interface DeleteAgentInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateAgentChunkInput {
-  clientMutationId?: string;
-  agentChunk: {
-    entityId: string;
-    chunkIndex: number;
-    content: string;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    agentId: string;
-  };
-}
-export interface AgentChunkPatch {
-  entityId?: string | null;
-  chunkIndex?: number | null;
-  content?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  agentId?: string | null;
-}
-export interface UpdateAgentChunkInput {
-  clientMutationId?: string;
-  id: string;
-  agentChunkPatch: AgentChunkPatch;
-}
-export interface DeleteAgentChunkInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateAgentCollaboratorInput {
-  clientMutationId?: string;
-  agentCollaborator: {
-    agentId: string;
-    collaboratorId: string;
-    entityId: string;
-  };
-}
-export interface AgentCollaboratorPatch {
-  agentId?: string | null;
-  collaboratorId?: string | null;
-  entityId?: string | null;
-}
-export interface UpdateAgentCollaboratorInput {
-  clientMutationId?: string;
-  id: string;
-  agentCollaboratorPatch: AgentCollaboratorPatch;
-}
-export interface DeleteAgentCollaboratorInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11627,6 +11475,36 @@ export interface DeleteAgentTaskInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateAutonomyRecordChunkInput {
+  clientMutationId?: string;
+  autonomyRecordChunk: {
+    entityId: string;
+    chunkIndex: number;
+    content: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    autonomyRecordId: string;
+  };
+}
+export interface AutonomyRecordChunkPatch {
+  entityId?: string | null;
+  chunkIndex?: number | null;
+  content?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  autonomyRecordId?: string | null;
+}
+export interface UpdateAutonomyRecordChunkInput {
+  clientMutationId?: string;
+  id: string;
+  autonomyRecordChunkPatch: AutonomyRecordChunkPatch;
+}
+export interface DeleteAutonomyRecordChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateAutonomyRecordInput {
   clientMutationId?: string;
   autonomyRecord: {
@@ -11667,47 +11545,15 @@ export interface DeleteAutonomyRecordInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateAutonomyRecordChunkInput {
-  clientMutationId?: string;
-  autonomyRecordChunk: {
-    entityId: string;
-    chunkIndex: number;
-    content: string;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    autonomyRecordId: string;
-  };
-}
-export interface AutonomyRecordChunkPatch {
-  entityId?: string | null;
-  chunkIndex?: number | null;
-  content?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  autonomyRecordId?: string | null;
-}
-export interface UpdateAutonomyRecordChunkInput {
-  clientMutationId?: string;
-  id: string;
-  autonomyRecordChunkPatch: AutonomyRecordChunkPatch;
-}
-export interface DeleteAutonomyRecordChunkInput {
-  clientMutationId?: string;
-  id: string;
-}
 export interface CreateAutonomyRecordLinkInput {
   clientMutationId?: string;
   autonomyRecordLink: {
-    sourceRecordId: string;
-    targetRecordId: string;
+    autonomyRecordId: string;
     entityId: string;
   };
 }
 export interface AutonomyRecordLinkPatch {
-  sourceRecordId?: string | null;
-  targetRecordId?: string | null;
+  autonomyRecordId?: string | null;
   entityId?: string | null;
 }
 export interface UpdateAutonomyRecordLinkInput {
@@ -11752,14 +11598,12 @@ export interface DeleteCodebasChunkInput {
 export interface CreateCodebaseDependencyInput {
   clientMutationId?: string;
   codebaseDependency: {
-    codebaseId: string;
-    dependencyId: string;
+    codebasisId: string;
     entityId: string;
   };
 }
 export interface CodebaseDependencyPatch {
-  codebaseId?: string | null;
-  dependencyId?: string | null;
+  codebasisId?: string | null;
   entityId?: string | null;
 }
 export interface UpdateCodebaseDependencyInput {
@@ -13856,14 +13700,12 @@ export interface DeleteRuntimeStateInput {
 export interface CreateRuntimeStateDependencyInput {
   clientMutationId?: string;
   runtimeStateDependency: {
-    stateId: string;
-    dependencyId: string;
+    runtimeStateId: string;
     entityId: string;
   };
 }
 export interface RuntimeStateDependencyPatch {
-  stateId?: string | null;
-  dependencyId?: string | null;
+  runtimeStateId?: string | null;
   entityId?: string | null;
 }
 export interface UpdateRuntimeStateDependencyInput {
@@ -14200,10 +14042,7 @@ export const connectionFieldsMap = {
     skills: 'Skill',
     agentChunks: 'AgentChunk',
     agentCollaborators: 'AgentCollaborator',
-    agentCollaboratorsByCollaboratorId: 'AgentCollaborator',
     memories: 'Memory',
-    agentsByAgentCollaboratorAgentIdAndCollaboratorId: 'Agent',
-    agentsByAgentCollaboratorCollaboratorIdAndAgentId: 'Agent',
   },
   AgentLog: {
     agentLogChunks: 'AgentLogChunk',
@@ -14213,18 +14052,12 @@ export const connectionFieldsMap = {
   },
   AutonomyRecord: {
     autonomyRecordChunks: 'AutonomyRecordChunk',
-    autonomyRecordLinksBySourceRecordId: 'AutonomyRecordLink',
-    autonomyRecordLinksByTargetRecordId: 'AutonomyRecordLink',
-    autonomyRecordsByAutonomyRecordLinkSourceRecordIdAndTargetRecordId: 'AutonomyRecord',
-    autonomyRecordsByAutonomyRecordLinkTargetRecordIdAndSourceRecordId: 'AutonomyRecord',
+    autonomyRecordLinks: 'AutonomyRecordLink',
   },
   Codebasis: {
     codeChunks: 'CodeChunk',
     codebasChunks: 'CodebasChunk',
-    codebaseDependenciesByCodebaseId: 'CodebaseDependency',
-    codebaseDependenciesByDependencyId: 'CodebaseDependency',
-    codebasesByCodebaseDependencyCodebaseIdAndDependencyId: 'Codebasis',
-    codebasesByCodebaseDependencyDependencyIdAndCodebaseId: 'Codebasis',
+    codebaseDependencies: 'CodebaseDependency',
   },
   Company: {
     contacts: 'Contact',
@@ -14382,10 +14215,7 @@ export const connectionFieldsMap = {
     runtimeArtifacts: 'RuntimeArtifact',
     runtimeMetrics: 'RuntimeMetric',
     runtimeStateChunks: 'RuntimeStateChunk',
-    runtimeStateDependenciesByDependencyId: 'RuntimeStateDependency',
-    runtimeStateDependenciesByStateId: 'RuntimeStateDependency',
-    runtimeStatesByRuntimeStateDependencyDependencyIdAndStateId: 'RuntimeState',
-    runtimeStatesByRuntimeStateDependencyStateIdAndDependencyId: 'RuntimeState',
+    runtimeStateDependencies: 'RuntimeStateDependency',
   },
   Skill: {
     skillChunks: 'SkillChunk',
@@ -14476,6 +14306,31 @@ export interface StringTrgmFilter {
   /** Fuzzy matches using pg_trgm word_similarity. Finds the best matching substring within the column value. */
   wordSimilarTo?: TrgmSearchInput;
 }
+/** Input for BM25 ranked text search. Provide a search query string and optional score threshold. */
+export interface Bm25SearchInput {
+  /** The search query text. Uses pg_textsearch BM25 ranking. */
+  query: string;
+  /** Maximum BM25 score threshold (negative values). Only rows with score <= threshold are returned. */
+  threshold?: number;
+}
+/** Input for vector similarity search. Provide a query vector, optional metric, and optional max distance threshold. */
+export interface VectorNearbyInput {
+  /** Query vector for similarity search. */
+  vector: number[];
+  /** Similarity metric to use (default: COSINE). */
+  metric?: VectorMetric;
+  /** Maximum distance threshold. Only rows within this distance are returned. */
+  distance?: number;
+  /** When true (default for tables with @hasChunks), transparently queries the chunks table and returns the minimum distance across parent + all chunks. Set to false to only search the parent embedding. */
+  includeChunks?: boolean;
+}
+/** Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold. */
+export interface TrgmSearchInput {
+  /** The text to fuzzy-match against. Typos and misspellings are tolerated. */
+  value: string;
+  /** Minimum similarity threshold (0.0 to 1.0). Higher = stricter matching. Default is 0.3. */
+  threshold?: number;
+}
 /** A filter to be used against many `AgentTask` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentToManyAgentTaskFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14538,31 +14393,6 @@ export interface AgentToManyMemoryFilter {
   every?: MemoryFilter;
   /** Filters to entities where no related entity matches. */
   none?: MemoryFilter;
-}
-/** Input for BM25 ranked text search. Provide a search query string and optional score threshold. */
-export interface Bm25SearchInput {
-  /** The search query text. Uses pg_textsearch BM25 ranking. */
-  query: string;
-  /** Maximum BM25 score threshold (negative values). Only rows with score <= threshold are returned. */
-  threshold?: number;
-}
-/** Input for vector similarity search. Provide a query vector, optional metric, and optional max distance threshold. */
-export interface VectorNearbyInput {
-  /** Query vector for similarity search. */
-  vector: number[];
-  /** Similarity metric to use (default: COSINE). */
-  metric?: VectorMetric;
-  /** Maximum distance threshold. Only rows within this distance are returned. */
-  distance?: number;
-  /** When true (default for tables with @hasChunks), transparently queries the chunks table and returns the minimum distance across parent + all chunks. Set to false to only search the parent embedding. */
-  includeChunks?: boolean;
-}
-/** Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold. */
-export interface TrgmSearchInput {
-  /** The text to fuzzy-match against. Typos and misspellings are tolerated. */
-  value: string;
-  /** Minimum similarity threshold (0.0 to 1.0). Higher = stricter matching. Default is 0.3. */
-  threshold?: number;
 }
 /** A filter to be used against many `AgentLogChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentLogToManyAgentLogChunkFilter {
@@ -15329,16 +15159,14 @@ export interface ToolDefinitionToManyToolExecutionFilter {
   /** Filters to entities where no related entity matches. */
   none?: ToolExecutionFilter;
 }
+/** Similarity metric for vector search */
+export type VectorMetric = 'COSINE' | 'L2' | 'IP';
 /** A filter to be used against `AgentTask` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentTaskFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
@@ -15359,6 +15187,10 @@ export interface AgentTaskFilter {
   meta?: JSONFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15403,10 +15235,6 @@ export interface AgentLogFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `level` field. */
@@ -15419,6 +15247,10 @@ export interface AgentLogFilter {
   taskId?: UUIDFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15459,10 +15291,6 @@ export interface RuleFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -15483,6 +15311,10 @@ export interface RuleFilter {
   triggerConcept?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15535,10 +15367,6 @@ export interface SkillFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -15555,6 +15383,10 @@ export interface SkillFilter {
   intentTrigger?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15607,16 +15439,16 @@ export interface AgentChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15651,8 +15483,6 @@ export interface AgentChunkFilter {
 export interface AgentCollaboratorFilter {
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
-  /** Filter by the object’s `collaboratorId` field. */
-  collaboratorId?: UUIDFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
@@ -15665,8 +15495,6 @@ export interface AgentCollaboratorFilter {
   not?: AgentCollaboratorFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
-  /** Filter by the object’s `collaborator` relation. */
-  collaborator?: AgentFilter;
 }
 /** A filter to be used against `Memory` object types. All fields are combined with a logical ‘and.’ */
 export interface MemoryFilter {
@@ -15674,10 +15502,6 @@ export interface MemoryFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringTrgmFilter;
   /** Filter by the object’s `content` field. */
@@ -15694,6 +15518,10 @@ export interface MemoryFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15744,24 +15572,22 @@ export interface MemoryFilter {
    */
   fullTextSearch?: string;
 }
-/** Similarity metric for vector search */
-export type VectorMetric = 'COSINE' | 'L2' | 'IP';
 /** A filter to be used against `AgentLogChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentLogChunkFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15798,16 +15624,16 @@ export interface AgentTaskChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15844,16 +15670,16 @@ export interface AutonomyRecordChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15886,10 +15712,8 @@ export interface AutonomyRecordChunkFilter {
 }
 /** A filter to be used against `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’ */
 export interface AutonomyRecordLinkFilter {
-  /** Filter by the object’s `sourceRecordId` field. */
-  sourceRecordId?: UUIDFilter;
-  /** Filter by the object’s `targetRecordId` field. */
-  targetRecordId?: UUIDFilter;
+  /** Filter by the object’s `autonomyRecordId` field. */
+  autonomyRecordId?: UUIDFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
@@ -15900,10 +15724,8 @@ export interface AutonomyRecordLinkFilter {
   or?: AutonomyRecordLinkFilter[];
   /** Negates the expression. */
   not?: AutonomyRecordLinkFilter;
-  /** Filter by the object’s `sourceRecord` relation. */
-  sourceRecord?: AutonomyRecordFilter;
-  /** Filter by the object’s `targetRecord` relation. */
-  targetRecord?: AutonomyRecordFilter;
+  /** Filter by the object’s `autonomyRecord` relation. */
+  autonomyRecord?: AutonomyRecordFilter;
 }
 /** A filter to be used against `CodeChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface CodeChunkFilter {
@@ -15911,10 +15733,6 @@ export interface CodeChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `codebaseId` field. */
   codebaseId?: UUIDFilter;
   /** Filter by the object’s `filePath` field. */
@@ -15935,6 +15753,10 @@ export interface CodeChunkFilter {
   symbolType?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15979,16 +15801,16 @@ export interface CodebasChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16021,10 +15843,8 @@ export interface CodebasChunkFilter {
 }
 /** A filter to be used against `CodebaseDependency` object types. All fields are combined with a logical ‘and.’ */
 export interface CodebaseDependencyFilter {
-  /** Filter by the object’s `codebaseId` field. */
-  codebaseId?: UUIDFilter;
-  /** Filter by the object’s `dependencyId` field. */
-  dependencyId?: UUIDFilter;
+  /** Filter by the object’s `codebasisId` field. */
+  codebasisId?: UUIDFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
@@ -16035,10 +15855,8 @@ export interface CodebaseDependencyFilter {
   or?: CodebaseDependencyFilter[];
   /** Negates the expression. */
   not?: CodebaseDependencyFilter;
-  /** Filter by the object’s `codebase` relation. */
-  codebase?: CodebasisFilter;
-  /** Filter by the object’s `dependency` relation. */
-  dependency?: CodebasisFilter;
+  /** Filter by the object’s `codebasis` relation. */
+  codebasis?: CodebasisFilter;
 }
 /** A filter to be used against `CompanyChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyChunkFilter {
@@ -16046,16 +15864,16 @@ export interface CompanyChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16092,14 +15910,14 @@ export interface CompanyLinkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringFilter;
   /** Filter by the object’s `url` field. */
   url?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16228,10 +16046,6 @@ export interface InteractionFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
   /** Filter by the object’s `type` field. */
@@ -16246,6 +16060,10 @@ export interface InteractionFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16288,16 +16106,16 @@ export interface ContactChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16334,14 +16152,14 @@ export interface ContactLinkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringFilter;
   /** Filter by the object’s `url` field. */
   url?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16491,16 +16309,16 @@ export interface EventChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16537,14 +16355,14 @@ export interface EventLinkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringFilter;
   /** Filter by the object’s `url` field. */
   url?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16631,10 +16449,6 @@ export interface ContactFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `firstName` field. */
   firstName?: StringTrgmFilter;
   /** Filter by the object’s `lastName` field. */
@@ -16671,6 +16485,10 @@ export interface ContactFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16777,10 +16595,6 @@ export interface CompanyFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `domain` field. */
@@ -16795,6 +16609,10 @@ export interface CompanyFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16869,10 +16687,6 @@ export interface EventFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `eventType` field. */
@@ -16893,6 +16707,10 @@ export interface EventFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16969,10 +16787,6 @@ export interface VenueFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `address` field. */
@@ -17001,6 +16815,10 @@ export interface VenueFilter {
   embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -17094,16 +16912,16 @@ export interface MemoryChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17140,16 +16958,16 @@ export interface NoteChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17207,16 +17025,16 @@ export interface DealChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17253,16 +17071,16 @@ export interface ProjectChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17320,10 +17138,6 @@ export interface MessageFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `conversationId` field. */
   conversationId?: UUIDFilter;
   /** Filter by the object’s `role` field. */
@@ -17340,6 +17154,10 @@ export interface MessageFilter {
   toolResults?: JSONFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17380,16 +17198,16 @@ export interface ConversationChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17426,16 +17244,16 @@ export interface VenueChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17472,14 +17290,14 @@ export interface VenueLinkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringFilter;
   /** Filter by the object’s `url` field. */
   url?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17503,16 +17321,16 @@ export interface GoalChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17570,16 +17388,16 @@ export interface HabitChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17616,16 +17434,16 @@ export interface HikingTrailChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17683,10 +17501,6 @@ export interface ItineraryItemFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `tripId` field. */
   tripId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
@@ -17711,6 +17525,10 @@ export interface ItineraryItemFilter {
   sortOrder?: IntFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17759,16 +17577,16 @@ export interface TripChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17826,16 +17644,16 @@ export interface InteractionChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17872,16 +17690,16 @@ export interface ItineraryItemChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17918,16 +17736,16 @@ export interface MessageChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17964,16 +17782,16 @@ export interface PlaceChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18010,16 +17828,16 @@ export interface RuleChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18056,16 +17874,16 @@ export interface RuntimeLogChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18102,10 +17920,6 @@ export interface RuntimeLogFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `runtimeStateId` field. */
   runtimeStateId?: UUIDFilter;
   /** Filter by the object’s `level` field. */
@@ -18118,6 +17932,10 @@ export interface RuntimeLogFilter {
   stepIndex?: IntFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18158,10 +17976,6 @@ export interface RuntimeArtifactFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `runtimeStateId` field. */
   runtimeStateId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
@@ -18174,6 +17988,10 @@ export interface RuntimeArtifactFilter {
   meta?: JSONFilter;
   /** Filter by the object’s `sizeBytes` field. */
   sizeBytes?: IntFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeArtifactFilter[];
   /** Checks for any expressions in this list. */
@@ -18189,10 +18007,6 @@ export interface RuntimeMetricFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `runtimeStateId` field. */
   runtimeStateId?: UUIDFilter;
   /** Filter by the object’s `metricName` field. */
@@ -18203,6 +18017,10 @@ export interface RuntimeMetricFilter {
   unit?: StringFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: RuntimeMetricFilter[];
   /** Checks for any expressions in this list. */
@@ -18218,16 +18036,16 @@ export interface RuntimeStateChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18260,10 +18078,8 @@ export interface RuntimeStateChunkFilter {
 }
 /** A filter to be used against `RuntimeStateDependency` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeStateDependencyFilter {
-  /** Filter by the object’s `stateId` field. */
-  stateId?: UUIDFilter;
-  /** Filter by the object’s `dependencyId` field. */
-  dependencyId?: UUIDFilter;
+  /** Filter by the object’s `runtimeStateId` field. */
+  runtimeStateId?: UUIDFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
@@ -18274,10 +18090,8 @@ export interface RuntimeStateDependencyFilter {
   or?: RuntimeStateDependencyFilter[];
   /** Negates the expression. */
   not?: RuntimeStateDependencyFilter;
-  /** Filter by the object’s `dependency` relation. */
-  dependency?: RuntimeStateFilter;
-  /** Filter by the object’s `state` relation. */
-  state?: RuntimeStateFilter;
+  /** Filter by the object’s `runtimeState` relation. */
+  runtimeState?: RuntimeStateFilter;
 }
 /** A filter to be used against `SkillChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface SkillChunkFilter {
@@ -18285,16 +18099,16 @@ export interface SkillChunkFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18331,10 +18145,6 @@ export interface ToolExecutionFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `toolDefinitionId` field. */
   toolDefinitionId?: UUIDFilter;
   /** Filter by the object’s `messageId` field. */
@@ -18351,6 +18161,10 @@ export interface ToolExecutionFilter {
   completedAt?: DatetimeFilter;
   /** Filter by the object’s `error` field. */
   error?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ToolExecutionFilter[];
   /** Checks for any expressions in this list. */
@@ -18362,31 +18176,6 @@ export interface ToolExecutionFilter {
 }
 /** A filter to be used against UUID fields. All fields are combined with a logical ‘and.’ */
 export interface UUIDFilter {
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: boolean;
-  /** Equal to the specified value. */
-  equalTo?: string;
-  /** Not equal to the specified value. */
-  notEqualTo?: string;
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: string;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: string;
-  /** Included in the specified list. */
-  in?: string[];
-  /** Not included in the specified list. */
-  notIn?: string[];
-  /** Less than the specified value. */
-  lessThan?: string;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: string;
-  /** Greater than the specified value. */
-  greaterThan?: string;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: string;
-}
-/** A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’ */
-export interface DatetimeFilter {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
   isNull?: boolean;
   /** Equal to the specified value. */
@@ -18434,6 +18223,31 @@ export interface IntFilter {
   greaterThan?: number;
   /** Greater than or equal to the specified value. */
   greaterThanOrEqualTo?: number;
+}
+/** A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’ */
+export interface DatetimeFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: string;
+  /** Not equal to the specified value. */
+  notEqualTo?: string;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: string;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: string;
+  /** Included in the specified list. */
+  in?: string[];
+  /** Not included in the specified list. */
+  notIn?: string[];
+  /** Less than the specified value. */
+  lessThan?: string;
+  /** Less than or equal to the specified value. */
+  lessThanOrEqualTo?: string;
+  /** Greater than the specified value. */
+  greaterThan?: string;
+  /** Greater than or equal to the specified value. */
+  greaterThanOrEqualTo?: string;
 }
 /** A filter to be used against JSON fields. All fields are combined with a logical ‘and.’ */
 export interface JSONFilter {
@@ -18518,10 +18332,6 @@ export interface AgentFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -18540,6 +18350,10 @@ export interface AgentFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18574,10 +18388,6 @@ export interface AgentFilter {
   agentCollaborators?: AgentToManyAgentCollaboratorFilter;
   /** `agentCollaborators` exist. */
   agentCollaboratorsExist?: boolean;
-  /** Filter by the object’s `agentCollaboratorsByCollaboratorId` relation. */
-  agentCollaboratorsByCollaboratorId?: AgentToManyAgentCollaboratorFilter;
-  /** `agentCollaboratorsByCollaboratorId` exist. */
-  agentCollaboratorsByCollaboratorIdExist?: boolean;
   /** Filter by the object’s `memories` relation. */
   memories?: AgentToManyMemoryFilter;
   /** `memories` exist. */
@@ -18651,10 +18461,6 @@ export interface AutonomyRecordFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringTrgmFilter;
   /** Filter by the object’s `recordType` field. */
@@ -18673,6 +18479,10 @@ export interface AutonomyRecordFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18687,14 +18497,10 @@ export interface AutonomyRecordFilter {
   autonomyRecordChunks?: AutonomyRecordToManyAutonomyRecordChunkFilter;
   /** `autonomyRecordChunks` exist. */
   autonomyRecordChunksExist?: boolean;
-  /** Filter by the object’s `autonomyRecordLinksBySourceRecordId` relation. */
-  autonomyRecordLinksBySourceRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
-  /** `autonomyRecordLinksBySourceRecordId` exist. */
-  autonomyRecordLinksBySourceRecordIdExist?: boolean;
-  /** Filter by the object’s `autonomyRecordLinksByTargetRecordId` relation. */
-  autonomyRecordLinksByTargetRecordId?: AutonomyRecordToManyAutonomyRecordLinkFilter;
-  /** `autonomyRecordLinksByTargetRecordId` exist. */
-  autonomyRecordLinksByTargetRecordIdExist?: boolean;
+  /** Filter by the object’s `autonomyRecordLinks` relation. */
+  autonomyRecordLinks?: AutonomyRecordToManyAutonomyRecordLinkFilter;
+  /** `autonomyRecordLinks` exist. */
+  autonomyRecordLinksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -18725,10 +18531,6 @@ export interface CodebasisFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -18749,6 +18551,10 @@ export interface CodebasisFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18767,14 +18573,10 @@ export interface CodebasisFilter {
   codebasChunks?: CodebasisToManyCodebasChunkFilter;
   /** `codebasChunks` exist. */
   codebasChunksExist?: boolean;
-  /** Filter by the object’s `codebaseDependenciesByCodebaseId` relation. */
-  codebaseDependenciesByCodebaseId?: CodebasisToManyCodebaseDependencyFilter;
-  /** `codebaseDependenciesByCodebaseId` exist. */
-  codebaseDependenciesByCodebaseIdExist?: boolean;
-  /** Filter by the object’s `codebaseDependenciesByDependencyId` relation. */
-  codebaseDependenciesByDependencyId?: CodebasisToManyCodebaseDependencyFilter;
-  /** `codebaseDependenciesByDependencyId` exist. */
-  codebaseDependenciesByDependencyIdExist?: boolean;
+  /** Filter by the object’s `codebaseDependencies` relation. */
+  codebaseDependencies?: CodebasisToManyCodebaseDependencyFilter;
+  /** `codebaseDependencies` exist. */
+  codebaseDependenciesExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -18884,10 +18686,6 @@ export interface ImageFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `url` field. */
   url?: StringFilter;
   /** Filter by the object’s `meta` field. */
@@ -18896,6 +18694,10 @@ export interface ImageFilter {
   altText?: StringFilter;
   /** Filter by the object’s `caption` field. */
   caption?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18947,10 +18749,6 @@ export interface NoteFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `content` field. */
   content?: StringTrgmFilter;
   /** Filter by the object’s `abstract` field. */
@@ -18965,6 +18763,10 @@ export interface NoteFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19023,10 +18825,6 @@ export interface DealFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `stage` field. */
@@ -19043,6 +18841,10 @@ export interface DealFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19093,10 +18895,6 @@ export interface ProjectFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -19119,6 +18917,10 @@ export interface ProjectFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19238,10 +19040,6 @@ export interface GoalFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -19262,6 +19060,10 @@ export interface GoalFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19312,10 +19114,6 @@ export interface ConversationFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `title` field. */
   title?: StringTrgmFilter;
   /** Filter by the object’s `agentId` field. */
@@ -19326,6 +19124,10 @@ export interface ConversationFilter {
   meta?: JSONFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19368,10 +19170,6 @@ export interface HabitFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -19390,6 +19188,10 @@ export interface HabitFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19434,10 +19236,6 @@ export interface HikingTrailFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -19460,6 +19258,10 @@ export interface HikingTrailFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19510,10 +19312,6 @@ export interface TripFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -19534,6 +19332,10 @@ export interface TripFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19590,10 +19392,6 @@ export interface PlaceFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `description` field. */
@@ -19614,6 +19412,10 @@ export interface PlaceFilter {
   tags?: StringListFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19670,10 +19472,6 @@ export interface RuntimeStateFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringTrgmFilter;
   /** Filter by the object’s `stateType` field. */
@@ -19690,6 +19488,10 @@ export interface RuntimeStateFilter {
   endedAt?: DatetimeFilter;
   /** Filter by the object’s `embeddingText` field. */
   embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19716,14 +19518,10 @@ export interface RuntimeStateFilter {
   runtimeStateChunks?: RuntimeStateToManyRuntimeStateChunkFilter;
   /** `runtimeStateChunks` exist. */
   runtimeStateChunksExist?: boolean;
-  /** Filter by the object’s `runtimeStateDependenciesByDependencyId` relation. */
-  runtimeStateDependenciesByDependencyId?: RuntimeStateToManyRuntimeStateDependencyFilter;
-  /** `runtimeStateDependenciesByDependencyId` exist. */
-  runtimeStateDependenciesByDependencyIdExist?: boolean;
-  /** Filter by the object’s `runtimeStateDependenciesByStateId` relation. */
-  runtimeStateDependenciesByStateId?: RuntimeStateToManyRuntimeStateDependencyFilter;
-  /** `runtimeStateDependenciesByStateId` exist. */
-  runtimeStateDependenciesByStateIdExist?: boolean;
+  /** Filter by the object’s `runtimeStateDependencies` relation. */
+  runtimeStateDependencies?: RuntimeStateToManyRuntimeStateDependencyFilter;
+  /** `runtimeStateDependencies` exist. */
+  runtimeStateDependenciesExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -19750,10 +19548,6 @@ export interface ToolDefinitionFilter {
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `name` field. */
   name?: StringFilter;
   /** Filter by the object’s `description` field. */
@@ -19766,6 +19560,10 @@ export interface ToolDefinitionFilter {
   implementation?: StringFilter;
   /** Filter by the object’s `isActive` field. */
   isActive?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
   and?: ToolDefinitionFilter[];
   /** Checks for any expressions in this list. */
@@ -19778,51 +19576,6 @@ export interface ToolDefinitionFilter {
   toolExecutionsExist?: boolean;
 }
 // ============ Payload/Return Types (for custom operations) ============
-export interface CreateAgentPayload {
-  clientMutationId?: string | null;
-  /** The `Agent` that was created by this mutation. */
-  agent?: Agent | null;
-  agentEdge?: AgentEdge | null;
-}
-export type CreateAgentPayloadSelect = {
-  clientMutationId?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  agentEdge?: {
-    select: AgentEdgeSelect;
-  };
-};
-export interface UpdateAgentPayload {
-  clientMutationId?: string | null;
-  /** The `Agent` that was updated by this mutation. */
-  agent?: Agent | null;
-  agentEdge?: AgentEdge | null;
-}
-export type UpdateAgentPayloadSelect = {
-  clientMutationId?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  agentEdge?: {
-    select: AgentEdgeSelect;
-  };
-};
-export interface DeleteAgentPayload {
-  clientMutationId?: string | null;
-  /** The `Agent` that was deleted by this mutation. */
-  agent?: Agent | null;
-  agentEdge?: AgentEdge | null;
-}
-export type DeleteAgentPayloadSelect = {
-  clientMutationId?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  agentEdge?: {
-    select: AgentEdgeSelect;
-  };
-};
 export interface CreateAgentChunkPayload {
   clientMutationId?: string | null;
   /** The `AgentChunk` that was created by this mutation. */
@@ -19911,6 +19664,51 @@ export type DeleteAgentCollaboratorPayloadSelect = {
   };
   agentCollaboratorEdge?: {
     select: AgentCollaboratorEdgeSelect;
+  };
+};
+export interface CreateAgentPayload {
+  clientMutationId?: string | null;
+  /** The `Agent` that was created by this mutation. */
+  agent?: Agent | null;
+  agentEdge?: AgentEdge | null;
+}
+export type CreateAgentPayloadSelect = {
+  clientMutationId?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  agentEdge?: {
+    select: AgentEdgeSelect;
+  };
+};
+export interface UpdateAgentPayload {
+  clientMutationId?: string | null;
+  /** The `Agent` that was updated by this mutation. */
+  agent?: Agent | null;
+  agentEdge?: AgentEdge | null;
+}
+export type UpdateAgentPayloadSelect = {
+  clientMutationId?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  agentEdge?: {
+    select: AgentEdgeSelect;
+  };
+};
+export interface DeleteAgentPayload {
+  clientMutationId?: string | null;
+  /** The `Agent` that was deleted by this mutation. */
+  agent?: Agent | null;
+  agentEdge?: AgentEdge | null;
+}
+export type DeleteAgentPayloadSelect = {
+  clientMutationId?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  agentEdge?: {
+    select: AgentEdgeSelect;
   };
 };
 export interface CreateAgentLogChunkPayload {
@@ -20093,51 +19891,6 @@ export type DeleteAgentTaskPayloadSelect = {
     select: AgentTaskEdgeSelect;
   };
 };
-export interface CreateAutonomyRecordPayload {
-  clientMutationId?: string | null;
-  /** The `AutonomyRecord` that was created by this mutation. */
-  autonomyRecord?: AutonomyRecord | null;
-  autonomyRecordEdge?: AutonomyRecordEdge | null;
-}
-export type CreateAutonomyRecordPayloadSelect = {
-  clientMutationId?: boolean;
-  autonomyRecord?: {
-    select: AutonomyRecordSelect;
-  };
-  autonomyRecordEdge?: {
-    select: AutonomyRecordEdgeSelect;
-  };
-};
-export interface UpdateAutonomyRecordPayload {
-  clientMutationId?: string | null;
-  /** The `AutonomyRecord` that was updated by this mutation. */
-  autonomyRecord?: AutonomyRecord | null;
-  autonomyRecordEdge?: AutonomyRecordEdge | null;
-}
-export type UpdateAutonomyRecordPayloadSelect = {
-  clientMutationId?: boolean;
-  autonomyRecord?: {
-    select: AutonomyRecordSelect;
-  };
-  autonomyRecordEdge?: {
-    select: AutonomyRecordEdgeSelect;
-  };
-};
-export interface DeleteAutonomyRecordPayload {
-  clientMutationId?: string | null;
-  /** The `AutonomyRecord` that was deleted by this mutation. */
-  autonomyRecord?: AutonomyRecord | null;
-  autonomyRecordEdge?: AutonomyRecordEdge | null;
-}
-export type DeleteAutonomyRecordPayloadSelect = {
-  clientMutationId?: boolean;
-  autonomyRecord?: {
-    select: AutonomyRecordSelect;
-  };
-  autonomyRecordEdge?: {
-    select: AutonomyRecordEdgeSelect;
-  };
-};
 export interface CreateAutonomyRecordChunkPayload {
   clientMutationId?: string | null;
   /** The `AutonomyRecordChunk` that was created by this mutation. */
@@ -20181,6 +19934,51 @@ export type DeleteAutonomyRecordChunkPayloadSelect = {
   };
   autonomyRecordChunkEdge?: {
     select: AutonomyRecordChunkEdgeSelect;
+  };
+};
+export interface CreateAutonomyRecordPayload {
+  clientMutationId?: string | null;
+  /** The `AutonomyRecord` that was created by this mutation. */
+  autonomyRecord?: AutonomyRecord | null;
+  autonomyRecordEdge?: AutonomyRecordEdge | null;
+}
+export type CreateAutonomyRecordPayloadSelect = {
+  clientMutationId?: boolean;
+  autonomyRecord?: {
+    select: AutonomyRecordSelect;
+  };
+  autonomyRecordEdge?: {
+    select: AutonomyRecordEdgeSelect;
+  };
+};
+export interface UpdateAutonomyRecordPayload {
+  clientMutationId?: string | null;
+  /** The `AutonomyRecord` that was updated by this mutation. */
+  autonomyRecord?: AutonomyRecord | null;
+  autonomyRecordEdge?: AutonomyRecordEdge | null;
+}
+export type UpdateAutonomyRecordPayloadSelect = {
+  clientMutationId?: boolean;
+  autonomyRecord?: {
+    select: AutonomyRecordSelect;
+  };
+  autonomyRecordEdge?: {
+    select: AutonomyRecordEdgeSelect;
+  };
+};
+export interface DeleteAutonomyRecordPayload {
+  clientMutationId?: string | null;
+  /** The `AutonomyRecord` that was deleted by this mutation. */
+  autonomyRecord?: AutonomyRecord | null;
+  autonomyRecordEdge?: AutonomyRecordEdge | null;
+}
+export type DeleteAutonomyRecordPayloadSelect = {
+  clientMutationId?: boolean;
+  autonomyRecord?: {
+    select: AutonomyRecordSelect;
+  };
+  autonomyRecordEdge?: {
+    select: AutonomyRecordEdgeSelect;
   };
 };
 export interface CreateAutonomyRecordLinkPayload {
@@ -23828,18 +23626,6 @@ export type DeleteVenueLinkPayloadSelect = {
     select: VenueLinkEdgeSelect;
   };
 };
-/** A `Agent` edge in the connection. */
-export interface AgentEdge {
-  cursor?: string | null;
-  /** The `Agent` at the end of the edge. */
-  node?: Agent | null;
-}
-export type AgentEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: AgentSelect;
-  };
-};
 /** A `AgentChunk` edge in the connection. */
 export interface AgentChunkEdge {
   cursor?: string | null;
@@ -23862,6 +23648,18 @@ export type AgentCollaboratorEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: AgentCollaboratorSelect;
+  };
+};
+/** A `Agent` edge in the connection. */
+export interface AgentEdge {
+  cursor?: string | null;
+  /** The `Agent` at the end of the edge. */
+  node?: Agent | null;
+}
+export type AgentEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: AgentSelect;
   };
 };
 /** A `AgentLogChunk` edge in the connection. */
@@ -23912,18 +23710,6 @@ export type AgentTaskEdgeSelect = {
     select: AgentTaskSelect;
   };
 };
-/** A `AutonomyRecord` edge in the connection. */
-export interface AutonomyRecordEdge {
-  cursor?: string | null;
-  /** The `AutonomyRecord` at the end of the edge. */
-  node?: AutonomyRecord | null;
-}
-export type AutonomyRecordEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: AutonomyRecordSelect;
-  };
-};
 /** A `AutonomyRecordChunk` edge in the connection. */
 export interface AutonomyRecordChunkEdge {
   cursor?: string | null;
@@ -23934,6 +23720,18 @@ export type AutonomyRecordChunkEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: AutonomyRecordChunkSelect;
+  };
+};
+/** A `AutonomyRecord` edge in the connection. */
+export interface AutonomyRecordEdge {
+  cursor?: string | null;
+  /** The `AutonomyRecord` at the end of the edge. */
+  node?: AutonomyRecord | null;
+}
+export type AutonomyRecordEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: AutonomyRecordSelect;
   };
 };
 /** A `AutonomyRecordLink` edge in the connection. */

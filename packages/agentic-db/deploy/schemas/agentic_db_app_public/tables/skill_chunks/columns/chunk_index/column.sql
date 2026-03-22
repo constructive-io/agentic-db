@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skill_chunks/table
--- requires: schemas/agentic_db_app_public/tables/skill_chunks/columns/updated_at/alterations/alt0000001306
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".skill_chunks 
+ALTER TABLE agentic_db_app_public.skill_chunks 
   ADD COLUMN chunk_index int;
 

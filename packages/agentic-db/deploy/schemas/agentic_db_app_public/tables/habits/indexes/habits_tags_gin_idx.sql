@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/habits/table
 -- requires: schemas/agentic_db_app_public/tables/habits/columns/tags/column
--- requires: schemas/agentic_db_app_public/tables/goals/indexes/goals_tags_gin_idx
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE INDEX habits_tags_gin_idx ON "agentic_db_app_public".habits USING GIN ( tags );
+CREATE INDEX habits_tags_gin_idx ON agentic_db_app_public.habits USING GIN ( tags );
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
 -- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/columns/embedding/column
--- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/columns/embedding_text/column
 
 
-CREATE INDEX autonomy_record_chunks_embedding_hnsw_idx ON "agentic_db_app_public".autonomy_record_chunks USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX autonomy_record_chunks_embedding_hnsw_idx ON agentic_db_app_public.autonomy_record_chunks USING hnsw ( embedding vector_cosine_ops );
 

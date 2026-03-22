@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails/table
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails/columns/tags/column
--- requires: schemas/agentic_db_app_public/tables/places/indexes/places_tags_gin_idx
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE INDEX hiking_trails_tags_gin_idx ON "agentic_db_app_public".hiking_trails USING GIN ( tags );
+CREATE INDEX hiking_trails_tags_gin_idx ON agentic_db_app_public.hiking_trails USING GIN ( tags );
 

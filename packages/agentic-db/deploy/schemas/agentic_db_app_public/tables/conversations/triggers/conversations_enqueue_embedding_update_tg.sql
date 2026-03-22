@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/conversations/table
 -- requires: schemas/agentic_db_private/trigger_fns/conversations_enqueue_embedding
--- requires: schemas/agentic_db_app_public/tables/conversations/columns/embedding_text/column
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
 CREATE TRIGGER conversations_enqueue_embedding_update_tg
-AFTER UPDATE ON "agentic_db_app_public".conversations
+AFTER UPDATE ON agentic_db_app_public.conversations
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".conversations_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.conversations_enqueue_embedding ( );
 

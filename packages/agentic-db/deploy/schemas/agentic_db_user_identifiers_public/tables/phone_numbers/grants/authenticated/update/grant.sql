@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/phone_numbers/table
 
 
-GRANT UPDATE (cc, number, owner_id, is_primary) ON "agentic_db_user_identifiers_public".phone_numbers TO authenticated;
+GRANT UPDATE (cc, number, owner_id, is_primary) ON agentic_db_user_identifiers_public.phone_numbers TO authenticated;
 

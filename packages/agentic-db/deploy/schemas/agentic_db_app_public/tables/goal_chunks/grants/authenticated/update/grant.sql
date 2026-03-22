@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goal_chunks/table
--- requires: schemas/agentic_db_app_public/tables/memory_chunks/triggers/memory_chunks_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-GRANT UPDATE ON "agentic_db_app_public".goal_chunks TO authenticated;
+GRANT UPDATE ON agentic_db_app_public.goal_chunks TO authenticated;
 

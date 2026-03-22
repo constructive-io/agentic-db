@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/codebas_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 -- requires: schemas/agentic_db_app_public/tables/codebas_chunks/columns/codebasis_id/column
--- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_codebasis_id_idx
 
 
-CREATE INDEX codebas_chunks_codebasis_id_idx ON "agentic_db_app_public".codebas_chunks USING BTREE ( codebasis_id );
+CREATE INDEX codebas_chunks_codebasis_id_idx ON agentic_db_app_public.codebas_chunks USING BTREE ( codebasis_id );
 

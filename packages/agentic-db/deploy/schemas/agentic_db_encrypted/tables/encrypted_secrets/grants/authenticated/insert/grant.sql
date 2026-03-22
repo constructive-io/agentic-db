@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_encrypted/tables/encrypted_secrets/table
 
 
-GRANT INSERT ON "agentic_db_encrypted".encrypted_secrets TO authenticated;
+GRANT INSERT ON agentic_db_encrypted.encrypted_secrets TO authenticated;
 

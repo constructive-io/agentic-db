@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_logs/table
--- requires: schemas/agentic_db_app_public/tables/runtime_states/triggers/runtime_states_enqueue_embedding_update_tg
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-GRANT DELETE ON "agentic_db_app_public".runtime_logs TO authenticated;
+GRANT DELETE ON agentic_db_app_public.runtime_logs TO authenticated;
 

@@ -3,15 +3,15 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/itinerary_items/table
--- requires: schemas/agentic_db_app_public/tables/places/indexes/places_location_gist_idx
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE POLICY auth_sel_entity_membership ON "agentic_db_app_public".itinerary_items
+CREATE POLICY auth_sel_entity_membership ON agentic_db_app_public.itinerary_items
 FOR SELECT
 TO authenticated
 USING (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM "agentic_db_memberships_private".org_memberships_sprt AS org_sprt
+  FROM agentic_db_memberships_private.org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

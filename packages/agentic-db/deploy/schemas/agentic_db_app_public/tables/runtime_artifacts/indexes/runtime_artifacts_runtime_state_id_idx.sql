@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/table
+-- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 -- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/columns/runtime_state_id/column
--- requires: schemas/agentic_db_app_public/tables/runtime_logs/indexes/runtime_logs_runtime_state_id_idx
 
 
-CREATE INDEX runtime_artifacts_runtime_state_id_idx ON "agentic_db_app_public".runtime_artifacts USING BTREE ( runtime_state_id );
+CREATE INDEX runtime_artifacts_runtime_state_id_idx ON agentic_db_app_public.runtime_artifacts USING BTREE ( runtime_state_id );
 

@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deal_chunks/table
 -- requires: schemas/agentic_db_app_public/tables/deal_chunks/columns/deal_id/column
--- requires: schemas/agentic_db_app_public/tables/company_chunks/indexes/company_chunks_company_id_idx
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX deal_chunks_deal_id_idx ON "agentic_db_app_public".deal_chunks USING BTREE ( deal_id );
+CREATE INDEX deal_chunks_deal_id_idx ON agentic_db_app_public.deal_chunks USING BTREE ( deal_id );
 
