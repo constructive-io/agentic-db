@@ -27,6 +27,7 @@ async function main() {
 
   const authAdapter = new NodeHttpAdapter(config.authEndpoint, {
     'X-Meta-Schema': 'true',
+    'X-Schemata': 'constructive_auth_public',
   });
   const authClient = auth.createClient({ adapter: authAdapter });
 
