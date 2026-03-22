@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_memberships_public/tables/membership_types/table
 
 
-ALTER TABLE agentic_db_memberships_public.membership_types 
+ALTER TABLE "agentic_db_memberships_public".membership_types 
   ADD CONSTRAINT membership_types_name_key 
     UNIQUE (name);
 

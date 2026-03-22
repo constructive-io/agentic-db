@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX note_chunks_note_id_idx ON agentic_db_app_public.note_chunks USING BTREE ( note_id );
+CREATE INDEX note_chunks_note_id_idx ON "agentic_db_app_public".note_chunks USING BTREE ( note_id );
 

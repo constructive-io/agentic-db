@@ -1,0 +1,190 @@
+name: Integration Test (Provision + Export)
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PGPM_VERSION: '4.7.4'
+
+jobs:
+  integration-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: password
+
+    services:
+      pg_db:
+        image: ghcr.io/constructive-io/docker/postgres-plus:18
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Configure Git
+        run: |
+          git config --global user.name "CI Test User"
+          git config --global user.email "ci@example.com"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Cache pgpm CLI
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: pgpm-${{ runner.os }}-${{ env.PGPM_VERSION }}
+
+      - name: Install pgpm CLI globally
+        run: npm install -g pgpm@${{ env.PGPM_VERSION }}
+
+      - name: Deploy metaschema to test database
+        run: |
+          eval "$(pgpm env)"
+          pgpm deploy --createdb --database agentic_db_test --yes
+          pgpm deploy --package metaschema-generators --database agentic_db_test --yes
+
+      - name: Bootstrap admin users
+        run: |
+          eval "$(pgpm env)"
+          pgpm admin-users bootstrap --database agentic_db_test --yes
+          pgpm admin-users add --database agentic_db_test --test --yes
+
+      - name: Create agentic-db database
+        id: create-db
+        run: |
+          eval "$(pgpm env)"
+          DATABASE_ID=$(psql -d agentic_db_test -tAc "
+            INSERT INTO metaschema_public.database_provision_module (
+              database_name, subdomain, domain, modules, bootstrap_user
+            ) VALUES (
+              'agentic_db', 'agentic_db', 'localhost', '{all}', true
+            ) RETURNING database_id;
+          ")
+          echo "database_id=${DATABASE_ID}" >> "$GITHUB_OUTPUT"
+          echo "Created database: ${DATABASE_ID}"
+
+          # Detect APP_SCHEMATA
+          APP_SCHEMATA=$(psql -d agentic_db_test -tAc "
+            SELECT schema_name FROM metaschema_public.schema
+            WHERE database_id = '${DATABASE_ID}' AND name = 'app_public'
+            LIMIT 1;
+          ")
+          echo "app_schemata=${APP_SCHEMATA}" >> "$GITHUB_OUTPUT"
+          echo "APP_SCHEMATA: ${APP_SCHEMATA}"
+
+      - name: Write .env files
+        run: |
+          DATABASE_ID="${{ steps.create-db.outputs.database_id }}"
+          for f in .env packages/provision/.env; do
+            cat > "$f" <<EOF
+          DATABASE_ID=${DATABASE_ID}
+          DATABASE_NAME=agentic_db
+          ACCESS_TOKEN=dummy-admin-token
+          API_ENDPOINT=http://localhost:3001/graphql
+          AUTH_ENDPOINT=http://localhost:3001/graphql
+          EOF
+          done
+
+      - name: Checkout constructive monorepo
+        uses: actions/checkout@v4
+        with:
+          repository: constructive-io/constructive
+          path: constructive
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Install constructive dependencies
+        run: |
+          cd constructive
+          pnpm install
+
+      - name: Start cnc server (private API)
+        run: |
+          eval "$(pgpm env)"
+          cd constructive/graphql/server
+          PGDATABASE=agentic_db_test PORT=3001 API_IS_PUBLIC=false npx ts-node src/run.ts &
+          # Wait for server to be ready
+          for i in $(seq 1 30); do
+            if curl -s http://localhost:3001/graphql > /dev/null 2>&1; then
+              echo "cnc server ready"
+              break
+            fi
+            sleep 2
+          done
+
+      - name: Run blueprint provision
+        run: |
+          cd packages/provision
+          SKIP_BM25=true npx ts-node src/provision.ts
+
+      - name: Export pgpm modules
+        run: |
+          eval "$(pgpm env)"
+          PGDATABASE=agentic_db_test \
+          DATABASE_ID="${{ steps.create-db.outputs.database_id }}" \
+          pnpm run export:pgpm
+
+      - name: Export GraphQL schema
+        run: |
+          DATABASE_ID="${{ steps.create-db.outputs.database_id }}" \
+          APP_SCHEMATA="${{ steps.create-db.outputs.app_schemata }}" \
+          CNC_PORT=3001 \
+          CNC_HOST=localhost \
+          pnpm run export:schema
+
+      - name: Generate SDK
+        run: pnpm run generate:sdk
+
+      - name: Generate CLI
+        run: pnpm run generate:cli
+
+      - name: Verify outputs
+        run: |
+          echo "=== Verification ==="
+          # Check pgpm export
+          test -d packages/agentic-db && echo "pgpm export: OK" || (echo "pgpm export: MISSING" && exit 1)
+
+          # Check GraphQL schema
+          test -f sdk/schemas/agentic-db.graphql && echo "GraphQL schema: OK ($(wc -l < sdk/schemas/agentic-db.graphql) lines)" || (echo "GraphQL schema: MISSING" && exit 1)
+
+          # Check SDK
+          test -d sdk/sdk/src/generated && echo "SDK: OK" || (echo "SDK: MISSING" && exit 1)
+
+          # Check CLI
+          test -d sdk/cli/generated && echo "CLI: OK" || (echo "CLI: MISSING" && exit 1)
+
+          echo "All outputs verified!"

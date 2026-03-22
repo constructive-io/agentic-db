@@ -242,14 +242,8 @@ export interface AgentChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   agentId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -269,27 +263,13 @@ export interface Agent {
   status?: string | null;
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `systemPrompt`. Returns null when no trgm search filter is active. */
-  systemPromptTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `model`. Returns null when no trgm search filter is active. */
-  modelTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -304,14 +284,8 @@ export interface AgentLogChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   agentLogId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -323,21 +297,13 @@ export interface AgentLog {
   message?: string | null;
   context?: Record<string, unknown> | null;
   taskId?: string | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `level`. Returns null when no trgm search filter is active. */
-  levelTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `message`. Returns null when no trgm search filter is active. */
-  messageTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -352,14 +318,8 @@ export interface AgentTaskChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   agentTaskId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -375,25 +335,13 @@ export interface AgentTask {
   startedAt?: string | null;
   completedAt?: string | null;
   meta?: Record<string, unknown> | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `result`. Returns null when no trgm search filter is active. */
-  resultTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -408,14 +356,8 @@ export interface AutonomyRecordChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   autonomyRecordId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -430,27 +372,13 @@ export interface AutonomyRecord {
   source?: string | null;
   context?: Record<string, unknown> | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `recordType`. Returns null when no trgm search filter is active. */
-  recordTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `source`. Returns null when no trgm search filter is active. */
-  sourceTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -470,14 +398,8 @@ export interface CodebasChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   codebasisId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -498,29 +420,13 @@ export interface Codebasis {
   lastSyncedAt?: string | null;
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `repositoryUrl`. Returns null when no trgm search filter is active. */
-  repositoryUrlTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `defaultBranch`. Returns null when no trgm search filter is active. */
-  defaultBranchTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `language`. Returns null when no trgm search filter is active. */
-  languageTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `framework`. Returns null when no trgm search filter is active. */
-  frameworkTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -536,28 +442,14 @@ export interface CodeChunk {
   endLine?: number | null;
   symbolName?: string | null;
   symbolType?: string | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   codebasisId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `filePath`. Returns null when no trgm search filter is active. */
-  filePathTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `language`. Returns null when no trgm search filter is active. */
-  languageTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `symbolName`. Returns null when no trgm search filter is active. */
-  symbolNameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `symbolType`. Returns null when no trgm search filter is active. */
-  symbolTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -572,14 +464,8 @@ export interface CompanyChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   companyId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -591,17 +477,15 @@ export interface Company {
   industry?: string | null;
   description?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
@@ -636,17 +520,15 @@ export interface Contact {
   instagramHandle?: string | null;
   website?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
   /** TRGM similarity when searching `firstName`. Returns null when no trgm search filter is active. */
@@ -699,17 +581,15 @@ export interface Event {
   endedAt?: string | null;
   notesText?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
@@ -774,26 +654,14 @@ export interface Memory {
   mood?: string | null;
   importance?: number | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   agentId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `location`. Returns null when no trgm search filter is active. */
-  locationTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `mood`. Returns null when no trgm search filter is active. */
-  moodTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -818,25 +686,13 @@ export interface Note {
   activeCount?: number | null;
   lastAccessedAt?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
-  contentBm25Score?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `abstract`. Returns null when no trgm search filter is active. */
-  abstractTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `overview`. Returns null when no trgm search filter is active. */
-  overviewTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -851,14 +707,8 @@ export interface ContactChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   contactId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -878,25 +728,13 @@ export interface Deal {
   expectedCloseDate?: string | null;
   notesText?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `stage`. Returns null when no trgm search filter is active. */
-  stageTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `currency`. Returns null when no trgm search filter is active. */
-  currencyTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `notesText`. Returns null when no trgm search filter is active. */
-  notesTextTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -952,25 +790,13 @@ export interface Project {
   completedAt?: string | null;
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `projectType`. Returns null when no trgm search filter is active. */
-  projectTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -985,14 +811,8 @@ export interface ConversationChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   conversationId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1003,21 +823,13 @@ export interface Conversation {
   agentId?: string | null;
   status?: string | null;
   meta?: Record<string, unknown> | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1032,14 +844,8 @@ export interface DealChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   dealId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1066,14 +872,8 @@ export interface EventChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   eventId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1125,17 +925,15 @@ export interface Venue {
   isFavorite?: boolean | null;
   notes?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
   /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
@@ -1172,14 +970,8 @@ export interface GoalChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   goalId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1195,25 +987,13 @@ export interface Goal {
   completedAt?: string | null;
   progress?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
-  categoryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1234,23 +1014,13 @@ export interface Habit {
   bestStreak?: number | null;
   isActive?: boolean | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `frequency`. Returns null when no trgm search filter is active. */
-  frequencyTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1271,14 +1041,8 @@ export interface HabitChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   habitId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1293,14 +1057,8 @@ export interface HikingTrailChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   hikingTrailId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1317,29 +1075,13 @@ export interface HikingTrail {
   region?: string | null;
   notes?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `difficulty`. Returns null when no trgm search filter is active. */
-  difficultyTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `trailType`. Returns null when no trgm search filter is active. */
-  trailTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `region`. Returns null when no trgm search filter is active. */
-  regionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
-  notesTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1355,27 +1097,13 @@ export interface Trip {
   budget?: string | null;
   currency?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `destination`. Returns null when no trgm search filter is active. */
-  destinationTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `currency`. Returns null when no trgm search filter is active. */
-  currencyTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1390,14 +1118,8 @@ export interface InteractionChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   interactionId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1410,23 +1132,13 @@ export interface Interaction {
   summary?: string | null;
   sentiment?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `type`. Returns null when no trgm search filter is active. */
-  typeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
-  summaryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `sentiment`. Returns null when no trgm search filter is active. */
-  sentimentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1441,14 +1153,8 @@ export interface ItineraryItemChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   itineraryItemId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1466,25 +1172,13 @@ export interface ItineraryItem {
   cost?: string | null;
   notes?: string | null;
   sortOrder?: number | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
-  categoryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
-  notesTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1499,14 +1193,8 @@ export interface MemoryChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   memoryId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1521,14 +1209,8 @@ export interface MessageChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   messageId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1542,21 +1224,13 @@ export interface Message {
   meta?: Record<string, unknown> | null;
   toolCalls?: Record<string, unknown> | null;
   toolResults?: Record<string, unknown> | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `role`. Returns null when no trgm search filter is active. */
-  roleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1571,14 +1245,8 @@ export interface NoteChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   noteId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1593,14 +1261,8 @@ export interface PlaceChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   placeId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1616,31 +1278,13 @@ export interface Place {
   rating?: string | null;
   notes?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `address`. Returns null when no trgm search filter is active. */
-  addressTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `city`. Returns null when no trgm search filter is active. */
-  cityTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `country`. Returns null when no trgm search filter is active. */
-  countryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
-  categoryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
-  notesTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1655,14 +1299,8 @@ export interface ProjectChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   projectId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1683,14 +1321,8 @@ export interface RuleChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   ruleId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1706,31 +1338,17 @@ export interface Rule {
   isActive?: boolean | null;
   priority?: number | null;
   triggerConcept?: string | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   triggerConceptEmbedding?: number[] | null;
   agentId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
   /** VECTOR distance when searching `triggerConceptEmbedding`. Returns null when no vector search filter is active. */
   triggerConceptEmbeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `triggerType`. Returns null when no trgm search filter is active. */
-  triggerTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `actionType`. Returns null when no trgm search filter is active. */
-  actionTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `triggerConcept`. Returns null when no trgm search filter is active. */
-  triggerConceptTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1778,14 +1396,8 @@ export interface RuntimeLogChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   runtimeLogId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1797,21 +1409,13 @@ export interface RuntimeLog {
   message?: string | null;
   context?: Record<string, unknown> | null;
   stepIndex?: number | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `level`. Returns null when no trgm search filter is active. */
-  levelTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `message`. Returns null when no trgm search filter is active. */
-  messageTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1850,14 +1454,8 @@ export interface RuntimeStateChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   runtimeStateId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1871,23 +1469,13 @@ export interface RuntimeState {
   parentId?: string | null;
   startedAt?: string | null;
   endedAt?: string | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `stateType`. Returns null when no trgm search filter is active. */
-  stateTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1907,14 +1495,8 @@ export interface SkillChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   skillId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1928,31 +1510,17 @@ export interface Skill {
   config?: Record<string, unknown> | null;
   isActive?: boolean | null;
   intentTrigger?: string | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   intentTriggerEmbedding?: number[] | null;
   agentId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
   /** VECTOR distance when searching `intentTriggerEmbedding`. Returns null when no vector search filter is active. */
   intentTriggerEmbeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `name`. Returns null when no trgm search filter is active. */
-  nameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `category`. Returns null when no trgm search filter is active. */
-  categoryTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `implementation`. Returns null when no trgm search filter is active. */
-  implementationTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `intentTrigger`. Returns null when no trgm search filter is active. */
-  intentTriggerTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -2003,14 +1571,8 @@ export interface TripChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   tripId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -2037,14 +1599,8 @@ export interface VenueChunk {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   venueId?: string | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -2586,10 +2142,7 @@ export type AgentChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   agentId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agent?: {
     select: AgentSelect;
@@ -2614,19 +2167,12 @@ export type AgentSelect = {
   status?: boolean;
   config?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  systemPromptTrgmSimilarity?: boolean;
-  modelTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agentTasks?: {
     select: AgentTaskSelect;
@@ -2682,10 +2228,7 @@ export type AgentLogChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   agentLogId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agentLog?: {
     select: AgentLogSelect;
@@ -2699,16 +2242,12 @@ export type AgentLogSelect = {
   message?: boolean;
   context?: boolean;
   taskId?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  levelTrgmSimilarity?: boolean;
-  messageTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agent?: {
     select: AgentSelect;
@@ -2731,10 +2270,7 @@ export type AgentTaskChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   agentTaskId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agentTask?: {
     select: AgentTaskSelect;
@@ -2752,18 +2288,12 @@ export type AgentTaskSelect = {
   startedAt?: boolean;
   completedAt?: boolean;
   meta?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  titleTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  resultTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agent?: {
     select: AgentSelect;
@@ -2786,10 +2316,7 @@ export type AutonomyRecordChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   autonomyRecordId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   autonomyRecord?: {
     select: AutonomyRecordSelect;
@@ -2806,19 +2333,12 @@ export type AutonomyRecordSelect = {
   source?: boolean;
   context?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  titleTrgmSimilarity?: boolean;
-  recordTypeTrgmSimilarity?: boolean;
-  contentTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  sourceTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   autonomyRecordChunks?: {
     select: AutonomyRecordChunkSelect;
@@ -2852,10 +2372,7 @@ export type CodebasChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   codebasisId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   codebasis?: {
     select: CodebasisSelect;
@@ -2881,20 +2398,12 @@ export type CodebasisSelect = {
   lastSyncedAt?: boolean;
   config?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  repositoryUrlTrgmSimilarity?: boolean;
-  defaultBranchTrgmSimilarity?: boolean;
-  languageTrgmSimilarity?: boolean;
-  frameworkTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   codeChunks?: {
     select: CodeChunkSelect;
@@ -2927,20 +2436,13 @@ export type CodeChunkSelect = {
   endLine?: boolean;
   symbolName?: boolean;
   symbolType?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   codebasisId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  filePathTrgmSimilarity?: boolean;
-  contentTrgmSimilarity?: boolean;
-  languageTrgmSimilarity?: boolean;
-  symbolNameTrgmSimilarity?: boolean;
-  symbolTypeTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   codebasis?: {
     select: CodebasisSelect;
@@ -2957,10 +2459,7 @@ export type CompanyChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   companyId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   company?: {
     select: CompanySelect;
@@ -2974,15 +2473,14 @@ export type CompanySelect = {
   industry?: boolean;
   description?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   mainImageId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   searchTsvRank?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
   domainTrgmSimilarity?: boolean;
@@ -3085,15 +2583,14 @@ export type ContactSelect = {
   instagramHandle?: boolean;
   website?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   mainImageId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   searchTsvRank?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   firstNameTrgmSimilarity?: boolean;
   lastNameTrgmSimilarity?: boolean;
@@ -3240,15 +2737,14 @@ export type EventSelect = {
   endedAt?: boolean;
   notesText?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   mainImageId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   searchTsvRank?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
   eventTypeTrgmSimilarity?: boolean;
@@ -3457,19 +2953,13 @@ export type MemorySelect = {
   mood?: boolean;
   importance?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   agentId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  titleTrgmSimilarity?: boolean;
-  contentTrgmSimilarity?: boolean;
-  locationTrgmSimilarity?: boolean;
-  moodTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agent?: {
     select: AgentSelect;
@@ -3538,18 +3028,12 @@ export type NoteSelect = {
   activeCount?: boolean;
   lastAccessedAt?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  contentBm25Score?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  abstractTrgmSimilarity?: boolean;
-  overviewTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   contacts?: {
     select: ContactSelect;
@@ -3617,10 +3101,7 @@ export type ContactChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   contactId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   contact?: {
     select: ContactSelect;
@@ -3648,18 +3129,12 @@ export type DealSelect = {
   expectedCloseDate?: boolean;
   notesText?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  stageTrgmSimilarity?: boolean;
-  currencyTrgmSimilarity?: boolean;
-  notesTextTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   contacts?: {
     select: ContactSelect;
@@ -3769,18 +3244,12 @@ export type ProjectSelect = {
   completedAt?: boolean;
   config?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  projectTypeTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   contacts?: {
     select: ContactSelect;
@@ -3824,10 +3293,7 @@ export type ConversationChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   conversationId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   conversation?: {
     select: ConversationSelect;
@@ -3840,16 +3306,12 @@ export type ConversationSelect = {
   agentId?: boolean;
   status?: boolean;
   meta?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  titleTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   messages?: {
     select: MessageSelect;
@@ -3875,10 +3337,7 @@ export type DealChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   dealId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   deal?: {
     select: DealSelect;
@@ -3919,10 +3378,7 @@ export type EventChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   eventId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   event?: {
     select: EventSelect;
@@ -3995,15 +3451,14 @@ export type VenueSelect = {
   isFavorite?: boolean;
   notes?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   mainImageId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   searchTsvRank?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
   addressTrgmSimilarity?: boolean;
@@ -4067,10 +3522,7 @@ export type GoalChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   goalId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   goal?: {
     select: GoalSelect;
@@ -4088,18 +3540,12 @@ export type GoalSelect = {
   completedAt?: boolean;
   progress?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  titleTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  categoryTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   habits?: {
     select: HabitSelect;
@@ -4155,17 +3601,12 @@ export type HabitSelect = {
   bestStreak?: boolean;
   isActive?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  frequencyTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   goals?: {
     select: GoalSelect;
@@ -4209,10 +3650,7 @@ export type HabitChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   habitId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   habit?: {
     select: HabitSelect;
@@ -4229,10 +3667,7 @@ export type HikingTrailChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   hikingTrailId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   hikingTrail?: {
     select: HikingTrailSelect;
@@ -4251,20 +3686,12 @@ export type HikingTrailSelect = {
   region?: boolean;
   notes?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  difficultyTrgmSimilarity?: boolean;
-  trailTypeTrgmSimilarity?: boolean;
-  regionTrgmSimilarity?: boolean;
-  notesTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   trips?: {
     select: TripSelect;
@@ -4297,19 +3724,12 @@ export type TripSelect = {
   budget?: boolean;
   currency?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  destinationTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  currencyTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   hikingTrails?: {
     select: HikingTrailSelect;
@@ -4359,10 +3779,7 @@ export type InteractionChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   interactionId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   interaction?: {
     select: InteractionSelect;
@@ -4377,17 +3794,12 @@ export type InteractionSelect = {
   summary?: boolean;
   sentiment?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  typeTrgmSimilarity?: boolean;
-  summaryTrgmSimilarity?: boolean;
-  sentimentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   contact?: {
     select: ContactSelect;
@@ -4410,10 +3822,7 @@ export type ItineraryItemChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   itineraryItemId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   itineraryItem?: {
     select: ItineraryItemSelect;
@@ -4433,18 +3842,12 @@ export type ItineraryItemSelect = {
   cost?: boolean;
   notes?: boolean;
   sortOrder?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  categoryTrgmSimilarity?: boolean;
-  notesTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   place?: {
     select: PlaceSelect;
@@ -4470,10 +3873,7 @@ export type MemoryChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   memoryId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   memory?: {
     select: MemorySelect;
@@ -4490,10 +3890,7 @@ export type MessageChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   messageId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   message?: {
     select: MessageSelect;
@@ -4509,16 +3906,12 @@ export type MessageSelect = {
   meta?: boolean;
   toolCalls?: boolean;
   toolResults?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  roleTrgmSimilarity?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   conversation?: {
     select: ConversationSelect;
@@ -4541,10 +3934,7 @@ export type NoteChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   noteId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   note?: {
     select: NoteSelect;
@@ -4561,10 +3951,7 @@ export type PlaceChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   placeId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   place?: {
     select: PlaceSelect;
@@ -4582,21 +3969,12 @@ export type PlaceSelect = {
   rating?: boolean;
   notes?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  addressTrgmSimilarity?: boolean;
-  cityTrgmSimilarity?: boolean;
-  countryTrgmSimilarity?: boolean;
-  categoryTrgmSimilarity?: boolean;
-  notesTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   itineraryItems?: {
     select: ItineraryItemSelect;
@@ -4634,10 +4012,7 @@ export type ProjectChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   projectId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   project?: {
     select: ProjectSelect;
@@ -4666,10 +4041,7 @@ export type RuleChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   ruleId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   rule?: {
     select: RuleSelect;
@@ -4687,22 +4059,15 @@ export type RuleSelect = {
   isActive?: boolean;
   priority?: boolean;
   triggerConcept?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   triggerConceptEmbedding?: boolean;
   agentId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   triggerConceptEmbeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  triggerTypeTrgmSimilarity?: boolean;
-  actionTypeTrgmSimilarity?: boolean;
-  triggerConceptTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agent?: {
     select: AgentSelect;
@@ -4761,10 +4126,7 @@ export type RuntimeLogChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   runtimeLogId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   runtimeLog?: {
     select: RuntimeLogSelect;
@@ -4778,16 +4140,12 @@ export type RuntimeLogSelect = {
   message?: boolean;
   context?: boolean;
   stepIndex?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  levelTrgmSimilarity?: boolean;
-  messageTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   runtimeState?: {
     select: RuntimeStateSelect;
@@ -4837,10 +4195,7 @@ export type RuntimeStateChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   runtimeStateId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   runtimeState?: {
     select: RuntimeStateSelect;
@@ -4856,17 +4211,12 @@ export type RuntimeStateSelect = {
   parentId?: boolean;
   startedAt?: boolean;
   endedAt?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  stateTypeTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   runtimeLogs?: {
     select: RuntimeLogSelect;
@@ -4918,10 +4268,7 @@ export type SkillChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   skillId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   skill?: {
     select: SkillSelect;
@@ -4937,22 +4284,15 @@ export type SkillSelect = {
   config?: boolean;
   isActive?: boolean;
   intentTrigger?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   intentTriggerEmbedding?: boolean;
   agentId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   intentTriggerEmbeddingVectorDistance?: boolean;
-  nameTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  categoryTrgmSimilarity?: boolean;
-  implementationTrgmSimilarity?: boolean;
-  intentTriggerTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   agent?: {
     select: AgentSelect;
@@ -5020,10 +4360,7 @@ export type TripChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   tripId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   trip?: {
     select: TripSelect;
@@ -5064,10 +4401,7 @@ export type VenueChunkSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   venueId?: boolean;
-  embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   venue?: {
     select: VenueSelect;
@@ -5110,9 +4444,9 @@ export interface AgentChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -5131,21 +4465,8 @@ export interface AgentChunkFilter {
   not?: AgentChunkFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface AgentCollaboratorFilter {
   /** Filter by the object’s `agentId` field. */
@@ -5169,27 +4490,27 @@ export interface AgentFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `systemPrompt` field. */
-  systemPrompt?: StringTrgmFilter;
+  systemPrompt?: StringFilter;
   /** Filter by the object’s `model` field. */
-  model?: StringTrgmFilter;
+  model?: StringFilter;
   /** Filter by the object’s `temperature` field. */
   temperature?: BigFloatFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `config` field. */
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5228,29 +4549,8 @@ export interface AgentFilter {
   memories?: AgentToManyMemoryFilter;
   /** `memories` exist. */
   memoriesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `system_prompt` column. */
-  trgmSystemPrompt?: TrgmSearchInput;
-  /** TRGM search on the `model` column. */
-  trgmModel?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface AgentLogChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -5260,9 +4560,9 @@ export interface AgentLogChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -5281,21 +4581,8 @@ export interface AgentLogChunkFilter {
   not?: AgentLogChunkFilter;
   /** Filter by the object’s `agentLog` relation. */
   agentLog?: AgentLogFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface AgentLogFilter {
   /** Filter by the object’s `id` field. */
@@ -5305,19 +4592,19 @@ export interface AgentLogFilter {
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `level` field. */
-  level?: StringTrgmFilter;
+  level?: StringFilter;
   /** Filter by the object’s `message` field. */
-  message?: StringTrgmFilter;
+  message?: StringFilter;
   /** Filter by the object’s `context` field. */
   context?: JSONFilter;
   /** Filter by the object’s `taskId` field. */
   taskId?: UUIDFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5334,23 +4621,8 @@ export interface AgentLogFilter {
   agentLogChunks?: AgentLogToManyAgentLogChunkFilter;
   /** `agentLogChunks` exist. */
   agentLogChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `level` column. */
-  trgmLevel?: TrgmSearchInput;
-  /** TRGM search on the `message` column. */
-  trgmMessage?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface AgentTaskChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -5360,9 +4632,9 @@ export interface AgentTaskChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -5381,21 +4653,8 @@ export interface AgentTaskChunkFilter {
   not?: AgentTaskChunkFilter;
   /** Filter by the object’s `agentTask` relation. */
   agentTask?: AgentTaskFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface AgentTaskFilter {
   /** Filter by the object’s `id` field. */
@@ -5405,27 +4664,27 @@ export interface AgentTaskFilter {
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
+  title?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `result` field. */
-  result?: StringTrgmFilter;
+  result?: StringFilter;
   /** Filter by the object’s `startedAt` field. */
   startedAt?: DatetimeFilter;
   /** Filter by the object’s `completedAt` field. */
   completedAt?: DatetimeFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5442,27 +4701,8 @@ export interface AgentTaskFilter {
   agentTaskChunks?: AgentTaskToManyAgentTaskChunkFilter;
   /** `agentTaskChunks` exist. */
   agentTaskChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `result` column. */
-  trgmResult?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface AutonomyRecordChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -5472,9 +4712,9 @@ export interface AutonomyRecordChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -5493,21 +4733,8 @@ export interface AutonomyRecordChunkFilter {
   not?: AutonomyRecordChunkFilter;
   /** Filter by the object’s `autonomyRecord` relation. */
   autonomyRecord?: AutonomyRecordFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface AutonomyRecordFilter {
   /** Filter by the object’s `id` field. */
@@ -5515,27 +4742,27 @@ export interface AutonomyRecordFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
+  title?: StringFilter;
   /** Filter by the object’s `recordType` field. */
-  recordType?: StringTrgmFilter;
+  recordType?: StringFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `source` field. */
-  source?: StringTrgmFilter;
+  source?: StringFilter;
   /** Filter by the object’s `context` field. */
   context?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5554,29 +4781,8 @@ export interface AutonomyRecordFilter {
   autonomyRecordLinks?: AutonomyRecordToManyAutonomyRecordLinkFilter;
   /** `autonomyRecordLinks` exist. */
   autonomyRecordLinksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `record_type` column. */
-  trgmRecordType?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `source` column. */
-  trgmSource?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface AutonomyRecordLinkFilter {
   /** Filter by the object’s `autonomyRecordId` field. */
@@ -5602,9 +4808,9 @@ export interface CodebasChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -5623,21 +4829,8 @@ export interface CodebasChunkFilter {
   not?: CodebasChunkFilter;
   /** Filter by the object’s `codebasis` relation. */
   codebasis?: CodebasisFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface CodebaseDependencyFilter {
   /** Filter by the object’s `codebasisId` field. */
@@ -5661,29 +4854,29 @@ export interface CodebasisFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `repositoryUrl` field. */
-  repositoryUrl?: StringTrgmFilter;
+  repositoryUrl?: StringFilter;
   /** Filter by the object’s `defaultBranch` field. */
-  defaultBranch?: StringTrgmFilter;
+  defaultBranch?: StringFilter;
   /** Filter by the object’s `language` field. */
-  language?: StringTrgmFilter;
+  language?: StringFilter;
   /** Filter by the object’s `framework` field. */
-  framework?: StringTrgmFilter;
+  framework?: StringFilter;
   /** Filter by the object’s `lastSyncedAt` field. */
   lastSyncedAt?: DatetimeFilter;
   /** Filter by the object’s `config` field. */
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5706,31 +4899,8 @@ export interface CodebasisFilter {
   codebaseDependencies?: CodebasisToManyCodebaseDependencyFilter;
   /** `codebaseDependencies` exist. */
   codebaseDependenciesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `repository_url` column. */
-  trgmRepositoryUrl?: TrgmSearchInput;
-  /** TRGM search on the `default_branch` column. */
-  trgmDefaultBranch?: TrgmSearchInput;
-  /** TRGM search on the `language` column. */
-  trgmLanguage?: TrgmSearchInput;
-  /** TRGM search on the `framework` column. */
-  trgmFramework?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface CodeChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -5740,27 +4910,27 @@ export interface CodeChunkFilter {
   /** Filter by the object’s `codebaseId` field. */
   codebaseId?: UUIDFilter;
   /** Filter by the object’s `filePath` field. */
-  filePath?: StringTrgmFilter;
+  filePath?: StringFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `language` field. */
-  language?: StringTrgmFilter;
+  language?: StringFilter;
   /** Filter by the object’s `startLine` field. */
   startLine?: IntFilter;
   /** Filter by the object’s `endLine` field. */
   endLine?: IntFilter;
   /** Filter by the object’s `symbolName` field. */
-  symbolName?: StringTrgmFilter;
+  symbolName?: StringFilter;
   /** Filter by the object’s `symbolType` field. */
-  symbolType?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  symbolType?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5775,29 +4945,8 @@ export interface CodeChunkFilter {
   not?: CodeChunkFilter;
   /** Filter by the object’s `codebasis` relation. */
   codebasis?: CodebasisFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `file_path` column. */
-  trgmFilePath?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `language` column. */
-  trgmLanguage?: TrgmSearchInput;
-  /** TRGM search on the `symbol_name` column. */
-  trgmSymbolName?: TrgmSearchInput;
-  /** TRGM search on the `symbol_type` column. */
-  trgmSymbolType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface CompanyChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -5807,9 +4956,9 @@ export interface CompanyChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -5828,21 +4977,8 @@ export interface CompanyChunkFilter {
   not?: CompanyChunkFilter;
   /** Filter by the object’s `company` relation. */
   company?: CompanyFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface CompanyFilter {
   /** Filter by the object’s `id` field. */
@@ -5859,14 +4995,14 @@ export interface CompanyFilter {
   description?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -5913,8 +5049,6 @@ export interface CompanyFilter {
   companyMemoriesExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** TRGM search on the `name` column. */
@@ -5972,14 +5106,14 @@ export interface ContactFilter {
   website?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -6038,8 +5172,6 @@ export interface ContactFilter {
   contactMemoriesExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** TRGM search on the `first_name` column. */
@@ -6121,14 +5253,14 @@ export interface EventFilter {
   notesText?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -6175,8 +5307,6 @@ export interface EventFilter {
   eventNotesExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** TRGM search on the `name` column. */
@@ -6317,25 +5447,25 @@ export interface MemoryFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
+  title?: StringFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `occurredAt` field. */
   occurredAt?: DatetimeFilter;
   /** Filter by the object’s `location` field. */
-  location?: StringTrgmFilter;
+  location?: StringFilter;
   /** Filter by the object’s `mood` field. */
-  mood?: StringTrgmFilter;
+  mood?: StringFilter;
   /** Filter by the object’s `importance` field. */
   importance?: IntFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6364,27 +5494,8 @@ export interface MemoryFilter {
   companyMemories?: MemoryToManyCompanyMemoryFilter;
   /** `companyMemories` exist. */
   companyMemoriesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `location` column. */
-  trgmLocation?: TrgmSearchInput;
-  /** TRGM search on the `mood` column. */
-  trgmMood?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface CompanyMemoryFilter {
   /** Filter by the object’s `companyId` field. */
@@ -6432,23 +5543,23 @@ export interface NoteFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `abstract` field. */
-  abstract?: StringTrgmFilter;
+  abstract?: StringFilter;
   /** Filter by the object’s `overview` field. */
-  overview?: StringTrgmFilter;
+  overview?: StringFilter;
   /** Filter by the object’s `activeCount` field. */
   activeCount?: IntFilter;
   /** Filter by the object’s `lastAccessedAt` field. */
   lastAccessedAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6479,27 +5590,8 @@ export interface NoteFilter {
   eventNotes?: NoteToManyEventNoteFilter;
   /** `eventNotes` exist. */
   eventNotesExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `abstract` column. */
-  trgmAbstract?: TrgmSearchInput;
-  /** TRGM search on the `overview` column. */
-  trgmOverview?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface ContactChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -6509,9 +5601,9 @@ export interface ContactChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -6530,21 +5622,8 @@ export interface ContactChunkFilter {
   not?: ContactChunkFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface ContactCompanyFilter {
   /** Filter by the object’s `contactId` field. */
@@ -6572,25 +5651,25 @@ export interface DealFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `stage` field. */
-  stage?: StringTrgmFilter;
+  stage?: StringFilter;
   /** Filter by the object’s `value` field. */
   value?: BigFloatFilter;
   /** Filter by the object’s `currency` field. */
-  currency?: StringTrgmFilter;
+  currency?: StringFilter;
   /** Filter by the object’s `expectedCloseDate` field. */
   expectedCloseDate?: DatetimeFilter;
   /** Filter by the object’s `notesText` field. */
-  notesText?: StringTrgmFilter;
+  notesText?: StringFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6613,27 +5692,8 @@ export interface DealFilter {
   dealNotes?: DealToManyDealNoteFilter;
   /** `dealNotes` exist. */
   dealNotesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `stage` column. */
-  trgmStage?: TrgmSearchInput;
-  /** TRGM search on the `currency` column. */
-  trgmCurrency?: TrgmSearchInput;
-  /** TRGM search on the `notes_text` column. */
-  trgmNotesText?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface ContactEventFilter {
   /** Filter by the object’s `contactId` field. */
@@ -6751,13 +5811,13 @@ export interface ProjectFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `projectType` field. */
-  projectType?: StringTrgmFilter;
+  projectType?: StringFilter;
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `startedAt` field. */
@@ -6770,12 +5830,12 @@ export interface ProjectFilter {
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6798,27 +5858,8 @@ export interface ProjectFilter {
   goalProjects?: ProjectToManyGoalProjectFilter;
   /** `goalProjects` exist. */
   goalProjectsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `project_type` column. */
-  trgmProjectType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface ConversationChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -6828,9 +5869,9 @@ export interface ConversationChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -6849,21 +5890,8 @@ export interface ConversationChunkFilter {
   not?: ConversationChunkFilter;
   /** Filter by the object’s `conversation` relation. */
   conversation?: ConversationFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface ConversationFilter {
   /** Filter by the object’s `id` field. */
@@ -6871,19 +5899,19 @@ export interface ConversationFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
+  title?: StringFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6902,23 +5930,8 @@ export interface ConversationFilter {
   conversationChunks?: ConversationToManyConversationChunkFilter;
   /** `conversationChunks` exist. */
   conversationChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface DealChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -6928,9 +5941,9 @@ export interface DealChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -6949,21 +5962,8 @@ export interface DealChunkFilter {
   not?: DealChunkFilter;
   /** Filter by the object’s `deal` relation. */
   deal?: DealFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface DealContactFilter {
   /** Filter by the object’s `dealId` field. */
@@ -7013,9 +6013,9 @@ export interface EventChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -7034,21 +6034,8 @@ export interface EventChunkFilter {
   not?: EventChunkFilter;
   /** Filter by the object’s `event` relation. */
   event?: EventFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface EventImageFilter {
   /** Filter by the object’s `eventId` field. */
@@ -7169,14 +6156,14 @@ export interface VenueFilter {
   notes?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -7211,8 +6198,6 @@ export interface VenueFilter {
   eventVenuesExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** TRGM search on the `name` column. */
@@ -7251,9 +6236,9 @@ export interface GoalChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -7272,21 +6257,8 @@ export interface GoalChunkFilter {
   not?: GoalChunkFilter;
   /** Filter by the object’s `goal` relation. */
   goal?: GoalFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface GoalFilter {
   /** Filter by the object’s `id` field. */
@@ -7294,13 +6266,13 @@ export interface GoalFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
+  title?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
+  category?: StringFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `targetDate` field. */
@@ -7311,12 +6283,12 @@ export interface GoalFilter {
   progress?: BigFloatFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7339,27 +6311,8 @@ export interface GoalFilter {
   goalProjects?: GoalToManyGoalProjectFilter;
   /** `goalProjects` exist. */
   goalProjectsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface GoalHabitFilter {
   /** Filter by the object’s `goalId` field. */
@@ -7387,11 +6340,11 @@ export interface HabitFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `frequency` field. */
-  frequency?: StringTrgmFilter;
+  frequency?: StringFilter;
   /** Filter by the object’s `targetCount` field. */
   targetCount?: IntFilter;
   /** Filter by the object’s `currentStreak` field. */
@@ -7402,12 +6355,12 @@ export interface HabitFilter {
   isActive?: BooleanFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7426,25 +6379,8 @@ export interface HabitFilter {
   goalHabits?: HabitToManyGoalHabitFilter;
   /** `goalHabits` exist. */
   goalHabitsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `frequency` column. */
-  trgmFrequency?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface GoalProjectFilter {
   /** Filter by the object’s `goalId` field. */
@@ -7474,9 +6410,9 @@ export interface HabitChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -7495,21 +6431,8 @@ export interface HabitChunkFilter {
   not?: HabitChunkFilter;
   /** Filter by the object’s `habit` relation. */
   habit?: HabitFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface HikingTrailChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -7519,9 +6442,9 @@ export interface HikingTrailChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -7540,21 +6463,8 @@ export interface HikingTrailChunkFilter {
   not?: HikingTrailChunkFilter;
   /** Filter by the object’s `hikingTrail` relation. */
   hikingTrail?: HikingTrailFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface HikingTrailFilter {
   /** Filter by the object’s `id` field. */
@@ -7562,11 +6472,11 @@ export interface HikingTrailFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `difficulty` field. */
-  difficulty?: StringTrgmFilter;
+  difficulty?: StringFilter;
   /** Filter by the object’s `distanceKm` field. */
   distanceKm?: BigFloatFilter;
   /** Filter by the object’s `elevationGainm` field. */
@@ -7574,19 +6484,19 @@ export interface HikingTrailFilter {
   /** Filter by the object’s `estimatedTimeHours` field. */
   estimatedTimeHours?: BigFloatFilter;
   /** Filter by the object’s `trailType` field. */
-  trailType?: StringTrgmFilter;
+  trailType?: StringFilter;
   /** Filter by the object’s `region` field. */
-  region?: StringTrgmFilter;
+  region?: StringFilter;
   /** Filter by the object’s `notes` field. */
-  notes?: StringTrgmFilter;
+  notes?: StringFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7605,31 +6515,8 @@ export interface HikingTrailFilter {
   tripHikingTrails?: HikingTrailToManyTripHikingTrailFilter;
   /** `tripHikingTrails` exist. */
   tripHikingTrailsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `difficulty` column. */
-  trgmDifficulty?: TrgmSearchInput;
-  /** TRGM search on the `trail_type` column. */
-  trgmTrailType?: TrgmSearchInput;
-  /** TRGM search on the `region` column. */
-  trgmRegion?: TrgmSearchInput;
-  /** TRGM search on the `notes` column. */
-  trgmNotes?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface TripFilter {
   /** Filter by the object’s `id` field. */
@@ -7637,29 +6524,29 @@ export interface TripFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `destination` field. */
-  destination?: StringTrgmFilter;
+  destination?: StringFilter;
   /** Filter by the object’s `startedAt` field. */
   startedAt?: DatetimeFilter;
   /** Filter by the object’s `endedAt` field. */
   endedAt?: DatetimeFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `budget` field. */
   budget?: BigFloatFilter;
   /** Filter by the object’s `currency` field. */
-  currency?: StringTrgmFilter;
+  currency?: StringFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7686,29 +6573,8 @@ export interface TripFilter {
   tripHikingTrails?: TripToManyTripHikingTrailFilter;
   /** `tripHikingTrails` exist. */
   tripHikingTrailsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `destination` column. */
-  trgmDestination?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `currency` column. */
-  trgmCurrency?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface InteractionChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -7718,9 +6584,9 @@ export interface InteractionChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -7739,21 +6605,8 @@ export interface InteractionChunkFilter {
   not?: InteractionChunkFilter;
   /** Filter by the object’s `interaction` relation. */
   interaction?: InteractionFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface InteractionFilter {
   /** Filter by the object’s `id` field. */
@@ -7763,21 +6616,21 @@ export interface InteractionFilter {
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
   /** Filter by the object’s `type` field. */
-  type?: StringTrgmFilter;
+  type?: StringFilter;
   /** Filter by the object’s `occurredAt` field. */
   occurredAt?: DatetimeFilter;
   /** Filter by the object’s `summary` field. */
-  summary?: StringTrgmFilter;
+  summary?: StringFilter;
   /** Filter by the object’s `sentiment` field. */
-  sentiment?: StringTrgmFilter;
+  sentiment?: StringFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7794,25 +6647,8 @@ export interface InteractionFilter {
   interactionChunks?: InteractionToManyInteractionChunkFilter;
   /** `interactionChunks` exist. */
   interactionChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `type` column. */
-  trgmType?: TrgmSearchInput;
-  /** TRGM search on the `summary` column. */
-  trgmSummary?: TrgmSearchInput;
-  /** TRGM search on the `sentiment` column. */
-  trgmSentiment?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface ItineraryItemChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -7822,9 +6658,9 @@ export interface ItineraryItemChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -7843,21 +6679,8 @@ export interface ItineraryItemChunkFilter {
   not?: ItineraryItemChunkFilter;
   /** Filter by the object’s `itineraryItem` relation. */
   itineraryItem?: ItineraryItemFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface ItineraryItemFilter {
   /** Filter by the object’s `id` field. */
@@ -7867,9 +6690,9 @@ export interface ItineraryItemFilter {
   /** Filter by the object’s `tripId` field. */
   tripId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `dayNumber` field. */
   dayNumber?: IntFilter;
   /** Filter by the object’s `startTime` field. */
@@ -7879,19 +6702,19 @@ export interface ItineraryItemFilter {
   /** Filter by the object’s `placeId` field. */
   placeId?: UUIDFilter;
   /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
+  category?: StringFilter;
   /** Filter by the object’s `cost` field. */
   cost?: BigFloatFilter;
   /** Filter by the object’s `notes` field. */
-  notes?: StringTrgmFilter;
+  notes?: StringFilter;
   /** Filter by the object’s `sortOrder` field. */
   sortOrder?: IntFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7912,27 +6735,8 @@ export interface ItineraryItemFilter {
   itineraryItemChunks?: ItineraryItemToManyItineraryItemChunkFilter;
   /** `itineraryItemChunks` exist. */
   itineraryItemChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `notes` column. */
-  trgmNotes?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface MemoryChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -7942,9 +6746,9 @@ export interface MemoryChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -7963,21 +6767,8 @@ export interface MemoryChunkFilter {
   not?: MemoryChunkFilter;
   /** Filter by the object’s `memory` relation. */
   memory?: MemoryFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface MessageChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -7987,9 +6778,9 @@ export interface MessageChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -8008,21 +6799,8 @@ export interface MessageChunkFilter {
   not?: MessageChunkFilter;
   /** Filter by the object’s `message` relation. */
   message?: MessageFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface MessageFilter {
   /** Filter by the object’s `id` field. */
@@ -8032,9 +6810,9 @@ export interface MessageFilter {
   /** Filter by the object’s `conversationId` field. */
   conversationId?: UUIDFilter;
   /** Filter by the object’s `role` field. */
-  role?: StringTrgmFilter;
+  role?: StringFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `tokenCount` field. */
   tokenCount?: IntFilter;
   /** Filter by the object’s `meta` field. */
@@ -8043,12 +6821,12 @@ export interface MessageFilter {
   toolCalls?: JSONFilter;
   /** Filter by the object’s `toolResults` field. */
   toolResults?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8065,23 +6843,8 @@ export interface MessageFilter {
   messageChunks?: MessageToManyMessageChunkFilter;
   /** `messageChunks` exist. */
   messageChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `role` column. */
-  trgmRole?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface NoteChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -8091,9 +6854,9 @@ export interface NoteChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -8112,21 +6875,8 @@ export interface NoteChunkFilter {
   not?: NoteChunkFilter;
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface PlaceChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -8136,9 +6886,9 @@ export interface PlaceChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -8157,21 +6907,8 @@ export interface PlaceChunkFilter {
   not?: PlaceChunkFilter;
   /** Filter by the object’s `place` relation. */
   place?: PlaceFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface PlaceFilter {
   /** Filter by the object’s `id` field. */
@@ -8179,29 +6916,29 @@ export interface PlaceFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `address` field. */
-  address?: StringTrgmFilter;
+  address?: StringFilter;
   /** Filter by the object’s `city` field. */
-  city?: StringTrgmFilter;
+  city?: StringFilter;
   /** Filter by the object’s `country` field. */
-  country?: StringTrgmFilter;
+  country?: StringFilter;
   /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
+  category?: StringFilter;
   /** Filter by the object’s `rating` field. */
   rating?: BigFloatFilter;
   /** Filter by the object’s `notes` field. */
-  notes?: StringTrgmFilter;
+  notes?: StringFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8224,33 +6961,8 @@ export interface PlaceFilter {
   tripPlaces?: PlaceToManyTripPlaceFilter;
   /** `tripPlaces` exist. */
   tripPlacesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `address` column. */
-  trgmAddress?: TrgmSearchInput;
-  /** TRGM search on the `city` column. */
-  trgmCity?: TrgmSearchInput;
-  /** TRGM search on the `country` column. */
-  trgmCountry?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `notes` column. */
-  trgmNotes?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface ProjectChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -8260,9 +6972,9 @@ export interface ProjectChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -8281,21 +6993,8 @@ export interface ProjectChunkFilter {
   not?: ProjectChunkFilter;
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface ProjectContactFilter {
   /** Filter by the object’s `projectId` field. */
@@ -8325,9 +7024,9 @@ export interface RuleChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -8346,21 +7045,8 @@ export interface RuleChunkFilter {
   not?: RuleChunkFilter;
   /** Filter by the object’s `rule` relation. */
   rule?: RuleFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface RuleFilter {
   /** Filter by the object’s `id` field. */
@@ -8368,15 +7054,15 @@ export interface RuleFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `triggerType` field. */
-  triggerType?: StringTrgmFilter;
+  triggerType?: StringFilter;
   /** Filter by the object’s `triggerConfig` field. */
   triggerConfig?: JSONFilter;
   /** Filter by the object’s `actionType` field. */
-  actionType?: StringTrgmFilter;
+  actionType?: StringFilter;
   /** Filter by the object’s `actionConfig` field. */
   actionConfig?: JSONFilter;
   /** Filter by the object’s `isActive` field. */
@@ -8384,13 +7070,13 @@ export interface RuleFilter {
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `triggerConcept` field. */
-  triggerConcept?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  triggerConcept?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8411,31 +7097,10 @@ export interface RuleFilter {
   ruleChunks?: RuleToManyRuleChunkFilter;
   /** `ruleChunks` exist. */
   ruleChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** VECTOR search on the `trigger_concept_embedding` column. */
   vectorTriggerConceptEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `trigger_type` column. */
-  trgmTriggerType?: TrgmSearchInput;
-  /** TRGM search on the `action_type` column. */
-  trgmActionType?: TrgmSearchInput;
-  /** TRGM search on the `trigger_concept` column. */
-  trgmTriggerConcept?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface RuntimeArtifactFilter {
   /** Filter by the object’s `id` field. */
@@ -8525,9 +7190,9 @@ export interface RuntimeLogChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -8546,21 +7211,8 @@ export interface RuntimeLogChunkFilter {
   not?: RuntimeLogChunkFilter;
   /** Filter by the object’s `runtimeLog` relation. */
   runtimeLog?: RuntimeLogFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface RuntimeLogFilter {
   /** Filter by the object’s `id` field. */
@@ -8570,19 +7222,19 @@ export interface RuntimeLogFilter {
   /** Filter by the object’s `runtimeStateId` field. */
   runtimeStateId?: UUIDFilter;
   /** Filter by the object’s `level` field. */
-  level?: StringTrgmFilter;
+  level?: StringFilter;
   /** Filter by the object’s `message` field. */
-  message?: StringTrgmFilter;
+  message?: StringFilter;
   /** Filter by the object’s `context` field. */
   context?: JSONFilter;
   /** Filter by the object’s `stepIndex` field. */
   stepIndex?: IntFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8599,23 +7251,8 @@ export interface RuntimeLogFilter {
   runtimeLogChunks?: RuntimeLogToManyRuntimeLogChunkFilter;
   /** `runtimeLogChunks` exist. */
   runtimeLogChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `level` column. */
-  trgmLevel?: TrgmSearchInput;
-  /** TRGM search on the `message` column. */
-  trgmMessage?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface RuntimeMetricFilter {
   /** Filter by the object’s `id` field. */
@@ -8683,9 +7320,9 @@ export interface RuntimeStateChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -8704,21 +7341,8 @@ export interface RuntimeStateChunkFilter {
   not?: RuntimeStateChunkFilter;
   /** Filter by the object’s `runtimeState` relation. */
   runtimeState?: RuntimeStateFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface RuntimeStateFilter {
   /** Filter by the object’s `id` field. */
@@ -8726,11 +7350,11 @@ export interface RuntimeStateFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `stateType` field. */
-  stateType?: StringTrgmFilter;
+  stateType?: StringFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `data` field. */
   data?: JSONFilter;
   /** Filter by the object’s `parentId` field. */
@@ -8739,12 +7363,12 @@ export interface RuntimeStateFilter {
   startedAt?: DatetimeFilter;
   /** Filter by the object’s `endedAt` field. */
   endedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8775,25 +7399,8 @@ export interface RuntimeStateFilter {
   runtimeStateDependencies?: RuntimeStateToManyRuntimeStateDependencyFilter;
   /** `runtimeStateDependencies` exist. */
   runtimeStateDependenciesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `state_type` column. */
-  trgmStateType?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface RuntimeStateDependencyFilter {
   /** Filter by the object’s `runtimeStateId` field. */
@@ -8819,9 +7426,9 @@ export interface SkillChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -8840,21 +7447,8 @@ export interface SkillChunkFilter {
   not?: SkillChunkFilter;
   /** Filter by the object’s `skill` relation. */
   skill?: SkillFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface SkillFilter {
   /** Filter by the object’s `id` field. */
@@ -8862,25 +7456,25 @@ export interface SkillFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
+  category?: StringFilter;
   /** Filter by the object’s `implementation` field. */
-  implementation?: StringTrgmFilter;
+  implementation?: StringFilter;
   /** Filter by the object’s `config` field. */
   config?: JSONFilter;
   /** Filter by the object’s `isActive` field. */
   isActive?: BooleanFilter;
   /** Filter by the object’s `intentTrigger` field. */
-  intentTrigger?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  intentTrigger?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8901,31 +7495,10 @@ export interface SkillFilter {
   skillChunks?: SkillToManySkillChunkFilter;
   /** `skillChunks` exist. */
   skillChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** VECTOR search on the `intent_trigger_embedding` column. */
   vectorIntentTriggerEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `implementation` column. */
-  trgmImplementation?: TrgmSearchInput;
-  /** TRGM search on the `intent_trigger` column. */
-  trgmIntentTrigger?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface TagFilter {
   /** Filter by the object’s `id` field. */
@@ -9025,9 +7598,9 @@ export interface TripChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -9046,21 +7619,8 @@ export interface TripChunkFilter {
   not?: TripChunkFilter;
   /** Filter by the object’s `trip` relation. */
   trip?: TripFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface TripHikingTrailFilter {
   /** Filter by the object’s `tripId` field. */
@@ -9110,9 +7670,9 @@ export interface VenueChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -9131,21 +7691,8 @@ export interface VenueChunkFilter {
   not?: VenueChunkFilter;
   /** Filter by the object’s `venue` relation. */
   venue?: VenueFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface VenueImageFilter {
   /** Filter by the object’s `venueId` field. */
@@ -9206,20 +7753,12 @@ export type AgentChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type AgentCollaboratorOrderBy =
@@ -9242,26 +7781,10 @@ export type AgentOrderBy =
   | 'ENTITY_ID_DESC'
   | 'STATUS_ASC'
   | 'STATUS_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'SYSTEM_PROMPT_TRGM_SIMILARITY_ASC'
-  | 'SYSTEM_PROMPT_TRGM_SIMILARITY_DESC'
-  | 'MODEL_TRGM_SIMILARITY_ASC'
-  | 'MODEL_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type AgentLogChunkOrderBy =
@@ -9272,20 +7795,12 @@ export type AgentLogChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'AGENT_LOG_ID_ASC'
   | 'AGENT_LOG_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type AgentLogOrderBy =
@@ -9302,20 +7817,10 @@ export type AgentLogOrderBy =
   | 'LEVEL_DESC'
   | 'TASK_ID_ASC'
   | 'TASK_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'LEVEL_TRGM_SIMILARITY_ASC'
-  | 'LEVEL_TRGM_SIMILARITY_DESC'
-  | 'MESSAGE_TRGM_SIMILARITY_ASC'
-  | 'MESSAGE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type AgentTaskChunkOrderBy =
@@ -9326,20 +7831,12 @@ export type AgentTaskChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'AGENT_TASK_ID_ASC'
   | 'AGENT_TASK_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type AgentTaskOrderBy =
@@ -9356,24 +7853,10 @@ export type AgentTaskOrderBy =
   | 'STATUS_DESC'
   | 'PRIORITY_ASC'
   | 'PRIORITY_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'RESULT_TRGM_SIMILARITY_ASC'
-  | 'RESULT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type AutonomyRecordChunkOrderBy =
@@ -9384,20 +7867,12 @@ export type AutonomyRecordChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'AUTONOMY_RECORD_ID_ASC'
   | 'AUTONOMY_RECORD_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type AutonomyRecordOrderBy =
@@ -9416,26 +7891,10 @@ export type AutonomyRecordOrderBy =
   | 'PRIORITY_DESC'
   | 'SOURCE_ASC'
   | 'SOURCE_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'RECORD_TYPE_TRGM_SIMILARITY_ASC'
-  | 'RECORD_TYPE_TRGM_SIMILARITY_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'SOURCE_TRGM_SIMILARITY_ASC'
-  | 'SOURCE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type AutonomyRecordLinkOrderBy =
@@ -9456,20 +7915,12 @@ export type CodebasChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'CODEBASIS_ID_ASC'
   | 'CODEBASIS_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type CodebaseDependencyOrderBy =
@@ -9494,28 +7945,10 @@ export type CodebasisOrderBy =
   | 'LANGUAGE_DESC'
   | 'FRAMEWORK_ASC'
   | 'FRAMEWORK_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'REPOSITORY_URL_TRGM_SIMILARITY_ASC'
-  | 'REPOSITORY_URL_TRGM_SIMILARITY_DESC'
-  | 'DEFAULT_BRANCH_TRGM_SIMILARITY_ASC'
-  | 'DEFAULT_BRANCH_TRGM_SIMILARITY_DESC'
-  | 'LANGUAGE_TRGM_SIMILARITY_ASC'
-  | 'LANGUAGE_TRGM_SIMILARITY_DESC'
-  | 'FRAMEWORK_TRGM_SIMILARITY_ASC'
-  | 'FRAMEWORK_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type CodeChunkOrderBy =
@@ -9532,28 +7965,12 @@ export type CodeChunkOrderBy =
   | 'LANGUAGE_DESC'
   | 'SYMBOL_TYPE_ASC'
   | 'SYMBOL_TYPE_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'CODEBASIS_ID_ASC'
   | 'CODEBASIS_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'FILE_PATH_TRGM_SIMILARITY_ASC'
-  | 'FILE_PATH_TRGM_SIMILARITY_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'LANGUAGE_TRGM_SIMILARITY_ASC'
-  | 'LANGUAGE_TRGM_SIMILARITY_DESC'
-  | 'SYMBOL_NAME_TRGM_SIMILARITY_ASC'
-  | 'SYMBOL_NAME_TRGM_SIMILARITY_DESC'
-  | 'SYMBOL_TYPE_TRGM_SIMILARITY_ASC'
-  | 'SYMBOL_TYPE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type CompanyChunkOrderBy =
@@ -9564,20 +7981,12 @@ export type CompanyChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'COMPANY_ID_ASC'
   | 'COMPANY_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type CompanyOrderBy =
@@ -9590,16 +7999,12 @@ export type CompanyOrderBy =
   | 'ENTITY_ID_DESC'
   | 'DOMAIN_ASC'
   | 'DOMAIN_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
@@ -9630,8 +8035,6 @@ export type ContactOrderBy =
   | 'TWITTER_HANDLE_DESC'
   | 'GITHUB_USERNAME_ASC'
   | 'GITHUB_USERNAME_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
   | 'EMBEDDING_ASC'
@@ -9640,8 +8043,6 @@ export type ContactOrderBy =
   | 'LOCATION_GEO_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'FIRST_NAME_TRGM_SIMILARITY_ASC'
@@ -9700,16 +8101,12 @@ export type EventOrderBy =
   | 'EVENT_TYPE_DESC'
   | 'STARTED_AT_ASC'
   | 'STARTED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
@@ -9780,26 +8177,12 @@ export type MemoryOrderBy =
   | 'OCCURRED_AT_DESC'
   | 'MOOD_ASC'
   | 'MOOD_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'LOCATION_TRGM_SIMILARITY_ASC'
-  | 'LOCATION_TRGM_SIMILARITY_DESC'
-  | 'MOOD_TRGM_SIMILARITY_ASC'
-  | 'MOOD_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type CompanyMemoryOrderBy =
@@ -9834,30 +8217,14 @@ export type NoteOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
   | 'ACTIVE_COUNT_ASC'
   | 'ACTIVE_COUNT_DESC'
   | 'LAST_ACCESSED_AT_ASC'
   | 'LAST_ACCESSED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'CONTENT_BM25_SCORE_ASC'
-  | 'CONTENT_BM25_SCORE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'ABSTRACT_TRGM_SIMILARITY_ASC'
-  | 'ABSTRACT_TRGM_SIMILARITY_DESC'
-  | 'OVERVIEW_TRGM_SIMILARITY_ASC'
-  | 'OVERVIEW_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ContactChunkOrderBy =
@@ -9868,20 +8235,12 @@ export type ContactChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'CONTACT_ID_ASC'
   | 'CONTACT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ContactCompanyOrderBy =
@@ -9908,24 +8267,10 @@ export type DealOrderBy =
   | 'STAGE_DESC'
   | 'EXPECTED_CLOSE_DATE_ASC'
   | 'EXPECTED_CLOSE_DATE_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'STAGE_TRGM_SIMILARITY_ASC'
-  | 'STAGE_TRGM_SIMILARITY_DESC'
-  | 'CURRENCY_TRGM_SIMILARITY_ASC'
-  | 'CURRENCY_TRGM_SIMILARITY_DESC'
-  | 'NOTES_TEXT_TRGM_SIMILARITY_ASC'
-  | 'NOTES_TEXT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ContactEventOrderBy =
@@ -10006,24 +8351,10 @@ export type ProjectOrderBy =
   | 'PROJECT_TYPE_DESC'
   | 'PRIORITY_ASC'
   | 'PRIORITY_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'PROJECT_TYPE_TRGM_SIMILARITY_ASC'
-  | 'PROJECT_TYPE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ConversationChunkOrderBy =
@@ -10034,20 +8365,12 @@ export type ConversationChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'CONVERSATION_ID_ASC'
   | 'CONVERSATION_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ConversationOrderBy =
@@ -10062,20 +8385,10 @@ export type ConversationOrderBy =
   | 'AGENT_ID_DESC'
   | 'STATUS_ASC'
   | 'STATUS_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type DealChunkOrderBy =
@@ -10086,20 +8399,12 @@ export type DealChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'DEAL_ID_ASC'
   | 'DEAL_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type DealContactOrderBy =
@@ -10134,20 +8439,12 @@ export type EventChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'EVENT_ID_ASC'
   | 'EVENT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type EventImageOrderBy =
@@ -10218,8 +8515,6 @@ export type VenueOrderBy =
   | 'GOOGLE_PLACE_ID_DESC'
   | 'IS_FAVORITE_ASC'
   | 'IS_FAVORITE_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
   | 'EMBEDDING_ASC'
@@ -10228,8 +8523,6 @@ export type VenueOrderBy =
   | 'LOCATION_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'NAME_TRGM_SIMILARITY_ASC'
@@ -10262,20 +8555,12 @@ export type GoalChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'GOAL_ID_ASC'
   | 'GOAL_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type GoalOrderBy =
@@ -10292,24 +8577,10 @@ export type GoalOrderBy =
   | 'STATUS_DESC'
   | 'PRIORITY_ASC'
   | 'PRIORITY_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'CATEGORY_TRGM_SIMILARITY_ASC'
-  | 'CATEGORY_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type GoalHabitOrderBy =
@@ -10336,22 +8607,10 @@ export type HabitOrderBy =
   | 'FREQUENCY_DESC'
   | 'IS_ACTIVE_ASC'
   | 'IS_ACTIVE_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'FREQUENCY_TRGM_SIMILARITY_ASC'
-  | 'FREQUENCY_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type GoalProjectOrderBy =
@@ -10374,20 +8633,12 @@ export type HabitChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'HABIT_ID_ASC'
   | 'HABIT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type HikingTrailChunkOrderBy =
@@ -10398,20 +8649,12 @@ export type HikingTrailChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'HIKING_TRAIL_ID_ASC'
   | 'HIKING_TRAIL_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type HikingTrailOrderBy =
@@ -10428,30 +8671,12 @@ export type HikingTrailOrderBy =
   | 'TRAIL_TYPE_DESC'
   | 'REGION_ASC'
   | 'REGION_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'LOCATION_ASC'
   | 'LOCATION_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'DIFFICULTY_TRGM_SIMILARITY_ASC'
-  | 'DIFFICULTY_TRGM_SIMILARITY_DESC'
-  | 'TRAIL_TYPE_TRGM_SIMILARITY_ASC'
-  | 'TRAIL_TYPE_TRGM_SIMILARITY_DESC'
-  | 'REGION_TRGM_SIMILARITY_ASC'
-  | 'REGION_TRGM_SIMILARITY_DESC'
-  | 'NOTES_TRGM_SIMILARITY_ASC'
-  | 'NOTES_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type TripOrderBy =
@@ -10466,28 +8691,12 @@ export type TripOrderBy =
   | 'STARTED_AT_DESC'
   | 'STATUS_ASC'
   | 'STATUS_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'LOCATION_ASC'
   | 'LOCATION_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'DESTINATION_TRGM_SIMILARITY_ASC'
-  | 'DESTINATION_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'CURRENCY_TRGM_SIMILARITY_ASC'
-  | 'CURRENCY_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type InteractionChunkOrderBy =
@@ -10498,20 +8707,12 @@ export type InteractionChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'INTERACTION_ID_ASC'
   | 'INTERACTION_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type InteractionOrderBy =
@@ -10528,22 +8729,10 @@ export type InteractionOrderBy =
   | 'TYPE_DESC'
   | 'OCCURRED_AT_ASC'
   | 'OCCURRED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TYPE_TRGM_SIMILARITY_ASC'
-  | 'TYPE_TRGM_SIMILARITY_DESC'
-  | 'SUMMARY_TRGM_SIMILARITY_ASC'
-  | 'SUMMARY_TRGM_SIMILARITY_DESC'
-  | 'SENTIMENT_TRGM_SIMILARITY_ASC'
-  | 'SENTIMENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ItineraryItemChunkOrderBy =
@@ -10554,20 +8743,12 @@ export type ItineraryItemChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'ITINERARY_ITEM_ID_ASC'
   | 'ITINERARY_ITEM_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ItineraryItemOrderBy =
@@ -10584,24 +8765,10 @@ export type ItineraryItemOrderBy =
   | 'DAY_NUMBER_DESC'
   | 'PLACE_ID_ASC'
   | 'PLACE_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'CATEGORY_TRGM_SIMILARITY_ASC'
-  | 'CATEGORY_TRGM_SIMILARITY_DESC'
-  | 'NOTES_TRGM_SIMILARITY_ASC'
-  | 'NOTES_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type MemoryChunkOrderBy =
@@ -10612,20 +8779,12 @@ export type MemoryChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'MEMORY_ID_ASC'
   | 'MEMORY_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type MessageChunkOrderBy =
@@ -10636,20 +8795,12 @@ export type MessageChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'MESSAGE_ID_ASC'
   | 'MESSAGE_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type MessageOrderBy =
@@ -10664,20 +8815,10 @@ export type MessageOrderBy =
   | 'CONVERSATION_ID_DESC'
   | 'ROLE_ASC'
   | 'ROLE_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'ROLE_TRGM_SIMILARITY_ASC'
-  | 'ROLE_TRGM_SIMILARITY_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type NoteChunkOrderBy =
@@ -10688,20 +8829,12 @@ export type NoteChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'NOTE_ID_ASC'
   | 'NOTE_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type PlaceChunkOrderBy =
@@ -10712,20 +8845,12 @@ export type PlaceChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'PLACE_ID_ASC'
   | 'PLACE_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type PlaceOrderBy =
@@ -10742,32 +8867,12 @@ export type PlaceOrderBy =
   | 'COUNTRY_DESC'
   | 'CATEGORY_ASC'
   | 'CATEGORY_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'LOCATION_ASC'
   | 'LOCATION_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'ADDRESS_TRGM_SIMILARITY_ASC'
-  | 'ADDRESS_TRGM_SIMILARITY_DESC'
-  | 'CITY_TRGM_SIMILARITY_ASC'
-  | 'CITY_TRGM_SIMILARITY_DESC'
-  | 'COUNTRY_TRGM_SIMILARITY_ASC'
-  | 'COUNTRY_TRGM_SIMILARITY_DESC'
-  | 'CATEGORY_TRGM_SIMILARITY_ASC'
-  | 'CATEGORY_TRGM_SIMILARITY_DESC'
-  | 'NOTES_TRGM_SIMILARITY_ASC'
-  | 'NOTES_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ProjectChunkOrderBy =
@@ -10778,20 +8883,12 @@ export type ProjectChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'PROJECT_ID_ASC'
   | 'PROJECT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ProjectContactOrderBy =
@@ -10814,20 +8911,12 @@ export type RuleChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'RULE_ID_ASC'
   | 'RULE_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type RuleOrderBy =
@@ -10842,32 +8931,16 @@ export type RuleOrderBy =
   | 'TRIGGER_TYPE_DESC'
   | 'IS_ACTIVE_ASC'
   | 'IS_ACTIVE_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'TRIGGER_CONCEPT_EMBEDDING_ASC'
   | 'TRIGGER_CONCEPT_EMBEDDING_DESC'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'TRIGGER_CONCEPT_EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'TRIGGER_CONCEPT_EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'TRIGGER_TYPE_TRGM_SIMILARITY_ASC'
-  | 'TRIGGER_TYPE_TRGM_SIMILARITY_DESC'
-  | 'ACTION_TYPE_TRGM_SIMILARITY_ASC'
-  | 'ACTION_TYPE_TRGM_SIMILARITY_DESC'
-  | 'TRIGGER_CONCEPT_TRGM_SIMILARITY_ASC'
-  | 'TRIGGER_CONCEPT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type RuntimeArtifactOrderBy =
@@ -10912,20 +8985,12 @@ export type RuntimeLogChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'RUNTIME_LOG_ID_ASC'
   | 'RUNTIME_LOG_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type RuntimeLogOrderBy =
@@ -10940,20 +9005,10 @@ export type RuntimeLogOrderBy =
   | 'RUNTIME_STATE_ID_DESC'
   | 'LEVEL_ASC'
   | 'LEVEL_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'LEVEL_TRGM_SIMILARITY_ASC'
-  | 'LEVEL_TRGM_SIMILARITY_DESC'
-  | 'MESSAGE_TRGM_SIMILARITY_ASC'
-  | 'MESSAGE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type RuntimeMetricOrderBy =
@@ -10988,20 +9043,12 @@ export type RuntimeStateChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'RUNTIME_STATE_ID_ASC'
   | 'RUNTIME_STATE_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type RuntimeStateOrderBy =
@@ -11018,22 +9065,10 @@ export type RuntimeStateOrderBy =
   | 'STATUS_DESC'
   | 'PARENT_ID_ASC'
   | 'PARENT_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'STATE_TYPE_TRGM_SIMILARITY_ASC'
-  | 'STATE_TYPE_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type RuntimeStateDependencyOrderBy =
@@ -11054,20 +9089,12 @@ export type SkillChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'SKILL_ID_ASC'
   | 'SKILL_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type SkillOrderBy =
@@ -11082,32 +9109,16 @@ export type SkillOrderBy =
   | 'CATEGORY_DESC'
   | 'IS_ACTIVE_ASC'
   | 'IS_ACTIVE_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'INTENT_TRIGGER_EMBEDDING_ASC'
   | 'INTENT_TRIGGER_EMBEDDING_DESC'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'INTENT_TRIGGER_EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'INTENT_TRIGGER_EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'NAME_TRGM_SIMILARITY_ASC'
-  | 'NAME_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'CATEGORY_TRGM_SIMILARITY_ASC'
-  | 'CATEGORY_TRGM_SIMILARITY_DESC'
-  | 'IMPLEMENTATION_TRGM_SIMILARITY_ASC'
-  | 'IMPLEMENTATION_TRGM_SIMILARITY_DESC'
-  | 'INTENT_TRIGGER_TRGM_SIMILARITY_ASC'
-  | 'INTENT_TRIGGER_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type TagOrderBy =
@@ -11156,20 +9167,12 @@ export type TripChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'TRIP_ID_ASC'
   | 'TRIP_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type TripHikingTrailOrderBy =
@@ -11204,20 +9207,12 @@ export type VenueChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'VENUE_ID_ASC'
   | 'VENUE_ID_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type VenueImageOrderBy =
@@ -11740,8 +9735,8 @@ export interface CreateCompanyInput {
     industry?: string;
     description?: string;
     tags?: string[];
-    embeddingText?: string;
     mainImageId?: string;
+    embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
   };
@@ -11753,8 +9748,8 @@ export interface CompanyPatch {
   industry?: string | null;
   description?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
 }
@@ -11787,8 +9782,8 @@ export interface CreateContactInput {
     instagramHandle?: string;
     website?: string;
     tags?: string[];
-    embeddingText?: string;
     mainImageId?: string;
+    embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
   };
@@ -11811,8 +9806,8 @@ export interface ContactPatch {
   instagramHandle?: string | null;
   website?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
 }
@@ -11859,8 +9854,8 @@ export interface CreateEventInput {
     endedAt?: string;
     notesText?: string;
     tags?: string[];
-    embeddingText?: string;
     mainImageId?: string;
+    embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
   };
@@ -11875,8 +9870,8 @@ export interface EventPatch {
   endedAt?: string | null;
   notesText?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
 }
@@ -12615,8 +10610,8 @@ export interface CreateVenueInput {
     isFavorite?: boolean;
     notes?: string;
     tags?: string[];
-    embeddingText?: string;
     mainImageId?: string;
+    embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
   };
@@ -12635,8 +10630,8 @@ export interface VenuePatch {
   isFavorite?: boolean | null;
   notes?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
 }
@@ -14224,96 +12219,8 @@ export const connectionFieldsMap = {
     toolExecutions: 'ToolExecution',
   },
 } as Record<string, Record<string, string>>;
-/** A filter to be used against String fields with pg_trgm support. All fields are combined with a logical ‘and.’ */
-// ============ Custom Input Types (from schema) ============
-export interface StringTrgmFilter {
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: boolean;
-  /** Equal to the specified value. */
-  equalTo?: string;
-  /** Not equal to the specified value. */
-  notEqualTo?: string;
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: string;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: string;
-  /** Included in the specified list. */
-  in?: string[];
-  /** Not included in the specified list. */
-  notIn?: string[];
-  /** Less than the specified value. */
-  lessThan?: string;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: string;
-  /** Greater than the specified value. */
-  greaterThan?: string;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: string;
-  /** Contains the specified string (case-sensitive). */
-  includes?: string;
-  /** Does not contain the specified string (case-sensitive). */
-  notIncludes?: string;
-  /** Contains the specified string (case-insensitive). */
-  includesInsensitive?: string;
-  /** Does not contain the specified string (case-insensitive). */
-  notIncludesInsensitive?: string;
-  /** Starts with the specified string (case-sensitive). */
-  startsWith?: string;
-  /** Does not start with the specified string (case-sensitive). */
-  notStartsWith?: string;
-  /** Starts with the specified string (case-insensitive). */
-  startsWithInsensitive?: string;
-  /** Does not start with the specified string (case-insensitive). */
-  notStartsWithInsensitive?: string;
-  /** Ends with the specified string (case-sensitive). */
-  endsWith?: string;
-  /** Does not end with the specified string (case-sensitive). */
-  notEndsWith?: string;
-  /** Ends with the specified string (case-insensitive). */
-  endsWithInsensitive?: string;
-  /** Does not end with the specified string (case-insensitive). */
-  notEndsWithInsensitive?: string;
-  /** Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  like?: string;
-  /** Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  notLike?: string;
-  /** Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  likeInsensitive?: string;
-  /** Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  notLikeInsensitive?: string;
-  /** Equal to the specified value (case-insensitive). */
-  equalToInsensitive?: string;
-  /** Not equal to the specified value (case-insensitive). */
-  notEqualToInsensitive?: string;
-  /** Not equal to the specified value, treating null like an ordinary value (case-insensitive). */
-  distinctFromInsensitive?: string;
-  /** Equal to the specified value, treating null like an ordinary value (case-insensitive). */
-  notDistinctFromInsensitive?: string;
-  /** Included in the specified list (case-insensitive). */
-  inInsensitive?: string[];
-  /** Not included in the specified list (case-insensitive). */
-  notInInsensitive?: string[];
-  /** Less than the specified value (case-insensitive). */
-  lessThanInsensitive?: string;
-  /** Less than or equal to the specified value (case-insensitive). */
-  lessThanOrEqualToInsensitive?: string;
-  /** Greater than the specified value (case-insensitive). */
-  greaterThanInsensitive?: string;
-  /** Greater than or equal to the specified value (case-insensitive). */
-  greaterThanOrEqualToInsensitive?: string;
-  /** Fuzzy matches using pg_trgm trigram similarity. Tolerates typos and misspellings. */
-  similarTo?: TrgmSearchInput;
-  /** Fuzzy matches using pg_trgm word_similarity. Finds the best matching substring within the column value. */
-  wordSimilarTo?: TrgmSearchInput;
-}
-/** Input for BM25 ranked text search. Provide a search query string and optional score threshold. */
-export interface Bm25SearchInput {
-  /** The search query text. Uses pg_textsearch BM25 ranking. */
-  query: string;
-  /** Maximum BM25 score threshold (negative values). Only rows with score <= threshold are returned. */
-  threshold?: number;
-}
 /** Input for vector similarity search. Provide a query vector, optional metric, and optional max distance threshold. */
+// ============ Custom Input Types (from schema) ============
 export interface VectorNearbyInput {
   /** Query vector for similarity search. */
   vector: number[];
@@ -14323,13 +12230,6 @@ export interface VectorNearbyInput {
   distance?: number;
   /** When true (default for tables with @hasChunks), transparently queries the chunks table and returns the minimum distance across parent + all chunks. Set to false to only search the parent embedding. */
   includeChunks?: boolean;
-}
-/** Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold. */
-export interface TrgmSearchInput {
-  /** The text to fuzzy-match against. Typos and misspellings are tolerated. */
-  value: string;
-  /** Minimum similarity threshold (0.0 to 1.0). Higher = stricter matching. Default is 0.3. */
-  threshold?: number;
 }
 /** A filter to be used against many `AgentTask` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentToManyAgentTaskFilter {
@@ -14457,6 +12357,87 @@ export interface CodebasisToManyCodebaseDependencyFilter {
   /** Filters to entities where no related entity matches. */
   none?: CodebaseDependencyFilter;
 }
+/** A filter to be used against String fields with pg_trgm support. All fields are combined with a logical ‘and.’ */
+export interface StringTrgmFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: string;
+  /** Not equal to the specified value. */
+  notEqualTo?: string;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: string;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: string;
+  /** Included in the specified list. */
+  in?: string[];
+  /** Not included in the specified list. */
+  notIn?: string[];
+  /** Less than the specified value. */
+  lessThan?: string;
+  /** Less than or equal to the specified value. */
+  lessThanOrEqualTo?: string;
+  /** Greater than the specified value. */
+  greaterThan?: string;
+  /** Greater than or equal to the specified value. */
+  greaterThanOrEqualTo?: string;
+  /** Contains the specified string (case-sensitive). */
+  includes?: string;
+  /** Does not contain the specified string (case-sensitive). */
+  notIncludes?: string;
+  /** Contains the specified string (case-insensitive). */
+  includesInsensitive?: string;
+  /** Does not contain the specified string (case-insensitive). */
+  notIncludesInsensitive?: string;
+  /** Starts with the specified string (case-sensitive). */
+  startsWith?: string;
+  /** Does not start with the specified string (case-sensitive). */
+  notStartsWith?: string;
+  /** Starts with the specified string (case-insensitive). */
+  startsWithInsensitive?: string;
+  /** Does not start with the specified string (case-insensitive). */
+  notStartsWithInsensitive?: string;
+  /** Ends with the specified string (case-sensitive). */
+  endsWith?: string;
+  /** Does not end with the specified string (case-sensitive). */
+  notEndsWith?: string;
+  /** Ends with the specified string (case-insensitive). */
+  endsWithInsensitive?: string;
+  /** Does not end with the specified string (case-insensitive). */
+  notEndsWithInsensitive?: string;
+  /** Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  like?: string;
+  /** Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  notLike?: string;
+  /** Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  likeInsensitive?: string;
+  /** Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  notLikeInsensitive?: string;
+  /** Equal to the specified value (case-insensitive). */
+  equalToInsensitive?: string;
+  /** Not equal to the specified value (case-insensitive). */
+  notEqualToInsensitive?: string;
+  /** Not equal to the specified value, treating null like an ordinary value (case-insensitive). */
+  distinctFromInsensitive?: string;
+  /** Equal to the specified value, treating null like an ordinary value (case-insensitive). */
+  notDistinctFromInsensitive?: string;
+  /** Included in the specified list (case-insensitive). */
+  inInsensitive?: string[];
+  /** Not included in the specified list (case-insensitive). */
+  notInInsensitive?: string[];
+  /** Less than the specified value (case-insensitive). */
+  lessThanInsensitive?: string;
+  /** Less than or equal to the specified value (case-insensitive). */
+  lessThanOrEqualToInsensitive?: string;
+  /** Greater than the specified value (case-insensitive). */
+  greaterThanInsensitive?: string;
+  /** Greater than or equal to the specified value (case-insensitive). */
+  greaterThanOrEqualToInsensitive?: string;
+  /** Fuzzy matches using pg_trgm trigram similarity. Tolerates typos and misspellings. */
+  similarTo?: TrgmSearchInput;
+  /** Fuzzy matches using pg_trgm word_similarity. Finds the best matching substring within the column value. */
+  wordSimilarTo?: TrgmSearchInput;
+}
 /** A filter to be used against many `CompanyChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyToManyCompanyChunkFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14519,6 +12500,13 @@ export interface CompanyToManyCompanyMemoryFilter {
   every?: CompanyMemoryFilter;
   /** Filters to entities where no related entity matches. */
   none?: CompanyMemoryFilter;
+}
+/** Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold. */
+export interface TrgmSearchInput {
+  /** The text to fuzzy-match against. Typos and misspellings are tolerated. */
+  value: string;
+  /** Minimum similarity threshold (0.0 to 1.0). Higher = stricter matching. Default is 0.3. */
+  threshold?: number;
 }
 /** A filter to be used against many `Interaction` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyInteractionFilter {
@@ -15170,27 +13158,27 @@ export interface AgentTaskFilter {
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
+  title?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `result` field. */
-  result?: StringTrgmFilter;
+  result?: StringFilter;
   /** Filter by the object’s `startedAt` field. */
   startedAt?: DatetimeFilter;
   /** Filter by the object’s `completedAt` field. */
   completedAt?: DatetimeFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15207,27 +13195,8 @@ export interface AgentTaskFilter {
   agentTaskChunks?: AgentTaskToManyAgentTaskChunkFilter;
   /** `agentTaskChunks` exist. */
   agentTaskChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `result` column. */
-  trgmResult?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `AgentLog` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentLogFilter {
@@ -15238,19 +13207,19 @@ export interface AgentLogFilter {
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `level` field. */
-  level?: StringTrgmFilter;
+  level?: StringFilter;
   /** Filter by the object’s `message` field. */
-  message?: StringTrgmFilter;
+  message?: StringFilter;
   /** Filter by the object’s `context` field. */
   context?: JSONFilter;
   /** Filter by the object’s `taskId` field. */
   taskId?: UUIDFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15267,23 +13236,8 @@ export interface AgentLogFilter {
   agentLogChunks?: AgentLogToManyAgentLogChunkFilter;
   /** `agentLogChunks` exist. */
   agentLogChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `level` column. */
-  trgmLevel?: TrgmSearchInput;
-  /** TRGM search on the `message` column. */
-  trgmMessage?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `Rule` object types. All fields are combined with a logical ‘and.’ */
 export interface RuleFilter {
@@ -15292,15 +13246,15 @@ export interface RuleFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `triggerType` field. */
-  triggerType?: StringTrgmFilter;
+  triggerType?: StringFilter;
   /** Filter by the object’s `triggerConfig` field. */
   triggerConfig?: JSONFilter;
   /** Filter by the object’s `actionType` field. */
-  actionType?: StringTrgmFilter;
+  actionType?: StringFilter;
   /** Filter by the object’s `actionConfig` field. */
   actionConfig?: JSONFilter;
   /** Filter by the object’s `isActive` field. */
@@ -15308,13 +13262,13 @@ export interface RuleFilter {
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `triggerConcept` field. */
-  triggerConcept?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  triggerConcept?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15335,31 +13289,10 @@ export interface RuleFilter {
   ruleChunks?: RuleToManyRuleChunkFilter;
   /** `ruleChunks` exist. */
   ruleChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** VECTOR search on the `trigger_concept_embedding` column. */
   vectorTriggerConceptEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `trigger_type` column. */
-  trgmTriggerType?: TrgmSearchInput;
-  /** TRGM search on the `action_type` column. */
-  trgmActionType?: TrgmSearchInput;
-  /** TRGM search on the `trigger_concept` column. */
-  trgmTriggerConcept?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `Skill` object types. All fields are combined with a logical ‘and.’ */
 export interface SkillFilter {
@@ -15368,25 +13301,25 @@ export interface SkillFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
+  category?: StringFilter;
   /** Filter by the object’s `implementation` field. */
-  implementation?: StringTrgmFilter;
+  implementation?: StringFilter;
   /** Filter by the object’s `config` field. */
   config?: JSONFilter;
   /** Filter by the object’s `isActive` field. */
   isActive?: BooleanFilter;
   /** Filter by the object’s `intentTrigger` field. */
-  intentTrigger?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  intentTrigger?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15407,31 +13340,10 @@ export interface SkillFilter {
   skillChunks?: SkillToManySkillChunkFilter;
   /** `skillChunks` exist. */
   skillChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** VECTOR search on the `intent_trigger_embedding` column. */
   vectorIntentTriggerEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `implementation` column. */
-  trgmImplementation?: TrgmSearchInput;
-  /** TRGM search on the `intent_trigger` column. */
-  trgmIntentTrigger?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `AgentChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentChunkFilter {
@@ -15442,9 +13354,9 @@ export interface AgentChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -15463,21 +13375,8 @@ export interface AgentChunkFilter {
   not?: AgentChunkFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `AgentCollaborator` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentCollaboratorFilter {
@@ -15503,25 +13402,25 @@ export interface MemoryFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
+  title?: StringFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `occurredAt` field. */
   occurredAt?: DatetimeFilter;
   /** Filter by the object’s `location` field. */
-  location?: StringTrgmFilter;
+  location?: StringFilter;
   /** Filter by the object’s `mood` field. */
-  mood?: StringTrgmFilter;
+  mood?: StringFilter;
   /** Filter by the object’s `importance` field. */
   importance?: IntFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15550,27 +13449,8 @@ export interface MemoryFilter {
   companyMemories?: MemoryToManyCompanyMemoryFilter;
   /** `companyMemories` exist. */
   companyMemoriesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `location` column. */
-  trgmLocation?: TrgmSearchInput;
-  /** TRGM search on the `mood` column. */
-  trgmMood?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `AgentLogChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentLogChunkFilter {
@@ -15581,9 +13461,9 @@ export interface AgentLogChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -15602,21 +13482,8 @@ export interface AgentLogChunkFilter {
   not?: AgentLogChunkFilter;
   /** Filter by the object’s `agentLog` relation. */
   agentLog?: AgentLogFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `AgentTaskChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentTaskChunkFilter {
@@ -15627,9 +13494,9 @@ export interface AgentTaskChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -15648,21 +13515,8 @@ export interface AgentTaskChunkFilter {
   not?: AgentTaskChunkFilter;
   /** Filter by the object’s `agentTask` relation. */
   agentTask?: AgentTaskFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `AutonomyRecordChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AutonomyRecordChunkFilter {
@@ -15673,9 +13527,9 @@ export interface AutonomyRecordChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -15694,21 +13548,8 @@ export interface AutonomyRecordChunkFilter {
   not?: AutonomyRecordChunkFilter;
   /** Filter by the object’s `autonomyRecord` relation. */
   autonomyRecord?: AutonomyRecordFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’ */
 export interface AutonomyRecordLinkFilter {
@@ -15736,27 +13577,27 @@ export interface CodeChunkFilter {
   /** Filter by the object’s `codebaseId` field. */
   codebaseId?: UUIDFilter;
   /** Filter by the object’s `filePath` field. */
-  filePath?: StringTrgmFilter;
+  filePath?: StringFilter;
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `language` field. */
-  language?: StringTrgmFilter;
+  language?: StringFilter;
   /** Filter by the object’s `startLine` field. */
   startLine?: IntFilter;
   /** Filter by the object’s `endLine` field. */
   endLine?: IntFilter;
   /** Filter by the object’s `symbolName` field. */
-  symbolName?: StringTrgmFilter;
+  symbolName?: StringFilter;
   /** Filter by the object’s `symbolType` field. */
-  symbolType?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  symbolType?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15771,29 +13612,8 @@ export interface CodeChunkFilter {
   not?: CodeChunkFilter;
   /** Filter by the object’s `codebasis` relation. */
   codebasis?: CodebasisFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `file_path` column. */
-  trgmFilePath?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `language` column. */
-  trgmLanguage?: TrgmSearchInput;
-  /** TRGM search on the `symbol_name` column. */
-  trgmSymbolName?: TrgmSearchInput;
-  /** TRGM search on the `symbol_type` column. */
-  trgmSymbolType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `CodebasChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface CodebasChunkFilter {
@@ -15804,9 +13624,9 @@ export interface CodebasChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -15825,21 +13645,8 @@ export interface CodebasChunkFilter {
   not?: CodebasChunkFilter;
   /** Filter by the object’s `codebasis` relation. */
   codebasis?: CodebasisFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `CodebaseDependency` object types. All fields are combined with a logical ‘and.’ */
 export interface CodebaseDependencyFilter {
@@ -15867,9 +13674,9 @@ export interface CompanyChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -15888,21 +13695,8 @@ export interface CompanyChunkFilter {
   not?: CompanyChunkFilter;
   /** Filter by the object’s `company` relation. */
   company?: CompanyFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `CompanyLink` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyLinkFilter {
@@ -16049,21 +13843,21 @@ export interface InteractionFilter {
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
   /** Filter by the object’s `type` field. */
-  type?: StringTrgmFilter;
+  type?: StringFilter;
   /** Filter by the object’s `occurredAt` field. */
   occurredAt?: DatetimeFilter;
   /** Filter by the object’s `summary` field. */
-  summary?: StringTrgmFilter;
+  summary?: StringFilter;
   /** Filter by the object’s `sentiment` field. */
-  sentiment?: StringTrgmFilter;
+  sentiment?: StringFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16080,25 +13874,8 @@ export interface InteractionFilter {
   interactionChunks?: InteractionToManyInteractionChunkFilter;
   /** `interactionChunks` exist. */
   interactionChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `type` column. */
-  trgmType?: TrgmSearchInput;
-  /** TRGM search on the `summary` column. */
-  trgmSummary?: TrgmSearchInput;
-  /** TRGM search on the `sentiment` column. */
-  trgmSentiment?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `ContactChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactChunkFilter {
@@ -16109,9 +13886,9 @@ export interface ContactChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -16130,21 +13907,8 @@ export interface ContactChunkFilter {
   not?: ContactChunkFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `ContactLink` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactLinkFilter {
@@ -16312,9 +14076,9 @@ export interface EventChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -16333,21 +14097,8 @@ export interface EventChunkFilter {
   not?: EventChunkFilter;
   /** Filter by the object’s `event` relation. */
   event?: EventFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `EventLink` object types. All fields are combined with a logical ‘and.’ */
 export interface EventLinkFilter {
@@ -16481,14 +14232,14 @@ export interface ContactFilter {
   website?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16547,8 +14298,6 @@ export interface ContactFilter {
   contactMemoriesExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** TRGM search on the `first_name` column. */
@@ -16605,14 +14354,14 @@ export interface CompanyFilter {
   description?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16659,8 +14408,6 @@ export interface CompanyFilter {
   companyMemoriesExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** TRGM search on the `name` column. */
@@ -16703,14 +14450,14 @@ export interface EventFilter {
   notesText?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16757,8 +14504,6 @@ export interface EventFilter {
   eventNotesExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** TRGM search on the `name` column. */
@@ -16811,14 +14556,14 @@ export interface VenueFilter {
   notes?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16853,8 +14598,6 @@ export interface VenueFilter {
   eventVenuesExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
   /** TRGM search on the `name` column. */
@@ -16915,9 +14658,9 @@ export interface MemoryChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -16936,21 +14679,8 @@ export interface MemoryChunkFilter {
   not?: MemoryChunkFilter;
   /** Filter by the object’s `memory` relation. */
   memory?: MemoryFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `NoteChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface NoteChunkFilter {
@@ -16961,9 +14691,9 @@ export interface NoteChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -16982,21 +14712,8 @@ export interface NoteChunkFilter {
   not?: NoteChunkFilter;
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `DealNote` object types. All fields are combined with a logical ‘and.’ */
 export interface DealNoteFilter {
@@ -17028,9 +14745,9 @@ export interface DealChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17049,21 +14766,8 @@ export interface DealChunkFilter {
   not?: DealChunkFilter;
   /** Filter by the object’s `deal` relation. */
   deal?: DealFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `ProjectChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectChunkFilter {
@@ -17074,9 +14778,9 @@ export interface ProjectChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17095,21 +14799,8 @@ export interface ProjectChunkFilter {
   not?: ProjectChunkFilter;
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `GoalProject` object types. All fields are combined with a logical ‘and.’ */
 export interface GoalProjectFilter {
@@ -17141,9 +14832,9 @@ export interface MessageFilter {
   /** Filter by the object’s `conversationId` field. */
   conversationId?: UUIDFilter;
   /** Filter by the object’s `role` field. */
-  role?: StringTrgmFilter;
+  role?: StringFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `tokenCount` field. */
   tokenCount?: IntFilter;
   /** Filter by the object’s `meta` field. */
@@ -17152,12 +14843,12 @@ export interface MessageFilter {
   toolCalls?: JSONFilter;
   /** Filter by the object’s `toolResults` field. */
   toolResults?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17174,23 +14865,8 @@ export interface MessageFilter {
   messageChunks?: MessageToManyMessageChunkFilter;
   /** `messageChunks` exist. */
   messageChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `role` column. */
-  trgmRole?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `ConversationChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ConversationChunkFilter {
@@ -17201,9 +14877,9 @@ export interface ConversationChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17222,21 +14898,8 @@ export interface ConversationChunkFilter {
   not?: ConversationChunkFilter;
   /** Filter by the object’s `conversation` relation. */
   conversation?: ConversationFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `VenueChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueChunkFilter {
@@ -17247,9 +14910,9 @@ export interface VenueChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17268,21 +14931,8 @@ export interface VenueChunkFilter {
   not?: VenueChunkFilter;
   /** Filter by the object’s `venue` relation. */
   venue?: VenueFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `VenueLink` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueLinkFilter {
@@ -17324,9 +14974,9 @@ export interface GoalChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17345,21 +14995,8 @@ export interface GoalChunkFilter {
   not?: GoalChunkFilter;
   /** Filter by the object’s `goal` relation. */
   goal?: GoalFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `GoalHabit` object types. All fields are combined with a logical ‘and.’ */
 export interface GoalHabitFilter {
@@ -17391,9 +15028,9 @@ export interface HabitChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17412,21 +15049,8 @@ export interface HabitChunkFilter {
   not?: HabitChunkFilter;
   /** Filter by the object’s `habit` relation. */
   habit?: HabitFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `HikingTrailChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface HikingTrailChunkFilter {
@@ -17437,9 +15061,9 @@ export interface HikingTrailChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17458,21 +15082,8 @@ export interface HikingTrailChunkFilter {
   not?: HikingTrailChunkFilter;
   /** Filter by the object’s `hikingTrail` relation. */
   hikingTrail?: HikingTrailFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `TripHikingTrail` object types. All fields are combined with a logical ‘and.’ */
 export interface TripHikingTrailFilter {
@@ -17504,9 +15115,9 @@ export interface ItineraryItemFilter {
   /** Filter by the object’s `tripId` field. */
   tripId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `dayNumber` field. */
   dayNumber?: IntFilter;
   /** Filter by the object’s `startTime` field. */
@@ -17516,19 +15127,19 @@ export interface ItineraryItemFilter {
   /** Filter by the object’s `placeId` field. */
   placeId?: UUIDFilter;
   /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
+  category?: StringFilter;
   /** Filter by the object’s `cost` field. */
   cost?: BigFloatFilter;
   /** Filter by the object’s `notes` field. */
-  notes?: StringTrgmFilter;
+  notes?: StringFilter;
   /** Filter by the object’s `sortOrder` field. */
   sortOrder?: IntFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17549,27 +15160,8 @@ export interface ItineraryItemFilter {
   itineraryItemChunks?: ItineraryItemToManyItineraryItemChunkFilter;
   /** `itineraryItemChunks` exist. */
   itineraryItemChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `notes` column. */
-  trgmNotes?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `TripChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface TripChunkFilter {
@@ -17580,9 +15172,9 @@ export interface TripChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17601,21 +15193,8 @@ export interface TripChunkFilter {
   not?: TripChunkFilter;
   /** Filter by the object’s `trip` relation. */
   trip?: TripFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `TripPlace` object types. All fields are combined with a logical ‘and.’ */
 export interface TripPlaceFilter {
@@ -17647,9 +15226,9 @@ export interface InteractionChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17668,21 +15247,8 @@ export interface InteractionChunkFilter {
   not?: InteractionChunkFilter;
   /** Filter by the object’s `interaction` relation. */
   interaction?: InteractionFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `ItineraryItemChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ItineraryItemChunkFilter {
@@ -17693,9 +15259,9 @@ export interface ItineraryItemChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17714,21 +15280,8 @@ export interface ItineraryItemChunkFilter {
   not?: ItineraryItemChunkFilter;
   /** Filter by the object’s `itineraryItem` relation. */
   itineraryItem?: ItineraryItemFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `MessageChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface MessageChunkFilter {
@@ -17739,9 +15292,9 @@ export interface MessageChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17760,21 +15313,8 @@ export interface MessageChunkFilter {
   not?: MessageChunkFilter;
   /** Filter by the object’s `message` relation. */
   message?: MessageFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `PlaceChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface PlaceChunkFilter {
@@ -17785,9 +15325,9 @@ export interface PlaceChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17806,21 +15346,8 @@ export interface PlaceChunkFilter {
   not?: PlaceChunkFilter;
   /** Filter by the object’s `place` relation. */
   place?: PlaceFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `RuleChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface RuleChunkFilter {
@@ -17831,9 +15358,9 @@ export interface RuleChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17852,21 +15379,8 @@ export interface RuleChunkFilter {
   not?: RuleChunkFilter;
   /** Filter by the object’s `rule` relation. */
   rule?: RuleFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `RuntimeLogChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeLogChunkFilter {
@@ -17877,9 +15391,9 @@ export interface RuntimeLogChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -17898,21 +15412,8 @@ export interface RuntimeLogChunkFilter {
   not?: RuntimeLogChunkFilter;
   /** Filter by the object’s `runtimeLog` relation. */
   runtimeLog?: RuntimeLogFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `RuntimeLog` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeLogFilter {
@@ -17923,19 +15424,19 @@ export interface RuntimeLogFilter {
   /** Filter by the object’s `runtimeStateId` field. */
   runtimeStateId?: UUIDFilter;
   /** Filter by the object’s `level` field. */
-  level?: StringTrgmFilter;
+  level?: StringFilter;
   /** Filter by the object’s `message` field. */
-  message?: StringTrgmFilter;
+  message?: StringFilter;
   /** Filter by the object’s `context` field. */
   context?: JSONFilter;
   /** Filter by the object’s `stepIndex` field. */
   stepIndex?: IntFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17952,23 +15453,8 @@ export interface RuntimeLogFilter {
   runtimeLogChunks?: RuntimeLogToManyRuntimeLogChunkFilter;
   /** `runtimeLogChunks` exist. */
   runtimeLogChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `level` column. */
-  trgmLevel?: TrgmSearchInput;
-  /** TRGM search on the `message` column. */
-  trgmMessage?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `RuntimeArtifact` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeArtifactFilter {
@@ -18039,9 +15525,9 @@ export interface RuntimeStateChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -18060,21 +15546,8 @@ export interface RuntimeStateChunkFilter {
   not?: RuntimeStateChunkFilter;
   /** Filter by the object’s `runtimeState` relation. */
   runtimeState?: RuntimeStateFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `RuntimeStateDependency` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeStateDependencyFilter {
@@ -18102,9 +15575,9 @@ export interface SkillChunkFilter {
   /** Filter by the object’s `chunkIndex` field. */
   chunkIndex?: IntFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
@@ -18123,21 +15596,8 @@ export interface SkillChunkFilter {
   not?: SkillChunkFilter;
   /** Filter by the object’s `skill` relation. */
   skill?: SkillFilter;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `ToolExecution` object types. All fields are combined with a logical ‘and.’ */
 export interface ToolExecutionFilter {
@@ -18198,6 +15658,83 @@ export interface UUIDFilter {
   greaterThan?: string;
   /** Greater than or equal to the specified value. */
   greaterThanOrEqualTo?: string;
+}
+/** A filter to be used against String fields. All fields are combined with a logical ‘and.’ */
+export interface StringFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: string;
+  /** Not equal to the specified value. */
+  notEqualTo?: string;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: string;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: string;
+  /** Included in the specified list. */
+  in?: string[];
+  /** Not included in the specified list. */
+  notIn?: string[];
+  /** Less than the specified value. */
+  lessThan?: string;
+  /** Less than or equal to the specified value. */
+  lessThanOrEqualTo?: string;
+  /** Greater than the specified value. */
+  greaterThan?: string;
+  /** Greater than or equal to the specified value. */
+  greaterThanOrEqualTo?: string;
+  /** Contains the specified string (case-sensitive). */
+  includes?: string;
+  /** Does not contain the specified string (case-sensitive). */
+  notIncludes?: string;
+  /** Contains the specified string (case-insensitive). */
+  includesInsensitive?: string;
+  /** Does not contain the specified string (case-insensitive). */
+  notIncludesInsensitive?: string;
+  /** Starts with the specified string (case-sensitive). */
+  startsWith?: string;
+  /** Does not start with the specified string (case-sensitive). */
+  notStartsWith?: string;
+  /** Starts with the specified string (case-insensitive). */
+  startsWithInsensitive?: string;
+  /** Does not start with the specified string (case-insensitive). */
+  notStartsWithInsensitive?: string;
+  /** Ends with the specified string (case-sensitive). */
+  endsWith?: string;
+  /** Does not end with the specified string (case-sensitive). */
+  notEndsWith?: string;
+  /** Ends with the specified string (case-insensitive). */
+  endsWithInsensitive?: string;
+  /** Does not end with the specified string (case-insensitive). */
+  notEndsWithInsensitive?: string;
+  /** Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  like?: string;
+  /** Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  notLike?: string;
+  /** Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  likeInsensitive?: string;
+  /** Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  notLikeInsensitive?: string;
+  /** Equal to the specified value (case-insensitive). */
+  equalToInsensitive?: string;
+  /** Not equal to the specified value (case-insensitive). */
+  notEqualToInsensitive?: string;
+  /** Not equal to the specified value, treating null like an ordinary value (case-insensitive). */
+  distinctFromInsensitive?: string;
+  /** Equal to the specified value, treating null like an ordinary value (case-insensitive). */
+  notDistinctFromInsensitive?: string;
+  /** Included in the specified list (case-insensitive). */
+  inInsensitive?: string[];
+  /** Not included in the specified list (case-insensitive). */
+  notInInsensitive?: string[];
+  /** Less than the specified value (case-insensitive). */
+  lessThanInsensitive?: string;
+  /** Less than or equal to the specified value (case-insensitive). */
+  lessThanOrEqualToInsensitive?: string;
+  /** Greater than the specified value (case-insensitive). */
+  greaterThanInsensitive?: string;
+  /** Greater than or equal to the specified value (case-insensitive). */
+  greaterThanOrEqualToInsensitive?: string;
 }
 /** A filter to be used against Int fields. All fields are combined with a logical ‘and.’ */
 export interface IntFilter {
@@ -18333,27 +15870,27 @@ export interface AgentFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `systemPrompt` field. */
-  systemPrompt?: StringTrgmFilter;
+  systemPrompt?: StringFilter;
   /** Filter by the object’s `model` field. */
-  model?: StringTrgmFilter;
+  model?: StringFilter;
   /** Filter by the object’s `temperature` field. */
   temperature?: BigFloatFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `config` field. */
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18392,29 +15929,8 @@ export interface AgentFilter {
   memories?: AgentToManyMemoryFilter;
   /** `memories` exist. */
   memoriesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `system_prompt` column. */
-  trgmSystemPrompt?: TrgmSearchInput;
-  /** TRGM search on the `model` column. */
-  trgmModel?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against String List fields. All fields are combined with a logical ‘and.’ */
 export interface StringListFilter {
@@ -18462,27 +15978,27 @@ export interface AutonomyRecordFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
+  title?: StringFilter;
   /** Filter by the object’s `recordType` field. */
-  recordType?: StringTrgmFilter;
+  recordType?: StringFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `source` field. */
-  source?: StringTrgmFilter;
+  source?: StringFilter;
   /** Filter by the object’s `context` field. */
   context?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18501,29 +16017,8 @@ export interface AutonomyRecordFilter {
   autonomyRecordLinks?: AutonomyRecordToManyAutonomyRecordLinkFilter;
   /** `autonomyRecordLinks` exist. */
   autonomyRecordLinksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `record_type` column. */
-  trgmRecordType?: TrgmSearchInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `source` column. */
-  trgmSource?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `Codebasis` object types. All fields are combined with a logical ‘and.’ */
 export interface CodebasisFilter {
@@ -18532,29 +16027,29 @@ export interface CodebasisFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `repositoryUrl` field. */
-  repositoryUrl?: StringTrgmFilter;
+  repositoryUrl?: StringFilter;
   /** Filter by the object’s `defaultBranch` field. */
-  defaultBranch?: StringTrgmFilter;
+  defaultBranch?: StringFilter;
   /** Filter by the object’s `language` field. */
-  language?: StringTrgmFilter;
+  language?: StringFilter;
   /** Filter by the object’s `framework` field. */
-  framework?: StringTrgmFilter;
+  framework?: StringFilter;
   /** Filter by the object’s `lastSyncedAt` field. */
   lastSyncedAt?: DatetimeFilter;
   /** Filter by the object’s `config` field. */
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18577,108 +16072,8 @@ export interface CodebasisFilter {
   codebaseDependencies?: CodebasisToManyCodebaseDependencyFilter;
   /** `codebaseDependencies` exist. */
   codebaseDependenciesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `repository_url` column. */
-  trgmRepositoryUrl?: TrgmSearchInput;
-  /** TRGM search on the `default_branch` column. */
-  trgmDefaultBranch?: TrgmSearchInput;
-  /** TRGM search on the `language` column. */
-  trgmLanguage?: TrgmSearchInput;
-  /** TRGM search on the `framework` column. */
-  trgmFramework?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-/** A filter to be used against String fields. All fields are combined with a logical ‘and.’ */
-export interface StringFilter {
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: boolean;
-  /** Equal to the specified value. */
-  equalTo?: string;
-  /** Not equal to the specified value. */
-  notEqualTo?: string;
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: string;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: string;
-  /** Included in the specified list. */
-  in?: string[];
-  /** Not included in the specified list. */
-  notIn?: string[];
-  /** Less than the specified value. */
-  lessThan?: string;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: string;
-  /** Greater than the specified value. */
-  greaterThan?: string;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: string;
-  /** Contains the specified string (case-sensitive). */
-  includes?: string;
-  /** Does not contain the specified string (case-sensitive). */
-  notIncludes?: string;
-  /** Contains the specified string (case-insensitive). */
-  includesInsensitive?: string;
-  /** Does not contain the specified string (case-insensitive). */
-  notIncludesInsensitive?: string;
-  /** Starts with the specified string (case-sensitive). */
-  startsWith?: string;
-  /** Does not start with the specified string (case-sensitive). */
-  notStartsWith?: string;
-  /** Starts with the specified string (case-insensitive). */
-  startsWithInsensitive?: string;
-  /** Does not start with the specified string (case-insensitive). */
-  notStartsWithInsensitive?: string;
-  /** Ends with the specified string (case-sensitive). */
-  endsWith?: string;
-  /** Does not end with the specified string (case-sensitive). */
-  notEndsWith?: string;
-  /** Ends with the specified string (case-insensitive). */
-  endsWithInsensitive?: string;
-  /** Does not end with the specified string (case-insensitive). */
-  notEndsWithInsensitive?: string;
-  /** Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  like?: string;
-  /** Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  notLike?: string;
-  /** Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  likeInsensitive?: string;
-  /** Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  notLikeInsensitive?: string;
-  /** Equal to the specified value (case-insensitive). */
-  equalToInsensitive?: string;
-  /** Not equal to the specified value (case-insensitive). */
-  notEqualToInsensitive?: string;
-  /** Not equal to the specified value, treating null like an ordinary value (case-insensitive). */
-  distinctFromInsensitive?: string;
-  /** Equal to the specified value, treating null like an ordinary value (case-insensitive). */
-  notDistinctFromInsensitive?: string;
-  /** Included in the specified list (case-insensitive). */
-  inInsensitive?: string[];
-  /** Not included in the specified list (case-insensitive). */
-  notInInsensitive?: string[];
-  /** Less than the specified value (case-insensitive). */
-  lessThanInsensitive?: string;
-  /** Less than or equal to the specified value (case-insensitive). */
-  lessThanOrEqualToInsensitive?: string;
-  /** Greater than the specified value (case-insensitive). */
-  greaterThanInsensitive?: string;
-  /** Greater than or equal to the specified value (case-insensitive). */
-  greaterThanOrEqualToInsensitive?: string;
 }
 /** A filter to be used against `Image` object types. All fields are combined with a logical ‘and.’ */
 export interface ImageFilter {
@@ -18750,23 +16145,23 @@ export interface NoteFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
+  content?: StringFilter;
   /** Filter by the object’s `abstract` field. */
-  abstract?: StringTrgmFilter;
+  abstract?: StringFilter;
   /** Filter by the object’s `overview` field. */
-  overview?: StringTrgmFilter;
+  overview?: StringFilter;
   /** Filter by the object’s `activeCount` field. */
   activeCount?: IntFilter;
   /** Filter by the object’s `lastAccessedAt` field. */
   lastAccessedAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18797,27 +16192,8 @@ export interface NoteFilter {
   eventNotes?: NoteToManyEventNoteFilter;
   /** `eventNotes` exist. */
   eventNotesExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `abstract` column. */
-  trgmAbstract?: TrgmSearchInput;
-  /** TRGM search on the `overview` column. */
-  trgmOverview?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `Deal` object types. All fields are combined with a logical ‘and.’ */
 export interface DealFilter {
@@ -18826,25 +16202,25 @@ export interface DealFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `stage` field. */
-  stage?: StringTrgmFilter;
+  stage?: StringFilter;
   /** Filter by the object’s `value` field. */
   value?: BigFloatFilter;
   /** Filter by the object’s `currency` field. */
-  currency?: StringTrgmFilter;
+  currency?: StringFilter;
   /** Filter by the object’s `expectedCloseDate` field. */
   expectedCloseDate?: DatetimeFilter;
   /** Filter by the object’s `notesText` field. */
-  notesText?: StringTrgmFilter;
+  notesText?: StringFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18867,27 +16243,8 @@ export interface DealFilter {
   dealNotes?: DealToManyDealNoteFilter;
   /** `dealNotes` exist. */
   dealNotesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `stage` column. */
-  trgmStage?: TrgmSearchInput;
-  /** TRGM search on the `currency` column. */
-  trgmCurrency?: TrgmSearchInput;
-  /** TRGM search on the `notes_text` column. */
-  trgmNotesText?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `Project` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectFilter {
@@ -18896,13 +16253,13 @@ export interface ProjectFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `projectType` field. */
-  projectType?: StringTrgmFilter;
+  projectType?: StringFilter;
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `startedAt` field. */
@@ -18915,12 +16272,12 @@ export interface ProjectFilter {
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18943,27 +16300,8 @@ export interface ProjectFilter {
   goalProjects?: ProjectToManyGoalProjectFilter;
   /** `goalProjects` exist. */
   goalProjectsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `project_type` column. */
-  trgmProjectType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against Date fields. All fields are combined with a logical ‘and.’ */
 export interface DateFilter {
@@ -19041,13 +16379,13 @@ export interface GoalFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
+  title?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
+  category?: StringFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `priority` field. */
   priority?: IntFilter;
   /** Filter by the object’s `targetDate` field. */
@@ -19058,12 +16396,12 @@ export interface GoalFilter {
   progress?: BigFloatFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19086,27 +16424,8 @@ export interface GoalFilter {
   goalProjects?: GoalToManyGoalProjectFilter;
   /** `goalProjects` exist. */
   goalProjectsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `Conversation` object types. All fields are combined with a logical ‘and.’ */
 export interface ConversationFilter {
@@ -19115,19 +16434,19 @@ export interface ConversationFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
+  title?: StringFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19146,23 +16465,8 @@ export interface ConversationFilter {
   conversationChunks?: ConversationToManyConversationChunkFilter;
   /** `conversationChunks` exist. */
   conversationChunksExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `Habit` object types. All fields are combined with a logical ‘and.’ */
 export interface HabitFilter {
@@ -19171,11 +16475,11 @@ export interface HabitFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `frequency` field. */
-  frequency?: StringTrgmFilter;
+  frequency?: StringFilter;
   /** Filter by the object’s `targetCount` field. */
   targetCount?: IntFilter;
   /** Filter by the object’s `currentStreak` field. */
@@ -19186,12 +16490,12 @@ export interface HabitFilter {
   isActive?: BooleanFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19210,25 +16514,8 @@ export interface HabitFilter {
   goalHabits?: HabitToManyGoalHabitFilter;
   /** `goalHabits` exist. */
   goalHabitsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `frequency` column. */
-  trgmFrequency?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `HikingTrail` object types. All fields are combined with a logical ‘and.’ */
 export interface HikingTrailFilter {
@@ -19237,11 +16524,11 @@ export interface HikingTrailFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `difficulty` field. */
-  difficulty?: StringTrgmFilter;
+  difficulty?: StringFilter;
   /** Filter by the object’s `distanceKm` field. */
   distanceKm?: BigFloatFilter;
   /** Filter by the object’s `elevationGainm` field. */
@@ -19249,19 +16536,19 @@ export interface HikingTrailFilter {
   /** Filter by the object’s `estimatedTimeHours` field. */
   estimatedTimeHours?: BigFloatFilter;
   /** Filter by the object’s `trailType` field. */
-  trailType?: StringTrgmFilter;
+  trailType?: StringFilter;
   /** Filter by the object’s `region` field. */
-  region?: StringTrgmFilter;
+  region?: StringFilter;
   /** Filter by the object’s `notes` field. */
-  notes?: StringTrgmFilter;
+  notes?: StringFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19280,31 +16567,8 @@ export interface HikingTrailFilter {
   tripHikingTrails?: HikingTrailToManyTripHikingTrailFilter;
   /** `tripHikingTrails` exist. */
   tripHikingTrailsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `difficulty` column. */
-  trgmDifficulty?: TrgmSearchInput;
-  /** TRGM search on the `trail_type` column. */
-  trgmTrailType?: TrgmSearchInput;
-  /** TRGM search on the `region` column. */
-  trgmRegion?: TrgmSearchInput;
-  /** TRGM search on the `notes` column. */
-  trgmNotes?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `Trip` object types. All fields are combined with a logical ‘and.’ */
 export interface TripFilter {
@@ -19313,29 +16577,29 @@ export interface TripFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `destination` field. */
-  destination?: StringTrgmFilter;
+  destination?: StringFilter;
   /** Filter by the object’s `startedAt` field. */
   startedAt?: DatetimeFilter;
   /** Filter by the object’s `endedAt` field. */
   endedAt?: DatetimeFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `budget` field. */
   budget?: BigFloatFilter;
   /** Filter by the object’s `currency` field. */
-  currency?: StringTrgmFilter;
+  currency?: StringFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19362,29 +16626,8 @@ export interface TripFilter {
   tripHikingTrails?: TripToManyTripHikingTrailFilter;
   /** `tripHikingTrails` exist. */
   tripHikingTrailsExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `destination` column. */
-  trgmDestination?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `currency` column. */
-  trgmCurrency?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `Place` object types. All fields are combined with a logical ‘and.’ */
 export interface PlaceFilter {
@@ -19393,29 +16636,29 @@ export interface PlaceFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
+  description?: StringFilter;
   /** Filter by the object’s `address` field. */
-  address?: StringTrgmFilter;
+  address?: StringFilter;
   /** Filter by the object’s `city` field. */
-  city?: StringTrgmFilter;
+  city?: StringFilter;
   /** Filter by the object’s `country` field. */
-  country?: StringTrgmFilter;
+  country?: StringFilter;
   /** Filter by the object’s `category` field. */
-  category?: StringTrgmFilter;
+  category?: StringFilter;
   /** Filter by the object’s `rating` field. */
   rating?: BigFloatFilter;
   /** Filter by the object’s `notes` field. */
-  notes?: StringTrgmFilter;
+  notes?: StringFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19438,33 +16681,8 @@ export interface PlaceFilter {
   tripPlaces?: PlaceToManyTripPlaceFilter;
   /** `tripPlaces` exist. */
   tripPlacesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `address` column. */
-  trgmAddress?: TrgmSearchInput;
-  /** TRGM search on the `city` column. */
-  trgmCity?: TrgmSearchInput;
-  /** TRGM search on the `country` column. */
-  trgmCountry?: TrgmSearchInput;
-  /** TRGM search on the `category` column. */
-  trgmCategory?: TrgmSearchInput;
-  /** TRGM search on the `notes` column. */
-  trgmNotes?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `RuntimeState` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeStateFilter {
@@ -19473,11 +16691,11 @@ export interface RuntimeStateFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
+  name?: StringFilter;
   /** Filter by the object’s `stateType` field. */
-  stateType?: StringTrgmFilter;
+  stateType?: StringFilter;
   /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
+  status?: StringFilter;
   /** Filter by the object’s `data` field. */
   data?: JSONFilter;
   /** Filter by the object’s `parentId` field. */
@@ -19486,12 +16704,12 @@ export interface RuntimeStateFilter {
   startedAt?: DatetimeFilter;
   /** Filter by the object’s `endedAt` field. */
   endedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19522,25 +16740,8 @@ export interface RuntimeStateFilter {
   runtimeStateDependencies?: RuntimeStateToManyRuntimeStateDependencyFilter;
   /** `runtimeStateDependencies` exist. */
   runtimeStateDependenciesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `state_type` column. */
-  trgmStateType?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `ToolDefinition` object types. All fields are combined with a logical ‘and.’ */
 export interface ToolDefinitionFilter {

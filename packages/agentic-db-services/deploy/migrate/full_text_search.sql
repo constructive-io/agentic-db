@@ -29,11 +29,11 @@ INSERT INTO metaschema_public.full_text_search (
   weights,
   langs
 ) VALUES
-  ('cf7c6edc-5084-711f-2b44-71218c06bb09', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '5d9c849b-e962-041a-de77-54774d5d1e62', 'a745a388-dc33-dfae-dd7b-6ed3efd0878d', '{92e910ae-1d0b-b299-fca1-738f1f98f431,db32152c-4e4c-8a28-e715-916b0b3a8181}', '{A,B}', '{pg_catalog.simple,pg_catalog.simple}'),
-  ('1688df1a-fa1b-f594-a969-1e69682a1f0e', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '9e3855cf-88ff-a7e5-cbd0-bc0d52b42306', '5b578272-2fca-f3fc-38bf-9fd70eafe754', '{9570a194-bb0a-e875-7ab0-b038e53c6b62,b5690a4f-997e-f44a-d93a-293d32a968dd,8c84e1c3-ccb9-c1a1-4ece-e27d028636e6,ef62df3a-475e-f37a-f3a2-e7c2273cf6f3}', '{A,A,B,C}', '{english,english,english,english}'),
-  ('1e2322fe-6b5a-94f4-acfe-6ae1783ba028', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '47958046-1c81-59ce-ad3c-6837dc02d569', '6dffd21e-513b-b474-5774-9237da1a1409', '{c129c598-a7b7-aebc-739f-f980ee19b8a5,d3d95f29-3ff1-6923-af1b-fe47a551ea1b,78786ad8-834a-093d-9590-4b6761ca17b8}', '{A,B,C}', '{english,english,english}'),
-  ('ed141ee9-e026-aa34-c409-4200567e132e', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'f7240390-5c16-da2d-8cef-f1fa65632024', '0f942c7f-445d-90b0-3ebd-38888d363996', '{19a4e330-2b62-092f-0e3c-28f7165be391,55bfae5c-98b5-3093-8b4d-df39f7ca5c70,2f924aa2-1cd4-04d3-9442-dab700329a21}', '{A,B,C}', '{english,english,english}'),
-  ('108a6a07-817a-bf95-7b02-ff935388ef09', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'd70c8ff8-bab6-8c56-7892-4fe055dd7f3f', 'cf6d2041-0acb-aa05-efe0-11f3ba14ab03', '{b9e2fc2c-a213-4015-88bc-b322c9f6c8d5,c37eb9ee-3eb3-a4fb-d35d-eeae188eca7d,26f633a0-1744-4414-bcb5-281bffa5dbce}', '{A,B,C}', '{english,english,english}');
+  ('019d1736-5c09-7c49-bb06-4905799f6a12', '019d1736-587a-73df-addd-59801f8d68ca', '019d1736-5b0d-7766-9f99-3cf518199163', '019d1736-5bfa-7c1c-ba54-d34398b84c49', '{019d1736-5b86-7de1-9cb7-798d76acba87,019d1736-5bc5-71a7-ba41-92c94ee9138b}', '{A,B}', '{pg_catalog.simple,pg_catalog.simple}'),
+  ('019d1738-f18e-7a2b-9ad8-a6e41ddc5960', '019d1736-587a-73df-addd-59801f8d68ca', '019d1738-ee12-7125-acd8-81dea8586448', '019d1738-f168-7c00-95a6-37a1c1a210a9', '{019d1738-eebf-765e-aecf-3f701a332616,019d1738-eee3-701a-b9e4-8168a9add850,019d1738-ef14-7db8-864a-c34796ff48ec,019d1738-ef25-7ff3-93da-2bcb602c8f3a}', '{A,A,B,C}', '{english,english,english,english}'),
+  ('019d1738-f53a-732a-8953-4c202ad6e3c2', '019d1736-587a-73df-addd-59801f8d68ca', '019d1738-f2d6-7299-96c0-c08bbe9a1060', '019d1738-f518-7732-92eb-51fd156a28e4', '{019d1738-f379-7fa3-ade4-7df548cecdac,019d1738-f3bd-772f-93dd-171d7a5ea890,019d1738-f3ad-74d5-84d0-5dc5c88aab45}', '{A,B,C}', '{english,english,english}'),
+  ('019d1738-fc07-72bb-87eb-cd4cb79a2f9c', '019d1736-587a-73df-addd-59801f8d68ca', '019d1738-f94d-754c-b403-116814399fae', '019d1738-fbe1-7ea6-807c-7e743db10547', '{019d1738-fa13-704b-b815-50a420af8c9c,019d1738-fa8a-7ce1-84f4-7349b4159c0a,019d1738-fa48-709c-bf00-9775168e04ce}', '{A,B,C}', '{english,english,english}'),
+  ('019d1739-001a-770c-a9c6-7dc8bbfa7da1', '019d1736-587a-73df-addd-59801f8d68ca', '019d1738-fd14-75be-8492-3fee727504b1', '019d1738-fff4-7caa-9163-aaf4e498072b', '{019d1738-fdcf-723e-8803-4a5abac3cd92,019d1738-fe93-7edb-82f6-58b0bc8a8b6f,019d1738-fe05-7677-8f48-78f75c7177cc}', '{A,B,C}', '{english,english,english}');
 
 
 SET session_replication_role TO DEFAULT;

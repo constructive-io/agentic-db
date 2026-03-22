@@ -1,0 +1,6 @@
+-- Verify: schemas/agentic_db_app_public/tables/event_chunks/triggers/event_chunks_embedding_stale_update_tg
+
+
+SELECT verify_trigger('agentic_db_app_public.event_chunks_embedding_stale_update_tg');
+
+

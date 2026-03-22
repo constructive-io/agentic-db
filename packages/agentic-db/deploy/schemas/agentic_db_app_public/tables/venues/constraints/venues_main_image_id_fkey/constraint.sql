@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-ALTER TABLE agentic_db_app_public.venues 
+ALTER TABLE "agentic_db_app_public".venues 
   ADD CONSTRAINT venues_main_image_id_fkey 
     FOREIGN KEY(main_image_id) 
-    REFERENCES agentic_db_app_public.images (id) 
+    REFERENCES "agentic_db_app_public".images (id) 
     ON DELETE SET NULL;
 

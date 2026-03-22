@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_memberships_public/tables/org_chart_edges/triggers/_00010_org_validate_no_cycle_insert
 
 
-DROP TRIGGER _00010_org_validate_no_cycle_insert ON agentic_db_memberships_public.org_chart_edges;
+DROP TRIGGER _00010_org_validate_no_cycle_insert ON "agentic_db_memberships_public".org_chart_edges;
 
 

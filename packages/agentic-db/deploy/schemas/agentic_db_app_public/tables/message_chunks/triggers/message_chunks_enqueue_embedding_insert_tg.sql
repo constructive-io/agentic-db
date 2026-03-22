@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER message_chunks_enqueue_embedding_insert_tg
-AFTER INSERT ON agentic_db_app_public.message_chunks
+AFTER INSERT ON "agentic_db_app_public".message_chunks
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE agentic_db_private.message_chunks_enqueue_embedding ( );
+EXECUTE PROCEDURE "agentic_db_private".message_chunks_enqueue_embedding ( );
 

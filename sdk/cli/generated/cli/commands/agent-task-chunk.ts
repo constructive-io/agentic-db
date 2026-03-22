@@ -19,10 +19,7 @@ const fieldSchema: FieldSchema = {
   embedding: 'string',
   embeddingStale: 'boolean',
   agentTaskId: 'uuid',
-  embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
-  contentTrgmSimilarity: 'float',
-  embeddingTextTrgmSimilarity: 'float',
   searchScore: 'float',
 };
 const usage =

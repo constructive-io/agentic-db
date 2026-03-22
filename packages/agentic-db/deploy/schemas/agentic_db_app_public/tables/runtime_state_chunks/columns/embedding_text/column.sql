@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE agentic_db_app_public.runtime_state_chunks 
+ALTER TABLE "agentic_db_app_public".runtime_state_chunks 
   ADD COLUMN embedding_text text;
 

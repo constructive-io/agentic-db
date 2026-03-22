@@ -5,13 +5,13 @@
 
 
 
-CREATE FUNCTION agentic_db_auth_private.auth_settings ()
-  RETURNS agentic_db_auth_private.app_auth_settings
+CREATE FUNCTION "agentic_db_auth_private".auth_settings ()
+  RETURNS "agentic_db_auth_private".app_auth_settings
 AS $CODEZ$
 DECLARE
-  settings agentic_db_auth_private.app_auth_settings;
+  settings "agentic_db_auth_private".app_auth_settings;
 BEGIN
-    SELECT * FROM agentic_db_auth_private.app_auth_settings LIMIT 1 INTO settings;
+    SELECT * FROM "agentic_db_auth_private".app_auth_settings LIMIT 1 INTO settings;
     RETURN settings;
 END;
 $CODEZ$

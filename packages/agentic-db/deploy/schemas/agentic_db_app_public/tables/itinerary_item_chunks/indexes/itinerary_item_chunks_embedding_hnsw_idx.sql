@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/itinerary_item_chunks/columns/embedding/column
 
 
-CREATE INDEX itinerary_item_chunks_embedding_hnsw_idx ON agentic_db_app_public.itinerary_item_chunks USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX itinerary_item_chunks_embedding_hnsw_idx ON "agentic_db_app_public".itinerary_item_chunks USING hnsw ( embedding vector_cosine_ops );
 

@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/agent_log_chunks/triggers/agent_log_chunks_enqueue_embedding_insert_tg
 
 
-DROP TRIGGER agent_log_chunks_enqueue_embedding_insert_tg ON agentic_db_app_public.agent_log_chunks;
+DROP TRIGGER agent_log_chunks_enqueue_embedding_insert_tg ON "agentic_db_app_public".agent_log_chunks;
 
 

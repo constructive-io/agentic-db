@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-ALTER TABLE agentic_db_app_public.agent_chunks 
+ALTER TABLE "agentic_db_app_public".agent_chunks 
   ADD COLUMN created_at timestamptz;
 

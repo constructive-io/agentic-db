@@ -33,7 +33,7 @@ INSERT INTO metaschema_modules_public.rls_module (
   "current_role",
   current_role_id
 ) VALUES
-  ('3d7abd21-f70a-60d8-046f-f6f4926c6b8b', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'a1472811-e8bf-d6d5-57aa-ed725576e8a0', '63d36554-dc1f-cb6d-8af7-5d38aa8f3fcc', 'bb40e62d-b9fe-c9fa-01f6-0bf8fc749264', 'af63b0f7-468e-80da-17d5-937b1eddfff5', '5d9c849b-e962-041a-de77-54774d5d1e62', 'authenticate', 'authenticate_strict', 'current_user', 'current_user_id');
+  ('019d1736-e4a2-74ce-a965-8c31bb50788b', '019d1736-587a-73df-addd-59801f8d68ca', '019d1736-e4a2-7ff4-8340-618a60f05c9a', '019d1736-d324-7b0c-a6f3-8e7873a32522', '019d1736-d7dd-71a8-b40b-a0084036b3dc', '019d1736-d3dd-7a73-a3fb-b54b799818b1', '019d1736-5b0d-7766-9f99-3cf518199163', 'authenticate', 'authenticate_strict', 'current_user', 'current_user_id');
 
 
 SET session_replication_role TO DEFAULT;

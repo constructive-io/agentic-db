@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/runtime_log_chunks/columns/chunk_index/column
 
 
-ALTER TABLE agentic_db_app_public.runtime_log_chunks 
+ALTER TABLE "agentic_db_app_public".runtime_log_chunks 
   DROP COLUMN chunk_index RESTRICT;
 
 

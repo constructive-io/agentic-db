@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
-ALTER TABLE agentic_db_app_public.project_contacts 
+ALTER TABLE "agentic_db_app_public".project_contacts 
   ADD CONSTRAINT project_contacts_project_id_fkey 
     FOREIGN KEY(project_id) 
-    REFERENCES agentic_db_app_public.projects (id) 
+    REFERENCES "agentic_db_app_public".projects (id) 
     ON DELETE CASCADE;
 

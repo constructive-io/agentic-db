@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-GRANT INSERT ON agentic_db_app_public.rule_chunks TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".rule_chunks TO authenticated;
 

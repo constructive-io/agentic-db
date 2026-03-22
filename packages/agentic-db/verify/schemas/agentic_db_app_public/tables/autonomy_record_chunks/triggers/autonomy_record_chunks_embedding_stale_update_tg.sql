@@ -1,0 +1,6 @@
+-- Verify: schemas/agentic_db_app_public/tables/autonomy_record_chunks/triggers/autonomy_record_chunks_embedding_stale_update_tg
+
+
+SELECT verify_trigger('agentic_db_app_public.autonomy_record_chunks_embedding_stale_update_tg');
+
+

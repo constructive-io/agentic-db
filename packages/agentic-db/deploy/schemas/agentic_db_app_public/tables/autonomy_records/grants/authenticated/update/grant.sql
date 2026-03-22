@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
 
 
-GRANT UPDATE ON agentic_db_app_public.autonomy_records TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".autonomy_records TO authenticated;
 

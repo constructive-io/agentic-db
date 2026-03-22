@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-GRANT INSERT ON agentic_db_app_public.goal_habits TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".goal_habits TO authenticated;
 

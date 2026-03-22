@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION agentic_db_auth_private.authenticate;
+DROP FUNCTION "agentic_db_auth_private".authenticate;
 
 
 

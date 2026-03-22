@@ -22,10 +22,7 @@ const fieldSchema: FieldSchema = {
   embedding: 'string',
   embeddingStale: 'boolean',
   autonomyRecordId: 'uuid',
-  embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
-  contentTrgmSimilarity: 'float',
-  embeddingTextTrgmSimilarity: 'float',
   searchScore: 'float',
 };
 const usage =
