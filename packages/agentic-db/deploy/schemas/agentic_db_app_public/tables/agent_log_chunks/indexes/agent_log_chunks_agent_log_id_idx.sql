@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_log_chunks/columns/agent_log_id/column
 
 
-CREATE INDEX agent_log_chunks_agent_log_id_idx ON agentic_db_app_public.agent_log_chunks USING BTREE ( agent_log_id );
+CREATE INDEX agent_log_chunks_agent_log_id_idx ON "agentic_db_app_public".agent_log_chunks USING BTREE ( agent_log_id );
 

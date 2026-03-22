@@ -269,9 +269,9 @@ export interface Agent {
   status?: string | null;
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -323,9 +323,9 @@ export interface AgentLog {
   message?: string | null;
   context?: Record<string, unknown> | null;
   taskId?: string | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -375,9 +375,9 @@ export interface AgentTask {
   startedAt?: string | null;
   completedAt?: string | null;
   meta?: Record<string, unknown> | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -430,9 +430,9 @@ export interface AutonomyRecord {
   source?: string | null;
   context?: Record<string, unknown> | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -498,9 +498,9 @@ export interface Codebasis {
   lastSyncedAt?: string | null;
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -536,9 +536,9 @@ export interface CodeChunk {
   endLine?: number | null;
   symbolName?: string | null;
   symbolType?: string | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   codebasisId?: string | null;
@@ -591,10 +591,10 @@ export interface Company {
   industry?: string | null;
   description?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -636,10 +636,10 @@ export interface Contact {
   instagramHandle?: string | null;
   website?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -699,10 +699,10 @@ export interface Event {
   endedAt?: string | null;
   notesText?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -774,9 +774,9 @@ export interface Memory {
   mood?: string | null;
   importance?: number | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   agentId?: string | null;
@@ -818,9 +818,9 @@ export interface Note {
   activeCount?: number | null;
   lastAccessedAt?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
@@ -878,9 +878,9 @@ export interface Deal {
   expectedCloseDate?: string | null;
   notesText?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -952,9 +952,9 @@ export interface Project {
   completedAt?: string | null;
   config?: Record<string, unknown> | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1003,9 +1003,9 @@ export interface Conversation {
   agentId?: string | null;
   status?: string | null;
   meta?: Record<string, unknown> | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1125,10 +1125,10 @@ export interface Venue {
   isFavorite?: boolean | null;
   notes?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
@@ -1195,9 +1195,9 @@ export interface Goal {
   completedAt?: string | null;
   progress?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1234,9 +1234,9 @@ export interface Habit {
   bestStreak?: number | null;
   isActive?: boolean | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1317,9 +1317,9 @@ export interface HikingTrail {
   region?: string | null;
   notes?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1355,9 +1355,9 @@ export interface Trip {
   budget?: string | null;
   currency?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1410,9 +1410,9 @@ export interface Interaction {
   summary?: string | null;
   sentiment?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1466,9 +1466,9 @@ export interface ItineraryItem {
   cost?: string | null;
   notes?: string | null;
   sortOrder?: number | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1542,9 +1542,9 @@ export interface Message {
   meta?: Record<string, unknown> | null;
   toolCalls?: Record<string, unknown> | null;
   toolResults?: Record<string, unknown> | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1616,9 +1616,9 @@ export interface Place {
   rating?: string | null;
   notes?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1706,9 +1706,9 @@ export interface Rule {
   isActive?: boolean | null;
   priority?: number | null;
   triggerConcept?: string | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   triggerConceptEmbedding?: number[] | null;
@@ -1797,9 +1797,9 @@ export interface RuntimeLog {
   message?: string | null;
   context?: Record<string, unknown> | null;
   stepIndex?: number | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1871,9 +1871,9 @@ export interface RuntimeState {
   parentId?: string | null;
   startedAt?: string | null;
   endedAt?: string | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1928,9 +1928,9 @@ export interface Skill {
   config?: Record<string, unknown> | null;
   isActive?: boolean | null;
   intentTrigger?: string | null;
-  embeddingText?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   intentTriggerEmbedding?: number[] | null;
@@ -2614,9 +2614,9 @@ export type AgentSelect = {
   status?: boolean;
   config?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2699,9 +2699,9 @@ export type AgentLogSelect = {
   message?: boolean;
   context?: boolean;
   taskId?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2752,9 +2752,9 @@ export type AgentTaskSelect = {
   startedAt?: boolean;
   completedAt?: boolean;
   meta?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2806,9 +2806,9 @@ export type AutonomyRecordSelect = {
   source?: boolean;
   context?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2881,9 +2881,9 @@ export type CodebasisSelect = {
   lastSyncedAt?: boolean;
   config?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -2927,9 +2927,9 @@ export type CodeChunkSelect = {
   endLine?: boolean;
   symbolName?: boolean;
   symbolType?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   codebasisId?: boolean;
@@ -2974,10 +2974,10 @@ export type CompanySelect = {
   industry?: boolean;
   description?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   mainImageId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
@@ -3085,10 +3085,10 @@ export type ContactSelect = {
   instagramHandle?: boolean;
   website?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   mainImageId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
@@ -3240,10 +3240,10 @@ export type EventSelect = {
   endedAt?: boolean;
   notesText?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   mainImageId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
@@ -3457,9 +3457,9 @@ export type MemorySelect = {
   mood?: boolean;
   importance?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   agentId?: boolean;
@@ -3538,9 +3538,9 @@ export type NoteSelect = {
   activeCount?: boolean;
   lastAccessedAt?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   contentBm25Score?: boolean;
@@ -3648,9 +3648,9 @@ export type DealSelect = {
   expectedCloseDate?: boolean;
   notesText?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -3769,9 +3769,9 @@ export type ProjectSelect = {
   completedAt?: boolean;
   config?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -3840,9 +3840,9 @@ export type ConversationSelect = {
   agentId?: boolean;
   status?: boolean;
   meta?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -3995,10 +3995,10 @@ export type VenueSelect = {
   isFavorite?: boolean;
   notes?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   mainImageId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
@@ -4088,9 +4088,9 @@ export type GoalSelect = {
   completedAt?: boolean;
   progress?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4155,9 +4155,9 @@ export type HabitSelect = {
   bestStreak?: boolean;
   isActive?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4251,9 +4251,9 @@ export type HikingTrailSelect = {
   region?: boolean;
   notes?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4297,9 +4297,9 @@ export type TripSelect = {
   budget?: boolean;
   currency?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4377,9 +4377,9 @@ export type InteractionSelect = {
   summary?: boolean;
   sentiment?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4433,9 +4433,9 @@ export type ItineraryItemSelect = {
   cost?: boolean;
   notes?: boolean;
   sortOrder?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4509,9 +4509,9 @@ export type MessageSelect = {
   meta?: boolean;
   toolCalls?: boolean;
   toolResults?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4582,9 +4582,9 @@ export type PlaceSelect = {
   rating?: boolean;
   notes?: boolean;
   tags?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4687,9 +4687,9 @@ export type RuleSelect = {
   isActive?: boolean;
   priority?: boolean;
   triggerConcept?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   triggerConceptEmbedding?: boolean;
@@ -4778,9 +4778,9 @@ export type RuntimeLogSelect = {
   message?: boolean;
   context?: boolean;
   stepIndex?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4856,9 +4856,9 @@ export type RuntimeStateSelect = {
   parentId?: boolean;
   startedAt?: boolean;
   endedAt?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   embeddingTextBm25Score?: boolean;
@@ -4937,9 +4937,9 @@ export type SkillSelect = {
   config?: boolean;
   isActive?: boolean;
   intentTrigger?: boolean;
-  embeddingText?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
   intentTriggerEmbedding?: boolean;
@@ -5184,12 +5184,12 @@ export interface AgentFilter {
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5312,12 +5312,12 @@ export interface AgentLogFilter {
   context?: JSONFilter;
   /** Filter by the object’s `taskId` field. */
   taskId?: UUIDFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5420,12 +5420,12 @@ export interface AgentTaskFilter {
   completedAt?: DatetimeFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5530,12 +5530,12 @@ export interface AutonomyRecordFilter {
   context?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5678,12 +5678,12 @@ export interface CodebasisFilter {
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5755,12 +5755,12 @@ export interface CodeChunkFilter {
   symbolName?: StringTrgmFilter;
   /** Filter by the object’s `symbolType` field. */
   symbolType?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -5859,14 +5859,14 @@ export interface CompanyFilter {
   description?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -5972,14 +5972,14 @@ export interface ContactFilter {
   website?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -6121,14 +6121,14 @@ export interface EventFilter {
   notesText?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -6330,12 +6330,12 @@ export interface MemoryFilter {
   importance?: IntFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6443,12 +6443,12 @@ export interface NoteFilter {
   lastAccessedAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6585,12 +6585,12 @@ export interface DealFilter {
   notesText?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6770,12 +6770,12 @@ export interface ProjectFilter {
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -6878,12 +6878,12 @@ export interface ConversationFilter {
   status?: StringTrgmFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7169,14 +7169,14 @@ export interface VenueFilter {
   notes?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -7311,12 +7311,12 @@ export interface GoalFilter {
   progress?: BigFloatFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7402,12 +7402,12 @@ export interface HabitFilter {
   isActive?: BooleanFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7581,12 +7581,12 @@ export interface HikingTrailFilter {
   notes?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7654,12 +7654,12 @@ export interface TripFilter {
   currency?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7772,12 +7772,12 @@ export interface InteractionFilter {
   sentiment?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -7886,12 +7886,12 @@ export interface ItineraryItemFilter {
   notes?: StringTrgmFilter;
   /** Filter by the object’s `sortOrder` field. */
   sortOrder?: IntFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8043,12 +8043,12 @@ export interface MessageFilter {
   toolCalls?: JSONFilter;
   /** Filter by the object’s `toolResults` field. */
   toolResults?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8196,12 +8196,12 @@ export interface PlaceFilter {
   notes?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8385,12 +8385,12 @@ export interface RuleFilter {
   priority?: IntFilter;
   /** Filter by the object’s `triggerConcept` field. */
   triggerConcept?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8577,12 +8577,12 @@ export interface RuntimeLogFilter {
   context?: JSONFilter;
   /** Filter by the object’s `stepIndex` field. */
   stepIndex?: IntFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8739,12 +8739,12 @@ export interface RuntimeStateFilter {
   startedAt?: DatetimeFilter;
   /** Filter by the object’s `endedAt` field. */
   endedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -8875,12 +8875,12 @@ export interface SkillFilter {
   isActive?: BooleanFilter;
   /** Filter by the object’s `intentTrigger` field. */
   intentTrigger?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -9590,10 +9590,10 @@ export type CompanyOrderBy =
   | 'ENTITY_ID_DESC'
   | 'DOMAIN_ASC'
   | 'DOMAIN_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'SEARCH_TSV_RANK_ASC'
@@ -9630,10 +9630,10 @@ export type ContactOrderBy =
   | 'TWITTER_HANDLE_DESC'
   | 'GITHUB_USERNAME_ASC'
   | 'GITHUB_USERNAME_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'LOCATION_GEO_ASC'
@@ -9700,10 +9700,10 @@ export type EventOrderBy =
   | 'EVENT_TYPE_DESC'
   | 'STARTED_AT_ASC'
   | 'STARTED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'SEARCH_TSV_RANK_ASC'
@@ -10218,10 +10218,10 @@ export type VenueOrderBy =
   | 'GOOGLE_PLACE_ID_DESC'
   | 'IS_FAVORITE_ASC'
   | 'IS_FAVORITE_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'LOCATION_ASC'
@@ -11740,8 +11740,8 @@ export interface CreateCompanyInput {
     industry?: string;
     description?: string;
     tags?: string[];
-    embeddingText?: string;
     mainImageId?: string;
+    embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
   };
@@ -11753,8 +11753,8 @@ export interface CompanyPatch {
   industry?: string | null;
   description?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
 }
@@ -11787,8 +11787,8 @@ export interface CreateContactInput {
     instagramHandle?: string;
     website?: string;
     tags?: string[];
-    embeddingText?: string;
     mainImageId?: string;
+    embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
   };
@@ -11811,8 +11811,8 @@ export interface ContactPatch {
   instagramHandle?: string | null;
   website?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
 }
@@ -11859,8 +11859,8 @@ export interface CreateEventInput {
     endedAt?: string;
     notesText?: string;
     tags?: string[];
-    embeddingText?: string;
     mainImageId?: string;
+    embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
   };
@@ -11875,8 +11875,8 @@ export interface EventPatch {
   endedAt?: string | null;
   notesText?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
 }
@@ -12615,8 +12615,8 @@ export interface CreateVenueInput {
     isFavorite?: boolean;
     notes?: string;
     tags?: string[];
-    embeddingText?: string;
     mainImageId?: string;
+    embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
   };
@@ -12635,8 +12635,8 @@ export interface VenuePatch {
   isFavorite?: boolean | null;
   notes?: string | null;
   tags?: string[] | null;
-  embeddingText?: string | null;
   mainImageId?: string | null;
+  embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
 }
@@ -15185,12 +15185,12 @@ export interface AgentTaskFilter {
   completedAt?: DatetimeFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15245,12 +15245,12 @@ export interface AgentLogFilter {
   context?: JSONFilter;
   /** Filter by the object’s `taskId` field. */
   taskId?: UUIDFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15309,12 +15309,12 @@ export interface RuleFilter {
   priority?: IntFilter;
   /** Filter by the object’s `triggerConcept` field. */
   triggerConcept?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15381,12 +15381,12 @@ export interface SkillFilter {
   isActive?: BooleanFilter;
   /** Filter by the object’s `intentTrigger` field. */
   intentTrigger?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15516,12 +15516,12 @@ export interface MemoryFilter {
   importance?: IntFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -15751,12 +15751,12 @@ export interface CodeChunkFilter {
   symbolName?: StringTrgmFilter;
   /** Filter by the object’s `symbolType` field. */
   symbolType?: StringTrgmFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16058,12 +16058,12 @@ export interface InteractionFilter {
   sentiment?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -16481,14 +16481,14 @@ export interface ContactFilter {
   website?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16605,14 +16605,14 @@ export interface CompanyFilter {
   description?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16703,14 +16703,14 @@ export interface EventFilter {
   notesText?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -16811,14 +16811,14 @@ export interface VenueFilter {
   notes?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `mainImageId` field. */
   mainImageId?: UUIDFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -17152,12 +17152,12 @@ export interface MessageFilter {
   toolCalls?: JSONFilter;
   /** Filter by the object’s `toolResults` field. */
   toolResults?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17523,12 +17523,12 @@ export interface ItineraryItemFilter {
   notes?: StringTrgmFilter;
   /** Filter by the object’s `sortOrder` field. */
   sortOrder?: IntFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -17930,12 +17930,12 @@ export interface RuntimeLogFilter {
   context?: JSONFilter;
   /** Filter by the object’s `stepIndex` field. */
   stepIndex?: IntFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18348,12 +18348,12 @@ export interface AgentFilter {
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18477,12 +18477,12 @@ export interface AutonomyRecordFilter {
   context?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18549,12 +18549,12 @@ export interface CodebasisFilter {
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18761,12 +18761,12 @@ export interface NoteFilter {
   lastAccessedAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18839,12 +18839,12 @@ export interface DealFilter {
   notesText?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -18915,12 +18915,12 @@ export interface ProjectFilter {
   config?: JSONFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19058,12 +19058,12 @@ export interface GoalFilter {
   progress?: BigFloatFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19122,12 +19122,12 @@ export interface ConversationFilter {
   status?: StringTrgmFilter;
   /** Filter by the object’s `meta` field. */
   meta?: JSONFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19186,12 +19186,12 @@ export interface HabitFilter {
   isActive?: BooleanFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19256,12 +19256,12 @@ export interface HikingTrailFilter {
   notes?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19330,12 +19330,12 @@ export interface TripFilter {
   currency?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19410,12 +19410,12 @@ export interface PlaceFilter {
   notes?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
@@ -19486,12 +19486,12 @@ export interface RuntimeStateFilter {
   startedAt?: DatetimeFilter;
   /** Filter by the object’s `endedAt` field. */
   endedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */

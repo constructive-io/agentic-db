@@ -5,13 +5,13 @@
 
 
 
-CREATE FUNCTION agentic_db_permissions_public.app_permissions_get_mask_by_names (names citext[])
+CREATE FUNCTION "agentic_db_permissions_public".app_permissions_get_mask_by_names (names citext[])
   RETURNS bit varying
 AS $CODEZ$
     SELECT bit_or(bitstr) FROM 
-      agentic_db_permissions_public.app_permissions
+      "agentic_db_permissions_public".app_permissions
     WHERE name = ANY (names);
 $CODEZ$
 LANGUAGE sql STABLE;
-GRANT EXECUTE ON FUNCTION agentic_db_permissions_public.app_permissions_get_mask_by_names TO authenticated;
+GRANT EXECUTE ON FUNCTION "agentic_db_permissions_public".app_permissions_get_mask_by_names TO authenticated;
 

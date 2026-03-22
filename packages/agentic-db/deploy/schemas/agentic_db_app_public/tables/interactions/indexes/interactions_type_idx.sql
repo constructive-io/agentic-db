@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX interactions_type_idx ON agentic_db_app_public.interactions USING BTREE ( type );
+CREATE INDEX interactions_type_idx ON "agentic_db_app_public".interactions USING BTREE ( type );
 

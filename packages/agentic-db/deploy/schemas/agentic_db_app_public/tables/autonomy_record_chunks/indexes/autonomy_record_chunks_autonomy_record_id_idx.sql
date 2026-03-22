@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/columns/autonomy_record_id/column
 
 
-CREATE INDEX autonomy_record_chunks_autonomy_record_id_idx ON agentic_db_app_public.autonomy_record_chunks USING BTREE ( autonomy_record_id );
+CREATE INDEX autonomy_record_chunks_autonomy_record_id_idx ON "agentic_db_app_public".autonomy_record_chunks USING BTREE ( autonomy_record_id );
 

@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/emails/table
 
 
-CREATE POLICY auth_del ON agentic_db_user_identifiers_public.emails
+CREATE POLICY auth_del ON "agentic_db_user_identifiers_public".emails
 FOR DELETE
 TO authenticated
 USING (

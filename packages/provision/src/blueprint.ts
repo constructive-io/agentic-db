@@ -202,7 +202,7 @@ export function dataSearch(opts: {
   }
   data.embedding = embeddingConfig;
 
-  // BM25 config
+  // BM25 config (ParadeDB pg_search)
   data.bm25 = { field_name: opts.bm25_field ?? 'embedding_text' };
 
   // FTS config

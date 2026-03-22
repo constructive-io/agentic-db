@@ -1,0 +1,6 @@
+-- Revert: schemas/agentic_db_app_public/tables/autonomy_record_chunks/triggers/autonomy_record_chunks_embedding_stale_insert_tg
+
+
+DROP TRIGGER autonomy_record_chunks_embedding_stale_insert_tg ON "agentic_db_app_public".autonomy_record_chunks;
+
+

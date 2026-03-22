@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/conversation_chunks/columns/conversation_id/column
 
 
-CREATE INDEX conversation_chunks_conversation_id_idx ON agentic_db_app_public.conversation_chunks USING BTREE ( conversation_id );
+CREATE INDEX conversation_chunks_conversation_id_idx ON "agentic_db_app_public".conversation_chunks USING BTREE ( conversation_id );
 

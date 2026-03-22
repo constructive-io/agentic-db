@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_state_chunks/columns/embedding/column
 
 
-CREATE INDEX runtime_state_chunks_embedding_hnsw_idx ON agentic_db_app_public.runtime_state_chunks USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX runtime_state_chunks_embedding_hnsw_idx ON "agentic_db_app_public".runtime_state_chunks USING hnsw ( embedding vector_cosine_ops );
 

@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-ALTER TABLE agentic_db_app_public.itinerary_item_chunks 
+ALTER TABLE "agentic_db_app_public".itinerary_item_chunks 
   ADD CONSTRAINT itinerary_item_chunks_itinerary_item_id_fkey 
     FOREIGN KEY(itinerary_item_id) 
-    REFERENCES agentic_db_app_public.itinerary_items (id) 
+    REFERENCES "agentic_db_app_public".itinerary_items (id) 
     ON DELETE CASCADE;
 

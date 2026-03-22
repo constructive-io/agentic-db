@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER messages_embedding_stale_update_tg
-BEFORE UPDATE ON agentic_db_app_public.messages
+BEFORE UPDATE ON "agentic_db_app_public".messages
 FOR EACH ROW
 WHEN (OLD.content IS DISTINCT FROM NEW.content)
-EXECUTE PROCEDURE agentic_db_private.messages_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".messages_embedding_stale ( );
 

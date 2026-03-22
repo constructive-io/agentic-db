@@ -545,10 +545,10 @@ enum CompanyOrderBy {
   ENTITY_ID_DESC
   DOMAIN_ASC
   DOMAIN_DESC
-  EMBEDDING_TEXT_ASC
-  EMBEDDING_TEXT_DESC
   MAIN_IMAGE_ID_ASC
   MAIN_IMAGE_ID_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
   SEARCH_TSV_RANK_ASC
@@ -709,10 +709,10 @@ enum ContactOrderBy {
   TWITTER_HANDLE_DESC
   GITHUB_USERNAME_ASC
   GITHUB_USERNAME_DESC
-  EMBEDDING_TEXT_ASC
-  EMBEDDING_TEXT_DESC
   MAIN_IMAGE_ID_ASC
   MAIN_IMAGE_ID_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
   LOCATION_GEO_ASC
@@ -996,10 +996,10 @@ enum EventOrderBy {
   EVENT_TYPE_DESC
   STARTED_AT_ASC
   STARTED_AT_DESC
-  EMBEDDING_TEXT_ASC
-  EMBEDDING_TEXT_DESC
   MAIN_IMAGE_ID_ASC
   MAIN_IMAGE_ID_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
   SEARCH_TSV_RANK_ASC
@@ -2320,10 +2320,10 @@ enum VenueOrderBy {
   GOOGLE_PLACE_ID_DESC
   IS_FAVORITE_ASC
   IS_FAVORITE_DESC
-  EMBEDDING_TEXT_ASC
-  EMBEDDING_TEXT_DESC
   MAIN_IMAGE_ID_ASC
   MAIN_IMAGE_ID_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
   LOCATION_ASC
@@ -2370,9 +2370,9 @@ type Agent {
   status: String
   config: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `AgentTask`."
@@ -2638,9 +2638,9 @@ type AgentLog {
   message: String!
   context: JSON
   taskId: UUID
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `Agent` that is related to this `AgentLog`."
@@ -2758,9 +2758,9 @@ type AgentTask {
   startedAt: Datetime
   completedAt: Datetime
   meta: JSON
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `Agent` that is related to this `AgentTask`."
@@ -2881,9 +2881,9 @@ type AutonomyRecord {
   source: String
   context: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `AutonomyRecordChunk`."
@@ -3127,9 +3127,9 @@ type Codebasis {
   lastSyncedAt: Datetime
   config: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `CodeChunk`."
@@ -3247,9 +3247,9 @@ type CodeChunk {
   endLine: Int
   symbolName: String
   symbolType: String
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   codebasisId: UUID!
@@ -3304,10 +3304,10 @@ type Company {
   industry: String
   description: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
@@ -4021,10 +4021,10 @@ type Contact {
   instagramHandle: String
   website: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
@@ -4957,9 +4957,9 @@ type Conversation {
   agentId: UUID
   status: String
   meta: JSON
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Message`."
@@ -6713,9 +6713,9 @@ type Deal {
   expectedCloseDate: Datetime
   notesText: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Contact`."
@@ -8676,10 +8676,10 @@ type Event {
   endedAt: Datetime
   notesText: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
@@ -9357,9 +9357,9 @@ type Goal {
   completedAt: Datetime
   progress: BigFloat
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Habit`."
@@ -9700,9 +9700,9 @@ type Habit {
   bestStreak: Int
   isActive: Boolean
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Goal`."
@@ -9901,9 +9901,9 @@ type HikingTrail {
   region: String
   notes: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Trip`."
@@ -10541,9 +10541,9 @@ type Interaction {
   summary: String
   sentiment: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `Contact` that is related to this `Interaction`."
@@ -10665,9 +10665,9 @@ type ItineraryItem {
   cost: BigFloat
   notes: String
   sortOrder: Int
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `Place` that is related to this `ItineraryItem`."
@@ -10789,9 +10789,9 @@ type Memory {
   mood: String
   importance: Int
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   agentId: UUID
@@ -11072,9 +11072,9 @@ type Message {
   meta: JSON
   toolCalls: JSON
   toolResults: JSON
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `Conversation` that is related to this `Message`."
@@ -11487,16 +11487,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeScheduleInput!
   ): CreateRuntimeSchedulePayload
-  "Creates a single `Conversation`."
-  createConversation(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateConversationInput!
-  ): CreateConversationPayload
   "Creates a single `Image`."
   createImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateImageInput!
   ): CreateImagePayload
+  "Creates a single `Conversation`."
+  createConversation(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateConversationInput!
+  ): CreateConversationPayload
   "Creates a single `AgentLog`."
   createAgentLog(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11937,16 +11937,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeScheduleInput!
   ): UpdateRuntimeSchedulePayload
-  "Updates a single `Conversation` using a unique key and a patch."
-  updateConversation(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateConversationInput!
-  ): UpdateConversationPayload
   "Updates a single `Image` using a unique key and a patch."
   updateImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateImageInput!
   ): UpdateImagePayload
+  "Updates a single `Conversation` using a unique key and a patch."
+  updateConversation(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateConversationInput!
+  ): UpdateConversationPayload
   "Updates a single `AgentLog` using a unique key and a patch."
   updateAgentLog(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12387,16 +12387,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeScheduleInput!
   ): DeleteRuntimeSchedulePayload
-  "Deletes a single `Conversation` using a unique key."
-  deleteConversation(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteConversationInput!
-  ): DeleteConversationPayload
   "Deletes a single `Image` using a unique key."
   deleteImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteImageInput!
   ): DeleteImagePayload
+  "Deletes a single `Conversation` using a unique key."
+  deleteConversation(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteConversationInput!
+  ): DeleteConversationPayload
   "Deletes a single `AgentLog` using a unique key."
   deleteAgentLog(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12689,9 +12689,9 @@ type Note {
   activeCount: Int
   lastAccessedAt: Datetime
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Contact`."
@@ -13143,9 +13143,9 @@ type Place {
   rating: BigFloat
   notes: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Trip`."
@@ -13372,9 +13372,9 @@ type Project {
   completedAt: Datetime
   config: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Contact`."
@@ -14314,26 +14314,6 @@ type Query {
     "The method to use when ordering `RuntimeSchedule`."
     orderBy: [RuntimeScheduleOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeScheduleConnection
-  "Reads and enables pagination through a set of `Conversation`."
-  conversations(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ConversationFilter
-    "The method to use when ordering `Conversation`."
-    orderBy: [ConversationOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ConversationConnection
   "Reads and enables pagination through a set of `Image`."
   images(
     "Only read the first `n` values of the set."
@@ -14354,6 +14334,26 @@ type Query {
     "The method to use when ordering `Image`."
     orderBy: [ImageOrderBy!] = [PRIMARY_KEY_ASC]
   ): ImageConnection
+  "Reads and enables pagination through a set of `Conversation`."
+  conversations(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ConversationFilter
+    "The method to use when ordering `Conversation`."
+    orderBy: [ConversationOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ConversationConnection
   "Reads and enables pagination through a set of `AgentLog`."
   agentLogs(
     "Only read the first `n` values of the set."
@@ -15491,9 +15491,9 @@ type Rule {
   isActive: Boolean
   priority: Int
   triggerConcept: String
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   triggerConceptEmbedding: Vector
@@ -15715,9 +15715,9 @@ type RuntimeLog {
   message: String!
   context: JSON
   stepIndex: Int
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads a single `RuntimeState` that is related to this `RuntimeLog`."
@@ -15901,9 +15901,9 @@ type RuntimeState {
   parentId: UUID
   startedAt: Datetime
   endedAt: Datetime
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `RuntimeLog`."
@@ -16127,9 +16127,9 @@ type Skill {
   config: JSON
   isActive: Boolean
   intentTrigger: String
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   intentTriggerEmbedding: Vector
@@ -16378,9 +16378,9 @@ type Trip {
   budget: BigFloat
   currency: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Place`."
@@ -18367,10 +18367,10 @@ type Venue {
   isFavorite: Boolean
   notes: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime!
   updatedAt: Datetime!
+  embeddingText: String
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
@@ -18870,12 +18870,12 @@ input AgentFilter {
   config: JSONFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -18951,9 +18951,9 @@ input AgentInput {
   status: String
   config: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19049,12 +19049,12 @@ input AgentLogFilter {
   context: JSONFilter
   "Filter by the object’s `taskId` field."
   taskId: UUIDFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -19099,9 +19099,9 @@ input AgentLogInput {
   message: String!
   context: JSON
   taskId: UUID
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19115,9 +19115,9 @@ input AgentLogPatch {
   message: String
   context: JSON
   taskId: UUID
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19144,9 +19144,9 @@ input AgentPatch {
   status: String
   config: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19250,12 +19250,12 @@ input AgentTaskFilter {
   completedAt: DatetimeFilter
   "Filter by the object’s `meta` field."
   meta: JSONFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -19308,9 +19308,9 @@ input AgentTaskInput {
   startedAt: Datetime
   completedAt: Datetime
   meta: JSON
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19328,9 +19328,9 @@ input AgentTaskPatch {
   startedAt: Datetime
   completedAt: Datetime
   meta: JSON
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19512,12 +19512,12 @@ input AutonomyRecordFilter {
   context: JSONFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -19573,9 +19573,9 @@ input AutonomyRecordInput {
   source: String
   context: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19624,9 +19624,9 @@ input AutonomyRecordPatch {
   source: String
   context: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19842,12 +19842,12 @@ input CodebasisFilter {
   config: JSONFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -19910,9 +19910,9 @@ input CodebasisInput {
   lastSyncedAt: Datetime
   config: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19930,9 +19930,9 @@ input CodebasisPatch {
   lastSyncedAt: Datetime
   config: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -19991,12 +19991,12 @@ input CodeChunkFilter {
   symbolName: StringTrgmFilter
   "Filter by the object’s `symbolType` field."
   symbolType: StringTrgmFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -20049,9 +20049,9 @@ input CodeChunkInput {
   endLine: Int
   symbolName: String
   symbolType: String
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
   codebasisId: UUID!
@@ -20070,9 +20070,9 @@ input CodeChunkPatch {
   endLine: Int
   symbolName: String
   symbolType: String
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
   codebasisId: UUID
@@ -20207,14 +20207,14 @@ input CompanyFilter {
   description: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `mainImageId` field."
   mainImageId: UUIDFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -20331,10 +20331,10 @@ input CompanyInput {
   industry: String
   description: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -20482,10 +20482,10 @@ input CompanyPatch {
   industry: String
   description: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -20749,14 +20749,14 @@ input ContactFilter {
   website: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `mainImageId` field."
   mainImageId: UUIDFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -20916,10 +20916,10 @@ input ContactInput {
   instagramHandle: String
   website: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -21078,10 +21078,10 @@ input ContactPatch {
   instagramHandle: String
   website: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -21275,12 +21275,12 @@ input ConversationFilter {
   status: StringTrgmFilter
   "Filter by the object’s `meta` field."
   meta: JSONFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -21326,9 +21326,9 @@ input ConversationInput {
   agentId: UUID
   status: String
   meta: JSON
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -21341,9 +21341,9 @@ input ConversationPatch {
   agentId: UUID
   status: String
   meta: JSON
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -22543,12 +22543,12 @@ input DealFilter {
   notesText: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -22605,9 +22605,9 @@ input DealInput {
   expectedCloseDate: Datetime
   notesText: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -22661,9 +22661,9 @@ input DealPatch {
   expectedCloseDate: Datetime
   notesText: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -23695,14 +23695,14 @@ input EventFilter {
   notesText: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `mainImageId` field."
   mainImageId: UUIDFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -23824,10 +23824,10 @@ input EventInput {
   endedAt: Datetime
   notesText: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -23940,10 +23940,10 @@ input EventPatch {
   endedAt: Datetime
   notesText: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24175,12 +24175,12 @@ input GoalFilter {
   progress: BigFloatFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -24277,9 +24277,9 @@ input GoalInput {
   completedAt: Datetime
   progress: BigFloat
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24297,9 +24297,9 @@ input GoalPatch {
   completedAt: Datetime
   progress: BigFloat
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24469,12 +24469,12 @@ input HabitFilter {
   isActive: BooleanFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -24526,9 +24526,9 @@ input HabitInput {
   bestStreak: Int
   isActive: Boolean
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24545,9 +24545,9 @@ input HabitPatch {
   bestStreak: Int
   isActive: Boolean
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24673,12 +24673,12 @@ input HikingTrailFilter {
   notes: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -24738,9 +24738,9 @@ input HikingTrailInput {
   region: String
   notes: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -24759,9 +24759,9 @@ input HikingTrailPatch {
   region: String
   notes: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25051,12 +25051,12 @@ input InteractionFilter {
   sentiment: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25104,9 +25104,9 @@ input InteractionInput {
   summary: String
   sentiment: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25121,9 +25121,9 @@ input InteractionPatch {
   summary: String
   sentiment: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25267,12 +25267,12 @@ input ItineraryItemFilter {
   notes: StringTrgmFilter
   "Filter by the object’s `sortOrder` field."
   sortOrder: IntFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25331,9 +25331,9 @@ input ItineraryItemInput {
   cost: BigFloat
   notes: String
   sortOrder: Int
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25353,9 +25353,9 @@ input ItineraryItemPatch {
   cost: BigFloat
   notes: String
   sortOrder: Int
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25501,12 +25501,12 @@ input MemoryFilter {
   importance: IntFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25569,9 +25569,9 @@ input MemoryInput {
   mood: String
   importance: Int
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
   agentId: UUID
@@ -25588,9 +25588,9 @@ input MemoryPatch {
   mood: String
   importance: Int
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
   agentId: UUID
@@ -25721,12 +25721,12 @@ input MessageFilter {
   toolCalls: JSONFilter
   "Filter by the object’s `toolResults` field."
   toolResults: JSONFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25773,9 +25773,9 @@ input MessageInput {
   meta: JSON
   toolCalls: JSON
   toolResults: JSON
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25791,9 +25791,9 @@ input MessagePatch {
   meta: JSON
   toolCalls: JSON
   toolResults: JSON
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25901,12 +25901,12 @@ input NoteFilter {
   lastAccessedAt: DatetimeFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -25970,9 +25970,9 @@ input NoteInput {
   activeCount: Int
   lastAccessedAt: Datetime
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -25987,9 +25987,9 @@ input NotePatch {
   activeCount: Int
   lastAccessedAt: Datetime
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26143,12 +26143,12 @@ input PlaceFilter {
   notes: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26213,9 +26213,9 @@ input PlaceInput {
   rating: BigFloat
   notes: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26233,9 +26233,9 @@ input PlacePatch {
   rating: BigFloat
   notes: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26409,12 +26409,12 @@ input ProjectFilter {
   config: JSONFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26474,9 +26474,9 @@ input ProjectInput {
   completedAt: Datetime
   config: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26495,9 +26495,9 @@ input ProjectPatch {
   completedAt: Datetime
   config: JSON
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -26631,12 +26631,12 @@ input RuleFilter {
   priority: IntFilter
   "Filter by the object’s `triggerConcept` field."
   triggerConcept: StringTrgmFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -26697,9 +26697,9 @@ input RuleInput {
   isActive: Boolean
   priority: Int
   triggerConcept: String
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
   triggerConceptEmbedding: Vector
@@ -26719,9 +26719,9 @@ input RulePatch {
   isActive: Boolean
   priority: Int
   triggerConcept: String
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
   triggerConceptEmbedding: Vector
@@ -26993,12 +26993,12 @@ input RuntimeLogFilter {
   context: JSONFilter
   "Filter by the object’s `stepIndex` field."
   stepIndex: IntFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -27043,9 +27043,9 @@ input RuntimeLogInput {
   message: String!
   context: JSON
   stepIndex: Int
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -27059,9 +27059,9 @@ input RuntimeLogPatch {
   message: String
   context: JSON
   stepIndex: Int
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -27321,12 +27321,12 @@ input RuntimeStateFilter {
   startedAt: DatetimeFilter
   "Filter by the object’s `endedAt` field."
   endedAt: DatetimeFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -27389,9 +27389,9 @@ input RuntimeStateInput {
   parentId: UUID
   startedAt: Datetime
   endedAt: Datetime
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -27407,9 +27407,9 @@ input RuntimeStatePatch {
   parentId: UUID
   startedAt: Datetime
   endedAt: Datetime
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -27559,12 +27559,12 @@ input SkillFilter {
   isActive: BooleanFilter
   "Filter by the object’s `intentTrigger` field."
   intentTrigger: StringTrgmFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -27623,9 +27623,9 @@ input SkillInput {
   config: JSON
   isActive: Boolean
   intentTrigger: String
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
   intentTriggerEmbedding: Vector
@@ -27643,9 +27643,9 @@ input SkillPatch {
   config: JSON
   isActive: Boolean
   intentTrigger: String
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
   intentTriggerEmbedding: Vector
@@ -28159,12 +28159,12 @@ input TripFilter {
   currency: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `embedding` field."
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
@@ -28267,9 +28267,9 @@ input TripInput {
   budget: BigFloat
   currency: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -28287,9 +28287,9 @@ input TripPatch {
   budget: BigFloat
   currency: String
   tags: [String]
-  embeddingText: String
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -29613,14 +29613,14 @@ input VenueFilter {
   notes: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
   "Filter by the object’s `mainImageId` field."
   mainImageId: UUIDFilter
   "Filter by the object’s `createdAt` field."
   createdAt: DatetimeFilter
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -29742,10 +29742,10 @@ input VenueInput {
   isFavorite: Boolean
   notes: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }
@@ -29824,10 +29824,10 @@ input VenuePatch {
   isFavorite: Boolean
   notes: String
   tags: [String]
-  embeddingText: String
   mainImageId: UUID
   createdAt: Datetime
   updatedAt: Datetime
+  embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
 }

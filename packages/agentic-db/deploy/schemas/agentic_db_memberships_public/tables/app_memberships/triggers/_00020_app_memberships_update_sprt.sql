@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _00020_app_memberships_update_sprt
-AFTER UPDATE ON agentic_db_memberships_public.app_memberships
+AFTER UPDATE ON "agentic_db_memberships_public".app_memberships
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_memberships_private.app_memberships_update_sprt_tg ( );
+EXECUTE PROCEDURE "agentic_db_memberships_private".app_memberships_update_sprt_tg ( );
 

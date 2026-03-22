@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
-ALTER TABLE agentic_db_app_public.codebase_dependencies 
+ALTER TABLE "agentic_db_app_public".codebase_dependencies 
   ADD CONSTRAINT codebase_dependencies_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

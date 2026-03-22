@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db venue list
 agentic-db venue get --id <UUID>
-agentic-db venue create --entityId <UUID> --name <String> [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--embeddingText <String>] [--mainImageId <UUID>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db venue update --id <UUID> [--entityId <UUID>] [--name <String>] [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--embeddingText <String>] [--mainImageId <UUID>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db venue create --entityId <UUID> --name <String> [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db venue update --id <UUID> [--entityId <UUID>] [--name <String>] [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db venue delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db venue list
 ### Create a venue
 
 ```bash
-agentic-db venue create --entityId <UUID> --name <String> [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--embeddingText <String>] [--mainImageId <UUID>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db venue create --entityId <UUID> --name <String> [--address <String>] [--neighborhood <String>] [--city <String>] [--category <String>] [--status <String>] [--googlePlaceId <String>] [--rating <BigFloat>] [--priceLevel <String>] [--isFavorite <Boolean>] [--notes <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a venue by id

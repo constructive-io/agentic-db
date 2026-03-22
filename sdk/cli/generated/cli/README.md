@@ -244,9 +244,9 @@ CRUD operations for Agent records.
 | `status` | String |
 | `config` | JSON |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -326,9 +326,9 @@ CRUD operations for AgentLog records.
 | `message` | String |
 | `context` | JSON |
 | `taskId` | UUID |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -409,9 +409,9 @@ CRUD operations for AgentTask records.
 | `startedAt` | Datetime |
 | `completedAt` | Datetime |
 | `meta` | JSON |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -493,9 +493,9 @@ CRUD operations for AutonomyRecord records.
 | `source` | String |
 | `context` | JSON |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -623,9 +623,9 @@ CRUD operations for Codebasis records.
 | `lastSyncedAt` | Datetime |
 | `config` | JSON |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -672,9 +672,9 @@ CRUD operations for CodeChunk records.
 | `endLine` | Int |
 | `symbolName` | String |
 | `symbolType` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `codebasisId` | UUID |
@@ -755,10 +755,10 @@ CRUD operations for Company records.
 | `industry` | String |
 | `description` | String |
 | `tags` | String |
-| `embeddingText` | String |
 | `mainImageId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
@@ -773,7 +773,7 @@ CRUD operations for Company records.
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `domain`, `industry`, `description`, `tags`, `embeddingText`, `mainImageId`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `domain`, `industry`, `description`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `domainTrgmSimilarity`, `industryTrgmSimilarity`, `descriptionTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
@@ -812,10 +812,10 @@ CRUD operations for Contact records.
 | `instagramHandle` | String |
 | `website` | String |
 | `tags` | String |
-| `embeddingText` | String |
 | `mainImageId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
@@ -840,7 +840,7 @@ CRUD operations for Contact records.
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `firstName`
-**Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipType`, `howWeMet`, `twitterHandle`, `linkedinUrl`, `githubUsername`, `instagramHandle`, `website`, `tags`, `embeddingText`, `mainImageId`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipType`, `howWeMet`, `twitterHandle`, `linkedinUrl`, `githubUsername`, `instagramHandle`, `website`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `firstNameTrgmSimilarity`, `lastNameTrgmSimilarity`, `emailTrgmSimilarity`, `phoneTrgmSimilarity`, `headlineTrgmSimilarity`, `bioTrgmSimilarity`, `locationTrgmSimilarity`, `relationshipTypeTrgmSimilarity`, `howWeMetTrgmSimilarity`, `twitterHandleTrgmSimilarity`, `linkedinUrlTrgmSimilarity`, `githubUsernameTrgmSimilarity`, `instagramHandleTrgmSimilarity`, `websiteTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
@@ -894,10 +894,10 @@ CRUD operations for Event records.
 | `endedAt` | Datetime |
 | `notesText` | String |
 | `tags` | String |
-| `embeddingText` | String |
 | `mainImageId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
@@ -913,7 +913,7 @@ CRUD operations for Event records.
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notesText`, `tags`, `embeddingText`, `mainImageId`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notesText`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `eventTypeTrgmSimilarity`, `locationTrgmSimilarity`, `cityTrgmSimilarity`, `notesTextTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
@@ -1035,9 +1035,9 @@ CRUD operations for Memory records.
 | `mood` | String |
 | `importance` | Int |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `agentId` | UUID |
@@ -1126,9 +1126,9 @@ CRUD operations for Note records.
 | `activeCount` | Int |
 | `lastAccessedAt` | Datetime |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `contentBm25Score` | Float |
@@ -1232,9 +1232,9 @@ CRUD operations for Deal records.
 | `expectedCloseDate` | Datetime |
 | `notesText` | String |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -1406,9 +1406,9 @@ CRUD operations for Project records.
 | `completedAt` | Datetime |
 | `config` | JSON |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -1486,9 +1486,9 @@ CRUD operations for Conversation records.
 | `agentId` | UUID |
 | `status` | String |
 | `meta` | JSON |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -1759,10 +1759,10 @@ CRUD operations for Venue records.
 | `isFavorite` | Boolean |
 | `notes` | String |
 | `tags` | String |
-| `embeddingText` | String |
 | `mainImageId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
@@ -1782,7 +1782,7 @@ CRUD operations for Venue records.
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `embeddingText`, `mainImageId`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `addressTrgmSimilarity`, `neighborhoodTrgmSimilarity`, `cityTrgmSimilarity`, `categoryTrgmSimilarity`, `statusTrgmSimilarity`, `googlePlaceIdTrgmSimilarity`, `priceLevelTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
@@ -1852,9 +1852,9 @@ CRUD operations for Goal records.
 | `completedAt` | Datetime |
 | `progress` | BigFloat |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -1921,9 +1921,9 @@ CRUD operations for Habit records.
 | `bestStreak` | Int |
 | `isActive` | Boolean |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2067,9 +2067,9 @@ CRUD operations for HikingTrail records.
 | `region` | String |
 | `notes` | String |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2116,9 +2116,9 @@ CRUD operations for Trip records.
 | `budget` | BigFloat |
 | `currency` | String |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2199,9 +2199,9 @@ CRUD operations for Interaction records.
 | `summary` | String |
 | `sentiment` | String |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2285,9 +2285,9 @@ CRUD operations for ItineraryItem records.
 | `cost` | BigFloat |
 | `notes` | String |
 | `sortOrder` | Int |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2406,9 +2406,9 @@ CRUD operations for Message records.
 | `meta` | JSON |
 | `toolCalls` | JSON |
 | `toolResults` | JSON |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2527,9 +2527,9 @@ CRUD operations for Place records.
 | `rating` | BigFloat |
 | `notes` | String |
 | `tags` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2676,9 +2676,9 @@ CRUD operations for Rule records.
 | `isActive` | Boolean |
 | `priority` | Int |
 | `triggerConcept` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `triggerConceptEmbedding` | Vector |
@@ -2848,9 +2848,9 @@ CRUD operations for RuntimeLog records.
 | `message` | String |
 | `context` | JSON |
 | `stepIndex` | Int |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -2989,9 +2989,9 @@ CRUD operations for RuntimeState records.
 | `parentId` | UUID |
 | `startedAt` | Datetime |
 | `endedAt` | Datetime |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `embeddingTextBm25Score` | Float |
@@ -3093,9 +3093,9 @@ CRUD operations for Skill records.
 | `config` | JSON |
 | `isActive` | Boolean |
 | `intentTrigger` | String |
-| `embeddingText` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
+| `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `intentTriggerEmbedding` | Vector |

@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/autonomy_record_chunks/indexes/autonomy_record_chunks_embedding_hnsw_idx
 
 
-DROP INDEX agentic_db_app_public.autonomy_record_chunks_embedding_hnsw_idx;
+DROP INDEX "agentic_db_app_public".autonomy_record_chunks_embedding_hnsw_idx;
 
 

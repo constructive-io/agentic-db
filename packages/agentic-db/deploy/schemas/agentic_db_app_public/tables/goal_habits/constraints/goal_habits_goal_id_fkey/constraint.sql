@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-ALTER TABLE agentic_db_app_public.goal_habits 
+ALTER TABLE "agentic_db_app_public".goal_habits 
   ADD CONSTRAINT goal_habits_goal_id_fkey 
     FOREIGN KEY(goal_id) 
-    REFERENCES agentic_db_app_public.goals (id) 
+    REFERENCES "agentic_db_app_public".goals (id) 
     ON DELETE CASCADE;
 

@@ -2,13 +2,10 @@
  * config.ts — Centralized configuration for Agent OS provisioning
  *
  * Routing modes:
- *   Domain-based (constructive `pnpm dev` server, port 5555):
- *     api.localhost:5555    → Platform API
- *     auth.localhost:5555   → Auth API
- *   Header-based (cnc server, port 3000):
- *     localhost:3000        → All endpoints via X-Meta-Schema / X-Schemata headers
- *
- * Default: header-based (cnc server) — override via API_ENDPOINT / AUTH_ENDPOINT env vars.
+ *   Domain-based (cnc server, port 3000):
+ *     auth.constructive.io:3000  → Auth API (sign up / sign in)
+ *     api.constructive.io:3000   → Platform API (schema builder)
+ *   Override via API_ENDPOINT / AUTH_ENDPOINT env vars.
  */
 
 import 'dotenv/config';

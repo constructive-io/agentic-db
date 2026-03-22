@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_profiles_public/tables/app_profile_definition_grants/table
 
 
-ALTER TABLE agentic_db_profiles_public.app_profile_definition_grants 
+ALTER TABLE "agentic_db_profiles_public".app_profile_definition_grants 
   ADD COLUMN created_at timestamptz;
 

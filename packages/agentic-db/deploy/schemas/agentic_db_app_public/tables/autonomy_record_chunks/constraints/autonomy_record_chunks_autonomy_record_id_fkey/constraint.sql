@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
 
 
-ALTER TABLE agentic_db_app_public.autonomy_record_chunks 
+ALTER TABLE "agentic_db_app_public".autonomy_record_chunks 
   ADD CONSTRAINT autonomy_record_chunks_autonomy_record_id_fkey 
     FOREIGN KEY(autonomy_record_id) 
-    REFERENCES agentic_db_app_public.autonomy_records (id) 
+    REFERENCES "agentic_db_app_public".autonomy_records (id) 
     ON DELETE CASCADE;
 

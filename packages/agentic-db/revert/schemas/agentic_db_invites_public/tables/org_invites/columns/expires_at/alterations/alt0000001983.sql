@@ -1,6 +1,0 @@
--- Revert: schemas/agentic_db_invites_public/tables/org_invites/columns/expires_at/alterations/alt0000001983
-
-
-COMMENT ON COLUMN agentic_db_invites_public.org_invites.expires_at IS NULL;
-
-

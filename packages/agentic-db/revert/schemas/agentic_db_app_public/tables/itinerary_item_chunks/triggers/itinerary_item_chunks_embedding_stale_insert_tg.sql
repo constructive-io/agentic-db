@@ -1,0 +1,6 @@
+-- Revert: schemas/agentic_db_app_public/tables/itinerary_item_chunks/triggers/itinerary_item_chunks_embedding_stale_insert_tg
+
+
+DROP TRIGGER itinerary_item_chunks_embedding_stale_insert_tg ON "agentic_db_app_public".itinerary_item_chunks;
+
+

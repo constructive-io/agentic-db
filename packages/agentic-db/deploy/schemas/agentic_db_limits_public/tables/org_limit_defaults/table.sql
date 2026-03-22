@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_limits_public/schema
 
 
-CREATE TABLE agentic_db_limits_public.org_limit_defaults ();
+CREATE TABLE "agentic_db_limits_public".org_limit_defaults ();
 

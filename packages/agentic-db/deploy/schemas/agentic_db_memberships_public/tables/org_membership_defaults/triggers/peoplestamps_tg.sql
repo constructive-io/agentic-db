@@ -6,7 +6,7 @@
 
 
 CREATE TRIGGER peoplestamps_tg
-BEFORE INSERT OR UPDATE ON agentic_db_memberships_public.org_membership_defaults
+BEFORE INSERT OR UPDATE ON "agentic_db_memberships_public".org_membership_defaults
 FOR EACH ROW
 EXECUTE PROCEDURE stamps.peoplestamps ( );
 

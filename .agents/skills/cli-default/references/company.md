@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db company list
 agentic-db company get --id <UUID>
-agentic-db company create --entityId <UUID> --name <String> [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--embeddingText <String>] [--mainImageId <UUID>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db company update --id <UUID> [--entityId <UUID>] [--name <String>] [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--embeddingText <String>] [--mainImageId <UUID>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db company create --entityId <UUID> --name <String> [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db company update --id <UUID> [--entityId <UUID>] [--name <String>] [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db company delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db company list
 ### Create a company
 
 ```bash
-agentic-db company create --entityId <UUID> --name <String> [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--embeddingText <String>] [--mainImageId <UUID>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db company create --entityId <UUID> --name <String> [--domain <String>] [--industry <String>] [--description <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a company by id

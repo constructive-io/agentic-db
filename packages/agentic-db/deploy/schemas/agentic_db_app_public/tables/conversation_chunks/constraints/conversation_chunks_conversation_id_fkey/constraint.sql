@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE agentic_db_app_public.conversation_chunks 
+ALTER TABLE "agentic_db_app_public".conversation_chunks 
   ADD CONSTRAINT conversation_chunks_conversation_id_fkey 
     FOREIGN KEY(conversation_id) 
-    REFERENCES agentic_db_app_public.conversations (id) 
+    REFERENCES "agentic_db_app_public".conversations (id) 
     ON DELETE CASCADE;
 

@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_membership_defaults/table
 
 
-ALTER TABLE agentic_db_memberships_public.org_membership_defaults 
+ALTER TABLE "agentic_db_memberships_public".org_membership_defaults 
   ADD COLUMN create_groups_cascade_members boolean;
 

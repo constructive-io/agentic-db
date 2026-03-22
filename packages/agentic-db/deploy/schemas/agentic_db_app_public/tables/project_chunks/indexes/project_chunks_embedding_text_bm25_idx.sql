@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_status_idx
 
 
-CREATE INDEX project_chunks_embedding_text_bm25_idx ON agentic_db_app_public.project_chunks USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX project_chunks_embedding_text_bm25_idx ON "agentic_db_app_public".project_chunks USING bm25 ( embedding_text ) WITH ( text_config = english );
 
