@@ -64,14 +64,9 @@ export function createPlatformClient(): ReturnType<typeof public_.createClient> 
   const token = config.accessToken;
   if (!token) throw new Error('ACCESS_TOKEN is required');
 
-  const headers: Record<string, string> = {
+  const adapter = new NodeHttpAdapter(config.apiEndpoint, {
     Authorization: `Bearer ${token}`,
-    'X-Meta-Schema': 'true',
-  };
-  if (config.databaseId) {
-    headers['X-Database-Id'] = config.databaseId;
-  }
-  const adapter = new NodeHttpAdapter(config.apiEndpoint, headers);
+  });
   return public_.createClient({ adapter });
 }
 
