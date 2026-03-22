@@ -30,7 +30,6 @@ const definition: BlueprintDefinition = {
       f('completed_at', 'timestamptz'),
       f('config', 'jsonb'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description'],

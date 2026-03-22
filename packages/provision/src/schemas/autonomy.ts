@@ -29,7 +29,6 @@ const definition: BlueprintDefinition = {
       f('source', 'text'),
       f('context', 'jsonb'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['title', 'content'],

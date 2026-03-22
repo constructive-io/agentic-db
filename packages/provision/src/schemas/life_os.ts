@@ -32,7 +32,6 @@ const definition: BlueprintDefinition = {
       f('budget', 'numeric'),
       f('currency', 'text', { default_value: "'USD'" }),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'destination'],
@@ -51,7 +50,6 @@ const definition: BlueprintDefinition = {
       f('rating', 'numeric'),
       f('notes', 'text'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'notes'],
@@ -72,7 +70,6 @@ const definition: BlueprintDefinition = {
       f('cost', 'numeric'),
       f('notes', 'text'),
       f('sort_order', 'int', { default_value: '0' }),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'notes'],
@@ -91,7 +88,6 @@ const definition: BlueprintDefinition = {
       f('region', 'text'),
       f('notes', 'text'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'region'],
@@ -108,7 +104,6 @@ const definition: BlueprintDefinition = {
       f('mood', 'text'),
       f('importance', 'int', { default_value: '5' }),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['title', 'content'],
@@ -126,7 +121,6 @@ const definition: BlueprintDefinition = {
       f('completed_at', 'timestamptz'),
       f('progress', 'numeric', { default_value: '0' }),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['title', 'description'],
@@ -143,7 +137,6 @@ const definition: BlueprintDefinition = {
       f('best_streak', 'int', { default_value: '0' }),
       f('is_active', 'bool', { default_value: 'true' }),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description'],

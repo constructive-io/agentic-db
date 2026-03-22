@@ -29,7 +29,6 @@ const definition: BlueprintDefinition = {
       f('parent_id', 'uuid'),
       f('started_at', 'timestamptz'),
       f('ended_at', 'timestamptz'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'state_type'],
@@ -43,7 +42,6 @@ const definition: BlueprintDefinition = {
       req('message', 'text'),
       f('context', 'jsonb'),
       f('step_index', 'int'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['message'],
@@ -107,7 +105,6 @@ const definition: BlueprintDefinition = {
       f('agent_id', 'uuid'),
       f('status', 'text', { default_value: "'active'" }),
       f('meta', 'jsonb'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['title'],
@@ -122,7 +119,6 @@ const definition: BlueprintDefinition = {
       f('meta', 'jsonb'),
       f('tool_calls', 'jsonb'),
       f('tool_results', 'jsonb'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['content'],

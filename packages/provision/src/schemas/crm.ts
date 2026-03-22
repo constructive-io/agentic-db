@@ -49,7 +49,6 @@ const definition: BlueprintDefinition = {
       f('instagram_handle', 'text'),
       f('website', 'text'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
       f('main_image_id', 'uuid'),
     ], [
         dataSearch({
@@ -75,7 +74,6 @@ const definition: BlueprintDefinition = {
       f('industry', 'text'),
       f('description', 'text'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
       f('main_image_id', 'uuid'),
     ], [
         dataSearch({
@@ -101,7 +99,6 @@ const definition: BlueprintDefinition = {
       f('expected_close_date', 'timestamptz'),
       f('notes_text', 'text'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'notes_text'],
@@ -118,7 +115,6 @@ const definition: BlueprintDefinition = {
       f('ended_at', 'timestamptz'),
       f('notes_text', 'text'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
       f('main_image_id', 'uuid'),
     ], [
         dataSearch({
@@ -149,7 +145,6 @@ const definition: BlueprintDefinition = {
       f('is_favorite', 'bool', { default_value: 'false' }),
       f('notes', 'text'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
       f('main_image_id', 'uuid'),
     ], [
         dataSearch({
@@ -175,7 +170,6 @@ const definition: BlueprintDefinition = {
       f('active_count', 'int', { default_value: '0' }),
       f('last_accessed_at', 'timestamptz'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['content', 'abstract'],
@@ -190,7 +184,6 @@ const definition: BlueprintDefinition = {
       f('summary', 'text'),
       f('sentiment', 'text'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['summary'],

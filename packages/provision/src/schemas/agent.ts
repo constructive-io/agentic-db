@@ -31,7 +31,6 @@ const definition: BlueprintDefinition = {
       f('status', 'text', { default_value: "'active'" }),
       f('config', 'jsonb'),
       f('tags', 'citext[]'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'system_prompt'],
@@ -49,7 +48,6 @@ const definition: BlueprintDefinition = {
       f('started_at', 'timestamptz'),
       f('completed_at', 'timestamptz'),
       f('meta', 'jsonb'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['title', 'description', 'result'],
@@ -63,7 +61,6 @@ const definition: BlueprintDefinition = {
       req('message', 'text'),
       f('context', 'jsonb'),
       f('task_id', 'uuid'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['message'],
@@ -81,7 +78,6 @@ const definition: BlueprintDefinition = {
       f('is_active', 'bool', { default_value: 'true' }),
       f('priority', 'int', { default_value: '0' }),
       f('trigger_concept', 'text'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'trigger_concept'],
@@ -98,7 +94,6 @@ const definition: BlueprintDefinition = {
       f('config', 'jsonb'),
       f('is_active', 'bool', { default_value: 'true' }),
       f('intent_trigger', 'text'),
-      f('embedding_text', 'text'),
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'intent_trigger'],
