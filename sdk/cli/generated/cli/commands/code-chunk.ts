@@ -26,7 +26,14 @@ const fieldSchema: FieldSchema = {
   embedding: 'string',
   embeddingStale: 'boolean',
   codebasisId: 'uuid',
+  embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
+  filePathTrgmSimilarity: 'float',
+  contentTrgmSimilarity: 'float',
+  languageTrgmSimilarity: 'float',
+  symbolNameTrgmSimilarity: 'float',
+  symbolTypeTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
   searchScore: 'float',
 };
 const usage =

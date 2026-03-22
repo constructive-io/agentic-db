@@ -9,7 +9,7 @@ ORM operations for Habit records
 ```typescript
 db.habit.findMany({ select: { id: true } }).execute()
 db.habit.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.habit.create({ data: { entityId: '<UUID>', name: '<String>', description: '<String>', frequency: '<String>', targetCount: '<Int>', currentStreak: '<Int>', bestStreak: '<Int>', isActive: '<Boolean>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.habit.create({ data: { entityId: '<UUID>', name: '<String>', description: '<String>', frequency: '<String>', targetCount: '<Int>', currentStreak: '<Int>', bestStreak: '<Int>', isActive: '<Boolean>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', nameTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', frequencyTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
 db.habit.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.habit.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.habit.findMany({
 
 ```typescript
 const item = await db.habit.create({
-  data: { entityId: '<UUID>', name: '<String>', description: '<String>', frequency: '<String>', targetCount: '<Int>', currentStreak: '<Int>', bestStreak: '<Int>', isActive: '<Boolean>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', name: '<String>', description: '<String>', frequency: '<String>', targetCount: '<Int>', currentStreak: '<Int>', bestStreak: '<Int>', isActive: '<Boolean>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', nameTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', frequencyTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

@@ -24,7 +24,13 @@ const fieldSchema: FieldSchema = {
   embedding: 'string',
   embeddingStale: 'boolean',
   agentId: 'uuid',
+  embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
+  titleTrgmSimilarity: 'float',
+  contentTrgmSimilarity: 'float',
+  locationTrgmSimilarity: 'float',
+  moodTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
   searchScore: 'float',
 };
 const usage =

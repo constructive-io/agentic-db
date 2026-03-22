@@ -106,6 +106,11 @@ jobs:
           pgpm deploy --package metaschema --database agentic_db_test --yes
           pgpm deploy --package metaschema-generators --database agentic_db_test --yes
 
+      - name: Install pg_textsearch extension
+        run: |
+          eval "$(pgpm env)"
+          psql -d agentic_db_test -c "CREATE EXTENSION IF NOT EXISTS pg_textsearch;"
+
       - name: Create agentic-db database
         id: create-db
         run: |
@@ -123,7 +128,7 @@ jobs:
 
           # Detect APP_SCHEMATA
           APP_SCHEMATA=$(psql -d agentic_db_test -tAc "
-            SELECT schema_name FROM metaschema_public.schema
+            SELECT schema_name FROM metaschema_public.\"schema\"
             WHERE database_id = '${DATABASE_ID}' AND name = 'app_public'
             LIMIT 1;
           ")
@@ -141,7 +146,7 @@ jobs:
         run: |
           eval "$(pgpm env)"
           cd constructive/graphql/server
-          PGDATABASE=agentic_db_test PORT=3001 API_IS_PUBLIC=false npx ts-node src/run.ts &
+          PGDATABASE=agentic_db_test PORT=3001 API_IS_PUBLIC=false APP_SCHEMATA=metaschema_public,metaschema_modules_public,services_public npx ts-node src/run.ts &
           # Wait for server to be ready
           for i in $(seq 1 30); do
             if curl -s http://localhost:3001/graphql > /dev/null 2>&1; then
@@ -153,8 +158,9 @@ jobs:
 
       - name: Run blueprint provision
         run: |
+          eval "$(pgpm env)"
           cd packages/provision
-          npx ts-node src/provision.ts
+          PGDATABASE=agentic_db npx ts-node src/provision.ts
 
       - name: Export pgpm modules
         run: |

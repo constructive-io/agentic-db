@@ -184,12 +184,15 @@ CRUD operations for AgentChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `agentId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `agentId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -246,12 +249,19 @@ CRUD operations for Agent records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `systemPromptTrgmSimilarity` | Float |
+| `modelTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `description`, `systemPrompt`, `model`, `temperature`, `status`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `systemPromptTrgmSimilarity`, `modelTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -281,12 +291,15 @@ CRUD operations for AgentLogChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `agentLogId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `agentLogId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -318,12 +331,16 @@ CRUD operations for AgentLog records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `levelTrgmSimilarity` | Float |
+| `messageTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `agentId`, `level`, `message`
 **Optional create fields (backend defaults):** `context`, `taskId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `levelTrgmSimilarity`, `messageTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -353,12 +370,15 @@ CRUD operations for AgentTaskChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `agentTaskId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `agentTaskId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -394,12 +414,18 @@ CRUD operations for AgentTask records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `resultTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `agentId`, `title`
 **Optional create fields (backend defaults):** `description`, `status`, `priority`, `result`, `startedAt`, `completedAt`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `statusTrgmSimilarity`, `resultTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -429,12 +455,15 @@ CRUD operations for AutonomyRecordChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `autonomyRecordId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `autonomyRecordId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -469,12 +498,19 @@ CRUD operations for AutonomyRecord records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `recordTypeTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `sourceTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `title`
 **Optional create fields (backend defaults):** `recordType`, `content`, `status`, `priority`, `source`, `context`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `recordTypeTrgmSimilarity`, `contentTrgmSimilarity`, `statusTrgmSimilarity`, `sourceTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -526,12 +562,15 @@ CRUD operations for CodebasChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `codebasisId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `codebasisId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -589,12 +628,20 @@ CRUD operations for Codebasis records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `repositoryUrlTrgmSimilarity` | Float |
+| `defaultBranchTrgmSimilarity` | Float |
+| `languageTrgmSimilarity` | Float |
+| `frameworkTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `description`, `repositoryUrl`, `defaultBranch`, `language`, `framework`, `lastSyncedAt`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `repositoryUrlTrgmSimilarity`, `defaultBranchTrgmSimilarity`, `languageTrgmSimilarity`, `frameworkTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -631,12 +678,19 @@ CRUD operations for CodeChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `codebasisId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `filePathTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `languageTrgmSimilarity` | Float |
+| `symbolNameTrgmSimilarity` | Float |
+| `symbolTypeTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `codebaseId`, `filePath`, `content`, `codebasisId`
 **Optional create fields (backend defaults):** `chunkIndex`, `language`, `startLine`, `endLine`, `symbolName`, `symbolType`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `filePathTrgmSimilarity`, `contentTrgmSimilarity`, `languageTrgmSimilarity`, `symbolNameTrgmSimilarity`, `symbolTypeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -666,12 +720,15 @@ CRUD operations for CompanyChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `companyId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `companyId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -706,6 +763,7 @@ CRUD operations for Company records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `searchTsvRank` | Float |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
 | `domainTrgmSimilarity` | Float |
@@ -716,7 +774,7 @@ CRUD operations for Company records.
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `domain`, `industry`, `description`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `nameTrgmSimilarity`, `domainTrgmSimilarity`, `industryTrgmSimilarity`, `descriptionTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `domainTrgmSimilarity`, `industryTrgmSimilarity`, `descriptionTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -762,6 +820,7 @@ CRUD operations for Contact records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `searchTsvRank` | Float |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `firstNameTrgmSimilarity` | Float |
 | `lastNameTrgmSimilarity` | Float |
@@ -782,7 +841,7 @@ CRUD operations for Contact records.
 
 **Required create fields:** `entityId`, `firstName`
 **Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipType`, `howWeMet`, `twitterHandle`, `linkedinUrl`, `githubUsername`, `instagramHandle`, `website`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `firstNameTrgmSimilarity`, `lastNameTrgmSimilarity`, `emailTrgmSimilarity`, `phoneTrgmSimilarity`, `headlineTrgmSimilarity`, `bioTrgmSimilarity`, `locationTrgmSimilarity`, `relationshipTypeTrgmSimilarity`, `howWeMetTrgmSimilarity`, `twitterHandleTrgmSimilarity`, `linkedinUrlTrgmSimilarity`, `githubUsernameTrgmSimilarity`, `instagramHandleTrgmSimilarity`, `websiteTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `firstNameTrgmSimilarity`, `lastNameTrgmSimilarity`, `emailTrgmSimilarity`, `phoneTrgmSimilarity`, `headlineTrgmSimilarity`, `bioTrgmSimilarity`, `locationTrgmSimilarity`, `relationshipTypeTrgmSimilarity`, `howWeMetTrgmSimilarity`, `twitterHandleTrgmSimilarity`, `linkedinUrlTrgmSimilarity`, `githubUsernameTrgmSimilarity`, `instagramHandleTrgmSimilarity`, `websiteTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -843,6 +902,7 @@ CRUD operations for Event records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `searchTsvRank` | Float |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
 | `eventTypeTrgmSimilarity` | Float |
@@ -854,7 +914,7 @@ CRUD operations for Event records.
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notesText`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `nameTrgmSimilarity`, `eventTypeTrgmSimilarity`, `locationTrgmSimilarity`, `cityTrgmSimilarity`, `notesTextTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `eventTypeTrgmSimilarity`, `locationTrgmSimilarity`, `cityTrgmSimilarity`, `notesTextTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -981,12 +1041,18 @@ CRUD operations for Memory records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `agentId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `locationTrgmSimilarity` | Float |
+| `moodTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `title`
 **Optional create fields (backend defaults):** `content`, `occurredAt`, `location`, `mood`, `importance`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `agentId`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `contentTrgmSimilarity`, `locationTrgmSimilarity`, `moodTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1065,12 +1131,18 @@ CRUD operations for Note records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `contentBm25Score` | Float |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `abstractTrgmSimilarity` | Float |
+| `overviewTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `content`
 **Optional create fields (backend defaults):** `abstract`, `overview`, `activeCount`, `lastAccessedAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `contentBm25Score`, `embeddingTextBm25Score`, `contentTrgmSimilarity`, `abstractTrgmSimilarity`, `overviewTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1100,12 +1172,15 @@ CRUD operations for ContactChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `contactId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `contactId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1162,12 +1237,18 @@ CRUD operations for Deal records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `stageTrgmSimilarity` | Float |
+| `currencyTrgmSimilarity` | Float |
+| `notesTextTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `stage`, `value`, `currency`, `expectedCloseDate`, `notesText`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `stageTrgmSimilarity`, `currencyTrgmSimilarity`, `notesTextTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1330,12 +1411,18 @@ CRUD operations for Project records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `projectTypeTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `description`, `status`, `projectType`, `priority`, `startedAt`, `targetDate`, `completedAt`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `statusTrgmSimilarity`, `projectTypeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1365,12 +1452,15 @@ CRUD operations for ConversationChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `conversationId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `conversationId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1401,12 +1491,16 @@ CRUD operations for Conversation records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `title`
 **Optional create fields (backend defaults):** `agentId`, `status`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1436,12 +1530,15 @@ CRUD operations for DealChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `dealId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `dealId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1517,12 +1614,15 @@ CRUD operations for EventChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `eventId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `eventId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1667,6 +1767,7 @@ CRUD operations for Venue records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `searchTsvRank` | Float |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
 | `addressTrgmSimilarity` | Float |
@@ -1682,7 +1783,7 @@ CRUD operations for Venue records.
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `nameTrgmSimilarity`, `addressTrgmSimilarity`, `neighborhoodTrgmSimilarity`, `cityTrgmSimilarity`, `categoryTrgmSimilarity`, `statusTrgmSimilarity`, `googlePlaceIdTrgmSimilarity`, `priceLevelTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `addressTrgmSimilarity`, `neighborhoodTrgmSimilarity`, `cityTrgmSimilarity`, `categoryTrgmSimilarity`, `statusTrgmSimilarity`, `googlePlaceIdTrgmSimilarity`, `priceLevelTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1712,12 +1813,15 @@ CRUD operations for GoalChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `goalId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `goalId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1753,12 +1857,18 @@ CRUD operations for Goal records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `title`
 **Optional create fields (backend defaults):** `description`, `category`, `status`, `priority`, `targetDate`, `completedAt`, `progress`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `categoryTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1816,12 +1926,17 @@ CRUD operations for Habit records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `frequencyTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `description`, `frequency`, `targetCount`, `currentStreak`, `bestStreak`, `isActive`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `frequencyTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1874,12 +1989,15 @@ CRUD operations for HabitChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `habitId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `habitId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1909,12 +2027,15 @@ CRUD operations for HikingTrailChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `hikingTrailId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `hikingTrailId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1951,12 +2072,20 @@ CRUD operations for HikingTrail records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `difficultyTrgmSimilarity` | Float |
+| `trailTypeTrgmSimilarity` | Float |
+| `regionTrgmSimilarity` | Float |
+| `notesTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `description`, `difficulty`, `distanceKm`, `elevationGainm`, `estimatedTimeHours`, `trailType`, `region`, `notes`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `difficultyTrgmSimilarity`, `trailTypeTrgmSimilarity`, `regionTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1992,12 +2121,19 @@ CRUD operations for Trip records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `destinationTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `currencyTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `description`, `destination`, `startedAt`, `endedAt`, `status`, `budget`, `currency`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `destinationTrgmSimilarity`, `statusTrgmSimilarity`, `currencyTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2027,12 +2163,15 @@ CRUD operations for InteractionChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `interactionId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `interactionId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2065,12 +2204,17 @@ CRUD operations for Interaction records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `typeTrgmSimilarity` | Float |
+| `summaryTrgmSimilarity` | Float |
+| `sentimentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `contactId`, `type`, `occurredAt`
 **Optional create fields (backend defaults):** `summary`, `sentiment`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `typeTrgmSimilarity`, `summaryTrgmSimilarity`, `sentimentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2100,12 +2244,15 @@ CRUD operations for ItineraryItemChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `itineraryItemId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `itineraryItemId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2143,12 +2290,18 @@ CRUD operations for ItineraryItem records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `notesTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `tripId`, `name`
 **Optional create fields (backend defaults):** `description`, `dayNumber`, `startTime`, `endTime`, `placeId`, `category`, `cost`, `notes`, `sortOrder`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `categoryTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2178,12 +2331,15 @@ CRUD operations for MemoryChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `memoryId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `memoryId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2213,12 +2369,15 @@ CRUD operations for MessageChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `messageId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `messageId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2252,12 +2411,16 @@ CRUD operations for Message records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `roleTrgmSimilarity` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `conversationId`, `role`, `content`
 **Optional create fields (backend defaults):** `tokenCount`, `meta`, `toolCalls`, `toolResults`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `roleTrgmSimilarity`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2287,12 +2450,15 @@ CRUD operations for NoteChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `noteId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `noteId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2322,12 +2488,15 @@ CRUD operations for PlaceChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `placeId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `placeId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2363,12 +2532,21 @@ CRUD operations for Place records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `addressTrgmSimilarity` | Float |
+| `cityTrgmSimilarity` | Float |
+| `countryTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `notesTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `description`, `address`, `city`, `country`, `category`, `rating`, `notes`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `addressTrgmSimilarity`, `cityTrgmSimilarity`, `countryTrgmSimilarity`, `categoryTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2398,12 +2576,15 @@ CRUD operations for ProjectChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `projectId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `projectId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2456,12 +2637,15 @@ CRUD operations for RuleChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `ruleId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `ruleId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2499,13 +2683,20 @@ CRUD operations for Rule records.
 | `embeddingStale` | Boolean |
 | `triggerConceptEmbedding` | Vector |
 | `agentId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `triggerConceptEmbeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `triggerTypeTrgmSimilarity` | Float |
+| `actionTypeTrgmSimilarity` | Float |
+| `triggerConceptTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`, `agentId`
 **Optional create fields (backend defaults):** `description`, `triggerType`, `triggerConfig`, `actionType`, `actionConfig`, `isActive`, `priority`, `triggerConcept`, `embeddingText`, `embedding`, `embeddingStale`, `triggerConceptEmbedding`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `triggerTypeTrgmSimilarity`, `actionTypeTrgmSimilarity`, `triggerConceptTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2622,12 +2813,15 @@ CRUD operations for RuntimeLogChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `runtimeLogId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `runtimeLogId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2659,12 +2853,16 @@ CRUD operations for RuntimeLog records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `levelTrgmSimilarity` | Float |
+| `messageTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `runtimeStateId`, `level`, `message`
 **Optional create fields (backend defaults):** `context`, `stepIndex`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `levelTrgmSimilarity`, `messageTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2754,12 +2952,15 @@ CRUD operations for RuntimeStateChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `runtimeStateId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `runtimeStateId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2793,12 +2994,17 @@ CRUD operations for RuntimeState records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `stateTypeTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `stateType`, `status`, `data`, `parentId`, `startedAt`, `endedAt`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `stateTypeTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2850,12 +3056,15 @@ CRUD operations for SkillChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `skillId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `skillId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2891,13 +3100,20 @@ CRUD operations for Skill records.
 | `embeddingStale` | Boolean |
 | `intentTriggerEmbedding` | Vector |
 | `agentId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `intentTriggerEmbeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `categoryTrgmSimilarity` | Float |
+| `implementationTrgmSimilarity` | Float |
+| `intentTriggerTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`, `agentId`
 **Optional create fields (backend defaults):** `description`, `category`, `implementation`, `config`, `isActive`, `intentTrigger`, `embeddingText`, `embedding`, `embeddingStale`, `intentTriggerEmbedding`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `categoryTrgmSimilarity`, `implementationTrgmSimilarity`, `intentTriggerTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -3017,12 +3233,15 @@ CRUD operations for TripChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `tripId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `tripId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -3098,12 +3317,15 @@ CRUD operations for VenueChunk records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `venueId` | UUID |
+| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
+| `contentTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `chunkIndex`, `content`, `venueId`
 **Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 

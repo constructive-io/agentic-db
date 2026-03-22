@@ -35,9 +35,10 @@ if [ -f "${REPO_ROOT}/.env" ]; then
 fi
 
 # Ensure pgpm env is loaded
+_SAVED_PGDB="${PGDATABASE:-}"
 eval "$(pgpm env)"
 
-export PGDATABASE="${PGDATABASE:-${DATABASE_NAME}}"
+export PGDATABASE="${_SAVED_PGDB:-${DATABASE_NAME}}"
 export CNC_PORT="${CNC_PORT:-3001}"
 export CNC_HOST="${CNC_HOST:-localhost}"
 
@@ -49,7 +50,7 @@ fi
 # Auto-detect APP_SCHEMATA if not set
 if [ -z "${APP_SCHEMATA:-}" ]; then
   APP_SCHEMATA=$(psql -d "${PGDATABASE}" -tAc "
-    SELECT schema_name FROM metaschema_public.schema
+    SELECT schema_name FROM metaschema_public.\"schema\"
     WHERE database_id = '${DATABASE_ID}' AND name = 'app_public'
     LIMIT 1;
   ")

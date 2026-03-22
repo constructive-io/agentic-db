@@ -25,7 +25,16 @@ const fieldSchema: FieldSchema = {
   embeddingText: 'string',
   embedding: 'string',
   embeddingStale: 'boolean',
+  embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
+  nameTrgmSimilarity: 'float',
+  descriptionTrgmSimilarity: 'float',
+  addressTrgmSimilarity: 'float',
+  cityTrgmSimilarity: 'float',
+  countryTrgmSimilarity: 'float',
+  categoryTrgmSimilarity: 'float',
+  notesTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
   searchScore: 'float',
 };
 const usage =

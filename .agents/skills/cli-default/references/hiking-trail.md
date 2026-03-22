@@ -4,7 +4,7 @@
 
 CRUD operations for HikingTrail records via agentic-db CLI
 
-**Unified Search API fields:** `searchScore`
+**Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `difficultyTrgmSimilarity`, `trailTypeTrgmSimilarity`, `regionTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 ## Usage

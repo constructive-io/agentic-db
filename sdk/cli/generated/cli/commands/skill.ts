@@ -25,8 +25,15 @@ const fieldSchema: FieldSchema = {
   embeddingStale: 'boolean',
   intentTriggerEmbedding: 'string',
   agentId: 'uuid',
+  embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
   intentTriggerEmbeddingVectorDistance: 'float',
+  nameTrgmSimilarity: 'float',
+  descriptionTrgmSimilarity: 'float',
+  categoryTrgmSimilarity: 'float',
+  implementationTrgmSimilarity: 'float',
+  intentTriggerTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
   searchScore: 'float',
 };
 const usage =

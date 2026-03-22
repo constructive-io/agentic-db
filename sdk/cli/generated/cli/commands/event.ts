@@ -27,6 +27,7 @@ const fieldSchema: FieldSchema = {
   embedding: 'string',
   embeddingStale: 'boolean',
   searchTsvRank: 'float',
+  embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
   nameTrgmSimilarity: 'float',
   eventTypeTrgmSimilarity: 'float',

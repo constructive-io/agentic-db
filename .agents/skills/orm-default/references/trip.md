@@ -9,7 +9,7 @@ ORM operations for Trip records
 ```typescript
 db.trip.findMany({ select: { id: true } }).execute()
 db.trip.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.trip.create({ data: { entityId: '<UUID>', name: '<String>', description: '<String>', destination: '<String>', startedAt: '<Datetime>', endedAt: '<Datetime>', status: '<String>', budget: '<BigFloat>', currency: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.trip.create({ data: { entityId: '<UUID>', name: '<String>', description: '<String>', destination: '<String>', startedAt: '<Datetime>', endedAt: '<Datetime>', status: '<String>', budget: '<BigFloat>', currency: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', nameTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', destinationTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', currencyTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
 db.trip.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.trip.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.trip.findMany({
 
 ```typescript
 const item = await db.trip.create({
-  data: { entityId: '<UUID>', name: '<String>', description: '<String>', destination: '<String>', startedAt: '<Datetime>', endedAt: '<Datetime>', status: '<String>', budget: '<BigFloat>', currency: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', name: '<String>', description: '<String>', destination: '<String>', startedAt: '<Datetime>', endedAt: '<Datetime>', status: '<String>', budget: '<BigFloat>', currency: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', nameTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', destinationTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', currencyTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

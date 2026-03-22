@@ -23,7 +23,13 @@ const fieldSchema: FieldSchema = {
   embeddingText: 'string',
   embedding: 'string',
   embeddingStale: 'boolean',
+  embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
+  nameTrgmSimilarity: 'float',
+  stageTrgmSimilarity: 'float',
+  currencyTrgmSimilarity: 'float',
+  notesTextTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
   searchScore: 'float',
 };
 const usage =

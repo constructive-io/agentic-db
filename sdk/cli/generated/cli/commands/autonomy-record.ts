@@ -24,7 +24,14 @@ const fieldSchema: FieldSchema = {
   embeddingText: 'string',
   embedding: 'string',
   embeddingStale: 'boolean',
+  embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
+  titleTrgmSimilarity: 'float',
+  recordTypeTrgmSimilarity: 'float',
+  contentTrgmSimilarity: 'float',
+  statusTrgmSimilarity: 'float',
+  sourceTrgmSimilarity: 'float',
+  embeddingTextTrgmSimilarity: 'float',
   searchScore: 'float',
 };
 const usage =
