@@ -69,13 +69,13 @@ jobs:
         run: |
           eval "$(pgpm env)"
           cd packages/agentic-db
-          pgpm deploy --database agentic_db_test --yes
+          pgpm deploy --package agentic-db --database agentic_db_test --yes
 
       - name: Deploy agentic-db-services package
         run: |
           eval "$(pgpm env)"
           cd packages/agentic-db-services
-          pgpm deploy --database agentic_db_test --yes
+          pgpm deploy --package agentic-db-services --database agentic_db_test --yes
 
       - name: Verify deployment
         run: |
