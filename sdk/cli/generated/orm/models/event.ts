@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class EventModel {
   constructor(private client: OrmClient) {}
   findMany<S extends EventSelect>(
-    args: FindManyArgs<S, EventFilter, EventOrderBy> & {
+    args: FindManyArgs<S, EventFilter, never, EventOrderBy> & {
       select: S;
     } & StrictSelect<S, EventSelect>
   ): QueryBuilder<{
@@ -218,9 +218,10 @@ export class EventModel {
       'Event',
       'deleteEvent',
       'event',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteEventInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

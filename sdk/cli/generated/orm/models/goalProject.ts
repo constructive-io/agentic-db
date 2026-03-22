@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class GoalProjectModel {
   constructor(private client: OrmClient) {}
   findMany<S extends GoalProjectSelect>(
-    args: FindManyArgs<S, GoalProjectFilter, GoalProjectOrderBy> & {
+    args: FindManyArgs<S, GoalProjectFilter, never, GoalProjectOrderBy> & {
       select: S;
     } & StrictSelect<S, GoalProjectSelect>
   ): QueryBuilder<{
@@ -218,9 +218,10 @@ export class GoalProjectModel {
       'GoalProject',
       'deleteGoalProject',
       'goalProject',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteGoalProjectInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

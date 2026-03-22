@@ -11,16 +11,14 @@ import type { CreateImageInput, ImagePatch } from '../../orm/input-types';
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  createdAt: 'string',
-  updatedAt: 'string',
   url: 'string',
   meta: 'json',
   altText: 'string',
   caption: 'string',
+  createdAt: 'string',
+  updatedAt: 'string',
   embedding: 'string',
-  urlTrgmSimilarity: 'float',
-  altTextTrgmSimilarity: 'float',
-  captionTrgmSimilarity: 'float',
+  embeddingStale: 'boolean',
   embeddingVectorDistance: 'float',
   searchScore: 'float',
 };
@@ -78,18 +76,14 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           url: true,
           meta: true,
           altText: true,
           caption: true,
+          createdAt: true,
+          updatedAt: true,
           embedding: true,
-          urlTrgmSimilarity: true,
-          altTextTrgmSimilarity: true,
-          captionTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -119,18 +113,14 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           url: true,
           meta: true,
           altText: true,
           caption: true,
+          createdAt: true,
+          updatedAt: true,
           embedding: true,
-          urlTrgmSimilarity: true,
-          altTextTrgmSimilarity: true,
-          captionTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -186,6 +176,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CreateImageInput['image'];
@@ -199,22 +196,19 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           altText: cleanedData.altText,
           caption: cleanedData.caption,
           embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
         },
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           url: true,
           meta: true,
           altText: true,
           caption: true,
+          createdAt: true,
+          updatedAt: true,
           embedding: true,
-          urlTrgmSimilarity: true,
-          altTextTrgmSimilarity: true,
-          captionTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -276,6 +270,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as ImagePatch;
@@ -292,22 +293,19 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           altText: cleanedData.altText,
           caption: cleanedData.caption,
           embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
         },
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           url: true,
           meta: true,
           altText: true,
           caption: true,
+          createdAt: true,
+          updatedAt: true,
           embedding: true,
-          urlTrgmSimilarity: true,
-          altTextTrgmSimilarity: true,
-          captionTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
+          embeddingStale: true,
         },
       })
       .execute();

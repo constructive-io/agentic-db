@@ -1,0 +1,34 @@
+# place
+
+<!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
+
+ORM operations for Place records
+
+## Usage
+
+```typescript
+db.place.findMany({ select: { id: true } }).execute()
+db.place.findOne({ id: '<UUID>', select: { id: true } }).execute()
+db.place.create({ data: { entityId: '<UUID>', name: '<String>', description: '<String>', address: '<String>', city: '<String>', country: '<String>', category: '<String>', rating: '<BigFloat>', notes: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', nameTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', addressTrgmSimilarity: '<Float>', cityTrgmSimilarity: '<Float>', countryTrgmSimilarity: '<Float>', categoryTrgmSimilarity: '<Float>', notesTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.place.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.place.delete({ where: { id: '<UUID>' } }).execute()
+```
+
+## Examples
+
+### List all place records
+
+```typescript
+const items = await db.place.findMany({
+  select: { id: true, entityId: true }
+}).execute();
+```
+
+### Create a place
+
+```typescript
+const item = await db.place.create({
+  data: { entityId: '<UUID>', name: '<String>', description: '<String>', address: '<String>', city: '<String>', country: '<String>', category: '<String>', rating: '<BigFloat>', notes: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', nameTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', addressTrgmSimilarity: '<Float>', cityTrgmSimilarity: '<Float>', countryTrgmSimilarity: '<Float>', categoryTrgmSimilarity: '<Float>', notesTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
+  select: { id: true }
+}).execute();
+```

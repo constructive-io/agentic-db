@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class MemoryModel {
   constructor(private client: OrmClient) {}
   findMany<S extends MemorySelect>(
-    args: FindManyArgs<S, MemoryFilter, MemoryOrderBy> & {
+    args: FindManyArgs<S, MemoryFilter, never, MemoryOrderBy> & {
       select: S;
     } & StrictSelect<S, MemorySelect>
   ): QueryBuilder<{
@@ -218,9 +218,10 @@ export class MemoryModel {
       'Memory',
       'deleteMemory',
       'memory',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteMemoryInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

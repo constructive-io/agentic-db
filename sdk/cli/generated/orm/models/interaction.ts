@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class InteractionModel {
   constructor(private client: OrmClient) {}
   findMany<S extends InteractionSelect>(
-    args: FindManyArgs<S, InteractionFilter, InteractionOrderBy> & {
+    args: FindManyArgs<S, InteractionFilter, never, InteractionOrderBy> & {
       select: S;
     } & StrictSelect<S, InteractionSelect>
   ): QueryBuilder<{
@@ -218,9 +218,10 @@ export class InteractionModel {
       'Interaction',
       'deleteInteraction',
       'interaction',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteInteractionInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

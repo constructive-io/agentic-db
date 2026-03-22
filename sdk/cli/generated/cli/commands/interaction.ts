@@ -11,8 +11,6 @@ import type { CreateInteractionInput, InteractionPatch } from '../../orm/input-t
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  createdAt: 'string',
-  updatedAt: 'string',
   contactId: 'uuid',
   type: 'string',
   occurredAt: 'string',
@@ -20,13 +18,16 @@ const fieldSchema: FieldSchema = {
   sentiment: 'string',
   tags: 'string',
   embeddingText: 'string',
+  createdAt: 'string',
+  updatedAt: 'string',
   embedding: 'string',
+  embeddingStale: 'boolean',
   embeddingTextBm25Score: 'float',
+  embeddingVectorDistance: 'float',
   typeTrgmSimilarity: 'float',
   summaryTrgmSimilarity: 'float',
   sentimentTrgmSimilarity: 'float',
   embeddingTextTrgmSimilarity: 'float',
-  embeddingVectorDistance: 'float',
   searchScore: 'float',
 };
 const usage =
@@ -83,8 +84,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           contactId: true,
           type: true,
           occurredAt: true,
@@ -92,14 +91,10 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           sentiment: true,
           tags: true,
           embeddingText: true,
+          createdAt: true,
+          updatedAt: true,
           embedding: true,
-          embeddingTextBm25Score: true,
-          typeTrgmSimilarity: true,
-          summaryTrgmSimilarity: true,
-          sentimentTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -129,8 +124,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           contactId: true,
           type: true,
           occurredAt: true,
@@ -138,14 +131,10 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           sentiment: true,
           tags: true,
           embeddingText: true,
+          createdAt: true,
+          updatedAt: true,
           embedding: true,
-          embeddingTextBm25Score: true,
-          typeTrgmSimilarity: true,
-          summaryTrgmSimilarity: true,
-          sentimentTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -220,6 +209,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(
@@ -239,12 +235,11 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: cleanedData.tags,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
         },
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           contactId: true,
           type: true,
           occurredAt: true,
@@ -252,14 +247,10 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           sentiment: true,
           tags: true,
           embeddingText: true,
+          createdAt: true,
+          updatedAt: true,
           embedding: true,
-          embeddingTextBm25Score: true,
-          typeTrgmSimilarity: true,
-          summaryTrgmSimilarity: true,
-          sentimentTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -340,6 +331,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as InteractionPatch;
@@ -359,12 +357,11 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: cleanedData.tags,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
         },
         select: {
           id: true,
           entityId: true,
-          createdAt: true,
-          updatedAt: true,
           contactId: true,
           type: true,
           occurredAt: true,
@@ -372,14 +369,10 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           sentiment: true,
           tags: true,
           embeddingText: true,
+          createdAt: true,
+          updatedAt: true,
           embedding: true,
-          embeddingTextBm25Score: true,
-          typeTrgmSimilarity: true,
-          summaryTrgmSimilarity: true,
-          sentimentTrgmSimilarity: true,
-          embeddingTextTrgmSimilarity: true,
-          embeddingVectorDistance: true,
-          searchScore: true,
+          embeddingStale: true,
         },
       })
       .execute();

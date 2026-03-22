@@ -1,13 +1,7 @@
 /**
- * runtime.ts — Agent Runtime domain schema (blueprint definition)
+ * runtime.ts - Runtime schema (blueprint definition)
  *
- * Tables: agents, sessions, execution_log, chats, chat_messages, threads,
- *         blueprints, processes, scheduled_jobs, tools,
- *         workflows, workflow_steps, workflow_runs, activity_log,
- *         agent_spawns, session_archives
- * Chunk tables: agent_chunks, session_chunks, chat_chunks, chat_message_chunks,
- *              thread_chunks, blueprint_chunks, tool_chunks,
- *              session_archive_chunks, activity_log_chunks
+ * Data* nodes: DataSearch
  */
 
 import {
@@ -18,262 +12,190 @@ import {
   provisionBlueprint,
   f,
   req,
-  EMBEDDING_FIELDS,
   M2M_JUNCTION_OPTS,
+  dataSearch,
+  btreeIndex,
+  ginIndex,
 } from '../blueprint';
-
-// ---------------------------------------------------------------------------
-// Blueprint definition
-// ---------------------------------------------------------------------------
 
 const definition: BlueprintDefinition = {
   tables: [
-    // -- Agents ---------------------------------------------------------------
-    orgTable('agents', [
+    // -- Runtime States -----------------------------------------------------
+    orgTable('runtime_states', [
       req('name', 'text'),
-      f('role', 'text'),
-      f('capabilities', 'jsonb'),
-      f('config', 'jsonb'),
-      f('status', 'text', { default_value: "'idle'" }),
-      f('persona', 'text'),
-      f('backstory', 'text'),
-      f('communication_style', 'text'),
-      f('system_prompt', 'text'),
-      f('preferred_model', 'text'),
-      f('fallback_models', 'text[]'),
-      f('temperature', 'numeric'),
-      f('mood', 'text'),
-      f('focus', 'text'),
-      f('last_active_at', 'timestamptz'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Sessions -------------------------------------------------------------
-    orgTable('sessions', [
-      f('title', 'text'),
-      f('agent_id', 'uuid'),
-      f('started_at', 'timestamptz'),
-      f('ended_at', 'timestamptz'),
+      f('state_type', 'text'),
       f('status', 'text', { default_value: "'active'" }),
-      f('context_summary', 'text'),
-      f('session_summary', 'text'),
-      f('archived_messages', 'jsonb'),
-      f('compression_count', 'int', { default_value: '0' }),
-      f('archived_at', 'timestamptz'),
-      f('extracted_memory_ids', 'uuid[]'),
-      f('contexts_used', 'jsonb'),
-      f('skills_used', 'uuid[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Execution Log --------------------------------------------------------
-    orgTable('execution_log', [
-      f('session_id', 'uuid'),
-      f('step_name', 'text'),
-      f('input', 'text'),
-      f('output', 'text'),
-      f('tool_calls', 'jsonb'),
-      f('duration_ms', 'int'),
-    ]),
-
-    // -- Chats ----------------------------------------------------------------
-    orgTable('chats', [
-      f('title', 'text'),
-      f('started_at', 'timestamptz'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Chat Messages --------------------------------------------------------
-    orgTable('chat_messages', [
-      f('chat_id', 'uuid'),
-      f('thread_id', 'uuid'),
-      f('role', 'text'),
-      f('content', 'text'),
-      f('tool_calls', 'jsonb'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Threads --------------------------------------------------------------
-    orgTable('threads', [
-      req('title', 'text'),
-      f('summary', 'text'),
-      f('status', 'text', { default_value: "'open'" }),
-      f('parent_thread_id', 'uuid'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Blueprints -----------------------------------------------------------
-    orgTable('blueprints', [
-      req('title', 'text'),
-      f('steps', 'jsonb'),
-      f('trigger_conditions', 'text'),
-      f('conversation_id', 'uuid'),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Processes ------------------------------------------------------------
-    orgTable('processes', [
-      f('pid', 'int'),
-      f('agent_id', 'uuid'),
-      f('command', 'text'),
+      f('data', 'jsonb'),
+      f('parent_id', 'uuid'),
       f('started_at', 'timestamptz'),
       f('ended_at', 'timestamptz'),
-      f('status', 'text', { default_value: "'running'" }),
-      f('exit_code', 'int'),
-      f('logs_path', 'text'),
-    ]),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['name', 'state_type'],
+        }),
+      ]),
 
-    // -- Scheduled Jobs -------------------------------------------------------
-    orgTable('scheduled_jobs', [
+    // -- Runtime Logs -------------------------------------------------------
+    orgTable('runtime_logs', [
+      req('runtime_state_id', 'uuid'),
+      req('level', 'text'),
+      req('message', 'text'),
+      f('context', 'jsonb'),
+      f('step_index', 'int'),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['message'],
+        }),
+      ]),
+
+    // -- Runtime Artifacts ---------------------------------------------------
+    orgTable('runtime_artifacts', [
+      req('runtime_state_id', 'uuid'),
       req('name', 'text'),
-      req('schedule_type', 'text'),
-      f('schedule_expr', 'text'),
-      f('run_at', 'timestamptz'),
-      req('command', 'text'),
-      f('message', 'text'),
-      f('agent_id', 'uuid'),
-      f('session_id', 'uuid'),
-      f('is_active', 'bool', { default_value: 'true' }),
-      f('delete_after_run', 'bool', { default_value: 'false' }),
-      f('last_run_at', 'timestamptz'),
-      f('next_run_at', 'timestamptz'),
-      f('run_count', 'int', { default_value: '0' }),
-      f('last_result', 'jsonb'),
+      f('artifact_type', 'text'),
+      f('content', 'text'),
+      f('meta', 'jsonb'),
+      f('size_bytes', 'int'),
     ]),
 
-    // -- Tools ----------------------------------------------------------------
-    orgTable('tools', [
+    // -- Runtime Metrics ----------------------------------------------------
+    orgTable('runtime_metrics', [
+      req('runtime_state_id', 'uuid'),
+      req('metric_name', 'text'),
+      req('metric_value', 'numeric'),
+      f('unit', 'text'),
+      f('meta', 'jsonb'),
+    ]),
+
+    // -- Runtime Schedules --------------------------------------------------
+    orgTable('runtime_schedules', [
+      req('name', 'text'),
+      f('cron_expression', 'text'),
+      f('next_run_at', 'timestamptz'),
+      f('last_run_at', 'timestamptz'),
+      f('is_active', 'bool', { default_value: 'true' }),
+      f('config', 'jsonb'),
+      f('timezone', 'text', { default_value: "'UTC'" }),
+    ]),
+
+    // -- Runtime Events -----------------------------------------------------
+    orgTable('runtime_events', [
+      req('event_type', 'text'),
+      req('payload', 'jsonb'),
+      f('source', 'text'),
+      f('processed_at', 'timestamptz'),
+      f('status', 'text', { default_value: "'pending'" }),
+    ]),
+
+    // -- Runtime Config -----------------------------------------------------
+    orgTable('runtime_config', [
+      req('key', 'text'),
+      f('value', 'jsonb'),
+      f('description', 'text'),
+      f('is_secret', 'bool', { default_value: 'false' }),
+    ]),
+
+    // -- Chunk tables -------------------------------------------------------
+    chunkTable('runtime_states'),
+    chunkTable('runtime_logs'),
+
+    // -- Conversations & Messages -------------------------------------------
+    orgTable('conversations', [
+      req('title', 'text'),
+      f('agent_id', 'uuid'),
+      f('status', 'text', { default_value: "'active'" }),
+      f('meta', 'jsonb'),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['title'],
+        }),
+      ]),
+
+    orgTable('messages', [
+      req('conversation_id', 'uuid'),
+      req('role', 'text'),
+      req('content', 'text'),
+      f('token_count', 'int'),
+      f('meta', 'jsonb'),
+      f('tool_calls', 'jsonb'),
+      f('tool_results', 'jsonb'),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['content'],
+        }),
+      ]),
+
+    chunkTable('conversations'),
+    chunkTable('messages'),
+
+    // -- Tool Definitions & Executions --------------------------------------
+    orgTable('tool_definitions', [
       req('name', 'text'),
       f('description', 'text'),
-      f('type', 'text'),
       f('input_schema', 'jsonb'),
       f('output_schema', 'jsonb'),
-      f('endpoint', 'text'),
-      f('auth_method', 'text'),
+      f('implementation', 'text'),
       f('is_active', 'bool', { default_value: 'true' }),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
     ]),
 
-    // -- Workflows ------------------------------------------------------------
-    orgTable('workflows', [
-      req('name', 'text'),
-      f('description', 'text'),
-      f('trigger_type', 'text'),
-      f('trigger_config', 'jsonb'),
-      f('is_active', 'bool', { default_value: 'true' }),
-      f('tags', 'citext[]'),
-    ]),
-
-    // -- Workflow Steps -------------------------------------------------------
-    orgTable('workflow_steps', [
-      req('workflow_id', 'uuid'),
-      req('step_order', 'int'),
-      req('action_type', 'text'),
-      f('action_config', 'jsonb'),
-      f('on_success_step', 'int'),
-      f('on_failure_step', 'int'),
-      f('timeout_ms', 'int'),
-    ]),
-
-    // -- Workflow Runs --------------------------------------------------------
-    orgTable('workflow_runs', [
-      req('workflow_id', 'uuid'),
+    orgTable('tool_executions', [
+      req('tool_definition_id', 'uuid'),
+      f('message_id', 'uuid'),
+      f('input', 'jsonb'),
+      f('output', 'jsonb'),
       f('status', 'text', { default_value: "'pending'" }),
       f('started_at', 'timestamptz'),
       f('completed_at', 'timestamptz'),
-      f('input', 'jsonb'),
-      f('output', 'jsonb'),
       f('error', 'text'),
     ]),
-
-    // -- Agent Spawns ---------------------------------------------------------
-    orgTable('agent_spawns', [
-      req('parent_agent_id', 'uuid'),
-      f('child_agent_id', 'uuid'),
-      f('session_id', 'uuid'),
-      req('task', 'text'),
-      f('status', 'text', { default_value: "'running'" }),
-      f('result', 'jsonb'),
-      f('max_iterations', 'int', { default_value: '15' }),
-      f('started_at', 'timestamptz'),
-      f('completed_at', 'timestamptz'),
-    ]),
-
-    // -- Session Archives -----------------------------------------------------
-    orgTable('session_archives', [
-      req('session_id', 'uuid'),
-      req('archive_index', 'int'),
-      req('summary', 'text'),
-      f('message_range_start', 'int'),
-      f('message_range_end', 'int'),
-      f('raw_messages', 'jsonb'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Activity Log ---------------------------------------------------------
-    orgTable('activity_log', [
-      req('activity_type', 'text'),
-      f('title', 'text'),
-      f('description', 'text'),
-      f('occurred_at', 'timestamptz'),
-      f('duration_minutes', 'numeric'),
-      f('data', 'jsonb'),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Chunk tables ---------------------------------------------------------
-    chunkTable('agents'),
-    chunkTable('sessions'),
-    chunkTable('chats'),
-    chunkTable('chat_messages'),
-    chunkTable('threads'),
-    chunkTable('blueprints'),
-    chunkTable('tools'),
-    chunkTable('session_archives'),
-    chunkTable('activity_log'),
   ],
 
   relations: [
-    // -- HasMany: parent -> children ------------------------------------------
-    { $type: 'RelationHasMany', source_ref: 'agents',   target_ref: 'sessions',         delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'sessions', target_ref: 'execution_log',    delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'chats',    target_ref: 'chat_messages',    delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'threads',  target_ref: 'chat_messages',    delete_action: 'n' },
-    { $type: 'RelationHasMany', source_ref: 'agents',   target_ref: 'processes',        delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'agents',   target_ref: 'scheduled_jobs',   delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'workflows', target_ref: 'workflow_steps',  delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'workflows', target_ref: 'workflow_runs',   delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'sessions', target_ref: 'session_archives', delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'agents',   target_ref: 'agent_spawns',     delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'runtime_states', target_ref: 'runtime_logs',      delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'runtime_states', target_ref: 'runtime_artifacts',  delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'runtime_states', target_ref: 'runtime_metrics',    delete_action: 'c' },
 
-    // -- BelongsTo: self-referential ------------------------------------------
-    { $type: 'RelationBelongsTo', source_ref: 'threads', target_ref: 'threads', field_name: 'parent_thread_id', source_field_name: 'parent_thread_id', target_field_name: 'id', delete_action: 'n', is_required: false },
+    hasManyChunks('runtime_states'),
+    hasManyChunks('runtime_logs'),
+    hasManyChunks('conversations'),
+    hasManyChunks('messages'),
 
-    // -- M:N: agent_tools -----------------------------------------------------
-    { $type: 'RelationManyToMany', source_ref: 'agents', target_ref: 'tools', junction_table_name: 'agent_tools', source_field_name: 'agent_id', target_field_name: 'tool_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationHasMany', source_ref: 'conversations',    target_ref: 'messages',         delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'tool_definitions', target_ref: 'tool_executions',  delete_action: 'c' },
 
-    // -- HasMany: chunks (CASCADE delete) -------------------------------------
-    hasManyChunks('agents'),
-    hasManyChunks('sessions'),
-    hasManyChunks('chats'),
-    hasManyChunks('chat_messages'),
-    hasManyChunks('threads'),
-    hasManyChunks('blueprints'),
-    hasManyChunks('tools'),
-    hasManyChunks('session_archives'),
-    hasManyChunks('activity_log'),
+    { $type: 'RelationManyToMany', source_ref: 'runtime_states', target_ref: 'runtime_states', junction_table_name: 'runtime_state_dependencies', source_field_name: 'state_id', target_field_name: 'dependency_id', is_required: false, data: M2M_JUNCTION_OPTS },
+  ],
+
+  indexes: [
+    ginIndex('runtime_states', 'data'),
+    btreeIndex('runtime_states', 'state_type'),
+    btreeIndex('runtime_states', 'status'),
+    btreeIndex('runtime_states', 'parent_id'),
+    // btreeIndex('runtime_logs', 'runtime_state_id'), — auto-created by FK (runtime_states → runtime_logs)
+    btreeIndex('runtime_logs', 'level'),
+    // btreeIndex('runtime_artifacts', 'runtime_state_id'), — auto-created by FK
+    btreeIndex('runtime_artifacts', 'artifact_type'),
+    // btreeIndex('runtime_metrics', 'runtime_state_id'), — auto-created by FK
+    btreeIndex('runtime_metrics', 'metric_name'),
+    btreeIndex('runtime_schedules', 'is_active'),
+    btreeIndex('runtime_schedules', 'next_run_at'),
+    btreeIndex('runtime_events', 'event_type'),
+    btreeIndex('runtime_events', 'status'),
+    btreeIndex('runtime_config', 'key'),
+    btreeIndex('conversations', 'agent_id'),
+    btreeIndex('conversations', 'status'),
+    // btreeIndex('messages', 'conversation_id'), — auto-created by FK (conversations → messages)
+    btreeIndex('messages', 'role'),
+    btreeIndex('tool_definitions', 'name'),
+    btreeIndex('tool_definitions', 'is_active'),
+    // btreeIndex('tool_executions', 'tool_definition_id'), — auto-created by FK
+    btreeIndex('tool_executions', 'message_id'),
+    btreeIndex('tool_executions', 'status'),
   ],
 };
 
-// ---------------------------------------------------------------------------
-// Main
-// ---------------------------------------------------------------------------
-
 async function main() {
-  await provisionBlueprint(definition, 'Agent Runtime Schema');
+  await provisionBlueprint(definition, 'Runtime Schema');
 }
 
 export { main as default };

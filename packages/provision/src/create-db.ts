@@ -25,7 +25,10 @@ async function main() {
 
   // --- Step 1: Sign up ---
 
-  const authAdapter = new NodeHttpAdapter(config.authEndpoint);
+  const authAdapter = new NodeHttpAdapter(config.authEndpoint, {
+    'X-Meta-Schema': 'true',
+    'X-Schemata': 'constructive_auth_public',
+  });
   const authClient = auth.createClient({ adapter: authAdapter });
 
   const signUpResult = await authClient.mutation
@@ -55,6 +58,7 @@ async function main() {
   console.log('\n   Provisioning database...');
   const apiAdapter = new NodeHttpAdapter(config.apiEndpoint, {
     Authorization: `Bearer ${accessToken}`,
+    'X-Meta-Schema': 'true',
   });
   const apiClient = public_.createClient({ adapter: apiAdapter });
 

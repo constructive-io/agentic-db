@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class CompanyModel {
   constructor(private client: OrmClient) {}
   findMany<S extends CompanySelect>(
-    args: FindManyArgs<S, CompanyFilter, CompanyOrderBy> & {
+    args: FindManyArgs<S, CompanyFilter, never, CompanyOrderBy> & {
       select: S;
     } & StrictSelect<S, CompanySelect>
   ): QueryBuilder<{
@@ -218,9 +218,10 @@ export class CompanyModel {
       'Company',
       'deleteCompany',
       'company',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteCompanyInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

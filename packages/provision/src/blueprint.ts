@@ -2,11 +2,17 @@
  * blueprint.ts — Declarative blueprint definition types and provision helper
  *
  * Mirrors the constructive-db blueprint definition format:
- *   { tables: [...], relations: [...] }
+ *   { tables: [...], relations: [...], indexes: [...], full_text_searches: [...] }
  *
- * Each schema module exports a BlueprintDefinition instead of imperative
- * createOrgTable/addField/relationProvision calls. The provisionBlueprint()
- * function processes the definition using the existing SDK.
+ * Each schema module exports a BlueprintDefinition. The provisionBlueprint()
+ * function creates a server-side blueprint record and executes it via the
+ * constructBlueprint mutation (all 4 phases run server-side).
+ *
+ * Phases (server-side):
+ *   1. Tables (with fields, nodes, policies, grants)
+ *   2. Relations (HasMany, BelongsTo, ManyToMany)
+ *   3. Indexes (HNSW, BM25, B-tree, GIN, GIST, trigram)
+ *   4. Full-text search (TSVector weighted multi-field)
  */
 
 import {
@@ -29,13 +35,18 @@ export interface FieldDef {
   default_value?: string;
 }
 
+export interface NodeDef {
+  $type: string;
+  data?: Record<string, unknown>;
+}
+
 export interface TableDef {
   /** Local reference name used in relations (e.g. 'contacts') */
   ref: string;
   /** Actual table name in the database */
   table_name: string;
-  /** Node types: first creates the table, rest augment it */
-  nodes: (string | { $type: string; data?: Record<string, unknown> })[];
+  /** Node types: first creates the table, rest augment it (including Data* nodes) */
+  nodes: (string | NodeDef)[];
   /** Field definitions */
   fields: FieldDef[];
   /** Roles granted access */
@@ -73,9 +84,35 @@ export interface RelationDef {
   };
 }
 
+export interface IndexDef {
+  /** Table reference name (must match a table's ref in this blueprint) */
+  table_ref: string;
+  /** Column name to index */
+  column: string;
+  /** Access method: btree, gin, gist, hnsw, bm25, etc. */
+  access_method: string;
+  /** Operator class(es) for the index */
+  op_classes?: string[];
+  /** Index-specific options (e.g. { m: 16, ef_construction: 128 } for HNSW) */
+  options?: Record<string, unknown>;
+}
+
+export interface FullTextSearchDef {
+  /** Table reference name */
+  table_ref: string;
+  /** TSVector column name (e.g. 'search_tsv') */
+  field: string;
+  /** Source fields with weights and language */
+  sources: { field: string; weight: string; lang?: string }[];
+}
+
 export interface BlueprintDefinition {
   tables: TableDef[];
   relations: RelationDef[];
+  /** Phase 3: Indexes created after all tables and relations exist */
+  indexes?: IndexDef[];
+  /** Phase 4: Full-text search configurations */
+  full_text_searches?: FullTextSearchDef[];
 }
 
 // ---------------------------------------------------------------------------
@@ -110,12 +147,17 @@ const CRUD_GRANTS: [string, string][] = [
 /**
  * Create a standard org-scoped table definition.
  * All tables in agentic-db share the same nodes, grants, and policies.
+ * Pass extra Data* nodes (DataSearch, DataEmbedding, DataPostGIS, etc.) as the third arg.
  */
-export function orgTable(ref: string, fields: FieldDef[]): TableDef {
+export function orgTable(
+  ref: string,
+  fields: FieldDef[],
+  extraNodes?: NodeDef[]
+): TableDef {
   return {
     ref,
     table_name: ref,
-    nodes: ORG_NODES,
+    nodes: [...ORG_NODES, ...(extraNodes ?? [])],
     fields,
     grant_roles: ['authenticated'],
     grants: CRUD_GRANTS,
@@ -123,25 +165,119 @@ export function orgTable(ref: string, fields: FieldDef[]): TableDef {
   };
 }
 
-/** Embedding fields shared by most tables */
-export const EMBEDDING_FIELDS: FieldDef[] = [
-  { name: 'embedding_text', type: 'text' },
-  { name: 'embedding', type: 'vector(768)' },
-];
+// ---------------------------------------------------------------------------
+// Data* node helper functions — build NodeDef entries for common patterns
+// ---------------------------------------------------------------------------
 
-/** Standard chunk table fields */
+/**
+ * Create a DataSearch node that orchestrates embedding + BM25 + optional FTS + optional trigram.
+ * This replaces manual EMBEDDING_FIELDS + embeddingIndexes() + bm25Index() + full_text_searches[].
+ *
+ * DataSearch auto-creates:
+ *   - embedding vector(768) + HNSW index + embedding_stale bool + stale trigger + enqueue trigger
+ *   - BM25 index on embedding_text
+ *   - TSVector field + GIN index + populate trigger (if fts configured)
+ *   - @trgmSearch smart tags on specified fields
+ *   - @searchConfig smart tag with unified weights
+ */
+export function dataSearch(opts: {
+  /** Source fields that feed the embedding (for stale tracking) */
+  embedding_source_fields?: string[];
+  /** BM25 field name (default: 'embedding_text') */
+  bm25_field?: string;
+  /** Full-text search config (omit to skip FTS) */
+  fts?: {
+    field_name?: string;
+    source_fields: { field: string; weight: string; lang?: string }[];
+  };
+  /** Field names for trigram fuzzy matching */
+  trgm_fields?: string[];
+}): NodeDef {
+  const data: Record<string, unknown> = {};
+
+  // Embedding config
+  const embeddingConfig: Record<string, unknown> = {};
+  if (opts.embedding_source_fields) {
+    embeddingConfig.source_fields = opts.embedding_source_fields;
+  }
+  data.embedding = embeddingConfig;
+
+  // BM25 config
+  data.bm25 = { field_name: opts.bm25_field ?? 'embedding_text' };
+
+  // FTS config
+  if (opts.fts) {
+    data.full_text_search = {
+      field_name: opts.fts.field_name ?? 'search_tsv',
+      source_fields: opts.fts.source_fields,
+    };
+  }
+
+  // Trigram fields
+  if (opts.trgm_fields && opts.trgm_fields.length > 0) {
+    data.trgm_fields = opts.trgm_fields;
+  }
+
+  return { $type: 'DataSearch', data };
+}
+
+/**
+ * Create a DataPostGIS node for geography/geometry columns.
+ * Replaces manual f('field', 'geography(Point,4326)') + gistGeoIndex().
+ */
+export function dataPostGIS(opts: {
+  field_name: string;
+  use_geography?: boolean;
+  geometry_type?: string;
+  srid?: number;
+}): NodeDef {
+  return {
+    $type: 'DataPostGIS',
+    data: {
+      field_name: opts.field_name,
+      use_geography: opts.use_geography ?? true,
+      geometry_type: opts.geometry_type ?? 'Point',
+      srid: opts.srid ?? 4326,
+    },
+  };
+}
+
+/**
+ * Create a DataEmbedding node for standalone vector columns (secondary embeddings).
+ * Use for extra vector columns like trigger_concept, intent_trigger on rules/skills.
+ */
+export function dataEmbedding(opts: {
+  field_name: string;
+  source_fields?: string[];
+  enqueue_job?: boolean;
+}): NodeDef {
+  return {
+    $type: 'DataEmbedding',
+    data: {
+      field_name: opts.field_name,
+      ...(opts.source_fields ? { source_fields: opts.source_fields } : {}),
+      enqueue_job: opts.enqueue_job ?? false,
+    },
+  };
+}
+
+/** Standard chunk table fields (embedding_text must exist before DataSearch/BM25 node) */
 const CHUNK_FIELDS: FieldDef[] = [
   { name: 'chunk_index', type: 'int', is_required: true },
   { name: 'content', type: 'text', is_required: true },
   { name: 'embedding_text', type: 'text' },
-  { name: 'embedding', type: 'vector(768)' },
 ];
+
+/** DataSearch node for chunk tables (embedding + BM25, no FTS) */
+const CHUNK_DATA_SEARCH: NodeDef = dataSearch({
+  bm25_field: 'embedding_text',
+});
 
 /**
  * Singularize a table name for chunk table derivation.
  * Handles common English plural patterns:
- *   companies → company, memories → memory, repositories → repository
- *   contacts → contact, deals → deal, etc.
+ *   companies -> company, memories -> memory, repositories -> repository
+ *   contacts -> contact, deals -> deal, etc.
  */
 function singularize(plural: string): string {
   if (plural.endsWith('ies')) return plural.slice(0, -3) + 'y';
@@ -152,15 +288,15 @@ function singularize(plural: string): string {
 
 /**
  * Create a chunk table definition for a parent table.
- * Convention: parent "contacts" → chunk table "contact_chunks"
+ * Convention: parent "contacts" -> chunk table "contact_chunks"
  */
 export function chunkTable(parentRef: string): TableDef {
   const chunkRef = `${singularize(parentRef)}_chunks`;
-  return orgTable(chunkRef, CHUNK_FIELDS);
+  return orgTable(chunkRef, CHUNK_FIELDS, [CHUNK_DATA_SEARCH]);
 }
 
 /**
- * Create a HasMany relation (parent → chunks, CASCADE delete).
+ * Create a HasMany relation (parent -> chunks, CASCADE delete).
  */
 export function hasManyChunks(parentRef: string): RelationDef {
   return {
@@ -196,18 +332,102 @@ export function req(name: string, type: string): FieldDef {
 }
 
 // ---------------------------------------------------------------------------
-// Provision engine — processes a BlueprintDefinition via the SDK
+// Index helper functions — create IndexDef entries for common patterns
+// ---------------------------------------------------------------------------
+
+/** HNSW vector similarity index (pgvector) */
+export function hnswIndex(
+  table_ref: string,
+  column = 'embedding',
+  opts?: { m?: number; ef_construction?: number; opclass?: string }
+): IndexDef {
+  return {
+    table_ref,
+    column,
+    access_method: 'hnsw',
+    op_classes: [opts?.opclass ?? 'vector_cosine_ops'],
+    options: { m: opts?.m ?? 16, ef_construction: opts?.ef_construction ?? 128 },
+  };
+}
+
+/** BM25 keyword search index (ParadeDB) */
+export function bm25Index(
+  table_ref: string,
+  column = 'embedding_text',
+  opts?: { text_config?: string }
+): IndexDef {
+  return {
+    table_ref,
+    column,
+    access_method: 'bm25',
+    options: { text_config: opts?.text_config ?? 'english' },
+  };
+}
+
+/** B-tree index for lookups, sorting, FKs */
+export function btreeIndex(table_ref: string, column: string): IndexDef {
+  return { table_ref, column, access_method: 'btree' };
+}
+
+/** GIN index on array/jsonb columns */
+export function ginIndex(table_ref: string, column: string): IndexDef {
+  return { table_ref, column, access_method: 'gin' };
+}
+
+/** GIN trigram index for fuzzy text matching (pg_trgm) */
+export function trgmIndex(table_ref: string, column: string): IndexDef {
+  return {
+    table_ref,
+    column,
+    access_method: 'gin',
+    op_classes: ['gin_trgm_ops'],
+  };
+}
+
+/** GIST index for geography/geometry columns (PostGIS) */
+export function gistGeoIndex(table_ref: string, column: string): IndexDef {
+  return { table_ref, column, access_method: 'gist' };
+}
+
+
+// ---------------------------------------------------------------------------
+// Provision engine — server-side constructBlueprint via the SDK
 // ---------------------------------------------------------------------------
 
 const databaseId = requireDatabaseId();
 
 /**
- * Provision a blueprint definition using the constructive SDK.
+ * Convert a BlueprintDefinition to the server-side JSON format expected by
+ * construct_blueprint. The TypeScript types mirror the server format closely;
+ * this function handles any remaining field-name differences.
+ */
+function toServerDefinition(def: BlueprintDefinition): Record<string, unknown> {
+  return {
+    tables: def.tables.map((t) => ({
+      ref: t.ref,
+      table_name: t.table_name,
+      nodes: t.nodes,
+      fields: t.fields,
+      grant_roles: t.grant_roles,
+      grants: t.grants,
+      policies: t.policies,
+    })),
+    relations: def.relations,
+    indexes: def.indexes ?? [],
+    full_text_searches: def.full_text_searches ?? [],
+  };
+}
+
+/**
+ * Provision a blueprint definition using the server-side constructBlueprint
+ * mutation. All four phases run server-side in a single transaction:
  *
- * Phase 1: Create all tables (with fields, nodes, policies, grants)
- * Phase 2: Create all relations (HasMany, BelongsTo, ManyToMany)
+ *   Phase 1: Create tables (with fields, nodes, policies, grants)
+ *   Phase 2: Create relations (HasMany, BelongsTo, ManyToMany)
+ *   Phase 3: Create indexes (HNSW, BM25, B-tree, GIN, GIST, trigram)
+ *   Phase 4: Create full-text search configurations (TSVector)
  *
- * Returns a ref_map of { ref → tableId } for cross-schema references.
+ * Returns a ref_map of { ref -> tableId } for cross-schema references.
  */
 export async function provisionBlueprint(
   definition: BlueprintDefinition,
@@ -215,160 +435,69 @@ export async function provisionBlueprint(
   client?: PlatformClient
 ): Promise<Map<string, string>> {
   const sdk = client ?? createPlatformClient();
+
+  console.log(`\n\ud83d\udccb ${label}\n`);
+
+  // 1. Resolve the database owner_id (needed for blueprint record)
+  const dbResult = await withRetry(() =>
+    sdk.database.findOne({ id: databaseId, select: { ownerId: true } }).unwrap()
+  );
+  const ownerId = (dbResult as any)?.database?.ownerId;
+  if (!ownerId) throw new Error('Could not resolve database owner_id');
+
+  // 2. Create a draft blueprint record with the full definition
+  const blueprintName = `agentic_${label.toLowerCase().replace(/[^a-z0-9]+/g, '_')}_${Date.now()}`;
+  const serverDef = toServerDefinition(definition);
+
+  const bpResult = await withRetry(() =>
+    sdk.blueprint.create({
+      data: {
+        ownerId,
+        databaseId,
+        name: blueprintName,
+        displayName: label,
+        definition: serverDef,
+      },
+      select: { id: true },
+    }).unwrap()
+  );
+  const blueprintId = (bpResult as any)?.createBlueprint?.blueprint?.id;
+  if (!blueprintId) throw new Error('Failed to create blueprint record');
+
+  console.log(`   Blueprint: ${blueprintId}`);
+
+  // 3. Execute all 4 phases server-side via constructBlueprint mutation
+  const constructResult = await withRetry(() =>
+    sdk.mutation.constructBlueprint(
+      { input: { blueprintId } },
+      { select: { result: true } }
+    ).unwrap()
+  );
+
+  const refMapJson = (constructResult as any)?.constructBlueprint?.result;
+  if (!refMapJson) {
+    // Check blueprint status for error details
+    const bpCheck = await sdk.blueprint.findOne({
+      id: blueprintId,
+      select: { status: true, errorDetails: true },
+    }).unwrap();
+    const bp = (bpCheck as any)?.blueprint;
+    throw new Error(`constructBlueprint failed: ${bp?.errorDetails ?? 'unknown error'}`);
+  }
+
+  // 4. Parse ref_map from server response
   const refMap = new Map<string, string>();
-
-  console.log(`\n📋 ${label}\n`);
-
-  // -- Phase 1: Tables -------------------------------------------------------
-  for (const table of definition.tables) {
-    // First node creates the table
-    const firstNode = table.nodes[0];
-    const nodeType = typeof firstNode === 'string' ? firstNode : firstNode.$type;
-    const nodeData = typeof firstNode === 'string' ? undefined : firstNode.data;
-
-    // First policy (if any)
-    const firstPolicy = table.policies[0];
-
-    const createData: Record<string, unknown> = {
-      databaseId,
-      tableName: table.table_name,
-      nodeType,
-      ...(nodeData ? { nodeData } : {}),
-      useRls: true,
-      grantRoles: table.grant_roles,
-      grantPrivileges: table.grants as unknown as Record<string, unknown>,
-      ...(firstPolicy
-        ? {
-            policyType: firstPolicy.$type,
-            policyPermissive: firstPolicy.permissive ?? true,
-            ...(firstPolicy.data ? { policyData: firstPolicy.data } : {}),
-          }
-        : {}),
-    };
-
-    const result = await withRetry(() =>
-      sdk.secureTableProvision
-        .create({
-          data: createData as any,
-          select: { id: true, tableId: true },
-        })
-        .unwrap()
-    );
-
-    const tableId =
-      (result as any).createSecureTableProvision?.secureTableProvision?.tableId;
-    if (!tableId) throw new Error(`No tableId for ${table.table_name}`);
-
-    // Remaining nodes (index 1+): augment existing table
-    for (let i = 1; i < table.nodes.length; i++) {
-      const node = table.nodes[i];
-      const nType = typeof node === 'string' ? node : node.$type;
-      const nData = typeof node === 'string' ? undefined : node.data;
-
-      await withRetry(() =>
-        sdk.secureTableProvision
-          .create({
-            data: {
-              databaseId,
-              tableId,
-              nodeType: nType,
-              ...(nData ? { nodeData: nData } : {}),
-            } as any,
-            select: { id: true },
-          })
-          .unwrap()
-      );
-    }
-
-    // Fields
-    for (const field of table.fields) {
-      await withRetry(() =>
-        sdk.field
-          .create({
-            data: {
-              tableId,
-              name: field.name,
-              type: field.type,
-              isRequired: field.is_required ?? false,
-              label: field.name,
-              ...(field.default_value
-                ? { defaultValue: field.default_value }
-                : {}),
-            },
-            select: { id: true },
-          })
-          .unwrap()
-      );
-    }
-
-    refMap.set(table.ref, tableId);
-    console.log(`   ✓ ${table.table_name} (${table.fields.length} fields)`);
+  for (const [ref, tableId] of Object.entries(refMapJson as Record<string, string>)) {
+    refMap.set(ref, tableId);
   }
 
-  // -- Phase 2: Relations ----------------------------------------------------
-  for (const rel of definition.relations) {
-    const sourceId = refMap.get(rel.source_ref);
-    const targetId = refMap.get(rel.target_ref);
-
-    if (!sourceId) {
-      throw new Error(
-        `Unresolved source_ref "${rel.source_ref}" in relation`
-      );
-    }
-    if (!targetId) {
-      throw new Error(
-        `Unresolved target_ref "${rel.target_ref}" in relation`
-      );
-    }
-
-    const relData: Record<string, unknown> = {
-      databaseId,
-      relationType: rel.$type,
-      sourceTableId: sourceId,
-      targetTableId: targetId,
-      ...(rel.delete_action ? { deleteAction: rel.delete_action } : {}),
-      ...(rel.is_required !== undefined
-        ? { isRequired: rel.is_required }
-        : {}),
-      ...(rel.field_name ? { fieldName: rel.field_name } : {}),
-      ...(rel.source_field_name
-        ? { sourceFieldName: rel.source_field_name }
-        : {}),
-      ...(rel.target_field_name
-        ? { targetFieldName: rel.target_field_name }
-        : {}),
-      ...(rel.junction_table_name
-        ? { junctionTableName: rel.junction_table_name }
-        : {}),
-    };
-
-    // M:N junction table config
-    if (rel.data) {
-      if (rel.data.node_type) relData.nodeType = rel.data.node_type;
-      if (rel.data.policy_type) relData.policyType = rel.data.policy_type;
-      if (rel.data.policy_permissive !== undefined)
-        relData.policyPermissive = rel.data.policy_permissive;
-      if (rel.data.policy_data) relData.policyData = rel.data.policy_data;
-      if (rel.data.grant_roles) relData.grantRoles = rel.data.grant_roles;
-      if (rel.data.grant_privileges)
-        relData.grantPrivileges = rel.data.grant_privileges;
-    }
-
-    await withRetry(() =>
-      sdk.relationProvision
-        .create({
-          data: relData as any,
-          select: { id: true },
-        })
-        .unwrap()
-    );
-
-    const label =
-      rel.$type === 'RelationManyToMany'
-        ? `${rel.source_ref} <-> ${rel.target_ref} (${rel.junction_table_name})`
-        : `${rel.source_ref} -> ${rel.target_ref}`;
-    console.log(`   ↳ ${label}`);
-  }
+  // Log results
+  const tableCount = definition.tables.length;
+  const relCount = definition.relations.length;
+  const idxCount = definition.indexes?.length ?? 0;
+  const ftsCount = definition.full_text_searches?.length ?? 0;
+  console.log(`   \u2713 ${tableCount} tables, ${relCount} relations, ${idxCount} indexes, ${ftsCount} FTS configs`);
+  console.log(`   ref_map: ${refMap.size} entries\n`);
 
   return refMap;
 }

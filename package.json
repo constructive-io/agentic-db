@@ -16,10 +16,17 @@
     "clean": "pnpm -r run clean",
     "test": "pnpm -r run test",
     "lint": "pnpm -r run lint",
-    "deps": "pnpm up -r -i -L"
+    "deps": "pnpm up -r -i -L",
+    "provision": "pnpm --filter @agentic-db/provision run provision",
+    "export:pgpm": "pnpm --filter @agentic-db/export run export",
+    "export:schema": "pnpm --filter @agentic-db/schemas run export",
+    "generate:sdk": "pnpm --filter @agentic-db/sdk run generate",
+    "generate:cli": "pnpm --filter @agentic-db/cli run generate",
+    "generate:all": "pnpm run export:schema && pnpm run generate:sdk && pnpm run generate:cli",
+    "export:all": "pnpm run export:pgpm && pnpm run generate:all"
   },
   "devDependencies": {
-    "@constructive-io/graphql-codegen": "4.14.1",
+    "@constructive-io/graphql-codegen": "4.21.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.3",
     "@typescript-eslint/eslint-plugin": "^8.50.1",
@@ -35,6 +42,7 @@
     "prettier": "^3.7.4",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }

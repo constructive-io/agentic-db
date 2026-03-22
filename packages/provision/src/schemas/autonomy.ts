@@ -1,8 +1,7 @@
 /**
- * autonomy.ts — Autonomy domain schema (blueprint definition)
+ * autonomy.ts - Autonomy schema (blueprint definition)
  *
- * Tables: ideas, reminders, habits, habit_logs, lists, recipes, templates
- * Chunk tables: idea_chunks, reminder_chunks, list_chunks, recipe_chunks, template_chunks
+ * Data* nodes: DataSearch
  */
 
 import {
@@ -13,125 +12,47 @@ import {
   provisionBlueprint,
   f,
   req,
-  EMBEDDING_FIELDS,
+  M2M_JUNCTION_OPTS,
+  dataSearch,
+  btreeIndex,
+  ginIndex,
 } from '../blueprint';
-
-// ---------------------------------------------------------------------------
-// Blueprint definition
-// ---------------------------------------------------------------------------
 
 const definition: BlueprintDefinition = {
   tables: [
-    // -- Ideas ----------------------------------------------------------------
-    orgTable('ideas', [
-      req('content', 'text'),
-      f('source', 'text'),
-      f('status', 'text', { default_value: "'captured'" }),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Reminders ------------------------------------------------------------
-    orgTable('reminders', [
+    orgTable('autonomy_records', [
       req('title', 'text'),
-      f('due_at', 'timestamptz'),
-      f('completed_at', 'timestamptz'),
-      f('recurrence', 'text'),
-      f('status', 'text', { default_value: "'pending'" }),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Habits ---------------------------------------------------------------
-    orgTable('habits', [
-      req('name', 'text'),
-      f('frequency', 'text'),
-      f('target_count', 'int'),
-      f('current_streak', 'int', { default_value: '0' }),
-      f('best_streak', 'int', { default_value: '0' }),
-      f('category', 'text'),
+      f('record_type', 'text'),
+      f('content', 'text'),
+      f('status', 'text', { default_value: "'active'" }),
+      f('priority', 'int', { default_value: '0' }),
+      f('source', 'text'),
+      f('context', 'jsonb'),
       f('tags', 'citext[]'),
-    ]),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['title', 'content'],
+        }),
+      ]),
 
-    // -- Habit Logs -----------------------------------------------------------
-    orgTable('habit_logs', [
-      req('habit_id', 'uuid'),
-      req('completed_at', 'timestamptz'),
-      f('activity_type', 'text'),
-      f('duration_minutes', 'numeric'),
-      f('distance', 'numeric'),
-      f('distance_unit', 'text'),
-      f('reps', 'int'),
-      f('sets', 'int'),
-      f('weight_amount', 'numeric'),
-      f('weight_unit', 'text'),
-      f('calories', 'numeric'),
-      f('data', 'jsonb', { default_value: "'{}'" }),
-      f('notes', 'text'),
-      f('tags', 'citext[]'),
-    ]),
-
-    // -- Lists ----------------------------------------------------------------
-    orgTable('lists', [
-      req('name', 'text'),
-      f('description', 'text'),
-      f('type', 'text'),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Recipes --------------------------------------------------------------
-    orgTable('recipes', [
-      req('name', 'text'),
-      f('description', 'text'),
-      f('cuisine', 'text'),
-      f('prep_time_minutes', 'int'),
-      f('cook_time_minutes', 'int'),
-      f('servings', 'int'),
-      f('difficulty', 'text'),
-      f('ingredients', 'jsonb'),
-      f('instructions', 'jsonb'),
-      f('source_url', 'text'),
-      f('image_url', 'text'),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Templates ------------------------------------------------------------
-    orgTable('templates', [
-      req('name', 'text'),
-      f('description', 'text'),
-      f('type', 'text'),
-      req('content', 'jsonb'),
-      f('variables', 'jsonb'),
-      f('is_active', 'bool', { default_value: 'true' }),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Chunk tables ---------------------------------------------------------
-    chunkTable('ideas'),
-    chunkTable('reminders'),
-    chunkTable('lists'),
-    chunkTable('recipes'),
-    chunkTable('templates'),
+    chunkTable('autonomy_records'),
   ],
 
   relations: [
-    // habits -> habit_logs (HasMany)
-    { $type: 'RelationHasMany', source_ref: 'habits', target_ref: 'habit_logs', delete_action: 'c' },
+    hasManyChunks('autonomy_records'),
 
-    // Chunk table relations (parent -> chunks, CASCADE delete)
-    hasManyChunks('ideas'),
-    hasManyChunks('reminders'),
-    hasManyChunks('lists'),
-    hasManyChunks('recipes'),
-    hasManyChunks('templates'),
+    { $type: 'RelationManyToMany', source_ref: 'autonomy_records', target_ref: 'autonomy_records', junction_table_name: 'autonomy_record_links', source_field_name: 'source_record_id', target_field_name: 'target_record_id', is_required: false, data: M2M_JUNCTION_OPTS },
+  ],
+
+  indexes: [
+    ginIndex('autonomy_records', 'tags'),
+    ginIndex('autonomy_records', 'context'),
+    btreeIndex('autonomy_records', 'record_type'),
+    btreeIndex('autonomy_records', 'status'),
+    btreeIndex('autonomy_records', 'priority'),
+    btreeIndex('autonomy_records', 'source'),
   ],
 };
-
-// ---------------------------------------------------------------------------
-// Main
-// ---------------------------------------------------------------------------
 
 async function main() {
   await provisionBlueprint(definition, 'Autonomy Schema');

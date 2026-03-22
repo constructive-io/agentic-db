@@ -1,8 +1,7 @@
 /**
- * codebase.ts — Codebase domain schema (blueprint definition)
+ * codebase.ts - Codebase schema (blueprint definition)
  *
- * Tables: repositories, files, chunks
- * Chunk tables: repository_chunks
+ * Data* nodes: DataSearch
  */
 
 import {
@@ -13,63 +12,67 @@ import {
   provisionBlueprint,
   f,
   req,
-  EMBEDDING_FIELDS,
+  M2M_JUNCTION_OPTS,
+  dataSearch,
+  btreeIndex,
+  ginIndex,
 } from '../blueprint';
-
-// ---------------------------------------------------------------------------
-// Blueprint definition
-// ---------------------------------------------------------------------------
 
 const definition: BlueprintDefinition = {
   tables: [
-    // -- Repositories ---------------------------------------------------------
-    orgTable('repositories', [
+    orgTable('codebases', [
       req('name', 'text'),
-      f('url', 'text'),
       f('description', 'text'),
-      f('default_branch', 'text'),
-      f('last_synced_at', 'timestamptz'),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Files ----------------------------------------------------------------
-    orgTable('files', [
-      f('repository_id', 'uuid'),
-      req('path', 'text'),
+      f('repository_url', 'text'),
+      f('default_branch', 'text', { default_value: "'main'" }),
       f('language', 'text'),
-      f('hash', 'text'),
-    ]),
+      f('framework', 'text'),
+      f('last_synced_at', 'timestamptz'),
+      f('config', 'jsonb'),
+      f('tags', 'citext[]'),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['name', 'description'],
+        }),
+      ]),
 
-    // -- Chunks (file code chunks) --------------------------------------------
-    orgTable('chunks', [
-      f('file_id', 'uuid'),
-      f('repository_id', 'uuid'),
+    orgTable('code_chunks', [
+      req('codebase_id', 'uuid'),
+      req('file_path', 'text'),
+      f('chunk_index', 'int'),
       req('content', 'text'),
+      f('language', 'text'),
       f('start_line', 'int'),
       f('end_line', 'int'),
-      ...EMBEDDING_FIELDS,
-    ]),
+      f('symbol_name', 'text'),
+      f('symbol_type', 'text'),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['content', 'file_path', 'symbol_name'],
+        }),
+      ]),
 
-    // -- Chunk tables ---------------------------------------------------------
-    chunkTable('repositories'),
+    chunkTable('codebases'),
   ],
 
   relations: [
-    // repos -> files (HasMany)
-    { $type: 'RelationHasMany', source_ref: 'repositories', target_ref: 'files',  delete_action: 'c' },
-    // files -> chunks (HasMany)
-    { $type: 'RelationHasMany', source_ref: 'files',        target_ref: 'chunks', delete_action: 'c' },
-    // repos -> chunks (HasMany, shortcut for direct repo->chunk queries)
-    { $type: 'RelationHasMany', source_ref: 'repositories', target_ref: 'chunks', delete_action: 'c' },
-    // repos -> repository_chunks (HasMany, CASCADE delete)
-    hasManyChunks('repositories'),
+    { $type: 'RelationHasMany', source_ref: 'codebases', target_ref: 'code_chunks', delete_action: 'c' },
+    hasManyChunks('codebases'),
+
+    { $type: 'RelationManyToMany', source_ref: 'codebases', target_ref: 'codebases', junction_table_name: 'codebase_dependencies', source_field_name: 'codebase_id', target_field_name: 'dependency_id', is_required: false, data: M2M_JUNCTION_OPTS },
+  ],
+
+  indexes: [
+    ginIndex('codebases', 'tags'),
+    ginIndex('codebases', 'config'),
+    btreeIndex('codebases', 'language'),
+    btreeIndex('codebases', 'framework'),
+    // btreeIndex('code_chunks', 'codebase_id'), — auto-created by FK (codebases → code_chunks)
+    btreeIndex('code_chunks', 'file_path'),
+    btreeIndex('code_chunks', 'symbol_type'),
+    btreeIndex('code_chunks', 'language'),
   ],
 };
-
-// ---------------------------------------------------------------------------
-// Main
-// ---------------------------------------------------------------------------
 
 async function main() {
   await provisionBlueprint(definition, 'Codebase Schema');

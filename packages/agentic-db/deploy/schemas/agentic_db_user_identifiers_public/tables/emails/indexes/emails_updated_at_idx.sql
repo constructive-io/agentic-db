@@ -1,0 +1,10 @@
+-- Deploy: schemas/agentic_db_user_identifiers_public/tables/emails/indexes/emails_updated_at_idx
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_user_identifiers_public/schema
+-- requires: schemas/agentic_db_user_identifiers_public/tables/emails/table
+-- requires: schemas/agentic_db_user_identifiers_public/tables/emails/columns/updated_at/column
+
+
+CREATE INDEX emails_updated_at_idx ON agentic_db_user_identifiers_public.emails ( updated_at );
+

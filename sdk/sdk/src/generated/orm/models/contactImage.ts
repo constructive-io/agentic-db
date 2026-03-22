@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class ContactImageModel {
   constructor(private client: OrmClient) {}
   findMany<S extends ContactImageSelect>(
-    args: FindManyArgs<S, ContactImageFilter, ContactImageOrderBy> & {
+    args: FindManyArgs<S, ContactImageFilter, never, ContactImageOrderBy> & {
       select: S;
     } & StrictSelect<S, ContactImageSelect>
   ): QueryBuilder<{
@@ -218,9 +218,10 @@ export class ContactImageModel {
       'ContactImage',
       'deleteContactImage',
       'contactImage',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteContactImageInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

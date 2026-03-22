@@ -1,10 +1,7 @@
 /**
- * projects.ts — Projects domain schema (blueprint definition)
+ * projects.ts - Projects schema (blueprint definition)
  *
- * Tables: projects, milestones
- * Chunk tables: project_chunks
- * Relations: projects->milestones (HasMany)
- * Note: projects<->contacts M:N is in cross-relations.ts
+ * Data* nodes: DataSearch
  */
 
 import {
@@ -15,51 +12,45 @@ import {
   provisionBlueprint,
   f,
   req,
-  EMBEDDING_FIELDS,
+  dataSearch,
+  btreeIndex,
+  ginIndex,
 } from '../blueprint';
-
-// ---------------------------------------------------------------------------
-// Blueprint definition
-// ---------------------------------------------------------------------------
 
 const definition: BlueprintDefinition = {
   tables: [
-    // -- Projects -------------------------------------------------------------
     orgTable('projects', [
       req('name', 'text'),
       f('description', 'text'),
       f('status', 'text', { default_value: "'active'" }),
-      f('start_date', 'timestamptz'),
-      f('due_date', 'timestamptz'),
+      f('project_type', 'text'),
+      f('priority', 'int', { default_value: '0' }),
+      f('started_at', 'timestamptz'),
+      f('target_date', 'timestamptz'),
+      f('completed_at', 'timestamptz'),
+      f('config', 'jsonb'),
       f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-      f('search_tsv', 'tsvector'),
-    ]),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['name', 'description'],
+        }),
+      ]),
 
-    // -- Milestones -----------------------------------------------------------
-    orgTable('milestones', [
-      f('project_id', 'uuid'),
-      req('name', 'text'),
-      f('due_date', 'timestamptz'),
-      f('status', 'text', { default_value: "'pending'" }),
-    ]),
-
-    // -- Chunk tables ---------------------------------------------------------
     chunkTable('projects'),
   ],
 
   relations: [
-    // projects -> milestones (HasMany)
-    { $type: 'RelationHasMany', source_ref: 'projects', target_ref: 'milestones', delete_action: 'c' },
-
-    // projects -> project_chunks (HasMany, CASCADE delete)
     hasManyChunks('projects'),
   ],
-};
 
-// ---------------------------------------------------------------------------
-// Main
-// ---------------------------------------------------------------------------
+  indexes: [
+    ginIndex('projects', 'tags'),
+    ginIndex('projects', 'config'),
+    btreeIndex('projects', 'status'),
+    btreeIndex('projects', 'project_type'),
+    btreeIndex('projects', 'priority'),
+  ],
+};
 
 async function main() {
   await provisionBlueprint(definition, 'Projects Schema');

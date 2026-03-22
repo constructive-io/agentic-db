@@ -6,89 +6,96 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import contextCmd from './commands/context';
 import authCmd from './commands/auth';
-import agentPromptCmd from './commands/agent-prompt';
-import sessionCmd from './commands/session';
-import executionLogCmd from './commands/execution-log';
-import sessionArchiveCmd from './commands/session-archive';
-import processCmd from './commands/process';
-import scheduledJobCmd from './commands/scheduled-job';
-import agentToolCmd from './commands/agent-tool';
-import agentSkillCmd from './commands/agent-skill';
-import agentRuleCmd from './commands/agent-rule';
-import calendarEventContactCmd from './commands/calendar-event-contact';
-import calendarEventCmd from './commands/calendar-event';
-import interactionCmd from './commands/interaction';
+import agentChunkCmd from './commands/agent-chunk';
+import agentCollaboratorCmd from './commands/agent-collaborator';
+import agentCmd from './commands/agent';
+import agentLogChunkCmd from './commands/agent-log-chunk';
+import agentLogCmd from './commands/agent-log';
+import agentTaskChunkCmd from './commands/agent-task-chunk';
+import agentTaskCmd from './commands/agent-task';
+import autonomyRecordChunkCmd from './commands/autonomy-record-chunk';
+import autonomyRecordCmd from './commands/autonomy-record';
+import autonomyRecordLinkCmd from './commands/autonomy-record-link';
+import codebasChunkCmd from './commands/codebas-chunk';
+import codebaseDependencyCmd from './commands/codebase-dependency';
+import codebasisCmd from './commands/codebasis';
+import codeChunkCmd from './commands/code-chunk';
+import companyChunkCmd from './commands/company-chunk';
+import companyCmd from './commands/company';
+import contactCmd from './commands/contact';
 import companyEventCmd from './commands/company-event';
+import eventCmd from './commands/event';
 import companyImageCmd from './commands/company-image';
+import imageCmd from './commands/image';
+import companyLinkCmd from './commands/company-link';
+import memoryCmd from './commands/memory';
+import companyMemoryCmd from './commands/company-memory';
+import companyNoteCmd from './commands/company-note';
+import noteCmd from './commands/note';
+import contactChunkCmd from './commands/contact-chunk';
 import contactCompanyCmd from './commands/contact-company';
+import dealCmd from './commands/deal';
 import contactEventCmd from './commands/contact-event';
 import contactImageCmd from './commands/contact-image';
-import dealContactCmd from './commands/deal-contact';
-import eventImageCmd from './commands/event-image';
-import eventVenueCmd from './commands/event-venue';
-import expenseContactCmd from './commands/expense-contact';
-import goalHabitCmd from './commands/goal-habit';
-import habitLogCmd from './commands/habit-log';
-import goalProjectCmd from './commands/goal-project';
-import milestoneCmd from './commands/milestone';
-import projectContactCmd from './commands/project-contact';
-import taskContactCmd from './commands/task-contact';
-import venueImageCmd from './commands/venue-image';
-import fileCmd from './commands/file';
-import chunkCmd from './commands/chunk';
-import calendarAccountCmd from './commands/calendar-account';
-import tagCmd from './commands/tag';
-import feedbackCmd from './commands/feedback';
-import attachmentCmd from './commands/attachment';
-import emailAccountCmd from './commands/email-account';
-import messageCmd from './commands/message';
-import activityLogCmd from './commands/activity-log';
-import contextRelationCmd from './commands/context-relation';
-import userSettingCmd from './commands/user-setting';
-import webhookCmd from './commands/webhook';
-import notificationCmd from './commands/notification';
-import workflowRunCmd from './commands/workflow-run';
-import workflowStepCmd from './commands/workflow-step';
-import integrationCmd from './commands/integration';
-import skillExecutionCmd from './commands/skill-execution';
-import chatCmd from './commands/chat';
-import chatMessageCmd from './commands/chat-message';
-import threadCmd from './commands/thread';
-import reminderCmd from './commands/reminder';
-import imageCmd from './commands/image';
-import listItemCmd from './commands/list-item';
-import companyLinkCmd from './commands/company-link';
 import contactLinkCmd from './commands/contact-link';
-import eventLinkCmd from './commands/event-link';
-import venueLinkCmd from './commands/venue-link';
-import agentSpawnCmd from './commands/agent-spawn';
-import habitCmd from './commands/habit';
-import workflowCmd from './commands/workflow';
-import expenseCmd from './commands/expense';
-import billingSubscriptionCmd from './commands/billing-subscription';
-import ideaCmd from './commands/idea';
-import listCmd from './commands/list';
-import repositoryCmd from './commands/repository';
-import dealCmd from './commands/deal';
-import goalCmd from './commands/goal';
-import noteCmd from './commands/note';
-import promptCmd from './commands/prompt';
-import blueprintCmd from './commands/blueprint';
-import templateCmd from './commands/template';
-import toolCmd from './commands/tool';
-import recipeCmd from './commands/recipe';
-import tripCmd from './commands/trip';
-import memoryCmd from './commands/memory';
-import ruleCmd from './commands/rule';
-import taskCmd from './commands/task';
-import agentCmd from './commands/agent';
-import skillCmd from './commands/skill';
+import contactMemoryCmd from './commands/contact-memory';
+import contactNoteCmd from './commands/contact-note';
 import projectCmd from './commands/project';
-import documentCmd from './commands/document';
-import companyCmd from './commands/company';
-import eventCmd from './commands/event';
-import contactCmd from './commands/contact';
+import conversationChunkCmd from './commands/conversation-chunk';
+import conversationCmd from './commands/conversation';
+import dealChunkCmd from './commands/deal-chunk';
+import dealContactCmd from './commands/deal-contact';
+import dealNoteCmd from './commands/deal-note';
+import eventChunkCmd from './commands/event-chunk';
+import eventImageCmd from './commands/event-image';
+import eventLinkCmd from './commands/event-link';
+import eventNoteCmd from './commands/event-note';
+import eventVenueCmd from './commands/event-venue';
 import venueCmd from './commands/venue';
+import goalChunkCmd from './commands/goal-chunk';
+import goalCmd from './commands/goal';
+import goalHabitCmd from './commands/goal-habit';
+import habitCmd from './commands/habit';
+import goalProjectCmd from './commands/goal-project';
+import habitChunkCmd from './commands/habit-chunk';
+import hikingTrailChunkCmd from './commands/hiking-trail-chunk';
+import hikingTrailCmd from './commands/hiking-trail';
+import tripCmd from './commands/trip';
+import interactionChunkCmd from './commands/interaction-chunk';
+import interactionCmd from './commands/interaction';
+import itineraryItemChunkCmd from './commands/itinerary-item-chunk';
+import itineraryItemCmd from './commands/itinerary-item';
+import memoryChunkCmd from './commands/memory-chunk';
+import messageChunkCmd from './commands/message-chunk';
+import messageCmd from './commands/message';
+import noteChunkCmd from './commands/note-chunk';
+import placeChunkCmd from './commands/place-chunk';
+import placeCmd from './commands/place';
+import projectChunkCmd from './commands/project-chunk';
+import projectContactCmd from './commands/project-contact';
+import ruleChunkCmd from './commands/rule-chunk';
+import ruleCmd from './commands/rule';
+import runtimeArtifactCmd from './commands/runtime-artifact';
+import runtimeConfigCmd from './commands/runtime-config';
+import runtimeEventCmd from './commands/runtime-event';
+import runtimeLogChunkCmd from './commands/runtime-log-chunk';
+import runtimeLogCmd from './commands/runtime-log';
+import runtimeMetricCmd from './commands/runtime-metric';
+import runtimeScheduleCmd from './commands/runtime-schedule';
+import runtimeStateChunkCmd from './commands/runtime-state-chunk';
+import runtimeStateCmd from './commands/runtime-state';
+import runtimeStateDependencyCmd from './commands/runtime-state-dependency';
+import skillChunkCmd from './commands/skill-chunk';
+import skillCmd from './commands/skill';
+import tagCmd from './commands/tag';
+import toolDefinitionCmd from './commands/tool-definition';
+import toolExecutionCmd from './commands/tool-execution';
+import tripChunkCmd from './commands/trip-chunk';
+import tripHikingTrailCmd from './commands/trip-hiking-trail';
+import tripPlaceCmd from './commands/trip-place';
+import venueChunkCmd from './commands/venue-chunk';
+import venueImageCmd from './commands/venue-image';
+import venueLinkCmd from './commands/venue-link';
 const createCommandMap: () => Record<
   string,
   (
@@ -99,92 +106,99 @@ const createCommandMap: () => Record<
 > = () => ({
   context: contextCmd,
   auth: authCmd,
-  'agent-prompt': agentPromptCmd,
-  session: sessionCmd,
-  'execution-log': executionLogCmd,
-  'session-archive': sessionArchiveCmd,
-  process: processCmd,
-  'scheduled-job': scheduledJobCmd,
-  'agent-tool': agentToolCmd,
-  'agent-skill': agentSkillCmd,
-  'agent-rule': agentRuleCmd,
-  'calendar-event-contact': calendarEventContactCmd,
-  'calendar-event': calendarEventCmd,
-  interaction: interactionCmd,
+  'agent-chunk': agentChunkCmd,
+  'agent-collaborator': agentCollaboratorCmd,
+  agent: agentCmd,
+  'agent-log-chunk': agentLogChunkCmd,
+  'agent-log': agentLogCmd,
+  'agent-task-chunk': agentTaskChunkCmd,
+  'agent-task': agentTaskCmd,
+  'autonomy-record-chunk': autonomyRecordChunkCmd,
+  'autonomy-record': autonomyRecordCmd,
+  'autonomy-record-link': autonomyRecordLinkCmd,
+  'codebas-chunk': codebasChunkCmd,
+  'codebase-dependency': codebaseDependencyCmd,
+  codebasis: codebasisCmd,
+  'code-chunk': codeChunkCmd,
+  'company-chunk': companyChunkCmd,
+  company: companyCmd,
+  contact: contactCmd,
   'company-event': companyEventCmd,
+  event: eventCmd,
   'company-image': companyImageCmd,
+  image: imageCmd,
+  'company-link': companyLinkCmd,
+  memory: memoryCmd,
+  'company-memory': companyMemoryCmd,
+  'company-note': companyNoteCmd,
+  note: noteCmd,
+  'contact-chunk': contactChunkCmd,
   'contact-company': contactCompanyCmd,
+  deal: dealCmd,
   'contact-event': contactEventCmd,
   'contact-image': contactImageCmd,
-  'deal-contact': dealContactCmd,
-  'event-image': eventImageCmd,
-  'event-venue': eventVenueCmd,
-  'expense-contact': expenseContactCmd,
-  'goal-habit': goalHabitCmd,
-  'habit-log': habitLogCmd,
-  'goal-project': goalProjectCmd,
-  milestone: milestoneCmd,
-  'project-contact': projectContactCmd,
-  'task-contact': taskContactCmd,
-  'venue-image': venueImageCmd,
-  file: fileCmd,
-  chunk: chunkCmd,
-  'calendar-account': calendarAccountCmd,
-  tag: tagCmd,
-  feedback: feedbackCmd,
-  attachment: attachmentCmd,
-  'email-account': emailAccountCmd,
-  message: messageCmd,
-  'activity-log': activityLogCmd,
-  'context-relation': contextRelationCmd,
-  'user-setting': userSettingCmd,
-  webhook: webhookCmd,
-  notification: notificationCmd,
-  'workflow-run': workflowRunCmd,
-  'workflow-step': workflowStepCmd,
-  integration: integrationCmd,
-  'skill-execution': skillExecutionCmd,
-  chat: chatCmd,
-  'chat-message': chatMessageCmd,
-  thread: threadCmd,
-  reminder: reminderCmd,
-  image: imageCmd,
-  'list-item': listItemCmd,
-  'company-link': companyLinkCmd,
   'contact-link': contactLinkCmd,
-  'event-link': eventLinkCmd,
-  'venue-link': venueLinkCmd,
-  'agent-spawn': agentSpawnCmd,
-  habit: habitCmd,
-  workflow: workflowCmd,
-  expense: expenseCmd,
-  'billing-subscription': billingSubscriptionCmd,
-  idea: ideaCmd,
-  list: listCmd,
-  repository: repositoryCmd,
-  deal: dealCmd,
-  goal: goalCmd,
-  note: noteCmd,
-  prompt: promptCmd,
-  blueprint: blueprintCmd,
-  template: templateCmd,
-  tool: toolCmd,
-  recipe: recipeCmd,
-  trip: tripCmd,
-  memory: memoryCmd,
-  rule: ruleCmd,
-  task: taskCmd,
-  agent: agentCmd,
-  skill: skillCmd,
+  'contact-memory': contactMemoryCmd,
+  'contact-note': contactNoteCmd,
   project: projectCmd,
-  document: documentCmd,
-  company: companyCmd,
-  event: eventCmd,
-  contact: contactCmd,
+  'conversation-chunk': conversationChunkCmd,
+  conversation: conversationCmd,
+  'deal-chunk': dealChunkCmd,
+  'deal-contact': dealContactCmd,
+  'deal-note': dealNoteCmd,
+  'event-chunk': eventChunkCmd,
+  'event-image': eventImageCmd,
+  'event-link': eventLinkCmd,
+  'event-note': eventNoteCmd,
+  'event-venue': eventVenueCmd,
   venue: venueCmd,
+  'goal-chunk': goalChunkCmd,
+  goal: goalCmd,
+  'goal-habit': goalHabitCmd,
+  habit: habitCmd,
+  'goal-project': goalProjectCmd,
+  'habit-chunk': habitChunkCmd,
+  'hiking-trail-chunk': hikingTrailChunkCmd,
+  'hiking-trail': hikingTrailCmd,
+  trip: tripCmd,
+  'interaction-chunk': interactionChunkCmd,
+  interaction: interactionCmd,
+  'itinerary-item-chunk': itineraryItemChunkCmd,
+  'itinerary-item': itineraryItemCmd,
+  'memory-chunk': memoryChunkCmd,
+  'message-chunk': messageChunkCmd,
+  message: messageCmd,
+  'note-chunk': noteChunkCmd,
+  'place-chunk': placeChunkCmd,
+  place: placeCmd,
+  'project-chunk': projectChunkCmd,
+  'project-contact': projectContactCmd,
+  'rule-chunk': ruleChunkCmd,
+  rule: ruleCmd,
+  'runtime-artifact': runtimeArtifactCmd,
+  'runtime-config': runtimeConfigCmd,
+  'runtime-event': runtimeEventCmd,
+  'runtime-log-chunk': runtimeLogChunkCmd,
+  'runtime-log': runtimeLogCmd,
+  'runtime-metric': runtimeMetricCmd,
+  'runtime-schedule': runtimeScheduleCmd,
+  'runtime-state-chunk': runtimeStateChunkCmd,
+  'runtime-state': runtimeStateCmd,
+  'runtime-state-dependency': runtimeStateDependencyCmd,
+  'skill-chunk': skillChunkCmd,
+  skill: skillCmd,
+  tag: tagCmd,
+  'tool-definition': toolDefinitionCmd,
+  'tool-execution': toolExecutionCmd,
+  'trip-chunk': tripChunkCmd,
+  'trip-hiking-trail': tripHikingTrailCmd,
+  'trip-place': tripPlaceCmd,
+  'venue-chunk': venueChunkCmd,
+  'venue-image': venueImageCmd,
+  'venue-link': venueLinkCmd,
 });
 const usage =
-  '\nagentic-db <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  agent-prompt         agentPrompt CRUD operations\n  session              session CRUD operations\n  execution-log        executionLog CRUD operations\n  session-archive      sessionArchive CRUD operations\n  process              process CRUD operations\n  scheduled-job        scheduledJob CRUD operations\n  agent-tool           agentTool CRUD operations\n  agent-skill          agentSkill CRUD operations\n  agent-rule           agentRule CRUD operations\n  calendar-event-contact calendarEventContact CRUD operations\n  calendar-event       calendarEvent CRUD operations\n  interaction          interaction CRUD operations\n  company-event        companyEvent CRUD operations\n  company-image        companyImage CRUD operations\n  contact-company      contactCompany CRUD operations\n  contact-event        contactEvent CRUD operations\n  contact-image        contactImage CRUD operations\n  deal-contact         dealContact CRUD operations\n  event-image          eventImage CRUD operations\n  event-venue          eventVenue CRUD operations\n  expense-contact      expenseContact CRUD operations\n  goal-habit           goalHabit CRUD operations\n  habit-log            habitLog CRUD operations\n  goal-project         goalProject CRUD operations\n  milestone            milestone CRUD operations\n  project-contact      projectContact CRUD operations\n  task-contact         taskContact CRUD operations\n  venue-image          venueImage CRUD operations\n  file                 file CRUD operations\n  chunk                chunk CRUD operations\n  calendar-account     calendarAccount CRUD operations\n  tag                  tag CRUD operations\n  feedback             feedback CRUD operations\n  attachment           attachment CRUD operations\n  email-account        emailAccount CRUD operations\n  message              message CRUD operations\n  activity-log         activityLog CRUD operations\n  context-relation     contextRelation CRUD operations\n  user-setting         userSetting CRUD operations\n  webhook              webhook CRUD operations\n  notification         notification CRUD operations\n  workflow-run         workflowRun CRUD operations\n  workflow-step        workflowStep CRUD operations\n  integration          integration CRUD operations\n  skill-execution      skillExecution CRUD operations\n  chat                 chat CRUD operations\n  chat-message         chatMessage CRUD operations\n  thread               thread CRUD operations\n  reminder             reminder CRUD operations\n  image                image CRUD operations\n  list-item            listItem CRUD operations\n  company-link         companyLink CRUD operations\n  contact-link         contactLink CRUD operations\n  event-link           eventLink CRUD operations\n  venue-link           venueLink CRUD operations\n  agent-spawn          agentSpawn CRUD operations\n  habit                habit CRUD operations\n  workflow             workflow CRUD operations\n  expense              expense CRUD operations\n  billing-subscription billingSubscription CRUD operations\n  idea                 idea CRUD operations\n  list                 list CRUD operations\n  repository           repository CRUD operations\n  deal                 deal CRUD operations\n  goal                 goal CRUD operations\n  note                 note CRUD operations\n  prompt               prompt CRUD operations\n  blueprint            blueprint CRUD operations\n  template             template CRUD operations\n  tool                 tool CRUD operations\n  recipe               recipe CRUD operations\n  trip                 trip CRUD operations\n  memory               memory CRUD operations\n  rule                 rule CRUD operations\n  task                 task CRUD operations\n  agent                agent CRUD operations\n  skill                skill CRUD operations\n  project              project CRUD operations\n  document             document CRUD operations\n  company              company CRUD operations\n  event                event CRUD operations\n  contact              contact CRUD operations\n  venue                venue CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
+  '\nagentic-db <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  agent-chunk          agentChunk CRUD operations\n  agent-collaborator   agentCollaborator CRUD operations\n  agent                agent CRUD operations\n  agent-log-chunk      agentLogChunk CRUD operations\n  agent-log            agentLog CRUD operations\n  agent-task-chunk     agentTaskChunk CRUD operations\n  agent-task           agentTask CRUD operations\n  autonomy-record-chunk autonomyRecordChunk CRUD operations\n  autonomy-record      autonomyRecord CRUD operations\n  autonomy-record-link autonomyRecordLink CRUD operations\n  codebas-chunk        codebasChunk CRUD operations\n  codebase-dependency  codebaseDependency CRUD operations\n  codebasis            codebasis CRUD operations\n  code-chunk           codeChunk CRUD operations\n  company-chunk        companyChunk CRUD operations\n  company              company CRUD operations\n  contact              contact CRUD operations\n  company-event        companyEvent CRUD operations\n  event                event CRUD operations\n  company-image        companyImage CRUD operations\n  image                image CRUD operations\n  company-link         companyLink CRUD operations\n  memory               memory CRUD operations\n  company-memory       companyMemory CRUD operations\n  company-note         companyNote CRUD operations\n  note                 note CRUD operations\n  contact-chunk        contactChunk CRUD operations\n  contact-company      contactCompany CRUD operations\n  deal                 deal CRUD operations\n  contact-event        contactEvent CRUD operations\n  contact-image        contactImage CRUD operations\n  contact-link         contactLink CRUD operations\n  contact-memory       contactMemory CRUD operations\n  contact-note         contactNote CRUD operations\n  project              project CRUD operations\n  conversation-chunk   conversationChunk CRUD operations\n  conversation         conversation CRUD operations\n  deal-chunk           dealChunk CRUD operations\n  deal-contact         dealContact CRUD operations\n  deal-note            dealNote CRUD operations\n  event-chunk          eventChunk CRUD operations\n  event-image          eventImage CRUD operations\n  event-link           eventLink CRUD operations\n  event-note           eventNote CRUD operations\n  event-venue          eventVenue CRUD operations\n  venue                venue CRUD operations\n  goal-chunk           goalChunk CRUD operations\n  goal                 goal CRUD operations\n  goal-habit           goalHabit CRUD operations\n  habit                habit CRUD operations\n  goal-project         goalProject CRUD operations\n  habit-chunk          habitChunk CRUD operations\n  hiking-trail-chunk   hikingTrailChunk CRUD operations\n  hiking-trail         hikingTrail CRUD operations\n  trip                 trip CRUD operations\n  interaction-chunk    interactionChunk CRUD operations\n  interaction          interaction CRUD operations\n  itinerary-item-chunk itineraryItemChunk CRUD operations\n  itinerary-item       itineraryItem CRUD operations\n  memory-chunk         memoryChunk CRUD operations\n  message-chunk        messageChunk CRUD operations\n  message              message CRUD operations\n  note-chunk           noteChunk CRUD operations\n  place-chunk          placeChunk CRUD operations\n  place                place CRUD operations\n  project-chunk        projectChunk CRUD operations\n  project-contact      projectContact CRUD operations\n  rule-chunk           ruleChunk CRUD operations\n  rule                 rule CRUD operations\n  runtime-artifact     runtimeArtifact CRUD operations\n  runtime-config       runtimeConfig CRUD operations\n  runtime-event        runtimeEvent CRUD operations\n  runtime-log-chunk    runtimeLogChunk CRUD operations\n  runtime-log          runtimeLog CRUD operations\n  runtime-metric       runtimeMetric CRUD operations\n  runtime-schedule     runtimeSchedule CRUD operations\n  runtime-state-chunk  runtimeStateChunk CRUD operations\n  runtime-state        runtimeState CRUD operations\n  runtime-state-dependency runtimeStateDependency CRUD operations\n  skill-chunk          skillChunk CRUD operations\n  skill                skill CRUD operations\n  tag                  tag CRUD operations\n  tool-definition      toolDefinition CRUD operations\n  tool-execution       toolExecution CRUD operations\n  trip-chunk           tripChunk CRUD operations\n  trip-hiking-trail    tripHikingTrail CRUD operations\n  trip-place           tripPlace CRUD operations\n  venue-chunk          venueChunk CRUD operations\n  venue-image          venueImage CRUD operations\n  venue-link           venueLink CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
 export const commands = async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,

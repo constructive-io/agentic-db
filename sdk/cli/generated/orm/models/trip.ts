@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class TripModel {
   constructor(private client: OrmClient) {}
   findMany<S extends TripSelect>(
-    args: FindManyArgs<S, TripFilter, TripOrderBy> & {
+    args: FindManyArgs<S, TripFilter, never, TripOrderBy> & {
       select: S;
     } & StrictSelect<S, TripSelect>
   ): QueryBuilder<{
@@ -218,9 +218,10 @@ export class TripModel {
       'Trip',
       'deleteTrip',
       'trip',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteTripInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

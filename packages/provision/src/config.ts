@@ -1,20 +1,24 @@
 /**
  * config.ts — Centralized configuration for Agent OS provisioning
  *
- * Endpoints:
- *   api.localhost    → Platform API (Constructive SDK: schema builder)
- *   auth.localhost   → Auth API (sign up, sign in)
- *   app-public-*     → Generated app API (data CRUD, RAG — not used here)
+ * Routing modes:
+ *   Domain-based (constructive `pnpm dev` server, port 5555):
+ *     api.localhost:5555    → Platform API
+ *     auth.localhost:5555   → Auth API
+ *   Header-based (cnc server, port 3000):
+ *     localhost:3000        → All endpoints via X-Meta-Schema / X-Schemata headers
+ *
+ * Default: header-based (cnc server) — override via API_ENDPOINT / AUTH_ENDPOINT env vars.
  */
 
 import 'dotenv/config';
 
 export const config = {
   /** Platform API endpoint — schema builder (secureTableProvision, field, relation, index) */
-  apiEndpoint: process.env.API_ENDPOINT || 'http://api.localhost:3000/graphql',
+  apiEndpoint: process.env.API_ENDPOINT || 'http://localhost:3000/graphql',
 
   /** Auth API endpoint — sign up / sign in */
-  authEndpoint: process.env.AUTH_ENDPOINT || 'http://auth.localhost:3000/graphql',
+  authEndpoint: process.env.AUTH_ENDPOINT || 'http://localhost:3000/graphql',
 
   /** Database name (set by create-db, read by provision) */
   databaseName: process.env.DATABASE_NAME || 'agentic-db',

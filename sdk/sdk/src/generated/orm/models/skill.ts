@@ -37,7 +37,7 @@ import { connectionFieldsMap } from '../input-types';
 export class SkillModel {
   constructor(private client: OrmClient) {}
   findMany<S extends SkillSelect>(
-    args: FindManyArgs<S, SkillFilter, SkillOrderBy> & {
+    args: FindManyArgs<S, SkillFilter, never, SkillOrderBy> & {
       select: S;
     } & StrictSelect<S, SkillSelect>
   ): QueryBuilder<{
@@ -218,9 +218,10 @@ export class SkillModel {
       'Skill',
       'deleteSkill',
       'skill',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteSkillInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

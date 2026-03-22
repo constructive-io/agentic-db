@@ -6,26 +6,39 @@ Skills documentation for the Agent-OS system. These markdown files provide agent
 
 **Before any development, read `RULES.md`** — mandatory development standards.
 
+## Getting Started (Full Setup → Export)
+
+Follow these skills **in order** to set up agentic-db from scratch:
+
+1. **`setup.md`** — Environment setup (Docker, pgpm, constructive-db, cnc server)
+2. **`database-lifecycle.md`** — Create and provision a database
+3. **`blueprint-provision.md`** — Author and modify blueprint schema definitions
+4. **`export-pipeline.md`** — Export pgpm SQL, GraphQL schema, SDK, and CLI
+
 ## Structure
 
 ```
 skills/
-├── README.md              # This index
-├── RULES.md               # ⚠️ MANDATORY DEVELOPMENT RULES
-├── provision.md           # Database provisioning via SDK
-├── codegen.md             # SDK generation with @constructive-io/graphql-codegen
-├── safegres.md            # Security patterns (Authz* policies)
-├── embeddings.md          # Embedding generation via Ollama
-├── rag-query.md           # RAG pipeline usage
-├── crm/                   # CRM-related skills
+├── README.md                # This index
+├── RULES.md                 # ⚠️ MANDATORY DEVELOPMENT RULES
+├── setup.md                 # 🔧 Environment setup (Docker, pgpm, cnc)
+├── database-lifecycle.md    # 🗄️ Database creation & provisioning
+├── blueprint-provision.md   # 📋 Blueprint schema authoring guide
+├── export-pipeline.md       # 📦 Export flow (pgpm, schema, SDK, CLI)
+├── provision.md             # Database provisioning via SDK (legacy reference)
+├── codegen.md               # SDK generation with @constructive-io/graphql-codegen
+├── safegres.md              # Security patterns (Authz* policies)
+├── embeddings.md            # Embedding generation via Ollama
+├── rag-query.md             # RAG pipeline usage
+├── crm/                     # CRM-related skills
 │   ├── contacts.md
 │   ├── companies.md
 │   ├── events.md
 │   └── venues.md
-├── agent/                 # Agent-related skills
+├── agent/                   # Agent-related skills
 │   ├── tasks.md
 │   └── memories.md
-└── accounting/            # Accounting skills
+└── accounting/              # Accounting skills
     └── expenses.md
 ```
 

@@ -1,0 +1,67 @@
+-- Deploy: migrate/api_schemas
+-- made with <3 @ constructive.io
+
+-- requires: migrate/api_modules
+
+
+SET session_replication_role TO replica;
+-- using replica in case we are deploying triggers to metaschema_public
+
+-- unaccent, postgis affected and require grants
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public to public;
+
+DO $LQLMIGRATION$
+  DECLARE
+  BEGIN
+
+    EXECUTE format('GRANT CONNECT ON DATABASE %I TO %I', current_database(), 'app_user');
+    EXECUTE format('GRANT CONNECT ON DATABASE %I TO %I', current_database(), 'app_admin');
+
+  END;
+$LQLMIGRATION$;
+
+INSERT INTO services_public.api_schemas (
+  id,
+  database_id,
+  schema_id,
+  api_id
+) VALUES
+  ('a40f5647-cf5b-86e6-84f5-2458db86776d', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '73977af2-89d9-0e71-6ef9-af9eb05df739', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('b6739981-5e9e-41f7-5d5a-8ba1c602a4b5', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '73977af2-89d9-0e71-6ef9-af9eb05df739', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('e197b289-09cc-f09e-5838-d3ec31f81c06', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '732d0b12-25d0-8213-5958-22b72c58c0ca', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('d63f356c-eac5-cfa5-3fa5-e04b3ef45056', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'b62bbadd-e83f-ad42-cfab-b7c0e8b7f250', 'a48f5252-fd73-312b-c516-a630e9473e3c'),
+  ('3d27c8a7-8f70-876a-31b2-291e8429b8a0', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'a590b9ac-fbaf-5dd0-bce1-84cff079ebe8', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('8a9d2f6b-30f0-7122-fd47-08e2dc99c74a', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'a590b9ac-fbaf-5dd0-bce1-84cff079ebe8', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('722e0076-3553-27af-8dbd-c940ef173822', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'a590b9ac-fbaf-5dd0-bce1-84cff079ebe8', '7332bcac-1e4e-e6ba-5ab4-97bc68a8a01c'),
+  ('0aa1fe5f-5497-b0fa-512f-99c60f7bfa3f', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'fa622281-9676-d3b2-9fc3-f5dca9776102', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('62720e01-7ead-1472-cf96-86eda5e05784', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'fa622281-9676-d3b2-9fc3-f5dca9776102', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('38e8665e-9d0f-e191-7f66-1ec81d3dea31', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'fa622281-9676-d3b2-9fc3-f5dca9776102', '29b90a6a-89d2-0b63-d7ec-64d2b6798fb8'),
+  ('4af976e8-258d-a43f-d72b-8eac5865e84f', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '4876ab00-d88b-6ee9-d562-200acedcd846', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('618aa95b-a603-5a69-314f-ded7117c55a7', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '4876ab00-d88b-6ee9-d562-200acedcd846', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('3a276595-9f20-abfa-f8b4-306ca954f119', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '4876ab00-d88b-6ee9-d562-200acedcd846', '29b90a6a-89d2-0b63-d7ec-64d2b6798fb8'),
+  ('3cfba220-e392-340e-bd60-90dc4680813a', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'a8090207-c915-30c6-0984-f42a82be403d', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('abf6c352-f029-f717-4b8b-29b5e0973e43', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'a8090207-c915-30c6-0984-f42a82be403d', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('f2fffbc1-b59c-65e4-8d74-892429950883', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'a8090207-c915-30c6-0984-f42a82be403d', '29b90a6a-89d2-0b63-d7ec-64d2b6798fb8'),
+  ('bb362a47-2c5b-d39b-6f82-de075f3f6f98', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '156281d5-710d-45aa-9729-fb999412dfc5', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('4e5c0070-0d81-ac62-8c1c-1992479eeec7', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '156281d5-710d-45aa-9729-fb999412dfc5', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('01f916e3-ec97-b617-3559-5c8731d0cecf', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '156281d5-710d-45aa-9729-fb999412dfc5', '29b90a6a-89d2-0b63-d7ec-64d2b6798fb8'),
+  ('1e1f31a1-839a-f1d2-8101-fbfae369220a', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '45648a02-5229-1516-3409-361f8893c583', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('981e8b99-b03c-aa64-33b6-454890a19c1d', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '45648a02-5229-1516-3409-361f8893c583', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('b0e213de-c794-eaec-a83e-8d8b7f116fe0', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '45648a02-5229-1516-3409-361f8893c583', '29b90a6a-89d2-0b63-d7ec-64d2b6798fb8'),
+  ('690f836f-d5d6-d2a5-c769-801bd9fcdf33', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'a1472811-e8bf-d6d5-57aa-ed725576e8a0', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('1e5461ed-ed62-4fb4-b774-f3f399dc1c3e', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'a1472811-e8bf-d6d5-57aa-ed725576e8a0', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('14679dd0-16f1-1f5e-4a09-77fe4950cad8', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'a1472811-e8bf-d6d5-57aa-ed725576e8a0', '7332bcac-1e4e-e6ba-5ab4-97bc68a8a01c'),
+  ('722bd732-e153-86b2-19ce-fc792356288e', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'e3508c8b-866b-4a91-6d3c-645e026ce92b', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('f1af1042-3627-5210-524c-a6029e73c2c1', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'e3508c8b-866b-4a91-6d3c-645e026ce92b', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('b67ef133-13da-3bf8-f130-29432e020865', '8ec84715-45cb-2837-1ed2-48d7fa916c81', 'e3508c8b-866b-4a91-6d3c-645e026ce92b', '7332bcac-1e4e-e6ba-5ab4-97bc68a8a01c'),
+  ('ba4e9403-1c41-dc09-cc36-53a532b7eec0', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '217cd1d7-de79-df8f-48a0-7f3764dbbfc5', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('e6733e68-6663-7766-e9e2-7f0f3e821206', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '217cd1d7-de79-df8f-48a0-7f3764dbbfc5', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('a2fe302d-632c-3c8e-0c0e-cb81dad557bd', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '217cd1d7-de79-df8f-48a0-7f3764dbbfc5', '29b90a6a-89d2-0b63-d7ec-64d2b6798fb8'),
+  ('e29d816c-2231-4097-e952-dc2abcedee7a', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '886b56eb-2f56-3cac-8fc2-b8610e1fce8e', '73977af2-89d9-0e71-6ef9-af9eb05df739'),
+  ('6bb4b43b-25a1-b102-6553-9c140e664428', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '886b56eb-2f56-3cac-8fc2-b8610e1fce8e', '732d0b12-25d0-8213-5958-22b72c58c0ca'),
+  ('8f7ebffa-2ac3-e95f-1f8f-2371b778f5c8', '8ec84715-45cb-2837-1ed2-48d7fa916c81', '886b56eb-2f56-3cac-8fc2-b8610e1fce8e', '7332bcac-1e4e-e6ba-5ab4-97bc68a8a01c');
+
+
+SET session_replication_role TO DEFAULT;
+
+

@@ -1,8 +1,7 @@
 /**
- * agent.ts — Agent Core domain schema (blueprint definition)
+ * agent.ts - Agent Core schema (blueprint definition)
  *
- * Tables: tasks, rules, memories, skills, goals, prompts, skill_executions
- * Chunk tables: task_chunks, rule_chunks, memory_chunks, skill_chunks, goal_chunks, prompt_chunks
+ * Data* nodes: DataSearch, DataEmbedding (secondary vectors on rules/skills)
  */
 
 import {
@@ -13,155 +12,134 @@ import {
   provisionBlueprint,
   f,
   req,
-  EMBEDDING_FIELDS,
+  M2M_JUNCTION_OPTS,
+  dataSearch,
+  dataEmbedding,
+  btreeIndex,
+  ginIndex,
 } from '../blueprint';
-
-// ---------------------------------------------------------------------------
-// Blueprint definition
-// ---------------------------------------------------------------------------
 
 const definition: BlueprintDefinition = {
   tables: [
-    // -- Tasks ----------------------------------------------------------------
-    orgTable('tasks', [
-      req('title', 'text'),
-      f('description', 'text'),
-      f('status', 'text', { default_value: "'todo'" }),
-      f('priority', 'int'),
-      f('project_id', 'uuid'),
-      f('task_type', 'text', { default_value: "'human'" }),
-      f('assigned_agent_id', 'uuid'),
-      f('parent_task_id', 'uuid'),
-      f('due_date', 'timestamptz'),
-      f('completed_at', 'timestamptz'),
-      f('conversation_id', 'uuid'),
-      f('dependencies', 'uuid[]'),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Rules ----------------------------------------------------------------
-    orgTable('rules', [
-      req('title', 'text'),
-      f('content', 'text'),
-      f('kind', 'text'),
-      f('severity', 'text'),
-      f('is_active', 'bool', { default_value: 'true' }),
-      f('slug', 'text'),
-      f('verification', 'text'),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-      f('trigger_concept', 'vector(768)'),
-    ]),
-
-    // -- Memories -------------------------------------------------------------
-    orgTable('memories', [
-      req('content', 'text'),
-      f('memory_type', 'text'),
-      f('memory_category', 'text'),
-      f('agent_id', 'uuid'),
-      f('importance', 'int'),
-      f('verified', 'bool', { default_value: 'false' }),
-      f('source', 'text'),
-      f('abstract', 'text'),
-      f('overview', 'text'),
-      f('active_count', 'int', { default_value: '0' }),
-      f('last_accessed_at', 'timestamptz'),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Skills ---------------------------------------------------------------
-    orgTable('skills', [
+    // -- Agents -------------------------------------------------------------
+    orgTable('agents', [
       req('name', 'text'),
-      f('slug', 'text'),
       f('description', 'text'),
-      f('content', 'text'),
-      f('procedure', 'text'),
-      f('interface', 'jsonb'),
-      f('requirements', 'jsonb'),
-      f('prerequisites', 'jsonb'),
-      f('always_load', 'bool', { default_value: 'false' }),
-      f('file_path', 'text'),
-      f('content_hash', 'text'),
-      f('category', 'text'),
-      f('is_active', 'bool', { default_value: 'true' }),
-      f('abstract', 'text'),
-      f('overview', 'text'),
-      f('active_count', 'int', { default_value: '0' }),
-      f('last_accessed_at', 'timestamptz'),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-      f('intent_trigger', 'vector(768)'),
-    ]),
-
-    // -- Goals ----------------------------------------------------------------
-    orgTable('goals', [
-      req('title', 'text'),
-      f('description', 'text'),
-      f('target_date', 'timestamptz'),
+      f('system_prompt', 'text'),
+      f('model', 'text', { default_value: "'gpt-4'" }),
+      f('temperature', 'numeric', { default_value: '0.7' }),
       f('status', 'text', { default_value: "'active'" }),
-      f('category', 'text'),
-      f('progress_pct', 'int', { default_value: '0' }),
+      f('config', 'jsonb'),
       f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['name', 'description', 'system_prompt'],
+        }),
+      ]),
 
-    // -- Prompts --------------------------------------------------------------
-    orgTable('prompts', [
-      req('name', 'text'),
-      req('content', 'text'),
-      f('type', 'text'),
-      f('model', 'text'),
-      f('version', 'int', { default_value: '1' }),
-      f('is_active', 'bool', { default_value: 'true' }),
-      f('tags', 'citext[]'),
-      ...EMBEDDING_FIELDS,
-    ]),
-
-    // -- Chunk tables ---------------------------------------------------------
-    chunkTable('tasks'),
-    chunkTable('rules'),
-    chunkTable('memories'),
-    chunkTable('skills'),
-    chunkTable('goals'),
-    chunkTable('prompts'),
-
-    // -- Skill Executions -----------------------------------------------------
-    orgTable('skill_executions', [
-      req('skill_id', 'uuid'),
-      f('agent_id', 'uuid'),
-      f('session_id', 'uuid'),
+    // -- Agent Tasks --------------------------------------------------------
+    orgTable('agent_tasks', [
+      req('agent_id', 'uuid'),
+      req('title', 'text'),
+      f('description', 'text'),
       f('status', 'text', { default_value: "'pending'" }),
+      f('priority', 'int', { default_value: '0' }),
+      f('result', 'text'),
       f('started_at', 'timestamptz'),
       f('completed_at', 'timestamptz'),
-      f('duration_ms', 'int'),
-      f('input', 'jsonb'),
-      f('output', 'jsonb'),
-      f('error', 'text'),
-    ]),
+      f('meta', 'jsonb'),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['title', 'description', 'result'],
+        }),
+      ]),
+
+    // -- Agent Logs ---------------------------------------------------------
+    orgTable('agent_logs', [
+      req('agent_id', 'uuid'),
+      req('level', 'text'),
+      req('message', 'text'),
+      f('context', 'jsonb'),
+      f('task_id', 'uuid'),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['message'],
+        }),
+      ]),
+
+    // -- Rules --------------------------------------------------------------
+    orgTable('rules', [
+      req('name', 'text'),
+      f('description', 'text'),
+      f('trigger_type', 'text'),
+      f('trigger_config', 'jsonb'),
+      f('action_type', 'text'),
+      f('action_config', 'jsonb'),
+      f('is_active', 'bool', { default_value: 'true' }),
+      f('priority', 'int', { default_value: '0' }),
+      f('trigger_concept', 'text'),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['name', 'description', 'trigger_concept'],
+        }),
+        dataEmbedding({ field_name: 'trigger_concept_embedding', source_fields: ['trigger_concept'] }),
+      ]),
+
+    // -- Skills -------------------------------------------------------------
+    orgTable('skills', [
+      req('name', 'text'),
+      f('description', 'text'),
+      f('category', 'text'),
+      f('implementation', 'text'),
+      f('config', 'jsonb'),
+      f('is_active', 'bool', { default_value: 'true' }),
+      f('intent_trigger', 'text'),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['name', 'description', 'intent_trigger'],
+        }),
+        dataEmbedding({ field_name: 'intent_trigger_embedding', source_fields: ['intent_trigger'] }),
+      ]),
+
+    // -- Chunk tables -------------------------------------------------------
+    chunkTable('agents'),
+    chunkTable('agent_tasks'),
+    chunkTable('agent_logs'),
+    chunkTable('rules'),
+    chunkTable('skills'),
   ],
 
   relations: [
-    // tasks self-referential (parent)
-    { $type: 'RelationBelongsTo', source_ref: 'tasks', target_ref: 'tasks', field_name: 'parent_task_id', source_field_name: 'parent_task_id', target_field_name: 'id', delete_action: 'n', is_required: false },
+    { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'agent_tasks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'agent_logs',  delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'rules',       delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'skills',      delete_action: 'c' },
 
-    // Chunk table relations (parent -> chunks, CASCADE delete)
-    hasManyChunks('tasks'),
+    hasManyChunks('agents'),
+    hasManyChunks('agent_tasks'),
+    hasManyChunks('agent_logs'),
     hasManyChunks('rules'),
-    hasManyChunks('memories'),
     hasManyChunks('skills'),
-    hasManyChunks('goals'),
-    hasManyChunks('prompts'),
 
-    // NOTE: memories -> agents FK is created in cross-relations.ts
-    // NOTE: tasks -> projects, tasks -> agents cross-module relations are in cross-relations.ts
+    { $type: 'RelationManyToMany', source_ref: 'agents', target_ref: 'agents', junction_table_name: 'agent_collaborators', source_field_name: 'agent_id', target_field_name: 'collaborator_id', is_required: false, data: M2M_JUNCTION_OPTS },
+  ],
+
+  indexes: [
+    ginIndex('agents', 'tags'),
+    ginIndex('agents', 'config'),
+    btreeIndex('agents', 'status'),
+    // btreeIndex('agent_tasks', 'agent_id'), — auto-created by FK (agents → agent_tasks)
+    btreeIndex('agent_tasks', 'status'),
+    btreeIndex('agent_tasks', 'priority'),
+    // btreeIndex('agent_logs', 'agent_id'), — auto-created by FK (agents → agent_logs)
+    btreeIndex('agent_logs', 'level'),
+    btreeIndex('agent_logs', 'task_id'),
+    btreeIndex('rules', 'trigger_type'),
+    btreeIndex('rules', 'is_active'),
+    btreeIndex('skills', 'category'),
+    btreeIndex('skills', 'is_active'),
   ],
 };
-
-// ---------------------------------------------------------------------------
-// Main
-// ---------------------------------------------------------------------------
 
 async function main() {
   await provisionBlueprint(definition, 'Agent Core Schema');

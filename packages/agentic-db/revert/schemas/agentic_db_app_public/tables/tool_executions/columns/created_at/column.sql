@@ -1,0 +1,7 @@
+-- Revert: schemas/agentic_db_app_public/tables/tool_executions/columns/created_at/column
+
+
+ALTER TABLE agentic_db_app_public.tool_executions 
+  DROP COLUMN created_at RESTRICT;
+
+

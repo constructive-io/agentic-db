@@ -22,7 +22,7 @@
     "@agentic-db/sdk": "workspace:*",
     "@agentic-kit/anthropic": "^1.0.3",
     "@agentic-kit/ollama": "^1.0.3",
-    "@constructive-io/node": "^0.4.5",
+    "@constructive-io/node": "^0.6.4",
     "agentic-kit": "^1.0.3",
     "dotenv": "^16.0.0"
   },
