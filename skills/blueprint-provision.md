@@ -1,6 +1,6 @@
 ---
 name: agentic-db-blueprint-provision
-description: Authoring and provisioning declarative blueprint definitions for agentic-db schemas. Covers table definitions, relations, indexes, full-text search, chunk tables, and the 4-phase provision engine.
+description: Authoring and provisioning declarative blueprint definitions for agentic-db schemas. Covers Data* nodes (DataSearch, DataPostGIS, DataEmbedding), table definitions, relations, indexes, full-text search, chunk tables, and the 4-phase provision engine.
 ---
 
 # Blueprint Provision
@@ -11,8 +11,8 @@ How to author and provision schema blueprints for agentic-db. Each schema module
 
 ```
 packages/provision/src/
-├── blueprint.ts          # Types, helpers, and provision engine
-├── config.ts             # Environment configuration
+├── blueprint.ts          # Types, helpers, Data* node builders, provision engine
+├── config.ts             # Environment configuration (routing modes)
 ├── helpers.ts            # SDK client factory, retry logic
 ├── create-db.ts          # Database creation script
 ├── provision.ts          # Orchestrator (runs all schema modules)
@@ -33,20 +33,100 @@ packages/provision/src/
 import {
   BlueprintDefinition,
   orgTable, chunkTable, hasManyChunks,
-  f, req, EMBEDDING_FIELDS,
-  embeddingIndexes, chunkIndexes,
-  btreeIndex, ginIndex, trgmIndex, gistGeoIndex,
+  f, req,
+  dataSearch, dataPostGIS, dataEmbedding,
   M2M_JUNCTION_OPTS,
+  bm25Index, btreeIndex, ginIndex,
 } from '../blueprint';
 
 const definition: BlueprintDefinition = {
-  tables: [...],             // Phase 1: Tables
+  tables: [...],             // Phase 1: Tables (with Data* nodes)
   relations: [...],          // Phase 2: Relations
-  indexes: [...],            // Phase 3: Indexes
-  full_text_searches: [...], // Phase 4: Full-text search
+  indexes: [...],            // Phase 3: Only indexes NOT handled by Data* nodes
 };
 
 export default () => provisionBlueprint(definition, 'Schema Label');
+```
+
+## Data* Nodes (Preferred Approach)
+
+**Always prefer Data* nodes over manual fields + Phase 3/4 indexes.** Data* nodes auto-create fields, indexes, triggers, and smart tags declaratively.
+
+### DataSearch (replaces manual embedding fields + indexes + FTS + trigram)
+
+The most powerful node. Orchestrates embedding + BM25 + optional FTS + optional trigram in one declaration.
+
+**What DataSearch auto-creates:**
+- `embedding vector(768)` field + HNSW index (pgvector)
+- `embedding_stale bool` field + stale-marking triggers (insert + update)
+- `enqueue_embedding` job trigger
+- BM25 index on `embedding_text` (ParadeDB)
+- TSVector field + GIN index + populate trigger (if `fts` configured)
+- `@trgmSearch` smart tags (if `trgm_fields` configured)
+- `@searchConfig` smart tag with unified weights
+
+```typescript
+orgTable('contacts', [
+  req('first_name', 'text'),
+  f('last_name', 'text'),
+  f('headline', 'text'),
+  f('bio', 'text'),
+  f('tags', 'citext[]'),
+  f('embedding_text', 'text'),  // Must exist before DataSearch
+], {
+  data_nodes: [
+    dataSearch({
+      embedding_source_fields: ['first_name', 'last_name', 'headline', 'bio'],
+      bm25_field: 'embedding_text',  // default
+      fts: {
+        field_name: 'search_tsv',
+        source_fields: [
+          { field: 'first_name', weight: 'A' },
+          { field: 'last_name', weight: 'A' },
+          { field: 'headline', weight: 'B' },
+          { field: 'bio', weight: 'C' },
+        ],
+      },
+      trgm_fields: ['first_name', 'last_name'],
+    }),
+  ],
+}),
+```
+
+### DataPostGIS (replaces manual geography field + gistGeoIndex)
+
+```typescript
+orgTable('venues', [...], {
+  data_nodes: [
+    dataPostGIS({ field_name: 'location', use_geography: true }),
+  ],
+}),
+```
+
+Auto-creates: geography/geometry column + GIST spatial index.
+
+### DataEmbedding (standalone vector columns)
+
+Use for tables that need vector embeddings but NOT the full search stack (no BM25/FTS/trigram). Example: images (visual embeddings).
+
+```typescript
+orgTable('images', [
+  req('url', 'text'),
+  f('meta', 'jsonb'),
+], {
+  data_nodes: [dataEmbedding({ field_name: 'embedding' })],
+}),
+```
+
+Also use for secondary embedding columns on tables that already have DataSearch:
+
+```typescript
+orgTable('rules', [...], {
+  data_nodes: [
+    dataSearch({ ... }),  // Primary embedding
+    dataEmbedding({ field_name: 'trigger_concept', source_fields: ['trigger_text'] }),
+  ],
+}),
 ```
 
 ## Phase 1: Tables
@@ -57,40 +137,10 @@ Every agentic-db table uses `orgTable()` which provides:
 - `AuthzEntityMembership` RLS policy
 - Full CRUD grants for `authenticated` role
 
-### Basic Table
-
-```typescript
-orgTable('contacts', [
-  req('first_name', 'text'),        // required field
-  f('last_name', 'text'),           // optional field
-  f('email', 'text'),
-  f('phone', 'text'),
-  f('headline', 'text'),
-  f('bio', 'text'),
-  f('avatar_url', 'text'),
-  ...EMBEDDING_FIELDS,              // embedding + embedding_text
-])
-```
-
 ### Field Helpers
 
-- `f(name, type, opts?)` — optional field
-- `req(name, type)` — required field (`is_required: true`)
-- `EMBEDDING_FIELDS` — `[{ name: 'embedding_text', type: 'text' }, { name: 'embedding', type: 'vector(768)' }]`
-
-### Supported Field Types
-
-| Type | Example |
-|------|---------|
-| `text` | Names, descriptions, URLs |
-| `int` | Counts, indexes |
-| `float8` | Scores, amounts |
-| `boolean` | Flags |
-| `jsonb` | Metadata, config objects |
-| `text[]` | Tags arrays |
-| `vector(768)` | Embeddings |
-| `timestamptz` | Dates |
-| `geography(Point,4326)` | PostGIS coordinates |
+- `f(name, type, opts?)` -- optional field
+- `req(name, type)` -- required field (`is_required: true`)
 
 ### Chunk Tables
 
@@ -98,171 +148,116 @@ Every table with embeddings gets a corresponding chunk table:
 
 ```typescript
 tables: [
-  orgTable('contacts', [...EMBEDDING_FIELDS, ...]),
-  chunkTable('contacts'),  // creates "contact_chunks" table
+  orgTable('contacts', [f('embedding_text', 'text'), ...], {
+    data_nodes: [dataSearch({ ... })],
+  }),
+  chunkTable('contacts'),  // creates "contact_chunks" with DataSearch auto-applied
 ]
 ```
 
 The `chunkTable()` helper:
-- Singularizes the parent name (`contacts` → `contact`)
-- Creates `{singular}_chunks` table with fields: `chunk_index`, `content`, `embedding_text`, `embedding`
-- Uses standard org-scoped setup (same grants/policies as parent)
+- Singularizes the parent name (`contacts` -> `contact`, `companies` -> `company`)
+- Creates `{singular}_chunks` table with fields: `chunk_index`, `content`, `embedding_text`
+- Auto-applies DataSearch node (embedding + BM25 on `embedding_text`)
 
 ## Phase 2: Relations
 
-### HasMany (parent → chunks, with CASCADE delete)
+### HasMany (parent -> chunks, with CASCADE delete)
 
 ```typescript
 relations: [
-  hasManyChunks('contacts'),  // contacts → contact_chunks (CASCADE)
+  hasManyChunks('contacts'),  // contacts -> contact_chunks (CASCADE)
 ]
 ```
 
-### BelongsTo (FK from child to parent)
+### BelongsTo / ManyToMany
 
 ```typescript
-{
-  $type: 'RelationBelongsTo',
-  source_ref: 'deals',      // child table
-  target_ref: 'companies',   // parent table
-  delete_action: 'n',        // NO ACTION (default)
-}
+// BelongsTo
+{ $type: 'RelationBelongsTo', source_ref: 'deals', target_ref: 'companies', delete_action: 'n' }
+
+// ManyToMany
+{ $type: 'RelationManyToMany', source_ref: 'contacts', target_ref: 'tags', data: M2M_JUNCTION_OPTS }
 ```
 
-### ManyToMany (junction table)
-
-```typescript
-{
-  $type: 'RelationManyToMany',
-  source_ref: 'contacts',
-  target_ref: 'tags',
-  data: M2M_JUNCTION_OPTS,  // standard entity membership junction
-}
-```
-
-`M2M_JUNCTION_OPTS` creates the junction table with `DataEntityMembership`, `AuthzEntityMembership`, and CRUD grants.
+**Important:** Avoid creating M:N relations in cross-relations.ts that conflict with HasMany relations in individual schema files.
 
 ### Delete Actions
 
 | Code | Action |
 |------|--------|
-| `'c'` | CASCADE — delete children when parent is deleted |
-| `'n'` | NO ACTION — prevent deletion if children exist |
-| `'a'` | SET NULL — set FK to null on parent delete |
+| `'c'` | CASCADE -- delete children when parent is deleted |
+| `'n'` | NO ACTION -- prevent deletion if children exist |
+| `'a'` | SET NULL -- set FK to null on parent delete |
 
-## Phase 3: Indexes
+## Phase 3: Indexes (Manual -- Only When Data* Nodes Don't Cover It)
 
-### Index Helpers
+**Only add indexes here that Data* nodes don't handle:**
+- DataSearch handles: HNSW, BM25, GIN(search_tsv), trigram
+- DataPostGIS handles: GIST on geography
+- DataEmbedding handles: HNSW on standalone vectors
+
+**Still need Phase 3 for:**
+- B-tree indexes (lookups, sorting, FKs)
+- GIN indexes on tags/JSONB columns
+- BM25 on extra content fields (e.g., `notes.content`)
 
 ```typescript
 indexes: [
-  // Vector similarity (pgvector HNSW)
-  ...embeddingIndexes('contacts'),  // HNSW on embedding + BM25 on embedding_text
-  ...chunkIndexes('contacts'),      // Same for chunk table + B-tree on chunk_index
-
-  // B-tree (lookups, sorting)
-  btreeIndex('deals', 'status'),
   btreeIndex('deals', 'stage'),
-
-  // GIN (arrays, JSONB)
   ginIndex('contacts', 'tags'),
-  ginIndex('agents', 'metadata'),
-
-  // Trigram (fuzzy text search)
-  trgmIndex('contacts', 'first_name'),
-  trgmIndex('contacts', 'last_name'),
-
-  // PostGIS (geography)
-  gistGeoIndex('venues', 'location_geo'),
+  bm25Index('notes', 'content'),
 ]
-```
-
-### Raw IndexDef
-
-```typescript
-{
-  table_ref: 'contacts',
-  column: 'embedding',
-  access_method: 'hnsw',
-  op_classes: ['vector_cosine_ops'],
-  options: { m: 16, ef_construction: 128 },
-}
-```
-
-## Phase 4: Full-Text Search
-
-TSVector weighted multi-field search configurations:
-
-```typescript
-full_text_searches: [
-  {
-    table_ref: 'contacts',
-    field_name: 'search_tsv',
-    sources: [
-      { field: 'first_name', weight: 'A' },
-      { field: 'last_name', weight: 'A' },
-      { field: 'headline', weight: 'B' },
-      { field: 'bio', weight: 'C' },
-    ],
-  },
-]
-```
-
-Weights: `A` (highest) → `D` (lowest). The engine creates a TSVector column, populates it via trigger, and adds a GIN index.
-
-## Cross-Schema Relations
-
-`schemas/cross-relations.ts` handles relations between tables in different schema modules. It receives the `refMaps` from all individual schema provisions and creates cross-schema FKs and M:N junctions.
-
-```typescript
-// In cross-relations.ts
-export default async function crossRelations(refMaps: Map<string, string>[]) {
-  // Merge all refMaps into one
-  const allRefs = new Map<string, string>();
-  for (const m of refMaps) for (const [k, v] of m) allRefs.set(k, v);
-
-  // Create cross-schema relations using allRefs for resolution
-}
 ```
 
 ## Adding a New Table
 
-1. Choose the appropriate schema file (e.g., `schemas/crm.ts`)
-2. Add the table to the `tables` array:
+1. Choose the appropriate schema file
+2. Add the table with Data* nodes:
    ```typescript
    orgTable('new_table', [
      req('name', 'text'),
      f('description', 'text'),
-     ...EMBEDDING_FIELDS,
-   ]),
-   chunkTable('new_table'),  // if it has embeddings
+     f('tags', 'citext[]'),
+     f('embedding_text', 'text'),
+   ], {
+     data_nodes: [
+       dataSearch({
+         embedding_source_fields: ['name', 'description'],
+         fts: { field_name: 'search_tsv', source_fields: [
+           { field: 'name', weight: 'A' },
+           { field: 'description', weight: 'B' },
+         ]},
+       }),
+     ],
+   }),
+   chunkTable('new_table'),
    ```
-3. Add relations to the `relations` array
-4. Add indexes to the `indexes` array:
-   ```typescript
-   ...embeddingIndexes('new_table'),
-   ...chunkIndexes('new_table'),
-   ```
-5. Add FTS if needed to `full_text_searches`
-6. Run provision: `pnpm run provision`
+3. Add relations (including `hasManyChunks('new_table')`)
+4. Add Phase 3 indexes for B-tree/GIN only
+5. Run provision: `pnpm run provision`
 
-## Testing Changes
+## Verifying Data* Nodes
 
-```bash
-# From repo root
-eval "$(pgpm env)"
+After provisioning, verify:
 
-# Create a fresh database (to avoid "already exists" errors)
-cd packages/provision
-pnpm run create-db
+```sql
+-- embedding_stale columns
+SELECT table_name FROM information_schema.columns
+WHERE table_schema LIKE '%app_public%' AND column_name = 'embedding_stale';
 
-# Run provision
-pnpm run provision
+-- Embedding stale triggers
+SELECT trigger_name, event_object_table FROM information_schema.triggers
+WHERE trigger_schema LIKE '%app_public%' AND trigger_name LIKE '%embedding_stale%';
+
+-- PostGIS columns
+SELECT column_name, table_name FROM information_schema.columns
+WHERE table_schema LIKE '%app_public%' AND udt_name IN ('geography', 'geometry');
 ```
 
 ## Troubleshooting
 
-- **"already exists" error**: Table/field already provisioned. Create a fresh database.
-- **"Unresolved source_ref" error**: A relation references a table `ref` that doesn't exist in the blueprint. Check spelling.
-- **Index creation fails**: The table or column might not exist yet. Ensure indexes reference tables defined in the same blueprint.
-- **Chunk table name wrong**: Check `singularize()` handles your table name correctly (e.g., `companies` → `company`, not `companie`).
+- **"already exists" error**: Create a fresh database.
+- **PostGraphile naming conflict**: Check for duplicate HasMany + M:N relations on the same pair. Also check APP_SCHEMATA points to the correct schema.
+- **Chunk table name wrong**: Check `singularize()` handles your table name correctly.
+- **DataSearch not creating embedding**: Ensure `embedding_text` field is in the `fields` array before `data_nodes`.
