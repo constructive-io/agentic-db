@@ -5,12 +5,13 @@
 #   - Docker running
 #   - pgpm installed globally (npm install -g pgpm@4.7.4)
 #   - pnpm installed
+#   - constructive-db repo cloned alongside this repo (for metaschema deploy)
 #
 # This script:
-#   1. Starts Docker via pgpm (if not already running)
+#   1. Starts Docker via pgpm with postgres-plus image (includes pg_search for BM25)
 #   2. Creates a fresh test database
-#   3. Deploys the metaschema package
-#   4. Bootstraps admin users
+#   3. Bootstraps admin users (creates authenticated/administrator roles)
+#   4. Deploys metaschema + metaschema-generators from constructive-db
 #
 # Usage:
 #   ./scripts/setup.sh [DATABASE_NAME]
@@ -30,25 +31,33 @@ echo ""
 # 1. Ensure pgpm env is loaded
 eval "$(pgpm env)"
 
-# 2. Start Docker if needed
+# 2. Start Docker with postgres-plus image (includes pg_search extension for BM25)
 echo "--- Step 1: Ensuring Docker/pgpm is running ---"
-pgpm docker start 2>/dev/null || true
+pgpm docker start --image docker.io/constructiveio/postgres-plus:18 --recreate 2>/dev/null || pgpm docker start 2>/dev/null || true
 
-# 3. Create the database (drops if exists)
+# 3. Create the database
 echo ""
 echo "--- Step 2: Creating database '${DATABASE_NAME}' ---"
-pgpm deploy --createdb --database "${DATABASE_NAME}" --yes || true
+createdb "${DATABASE_NAME}" 2>/dev/null || true
 
-# 4. Deploy the metaschema-generators package (contains data_search.sql etc.)
+# 4. Bootstrap admin users (must happen before metaschema deploy — creates authenticated role)
 echo ""
-echo "--- Step 3: Deploying metaschema-generators ---"
-pgpm deploy --package metaschema-generators --database "${DATABASE_NAME}" --yes
-
-# 5. Bootstrap admin users
-echo ""
-echo "--- Step 4: Bootstrapping admin users ---"
+echo "--- Step 3: Bootstrapping admin users ---"
 pgpm admin-users bootstrap --database "${DATABASE_NAME}" --yes
 pgpm admin-users add --database "${DATABASE_NAME}" --test --yes
+
+# 5. Deploy metaschema from constructive-db (must be cloned alongside this repo)
+echo ""
+echo "--- Step 4: Deploying metaschema + metaschema-generators ---"
+CDB_DIR="$(cd "$(dirname "$0")/../../constructive-db" 2>/dev/null && pwd)" || CDB_DIR=""
+if [ -z "${CDB_DIR}" ] || [ ! -d "${CDB_DIR}" ]; then
+  echo "ERROR: constructive-db repo not found at ../constructive-db"
+  echo "Clone it: git clone git@github.com:constructive-io/constructive-db.git ../constructive-db"
+  exit 1
+fi
+cd "${CDB_DIR}"
+pgpm deploy --package metaschema --database "${DATABASE_NAME}" --yes
+pgpm deploy --package metaschema-generators --database "${DATABASE_NAME}" --yes
 
 echo ""
 echo "=== Setup complete! ==="

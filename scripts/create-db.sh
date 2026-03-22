@@ -36,7 +36,8 @@ echo "  (This typically takes 30-60 seconds)"
 echo ""
 
 DATABASE_ID=$(psql -d "${DATABASE_NAME}" -tAc "
-  INSERT INTO metaschema_public.database_provision_module (
+  SET ROLE administrator;
+  INSERT INTO metaschema_modules_public.database_provision_module (
     database_name,
     subdomain,
     domain,

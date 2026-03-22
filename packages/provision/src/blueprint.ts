@@ -202,10 +202,8 @@ export function dataSearch(opts: {
   }
   data.embedding = embeddingConfig;
 
-  // BM25 config (skip when SKIP_BM25=true, e.g. when pg_search extension is not available)
-  if (process.env.SKIP_BM25 !== 'true') {
-    data.bm25 = { field_name: opts.bm25_field ?? 'embedding_text' };
-  }
+  // BM25 config (ParadeDB pg_search)
+  data.bm25 = { field_name: opts.bm25_field ?? 'embedding_text' };
 
   // FTS config
   if (opts.fts) {
@@ -415,10 +413,7 @@ function toServerDefinition(def: BlueprintDefinition): Record<string, unknown> {
       policies: t.policies,
     })),
     relations: def.relations,
-    indexes: (def.indexes ?? []).filter((idx) =>
-      // Skip BM25 indexes when pg_search extension is not available
-      process.env.SKIP_BM25 === 'true' ? idx.access_method !== 'bm25' : true
-    ),
+    indexes: def.indexes ?? [],
     full_text_searches: def.full_text_searches ?? [],
   };
 }

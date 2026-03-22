@@ -13,8 +13,7 @@
 #   ./scripts/provision.sh
 #
 # Environment:
-#   SKIP_BM25=true  — Skip BM25 indexes when pg_search extension is not available
-#                     (the Docker image may not have ParadeDB pg_search)
+#   Uses docker.io/constructiveio/postgres-plus:18 which includes pg_search (BM25)
 
 set -euo pipefail
 
@@ -24,13 +23,6 @@ echo ""
 echo "=== agentic-db: Blueprint Provision ==="
 echo ""
 
-# Default to SKIP_BM25=true since the standard Docker image lacks pg_search
-export SKIP_BM25="${SKIP_BM25:-true}"
-
-if [ "${SKIP_BM25}" = "true" ]; then
-  echo "  SKIP_BM25=true (BM25 indexes will be skipped)"
-fi
-echo ""
 
 cd "${REPO_ROOT}/packages/provision"
 npx ts-node src/provision.ts
