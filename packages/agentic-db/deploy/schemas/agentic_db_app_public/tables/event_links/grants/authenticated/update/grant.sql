@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/event_links/table
--- requires: schemas/agentic_db_app_public/tables/company_links/columns/embedding/column
+-- requires: schemas/agentic_db_app_public/tables/company_links/columns/embedding_stale/alterations/alt0000005753
 
 
-GRANT UPDATE ON "agentic_db_app_public".event_links TO authenticated;
+GRANT UPDATE ON agentic_db_app_public.event_links TO authenticated;
 

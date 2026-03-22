@@ -218,9 +218,10 @@ export class TripModel {
       'Trip',
       'deleteTrip',
       'trip',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteTripInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

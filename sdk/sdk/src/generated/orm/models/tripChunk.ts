@@ -218,9 +218,10 @@ export class TripChunkModel {
       'TripChunk',
       'deleteTripChunk',
       'tripChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteTripChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

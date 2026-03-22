@@ -1,0 +1,11 @@
+-- Deploy: schemas/agentic_db_app_public/tables/memories/columns/mood/column
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/memories/table
+-- requires: schemas/agentic_db_app_public/tables/memories/columns/location/column
+
+
+ALTER TABLE agentic_db_app_public.memories 
+  ADD COLUMN mood text;
+

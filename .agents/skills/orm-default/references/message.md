@@ -9,7 +9,7 @@ ORM operations for Message records
 ```typescript
 db.message.findMany({ select: { id: true } }).execute()
 db.message.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.message.create({ data: { entityId: '<UUID>', emailAccountId: '<UUID>', threadId: '<String>', remoteId: '<String>', fromAddress: '<String>', toAddresses: '<String>', subject: '<String>', bodyText: '<String>', receivedAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', bodyTextBm25Score: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', threadIdTrgmSimilarity: '<Float>', remoteIdTrgmSimilarity: '<Float>', fromAddressTrgmSimilarity: '<Float>', subjectTrgmSimilarity: '<Float>', bodyTextTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.message.create({ data: { entityId: '<UUID>', conversationId: '<UUID>', role: '<String>', content: '<String>', tokenCount: '<Int>', meta: '<JSON>', toolCalls: '<JSON>', toolResults: '<JSON>' }, select: { id: true } }).execute()
 db.message.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.message.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.message.findMany({
 
 ```typescript
 const item = await db.message.create({
-  data: { entityId: '<UUID>', emailAccountId: '<UUID>', threadId: '<String>', remoteId: '<String>', fromAddress: '<String>', toAddresses: '<String>', subject: '<String>', bodyText: '<String>', receivedAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', bodyTextBm25Score: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', threadIdTrgmSimilarity: '<Float>', remoteIdTrgmSimilarity: '<Float>', fromAddressTrgmSimilarity: '<Float>', subjectTrgmSimilarity: '<Float>', bodyTextTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', conversationId: '<UUID>', role: '<String>', content: '<String>', tokenCount: '<Int>', meta: '<JSON>', toolCalls: '<JSON>', toolResults: '<JSON>' },
   select: { id: true }
 }).execute();
 ```

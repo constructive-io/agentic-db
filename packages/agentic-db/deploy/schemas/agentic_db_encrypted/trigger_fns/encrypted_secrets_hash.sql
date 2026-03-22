@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION "agentic_db_encrypted".encrypted_secrets_hash ()
+CREATE FUNCTION agentic_db_encrypted.encrypted_secrets_hash ()
 RETURNS TRIGGER
 AS $CODEZ$
 BEGIN

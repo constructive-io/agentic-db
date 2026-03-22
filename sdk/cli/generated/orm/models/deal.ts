@@ -218,9 +218,10 @@ export class DealModel {
       'Deal',
       'deleteDeal',
       'deal',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteDealInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

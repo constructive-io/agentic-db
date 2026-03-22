@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db contact list
 agentic-db contact get --id <UUID>
-agentic-db contact create --entityId <UUID> --firstName <String> [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipType <String>] [--howWeMet <String>] [--twitterHandle <String>] [--linkedinUrl <String>] [--githubUsername <String>] [--instagramHandle <String>] [--website <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--mainImageId <UUID>]
-agentic-db contact update --id <UUID> [--entityId <UUID>] [--firstName <String>] [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipType <String>] [--howWeMet <String>] [--twitterHandle <String>] [--linkedinUrl <String>] [--githubUsername <String>] [--instagramHandle <String>] [--website <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--mainImageId <UUID>]
+agentic-db contact create --entityId <UUID> --firstName <String> [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipType <String>] [--howWeMet <String>] [--twitterHandle <String>] [--linkedinUrl <String>] [--githubUsername <String>] [--instagramHandle <String>] [--website <String>] [--tags <String>] [--embeddingText <String>] [--mainImageId <UUID>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db contact update --id <UUID> [--entityId <UUID>] [--firstName <String>] [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipType <String>] [--howWeMet <String>] [--twitterHandle <String>] [--linkedinUrl <String>] [--githubUsername <String>] [--instagramHandle <String>] [--website <String>] [--tags <String>] [--embeddingText <String>] [--mainImageId <UUID>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db contact delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db contact list
 ### Create a contact
 
 ```bash
-agentic-db contact create --entityId <UUID> --firstName <String> [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipType <String>] [--howWeMet <String>] [--twitterHandle <String>] [--linkedinUrl <String>] [--githubUsername <String>] [--instagramHandle <String>] [--website <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--mainImageId <UUID>]
+agentic-db contact create --entityId <UUID> --firstName <String> [--lastName <String>] [--email <String>] [--phone <String>] [--headline <String>] [--bio <String>] [--location <String>] [--birthday <Date>] [--relationshipType <String>] [--howWeMet <String>] [--twitterHandle <String>] [--linkedinUrl <String>] [--githubUsername <String>] [--instagramHandle <String>] [--website <String>] [--tags <String>] [--embeddingText <String>] [--mainImageId <UUID>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a contact by id

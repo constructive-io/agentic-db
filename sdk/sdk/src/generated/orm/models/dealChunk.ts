@@ -218,9 +218,10 @@ export class DealChunkModel {
       'DealChunk',
       'deleteDealChunk',
       'dealChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteDealChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

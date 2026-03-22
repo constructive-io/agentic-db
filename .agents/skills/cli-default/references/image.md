@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db image list
 agentic-db image get --id <UUID>
-agentic-db image create --entityId <UUID> --url <String> [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>]
-agentic-db image update --id <UUID> [--entityId <UUID>] [--url <String>] [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>]
+agentic-db image create --entityId <UUID> --url <String> [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db image update --id <UUID> [--entityId <UUID>] [--url <String>] [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db image delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db image list
 ### Create a image
 
 ```bash
-agentic-db image create --entityId <UUID> --url <String> [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>]
+agentic-db image create --entityId <UUID> --url <String> [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a image by id

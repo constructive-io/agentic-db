@@ -9,7 +9,7 @@ ORM operations for Memory records
 ```typescript
 db.memory.findMany({ select: { id: true } }).execute()
 db.memory.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.memory.create({ data: { entityId: '<UUID>', content: '<String>', memoryType: '<String>', memoryCategory: '<String>', agentId: '<UUID>', importance: '<Int>', verified: '<Boolean>', source: '<String>', abstract: '<String>', overview: '<String>', activeCount: '<Int>', lastAccessedAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', contentTrgmSimilarity: '<Float>', memoryTypeTrgmSimilarity: '<Float>', memoryCategoryTrgmSimilarity: '<Float>', sourceTrgmSimilarity: '<Float>', abstractTrgmSimilarity: '<Float>', overviewTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.memory.create({ data: { entityId: '<UUID>', title: '<String>', content: '<String>', occurredAt: '<Datetime>', location: '<String>', mood: '<String>', importance: '<Int>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', agentId: '<UUID>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', locationTrgmSimilarity: '<Float>', moodTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
 db.memory.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.memory.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.memory.findMany({
 
 ```typescript
 const item = await db.memory.create({
-  data: { entityId: '<UUID>', content: '<String>', memoryType: '<String>', memoryCategory: '<String>', agentId: '<UUID>', importance: '<Int>', verified: '<Boolean>', source: '<String>', abstract: '<String>', overview: '<String>', activeCount: '<Int>', lastAccessedAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', contentTrgmSimilarity: '<Float>', memoryTypeTrgmSimilarity: '<Float>', memoryCategoryTrgmSimilarity: '<Float>', sourceTrgmSimilarity: '<Float>', abstractTrgmSimilarity: '<Float>', overviewTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', title: '<String>', content: '<String>', occurredAt: '<Datetime>', location: '<String>', mood: '<String>', importance: '<Int>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', agentId: '<UUID>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', locationTrgmSimilarity: '<Float>', moodTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

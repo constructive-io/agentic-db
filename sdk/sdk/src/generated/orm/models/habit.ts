@@ -218,9 +218,10 @@ export class HabitModel {
       'Habit',
       'deleteHabit',
       'habit',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteHabitInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

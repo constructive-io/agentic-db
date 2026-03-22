@@ -218,9 +218,10 @@ export class ContactImageModel {
       'ContactImage',
       'deleteContactImage',
       'contactImage',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteContactImageInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

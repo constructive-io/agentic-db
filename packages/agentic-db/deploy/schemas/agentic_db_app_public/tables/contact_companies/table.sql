@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/interaction_chunks/indexes/interaction_chunks_interaction_id_idx
 
 
-CREATE TABLE "agentic_db_app_public".contact_companies ();
+CREATE TABLE agentic_db_app_public.contact_companies ();
 

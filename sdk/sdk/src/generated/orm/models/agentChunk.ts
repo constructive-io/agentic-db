@@ -218,9 +218,10 @@ export class AgentChunkModel {
       'AgentChunk',
       'deleteAgentChunk',
       'agentChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteAgentChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

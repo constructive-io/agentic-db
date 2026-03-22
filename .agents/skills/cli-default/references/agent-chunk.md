@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db agent-chunk list
 agentic-db agent-chunk get --id <UUID>
-agentic-db agent-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --agentId <UUID> [--embeddingText <String>] [--embedding <Vector>]
-agentic-db agent-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--agentId <UUID>]
+agentic-db agent-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --agentId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db agent-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--agentId <UUID>]
 agentic-db agent-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db agent-chunk list
 ### Create a agentChunk
 
 ```bash
-agentic-db agent-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --agentId <UUID> [--embeddingText <String>] [--embedding <Vector>]
+agentic-db agent-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --agentId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a agentChunk by id

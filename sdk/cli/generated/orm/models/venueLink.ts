@@ -218,9 +218,10 @@ export class VenueLinkModel {
       'VenueLink',
       'deleteVenueLink',
       'venueLink',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteVenueLinkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

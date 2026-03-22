@@ -7,7 +7,7 @@
  * M:N junctions:
  *   projects <-> contacts, tasks <-> contacts, goals <-> habits,
  *   goals <-> projects, calendar_events <-> contacts, expenses <-> contacts,
- *   agents <-> skills, agents <-> rules, agents <-> prompts,
+ *   agents <-> prompts,
  *   contacts <-> notes, companies <-> notes, deals <-> notes,
  *   events <-> notes, tasks <-> notes, contacts <-> memories,
  *   companies <-> memories
@@ -89,8 +89,7 @@ const M2N_RELATIONS: M2NRelation[] = [
   { sourceTable: 'goals',           targetTable: 'projects',  junctionTableName: 'goal_projects',           sourceFieldName: 'goal_id',           targetFieldName: 'project_id' },
   { sourceTable: 'calendar_events', targetTable: 'contacts',  junctionTableName: 'calendar_event_contacts', sourceFieldName: 'calendar_event_id', targetFieldName: 'contact_id' },
   { sourceTable: 'expenses',        targetTable: 'contacts',  junctionTableName: 'expense_contacts',        sourceFieldName: 'expense_id',        targetFieldName: 'contact_id' },
-  { sourceTable: 'agents',          targetTable: 'skills',    junctionTableName: 'agent_skills',            sourceFieldName: 'agent_id',          targetFieldName: 'skill_id' },
-  { sourceTable: 'agents',          targetTable: 'rules',     junctionTableName: 'agent_rules',             sourceFieldName: 'agent_id',          targetFieldName: 'rule_id' },
+  // NOTE: agents <-> rules and agents <-> skills are HasMany in agent.ts (not M2N)
   { sourceTable: 'agents',          targetTable: 'prompts',   junctionTableName: 'agent_prompts',           sourceFieldName: 'agent_id',          targetFieldName: 'prompt_id' },
   { sourceTable: 'contacts',        targetTable: 'notes',     junctionTableName: 'contact_notes',           sourceFieldName: 'contact_id',        targetFieldName: 'note_id' },
   { sourceTable: 'companies',       targetTable: 'notes',     junctionTableName: 'company_notes',           sourceFieldName: 'company_id',        targetFieldName: 'note_id' },

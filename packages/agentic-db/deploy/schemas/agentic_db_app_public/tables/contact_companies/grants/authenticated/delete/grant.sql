@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/interaction_chunks/indexes/interaction_chunks_interaction_id_idx
 
 
-GRANT DELETE ON "agentic_db_app_public".contact_companies TO authenticated;
+GRANT DELETE ON agentic_db_app_public.contact_companies TO authenticated;
 

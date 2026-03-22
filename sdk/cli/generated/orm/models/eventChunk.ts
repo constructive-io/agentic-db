@@ -218,9 +218,10 @@ export class EventChunkModel {
       'EventChunk',
       'deleteEventChunk',
       'eventChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteEventChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

@@ -218,9 +218,10 @@ export class ProjectChunkModel {
       'ProjectChunk',
       'deleteProjectChunk',
       'projectChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteProjectChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

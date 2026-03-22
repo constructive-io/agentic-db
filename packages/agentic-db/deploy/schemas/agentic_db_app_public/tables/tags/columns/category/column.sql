@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/tags/columns/color/column
 
 
-ALTER TABLE "agentic_db_app_public".tags 
+ALTER TABLE agentic_db_app_public.tags 
   ADD COLUMN category text;
 

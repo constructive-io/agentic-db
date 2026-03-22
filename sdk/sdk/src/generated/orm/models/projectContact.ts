@@ -218,9 +218,10 @@ export class ProjectContactModel {
       'ProjectContact',
       'deleteProjectContact',
       'projectContact',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteProjectContactInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

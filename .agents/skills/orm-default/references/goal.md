@@ -9,7 +9,7 @@ ORM operations for Goal records
 ```typescript
 db.goal.findMany({ select: { id: true } }).execute()
 db.goal.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.goal.create({ data: { entityId: '<UUID>', title: '<String>', description: '<String>', targetDate: '<Datetime>', status: '<String>', category: '<String>', progressPct: '<Int>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', categoryTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.goal.create({ data: { entityId: '<UUID>', title: '<String>', description: '<String>', category: '<String>', status: '<String>', priority: '<Int>', targetDate: '<Datetime>', completedAt: '<Datetime>', progress: '<BigFloat>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', categoryTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
 db.goal.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.goal.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.goal.findMany({
 
 ```typescript
 const item = await db.goal.create({
-  data: { entityId: '<UUID>', title: '<String>', description: '<String>', targetDate: '<Datetime>', status: '<String>', category: '<String>', progressPct: '<Int>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', categoryTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', title: '<String>', description: '<String>', category: '<String>', status: '<String>', priority: '<Int>', targetDate: '<Datetime>', completedAt: '<Datetime>', progress: '<BigFloat>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', categoryTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

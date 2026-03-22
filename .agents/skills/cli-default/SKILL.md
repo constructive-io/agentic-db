@@ -1,13 +1,13 @@
 ---
 name: cli-default
-description: CLI tool (agentic-db) for the default API — provides CRUD commands for 118 tables and 0 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 86 tables and 0 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agentic-db) for the default API — provides CRUD commands for 118 tables and 0 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 86 tables and 0 custom operations
 
 ## Usage
 
@@ -23,13 +23,13 @@ agentic-db auth set-token <token>
 agentic-db config set <key> <value>
 agentic-db config get <key>
 
-# CRUD for any table (e.g. activity-log-chunk)
-agentic-db activity-log-chunk list
-agentic-db activity-log-chunk get --id <value>
-agentic-db activity-log-chunk create --<field> <value>
+# CRUD for any table (e.g. agent)
+agentic-db agent list
+agentic-db agent get --id <value>
+agentic-db agent create --<field> <value>
 
 # Non-interactive mode (skip all prompts, use flags only)
-agentic-db --no-tty activity-log-chunk list
+agentic-db --no-tty agent list
 ```
 
 ## Examples
@@ -40,13 +40,13 @@ agentic-db --no-tty activity-log-chunk list
 agentic-db context create local --endpoint http://localhost:5000/graphql
 agentic-db context use local
 agentic-db auth set-token <token>
-agentic-db activity-log-chunk list
+agentic-db agent list
 ```
 
 ### Non-interactive mode (for scripts and CI)
 
 ```bash
-agentic-db --no-tty activity-log-chunk create --<field> <value>
+agentic-db --no-tty agent create --<field> <value>
 ```
 
 ## References
@@ -56,34 +56,23 @@ See the `references/` directory for detailed per-entity API documentation:
 - [context](references/context.md)
 - [auth](references/auth.md)
 - [config](references/config.md)
-- [activity-log-chunk](references/activity-log-chunk.md)
-- [activity-log](references/activity-log.md)
-- [agent-chunk](references/agent-chunk.md)
 - [agent](references/agent.md)
-- [agent-prompt](references/agent-prompt.md)
-- [prompt](references/prompt.md)
-- [agent-rule](references/agent-rule.md)
-- [rule](references/rule.md)
-- [agent-skill](references/agent-skill.md)
-- [skill](references/skill.md)
-- [agent-spawn](references/agent-spawn.md)
-- [agent-tool](references/agent-tool.md)
-- [tool](references/tool.md)
-- [billing-subscription](references/billing-subscription.md)
-- [blueprint-chunk](references/blueprint-chunk.md)
-- [blueprint](references/blueprint.md)
-- [calendar-account](references/calendar-account.md)
-- [calendar-event-chunk](references/calendar-event-chunk.md)
-- [calendar-event](references/calendar-event.md)
-- [calendar-event-contact](references/calendar-event-contact.md)
-- [contact](references/contact.md)
-- [chat-chunk](references/chat-chunk.md)
-- [chat](references/chat.md)
-- [chat-message-chunk](references/chat-message-chunk.md)
-- [chat-message](references/chat-message.md)
-- [chunk](references/chunk.md)
+- [agent-chunk](references/agent-chunk.md)
+- [agent-collaborator](references/agent-collaborator.md)
+- [agent-log-chunk](references/agent-log-chunk.md)
+- [agent-log](references/agent-log.md)
+- [agent-task-chunk](references/agent-task-chunk.md)
+- [agent-task](references/agent-task.md)
+- [autonomy-record](references/autonomy-record.md)
+- [autonomy-record-chunk](references/autonomy-record-chunk.md)
+- [autonomy-record-link](references/autonomy-record-link.md)
+- [codebas-chunk](references/codebas-chunk.md)
+- [codebase-dependency](references/codebase-dependency.md)
+- [codebasis](references/codebasis.md)
+- [code-chunk](references/code-chunk.md)
 - [company-chunk](references/company-chunk.md)
 - [company](references/company.md)
+- [contact](references/contact.md)
 - [company-event](references/company-event.md)
 - [event](references/event.md)
 - [company-image](references/company-image.md)
@@ -97,80 +86,59 @@ See the `references/` directory for detailed per-entity API documentation:
 - [contact-company](references/contact-company.md)
 - [deal](references/deal.md)
 - [contact-event](references/contact-event.md)
-- [expense](references/expense.md)
 - [contact-image](references/contact-image.md)
 - [contact-link](references/contact-link.md)
 - [contact-memory](references/contact-memory.md)
 - [contact-note](references/contact-note.md)
 - [project](references/project.md)
-- [task](references/task.md)
+- [conversation](references/conversation.md)
 - [deal-chunk](references/deal-chunk.md)
 - [deal-contact](references/deal-contact.md)
 - [deal-note](references/deal-note.md)
-- [document-chunk](references/document-chunk.md)
-- [document](references/document.md)
-- [email-account](references/email-account.md)
 - [event-chunk](references/event-chunk.md)
 - [event-image](references/event-image.md)
 - [event-link](references/event-link.md)
 - [event-note](references/event-note.md)
 - [event-venue](references/event-venue.md)
 - [venue](references/venue.md)
-- [execution-log](references/execution-log.md)
-- [expense-contact](references/expense-contact.md)
-- [file](references/file.md)
 - [goal-chunk](references/goal-chunk.md)
 - [goal](references/goal.md)
 - [goal-habit](references/goal-habit.md)
 - [habit](references/habit.md)
 - [goal-project](references/goal-project.md)
-- [habit-log](references/habit-log.md)
-- [idea-chunk](references/idea-chunk.md)
-- [idea](references/idea.md)
-- [integration](references/integration.md)
+- [habit-chunk](references/habit-chunk.md)
+- [hiking-trail-chunk](references/hiking-trail-chunk.md)
+- [hiking-trail](references/hiking-trail.md)
+- [trip](references/trip.md)
 - [interaction-chunk](references/interaction-chunk.md)
 - [interaction](references/interaction.md)
-- [list-chunk](references/list-chunk.md)
-- [list](references/list.md)
+- [itinerary-item-chunk](references/itinerary-item-chunk.md)
+- [itinerary-item](references/itinerary-item.md)
 - [memory-chunk](references/memory-chunk.md)
-- [message-chunk](references/message-chunk.md)
 - [message](references/message.md)
-- [milestone](references/milestone.md)
 - [note-chunk](references/note-chunk.md)
-- [process](references/process.md)
+- [place-chunk](references/place-chunk.md)
+- [place](references/place.md)
 - [project-chunk](references/project-chunk.md)
 - [project-contact](references/project-contact.md)
-- [prompt-chunk](references/prompt-chunk.md)
-- [recipe-chunk](references/recipe-chunk.md)
-- [recipe](references/recipe.md)
-- [reminder-chunk](references/reminder-chunk.md)
-- [reminder](references/reminder.md)
-- [repository-chunk](references/repository-chunk.md)
-- [repository](references/repository.md)
-- [rule-chunk](references/rule-chunk.md)
-- [scheduled-job](references/scheduled-job.md)
-- [session-archive-chunk](references/session-archive-chunk.md)
-- [session-archive](references/session-archive.md)
-- [session-chunk](references/session-chunk.md)
-- [session](references/session.md)
-- [skill-chunk](references/skill-chunk.md)
-- [skill-execution](references/skill-execution.md)
+- [rule](references/rule.md)
+- [runtime-artifact](references/runtime-artifact.md)
+- [runtime-config](references/runtime-config.md)
+- [runtime-event](references/runtime-event.md)
+- [runtime-log-chunk](references/runtime-log-chunk.md)
+- [runtime-log](references/runtime-log.md)
+- [runtime-metric](references/runtime-metric.md)
+- [runtime-schedule](references/runtime-schedule.md)
+- [runtime-state-chunk](references/runtime-state-chunk.md)
+- [runtime-state](references/runtime-state.md)
+- [runtime-state-dependency](references/runtime-state-dependency.md)
+- [skill](references/skill.md)
 - [tag](references/tag.md)
-- [task-chunk](references/task-chunk.md)
-- [task-contact](references/task-contact.md)
-- [task-note](references/task-note.md)
-- [template-chunk](references/template-chunk.md)
-- [template](references/template.md)
-- [thread-chunk](references/thread-chunk.md)
-- [thread](references/thread.md)
-- [tool-chunk](references/tool-chunk.md)
+- [tool-definition](references/tool-definition.md)
+- [tool-execution](references/tool-execution.md)
 - [trip-chunk](references/trip-chunk.md)
-- [trip](references/trip.md)
-- [user-setting](references/user-setting.md)
+- [trip-hiking-trail](references/trip-hiking-trail.md)
+- [trip-place](references/trip-place.md)
 - [venue-chunk](references/venue-chunk.md)
 - [venue-image](references/venue-image.md)
 - [venue-link](references/venue-link.md)
-- [webhook](references/webhook.md)
-- [workflow](references/workflow.md)
-- [workflow-run](references/workflow-run.md)
-- [workflow-step](references/workflow-step.md)

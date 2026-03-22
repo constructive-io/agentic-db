@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/columns/tags/column
 
 
-ALTER TABLE "agentic_db_app_public".projects 
+ALTER TABLE agentic_db_app_public.projects 
   ADD COLUMN embedding_text text;
 

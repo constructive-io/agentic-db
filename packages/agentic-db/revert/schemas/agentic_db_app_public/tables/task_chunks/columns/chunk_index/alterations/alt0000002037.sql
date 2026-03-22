@@ -1,7 +1,0 @@
--- Revert: schemas/agentic_db_app_public/tables/task_chunks/columns/chunk_index/alterations/alt0000002037
-
-
-ALTER TABLE "agentic_db_app_public".task_chunks 
-  ALTER COLUMN chunk_index DROP NOT NULL;
-
-

@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_logging_public/tables/audit_logs/table
 
 
-GRANT SELECT ON "agentic_db_logging_public".audit_logs TO authenticated;
+GRANT SELECT ON agentic_db_logging_public.audit_logs TO authenticated;
 

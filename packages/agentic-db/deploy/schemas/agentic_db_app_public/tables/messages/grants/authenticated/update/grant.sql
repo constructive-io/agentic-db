@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/messages/table
--- requires: schemas/agentic_db_app_public/tables/email_accounts/columns/sync_state/column
+-- requires: schemas/agentic_db_app_public/tables/conversations/columns/meta/column
 
 
-GRANT UPDATE ON "agentic_db_app_public".messages TO authenticated;
+GRANT UPDATE ON agentic_db_app_public.messages TO authenticated;
 

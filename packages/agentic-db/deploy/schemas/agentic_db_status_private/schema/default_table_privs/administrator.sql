@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_status_private/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA "agentic_db_status_private" GRANT ALL ON TABLES TO administrator;
+ALTER DEFAULT PRIVILEGES IN SCHEMA agentic_db_status_private GRANT ALL ON TABLES TO administrator;
 

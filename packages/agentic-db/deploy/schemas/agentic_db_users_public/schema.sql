@@ -4,5 +4,5 @@
 
 
 
-CREATE SCHEMA "agentic_db_users_public";
+CREATE SCHEMA agentic_db_users_public;
 

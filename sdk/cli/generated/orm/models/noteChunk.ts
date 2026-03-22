@@ -218,9 +218,10 @@ export class NoteChunkModel {
       'NoteChunk',
       'deleteNoteChunk',
       'noteChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteNoteChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

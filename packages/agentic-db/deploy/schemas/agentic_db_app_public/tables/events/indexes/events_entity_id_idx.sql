@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/events/table
--- requires: schemas/agentic_db_app_public/tables/deals/columns/embedding/column
 -- requires: schemas/agentic_db_app_public/tables/events/columns/entity_id/column
+-- requires: schemas/agentic_db_app_public/tables/deals/triggers/deals_enqueue_embedding_update_tg
 
 
-CREATE INDEX events_entity_id_idx ON "agentic_db_app_public".events USING BTREE ( entity_id );
+CREATE INDEX events_entity_id_idx ON agentic_db_app_public.events USING BTREE ( entity_id );
 

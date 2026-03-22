@@ -16,6 +16,7 @@ const fieldSchema: FieldSchema = {
   title: 'string',
   url: 'string',
   embedding: 'string',
+  embeddingStale: 'boolean',
   venueId: 'uuid',
   embeddingVectorDistance: 'float',
   searchScore: 'float',
@@ -79,6 +80,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           title: true,
           url: true,
           embedding: true,
+          embeddingStale: true,
           venueId: true,
         },
       })
@@ -114,6 +116,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           title: true,
           url: true,
           embedding: true,
+          embeddingStale: true,
           venueId: true,
         },
       })
@@ -157,6 +160,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         skipPrompt: true,
       },
       {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
+      {
         type: 'text',
         name: 'venueId',
         message: 'venueId',
@@ -173,6 +183,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           title: cleanedData.title,
           url: cleanedData.url,
           embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
           venueId: cleanedData.venueId,
         },
         select: {
@@ -183,6 +194,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           title: true,
           url: true,
           embedding: true,
+          embeddingStale: true,
           venueId: true,
         },
       })
@@ -232,6 +244,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         skipPrompt: true,
       },
       {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
+      {
         type: 'text',
         name: 'venueId',
         message: 'venueId',
@@ -251,6 +270,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           title: cleanedData.title,
           url: cleanedData.url,
           embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
           venueId: cleanedData.venueId,
         },
         select: {
@@ -261,6 +281,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           title: true,
           url: true,
           embedding: true,
+          embeddingStale: true,
           venueId: true,
         },
       })

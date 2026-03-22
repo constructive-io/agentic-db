@@ -218,9 +218,10 @@ export class EventImageModel {
       'EventImage',
       'deleteEventImage',
       'eventImage',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteEventImageInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

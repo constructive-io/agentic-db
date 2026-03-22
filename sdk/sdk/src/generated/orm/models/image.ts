@@ -218,9 +218,10 @@ export class ImageModel {
       'Image',
       'deleteImage',
       'image',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteImageInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

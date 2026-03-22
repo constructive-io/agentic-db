@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/habits/table
--- requires: schemas/agentic_db_app_public/tables/habits/columns/name/alterations/alt0000002623
+-- requires: schemas/agentic_db_app_public/tables/habits/columns/description/column
 
 
-ALTER TABLE "agentic_db_app_public".habits 
+ALTER TABLE agentic_db_app_public.habits 
   ADD COLUMN frequency text;
 

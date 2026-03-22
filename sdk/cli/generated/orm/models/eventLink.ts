@@ -218,9 +218,10 @@ export class EventLinkModel {
       'EventLink',
       'deleteEventLink',
       'eventLink',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteEventLinkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venues/table
--- requires: schemas/agentic_db_app_public/tables/events/columns/main_image_id/column
+-- requires: schemas/agentic_db_app_public/tables/events/alterations/alt0000005587
 
 
-GRANT INSERT ON "agentic_db_app_public".venues TO authenticated;
+GRANT INSERT ON agentic_db_app_public.venues TO authenticated;
 

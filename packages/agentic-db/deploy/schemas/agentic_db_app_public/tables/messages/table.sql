@@ -2,8 +2,8 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_app_public/schema
--- requires: schemas/agentic_db_app_public/tables/email_accounts/columns/sync_state/column
+-- requires: schemas/agentic_db_app_public/tables/conversations/columns/meta/column
 
 
-CREATE TABLE "agentic_db_app_public".messages ();
+CREATE TABLE agentic_db_app_public.messages ();
 

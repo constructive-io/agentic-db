@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
 -- requires: schemas/agentic_db_app_public/tables/skills/columns/category/column
--- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_last_accessed_at_idx
+-- requires: schemas/agentic_db_app_public/tables/rules/indexes/rules_is_active_idx
 
 
-CREATE INDEX skills_category_idx ON "agentic_db_app_public".skills USING BTREE ( category );
+CREATE INDEX skills_category_idx ON agentic_db_app_public.skills USING BTREE ( category );
 

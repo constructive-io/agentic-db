@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db venue-chunk list
 agentic-db venue-chunk get --id <UUID>
-agentic-db venue-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --venueId <UUID> [--embeddingText <String>] [--embedding <Vector>]
-agentic-db venue-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--venueId <UUID>]
+agentic-db venue-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --venueId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db venue-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--venueId <UUID>]
 agentic-db venue-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db venue-chunk list
 ### Create a venueChunk
 
 ```bash
-agentic-db venue-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --venueId <UUID> [--embeddingText <String>] [--embedding <Vector>]
+agentic-db venue-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --venueId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a venueChunk by id

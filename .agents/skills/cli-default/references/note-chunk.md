@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db note-chunk list
 agentic-db note-chunk get --id <UUID>
-agentic-db note-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --noteId <UUID> [--embeddingText <String>] [--embedding <Vector>]
-agentic-db note-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--noteId <UUID>]
+agentic-db note-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --noteId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db note-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--noteId <UUID>]
 agentic-db note-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db note-chunk list
 ### Create a noteChunk
 
 ```bash
-agentic-db note-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --noteId <UUID> [--embeddingText <String>] [--embedding <Vector>]
+agentic-db note-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --noteId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a noteChunk by id

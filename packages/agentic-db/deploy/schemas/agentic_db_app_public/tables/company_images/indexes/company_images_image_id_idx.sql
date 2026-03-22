@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_images/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX company_images_image_id_idx ON "agentic_db_app_public".company_images USING BTREE ( image_id );
+CREATE INDEX company_images_image_id_idx ON agentic_db_app_public.company_images USING BTREE ( image_id );
 

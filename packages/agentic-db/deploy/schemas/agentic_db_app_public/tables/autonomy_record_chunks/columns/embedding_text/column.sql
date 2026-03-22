@@ -1,0 +1,11 @@
+-- Deploy: schemas/agentic_db_app_public/tables/autonomy_record_chunks/columns/embedding_text/column
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/autonomy_record_chunks/columns/content/alterations/alt0000006442
+
+
+ALTER TABLE agentic_db_app_public.autonomy_record_chunks 
+  ADD COLUMN embedding_text text;
+

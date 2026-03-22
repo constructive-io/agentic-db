@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agentic_db_memberships_private".org_memberships_itg;
+DROP FUNCTION agentic_db_memberships_private.org_memberships_itg;
 
 

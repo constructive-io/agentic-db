@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_app_public/tables/memories/table
--- requires: schemas/agentic_db_app_public/tables/rules/columns/trigger_concept/column
+-- requires: schemas/agentic_db_app_public/tables/hiking_trails/indexes/hiking_trails_location_gist_idx
 
 
-ALTER TABLE "agentic_db_app_public".memories 
+ALTER TABLE agentic_db_app_public.memories 
   ADD CONSTRAINT memories_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE CASCADE;
 

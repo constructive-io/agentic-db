@@ -6,13 +6,13 @@
 
 
 
-CREATE FUNCTION "agentic_db_memberships_private".app_mbr_create ()
+CREATE FUNCTION agentic_db_memberships_private.app_mbr_create ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
 BEGIN
     INSERT INTO
-    "agentic_db_memberships_public".app_memberships
+    agentic_db_memberships_public.app_memberships
       (actor_id)
     VALUES
       (NEW.id);

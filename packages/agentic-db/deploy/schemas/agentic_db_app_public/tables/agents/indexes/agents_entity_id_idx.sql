@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agents/table
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 -- requires: schemas/agentic_db_app_public/tables/agents/columns/entity_id/column
--- requires: schemas/agentic_db_app_public/tables/skill_executions/indexes/skill_executions_started_at_idx
 
 
-CREATE INDEX agents_entity_id_idx ON "agentic_db_app_public".agents USING BTREE ( entity_id );
+CREATE INDEX agents_entity_id_idx ON agentic_db_app_public.agents USING BTREE ( entity_id );
 

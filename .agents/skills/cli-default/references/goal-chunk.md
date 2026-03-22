@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db goal-chunk list
 agentic-db goal-chunk get --id <UUID>
-agentic-db goal-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --goalId <UUID> [--embeddingText <String>] [--embedding <Vector>]
-agentic-db goal-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--goalId <UUID>]
+agentic-db goal-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --goalId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db goal-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--goalId <UUID>]
 agentic-db goal-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db goal-chunk list
 ### Create a goalChunk
 
 ```bash
-agentic-db goal-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --goalId <UUID> [--embeddingText <String>] [--embedding <Vector>]
+agentic-db goal-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --goalId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a goalChunk by id

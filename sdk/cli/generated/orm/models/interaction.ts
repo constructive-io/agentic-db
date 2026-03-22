@@ -218,9 +218,10 @@ export class InteractionModel {
       'Interaction',
       'deleteInteraction',
       'interaction',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteInteractionInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

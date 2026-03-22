@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_links/indexes/contact_links_contact_id_idx
 
 
-ALTER TABLE "agentic_db_app_public".company_links 
+ALTER TABLE agentic_db_app_public.company_links 
   ADD COLUMN company_id uuid;
 

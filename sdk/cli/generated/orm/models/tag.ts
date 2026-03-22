@@ -218,9 +218,10 @@ export class TagModel {
       'Tag',
       'deleteTag',
       'tag',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteTagInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/notes/columns/overview/column
 
 
-ALTER TABLE "agentic_db_app_public".notes 
+ALTER TABLE agentic_db_app_public.notes 
   ADD COLUMN active_count int;
 

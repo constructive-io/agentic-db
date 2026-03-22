@@ -33,7 +33,7 @@ INSERT INTO metaschema_modules_public.sessions_module (
   session_credentials_table,
   auth_settings_table
 ) VALUES
-  ('019d11d9-ef4e-7345-bf92-2d3ecc657551', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '019d11d9-ef4e-7d1f-a945-b3a274b2570c', '019d11d9-f015-71a6-83d4-ecd08c092d1e', '019d11d9-f444-7111-abf8-b96003857db8', '019d11d9-f82b-7221-8ed2-6212d095dc13', '019d11d9-5aed-7673-b41b-b11528f73f79', '30 days', 'sessions', 'session_credentials', 'app_auth_settings');
+  ('019d130d-9106-7a8d-9d2b-1365967d82a0', '019d130c-edc8-7abe-b39e-3935c59e44fe', '019d130d-9107-7123-9c95-a9fa142077c3', '019d130d-91e9-728a-99c2-63d8c9d96786', '019d130d-96cf-732b-bc3f-0a9016a8b3be', '019d130d-9b65-7bb3-b338-766123b8d481', '019d130c-f14b-7ef8-94e3-e005503a699d', '30 days', 'sessions', 'session_credentials', 'app_auth_settings');
 
 
 SET session_replication_role TO DEFAULT;

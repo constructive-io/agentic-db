@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venues/table
--- requires: schemas/agentic_db_app_public/tables/venues/columns/updated_at/alterations/alt0000001747
+-- requires: schemas/agentic_db_app_public/tables/venues/columns/updated_at/alterations/alt0000005595
 
 
-ALTER TABLE "agentic_db_app_public".venues 
+ALTER TABLE agentic_db_app_public.venues 
   ADD COLUMN name text;
 

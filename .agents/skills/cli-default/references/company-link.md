@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db company-link list
 agentic-db company-link get --id <UUID>
-agentic-db company-link create --entityId <UUID> --url <String> --companyId <UUID> [--title <String>] [--embedding <Vector>]
-agentic-db company-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--companyId <UUID>]
+agentic-db company-link create --entityId <UUID> --url <String> --companyId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db company-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--companyId <UUID>]
 agentic-db company-link delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db company-link list
 ### Create a companyLink
 
 ```bash
-agentic-db company-link create --entityId <UUID> --url <String> --companyId <UUID> [--title <String>] [--embedding <Vector>]
+agentic-db company-link create --entityId <UUID> --url <String> --companyId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a companyLink by id

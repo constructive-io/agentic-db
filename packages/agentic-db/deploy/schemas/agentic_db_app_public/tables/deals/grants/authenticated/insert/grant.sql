@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deals/table
--- requires: schemas/agentic_db_app_public/tables/companies/columns/main_image_id/column
+-- requires: schemas/agentic_db_app_public/tables/companies/alterations/alt0000005559
 
 
-GRANT INSERT ON "agentic_db_app_public".deals TO authenticated;
+GRANT INSERT ON agentic_db_app_public.deals TO authenticated;
 

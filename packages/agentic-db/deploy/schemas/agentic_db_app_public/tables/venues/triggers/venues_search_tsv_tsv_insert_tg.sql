@@ -5,11 +5,11 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venues/table
 -- requires: schemas/agentic_db_private/trigger_fns/venues_search_tsv_tsv
--- requires: schemas/agentic_db_app_public/tables/events/triggers/events_search_tsv_tsv_update_tg
+-- requires: schemas/agentic_db_app_public/tables/venues/columns/main_image_id/column
 
 
 CREATE TRIGGER venues_search_tsv_tsv_insert_tg
-BEFORE INSERT ON "agentic_db_app_public".venues
+BEFORE INSERT ON agentic_db_app_public.venues
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".venues_search_tsv_tsv ( );
+EXECUTE PROCEDURE agentic_db_private.venues_search_tsv_tsv ( );
 

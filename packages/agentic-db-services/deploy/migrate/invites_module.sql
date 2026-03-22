@@ -36,8 +36,8 @@ INSERT INTO metaschema_modules_public.invites_module (
   membership_type,
   entity_table_id
 ) VALUES
-  ('019d11da-13be-77a9-a024-b76a6f599607', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '019d11da-13bf-70d2-aac6-828c5a7647ad', '019d11da-1497-7678-a9e1-25432a96498d', '019d11da-0502-76d2-bd69-ff87518e3d9f', '019d11d9-5aed-7673-b41b-b11528f73f79', '019d11da-1572-7a29-ba64-db4bf37148d7', '019d11da-1a83-7873-b250-dd737dccdd90', 'invites', 'claimed_invites', 'submit_invite_code', NULL, 1, NULL),
-  ('019d11da-1e20-78fc-9a33-2112fe1607d0', '019d11d9-57e6-748d-91f1-8d571d4d7f22', '019d11da-13bf-70d2-aac6-828c5a7647ad', '019d11da-1497-7678-a9e1-25432a96498d', '019d11da-0502-76d2-bd69-ff87518e3d9f', '019d11d9-5aed-7673-b41b-b11528f73f79', '019d11da-1f55-78b7-843a-6259ac62b819', '019d11da-24cb-7d94-8e17-0f78774149dd', 'org_invites', 'org_claimed_invites', 'submit_org_invite_code', 'org', 2, '019d11d9-5aed-7673-b41b-b11528f73f79');
+  ('019d130d-b9ce-7f48-b208-1129004fb4c0', '019d130c-edc8-7abe-b39e-3935c59e44fe', '019d130d-b9cf-76bf-bc61-35da51b658dd', '019d130d-bac1-7e50-8f1c-ef65689ef1b2', '019d130d-aa20-7722-8e58-161d5b072411', '019d130c-f14b-7ef8-94e3-e005503a699d', '019d130d-bbc9-7217-8643-9c9802d2a2b3', '019d130d-c174-73df-8a3c-48fa8a5e9594', 'invites', 'claimed_invites', 'submit_invite_code', NULL, 1, NULL),
+  ('019d130d-c5bc-7840-b84b-ba8d9ed2ab55', '019d130c-edc8-7abe-b39e-3935c59e44fe', '019d130d-b9cf-76bf-bc61-35da51b658dd', '019d130d-bac1-7e50-8f1c-ef65689ef1b2', '019d130d-aa20-7722-8e58-161d5b072411', '019d130c-f14b-7ef8-94e3-e005503a699d', '019d130d-c67e-7905-84df-2a7db8aa2c17', '019d130d-cd24-74e8-84d3-7865fd8128ba', 'org_invites', 'org_claimed_invites', 'submit_org_invite_code', 'org', 2, '019d130c-f14b-7ef8-94e3-e005503a699d');
 
 
 SET session_replication_role TO DEFAULT;

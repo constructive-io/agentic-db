@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/projects/table
--- requires: schemas/agentic_db_app_public/tables/agent_spawns/indexes/agent_spawns_status_idx
+-- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_status_idx
 
 
-GRANT INSERT ON "agentic_db_app_public".projects TO authenticated;
+GRANT INSERT ON agentic_db_app_public.projects TO authenticated;
 

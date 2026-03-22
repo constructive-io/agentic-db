@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/notes/indexes/notes_content_bm25_idx
 
 
-CREATE INDEX contacts_tags_gin_idx ON "agentic_db_app_public".contacts USING GIN ( tags );
+CREATE INDEX contacts_tags_gin_idx ON agentic_db_app_public.contacts USING GIN ( tags );
 

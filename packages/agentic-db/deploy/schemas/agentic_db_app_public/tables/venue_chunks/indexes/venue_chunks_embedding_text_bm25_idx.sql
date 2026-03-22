@@ -4,8 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venue_chunks/table
 -- requires: schemas/agentic_db_app_public/tables/venue_chunks/columns/embedding_text/column
--- requires: schemas/agentic_db_app_public/tables/venue_chunks/indexes/venue_chunks_embedding_hnsw_idx
 
 
-CREATE INDEX venue_chunks_embedding_text_bm25_idx ON "agentic_db_app_public".venue_chunks USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX venue_chunks_embedding_text_bm25_idx ON agentic_db_app_public.venue_chunks USING bm25 ( embedding_text ) WITH ( text_config = english );
 

@@ -1,0 +1,10 @@
+-- Deploy: schemas/agentic_db_app_public/tables/tool_definitions/grants/authenticated/select/grant
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/tool_definitions/table
+-- requires: schemas/agentic_db_app_public/tables/messages/columns/tool_results/column
+
+
+GRANT SELECT ON agentic_db_app_public.tool_definitions TO authenticated;
+

@@ -218,9 +218,10 @@ export class EventNoteModel {
       'EventNote',
       'deleteEventNote',
       'eventNote',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteEventNoteInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

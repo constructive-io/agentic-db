@@ -5,34 +5,23 @@
  */
 import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
-import { ActivityLogChunkModel } from './models/activityLogChunk';
-import { ActivityLogModel } from './models/activityLog';
-import { AgentChunkModel } from './models/agentChunk';
 import { AgentModel } from './models/agent';
-import { AgentPromptModel } from './models/agentPrompt';
-import { PromptModel } from './models/prompt';
-import { AgentRuleModel } from './models/agentRule';
-import { RuleModel } from './models/rule';
-import { AgentSkillModel } from './models/agentSkill';
-import { SkillModel } from './models/skill';
-import { AgentSpawnModel } from './models/agentSpawn';
-import { AgentToolModel } from './models/agentTool';
-import { ToolModel } from './models/tool';
-import { BillingSubscriptionModel } from './models/billingSubscription';
-import { BlueprintChunkModel } from './models/blueprintChunk';
-import { BlueprintModel } from './models/blueprint';
-import { CalendarAccountModel } from './models/calendarAccount';
-import { CalendarEventChunkModel } from './models/calendarEventChunk';
-import { CalendarEventModel } from './models/calendarEvent';
-import { CalendarEventContactModel } from './models/calendarEventContact';
-import { ContactModel } from './models/contact';
-import { ChatChunkModel } from './models/chatChunk';
-import { ChatModel } from './models/chat';
-import { ChatMessageChunkModel } from './models/chatMessageChunk';
-import { ChatMessageModel } from './models/chatMessage';
-import { ChunkModel } from './models/chunk';
+import { AgentChunkModel } from './models/agentChunk';
+import { AgentCollaboratorModel } from './models/agentCollaborator';
+import { AgentLogChunkModel } from './models/agentLogChunk';
+import { AgentLogModel } from './models/agentLog';
+import { AgentTaskChunkModel } from './models/agentTaskChunk';
+import { AgentTaskModel } from './models/agentTask';
+import { AutonomyRecordModel } from './models/autonomyRecord';
+import { AutonomyRecordChunkModel } from './models/autonomyRecordChunk';
+import { AutonomyRecordLinkModel } from './models/autonomyRecordLink';
+import { CodebasChunkModel } from './models/codebasChunk';
+import { CodebaseDependencyModel } from './models/codebaseDependency';
+import { CodebasisModel } from './models/codebasis';
+import { CodeChunkModel } from './models/codeChunk';
 import { CompanyChunkModel } from './models/companyChunk';
 import { CompanyModel } from './models/company';
+import { ContactModel } from './models/contact';
 import { CompanyEventModel } from './models/companyEvent';
 import { EventModel } from './models/event';
 import { CompanyImageModel } from './models/companyImage';
@@ -46,83 +35,62 @@ import { ContactChunkModel } from './models/contactChunk';
 import { ContactCompanyModel } from './models/contactCompany';
 import { DealModel } from './models/deal';
 import { ContactEventModel } from './models/contactEvent';
-import { ExpenseModel } from './models/expense';
 import { ContactImageModel } from './models/contactImage';
 import { ContactLinkModel } from './models/contactLink';
 import { ContactMemoryModel } from './models/contactMemory';
 import { ContactNoteModel } from './models/contactNote';
 import { ProjectModel } from './models/project';
-import { TaskModel } from './models/task';
+import { ConversationModel } from './models/conversation';
 import { DealChunkModel } from './models/dealChunk';
 import { DealContactModel } from './models/dealContact';
 import { DealNoteModel } from './models/dealNote';
-import { DocumentChunkModel } from './models/documentChunk';
-import { DocumentModel } from './models/document';
-import { EmailAccountModel } from './models/emailAccount';
 import { EventChunkModel } from './models/eventChunk';
 import { EventImageModel } from './models/eventImage';
 import { EventLinkModel } from './models/eventLink';
 import { EventNoteModel } from './models/eventNote';
 import { EventVenueModel } from './models/eventVenue';
 import { VenueModel } from './models/venue';
-import { ExecutionLogModel } from './models/executionLog';
-import { ExpenseContactModel } from './models/expenseContact';
-import { FileModel } from './models/file';
 import { GoalChunkModel } from './models/goalChunk';
 import { GoalModel } from './models/goal';
 import { GoalHabitModel } from './models/goalHabit';
 import { HabitModel } from './models/habit';
 import { GoalProjectModel } from './models/goalProject';
-import { HabitLogModel } from './models/habitLog';
-import { IdeaChunkModel } from './models/ideaChunk';
-import { IdeaModel } from './models/idea';
-import { IntegrationModel } from './models/integration';
+import { HabitChunkModel } from './models/habitChunk';
+import { HikingTrailChunkModel } from './models/hikingTrailChunk';
+import { HikingTrailModel } from './models/hikingTrail';
+import { TripModel } from './models/trip';
 import { InteractionChunkModel } from './models/interactionChunk';
 import { InteractionModel } from './models/interaction';
-import { ListChunkModel } from './models/listChunk';
-import { ListModel } from './models/list';
+import { ItineraryItemChunkModel } from './models/itineraryItemChunk';
+import { ItineraryItemModel } from './models/itineraryItem';
 import { MemoryChunkModel } from './models/memoryChunk';
-import { MessageChunkModel } from './models/messageChunk';
 import { MessageModel } from './models/message';
-import { MilestoneModel } from './models/milestone';
 import { NoteChunkModel } from './models/noteChunk';
-import { ProcessModel } from './models/process';
+import { PlaceChunkModel } from './models/placeChunk';
+import { PlaceModel } from './models/place';
 import { ProjectChunkModel } from './models/projectChunk';
 import { ProjectContactModel } from './models/projectContact';
-import { PromptChunkModel } from './models/promptChunk';
-import { RecipeChunkModel } from './models/recipeChunk';
-import { RecipeModel } from './models/recipe';
-import { ReminderChunkModel } from './models/reminderChunk';
-import { ReminderModel } from './models/reminder';
-import { RepositoryChunkModel } from './models/repositoryChunk';
-import { RepositoryModel } from './models/repository';
-import { RuleChunkModel } from './models/ruleChunk';
-import { ScheduledJobModel } from './models/scheduledJob';
-import { SessionArchiveChunkModel } from './models/sessionArchiveChunk';
-import { SessionArchiveModel } from './models/sessionArchive';
-import { SessionChunkModel } from './models/sessionChunk';
-import { SessionModel } from './models/session';
-import { SkillChunkModel } from './models/skillChunk';
-import { SkillExecutionModel } from './models/skillExecution';
+import { RuleModel } from './models/rule';
+import { RuntimeArtifactModel } from './models/runtimeArtifact';
+import { RuntimeConfigModel } from './models/runtimeConfig';
+import { RuntimeEventModel } from './models/runtimeEvent';
+import { RuntimeLogChunkModel } from './models/runtimeLogChunk';
+import { RuntimeLogModel } from './models/runtimeLog';
+import { RuntimeMetricModel } from './models/runtimeMetric';
+import { RuntimeScheduleModel } from './models/runtimeSchedule';
+import { RuntimeStateChunkModel } from './models/runtimeStateChunk';
+import { RuntimeStateModel } from './models/runtimeState';
+import { RuntimeStateDependencyModel } from './models/runtimeStateDependency';
+import { SkillModel } from './models/skill';
 import { TagModel } from './models/tag';
-import { TaskChunkModel } from './models/taskChunk';
-import { TaskContactModel } from './models/taskContact';
-import { TaskNoteModel } from './models/taskNote';
-import { TemplateChunkModel } from './models/templateChunk';
-import { TemplateModel } from './models/template';
-import { ThreadChunkModel } from './models/threadChunk';
-import { ThreadModel } from './models/thread';
-import { ToolChunkModel } from './models/toolChunk';
+import { ToolDefinitionModel } from './models/toolDefinition';
+import { ToolExecutionModel } from './models/toolExecution';
 import { TripChunkModel } from './models/tripChunk';
-import { TripModel } from './models/trip';
-import { UserSettingModel } from './models/userSetting';
+import { TripHikingTrailModel } from './models/tripHikingTrail';
+import { TripPlaceModel } from './models/tripPlace';
 import { VenueChunkModel } from './models/venueChunk';
 import { VenueImageModel } from './models/venueImage';
 import { VenueLinkModel } from './models/venueLink';
-import { WebhookModel } from './models/webhook';
-import { WorkflowModel } from './models/workflow';
-import { WorkflowRunModel } from './models/workflowRun';
-import { WorkflowStepModel } from './models/workflowStep';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
 export { GraphQLRequestError } from './client';
 export { QueryBuilder } from './query-builder';
@@ -155,34 +123,23 @@ export { NodeHttpAdapter } from './node-fetch';
 export function createClient(config: OrmClientConfig) {
   const client = new OrmClient(config);
   return {
-    activityLogChunk: new ActivityLogChunkModel(client),
-    activityLog: new ActivityLogModel(client),
-    agentChunk: new AgentChunkModel(client),
     agent: new AgentModel(client),
-    agentPrompt: new AgentPromptModel(client),
-    prompt: new PromptModel(client),
-    agentRule: new AgentRuleModel(client),
-    rule: new RuleModel(client),
-    agentSkill: new AgentSkillModel(client),
-    skill: new SkillModel(client),
-    agentSpawn: new AgentSpawnModel(client),
-    agentTool: new AgentToolModel(client),
-    tool: new ToolModel(client),
-    billingSubscription: new BillingSubscriptionModel(client),
-    blueprintChunk: new BlueprintChunkModel(client),
-    blueprint: new BlueprintModel(client),
-    calendarAccount: new CalendarAccountModel(client),
-    calendarEventChunk: new CalendarEventChunkModel(client),
-    calendarEvent: new CalendarEventModel(client),
-    calendarEventContact: new CalendarEventContactModel(client),
-    contact: new ContactModel(client),
-    chatChunk: new ChatChunkModel(client),
-    chat: new ChatModel(client),
-    chatMessageChunk: new ChatMessageChunkModel(client),
-    chatMessage: new ChatMessageModel(client),
-    chunk: new ChunkModel(client),
+    agentChunk: new AgentChunkModel(client),
+    agentCollaborator: new AgentCollaboratorModel(client),
+    agentLogChunk: new AgentLogChunkModel(client),
+    agentLog: new AgentLogModel(client),
+    agentTaskChunk: new AgentTaskChunkModel(client),
+    agentTask: new AgentTaskModel(client),
+    autonomyRecord: new AutonomyRecordModel(client),
+    autonomyRecordChunk: new AutonomyRecordChunkModel(client),
+    autonomyRecordLink: new AutonomyRecordLinkModel(client),
+    codebasChunk: new CodebasChunkModel(client),
+    codebaseDependency: new CodebaseDependencyModel(client),
+    codebasis: new CodebasisModel(client),
+    codeChunk: new CodeChunkModel(client),
     companyChunk: new CompanyChunkModel(client),
     company: new CompanyModel(client),
+    contact: new ContactModel(client),
     companyEvent: new CompanyEventModel(client),
     event: new EventModel(client),
     companyImage: new CompanyImageModel(client),
@@ -196,82 +153,61 @@ export function createClient(config: OrmClientConfig) {
     contactCompany: new ContactCompanyModel(client),
     deal: new DealModel(client),
     contactEvent: new ContactEventModel(client),
-    expense: new ExpenseModel(client),
     contactImage: new ContactImageModel(client),
     contactLink: new ContactLinkModel(client),
     contactMemory: new ContactMemoryModel(client),
     contactNote: new ContactNoteModel(client),
     project: new ProjectModel(client),
-    task: new TaskModel(client),
+    conversation: new ConversationModel(client),
     dealChunk: new DealChunkModel(client),
     dealContact: new DealContactModel(client),
     dealNote: new DealNoteModel(client),
-    documentChunk: new DocumentChunkModel(client),
-    document: new DocumentModel(client),
-    emailAccount: new EmailAccountModel(client),
     eventChunk: new EventChunkModel(client),
     eventImage: new EventImageModel(client),
     eventLink: new EventLinkModel(client),
     eventNote: new EventNoteModel(client),
     eventVenue: new EventVenueModel(client),
     venue: new VenueModel(client),
-    executionLog: new ExecutionLogModel(client),
-    expenseContact: new ExpenseContactModel(client),
-    file: new FileModel(client),
     goalChunk: new GoalChunkModel(client),
     goal: new GoalModel(client),
     goalHabit: new GoalHabitModel(client),
     habit: new HabitModel(client),
     goalProject: new GoalProjectModel(client),
-    habitLog: new HabitLogModel(client),
-    ideaChunk: new IdeaChunkModel(client),
-    idea: new IdeaModel(client),
-    integration: new IntegrationModel(client),
+    habitChunk: new HabitChunkModel(client),
+    hikingTrailChunk: new HikingTrailChunkModel(client),
+    hikingTrail: new HikingTrailModel(client),
+    trip: new TripModel(client),
     interactionChunk: new InteractionChunkModel(client),
     interaction: new InteractionModel(client),
-    listChunk: new ListChunkModel(client),
-    list: new ListModel(client),
+    itineraryItemChunk: new ItineraryItemChunkModel(client),
+    itineraryItem: new ItineraryItemModel(client),
     memoryChunk: new MemoryChunkModel(client),
-    messageChunk: new MessageChunkModel(client),
     message: new MessageModel(client),
-    milestone: new MilestoneModel(client),
     noteChunk: new NoteChunkModel(client),
-    process: new ProcessModel(client),
+    placeChunk: new PlaceChunkModel(client),
+    place: new PlaceModel(client),
     projectChunk: new ProjectChunkModel(client),
     projectContact: new ProjectContactModel(client),
-    promptChunk: new PromptChunkModel(client),
-    recipeChunk: new RecipeChunkModel(client),
-    recipe: new RecipeModel(client),
-    reminderChunk: new ReminderChunkModel(client),
-    reminder: new ReminderModel(client),
-    repositoryChunk: new RepositoryChunkModel(client),
-    repository: new RepositoryModel(client),
-    ruleChunk: new RuleChunkModel(client),
-    scheduledJob: new ScheduledJobModel(client),
-    sessionArchiveChunk: new SessionArchiveChunkModel(client),
-    sessionArchive: new SessionArchiveModel(client),
-    sessionChunk: new SessionChunkModel(client),
-    session: new SessionModel(client),
-    skillChunk: new SkillChunkModel(client),
-    skillExecution: new SkillExecutionModel(client),
+    rule: new RuleModel(client),
+    runtimeArtifact: new RuntimeArtifactModel(client),
+    runtimeConfig: new RuntimeConfigModel(client),
+    runtimeEvent: new RuntimeEventModel(client),
+    runtimeLogChunk: new RuntimeLogChunkModel(client),
+    runtimeLog: new RuntimeLogModel(client),
+    runtimeMetric: new RuntimeMetricModel(client),
+    runtimeSchedule: new RuntimeScheduleModel(client),
+    runtimeStateChunk: new RuntimeStateChunkModel(client),
+    runtimeState: new RuntimeStateModel(client),
+    runtimeStateDependency: new RuntimeStateDependencyModel(client),
+    skill: new SkillModel(client),
     tag: new TagModel(client),
-    taskChunk: new TaskChunkModel(client),
-    taskContact: new TaskContactModel(client),
-    taskNote: new TaskNoteModel(client),
-    templateChunk: new TemplateChunkModel(client),
-    template: new TemplateModel(client),
-    threadChunk: new ThreadChunkModel(client),
-    thread: new ThreadModel(client),
-    toolChunk: new ToolChunkModel(client),
+    toolDefinition: new ToolDefinitionModel(client),
+    toolExecution: new ToolExecutionModel(client),
     tripChunk: new TripChunkModel(client),
-    trip: new TripModel(client),
-    userSetting: new UserSettingModel(client),
+    tripHikingTrail: new TripHikingTrailModel(client),
+    tripPlace: new TripPlaceModel(client),
     venueChunk: new VenueChunkModel(client),
     venueImage: new VenueImageModel(client),
     venueLink: new VenueLinkModel(client),
-    webhook: new WebhookModel(client),
-    workflow: new WorkflowModel(client),
-    workflowRun: new WorkflowRunModel(client),
-    workflowStep: new WorkflowStepModel(client),
   };
 }

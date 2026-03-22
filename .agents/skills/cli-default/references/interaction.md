@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db interaction list
 agentic-db interaction get --id <UUID>
-agentic-db interaction create --entityId <UUID> --contactId <UUID> --type <String> --occurredAt <Datetime> [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>]
-agentic-db interaction update --id <UUID> [--entityId <UUID>] [--contactId <UUID>] [--type <String>] [--occurredAt <Datetime>] [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>]
+agentic-db interaction create --entityId <UUID> --contactId <UUID> --type <String> --occurredAt <Datetime> [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db interaction update --id <UUID> [--entityId <UUID>] [--contactId <UUID>] [--type <String>] [--occurredAt <Datetime>] [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db interaction delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db interaction list
 ### Create a interaction
 
 ```bash
-agentic-db interaction create --entityId <UUID> --contactId <UUID> --type <String> --occurredAt <Datetime> [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>]
+agentic-db interaction create --entityId <UUID> --contactId <UUID> --type <String> --occurredAt <Datetime> [--summary <String>] [--sentiment <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a interaction by id

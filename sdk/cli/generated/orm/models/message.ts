@@ -218,9 +218,10 @@ export class MessageModel {
       'Message',
       'deleteMessage',
       'message',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteMessageInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

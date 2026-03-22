@@ -9,7 +9,7 @@ ORM operations for CompanyLink records
 ```typescript
 db.companyLink.findMany({ select: { id: true } }).execute()
 db.companyLink.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.companyLink.create({ data: { entityId: '<UUID>', title: '<String>', url: '<String>', embedding: '<Vector>', companyId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.companyLink.create({ data: { entityId: '<UUID>', title: '<String>', url: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', companyId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
 db.companyLink.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.companyLink.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.companyLink.findMany({
 
 ```typescript
 const item = await db.companyLink.create({
-  data: { entityId: '<UUID>', title: '<String>', url: '<String>', embedding: '<Vector>', companyId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', title: '<String>', url: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', companyId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

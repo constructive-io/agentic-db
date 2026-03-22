@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/companies/table
--- requires: schemas/agentic_db_app_public/tables/companies/columns/name/alterations/alt0000001719
+-- requires: schemas/agentic_db_app_public/tables/companies/columns/name/alterations/alt0000005554
 
 
-ALTER TABLE "agentic_db_app_public".companies 
+ALTER TABLE agentic_db_app_public.companies 
   ADD COLUMN domain text;
 

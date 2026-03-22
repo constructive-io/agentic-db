@@ -218,9 +218,10 @@ export class AgentModel {
       'Agent',
       'deleteAgent',
       'agent',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteAgentInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/company_images/policies/auth_del_entity_membership/policy
 
 
-GRANT SELECT ON "agentic_db_app_public".event_images TO authenticated;
+GRANT SELECT ON agentic_db_app_public.event_images TO authenticated;
 

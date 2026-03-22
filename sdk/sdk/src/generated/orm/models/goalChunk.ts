@@ -218,9 +218,10 @@ export class GoalChunkModel {
       'GoalChunk',
       'deleteGoalChunk',
       'goalChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteGoalChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

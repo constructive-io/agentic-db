@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db deal-chunk list
 agentic-db deal-chunk get --id <UUID>
-agentic-db deal-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --dealId <UUID> [--embeddingText <String>] [--embedding <Vector>]
-agentic-db deal-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--dealId <UUID>]
+agentic-db deal-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --dealId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db deal-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--dealId <UUID>]
 agentic-db deal-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db deal-chunk list
 ### Create a dealChunk
 
 ```bash
-agentic-db deal-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --dealId <UUID> [--embeddingText <String>] [--embedding <Vector>]
+agentic-db deal-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --dealId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a dealChunk by id

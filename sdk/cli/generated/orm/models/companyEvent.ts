@@ -218,9 +218,10 @@ export class CompanyEventModel {
       'CompanyEvent',
       'deleteCompanyEvent',
       'companyEvent',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteCompanyEventInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

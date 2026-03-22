@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_auth_public/schema
 
 
-GRANT USAGE ON SCHEMA "agentic_db_auth_public" TO authenticated;
+GRANT USAGE ON SCHEMA agentic_db_auth_public TO authenticated;
 

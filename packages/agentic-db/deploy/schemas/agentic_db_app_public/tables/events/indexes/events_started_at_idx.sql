@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/deals/indexes/deals_expected_close_date_idx
 
 
-CREATE INDEX events_started_at_idx ON "agentic_db_app_public".events USING BTREE ( started_at );
+CREATE INDEX events_started_at_idx ON agentic_db_app_public.events USING BTREE ( started_at );
 

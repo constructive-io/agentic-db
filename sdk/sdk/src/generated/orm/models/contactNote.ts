@@ -218,9 +218,10 @@ export class ContactNoteModel {
       'ContactNote',
       'deleteContactNote',
       'contactNote',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteContactNoteInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

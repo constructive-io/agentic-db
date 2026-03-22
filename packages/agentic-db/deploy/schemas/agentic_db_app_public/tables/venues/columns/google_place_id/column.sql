@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venues/table
--- requires: schemas/agentic_db_app_public/tables/venues/columns/location/column
+-- requires: schemas/agentic_db_app_public/tables/venues/columns/status/alterations/alt0000005597
 
 
-ALTER TABLE "agentic_db_app_public".venues 
+ALTER TABLE agentic_db_app_public.venues 
   ADD COLUMN google_place_id text;
 

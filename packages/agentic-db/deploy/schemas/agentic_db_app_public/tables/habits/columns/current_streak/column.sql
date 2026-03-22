@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/habits/table
--- requires: schemas/agentic_db_app_public/tables/habits/columns/target_count/column
+-- requires: schemas/agentic_db_app_public/tables/habits/columns/target_count/alterations/alt0000006293
 
 
-ALTER TABLE "agentic_db_app_public".habits 
+ALTER TABLE agentic_db_app_public.habits 
   ADD COLUMN current_streak int;
 

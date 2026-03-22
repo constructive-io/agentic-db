@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_chart_edges/table
 
 
-ALTER TABLE "agentic_db_memberships_public".org_chart_edges 
+ALTER TABLE agentic_db_memberships_public.org_chart_edges 
   ADD COLUMN updated_at timestamptz;
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/events/table
--- requires: schemas/agentic_db_app_public/tables/deals/columns/embedding/column
+-- requires: schemas/agentic_db_app_public/tables/deals/triggers/deals_enqueue_embedding_update_tg
 
 
-ALTER TABLE "agentic_db_app_public".events 
+ALTER TABLE agentic_db_app_public.events 
   ADD CONSTRAINT events_pkey PRIMARY KEY (id);
 

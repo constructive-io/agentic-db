@@ -218,9 +218,10 @@ export class CompanyImageModel {
       'CompanyImage',
       'deleteCompanyImage',
       'companyImage',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteCompanyImageInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

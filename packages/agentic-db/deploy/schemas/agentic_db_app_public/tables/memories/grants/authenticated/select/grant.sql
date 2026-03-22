@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/memories/table
--- requires: schemas/agentic_db_app_public/tables/rules/columns/trigger_concept/column
+-- requires: schemas/agentic_db_app_public/tables/hiking_trails/indexes/hiking_trails_location_gist_idx
 
 
-GRANT SELECT ON "agentic_db_app_public".memories TO authenticated;
+GRANT SELECT ON agentic_db_app_public.memories TO authenticated;
 

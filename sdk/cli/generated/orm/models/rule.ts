@@ -218,9 +218,10 @@ export class RuleModel {
       'Rule',
       'deleteRule',
       'rule',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteRuleInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

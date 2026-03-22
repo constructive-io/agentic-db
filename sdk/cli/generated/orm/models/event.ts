@@ -218,9 +218,10 @@ export class EventModel {
       'Event',
       'deleteEvent',
       'event',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteEventInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

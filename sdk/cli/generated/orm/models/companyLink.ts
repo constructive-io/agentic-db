@@ -218,9 +218,10 @@ export class CompanyLinkModel {
       'CompanyLink',
       'deleteCompanyLink',
       'companyLink',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteCompanyLinkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

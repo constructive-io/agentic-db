@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/companies/indexes/companies_domain_idx
 
 
-CREATE INDEX deals_stage_idx ON "agentic_db_app_public".deals USING BTREE ( stage );
+CREATE INDEX deals_stage_idx ON agentic_db_app_public.deals USING BTREE ( stage );
 

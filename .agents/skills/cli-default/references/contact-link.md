@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db contact-link list
 agentic-db contact-link get --id <UUID>
-agentic-db contact-link create --entityId <UUID> --url <String> --contactId <UUID> [--title <String>] [--embedding <Vector>]
-agentic-db contact-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--contactId <UUID>]
+agentic-db contact-link create --entityId <UUID> --url <String> --contactId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db contact-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--contactId <UUID>]
 agentic-db contact-link delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db contact-link list
 ### Create a contactLink
 
 ```bash
-agentic-db contact-link create --entityId <UUID> --url <String> --contactId <UUID> [--title <String>] [--embedding <Vector>]
+agentic-db contact-link create --entityId <UUID> --url <String> --contactId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a contactLink by id

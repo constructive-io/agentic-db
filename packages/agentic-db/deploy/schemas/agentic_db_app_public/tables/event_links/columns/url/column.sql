@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/event_links/columns/title/column
 
 
-ALTER TABLE "agentic_db_app_public".event_links 
+ALTER TABLE agentic_db_app_public.event_links 
   ADD COLUMN url text;
 

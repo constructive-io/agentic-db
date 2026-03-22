@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db venue-link list
 agentic-db venue-link get --id <UUID>
-agentic-db venue-link create --entityId <UUID> --url <String> --venueId <UUID> [--title <String>] [--embedding <Vector>]
-agentic-db venue-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--venueId <UUID>]
+agentic-db venue-link create --entityId <UUID> --url <String> --venueId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db venue-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--venueId <UUID>]
 agentic-db venue-link delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db venue-link list
 ### Create a venueLink
 
 ```bash
-agentic-db venue-link create --entityId <UUID> --url <String> --venueId <UUID> [--title <String>] [--embedding <Vector>]
+agentic-db venue-link create --entityId <UUID> --url <String> --venueId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a venueLink by id

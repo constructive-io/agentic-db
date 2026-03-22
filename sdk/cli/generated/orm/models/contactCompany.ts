@@ -218,9 +218,10 @@ export class ContactCompanyModel {
       'ContactCompany',
       'deleteContactCompany',
       'contactCompany',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteContactCompanyInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

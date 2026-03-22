@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_chunks/indexes/contact_chunks_contact_id_idx
 
 
-CREATE INDEX company_chunks_company_id_idx ON "agentic_db_app_public".company_chunks USING BTREE ( company_id );
+CREATE INDEX company_chunks_company_id_idx ON agentic_db_app_public.company_chunks USING BTREE ( company_id );
 

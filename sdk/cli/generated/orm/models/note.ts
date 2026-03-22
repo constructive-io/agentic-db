@@ -218,9 +218,10 @@ export class NoteModel {
       'Note',
       'deleteNote',
       'note',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteNoteInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

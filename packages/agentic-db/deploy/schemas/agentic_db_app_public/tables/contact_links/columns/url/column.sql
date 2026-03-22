@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_links/columns/title/column
 
 
-ALTER TABLE "agentic_db_app_public".contact_links 
+ALTER TABLE agentic_db_app_public.contact_links 
   ADD COLUMN url text;
 

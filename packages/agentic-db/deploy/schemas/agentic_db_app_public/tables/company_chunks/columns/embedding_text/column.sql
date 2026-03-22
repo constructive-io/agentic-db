@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/company_chunks/table
--- requires: schemas/agentic_db_app_public/tables/company_chunks/columns/content/alterations/alt0000001801
+-- requires: schemas/agentic_db_app_public/tables/company_chunks/columns/content/alterations/alt0000005663
 
 
-ALTER TABLE "agentic_db_app_public".company_chunks 
+ALTER TABLE agentic_db_app_public.company_chunks 
   ADD COLUMN embedding_text text;
 

@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_app_public/tables/projects/table
--- requires: schemas/agentic_db_app_public/tables/agent_spawns/indexes/agent_spawns_status_idx
+-- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_status_idx
 
 
-ALTER TABLE "agentic_db_app_public".projects 
+ALTER TABLE agentic_db_app_public.projects 
   ADD CONSTRAINT projects_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE CASCADE;
 

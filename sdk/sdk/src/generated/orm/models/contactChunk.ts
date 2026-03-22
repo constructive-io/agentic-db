@@ -218,9 +218,10 @@ export class ContactChunkModel {
       'ContactChunk',
       'deleteContactChunk',
       'contactChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteContactChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

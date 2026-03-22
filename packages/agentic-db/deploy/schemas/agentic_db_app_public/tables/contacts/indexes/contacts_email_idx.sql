@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contacts/table
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/email/column
--- requires: schemas/agentic_db_app_public/tables/venues/indexes/venues_name_gin_idx
+-- requires: schemas/agentic_db_app_public/tables/interactions/indexes/interactions_tags_gin_idx
 
 
-CREATE INDEX contacts_email_idx ON "agentic_db_app_public".contacts USING BTREE ( email );
+CREATE INDEX contacts_email_idx ON agentic_db_app_public.contacts USING BTREE ( email );
 

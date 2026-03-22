@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db trip-chunk list
 agentic-db trip-chunk get --id <UUID>
-agentic-db trip-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --tripId <UUID> [--embeddingText <String>] [--embedding <Vector>]
-agentic-db trip-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--tripId <UUID>]
+agentic-db trip-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --tripId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db trip-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--tripId <UUID>]
 agentic-db trip-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db trip-chunk list
 ### Create a tripChunk
 
 ```bash
-agentic-db trip-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --tripId <UUID> [--embeddingText <String>] [--embedding <Vector>]
+agentic-db trip-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --tripId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a tripChunk by id

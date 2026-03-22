@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/project_contacts/table
--- requires: schemas/agentic_db_app_public/tables/templates/indexes/templates_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
-GRANT SELECT ON "agentic_db_app_public".project_contacts TO authenticated;
+GRANT SELECT ON agentic_db_app_public.project_contacts TO authenticated;
 

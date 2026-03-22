@@ -218,9 +218,10 @@ export class ContactLinkModel {
       'ContactLink',
       'deleteContactLink',
       'contactLink',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteContactLinkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

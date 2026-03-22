@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_simple_secrets/tables/secrets/table
 
 
-CREATE POLICY auth_upd ON "agentic_db_simple_secrets".secrets
+CREATE POLICY auth_upd ON agentic_db_simple_secrets.secrets
 FOR UPDATE
 TO authenticated
 USING (

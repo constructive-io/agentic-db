@@ -218,9 +218,10 @@ export class MemoryModel {
       'Memory',
       'deleteMemory',
       'memory',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteMemoryInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

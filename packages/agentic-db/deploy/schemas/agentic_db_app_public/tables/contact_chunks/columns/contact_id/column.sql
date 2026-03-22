@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/venue_links/indexes/venue_links_venue_id_idx
 
 
-ALTER TABLE "agentic_db_app_public".contact_chunks 
+ALTER TABLE agentic_db_app_public.contact_chunks 
   ADD COLUMN contact_id uuid;
 

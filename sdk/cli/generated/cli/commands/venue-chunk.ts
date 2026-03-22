@@ -17,6 +17,7 @@ const fieldSchema: FieldSchema = {
   content: 'string',
   embeddingText: 'string',
   embedding: 'string',
+  embeddingStale: 'boolean',
   venueId: 'uuid',
   embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
@@ -84,6 +85,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           content: true,
           embeddingText: true,
           embedding: true,
+          embeddingStale: true,
           venueId: true,
         },
       })
@@ -120,6 +122,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           content: true,
           embeddingText: true,
           embedding: true,
+          embeddingStale: true,
           venueId: true,
         },
       })
@@ -169,6 +172,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         skipPrompt: true,
       },
       {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
+      {
         type: 'text',
         name: 'venueId',
         message: 'venueId',
@@ -186,6 +196,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           content: cleanedData.content,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
           venueId: cleanedData.venueId,
         },
         select: {
@@ -197,6 +208,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           content: true,
           embeddingText: true,
           embedding: true,
+          embeddingStale: true,
           venueId: true,
         },
       })
@@ -252,6 +264,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         skipPrompt: true,
       },
       {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
+      {
         type: 'text',
         name: 'venueId',
         message: 'venueId',
@@ -272,6 +291,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           content: cleanedData.content,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
           venueId: cleanedData.venueId,
         },
         select: {
@@ -283,6 +303,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           content: true,
           embeddingText: true,
           embedding: true,
+          embeddingStale: true,
           venueId: true,
         },
       })

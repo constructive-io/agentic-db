@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/events/table
--- requires: schemas/agentic_db_app_public/tables/events/columns/search_tsv/column
+-- requires: schemas/agentic_db_app_public/tables/events/columns/embedding_text/column
 
 
-ALTER TABLE "agentic_db_app_public".events 
+ALTER TABLE agentic_db_app_public.events 
   ADD COLUMN main_image_id uuid;
 

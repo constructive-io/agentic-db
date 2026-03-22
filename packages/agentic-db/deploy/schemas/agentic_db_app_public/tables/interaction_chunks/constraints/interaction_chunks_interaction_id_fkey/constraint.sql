@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/note_chunks/indexes/note_chunks_note_id_idx
 
 
-ALTER TABLE "agentic_db_app_public".interaction_chunks 
+ALTER TABLE agentic_db_app_public.interaction_chunks 
   ADD CONSTRAINT interaction_chunks_interaction_id_fkey 
     FOREIGN KEY(interaction_id) 
-    REFERENCES "agentic_db_app_public".interactions (id) 
+    REFERENCES agentic_db_app_public.interactions (id) 
     ON DELETE CASCADE;
 

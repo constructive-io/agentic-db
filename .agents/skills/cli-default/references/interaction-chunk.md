@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db interaction-chunk list
 agentic-db interaction-chunk get --id <UUID>
-agentic-db interaction-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --interactionId <UUID> [--embeddingText <String>] [--embedding <Vector>]
-agentic-db interaction-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--interactionId <UUID>]
+agentic-db interaction-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --interactionId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db interaction-chunk update --id <UUID> [--entityId <UUID>] [--chunkIndex <Int>] [--content <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--interactionId <UUID>]
 agentic-db interaction-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db interaction-chunk list
 ### Create a interactionChunk
 
 ```bash
-agentic-db interaction-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --interactionId <UUID> [--embeddingText <String>] [--embedding <Vector>]
+agentic-db interaction-chunk create --entityId <UUID> --chunkIndex <Int> --content <String> --interactionId <UUID> [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a interactionChunk by id

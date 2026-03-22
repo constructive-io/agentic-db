@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/emails/table
 
 
-GRANT DELETE ON "agentic_db_user_identifiers_public".emails TO authenticated;
+GRANT DELETE ON agentic_db_user_identifiers_public.emails TO authenticated;
 

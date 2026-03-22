@@ -218,9 +218,10 @@ export class ContactMemoryModel {
       'ContactMemory',
       'deleteContactMemory',
       'contactMemory',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteContactMemoryInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

@@ -218,9 +218,10 @@ export class MemoryChunkModel {
       'MemoryChunk',
       'deleteMemoryChunk',
       'memoryChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteMemoryChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

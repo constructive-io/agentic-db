@@ -1,0 +1,11 @@
+-- Deploy: schemas/agentic_db_app_public/tables/rules/columns/description/column
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/rules/table
+-- requires: schemas/agentic_db_app_public/tables/rules/columns/name/alterations/alt0000005902
+
+
+ALTER TABLE agentic_db_app_public.rules 
+  ADD COLUMN description text;
+

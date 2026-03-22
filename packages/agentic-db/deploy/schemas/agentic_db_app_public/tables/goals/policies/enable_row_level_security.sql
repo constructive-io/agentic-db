@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goals/table
--- requires: schemas/agentic_db_app_public/tables/skills/columns/intent_trigger/column
+-- requires: schemas/agentic_db_app_public/tables/memories/triggers/memories_enqueue_embedding_update_tg
 
 
-ALTER TABLE "agentic_db_app_public".goals 
+ALTER TABLE agentic_db_app_public.goals 
   ENABLE ROW LEVEL SECURITY;
 

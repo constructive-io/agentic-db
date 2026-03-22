@@ -1,0 +1,11 @@
+-- Deploy: schemas/agentic_db_app_public/tables/runtime_states/indexes/runtime_states_data_gin_idx
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/runtime_states/table
+-- requires: schemas/agentic_db_app_public/tables/runtime_states/columns/data/column
+-- requires: schemas/agentic_db_app_public/tables/runtime_state_dependencies/policies/auth_del_entity_membership/policy
+
+
+CREATE INDEX runtime_states_data_gin_idx ON agentic_db_app_public.runtime_states USING GIN ( data );
+

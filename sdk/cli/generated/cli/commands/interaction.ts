@@ -21,6 +21,7 @@ const fieldSchema: FieldSchema = {
   tags: 'string',
   embeddingText: 'string',
   embedding: 'string',
+  embeddingStale: 'boolean',
   embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
   typeTrgmSimilarity: 'float',
@@ -93,6 +94,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -132,6 +134,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           tags: true,
           embeddingText: true,
           embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -206,6 +209,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(
@@ -225,6 +235,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: cleanedData.tags,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
         },
         select: {
           id: true,
@@ -239,6 +250,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();
@@ -319,6 +331,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'boolean',
+        name: 'embeddingStale',
+        message: 'embeddingStale',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as InteractionPatch;
@@ -338,6 +357,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: cleanedData.tags,
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
+          embeddingStale: cleanedData.embeddingStale,
         },
         select: {
           id: true,
@@ -352,6 +372,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           tags: true,
           embeddingText: true,
           embedding: true,
+          embeddingStale: true,
         },
       })
       .execute();

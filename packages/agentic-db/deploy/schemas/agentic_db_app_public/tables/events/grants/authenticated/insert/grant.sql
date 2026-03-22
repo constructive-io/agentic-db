@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/events/table
--- requires: schemas/agentic_db_app_public/tables/deals/columns/embedding/column
+-- requires: schemas/agentic_db_app_public/tables/deals/triggers/deals_enqueue_embedding_update_tg
 
 
-GRANT INSERT ON "agentic_db_app_public".events TO authenticated;
+GRANT INSERT ON agentic_db_app_public.events TO authenticated;
 

@@ -218,9 +218,10 @@ export class VenueImageModel {
       'VenueImage',
       'deleteVenueImage',
       'venueImage',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteVenueImageInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

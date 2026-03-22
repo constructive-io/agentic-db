@@ -218,9 +218,10 @@ export class EventVenueModel {
       'EventVenue',
       'deleteEventVenue',
       'eventVenue',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteEventVenueInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

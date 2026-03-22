@@ -218,9 +218,10 @@ export class CompanyNoteModel {
       'CompanyNote',
       'deleteCompanyNote',
       'companyNote',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteCompanyNoteInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

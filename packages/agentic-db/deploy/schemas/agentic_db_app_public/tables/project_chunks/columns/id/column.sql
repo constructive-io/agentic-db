@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/project_chunks/table
--- requires: schemas/agentic_db_app_public/tables/milestones/columns/status/alterations/alt0000002390
+-- requires: schemas/agentic_db_app_public/tables/projects/triggers/projects_enqueue_embedding_update_tg
 
 
-ALTER TABLE "agentic_db_app_public".project_chunks 
+ALTER TABLE agentic_db_app_public.project_chunks 
   ADD COLUMN id uuid;
 

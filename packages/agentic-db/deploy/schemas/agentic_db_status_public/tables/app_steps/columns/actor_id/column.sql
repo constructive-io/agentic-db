@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_status_public/tables/app_steps/table
 
 
-ALTER TABLE "agentic_db_status_public".app_steps 
+ALTER TABLE agentic_db_status_public.app_steps 
   ADD COLUMN actor_id uuid;
 

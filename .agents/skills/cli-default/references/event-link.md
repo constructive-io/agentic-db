@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db event-link list
 agentic-db event-link get --id <UUID>
-agentic-db event-link create --entityId <UUID> --url <String> --eventId <UUID> [--title <String>] [--embedding <Vector>]
-agentic-db event-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--eventId <UUID>]
+agentic-db event-link create --entityId <UUID> --url <String> --eventId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db event-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--eventId <UUID>]
 agentic-db event-link delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db event-link list
 ### Create a eventLink
 
 ```bash
-agentic-db event-link create --entityId <UUID> --url <String> --eventId <UUID> [--title <String>] [--embedding <Vector>]
+agentic-db event-link create --entityId <UUID> --url <String> --eventId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a eventLink by id

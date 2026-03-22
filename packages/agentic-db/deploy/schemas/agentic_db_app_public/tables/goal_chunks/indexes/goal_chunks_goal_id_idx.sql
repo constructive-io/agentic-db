@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goal_chunks/table
 -- requires: schemas/agentic_db_app_public/tables/goal_chunks/columns/goal_id/column
--- requires: schemas/agentic_db_app_public/tables/skill_chunks/indexes/skill_chunks_skill_id_idx
+-- requires: schemas/agentic_db_app_public/tables/memory_chunks/indexes/memory_chunks_memory_id_idx
 
 
-CREATE INDEX goal_chunks_goal_id_idx ON "agentic_db_app_public".goal_chunks USING BTREE ( goal_id );
+CREATE INDEX goal_chunks_goal_id_idx ON agentic_db_app_public.goal_chunks USING BTREE ( goal_id );
 

@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db deal list
 agentic-db deal get --id <UUID>
-agentic-db deal create --entityId <UUID> --name <String> [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>]
-agentic-db deal update --id <UUID> [--entityId <UUID>] [--name <String>] [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>]
+agentic-db deal create --entityId <UUID> --name <String> [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db deal update --id <UUID> [--entityId <UUID>] [--name <String>] [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db deal delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db deal list
 ### Create a deal
 
 ```bash
-agentic-db deal create --entityId <UUID> --name <String> [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>]
+agentic-db deal create --entityId <UUID> --name <String> [--stage <String>] [--value <BigFloat>] [--currency <String>] [--expectedCloseDate <Datetime>] [--notesText <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a deal by id

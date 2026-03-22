@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/linkedin_url/column
 
 
-ALTER TABLE "agentic_db_app_public".contacts 
+ALTER TABLE agentic_db_app_public.contacts 
   ADD COLUMN github_username text;
 

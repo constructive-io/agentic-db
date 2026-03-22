@@ -218,9 +218,10 @@ export class CompanyChunkModel {
       'CompanyChunk',
       'deleteCompanyChunk',
       'companyChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteCompanyChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

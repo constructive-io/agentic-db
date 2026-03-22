@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/messages/table
--- requires: schemas/agentic_db_app_public/tables/email_accounts/columns/sync_state/column
+-- requires: schemas/agentic_db_app_public/tables/conversations/columns/meta/column
 
 
-ALTER TABLE "agentic_db_app_public".messages 
+ALTER TABLE agentic_db_app_public.messages 
   ADD CONSTRAINT messages_pkey PRIMARY KEY (id);
 

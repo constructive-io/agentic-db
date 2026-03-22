@@ -218,9 +218,10 @@ export class VenueChunkModel {
       'VenueChunk',
       'deleteVenueChunk',
       'venueChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteVenueChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

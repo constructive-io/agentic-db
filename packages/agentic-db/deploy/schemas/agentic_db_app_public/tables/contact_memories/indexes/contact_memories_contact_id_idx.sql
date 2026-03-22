@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contact_memories/table
 -- requires: schemas/agentic_db_app_public/tables/contact_memories/columns/contact_id/column
--- requires: schemas/agentic_db_app_public/tables/task_notes/policies/auth_del_entity_membership/policy
+-- requires: schemas/agentic_db_app_public/tables/event_notes/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX contact_memories_contact_id_idx ON "agentic_db_app_public".contact_memories USING BTREE ( contact_id );
+CREATE INDEX contact_memories_contact_id_idx ON agentic_db_app_public.contact_memories USING BTREE ( contact_id );
 

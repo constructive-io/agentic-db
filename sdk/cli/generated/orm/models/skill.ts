@@ -218,9 +218,10 @@ export class SkillModel {
       'Skill',
       'deleteSkill',
       'skill',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteSkillInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

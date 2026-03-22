@@ -218,9 +218,10 @@ export class CompanyMemoryModel {
       'CompanyMemory',
       'deleteCompanyMemory',
       'companyMemory',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteCompanyMemoryInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

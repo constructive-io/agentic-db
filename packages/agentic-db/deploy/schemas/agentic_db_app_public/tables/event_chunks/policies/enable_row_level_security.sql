@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/event_chunks/table
--- requires: schemas/agentic_db_app_public/tables/deal_chunks/columns/embedding/column
+-- requires: schemas/agentic_db_app_public/tables/deal_chunks/triggers/deal_chunks_enqueue_embedding_update_tg
 
 
-ALTER TABLE "agentic_db_app_public".event_chunks 
+ALTER TABLE agentic_db_app_public.event_chunks 
   ENABLE ROW LEVEL SECURITY;
 

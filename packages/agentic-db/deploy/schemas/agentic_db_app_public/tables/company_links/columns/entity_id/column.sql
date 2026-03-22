@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/company_links/table
--- requires: schemas/agentic_db_app_public/tables/contact_links/columns/embedding/column
+-- requires: schemas/agentic_db_app_public/tables/contact_links/columns/embedding_stale/alterations/alt0000005742
 
 
-ALTER TABLE "agentic_db_app_public".company_links 
+ALTER TABLE agentic_db_app_public.company_links 
   ADD COLUMN entity_id uuid;
 

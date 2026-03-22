@@ -218,9 +218,10 @@ export class InteractionChunkModel {
       'InteractionChunk',
       'deleteInteractionChunk',
       'interactionChunk',
-      args.where.id,
+      {
+        id: args.where.id,
+      },
       'DeleteInteractionChunkInput',
-      'id',
       args.select,
       connectionFieldsMap
     );

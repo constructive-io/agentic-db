@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/goal_chunks/columns/id/column
 
 
-ALTER TABLE "agentic_db_app_public".goal_chunks 
+ALTER TABLE agentic_db_app_public.goal_chunks 
   DROP COLUMN id RESTRICT;
 
 
