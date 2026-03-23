@@ -2,7 +2,7 @@ import { config } from './config';
 import { authenticate, createAuthenticatedClient } from './client';
 import { embed } from './ollama';
 
-export type TableName = 'contacts' | 'companies' | 'events' | 'venues' | 'notes' | 'expenses' | 'tasks' | 'memories' | 'skills' | 'rules';
+export type TableName = 'contacts' | 'companies' | 'events' | 'venues' | 'notes' | 'agentTasks' | 'memories' | 'skills' | 'rules';
 
 interface SearchResult {
   table: TableName;
@@ -50,15 +50,15 @@ async function searchCompanies(client: SDKClient, qe: number[], limit: number): 
     where: VECTOR_CONDITION(qe), first: limit,
     select: { id: true, name: true, description: true, embeddingVectorDistance: true },
   }).execute();
-  return ((res.data as Record<string, any>)?.companies?.nodes || []).map((n: any) => toResult('companies', n, (x) => x.name || 'Untitled'));
+  return ((res.data as Record<string, any>)?.companies?.nodes || []).map((n: any) => toResult('companies', n, (x) => (x.name as string) || 'Untitled'));
 }
 
 async function searchEvents(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.event.findMany({
     where: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, name: true, notes: true, embeddingVectorDistance: true },
+    select: { id: true, name: true, notesText: true, embeddingVectorDistance: true },
   }).execute();
-  return ((res.data as Record<string, any>)?.events?.nodes || []).map((n: any) => toResult('events', n, (x) => x.name || 'Untitled'));
+  return ((res.data as Record<string, any>)?.events?.nodes || []).map((n: any) => toResult('events', n, (x) => (x.name as string) || 'Untitled'));
 }
 
 async function searchVenues(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
@@ -66,7 +66,7 @@ async function searchVenues(client: SDKClient, qe: number[], limit: number): Pro
     where: VECTOR_CONDITION(qe), first: limit,
     select: { id: true, name: true, embeddingVectorDistance: true },
   }).execute();
-  return ((res.data as Record<string, any>)?.venues?.nodes || []).map((n: any) => toResult('venues', n, (x) => x.name || 'Untitled'));
+  return ((res.data as Record<string, any>)?.venues?.nodes || []).map((n: any) => toResult('venues', n, (x) => (x.name as string) || 'Untitled'));
 }
 
 async function searchNotes(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
@@ -74,23 +74,15 @@ async function searchNotes(client: SDKClient, qe: number[], limit: number): Prom
     where: VECTOR_CONDITION(qe), first: limit,
     select: { id: true, content: true, embeddingVectorDistance: true },
   }).execute();
-  return ((res.data as Record<string, any>)?.notes?.nodes || []).map((n: any) => toResult('notes', n, (x) => (x.content || '').slice(0, 80) || 'Untitled'));
+  return ((res.data as Record<string, any>)?.notes?.nodes || []).map((n: any) => toResult('notes', n, (x) => ((x.content as string) || '').slice(0, 80) || 'Untitled'));
 }
 
-async function searchExpenses(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
-  const res = await client.expense.findMany({
-    where: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, description: true, amount: true, embeddingVectorDistance: true },
-  }).execute();
-  return ((res.data as Record<string, any>)?.expenses?.nodes || []).map((n: any) => toResult('expenses', n, (x) => `${x.description} ($${x.amount})`));
-}
-
-async function searchTasks(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
-  const res = await client.task.findMany({
+async function searchAgentTasks(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+  const res = await client.agentTask.findMany({
     where: VECTOR_CONDITION(qe), first: limit,
     select: { id: true, title: true, embeddingVectorDistance: true },
   }).execute();
-  return ((res.data as Record<string, any>)?.tasks?.nodes || []).map((n: any) => toResult('tasks', n, (x) => x.title || 'Untitled'));
+  return ((res.data as Record<string, any>)?.agentTasks?.nodes || []).map((n: any) => toResult('agentTasks', n, (x) => (x.title as string) || 'Untitled'));
 }
 
 async function searchMemories(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
@@ -98,7 +90,7 @@ async function searchMemories(client: SDKClient, qe: number[], limit: number): P
     where: VECTOR_CONDITION(qe), first: limit,
     select: { id: true, content: true, embeddingVectorDistance: true },
   }).execute();
-  return ((res.data as Record<string, any>)?.memories?.nodes || []).map((n: any) => toResult('memories', n, (x) => (x.content || '').slice(0, 80) || 'Untitled'));
+  return ((res.data as Record<string, any>)?.memories?.nodes || []).map((n: any) => toResult('memories', n, (x) => ((x.content as string) || '').slice(0, 80) || 'Untitled'));
 }
 
 async function searchSkills(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
@@ -106,15 +98,15 @@ async function searchSkills(client: SDKClient, qe: number[], limit: number): Pro
     where: VECTOR_CONDITION(qe), first: limit,
     select: { id: true, name: true, embeddingVectorDistance: true },
   }).execute();
-  return ((res.data as Record<string, any>)?.skills?.nodes || []).map((n: any) => toResult('skills', n, (x) => x.name || 'Untitled'));
+  return ((res.data as Record<string, any>)?.skills?.nodes || []).map((n: any) => toResult('skills', n, (x) => (x.name as string) || 'Untitled'));
 }
 
 async function searchRules(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.rule.findMany({
     where: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, title: true, embeddingVectorDistance: true },
+    select: { id: true, name: true, embeddingVectorDistance: true },
   }).execute();
-  return ((res.data as Record<string, any>)?.rules?.nodes || []).map((n: any) => toResult('rules', n, (x) => x.title || 'Untitled'));
+  return ((res.data as Record<string, any>)?.rules?.nodes || []).map((n: any) => toResult('rules', n, (x) => (x.name as string) || 'Untitled'));
 }
 
 // ---------------------------------------------------------------------------
@@ -136,8 +128,7 @@ const CHUNK_TABLE_CONFIG: Record<TableName, { accessor: string; parentFkField: s
   events: { accessor: 'eventChunk', parentFkField: 'eventId' },
   venues: { accessor: 'venueChunk', parentFkField: 'venueId' },
   notes: { accessor: 'noteChunk', parentFkField: 'noteId' },
-  expenses: null, // expenses don't have chunk tables
-  tasks: { accessor: 'taskChunk', parentFkField: 'taskId' },
+  agentTasks: { accessor: 'agentTasksChunk', parentFkField: 'agentTasksId' },
   memories: { accessor: 'memoryChunk', parentFkField: 'memoryId' },
   skills: { accessor: 'skillChunk', parentFkField: 'skillId' },
   rules: { accessor: 'ruleChunk', parentFkField: 'ruleId' },
@@ -193,8 +184,8 @@ async function searchChunkTable(
 
 export const TABLE_SEARCH: Record<TableName, (client: SDKClient, qe: number[], limit: number) => Promise<SearchResult[]>> = {
   contacts: searchContacts, companies: searchCompanies, events: searchEvents,
-  venues: searchVenues, notes: searchNotes, expenses: searchExpenses,
-  tasks: searchTasks, memories: searchMemories, skills: searchSkills, rules: searchRules,
+  venues: searchVenues, notes: searchNotes,
+  agentTasks: searchAgentTasks, memories: searchMemories, skills: searchSkills, rules: searchRules,
 };
 
 /**

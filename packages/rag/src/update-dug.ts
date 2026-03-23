@@ -31,7 +31,7 @@ async function main() {
       firstName: contactData.firstName,
       headline: contactData.headline,
       bio: contactData.bio,
-      tags: contactData.tags.join(','),
+      tags: contactData.tags,
       embedding: contactEmbedding
     },
     select: { id: true, firstName: true }
@@ -45,19 +45,19 @@ async function main() {
   console.log('Successfully enriched and updated Contact:', contactRes.data?.updateContact?.contact?.id);
   
   // also update the task with his correct name
-  const taskRes = await client.task.findMany({
+  const taskRes = await client.agentTask.findMany({
     where: { title: { like: "%Doug Song%" } },
     select: { id: true, title: true }
   }).execute();
   
-  const taskId = taskRes.data?.tasks?.nodes?.[0]?.id;
+  const taskId = taskRes.data?.agentTasks?.nodes?.[0]?.id;
   if (taskId) {
      const newTaskTitle = 'Consider Dug Song as a potential investor for Constructive fundraise';
      const newTaskDesc = 'Dug is the founder of Duo Security, grew up with Dan in Ann Arbor, known since 1990s. Potential angel/investor for the round.';
      const taskText = `${newTaskTitle} ${newTaskDesc} fundraise investor`;
      const taskEmbedding = await embed(taskText);
      
-     await client.task.update({
+     await client.agentTask.update({
        where: { id: taskId },
        data: { title: newTaskTitle, description: newTaskDesc, embedding: taskEmbedding },
        select: { id: true }
