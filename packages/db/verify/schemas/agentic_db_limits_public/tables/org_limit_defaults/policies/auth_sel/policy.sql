@@ -1,6 +1,0 @@
--- Verify: schemas/agentic_db_limits_public/tables/org_limit_defaults/policies/auth_sel/policy
-
-
-SELECT verify_policy('auth_sel', 'agentic_db_limits_public.org_limit_defaults');
-
-

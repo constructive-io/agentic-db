@@ -1,7 +1,0 @@
-# agentic-db-services extension
-comment = 'agentic-db-services extension'
-default_version = '0.0.1'
-module_pathname = '$libdir/agentic-db-services'
-requires = 'plpgsql,metaschema-schema,metaschema-modules,services'
-relocatable = false
-superuser = false
