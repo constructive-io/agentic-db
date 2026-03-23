@@ -8,12 +8,12 @@
     "ingest:email": "tsx src/ingest-email.ts"
   },
   "dependencies": {
-    "pg": "^8.11.0",
+    "@agentic-db/sdk": "workspace:*",
+    "@constructive-io/node": "^0.6.4",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "tsx": "^4.19.0",
-    "@types/pg": "^8.11.0",
     "@types/node": "^22.0.0"
   }
 }
