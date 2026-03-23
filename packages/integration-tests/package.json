@@ -11,6 +11,7 @@
     "test:embeddings": "jest --forceExit --detectOpenHandles __tests__/embeddings.test.ts"
   },
   "devDependencies": {
+    "@0no-co/graphql.web": "^1.2.0",
     "@constructive-io/graphql-codegen": "4.21.2",
     "@constructive-io/graphql-query": "3.9.1",
     "@constructive-io/graphql-types": "3.3.4",
