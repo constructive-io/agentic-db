@@ -139,8 +139,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     mkdirSync(testHome, { recursive: true });
 
     // Spin up real PostGraphile HTTP server + test database
-    // Pass seed.pgpm(REPO_ROOT) so pgsql-test deploys the agentic-db
-    // pgpm packages from the repo root (not from packages/cli-e2e-tests/)
+    // Deploy both pgpm packages: agentic-db (core schema) and agentic-db-services
     const connections = await getConnections(
       {
         schemas: SCHEMAS,
@@ -151,7 +150,10 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
           },
         },
       },
-      [seed.pgpm(REPO_ROOT)],
+      [
+        seed.pgpm(join(REPO_ROOT, 'packages', 'agentic-db')),
+        seed.pgpm(join(REPO_ROOT, 'packages', 'agentic-db-services')),
+      ],
     );
 
     server = connections.server;
