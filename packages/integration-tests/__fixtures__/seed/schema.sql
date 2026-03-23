@@ -1,6 +1,8 @@
 -- Schema for agentic-db ORM integration tests
 -- Modeled after constructive/graphql/orm-test/__fixtures__/seed/schema.sql
 
+CREATE EXTENSION IF NOT EXISTS vector;
+
 CREATE SCHEMA IF NOT EXISTS "agentic_db_app_public";
 
 -- =============================================================================
@@ -14,6 +16,7 @@ CREATE TABLE "agentic_db_app_public".contacts (
   phone text,
   headline text,
   bio text,
+  embedding_text text,
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
@@ -26,6 +29,7 @@ CREATE TABLE "agentic_db_app_public".notes (
   content text NOT NULL,
   abstract text,
   overview text,
+  embedding_text text,
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
@@ -74,17 +78,47 @@ CREATE TABLE "agentic_db_app_public".contact_notes (
 COMMENT ON TABLE "agentic_db_app_public".contact_notes IS E'@behavior +manyToMany';
 
 -- =============================================================================
+-- Table: contact_chunks (for embedding chunking)
+-- =============================================================================
+CREATE TABLE "agentic_db_app_public".contact_chunks (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  contact_id uuid NOT NULL REFERENCES "agentic_db_app_public".contacts(id) ON DELETE CASCADE,
+  content text NOT NULL,
+  chunk_index int NOT NULL DEFAULT 0,
+  embedding vector(768),
+  created_at timestamptz DEFAULT now()
+);
+
+-- =============================================================================
+-- Table: note_chunks (for embedding chunking)
+-- =============================================================================
+CREATE TABLE "agentic_db_app_public".note_chunks (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  note_id uuid NOT NULL REFERENCES "agentic_db_app_public".notes(id) ON DELETE CASCADE,
+  content text NOT NULL,
+  chunk_index int NOT NULL DEFAULT 0,
+  embedding vector(768),
+  created_at timestamptz DEFAULT now()
+);
+
+-- =============================================================================
 -- Indexes
 -- =============================================================================
 CREATE INDEX agent_tasks_agent_id_idx ON "agentic_db_app_public".agent_tasks (agent_id);
 CREATE INDEX contact_notes_contact_id_idx ON "agentic_db_app_public".contact_notes (contact_id);
 CREATE INDEX contact_notes_note_id_idx ON "agentic_db_app_public".contact_notes (note_id);
+CREATE INDEX contact_chunks_contact_id_idx ON "agentic_db_app_public".contact_chunks (contact_id);
+CREATE INDEX note_chunks_note_id_idx ON "agentic_db_app_public".note_chunks (note_id);
 
 -- =============================================================================
--- Grant table permissions (matches orm-m2n pattern)
+-- Grant schema and table permissions
 -- =============================================================================
+GRANT USAGE ON SCHEMA "agentic_db_app_public" TO PUBLIC;
+GRANT CREATE ON SCHEMA "agentic_db_app_public" TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".contacts TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".notes TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".agents TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".agent_tasks TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".contact_notes TO PUBLIC;
+GRANT ALL ON "agentic_db_app_public".contact_chunks TO PUBLIC;
+GRANT ALL ON "agentic_db_app_public".note_chunks TO PUBLIC;
