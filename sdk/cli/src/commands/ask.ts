@@ -23,7 +23,7 @@ Options:
 Examples:
   agentic-db ask "when did I last meet Dan?"
   agentic-db ask "what are my upcoming deadlines?" --tables tasks,projects
-  agentic-db ask "summarize my expenses this month" --top 10
+  agentic-db ask "summarize my deals this month" --top 10
 `;
 
 export default async (
@@ -81,12 +81,12 @@ export default async (
           content = `Company: ${d.name}\nDescription: ${d.description || ''}`;
           break;
         case 'events':
-          content = `Event: ${d.name}\nNotes: ${d.notes || ''}`;
+          content = `Event: ${d.name}\nNotes: ${d.notesText || ''}`;
           break;
         case 'notes':
           content = `Note: ${d.content || ''}`;
           break;
-        case 'tasks':
+        case 'agentTasks':
           content = `Task: ${d.title || ''}`;
           break;
         case 'memories':
@@ -98,8 +98,8 @@ export default async (
         case 'deals':
           content = `Deal: ${d.name || ''}`;
           break;
-        case 'chats':
-          content = `Chat: ${d.title || ''}`;
+        case 'conversations':
+          content = `Conversation: ${d.title || ''}`;
           break;
         default:
           content = `${item.table}: ${item.name}`;

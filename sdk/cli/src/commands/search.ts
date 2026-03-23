@@ -15,13 +15,13 @@ type TableName =
   | 'events'
   | 'venues'
   | 'notes'
-  | 'tasks'
+  | 'agentTasks'
   | 'memories'
   | 'skills'
   | 'rules'
   | 'deals'
   | 'projects'
-  | 'chats';
+  | 'conversations';
 
 interface SearchResult {
   table: TableName;
@@ -50,7 +50,7 @@ function toResult(
     table,
     id: node.id as string,
     name: nameFn(node),
-    score: Math.max(0, 1 - ((node.embeddingDistance as number) ?? 2.0) / 2.0),
+    score: (node.searchScore as number) ?? 0,
     data: node,
   };
 }
@@ -62,7 +62,7 @@ const TABLE_SEARCH: Record<
   contacts: async (client, qe, limit) => {
     const res = await client.contact
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
         select: {
           id: true,
@@ -70,7 +70,7 @@ const TABLE_SEARCH: Record<
           lastName: true,
           headline: true,
           bio: true,
-          embeddingDistance: true,
+          searchScore: true,
         },
       })
       .execute();
@@ -91,9 +91,9 @@ const TABLE_SEARCH: Record<
   companies: async (client, qe, limit) => {
     const res = await client.company
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, name: true, description: true, embeddingDistance: true },
+        select: { id: true, name: true, description: true, searchScore: true },
       })
       .execute();
     return ((res.data as Record<string, unknown>)?.companies as Record<string, unknown>)
@@ -107,9 +107,9 @@ const TABLE_SEARCH: Record<
   events: async (client, qe, limit) => {
     const res = await client.event
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, name: true, notes: true, embeddingDistance: true },
+        select: { id: true, name: true, notesText: true, searchScore: true },
       })
       .execute();
     return ((res.data as Record<string, unknown>)?.events as Record<string, unknown>)
@@ -123,9 +123,9 @@ const TABLE_SEARCH: Record<
   venues: async (client, qe, limit) => {
     const res = await client.venue
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, name: true, embeddingDistance: true },
+        select: { id: true, name: true, searchScore: true },
       })
       .execute();
     return ((res.data as Record<string, unknown>)?.venues as Record<string, unknown>)
@@ -139,9 +139,9 @@ const TABLE_SEARCH: Record<
   notes: async (client, qe, limit) => {
     const res = await client.note
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, content: true, embeddingDistance: true },
+        select: { id: true, content: true, searchScore: true },
       })
       .execute();
     return ((res.data as Record<string, unknown>)?.notes as Record<string, unknown>)
@@ -158,28 +158,28 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  tasks: async (client, qe, limit) => {
-    const res = await client.task
+  agentTasks: async (client, qe, limit) => {
+    const res = await client.agentTask
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, title: true, embeddingDistance: true },
+        select: { id: true, title: true, description: true, searchScore: true },
       })
       .execute();
-    return ((res.data as Record<string, unknown>)?.tasks as Record<string, unknown>)
+    return ((res.data as Record<string, unknown>)?.agentTasks as Record<string, unknown>)
       ? (
-          ((res.data as Record<string, unknown>).tasks as Record<string, unknown>)
+          ((res.data as Record<string, unknown>).agentTasks as Record<string, unknown>)
             .nodes as Record<string, unknown>[]
-        ).map((n) => toResult('tasks', n, (x) => (x.title as string) || 'Untitled'))
+        ).map((n) => toResult('agentTasks', n, (x) => (x.title as string) || 'Untitled'))
       : [];
   },
 
   memories: async (client, qe, limit) => {
     const res = await client.memory
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, content: true, embeddingDistance: true },
+        select: { id: true, content: true, searchScore: true },
       })
       .execute();
     return ((res.data as Record<string, unknown>)?.memories as Record<string, unknown>)
@@ -199,9 +199,9 @@ const TABLE_SEARCH: Record<
   skills: async (client, qe, limit) => {
     const res = await client.skill
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, name: true, embeddingDistance: true },
+        select: { id: true, name: true, searchScore: true },
       })
       .execute();
     return ((res.data as Record<string, unknown>)?.skills as Record<string, unknown>)
@@ -215,25 +215,25 @@ const TABLE_SEARCH: Record<
   rules: async (client, qe, limit) => {
     const res = await client.rule
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, title: true, embeddingDistance: true },
+        select: { id: true, name: true, searchScore: true },
       })
       .execute();
     return ((res.data as Record<string, unknown>)?.rules as Record<string, unknown>)
       ? (
           ((res.data as Record<string, unknown>).rules as Record<string, unknown>)
             .nodes as Record<string, unknown>[]
-        ).map((n) => toResult('rules', n, (x) => (x.title as string) || 'Untitled'))
+        ).map((n) => toResult('rules', n, (x) => (x.name as string) || 'Untitled'))
       : [];
   },
 
   deals: async (client, qe, limit) => {
     const res = await client.deal
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, name: true, embeddingDistance: true },
+        select: { id: true, name: true, searchScore: true },
       })
       .execute();
     return ((res.data as Record<string, unknown>)?.deals as Record<string, unknown>)
@@ -247,9 +247,9 @@ const TABLE_SEARCH: Record<
   projects: async (client, qe, limit) => {
     const res = await client.project
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, name: true, description: true, embeddingDistance: true },
+        select: { id: true, name: true, description: true, searchScore: true },
       })
       .execute();
     return ((res.data as Record<string, unknown>)?.projects as Record<string, unknown>)
@@ -260,19 +260,19 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  chats: async (client, qe, limit) => {
-    const res = await client.chat
+  conversations: async (client, qe, limit) => {
+    const res = await client.conversation
       .findMany({
-        condition: VECTOR_CONDITION(qe),
+        where: VECTOR_CONDITION(qe),
         first: limit,
-        select: { id: true, title: true, embeddingDistance: true },
+        select: { id: true, title: true, searchScore: true },
       })
       .execute();
-    return ((res.data as Record<string, unknown>)?.chats as Record<string, unknown>)
+    return ((res.data as Record<string, unknown>)?.conversations as Record<string, unknown>)
       ? (
-          ((res.data as Record<string, unknown>).chats as Record<string, unknown>)
+          ((res.data as Record<string, unknown>).conversations as Record<string, unknown>)
             .nodes as Record<string, unknown>[]
-        ).map((n) => toResult('chats', n, (x) => (x.title as string) || 'Untitled'))
+        ).map((n) => toResult('conversations', n, (x) => (x.title as string) || 'Untitled'))
       : [];
   },
 };
@@ -328,7 +328,7 @@ Available tables: ${ALL_TABLES.join(', ')}
 
 Examples:
   agentic-db search "AI contacts"
-  agentic-db search "dinner last month" --tables events,contacts,expenses
+  agentic-db search "dinner last month" --tables events,contacts,deals
   agentic-db search "project deadlines" --limit 5 --json
 `;
 
