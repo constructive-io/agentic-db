@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER codebases_embedding_stale_insert_tg
-BEFORE INSERT ON "agentic_db_app_public".codebases
+BEFORE INSERT ON agentic_db_app_public.codebases
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".codebases_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_private.codebases_embedding_stale ( );
 

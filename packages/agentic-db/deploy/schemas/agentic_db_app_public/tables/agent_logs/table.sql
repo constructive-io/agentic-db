@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-CREATE TABLE "agentic_db_app_public".agent_logs ();
+CREATE TABLE agentic_db_app_public.agent_logs ();
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_tasks/columns/status/column
 
 
-CREATE INDEX agent_tasks_status_idx ON "agentic_db_app_public".agent_tasks USING BTREE ( status );
+CREATE INDEX agent_tasks_status_idx ON agentic_db_app_public.agent_tasks USING BTREE ( status );
 

@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_simple_secrets/tables/secrets/table
 
 
-GRANT UPDATE ON "agentic_db_simple_secrets".secrets TO authenticated;
+GRANT UPDATE ON agentic_db_simple_secrets.secrets TO authenticated;
 

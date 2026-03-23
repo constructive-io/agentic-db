@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/membership_types/table
 
 
-GRANT SELECT ON "agentic_db_memberships_public".membership_types TO authenticated;
+GRANT SELECT ON agentic_db_memberships_public.membership_types TO authenticated;
 

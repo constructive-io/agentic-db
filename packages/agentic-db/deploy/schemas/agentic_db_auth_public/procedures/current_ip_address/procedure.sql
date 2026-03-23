@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION "agentic_db_auth_public".current_ip_address ()
+CREATE FUNCTION agentic_db_auth_public.current_ip_address ()
   RETURNS inet
 AS $$
 DECLARE
@@ -27,5 +27,5 @@ BEGIN
 END;
 $$
 LANGUAGE 'plpgsql' STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".current_ip_address TO authenticated;
+GRANT EXECUTE ON FUNCTION agentic_db_auth_public.current_ip_address TO authenticated;
 

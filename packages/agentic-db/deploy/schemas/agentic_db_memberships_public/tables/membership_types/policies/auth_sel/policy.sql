@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_memberships_public/tables/membership_types/table
 
 
-CREATE POLICY auth_sel ON "agentic_db_memberships_public".membership_types
+CREATE POLICY auth_sel ON agentic_db_memberships_public.membership_types
 FOR SELECT
 TO authenticated
 USING (

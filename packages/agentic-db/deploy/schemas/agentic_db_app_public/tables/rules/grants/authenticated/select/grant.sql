@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-GRANT SELECT ON "agentic_db_app_public".rules TO authenticated;
+GRANT SELECT ON agentic_db_app_public.rules TO authenticated;
 

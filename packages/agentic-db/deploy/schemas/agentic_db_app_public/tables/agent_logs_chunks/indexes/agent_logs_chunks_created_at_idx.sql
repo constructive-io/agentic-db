@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_logs_chunks/columns/created_at/column
 
 
-CREATE INDEX agent_logs_chunks_created_at_idx ON "agentic_db_app_public".agent_logs_chunks ( created_at );
+CREATE INDEX agent_logs_chunks_created_at_idx ON agentic_db_app_public.agent_logs_chunks ( created_at );
 

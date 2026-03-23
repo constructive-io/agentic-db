@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER codebases_embedding_stale_update_tg
-BEFORE UPDATE ON "agentic_db_app_public".codebases
+BEFORE UPDATE ON agentic_db_app_public.codebases
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description)
-EXECUTE PROCEDURE "agentic_db_private".codebases_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_private.codebases_embedding_stale ( );
 

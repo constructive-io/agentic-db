@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_invites_public/tables/org_claimed_invites/table
 
 
-ALTER TABLE "agentic_db_invites_public".org_claimed_invites 
+ALTER TABLE agentic_db_invites_public.org_claimed_invites 
   ADD COLUMN receiver_id uuid;
 

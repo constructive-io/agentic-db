@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
 
 
-CREATE TABLE "agentic_db_app_public".autonomy_records ();
+CREATE TABLE agentic_db_app_public.autonomy_records ();
 

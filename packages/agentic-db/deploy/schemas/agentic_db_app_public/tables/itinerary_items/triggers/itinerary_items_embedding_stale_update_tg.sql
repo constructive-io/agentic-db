@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER itinerary_items_embedding_stale_update_tg
-BEFORE UPDATE ON "agentic_db_app_public".itinerary_items
+BEFORE UPDATE ON agentic_db_app_public.itinerary_items
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.notes IS DISTINCT FROM NEW.notes)
-EXECUTE PROCEDURE "agentic_db_private".itinerary_items_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_private.itinerary_items_embedding_stale ( );
 

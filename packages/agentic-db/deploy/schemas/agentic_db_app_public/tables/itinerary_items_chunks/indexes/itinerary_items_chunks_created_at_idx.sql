@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/itinerary_items_chunks/columns/created_at/column
 
 
-CREATE INDEX itinerary_items_chunks_created_at_idx ON "agentic_db_app_public".itinerary_items_chunks ( created_at );
+CREATE INDEX itinerary_items_chunks_created_at_idx ON agentic_db_app_public.itinerary_items_chunks ( created_at );
 

@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agentic_db_auth_public".verify_email;
+DROP FUNCTION agentic_db_auth_public.verify_email;
 
 

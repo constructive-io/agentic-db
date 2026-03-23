@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_tasks_chunks/columns/updated_at/column
 
 
-CREATE INDEX agent_tasks_chunks_updated_at_idx ON "agentic_db_app_public".agent_tasks_chunks ( updated_at );
+CREATE INDEX agent_tasks_chunks_updated_at_idx ON agentic_db_app_public.agent_tasks_chunks ( updated_at );
 

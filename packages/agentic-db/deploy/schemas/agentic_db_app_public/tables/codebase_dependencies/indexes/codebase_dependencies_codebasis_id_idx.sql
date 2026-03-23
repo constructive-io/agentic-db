@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/codebase_dependencies/columns/codebasis_id/column
 
 
-CREATE INDEX codebase_dependencies_codebasis_id_idx ON "agentic_db_app_public".codebase_dependencies USING BTREE ( codebasis_id );
+CREATE INDEX codebase_dependencies_codebasis_id_idx ON agentic_db_app_public.codebase_dependencies USING BTREE ( codebasis_id );
 

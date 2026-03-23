@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_chart_edges/columns/entity_id/column
 
 
-CREATE INDEX org_chart_edges_entity_id_idx ON "agentic_db_memberships_public".org_chart_edges USING BTREE ( entity_id );
+CREATE INDEX org_chart_edges_entity_id_idx ON agentic_db_memberships_public.org_chart_edges USING BTREE ( entity_id );
 

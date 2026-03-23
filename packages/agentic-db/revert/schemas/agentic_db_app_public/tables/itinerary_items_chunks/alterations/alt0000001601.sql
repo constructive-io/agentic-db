@@ -1,6 +1,0 @@
--- Revert: schemas/agentic_db_app_public/tables/itinerary_items_chunks/alterations/alt0000001601
-
-
-COMMENT ON TABLE "agentic_db_app_public".itinerary_items_chunks IS NULL;
-
-

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_memories/policies/auth_del_entity_membership/policy
 
 
-GRANT INSERT ON "agentic_db_app_public".company_memories TO authenticated;
+GRANT INSERT ON agentic_db_app_public.company_memories TO authenticated;
 

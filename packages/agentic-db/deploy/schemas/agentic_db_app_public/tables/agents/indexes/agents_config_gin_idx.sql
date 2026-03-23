@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-CREATE INDEX agents_config_gin_idx ON "agentic_db_app_public".agents USING GIN ( config );
+CREATE INDEX agents_config_gin_idx ON agentic_db_app_public.agents USING GIN ( config );
 

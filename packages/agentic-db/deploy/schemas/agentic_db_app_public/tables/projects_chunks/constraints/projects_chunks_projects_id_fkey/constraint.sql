@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_status_idx
 
 
-ALTER TABLE "agentic_db_app_public".projects_chunks 
+ALTER TABLE agentic_db_app_public.projects_chunks 
   ADD CONSTRAINT projects_chunks_projects_id_fkey 
     FOREIGN KEY(projects_id) 
-    REFERENCES "agentic_db_app_public".projects (id) 
+    REFERENCES agentic_db_app_public.projects (id) 
     ON DELETE CASCADE;
 

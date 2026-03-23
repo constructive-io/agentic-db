@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/columns/tags/column
 
 
-CREATE INDEX autonomy_records_tags_gin_idx ON "agentic_db_app_public".autonomy_records USING GIN ( tags );
+CREATE INDEX autonomy_records_tags_gin_idx ON agentic_db_app_public.autonomy_records USING GIN ( tags );
 

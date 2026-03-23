@@ -9,5 +9,5 @@
 -- requires: schemas/agentic_db_memberships_private/tables/app_memberships_sprt/columns/permissions/column
 
 
-CREATE UNIQUE INDEX app_memberships_sprts_actor_id_idx ON "agentic_db_memberships_private".app_memberships_sprt USING BTREE ( actor_id ) INCLUDE ( permissions, is_owner, is_admin );
+CREATE UNIQUE INDEX app_memberships_sprts_actor_id_idx ON agentic_db_memberships_private.app_memberships_sprt USING BTREE ( actor_id ) INCLUDE ( permissions, is_owner, is_admin );
 

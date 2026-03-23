@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER notes_enqueue_chunking_update_tg
-AFTER UPDATE ON "agentic_db_app_public".notes
+AFTER UPDATE ON agentic_db_app_public.notes
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".notes_enqueue_chunking ( );
+EXECUTE PROCEDURE agentic_db_private.notes_enqueue_chunking ( );
 

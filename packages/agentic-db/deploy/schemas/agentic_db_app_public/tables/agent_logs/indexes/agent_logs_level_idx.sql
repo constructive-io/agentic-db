@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_logs/columns/level/column
 
 
-CREATE INDEX agent_logs_level_idx ON "agentic_db_app_public".agent_logs USING BTREE ( level );
+CREATE INDEX agent_logs_level_idx ON agentic_db_app_public.agent_logs USING BTREE ( level );
 

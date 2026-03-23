@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _99999_org_memberships_delete_sprt
-AFTER DELETE ON "agentic_db_memberships_public".org_memberships
+AFTER DELETE ON agentic_db_memberships_public.org_memberships
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_memberships_private".org_memberships_delete_sprt_tg ( );
+EXECUTE PROCEDURE agentic_db_memberships_private.org_memberships_delete_sprt_tg ( );
 
