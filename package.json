@@ -25,6 +25,21 @@
     "generate:all": "pnpm run export:schema && pnpm run generate:sdk && pnpm run generate:cli",
     "export:all": "pnpm run export:pgpm && pnpm run generate:all"
   },
+  "pnpm": {
+    "overrides": {
+      "graphql": "16.13.0",
+      "grafast": "1.0.0-rc.9",
+      "graphile-build": "5.0.0-rc.6",
+      "graphile-build-pg": "5.0.0-rc.8",
+      "graphile-config": "1.0.0-rc.6",
+      "graphile-utils": "5.0.0-rc.8",
+      "postgraphile": "5.0.0-rc.10",
+      "@dataplan/json": "1.0.0-rc.6",
+      "@dataplan/pg": "1.0.0-rc.8",
+      "pg-sql2": "5.0.0-rc.5",
+      "tamedevil": "0.1.0-rc.6"
+    }
+  },
   "devDependencies": {
     "@constructive-io/graphql-codegen": "4.21.2",
     "@types/jest": "^30.0.0",
@@ -38,7 +53,9 @@
     "jest": "^30.2.0",
     "lerna": "^9.0.3",
     "makage": "0.1.12",
-    "pgsql-test": "^4.3.2",
+    "graphile-test": "^4.5.10",
+    "graphql": "16.13.0",
+    "pgsql-test": "^4.5.10",
     "prettier": "^3.7.4",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",

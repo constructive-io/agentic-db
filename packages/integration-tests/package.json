@@ -1,0 +1,26 @@
+{
+  "name": "@agentic-db/integration-tests",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Integration tests for agentic-db: ORM and embeddings",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --forceExit --detectOpenHandles",
+    "test:orm": "jest --forceExit --detectOpenHandles __tests__/orm.test.ts",
+    "test:embeddings": "jest --forceExit --detectOpenHandles __tests__/embeddings.test.ts"
+  },
+  "devDependencies": {
+    "@0no-co/graphql.web": "^1.2.0",
+    "@constructive-io/graphql-codegen": "4.21.2",
+    "@constructive-io/graphql-query": "3.9.1",
+    "@constructive-io/graphql-types": "3.3.4",
+    "@types/pg": "^8.16.0",
+    "gql-ast": "3.3.3",
+    "graphile-settings": "4.12.2",
+    "graphile-test": "^4.5.10",
+    "graphql": "16.13.0",
+    "pgsql-test": "^4.5.10",
+    "typescript": "^5.9.3"
+  }
+}
