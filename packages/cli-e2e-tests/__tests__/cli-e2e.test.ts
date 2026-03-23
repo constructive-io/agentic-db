@@ -139,7 +139,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     mkdirSync(testHome, { recursive: true });
 
     // Spin up real PostGraphile HTTP server + test database
-    // Deploy both pgpm packages: agentic-db (core schema) and agentic-db-services
+    // Deploy the agentic-db pgpm package from its directory
     const connections = await getConnections(
       {
         schemas: SCHEMAS,
@@ -152,7 +152,6 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
       },
       [
         seed.pgpm(join(REPO_ROOT, 'packages', 'agentic-db')),
-        seed.pgpm(join(REPO_ROOT, 'packages', 'agentic-db-services')),
       ],
     );
 
@@ -209,13 +208,11 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
 
     const { userId, accessToken } = signUpData;
 
-    // Set authenticated context
-    db.setContext({
-      role: 'authenticated',
-      'jwt.claims.user_id': userId,
-    });
+    // Auth headers for HTTP-based GraphQL queries (SuperTest)
+    // db.setContext() only works for direct DB connections, not HTTP requests
+    const authHeaders = { Authorization: `Bearer ${accessToken}` };
 
-    // 2. Create contacts via GraphQL
+    // 2. Create contacts via GraphQL (with auth headers)
     const createContact = async (
       firstName: string,
       lastName: string,
@@ -239,6 +236,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
             },
           },
         },
+        authHeaders,
       );
       const data = (result as any)?.data?.createContact?.contact;
       if (!data) throw new Error(`createContact failed: ${JSON.stringify(result)}`);
@@ -261,7 +259,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
       fixtures.records.eve.data.bio,
     );
 
-    // 3. Create notes via GraphQL
+    // 3. Create notes via GraphQL (with auth headers)
     const createNote = async (content: string) => {
       const result = await query(
         `mutation CreateNote($input: CreateNoteInput!) {
@@ -277,6 +275,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
             },
           },
         },
+        authHeaders,
       );
       const data = (result as any)?.data?.createNote?.note;
       if (!data) throw new Error(`createNote failed: ${JSON.stringify(result)}`);
@@ -287,7 +286,6 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     await createNote(fixtures.records.note_meeting.data.content);
 
     // 4. Set embeddings via direct SQL (superuser)
-    await db.publish();
 
     const setEmbedding = async (table: string, id: string, embedding: number[], text: string) => {
       await pg.query(
