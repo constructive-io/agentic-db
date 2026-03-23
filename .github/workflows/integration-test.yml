@@ -323,6 +323,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Cache pgpm CLI
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: pgpm-${{ runner.os }}-${{ env.PGPM_VERSION }}
+
+      - name: Install pgpm CLI globally
+        run: npm install -g pgpm@${{ env.PGPM_VERSION }}
+
+      - name: Bootstrap pgpm admin users
+        run: |
+          eval "$(pgpm env)"
+          pgpm admin-users bootstrap --yes
+          pgpm admin-users add --test --yes
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -336,6 +351,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Build SDK
+        run: pnpm --filter @agentic-db/sdk run build
 
       - name: Wait for Ollama and pull model
         run: |
@@ -355,5 +373,5 @@ jobs:
 
       - name: Run RAG tests
         run: |
-          cd packages/integration-tests
-          pnpm test:rag
+          cd packages/agentic-db
+          pnpm test -- --forceExit --detectOpenHandles __tests__/rag.test.ts
