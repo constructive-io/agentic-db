@@ -49,9 +49,6 @@ describe('ORM integration', () => {
         preset: {
           extends: [ConstructivePreset],
         },
-        db: {
-          extensions: ['postgis', 'vector', 'pg_textsearch', 'pg_trgm'],
-        },
       },
       [
         seed.sqlfile([
@@ -122,46 +119,10 @@ describe('ORM integration', () => {
   });
 
   // =========================================================================
-  // Diagnostic: raw GraphQL connection query (bypasses ORM)
-  // =========================================================================
-  describe('raw GraphQL diagnostics', () => {
-    it('raw connection query works', async () => {
-      const result = await query({ query: '{ contacts { nodes { id firstName } } }' });
-      console.log('[RAW QUERY] result:', JSON.stringify(result, null, 2));
-      if (result.errors) {
-        console.error('[RAW QUERY] errors:', JSON.stringify(result.errors, null, 2));
-      }
-      expect(result.errors).toBeUndefined();
-      expect(result.data).toBeDefined();
-    });
-
-    it('raw introspection of Query type connection fields', async () => {
-      const result = await query({
-        query: `{
-          __type(name: "Query") {
-            fields {
-              name
-              type { name kind ofType { name kind } }
-            }
-          }
-        }`,
-      });
-      const fields = (result.data as any)?.__type?.fields ?? [];
-      const connectionFields = fields.filter((f: any) =>
-        f.name === 'contacts' || f.name === 'notes' || f.name === 'agents',
-      );
-      console.log('[INTROSPECTION] connection fields:', JSON.stringify(connectionFields, null, 2));
-      expect(connectionFields.length).toBeGreaterThan(0);
-    });
-  });
-
-  // =========================================================================
   // Test: Contact CRUD via ORM
   // =========================================================================
   describe('Contact CRUD via ORM', () => {
     it('contact.findMany returns seeded contacts', async () => {
-      // Enable debug logging for this query
-      process.env.DEBUG_ORM = '1';
       const result = await orm.contact
         .findMany({
           select: {
@@ -172,7 +133,6 @@ describe('ORM integration', () => {
           },
         })
         .execute();
-      delete process.env.DEBUG_ORM;
 
       expectOk(result, 'contact.findMany');
       const nodes = unwrapData(result.data).nodes;

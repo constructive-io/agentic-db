@@ -20,10 +20,6 @@ export class GraphileTestAdapter implements GraphQLAdapter {
     document: string,
     variables?: Record<string, unknown>,
   ): Promise<QueryResult<T>> {
-    if (process.env.DEBUG_ORM) {
-      console.log('[GraphileTestAdapter] document:', document);
-      if (variables) console.log('[GraphileTestAdapter] variables:', JSON.stringify(variables));
-    }
     const result = await this.queryFn<T>({ query: document, variables });
 
     if (result.errors && result.errors.length > 0) {
