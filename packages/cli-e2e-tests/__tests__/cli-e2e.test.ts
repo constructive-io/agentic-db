@@ -24,6 +24,7 @@ import { mkdirSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { getConnections } from 'graphql-server-test';
+import { seed } from 'pgsql-test';
 
 // Pre-baked embeddings generated with nomic-embed-text
 import fixtures from '../../agentic-db/__tests__/fixtures/rag-embeddings.json';
@@ -138,15 +139,20 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     mkdirSync(testHome, { recursive: true });
 
     // Spin up real PostGraphile HTTP server + test database
-    const connections = await getConnections({
-      schemas: SCHEMAS,
-      authRole: 'anonymous',
-      server: {
-        api: {
-          enableServicesApi: false,
+    // Pass seed.pgpm(REPO_ROOT) so pgsql-test deploys the agentic-db
+    // pgpm packages from the repo root (not from packages/cli-e2e-tests/)
+    const connections = await getConnections(
+      {
+        schemas: SCHEMAS,
+        authRole: 'anonymous',
+        server: {
+          api: {
+            enableServicesApi: false,
+          },
         },
       },
-    });
+      [seed.pgpm(REPO_ROOT)],
+    );
 
     server = connections.server;
     pg = connections.pg;

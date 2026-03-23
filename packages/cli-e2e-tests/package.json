@@ -12,6 +12,6 @@
   "devDependencies": {
     "@agentic-db/sdk": "workspace:*",
     "graphql-server-test": "^2.7.2",
-    "pgsql-test": "^2.18.15"
+    "pgsql-test": "^4.5.10"
   }
 }
