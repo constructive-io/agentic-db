@@ -241,8 +241,12 @@ export async function search(query: string, tables?: TableName[]) {
     // Search parent table
     const searchFn = TABLE_SEARCH[table];
     if (searchFn) {
-      const results = await searchFn(client, queryEmbedding, 3);
-      parentResults.push(...results);
+      try {
+        const results = await searchFn(client, queryEmbedding, 3);
+        parentResults.push(...results);
+      } catch {
+        // Model may not be available in the SDK yet; skip gracefully
+      }
     }
 
     // Search chunk table (for deep content matching)
