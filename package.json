@@ -25,6 +25,11 @@
     "generate:all": "pnpm run export:schema && pnpm run generate:sdk && pnpm run generate:cli",
     "export:all": "pnpm run export:pgpm && pnpm run generate:all"
   },
+  "pnpm": {
+    "overrides": {
+      "graphql": "16.13.0"
+    }
+  },
   "devDependencies": {
     "@constructive-io/graphql-codegen": "4.21.2",
     "@types/jest": "^30.0.0",
@@ -38,6 +43,8 @@
     "jest": "^30.2.0",
     "lerna": "^9.0.3",
     "makage": "0.1.12",
+    "graphile-test": "^4.5.10",
+    "graphql": "16.13.0",
     "pgsql-test": "^4.3.2",
     "prettier": "^3.7.4",
     "ts-jest": "^29.4.6",

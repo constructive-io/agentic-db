@@ -4,11 +4,15 @@
 
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 CREATE EXTENSION IF NOT EXISTS "citext";
+CREATE EXTENSION IF NOT EXISTS "vector";
 
--- helper: uuidv7 if not already available
-CREATE OR REPLACE FUNCTION uuidv7() RETURNS uuid AS $$
-  SELECT gen_random_uuid();
-$$ LANGUAGE sql;
+-- helper: uuidv7 stub (uses gen_random_uuid for testing)
+DO $$ BEGIN
+  CREATE FUNCTION uuidv7() RETURNS uuid AS $fn$
+    SELECT gen_random_uuid();
+  $fn$ LANGUAGE sql;
+EXCEPTION WHEN duplicate_function THEN NULL;
+END $$;
 
 CREATE SCHEMA IF NOT EXISTS "agentic_db_app_public";
 
