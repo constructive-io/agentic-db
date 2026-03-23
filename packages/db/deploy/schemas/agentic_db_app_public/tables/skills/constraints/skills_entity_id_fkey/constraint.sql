@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
 -- requires: schemas/agentic_db_users_public/tables/users/table
--- requires: schemas/agentic_db_app_public/tables/memories/columns/embedding/column
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
 ALTER TABLE "agentic_db_app_public".skills 

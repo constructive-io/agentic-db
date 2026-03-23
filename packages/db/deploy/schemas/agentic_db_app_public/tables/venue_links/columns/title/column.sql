@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venue_links/table
--- requires: schemas/agentic_db_app_public/tables/venue_links/columns/updated_at/alterations/alt0000000972
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
 ALTER TABLE "agentic_db_app_public".venue_links 

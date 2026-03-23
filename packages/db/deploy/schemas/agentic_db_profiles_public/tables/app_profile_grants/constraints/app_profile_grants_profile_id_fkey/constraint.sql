@@ -10,5 +10,5 @@ ALTER TABLE "agentic_db_profiles_public".app_profile_grants
   ADD CONSTRAINT app_profile_grants_profile_id_fkey 
     FOREIGN KEY(profile_id) 
     REFERENCES "agentic_db_profiles_public".app_profiles (id) 
-    ON DELETE CASCADE;
+    ON DELETE SET NULL;
 

@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/event_links/table
--- requires: schemas/agentic_db_app_public/tables/company_links/columns/embedding/column
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
 CREATE POLICY auth_upd_entity_membership ON "agentic_db_app_public".event_links

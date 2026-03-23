@@ -7,8 +7,6 @@
 import {
   type BlueprintDefinition,
   orgTable,
-  chunkTable,
-  hasManyChunks,
   provisionBlueprint,
   f,
   req,
@@ -35,6 +33,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'destination'],
+          chunks: true,
         }),
         dataPostGIS({ field_name: 'location', use_geography: true }),
       ]),
@@ -53,6 +52,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'notes'],
+          chunks: true,
         }),
         dataPostGIS({ field_name: 'location', use_geography: true }),
       ]),
@@ -73,6 +73,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'notes'],
+          chunks: true,
         }),
       ]),
 
@@ -91,6 +92,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'region'],
+          chunks: true,
         }),
         dataPostGIS({ field_name: 'location', use_geography: true }),
       ]),
@@ -107,6 +109,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['title', 'content'],
+          chunks: true,
         }),
       ]),
 
@@ -124,6 +127,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['title', 'description'],
+          chunks: true,
         }),
       ]),
 
@@ -140,30 +144,14 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description'],
+          chunks: true,
         }),
       ]),
-
-    // -- Chunk tables -------------------------------------------------------
-    chunkTable('trips'),
-    chunkTable('places'),
-    chunkTable('itinerary_items'),
-    chunkTable('hiking_trails'),
-    chunkTable('memories'),
-    chunkTable('goals'),
-    chunkTable('habits'),
   ],
 
   relations: [
     { $type: 'RelationHasMany', source_ref: 'trips',  target_ref: 'itinerary_items', delete_action: 'c' },
     { $type: 'RelationBelongsTo', source_ref: 'itinerary_items', target_ref: 'places', field_name: 'place_id', source_field_name: 'place_id', target_field_name: 'id', delete_action: 'n', is_required: false },
-
-    hasManyChunks('trips'),
-    hasManyChunks('places'),
-    hasManyChunks('itinerary_items'),
-    hasManyChunks('hiking_trails'),
-    hasManyChunks('memories'),
-    hasManyChunks('goals'),
-    hasManyChunks('habits'),
 
     { $type: 'RelationManyToMany', source_ref: 'trips', target_ref: 'places', junction_table_name: 'trip_places', source_field_name: 'trip_id', target_field_name: 'place_id', is_required: false, data: M2M_JUNCTION_OPTS },
     { $type: 'RelationManyToMany', source_ref: 'trips', target_ref: 'hiking_trails', junction_table_name: 'trip_hiking_trails', source_field_name: 'trip_id', target_field_name: 'hiking_trail_id', is_required: false, data: M2M_JUNCTION_OPTS },

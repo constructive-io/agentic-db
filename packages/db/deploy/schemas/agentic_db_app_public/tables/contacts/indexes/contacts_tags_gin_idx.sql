@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contacts/table
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/tags/column
--- requires: schemas/agentic_db_app_public/tables/activity_log/indexes/activity_logs_description_bm25_idx
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
 CREATE INDEX contacts_tags_gin_idx ON "agentic_db_app_public".contacts USING GIN ( tags );

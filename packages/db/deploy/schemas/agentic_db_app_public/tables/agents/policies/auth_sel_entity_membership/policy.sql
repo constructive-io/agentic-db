@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agents/table
--- requires: schemas/agentic_db_app_public/tables/tasks/constraints/tasks_parent_task_id_fkey/constraint
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
 CREATE POLICY auth_sel_entity_membership ON "agentic_db_app_public".agents

@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contacts/table
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/embedding/column
--- requires: schemas/agentic_db_app_public/tables/memories/constraints/memories_agent_id_fkey/constraint
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX contacts_embedding_hnsw_idx ON "agentic_db_app_public".contacts USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
+CREATE INDEX contacts_embedding_hnsw_idx ON "agentic_db_app_public".contacts USING hnsw ( embedding vector_cosine_ops );
 

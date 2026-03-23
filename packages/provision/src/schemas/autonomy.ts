@@ -7,8 +7,6 @@
 import {
   type BlueprintDefinition,
   orgTable,
-  chunkTable,
-  hasManyChunks,
   provisionBlueprint,
   f,
   req,
@@ -32,15 +30,12 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['title', 'content'],
+          chunks: true,
         }),
       ]),
-
-    chunkTable('autonomy_records'),
   ],
 
   relations: [
-    hasManyChunks('autonomy_records'),
-
     { $type: 'RelationManyToMany', source_ref: 'autonomy_records', target_ref: 'autonomy_records', junction_table_name: 'autonomy_record_links', source_field_name: 'source_record_id', target_field_name: 'target_record_id', is_required: false, data: M2M_JUNCTION_OPTS },
   ],
 

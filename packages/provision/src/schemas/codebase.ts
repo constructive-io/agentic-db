@@ -7,8 +7,6 @@
 import {
   type BlueprintDefinition,
   orgTable,
-  chunkTable,
-  hasManyChunks,
   provisionBlueprint,
   f,
   req,
@@ -33,6 +31,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description'],
+          chunks: true,
         }),
       ]),
 
@@ -51,13 +50,10 @@ const definition: BlueprintDefinition = {
           embedding_source_fields: ['content', 'file_path', 'symbol_name'],
         }),
       ]),
-
-    chunkTable('codebases'),
   ],
 
   relations: [
     { $type: 'RelationHasMany', source_ref: 'codebases', target_ref: 'code_chunks', delete_action: 'c' },
-    hasManyChunks('codebases'),
 
     { $type: 'RelationManyToMany', source_ref: 'codebases', target_ref: 'codebases', junction_table_name: 'codebase_dependencies', source_field_name: 'codebase_id', target_field_name: 'dependency_id', is_required: false, data: M2M_JUNCTION_OPTS },
   ],

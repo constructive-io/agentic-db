@@ -121,7 +121,7 @@ BEGIN
         WHERE id = v_anon_session.id;
     END IF;
     v_csrf_secret := encode(gen_random_bytes(32), 'hex');
-    v_session_id := gen_random_uuid();
+    v_session_id := uuidv7();
     IF (remember_me IS TRUE) THEN 
       v_session_expires_at := NOW() + v_remember_me_duration;
     ELSE 

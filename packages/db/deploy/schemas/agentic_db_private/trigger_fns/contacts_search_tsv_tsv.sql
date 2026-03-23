@@ -2,7 +2,7 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_private/schema
--- requires: schemas/agentic_db_app_public/tables/trips/indexes/trips_destination_geo_gist_idx
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
 CREATE FUNCTION "agentic_db_private".contacts_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$

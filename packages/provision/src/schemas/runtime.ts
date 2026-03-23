@@ -7,8 +7,6 @@
 import {
   type BlueprintDefinition,
   orgTable,
-  chunkTable,
-  hasManyChunks,
   provisionBlueprint,
   f,
   req,
@@ -32,6 +30,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'state_type'],
+          chunks: true,
         }),
       ]),
 
@@ -45,6 +44,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['message'],
+          chunks: true,
         }),
       ]),
 
@@ -95,10 +95,6 @@ const definition: BlueprintDefinition = {
       f('is_secret', 'bool', { default_value: 'false' }),
     ]),
 
-    // -- Chunk tables -------------------------------------------------------
-    chunkTable('runtime_states'),
-    chunkTable('runtime_logs'),
-
     // -- Conversations & Messages -------------------------------------------
     orgTable('conversations', [
       req('title', 'text'),
@@ -108,6 +104,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['title'],
+          chunks: true,
         }),
       ]),
 
@@ -122,11 +119,9 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['content'],
+          chunks: true,
         }),
       ]),
-
-    chunkTable('conversations'),
-    chunkTable('messages'),
 
     // -- Tool Definitions & Executions --------------------------------------
     orgTable('tool_definitions', [
@@ -154,11 +149,6 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'runtime_states', target_ref: 'runtime_logs',      delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'runtime_states', target_ref: 'runtime_artifacts',  delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'runtime_states', target_ref: 'runtime_metrics',    delete_action: 'c' },
-
-    hasManyChunks('runtime_states'),
-    hasManyChunks('runtime_logs'),
-    hasManyChunks('conversations'),
-    hasManyChunks('messages'),
 
     { $type: 'RelationHasMany', source_ref: 'conversations',    target_ref: 'messages',         delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'tool_definitions', target_ref: 'tool_executions',  delete_action: 'c' },

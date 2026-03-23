@@ -40,8 +40,8 @@ INSERT INTO metaschema_modules_public.limits_module (
   entity_table_id,
   actor_table_id
 ) VALUES
-  ('019d1795-5133-7f6d-8d9f-5330cc8df722', '019d1795-468e-7f13-8fa9-c40a9f5f3beb', '019d1795-5134-772b-9356-915358d7fbd1', '019d1795-51ab-773d-92fa-c6958bcfe3fd', '019d1795-522a-70ad-ab17-3ca7b41a79fd', 'app_limits', '019d1795-5370-7516-96ed-fec4f2935e0c', 'app_limit_defaults', 'app_limits_inc', 'app_limits_dec', 'app_limits_inc_tg', 'app_limits_dec_tg', 'app_limits_upd_tg', 'app_limits_check', 'app', 1, NULL, '019d1795-494e-7deb-bd76-39af3a5fa635'),
-  ('019d1795-81d0-776b-bd0d-13e8ba2d9a92', '019d1795-468e-7f13-8fa9-c40a9f5f3beb', '019d1795-5134-772b-9356-915358d7fbd1', '019d1795-51ab-773d-92fa-c6958bcfe3fd', '019d1795-8243-74ac-af82-138875d2f98d', 'org_limits', '019d1795-8423-7cc8-93af-fb7fa796284d', 'org_limit_defaults', 'org_limits_inc', 'org_limits_dec', 'org_limits_inc_tg', 'org_limits_dec_tg', 'org_limits_upd_tg', 'org_limits_check', 'org', 2, '019d1795-494e-7deb-bd76-39af3a5fa635', '019d1795-494e-7deb-bd76-39af3a5fa635');
+  ('019d19cf-0e86-773b-8491-4111eec571ce', '019d19cf-0211-7ea0-a1e2-49c8524221ad', '019d19cf-0e86-7eb9-b558-3e6f5c17954b', '019d19cf-0f18-7d02-acfc-a50c6bdcb569', '019d19cf-0fbf-7a2b-94e8-5e9f8471ac60', 'app_limits', '019d19cf-112f-79cd-b3ee-6511e0b93212', 'app_limit_defaults', 'app_limits_inc', 'app_limits_dec', 'app_limits_inc_tg', 'app_limits_dec_tg', 'app_limits_upd_tg', 'app_limits_check', 'app', 1, NULL, '019d19cf-04f9-762a-946a-add4e6430409'),
+  ('019d19cf-49d5-76bc-b800-fa40fa87b9c9', '019d19cf-0211-7ea0-a1e2-49c8524221ad', '019d19cf-0e86-7eb9-b558-3e6f5c17954b', '019d19cf-0f18-7d02-acfc-a50c6bdcb569', '019d19cf-4cc3-7f7e-8565-e982833fa22d', 'org_limits', '019d19cf-4e95-78b6-b86f-41102285efbf', 'org_limit_defaults', 'org_limits_inc', 'org_limits_dec', 'org_limits_inc_tg', 'org_limits_dec_tg', 'org_limits_upd_tg', 'org_limits_check', 'org', 2, '019d19cf-04f9-762a-946a-add4e6430409', '019d19cf-04f9-762a-946a-add4e6430409');
 
 
 SET session_replication_role TO DEFAULT;

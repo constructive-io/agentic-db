@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
--- requires: schemas/agentic_db_app_public/tables/memories/columns/embedding/column
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
 GRANT DELETE ON "agentic_db_app_public".skills TO authenticated;
