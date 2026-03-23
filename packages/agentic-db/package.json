@@ -23,7 +23,11 @@
   },
   "keywords": [],
   "devDependencies": {
-    "pgsql-test": "^2.18.15",
-    "makage": "^0.1.10"
+    "@agentic-db/sdk": "workspace:*",
+    "@agentic-kit/ollama": "^1.0.3",
+    "@constructive-io/graphql-test": "^4.7.2",
+    "graphile-settings": "4.12.2",
+    "makage": "^0.1.10",
+    "pgsql-test": "^2.18.15"
   }
 }

@@ -9,7 +9,8 @@
     "test": "jest --forceExit --detectOpenHandles",
     "test:orm": "jest --forceExit --detectOpenHandles __tests__/orm.test.ts",
     "test:embeddings": "jest --forceExit --detectOpenHandles __tests__/embeddings.test.ts",
-    "test:embedding-pipeline": "jest --forceExit --detectOpenHandles __tests__/embedding-pipeline.test.ts"
+    "test:embedding-pipeline": "jest --forceExit --detectOpenHandles __tests__/embedding-pipeline.test.ts",
+    "test:rag": "jest --forceExit --detectOpenHandles __tests__/rag.test.ts"
   },
   "devDependencies": {
     "@agentic-kit/ollama": "^1.0.3",
