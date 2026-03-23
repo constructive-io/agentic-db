@@ -17,6 +17,7 @@ CREATE TABLE "agentic_db_app_public".contacts (
   headline text,
   bio text,
   embedding_text text,
+  embedding vector(768),
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
@@ -30,6 +31,7 @@ CREATE TABLE "agentic_db_app_public".notes (
   abstract text,
   overview text,
   embedding_text text,
+  embedding vector(768),
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
