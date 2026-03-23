@@ -49,6 +49,9 @@ describe('ORM integration', () => {
         preset: {
           extends: [ConstructivePreset],
         },
+        db: {
+          extensions: ['postgis', 'vector', 'pg_trgm'],
+        },
       },
       [
         seed.sqlfile([

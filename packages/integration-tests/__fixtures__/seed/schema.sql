@@ -2,9 +2,8 @@
 -- Creates a minimal subset of agentic_db_app_public tables for ORM testing
 -- Modeled after constructive/graphql/orm-test/__fixtures__/seed/schema.sql
 
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+-- pgcrypto is built-in on PG14+; vector/postgis/pg_trgm installed via db.extensions
 CREATE EXTENSION IF NOT EXISTS "citext";
-CREATE EXTENSION IF NOT EXISTS "vector";
 
 -- helper: uuidv7 stub (uses gen_random_uuid for testing)
 DO $$ BEGIN
