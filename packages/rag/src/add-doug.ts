@@ -48,16 +48,16 @@ async function main() {
 
   const taskData = {
     entityId,
+    agentId: entityId,
     title: 'Consider Doug Song as a potential investor for Constructive fundraise',
     description: 'Doug is the founder of Duo Security, grew up with Dan in Ann Arbor, known since 1990s. Potential angel/investor for the round.',
     status: 'todo',
-    tags: ['fundraise', 'investor']
   };
 
-  const taskText = `${taskData.title} ${taskData.description} ${taskData.tags.join(' ')}`;
+  const taskText = `${taskData.title} ${taskData.description}`;
   const taskEmbedding = await embed(taskText);
 
-  const taskRes = await client.task.create({
+  const taskRes = await client.agentTask.create({
     data: {
       ...taskData,
       embedding: taskEmbedding
@@ -70,7 +70,7 @@ async function main() {
     throw new Error('Failed to create task');
   }
 
-  const taskId = taskRes.data?.createTask?.task?.id;
+  const taskId = taskRes.data?.createAgentTask?.agentTask?.id;
   console.log('Created Task:', taskId);
   console.log('Done!');
 }

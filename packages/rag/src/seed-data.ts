@@ -84,7 +84,7 @@ async function main() {
         name,
         stage,
         value: value as any, 
-        notes,
+        notesText: notes,
         embedding: embedding as any,
       },
       select: { id: true, name: true }
