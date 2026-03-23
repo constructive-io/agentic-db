@@ -50,7 +50,7 @@ describe('ORM integration', () => {
           extends: [ConstructivePreset],
         },
         db: {
-          extensions: ['postgis', 'vector', 'pg_trgm'],
+          extensions: ['postgis', 'vector', 'pg_textsearch', 'pg_trgm'],
         },
       },
       [

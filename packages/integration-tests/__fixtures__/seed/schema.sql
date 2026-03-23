@@ -2,8 +2,8 @@
 -- Creates a minimal subset of agentic_db_app_public tables for ORM testing
 -- Modeled after constructive/graphql/orm-test/__fixtures__/seed/schema.sql
 
--- pgcrypto is built-in on PG14+; vector/postgis/pg_trgm installed via db.extensions
-CREATE EXTENSION IF NOT EXISTS "citext";
+-- Extensions (postgis, vector, pg_trgm, pg_textsearch) are installed via db.extensions config.
+-- No manual CREATE EXTENSION needed here.
 
 -- helper: uuidv7 stub (uses gen_random_uuid for testing)
 DO $$ BEGIN
@@ -36,10 +36,7 @@ CREATE TABLE "agentic_db_app_public".contacts (
   relationship_type text,
   birthday date,
   main_image_id uuid,
-  tags citext[],
-  embedding_text text,
-  embedding_stale boolean NOT NULL DEFAULT true,
-  search_tsv tsvector,
+  tags text[],
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
@@ -53,9 +50,7 @@ CREATE TABLE "agentic_db_app_public".notes (
   abstract text,
   overview text,
   active_count int,
-  tags citext[],
-  embedding_text text,
-  embedding_stale boolean NOT NULL DEFAULT true,
+  tags text[],
   last_accessed_at timestamptz,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
@@ -73,9 +68,7 @@ CREATE TABLE "agentic_db_app_public".agents (
   status text,
   config jsonb,
   temperature numeric,
-  tags citext[],
-  embedding_text text,
-  embedding_stale boolean NOT NULL DEFAULT true,
+  tags text[],
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
@@ -94,8 +87,6 @@ CREATE TABLE "agentic_db_app_public".agent_tasks (
   meta jsonb,
   started_at timestamptz,
   completed_at timestamptz,
-  embedding_text text,
-  embedding_stale boolean NOT NULL DEFAULT true,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
@@ -152,5 +143,8 @@ CREATE INDEX agent_tasks_agent_id_idx ON "agentic_db_app_public".agent_tasks (ag
 -- =============================================================================
 -- Grant permissions (needed for graphile-test roles)
 -- =============================================================================
-GRANT ALL ON SCHEMA "agentic_db_app_public" TO PUBLIC;
+GRANT USAGE ON SCHEMA "agentic_db_app_public" TO PUBLIC;
+ALTER DEFAULT PRIVILEGES IN SCHEMA "agentic_db_app_public" GRANT ALL ON TABLES TO PUBLIC;
+ALTER DEFAULT PRIVILEGES IN SCHEMA "agentic_db_app_public" GRANT ALL ON SEQUENCES TO PUBLIC;
 GRANT ALL ON ALL TABLES IN SCHEMA "agentic_db_app_public" TO PUBLIC;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA "agentic_db_app_public" TO PUBLIC;
