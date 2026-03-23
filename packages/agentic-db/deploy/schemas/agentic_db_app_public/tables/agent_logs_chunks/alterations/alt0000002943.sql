@@ -1,0 +1,10 @@
+-- Deploy: schemas/agentic_db_app_public/tables/agent_logs_chunks/alterations/alt0000002943
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/agent_logs_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
+
+
+COMMENT ON TABLE agentic_db_app_public.agent_logs_chunks IS E'@@chunksOf {"parent_fk": "agent_logs_id", "parent_table": "agent_logs"}';
+

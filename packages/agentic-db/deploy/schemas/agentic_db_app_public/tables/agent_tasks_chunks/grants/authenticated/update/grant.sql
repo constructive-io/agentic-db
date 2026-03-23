@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-GRANT UPDATE ON "agentic_db_app_public".agent_tasks_chunks TO authenticated;
+GRANT UPDATE ON agentic_db_app_public.agent_tasks_chunks TO authenticated;
 

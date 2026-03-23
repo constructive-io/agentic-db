@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_profiles_public/tables/app_profiles/columns/is_default/column
 
 
-CREATE UNIQUE INDEX app_profiles_default_uniq ON "agentic_db_profiles_public".app_profiles ( (true::boolean) ) WHERE is_default = true;
+CREATE UNIQUE INDEX app_profiles_default_uniq ON agentic_db_profiles_public.app_profiles ( (true::boolean) ) WHERE is_default = true;
 

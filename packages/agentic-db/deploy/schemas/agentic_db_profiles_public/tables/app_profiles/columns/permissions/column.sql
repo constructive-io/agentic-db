@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_profiles_public/tables/app_profiles/table
 
 
-ALTER TABLE "agentic_db_profiles_public".app_profiles 
+ALTER TABLE agentic_db_profiles_public.app_profiles 
   ADD COLUMN permissions bit(24);
 

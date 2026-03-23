@@ -39,12 +39,14 @@ DATABASE_ID=$(psql -d "${DATABASE_NAME}" -tAc "
   SET ROLE administrator;
   INSERT INTO metaschema_modules_public.database_provision_module (
     database_name,
+    owner_id,
     subdomain,
     domain,
     modules,
     bootstrap_user
   ) VALUES (
     '${DB_NAME}',
+    uuidv7(),
     '${DB_NAME}',
     'localhost',
     '{all}',

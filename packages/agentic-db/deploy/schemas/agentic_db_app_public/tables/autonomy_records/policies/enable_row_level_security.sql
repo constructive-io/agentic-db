@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
 
 
-ALTER TABLE "agentic_db_app_public".autonomy_records 
+ALTER TABLE agentic_db_app_public.autonomy_records 
   ENABLE ROW LEVEL SECURITY;
 

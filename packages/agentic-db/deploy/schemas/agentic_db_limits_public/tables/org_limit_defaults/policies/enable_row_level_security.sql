@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_limits_public/tables/org_limit_defaults/table
 
 
-ALTER TABLE "agentic_db_limits_public".org_limit_defaults 
+ALTER TABLE agentic_db_limits_public.org_limit_defaults 
   ENABLE ROW LEVEL SECURITY;
 

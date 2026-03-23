@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_limits_public/tables/app_limits/table
 
 
-GRANT DELETE ON "agentic_db_limits_public".app_limits TO authenticated;
+GRANT DELETE ON agentic_db_limits_public.app_limits TO authenticated;
 

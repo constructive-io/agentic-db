@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/columns/intent_trigger_embedding/column
 
 
-CREATE INDEX skills_intent_trigger_embedding_hnsw_idx ON "agentic_db_app_public".skills USING hnsw ( intent_trigger_embedding vector_cosine_ops );
+CREATE INDEX skills_intent_trigger_embedding_hnsw_idx ON agentic_db_app_public.skills USING hnsw ( intent_trigger_embedding vector_cosine_ops );
 

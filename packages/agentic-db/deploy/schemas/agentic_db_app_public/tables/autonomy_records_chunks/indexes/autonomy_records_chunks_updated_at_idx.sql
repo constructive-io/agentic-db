@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records_chunks/columns/updated_at/column
 
 
-CREATE INDEX autonomy_records_chunks_updated_at_idx ON "agentic_db_app_public".autonomy_records_chunks ( updated_at );
+CREATE INDEX autonomy_records_chunks_updated_at_idx ON agentic_db_app_public.autonomy_records_chunks ( updated_at );
 

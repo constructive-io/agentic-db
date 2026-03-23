@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE "agentic_db_app_public".runtime_config 
+ALTER TABLE agentic_db_app_public.runtime_config 
   ADD CONSTRAINT runtime_configs_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE CASCADE;
 

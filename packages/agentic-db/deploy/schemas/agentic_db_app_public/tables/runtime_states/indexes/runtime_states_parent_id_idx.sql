@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_states/columns/parent_id/column
 
 
-CREATE INDEX runtime_states_parent_id_idx ON "agentic_db_app_public".runtime_states USING BTREE ( parent_id );
+CREATE INDEX runtime_states_parent_id_idx ON agentic_db_app_public.runtime_states USING BTREE ( parent_id );
 

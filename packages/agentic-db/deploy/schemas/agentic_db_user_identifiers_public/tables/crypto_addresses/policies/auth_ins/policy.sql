@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/crypto_addresses/table
 
 
-CREATE POLICY auth_ins ON "agentic_db_user_identifiers_public".crypto_addresses
+CREATE POLICY auth_ins ON agentic_db_user_identifiers_public.crypto_addresses
 FOR INSERT
 TO authenticated
 WITH CHECK (

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX companies_search_tsv_gin_idx ON "agentic_db_app_public".companies USING GIN ( search_tsv );
+CREATE INDEX companies_search_tsv_gin_idx ON agentic_db_app_public.companies USING GIN ( search_tsv );
 

@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_simple_secrets/schema
 
 
-CREATE TABLE "agentic_db_simple_secrets".secrets ();
+CREATE TABLE agentic_db_simple_secrets.secrets ();
 

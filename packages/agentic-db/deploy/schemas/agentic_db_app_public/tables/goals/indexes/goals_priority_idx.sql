@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE INDEX goals_priority_idx ON "agentic_db_app_public".goals USING BTREE ( priority );
+CREATE INDEX goals_priority_idx ON agentic_db_app_public.goals USING BTREE ( priority );
 

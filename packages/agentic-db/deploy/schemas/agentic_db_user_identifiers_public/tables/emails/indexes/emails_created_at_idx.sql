@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/emails/columns/created_at/column
 
 
-CREATE INDEX emails_created_at_idx ON "agentic_db_user_identifiers_public".emails ( created_at );
+CREATE INDEX emails_created_at_idx ON agentic_db_user_identifiers_public.emails ( created_at );
 

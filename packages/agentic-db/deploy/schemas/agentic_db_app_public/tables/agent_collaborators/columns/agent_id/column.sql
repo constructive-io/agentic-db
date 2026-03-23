@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".agent_collaborators 
+ALTER TABLE agentic_db_app_public.agent_collaborators 
   ADD COLUMN agent_id uuid;
 

@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_memberships_private/schema
 
 
-CREATE FUNCTION "agentic_db_memberships_private".org_org_chart_validate_no_cycle_tg() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_memberships_private.org_org_chart_validate_no_cycle_tg() RETURNS TRIGGER AS $_PGFN_$
 
             DECLARE
                 v_has_cycle boolean;
@@ -15,7 +15,7 @@ CREATE FUNCTION "agentic_db_memberships_private".org_org_chart_validate_no_cycle
                 
                 WITH RECURSIVE ancestors AS (
                     SELECT parent_id, child_id, 1 AS depth
-                    FROM "agentic_db_memberships_public".org_chart_edges
+                    FROM agentic_db_memberships_public.org_chart_edges
                     WHERE child_id = NEW.parent_id
                         AND entity_id = NEW.entity_id
                     
@@ -23,7 +23,7 @@ CREATE FUNCTION "agentic_db_memberships_private".org_org_chart_validate_no_cycle
                     
                     SELECT e.parent_id, e.child_id, a.depth + 1
                     FROM ancestors a
-                    JOIN "agentic_db_memberships_public".org_chart_edges e 
+                    JOIN agentic_db_memberships_public.org_chart_edges e 
                         ON e.child_id = a.parent_id
                         AND e.entity_id = NEW.entity_id
                     WHERE a.depth < 100

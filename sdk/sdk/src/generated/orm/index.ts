@@ -5,21 +5,21 @@
  */
 import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
-import { AgentChunkModel } from './models/agentChunk';
 import { AgentCollaboratorModel } from './models/agentCollaborator';
 import { AgentModel } from './models/agent';
-import { AgentLogChunkModel } from './models/agentLogChunk';
 import { AgentLogModel } from './models/agentLog';
-import { AgentTaskChunkModel } from './models/agentTaskChunk';
+import { AgentLogsChunkModel } from './models/agentLogsChunk';
+import { AgentsChunkModel } from './models/agentsChunk';
 import { AgentTaskModel } from './models/agentTask';
-import { AutonomyRecordChunkModel } from './models/autonomyRecordChunk';
+import { AgentTasksChunkModel } from './models/agentTasksChunk';
 import { AutonomyRecordModel } from './models/autonomyRecord';
 import { AutonomyRecordLinkModel } from './models/autonomyRecordLink';
-import { CodebasChunkModel } from './models/codebasChunk';
+import { AutonomyRecordsChunkModel } from './models/autonomyRecordsChunk';
 import { CodebaseDependencyModel } from './models/codebaseDependency';
+import { CodebasesChunkModel } from './models/codebasesChunk';
 import { CodebasisModel } from './models/codebasis';
 import { CodeChunkModel } from './models/codeChunk';
-import { CompanyChunkModel } from './models/companyChunk';
+import { CompaniesChunkModel } from './models/companiesChunk';
 import { CompanyModel } from './models/company';
 import { ContactModel } from './models/contact';
 import { CompanyEventModel } from './models/companyEvent';
@@ -31,7 +31,6 @@ import { MemoryModel } from './models/memory';
 import { CompanyMemoryModel } from './models/companyMemory';
 import { CompanyNoteModel } from './models/companyNote';
 import { NoteModel } from './models/note';
-import { ContactChunkModel } from './models/contactChunk';
 import { ContactCompanyModel } from './models/contactCompany';
 import { DealModel } from './models/deal';
 import { ContactEventModel } from './models/contactEvent';
@@ -40,61 +39,62 @@ import { ContactLinkModel } from './models/contactLink';
 import { ContactMemoryModel } from './models/contactMemory';
 import { ContactNoteModel } from './models/contactNote';
 import { ProjectModel } from './models/project';
-import { ConversationChunkModel } from './models/conversationChunk';
+import { ContactsChunkModel } from './models/contactsChunk';
 import { ConversationModel } from './models/conversation';
-import { DealChunkModel } from './models/dealChunk';
+import { ConversationsChunkModel } from './models/conversationsChunk';
 import { DealContactModel } from './models/dealContact';
 import { DealNoteModel } from './models/dealNote';
-import { EventChunkModel } from './models/eventChunk';
+import { DealsChunkModel } from './models/dealsChunk';
 import { EventImageModel } from './models/eventImage';
 import { EventLinkModel } from './models/eventLink';
 import { EventNoteModel } from './models/eventNote';
+import { EventsChunkModel } from './models/eventsChunk';
 import { EventVenueModel } from './models/eventVenue';
 import { VenueModel } from './models/venue';
-import { GoalChunkModel } from './models/goalChunk';
 import { GoalModel } from './models/goal';
 import { GoalHabitModel } from './models/goalHabit';
 import { HabitModel } from './models/habit';
 import { GoalProjectModel } from './models/goalProject';
-import { HabitChunkModel } from './models/habitChunk';
-import { HikingTrailChunkModel } from './models/hikingTrailChunk';
+import { GoalsChunkModel } from './models/goalsChunk';
+import { HabitsChunkModel } from './models/habitsChunk';
 import { HikingTrailModel } from './models/hikingTrail';
+import { HikingTrailsChunkModel } from './models/hikingTrailsChunk';
 import { TripModel } from './models/trip';
-import { InteractionChunkModel } from './models/interactionChunk';
 import { InteractionModel } from './models/interaction';
-import { ItineraryItemChunkModel } from './models/itineraryItemChunk';
+import { InteractionsChunkModel } from './models/interactionsChunk';
 import { ItineraryItemModel } from './models/itineraryItem';
-import { MemoryChunkModel } from './models/memoryChunk';
-import { MessageChunkModel } from './models/messageChunk';
+import { ItineraryItemsChunkModel } from './models/itineraryItemsChunk';
+import { MemoriesChunkModel } from './models/memoriesChunk';
 import { MessageModel } from './models/message';
-import { NoteChunkModel } from './models/noteChunk';
-import { PlaceChunkModel } from './models/placeChunk';
+import { MessagesChunkModel } from './models/messagesChunk';
+import { NotesChunkModel } from './models/notesChunk';
 import { PlaceModel } from './models/place';
-import { ProjectChunkModel } from './models/projectChunk';
+import { PlacesChunkModel } from './models/placesChunk';
 import { ProjectContactModel } from './models/projectContact';
-import { RuleChunkModel } from './models/ruleChunk';
+import { ProjectsChunkModel } from './models/projectsChunk';
 import { RuleModel } from './models/rule';
+import { RulesChunkModel } from './models/rulesChunk';
 import { RuntimeArtifactModel } from './models/runtimeArtifact';
 import { RuntimeConfigModel } from './models/runtimeConfig';
 import { RuntimeEventModel } from './models/runtimeEvent';
-import { RuntimeLogChunkModel } from './models/runtimeLogChunk';
 import { RuntimeLogModel } from './models/runtimeLog';
+import { RuntimeLogsChunkModel } from './models/runtimeLogsChunk';
 import { RuntimeMetricModel } from './models/runtimeMetric';
 import { RuntimeScheduleModel } from './models/runtimeSchedule';
-import { RuntimeStateChunkModel } from './models/runtimeStateChunk';
 import { RuntimeStateModel } from './models/runtimeState';
 import { RuntimeStateDependencyModel } from './models/runtimeStateDependency';
-import { SkillChunkModel } from './models/skillChunk';
+import { RuntimeStatesChunkModel } from './models/runtimeStatesChunk';
 import { SkillModel } from './models/skill';
+import { SkillsChunkModel } from './models/skillsChunk';
 import { TagModel } from './models/tag';
 import { ToolDefinitionModel } from './models/toolDefinition';
 import { ToolExecutionModel } from './models/toolExecution';
-import { TripChunkModel } from './models/tripChunk';
 import { TripHikingTrailModel } from './models/tripHikingTrail';
 import { TripPlaceModel } from './models/tripPlace';
-import { VenueChunkModel } from './models/venueChunk';
+import { TripsChunkModel } from './models/tripsChunk';
 import { VenueImageModel } from './models/venueImage';
 import { VenueLinkModel } from './models/venueLink';
+import { VenuesChunkModel } from './models/venuesChunk';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
 export { GraphQLRequestError } from './client';
 export { QueryBuilder } from './query-builder';
@@ -127,21 +127,21 @@ export { NodeHttpAdapter } from './node-fetch';
 export function createClient(config: OrmClientConfig) {
   const client = new OrmClient(config);
   return {
-    agentChunk: new AgentChunkModel(client),
     agentCollaborator: new AgentCollaboratorModel(client),
     agent: new AgentModel(client),
-    agentLogChunk: new AgentLogChunkModel(client),
     agentLog: new AgentLogModel(client),
-    agentTaskChunk: new AgentTaskChunkModel(client),
+    agentLogsChunk: new AgentLogsChunkModel(client),
+    agentsChunk: new AgentsChunkModel(client),
     agentTask: new AgentTaskModel(client),
-    autonomyRecordChunk: new AutonomyRecordChunkModel(client),
+    agentTasksChunk: new AgentTasksChunkModel(client),
     autonomyRecord: new AutonomyRecordModel(client),
     autonomyRecordLink: new AutonomyRecordLinkModel(client),
-    codebasChunk: new CodebasChunkModel(client),
+    autonomyRecordsChunk: new AutonomyRecordsChunkModel(client),
     codebaseDependency: new CodebaseDependencyModel(client),
+    codebasesChunk: new CodebasesChunkModel(client),
     codebasis: new CodebasisModel(client),
     codeChunk: new CodeChunkModel(client),
-    companyChunk: new CompanyChunkModel(client),
+    companiesChunk: new CompaniesChunkModel(client),
     company: new CompanyModel(client),
     contact: new ContactModel(client),
     companyEvent: new CompanyEventModel(client),
@@ -153,7 +153,6 @@ export function createClient(config: OrmClientConfig) {
     companyMemory: new CompanyMemoryModel(client),
     companyNote: new CompanyNoteModel(client),
     note: new NoteModel(client),
-    contactChunk: new ContactChunkModel(client),
     contactCompany: new ContactCompanyModel(client),
     deal: new DealModel(client),
     contactEvent: new ContactEventModel(client),
@@ -162,60 +161,61 @@ export function createClient(config: OrmClientConfig) {
     contactMemory: new ContactMemoryModel(client),
     contactNote: new ContactNoteModel(client),
     project: new ProjectModel(client),
-    conversationChunk: new ConversationChunkModel(client),
+    contactsChunk: new ContactsChunkModel(client),
     conversation: new ConversationModel(client),
-    dealChunk: new DealChunkModel(client),
+    conversationsChunk: new ConversationsChunkModel(client),
     dealContact: new DealContactModel(client),
     dealNote: new DealNoteModel(client),
-    eventChunk: new EventChunkModel(client),
+    dealsChunk: new DealsChunkModel(client),
     eventImage: new EventImageModel(client),
     eventLink: new EventLinkModel(client),
     eventNote: new EventNoteModel(client),
+    eventsChunk: new EventsChunkModel(client),
     eventVenue: new EventVenueModel(client),
     venue: new VenueModel(client),
-    goalChunk: new GoalChunkModel(client),
     goal: new GoalModel(client),
     goalHabit: new GoalHabitModel(client),
     habit: new HabitModel(client),
     goalProject: new GoalProjectModel(client),
-    habitChunk: new HabitChunkModel(client),
-    hikingTrailChunk: new HikingTrailChunkModel(client),
+    goalsChunk: new GoalsChunkModel(client),
+    habitsChunk: new HabitsChunkModel(client),
     hikingTrail: new HikingTrailModel(client),
+    hikingTrailsChunk: new HikingTrailsChunkModel(client),
     trip: new TripModel(client),
-    interactionChunk: new InteractionChunkModel(client),
     interaction: new InteractionModel(client),
-    itineraryItemChunk: new ItineraryItemChunkModel(client),
+    interactionsChunk: new InteractionsChunkModel(client),
     itineraryItem: new ItineraryItemModel(client),
-    memoryChunk: new MemoryChunkModel(client),
-    messageChunk: new MessageChunkModel(client),
+    itineraryItemsChunk: new ItineraryItemsChunkModel(client),
+    memoriesChunk: new MemoriesChunkModel(client),
     message: new MessageModel(client),
-    noteChunk: new NoteChunkModel(client),
-    placeChunk: new PlaceChunkModel(client),
+    messagesChunk: new MessagesChunkModel(client),
+    notesChunk: new NotesChunkModel(client),
     place: new PlaceModel(client),
-    projectChunk: new ProjectChunkModel(client),
+    placesChunk: new PlacesChunkModel(client),
     projectContact: new ProjectContactModel(client),
-    ruleChunk: new RuleChunkModel(client),
+    projectsChunk: new ProjectsChunkModel(client),
     rule: new RuleModel(client),
+    rulesChunk: new RulesChunkModel(client),
     runtimeArtifact: new RuntimeArtifactModel(client),
     runtimeConfig: new RuntimeConfigModel(client),
     runtimeEvent: new RuntimeEventModel(client),
-    runtimeLogChunk: new RuntimeLogChunkModel(client),
     runtimeLog: new RuntimeLogModel(client),
+    runtimeLogsChunk: new RuntimeLogsChunkModel(client),
     runtimeMetric: new RuntimeMetricModel(client),
     runtimeSchedule: new RuntimeScheduleModel(client),
-    runtimeStateChunk: new RuntimeStateChunkModel(client),
     runtimeState: new RuntimeStateModel(client),
     runtimeStateDependency: new RuntimeStateDependencyModel(client),
-    skillChunk: new SkillChunkModel(client),
+    runtimeStatesChunk: new RuntimeStatesChunkModel(client),
     skill: new SkillModel(client),
+    skillsChunk: new SkillsChunkModel(client),
     tag: new TagModel(client),
     toolDefinition: new ToolDefinitionModel(client),
     toolExecution: new ToolExecutionModel(client),
-    tripChunk: new TripChunkModel(client),
     tripHikingTrail: new TripHikingTrailModel(client),
     tripPlace: new TripPlaceModel(client),
-    venueChunk: new VenueChunkModel(client),
+    tripsChunk: new TripsChunkModel(client),
     venueImage: new VenueImageModel(client),
     venueLink: new VenueLinkModel(client),
+    venuesChunk: new VenuesChunkModel(client),
   };
 }

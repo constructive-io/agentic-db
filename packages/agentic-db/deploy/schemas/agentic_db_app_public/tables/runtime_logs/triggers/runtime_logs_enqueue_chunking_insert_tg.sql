@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER runtime_logs_enqueue_chunking_insert_tg
-AFTER INSERT ON "agentic_db_app_public".runtime_logs
+AFTER INSERT ON agentic_db_app_public.runtime_logs
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".runtime_logs_enqueue_chunking ( );
+EXECUTE PROCEDURE agentic_db_private.runtime_logs_enqueue_chunking ( );
 

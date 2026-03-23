@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/crypto_addresses/table
 
 
-ALTER TABLE "agentic_db_user_identifiers_public".crypto_addresses 
+ALTER TABLE agentic_db_user_identifiers_public.crypto_addresses 
   ADD CONSTRAINT crypto_addresses_pkey PRIMARY KEY (id);
 

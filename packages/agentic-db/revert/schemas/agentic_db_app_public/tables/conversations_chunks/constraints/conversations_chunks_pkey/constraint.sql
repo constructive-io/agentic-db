@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/conversations_chunks/constraints/conversations_chunks_pkey/constraint
 
 
-ALTER TABLE "agentic_db_app_public".conversations_chunks 
+ALTER TABLE agentic_db_app_public.conversations_chunks 
   DROP CONSTRAINT conversations_chunks_pkey;
 
 

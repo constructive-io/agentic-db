@@ -5,7 +5,7 @@
 
 
 
-CREATE FUNCTION "agentic_db_auth_public".sign_in_one_time_token (
+CREATE FUNCTION agentic_db_auth_public.sign_in_one_time_token (
   token text,
   credential_kind text DEFAULT 'bearer',
   OUT id uuid,
@@ -25,8 +25,8 @@ DECLARE
   v_user_is_verified boolean;
 BEGIN
     SELECT c.id, c.session_id, s.user_id, c.expires_at
-    FROM "agentic_db_auth_private".session_credentials c
-    JOIN "agentic_db_auth_private".sessions s ON s.id = c.session_id
+    FROM agentic_db_auth_private.session_credentials c
+    JOIN agentic_db_auth_private.sessions s ON s.id = c.session_id
     WHERE c.ot_token = sign_in_one_time_token.token
           AND c.revoked_at IS NULL
           AND s.revoked_at IS NULL
@@ -47,7 +47,7 @@ BEGIN
         RETURN;
     END IF;
     v_plaintext_credential := encode(gen_random_bytes(48), 'hex');
-    UPDATE "agentic_db_auth_private".session_credentials c
+    UPDATE agentic_db_auth_private.session_credentials c
     SET 
       id = uuid_generate_v5(uuid_ns_url(), v_plaintext_credential),
       ot_token = NULL,
@@ -56,7 +56,7 @@ BEGIN
     WHERE c.id = v_credential_id
     RETURNING c.id INTO v_credential_id;
     SELECT mem.is_verified
-    FROM "agentic_db_memberships_public".app_memberships AS mem
+    FROM agentic_db_memberships_public.app_memberships AS mem
     WHERE mem.actor_id = v_user_id
     INTO v_user_is_verified;
     id := v_credential_id;
@@ -70,5 +70,5 @@ END;
 $$
 LANGUAGE 'plpgsql'
 SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".sign_in_one_time_token TO anonymous;
+GRANT EXECUTE ON FUNCTION agentic_db_auth_public.sign_in_one_time_token TO anonymous;
 

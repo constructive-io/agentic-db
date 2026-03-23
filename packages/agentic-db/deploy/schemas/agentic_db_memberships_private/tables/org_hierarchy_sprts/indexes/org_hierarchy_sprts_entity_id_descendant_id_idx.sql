@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_memberships_private/tables/org_hierarchy_sprts/columns/descendant_id/column
 
 
-CREATE INDEX org_hierarchy_sprts_entity_id_descendant_id_idx ON "agentic_db_memberships_private".org_hierarchy_sprts USING BTREE ( entity_id, descendant_id );
+CREATE INDEX org_hierarchy_sprts_entity_id_descendant_id_idx ON agentic_db_memberships_private.org_hierarchy_sprts USING BTREE ( entity_id, descendant_id );
 

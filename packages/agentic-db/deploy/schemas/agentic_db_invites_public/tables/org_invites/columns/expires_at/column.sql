@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_invites_public/tables/org_invites/table
 
 
-ALTER TABLE "agentic_db_invites_public".org_invites 
+ALTER TABLE agentic_db_invites_public.org_invites 
   ADD COLUMN expires_at timestamptz;
 

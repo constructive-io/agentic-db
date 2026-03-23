@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/table
 
 
-GRANT UPDATE (username, display_name, profile_picture) ON "agentic_db_users_public".users TO authenticated;
+GRANT UPDATE (username, display_name, profile_picture) ON agentic_db_users_public.users TO authenticated;
 

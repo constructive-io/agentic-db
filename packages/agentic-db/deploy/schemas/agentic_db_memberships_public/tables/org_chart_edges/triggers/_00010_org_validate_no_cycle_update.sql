@@ -8,8 +8,8 @@
 
 
 CREATE TRIGGER _00010_org_validate_no_cycle_update
-BEFORE UPDATE ON "agentic_db_memberships_public".org_chart_edges
+BEFORE UPDATE ON agentic_db_memberships_public.org_chart_edges
 FOR EACH ROW
 WHEN (OLD.parent_id IS DISTINCT FROM NEW.parent_id)
-EXECUTE PROCEDURE "agentic_db_memberships_private".org_org_chart_validate_no_cycle_tg ( );
+EXECUTE PROCEDURE agentic_db_memberships_private.org_org_chart_validate_no_cycle_tg ( );
 

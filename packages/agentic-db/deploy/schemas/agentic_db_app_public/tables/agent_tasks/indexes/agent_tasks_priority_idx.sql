@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/agent_tasks/columns/priority/column
 
 
-CREATE INDEX agent_tasks_priority_idx ON "agentic_db_app_public".agent_tasks USING BTREE ( priority );
+CREATE INDEX agent_tasks_priority_idx ON agentic_db_app_public.agent_tasks USING BTREE ( priority );
 

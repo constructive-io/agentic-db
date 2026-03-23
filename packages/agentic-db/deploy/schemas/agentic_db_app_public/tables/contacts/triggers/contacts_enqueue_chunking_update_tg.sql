@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER contacts_enqueue_chunking_update_tg
-AFTER UPDATE ON "agentic_db_app_public".contacts
+AFTER UPDATE ON agentic_db_app_public.contacts
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".contacts_enqueue_chunking ( );
+EXECUTE PROCEDURE agentic_db_private.contacts_enqueue_chunking ( );
 

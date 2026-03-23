@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agentic_db_encrypted".set;
+DROP FUNCTION agentic_db_encrypted.set;
 
 

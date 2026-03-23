@@ -26,21 +26,21 @@ agentic-db auth set-token <your-token>
 | `context` | Manage API contexts (endpoints) |
 | `auth` | Manage authentication tokens |
 | `config` | Manage config key-value store (per-context) |
-| `agent-chunk` | agentChunk CRUD operations |
 | `agent-collaborator` | agentCollaborator CRUD operations |
 | `agent` | agent CRUD operations |
-| `agent-log-chunk` | agentLogChunk CRUD operations |
 | `agent-log` | agentLog CRUD operations |
-| `agent-task-chunk` | agentTaskChunk CRUD operations |
+| `agent-logs-chunk` | agentLogsChunk CRUD operations |
+| `agents-chunk` | agentsChunk CRUD operations |
 | `agent-task` | agentTask CRUD operations |
-| `autonomy-record-chunk` | autonomyRecordChunk CRUD operations |
+| `agent-tasks-chunk` | agentTasksChunk CRUD operations |
 | `autonomy-record` | autonomyRecord CRUD operations |
 | `autonomy-record-link` | autonomyRecordLink CRUD operations |
-| `codebas-chunk` | codebasChunk CRUD operations |
+| `autonomy-records-chunk` | autonomyRecordsChunk CRUD operations |
 | `codebase-dependency` | codebaseDependency CRUD operations |
+| `codebases-chunk` | codebasesChunk CRUD operations |
 | `codebasis` | codebasis CRUD operations |
 | `code-chunk` | codeChunk CRUD operations |
-| `company-chunk` | companyChunk CRUD operations |
+| `companies-chunk` | companiesChunk CRUD operations |
 | `company` | company CRUD operations |
 | `contact` | contact CRUD operations |
 | `company-event` | companyEvent CRUD operations |
@@ -52,7 +52,6 @@ agentic-db auth set-token <your-token>
 | `company-memory` | companyMemory CRUD operations |
 | `company-note` | companyNote CRUD operations |
 | `note` | note CRUD operations |
-| `contact-chunk` | contactChunk CRUD operations |
 | `contact-company` | contactCompany CRUD operations |
 | `deal` | deal CRUD operations |
 | `contact-event` | contactEvent CRUD operations |
@@ -61,61 +60,62 @@ agentic-db auth set-token <your-token>
 | `contact-memory` | contactMemory CRUD operations |
 | `contact-note` | contactNote CRUD operations |
 | `project` | project CRUD operations |
-| `conversation-chunk` | conversationChunk CRUD operations |
+| `contacts-chunk` | contactsChunk CRUD operations |
 | `conversation` | conversation CRUD operations |
-| `deal-chunk` | dealChunk CRUD operations |
+| `conversations-chunk` | conversationsChunk CRUD operations |
 | `deal-contact` | dealContact CRUD operations |
 | `deal-note` | dealNote CRUD operations |
-| `event-chunk` | eventChunk CRUD operations |
+| `deals-chunk` | dealsChunk CRUD operations |
 | `event-image` | eventImage CRUD operations |
 | `event-link` | eventLink CRUD operations |
 | `event-note` | eventNote CRUD operations |
+| `events-chunk` | eventsChunk CRUD operations |
 | `event-venue` | eventVenue CRUD operations |
 | `venue` | venue CRUD operations |
-| `goal-chunk` | goalChunk CRUD operations |
 | `goal` | goal CRUD operations |
 | `goal-habit` | goalHabit CRUD operations |
 | `habit` | habit CRUD operations |
 | `goal-project` | goalProject CRUD operations |
-| `habit-chunk` | habitChunk CRUD operations |
-| `hiking-trail-chunk` | hikingTrailChunk CRUD operations |
+| `goals-chunk` | goalsChunk CRUD operations |
+| `habits-chunk` | habitsChunk CRUD operations |
 | `hiking-trail` | hikingTrail CRUD operations |
+| `hiking-trails-chunk` | hikingTrailsChunk CRUD operations |
 | `trip` | trip CRUD operations |
-| `interaction-chunk` | interactionChunk CRUD operations |
 | `interaction` | interaction CRUD operations |
-| `itinerary-item-chunk` | itineraryItemChunk CRUD operations |
+| `interactions-chunk` | interactionsChunk CRUD operations |
 | `itinerary-item` | itineraryItem CRUD operations |
-| `memory-chunk` | memoryChunk CRUD operations |
-| `message-chunk` | messageChunk CRUD operations |
+| `itinerary-items-chunk` | itineraryItemsChunk CRUD operations |
+| `memories-chunk` | memoriesChunk CRUD operations |
 | `message` | message CRUD operations |
-| `note-chunk` | noteChunk CRUD operations |
-| `place-chunk` | placeChunk CRUD operations |
+| `messages-chunk` | messagesChunk CRUD operations |
+| `notes-chunk` | notesChunk CRUD operations |
 | `place` | place CRUD operations |
-| `project-chunk` | projectChunk CRUD operations |
+| `places-chunk` | placesChunk CRUD operations |
 | `project-contact` | projectContact CRUD operations |
-| `rule-chunk` | ruleChunk CRUD operations |
+| `projects-chunk` | projectsChunk CRUD operations |
 | `rule` | rule CRUD operations |
+| `rules-chunk` | rulesChunk CRUD operations |
 | `runtime-artifact` | runtimeArtifact CRUD operations |
 | `runtime-config` | runtimeConfig CRUD operations |
 | `runtime-event` | runtimeEvent CRUD operations |
-| `runtime-log-chunk` | runtimeLogChunk CRUD operations |
 | `runtime-log` | runtimeLog CRUD operations |
+| `runtime-logs-chunk` | runtimeLogsChunk CRUD operations |
 | `runtime-metric` | runtimeMetric CRUD operations |
 | `runtime-schedule` | runtimeSchedule CRUD operations |
-| `runtime-state-chunk` | runtimeStateChunk CRUD operations |
 | `runtime-state` | runtimeState CRUD operations |
 | `runtime-state-dependency` | runtimeStateDependency CRUD operations |
-| `skill-chunk` | skillChunk CRUD operations |
+| `runtime-states-chunk` | runtimeStatesChunk CRUD operations |
 | `skill` | skill CRUD operations |
+| `skills-chunk` | skillsChunk CRUD operations |
 | `tag` | tag CRUD operations |
 | `tool-definition` | toolDefinition CRUD operations |
 | `tool-execution` | toolExecution CRUD operations |
-| `trip-chunk` | tripChunk CRUD operations |
 | `trip-hiking-trail` | tripHikingTrail CRUD operations |
 | `trip-place` | tripPlace CRUD operations |
-| `venue-chunk` | venueChunk CRUD operations |
+| `trips-chunk` | tripsChunk CRUD operations |
 | `venue-image` | venueImage CRUD operations |
 | `venue-link` | venueLink CRUD operations |
+| `venues-chunk` | venuesChunk CRUD operations |
 
 ## Infrastructure Commands
 
@@ -157,44 +157,6 @@ Manage per-context key-value configuration variables.
 Variables are scoped to the active context and stored at `~/.agentic-db/config/`.
 
 ## Table Commands
-
-### `agent-chunk`
-
-CRUD operations for AgentChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentChunk records |
-| `get` | Get a agentChunk by id |
-| `create` | Create a new agentChunk |
-| `update` | Update an existing agentChunk |
-| `delete` | Delete a agentChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
-| `content` | String |
-| `embeddingText` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `agentId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `agentId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
 
 ### `agent-collaborator`
 
@@ -265,44 +227,6 @@ CRUD operations for Agent records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `agent-log-chunk`
-
-CRUD operations for AgentLogChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentLogChunk records |
-| `get` | Get a agentLogChunk by id |
-| `create` | Create a new agentLogChunk |
-| `update` | Update an existing agentLogChunk |
-| `delete` | Delete a agentLogChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
-| `content` | String |
-| `embeddingText` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `agentLogId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `agentLogId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
 ### `agent-log`
 
 CRUD operations for AgentLog records.
@@ -344,41 +268,69 @@ CRUD operations for AgentLog records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `agent-task-chunk`
+### `agent-logs-chunk`
 
-CRUD operations for AgentTaskChunk records.
+CRUD operations for AgentLogsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all agentTaskChunk records |
-| `get` | Get a agentTaskChunk by id |
-| `create` | Create a new agentTaskChunk |
-| `update` | Update an existing agentTaskChunk |
-| `delete` | Delete a agentTaskChunk |
+| `list` | List all agentLogsChunk records |
+| `get` | Get a agentLogsChunk by id |
+| `create` | Create a new agentLogsChunk |
+| `update` | Update an existing agentLogsChunk |
+| `delete` | Delete a agentLogsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `agentLogsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `agentTaskId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `agentTaskId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `agentLogsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
+### `agents-chunk`
+
+CRUD operations for AgentsChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all agentsChunk records |
+| `get` | Get a agentsChunk by id |
+| `create` | Create a new agentsChunk |
+| `update` | Update an existing agentsChunk |
+| `delete` | Delete a agentsChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `agentsId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `agentsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -429,41 +381,36 @@ CRUD operations for AgentTask records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `autonomy-record-chunk`
+### `agent-tasks-chunk`
 
-CRUD operations for AutonomyRecordChunk records.
+CRUD operations for AgentTasksChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all autonomyRecordChunk records |
-| `get` | Get a autonomyRecordChunk by id |
-| `create` | Create a new autonomyRecordChunk |
-| `update` | Update an existing autonomyRecordChunk |
-| `delete` | Delete a autonomyRecordChunk |
+| `list` | List all agentTasksChunk records |
+| `get` | Get a agentTasksChunk by id |
+| `create` | Create a new agentTasksChunk |
+| `update` | Update an existing agentTasksChunk |
+| `delete` | Delete a agentTasksChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `agentTasksId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `autonomyRecordId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `autonomyRecordId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `agentTasksId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -536,41 +483,36 @@ CRUD operations for AutonomyRecordLink records.
 
 **Required create fields:** `autonomyRecordId`, `entityId`
 
-### `codebas-chunk`
+### `autonomy-records-chunk`
 
-CRUD operations for CodebasChunk records.
+CRUD operations for AutonomyRecordsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all codebasChunk records |
-| `get` | Get a codebasChunk by id |
-| `create` | Create a new codebasChunk |
-| `update` | Update an existing codebasChunk |
-| `delete` | Delete a codebasChunk |
+| `list` | List all autonomyRecordsChunk records |
+| `get` | Get a autonomyRecordsChunk by id |
+| `create` | Create a new autonomyRecordsChunk |
+| `update` | Update an existing autonomyRecordsChunk |
+| `delete` | Delete a autonomyRecordsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `autonomyRecordsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `codebasisId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `codebasisId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `autonomyRecordsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -595,6 +537,39 @@ CRUD operations for CodebaseDependency records.
 | `entityId` | UUID |
 
 **Required create fields:** `codebasisId`, `entityId`
+
+### `codebases-chunk`
+
+CRUD operations for CodebasesChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all codebasesChunk records |
+| `get` | Get a codebasesChunk by id |
+| `create` | Create a new codebasesChunk |
+| `update` | Update an existing codebasesChunk |
+| `delete` | Delete a codebasesChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `codebasesId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `codebasesId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
 
 ### `codebasis`
 
@@ -694,41 +669,36 @@ CRUD operations for CodeChunk records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `company-chunk`
+### `companies-chunk`
 
-CRUD operations for CompanyChunk records.
+CRUD operations for CompaniesChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all companyChunk records |
-| `get` | Get a companyChunk by id |
-| `create` | Create a new companyChunk |
-| `update` | Update an existing companyChunk |
-| `delete` | Delete a companyChunk |
+| `list` | List all companiesChunk records |
+| `get` | Get a companiesChunk by id |
+| `create` | Create a new companiesChunk |
+| `update` | Update an existing companiesChunk |
+| `delete` | Delete a companiesChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `companiesId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `companyId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `companyId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `companiesId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1146,44 +1116,6 @@ CRUD operations for Note records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `contact-chunk`
-
-CRUD operations for ContactChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all contactChunk records |
-| `get` | Get a contactChunk by id |
-| `create` | Create a new contactChunk |
-| `update` | Update an existing contactChunk |
-| `delete` | Delete a contactChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
-| `content` | String |
-| `embeddingText` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `contactId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `contactId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
 ### `contact-company`
 
 CRUD operations for ContactCompany records.
@@ -1426,41 +1358,36 @@ CRUD operations for Project records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `conversation-chunk`
+### `contacts-chunk`
 
-CRUD operations for ConversationChunk records.
+CRUD operations for ContactsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all conversationChunk records |
-| `get` | Get a conversationChunk by id |
-| `create` | Create a new conversationChunk |
-| `update` | Update an existing conversationChunk |
-| `delete` | Delete a conversationChunk |
+| `list` | List all contactsChunk records |
+| `get` | Get a contactsChunk by id |
+| `create` | Create a new contactsChunk |
+| `update` | Update an existing contactsChunk |
+| `delete` | Delete a contactsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `contactsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `conversationId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `conversationId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `contactsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1504,41 +1431,36 @@ CRUD operations for Conversation records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `deal-chunk`
+### `conversations-chunk`
 
-CRUD operations for DealChunk records.
+CRUD operations for ConversationsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all dealChunk records |
-| `get` | Get a dealChunk by id |
-| `create` | Create a new dealChunk |
-| `update` | Update an existing dealChunk |
-| `delete` | Delete a dealChunk |
+| `list` | List all conversationsChunk records |
+| `get` | Get a conversationsChunk by id |
+| `create` | Create a new conversationsChunk |
+| `update` | Update an existing conversationsChunk |
+| `delete` | Delete a conversationsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `conversationsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `dealId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `dealId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `conversationsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1588,41 +1510,36 @@ CRUD operations for DealNote records.
 
 **Required create fields:** `dealId`, `noteId`, `entityId`
 
-### `event-chunk`
+### `deals-chunk`
 
-CRUD operations for EventChunk records.
+CRUD operations for DealsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all eventChunk records |
-| `get` | Get a eventChunk by id |
-| `create` | Create a new eventChunk |
-| `update` | Update an existing eventChunk |
-| `delete` | Delete a eventChunk |
+| `list` | List all dealsChunk records |
+| `get` | Get a dealsChunk by id |
+| `create` | Create a new dealsChunk |
+| `update` | Update an existing dealsChunk |
+| `delete` | Delete a dealsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `dealsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `eventId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `eventId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `dealsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1706,6 +1623,39 @@ CRUD operations for EventNote records.
 
 **Required create fields:** `eventId`, `noteId`, `entityId`
 
+### `events-chunk`
+
+CRUD operations for EventsChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all eventsChunk records |
+| `get` | Get a eventsChunk by id |
+| `create` | Create a new eventsChunk |
+| `update` | Update an existing eventsChunk |
+| `delete` | Delete a eventsChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `eventsId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `eventsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
 ### `event-venue`
 
 CRUD operations for EventVenue records.
@@ -1784,44 +1734,6 @@ CRUD operations for Venue records.
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `addressTrgmSimilarity`, `neighborhoodTrgmSimilarity`, `cityTrgmSimilarity`, `categoryTrgmSimilarity`, `statusTrgmSimilarity`, `googlePlaceIdTrgmSimilarity`, `priceLevelTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `goal-chunk`
-
-CRUD operations for GoalChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all goalChunk records |
-| `get` | Get a goalChunk by id |
-| `create` | Create a new goalChunk |
-| `update` | Update an existing goalChunk |
-| `delete` | Delete a goalChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
-| `content` | String |
-| `embeddingText` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `goalId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `goalId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1963,79 +1875,69 @@ CRUD operations for GoalProject records.
 
 **Required create fields:** `goalId`, `projectId`, `entityId`
 
-### `habit-chunk`
+### `goals-chunk`
 
-CRUD operations for HabitChunk records.
+CRUD operations for GoalsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all habitChunk records |
-| `get` | Get a habitChunk by id |
-| `create` | Create a new habitChunk |
-| `update` | Update an existing habitChunk |
-| `delete` | Delete a habitChunk |
+| `list` | List all goalsChunk records |
+| `get` | Get a goalsChunk by id |
+| `create` | Create a new goalsChunk |
+| `update` | Update an existing goalsChunk |
+| `delete` | Delete a goalsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `goalsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `habitId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `habitId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `goalsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `hiking-trail-chunk`
+### `habits-chunk`
 
-CRUD operations for HikingTrailChunk records.
+CRUD operations for HabitsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all hikingTrailChunk records |
-| `get` | Get a hikingTrailChunk by id |
-| `create` | Create a new hikingTrailChunk |
-| `update` | Update an existing hikingTrailChunk |
-| `delete` | Delete a hikingTrailChunk |
+| `list` | List all habitsChunk records |
+| `get` | Get a habitsChunk by id |
+| `create` | Create a new habitsChunk |
+| `update` | Update an existing habitsChunk |
+| `delete` | Delete a habitsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `habitsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `hikingTrailId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `hikingTrailId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `habitsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2089,6 +1991,39 @@ CRUD operations for HikingTrail records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
+### `hiking-trails-chunk`
+
+CRUD operations for HikingTrailsChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all hikingTrailsChunk records |
+| `get` | Get a hikingTrailsChunk by id |
+| `create` | Create a new hikingTrailsChunk |
+| `update` | Update an existing hikingTrailsChunk |
+| `delete` | Delete a hikingTrailsChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `hikingTrailsId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `hikingTrailsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
 ### `trip`
 
 CRUD operations for Trip records.
@@ -2137,44 +2072,6 @@ CRUD operations for Trip records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `interaction-chunk`
-
-CRUD operations for InteractionChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all interactionChunk records |
-| `get` | Get a interactionChunk by id |
-| `create` | Create a new interactionChunk |
-| `update` | Update an existing interactionChunk |
-| `delete` | Delete a interactionChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
-| `content` | String |
-| `embeddingText` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `interactionId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `interactionId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
 ### `interaction`
 
 CRUD operations for Interaction records.
@@ -2218,41 +2115,36 @@ CRUD operations for Interaction records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `itinerary-item-chunk`
+### `interactions-chunk`
 
-CRUD operations for ItineraryItemChunk records.
+CRUD operations for InteractionsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all itineraryItemChunk records |
-| `get` | Get a itineraryItemChunk by id |
-| `create` | Create a new itineraryItemChunk |
-| `update` | Update an existing itineraryItemChunk |
-| `delete` | Delete a itineraryItemChunk |
+| `list` | List all interactionsChunk records |
+| `get` | Get a interactionsChunk by id |
+| `create` | Create a new interactionsChunk |
+| `update` | Update an existing interactionsChunk |
+| `delete` | Delete a interactionsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `interactionsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `itineraryItemId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `itineraryItemId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `interactionsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2305,79 +2197,69 @@ CRUD operations for ItineraryItem records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `memory-chunk`
+### `itinerary-items-chunk`
 
-CRUD operations for MemoryChunk records.
+CRUD operations for ItineraryItemsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all memoryChunk records |
-| `get` | Get a memoryChunk by id |
-| `create` | Create a new memoryChunk |
-| `update` | Update an existing memoryChunk |
-| `delete` | Delete a memoryChunk |
+| `list` | List all itineraryItemsChunk records |
+| `get` | Get a itineraryItemsChunk by id |
+| `create` | Create a new itineraryItemsChunk |
+| `update` | Update an existing itineraryItemsChunk |
+| `delete` | Delete a itineraryItemsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `itineraryItemsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `memoryId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `memoryId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `itineraryItemsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `message-chunk`
+### `memories-chunk`
 
-CRUD operations for MessageChunk records.
+CRUD operations for MemoriesChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all messageChunk records |
-| `get` | Get a messageChunk by id |
-| `create` | Create a new messageChunk |
-| `update` | Update an existing messageChunk |
-| `delete` | Delete a messageChunk |
+| `list` | List all memoriesChunk records |
+| `get` | Get a memoriesChunk by id |
+| `create` | Create a new memoriesChunk |
+| `update` | Update an existing memoriesChunk |
+| `delete` | Delete a memoriesChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `memoriesId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `messageId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `messageId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `memoriesId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2424,79 +2306,69 @@ CRUD operations for Message records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `note-chunk`
+### `messages-chunk`
 
-CRUD operations for NoteChunk records.
+CRUD operations for MessagesChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all noteChunk records |
-| `get` | Get a noteChunk by id |
-| `create` | Create a new noteChunk |
-| `update` | Update an existing noteChunk |
-| `delete` | Delete a noteChunk |
+| `list` | List all messagesChunk records |
+| `get` | Get a messagesChunk by id |
+| `create` | Create a new messagesChunk |
+| `update` | Update an existing messagesChunk |
+| `delete` | Delete a messagesChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `messagesId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `noteId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `noteId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `messagesId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `place-chunk`
+### `notes-chunk`
 
-CRUD operations for PlaceChunk records.
+CRUD operations for NotesChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all placeChunk records |
-| `get` | Get a placeChunk by id |
-| `create` | Create a new placeChunk |
-| `update` | Update an existing placeChunk |
-| `delete` | Delete a placeChunk |
+| `list` | List all notesChunk records |
+| `get` | Get a notesChunk by id |
+| `create` | Create a new notesChunk |
+| `update` | Update an existing notesChunk |
+| `delete` | Delete a notesChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `notesId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `placeId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `placeId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `notesId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2550,41 +2422,36 @@ CRUD operations for Place records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `project-chunk`
+### `places-chunk`
 
-CRUD operations for ProjectChunk records.
+CRUD operations for PlacesChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all projectChunk records |
-| `get` | Get a projectChunk by id |
-| `create` | Create a new projectChunk |
-| `update` | Update an existing projectChunk |
-| `delete` | Delete a projectChunk |
+| `list` | List all placesChunk records |
+| `get` | Get a placesChunk by id |
+| `create` | Create a new placesChunk |
+| `update` | Update an existing placesChunk |
+| `delete` | Delete a placesChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `placesId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `projectId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `projectId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `placesId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2611,41 +2478,36 @@ CRUD operations for ProjectContact records.
 
 **Required create fields:** `projectId`, `contactId`, `entityId`
 
-### `rule-chunk`
+### `projects-chunk`
 
-CRUD operations for RuleChunk records.
+CRUD operations for ProjectsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all ruleChunk records |
-| `get` | Get a ruleChunk by id |
-| `create` | Create a new ruleChunk |
-| `update` | Update an existing ruleChunk |
-| `delete` | Delete a ruleChunk |
+| `list` | List all projectsChunk records |
+| `get` | Get a projectsChunk by id |
+| `create` | Create a new projectsChunk |
+| `update` | Update an existing projectsChunk |
+| `delete` | Delete a projectsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `projectsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `ruleId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `ruleId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `projectsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2697,6 +2559,39 @@ CRUD operations for Rule records.
 **Required create fields:** `entityId`, `name`, `agentId`
 **Optional create fields (backend defaults):** `description`, `triggerType`, `triggerConfig`, `actionType`, `actionConfig`, `isActive`, `priority`, `triggerConcept`, `embeddingText`, `embedding`, `embeddingStale`, `triggerConceptEmbedding`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `triggerTypeTrgmSimilarity`, `actionTypeTrgmSimilarity`, `triggerConceptTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
+### `rules-chunk`
+
+CRUD operations for RulesChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all rulesChunk records |
+| `get` | Get a rulesChunk by id |
+| `create` | Create a new rulesChunk |
+| `update` | Update an existing rulesChunk |
+| `delete` | Delete a rulesChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `rulesId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `rulesId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2787,44 +2682,6 @@ CRUD operations for RuntimeEvent records.
 **Required create fields:** `entityId`, `eventType`, `payload`
 **Optional create fields (backend defaults):** `source`, `processedAt`, `status`
 
-### `runtime-log-chunk`
-
-CRUD operations for RuntimeLogChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeLogChunk records |
-| `get` | Get a runtimeLogChunk by id |
-| `create` | Create a new runtimeLogChunk |
-| `update` | Update an existing runtimeLogChunk |
-| `delete` | Delete a runtimeLogChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
-| `content` | String |
-| `embeddingText` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `runtimeLogId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `runtimeLogId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
 ### `runtime-log`
 
 CRUD operations for RuntimeLog records.
@@ -2863,6 +2720,39 @@ CRUD operations for RuntimeLog records.
 **Required create fields:** `entityId`, `runtimeStateId`, `level`, `message`
 **Optional create fields (backend defaults):** `context`, `stepIndex`, `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `levelTrgmSimilarity`, `messageTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
+### `runtime-logs-chunk`
+
+CRUD operations for RuntimeLogsChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all runtimeLogsChunk records |
+| `get` | Get a runtimeLogsChunk by id |
+| `create` | Create a new runtimeLogsChunk |
+| `update` | Update an existing runtimeLogsChunk |
+| `delete` | Delete a runtimeLogsChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `runtimeLogsId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `runtimeLogsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -2925,44 +2815,6 @@ CRUD operations for RuntimeSchedule records.
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `cronExpression`, `nextRunAt`, `lastRunAt`, `isActive`, `config`, `timezone`
-
-### `runtime-state-chunk`
-
-CRUD operations for RuntimeStateChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeStateChunk records |
-| `get` | Get a runtimeStateChunk by id |
-| `create` | Create a new runtimeStateChunk |
-| `update` | Update an existing runtimeStateChunk |
-| `delete` | Delete a runtimeStateChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
-| `content` | String |
-| `embeddingText` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `runtimeStateId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `runtimeStateId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
 
 ### `runtime-state`
 
@@ -3030,41 +2882,36 @@ CRUD operations for RuntimeStateDependency records.
 
 **Required create fields:** `runtimeStateId`, `entityId`
 
-### `skill-chunk`
+### `runtime-states-chunk`
 
-CRUD operations for SkillChunk records.
+CRUD operations for RuntimeStatesChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all skillChunk records |
-| `get` | Get a skillChunk by id |
-| `create` | Create a new skillChunk |
-| `update` | Update an existing skillChunk |
-| `delete` | Delete a skillChunk |
+| `list` | List all runtimeStatesChunk records |
+| `get` | Get a runtimeStatesChunk by id |
+| `create` | Create a new runtimeStatesChunk |
+| `update` | Update an existing runtimeStatesChunk |
+| `delete` | Delete a runtimeStatesChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `runtimeStatesId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `skillId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `skillId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `runtimeStatesId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -3114,6 +2961,39 @@ CRUD operations for Skill records.
 **Required create fields:** `entityId`, `name`, `agentId`
 **Optional create fields (backend defaults):** `description`, `category`, `implementation`, `config`, `isActive`, `intentTrigger`, `embeddingText`, `embedding`, `embeddingStale`, `intentTriggerEmbedding`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `categoryTrgmSimilarity`, `implementationTrgmSimilarity`, `intentTriggerTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
+### `skills-chunk`
+
+CRUD operations for SkillsChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all skillsChunk records |
+| `get` | Get a skillsChunk by id |
+| `create` | Create a new skillsChunk |
+| `update` | Update an existing skillsChunk |
+| `delete` | Delete a skillsChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `skillsId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `skillsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -3207,44 +3087,6 @@ CRUD operations for ToolExecution records.
 **Required create fields:** `entityId`, `toolDefinitionId`
 **Optional create fields (backend defaults):** `messageId`, `input`, `output`, `status`, `startedAt`, `completedAt`, `error`
 
-### `trip-chunk`
-
-CRUD operations for TripChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all tripChunk records |
-| `get` | Get a tripChunk by id |
-| `create` | Create a new tripChunk |
-| `update` | Update an existing tripChunk |
-| `delete` | Delete a tripChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
-| `content` | String |
-| `embeddingText` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `tripId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `tripId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
 ### `trip-hiking-trail`
 
 CRUD operations for TripHikingTrail records.
@@ -3291,41 +3133,36 @@ CRUD operations for TripPlace records.
 
 **Required create fields:** `tripId`, `placeId`, `entityId`
 
-### `venue-chunk`
+### `trips-chunk`
 
-CRUD operations for VenueChunk records.
+CRUD operations for TripsChunk records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all venueChunk records |
-| `get` | Get a venueChunk by id |
-| `create` | Create a new venueChunk |
-| `update` | Update an existing venueChunk |
-| `delete` | Delete a venueChunk |
+| `list` | List all tripsChunk records |
+| `get` | Get a tripsChunk by id |
+| `create` | Create a new tripsChunk |
+| `update` | Update an existing tripsChunk |
+| `delete` | Delete a tripsChunk |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `chunkIndex` | Int |
+| `tripsId` | UUID |
 | `content` | String |
-| `embeddingText` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `venueId` | UUID |
-| `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `chunkIndex`, `content`, `venueId`
-**Optional create fields (backend defaults):** `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Required create fields:** `tripsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -3382,6 +3219,39 @@ CRUD operations for VenueLink records.
 
 **Required create fields:** `entityId`, `url`, `venueId`
 **Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
+> **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
+### `venues-chunk`
+
+CRUD operations for VenuesChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all venuesChunk records |
+| `get` | Get a venuesChunk by id |
+| `create` | Create a new venuesChunk |
+| `update` | Update an existing venuesChunk |
+| `delete` | Delete a venuesChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `venuesId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `venuesId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
 > **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 

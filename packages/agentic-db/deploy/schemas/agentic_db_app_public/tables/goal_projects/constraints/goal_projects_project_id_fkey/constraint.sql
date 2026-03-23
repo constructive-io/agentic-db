@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/project_contacts/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agentic_db_app_public".goal_projects 
+ALTER TABLE agentic_db_app_public.goal_projects 
   ADD CONSTRAINT goal_projects_project_id_fkey 
     FOREIGN KEY(project_id) 
-    REFERENCES "agentic_db_app_public".projects (id) 
+    REFERENCES agentic_db_app_public.projects (id) 
     ON DELETE CASCADE;
 

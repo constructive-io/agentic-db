@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_limits_public/tables/org_limit_defaults/table
 
 
-GRANT UPDATE ON "agentic_db_limits_public".org_limit_defaults TO authenticated;
+GRANT UPDATE ON agentic_db_limits_public.org_limit_defaults TO authenticated;
 

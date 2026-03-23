@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".agent_tasks_chunks 
+ALTER TABLE agentic_db_app_public.agent_tasks_chunks 
   ADD CONSTRAINT agent_tasks_chunks_agent_tasks_id_fkey 
     FOREIGN KEY(agent_tasks_id) 
-    REFERENCES "agentic_db_app_public".agent_tasks (id) 
+    REFERENCES agentic_db_app_public.agent_tasks (id) 
     ON DELETE CASCADE;
 
