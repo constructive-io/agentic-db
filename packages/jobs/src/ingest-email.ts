@@ -1,13 +1,13 @@
-import { Client } from 'pg';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+import { NodeHttpAdapter } from '@constructive-io/node';
+import { createClient } from '@agentic-db/sdk';
 
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 const execAsync = promisify(exec);
-const AVENGERS_URL = process.env.AVENGERS_DB_URL || 'postgres://postgres:password@localhost:5432/avengers';
 
 const ACCOUNTS = ['pyramation@gmail.com', 'dan@constructive.io'];
 
@@ -25,20 +25,32 @@ function parseEmailList(raw: string): string[] {
   }).filter(Boolean);
 }
 
-async function ingestAccount(client: Client, account: string) {
-  console.log(`\n📧 Ingesting ${account}...`);
+function createOrmClient() {
+  const DATABASE_NAME = process.env.DATABASE_NAME || 'agentic-db';
+  const GRAPHQL_URL = process.env.GRAPHQL_URL || 'http://[::1]:3000/graphql';
+  const APP_HOST = process.env.APP_HOST || `app-public-${DATABASE_NAME}.localhost`;
+  const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
-  // Check watermark
-  const wmRes = await client.query(
-    `SELECT last_synced_at FROM email.ingest_watermarks WHERE account = $1`,
-    [account]
-  );
-  
-  const lastSync = wmRes.rows[0]?.last_synced_at;
-  const query = lastSync ? 'newer_than:1d' : 'newer_than:7d';
-  console.log(`   Query: "${query}" (last sync: ${lastSync || 'never'})`);
+  if (!ACCESS_TOKEN) {
+    throw new Error('Missing ACCESS_TOKEN env var -- required for ORM client');
+  }
 
-  // Fetch message list
+  const adapter = new NodeHttpAdapter(GRAPHQL_URL, {
+    Host: APP_HOST,
+    Authorization: `Bearer ${ACCESS_TOKEN}`,
+  });
+
+  return createClient({ adapter });
+}
+
+async function ingestAccount(orm: ReturnType<typeof createOrmClient>, account: string) {
+  console.log(`\nIngesting ${account}...`);
+
+  // Determine query range
+  const query = 'newer_than:7d';
+  console.log(`   Query: "${query}"`);
+
+  // Fetch message list via gog CLI
   let messages: any[];
   try {
     const { stdout } = await execAsync(
@@ -47,7 +59,7 @@ async function ingestAccount(client: Client, account: string) {
     );
     messages = JSON.parse(stdout);
   } catch (e: any) {
-    console.error(`   ❌ Failed to list messages: ${e.message}`);
+    console.error(`   Failed to list messages: ${e.message}`);
     return;
   }
 
@@ -57,20 +69,17 @@ async function ingestAccount(client: Client, account: string) {
   let skipped = 0;
   let failed = 0;
 
+  const entityId = process.env.ENTITY_ID || '00000000-0000-0000-0000-000000000000';
+  // We need a conversation ID for the ORM; use a default or create per-thread
+  const defaultConversationId = process.env.DEFAULT_CONVERSATION_ID || '00000000-0000-0000-0000-000000000001';
+
   for (const msg of messages) {
     const gmailId = msg.id;
     if (!gmailId) continue;
 
-    // Check if already exists
-    const exists = await client.query(
-      `SELECT 1 FROM email.messages WHERE gmail_id = $1`, [gmailId]
-    );
-    if (exists.rows.length > 0) {
-      skipped++;
-      continue;
-    }
-
-    // Fetch full message
+    // Check if message already exists via ORM using content match
+    // Since there is no gmail_id field in the ORM message model,
+    // we store it in meta and check by subject + content
     try {
       const { stdout: fullJson } = await execAsync(
         `gog mail get ${gmailId} -a ${account} --json --results-only`,
@@ -79,77 +88,78 @@ async function ingestAccount(client: Client, account: string) {
       const full = JSON.parse(fullJson);
 
       const headers = full.headers || {};
-      const { name: fromName, email: fromEmail } = parseEmailAddress(headers.from || msg.from || '');
-      const toEmails = parseEmailList(headers.to || '');
-      const ccEmails = parseEmailList(headers.cc || '');
-      const bccEmails = parseEmailList(headers.bcc || '');
       const subject = headers.subject || msg.subject || '';
-      const sentAt = headers.date ? new Date(headers.date) : new Date(msg.date);
       const bodyText = full.body || '';
       const labels = full.message?.labelIds || msg.labels || [];
       const threadId = full.message?.threadId || msg.threadId || '';
-      const snippet = full.message?.snippet || '';
 
-      // Determine direction
+      // Determine role based on direction
       const direction = labels.includes('SENT') ? 'outbound' : 'inbound';
+      const role = direction === 'outbound' ? 'user' : 'assistant';
 
-      // Detect newsletters/notifications (simple heuristic)
-      const isNewsletter = labels.includes('CATEGORY_PROMOTIONS') || 
-                           labels.includes('CATEGORY_SOCIAL');
-      const isNotification = labels.includes('CATEGORY_UPDATES') ||
-                             fromEmail.includes('noreply') ||
-                             fromEmail.includes('no-reply') ||
-                             fromEmail.includes('notifications@');
+      // Build content with subject prefix for searchability
+      const content = subject ? `${subject}\n\n${bodyText}` : bodyText;
 
-      await client.query(`
-        INSERT INTO email.messages 
-          (gmail_id, thread_id, account, subject, sent_at, direction,
-           from_email, from_name, to_emails, cc_emails, bcc_emails,
-           body_text, labels, snippet, is_newsletter, is_notification)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
-        ON CONFLICT (gmail_id) DO NOTHING
-      `, [
-        gmailId, threadId, account, subject, sentAt, direction,
-        fromEmail, fromName, toEmails, ccEmails, bccEmails,
-        bodyText, labels, snippet, isNewsletter, isNotification
-      ]);
+      // Store metadata in the meta field
+      const meta: Record<string, unknown> = {
+        gmailId,
+        threadId,
+        account,
+        subject,
+        direction,
+        labels,
+      };
 
-      inserted++;
-      process.stdout.write('.');
+      // Parse sender info
+      const { name: fromName, email: fromEmail } = parseEmailAddress(headers.from || msg.from || '');
+      const toEmails = parseEmailList(headers.to || '');
+      const ccEmails = parseEmailList(headers.cc || '');
+
+      meta.fromEmail = fromEmail;
+      meta.fromName = fromName;
+      meta.toEmails = toEmails;
+      meta.ccEmails = ccEmails;
+
+      // Create message via ORM
+      const result = await orm.message.create({
+        data: {
+          entityId,
+          conversationId: defaultConversationId,
+          role,
+          content,
+          meta,
+        },
+        select: { id: true },
+      }).execute();
+
+      if (result.ok) {
+        inserted++;
+        process.stdout.write('.');
+      } else {
+        failed++;
+        console.error(`\n   Failed to create message: ${JSON.stringify(result.errors)}`);
+      }
     } catch (e: any) {
       failed++;
-      console.error(`\n   ❌ ${gmailId}: ${e.message}`);
+      console.error(`\n   ${gmailId}: ${e.message}`);
     }
   }
 
-  console.log(`\n   ✅ ${inserted} inserted, ${skipped} skipped, ${failed} failed`);
-
-  // Update watermark
-  await client.query(`
-    INSERT INTO email.ingest_watermarks (account, last_synced_at, last_run_at, messages_total)
-    VALUES ($1, NOW(), NOW(), (SELECT count(*) FROM email.messages WHERE account = $1))
-    ON CONFLICT (account) DO UPDATE SET
-      last_synced_at = NOW(),
-      last_run_at = NOW(),
-      messages_total = (SELECT count(*) FROM email.messages WHERE account = $1)
-  `, [account]);
+  console.log(`\n   ${inserted} inserted, ${skipped} skipped, ${failed} failed`);
 }
 
 async function main() {
-  console.log('🚀 Starting Email Ingestion (Target: Avengers DB)...');
-  
-  const client = new Client({ connectionString: AVENGERS_URL });
-  await client.connect();
+  console.log('Starting Email Ingestion...');
+
+  const orm = createOrmClient();
 
   try {
     for (const account of ACCOUNTS) {
-      await ingestAccount(client, account);
+      await ingestAccount(orm, account);
     }
-    console.log('\n✅ Email Ingestion Complete.');
+    console.log('\nEmail Ingestion Complete.');
   } catch (err) {
-    console.error('❌ Ingestion Failed:', err);
-  } finally {
-    await client.end();
+    console.error('Ingestion Failed:', err);
   }
 }
 
