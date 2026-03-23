@@ -53,6 +53,15 @@ beforeAll(async () => {
     authRole: 'anonymous',
   });
   ({ db, pg, query, teardown } = connections);
+
+  // Enable users to be immediately active after sign_up.
+  // The default fixture seeds is_verified=false, is_approved=false which means
+  // the app membership won't be active, the SPRT won't be populated, and
+  // entity_membership RLS policies will block all writes.
+  await pg.query(
+    `UPDATE "agentic_db_memberships_public".app_membership_defaults
+     SET is_verified = true, is_approved = true`
+  );
 });
 
 afterAll(async () => {
