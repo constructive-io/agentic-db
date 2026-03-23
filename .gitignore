@@ -13,3 +13,6 @@ sql-hacks/
 
 # Generated SDKs (optionally)
 # generated/
+
+# ORM codegen output (generated at test time)
+__generated__/

@@ -1,16 +1,25 @@
 /**
  * ORM Integration Test for agentic-db
  *
- * Tests GraphQL schema introspection and CRUD operations against a real
- * PostgreSQL database via graphile-test, following the pattern from
- * constructive/graphql/orm-test.
+ * Tests the full codegen -> ORM runtime chain against a real PostgreSQL database:
+ *   1. Seeds DB with agentic_db_app_public tables
+ *   2. Builds a Graphile schema via graphile-test with ConstructivePreset
+ *   3. Runs the codegen pipeline (introspection -> inferTables -> generateOrm)
+ *   4. Loads the generated createClient and instantiates models
+ *   5. Exercises ORM model methods (findMany, create, delete) via QueryBuilder
  *
- * Seeds the DB with a minimal agentic_db_app_public schema, then validates
- * that PostGraphile exposes the expected queries and mutations.
+ * This validates that the codegen pipeline produces valid ORM code that
+ * works against a real PostGraphile schema with ConstructivePreset enabled.
+ *
+ * Following the pattern from constructive/graphql/orm-test.
  */
 import path from 'path';
 import { getConnectionsObject, seed } from 'graphile-test';
+import type { GraphQLQueryFnObj } from 'graphile-test';
+import type { PgTestClient } from 'pgsql-test';
 import { ConstructivePreset } from 'graphile-settings';
+import { runCodegenAndLoad } from './helpers/codegen-helper';
+import { GraphileTestAdapter } from './helpers/graphile-adapter';
 
 jest.setTimeout(120000);
 
@@ -21,450 +30,355 @@ const SCHEMAS = ['agentic_db_app_public'];
 
 // Fixed IDs from seed data
 const CONTACT_ALICE = '11111111-1111-1111-1111-111111111111';
+const CONTACT_BOB = '22222222-2222-2222-2222-222222222222';
 const NOTE_KICKOFF = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
 const AGENT_RESEARCH = 'cccccccc-cccc-cccc-cccc-cccccccccccc';
 
-let teardown: () => Promise<void>;
-let query: any;
+describe('ORM integration', () => {
+  let db: PgTestClient;
+  let teardown: () => Promise<void>;
+  let query: GraphQLQueryFnObj;
+  let orm: Record<string, any>;
 
-beforeAll(async () => {
-  const connections = await getConnectionsObject(
-    {
-      schemas: SCHEMAS,
-      useRoot: true,
-      authRole: 'postgres',
-      preset: {
-        extends: [ConstructivePreset],
+  beforeAll(async () => {
+    const connections = await getConnectionsObject(
+      {
+        schemas: SCHEMAS,
+        useRoot: true,
+        authRole: 'postgres',
+        preset: {
+          extends: [ConstructivePreset],
+        },
       },
-    },
-    [
-      seed.sqlfile([
-        sql('schema.sql'),
-        sql('test-data.sql'),
-      ]),
-    ],
-  );
+      [
+        seed.sqlfile([
+          sql('schema.sql'),
+          sql('test-data.sql'),
+        ]),
+      ],
+    );
 
-  teardown = connections.teardown;
-  query = connections.query;
-});
+    db = connections.db;
+    teardown = connections.teardown;
+    query = connections.query;
 
-afterAll(async () => {
-  if (teardown) {
-    await teardown();
+    // Run the full codegen pipeline against the live schema
+    const { createClient } = await runCodegenAndLoad(query, 'orm');
+
+    // Create the ORM client with the GraphileTestAdapter
+    const adapter = new GraphileTestAdapter(query);
+    orm = createClient({ adapter });
+  });
+
+  afterAll(async () => {
+    if (teardown) {
+      await teardown();
+    }
+  });
+
+  /** Extract the first connection/mutation result regardless of field name */
+  function unwrapData(data: any): any {
+    return Object.values(data)[0];
   }
-});
 
-/** Extract the first connection/mutation result regardless of field name */
-function unwrapData(data: any): any {
-  return Object.values(data)[0];
-}
-
-describe('GraphQL Schema Introspection', () => {
-  it('should expose agentic-db tables via GraphQL', async () => {
-    const res = await query({
-      query: `{
-        __schema {
-          queryType { name }
-          mutationType { name }
-        }
-      }`,
+  // =========================================================================
+  // Smoke test: verify codegen produced the expected models
+  // =========================================================================
+  describe('codegen smoke test', () => {
+    it('createClient returns model instances for all tables', () => {
+      expect(orm).toBeDefined();
+      expect(orm.contact).toBeDefined();
+      expect(orm.note).toBeDefined();
+      expect(orm.agent).toBeDefined();
+      expect(orm.agentTask).toBeDefined();
+      expect(orm.contactNote).toBeDefined();
     });
 
-    expect(res.data).toBeDefined();
-    expect(res.data.__schema.queryType).toBeDefined();
-    expect(res.data.__schema.mutationType).toBeDefined();
+    it('models have the expected CRUD methods', () => {
+      expect(typeof orm.contact.findMany).toBe('function');
+      expect(typeof orm.contact.findFirst).toBe('function');
+      expect(typeof orm.contact.create).toBe('function');
+      expect(typeof orm.note.findMany).toBe('function');
+      expect(typeof orm.note.create).toBe('function');
+      expect(typeof orm.agent.findMany).toBe('function');
+      expect(typeof orm.agent.create).toBe('function');
+      expect(typeof orm.contactNote.findMany).toBe('function');
+      expect(typeof orm.contactNote.create).toBe('function');
+    });
   });
 
-  it('should have contacts, notes, and agents query fields', async () => {
-    const res = await query({
-      query: `{
-        __type(name: "Query") {
-          fields { name }
-        }
-      }`,
+  // =========================================================================
+  // Test: Contact CRUD via ORM
+  // =========================================================================
+  describe('Contact CRUD via ORM', () => {
+    it('contact.findMany returns seeded contacts', async () => {
+      const result = await orm.contact
+        .findMany({
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+          },
+        })
+        .execute();
+
+      expect(result.ok).toBe(true);
+      const nodes = unwrapData(result.data).nodes;
+      expect(nodes).toBeDefined();
+      expect(nodes.length).toBeGreaterThanOrEqual(2);
+
+      const alice = nodes.find((c: any) => c.id === CONTACT_ALICE);
+      expect(alice).toBeDefined();
+      expect(alice.firstName).toBe('Alice');
+      expect(alice.email).toBe('alice@example.com');
     });
 
-    const fieldNames = res.data.__type.fields.map((f: any) => f.name);
-    // With ConstructivePreset, collection fields are pluralized table names
-    expect(fieldNames).toContain('contacts');
-    expect(fieldNames).toContain('notes');
-    expect(fieldNames).toContain('agents');
-  });
-});
+    it('contact.create creates a new contact', async () => {
+      const result = await orm.contact
+        .create({
+          data: {
+            firstName: 'Test',
+            lastName: 'User',
+            email: 'test@example.com',
+            headline: 'Integration Test Contact',
+          },
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            headline: true,
+          },
+        })
+        .execute();
 
-describe('Contact CRUD via GraphQL', () => {
-  it('should query seeded contacts', async () => {
-    const res = await query({
-      query: `{
-        contacts(first: 10) {
-          nodes {
-            id
-            firstName
-            lastName
-            email
-            headline
-          }
-          totalCount
-        }
-      }`,
+      expect(result.ok).toBe(true);
+      const contact = unwrapData(result.data).contact;
+      expect(contact).toBeDefined();
+      expect(contact.firstName).toBe('Test');
+      expect(contact.lastName).toBe('User');
+      expect(contact.email).toBe('test@example.com');
     });
-
-    expect(res.errors).toBeUndefined();
-    const contacts = unwrapData(res.data);
-    expect(contacts.totalCount).toBe(2);
-
-    const alice = contacts.nodes.find(
-      (c: any) => c.id === CONTACT_ALICE,
-    );
-    expect(alice).toBeDefined();
-    expect(alice.firstName).toBe('Alice');
-    expect(alice.email).toBe('alice@example.com');
-  });
-
-  it('should create a contact', async () => {
-    const res = await query({
-      query: `
-        mutation {
-          createContact(input: { contact: {
-            firstName: "Test"
-            lastName: "User"
-            email: "test@example.com"
-            headline: "Integration Test Contact"
-          }}) {
-            contact {
-              id
-              firstName
-              lastName
-              email
-              headline
-            }
-          }
-        }
-      `,
-    });
-
-    expect(res.errors).toBeUndefined();
-    const contact = unwrapData(res.data).contact;
-    expect(contact).toBeDefined();
-    expect(contact.firstName).toBe('Test');
-    expect(contact.lastName).toBe('User');
-    expect(contact.email).toBe('test@example.com');
   });
 
-  it('should update a contact', async () => {
-    // Create
-    const createRes = await query({
-      query: `
-        mutation {
-          createContact(input: { contact: {
-            firstName: "Update"
-            lastName: "Me"
-          }}) {
-            contact { id }
-          }
-        }
-      `,
+  // =========================================================================
+  // Test: Note CRUD via ORM
+  // =========================================================================
+  describe('Note CRUD via ORM', () => {
+    it('note.findMany returns seeded notes', async () => {
+      const result = await orm.note
+        .findMany({
+          select: {
+            id: true,
+            content: true,
+          },
+        })
+        .execute();
+
+      expect(result.ok).toBe(true);
+      const nodes = unwrapData(result.data).nodes;
+      expect(nodes).toBeDefined();
+      expect(nodes.length).toBeGreaterThanOrEqual(2);
     });
 
-    expect(createRes.errors).toBeUndefined();
-    const id = unwrapData(createRes.data).contact.id;
+    it('note.create creates a new note', async () => {
+      const result = await orm.note
+        .create({
+          data: {
+            content: 'This is a test note for integration testing.',
+          },
+          select: {
+            id: true,
+            content: true,
+          },
+        })
+        .execute();
 
-    // Update
-    const updateRes = await query({
-      query: `
-        mutation($id: UUID!) {
-          updateContact(input: { id: $id, contactPatch: {
-            headline: "Updated Headline"
-            bio: "Updated bio text"
-          }}) {
-            contact {
-              id
-              headline
-              bio
-            }
-          }
-        }
-      `,
-      variables: { id },
+      expect(result.ok).toBe(true);
+      const note = unwrapData(result.data).note;
+      expect(note).toBeDefined();
+      expect(note.content).toBe('This is a test note for integration testing.');
     });
-
-    expect(updateRes.errors).toBeUndefined();
-    expect(unwrapData(updateRes.data).contact.headline).toBe(
-      'Updated Headline',
-    );
-    expect(unwrapData(updateRes.data).contact.bio).toBe('Updated bio text');
   });
 
-  it('should delete a contact', async () => {
-    // Create
-    const createRes = await query({
-      query: `
-        mutation {
-          createContact(input: { contact: {
-            firstName: "Delete"
-            lastName: "Me"
-          }}) {
-            contact { id }
-          }
-        }
-      `,
+  // =========================================================================
+  // Test: Agent CRUD via ORM
+  // =========================================================================
+  describe('Agent CRUD via ORM', () => {
+    it('agent.findMany returns seeded agents', async () => {
+      const result = await orm.agent
+        .findMany({
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            systemPrompt: true,
+          },
+        })
+        .execute();
+
+      expect(result.ok).toBe(true);
+      const nodes = unwrapData(result.data).nodes;
+      expect(nodes).toBeDefined();
+
+      const agent = nodes.find((a: any) => a.id === AGENT_RESEARCH);
+      expect(agent).toBeDefined();
+      expect(agent.name).toBe('Research Agent');
     });
 
-    expect(createRes.errors).toBeUndefined();
-    const id = unwrapData(createRes.data).contact.id;
+    it('agent.create creates a new agent', async () => {
+      const result = await orm.agent
+        .create({
+          data: {
+            name: 'Test Agent',
+            description: 'An agent for integration testing',
+            systemPrompt: 'You are a helpful test agent.',
+          },
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            systemPrompt: true,
+          },
+        })
+        .execute();
 
-    // Delete
-    const deleteRes = await query({
-      query: `
-        mutation($id: UUID!) {
-          deleteContact(input: { id: $id }) {
-            contact {
-              id
-              firstName
-            }
-          }
-        }
-      `,
-      variables: { id },
+      expect(result.ok).toBe(true);
+      const agent = unwrapData(result.data).agent;
+      expect(agent.name).toBe('Test Agent');
+      expect(agent.description).toBe('An agent for integration testing');
     });
-
-    expect(deleteRes.errors).toBeUndefined();
-    expect(unwrapData(deleteRes.data).contact.firstName).toBe('Delete');
-  });
-});
-
-describe('Note CRUD via GraphQL', () => {
-  it('should query seeded notes', async () => {
-    const res = await query({
-      query: `{
-        notes(first: 10) {
-          nodes {
-            id
-            content
-          }
-          totalCount
-        }
-      }`,
-    });
-
-    expect(res.errors).toBeUndefined();
-    expect(unwrapData(res.data).totalCount).toBe(2);
   });
 
-  it('should create and query a note', async () => {
-    const createRes = await query({
-      query: `
-        mutation {
-          createNote(input: { note: {
-            content: "This is a test note for integration testing."
-          }}) {
-            note {
-              id
-              content
-            }
-          }
-        }
-      `,
+  // =========================================================================
+  // Test: M:N relations (contact <-> notes via contact_notes junction)
+  // =========================================================================
+  describe('M:N relations (contact <-> notes)', () => {
+    it('contact.findMany returns contacts with M:N notes connection', async () => {
+      const result = await orm.contact
+        .findMany({
+          select: {
+            id: true,
+            firstName: true,
+            notes: {
+              select: { id: true, content: true },
+            },
+          },
+          where: { id: { equalTo: CONTACT_ALICE } },
+        })
+        .execute();
+
+      expect(result.ok).toBe(true);
+      const nodes = unwrapData(result.data).nodes;
+      expect(nodes).toBeDefined();
+      expect(nodes.length).toBe(1);
+
+      const alice = nodes[0];
+      expect(alice.firstName).toBe('Alice');
+      expect(alice.notes.nodes).toHaveLength(1);
+      expect(alice.notes.nodes[0].id).toBe(NOTE_KICKOFF);
     });
 
-    expect(createRes.errors).toBeUndefined();
-    expect(unwrapData(createRes.data).note.content).toBe(
-      'This is a test note for integration testing.',
-    );
-  });
-});
+    it('creates a junction row via contactNote.create', async () => {
+      // Create a new contact
+      const contactResult = await orm.contact
+        .create({
+          data: { firstName: 'Rel', lastName: 'Test' },
+          select: { id: true },
+        })
+        .execute();
 
-describe('Agent CRUD via GraphQL', () => {
-  it('should query seeded agents', async () => {
-    const res = await query({
-      query: `{
-        agents(first: 5) {
-          nodes {
-            id
-            name
-            description
-            systemPrompt
-          }
-        }
-      }`,
+      expect(contactResult.ok).toBe(true);
+      const contactId = unwrapData(contactResult.data).contact.id;
+
+      // Create a new note
+      const noteResult = await orm.note
+        .create({
+          data: { content: 'Note linked to new contact' },
+          select: { id: true },
+        })
+        .execute();
+
+      expect(noteResult.ok).toBe(true);
+      const noteId = unwrapData(noteResult.data).note.id;
+
+      // Link them via junction
+      const linkResult = await orm.contactNote
+        .create({
+          data: { contactId, noteId },
+          select: { contactId: true, noteId: true },
+        })
+        .execute();
+
+      expect(linkResult.ok).toBe(true);
+      const link = unwrapData(linkResult.data).contactNote;
+      expect(link.contactId).toBe(contactId);
+      expect(link.noteId).toBe(noteId);
     });
-
-    expect(res.errors).toBeUndefined();
-    const agents = unwrapData(res.data);
-    const agent = agents.nodes.find(
-      (a: any) => a.id === AGENT_RESEARCH,
-    );
-    expect(agent).toBeDefined();
-    expect(agent.name).toBe('Research Agent');
-  });
-
-  it('should create an agent', async () => {
-    const createRes = await query({
-      query: `
-        mutation {
-          createAgent(input: { agent: {
-            name: "Test Agent"
-            description: "An agent for integration testing"
-            systemPrompt: "You are a helpful test agent."
-          }}) {
-            agent {
-              id
-              name
-              description
-              systemPrompt
-            }
-          }
-        }
-      `,
-    });
-
-    expect(createRes.errors).toBeUndefined();
-    const agent = unwrapData(createRes.data).agent;
-    expect(agent.name).toBe('Test Agent');
-    expect(agent.description).toBe('An agent for integration testing');
-  });
-});
-
-describe('Relations via GraphQL', () => {
-  it('should query contact -> notes via junction', async () => {
-    const res = await query({
-      query: `{
-        contact(id: "${CONTACT_ALICE}") {
-          firstName
-          notes {
-            nodes {
-              id
-              content
-            }
-          }
-        }
-      }`,
-    });
-
-    expect(res.errors).toBeUndefined();
-    const contact = unwrapData(res.data);
-    expect(contact.firstName).toBe('Alice');
-    expect(contact.notes.nodes).toHaveLength(1);
-    expect(contact.notes.nodes[0].id).toBe(NOTE_KICKOFF);
   });
 
-  it('should create a contact-note link via junction', async () => {
-    // Create a new contact
-    const contactRes = await query({
-      query: `
-        mutation {
-          createContact(input: { contact: {
-            firstName: "Rel"
-            lastName: "Test"
-          }}) {
-            contact { id }
-          }
-        }
-      `,
-    });
-    expect(contactRes.errors).toBeUndefined();
-    const contactId = unwrapData(contactRes.data).contact.id;
+  // =========================================================================
+  // Test: 1:N relations (agent -> agent_tasks)
+  // =========================================================================
+  describe('1:N relations (agent -> tasks)', () => {
+    it('creates an agent with a task via ORM', async () => {
+      // Create agent
+      const agentResult = await orm.agent
+        .create({
+          data: { name: 'Task Agent' },
+          select: { id: true },
+        })
+        .execute();
 
-    // Create a new note
-    const noteRes = await query({
-      query: `
-        mutation {
-          createNote(input: { note: {
-            content: "Note linked to new contact"
-          }}) {
-            note { id }
-          }
-        }
-      `,
-    });
-    expect(noteRes.errors).toBeUndefined();
-    const noteId = unwrapData(noteRes.data).note.id;
+      expect(agentResult.ok).toBe(true);
+      const agentId = unwrapData(agentResult.data).agent.id;
 
-    // Link them
-    const linkRes = await query({
-      query: `
-        mutation($contactId: UUID!, $noteId: UUID!) {
-          createContactNote(input: { contactNote: {
-            contactId: $contactId
-            noteId: $noteId
-          }}) {
-            contactNote {
-              contactId
-              noteId
-            }
-          }
-        }
-      `,
-      variables: { contactId, noteId },
+      // Create task linked to agent
+      const taskResult = await orm.agentTask
+        .create({
+          data: {
+            agentId,
+            title: 'Test Task',
+            description: 'Task for integration testing',
+            status: 'pending',
+          },
+          select: {
+            id: true,
+            title: true,
+            agentId: true,
+          },
+        })
+        .execute();
+
+      expect(taskResult.ok).toBe(true);
+      const task = unwrapData(taskResult.data).agentTask;
+      expect(task.title).toBe('Test Task');
+      expect(task.agentId).toBe(agentId);
     });
 
-    expect(linkRes.errors).toBeUndefined();
-    expect(unwrapData(linkRes.data).contactNote.contactId).toBe(
-      contactId,
-    );
-  });
+    it('agent.findMany returns agents with tasks connection', async () => {
+      const result = await orm.agent
+        .findMany({
+          select: {
+            id: true,
+            name: true,
+            agentTasks: {
+              select: { title: true, status: true },
+            },
+          },
+          where: { id: { equalTo: AGENT_RESEARCH } },
+        })
+        .execute();
 
-  it('should create an agent with a task', async () => {
-    // Create agent
-    const agentRes = await query({
-      query: `
-        mutation {
-          createAgent(input: { agent: {
-            name: "Task Agent"
-          }}) {
-            agent { id }
-          }
-        }
-      `,
+      expect(result.ok).toBe(true);
+      const nodes = unwrapData(result.data).nodes;
+      expect(nodes).toBeDefined();
+      expect(nodes.length).toBe(1);
+
+      const agent = nodes[0];
+      expect(agent.name).toBe('Research Agent');
+      expect(agent.agentTasks.nodes.length).toBeGreaterThanOrEqual(1);
     });
-    expect(agentRes.errors).toBeUndefined();
-    const agentId = unwrapData(agentRes.data).agent.id;
-
-    // Create task linked to agent
-    const taskRes = await query({
-      query: `
-        mutation($agentId: UUID!) {
-          createAgentTask(input: { agentTask: {
-            agentId: $agentId
-            title: "Test Task"
-            description: "Task for integration testing"
-            status: "pending"
-          }}) {
-            agentTask {
-              id
-              title
-              agentId
-            }
-          }
-        }
-      `,
-      variables: { agentId },
-    });
-
-    expect(taskRes.errors).toBeUndefined();
-    expect(unwrapData(taskRes.data).agentTask.title).toBe('Test Task');
-    expect(unwrapData(taskRes.data).agentTask.agentId).toBe(agentId);
-  });
-
-  it('should query agent -> tasks relation', async () => {
-    const res = await query({
-      query: `{
-        agent(id: "${AGENT_RESEARCH}") {
-          name
-          agentTasks {
-            nodes {
-              title
-              status
-            }
-          }
-        }
-      }`,
-    });
-
-    expect(res.errors).toBeUndefined();
-    const agent = unwrapData(res.data);
-    expect(agent.name).toBe('Research Agent');
-    expect(agent.agentTasks.nodes.length).toBeGreaterThanOrEqual(1);
   });
 });

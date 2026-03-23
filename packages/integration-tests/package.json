@@ -11,10 +11,15 @@
     "test:embeddings": "jest --forceExit --detectOpenHandles __tests__/embeddings.test.ts"
   },
   "devDependencies": {
+    "@constructive-io/graphql-codegen": "4.21.2",
+    "@constructive-io/graphql-query": "3.9.1",
+    "@constructive-io/graphql-types": "3.3.4",
     "@types/pg": "^8.16.0",
+    "gql-ast": "3.3.3",
     "graphile-settings": "4.12.2",
     "graphile-test": "^4.5.10",
     "graphql": "16.13.0",
-    "pgsql-test": "^4.5.10"
+    "pgsql-test": "^4.5.10",
+    "typescript": "^5.9.3"
   }
 }
