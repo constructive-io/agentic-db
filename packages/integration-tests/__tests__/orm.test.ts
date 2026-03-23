@@ -10,6 +10,7 @@
  */
 import path from 'path';
 import { getConnectionsObject, seed } from 'graphile-test';
+import { ConstructivePreset } from 'graphile-settings';
 
 jest.setTimeout(120000);
 
@@ -32,6 +33,9 @@ beforeAll(async () => {
       schemas: SCHEMAS,
       useRoot: true,
       authRole: 'postgres',
+      preset: {
+        extends: [ConstructivePreset],
+      },
     },
     [
       seed.sqlfile([
@@ -50,6 +54,11 @@ afterAll(async () => {
     await teardown();
   }
 });
+
+/** Extract the first connection/mutation result regardless of field name */
+function unwrapData(data: any): any {
+  return Object.values(data)[0];
+}
 
 describe('GraphQL Schema Introspection', () => {
   it('should expose agentic-db tables via GraphQL', async () => {
@@ -77,6 +86,7 @@ describe('GraphQL Schema Introspection', () => {
     });
 
     const fieldNames = res.data.__type.fields.map((f: any) => f.name);
+    // With ConstructivePreset, collection fields are pluralized table names
     expect(fieldNames).toContain('contacts');
     expect(fieldNames).toContain('notes');
     expect(fieldNames).toContain('agents');
@@ -101,9 +111,10 @@ describe('Contact CRUD via GraphQL', () => {
     });
 
     expect(res.errors).toBeUndefined();
-    expect(res.data.contacts.totalCount).toBe(2);
+    const contacts = unwrapData(res.data);
+    expect(contacts.totalCount).toBe(2);
 
-    const alice = res.data.contacts.nodes.find(
+    const alice = contacts.nodes.find(
       (c: any) => c.id === CONTACT_ALICE,
     );
     expect(alice).toBeDefined();
@@ -134,7 +145,7 @@ describe('Contact CRUD via GraphQL', () => {
     });
 
     expect(res.errors).toBeUndefined();
-    const contact = res.data.createContact.contact;
+    const contact = unwrapData(res.data).contact;
     expect(contact).toBeDefined();
     expect(contact.firstName).toBe('Test');
     expect(contact.lastName).toBe('User');
@@ -156,7 +167,8 @@ describe('Contact CRUD via GraphQL', () => {
       `,
     });
 
-    const id = createRes.data.createContact.contact.id;
+    expect(createRes.errors).toBeUndefined();
+    const id = unwrapData(createRes.data).contact.id;
 
     // Update
     const updateRes = await query({
@@ -178,10 +190,10 @@ describe('Contact CRUD via GraphQL', () => {
     });
 
     expect(updateRes.errors).toBeUndefined();
-    expect(updateRes.data.updateContact.contact.headline).toBe(
+    expect(unwrapData(updateRes.data).contact.headline).toBe(
       'Updated Headline',
     );
-    expect(updateRes.data.updateContact.contact.bio).toBe('Updated bio text');
+    expect(unwrapData(updateRes.data).contact.bio).toBe('Updated bio text');
   });
 
   it('should delete a contact', async () => {
@@ -199,7 +211,8 @@ describe('Contact CRUD via GraphQL', () => {
       `,
     });
 
-    const id = createRes.data.createContact.contact.id;
+    expect(createRes.errors).toBeUndefined();
+    const id = unwrapData(createRes.data).contact.id;
 
     // Delete
     const deleteRes = await query({
@@ -217,7 +230,7 @@ describe('Contact CRUD via GraphQL', () => {
     });
 
     expect(deleteRes.errors).toBeUndefined();
-    expect(deleteRes.data.deleteContact.contact.firstName).toBe('Delete');
+    expect(unwrapData(deleteRes.data).contact.firstName).toBe('Delete');
   });
 });
 
@@ -236,7 +249,7 @@ describe('Note CRUD via GraphQL', () => {
     });
 
     expect(res.errors).toBeUndefined();
-    expect(res.data.notes.totalCount).toBe(2);
+    expect(unwrapData(res.data).totalCount).toBe(2);
   });
 
   it('should create and query a note', async () => {
@@ -256,7 +269,7 @@ describe('Note CRUD via GraphQL', () => {
     });
 
     expect(createRes.errors).toBeUndefined();
-    expect(createRes.data.createNote.note.content).toBe(
+    expect(unwrapData(createRes.data).note.content).toBe(
       'This is a test note for integration testing.',
     );
   });
@@ -278,7 +291,8 @@ describe('Agent CRUD via GraphQL', () => {
     });
 
     expect(res.errors).toBeUndefined();
-    const agent = res.data.agents.nodes.find(
+    const agents = unwrapData(res.data);
+    const agent = agents.nodes.find(
       (a: any) => a.id === AGENT_RESEARCH,
     );
     expect(agent).toBeDefined();
@@ -306,14 +320,14 @@ describe('Agent CRUD via GraphQL', () => {
     });
 
     expect(createRes.errors).toBeUndefined();
-    const agent = createRes.data.createAgent.agent;
+    const agent = unwrapData(createRes.data).agent;
     expect(agent.name).toBe('Test Agent');
     expect(agent.description).toBe('An agent for integration testing');
   });
 });
 
 describe('Relations via GraphQL', () => {
-  it('should query contact → notes via junction', async () => {
+  it('should query contact -> notes via junction', async () => {
     const res = await query({
       query: `{
         contact(id: "${CONTACT_ALICE}") {
@@ -329,9 +343,10 @@ describe('Relations via GraphQL', () => {
     });
 
     expect(res.errors).toBeUndefined();
-    expect(res.data.contact.firstName).toBe('Alice');
-    expect(res.data.contact.notes.nodes).toHaveLength(1);
-    expect(res.data.contact.notes.nodes[0].id).toBe(NOTE_KICKOFF);
+    const contact = unwrapData(res.data);
+    expect(contact.firstName).toBe('Alice');
+    expect(contact.notes.nodes).toHaveLength(1);
+    expect(contact.notes.nodes[0].id).toBe(NOTE_KICKOFF);
   });
 
   it('should create a contact-note link via junction', async () => {
@@ -348,7 +363,8 @@ describe('Relations via GraphQL', () => {
         }
       `,
     });
-    const contactId = contactRes.data.createContact.contact.id;
+    expect(contactRes.errors).toBeUndefined();
+    const contactId = unwrapData(contactRes.data).contact.id;
 
     // Create a new note
     const noteRes = await query({
@@ -362,7 +378,8 @@ describe('Relations via GraphQL', () => {
         }
       `,
     });
-    const noteId = noteRes.data.createNote.note.id;
+    expect(noteRes.errors).toBeUndefined();
+    const noteId = unwrapData(noteRes.data).note.id;
 
     // Link them
     const linkRes = await query({
@@ -383,7 +400,7 @@ describe('Relations via GraphQL', () => {
     });
 
     expect(linkRes.errors).toBeUndefined();
-    expect(linkRes.data.createContactNote.contactNote.contactId).toBe(
+    expect(unwrapData(linkRes.data).contactNote.contactId).toBe(
       contactId,
     );
   });
@@ -401,7 +418,8 @@ describe('Relations via GraphQL', () => {
         }
       `,
     });
-    const agentId = agentRes.data.createAgent.agent.id;
+    expect(agentRes.errors).toBeUndefined();
+    const agentId = unwrapData(agentRes.data).agent.id;
 
     // Create task linked to agent
     const taskRes = await query({
@@ -425,11 +443,11 @@ describe('Relations via GraphQL', () => {
     });
 
     expect(taskRes.errors).toBeUndefined();
-    expect(taskRes.data.createAgentTask.agentTask.title).toBe('Test Task');
-    expect(taskRes.data.createAgentTask.agentTask.agentId).toBe(agentId);
+    expect(unwrapData(taskRes.data).agentTask.title).toBe('Test Task');
+    expect(unwrapData(taskRes.data).agentTask.agentId).toBe(agentId);
   });
 
-  it('should query agent → tasks relation', async () => {
+  it('should query agent -> tasks relation', async () => {
     const res = await query({
       query: `{
         agent(id: "${AGENT_RESEARCH}") {
@@ -445,7 +463,8 @@ describe('Relations via GraphQL', () => {
     });
 
     expect(res.errors).toBeUndefined();
-    expect(res.data.agent.name).toBe('Research Agent');
-    expect(res.data.agent.agentTasks.nodes.length).toBeGreaterThanOrEqual(1);
+    const agent = unwrapData(res.data);
+    expect(agent.name).toBe('Research Agent');
+    expect(agent.agentTasks.nodes.length).toBeGreaterThanOrEqual(1);
   });
 });

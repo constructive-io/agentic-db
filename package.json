@@ -45,7 +45,7 @@
     "makage": "0.1.12",
     "graphile-test": "^4.5.10",
     "graphql": "16.13.0",
-    "pgsql-test": "^4.3.2",
+    "pgsql-test": "^4.5.10",
     "prettier": "^3.7.4",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",

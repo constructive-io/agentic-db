@@ -193,39 +193,53 @@ describe('Note Chunks', () => {
 });
 
 describe('Cosine Similarity Search', () => {
-  it('should find similar contacts by vector distance', async () => {
-    // Insert vectors on two contacts
+  it('should find similar chunks by vector distance', async () => {
+    // Create two contacts with chunks that have embeddings
+    const c1 = await db.client.query(
+      `INSERT INTO "agentic_db_app_public".contacts (first_name, last_name)
+       VALUES ('VecAlice', 'Smith')
+       RETURNING id`,
+    );
+    const c2 = await db.client.query(
+      `INSERT INTO "agentic_db_app_public".contacts (first_name, last_name)
+       VALUES ('VecBob', 'Jones')
+       RETURNING id`,
+    );
+    const c1Id = c1.rows[0].id;
+    const c2Id = c2.rows[0].id;
+
     const vec1 = fakeVector(1);
     const vec2 = fakeVector(2);
 
     await db.client.query(
-      `UPDATE "agentic_db_app_public".contacts
-       SET embedding = $1::vector
-       WHERE id = $2`,
-      [vec1, CONTACT_ALICE],
+      `INSERT INTO "agentic_db_app_public".contact_chunks
+         (contact_id, content, chunk_index, embedding)
+       VALUES ($1, 'Alice background', 0, $2::vector)`,
+      [c1Id, vec1],
     );
 
     await db.client.query(
-      `UPDATE "agentic_db_app_public".contacts
-       SET embedding = $1::vector
-       WHERE id = $2`,
-      [vec2, '22222222-2222-2222-2222-222222222222'],
+      `INSERT INTO "agentic_db_app_public".contact_chunks
+         (contact_id, content, chunk_index, embedding)
+       VALUES ($1, 'Bob background', 0, $2::vector)`,
+      [c2Id, vec2],
     );
 
     // Query using cosine distance (smaller = more similar)
-    const queryVec = fakeVector(1); // same seed as Alice → should be closest
+    const queryVec = fakeVector(1); // same seed as Alice -> should be closest
     const result = await db.client.query(
-      `SELECT id, first_name, 1 - (embedding <=> $1::vector) AS similarity
-       FROM "agentic_db_app_public".contacts
-       WHERE embedding IS NOT NULL
-       ORDER BY embedding <=> $1::vector
+      `SELECT cc.id, c.first_name, 1 - (cc.embedding <=> $1::vector) AS similarity
+       FROM "agentic_db_app_public".contact_chunks cc
+       JOIN "agentic_db_app_public".contacts c ON c.id = cc.contact_id
+       WHERE cc.embedding IS NOT NULL
+       ORDER BY cc.embedding <=> $1::vector
        LIMIT 5`,
       [queryVec],
     );
 
     expect(result.rows.length).toBeGreaterThan(0);
-    // Alice should be first (exact match vector)
-    expect(result.rows[0].first_name).toBe('Alice');
+    // Alice's chunk should be first (exact match vector)
+    expect(result.rows[0].first_name).toBe('VecAlice');
     expect(parseFloat(result.rows[0].similarity)).toBeCloseTo(1.0, 2);
   });
 });

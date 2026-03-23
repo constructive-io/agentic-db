@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@types/pg": "^8.16.0",
+    "graphile-settings": "4.12.2",
     "graphile-test": "^4.5.10",
     "graphql": "16.13.0",
     "pgsql-test": "^4.5.10"
