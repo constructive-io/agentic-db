@@ -64,7 +64,6 @@ async function main() {
   await importTable('Contacts', 'SELECT * FROM crm.contacts', async (row) => {
     return authClient.contact.create({
       data: {
-        id: row.id,
         entityId: userId,
         firstName: row.first_name,
         lastName: row.last_name,
@@ -81,15 +80,14 @@ async function main() {
 
   // 2. Tasks
   await importTable('Tasks', 'SELECT * FROM agent.tasks', async (row) => {
-    return authClient.task.create({
+    return authClient.agentTask.create({
       data: {
-        id: row.id,
         entityId: userId,
+        agentId: userId,
         title: row.title,
         description: row.description,
         status: row.status,
         priority: row.priority,
-        tags: [],
       },
       select: { id: true }
     }).execute();
@@ -99,7 +97,6 @@ async function main() {
   await importTable('Companies', 'SELECT * FROM crm.companies', async (row) => {
     return authClient.company.create({
       data: {
-        id: row.id,
         entityId: userId,
         name: row.name,
         domain: row.website,
@@ -115,7 +112,6 @@ async function main() {
   await importTable('Events', 'SELECT * FROM crm.events', async (row) => {
     return authClient.event.create({
       data: {
-        id: row.id,
         entityId: userId,
         name: row.name,
         eventType: row.event_type,
@@ -123,7 +119,7 @@ async function main() {
         city: row.city,
         startedAt: row.started_at,
         endedAt: row.ended_at,
-        notes: row.notes,
+        notesText: row.notes,
         tags: [],
       },
       select: { id: true }
@@ -134,7 +130,6 @@ async function main() {
   await importTable('Venues', 'SELECT * FROM crm.venues', async (row) => {
     return authClient.venue.create({
       data: {
-        id: row.id,
         entityId: userId,
         name: row.name,
         neighborhood: row.neighborhood,
@@ -151,9 +146,7 @@ async function main() {
   await importTable('Notes', 'SELECT * FROM crm.notes', async (row) => {
     return authClient.note.create({
       data: {
-        id: row.id,
         entityId: userId,
-        contactId: row.contact_id,
         content: row.body,
         tags: [],
       },
@@ -165,8 +158,8 @@ async function main() {
   await importTable('Memories', 'SELECT * FROM agent.memories', async (row) => {
     return authClient.memory.create({
       data: {
-        id: row.id,
         entityId: userId,
+        title: row.title || 'Untitled',
         content: row.content,
         tags: row.tags || [],
       },
@@ -178,13 +171,12 @@ async function main() {
   await importTable('Skills', 'SELECT * FROM agent.skills', async (row) => {
     return authClient.skill.create({
       data: {
-        id: row.id,
         entityId: userId,
+        agentId: userId,
         name: row.name,
         description: row.description,
-        content: row.content,
+        implementation: row.content,
         isActive: row.active ?? true,
-        tags: row.tags || [],
       },
       select: { id: true }
     }).execute();
@@ -194,36 +186,18 @@ async function main() {
   await importTable('Rules', 'SELECT * FROM agent.rules', async (row) => {
     return authClient.rule.create({
       data: {
-        id: row.id,
         entityId: userId,
-        title: row.title,
-        content: row.content,
-        kind: row.kind,
+        agentId: userId,
+        name: row.title || row.name,
+        description: row.content,
+        triggerType: row.kind,
         isActive: row.active ?? true,
-        tags: [],
       },
       select: { id: true }
     }).execute();
   });
 
-  // 10. Expenses
-  await importTable('Expenses', 'SELECT * FROM accounting.expenses', async (row) => {
-    return authClient.expense.create({
-      data: {
-        id: row.id,
-        entityId: userId,
-        amount: row.amount,
-        currency: row.currency,
-        date: row.occurred_at,
-        category: row.category,
-        description: row.description,
-        merchant: row.merchant,
-        receiptUrl: row.receipt_url,
-        tags: [],
-      },
-      select: { id: true }
-    }).execute();
-  });
+  // 10. Expenses — skipped (expense table no longer in schema)
 
   await avengersClient.end();
 }
