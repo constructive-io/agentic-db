@@ -1,7 +1,0 @@
--- Revert: schemas/agentic_db_app_public/tables/tags/alterations/alt0000001861
-
-
-ALTER TABLE "agentic_db_app_public".tags 
-  ENABLE ROW LEVEL SECURITY;
-
-

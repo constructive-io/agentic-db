@@ -1,7 +1,0 @@
--- Revert: schemas/agentic_db_app_public/tables/habit_logs/columns/duration_minutes/column
-
-
-ALTER TABLE "agentic_db_app_public".habit_logs 
-  DROP COLUMN duration_minutes RESTRICT;
-
-

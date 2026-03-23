@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills/table
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 -- requires: schemas/agentic_db_app_public/tables/skills/columns/embedding/column
--- requires: schemas/agentic_db_app_public/tables/memories/indexes/memories_embedding_hnsw_idx
 
 
-CREATE INDEX skills_embedding_hnsw_idx ON "agentic_db_app_public".skills USING hnsw ( embedding vector_cosine_ops ) WITH ( m = 16, ef_construction = 128 );
+CREATE INDEX skills_embedding_hnsw_idx ON "agentic_db_app_public".skills USING hnsw ( embedding vector_cosine_ops );
 

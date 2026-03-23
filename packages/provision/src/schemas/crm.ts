@@ -7,8 +7,6 @@
 import {
   type BlueprintDefinition,
   orgTable,
-  chunkTable,
-  hasManyChunks,
   provisionBlueprint,
   f,
   req,
@@ -53,6 +51,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['first_name', 'last_name', 'headline', 'bio'],
+          chunks: true,
           fts: {
             field_name: 'search_tsv',
             source_fields: [
@@ -78,6 +77,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'industry'],
+          chunks: true,
           fts: {
             field_name: 'search_tsv',
             source_fields: [
@@ -102,6 +102,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'notes_text'],
+          chunks: true,
         }),
       ]),
 
@@ -119,6 +120,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'notes_text', 'location'],
+          chunks: true,
           fts: {
             field_name: 'search_tsv',
             source_fields: [
@@ -149,6 +151,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'notes', 'neighborhood'],
+          chunks: true,
           fts: {
             field_name: 'search_tsv',
             source_fields: [
@@ -173,6 +176,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['content', 'abstract'],
+          chunks: true,
         }),
       ]),
 
@@ -187,6 +191,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['summary'],
+          chunks: true,
         }),
       ]),
 
@@ -197,15 +202,6 @@ const definition: BlueprintDefinition = {
       f('category', 'text'),
       f('usage_count', 'int', { default_value: '0' }),
     ]),
-
-    // -- Chunk tables (DataSearch auto-applied via chunkTable helper) --------
-    chunkTable('contacts'),
-    chunkTable('companies'),
-    chunkTable('deals'),
-    chunkTable('events'),
-    chunkTable('venues'),
-    chunkTable('notes'),
-    chunkTable('interactions'),
 
     // -- Link tables (standalone embedding) ---------------------------------
     orgTable('contact_links', [f('title', 'text'), req('url', 'text')], [dataEmbedding({ field_name: 'embedding' })]),
@@ -233,15 +229,6 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'companies', target_ref: 'company_links', delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'events',    target_ref: 'event_links',   delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'venues',    target_ref: 'venue_links',   delete_action: 'c' },
-
-    // HasMany: chunks (CASCADE delete)
-    hasManyChunks('contacts'),
-    hasManyChunks('companies'),
-    hasManyChunks('deals'),
-    hasManyChunks('events'),
-    hasManyChunks('venues'),
-    hasManyChunks('notes'),
-    hasManyChunks('interactions'),
 
     // M:N: cross-entity junctions
     { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'companies', junction_table_name: 'contact_companies', source_field_name: 'contact_id', target_field_name: 'company_id', is_required: false, data: M2M_JUNCTION_OPTS },

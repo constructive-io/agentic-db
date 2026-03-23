@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venues/table
 -- requires: schemas/agentic_db_app_public/tables/venue_links/table
--- requires: schemas/agentic_db_app_public/tables/event_links/constraints/event_links_event_id_fkey/constraint
+-- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
 ALTER TABLE "agentic_db_app_public".venue_links 

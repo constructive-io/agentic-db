@@ -1,6 +1,0 @@
--- Verify: schemas/agentic_db_app_public/tables/itinerary_item_chunks/triggers/itinerary_item_chunks_enqueue_embedding_insert_tg
-
-
-SELECT verify_trigger('agentic_db_app_public.itinerary_item_chunks_enqueue_embedding_insert_tg');
-
-

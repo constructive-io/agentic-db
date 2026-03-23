@@ -192,6 +192,22 @@ export function dataSearch(opts: {
   };
   /** Field names for trigram fuzzy matching */
   trgm_fields?: string[];
+  /**
+   * Enable automatic chunk table creation via DataEmbedding's embedding_chunks
+   * trigger. Pass `true` for defaults or an object to override chunking params.
+   * The trigger auto-creates a <parent>_chunks table with: id, FK to parent,
+   * content, chunk_index, embedding vector + HNSW index, metadata jsonb,
+   * timestamps, and inherited RLS policies.
+   */
+  chunks?: boolean | {
+    content_field_name?: string;
+    chunk_size?: number;
+    chunk_overlap?: number;
+    chunk_strategy?: string;
+    metadata_fields?: string[];
+    enqueue_chunking_job?: boolean;
+    chunking_task_name?: string;
+  };
 }): NodeDef {
   const data: Record<string, unknown> = {};
 
@@ -200,6 +216,12 @@ export function dataSearch(opts: {
   if (opts.embedding_source_fields) {
     embeddingConfig.source_fields = opts.embedding_source_fields;
   }
+
+  // Chunks config — passed through embedding → embedding_chunks trigger
+  if (opts.chunks) {
+    embeddingConfig.chunks = opts.chunks === true ? {} : opts.chunks;
+  }
+
   data.embedding = embeddingConfig;
 
   // BM25 config (ParadeDB pg_search)
@@ -258,52 +280,6 @@ export function dataEmbedding(opts: {
       ...(opts.source_fields ? { source_fields: opts.source_fields } : {}),
       enqueue_job: opts.enqueue_job ?? false,
     },
-  };
-}
-
-/** Standard chunk table fields (embedding_text must exist before DataSearch/BM25 node) */
-const CHUNK_FIELDS: FieldDef[] = [
-  { name: 'chunk_index', type: 'int', is_required: true },
-  { name: 'content', type: 'text', is_required: true },
-  { name: 'embedding_text', type: 'text' },
-];
-
-/** DataSearch node for chunk tables (embedding + BM25, no FTS) */
-const CHUNK_DATA_SEARCH: NodeDef = dataSearch({
-  bm25_field: 'embedding_text',
-});
-
-/**
- * Singularize a table name for chunk table derivation.
- * Handles common English plural patterns:
- *   companies -> company, memories -> memory, repositories -> repository
- *   contacts -> contact, deals -> deal, etc.
- */
-function singularize(plural: string): string {
-  if (plural.endsWith('ies')) return plural.slice(0, -3) + 'y';
-  if (plural.endsWith('ses') || plural.endsWith('xes') || plural.endsWith('zes')) return plural.slice(0, -2);
-  if (plural.endsWith('s') && !plural.endsWith('ss')) return plural.slice(0, -1);
-  return plural;
-}
-
-/**
- * Create a chunk table definition for a parent table.
- * Convention: parent "contacts" -> chunk table "contact_chunks"
- */
-export function chunkTable(parentRef: string): TableDef {
-  const chunkRef = `${singularize(parentRef)}_chunks`;
-  return orgTable(chunkRef, CHUNK_FIELDS, [CHUNK_DATA_SEARCH]);
-}
-
-/**
- * Create a HasMany relation (parent -> chunks, CASCADE delete).
- */
-export function hasManyChunks(parentRef: string): RelationDef {
-  return {
-    $type: 'RelationHasMany',
-    source_ref: parentRef,
-    target_ref: `${singularize(parentRef)}_chunks`,
-    delete_action: 'c',
   };
 }
 

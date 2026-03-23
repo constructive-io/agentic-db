@@ -10,5 +10,5 @@ ALTER TABLE "agentic_db_memberships_public".org_chart_edges
   ADD CONSTRAINT org_chart_edges_parent_id_fkey 
     FOREIGN KEY(parent_id) 
     REFERENCES "agentic_db_users_public".users (id) 
-    ON DELETE CASCADE;
+    ON DELETE SET NULL;
 

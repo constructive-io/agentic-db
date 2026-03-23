@@ -7,8 +7,6 @@
 import {
   type BlueprintDefinition,
   orgTable,
-  chunkTable,
-  hasManyChunks,
   provisionBlueprint,
   f,
   req,
@@ -34,6 +32,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'system_prompt'],
+          chunks: true,
         }),
       ]),
 
@@ -51,6 +50,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['title', 'description', 'result'],
+          chunks: true,
         }),
       ]),
 
@@ -64,6 +64,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['message'],
+          chunks: true,
         }),
       ]),
 
@@ -81,6 +82,7 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'trigger_concept'],
+          chunks: true,
         }),
         dataEmbedding({ field_name: 'trigger_concept_embedding', source_fields: ['trigger_concept'] }),
       ]),
@@ -97,16 +99,11 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description', 'intent_trigger'],
+          chunks: true,
         }),
         dataEmbedding({ field_name: 'intent_trigger_embedding', source_fields: ['intent_trigger'] }),
       ]),
 
-    // -- Chunk tables -------------------------------------------------------
-    chunkTable('agents'),
-    chunkTable('agent_tasks'),
-    chunkTable('agent_logs'),
-    chunkTable('rules'),
-    chunkTable('skills'),
   ],
 
   relations: [
@@ -114,12 +111,6 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'agent_logs',  delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'rules',       delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'skills',      delete_action: 'c' },
-
-    hasManyChunks('agents'),
-    hasManyChunks('agent_tasks'),
-    hasManyChunks('agent_logs'),
-    hasManyChunks('rules'),
-    hasManyChunks('skills'),
 
     { $type: 'RelationManyToMany', source_ref: 'agents', target_ref: 'agents', junction_table_name: 'agent_collaborators', source_field_name: 'agent_id', target_field_name: 'collaborator_id', is_required: false, data: M2M_JUNCTION_OPTS },
   ],

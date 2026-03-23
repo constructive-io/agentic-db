@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goals/table
--- requires: schemas/agentic_db_app_public/tables/skills/columns/intent_trigger/column
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
 CREATE POLICY auth_del_entity_membership ON "agentic_db_app_public".goals

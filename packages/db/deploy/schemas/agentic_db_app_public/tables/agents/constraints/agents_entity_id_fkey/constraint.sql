@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agents/table
 -- requires: schemas/agentic_db_users_public/tables/users/table
--- requires: schemas/agentic_db_app_public/tables/tasks/constraints/tasks_parent_task_id_fkey/constraint
+-- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 
 
 ALTER TABLE "agentic_db_app_public".agents 

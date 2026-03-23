@@ -7,8 +7,6 @@
 import {
   type BlueprintDefinition,
   orgTable,
-  chunkTable,
-  hasManyChunks,
   provisionBlueprint,
   f,
   req,
@@ -33,15 +31,12 @@ const definition: BlueprintDefinition = {
     ], [
         dataSearch({
           embedding_source_fields: ['name', 'description'],
+          chunks: true,
         }),
       ]),
-
-    chunkTable('projects'),
   ],
 
-  relations: [
-    hasManyChunks('projects'),
-  ],
+  relations: [],
 
   indexes: [
     ginIndex('projects', 'tags'),

@@ -10,5 +10,5 @@ ALTER TABLE "agentic_db_users_public".users
   ADD CONSTRAINT users_type_fkey 
     FOREIGN KEY(type) 
     REFERENCES "agentic_db_users_public".role_types (id) 
-    ON DELETE CASCADE;
+    ON DELETE RESTRICT;
 
