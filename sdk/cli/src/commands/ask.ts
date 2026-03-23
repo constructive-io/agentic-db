@@ -22,7 +22,7 @@ Options:
 
 Examples:
   agentic-db ask "when did I last meet Dan?"
-  agentic-db ask "what are my upcoming deadlines?" --tables tasks,projects
+  agentic-db ask "what are my upcoming deadlines?" --tables agentTasks,projects
   agentic-db ask "summarize my deals this month" --top 10
 `;
 
