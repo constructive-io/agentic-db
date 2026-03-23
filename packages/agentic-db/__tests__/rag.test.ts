@@ -186,8 +186,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     const chunkResult = await sdk.contactsChunk
       .create({
         data: {
-          entityId: userId!,
-          contactId: carolId,
+          contactsId: carolId,
           content:
             'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.',
           chunkIndex: 0,
