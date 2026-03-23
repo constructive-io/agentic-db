@@ -139,7 +139,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 10
+          version: 10.22.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -149,6 +149,24 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Debug dependency tree
+        run: |
+          echo "=== pnpm version ==="
+          pnpm --version
+          echo "=== graphql versions ==="
+          pnpm list graphql --depth=10 2>/dev/null | grep graphql || true
+          echo "=== grafast versions ==="
+          pnpm list grafast --depth=10 2>/dev/null | grep grafast || true
+          echo "=== Check for duplicate graphql in node_modules ==="
+          find node_modules -name "package.json" -path "*/graphql/package.json" -exec sh -c 'echo "$(dirname {}): $(node -e "console.log(require(\"$(dirname {})/package.json\").version)")"' \; 2>/dev/null || true
+          echo "=== Check grafast singleton ==="
+          node -e "
+            const g1 = require('grafast');
+            const g2 = require('graphile-test/node_modules/grafast' + '/package.json').version || 'N/A';
+            console.log('Root grafast:', require('grafast/package.json').version);
+            console.log('graphile-test grafast:', g2);
+          " 2>/dev/null || echo "grafast check failed"
 
       - name: Run ORM tests
         run: |
@@ -186,7 +204,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 10
+          version: 10.22.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
