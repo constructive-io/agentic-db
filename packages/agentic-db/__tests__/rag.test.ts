@@ -62,6 +62,13 @@ beforeAll(async () => {
     `UPDATE "agentic_db_memberships_public".app_membership_defaults
      SET is_verified = true, is_approved = true`
   );
+
+  // Grant the authenticated role access to app_jobs so that insert triggers
+  // (e.g. contacts_enqueue_embedding_insert_tg) can call app_jobs.add_job().
+  await pg.query(
+    `GRANT USAGE ON SCHEMA app_jobs TO authenticated;
+     GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app_jobs TO authenticated;`
+  );
 });
 
 afterAll(async () => {
