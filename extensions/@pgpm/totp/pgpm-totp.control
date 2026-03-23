@@ -1,6 +1,6 @@
 # pgpm-totp extension
 comment = 'pgpm-totp extension'
-default_version = '0.15.3'
+default_version = '0.15.5'
 module_pathname = '$libdir/pgpm-totp'
 requires = 'pgcrypto,plpgsql,pgpm-base32,pgpm-verify'
 relocatable = false

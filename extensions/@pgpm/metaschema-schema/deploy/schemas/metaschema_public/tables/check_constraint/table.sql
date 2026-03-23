@@ -8,7 +8,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.check_constraint (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL DEFAULT uuid_nil(),
   
   table_id uuid NOT NULL,
@@ -32,8 +32,6 @@ CREATE TABLE metaschema_public.check_constraint (
   CHECK (field_ids <> '{}')
 );
 
-COMMENT ON CONSTRAINT table_fkey ON metaschema_public.check_constraint IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.check_constraint IS E'@omit manyToMany';
 
 CREATE INDEX check_constraint_table_id_idx ON metaschema_public.check_constraint ( table_id );
 CREATE INDEX check_constraint_database_id_idx ON metaschema_public.check_constraint ( database_id );

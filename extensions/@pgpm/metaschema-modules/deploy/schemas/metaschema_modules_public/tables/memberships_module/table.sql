@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.memberships_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     --
     schema_id uuid NOT NULL DEFAULT uuid_nil(),
@@ -76,45 +76,6 @@ CREATE TABLE metaschema_modules_public.memberships_module (
     CONSTRAINT default_permissions_table_fkey FOREIGN KEY (default_permissions_table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE
 );
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT private_schema_fkey ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
 CREATE INDEX memberships_module_database_id_idx ON metaschema_modules_public.memberships_module ( database_id );
-
-COMMENT ON CONSTRAINT entity_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT entity_table_owner_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT memberships_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT members_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT membership_defaults_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT grants_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT sprt_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT actor_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT limits_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT default_limits_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT permissions_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT default_permissions_table_fkey
-     ON metaschema_modules_public.memberships_module IS E'@omit manyToMany';
 
 COMMIT;

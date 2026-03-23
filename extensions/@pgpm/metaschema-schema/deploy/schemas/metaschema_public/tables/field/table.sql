@@ -23,7 +23,7 @@ BEGIN;
 --   AND    NOT attisdropped;
 
 CREATE TABLE metaschema_public.field (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL DEFAULT uuid_nil(),
   
   table_id uuid NOT NULL,
@@ -35,12 +35,10 @@ CREATE TABLE metaschema_public.field (
   smart_tags jsonb,
 
   is_required boolean NOT NULL DEFAULT FALSE,
+  api_required boolean NOT NULL DEFAULT FALSE,
   default_value text NULL DEFAULT NULL,
   -- AST column for SQL expression validation (AST is the source of truth)
   default_value_ast jsonb NULL DEFAULT NULL,
-
-  -- hidden from API using @omit keyword, a Graphile feature ONLY
-  is_hidden boolean NOT NULL DEFAULT FALSE,
 
   type citext NOT NULL,
 
@@ -70,8 +68,6 @@ CREATE TABLE metaschema_public.field (
   UNIQUE (table_id, name)
 );
 
-COMMENT ON CONSTRAINT table_fkey ON metaschema_public.field IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.field IS E'@omit manyToMany';
 
 CREATE INDEX field_table_id_idx ON metaschema_public.field ( table_id );
 CREATE INDEX field_database_id_idx ON metaschema_public.field ( database_id );

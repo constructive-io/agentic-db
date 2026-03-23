@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.schema (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     
     database_id uuid NOT NULL,
     name text NOT NULL,
@@ -37,7 +37,6 @@ CREATE TABLE metaschema_public.schema (
 ALTER TABLE metaschema_public.schema
   ADD CONSTRAINT schema_namechk CHECK (char_length(name) > 2);
 
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.schema IS E'@omit manyToMany';
 CREATE INDEX schema_database_id_idx ON metaschema_public.schema ( database_id );
 
 COMMIT;

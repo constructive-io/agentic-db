@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.view_grant (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL DEFAULT uuid_nil(),
 
   view_id uuid NOT NULL,
@@ -25,8 +25,6 @@ CREATE TABLE metaschema_public.view_grant (
   UNIQUE (view_id, grantee_name, privilege, is_grant)
 );
 
-COMMENT ON CONSTRAINT view_fkey ON metaschema_public.view_grant IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.view_grant IS E'@omit manyToMany';
 
 CREATE INDEX view_grant_view_id_idx ON metaschema_public.view_grant ( view_id );
 CREATE INDEX view_grant_database_id_idx ON metaschema_public.view_grant ( database_id );

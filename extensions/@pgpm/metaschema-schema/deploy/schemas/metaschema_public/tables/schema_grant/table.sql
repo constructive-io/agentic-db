@@ -6,7 +6,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.schema_grant (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL DEFAULT uuid_nil(),
     
     schema_id uuid NOT NULL,
@@ -18,8 +18,6 @@ CREATE TABLE metaschema_public.schema_grant (
 
 );
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_public.schema_grant IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.schema_grant IS E'@omit manyToMany';
 
 CREATE INDEX schema_grant_schema_id_idx ON metaschema_public.schema_grant ( schema_id );
 CREATE INDEX schema_grant_database_id_idx ON metaschema_public.schema_grant ( database_id );

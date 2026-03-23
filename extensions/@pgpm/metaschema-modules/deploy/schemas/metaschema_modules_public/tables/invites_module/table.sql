@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.invites_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     
     schema_id uuid NOT NULL DEFAULT uuid_nil(),
@@ -39,13 +39,6 @@ CREATE TABLE metaschema_modules_public.invites_module (
     CONSTRAINT pschema_fkey FOREIGN KEY (private_schema_id) REFERENCES metaschema_public.schema (id) ON DELETE CASCADE
 );
 
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.invites_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT emails_table_fkey ON metaschema_modules_public.invites_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT users_table_fkey ON metaschema_modules_public.invites_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT invites_table_fkey ON metaschema_modules_public.invites_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT claimed_invites_table_fkey ON metaschema_modules_public.invites_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.invites_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT pschema_fkey ON metaschema_modules_public.invites_module IS E'@omit manyToMany';
 CREATE INDEX invites_module_database_id_idx ON metaschema_modules_public.invites_module ( database_id );
 
 COMMIT;

@@ -11,6 +11,7 @@ SELECT
     node_type,
     use_rls,
     node_data,
+    fields,
     grant_roles,
     grant_privileges,
     policy_type,

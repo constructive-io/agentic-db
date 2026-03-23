@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.policy (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL DEFAULT uuid_nil(),
 
   table_id uuid NOT NULL,
@@ -39,8 +39,6 @@ CREATE TABLE metaschema_public.policy (
   UNIQUE (table_id, name)
 );
 
-COMMENT ON CONSTRAINT table_fkey ON metaschema_public.policy IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.policy IS E'@omit manyToMany';
 
 CREATE INDEX policy_table_id_idx ON metaschema_public.policy ( table_id );
 CREATE INDEX policy_database_id_idx ON metaschema_public.policy ( database_id );

@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE services_public.api_modules (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     api_id uuid NOT NULL,
     name text NOT NULL,
@@ -27,10 +27,8 @@ COMMENT ON COLUMN services_public.api_modules.name IS 'Module name (e.g. auth, u
 COMMENT ON COLUMN services_public.api_modules.data IS 'JSON configuration data for this module';
 
 ALTER TABLE services_public.api_modules ADD CONSTRAINT api_modules_api_id_fkey FOREIGN KEY ( api_id ) REFERENCES services_public.apis ( id );
-COMMENT ON CONSTRAINT api_modules_api_id_fkey ON services_public.api_modules IS E'@omit manyToMany';
 CREATE INDEX api_modules_api_id_idx ON services_public.api_modules ( api_id );
 
-COMMENT ON CONSTRAINT db_fkey ON services_public.api_modules IS E'@omit manyToMany';
 CREATE INDEX api_modules_database_id_idx ON services_public.api_modules ( database_id );
 
 

@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE services_public.site_modules (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     site_id uuid NOT NULL,
     name text NOT NULL,
@@ -25,10 +25,8 @@ COMMENT ON COLUMN services_public.site_modules.name IS 'Module name (e.g. user_a
 COMMENT ON COLUMN services_public.site_modules.data IS 'JSON configuration data for this module';
 
 ALTER TABLE services_public.site_modules ADD CONSTRAINT site_modules_site_id_fkey FOREIGN KEY ( site_id ) REFERENCES services_public.sites ( id );
-COMMENT ON CONSTRAINT site_modules_site_id_fkey ON services_public.site_modules IS E'@omit manyToMany';
 CREATE INDEX site_modules_site_id_idx ON services_public.site_modules ( site_id );
 
-COMMENT ON CONSTRAINT db_fkey ON services_public.site_modules IS E'@omit manyToMany';
 CREATE INDEX site_modules_database_id_idx ON services_public.site_modules ( database_id );
 
 

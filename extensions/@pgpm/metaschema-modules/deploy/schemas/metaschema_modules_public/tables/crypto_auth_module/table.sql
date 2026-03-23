@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.crypto_auth_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     
     schema_id uuid NOT NULL DEFAULT uuid_nil(),
@@ -35,13 +35,7 @@ CREATE TABLE metaschema_modules_public.crypto_auth_module (
     CONSTRAINT schema_fkey FOREIGN KEY (schema_id) REFERENCES metaschema_public.schema (id) ON DELETE CASCADE
 );
 
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.crypto_auth_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT secrets_table_fkey ON metaschema_modules_public.crypto_auth_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT users_table_fkey ON metaschema_modules_public.crypto_auth_module IS E'@omit manyToMany';
 -- TOKENS_REMOVAL: tokens_table_fkey comment removed
-COMMENT ON CONSTRAINT sessions_table_fkey ON metaschema_modules_public.crypto_auth_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT session_credentials_table_fkey ON metaschema_modules_public.crypto_auth_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.crypto_auth_module IS E'@omit manyToMany';
 CREATE INDEX crypto_auth_module_database_id_idx ON metaschema_modules_public.crypto_auth_module ( database_id );
 
 COMMIT;
