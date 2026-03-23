@@ -93,6 +93,23 @@ describe('ORM integration', () => {
   }
 
   // =========================================================================
+  // Diagnostic: raw GraphQL query to debug connection resolver issues
+  // =========================================================================
+  describe('raw GraphQL diagnostic', () => {
+    it('raw contacts connection query works', async () => {
+      const result = await query<any>({
+        query: `{ contacts(first: 1) { nodes { id firstName } } }`,
+      });
+      if (result.errors?.length) {
+        console.error('[RAW DIAGNOSTIC] contacts query errors:', JSON.stringify(result.errors, null, 2));
+        console.error('[RAW DIAGNOSTIC] contacts query data:', JSON.stringify(result.data, null, 2));
+      }
+      expect(result.errors).toBeUndefined();
+      expect(result.data?.contacts?.nodes).toBeDefined();
+    });
+  });
+
+  // =========================================================================
   // Smoke test: verify codegen produced the expected models
   // =========================================================================
   describe('codegen smoke test', () => {
