@@ -152,6 +152,14 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     expect(carol.firstName).toBe('Carol');
     const carolId = carol.id!;
 
+    // Register Carol's contact ID in org_memberships_sprt so that
+    // contacts_chunks RLS (which checks contacts_id ∈ entity_id) passes.
+    await pg.query(
+      `INSERT INTO agentic_db_memberships_private.org_memberships_sprt
+         (actor_id, entity_id) VALUES ($1, $2)`,
+      [userId, carolId],
+    );
+
     // Dave -- pastry chef
     const daveResult = await sdk.contact
       .create({
