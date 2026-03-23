@@ -63,12 +63,17 @@ beforeAll(async () => {
      SET is_verified = true, is_approved = true`
   );
 
-  // Grant the authenticated role access to app_jobs so that insert triggers
-  // (e.g. contacts_enqueue_embedding_insert_tg) can call app_jobs.add_job().
-  await pg.query(
-    `GRANT USAGE ON SCHEMA app_jobs TO authenticated;
-     GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app_jobs TO authenticated;`
-  );
+  // The contacts/notes tables have AFTER INSERT triggers that call
+  // app_jobs.add_job() to enqueue background embedding/chunking jobs.
+  // In the test DB the jobs module isn't deployed, so we create a no-op stub
+  // and grant the authenticated role access to it.
+  await pg.query(`
+    CREATE OR REPLACE FUNCTION app_jobs.add_job(
+      _database_id uuid, _task text, _payload jsonb
+    ) RETURNS void AS $$ BEGIN END; $$ LANGUAGE plpgsql;
+    GRANT USAGE ON SCHEMA app_jobs TO authenticated;
+    GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app_jobs TO authenticated;
+  `);
 });
 
 afterAll(async () => {
