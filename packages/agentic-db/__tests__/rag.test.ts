@@ -181,9 +181,9 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     expect(noteId).toBeDefined();
 
     // =====================================================================
-    // 4. Create a chunk for Carol via contactChunk
+    // 4. Create a chunk for Carol via contactsChunk
     // =====================================================================
-    const chunkResult = await sdk.contactChunk
+    const chunkResult = await sdk.contactsChunk
       .create({
         data: {
           entityId: userId!,
@@ -197,9 +197,9 @@ describe('RAG Integration (real schema + real Ollama)', () => {
       .execute();
 
     if (!chunkResult.ok) {
-      throw new Error(`createContactChunk failed: ${JSON.stringify(chunkResult.errors)}`);
+      throw new Error(`createContactsChunk failed: ${JSON.stringify(chunkResult.errors)}`);
     }
-    const chunk = chunkResult.data.createContactChunk.contactChunk;
+    const chunk = chunkResult.data.createContactsChunk.contactsChunk;
     expect(chunk.content).toContain('Carol');
     expect(chunk.chunkIndex).toBe(0);
     const chunkId = chunk.id!;
@@ -275,7 +275,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
       'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.';
     const chunkVec = await ollama.generateEmbedding(chunkText, EMBEDDING_MODEL);
 
-    const embedChunkResult = await sdk.contactChunk
+    const embedChunkResult = await sdk.contactsChunk
       .update({
         where: { id: chunkId },
         data: {
@@ -408,7 +408,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
       EMBEDDING_MODEL,
     );
 
-    const chunkSearchResult = await sdk.contactChunk
+    const chunkSearchResult = await sdk.contactsChunk
       .findMany({
         where: {
           vectorEmbedding: {
@@ -430,7 +430,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     if (!chunkSearchResult.ok) {
       throw new Error(`chunk vector search failed: ${JSON.stringify(chunkSearchResult.errors)}`);
     }
-    const chunkNodes = chunkSearchResult.data.contactChunks.nodes;
+    const chunkNodes = chunkSearchResult.data.contactsChunks.nodes;
     expect(chunkNodes.length).toBeGreaterThanOrEqual(1);
     expect(chunkNodes[0].content).toContain('PGConf');
     expect(chunkNodes[0].embeddingVectorDistance).toBeLessThan(1.0);
