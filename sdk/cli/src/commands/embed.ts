@@ -14,7 +14,7 @@ type EmbeddableTable =
   | 'events'
   | 'venues'
   | 'notes'
-  | 'tasks'
+  | 'agentTasks'
   | 'memories'
   | 'skills'
   | 'rules'
@@ -87,12 +87,12 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     listFn: async (client) => {
       const res = await client.event
         .findMany({
-          select: { id: true, name: true, notes: true },
+          select: { id: true, name: true, notesText: true },
         })
         .execute();
       return extractNodes(res.data, 'events');
     },
-    textFn: (r) => [r.name, r.notes].filter(Boolean).join(' '),
+    textFn: (r) => [r.name, r.notesText].filter(Boolean).join(' '),
     updateFn: async (client, id, embedding) =>
       client.event.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
   },
@@ -125,18 +125,18 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
       client.note.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
   },
 
-  tasks: {
+  agentTasks: {
     listFn: async (client) => {
-      const res = await client.task
+      const res = await client.agentTask
         .findMany({
           select: { id: true, title: true, description: true },
         })
         .execute();
-      return extractNodes(res.data, 'tasks');
+      return extractNodes(res.data, 'agentTasks');
     },
     textFn: (r) => [r.title, r.description].filter(Boolean).join(' '),
     updateFn: async (client, id, embedding) =>
-      client.task.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
+      client.agentTask.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
   },
 
   memories: {
@@ -173,12 +173,12 @@ const TABLE_CONFIGS: Record<EmbeddableTable, TableEmbedConfig> = {
     listFn: async (client) => {
       const res = await client.rule
         .findMany({
-          select: { id: true, title: true, content: true },
+          select: { id: true, name: true, description: true },
         })
         .execute();
       return extractNodes(res.data, 'rules');
     },
-    textFn: (r) => [r.title, r.content].filter(Boolean).join(' '),
+    textFn: (r) => [r.name, r.description].filter(Boolean).join(' '),
     updateFn: async (client, id, embedding) =>
       client.rule.update({ where: { id }, data: { embedding }, select: { id: true } }).execute(),
   },
