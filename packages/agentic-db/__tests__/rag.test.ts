@@ -10,7 +10,11 @@
  *   4. Real Ollama (nomic-embed-text) generates embeddings
  *
  * Flow:
- *   sign_up → insert contacts → verify chunks → embed via Ollama → vector search
+ *   sign_up -> insert contacts -> verify chunks -> embed via Ollama -> vector search
+ *
+ * Modeled after:
+ *   constructive-db/application/app/__tests__/gql.test.ts
+ *   constructive-db/application/app/__tests__/database-provision-graphql.test.ts
  *
  * Requires:
  *   - Docker with constructiveio/postgres-plus:18
@@ -26,8 +30,6 @@ process.env.LOG_SCOPE = '@constructive-io/graphql-test';
 
 import { getConnections, GraphQLTestAdapter } from '@constructive-io/graphql-test';
 import type { GraphQLQueryFn } from '@constructive-io/graphql-test';
-// Use 'any' for PgTestClient to avoid version mismatch between pgsql-test@2.x and @constructive-io/graphql-test's pgsql-test@4.x
-type PgTestClient = any;
 import { createClient } from '@agentic-db/sdk';
 import OllamaClient from '@agentic-kit/ollama';
 
@@ -40,19 +42,10 @@ const SCHEMAS = [
 const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
 const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL || 'nomic-embed-text';
 
-let db: PgTestClient;
-let pg: PgTestClient;
+let db: any;
+let pg: any;
 let query: GraphQLQueryFn;
 let teardown: () => Promise<void>;
-let sdk: ReturnType<typeof createClient>;
-let ollama: OllamaClient;
-
-// Track IDs across test blocks (no beforeEach/afterEach rollback — data persists)
-let userId: string;
-let carolId: string;
-let daveId: string;
-let noteId: string;
-let chunkId: string;
 
 beforeAll(async () => {
   const connections = await getConnections({
@@ -60,455 +53,450 @@ beforeAll(async () => {
     authRole: 'anonymous',
   });
   ({ db, pg, query, teardown } = connections);
-
-  sdk = createClient({ adapter: new GraphQLTestAdapter(query) });
-  ollama = new OllamaClient(OLLAMA_URL);
 });
 
 afterAll(async () => {
   if (teardown) await teardown();
 });
 
+// graphile-test wraps queries in SAVEPOINTs which require a surrounding transaction.
+// beforeEach/afterEach from PgTestClient provides that transaction wrapper.
+beforeEach(() => db.beforeEach());
+afterEach(() => db.afterEach());
+
 describe('RAG Integration (real schema + real Ollama)', () => {
-  // =========================================================================
-  // 1. Create an account via sign_up
-  // =========================================================================
-  describe('account creation', () => {
-    it('should sign up a new user via agentic_db_auth_public.sign_up', async () => {
-      const result = await query(
-        `mutation SignUp($email: String!, $password: String!) {
-          signUp(input: { email: $email, password: $password }) {
-            result {
-              userId
-              accessToken
-            }
-          }
-        }`,
-        { email: 'rag-test@example.com', password: 'testpassword123' },
-      );
-
-      expect(result.errors).toBeUndefined();
-      expect(result.data).toBeDefined();
-
-      const signUpData = (result.data as any).signUp.result;
-      userId = signUpData.userId;
-      expect(userId).toBeDefined();
-      expect(signUpData.accessToken).toBeDefined();
-
-      // Set authenticated context for subsequent ORM operations
-      db.setContext({
-        role: 'authenticated',
-        'jwt.claims.user_id': userId,
-      });
-    });
+  it('should connect to Ollama and produce a 768-dim embedding', async () => {
+    const ollama = new OllamaClient(OLLAMA_URL);
+    const vec = await ollama.generateEmbedding('hello world', EMBEDDING_MODEL);
+    expect(Array.isArray(vec)).toBe(true);
+    expect(vec.length).toBe(768);
+    expect(typeof vec[0]).toBe('number');
   });
 
-  // =========================================================================
-  // 2. Insert contacts via ORM
-  // =========================================================================
-  describe('insert contacts', () => {
-    it('should create Carol (database engineer) via ORM', async () => {
-      const result = await sdk.contact
-        .create({
-          data: {
-            entityId: userId,
-            firstName: 'Carol',
-            lastName: 'Engineer',
-            headline: 'Senior Distributed Systems Engineer',
-            bio: 'Expert in PostgreSQL internals, distributed consensus algorithms, and vector databases. Published author on MVCC and WAL replication.',
-          },
-          select: { id: true, firstName: true, lastName: true },
-        })
-        .execute();
+  it('completes full RAG pipeline: sign_up -> contacts -> chunks -> embed -> search', async () => {
+    const sdk = createClient({ adapter: new GraphQLTestAdapter(query) });
+    const ollama = new OllamaClient(OLLAMA_URL);
 
-      expect(result.ok).toBe(true);
-      const contact = (result.data as any)?.createContact?.contact;
-      expect(contact?.firstName).toBe('Carol');
-      carolId = contact.id;
+    // =====================================================================
+    // 1. Create an account via sign_up
+    // =====================================================================
+    const signUpResult = await sdk.mutation
+      .signUp(
+        { input: { email: 'rag-test@example.com', password: 'testpassword123' } },
+        { select: { result: { select: { userId: true, accessToken: true } } } }
+      )
+      .execute();
+
+    if (!signUpResult.ok) {
+      throw new Error(`signUp failed: ${JSON.stringify(signUpResult.errors)}`);
+    }
+
+    const { accessToken, userId } = signUpResult.data.signUp.result!;
+    expect(accessToken).toBeDefined();
+    expect(userId).toBeDefined();
+
+    db.setContext({
+      role: 'authenticated',
+      'jwt.claims.user_id': userId,
     });
 
-    it('should create Dave (pastry chef) via ORM', async () => {
-      const result = await sdk.contact
-        .create({
-          data: {
-            entityId: userId,
-            firstName: 'Dave',
-            lastName: 'Chef',
-            headline: 'Executive Pastry Chef',
-            bio: 'Award-winning pastry chef specializing in French patisserie. Former head chef at Le Cordon Bleu. Expert in chocolate tempering and sugar work.',
+    // =====================================================================
+    // 2. Insert contacts via ORM
+    // =====================================================================
+
+    // Carol -- database engineer
+    const carolResult = await sdk.contact
+      .create({
+        data: {
+          entityId: userId,
+          firstName: 'Carol',
+          lastName: 'Engineer',
+          headline: 'Senior Distributed Systems Engineer',
+          bio: 'Expert in PostgreSQL internals, distributed consensus algorithms, and vector databases. Published author on MVCC and WAL replication.',
+        },
+        select: { id: true, firstName: true, lastName: true },
+      })
+      .execute();
+
+    if (!carolResult.ok) {
+      throw new Error(`createContact (Carol) failed: ${JSON.stringify(carolResult.errors)}`);
+    }
+    const carol = carolResult.data.createContact.contact;
+    expect(carol.firstName).toBe('Carol');
+    const carolId = carol.id!;
+
+    // Dave -- pastry chef
+    const daveResult = await sdk.contact
+      .create({
+        data: {
+          entityId: userId,
+          firstName: 'Dave',
+          lastName: 'Chef',
+          headline: 'Executive Pastry Chef',
+          bio: 'Award-winning pastry chef specializing in French patisserie. Former head chef at Le Cordon Bleu. Expert in chocolate tempering and sugar work.',
+        },
+        select: { id: true, firstName: true },
+      })
+      .execute();
+
+    if (!daveResult.ok) {
+      throw new Error(`createContact (Dave) failed: ${JSON.stringify(daveResult.errors)}`);
+    }
+    const daveId = daveResult.data.createContact.contact.id!;
+    expect(daveId).toBeDefined();
+
+    // =====================================================================
+    // 3. Insert a note via ORM
+    // =====================================================================
+    const noteResult = await sdk.note
+      .create({
+        data: {
+          entityId: userId,
+          content:
+            'Architecture review: we decided to use pgvector with HNSW indexes for approximate nearest neighbor search. The embedding pipeline will use Ollama nomic-embed-text for 768-dimensional vectors.',
+        },
+        select: { id: true, content: true },
+      })
+      .execute();
+
+    if (!noteResult.ok) {
+      throw new Error(`createNote failed: ${JSON.stringify(noteResult.errors)}`);
+    }
+    const noteId = noteResult.data.createNote.note.id!;
+    expect(noteId).toBeDefined();
+
+    // =====================================================================
+    // 4. Create a chunk for Carol via contactChunk
+    // =====================================================================
+    const chunkResult = await sdk.contactChunk
+      .create({
+        data: {
+          contactId: carolId,
+          content:
+            'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.',
+          chunkIndex: 0,
+        },
+        select: { id: true, content: true, chunkIndex: true },
+      })
+      .execute();
+
+    if (!chunkResult.ok) {
+      throw new Error(`createContactChunk failed: ${JSON.stringify(chunkResult.errors)}`);
+    }
+    const chunk = chunkResult.data.createContactChunk.contactChunk;
+    expect(chunk.content).toContain('Carol');
+    expect(chunk.chunkIndex).toBe(0);
+    const chunkId = chunk.id!;
+
+    // =====================================================================
+    // 5. Embed records via real Ollama and store via ORM
+    // =====================================================================
+
+    // Embed Carol
+    const carolText =
+      'Carol Engineer. Senior Distributed Systems Engineer. Expert in PostgreSQL internals, distributed consensus algorithms, and vector databases.';
+    const carolVec = await ollama.generateEmbedding(carolText, EMBEDDING_MODEL);
+    expect(carolVec.length).toBe(768);
+
+    const embedCarolResult = await sdk.contact
+      .update({
+        where: { id: carolId },
+        data: {
+          embedding: carolVec as any,
+          embeddingText: carolText,
+        },
+        select: { id: true, embeddingText: true },
+      })
+      .execute();
+
+    if (!embedCarolResult.ok) {
+      throw new Error(`embed Carol failed: ${JSON.stringify(embedCarolResult.errors)}`);
+    }
+    expect(embedCarolResult.data.updateContact.contact.embeddingText).toContain('Carol');
+
+    // Embed Dave
+    const daveText =
+      'Dave Chef. Executive Pastry Chef. Award-winning pastry chef specializing in French patisserie and chocolate tempering.';
+    const daveVec = await ollama.generateEmbedding(daveText, EMBEDDING_MODEL);
+
+    const embedDaveResult = await sdk.contact
+      .update({
+        where: { id: daveId },
+        data: {
+          embedding: daveVec as any,
+          embeddingText: daveText,
+        },
+        select: { id: true },
+      })
+      .execute();
+
+    if (!embedDaveResult.ok) {
+      throw new Error(`embed Dave failed: ${JSON.stringify(embedDaveResult.errors)}`);
+    }
+
+    // Embed the note
+    const noteText =
+      'Architecture review: we decided to use pgvector with HNSW indexes for approximate nearest neighbor search. The embedding pipeline will use Ollama nomic-embed-text for 768-dimensional vectors.';
+    const noteVec = await ollama.generateEmbedding(noteText, EMBEDDING_MODEL);
+
+    const embedNoteResult = await sdk.note
+      .update({
+        where: { id: noteId },
+        data: {
+          embedding: noteVec as any,
+          embeddingText: noteText,
+        },
+        select: { id: true },
+      })
+      .execute();
+
+    if (!embedNoteResult.ok) {
+      throw new Error(`embed note failed: ${JSON.stringify(embedNoteResult.errors)}`);
+    }
+
+    // Embed the chunk
+    const chunkText =
+      'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.';
+    const chunkVec = await ollama.generateEmbedding(chunkText, EMBEDDING_MODEL);
+
+    const embedChunkResult = await sdk.contactChunk
+      .update({
+        where: { id: chunkId },
+        data: {
+          embedding: chunkVec as any,
+        },
+        select: { id: true },
+      })
+      .execute();
+
+    if (!embedChunkResult.ok) {
+      throw new Error(`embed chunk failed: ${JSON.stringify(embedChunkResult.errors)}`);
+    }
+
+    // =====================================================================
+    // 6. Vector similarity search -- semantic ranking
+    // =====================================================================
+
+    // DB query should rank Carol closer than Dave
+    const dbQueryVec = await ollama.generateEmbedding(
+      'PostgreSQL distributed systems vector database engineer',
+      EMBEDDING_MODEL,
+    );
+
+    const dbSearchResult = await sdk.contact
+      .findMany({
+        where: {
+          vectorEmbedding: {
+            vector: dbQueryVec,
+            metric: 'COSINE',
+            distance: 2.0,
           },
-          select: { id: true, firstName: true },
-        })
-        .execute();
+        },
+        first: 5,
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          embeddingVectorDistance: true,
+        },
+      })
+      .execute();
 
-      expect(result.ok).toBe(true);
-      daveId = (result.data as any)?.createContact?.contact?.id;
-      expect(daveId).toBeDefined();
-    });
+    if (!dbSearchResult.ok) {
+      throw new Error(`DB vector search failed: ${JSON.stringify(dbSearchResult.errors)}`);
+    }
+    const dbNodes = dbSearchResult.data.contacts.nodes;
+    expect(dbNodes.length).toBeGreaterThanOrEqual(2);
 
-    it('should create a note via ORM', async () => {
-      const result = await sdk.note
-        .create({
-          data: {
-            entityId: userId,
-            content:
-              'Architecture review: we decided to use pgvector with HNSW indexes for approximate nearest neighbor search. The embedding pipeline will use Ollama nomic-embed-text for 768-dimensional vectors.',
+    const carolInDb = dbNodes.find((n: any) => n.firstName === 'Carol');
+    const daveInDb = dbNodes.find((n: any) => n.firstName === 'Dave');
+    expect(carolInDb).toBeDefined();
+    expect(daveInDb).toBeDefined();
+    expect(carolInDb.embeddingVectorDistance).toBeLessThan(daveInDb.embeddingVectorDistance);
+
+    // Cooking query should rank Dave closer than Carol
+    const cookingQueryVec = await ollama.generateEmbedding(
+      'French pastry chef chocolate dessert cooking',
+      EMBEDDING_MODEL,
+    );
+
+    const cookingSearchResult = await sdk.contact
+      .findMany({
+        where: {
+          vectorEmbedding: {
+            vector: cookingQueryVec,
+            metric: 'COSINE',
+            distance: 2.0,
           },
-          select: { id: true, content: true },
-        })
-        .execute();
+        },
+        first: 5,
+        select: {
+          id: true,
+          firstName: true,
+          embeddingVectorDistance: true,
+        },
+      })
+      .execute();
 
-      expect(result.ok).toBe(true);
-      noteId = (result.data as any)?.createNote?.note?.id;
-      expect(noteId).toBeDefined();
-    });
-  });
+    if (!cookingSearchResult.ok) {
+      throw new Error(`cooking vector search failed: ${JSON.stringify(cookingSearchResult.errors)}`);
+    }
+    const cookingNodes = cookingSearchResult.data.contacts.nodes;
+    expect(cookingNodes.length).toBeGreaterThanOrEqual(2);
 
-  // =========================================================================
-  // 3. Verify chunks can be created
-  // =========================================================================
-  describe('chunk creation', () => {
-    it('should create a chunk for Carol', async () => {
-      const result = await sdk.contactChunk
-        .create({
-          data: {
-            entityId: userId,
-            contactId: carolId,
-            content:
-              'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.',
-            chunkIndex: 0,
+    const carolInCooking = cookingNodes.find((n: any) => n.firstName === 'Carol');
+    const daveInCooking = cookingNodes.find((n: any) => n.firstName === 'Dave');
+    expect(carolInCooking).toBeDefined();
+    expect(daveInCooking).toBeDefined();
+    expect(daveInCooking.embeddingVectorDistance).toBeLessThan(carolInCooking.embeddingVectorDistance);
+
+    // =====================================================================
+    // 7. Vector search on notes
+    // =====================================================================
+    const noteQueryVec = await ollama.generateEmbedding(
+      'pgvector HNSW embedding pipeline architecture',
+      EMBEDDING_MODEL,
+    );
+
+    const noteSearchResult = await sdk.note
+      .findMany({
+        where: {
+          vectorEmbedding: {
+            vector: noteQueryVec,
+            metric: 'COSINE',
+            distance: 2.0,
           },
-          select: { id: true, content: true, chunkIndex: true },
-        })
-        .execute();
+        },
+        first: 5,
+        select: {
+          id: true,
+          content: true,
+          embeddingVectorDistance: true,
+        },
+      })
+      .execute();
 
-      expect(result.ok).toBe(true);
-      const chunk = (result.data as any)?.createContactChunk?.contactChunk;
-      expect(chunk?.content).toContain('Carol');
-      expect(chunk?.chunkIndex).toBe(0);
-      chunkId = chunk.id;
-    });
-  });
+    if (!noteSearchResult.ok) {
+      throw new Error(`note vector search failed: ${JSON.stringify(noteSearchResult.errors)}`);
+    }
+    const noteNodes = noteSearchResult.data.notes.nodes;
+    expect(noteNodes.length).toBeGreaterThanOrEqual(1);
+    expect(noteNodes[0].content).toContain('pgvector');
+    expect(noteNodes[0].embeddingVectorDistance).toBeLessThan(1.0);
 
-  // =========================================================================
-  // 4. Embed via real Ollama
-  // =========================================================================
-  describe('embedding via real Ollama', () => {
-    it('should connect to Ollama and produce a 768-dim embedding', async () => {
-      const vec = await ollama.generateEmbedding('hello world', EMBEDDING_MODEL);
-      expect(Array.isArray(vec)).toBe(true);
-      expect(vec.length).toBe(768);
-      expect(typeof vec[0]).toBe('number');
-    });
+    // =====================================================================
+    // 8. Vector search on chunks
+    // =====================================================================
+    const chunkQueryVec = await ollama.generateEmbedding(
+      'PGConf indexing strategies HNSW IVFFlat',
+      EMBEDDING_MODEL,
+    );
 
-    it('should embed Carol and store the embedding via ORM', async () => {
-      const text =
-        'Carol Engineer. Senior Distributed Systems Engineer. Expert in PostgreSQL internals, distributed consensus algorithms, and vector databases.';
-      const vec = await ollama.generateEmbedding(text, EMBEDDING_MODEL);
-      expect(vec.length).toBe(768);
-
-      const result = await sdk.contact
-        .update({
-          where: { id: carolId },
-          data: {
-            embedding: vec as any,
-            embeddingText: text,
+    const chunkSearchResult = await sdk.contactChunk
+      .findMany({
+        where: {
+          vectorEmbedding: {
+            vector: chunkQueryVec,
+            metric: 'COSINE',
+            distance: 2.0,
           },
-          select: { id: true, embeddingText: true },
-        })
-        .execute();
+        },
+        first: 5,
+        select: {
+          id: true,
+          content: true,
+          chunkIndex: true,
+          embeddingVectorDistance: true,
+        },
+      })
+      .execute();
 
-      expect(result.ok).toBe(true);
-      const updated = (result.data as any)?.updateContact?.contact;
-      expect(updated?.embeddingText).toContain('Carol');
-    });
+    if (!chunkSearchResult.ok) {
+      throw new Error(`chunk vector search failed: ${JSON.stringify(chunkSearchResult.errors)}`);
+    }
+    const chunkNodes = chunkSearchResult.data.contactChunks.nodes;
+    expect(chunkNodes.length).toBeGreaterThanOrEqual(1);
+    expect(chunkNodes[0].content).toContain('PGConf');
+    expect(chunkNodes[0].embeddingVectorDistance).toBeLessThan(1.0);
 
-    it('should embed Dave and store the embedding via ORM', async () => {
-      const text =
-        'Dave Chef. Executive Pastry Chef. Award-winning pastry chef specializing in French patisserie and chocolate tempering.';
-      const vec = await ollama.generateEmbedding(text, EMBEDDING_MODEL);
+    // =====================================================================
+    // 9. Cross-table search (contacts + notes)
+    // =====================================================================
+    const crossQueryVec = await ollama.generateEmbedding(
+      'vector database architecture PostgreSQL',
+      EMBEDDING_MODEL,
+    );
 
-      const result = await sdk.contact
-        .update({
-          where: { id: daveId },
-          data: {
-            embedding: vec as any,
-            embeddingText: text,
+    const contactCrossRes = await sdk.contact
+      .findMany({
+        where: {
+          vectorEmbedding: {
+            vector: crossQueryVec,
+            metric: 'COSINE',
+            distance: 2.0,
           },
-          select: { id: true },
-        })
-        .execute();
+        },
+        first: 5,
+        select: {
+          id: true,
+          firstName: true,
+          embeddingVectorDistance: true,
+        },
+      })
+      .execute();
 
-      expect(result.ok).toBe(true);
-    });
-
-    it('should embed the note and store the embedding via ORM', async () => {
-      const text =
-        'Architecture review: we decided to use pgvector with HNSW indexes for approximate nearest neighbor search. The embedding pipeline will use Ollama nomic-embed-text for 768-dimensional vectors.';
-      const vec = await ollama.generateEmbedding(text, EMBEDDING_MODEL);
-
-      const result = await sdk.note
-        .update({
-          where: { id: noteId },
-          data: {
-            embedding: vec as any,
-            embeddingText: text,
+    const noteCrossRes = await sdk.note
+      .findMany({
+        where: {
+          vectorEmbedding: {
+            vector: crossQueryVec,
+            metric: 'COSINE',
+            distance: 2.0,
           },
-          select: { id: true },
-        })
-        .execute();
+        },
+        first: 5,
+        select: {
+          id: true,
+          content: true,
+          embeddingVectorDistance: true,
+        },
+      })
+      .execute();
 
-      expect(result.ok).toBe(true);
-    });
+    expect(contactCrossRes.ok).toBe(true);
+    expect(noteCrossRes.ok).toBe(true);
 
-    it('should embed the chunk and store the embedding via ORM', async () => {
-      const text =
-        'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.';
-      const vec = await ollama.generateEmbedding(text, EMBEDDING_MODEL);
+    const crossContacts = contactCrossRes.data.contacts.nodes;
+    const crossNotes = noteCrossRes.data.notes.nodes;
 
-      const result = await sdk.contactChunk
-        .update({
-          where: { id: chunkId },
-          data: {
-            embedding: vec as any,
-          },
-          select: { id: true },
-        })
-        .execute();
+    const all = [
+      ...crossContacts.map((c: any) => ({
+        source: 'contact',
+        label: c.firstName,
+        distance: c.embeddingVectorDistance,
+      })),
+      ...crossNotes.map((n: any) => ({
+        source: 'note',
+        label: (n.content || '').slice(0, 40),
+        distance: n.embeddingVectorDistance,
+      })),
+    ].sort((a: any, b: any) => a.distance - b.distance);
 
-      expect(result.ok).toBe(true);
-    });
-  });
+    expect(all.length).toBeGreaterThanOrEqual(2);
 
-  // =========================================================================
-  // 5. Search via vector similarity
-  // =========================================================================
-  describe('vector similarity search', () => {
-    it('should rank a database query closer to Carol than Dave', async () => {
-      const queryVec = await ollama.generateEmbedding(
-        'PostgreSQL distributed systems vector database engineer',
-        EMBEDDING_MODEL,
-      );
+    for (const row of all) {
+      expect(typeof row.distance).toBe('number');
+      expect(row.distance).toBeGreaterThan(0);
+      expect(row.distance).toBeLessThan(2.0);
+    }
 
-      const result = await sdk.contact
-        .findMany({
-          where: {
-            vectorEmbedding: {
-              vector: queryVec,
-              metric: 'COSINE',
-              distance: 2.0,
-            },
-          },
-          first: 5,
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            embeddingVectorDistance: true,
-          },
-        })
-        .execute();
-
-      expect(result.ok).toBe(true);
-      const nodes = (result.data as any)?.contacts?.nodes;
-      expect(nodes?.length).toBeGreaterThanOrEqual(2);
-
-      const carol = nodes.find((n: any) => n.firstName === 'Carol');
-      const dave = nodes.find((n: any) => n.firstName === 'Dave');
-      expect(carol).toBeDefined();
-      expect(dave).toBeDefined();
-
-      // Carol (engineer) should rank higher (lower distance) for a DB query
-      expect(carol.embeddingVectorDistance).toBeLessThan(
-        dave.embeddingVectorDistance,
-      );
-    });
-
-    it('should rank a cooking query closer to Dave than Carol', async () => {
-      const queryVec = await ollama.generateEmbedding(
-        'French pastry chef chocolate dessert cooking',
-        EMBEDDING_MODEL,
-      );
-
-      const result = await sdk.contact
-        .findMany({
-          where: {
-            vectorEmbedding: {
-              vector: queryVec,
-              metric: 'COSINE',
-              distance: 2.0,
-            },
-          },
-          first: 5,
-          select: {
-            id: true,
-            firstName: true,
-            embeddingVectorDistance: true,
-          },
-        })
-        .execute();
-
-      expect(result.ok).toBe(true);
-      const nodes = (result.data as any)?.contacts?.nodes;
-      expect(nodes?.length).toBeGreaterThanOrEqual(2);
-
-      const carol = nodes.find((n: any) => n.firstName === 'Carol');
-      const dave = nodes.find((n: any) => n.firstName === 'Dave');
-      expect(carol).toBeDefined();
-      expect(dave).toBeDefined();
-
-      // Dave (chef) should rank higher (lower distance) for a cooking query
-      expect(dave.embeddingVectorDistance).toBeLessThan(
-        carol.embeddingVectorDistance,
-      );
-    });
-
-    it('should find notes via vector search', async () => {
-      const queryVec = await ollama.generateEmbedding(
-        'pgvector HNSW embedding pipeline architecture',
-        EMBEDDING_MODEL,
-      );
-
-      const result = await sdk.note
-        .findMany({
-          where: {
-            vectorEmbedding: {
-              vector: queryVec,
-              metric: 'COSINE',
-              distance: 2.0,
-            },
-          },
-          first: 5,
-          select: {
-            id: true,
-            content: true,
-            embeddingVectorDistance: true,
-          },
-        })
-        .execute();
-
-      expect(result.ok).toBe(true);
-      const nodes = (result.data as any)?.notes?.nodes;
-      expect(nodes?.length).toBeGreaterThanOrEqual(1);
-      expect(nodes[0].content).toContain('pgvector');
-      expect(nodes[0].embeddingVectorDistance).toBeLessThan(1.0);
-    });
-
-    it('should search chunk tables via vector search', async () => {
-      const queryVec = await ollama.generateEmbedding(
-        'PGConf indexing strategies HNSW IVFFlat',
-        EMBEDDING_MODEL,
-      );
-
-      const result = await sdk.contactChunk
-        .findMany({
-          where: {
-            vectorEmbedding: {
-              vector: queryVec,
-              metric: 'COSINE',
-              distance: 2.0,
-            },
-          },
-          first: 5,
-          select: {
-            id: true,
-            content: true,
-            chunkIndex: true,
-            embeddingVectorDistance: true,
-          },
-        })
-        .execute();
-
-      expect(result.ok).toBe(true);
-      const nodes = (result.data as any)?.contactChunks?.nodes;
-      expect(nodes?.length).toBeGreaterThanOrEqual(1);
-      expect(nodes[0].content).toContain('PGConf');
-      expect(nodes[0].embeddingVectorDistance).toBeLessThan(1.0);
-    });
-
-    it('should search across contacts and notes (cross-table)', async () => {
-      const queryVec = await ollama.generateEmbedding(
-        'vector database architecture PostgreSQL',
-        EMBEDDING_MODEL,
-      );
-
-      // Search contacts
-      const contactRes = await sdk.contact
-        .findMany({
-          where: {
-            vectorEmbedding: {
-              vector: queryVec,
-              metric: 'COSINE',
-              distance: 2.0,
-            },
-          },
-          first: 5,
-          select: {
-            id: true,
-            firstName: true,
-            embeddingVectorDistance: true,
-          },
-        })
-        .execute();
-
-      // Search notes
-      const noteRes = await sdk.note
-        .findMany({
-          where: {
-            vectorEmbedding: {
-              vector: queryVec,
-              metric: 'COSINE',
-              distance: 2.0,
-            },
-          },
-          first: 5,
-          select: {
-            id: true,
-            content: true,
-            embeddingVectorDistance: true,
-          },
-        })
-        .execute();
-
-      expect(contactRes.ok).toBe(true);
-      expect(noteRes.ok).toBe(true);
-
-      const contacts = (contactRes.data as any)?.contacts?.nodes ?? [];
-      const notes = (noteRes.data as any)?.notes?.nodes ?? [];
-
-      // Merge and sort by distance (ascending = most similar first)
-      const all = [
-        ...contacts.map((c: any) => ({
-          source: 'contact',
-          label: c.firstName,
-          distance: c.embeddingVectorDistance,
-        })),
-        ...notes.map((n: any) => ({
-          source: 'note',
-          label: (n.content || '').slice(0, 40),
-          distance: n.embeddingVectorDistance,
-        })),
-      ].sort((a, b) => a.distance - b.distance);
-
-      // Should have results from both tables
-      expect(all.length).toBeGreaterThanOrEqual(2);
-
-      // All results should have valid distances
-      for (const row of all) {
-        expect(typeof row.distance).toBe('number');
-        expect(row.distance).toBeGreaterThan(0);
-        expect(row.distance).toBeLessThan(2.0);
-      }
-
-      // Carol (DB engineer) and the architecture note should be near the top
-      const topLabels = all.slice(0, 3).map((r) => r.label.toLowerCase());
-      const hasRelevant = topLabels.some(
-        (l) =>
-          l.includes('carol') ||
-          l.includes('pgvector') ||
-          l.includes('architect'),
-      );
-      expect(hasRelevant).toBe(true);
-    });
+    const topLabels = all.slice(0, 3).map((r: any) => r.label.toLowerCase());
+    const hasRelevant = topLabels.some(
+      (l: string) =>
+        l.includes('carol') ||
+        l.includes('pgvector') ||
+        l.includes('architect'),
+    );
+    expect(hasRelevant).toBe(true);
   });
 });
