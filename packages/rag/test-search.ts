@@ -9,7 +9,7 @@ async function main() {
   const res = await (client as any).contact.findMany({
     where: { vectorEmbedding: { vector: qe, metric: 'COSINE', distance: 2.0 } },
     first: 5,
-    select: { id: true, firstName: true, embeddingVectorDistance: true },
+    select: { id: true, firstName: true, searchScore: true },
   }).execute();
   console.log(JSON.stringify(res, null, 2));
 }
