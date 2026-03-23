@@ -273,27 +273,25 @@ describe('CLI Search Integration (pre-baked data + live Ollama)', () => {
 
     await pg.query(
       `INSERT INTO "agentic_db_app_public".contacts_chunks
-         (contacts_id, content, chunk_index, embedding, embedding_text)
-       VALUES ($1, $2, $3, $4::vector, $5)`,
+         (contacts_id, content, chunk_index, embedding)
+       VALUES ($1, $2, $3, $4::vector)`,
       [
         carolId,
         fixtures.records.chunk_carol_pgconf.data.content,
         0,
         `[${fixtures.records.chunk_carol_pgconf.embedding.join(',')}]`,
-        fixtures.records.chunk_carol_pgconf.text,
       ],
     );
 
     await pg.query(
       `INSERT INTO "agentic_db_app_public".contacts_chunks
-         (contacts_id, content, chunk_index, embedding, embedding_text)
-       VALUES ($1, $2, $3, $4::vector, $5)`,
+         (contacts_id, content, chunk_index, embedding)
+       VALUES ($1, $2, $3, $4::vector)`,
       [
         carolId,
         fixtures.records.chunk_carol_research.data.content,
         1,
         `[${fixtures.records.chunk_carol_research.embedding.join(',')}]`,
-        fixtures.records.chunk_carol_research.text,
       ],
     );
   });
