@@ -374,4 +374,4 @@ jobs:
       - name: Run RAG tests
         run: |
           cd packages/agentic-db
-          pnpm test -- --forceExit --detectOpenHandles __tests__/rag.test.ts
+          pnpm test -- --forceExit --detectOpenHandles __tests__/rag.test.ts __tests__/rag-unified-search.test.ts __tests__/cli-search-integration.test.ts
