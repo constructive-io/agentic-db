@@ -84,7 +84,7 @@ describe('Unified Search with pre-baked embeddings', () => {
           result { userId accessToken }
         }
       }`,
-      { input: { email: 'unified-search-test@example.com', password: 'testpassword123' } },
+      { input: { email: `unified-search-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@example.com`, password: 'testpassword123' } },
     );
 
     const signUpData = (signUpResult as any)?.data?.signUp?.result;

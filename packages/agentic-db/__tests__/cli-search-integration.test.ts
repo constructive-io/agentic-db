@@ -172,7 +172,7 @@ describe('CLI Search Integration (pre-baked data + live Ollama)', () => {
           result { userId accessToken }
         }
       }`,
-      { input: { email: 'cli-search-test@example.com', password: 'testpassword123' } },
+      { input: { email: `cli-search-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@example.com`, password: 'testpassword123' } },
     );
 
     const signUpData = (signUpResult as any)?.data?.signUp?.result;
