@@ -152,11 +152,17 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     expect(carol.firstName).toBe('Carol');
     const carolId = carol.id!;
 
-    // Register Carol's contact ID in org_memberships_sprt so that
-    // contacts_chunks RLS (which checks contacts_id ∈ entity_id) passes.
+    // The contacts_chunks RLS policy checks:
+    //   contacts_id IN (SELECT entity_id FROM org_memberships_sprt WHERE actor_id = current_user_id())
+    // After sign_up the user only has a self-ownership entry (entity_id = userId).
+    // We need the contact's row ID registered as an entity so chunk operations pass.
+    //
+    // Insert into the PUBLIC org_memberships table (NOT the private SPRT)
+    // and let the trigger chain (org_memberships_insert_sprt_tg) cascade to SPRT.
+    // This mirrors what membership_mbr_create does internally for users.
     await pg.query(
-      `INSERT INTO agentic_db_memberships_private.org_memberships_sprt
-         (actor_id, entity_id) VALUES ($1, $2)`,
+      `INSERT INTO "agentic_db_memberships_public".org_memberships
+         (is_owner, actor_id, entity_id) VALUES (TRUE, $1, $2)`,
       [userId, carolId],
     );
 
