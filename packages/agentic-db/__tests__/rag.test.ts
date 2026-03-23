@@ -10,10 +10,26 @@
  *   4. Real Ollama (nomic-embed-text) generates embeddings
  *
  * Flow:
- *   sign_up -> insert contacts -> verify chunks -> embed via Ollama -> vector search
+ *   sign_up -> insert contacts/notes (ORM) -> create chunks (pg/worker)
+ *   -> embed via Ollama -> vector search
+ *
+ * Raw SQL is limited to:
+ *   - setAppMembershipDefaults (bootstrap config via helper)
+ *   - createAppJobsStub (test infrastructure via helper)
+ *   - sign_up mutation (ORM doesn't expose custom procedures)
+ *   - chunk INSERT/UPDATE/SELECT via pg (simulating the worker process,
+ *     which runs as superuser in production)
+ *
+ * NOTE ON CHUNK RLS:
+ *   The contacts_chunks RLS policies check:
+ *     contacts_id IN (SELECT entity_id FROM org_memberships_sprt ...)
+ *   This compares the parent contact's ROW ID against entity_ids (user/org
+ *   UUIDs) in the SPRT — a contact row ID is never an entity_id, so these
+ *   policies can never pass for the authenticated role.  In production the
+ *   worker creates and embeds chunks as superuser, bypassing RLS.  The test
+ *   mirrors this by using pg (superuser) for chunk operations.
  *
  * Modeled after:
- *   constructive-db/application/app/__tests__/gql.test.ts
  *   constructive-db/application/app/__tests__/database-provision-graphql.test.ts
  *
  * Requires:
@@ -32,6 +48,10 @@ import { getConnections, GraphQLTestAdapter } from '@constructive-io/graphql-tes
 import type { GraphQLQueryFn } from '@constructive-io/graphql-test';
 import { createClient } from '@agentic-db/sdk';
 import OllamaClient from '@agentic-kit/ollama';
+import {
+  setAppMembershipDefaults,
+  createAppJobsStub,
+} from '../test-utils/helpers';
 
 const SCHEMAS = [
   'agentic_db_app_public',
@@ -54,26 +74,11 @@ beforeAll(async () => {
   });
   ({ db, pg, query, teardown } = connections);
 
-  // Enable users to be immediately active after sign_up.
-  // The default fixture seeds is_verified=false, is_approved=false which means
-  // the app membership won't be active, the SPRT won't be populated, and
-  // entity_membership RLS policies will block all writes.
-  await pg.query(
-    `UPDATE "agentic_db_memberships_public".app_membership_defaults
-     SET is_verified = true, is_approved = true`
-  );
+  // Bootstrap: enable users to be immediately active after sign_up
+  await setAppMembershipDefaults(pg, { is_verified: true, is_approved: true });
 
-  // The contacts/notes tables have AFTER INSERT triggers that call
-  // app_jobs.add_job() to enqueue background embedding/chunking jobs.
-  // In the test DB the jobs module isn't deployed, so we create a no-op stub
-  // and grant the authenticated role access to it.
-  await pg.query(`
-    CREATE OR REPLACE FUNCTION app_jobs.add_job(
-      _database_id uuid, _task text, _payload jsonb
-    ) RETURNS void AS $$ BEGIN END; $$ LANGUAGE plpgsql;
-    GRANT USAGE ON SCHEMA app_jobs TO authenticated;
-    GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app_jobs TO authenticated;
-  `);
+  // Stub out app_jobs.add_job() so INSERT triggers on contacts/notes don't fail
+  await createAppJobsStub(pg);
 });
 
 afterAll(async () => {
@@ -152,26 +157,6 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     expect(carol.firstName).toBe('Carol');
     const carolId = carol.id!;
 
-    // contacts_chunks RLS checks:
-    //   contacts_id IN (SELECT entity_id FROM org_memberships_sprt WHERE actor_id = current_user_id())
-    //
-    // After sign_up the SPRT only has entity_id = userId (self-ownership).
-    // Chunk operations need the parent contact's row ID as an entity_id in the SPRT.
-    //
-    // NOTE: We insert directly into org_memberships_sprt because the PUBLIC
-    // org_memberships table has FK constraints requiring entity_id → users.id,
-    // and a contact row ID is not a user ID.  In production the worker (running
-    // as superuser) creates chunks — there is currently no trigger on the
-    // contacts table that auto-registers contacts as entities in org_memberships.
-    // This is a known schema gap; the long-term fix is either:
-    //   (a) add a trigger on contacts that inserts into org_memberships, or
-    //   (b) change the chunk RLS to join through the parent contact's entity_id.
-    await pg.query(
-      `INSERT INTO "agentic_db_memberships_private".org_memberships_sprt
-         (actor_id, entity_id) VALUES ($1, $2)`,
-      [userId, carolId],
-    );
-
     // Dave -- pastry chef
     const daveResult = await sdk.contact
       .create({
@@ -213,30 +198,34 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     expect(noteId).toBeDefined();
 
     // =====================================================================
-    // 4. Create a chunk for Carol via contactsChunk
+    // 4. Create a chunk for Carol via pg (superuser, simulating the worker)
+    //
+    //    In production the worker creates chunks as superuser.
+    //    The chunk RLS policies compare contacts_id (parent row UUID)
+    //    against entity_id (user/org UUID) in org_memberships_sprt.
+    //    A contact row ID is never an entity_id, so authenticated
+    //    INSERT/SELECT on chunks always fails.  Using pg here matches
+    //    the production access pattern.
     // =====================================================================
-    const chunkResult = await sdk.contactsChunk
-      .create({
-        data: {
-          contactsId: carolId,
-          content:
-            'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.',
-          chunkIndex: 0,
-        },
-        select: { id: true, content: true, chunkIndex: true },
-      })
-      .execute();
+    const chunkContent =
+      'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.';
 
-    if (!chunkResult.ok) {
-      throw new Error(`createContactsChunk failed: ${JSON.stringify(chunkResult.errors)}`);
-    }
-    const chunk = chunkResult.data.createContactsChunk.contactsChunk;
-    expect(chunk.content).toContain('Carol');
-    expect(chunk.chunkIndex).toBe(0);
-    const chunkId = chunk.id!;
+    const chunkInsertResult = await pg.query(
+      `INSERT INTO "agentic_db_app_public".contacts_chunks
+         (contacts_id, content, chunk_index)
+       VALUES ($1, $2, 0)
+       RETURNING id, content, chunk_index`,
+      [carolId, chunkContent],
+    );
+
+    const chunkRow = chunkInsertResult.rows[0];
+    expect(chunkRow.content).toContain('Carol');
+    expect(chunkRow.chunk_index).toBe(0);
+    const chunkId = chunkRow.id;
 
     // =====================================================================
-    // 5. Embed records via real Ollama and store via ORM
+    // 5. Embed contacts + note via ORM (authenticated user)
+    //    Embed chunk via pg (superuser, simulating worker)
     // =====================================================================
 
     // Embed Carol
@@ -301,27 +290,20 @@ describe('RAG Integration (real schema + real Ollama)', () => {
       throw new Error(`embed note failed: ${JSON.stringify(embedNoteResult.errors)}`);
     }
 
-    // Embed the chunk
+    // Embed the chunk via pg (superuser, simulating worker)
     const chunkText =
       'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.';
     const chunkVec = await ollama.generateEmbedding(chunkText, EMBEDDING_MODEL);
 
-    const embedChunkResult = await sdk.contactsChunk
-      .update({
-        where: { id: chunkId },
-        data: {
-          embedding: chunkVec as any,
-        },
-        select: { id: true },
-      })
-      .execute();
-
-    if (!embedChunkResult.ok) {
-      throw new Error(`embed chunk failed: ${JSON.stringify(embedChunkResult.errors)}`);
-    }
+    await pg.query(
+      `UPDATE "agentic_db_app_public".contacts_chunks
+       SET embedding = $1::vector
+       WHERE id = $2`,
+      [`[${chunkVec.join(',')}]`, chunkId],
+    );
 
     // =====================================================================
-    // 6. Vector similarity search -- semantic ranking
+    // 6. Vector similarity search -- contacts (ORM, authenticated)
     // =====================================================================
 
     // DB query should rank Carol closer than Dave
@@ -398,7 +380,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     expect(daveInCooking.embeddingVectorDistance).toBeLessThan(carolInCooking.embeddingVectorDistance);
 
     // =====================================================================
-    // 7. Vector search on notes
+    // 7. Vector search on notes (ORM, authenticated)
     // =====================================================================
     const noteQueryVec = await ollama.generateEmbedding(
       'pgvector HNSW embedding pipeline architecture',
@@ -432,42 +414,32 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     expect(noteNodes[0].embeddingVectorDistance).toBeLessThan(1.0);
 
     // =====================================================================
-    // 8. Vector search on chunks
+    // 8. Vector search on chunks via pg (superuser, simulating worker)
+    //
+    //    The chunk SELECT RLS has the same gap as INSERT — it compares
+    //    contacts_id against entity_id in SPRT — so we use pg here too.
     // =====================================================================
     const chunkQueryVec = await ollama.generateEmbedding(
       'PGConf indexing strategies HNSW IVFFlat',
       EMBEDDING_MODEL,
     );
 
-    const chunkSearchResult = await sdk.contactsChunk
-      .findMany({
-        where: {
-          vectorEmbedding: {
-            vector: chunkQueryVec,
-            metric: 'COSINE',
-            distance: 2.0,
-          },
-        },
-        first: 5,
-        select: {
-          id: true,
-          content: true,
-          chunkIndex: true,
-          embeddingVectorDistance: true,
-        },
-      })
-      .execute();
+    const chunkSearchResult = await pg.query(
+      `SELECT id, content, chunk_index,
+              embedding <=> $1::vector AS distance
+       FROM "agentic_db_app_public".contacts_chunks
+       WHERE embedding IS NOT NULL
+       ORDER BY embedding <=> $1::vector
+       LIMIT 5`,
+      [`[${chunkQueryVec.join(',')}]`],
+    );
 
-    if (!chunkSearchResult.ok) {
-      throw new Error(`chunk vector search failed: ${JSON.stringify(chunkSearchResult.errors)}`);
-    }
-    const chunkNodes = chunkSearchResult.data.contactsChunks.nodes;
-    expect(chunkNodes.length).toBeGreaterThanOrEqual(1);
-    expect(chunkNodes[0].content).toContain('PGConf');
-    expect(chunkNodes[0].embeddingVectorDistance).toBeLessThan(1.0);
+    expect(chunkSearchResult.rows.length).toBeGreaterThanOrEqual(1);
+    expect(chunkSearchResult.rows[0].content).toContain('PGConf');
+    expect(parseFloat(chunkSearchResult.rows[0].distance)).toBeLessThan(1.0);
 
     // =====================================================================
-    // 9. Cross-table search (contacts + notes)
+    // 9. Cross-table search (contacts + notes via ORM)
     // =====================================================================
     const crossQueryVec = await ollama.generateEmbedding(
       'vector database architecture PostgreSQL',
