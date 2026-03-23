@@ -6,6 +6,16 @@ settings:
 
 overrides:
   graphql: 16.13.0
+  grafast: 1.0.0-rc.9
+  graphile-build: 5.0.0-rc.6
+  graphile-build-pg: 5.0.0-rc.8
+  graphile-config: 1.0.0-rc.6
+  graphile-utils: 5.0.0-rc.8
+  postgraphile: 5.0.0-rc.10
+  '@dataplan/json': 1.0.0-rc.6
+  '@dataplan/pg': 1.0.0-rc.8
+  pg-sql2: 5.0.0-rc.5
+  tamedevil: 0.1.0-rc.6
 
 importers:
 
@@ -967,18 +977,18 @@ packages:
     resolution: {integrity: sha512-0Rw7U3BjroTr8JJNEzk/EhucHEEWdHbCGyuw0oY5KMIhyiXEXSAxcxDEraj0V7Td/hjrHGVHRyqTXEF833MbGA==}
     engines: {node: '>=22'}
     peerDependencies:
-      grafast: ^1.0.0-rc.8
+      grafast: 1.0.0-rc.9
 
   '@dataplan/pg@1.0.0-rc.8':
     resolution: {integrity: sha512-PnJ/yh1OklZKinB+PQEqfzY4tBWb/WQ7BUNZvgmsjByDd61Qr5jfA53baOuO1WDAGrvJaXoXZJlPGSa1Pvh7rA==}
     engines: {node: '>=22'}
     peerDependencies:
-      '@dataplan/json': ^1.0.0-rc.6
-      grafast: ^1.0.0-rc.9
-      graphile-config: ^1.0.0-rc.5
+      '@dataplan/json': 1.0.0-rc.6
+      grafast: 1.0.0-rc.9
+      graphile-config: 1.0.0-rc.6
       graphql: 16.13.0
       pg: ^8.7.1
-      pg-sql2: ^5.0.0-rc.5
+      pg-sql2: 5.0.0-rc.5
     peerDependenciesMeta:
       pg:
         optional: true
@@ -4600,8 +4610,8 @@ packages:
     peerDependencies:
       '@envelop/core': ^5.0.0
       '@whatwg-node/server': ^0.9.64
-      grafast: ^1.0.0-rc.8
-      graphile-config: ^1.0.0-rc.6
+      grafast: 1.0.0-rc.9
+      graphile-config: 1.0.0-rc.6
       graphql: 16.13.0
       h3: ^1.13.0
       hono: ^4.6.15
@@ -4622,14 +4632,14 @@ packages:
     resolution: {integrity: sha512-0iMMK9XlsQ9qMjhLYCxwBcOkzaRe+2qOBN+B9ojnQePNRUHGLGnLh7t1jF8j9uFZE5cSSqGjPfJPrUx8ApRt1g==}
     engines: {node: '>=22'}
     peerDependencies:
-      '@dataplan/pg': ^1.0.0-rc.7
-      grafast: ^1.0.0-rc.8
-      graphile-build: ^5.0.0-rc.5
-      graphile-config: ^1.0.0-rc.5
+      '@dataplan/pg': 1.0.0-rc.8
+      grafast: 1.0.0-rc.9
+      graphile-build: 5.0.0-rc.6
+      graphile-config: 1.0.0-rc.6
       graphql: 16.13.0
       pg: ^8.7.1
-      pg-sql2: ^5.0.0-rc.4
-      tamedevil: ^0.1.0-rc.5
+      pg-sql2: 5.0.0-rc.5
+      tamedevil: 0.1.0-rc.6
     peerDependenciesMeta:
       pg:
         optional: true
@@ -4638,13 +4648,9 @@ packages:
     resolution: {integrity: sha512-6S9ubIBjp0nnqfbNQgtf6n2es+PyxpYFOV6PzDyTpRleauGD7Rt0UDGQFaRfsVqUXDveXJIAWkA4EjBur1MT/w==}
     engines: {node: '>=22'}
     peerDependencies:
-      grafast: ^1.0.0-rc.8
-      graphile-config: ^1.0.0-rc.5
+      grafast: 1.0.0-rc.9
+      graphile-config: 1.0.0-rc.6
       graphql: 16.13.0
-
-  graphile-config@0.0.1-beta.18:
-    resolution: {integrity: sha512-uMdF9Rt8/NwT1wVXNleYgM5ro2hHDodHiKA3efJhgdU8iP+r/hksnghOHreMva0sF5tV73f4TpiELPUR0g7O9w==}
-    engines: {node: '>=16'}
 
   graphile-config@1.0.0-rc.6:
     resolution: {integrity: sha512-M8jGkKJQmj3/jaqM0rRL21aT9o+xGBnMSveI94QKuRxhMjWqdxCcDbdMRjNcQuGuBK7A/3d6mThBVOj0KMUFGw==}
@@ -4719,13 +4725,13 @@ packages:
     resolution: {integrity: sha512-LCMeFT7C5SyNkNyJNWk1TGYWr+5u3UFNgLl/8KOeimschAuHtujRhmVFykRe4aHnvWsuKHNSoK0p3yaLwWmucQ==}
     engines: {node: '>=22'}
     peerDependencies:
-      '@dataplan/pg': ^1.0.0-rc.7
-      grafast: ^1.0.0-rc.8
-      graphile-build: ^5.0.0-rc.5
-      graphile-build-pg: ^5.0.0-rc.7
-      graphile-config: ^1.0.0-rc.5
+      '@dataplan/pg': 1.0.0-rc.8
+      grafast: 1.0.0-rc.9
+      graphile-build: 5.0.0-rc.6
+      graphile-build-pg: 5.0.0-rc.8
+      graphile-config: 1.0.0-rc.6
       graphql: 16.13.0
-      tamedevil: ^0.1.0-rc.5
+      tamedevil: 0.1.0-rc.6
     peerDependenciesMeta:
       graphile-build-pg:
         optional: true
@@ -6420,18 +6426,18 @@ packages:
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
-      '@dataplan/json': ^1.0.0-rc.6
-      '@dataplan/pg': ^1.0.0-rc.8
+      '@dataplan/json': 1.0.0-rc.6
+      '@dataplan/pg': 1.0.0-rc.8
       '@envelop/core': ^5.0.0
-      grafast: ^1.0.0-rc.9
+      grafast: 1.0.0-rc.9
       grafserv: ^1.0.0-rc.7
-      graphile-build: ^5.0.0-rc.6
-      graphile-build-pg: ^5.0.0-rc.8
-      graphile-config: ^1.0.0-rc.6
+      graphile-build: 5.0.0-rc.6
+      graphile-build-pg: 5.0.0-rc.8
+      graphile-config: 1.0.0-rc.6
       graphql: 16.13.0
       pg: ^8.7.1
-      pg-sql2: ^5.0.0-rc.5
-      tamedevil: ^0.1.0-rc.6
+      pg-sql2: 5.0.0-rc.5
+      tamedevil: 0.1.0-rc.6
     peerDependenciesMeta:
       '@envelop/core':
         optional: true
@@ -6817,7 +6823,7 @@ packages:
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
-      graphile-config: ^1.0.0-rc.5
+      graphile-config: 1.0.0-rc.6
       graphql: 16.13.0
       react: ^18 || ^19
       react-dom: ^18 || ^19
@@ -12505,7 +12511,7 @@ snapshots:
       eslint: 9.39.3(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.3(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-react: 7.37.5(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-react-hooks: 5.2.0(eslint@9.39.3(jiti@2.6.1))
@@ -12539,7 +12545,7 @@ snapshots:
       tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.3(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -12554,7 +12560,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.3(jiti@2.6.1)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -13246,20 +13252,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  graphile-config@0.0.1-beta.18:
-    dependencies:
-      '@types/interpret': 1.1.4
-      '@types/node': 22.19.15
-      '@types/semver': 7.7.1
-      chalk: 4.1.2
-      debug: 4.4.3
-      interpret: 3.1.1
-      semver: 7.7.4
-      tslib: 2.8.1
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - supports-color
-
   graphile-config@1.0.0-rc.6:
     dependencies:
       '@types/interpret': 1.1.4
@@ -13717,7 +13709,7 @@ snapshots:
       '@types/debug': 4.1.12
       '@types/pg': 8.18.0
       cosmiconfig: 8.3.6(typescript@5.9.3)
-      graphile-config: 0.0.1-beta.18
+      graphile-config: 1.0.0-rc.6
       json5: 2.2.3
       pg: 8.20.0
       tslib: 2.8.1
