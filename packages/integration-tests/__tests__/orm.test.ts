@@ -81,6 +81,17 @@ describe('ORM integration', () => {
     return Object.values(data)[0];
   }
 
+  /** Assert result.ok and log errors if it fails */
+  function expectOk(result: any, label?: string) {
+    if (!result.ok) {
+      console.error(
+        `[${label ?? 'ORM'}] query failed:`,
+        JSON.stringify(result.errors, null, 2),
+      );
+    }
+    expect(result.ok).toBe(true);
+  }
+
   // =========================================================================
   // Smoke test: verify codegen produced the expected models
   // =========================================================================
@@ -123,7 +134,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(result.ok).toBe(true);
+      expectOk(result, 'contact.findMany');
       const nodes = unwrapData(result.data).nodes;
       expect(nodes).toBeDefined();
       expect(nodes.length).toBeGreaterThanOrEqual(2);
@@ -153,7 +164,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(result.ok).toBe(true);
+      expectOk(result, 'contact.create');
       const contact = unwrapData(result.data).contact;
       expect(contact).toBeDefined();
       expect(contact.firstName).toBe('Test');
@@ -176,7 +187,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(result.ok).toBe(true);
+      expectOk(result, 'note.findMany');
       const nodes = unwrapData(result.data).nodes;
       expect(nodes).toBeDefined();
       expect(nodes.length).toBeGreaterThanOrEqual(2);
@@ -195,7 +206,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(result.ok).toBe(true);
+      expectOk(result, 'note.create');
       const note = unwrapData(result.data).note;
       expect(note).toBeDefined();
       expect(note.content).toBe('This is a test note for integration testing.');
@@ -218,7 +229,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(result.ok).toBe(true);
+      expectOk(result, 'agent.findMany');
       const nodes = unwrapData(result.data).nodes;
       expect(nodes).toBeDefined();
 
@@ -244,7 +255,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(result.ok).toBe(true);
+      expectOk(result, 'agent.create');
       const agent = unwrapData(result.data).agent;
       expect(agent.name).toBe('Test Agent');
       expect(agent.description).toBe('An agent for integration testing');
@@ -269,7 +280,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(result.ok).toBe(true);
+      expectOk(result, 'contact.findMany+notes');
       const nodes = unwrapData(result.data).nodes;
       expect(nodes).toBeDefined();
       expect(nodes.length).toBe(1);
@@ -289,7 +300,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(contactResult.ok).toBe(true);
+      expectOk(contactResult, 'contactNote.contact.create');
       const contactId = unwrapData(contactResult.data).contact.id;
 
       // Create a new note
@@ -300,7 +311,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(noteResult.ok).toBe(true);
+      expectOk(noteResult, 'contactNote.note.create');
       const noteId = unwrapData(noteResult.data).note.id;
 
       // Link them via junction
@@ -311,7 +322,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(linkResult.ok).toBe(true);
+      expectOk(linkResult, 'contactNote.create');
       const link = unwrapData(linkResult.data).contactNote;
       expect(link.contactId).toBe(contactId);
       expect(link.noteId).toBe(noteId);
@@ -331,7 +342,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(agentResult.ok).toBe(true);
+      expectOk(agentResult, 'agent.create(task)');
       const agentId = unwrapData(agentResult.data).agent.id;
 
       // Create task linked to agent
@@ -351,7 +362,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(taskResult.ok).toBe(true);
+      expectOk(taskResult, 'agentTask.create');
       const task = unwrapData(taskResult.data).agentTask;
       expect(task.title).toBe('Test Task');
       expect(task.agentId).toBe(agentId);
@@ -371,7 +382,7 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expect(result.ok).toBe(true);
+      expectOk(result, 'agent.findMany+tasks');
       const nodes = unwrapData(result.data).nodes;
       expect(nodes).toBeDefined();
       expect(nodes.length).toBe(1);
