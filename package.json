@@ -23,7 +23,12 @@
     "generate:sdk": "pnpm --filter @agentic-db/sdk run generate",
     "generate:cli": "pnpm --filter @agentic-db/cli run generate",
     "generate:all": "pnpm run export:schema && pnpm run generate:sdk && pnpm run generate:cli",
-    "export:all": "pnpm run export:pgpm && pnpm run generate:all"
+    "export:all": "pnpm run export:pgpm && pnpm run generate:all",
+    "search": "pnpm --filter @agentic-db/rag run search",
+    "ask": "pnpm --filter @agentic-db/rag run ask",
+    "embed": "pnpm --filter @agentic-db/rag run embed",
+    "embed:all": "pnpm --filter @agentic-db/rag run embed:all",
+    "seed": "pnpm --filter @agentic-db/rag run seed"
   },
   "pnpm": {
     "overrides": {
