@@ -78,20 +78,26 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     const ollama = new OllamaClient(OLLAMA_URL);
 
     // =====================================================================
-    // 1. Create an account via sign_up
+    // 1. Create an account via sign_up (raw GraphQL — ORM doesn't expose custom mutations)
     // =====================================================================
-    const signUpResult = await sdk.mutation
-      .signUp(
-        { input: { email: 'rag-test@example.com', password: 'testpassword123' } },
-        { select: { result: { select: { userId: true, accessToken: true } } } }
-      )
-      .execute();
+    const signUpResult = await query(
+      `mutation SignUp($input: SignUpInput!) {
+        signUp(input: $input) {
+          result {
+            userId
+            accessToken
+          }
+        }
+      }`,
+      { input: { email: 'rag-test@example.com', password: 'testpassword123' } },
+    );
 
-    if (!signUpResult.ok) {
-      throw new Error(`signUp failed: ${JSON.stringify(signUpResult.errors)}`);
+    const signUpData = (signUpResult as any)?.data?.signUp?.result;
+    if (!signUpData) {
+      throw new Error(`signUp failed: ${JSON.stringify(signUpResult)}`);
     }
 
-    const { accessToken, userId } = signUpResult.data.signUp.result!;
+    const { accessToken, userId } = signUpData;
     expect(accessToken).toBeDefined();
     expect(userId).toBeDefined();
 
@@ -108,7 +114,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     const carolResult = await sdk.contact
       .create({
         data: {
-          entityId: userId,
+          entityId: userId!,
           firstName: 'Carol',
           lastName: 'Engineer',
           headline: 'Senior Distributed Systems Engineer',
@@ -129,7 +135,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     const daveResult = await sdk.contact
       .create({
         data: {
-          entityId: userId,
+          entityId: userId!,
           firstName: 'Dave',
           lastName: 'Chef',
           headline: 'Executive Pastry Chef',
@@ -151,7 +157,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     const noteResult = await sdk.note
       .create({
         data: {
-          entityId: userId,
+          entityId: userId!,
           content:
             'Architecture review: we decided to use pgvector with HNSW indexes for approximate nearest neighbor search. The embedding pipeline will use Ollama nomic-embed-text for 768-dimensional vectors.',
         },
@@ -171,6 +177,7 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     const chunkResult = await sdk.contactChunk
       .create({
         data: {
+          entityId: userId!,
           contactId: carolId,
           content:
             'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.',
