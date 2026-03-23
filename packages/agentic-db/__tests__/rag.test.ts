@@ -206,7 +206,12 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     //    A contact row ID is never an entity_id, so authenticated
     //    INSERT/SELECT on chunks always fails.  Using pg here matches
     //    the production access pattern.
+    //
+    //    db.publish() commits the ORM-created contacts/notes so that pg
+    //    (a separate superuser connection) can see them for the FK check.
     // =====================================================================
+    await db.publish();
+
     const chunkContent =
       'Carol presented at PGConf on advanced indexing strategies for vector similarity search using HNSW and IVFFlat algorithms in pgvector.';
 
@@ -289,6 +294,9 @@ describe('RAG Integration (real schema + real Ollama)', () => {
     if (!embedNoteResult.ok) {
       throw new Error(`embed note failed: ${JSON.stringify(embedNoteResult.errors)}`);
     }
+
+    // Commit ORM embeddings so pg can see them when embedding the chunk
+    await db.publish();
 
     // Embed the chunk via pg (superuser, simulating worker)
     const chunkText =
