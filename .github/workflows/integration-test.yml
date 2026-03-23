@@ -1,4 +1,4 @@
-name: pgpm Integration Test
+name: Integration Tests
 on:
   push:
     branches:
@@ -107,3 +107,97 @@ jobs:
           echo "BM25 indexes: ${BM25_COUNT}"
 
           echo "Deployment verified!"
+
+  orm-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: password
+
+    services:
+      pg_db:
+        image: docker.io/constructiveio/postgres-plus:18
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run ORM tests
+        run: |
+          cd packages/integration-tests
+          pnpm test:orm
+
+  embedding-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: password
+
+    services:
+      pg_db:
+        image: docker.io/constructiveio/postgres-plus:18
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run embedding tests
+        run: |
+          cd packages/integration-tests
+          pnpm test:embeddings

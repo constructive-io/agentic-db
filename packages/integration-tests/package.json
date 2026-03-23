@@ -1,0 +1,18 @@
+{
+  "name": "@agentic-db/integration-tests",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Integration tests for agentic-db: ORM and embeddings",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --forceExit --detectOpenHandles",
+    "test:orm": "jest --forceExit --detectOpenHandles __tests__/orm.test.ts",
+    "test:embeddings": "jest --forceExit --detectOpenHandles __tests__/embeddings.test.ts"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.16.0",
+    "graphile-test": "^4.5.10",
+    "pgsql-test": "^4.5.10"
+  }
+}
