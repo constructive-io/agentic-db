@@ -16,7 +16,7 @@
 
 import { PgpmPackage } from '@pgpmjs/core';
 import { exportMigrations } from '@pgpmjs/export';
-import { getEnvOptions } from 'pg-env';
+import { getPgEnvOptions } from 'pg-env';
 import { getPgPool } from 'pg-cache';
 import path from 'path';
 
@@ -40,7 +40,7 @@ async function main() {
   project.ensureWorkspace();
   project.resetCwd(project.workspacePath);
 
-  const options = getEnvOptions();
+  const options = getPgEnvOptions();
 
   // 2. Connect to the database
   const db = await getPgPool({ database: dbname });
