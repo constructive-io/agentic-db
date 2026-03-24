@@ -23,7 +23,7 @@
  */
 jest.setTimeout(600000);
 
-import { execSync } from 'child_process';
+import { spawn } from 'child_process';
 import { createServer, IncomingMessage, ServerResponse, Server } from 'http';
 import { mkdirSync, writeFileSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
@@ -145,18 +145,42 @@ function setupCliContext(graphqlUrl: string, ollamaUrl: string): void {
 }
 
 /**
- * Run a CLI command as a subprocess, returning stdout.
- * Uses the direct tsx binary to avoid npx cache/download issues.
- * HOME is overridden to testHome for config isolation.
- * NODE_OPTIONS is cleared to prevent Jest-inherited flags from
- * interfering with tsx.
+ * Parse a shell-like arg string into an array, respecting quoted strings.
+ * e.g. 'search "hello world" --json' → ['search', 'hello world', '--json']
  */
-function runCli(args: string, options: { timeout?: number } = {}): string {
-  const cmd = `"${TSX_BIN}" ${CLI_ENTRY} ${args}`;
-  try {
-    const result = execSync(cmd, {
+function parseArgs(args: string): string[] {
+  const result: string[] = [];
+  let current = '';
+  let inQuote = false;
+  let quoteChar = '';
+  for (const ch of args) {
+    if (inQuote) {
+      if (ch === quoteChar) { inQuote = false; } else { current += ch; }
+    } else if (ch === '"' || ch === "'") {
+      inQuote = true;
+      quoteChar = ch;
+    } else if (/\s/.test(ch)) {
+      if (current) { result.push(current); current = ''; }
+    } else {
+      current += ch;
+    }
+  }
+  if (current) result.push(current);
+  return result;
+}
+
+/**
+ * Run a CLI command as a subprocess, returning stdout.
+ * Uses spawn (async) instead of execSync so the Node.js event loop
+ * stays free — the PostGraphile server and Ollama proxy both run in
+ * this Jest process and must be able to handle requests while the
+ * subprocess is running.
+ */
+function runCli(args: string, options: { timeout?: number } = {}): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const timeout = options.timeout || CLI_TIMEOUT;
+    const child = spawn(TSX_BIN, [CLI_ENTRY, ...parseArgs(args)], {
       cwd: REPO_ROOT,
-      timeout: options.timeout || CLI_TIMEOUT,
       env: {
         ...process.env,
         HOME: testHome,
@@ -166,15 +190,37 @@ function runCli(args: string, options: { timeout?: number } = {}): string {
         // Clear Jest-inherited NODE_OPTIONS that may conflict with tsx
         NODE_OPTIONS: '',
       },
-      encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
     });
-    return result;
-  } catch (e: any) {
-    const stderr = e.stderr ? `\nstderr: ${e.stderr}` : '';
-    const stdout = e.stdout ? `\nstdout: ${e.stdout}` : '';
-    throw new Error(`CLI command failed: ${cmd}\n${e.message}${stderr}${stdout}`);
-  }
+
+    let stdout = '';
+    let stderr = '';
+    child.stdout.on('data', (data: Buffer) => { stdout += data.toString(); });
+    child.stderr.on('data', (data: Buffer) => { stderr += data.toString(); });
+
+    const timer = setTimeout(() => {
+      child.kill('SIGKILL');
+      reject(new Error(
+        `CLI timed out after ${timeout}ms\nstdout: ${stdout}\nstderr: ${stderr}`
+      ));
+    }, timeout);
+
+    child.on('close', (code) => {
+      clearTimeout(timer);
+      if (code === 0) {
+        resolve(stdout);
+      } else {
+        reject(new Error(
+          `CLI exited with code ${code}\nstdout: ${stdout}\nstderr: ${stderr}`
+        ));
+      }
+    });
+
+    child.on('error', (err) => {
+      clearTimeout(timer);
+      reject(err);
+    });
+  });
 }
 
 describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
@@ -391,8 +437,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   // CLI subprocess tests — search command
   // =========================================================================
 
-  it('should run "search" and find Carol for a database query', () => {
-    const output = runCli('search "PostgreSQL distributed systems engineer" --json --tty false');
+  it('should run "search" and find Carol for a database query', async () => {
+    const output = await runCli('search "PostgreSQL distributed systems engineer" --json --tty false');
     const results = JSON.parse(output);
 
     expect(Array.isArray(results)).toBe(true);
@@ -408,8 +454,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     expect(carol.table).toBe('contacts');
   });
 
-  it('should run "search" and rank Dave higher for cooking query', () => {
-    const output = runCli('search "French pastry chef chocolate dessert" --json --tty false');
+  it('should run "search" and rank Dave higher for cooking query', async () => {
+    const output = await runCli('search "French pastry chef chocolate dessert" --json --tty false');
     const results = JSON.parse(output);
 
     expect(Array.isArray(results)).toBe(true);
@@ -428,8 +474,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     expect(dave.score).toBeGreaterThan(carol.score);
   });
 
-  it('should run "search" with --tables filter', () => {
-    const output = runCli('search "pgvector architecture" --tables contacts --json --tty false');
+  it('should run "search" with --tables filter', async () => {
+    const output = await runCli('search "pgvector architecture" --tables contacts --json --tty false');
     const results = JSON.parse(output);
 
     expect(Array.isArray(results)).toBe(true);
@@ -439,8 +485,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     }
   });
 
-  it('should run "search" with --limit flag', () => {
-    const output = runCli('search "engineer" --limit 1 --json --tty false');
+  it('should run "search" with --limit flag', async () => {
+    const output = await runCli('search "engineer" --limit 1 --json --tty false');
     const results = JSON.parse(output);
 
     expect(Array.isArray(results)).toBe(true);
@@ -449,8 +495,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     expect(contactResults.length).toBeLessThanOrEqual(1);
   });
 
-  it('should return results from multiple tables', () => {
-    const output = runCli('search "vector database architecture" --tables contacts,notes --json --tty false');
+  it('should return results from multiple tables', async () => {
+    const output = await runCli('search "vector database architecture" --tables contacts,notes --json --tty false');
     const results = JSON.parse(output);
 
     expect(Array.isArray(results)).toBe(true);
@@ -465,8 +511,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   // CLI subprocess tests — human-readable output
   // =========================================================================
 
-  it('should produce human-readable output without --json', () => {
-    const output = runCli('search "PostgreSQL engineer" --tty false');
+  it('should produce human-readable output without --json', async () => {
+    const output = await runCli('search "PostgreSQL engineer" --tty false');
 
     // Should contain search indicator and result formatting
     expect(output).toContain('Searching:');
@@ -480,9 +526,9 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   // CLI subprocess tests — ask command (context mode)
   // =========================================================================
 
-  it('should run "ask" in context-only mode and return relevant context', () => {
+  it('should run "ask" in context-only mode and return relevant context', async () => {
     // --context flag skips LLM call, just dumps retrieved context
-    const output = runCli('ask "Who knows about databases?" --context --tty false');
+    const output = await runCli('ask "Who knows about databases?" --context --tty false');
 
     // Should contain Carol (DB engineer) in the context
     expect(output.toLowerCase()).toContain('carol');
