@@ -24,8 +24,8 @@
 jest.setTimeout(600000);
 
 import { execSync } from 'child_process';
-import { mkdirSync, writeFileSync } from 'fs';
-import { tmpdir } from 'os';
+import { mkdirSync, writeFileSync, rmSync } from 'fs';
+import { homedir } from 'os';
 import { join } from 'path';
 import { getConnections } from 'graphql-server-test';
 import { seed } from 'pgsql-test';
@@ -56,15 +56,18 @@ let pg: any;
 let teardown: () => Promise<void>;
 let query: any;
 
-// Isolated HOME for appstash config so tests don't pollute real config
-let testHome: string;
+// Use real HOME for config — overriding HOME in subprocesses can break
+// Node.js fetch/undici in some CI environments.
+const REAL_HOME = homedir();
 
 /**
  * Set up appstash config files so the CLI subprocess can find
  * the test server's GraphQL endpoint.
+ * Writes to real HOME so the subprocess inherits them without
+ * needing a HOME override (which can break fetch/undici in CI).
  */
 function setupCliContext(graphqlUrl: string): void {
-  const appstashRoot = join(testHome, '.agentic-db');
+  const appstashRoot = join(REAL_HOME, '.agentic-db');
   const configDir = join(appstashRoot, 'config');
   const contextsDir = join(configDir, 'contexts');
 
@@ -87,9 +90,9 @@ function setupCliContext(graphqlUrl: string): void {
   );
 
   // Write RAG config (defaults to Ollama)
-  mkdirSync(join(testHome, '.config', 'agentic-db'), { recursive: true });
+  mkdirSync(join(REAL_HOME, '.config', 'agentic-db'), { recursive: true });
   writeFileSync(
-    join(testHome, '.config', 'agentic-db', 'rag.json'),
+    join(REAL_HOME, '.config', 'agentic-db', 'rag.json'),
     JSON.stringify({
       provider: 'ollama',
       ollamaUrl: OLLAMA_URL,
@@ -100,9 +103,21 @@ function setupCliContext(graphqlUrl: string): void {
 }
 
 /**
+ * Clean up config files written to real HOME.
+ */
+function cleanupCliContext(): void {
+  try {
+    rmSync(join(REAL_HOME, '.agentic-db'), { recursive: true, force: true });
+  } catch { /* ignore */ }
+  try {
+    rmSync(join(REAL_HOME, '.config', 'agentic-db'), { recursive: true, force: true });
+  } catch { /* ignore */ }
+}
+
+/**
  * Run a CLI command as a subprocess, returning stdout.
- * Uses spawnSync with the direct tsx binary to avoid npx
- * cache/download issues when HOME is overridden.
+ * Uses the direct tsx binary to avoid npx cache/download issues.
+ * Does NOT override HOME — config is written to real HOME.
  */
 function runCli(args: string, options: { timeout?: number } = {}): string {
   const cmd = `"${TSX_BIN}" ${CLI_ENTRY} ${args}`;
@@ -112,9 +127,7 @@ function runCli(args: string, options: { timeout?: number } = {}): string {
       timeout: options.timeout || CLI_TIMEOUT,
       env: {
         ...process.env,
-        HOME: testHome,
         OLLAMA_URL,
-        // Ensure the subprocess can find node_modules
         PATH: process.env.PATH,
         NODE_PATH: join(REPO_ROOT, 'node_modules'),
       },
@@ -123,7 +136,6 @@ function runCli(args: string, options: { timeout?: number } = {}): string {
     });
     return result;
   } catch (e: any) {
-    // Include stderr in the error message for CI debugging
     const stderr = e.stderr ? `\nstderr: ${e.stderr}` : '';
     const stdout = e.stdout ? `\nstdout: ${e.stdout}` : '';
     throw new Error(`CLI command failed: ${cmd}\n${e.message}${stderr}${stdout}`);
@@ -132,10 +144,6 @@ function runCli(args: string, options: { timeout?: number } = {}): string {
 
 describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   beforeAll(async () => {
-    // Create isolated temp home for appstash
-    testHome = join(tmpdir(), `agentic-db-e2e-${Date.now()}`);
-    mkdirSync(testHome, { recursive: true });
-
     // Spin up real PostGraphile HTTP server + test database
     // Deploy the agentic-db pgpm package from its directory
     const connections = await getConnections(
@@ -295,6 +303,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   });
 
   afterAll(async () => {
+    cleanupCliContext();
     if (teardown) await teardown();
   });
 
@@ -313,6 +322,21 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
       `{ __schema { queryType { name } } }`,
     );
     expect((result as any).data.__schema.queryType.name).toBe('Query');
+  });
+
+  // =========================================================================
+  // Diagnostic — verify Ollama is reachable from subprocess
+  // =========================================================================
+
+  it('should reach Ollama from a subprocess', () => {
+    const script = `fetch('${OLLAMA_URL}/api/embeddings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'nomic-embed-text',prompt:'test'})}).then(r=>r.json()).then(d=>console.log(d.embedding.length)).catch(e=>{console.error(e.message);process.exit(1)})`;
+    const result = execSync(`node -e "${script}"`, {
+      cwd: REPO_ROOT,
+      timeout: 60_000,
+      env: { ...process.env, OLLAMA_URL },
+      encoding: 'utf-8',
+    });
+    expect(parseInt(result.trim())).toBe(768);
   });
 
   // =========================================================================
