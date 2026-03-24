@@ -5,11 +5,11 @@
  * Must run AFTER all individual schema modules so table IDs can be resolved.
  *
  * M:N junctions:
- *   projects <-> contacts, agent_tasks <-> contacts, goals <-> habits,
+ *   projects <-> contacts, tasks <-> contacts, tasks <-> projects, goals <-> habits,
  *   goals <-> projects, calendar_events <-> contacts, expenses <-> contacts,
  *   agents <-> prompts,
  *   contacts <-> notes, companies <-> notes, deals <-> notes,
- *   events <-> notes, agent_tasks <-> notes, contacts <-> memories,
+ *   events <-> notes, tasks <-> notes, contacts <-> memories,
  *   companies <-> memories
  *
  * BelongsTo:
@@ -84,7 +84,8 @@ interface BelongsToRelation {
 
 const M2N_RELATIONS: M2NRelation[] = [
   { sourceTable: 'projects',        targetTable: 'contacts',  junctionTableName: 'project_contacts',        sourceFieldName: 'project_id',        targetFieldName: 'contact_id' },
-  { sourceTable: 'agent_tasks',     targetTable: 'contacts',  junctionTableName: 'agent_task_contacts',     sourceFieldName: 'agent_task_id',     targetFieldName: 'contact_id' },
+  { sourceTable: 'tasks',           targetTable: 'contacts',  junctionTableName: 'task_contacts',           sourceFieldName: 'task_id',           targetFieldName: 'contact_id' },
+  { sourceTable: 'tasks',           targetTable: 'projects',  junctionTableName: 'task_projects',           sourceFieldName: 'task_id',           targetFieldName: 'project_id' },
   { sourceTable: 'goals',           targetTable: 'habits',    junctionTableName: 'goal_habits',             sourceFieldName: 'goal_id',           targetFieldName: 'habit_id' },
   { sourceTable: 'goals',           targetTable: 'projects',  junctionTableName: 'goal_projects',           sourceFieldName: 'goal_id',           targetFieldName: 'project_id' },
   { sourceTable: 'calendar_events', targetTable: 'contacts',  junctionTableName: 'calendar_event_contacts', sourceFieldName: 'calendar_event_id', targetFieldName: 'contact_id' },
@@ -95,7 +96,7 @@ const M2N_RELATIONS: M2NRelation[] = [
   { sourceTable: 'companies',       targetTable: 'notes',     junctionTableName: 'company_notes',           sourceFieldName: 'company_id',        targetFieldName: 'note_id' },
   { sourceTable: 'deals',           targetTable: 'notes',     junctionTableName: 'deal_notes',              sourceFieldName: 'deal_id',           targetFieldName: 'note_id' },
   { sourceTable: 'events',          targetTable: 'notes',     junctionTableName: 'event_notes',             sourceFieldName: 'event_id',          targetFieldName: 'note_id' },
-  { sourceTable: 'agent_tasks',     targetTable: 'notes',     junctionTableName: 'agent_task_notes',        sourceFieldName: 'agent_task_id',     targetFieldName: 'note_id' },
+  { sourceTable: 'tasks',           targetTable: 'notes',     junctionTableName: 'task_notes',              sourceFieldName: 'task_id',           targetFieldName: 'note_id' },
   { sourceTable: 'contacts',        targetTable: 'memories',  junctionTableName: 'contact_memories',        sourceFieldName: 'contact_id',        targetFieldName: 'memory_id' },
   { sourceTable: 'companies',       targetTable: 'memories',  junctionTableName: 'company_memories',        sourceFieldName: 'company_id',        targetFieldName: 'memory_id' },
   { sourceTable: 'skills',          targetTable: 'tool_definitions', junctionTableName: 'skill_tools',      sourceFieldName: 'skill_id',          targetFieldName: 'tool_definition_id' },

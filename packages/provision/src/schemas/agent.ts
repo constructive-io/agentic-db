@@ -36,9 +36,9 @@ const definition: BlueprintDefinition = {
         }),
       ]),
 
-    // -- Agent Tasks --------------------------------------------------------
-    orgTable('agent_tasks', [
-      req('agent_id', 'uuid'),
+    // -- Tasks --------------------------------------------------------------
+    orgTable('tasks', [
+      f('agent_id', 'uuid'),
       req('title', 'text'),
       f('description', 'text'),
       f('status', 'text', { default_value: "'pending'" }),
@@ -107,7 +107,7 @@ const definition: BlueprintDefinition = {
   ],
 
   relations: [
-    { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'agent_tasks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'tasks', delete_action: 'n' },
     { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'agent_logs',  delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'rules',       delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'skills',      delete_action: 'c' },
@@ -119,9 +119,9 @@ const definition: BlueprintDefinition = {
     ginIndex('agents', 'tags'),
     ginIndex('agents', 'config'),
     btreeIndex('agents', 'status'),
-    // btreeIndex('agent_tasks', 'agent_id'), — auto-created by FK (agents → agent_tasks)
-    btreeIndex('agent_tasks', 'status'),
-    btreeIndex('agent_tasks', 'priority'),
+    btreeIndex('tasks', 'agent_id'),
+    btreeIndex('tasks', 'status'),
+    btreeIndex('tasks', 'priority'),
     // btreeIndex('agent_logs', 'agent_id'), — auto-created by FK (agents → agent_logs)
     btreeIndex('agent_logs', 'level'),
     btreeIndex('agent_logs', 'task_id'),

@@ -101,7 +101,7 @@ describe('ORM integration', () => {
       expect(orm.contact).toBeDefined();
       expect(orm.note).toBeDefined();
       expect(orm.agent).toBeDefined();
-      expect(orm.agentTask).toBeDefined();
+      expect(orm.task).toBeDefined();
       expect(orm.contactNote).toBeDefined();
     });
 
@@ -330,7 +330,7 @@ describe('ORM integration', () => {
   });
 
   // =========================================================================
-  // Test: 1:N relations (agent -> agent_tasks)
+  // Test: 1:N relations (agent -> tasks)
   // =========================================================================
   describe('1:N relations (agent -> tasks)', () => {
     it('creates an agent with a task via ORM', async () => {
@@ -346,7 +346,7 @@ describe('ORM integration', () => {
       const agentId = unwrapData(agentResult.data).agent.id;
 
       // Create task linked to agent
-      const taskResult = await orm.agentTask
+      const taskResult = await orm.task
         .create({
           data: {
             agentId,
@@ -362,8 +362,8 @@ describe('ORM integration', () => {
         })
         .execute();
 
-      expectOk(taskResult, 'agentTask.create');
-      const task = unwrapData(taskResult.data).agentTask;
+      expectOk(taskResult, 'task.create');
+      const task = unwrapData(taskResult.data).task;
       expect(task.title).toBe('Test Task');
       expect(task.agentId).toBe(agentId);
     });
@@ -374,7 +374,7 @@ describe('ORM integration', () => {
           select: {
             id: true,
             name: true,
-            agentTasks: {
+            tasks: {
               select: { title: true, status: true },
             },
           },
@@ -389,7 +389,7 @@ describe('ORM integration', () => {
 
       const agent = nodes[0];
       expect(agent.name).toBe('Research Agent');
-      expect(agent.agentTasks.nodes.length).toBeGreaterThanOrEqual(1);
+      expect(agent.tasks.nodes.length).toBeGreaterThanOrEqual(1);
     });
   });
 });

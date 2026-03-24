@@ -20,6 +20,6 @@ VALUES
   ('11111111-1111-1111-1111-111111111111', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa');
 
 -- One task for the research agent
-INSERT INTO "agentic_db_app_public".agent_tasks (agent_id, title, description, status)
+INSERT INTO "agentic_db_app_public".tasks (agent_id, title, description, status)
 VALUES
   ('cccccccc-cccc-cccc-cccc-cccccccccccc', 'Summarize docs', 'Summarize all project documents', 'pending');
