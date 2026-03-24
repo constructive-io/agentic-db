@@ -119,7 +119,7 @@ const definition: BlueprintDefinition = {
     ginIndex('agents', 'tags'),
     ginIndex('agents', 'config'),
     btreeIndex('agents', 'status'),
-    btreeIndex('tasks', 'agent_id'),
+    // btreeIndex('tasks', 'agent_id'), — auto-created by FK (agents → tasks)
     btreeIndex('tasks', 'status'),
     btreeIndex('tasks', 'priority'),
     // btreeIndex('agent_logs', 'agent_id'), — auto-created by FK (agents → agent_logs)
