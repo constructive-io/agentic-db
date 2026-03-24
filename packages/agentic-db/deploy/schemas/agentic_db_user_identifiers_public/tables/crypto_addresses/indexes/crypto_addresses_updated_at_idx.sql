@@ -2,10 +2,9 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_user_identifiers_public/schema
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_user_identifiers_public/tables/crypto_addresses/table
 -- requires: schemas/agentic_db_user_identifiers_public/tables/crypto_addresses/columns/updated_at/column
 
 
-CREATE INDEX crypto_addresses_updated_at_idx ON agentic_db_user_identifiers_public.crypto_addresses ( updated_at );
+CREATE INDEX crypto_addresses_updated_at_idx ON "agentic_db_user_identifiers_public".crypto_addresses ( updated_at );
 

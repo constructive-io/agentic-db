@@ -3,10 +3,9 @@
 
 -- requires: schemas/agentic_db_users_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE POLICY auth_sel ON agentic_db_users_public.users
+CREATE POLICY auth_sel ON "agentic_db_users_public".users
 FOR SELECT
 TO authenticated
 USING (

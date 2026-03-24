@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX venues_tags_gin_idx ON agentic_db_app_public.venues USING GIN ( tags );
+CREATE INDEX venues_tags_gin_idx ON "agentic_db_app_public".venues USING GIN ( tags );
 

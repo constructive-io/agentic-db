@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/tasks/columns/completed_at/column
 
 
-ALTER TABLE agentic_db_app_public.tasks 
+ALTER TABLE "agentic_db_app_public".tasks 
   DROP COLUMN completed_at RESTRICT;
 
 

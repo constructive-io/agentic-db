@@ -29,7 +29,7 @@ INSERT INTO metaschema_modules_public.emails_module (
   owner_table_id,
   table_name
 ) VALUES
-  ('a48d732e-064d-f169-aa7b-6a4b8d0d1fa3', 'fdf8a620-6969-72d5-d89a-ed384259d249', '11ce582f-ee6f-02b8-a5aa-5d630e8f9569', 'e0ca3db8-86c1-6d4a-9868-f63771343a59', '2398857e-08f4-f4e4-3e67-f662d241f1d2', 'a42ab990-9bfb-d930-3f98-a01493cc2158', 'emails');
+  ('019d20ce-19b6-7878-9bab-6d3a9cd01aea', '019d20cd-7722-776e-8fb8-f96db2895639', '019d20ce-19b6-7f06-8b7a-6fb6ff1d8cf1', '019d20ce-1aa3-7f70-8343-8ef4750e37a1', '019d20ce-1b96-7a64-8c0a-c31e01e0125d', '019d20cd-7a20-7176-823e-cca436cf06f3', 'emails');
 
 
 SET session_replication_role TO DEFAULT;

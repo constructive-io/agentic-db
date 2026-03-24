@@ -3,9 +3,8 @@
 
 -- requires: schemas/agentic_db_status_public/schema
 -- requires: schemas/agentic_db_status_public/tables/org_steps/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_status_public/tables/org_steps/columns/actor_id/column
 
 
-CREATE INDEX org_steps_actor_id_idx ON agentic_db_status_public.org_steps USING BTREE ( actor_id );
+CREATE INDEX org_steps_actor_id_idx ON "agentic_db_status_public".org_steps USING BTREE ( actor_id );
 

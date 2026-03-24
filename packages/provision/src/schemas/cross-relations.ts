@@ -10,7 +10,14 @@
  *   agents <-> prompts,
  *   contacts <-> notes, companies <-> notes, deals <-> notes,
  *   events <-> notes, tasks <-> notes, contacts <-> memories,
- *   companies <-> memories
+ *   companies <-> memories,
+ *   email_threads <-> contacts, emails <-> contacts, emails <-> notes,
+ *   calendar_events <-> contacts, calendar_events <-> notes, calendar_events <-> tasks
+ *
+ * BelongsTo (cross-schema):
+ *   emails -> contacts (from_contact_id FK)
+ *   calendar_events -> contacts (organizer_contact_id FK)
+ *   calendar_attendees -> contacts (contact_id FK)
  *
  * BelongsTo:
  *   memories -> agents (agent_id FK)
@@ -100,10 +107,22 @@ const M2N_RELATIONS: M2NRelation[] = [
   { sourceTable: 'contacts',        targetTable: 'memories',  junctionTableName: 'contact_memories',        sourceFieldName: 'contact_id',        targetFieldName: 'memory_id' },
   { sourceTable: 'companies',       targetTable: 'memories',  junctionTableName: 'company_memories',        sourceFieldName: 'company_id',        targetFieldName: 'memory_id' },
   { sourceTable: 'skills',          targetTable: 'tool_definitions', junctionTableName: 'skill_tools',      sourceFieldName: 'skill_id',          targetFieldName: 'tool_definition_id' },
+
+  // Email & calendar cross-relations
+  { sourceTable: 'email_threads',    targetTable: 'contacts',  junctionTableName: 'thread_participants',     sourceFieldName: 'email_thread_id',   targetFieldName: 'contact_id' },
+  { sourceTable: 'emails',           targetTable: 'contacts',  junctionTableName: 'email_recipients',        sourceFieldName: 'email_id',          targetFieldName: 'contact_id' },
+  { sourceTable: 'emails',           targetTable: 'notes',     junctionTableName: 'email_notes',             sourceFieldName: 'email_id',          targetFieldName: 'note_id' },
+  { sourceTable: 'calendar_events',  targetTable: 'contacts',  junctionTableName: 'calendar_event_contacts', sourceFieldName: 'calendar_event_id', targetFieldName: 'contact_id' },
+  { sourceTable: 'calendar_events',  targetTable: 'notes',     junctionTableName: 'calendar_event_notes',    sourceFieldName: 'calendar_event_id', targetFieldName: 'note_id' },
+  { sourceTable: 'calendar_events',  targetTable: 'tasks',     junctionTableName: 'calendar_event_tasks',    sourceFieldName: 'calendar_event_id', targetFieldName: 'task_id' },
 ];
 
 const BELONGS_TO_RELATIONS: BelongsToRelation[] = [
   { sourceTable: 'memories', targetTable: 'agents', fieldName: 'agent_id', deleteAction: 'n', isRequired: false },
+  // Email & calendar BelongsTo contacts
+  { sourceTable: 'emails', targetTable: 'contacts', fieldName: 'from_contact_id', deleteAction: 'n', isRequired: false },
+  { sourceTable: 'calendar_events', targetTable: 'contacts', fieldName: 'organizer_contact_id', deleteAction: 'n', isRequired: false },
+  { sourceTable: 'calendar_attendees', targetTable: 'contacts', fieldName: 'contact_id', deleteAction: 'n', isRequired: false },
 ];
 
 // ---------------------------------------------------------------------------

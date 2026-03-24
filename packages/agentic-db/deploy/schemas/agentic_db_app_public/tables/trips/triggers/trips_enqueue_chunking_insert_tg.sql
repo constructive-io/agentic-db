@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER trips_enqueue_chunking_insert_tg
-AFTER INSERT ON agentic_db_app_public.trips
+AFTER INSERT ON "agentic_db_app_public".trips
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.trips_enqueue_chunking ( );
+EXECUTE PROCEDURE "agentic_db_private".trips_enqueue_chunking ( );
 

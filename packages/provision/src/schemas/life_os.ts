@@ -111,6 +111,7 @@ const definition: BlueprintDefinition = {
           embedding_source_fields: ['title', 'content'],
           chunks: true,
         }),
+        dataPostGIS({ field_name: 'location_geo', use_geography: true }),
       ]),
 
     // -- Goals --------------------------------------------------------------

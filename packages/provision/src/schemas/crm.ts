@@ -131,6 +131,7 @@ const definition: BlueprintDefinition = {
           },
           trgm_fields: ['name'],
         }),
+        dataPostGIS({ field_name: 'location_geo', use_geography: true }),
       ]),
 
     // -- Venues -------------------------------------------------------------

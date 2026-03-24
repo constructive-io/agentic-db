@@ -4,12 +4,11 @@
 -- requires: schemas/agentic_db_status_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_status_public/tables/app_achievements/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-ALTER TABLE agentic_db_status_public.app_achievements 
+ALTER TABLE "agentic_db_status_public".app_achievements 
   ADD CONSTRAINT app_achievements_actor_id_fkey 
     FOREIGN KEY(actor_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

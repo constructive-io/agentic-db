@@ -10,11 +10,10 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/emails/table
 -- requires: schemas/agentic_db_auth_private/tables/session_credentials/table
 -- requires: schemas/agentic_db_memberships_public/tables/app_memberships/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION agentic_db_auth_public.sign_in (
+CREATE FUNCTION "agentic_db_auth_public".sign_in (
   email text,
   password text,
   remember_me boolean DEFAULT FALSE,
@@ -31,8 +30,8 @@ CREATE FUNCTION agentic_db_auth_public.sign_in (
 DECLARE
   v_session_id uuid;
   v_credential_id uuid;
-  v_email agentic_db_user_identifiers_public.emails;
-  v_settings agentic_db_auth_private.app_auth_settings;
+  v_email "agentic_db_user_identifiers_public".emails;
+  v_settings "agentic_db_auth_private".app_auth_settings;
   v_sign_in_attempt_window_duration interval := interval '15 minutes';
   v_sign_in_max_attempts int := 5;
   v_default_session_duration interval := interval '2 weeks';
@@ -45,11 +44,11 @@ DECLARE
   password_attempts int;
   v_plaintext_credential text;
   v_csrf_secret text;
-  v_anon_session agentic_db_auth_private.sessions;
+  v_anon_session "agentic_db_auth_private".sessions;
   
   v_session_expires_at timestamptz;
 BEGIN
-  SELECT * FROM agentic_db_auth_private.app_auth_settings LIMIT 1 INTO v_settings;
+  SELECT * FROM "agentic_db_auth_private".app_auth_settings LIMIT 1 INTO v_settings;
   v_sign_in_max_attempts := COALESCE(v_settings.max_failed_login_attempts, 5);
   v_sign_in_attempt_window_duration := COALESCE(v_settings.lockout_duration, interval '15 minutes');
   v_default_session_duration := COALESCE(v_settings.default_session_duration, interval '2 weeks');
@@ -60,7 +59,7 @@ BEGIN
   END IF;
   IF (csrf_token IS NOT NULL) THEN
     SELECT s.*
-    FROM agentic_db_auth_private.sessions AS s
+    FROM "agentic_db_auth_private".sessions AS s
     WHERE s.csrf_secret = csrf_token
       AND s.is_anonymous = true
       AND s.revoked_at IS NULL
@@ -73,15 +72,15 @@ BEGIN
   SELECT
     user_emails_alias.*
   FROM
-    agentic_db_user_identifiers_public.emails AS user_emails_alias
+    "agentic_db_user_identifiers_public".emails AS user_emails_alias
   WHERE
     user_emails_alias.email = sign_in.email::email INTO v_email;
   
   IF (NOT FOUND) THEN
     RETURN;
   END IF;
-  first_failed_password_attempt = agentic_db_simple_secrets.get(v_email.owner_id, 'first_failed_password_attempt');
-  password_attempts = agentic_db_simple_secrets.get(v_email.owner_id, 'password_attempts');
+  first_failed_password_attempt = "agentic_db_simple_secrets".get(v_email.owner_id, 'first_failed_password_attempt');
+  password_attempts = "agentic_db_simple_secrets".get(v_email.owner_id, 'password_attempts');
   IF (
     first_failed_password_attempt IS NOT NULL
       AND
@@ -95,7 +94,7 @@ BEGIN
       mem.is_verified,
       mem.is_disabled,
       mem.is_banned
-    FROM agentic_db_memberships_public.app_memberships AS mem
+    FROM "agentic_db_memberships_public".app_memberships AS mem
     WHERE mem.actor_id = v_email.owner_id
   INTO 
     v_user_is_verified,
@@ -104,12 +103,12 @@ BEGIN
   IF (v_user_is_disabled IS TRUE OR v_user_is_banned IS TRUE) THEN 
       RAISE EXCEPTION 'ACCOUNT_DISABLED';
   END IF;
-  IF ( agentic_db_encrypted.verify(v_email.owner_id, 'password_hash', PASSWORD) ) THEN
-    PERFORM agentic_db_simple_secrets.del(v_email.owner_id,
+  IF ( "agentic_db_encrypted".verify(v_email.owner_id, 'password_hash', PASSWORD) ) THEN
+    PERFORM "agentic_db_simple_secrets".del(v_email.owner_id,
     ARRAY[
       'password_attempts', 'first_failed_password_attempt'
     ]);
-    INSERT INTO agentic_db_logging_public.audit_logs 
+    INSERT INTO "agentic_db_logging_public".audit_logs 
       (actor_id, event, success)
     VALUES (
       v_email.owner_id,
@@ -117,7 +116,7 @@ BEGIN
       TRUE
     );
     IF (v_anon_session.id IS NOT NULL) THEN
-      UPDATE agentic_db_auth_private.sessions
+      UPDATE "agentic_db_auth_private".sessions
         SET revoked_at = NOW()
         WHERE id = v_anon_session.id;
     END IF;
@@ -128,7 +127,7 @@ BEGIN
     ELSE 
       v_session_expires_at := NOW() + v_default_session_duration;
     END IF;
-    INSERT INTO agentic_db_auth_private.sessions (
+    INSERT INTO "agentic_db_auth_private".sessions (
       id,
       user_id,
       is_anonymous,
@@ -150,7 +149,7 @@ BEGIN
     );
     v_plaintext_credential := encode(gen_random_bytes(48), 'hex');
     v_credential_id := uuid_generate_v5(uuid_ns_url(), v_plaintext_credential);
-    INSERT INTO agentic_db_auth_private.session_credentials (
+    INSERT INTO "agentic_db_auth_private".session_credentials (
       id,
       session_id,
       kind,
@@ -172,7 +171,7 @@ BEGIN
     totp_enabled := false;
     RETURN;
   ELSE
-   INSERT INTO agentic_db_logging_public.audit_logs 
+   INSERT INTO "agentic_db_logging_public".audit_logs 
       (actor_id, event, success)
     VALUES (
       v_email.owner_id,
@@ -192,13 +191,13 @@ BEGIN
     ELSE 
       password_attempts = password_attempts + 1;
     END IF;
-    PERFORM agentic_db_simple_secrets.set(v_email.owner_id, 'password_attempts', password_attempts);
-    PERFORM agentic_db_simple_secrets.set(v_email.owner_id, 'first_failed_password_attempt', first_failed_password_attempt);
+    PERFORM "agentic_db_simple_secrets".set(v_email.owner_id, 'password_attempts', password_attempts);
+    PERFORM "agentic_db_simple_secrets".set(v_email.owner_id, 'first_failed_password_attempt', first_failed_password_attempt);
     RETURN;
   END IF;
 END;
 $$
 LANGUAGE 'plpgsql'
 SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION agentic_db_auth_public.sign_in TO anonymous;
+GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".sign_in TO anonymous;
 

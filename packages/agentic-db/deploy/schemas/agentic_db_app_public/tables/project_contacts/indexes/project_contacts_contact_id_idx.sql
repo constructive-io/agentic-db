@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
-CREATE INDEX project_contacts_contact_id_idx ON agentic_db_app_public.project_contacts USING BTREE ( contact_id );
+CREATE INDEX project_contacts_contact_id_idx ON "agentic_db_app_public".project_contacts USING BTREE ( contact_id );
 

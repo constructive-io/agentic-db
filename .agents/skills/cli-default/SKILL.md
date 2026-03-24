@@ -1,13 +1,13 @@
 ---
 name: cli-default
-description: CLI tool (agentic-db) for the default API — provides CRUD commands for 98 tables and 0 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 114 tables and 0 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agentic-db) for the default API — provides CRUD commands for 98 tables and 0 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 114 tables and 0 custom operations
 
 ## Usage
 
@@ -64,13 +64,22 @@ See the `references/` directory for detailed per-entity API documentation:
 - [autonomy-record](references/autonomy-record.md)
 - [autonomy-record-link](references/autonomy-record-link.md)
 - [autonomy-records-chunk](references/autonomy-records-chunk.md)
+- [calendar-attendee](references/calendar-attendee.md)
+- [calendar](references/calendar.md)
+- [calendar-event](references/calendar-event.md)
+- [calendar-event-contact](references/calendar-event-contact.md)
+- [contact](references/contact.md)
+- [calendar-event-note](references/calendar-event-note.md)
+- [note](references/note.md)
+- [calendar-events-chunk](references/calendar-events-chunk.md)
+- [calendar-event-task](references/calendar-event-task.md)
+- [task](references/task.md)
 - [codebase-dependency](references/codebase-dependency.md)
 - [codebases-chunk](references/codebases-chunk.md)
 - [codebasis](references/codebasis.md)
 - [code-chunk](references/code-chunk.md)
 - [companies-chunk](references/companies-chunk.md)
 - [company](references/company.md)
-- [contact](references/contact.md)
 - [deal](references/deal.md)
 - [company-event](references/company-event.md)
 - [event](references/event.md)
@@ -80,8 +89,9 @@ See the `references/` directory for detailed per-entity API documentation:
 - [memory](references/memory.md)
 - [company-memory](references/company-memory.md)
 - [company-note](references/company-note.md)
-- [note](references/note.md)
 - [contact-company](references/contact-company.md)
+- [email](references/email.md)
+- [email-thread](references/email-thread.md)
 - [contact-event](references/contact-event.md)
 - [contact-image](references/contact-image.md)
 - [contact-link](references/contact-link.md)
@@ -90,13 +100,17 @@ See the `references/` directory for detailed per-entity API documentation:
 - [project](references/project.md)
 - [contact-relationship](references/contact-relationship.md)
 - [contacts-chunk](references/contacts-chunk.md)
-- [task](references/task.md)
 - [conversation](references/conversation.md)
 - [conversations-chunk](references/conversations-chunk.md)
 - [deal-company](references/deal-company.md)
 - [deal-contact](references/deal-contact.md)
 - [deal-note](references/deal-note.md)
 - [deals-chunk](references/deals-chunk.md)
+- [email-attachment](references/email-attachment.md)
+- [email-note](references/email-note.md)
+- [email-recipient](references/email-recipient.md)
+- [emails-chunk](references/emails-chunk.md)
+- [email-threads-chunk](references/email-threads-chunk.md)
 - [event-image](references/event-image.md)
 - [event-link](references/event-link.md)
 - [event-note](references/event-note.md)
@@ -124,6 +138,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [places-chunk](references/places-chunk.md)
 - [project-contact](references/project-contact.md)
 - [projects-chunk](references/projects-chunk.md)
+- [provider-sync-state](references/provider-sync-state.md)
 - [rule](references/rule.md)
 - [rules-chunk](references/rules-chunk.md)
 - [runtime-artifact](references/runtime-artifact.md)
@@ -145,6 +160,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [task-note](references/task-note.md)
 - [task-project](references/task-project.md)
 - [tasks-chunk](references/tasks-chunk.md)
+- [thread-participant](references/thread-participant.md)
 - [tool-execution](references/tool-execution.md)
 - [touchpoint](references/touchpoint.md)
 - [touchpoints-chunk](references/touchpoints-chunk.md)

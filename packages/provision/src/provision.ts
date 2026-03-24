@@ -70,6 +70,7 @@ async function main() {
     ['Projects',         './schemas/projects'],
     ['Codebase',         './schemas/codebase'],
     ['Life OS',          './schemas/life_os'],
+    ['Email & Calendar', './schemas/email_calendar'],
     ['Autonomy',         './schemas/autonomy'],
     ['Cross-Relations',  './schemas/cross-relations'],
   ];

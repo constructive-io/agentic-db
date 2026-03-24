@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/autonomy_record_links/table
--- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/provider_sync_states/indexes/provider_sync_states_last_sync_at_idx
 
 
-GRANT SELECT ON agentic_db_app_public.autonomy_record_links TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".autonomy_record_links TO authenticated;
 

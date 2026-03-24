@@ -2,10 +2,9 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_memberships_private/schema
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE FUNCTION agentic_db_memberships_private.org_membership_validate_not_in_hierarchy_tg() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION "agentic_db_memberships_private".org_membership_validate_not_in_hierarchy_tg() RETURNS TRIGGER AS $_PGFN_$
 
                 DECLARE
                     v_old_is_active boolean;
@@ -21,7 +20,7 @@ CREATE FUNCTION agentic_db_memberships_private.org_membership_validate_not_in_hi
                         -- Check if user is in the hierarchy for this entity
                         SELECT EXISTS (
                             SELECT 1
-                            FROM agentic_db_memberships_public.org_chart_edges e
+                            FROM "agentic_db_memberships_public".org_chart_edges e
                             WHERE e.entity_id = NEW.entity_id
                                 AND (e.child_id = NEW.actor_id OR e.parent_id = NEW.actor_id)
                         ) INTO v_in_hierarchy;

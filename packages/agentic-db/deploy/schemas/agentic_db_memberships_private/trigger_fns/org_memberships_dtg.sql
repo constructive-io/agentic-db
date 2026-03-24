@@ -2,22 +2,21 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_memberships_private/schema
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION agentic_db_memberships_private.org_memberships_dtg ()
+CREATE FUNCTION "agentic_db_memberships_private".org_memberships_dtg ()
   RETURNS TRIGGER
 AS $CODEZ$
 BEGIN
     IF (
-        SELECT count(*) = 0 FROM agentic_db_memberships_public.org_memberships 
+        SELECT count(*) = 0 FROM "agentic_db_memberships_public".org_memberships 
         WHERE is_owner = TRUE
         AND entity_id = OLD.entity_id
         AND actor_id <> OLD.actor_id
     ) THEN 
         IF (
-            SELECT count(*) > 0 FROM agentic_db_memberships_public.org_memberships 
+            SELECT count(*) > 0 FROM "agentic_db_memberships_public".org_memberships 
             WHERE entity_id = OLD.entity_id
             AND actor_id <> OLD.actor_id
         ) THEN 

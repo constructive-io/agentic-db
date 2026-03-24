@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE agentic_db_app_public.conversations_chunks 
+ALTER TABLE "agentic_db_app_public".conversations_chunks 
   ADD COLUMN created_at timestamptz;
 

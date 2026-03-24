@@ -3,10 +3,9 @@
 
 -- requires: schemas/agentic_db_memberships_public/schema
 -- requires: schemas/agentic_db_memberships_public/tables/org_memberships/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE POLICY auth_del_delete_own ON agentic_db_memberships_public.org_memberships
+CREATE POLICY auth_del_delete_own ON "agentic_db_memberships_public".org_memberships
 FOR DELETE
 TO authenticated
 USING (

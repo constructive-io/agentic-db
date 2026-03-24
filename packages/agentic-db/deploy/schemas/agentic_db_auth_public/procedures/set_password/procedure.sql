@@ -7,29 +7,28 @@
 -- requires: schemas/agentic_db_simple_secrets/tables/secrets/table
 -- requires: schemas/agentic_db_logging_public/tables/audit_logs/table
 -- requires: schemas/agentic_db_auth_public/procedures/check_password/procedure
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION agentic_db_auth_public.set_password (
+CREATE FUNCTION "agentic_db_auth_public".set_password (
   current_password text,
   new_password text
 )
   RETURNS boolean
   AS $$
 DECLARE
-  v_user agentic_db_users_public.users;
-  v_user_secret agentic_db_simple_secrets.secrets;
+  v_user "agentic_db_users_public".users;
+  v_user_secret "agentic_db_simple_secrets".secrets;
   password_exists boolean;
 BEGIN
-  PERFORM agentic_db_auth_public.check_password(
+  PERFORM "agentic_db_auth_public".check_password(
     new_password
   );
   new_password = trim(new_password);
   SELECT
     u.* INTO v_user
   FROM
-    agentic_db_users_public.users AS u
+    "agentic_db_users_public".users AS u
   WHERE
     id = jwt_public.current_user_id ();
   IF (NOT FOUND) THEN
@@ -37,13 +36,13 @@ BEGIN
   END IF;
   SELECT EXISTS (
     SELECT 1
-      FROM agentic_db_encrypted.encrypted_secrets
+      FROM "agentic_db_encrypted".encrypted_secrets
       WHERE owner_id=v_user.id
         AND name='password_hash'
   )
   INTO password_exists;
   IF (password_exists IS TRUE) THEN 
-    IF (agentic_db_encrypted.verify(
+    IF ("agentic_db_encrypted".verify(
         v_user.id,
         'password_hash',
         current_password
@@ -51,14 +50,14 @@ BEGIN
       RAISE EXCEPTION 'INCORRECT_PASSWORD';
     END IF;
   END IF;
-  INSERT INTO agentic_db_logging_public.audit_logs 
+  INSERT INTO "agentic_db_logging_public".audit_logs 
     (actor_id, event, success)
   VALUES (
     v_user.id,
     'set_password',
     TRUE
   );
-  PERFORM agentic_db_encrypted.set
+  PERFORM "agentic_db_encrypted".set
     (v_user.id, 'password_hash', new_password, 'crypt');
       
   RETURN TRUE;
@@ -66,5 +65,5 @@ END;
 $$
 LANGUAGE 'plpgsql'
 VOLATILE SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION agentic_db_auth_public.set_password TO authenticated;
+GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".set_password TO authenticated;
 

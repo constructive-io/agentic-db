@@ -3,10 +3,9 @@
 
 -- requires: schemas/agentic_db_invites_public/schema
 -- requires: schemas/agentic_db_invites_public/tables/org_invites/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE POLICY auth_upd ON agentic_db_invites_public.org_invites
+CREATE POLICY auth_upd ON "agentic_db_invites_public".org_invites
 FOR UPDATE
 TO authenticated
 USING (

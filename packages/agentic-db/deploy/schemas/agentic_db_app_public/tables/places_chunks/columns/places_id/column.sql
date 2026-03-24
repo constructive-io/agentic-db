@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-ALTER TABLE agentic_db_app_public.places_chunks 
+ALTER TABLE "agentic_db_app_public".places_chunks 
   ADD COLUMN places_id uuid;
 

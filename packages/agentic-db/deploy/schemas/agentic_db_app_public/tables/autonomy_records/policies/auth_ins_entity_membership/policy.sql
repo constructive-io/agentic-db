@@ -3,15 +3,15 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/table
--- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/provider_sync_states/indexes/provider_sync_states_last_sync_at_idx
 
 
-CREATE POLICY auth_ins_entity_membership ON agentic_db_app_public.autonomy_records
+CREATE POLICY auth_ins_entity_membership ON "agentic_db_app_public".autonomy_records
 FOR INSERT
 TO authenticated
 WITH CHECK (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM agentic_db_memberships_private.org_memberships_sprt AS org_sprt
+  FROM "agentic_db_memberships_private".org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

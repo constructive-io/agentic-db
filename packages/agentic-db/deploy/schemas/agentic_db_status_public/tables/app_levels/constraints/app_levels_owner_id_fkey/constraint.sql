@@ -4,12 +4,11 @@
 -- requires: schemas/agentic_db_status_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_status_public/tables/app_levels/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-ALTER TABLE agentic_db_status_public.app_levels 
+ALTER TABLE "agentic_db_status_public".app_levels 
   ADD CONSTRAINT app_levels_owner_id_fkey 
     FOREIGN KEY(owner_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE SET NULL;
 

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-ALTER TABLE agentic_db_app_public.memories_chunks 
+ALTER TABLE "agentic_db_app_public".memories_chunks 
   ADD COLUMN created_at timestamptz;
 

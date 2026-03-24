@@ -2,8 +2,7 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_profiles_public/schema
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA agentic_db_profiles_public GRANT USAGE ON SEQUENCES TO administrator;
+ALTER DEFAULT PRIVILEGES IN SCHEMA "agentic_db_profiles_public" GRANT USAGE ON SEQUENCES TO administrator;
 
