@@ -29,13 +29,22 @@ const db = createClient({
 | `autonomyRecord` | findMany, findOne, create, update, delete |
 | `autonomyRecordLink` | findMany, findOne, create, update, delete |
 | `autonomyRecordsChunk` | findMany, findOne, create, update, delete |
+| `calendarAttendee` | findMany, findOne, create, update, delete |
+| `calendar` | findMany, findOne, create, update, delete |
+| `calendarEvent` | findMany, findOne, create, update, delete |
+| `calendarEventContact` | findMany, findOne, create, update, delete |
+| `contact` | findMany, findOne, create, update, delete |
+| `calendarEventNote` | findMany, findOne, create, update, delete |
+| `note` | findMany, findOne, create, update, delete |
+| `calendarEventsChunk` | findMany, findOne, create, update, delete |
+| `calendarEventTask` | findMany, findOne, create, update, delete |
+| `task` | findMany, findOne, create, update, delete |
 | `codebaseDependency` | findMany, findOne, create, update, delete |
 | `codebasesChunk` | findMany, findOne, create, update, delete |
 | `codebasis` | findMany, findOne, create, update, delete |
 | `codeChunk` | findMany, findOne, create, update, delete |
 | `companiesChunk` | findMany, findOne, create, update, delete |
 | `company` | findMany, findOne, create, update, delete |
-| `contact` | findMany, findOne, create, update, delete |
 | `deal` | findMany, findOne, create, update, delete |
 | `companyEvent` | findMany, findOne, create, update, delete |
 | `event` | findMany, findOne, create, update, delete |
@@ -45,8 +54,9 @@ const db = createClient({
 | `memory` | findMany, findOne, create, update, delete |
 | `companyMemory` | findMany, findOne, create, update, delete |
 | `companyNote` | findMany, findOne, create, update, delete |
-| `note` | findMany, findOne, create, update, delete |
 | `contactCompany` | findMany, findOne, create, update, delete |
+| `email` | findMany, findOne, create, update, delete |
+| `emailThread` | findMany, findOne, create, update, delete |
 | `contactEvent` | findMany, findOne, create, update, delete |
 | `contactImage` | findMany, findOne, create, update, delete |
 | `contactLink` | findMany, findOne, create, update, delete |
@@ -55,13 +65,17 @@ const db = createClient({
 | `project` | findMany, findOne, create, update, delete |
 | `contactRelationship` | findMany, findOne, create, update, delete |
 | `contactsChunk` | findMany, findOne, create, update, delete |
-| `task` | findMany, findOne, create, update, delete |
 | `conversation` | findMany, findOne, create, update, delete |
 | `conversationsChunk` | findMany, findOne, create, update, delete |
 | `dealCompany` | findMany, findOne, create, update, delete |
 | `dealContact` | findMany, findOne, create, update, delete |
 | `dealNote` | findMany, findOne, create, update, delete |
 | `dealsChunk` | findMany, findOne, create, update, delete |
+| `emailAttachment` | findMany, findOne, create, update, delete |
+| `emailNote` | findMany, findOne, create, update, delete |
+| `emailRecipient` | findMany, findOne, create, update, delete |
+| `emailsChunk` | findMany, findOne, create, update, delete |
+| `emailThreadsChunk` | findMany, findOne, create, update, delete |
 | `eventImage` | findMany, findOne, create, update, delete |
 | `eventLink` | findMany, findOne, create, update, delete |
 | `eventNote` | findMany, findOne, create, update, delete |
@@ -89,6 +103,7 @@ const db = createClient({
 | `placesChunk` | findMany, findOne, create, update, delete |
 | `projectContact` | findMany, findOne, create, update, delete |
 | `projectsChunk` | findMany, findOne, create, update, delete |
+| `providerSyncState` | findMany, findOne, create, update, delete |
 | `rule` | findMany, findOne, create, update, delete |
 | `rulesChunk` | findMany, findOne, create, update, delete |
 | `runtimeArtifact` | findMany, findOne, create, update, delete |
@@ -110,6 +125,7 @@ const db = createClient({
 | `taskNote` | findMany, findOne, create, update, delete |
 | `taskProject` | findMany, findOne, create, update, delete |
 | `tasksChunk` | findMany, findOne, create, update, delete |
+| `threadParticipant` | findMany, findOne, create, update, delete |
 | `toolExecution` | findMany, findOne, create, update, delete |
 | `touchpoint` | findMany, findOne, create, update, delete |
 | `touchpointsChunk` | findMany, findOne, create, update, delete |
@@ -448,6 +464,444 @@ const updated = await db.autonomyRecordsChunk.update({ where: { id: '<UUID>' }, 
 const deleted = await db.autonomyRecordsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+### `db.calendarAttendee`
+
+CRUD operations for CalendarAttendee records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `calendarEventId` | UUID | Yes |
+| `contactId` | UUID | Yes |
+| `responseStatus` | String | Yes |
+| `role` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+
+**Operations:**
+
+```typescript
+// List all calendarAttendee records
+const items = await db.calendarAttendee.findMany({ select: { id: true, entityId: true, calendarEventId: true, contactId: true, responseStatus: true, role: true, createdAt: true, updatedAt: true } }).execute();
+
+// Get one by id
+const item = await db.calendarAttendee.findOne({ id: '<UUID>', select: { id: true, entityId: true, calendarEventId: true, contactId: true, responseStatus: true, role: true, createdAt: true, updatedAt: true } }).execute();
+
+// Create
+const created = await db.calendarAttendee.create({ data: { entityId: '<UUID>', calendarEventId: '<UUID>', contactId: '<UUID>', responseStatus: '<String>', role: '<String>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.calendarAttendee.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.calendarAttendee.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.calendar`
+
+CRUD operations for Calendar records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `providerAccountId` | String | Yes |
+| `providerCalendarId` | String | Yes |
+| `name` | String | Yes |
+| `color` | String | Yes |
+| `isPrimary` | Boolean | Yes |
+| `isActive` | Boolean | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+
+**Operations:**
+
+```typescript
+// List all calendar records
+const items = await db.calendar.findMany({ select: { id: true, entityId: true, providerAccountId: true, providerCalendarId: true, name: true, color: true, isPrimary: true, isActive: true, createdAt: true, updatedAt: true } }).execute();
+
+// Get one by id
+const item = await db.calendar.findOne({ id: '<UUID>', select: { id: true, entityId: true, providerAccountId: true, providerCalendarId: true, name: true, color: true, isPrimary: true, isActive: true, createdAt: true, updatedAt: true } }).execute();
+
+// Create
+const created = await db.calendar.create({ data: { entityId: '<UUID>', providerAccountId: '<String>', providerCalendarId: '<String>', name: '<String>', color: '<String>', isPrimary: '<Boolean>', isActive: '<Boolean>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.calendar.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.calendar.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.calendarEvent`
+
+CRUD operations for CalendarEvent records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `calendarId` | UUID | Yes |
+| `providerEventId` | String | Yes |
+| `title` | String | Yes |
+| `description` | String | Yes |
+| `startTime` | Datetime | Yes |
+| `endTime` | Datetime | Yes |
+| `isAllDay` | Boolean | Yes |
+| `meetingUrl` | String | Yes |
+| `organizerContactId` | UUID | Yes |
+| `recurrenceRule` | String | Yes |
+| `status` | String | Yes |
+| `tags` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `providerEventIdTrgmSimilarity` | Float | Yes |
+| `titleTrgmSimilarity` | Float | Yes |
+| `descriptionTrgmSimilarity` | Float | Yes |
+| `meetingUrlTrgmSimilarity` | Float | Yes |
+| `recurrenceRuleTrgmSimilarity` | Float | Yes |
+| `statusTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all calendarEvent records
+const items = await db.calendarEvent.findMany({ select: { id: true, entityId: true, calendarId: true, providerEventId: true, title: true, description: true, startTime: true, endTime: true, isAllDay: true, meetingUrl: true, organizerContactId: true, recurrenceRule: true, status: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerEventIdTrgmSimilarity: true, titleTrgmSimilarity: true, descriptionTrgmSimilarity: true, meetingUrlTrgmSimilarity: true, recurrenceRuleTrgmSimilarity: true, statusTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.calendarEvent.findOne({ id: '<UUID>', select: { id: true, entityId: true, calendarId: true, providerEventId: true, title: true, description: true, startTime: true, endTime: true, isAllDay: true, meetingUrl: true, organizerContactId: true, recurrenceRule: true, status: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerEventIdTrgmSimilarity: true, titleTrgmSimilarity: true, descriptionTrgmSimilarity: true, meetingUrlTrgmSimilarity: true, recurrenceRuleTrgmSimilarity: true, statusTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.calendarEvent.create({ data: { entityId: '<UUID>', calendarId: '<UUID>', providerEventId: '<String>', title: '<String>', description: '<String>', startTime: '<Datetime>', endTime: '<Datetime>', isAllDay: '<Boolean>', meetingUrl: '<String>', organizerContactId: '<UUID>', recurrenceRule: '<String>', status: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', providerEventIdTrgmSimilarity: '<Float>', titleTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', meetingUrlTrgmSimilarity: '<Float>', recurrenceRuleTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.calendarEvent.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.calendarEvent.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.calendarEventContact`
+
+CRUD operations for CalendarEventContact records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `calendarEventId` | UUID | Yes |
+| `contactId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all calendarEventContact records
+const items = await db.calendarEventContact.findMany({ select: { calendarEventId: true, contactId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.calendarEventContact.findOne({ id: '<UUID>', select: { calendarEventId: true, contactId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.calendarEventContact.create({ data: { calendarEventId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.calendarEventContact.update({ where: { id: '<UUID>' }, data: { calendarEventId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.calendarEventContact.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.contact`
+
+CRUD operations for Contact records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `firstName` | String | Yes |
+| `lastName` | String | Yes |
+| `email` | String | Yes |
+| `phone` | String | Yes |
+| `headline` | String | Yes |
+| `bio` | String | Yes |
+| `location` | String | Yes |
+| `birthday` | Date | Yes |
+| `relationshipType` | String | Yes |
+| `howWeMet` | String | Yes |
+| `twitterHandle` | String | Yes |
+| `linkedinUrl` | String | Yes |
+| `githubUsername` | String | Yes |
+| `instagramHandle` | String | Yes |
+| `website` | String | Yes |
+| `tags` | String | Yes |
+| `mainImageId` | UUID | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `searchTsv` | FullText | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `searchTsvRank` | Float | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `firstNameTrgmSimilarity` | Float | Yes |
+| `lastNameTrgmSimilarity` | Float | Yes |
+| `emailTrgmSimilarity` | Float | Yes |
+| `phoneTrgmSimilarity` | Float | Yes |
+| `headlineTrgmSimilarity` | Float | Yes |
+| `bioTrgmSimilarity` | Float | Yes |
+| `locationTrgmSimilarity` | Float | Yes |
+| `relationshipTypeTrgmSimilarity` | Float | Yes |
+| `howWeMetTrgmSimilarity` | Float | Yes |
+| `twitterHandleTrgmSimilarity` | Float | Yes |
+| `linkedinUrlTrgmSimilarity` | Float | Yes |
+| `githubUsernameTrgmSimilarity` | Float | Yes |
+| `instagramHandleTrgmSimilarity` | Float | Yes |
+| `websiteTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all contact records
+const items = await db.contact.findMany({ select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipType: true, howWeMet: true, twitterHandle: true, linkedinUrl: true, githubUsername: true, instagramHandle: true, website: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, relationshipTypeTrgmSimilarity: true, howWeMetTrgmSimilarity: true, twitterHandleTrgmSimilarity: true, linkedinUrlTrgmSimilarity: true, githubUsernameTrgmSimilarity: true, instagramHandleTrgmSimilarity: true, websiteTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.contact.findOne({ id: '<UUID>', select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipType: true, howWeMet: true, twitterHandle: true, linkedinUrl: true, githubUsername: true, instagramHandle: true, website: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, relationshipTypeTrgmSimilarity: true, howWeMetTrgmSimilarity: true, twitterHandleTrgmSimilarity: true, linkedinUrlTrgmSimilarity: true, githubUsernameTrgmSimilarity: true, instagramHandleTrgmSimilarity: true, websiteTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.contact.create({ data: { entityId: '<UUID>', firstName: '<String>', lastName: '<String>', email: '<String>', phone: '<String>', headline: '<String>', bio: '<String>', location: '<String>', birthday: '<Date>', relationshipType: '<String>', howWeMet: '<String>', twitterHandle: '<String>', linkedinUrl: '<String>', githubUsername: '<String>', instagramHandle: '<String>', website: '<String>', tags: '<String>', mainImageId: '<UUID>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', firstNameTrgmSimilarity: '<Float>', lastNameTrgmSimilarity: '<Float>', emailTrgmSimilarity: '<Float>', phoneTrgmSimilarity: '<Float>', headlineTrgmSimilarity: '<Float>', bioTrgmSimilarity: '<Float>', locationTrgmSimilarity: '<Float>', relationshipTypeTrgmSimilarity: '<Float>', howWeMetTrgmSimilarity: '<Float>', twitterHandleTrgmSimilarity: '<Float>', linkedinUrlTrgmSimilarity: '<Float>', githubUsernameTrgmSimilarity: '<Float>', instagramHandleTrgmSimilarity: '<Float>', websiteTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.contact.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.contact.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.calendarEventNote`
+
+CRUD operations for CalendarEventNote records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `calendarEventId` | UUID | Yes |
+| `noteId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all calendarEventNote records
+const items = await db.calendarEventNote.findMany({ select: { calendarEventId: true, noteId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.calendarEventNote.findOne({ id: '<UUID>', select: { calendarEventId: true, noteId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.calendarEventNote.create({ data: { calendarEventId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.calendarEventNote.update({ where: { id: '<UUID>' }, data: { calendarEventId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.calendarEventNote.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.note`
+
+CRUD operations for Note records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `content` | String | Yes |
+| `abstract` | String | Yes |
+| `overview` | String | Yes |
+| `activeCount` | Int | Yes |
+| `lastAccessedAt` | Datetime | Yes |
+| `tags` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `contentBm25Score` | Float | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `contentTrgmSimilarity` | Float | Yes |
+| `abstractTrgmSimilarity` | Float | Yes |
+| `overviewTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all note records
+const items = await db.note.findMany({ select: { id: true, entityId: true, content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, contentBm25Score: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.note.findOne({ id: '<UUID>', select: { id: true, entityId: true, content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, contentBm25Score: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.note.create({ data: { entityId: '<UUID>', content: '<String>', abstract: '<String>', overview: '<String>', activeCount: '<Int>', lastAccessedAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', contentBm25Score: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', contentTrgmSimilarity: '<Float>', abstractTrgmSimilarity: '<Float>', overviewTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.note.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.note.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.calendarEventsChunk`
+
+CRUD operations for CalendarEventsChunk records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `calendarEventsId` | UUID | Yes |
+| `content` | String | Yes |
+| `chunkIndex` | Int | Yes |
+| `embedding` | Vector | Yes |
+| `metadata` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingVectorDistance` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all calendarEventsChunk records
+const items = await db.calendarEventsChunk.findMany({ select: { id: true, calendarEventsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.calendarEventsChunk.findOne({ id: '<UUID>', select: { id: true, calendarEventsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.calendarEventsChunk.create({ data: { calendarEventsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.calendarEventsChunk.update({ where: { id: '<UUID>' }, data: { calendarEventsId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.calendarEventsChunk.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.calendarEventTask`
+
+CRUD operations for CalendarEventTask records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `calendarEventId` | UUID | Yes |
+| `taskId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all calendarEventTask records
+const items = await db.calendarEventTask.findMany({ select: { calendarEventId: true, taskId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.calendarEventTask.findOne({ id: '<UUID>', select: { calendarEventId: true, taskId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.calendarEventTask.create({ data: { calendarEventId: '<UUID>', taskId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.calendarEventTask.update({ where: { id: '<UUID>' }, data: { calendarEventId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.calendarEventTask.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.task`
+
+CRUD operations for Task records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `agentId` | UUID | Yes |
+| `title` | String | Yes |
+| `description` | String | Yes |
+| `status` | String | Yes |
+| `priority` | Int | Yes |
+| `result` | String | Yes |
+| `startedAt` | Datetime | Yes |
+| `completedAt` | Datetime | Yes |
+| `meta` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `titleTrgmSimilarity` | Float | Yes |
+| `descriptionTrgmSimilarity` | Float | Yes |
+| `statusTrgmSimilarity` | Float | Yes |
+| `resultTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all task records
+const items = await db.task.findMany({ select: { id: true, entityId: true, agentId: true, title: true, description: true, status: true, priority: true, result: true, startedAt: true, completedAt: true, meta: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, descriptionTrgmSimilarity: true, statusTrgmSimilarity: true, resultTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.task.findOne({ id: '<UUID>', select: { id: true, entityId: true, agentId: true, title: true, description: true, status: true, priority: true, result: true, startedAt: true, completedAt: true, meta: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, descriptionTrgmSimilarity: true, statusTrgmSimilarity: true, resultTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.task.create({ data: { entityId: '<UUID>', agentId: '<UUID>', title: '<String>', description: '<String>', status: '<String>', priority: '<Int>', result: '<String>', startedAt: '<Datetime>', completedAt: '<Datetime>', meta: '<JSON>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', resultTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.task.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.task.delete({ where: { id: '<UUID>' } }).execute();
+```
+
 ### `db.codebaseDependency`
 
 CRUD operations for CodebaseDependency records.
@@ -712,78 +1166,6 @@ const updated = await db.company.update({ where: { id: '<UUID>' }, data: { entit
 
 // Delete
 const deleted = await db.company.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.contact`
-
-CRUD operations for Contact records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `firstName` | String | Yes |
-| `lastName` | String | Yes |
-| `email` | String | Yes |
-| `phone` | String | Yes |
-| `headline` | String | Yes |
-| `bio` | String | Yes |
-| `location` | String | Yes |
-| `birthday` | Date | Yes |
-| `relationshipType` | String | Yes |
-| `howWeMet` | String | Yes |
-| `twitterHandle` | String | Yes |
-| `linkedinUrl` | String | Yes |
-| `githubUsername` | String | Yes |
-| `instagramHandle` | String | Yes |
-| `website` | String | Yes |
-| `tags` | String | Yes |
-| `mainImageId` | UUID | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingText` | String | Yes |
-| `searchTsv` | FullText | Yes |
-| `embedding` | Vector | Yes |
-| `embeddingStale` | Boolean | Yes |
-| `searchTsvRank` | Float | Yes |
-| `embeddingTextBm25Score` | Float | Yes |
-| `embeddingVectorDistance` | Float | Yes |
-| `firstNameTrgmSimilarity` | Float | Yes |
-| `lastNameTrgmSimilarity` | Float | Yes |
-| `emailTrgmSimilarity` | Float | Yes |
-| `phoneTrgmSimilarity` | Float | Yes |
-| `headlineTrgmSimilarity` | Float | Yes |
-| `bioTrgmSimilarity` | Float | Yes |
-| `locationTrgmSimilarity` | Float | Yes |
-| `relationshipTypeTrgmSimilarity` | Float | Yes |
-| `howWeMetTrgmSimilarity` | Float | Yes |
-| `twitterHandleTrgmSimilarity` | Float | Yes |
-| `linkedinUrlTrgmSimilarity` | Float | Yes |
-| `githubUsernameTrgmSimilarity` | Float | Yes |
-| `instagramHandleTrgmSimilarity` | Float | Yes |
-| `websiteTrgmSimilarity` | Float | Yes |
-| `embeddingTextTrgmSimilarity` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all contact records
-const items = await db.contact.findMany({ select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipType: true, howWeMet: true, twitterHandle: true, linkedinUrl: true, githubUsername: true, instagramHandle: true, website: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, relationshipTypeTrgmSimilarity: true, howWeMetTrgmSimilarity: true, twitterHandleTrgmSimilarity: true, linkedinUrlTrgmSimilarity: true, githubUsernameTrgmSimilarity: true, instagramHandleTrgmSimilarity: true, websiteTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.contact.findOne({ id: '<UUID>', select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipType: true, howWeMet: true, twitterHandle: true, linkedinUrl: true, githubUsername: true, instagramHandle: true, website: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, relationshipTypeTrgmSimilarity: true, howWeMetTrgmSimilarity: true, twitterHandleTrgmSimilarity: true, linkedinUrlTrgmSimilarity: true, githubUsernameTrgmSimilarity: true, instagramHandleTrgmSimilarity: true, websiteTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.contact.create({ data: { entityId: '<UUID>', firstName: '<String>', lastName: '<String>', email: '<String>', phone: '<String>', headline: '<String>', bio: '<String>', location: '<String>', birthday: '<Date>', relationshipType: '<String>', howWeMet: '<String>', twitterHandle: '<String>', linkedinUrl: '<String>', githubUsername: '<String>', instagramHandle: '<String>', website: '<String>', tags: '<String>', mainImageId: '<UUID>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', firstNameTrgmSimilarity: '<Float>', lastNameTrgmSimilarity: '<Float>', emailTrgmSimilarity: '<Float>', phoneTrgmSimilarity: '<Float>', headlineTrgmSimilarity: '<Float>', bioTrgmSimilarity: '<Float>', locationTrgmSimilarity: '<Float>', relationshipTypeTrgmSimilarity: '<Float>', howWeMetTrgmSimilarity: '<Float>', twitterHandleTrgmSimilarity: '<Float>', linkedinUrlTrgmSimilarity: '<Float>', githubUsernameTrgmSimilarity: '<Float>', instagramHandleTrgmSimilarity: '<Float>', websiteTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.contact.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.contact.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.deal`
@@ -1149,55 +1531,6 @@ const updated = await db.companyNote.update({ where: { id: '<UUID>' }, data: { c
 const deleted = await db.companyNote.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.note`
-
-CRUD operations for Note records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `content` | String | Yes |
-| `abstract` | String | Yes |
-| `overview` | String | Yes |
-| `activeCount` | Int | Yes |
-| `lastAccessedAt` | Datetime | Yes |
-| `tags` | String | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingText` | String | Yes |
-| `embedding` | Vector | Yes |
-| `embeddingStale` | Boolean | Yes |
-| `contentBm25Score` | Float | Yes |
-| `embeddingTextBm25Score` | Float | Yes |
-| `embeddingVectorDistance` | Float | Yes |
-| `contentTrgmSimilarity` | Float | Yes |
-| `abstractTrgmSimilarity` | Float | Yes |
-| `overviewTrgmSimilarity` | Float | Yes |
-| `embeddingTextTrgmSimilarity` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all note records
-const items = await db.note.findMany({ select: { id: true, entityId: true, content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, contentBm25Score: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.note.findOne({ id: '<UUID>', select: { id: true, entityId: true, content: true, abstract: true, overview: true, activeCount: true, lastAccessedAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, contentBm25Score: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, contentTrgmSimilarity: true, abstractTrgmSimilarity: true, overviewTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.note.create({ data: { entityId: '<UUID>', content: '<String>', abstract: '<String>', overview: '<String>', activeCount: '<Int>', lastAccessedAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', contentBm25Score: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', contentTrgmSimilarity: '<Float>', abstractTrgmSimilarity: '<Float>', overviewTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.note.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.note.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.contactCompany`
 
 CRUD operations for ContactCompany records.
@@ -1228,6 +1561,114 @@ const updated = await db.contactCompany.update({ where: { id: '<UUID>' }, data: 
 
 // Delete
 const deleted = await db.contactCompany.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.email`
+
+CRUD operations for Email records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `threadId` | UUID | Yes |
+| `providerMessageId` | String | Yes |
+| `fromContactId` | UUID | Yes |
+| `subject` | String | Yes |
+| `bodyText` | String | Yes |
+| `bodyHtml` | String | Yes |
+| `sentAt` | Datetime | Yes |
+| `toRecipients` | JSON | Yes |
+| `ccRecipients` | JSON | Yes |
+| `bccRecipients` | JSON | Yes |
+| `isDraft` | Boolean | Yes |
+| `isRead` | Boolean | Yes |
+| `tags` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `searchTsv` | FullText | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `emailThreadId` | UUID | Yes |
+| `searchTsvRank` | Float | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `providerMessageIdTrgmSimilarity` | Float | Yes |
+| `subjectTrgmSimilarity` | Float | Yes |
+| `bodyTextTrgmSimilarity` | Float | Yes |
+| `bodyHtmlTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all email records
+const items = await db.email.findMany({ select: { id: true, entityId: true, threadId: true, providerMessageId: true, fromContactId: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, toRecipients: true, ccRecipients: true, bccRecipients: true, isDraft: true, isRead: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerMessageIdTrgmSimilarity: true, subjectTrgmSimilarity: true, bodyTextTrgmSimilarity: true, bodyHtmlTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.email.findOne({ id: '<UUID>', select: { id: true, entityId: true, threadId: true, providerMessageId: true, fromContactId: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, toRecipients: true, ccRecipients: true, bccRecipients: true, isDraft: true, isRead: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerMessageIdTrgmSimilarity: true, subjectTrgmSimilarity: true, bodyTextTrgmSimilarity: true, bodyHtmlTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.email.create({ data: { entityId: '<UUID>', threadId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', toRecipients: '<JSON>', ccRecipients: '<JSON>', bccRecipients: '<JSON>', isDraft: '<Boolean>', isRead: '<Boolean>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', providerMessageIdTrgmSimilarity: '<Float>', subjectTrgmSimilarity: '<Float>', bodyTextTrgmSimilarity: '<Float>', bodyHtmlTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.email.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.email.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.emailThread`
+
+CRUD operations for EmailThread records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `providerThreadId` | String | Yes |
+| `subject` | String | Yes |
+| `lastMessageAt` | Datetime | Yes |
+| `summary` | String | Yes |
+| `status` | String | Yes |
+| `tags` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `providerThreadIdTrgmSimilarity` | Float | Yes |
+| `subjectTrgmSimilarity` | Float | Yes |
+| `summaryTrgmSimilarity` | Float | Yes |
+| `statusTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all emailThread records
+const items = await db.emailThread.findMany({ select: { id: true, entityId: true, providerThreadId: true, subject: true, lastMessageAt: true, summary: true, status: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerThreadIdTrgmSimilarity: true, subjectTrgmSimilarity: true, summaryTrgmSimilarity: true, statusTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.emailThread.findOne({ id: '<UUID>', select: { id: true, entityId: true, providerThreadId: true, subject: true, lastMessageAt: true, summary: true, status: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerThreadIdTrgmSimilarity: true, subjectTrgmSimilarity: true, summaryTrgmSimilarity: true, statusTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.emailThread.create({ data: { entityId: '<UUID>', providerThreadId: '<String>', subject: '<String>', lastMessageAt: '<Datetime>', summary: '<String>', status: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', providerThreadIdTrgmSimilarity: '<Float>', subjectTrgmSimilarity: '<Float>', summaryTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.emailThread.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.emailThread.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.contactEvent`
@@ -1519,58 +1960,6 @@ const updated = await db.contactsChunk.update({ where: { id: '<UUID>' }, data: {
 const deleted = await db.contactsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.task`
-
-CRUD operations for Task records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `agentId` | UUID | Yes |
-| `title` | String | Yes |
-| `description` | String | Yes |
-| `status` | String | Yes |
-| `priority` | Int | Yes |
-| `result` | String | Yes |
-| `startedAt` | Datetime | Yes |
-| `completedAt` | Datetime | Yes |
-| `meta` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingText` | String | Yes |
-| `embedding` | Vector | Yes |
-| `embeddingStale` | Boolean | Yes |
-| `embeddingTextBm25Score` | Float | Yes |
-| `embeddingVectorDistance` | Float | Yes |
-| `titleTrgmSimilarity` | Float | Yes |
-| `descriptionTrgmSimilarity` | Float | Yes |
-| `statusTrgmSimilarity` | Float | Yes |
-| `resultTrgmSimilarity` | Float | Yes |
-| `embeddingTextTrgmSimilarity` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all task records
-const items = await db.task.findMany({ select: { id: true, entityId: true, agentId: true, title: true, description: true, status: true, priority: true, result: true, startedAt: true, completedAt: true, meta: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, descriptionTrgmSimilarity: true, statusTrgmSimilarity: true, resultTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.task.findOne({ id: '<UUID>', select: { id: true, entityId: true, agentId: true, title: true, description: true, status: true, priority: true, result: true, startedAt: true, completedAt: true, meta: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, descriptionTrgmSimilarity: true, statusTrgmSimilarity: true, resultTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.task.create({ data: { entityId: '<UUID>', agentId: '<UUID>', title: '<String>', description: '<String>', status: '<String>', priority: '<Int>', result: '<String>', startedAt: '<Datetime>', completedAt: '<Datetime>', meta: '<JSON>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', resultTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.task.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.task.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.conversation`
 
 CRUD operations for Conversation records.
@@ -1786,6 +2175,184 @@ const updated = await db.dealsChunk.update({ where: { id: '<UUID>' }, data: { de
 
 // Delete
 const deleted = await db.dealsChunk.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.emailAttachment`
+
+CRUD operations for EmailAttachment records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `emailId` | UUID | Yes |
+| `filename` | String | Yes |
+| `contentType` | String | Yes |
+| `sizeBytes` | Int | Yes |
+| `storageUrl` | String | Yes |
+| `meta` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+
+**Operations:**
+
+```typescript
+// List all emailAttachment records
+const items = await db.emailAttachment.findMany({ select: { id: true, entityId: true, emailId: true, filename: true, contentType: true, sizeBytes: true, storageUrl: true, meta: true, createdAt: true, updatedAt: true } }).execute();
+
+// Get one by id
+const item = await db.emailAttachment.findOne({ id: '<UUID>', select: { id: true, entityId: true, emailId: true, filename: true, contentType: true, sizeBytes: true, storageUrl: true, meta: true, createdAt: true, updatedAt: true } }).execute();
+
+// Create
+const created = await db.emailAttachment.create({ data: { entityId: '<UUID>', emailId: '<UUID>', filename: '<String>', contentType: '<String>', sizeBytes: '<Int>', storageUrl: '<String>', meta: '<JSON>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.emailAttachment.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.emailAttachment.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.emailNote`
+
+CRUD operations for EmailNote records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `emailId` | UUID | Yes |
+| `noteId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all emailNote records
+const items = await db.emailNote.findMany({ select: { emailId: true, noteId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.emailNote.findOne({ id: '<UUID>', select: { emailId: true, noteId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.emailNote.create({ data: { emailId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.emailNote.update({ where: { id: '<UUID>' }, data: { emailId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.emailNote.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.emailRecipient`
+
+CRUD operations for EmailRecipient records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `emailId` | UUID | Yes |
+| `contactId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all emailRecipient records
+const items = await db.emailRecipient.findMany({ select: { emailId: true, contactId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.emailRecipient.findOne({ id: '<UUID>', select: { emailId: true, contactId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.emailRecipient.create({ data: { emailId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.emailRecipient.update({ where: { id: '<UUID>' }, data: { emailId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.emailRecipient.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.emailsChunk`
+
+CRUD operations for EmailsChunk records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `emailsId` | UUID | Yes |
+| `content` | String | Yes |
+| `chunkIndex` | Int | Yes |
+| `embedding` | Vector | Yes |
+| `metadata` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingVectorDistance` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all emailsChunk records
+const items = await db.emailsChunk.findMany({ select: { id: true, emailsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.emailsChunk.findOne({ id: '<UUID>', select: { id: true, emailsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.emailsChunk.create({ data: { emailsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.emailsChunk.update({ where: { id: '<UUID>' }, data: { emailsId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.emailsChunk.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.emailThreadsChunk`
+
+CRUD operations for EmailThreadsChunk records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `emailThreadsId` | UUID | Yes |
+| `content` | String | Yes |
+| `chunkIndex` | Int | Yes |
+| `embedding` | Vector | Yes |
+| `metadata` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingVectorDistance` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all emailThreadsChunk records
+const items = await db.emailThreadsChunk.findMany({ select: { id: true, emailThreadsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.emailThreadsChunk.findOne({ id: '<UUID>', select: { id: true, emailThreadsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.emailThreadsChunk.create({ data: { emailThreadsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.emailThreadsChunk.update({ where: { id: '<UUID>' }, data: { emailThreadsId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.emailThreadsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.eventImage`
@@ -2915,6 +3482,45 @@ const updated = await db.projectsChunk.update({ where: { id: '<UUID>' }, data: {
 const deleted = await db.projectsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+### `db.providerSyncState`
+
+CRUD operations for ProviderSyncState records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `provider` | String | Yes |
+| `resourceType` | String | Yes |
+| `syncCursor` | String | Yes |
+| `lastSyncAt` | Datetime | Yes |
+| `status` | String | Yes |
+| `errorMessage` | String | Yes |
+| `config` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+
+**Operations:**
+
+```typescript
+// List all providerSyncState records
+const items = await db.providerSyncState.findMany({ select: { id: true, entityId: true, provider: true, resourceType: true, syncCursor: true, lastSyncAt: true, status: true, errorMessage: true, config: true, createdAt: true, updatedAt: true } }).execute();
+
+// Get one by id
+const item = await db.providerSyncState.findOne({ id: '<UUID>', select: { id: true, entityId: true, provider: true, resourceType: true, syncCursor: true, lastSyncAt: true, status: true, errorMessage: true, config: true, createdAt: true, updatedAt: true } }).execute();
+
+// Create
+const created = await db.providerSyncState.create({ data: { entityId: '<UUID>', provider: '<String>', resourceType: '<String>', syncCursor: '<String>', lastSyncAt: '<Datetime>', status: '<String>', errorMessage: '<String>', config: '<JSON>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.providerSyncState.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.providerSyncState.delete({ where: { id: '<UUID>' } }).execute();
+```
+
 ### `db.rule`
 
 CRUD operations for Rule records.
@@ -3728,6 +4334,38 @@ const updated = await db.tasksChunk.update({ where: { id: '<UUID>' }, data: { ta
 
 // Delete
 const deleted = await db.tasksChunk.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.threadParticipant`
+
+CRUD operations for ThreadParticipant records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `emailThreadId` | UUID | Yes |
+| `contactId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all threadParticipant records
+const items = await db.threadParticipant.findMany({ select: { emailThreadId: true, contactId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.threadParticipant.findOne({ id: '<UUID>', select: { emailThreadId: true, contactId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.threadParticipant.create({ data: { emailThreadId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.threadParticipant.update({ where: { id: '<UUID>' }, data: { emailThreadId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.threadParticipant.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.toolExecution`

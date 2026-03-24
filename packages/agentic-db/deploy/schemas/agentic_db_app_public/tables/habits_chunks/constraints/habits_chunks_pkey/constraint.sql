@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-ALTER TABLE agentic_db_app_public.habits_chunks 
+ALTER TABLE "agentic_db_app_public".habits_chunks 
   ADD CONSTRAINT habits_chunks_pkey PRIMARY KEY (id);
 

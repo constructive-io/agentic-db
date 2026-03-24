@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_states_chunks/columns/updated_at/column
 
 
-CREATE INDEX runtime_states_chunks_updated_at_idx ON agentic_db_app_public.runtime_states_chunks ( updated_at );
+CREATE INDEX runtime_states_chunks_updated_at_idx ON "agentic_db_app_public".runtime_states_chunks ( updated_at );
 

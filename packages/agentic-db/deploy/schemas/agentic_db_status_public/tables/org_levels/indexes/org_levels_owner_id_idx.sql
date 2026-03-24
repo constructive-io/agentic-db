@@ -3,9 +3,8 @@
 
 -- requires: schemas/agentic_db_status_public/schema
 -- requires: schemas/agentic_db_status_public/tables/org_levels/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_status_public/tables/org_levels/columns/owner_id/column
 
 
-CREATE INDEX org_levels_owner_id_idx ON agentic_db_status_public.org_levels USING BTREE ( owner_id );
+CREATE INDEX org_levels_owner_id_idx ON "agentic_db_status_public".org_levels USING BTREE ( owner_id );
 

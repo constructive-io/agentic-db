@@ -3,9 +3,8 @@
 
 -- requires: schemas/agentic_db_logging_public/schema
 -- requires: schemas/agentic_db_logging_public/tables/audit_logs/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-ALTER TABLE agentic_db_logging_public.audit_logs 
+ALTER TABLE "agentic_db_logging_public".audit_logs 
   ENABLE ROW LEVEL SECURITY;
 

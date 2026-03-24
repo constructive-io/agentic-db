@@ -3,10 +3,9 @@
 
 -- requires: schemas/agentic_db_encrypted/schema
 -- requires: schemas/agentic_db_encrypted/tables/encrypted_secrets/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE POLICY auth_ins ON agentic_db_encrypted.encrypted_secrets
+CREATE POLICY auth_ins ON "agentic_db_encrypted".encrypted_secrets
 FOR INSERT
 TO authenticated
 WITH CHECK (

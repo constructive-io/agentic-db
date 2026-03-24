@@ -2,11 +2,10 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_memberships_private/schema
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION agentic_db_memberships_private.org_memberships_utg ()
+CREATE FUNCTION "agentic_db_memberships_private".org_memberships_utg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE

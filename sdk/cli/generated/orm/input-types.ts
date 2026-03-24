@@ -379,6 +379,231 @@ export interface AutonomyRecordsChunk {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface CalendarAttendee {
+  id: string;
+  entityId?: string | null;
+  calendarEventId?: string | null;
+  contactId?: string | null;
+  responseStatus?: string | null;
+  role?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface Calendar {
+  id: string;
+  entityId?: string | null;
+  providerAccountId?: string | null;
+  providerCalendarId?: string | null;
+  name?: string | null;
+  color?: string | null;
+  isPrimary?: boolean | null;
+  isActive?: boolean | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface CalendarEvent {
+  id: string;
+  entityId?: string | null;
+  calendarId?: string | null;
+  providerEventId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  startTime?: string | null;
+  endTime?: string | null;
+  isAllDay?: boolean | null;
+  meetingUrl?: string | null;
+  organizerContactId?: string | null;
+  recurrenceRule?: string | null;
+  status?: string | null;
+  tags?: string[] | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `providerEventId`. Returns null when no trgm search filter is active. */
+  providerEventIdTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `meetingUrl`. Returns null when no trgm search filter is active. */
+  meetingUrlTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `recurrenceRule`. Returns null when no trgm search filter is active. */
+  recurrenceRuleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface CalendarEventContact {
+  calendarEventId?: string | null;
+  contactId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
+export interface Contact {
+  id: string;
+  entityId?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  headline?: string | null;
+  bio?: string | null;
+  location?: string | null;
+  birthday?: string | null;
+  relationshipType?: string | null;
+  howWeMet?: string | null;
+  twitterHandle?: string | null;
+  linkedinUrl?: string | null;
+  githubUsername?: string | null;
+  instagramHandle?: string | null;
+  website?: string | null;
+  tags?: string[] | null;
+  mainImageId?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  searchTsv?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
+  searchTsvRank?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `firstName`. Returns null when no trgm search filter is active. */
+  firstNameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `lastName`. Returns null when no trgm search filter is active. */
+  lastNameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `email`. Returns null when no trgm search filter is active. */
+  emailTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `phone`. Returns null when no trgm search filter is active. */
+  phoneTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `headline`. Returns null when no trgm search filter is active. */
+  headlineTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `bio`. Returns null when no trgm search filter is active. */
+  bioTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `location`. Returns null when no trgm search filter is active. */
+  locationTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `relationshipType`. Returns null when no trgm search filter is active. */
+  relationshipTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `howWeMet`. Returns null when no trgm search filter is active. */
+  howWeMetTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `twitterHandle`. Returns null when no trgm search filter is active. */
+  twitterHandleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `linkedinUrl`. Returns null when no trgm search filter is active. */
+  linkedinUrlTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `githubUsername`. Returns null when no trgm search filter is active. */
+  githubUsernameTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `instagramHandle`. Returns null when no trgm search filter is active. */
+  instagramHandleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `website`. Returns null when no trgm search filter is active. */
+  websiteTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface CalendarEventNote {
+  calendarEventId?: string | null;
+  noteId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
+export interface Note {
+  id: string;
+  entityId?: string | null;
+  content?: string | null;
+  abstract?: string | null;
+  overview?: string | null;
+  activeCount?: number | null;
+  lastAccessedAt?: string | null;
+  tags?: string[] | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
+  contentBm25Score?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
+  contentTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `abstract`. Returns null when no trgm search filter is active. */
+  abstractTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `overview`. Returns null when no trgm search filter is active. */
+  overviewTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface CalendarEventsChunk {
+  id: string;
+  calendarEventsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface CalendarEventTask {
+  calendarEventId?: string | null;
+  taskId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
+export interface Task {
+  id: string;
+  entityId?: string | null;
+  agentId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  status?: string | null;
+  priority?: number | null;
+  result?: string | null;
+  startedAt?: string | null;
+  completedAt?: string | null;
+  meta?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `result`. Returns null when no trgm search filter is active. */
+  resultTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface CodebaseDependency {
   codebasisId?: string | null;
   id: string;
@@ -516,71 +741,6 @@ export interface Company {
   industryTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
   descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface Contact {
-  id: string;
-  entityId?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  email?: string | null;
-  phone?: string | null;
-  headline?: string | null;
-  bio?: string | null;
-  location?: string | null;
-  birthday?: string | null;
-  relationshipType?: string | null;
-  howWeMet?: string | null;
-  twitterHandle?: string | null;
-  linkedinUrl?: string | null;
-  githubUsername?: string | null;
-  instagramHandle?: string | null;
-  website?: string | null;
-  tags?: string[] | null;
-  mainImageId?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  searchTsv?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
-  searchTsvRank?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `firstName`. Returns null when no trgm search filter is active. */
-  firstNameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `lastName`. Returns null when no trgm search filter is active. */
-  lastNameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `email`. Returns null when no trgm search filter is active. */
-  emailTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `phone`. Returns null when no trgm search filter is active. */
-  phoneTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `headline`. Returns null when no trgm search filter is active. */
-  headlineTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `bio`. Returns null when no trgm search filter is active. */
-  bioTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `location`. Returns null when no trgm search filter is active. */
-  locationTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `relationshipType`. Returns null when no trgm search filter is active. */
-  relationshipTypeTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `howWeMet`. Returns null when no trgm search filter is active. */
-  howWeMetTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `twitterHandle`. Returns null when no trgm search filter is active. */
-  twitterHandleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `linkedinUrl`. Returns null when no trgm search filter is active. */
-  linkedinUrlTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `githubUsername`. Returns null when no trgm search filter is active. */
-  githubUsernameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `instagramHandle`. Returns null when no trgm search filter is active. */
-  instagramHandleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `website`. Returns null when no trgm search filter is active. */
-  websiteTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
@@ -745,42 +905,84 @@ export interface CompanyNote {
   id: string;
   entityId?: string | null;
 }
-export interface Note {
+export interface ContactCompany {
+  contactId?: string | null;
+  companyId?: string | null;
   id: string;
   entityId?: string | null;
-  content?: string | null;
-  abstract?: string | null;
-  overview?: string | null;
-  activeCount?: number | null;
-  lastAccessedAt?: string | null;
+}
+export interface Email {
+  id: string;
+  entityId?: string | null;
+  threadId?: string | null;
+  providerMessageId?: string | null;
+  fromContactId?: string | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  bodyHtml?: string | null;
+  sentAt?: string | null;
+  toRecipients?: Record<string, unknown> | null;
+  ccRecipients?: Record<string, unknown> | null;
+  bccRecipients?: Record<string, unknown> | null;
+  isDraft?: boolean | null;
+  isRead?: boolean | null;
+  tags?: string[] | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  searchTsv?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  emailThreadId?: string | null;
+  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
+  searchTsvRank?: number | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `providerMessageId`. Returns null when no trgm search filter is active. */
+  providerMessageIdTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `subject`. Returns null when no trgm search filter is active. */
+  subjectTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `bodyText`. Returns null when no trgm search filter is active. */
+  bodyTextTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `bodyHtml`. Returns null when no trgm search filter is active. */
+  bodyHtmlTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface EmailThread {
+  id: string;
+  entityId?: string | null;
+  providerThreadId?: string | null;
+  subject?: string | null;
+  lastMessageAt?: string | null;
+  summary?: string | null;
+  status?: string | null;
   tags?: string[] | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  /** BM25 score when searching `content`. Returns null when no bm25 search filter is active. */
-  contentBm25Score?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `content`. Returns null when no trgm search filter is active. */
-  contentTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `abstract`. Returns null when no trgm search filter is active. */
-  abstractTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `overview`. Returns null when no trgm search filter is active. */
-  overviewTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `providerThreadId`. Returns null when no trgm search filter is active. */
+  providerThreadIdTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `subject`. Returns null when no trgm search filter is active. */
+  subjectTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `summary`. Returns null when no trgm search filter is active. */
+  summaryTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
-}
-export interface ContactCompany {
-  contactId?: string | null;
-  companyId?: string | null;
-  id: string;
-  entityId?: string | null;
 }
 export interface ContactEvent {
   contactId?: string | null;
@@ -875,40 +1077,6 @@ export interface ContactsChunk {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface Task {
-  id: string;
-  entityId?: string | null;
-  agentId?: string | null;
-  title?: string | null;
-  description?: string | null;
-  status?: string | null;
-  priority?: number | null;
-  result?: string | null;
-  startedAt?: string | null;
-  completedAt?: string | null;
-  meta?: Record<string, unknown> | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `result`. Returns null when no trgm search filter is active. */
-  resultTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
 export interface Conversation {
   id: string;
   entityId?: string | null;
@@ -969,6 +1137,58 @@ export interface DealNote {
 export interface DealsChunk {
   id: string;
   dealsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface EmailAttachment {
+  id: string;
+  entityId?: string | null;
+  emailId?: string | null;
+  filename?: string | null;
+  contentType?: string | null;
+  sizeBytes?: number | null;
+  storageUrl?: string | null;
+  meta?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface EmailNote {
+  emailId?: string | null;
+  noteId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
+export interface EmailRecipient {
+  emailId?: string | null;
+  contactId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
+export interface EmailsChunk {
+  id: string;
+  emailsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface EmailThreadsChunk {
+  id: string;
+  emailThreadsId?: string | null;
   content?: string | null;
   chunkIndex?: number | null;
   embedding?: number[] | null;
@@ -1509,6 +1729,19 @@ export interface ProjectsChunk {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface ProviderSyncState {
+  id: string;
+  entityId?: string | null;
+  provider?: string | null;
+  resourceType?: string | null;
+  syncCursor?: string | null;
+  lastSyncAt?: string | null;
+  status?: string | null;
+  errorMessage?: string | null;
+  config?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
 export interface Rule {
   id: string;
   entityId?: string | null;
@@ -1821,6 +2054,12 @@ export interface TasksChunk {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface ThreadParticipant {
+  emailThreadId?: string | null;
+  contactId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
 export interface ToolExecution {
   id: string;
   entityId?: string | null;
@@ -1997,6 +2236,102 @@ export interface AutonomyRecordLinkRelations {
 export interface AutonomyRecordsChunkRelations {
   autonomyRecords?: AutonomyRecord | null;
 }
+export interface CalendarAttendeeRelations {
+  calendarEvent?: CalendarEvent | null;
+  contact?: Contact | null;
+}
+export interface CalendarRelations {
+  calendarEvents?: ConnectionResult<CalendarEvent>;
+}
+export interface CalendarEventRelations {
+  calendar?: Calendar | null;
+  organizerContact?: Contact | null;
+  notes?: ConnectionResult<Note>;
+  tasks?: ConnectionResult<Task>;
+  calendarEventsChunksByCalendarEventsId?: ConnectionResult<CalendarEventsChunk>;
+  calendarAttendees?: ConnectionResult<CalendarAttendee>;
+  calendarEventContacts?: ConnectionResult<CalendarEventContact>;
+  calendarEventNotes?: ConnectionResult<CalendarEventNote>;
+  calendarEventTasks?: ConnectionResult<CalendarEventTask>;
+  contactsByCalendarEventContactCalendarEventIdAndContactId?: ConnectionResult<Contact>;
+}
+export interface CalendarEventContactRelations {
+  calendarEvent?: CalendarEvent | null;
+  contact?: Contact | null;
+}
+export interface ContactRelations {
+  mainImage?: Image | null;
+  projects?: ConnectionResult<Project>;
+  tasks?: ConnectionResult<Task>;
+  notes?: ConnectionResult<Note>;
+  memories?: ConnectionResult<Memory>;
+  emails?: ConnectionResult<Email>;
+  contactsChunksByContactsId?: ConnectionResult<ContactsChunk>;
+  interactions?: ConnectionResult<Interaction>;
+  touchpoints?: ConnectionResult<Touchpoint>;
+  contactLinks?: ConnectionResult<ContactLink>;
+  contactImages?: ConnectionResult<ContactImage>;
+  contactCompanies?: ConnectionResult<ContactCompany>;
+  contactEvents?: ConnectionResult<ContactEvent>;
+  dealContacts?: ConnectionResult<DealContact>;
+  contactRelationships?: ConnectionResult<ContactRelationship>;
+  emailsByFromContactId?: ConnectionResult<Email>;
+  calendarEventsByOrganizerContactId?: ConnectionResult<CalendarEvent>;
+  calendarAttendees?: ConnectionResult<CalendarAttendee>;
+  projectContacts?: ConnectionResult<ProjectContact>;
+  taskContacts?: ConnectionResult<TaskContact>;
+  calendarEventContacts?: ConnectionResult<CalendarEventContact>;
+  contactNotes?: ConnectionResult<ContactNote>;
+  contactMemories?: ConnectionResult<ContactMemory>;
+  threadParticipants?: ConnectionResult<ThreadParticipant>;
+  emailRecipients?: ConnectionResult<EmailRecipient>;
+  imagesByContactImageContactIdAndImageId?: ConnectionResult<Image>;
+  companiesByContactCompanyContactIdAndCompanyId?: ConnectionResult<Company>;
+  eventsByContactEventContactIdAndEventId?: ConnectionResult<Event>;
+  dealsByDealContactContactIdAndDealId?: ConnectionResult<Deal>;
+  calendarEventsByCalendarEventContactContactIdAndCalendarEventId?: ConnectionResult<CalendarEvent>;
+  emailThreadsByThreadParticipantContactIdAndEmailThreadId?: ConnectionResult<EmailThread>;
+}
+export interface CalendarEventNoteRelations {
+  calendarEvent?: CalendarEvent | null;
+  note?: Note | null;
+}
+export interface NoteRelations {
+  contacts?: ConnectionResult<Contact>;
+  companies?: ConnectionResult<Company>;
+  deals?: ConnectionResult<Deal>;
+  events?: ConnectionResult<Event>;
+  tasks?: ConnectionResult<Task>;
+  emails?: ConnectionResult<Email>;
+  calendarEvents?: ConnectionResult<CalendarEvent>;
+  notesChunksByNotesId?: ConnectionResult<NotesChunk>;
+  contactNotes?: ConnectionResult<ContactNote>;
+  companyNotes?: ConnectionResult<CompanyNote>;
+  dealNotes?: ConnectionResult<DealNote>;
+  eventNotes?: ConnectionResult<EventNote>;
+  taskNotes?: ConnectionResult<TaskNote>;
+  emailNotes?: ConnectionResult<EmailNote>;
+  calendarEventNotes?: ConnectionResult<CalendarEventNote>;
+}
+export interface CalendarEventsChunkRelations {
+  calendarEvents?: CalendarEvent | null;
+}
+export interface CalendarEventTaskRelations {
+  calendarEvent?: CalendarEvent | null;
+  task?: Task | null;
+}
+export interface TaskRelations {
+  agent?: Agent | null;
+  contacts?: ConnectionResult<Contact>;
+  projects?: ConnectionResult<Project>;
+  notes?: ConnectionResult<Note>;
+  calendarEvents?: ConnectionResult<CalendarEvent>;
+  tasksChunksByTasksId?: ConnectionResult<TasksChunk>;
+  taskContacts?: ConnectionResult<TaskContact>;
+  taskProjects?: ConnectionResult<TaskProject>;
+  taskNotes?: ConnectionResult<TaskNote>;
+  calendarEventTasks?: ConnectionResult<CalendarEventTask>;
+}
 export interface CodebaseDependencyRelations {
   codebasis?: Codebasis | null;
 }
@@ -2031,30 +2366,6 @@ export interface CompanyRelations {
   contactsByContactCompanyCompanyIdAndContactId?: ConnectionResult<Contact>;
   eventsByCompanyEventCompanyIdAndEventId?: ConnectionResult<Event>;
   dealsByDealCompanyCompanyIdAndDealId?: ConnectionResult<Deal>;
-}
-export interface ContactRelations {
-  mainImage?: Image | null;
-  projects?: ConnectionResult<Project>;
-  tasks?: ConnectionResult<Task>;
-  notes?: ConnectionResult<Note>;
-  memories?: ConnectionResult<Memory>;
-  contactsChunksByContactsId?: ConnectionResult<ContactsChunk>;
-  interactions?: ConnectionResult<Interaction>;
-  touchpoints?: ConnectionResult<Touchpoint>;
-  contactLinks?: ConnectionResult<ContactLink>;
-  contactImages?: ConnectionResult<ContactImage>;
-  contactCompanies?: ConnectionResult<ContactCompany>;
-  contactEvents?: ConnectionResult<ContactEvent>;
-  dealContacts?: ConnectionResult<DealContact>;
-  contactRelationships?: ConnectionResult<ContactRelationship>;
-  projectContacts?: ConnectionResult<ProjectContact>;
-  taskContacts?: ConnectionResult<TaskContact>;
-  contactNotes?: ConnectionResult<ContactNote>;
-  contactMemories?: ConnectionResult<ContactMemory>;
-  imagesByContactImageContactIdAndImageId?: ConnectionResult<Image>;
-  companiesByContactCompanyContactIdAndCompanyId?: ConnectionResult<Company>;
-  eventsByContactEventContactIdAndEventId?: ConnectionResult<Event>;
-  dealsByDealContactContactIdAndDealId?: ConnectionResult<Deal>;
 }
 export interface DealRelations {
   notes?: ConnectionResult<Note>;
@@ -2123,22 +2434,25 @@ export interface CompanyNoteRelations {
   company?: Company | null;
   note?: Note | null;
 }
-export interface NoteRelations {
-  contacts?: ConnectionResult<Contact>;
-  companies?: ConnectionResult<Company>;
-  deals?: ConnectionResult<Deal>;
-  events?: ConnectionResult<Event>;
-  tasks?: ConnectionResult<Task>;
-  notesChunksByNotesId?: ConnectionResult<NotesChunk>;
-  contactNotes?: ConnectionResult<ContactNote>;
-  companyNotes?: ConnectionResult<CompanyNote>;
-  dealNotes?: ConnectionResult<DealNote>;
-  eventNotes?: ConnectionResult<EventNote>;
-  taskNotes?: ConnectionResult<TaskNote>;
-}
 export interface ContactCompanyRelations {
   company?: Company | null;
   contact?: Contact | null;
+}
+export interface EmailRelations {
+  emailThread?: EmailThread | null;
+  fromContact?: Contact | null;
+  notes?: ConnectionResult<Note>;
+  emailsChunksByEmailsId?: ConnectionResult<EmailsChunk>;
+  emailAttachments?: ConnectionResult<EmailAttachment>;
+  emailRecipients?: ConnectionResult<EmailRecipient>;
+  emailNotes?: ConnectionResult<EmailNote>;
+  contactsByEmailRecipientEmailIdAndContactId?: ConnectionResult<Contact>;
+}
+export interface EmailThreadRelations {
+  emailThreadsChunksByEmailThreadsId?: ConnectionResult<EmailThreadsChunk>;
+  emails?: ConnectionResult<Email>;
+  threadParticipants?: ConnectionResult<ThreadParticipant>;
+  contactsByThreadParticipantEmailThreadIdAndContactId?: ConnectionResult<Contact>;
 }
 export interface ContactEventRelations {
   contact?: Contact | null;
@@ -2174,16 +2488,6 @@ export interface ContactRelationshipRelations {
 export interface ContactsChunkRelations {
   contacts?: Contact | null;
 }
-export interface TaskRelations {
-  agent?: Agent | null;
-  contacts?: ConnectionResult<Contact>;
-  projects?: ConnectionResult<Project>;
-  notes?: ConnectionResult<Note>;
-  tasksChunksByTasksId?: ConnectionResult<TasksChunk>;
-  taskContacts?: ConnectionResult<TaskContact>;
-  taskProjects?: ConnectionResult<TaskProject>;
-  taskNotes?: ConnectionResult<TaskNote>;
-}
 export interface ConversationRelations {
   conversationsChunksByConversationsId?: ConnectionResult<ConversationsChunk>;
   messages?: ConnectionResult<Message>;
@@ -2205,6 +2509,23 @@ export interface DealNoteRelations {
 }
 export interface DealsChunkRelations {
   deals?: Deal | null;
+}
+export interface EmailAttachmentRelations {
+  email?: Email | null;
+}
+export interface EmailNoteRelations {
+  email?: Email | null;
+  note?: Note | null;
+}
+export interface EmailRecipientRelations {
+  contact?: Contact | null;
+  email?: Email | null;
+}
+export interface EmailsChunkRelations {
+  emails?: Email | null;
+}
+export interface EmailThreadsChunkRelations {
+  emailThreads?: EmailThread | null;
 }
 export interface EventImageRelations {
   event?: Event | null;
@@ -2319,6 +2640,7 @@ export interface ProjectContactRelations {
 export interface ProjectsChunkRelations {
   projects?: Project | null;
 }
+export interface ProviderSyncStateRelations {}
 export interface RuleRelations {
   agent?: Agent | null;
   rulesChunksByRulesId?: ConnectionResult<RulesChunk>;
@@ -2389,6 +2711,10 @@ export interface TaskProjectRelations {
 export interface TasksChunkRelations {
   tasks?: Task | null;
 }
+export interface ThreadParticipantRelations {
+  contact?: Contact | null;
+  emailThread?: EmailThread | null;
+}
 export interface ToolExecutionRelations {
   toolDefinition?: ToolDefinition | null;
 }
@@ -2433,13 +2759,23 @@ export type AutonomyRecordWithRelations = AutonomyRecord & AutonomyRecordRelatio
 export type AutonomyRecordLinkWithRelations = AutonomyRecordLink & AutonomyRecordLinkRelations;
 export type AutonomyRecordsChunkWithRelations = AutonomyRecordsChunk &
   AutonomyRecordsChunkRelations;
+export type CalendarAttendeeWithRelations = CalendarAttendee & CalendarAttendeeRelations;
+export type CalendarWithRelations = Calendar & CalendarRelations;
+export type CalendarEventWithRelations = CalendarEvent & CalendarEventRelations;
+export type CalendarEventContactWithRelations = CalendarEventContact &
+  CalendarEventContactRelations;
+export type ContactWithRelations = Contact & ContactRelations;
+export type CalendarEventNoteWithRelations = CalendarEventNote & CalendarEventNoteRelations;
+export type NoteWithRelations = Note & NoteRelations;
+export type CalendarEventsChunkWithRelations = CalendarEventsChunk & CalendarEventsChunkRelations;
+export type CalendarEventTaskWithRelations = CalendarEventTask & CalendarEventTaskRelations;
+export type TaskWithRelations = Task & TaskRelations;
 export type CodebaseDependencyWithRelations = CodebaseDependency & CodebaseDependencyRelations;
 export type CodebasesChunkWithRelations = CodebasesChunk & CodebasesChunkRelations;
 export type CodebasisWithRelations = Codebasis & CodebasisRelations;
 export type CodeChunkWithRelations = CodeChunk & CodeChunkRelations;
 export type CompaniesChunkWithRelations = CompaniesChunk & CompaniesChunkRelations;
 export type CompanyWithRelations = Company & CompanyRelations;
-export type ContactWithRelations = Contact & ContactRelations;
 export type DealWithRelations = Deal & DealRelations;
 export type CompanyEventWithRelations = CompanyEvent & CompanyEventRelations;
 export type EventWithRelations = Event & EventRelations;
@@ -2449,8 +2785,9 @@ export type CompanyLinkWithRelations = CompanyLink & CompanyLinkRelations;
 export type MemoryWithRelations = Memory & MemoryRelations;
 export type CompanyMemoryWithRelations = CompanyMemory & CompanyMemoryRelations;
 export type CompanyNoteWithRelations = CompanyNote & CompanyNoteRelations;
-export type NoteWithRelations = Note & NoteRelations;
 export type ContactCompanyWithRelations = ContactCompany & ContactCompanyRelations;
+export type EmailWithRelations = Email & EmailRelations;
+export type EmailThreadWithRelations = EmailThread & EmailThreadRelations;
 export type ContactEventWithRelations = ContactEvent & ContactEventRelations;
 export type ContactImageWithRelations = ContactImage & ContactImageRelations;
 export type ContactLinkWithRelations = ContactLink & ContactLinkRelations;
@@ -2459,13 +2796,17 @@ export type ContactNoteWithRelations = ContactNote & ContactNoteRelations;
 export type ProjectWithRelations = Project & ProjectRelations;
 export type ContactRelationshipWithRelations = ContactRelationship & ContactRelationshipRelations;
 export type ContactsChunkWithRelations = ContactsChunk & ContactsChunkRelations;
-export type TaskWithRelations = Task & TaskRelations;
 export type ConversationWithRelations = Conversation & ConversationRelations;
 export type ConversationsChunkWithRelations = ConversationsChunk & ConversationsChunkRelations;
 export type DealCompanyWithRelations = DealCompany & DealCompanyRelations;
 export type DealContactWithRelations = DealContact & DealContactRelations;
 export type DealNoteWithRelations = DealNote & DealNoteRelations;
 export type DealsChunkWithRelations = DealsChunk & DealsChunkRelations;
+export type EmailAttachmentWithRelations = EmailAttachment & EmailAttachmentRelations;
+export type EmailNoteWithRelations = EmailNote & EmailNoteRelations;
+export type EmailRecipientWithRelations = EmailRecipient & EmailRecipientRelations;
+export type EmailsChunkWithRelations = EmailsChunk & EmailsChunkRelations;
+export type EmailThreadsChunkWithRelations = EmailThreadsChunk & EmailThreadsChunkRelations;
 export type EventImageWithRelations = EventImage & EventImageRelations;
 export type EventLinkWithRelations = EventLink & EventLinkRelations;
 export type EventNoteWithRelations = EventNote & EventNoteRelations;
@@ -2493,6 +2834,7 @@ export type PlaceWithRelations = Place & PlaceRelations;
 export type PlacesChunkWithRelations = PlacesChunk & PlacesChunkRelations;
 export type ProjectContactWithRelations = ProjectContact & ProjectContactRelations;
 export type ProjectsChunkWithRelations = ProjectsChunk & ProjectsChunkRelations;
+export type ProviderSyncStateWithRelations = ProviderSyncState & ProviderSyncStateRelations;
 export type RuleWithRelations = Rule & RuleRelations;
 export type RulesChunkWithRelations = RulesChunk & RulesChunkRelations;
 export type RuntimeArtifactWithRelations = RuntimeArtifact & RuntimeArtifactRelations;
@@ -2515,6 +2857,7 @@ export type TaskContactWithRelations = TaskContact & TaskContactRelations;
 export type TaskNoteWithRelations = TaskNote & TaskNoteRelations;
 export type TaskProjectWithRelations = TaskProject & TaskProjectRelations;
 export type TasksChunkWithRelations = TasksChunk & TasksChunkRelations;
+export type ThreadParticipantWithRelations = ThreadParticipant & ThreadParticipantRelations;
 export type ToolExecutionWithRelations = ToolExecution & ToolExecutionRelations;
 export type TouchpointWithRelations = Touchpoint & TouchpointRelations;
 export type TouchpointsChunkWithRelations = TouchpointsChunk & TouchpointsChunkRelations;
@@ -2719,6 +3062,601 @@ export type AutonomyRecordsChunkSelect = {
   searchScore?: boolean;
   autonomyRecords?: {
     select: AutonomyRecordSelect;
+  };
+};
+export type CalendarAttendeeSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  calendarEventId?: boolean;
+  contactId?: boolean;
+  responseStatus?: boolean;
+  role?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type CalendarSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  providerAccountId?: boolean;
+  providerCalendarId?: boolean;
+  name?: boolean;
+  color?: boolean;
+  isPrimary?: boolean;
+  isActive?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  calendarEvents?: {
+    select: CalendarEventSelect;
+    first?: number;
+    filter?: CalendarEventFilter;
+    orderBy?: CalendarEventOrderBy[];
+  };
+};
+export type CalendarEventSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  calendarId?: boolean;
+  providerEventId?: boolean;
+  title?: boolean;
+  description?: boolean;
+  startTime?: boolean;
+  endTime?: boolean;
+  isAllDay?: boolean;
+  meetingUrl?: boolean;
+  organizerContactId?: boolean;
+  recurrenceRule?: boolean;
+  status?: boolean;
+  tags?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  providerEventIdTrgmSimilarity?: boolean;
+  titleTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  meetingUrlTrgmSimilarity?: boolean;
+  recurrenceRuleTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  calendar?: {
+    select: CalendarSelect;
+  };
+  organizerContact?: {
+    select: ContactSelect;
+  };
+  notes?: {
+    select: NoteSelect;
+    first?: number;
+    filter?: NoteFilter;
+    orderBy?: NoteOrderBy[];
+  };
+  tasks?: {
+    select: TaskSelect;
+    first?: number;
+    filter?: TaskFilter;
+    orderBy?: TaskOrderBy[];
+  };
+  calendarEventsChunksByCalendarEventsId?: {
+    select: CalendarEventsChunkSelect;
+    first?: number;
+    filter?: CalendarEventsChunkFilter;
+    orderBy?: CalendarEventsChunkOrderBy[];
+  };
+  calendarAttendees?: {
+    select: CalendarAttendeeSelect;
+    first?: number;
+    filter?: CalendarAttendeeFilter;
+    orderBy?: CalendarAttendeeOrderBy[];
+  };
+  calendarEventContacts?: {
+    select: CalendarEventContactSelect;
+    first?: number;
+    filter?: CalendarEventContactFilter;
+    orderBy?: CalendarEventContactOrderBy[];
+  };
+  calendarEventNotes?: {
+    select: CalendarEventNoteSelect;
+    first?: number;
+    filter?: CalendarEventNoteFilter;
+    orderBy?: CalendarEventNoteOrderBy[];
+  };
+  calendarEventTasks?: {
+    select: CalendarEventTaskSelect;
+    first?: number;
+    filter?: CalendarEventTaskFilter;
+    orderBy?: CalendarEventTaskOrderBy[];
+  };
+  contactsByCalendarEventContactCalendarEventIdAndContactId?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+};
+export type CalendarEventContactSelect = {
+  calendarEventId?: boolean;
+  contactId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type ContactSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  firstName?: boolean;
+  lastName?: boolean;
+  email?: boolean;
+  phone?: boolean;
+  headline?: boolean;
+  bio?: boolean;
+  location?: boolean;
+  birthday?: boolean;
+  relationshipType?: boolean;
+  howWeMet?: boolean;
+  twitterHandle?: boolean;
+  linkedinUrl?: boolean;
+  githubUsername?: boolean;
+  instagramHandle?: boolean;
+  website?: boolean;
+  tags?: boolean;
+  mainImageId?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  searchTsv?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  searchTsvRank?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  firstNameTrgmSimilarity?: boolean;
+  lastNameTrgmSimilarity?: boolean;
+  emailTrgmSimilarity?: boolean;
+  phoneTrgmSimilarity?: boolean;
+  headlineTrgmSimilarity?: boolean;
+  bioTrgmSimilarity?: boolean;
+  locationTrgmSimilarity?: boolean;
+  relationshipTypeTrgmSimilarity?: boolean;
+  howWeMetTrgmSimilarity?: boolean;
+  twitterHandleTrgmSimilarity?: boolean;
+  linkedinUrlTrgmSimilarity?: boolean;
+  githubUsernameTrgmSimilarity?: boolean;
+  instagramHandleTrgmSimilarity?: boolean;
+  websiteTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  mainImage?: {
+    select: ImageSelect;
+  };
+  projects?: {
+    select: ProjectSelect;
+    first?: number;
+    filter?: ProjectFilter;
+    orderBy?: ProjectOrderBy[];
+  };
+  tasks?: {
+    select: TaskSelect;
+    first?: number;
+    filter?: TaskFilter;
+    orderBy?: TaskOrderBy[];
+  };
+  notes?: {
+    select: NoteSelect;
+    first?: number;
+    filter?: NoteFilter;
+    orderBy?: NoteOrderBy[];
+  };
+  memories?: {
+    select: MemorySelect;
+    first?: number;
+    filter?: MemoryFilter;
+    orderBy?: MemoryOrderBy[];
+  };
+  emails?: {
+    select: EmailSelect;
+    first?: number;
+    filter?: EmailFilter;
+    orderBy?: EmailOrderBy[];
+  };
+  contactsChunksByContactsId?: {
+    select: ContactsChunkSelect;
+    first?: number;
+    filter?: ContactsChunkFilter;
+    orderBy?: ContactsChunkOrderBy[];
+  };
+  interactions?: {
+    select: InteractionSelect;
+    first?: number;
+    filter?: InteractionFilter;
+    orderBy?: InteractionOrderBy[];
+  };
+  touchpoints?: {
+    select: TouchpointSelect;
+    first?: number;
+    filter?: TouchpointFilter;
+    orderBy?: TouchpointOrderBy[];
+  };
+  contactLinks?: {
+    select: ContactLinkSelect;
+    first?: number;
+    filter?: ContactLinkFilter;
+    orderBy?: ContactLinkOrderBy[];
+  };
+  contactImages?: {
+    select: ContactImageSelect;
+    first?: number;
+    filter?: ContactImageFilter;
+    orderBy?: ContactImageOrderBy[];
+  };
+  contactCompanies?: {
+    select: ContactCompanySelect;
+    first?: number;
+    filter?: ContactCompanyFilter;
+    orderBy?: ContactCompanyOrderBy[];
+  };
+  contactEvents?: {
+    select: ContactEventSelect;
+    first?: number;
+    filter?: ContactEventFilter;
+    orderBy?: ContactEventOrderBy[];
+  };
+  dealContacts?: {
+    select: DealContactSelect;
+    first?: number;
+    filter?: DealContactFilter;
+    orderBy?: DealContactOrderBy[];
+  };
+  contactRelationships?: {
+    select: ContactRelationshipSelect;
+    first?: number;
+    filter?: ContactRelationshipFilter;
+    orderBy?: ContactRelationshipOrderBy[];
+  };
+  emailsByFromContactId?: {
+    select: EmailSelect;
+    first?: number;
+    filter?: EmailFilter;
+    orderBy?: EmailOrderBy[];
+  };
+  calendarEventsByOrganizerContactId?: {
+    select: CalendarEventSelect;
+    first?: number;
+    filter?: CalendarEventFilter;
+    orderBy?: CalendarEventOrderBy[];
+  };
+  calendarAttendees?: {
+    select: CalendarAttendeeSelect;
+    first?: number;
+    filter?: CalendarAttendeeFilter;
+    orderBy?: CalendarAttendeeOrderBy[];
+  };
+  projectContacts?: {
+    select: ProjectContactSelect;
+    first?: number;
+    filter?: ProjectContactFilter;
+    orderBy?: ProjectContactOrderBy[];
+  };
+  taskContacts?: {
+    select: TaskContactSelect;
+    first?: number;
+    filter?: TaskContactFilter;
+    orderBy?: TaskContactOrderBy[];
+  };
+  calendarEventContacts?: {
+    select: CalendarEventContactSelect;
+    first?: number;
+    filter?: CalendarEventContactFilter;
+    orderBy?: CalendarEventContactOrderBy[];
+  };
+  contactNotes?: {
+    select: ContactNoteSelect;
+    first?: number;
+    filter?: ContactNoteFilter;
+    orderBy?: ContactNoteOrderBy[];
+  };
+  contactMemories?: {
+    select: ContactMemorySelect;
+    first?: number;
+    filter?: ContactMemoryFilter;
+    orderBy?: ContactMemoryOrderBy[];
+  };
+  threadParticipants?: {
+    select: ThreadParticipantSelect;
+    first?: number;
+    filter?: ThreadParticipantFilter;
+    orderBy?: ThreadParticipantOrderBy[];
+  };
+  emailRecipients?: {
+    select: EmailRecipientSelect;
+    first?: number;
+    filter?: EmailRecipientFilter;
+    orderBy?: EmailRecipientOrderBy[];
+  };
+  imagesByContactImageContactIdAndImageId?: {
+    select: ImageSelect;
+    first?: number;
+    filter?: ImageFilter;
+    orderBy?: ImageOrderBy[];
+  };
+  companiesByContactCompanyContactIdAndCompanyId?: {
+    select: CompanySelect;
+    first?: number;
+    filter?: CompanyFilter;
+    orderBy?: CompanyOrderBy[];
+  };
+  eventsByContactEventContactIdAndEventId?: {
+    select: EventSelect;
+    first?: number;
+    filter?: EventFilter;
+    orderBy?: EventOrderBy[];
+  };
+  dealsByDealContactContactIdAndDealId?: {
+    select: DealSelect;
+    first?: number;
+    filter?: DealFilter;
+    orderBy?: DealOrderBy[];
+  };
+  calendarEventsByCalendarEventContactContactIdAndCalendarEventId?: {
+    select: CalendarEventSelect;
+    first?: number;
+    filter?: CalendarEventFilter;
+    orderBy?: CalendarEventOrderBy[];
+  };
+  emailThreadsByThreadParticipantContactIdAndEmailThreadId?: {
+    select: EmailThreadSelect;
+    first?: number;
+    filter?: EmailThreadFilter;
+    orderBy?: EmailThreadOrderBy[];
+  };
+};
+export type CalendarEventNoteSelect = {
+  calendarEventId?: boolean;
+  noteId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  note?: {
+    select: NoteSelect;
+  };
+};
+export type NoteSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  content?: boolean;
+  abstract?: boolean;
+  overview?: boolean;
+  activeCount?: boolean;
+  lastAccessedAt?: boolean;
+  tags?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  contentBm25Score?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  contentTrgmSimilarity?: boolean;
+  abstractTrgmSimilarity?: boolean;
+  overviewTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  contacts?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+  companies?: {
+    select: CompanySelect;
+    first?: number;
+    filter?: CompanyFilter;
+    orderBy?: CompanyOrderBy[];
+  };
+  deals?: {
+    select: DealSelect;
+    first?: number;
+    filter?: DealFilter;
+    orderBy?: DealOrderBy[];
+  };
+  events?: {
+    select: EventSelect;
+    first?: number;
+    filter?: EventFilter;
+    orderBy?: EventOrderBy[];
+  };
+  tasks?: {
+    select: TaskSelect;
+    first?: number;
+    filter?: TaskFilter;
+    orderBy?: TaskOrderBy[];
+  };
+  emails?: {
+    select: EmailSelect;
+    first?: number;
+    filter?: EmailFilter;
+    orderBy?: EmailOrderBy[];
+  };
+  calendarEvents?: {
+    select: CalendarEventSelect;
+    first?: number;
+    filter?: CalendarEventFilter;
+    orderBy?: CalendarEventOrderBy[];
+  };
+  notesChunksByNotesId?: {
+    select: NotesChunkSelect;
+    first?: number;
+    filter?: NotesChunkFilter;
+    orderBy?: NotesChunkOrderBy[];
+  };
+  contactNotes?: {
+    select: ContactNoteSelect;
+    first?: number;
+    filter?: ContactNoteFilter;
+    orderBy?: ContactNoteOrderBy[];
+  };
+  companyNotes?: {
+    select: CompanyNoteSelect;
+    first?: number;
+    filter?: CompanyNoteFilter;
+    orderBy?: CompanyNoteOrderBy[];
+  };
+  dealNotes?: {
+    select: DealNoteSelect;
+    first?: number;
+    filter?: DealNoteFilter;
+    orderBy?: DealNoteOrderBy[];
+  };
+  eventNotes?: {
+    select: EventNoteSelect;
+    first?: number;
+    filter?: EventNoteFilter;
+    orderBy?: EventNoteOrderBy[];
+  };
+  taskNotes?: {
+    select: TaskNoteSelect;
+    first?: number;
+    filter?: TaskNoteFilter;
+    orderBy?: TaskNoteOrderBy[];
+  };
+  emailNotes?: {
+    select: EmailNoteSelect;
+    first?: number;
+    filter?: EmailNoteFilter;
+    orderBy?: EmailNoteOrderBy[];
+  };
+  calendarEventNotes?: {
+    select: CalendarEventNoteSelect;
+    first?: number;
+    filter?: CalendarEventNoteFilter;
+    orderBy?: CalendarEventNoteOrderBy[];
+  };
+};
+export type CalendarEventsChunkSelect = {
+  id?: boolean;
+  calendarEventsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  calendarEvents?: {
+    select: CalendarEventSelect;
+  };
+};
+export type CalendarEventTaskSelect = {
+  calendarEventId?: boolean;
+  taskId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  task?: {
+    select: TaskSelect;
+  };
+};
+export type TaskSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  agentId?: boolean;
+  title?: boolean;
+  description?: boolean;
+  status?: boolean;
+  priority?: boolean;
+  result?: boolean;
+  startedAt?: boolean;
+  completedAt?: boolean;
+  meta?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  titleTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  resultTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  contacts?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+  projects?: {
+    select: ProjectSelect;
+    first?: number;
+    filter?: ProjectFilter;
+    orderBy?: ProjectOrderBy[];
+  };
+  notes?: {
+    select: NoteSelect;
+    first?: number;
+    filter?: NoteFilter;
+    orderBy?: NoteOrderBy[];
+  };
+  calendarEvents?: {
+    select: CalendarEventSelect;
+    first?: number;
+    filter?: CalendarEventFilter;
+    orderBy?: CalendarEventOrderBy[];
+  };
+  tasksChunksByTasksId?: {
+    select: TasksChunkSelect;
+    first?: number;
+    filter?: TasksChunkFilter;
+    orderBy?: TasksChunkOrderBy[];
+  };
+  taskContacts?: {
+    select: TaskContactSelect;
+    first?: number;
+    filter?: TaskContactFilter;
+    orderBy?: TaskContactOrderBy[];
+  };
+  taskProjects?: {
+    select: TaskProjectSelect;
+    first?: number;
+    filter?: TaskProjectFilter;
+    orderBy?: TaskProjectOrderBy[];
+  };
+  taskNotes?: {
+    select: TaskNoteSelect;
+    first?: number;
+    filter?: TaskNoteFilter;
+    orderBy?: TaskNoteOrderBy[];
+  };
+  calendarEventTasks?: {
+    select: CalendarEventTaskSelect;
+    first?: number;
+    filter?: CalendarEventTaskFilter;
+    orderBy?: CalendarEventTaskOrderBy[];
   };
 };
 export type CodebaseDependencySelect = {
@@ -2948,181 +3886,6 @@ export type CompanySelect = {
     orderBy?: EventOrderBy[];
   };
   dealsByDealCompanyCompanyIdAndDealId?: {
-    select: DealSelect;
-    first?: number;
-    filter?: DealFilter;
-    orderBy?: DealOrderBy[];
-  };
-};
-export type ContactSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  firstName?: boolean;
-  lastName?: boolean;
-  email?: boolean;
-  phone?: boolean;
-  headline?: boolean;
-  bio?: boolean;
-  location?: boolean;
-  birthday?: boolean;
-  relationshipType?: boolean;
-  howWeMet?: boolean;
-  twitterHandle?: boolean;
-  linkedinUrl?: boolean;
-  githubUsername?: boolean;
-  instagramHandle?: boolean;
-  website?: boolean;
-  tags?: boolean;
-  mainImageId?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  searchTsv?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  searchTsvRank?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  firstNameTrgmSimilarity?: boolean;
-  lastNameTrgmSimilarity?: boolean;
-  emailTrgmSimilarity?: boolean;
-  phoneTrgmSimilarity?: boolean;
-  headlineTrgmSimilarity?: boolean;
-  bioTrgmSimilarity?: boolean;
-  locationTrgmSimilarity?: boolean;
-  relationshipTypeTrgmSimilarity?: boolean;
-  howWeMetTrgmSimilarity?: boolean;
-  twitterHandleTrgmSimilarity?: boolean;
-  linkedinUrlTrgmSimilarity?: boolean;
-  githubUsernameTrgmSimilarity?: boolean;
-  instagramHandleTrgmSimilarity?: boolean;
-  websiteTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  mainImage?: {
-    select: ImageSelect;
-  };
-  projects?: {
-    select: ProjectSelect;
-    first?: number;
-    filter?: ProjectFilter;
-    orderBy?: ProjectOrderBy[];
-  };
-  tasks?: {
-    select: TaskSelect;
-    first?: number;
-    filter?: TaskFilter;
-    orderBy?: TaskOrderBy[];
-  };
-  notes?: {
-    select: NoteSelect;
-    first?: number;
-    filter?: NoteFilter;
-    orderBy?: NoteOrderBy[];
-  };
-  memories?: {
-    select: MemorySelect;
-    first?: number;
-    filter?: MemoryFilter;
-    orderBy?: MemoryOrderBy[];
-  };
-  contactsChunksByContactsId?: {
-    select: ContactsChunkSelect;
-    first?: number;
-    filter?: ContactsChunkFilter;
-    orderBy?: ContactsChunkOrderBy[];
-  };
-  interactions?: {
-    select: InteractionSelect;
-    first?: number;
-    filter?: InteractionFilter;
-    orderBy?: InteractionOrderBy[];
-  };
-  touchpoints?: {
-    select: TouchpointSelect;
-    first?: number;
-    filter?: TouchpointFilter;
-    orderBy?: TouchpointOrderBy[];
-  };
-  contactLinks?: {
-    select: ContactLinkSelect;
-    first?: number;
-    filter?: ContactLinkFilter;
-    orderBy?: ContactLinkOrderBy[];
-  };
-  contactImages?: {
-    select: ContactImageSelect;
-    first?: number;
-    filter?: ContactImageFilter;
-    orderBy?: ContactImageOrderBy[];
-  };
-  contactCompanies?: {
-    select: ContactCompanySelect;
-    first?: number;
-    filter?: ContactCompanyFilter;
-    orderBy?: ContactCompanyOrderBy[];
-  };
-  contactEvents?: {
-    select: ContactEventSelect;
-    first?: number;
-    filter?: ContactEventFilter;
-    orderBy?: ContactEventOrderBy[];
-  };
-  dealContacts?: {
-    select: DealContactSelect;
-    first?: number;
-    filter?: DealContactFilter;
-    orderBy?: DealContactOrderBy[];
-  };
-  contactRelationships?: {
-    select: ContactRelationshipSelect;
-    first?: number;
-    filter?: ContactRelationshipFilter;
-    orderBy?: ContactRelationshipOrderBy[];
-  };
-  projectContacts?: {
-    select: ProjectContactSelect;
-    first?: number;
-    filter?: ProjectContactFilter;
-    orderBy?: ProjectContactOrderBy[];
-  };
-  taskContacts?: {
-    select: TaskContactSelect;
-    first?: number;
-    filter?: TaskContactFilter;
-    orderBy?: TaskContactOrderBy[];
-  };
-  contactNotes?: {
-    select: ContactNoteSelect;
-    first?: number;
-    filter?: ContactNoteFilter;
-    orderBy?: ContactNoteOrderBy[];
-  };
-  contactMemories?: {
-    select: ContactMemorySelect;
-    first?: number;
-    filter?: ContactMemoryFilter;
-    orderBy?: ContactMemoryOrderBy[];
-  };
-  imagesByContactImageContactIdAndImageId?: {
-    select: ImageSelect;
-    first?: number;
-    filter?: ImageFilter;
-    orderBy?: ImageOrderBy[];
-  };
-  companiesByContactCompanyContactIdAndCompanyId?: {
-    select: CompanySelect;
-    first?: number;
-    filter?: CompanyFilter;
-    orderBy?: CompanyOrderBy[];
-  };
-  eventsByContactEventContactIdAndEventId?: {
-    select: EventSelect;
-    first?: number;
-    filter?: EventFilter;
-    orderBy?: EventOrderBy[];
-  };
-  dealsByDealContactContactIdAndDealId?: {
     select: DealSelect;
     first?: number;
     filter?: DealFilter;
@@ -3519,95 +4282,6 @@ export type CompanyNoteSelect = {
     select: NoteSelect;
   };
 };
-export type NoteSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  content?: boolean;
-  abstract?: boolean;
-  overview?: boolean;
-  activeCount?: boolean;
-  lastAccessedAt?: boolean;
-  tags?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  contentBm25Score?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  contentTrgmSimilarity?: boolean;
-  abstractTrgmSimilarity?: boolean;
-  overviewTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  contacts?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
-  companies?: {
-    select: CompanySelect;
-    first?: number;
-    filter?: CompanyFilter;
-    orderBy?: CompanyOrderBy[];
-  };
-  deals?: {
-    select: DealSelect;
-    first?: number;
-    filter?: DealFilter;
-    orderBy?: DealOrderBy[];
-  };
-  events?: {
-    select: EventSelect;
-    first?: number;
-    filter?: EventFilter;
-    orderBy?: EventOrderBy[];
-  };
-  tasks?: {
-    select: TaskSelect;
-    first?: number;
-    filter?: TaskFilter;
-    orderBy?: TaskOrderBy[];
-  };
-  notesChunksByNotesId?: {
-    select: NotesChunkSelect;
-    first?: number;
-    filter?: NotesChunkFilter;
-    orderBy?: NotesChunkOrderBy[];
-  };
-  contactNotes?: {
-    select: ContactNoteSelect;
-    first?: number;
-    filter?: ContactNoteFilter;
-    orderBy?: ContactNoteOrderBy[];
-  };
-  companyNotes?: {
-    select: CompanyNoteSelect;
-    first?: number;
-    filter?: CompanyNoteFilter;
-    orderBy?: CompanyNoteOrderBy[];
-  };
-  dealNotes?: {
-    select: DealNoteSelect;
-    first?: number;
-    filter?: DealNoteFilter;
-    orderBy?: DealNoteOrderBy[];
-  };
-  eventNotes?: {
-    select: EventNoteSelect;
-    first?: number;
-    filter?: EventNoteFilter;
-    orderBy?: EventNoteOrderBy[];
-  };
-  taskNotes?: {
-    select: TaskNoteSelect;
-    first?: number;
-    filter?: TaskNoteFilter;
-    orderBy?: TaskNoteOrderBy[];
-  };
-};
 export type ContactCompanySelect = {
   contactId?: boolean;
   companyId?: boolean;
@@ -3618,6 +4292,128 @@ export type ContactCompanySelect = {
   };
   contact?: {
     select: ContactSelect;
+  };
+};
+export type EmailSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  threadId?: boolean;
+  providerMessageId?: boolean;
+  fromContactId?: boolean;
+  subject?: boolean;
+  bodyText?: boolean;
+  bodyHtml?: boolean;
+  sentAt?: boolean;
+  toRecipients?: boolean;
+  ccRecipients?: boolean;
+  bccRecipients?: boolean;
+  isDraft?: boolean;
+  isRead?: boolean;
+  tags?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  searchTsv?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  emailThreadId?: boolean;
+  searchTsvRank?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  providerMessageIdTrgmSimilarity?: boolean;
+  subjectTrgmSimilarity?: boolean;
+  bodyTextTrgmSimilarity?: boolean;
+  bodyHtmlTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  emailThread?: {
+    select: EmailThreadSelect;
+  };
+  fromContact?: {
+    select: ContactSelect;
+  };
+  notes?: {
+    select: NoteSelect;
+    first?: number;
+    filter?: NoteFilter;
+    orderBy?: NoteOrderBy[];
+  };
+  emailsChunksByEmailsId?: {
+    select: EmailsChunkSelect;
+    first?: number;
+    filter?: EmailsChunkFilter;
+    orderBy?: EmailsChunkOrderBy[];
+  };
+  emailAttachments?: {
+    select: EmailAttachmentSelect;
+    first?: number;
+    filter?: EmailAttachmentFilter;
+    orderBy?: EmailAttachmentOrderBy[];
+  };
+  emailRecipients?: {
+    select: EmailRecipientSelect;
+    first?: number;
+    filter?: EmailRecipientFilter;
+    orderBy?: EmailRecipientOrderBy[];
+  };
+  emailNotes?: {
+    select: EmailNoteSelect;
+    first?: number;
+    filter?: EmailNoteFilter;
+    orderBy?: EmailNoteOrderBy[];
+  };
+  contactsByEmailRecipientEmailIdAndContactId?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+};
+export type EmailThreadSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  providerThreadId?: boolean;
+  subject?: boolean;
+  lastMessageAt?: boolean;
+  summary?: boolean;
+  status?: boolean;
+  tags?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  providerThreadIdTrgmSimilarity?: boolean;
+  subjectTrgmSimilarity?: boolean;
+  summaryTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  emailThreadsChunksByEmailThreadsId?: {
+    select: EmailThreadsChunkSelect;
+    first?: number;
+    filter?: EmailThreadsChunkFilter;
+    orderBy?: EmailThreadsChunkOrderBy[];
+  };
+  emails?: {
+    select: EmailSelect;
+    first?: number;
+    filter?: EmailFilter;
+    orderBy?: EmailOrderBy[];
+  };
+  threadParticipants?: {
+    select: ThreadParticipantSelect;
+    first?: number;
+    filter?: ThreadParticipantFilter;
+    orderBy?: ThreadParticipantOrderBy[];
+  };
+  contactsByThreadParticipantEmailThreadIdAndContactId?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
   };
 };
 export type ContactEventSelect = {
@@ -3776,77 +4572,6 @@ export type ContactsChunkSelect = {
     select: ContactSelect;
   };
 };
-export type TaskSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  agentId?: boolean;
-  title?: boolean;
-  description?: boolean;
-  status?: boolean;
-  priority?: boolean;
-  result?: boolean;
-  startedAt?: boolean;
-  completedAt?: boolean;
-  meta?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  titleTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  resultTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  contacts?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
-  projects?: {
-    select: ProjectSelect;
-    first?: number;
-    filter?: ProjectFilter;
-    orderBy?: ProjectOrderBy[];
-  };
-  notes?: {
-    select: NoteSelect;
-    first?: number;
-    filter?: NoteFilter;
-    orderBy?: NoteOrderBy[];
-  };
-  tasksChunksByTasksId?: {
-    select: TasksChunkSelect;
-    first?: number;
-    filter?: TasksChunkFilter;
-    orderBy?: TasksChunkOrderBy[];
-  };
-  taskContacts?: {
-    select: TaskContactSelect;
-    first?: number;
-    filter?: TaskContactFilter;
-    orderBy?: TaskContactOrderBy[];
-  };
-  taskProjects?: {
-    select: TaskProjectSelect;
-    first?: number;
-    filter?: TaskProjectFilter;
-    orderBy?: TaskProjectOrderBy[];
-  };
-  taskNotes?: {
-    select: TaskNoteSelect;
-    first?: number;
-    filter?: TaskNoteFilter;
-    orderBy?: TaskNoteOrderBy[];
-  };
-};
 export type ConversationSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -3942,6 +4667,75 @@ export type DealsChunkSelect = {
   searchScore?: boolean;
   deals?: {
     select: DealSelect;
+  };
+};
+export type EmailAttachmentSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  emailId?: boolean;
+  filename?: boolean;
+  contentType?: boolean;
+  sizeBytes?: boolean;
+  storageUrl?: boolean;
+  meta?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+};
+export type EmailNoteSelect = {
+  emailId?: boolean;
+  noteId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  note?: {
+    select: NoteSelect;
+  };
+};
+export type EmailRecipientSelect = {
+  emailId?: boolean;
+  contactId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  email?: {
+    select: EmailSelect;
+  };
+};
+export type EmailsChunkSelect = {
+  id?: boolean;
+  emailsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  emails?: {
+    select: EmailSelect;
+  };
+};
+export type EmailThreadsChunkSelect = {
+  id?: boolean;
+  emailThreadsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  emailThreads?: {
+    select: EmailThreadSelect;
   };
 };
 export type EventImageSelect = {
@@ -4636,6 +5430,19 @@ export type ProjectsChunkSelect = {
     select: ProjectSelect;
   };
 };
+export type ProviderSyncStateSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  provider?: boolean;
+  resourceType?: boolean;
+  syncCursor?: boolean;
+  lastSyncAt?: boolean;
+  status?: boolean;
+  errorMessage?: boolean;
+  config?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+};
 export type RuleSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -5038,6 +5845,18 @@ export type TasksChunkSelect = {
   searchScore?: boolean;
   tasks?: {
     select: TaskSelect;
+  };
+};
+export type ThreadParticipantSelect = {
+  emailThreadId?: boolean;
+  contactId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  emailThread?: {
+    select: EmailThreadSelect;
   };
 };
 export type ToolExecutionSelect = {
@@ -5534,6 +6353,604 @@ export interface AutonomyRecordsChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
+export interface CalendarAttendeeFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `responseStatus` field. */
+  responseStatus?: StringFilter;
+  /** Filter by the object’s `role` field. */
+  role?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarAttendeeFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarAttendeeFilter[];
+  /** Negates the expression. */
+  not?: CalendarAttendeeFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+export interface CalendarFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `providerAccountId` field. */
+  providerAccountId?: StringFilter;
+  /** Filter by the object’s `providerCalendarId` field. */
+  providerCalendarId?: StringFilter;
+  /** Filter by the object’s `name` field. */
+  name?: StringFilter;
+  /** Filter by the object’s `color` field. */
+  color?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `isActive` field. */
+  isActive?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarFilter[];
+  /** Negates the expression. */
+  not?: CalendarFilter;
+  /** Filter by the object’s `calendarEvents` relation. */
+  calendarEvents?: CalendarToManyCalendarEventFilter;
+  /** `calendarEvents` exist. */
+  calendarEventsExist?: boolean;
+}
+export interface CalendarEventFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `calendarId` field. */
+  calendarId?: UUIDFilter;
+  /** Filter by the object’s `providerEventId` field. */
+  providerEventId?: StringTrgmFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `startTime` field. */
+  startTime?: DatetimeFilter;
+  /** Filter by the object’s `endTime` field. */
+  endTime?: DatetimeFilter;
+  /** Filter by the object’s `isAllDay` field. */
+  isAllDay?: BooleanFilter;
+  /** Filter by the object’s `meetingUrl` field. */
+  meetingUrl?: StringTrgmFilter;
+  /** Filter by the object’s `organizerContactId` field. */
+  organizerContactId?: UUIDFilter;
+  /** Filter by the object’s `recurrenceRule` field. */
+  recurrenceRule?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventFilter;
+  /** Filter by the object’s `calendar` relation. */
+  calendar?: CalendarFilter;
+  /** Filter by the object’s `organizerContact` relation. */
+  organizerContact?: ContactFilter;
+  /** A related `organizerContact` exists. */
+  organizerContactExists?: boolean;
+  /** Filter by the object’s `calendarEventsChunksByCalendarEventsId` relation. */
+  calendarEventsChunksByCalendarEventsId?: CalendarEventToManyCalendarEventsChunkFilter;
+  /** `calendarEventsChunksByCalendarEventsId` exist. */
+  calendarEventsChunksByCalendarEventsIdExist?: boolean;
+  /** Filter by the object’s `calendarAttendees` relation. */
+  calendarAttendees?: CalendarEventToManyCalendarAttendeeFilter;
+  /** `calendarAttendees` exist. */
+  calendarAttendeesExist?: boolean;
+  /** Filter by the object’s `calendarEventContacts` relation. */
+  calendarEventContacts?: CalendarEventToManyCalendarEventContactFilter;
+  /** `calendarEventContacts` exist. */
+  calendarEventContactsExist?: boolean;
+  /** Filter by the object’s `calendarEventNotes` relation. */
+  calendarEventNotes?: CalendarEventToManyCalendarEventNoteFilter;
+  /** `calendarEventNotes` exist. */
+  calendarEventNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventTasks` relation. */
+  calendarEventTasks?: CalendarEventToManyCalendarEventTaskFilter;
+  /** `calendarEventTasks` exist. */
+  calendarEventTasksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_event_id` column. */
+  trgmProviderEventId?: TrgmSearchInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `meeting_url` column. */
+  trgmMeetingUrl?: TrgmSearchInput;
+  /** TRGM search on the `recurrence_rule` column. */
+  trgmRecurrenceRule?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+export interface CalendarEventContactFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventContactFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventContactFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+export interface ContactFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `firstName` field. */
+  firstName?: StringTrgmFilter;
+  /** Filter by the object’s `lastName` field. */
+  lastName?: StringTrgmFilter;
+  /** Filter by the object’s `email` field. */
+  email?: StringTrgmFilter;
+  /** Filter by the object’s `phone` field. */
+  phone?: StringTrgmFilter;
+  /** Filter by the object’s `headline` field. */
+  headline?: StringTrgmFilter;
+  /** Filter by the object’s `bio` field. */
+  bio?: StringTrgmFilter;
+  /** Filter by the object’s `location` field. */
+  location?: StringTrgmFilter;
+  /** Filter by the object’s `birthday` field. */
+  birthday?: DateFilter;
+  /** Filter by the object’s `relationshipType` field. */
+  relationshipType?: StringTrgmFilter;
+  /** Filter by the object’s `howWeMet` field. */
+  howWeMet?: StringTrgmFilter;
+  /** Filter by the object’s `twitterHandle` field. */
+  twitterHandle?: StringTrgmFilter;
+  /** Filter by the object’s `linkedinUrl` field. */
+  linkedinUrl?: StringTrgmFilter;
+  /** Filter by the object’s `githubUsername` field. */
+  githubUsername?: StringTrgmFilter;
+  /** Filter by the object’s `instagramHandle` field. */
+  instagramHandle?: StringTrgmFilter;
+  /** Filter by the object’s `website` field. */
+  website?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `mainImageId` field. */
+  mainImageId?: UUIDFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactFilter[];
+  /** Negates the expression. */
+  not?: ContactFilter;
+  /** Filter by the object’s `mainImage` relation. */
+  mainImage?: ImageFilter;
+  /** A related `mainImage` exists. */
+  mainImageExists?: boolean;
+  /** Filter by the object’s `contactsChunksByContactsId` relation. */
+  contactsChunksByContactsId?: ContactToManyContactsChunkFilter;
+  /** `contactsChunksByContactsId` exist. */
+  contactsChunksByContactsIdExist?: boolean;
+  /** Filter by the object’s `interactions` relation. */
+  interactions?: ContactToManyInteractionFilter;
+  /** `interactions` exist. */
+  interactionsExist?: boolean;
+  /** Filter by the object’s `touchpoints` relation. */
+  touchpoints?: ContactToManyTouchpointFilter;
+  /** `touchpoints` exist. */
+  touchpointsExist?: boolean;
+  /** Filter by the object’s `contactLinks` relation. */
+  contactLinks?: ContactToManyContactLinkFilter;
+  /** `contactLinks` exist. */
+  contactLinksExist?: boolean;
+  /** Filter by the object’s `contactImages` relation. */
+  contactImages?: ContactToManyContactImageFilter;
+  /** `contactImages` exist. */
+  contactImagesExist?: boolean;
+  /** Filter by the object’s `contactCompanies` relation. */
+  contactCompanies?: ContactToManyContactCompanyFilter;
+  /** `contactCompanies` exist. */
+  contactCompaniesExist?: boolean;
+  /** Filter by the object’s `contactEvents` relation. */
+  contactEvents?: ContactToManyContactEventFilter;
+  /** `contactEvents` exist. */
+  contactEventsExist?: boolean;
+  /** Filter by the object’s `dealContacts` relation. */
+  dealContacts?: ContactToManyDealContactFilter;
+  /** `dealContacts` exist. */
+  dealContactsExist?: boolean;
+  /** Filter by the object’s `contactRelationships` relation. */
+  contactRelationships?: ContactToManyContactRelationshipFilter;
+  /** `contactRelationships` exist. */
+  contactRelationshipsExist?: boolean;
+  /** Filter by the object’s `emailsByFromContactId` relation. */
+  emailsByFromContactId?: ContactToManyEmailFilter;
+  /** `emailsByFromContactId` exist. */
+  emailsByFromContactIdExist?: boolean;
+  /** Filter by the object’s `calendarEventsByOrganizerContactId` relation. */
+  calendarEventsByOrganizerContactId?: ContactToManyCalendarEventFilter;
+  /** `calendarEventsByOrganizerContactId` exist. */
+  calendarEventsByOrganizerContactIdExist?: boolean;
+  /** Filter by the object’s `calendarAttendees` relation. */
+  calendarAttendees?: ContactToManyCalendarAttendeeFilter;
+  /** `calendarAttendees` exist. */
+  calendarAttendeesExist?: boolean;
+  /** Filter by the object’s `projectContacts` relation. */
+  projectContacts?: ContactToManyProjectContactFilter;
+  /** `projectContacts` exist. */
+  projectContactsExist?: boolean;
+  /** Filter by the object’s `taskContacts` relation. */
+  taskContacts?: ContactToManyTaskContactFilter;
+  /** `taskContacts` exist. */
+  taskContactsExist?: boolean;
+  /** Filter by the object’s `calendarEventContacts` relation. */
+  calendarEventContacts?: ContactToManyCalendarEventContactFilter;
+  /** `calendarEventContacts` exist. */
+  calendarEventContactsExist?: boolean;
+  /** Filter by the object’s `contactNotes` relation. */
+  contactNotes?: ContactToManyContactNoteFilter;
+  /** `contactNotes` exist. */
+  contactNotesExist?: boolean;
+  /** Filter by the object’s `contactMemories` relation. */
+  contactMemories?: ContactToManyContactMemoryFilter;
+  /** `contactMemories` exist. */
+  contactMemoriesExist?: boolean;
+  /** Filter by the object’s `threadParticipants` relation. */
+  threadParticipants?: ContactToManyThreadParticipantFilter;
+  /** `threadParticipants` exist. */
+  threadParticipantsExist?: boolean;
+  /** Filter by the object’s `emailRecipients` relation. */
+  emailRecipients?: ContactToManyEmailRecipientFilter;
+  /** `emailRecipients` exist. */
+  emailRecipientsExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `first_name` column. */
+  trgmFirstName?: TrgmSearchInput;
+  /** TRGM search on the `last_name` column. */
+  trgmLastName?: TrgmSearchInput;
+  /** TRGM search on the `email` column. */
+  trgmEmail?: TrgmSearchInput;
+  /** TRGM search on the `phone` column. */
+  trgmPhone?: TrgmSearchInput;
+  /** TRGM search on the `headline` column. */
+  trgmHeadline?: TrgmSearchInput;
+  /** TRGM search on the `bio` column. */
+  trgmBio?: TrgmSearchInput;
+  /** TRGM search on the `location` column. */
+  trgmLocation?: TrgmSearchInput;
+  /** TRGM search on the `relationship_type` column. */
+  trgmRelationshipType?: TrgmSearchInput;
+  /** TRGM search on the `how_we_met` column. */
+  trgmHowWeMet?: TrgmSearchInput;
+  /** TRGM search on the `twitter_handle` column. */
+  trgmTwitterHandle?: TrgmSearchInput;
+  /** TRGM search on the `linkedin_url` column. */
+  trgmLinkedinUrl?: TrgmSearchInput;
+  /** TRGM search on the `github_username` column. */
+  trgmGithubUsername?: TrgmSearchInput;
+  /** TRGM search on the `instagram_handle` column. */
+  trgmInstagramHandle?: TrgmSearchInput;
+  /** TRGM search on the `website` column. */
+  trgmWebsite?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+export interface CalendarEventNoteFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventNoteFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventNoteFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+export interface NoteFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `abstract` field. */
+  abstract?: StringTrgmFilter;
+  /** Filter by the object’s `overview` field. */
+  overview?: StringTrgmFilter;
+  /** Filter by the object’s `activeCount` field. */
+  activeCount?: IntFilter;
+  /** Filter by the object’s `lastAccessedAt` field. */
+  lastAccessedAt?: DatetimeFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: NoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: NoteFilter[];
+  /** Negates the expression. */
+  not?: NoteFilter;
+  /** Filter by the object’s `notesChunksByNotesId` relation. */
+  notesChunksByNotesId?: NoteToManyNotesChunkFilter;
+  /** `notesChunksByNotesId` exist. */
+  notesChunksByNotesIdExist?: boolean;
+  /** Filter by the object’s `contactNotes` relation. */
+  contactNotes?: NoteToManyContactNoteFilter;
+  /** `contactNotes` exist. */
+  contactNotesExist?: boolean;
+  /** Filter by the object’s `companyNotes` relation. */
+  companyNotes?: NoteToManyCompanyNoteFilter;
+  /** `companyNotes` exist. */
+  companyNotesExist?: boolean;
+  /** Filter by the object’s `dealNotes` relation. */
+  dealNotes?: NoteToManyDealNoteFilter;
+  /** `dealNotes` exist. */
+  dealNotesExist?: boolean;
+  /** Filter by the object’s `eventNotes` relation. */
+  eventNotes?: NoteToManyEventNoteFilter;
+  /** `eventNotes` exist. */
+  eventNotesExist?: boolean;
+  /** Filter by the object’s `taskNotes` relation. */
+  taskNotes?: NoteToManyTaskNoteFilter;
+  /** `taskNotes` exist. */
+  taskNotesExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: NoteToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventNotes` relation. */
+  calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
+  /** `calendarEventNotes` exist. */
+  calendarEventNotesExist?: boolean;
+  /** BM25 search on the `content` column. */
+  bm25Content?: Bm25SearchInput;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `abstract` column. */
+  trgmAbstract?: TrgmSearchInput;
+  /** TRGM search on the `overview` column. */
+  trgmOverview?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+export interface CalendarEventsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `calendarEventsId` field. */
+  calendarEventsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventsChunkFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventsChunkFilter;
+  /** Filter by the object’s `calendarEvents` relation. */
+  calendarEvents?: CalendarEventFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface CalendarEventTaskFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventTaskFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventTaskFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventTaskFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+export interface TaskFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `priority` field. */
+  priority?: IntFilter;
+  /** Filter by the object’s `result` field. */
+  result?: StringTrgmFilter;
+  /** Filter by the object’s `startedAt` field. */
+  startedAt?: DatetimeFilter;
+  /** Filter by the object’s `completedAt` field. */
+  completedAt?: DatetimeFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskFilter[];
+  /** Negates the expression. */
+  not?: TaskFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** A related `agent` exists. */
+  agentExists?: boolean;
+  /** Filter by the object’s `tasksChunksByTasksId` relation. */
+  tasksChunksByTasksId?: TaskToManyTasksChunkFilter;
+  /** `tasksChunksByTasksId` exist. */
+  tasksChunksByTasksIdExist?: boolean;
+  /** Filter by the object’s `taskContacts` relation. */
+  taskContacts?: TaskToManyTaskContactFilter;
+  /** `taskContacts` exist. */
+  taskContactsExist?: boolean;
+  /** Filter by the object’s `taskProjects` relation. */
+  taskProjects?: TaskToManyTaskProjectFilter;
+  /** `taskProjects` exist. */
+  taskProjectsExist?: boolean;
+  /** Filter by the object’s `taskNotes` relation. */
+  taskNotes?: TaskToManyTaskNoteFilter;
+  /** `taskNotes` exist. */
+  taskNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventTasks` relation. */
+  calendarEventTasks?: TaskToManyCalendarEventTaskFilter;
+  /** `calendarEventTasks` exist. */
+  calendarEventTasksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `result` column. */
+  trgmResult?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
 export interface CodebaseDependencyFilter {
   /** Filter by the object’s `codebasisId` field. */
   codebasisId?: UUIDFilter;
@@ -5849,163 +7266,6 @@ export interface CompanyFilter {
    */
   fullTextSearch?: string;
 }
-export interface ContactFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `firstName` field. */
-  firstName?: StringTrgmFilter;
-  /** Filter by the object’s `lastName` field. */
-  lastName?: StringTrgmFilter;
-  /** Filter by the object’s `email` field. */
-  email?: StringTrgmFilter;
-  /** Filter by the object’s `phone` field. */
-  phone?: StringTrgmFilter;
-  /** Filter by the object’s `headline` field. */
-  headline?: StringTrgmFilter;
-  /** Filter by the object’s `bio` field. */
-  bio?: StringTrgmFilter;
-  /** Filter by the object’s `location` field. */
-  location?: StringTrgmFilter;
-  /** Filter by the object’s `birthday` field. */
-  birthday?: DateFilter;
-  /** Filter by the object’s `relationshipType` field. */
-  relationshipType?: StringTrgmFilter;
-  /** Filter by the object’s `howWeMet` field. */
-  howWeMet?: StringTrgmFilter;
-  /** Filter by the object’s `twitterHandle` field. */
-  twitterHandle?: StringTrgmFilter;
-  /** Filter by the object’s `linkedinUrl` field. */
-  linkedinUrl?: StringTrgmFilter;
-  /** Filter by the object’s `githubUsername` field. */
-  githubUsername?: StringTrgmFilter;
-  /** Filter by the object’s `instagramHandle` field. */
-  instagramHandle?: StringTrgmFilter;
-  /** Filter by the object’s `website` field. */
-  website?: StringTrgmFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `mainImageId` field. */
-  mainImageId?: UUIDFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactFilter[];
-  /** Negates the expression. */
-  not?: ContactFilter;
-  /** Filter by the object’s `mainImage` relation. */
-  mainImage?: ImageFilter;
-  /** A related `mainImage` exists. */
-  mainImageExists?: boolean;
-  /** Filter by the object’s `contactsChunksByContactsId` relation. */
-  contactsChunksByContactsId?: ContactToManyContactsChunkFilter;
-  /** `contactsChunksByContactsId` exist. */
-  contactsChunksByContactsIdExist?: boolean;
-  /** Filter by the object’s `interactions` relation. */
-  interactions?: ContactToManyInteractionFilter;
-  /** `interactions` exist. */
-  interactionsExist?: boolean;
-  /** Filter by the object’s `touchpoints` relation. */
-  touchpoints?: ContactToManyTouchpointFilter;
-  /** `touchpoints` exist. */
-  touchpointsExist?: boolean;
-  /** Filter by the object’s `contactLinks` relation. */
-  contactLinks?: ContactToManyContactLinkFilter;
-  /** `contactLinks` exist. */
-  contactLinksExist?: boolean;
-  /** Filter by the object’s `contactImages` relation. */
-  contactImages?: ContactToManyContactImageFilter;
-  /** `contactImages` exist. */
-  contactImagesExist?: boolean;
-  /** Filter by the object’s `contactCompanies` relation. */
-  contactCompanies?: ContactToManyContactCompanyFilter;
-  /** `contactCompanies` exist. */
-  contactCompaniesExist?: boolean;
-  /** Filter by the object’s `contactEvents` relation. */
-  contactEvents?: ContactToManyContactEventFilter;
-  /** `contactEvents` exist. */
-  contactEventsExist?: boolean;
-  /** Filter by the object’s `dealContacts` relation. */
-  dealContacts?: ContactToManyDealContactFilter;
-  /** `dealContacts` exist. */
-  dealContactsExist?: boolean;
-  /** Filter by the object’s `contactRelationships` relation. */
-  contactRelationships?: ContactToManyContactRelationshipFilter;
-  /** `contactRelationships` exist. */
-  contactRelationshipsExist?: boolean;
-  /** Filter by the object’s `projectContacts` relation. */
-  projectContacts?: ContactToManyProjectContactFilter;
-  /** `projectContacts` exist. */
-  projectContactsExist?: boolean;
-  /** Filter by the object’s `taskContacts` relation. */
-  taskContacts?: ContactToManyTaskContactFilter;
-  /** `taskContacts` exist. */
-  taskContactsExist?: boolean;
-  /** Filter by the object’s `contactNotes` relation. */
-  contactNotes?: ContactToManyContactNoteFilter;
-  /** `contactNotes` exist. */
-  contactNotesExist?: boolean;
-  /** Filter by the object’s `contactMemories` relation. */
-  contactMemories?: ContactToManyContactMemoryFilter;
-  /** `contactMemories` exist. */
-  contactMemoriesExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `first_name` column. */
-  trgmFirstName?: TrgmSearchInput;
-  /** TRGM search on the `last_name` column. */
-  trgmLastName?: TrgmSearchInput;
-  /** TRGM search on the `email` column. */
-  trgmEmail?: TrgmSearchInput;
-  /** TRGM search on the `phone` column. */
-  trgmPhone?: TrgmSearchInput;
-  /** TRGM search on the `headline` column. */
-  trgmHeadline?: TrgmSearchInput;
-  /** TRGM search on the `bio` column. */
-  trgmBio?: TrgmSearchInput;
-  /** TRGM search on the `location` column. */
-  trgmLocation?: TrgmSearchInput;
-  /** TRGM search on the `relationship_type` column. */
-  trgmRelationshipType?: TrgmSearchInput;
-  /** TRGM search on the `how_we_met` column. */
-  trgmHowWeMet?: TrgmSearchInput;
-  /** TRGM search on the `twitter_handle` column. */
-  trgmTwitterHandle?: TrgmSearchInput;
-  /** TRGM search on the `linkedin_url` column. */
-  trgmLinkedinUrl?: TrgmSearchInput;
-  /** TRGM search on the `github_username` column. */
-  trgmGithubUsername?: TrgmSearchInput;
-  /** TRGM search on the `instagram_handle` column. */
-  trgmInstagramHandle?: TrgmSearchInput;
-  /** TRGM search on the `website` column. */
-  trgmWebsite?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
 export interface DealFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -6277,7 +7537,7 @@ export interface ImageFilter {
   companyImages?: ImageToManyCompanyImageFilter;
   /** `companyImages` exist. */
   companyImagesExist?: boolean;
-  /** Filter by the object��s `eventImages` relation. */
+  /** Filter by the object’s `eventImages` relation. */
   eventImages?: ImageToManyEventImageFilter;
   /** `eventImages` exist. */
   eventImagesExist?: boolean;
@@ -6433,85 +7693,6 @@ export interface CompanyNoteFilter {
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
 }
-export interface NoteFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `abstract` field. */
-  abstract?: StringTrgmFilter;
-  /** Filter by the object’s `overview` field. */
-  overview?: StringTrgmFilter;
-  /** Filter by the object’s `activeCount` field. */
-  activeCount?: IntFilter;
-  /** Filter by the object’s `lastAccessedAt` field. */
-  lastAccessedAt?: DatetimeFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: NoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: NoteFilter[];
-  /** Negates the expression. */
-  not?: NoteFilter;
-  /** Filter by the object’s `notesChunksByNotesId` relation. */
-  notesChunksByNotesId?: NoteToManyNotesChunkFilter;
-  /** `notesChunksByNotesId` exist. */
-  notesChunksByNotesIdExist?: boolean;
-  /** Filter by the object’s `contactNotes` relation. */
-  contactNotes?: NoteToManyContactNoteFilter;
-  /** `contactNotes` exist. */
-  contactNotesExist?: boolean;
-  /** Filter by the object’s `companyNotes` relation. */
-  companyNotes?: NoteToManyCompanyNoteFilter;
-  /** `companyNotes` exist. */
-  companyNotesExist?: boolean;
-  /** Filter by the object’s `dealNotes` relation. */
-  dealNotes?: NoteToManyDealNoteFilter;
-  /** `dealNotes` exist. */
-  dealNotesExist?: boolean;
-  /** Filter by the object’s `eventNotes` relation. */
-  eventNotes?: NoteToManyEventNoteFilter;
-  /** `eventNotes` exist. */
-  eventNotesExist?: boolean;
-  /** Filter by the object’s `taskNotes` relation. */
-  taskNotes?: NoteToManyTaskNoteFilter;
-  /** `taskNotes` exist. */
-  taskNotesExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `abstract` column. */
-  trgmAbstract?: TrgmSearchInput;
-  /** TRGM search on the `overview` column. */
-  trgmOverview?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
 export interface ContactCompanyFilter {
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
@@ -6531,6 +7712,170 @@ export interface ContactCompanyFilter {
   company?: CompanyFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
+}
+export interface EmailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `threadId` field. */
+  threadId?: UUIDFilter;
+  /** Filter by the object’s `providerMessageId` field. */
+  providerMessageId?: StringTrgmFilter;
+  /** Filter by the object’s `fromContactId` field. */
+  fromContactId?: UUIDFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringTrgmFilter;
+  /** Filter by the object’s `bodyText` field. */
+  bodyText?: StringTrgmFilter;
+  /** Filter by the object’s `bodyHtml` field. */
+  bodyHtml?: StringTrgmFilter;
+  /** Filter by the object’s `sentAt` field. */
+  sentAt?: DatetimeFilter;
+  /** Filter by the object’s `toRecipients` field. */
+  toRecipients?: JSONFilter;
+  /** Filter by the object’s `ccRecipients` field. */
+  ccRecipients?: JSONFilter;
+  /** Filter by the object’s `bccRecipients` field. */
+  bccRecipients?: JSONFilter;
+  /** Filter by the object’s `isDraft` field. */
+  isDraft?: BooleanFilter;
+  /** Filter by the object’s `isRead` field. */
+  isRead?: BooleanFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `emailThreadId` field. */
+  emailThreadId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailFilter[];
+  /** Negates the expression. */
+  not?: EmailFilter;
+  /** Filter by the object’s `emailThread` relation. */
+  emailThread?: EmailThreadFilter;
+  /** Filter by the object’s `fromContact` relation. */
+  fromContact?: ContactFilter;
+  /** A related `fromContact` exists. */
+  fromContactExists?: boolean;
+  /** Filter by the object’s `emailsChunksByEmailsId` relation. */
+  emailsChunksByEmailsId?: EmailToManyEmailsChunkFilter;
+  /** `emailsChunksByEmailsId` exist. */
+  emailsChunksByEmailsIdExist?: boolean;
+  /** Filter by the object’s `emailAttachments` relation. */
+  emailAttachments?: EmailToManyEmailAttachmentFilter;
+  /** `emailAttachments` exist. */
+  emailAttachmentsExist?: boolean;
+  /** Filter by the object’s `emailRecipients` relation. */
+  emailRecipients?: EmailToManyEmailRecipientFilter;
+  /** `emailRecipients` exist. */
+  emailRecipientsExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: EmailToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_message_id` column. */
+  trgmProviderMessageId?: TrgmSearchInput;
+  /** TRGM search on the `subject` column. */
+  trgmSubject?: TrgmSearchInput;
+  /** TRGM search on the `body_text` column. */
+  trgmBodyText?: TrgmSearchInput;
+  /** TRGM search on the `body_html` column. */
+  trgmBodyHtml?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+export interface EmailThreadFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `providerThreadId` field. */
+  providerThreadId?: StringTrgmFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringTrgmFilter;
+  /** Filter by the object’s `lastMessageAt` field. */
+  lastMessageAt?: DatetimeFilter;
+  /** Filter by the object’s `summary` field. */
+  summary?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailThreadFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailThreadFilter[];
+  /** Negates the expression. */
+  not?: EmailThreadFilter;
+  /** Filter by the object’s `emailThreadsChunksByEmailThreadsId` relation. */
+  emailThreadsChunksByEmailThreadsId?: EmailThreadToManyEmailThreadsChunkFilter;
+  /** `emailThreadsChunksByEmailThreadsId` exist. */
+  emailThreadsChunksByEmailThreadsIdExist?: boolean;
+  /** Filter by the object’s `emails` relation. */
+  emails?: EmailThreadToManyEmailFilter;
+  /** `emails` exist. */
+  emailsExist?: boolean;
+  /** Filter by the object’s `threadParticipants` relation. */
+  threadParticipants?: EmailThreadToManyThreadParticipantFilter;
+  /** `threadParticipants` exist. */
+  threadParticipantsExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_thread_id` column. */
+  trgmProviderThreadId?: TrgmSearchInput;
+  /** TRGM search on the `subject` column. */
+  trgmSubject?: TrgmSearchInput;
+  /** TRGM search on the `summary` column. */
+  trgmSummary?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 export interface ContactEventFilter {
   /** Filter by the object’s `contactId` field. */
@@ -6765,87 +8110,6 @@ export interface ContactsChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
-export interface TaskFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `priority` field. */
-  priority?: IntFilter;
-  /** Filter by the object’s `result` field. */
-  result?: StringTrgmFilter;
-  /** Filter by the object’s `startedAt` field. */
-  startedAt?: DatetimeFilter;
-  /** Filter by the object’s `completedAt` field. */
-  completedAt?: DatetimeFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: TaskFilter[];
-  /** Checks for any expressions in this list. */
-  or?: TaskFilter[];
-  /** Negates the expression. */
-  not?: TaskFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** A related `agent` exists. */
-  agentExists?: boolean;
-  /** Filter by the object’s `tasksChunksByTasksId` relation. */
-  tasksChunksByTasksId?: TaskToManyTasksChunkFilter;
-  /** `tasksChunksByTasksId` exist. */
-  tasksChunksByTasksIdExist?: boolean;
-  /** Filter by the object’s `taskContacts` relation. */
-  taskContacts?: TaskToManyTaskContactFilter;
-  /** `taskContacts` exist. */
-  taskContactsExist?: boolean;
-  /** Filter by the object’s `taskProjects` relation. */
-  taskProjects?: TaskToManyTaskProjectFilter;
-  /** `taskProjects` exist. */
-  taskProjectsExist?: boolean;
-  /** Filter by the object’s `taskNotes` relation. */
-  taskNotes?: TaskToManyTaskNoteFilter;
-  /** `taskNotes` exist. */
-  taskNotesExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `result` column. */
-  trgmResult?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
 export interface ConversationFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -7014,6 +8278,132 @@ export interface DealsChunkFilter {
   not?: DealsChunkFilter;
   /** Filter by the object’s `deals` relation. */
   deals?: DealFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface EmailAttachmentFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `filename` field. */
+  filename?: StringFilter;
+  /** Filter by the object’s `contentType` field. */
+  contentType?: StringFilter;
+  /** Filter by the object’s `sizeBytes` field. */
+  sizeBytes?: IntFilter;
+  /** Filter by the object’s `storageUrl` field. */
+  storageUrl?: StringFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailAttachmentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailAttachmentFilter[];
+  /** Negates the expression. */
+  not?: EmailAttachmentFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+}
+export interface EmailNoteFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailNoteFilter[];
+  /** Negates the expression. */
+  not?: EmailNoteFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+export interface EmailRecipientFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailRecipientFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailRecipientFilter[];
+  /** Negates the expression. */
+  not?: EmailRecipientFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+}
+export interface EmailsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `emailsId` field. */
+  emailsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailsChunkFilter[];
+  /** Negates the expression. */
+  not?: EmailsChunkFilter;
+  /** Filter by the object’s `emails` relation. */
+  emails?: EmailFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface EmailThreadsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `emailThreadsId` field. */
+  emailThreadsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailThreadsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailThreadsChunkFilter[];
+  /** Negates the expression. */
+  not?: EmailThreadsChunkFilter;
+  /** Filter by the object’s `emailThreads` relation. */
+  emailThreads?: EmailThreadFilter;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
@@ -8142,6 +9532,36 @@ export interface ProjectsChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
+export interface ProviderSyncStateFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `provider` field. */
+  provider?: StringFilter;
+  /** Filter by the object’s `resourceType` field. */
+  resourceType?: StringFilter;
+  /** Filter by the object’s `syncCursor` field. */
+  syncCursor?: StringFilter;
+  /** Filter by the object’s `lastSyncAt` field. */
+  lastSyncAt?: DatetimeFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringFilter;
+  /** Filter by the object’s `errorMessage` field. */
+  errorMessage?: StringFilter;
+  /** Filter by the object’s `config` field. */
+  config?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: ProviderSyncStateFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ProviderSyncStateFilter[];
+  /** Negates the expression. */
+  not?: ProviderSyncStateFilter;
+}
 export interface RuleFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -8856,6 +10276,26 @@ export interface TasksChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
+export interface ThreadParticipantFilter {
+  /** Filter by the object’s `emailThreadId` field. */
+  emailThreadId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ThreadParticipantFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ThreadParticipantFilter[];
+  /** Negates the expression. */
+  not?: ThreadParticipantFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `emailThread` relation. */
+  emailThread?: EmailThreadFilter;
+}
 export interface ToolExecutionFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -9330,6 +10770,266 @@ export type AutonomyRecordsChunkOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type CalendarAttendeeOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CALENDAR_EVENT_ID_ASC'
+  | 'CALENDAR_EVENT_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'RESPONSE_STATUS_ASC'
+  | 'RESPONSE_STATUS_DESC'
+  | 'ROLE_ASC'
+  | 'ROLE_DESC';
+export type CalendarOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'PROVIDER_ACCOUNT_ID_ASC'
+  | 'PROVIDER_ACCOUNT_ID_DESC'
+  | 'PROVIDER_CALENDAR_ID_ASC'
+  | 'PROVIDER_CALENDAR_ID_DESC'
+  | 'IS_ACTIVE_ASC'
+  | 'IS_ACTIVE_DESC';
+export type CalendarEventOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CALENDAR_ID_ASC'
+  | 'CALENDAR_ID_DESC'
+  | 'PROVIDER_EVENT_ID_ASC'
+  | 'PROVIDER_EVENT_ID_DESC'
+  | 'START_TIME_ASC'
+  | 'START_TIME_DESC'
+  | 'END_TIME_ASC'
+  | 'END_TIME_DESC'
+  | 'ORGANIZER_CONTACT_ID_ASC'
+  | 'ORGANIZER_CONTACT_ID_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'LOCATION_ASC'
+  | 'LOCATION_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'PROVIDER_EVENT_ID_TRGM_SIMILARITY_ASC'
+  | 'PROVIDER_EVENT_ID_TRGM_SIMILARITY_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'MEETING_URL_TRGM_SIMILARITY_ASC'
+  | 'MEETING_URL_TRGM_SIMILARITY_DESC'
+  | 'RECURRENCE_RULE_TRGM_SIMILARITY_ASC'
+  | 'RECURRENCE_RULE_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type CalendarEventContactOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'CALENDAR_EVENT_ID_ASC'
+  | 'CALENDAR_EVENT_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
+export type ContactOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EMAIL_ASC'
+  | 'EMAIL_DESC'
+  | 'RELATIONSHIP_TYPE_ASC'
+  | 'RELATIONSHIP_TYPE_DESC'
+  | 'TWITTER_HANDLE_ASC'
+  | 'TWITTER_HANDLE_DESC'
+  | 'GITHUB_USERNAME_ASC'
+  | 'GITHUB_USERNAME_DESC'
+  | 'MAIN_IMAGE_ID_ASC'
+  | 'MAIN_IMAGE_ID_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'LOCATION_GEO_ASC'
+  | 'LOCATION_GEO_DESC'
+  | 'SEARCH_TSV_RANK_ASC'
+  | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'FIRST_NAME_TRGM_SIMILARITY_ASC'
+  | 'FIRST_NAME_TRGM_SIMILARITY_DESC'
+  | 'LAST_NAME_TRGM_SIMILARITY_ASC'
+  | 'LAST_NAME_TRGM_SIMILARITY_DESC'
+  | 'EMAIL_TRGM_SIMILARITY_ASC'
+  | 'EMAIL_TRGM_SIMILARITY_DESC'
+  | 'PHONE_TRGM_SIMILARITY_ASC'
+  | 'PHONE_TRGM_SIMILARITY_DESC'
+  | 'HEADLINE_TRGM_SIMILARITY_ASC'
+  | 'HEADLINE_TRGM_SIMILARITY_DESC'
+  | 'BIO_TRGM_SIMILARITY_ASC'
+  | 'BIO_TRGM_SIMILARITY_DESC'
+  | 'LOCATION_TRGM_SIMILARITY_ASC'
+  | 'LOCATION_TRGM_SIMILARITY_DESC'
+  | 'RELATIONSHIP_TYPE_TRGM_SIMILARITY_ASC'
+  | 'RELATIONSHIP_TYPE_TRGM_SIMILARITY_DESC'
+  | 'HOW_WE_MET_TRGM_SIMILARITY_ASC'
+  | 'HOW_WE_MET_TRGM_SIMILARITY_DESC'
+  | 'TWITTER_HANDLE_TRGM_SIMILARITY_ASC'
+  | 'TWITTER_HANDLE_TRGM_SIMILARITY_DESC'
+  | 'LINKEDIN_URL_TRGM_SIMILARITY_ASC'
+  | 'LINKEDIN_URL_TRGM_SIMILARITY_DESC'
+  | 'GITHUB_USERNAME_TRGM_SIMILARITY_ASC'
+  | 'GITHUB_USERNAME_TRGM_SIMILARITY_DESC'
+  | 'INSTAGRAM_HANDLE_TRGM_SIMILARITY_ASC'
+  | 'INSTAGRAM_HANDLE_TRGM_SIMILARITY_DESC'
+  | 'WEBSITE_TRGM_SIMILARITY_ASC'
+  | 'WEBSITE_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type CalendarEventNoteOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'CALENDAR_EVENT_ID_ASC'
+  | 'CALENDAR_EVENT_ID_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
+export type NoteOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CONTENT_ASC'
+  | 'CONTENT_DESC'
+  | 'ACTIVE_COUNT_ASC'
+  | 'ACTIVE_COUNT_DESC'
+  | 'LAST_ACCESSED_AT_ASC'
+  | 'LAST_ACCESSED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'CONTENT_BM25_SCORE_ASC'
+  | 'CONTENT_BM25_SCORE_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'CONTENT_TRGM_SIMILARITY_ASC'
+  | 'CONTENT_TRGM_SIMILARITY_DESC'
+  | 'ABSTRACT_TRGM_SIMILARITY_ASC'
+  | 'ABSTRACT_TRGM_SIMILARITY_DESC'
+  | 'OVERVIEW_TRGM_SIMILARITY_ASC'
+  | 'OVERVIEW_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type CalendarEventsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'CALENDAR_EVENTS_ID_ASC'
+  | 'CALENDAR_EVENTS_ID_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type CalendarEventTaskOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'CALENDAR_EVENT_ID_ASC'
+  | 'CALENDAR_EVENT_ID_DESC'
+  | 'TASK_ID_ASC'
+  | 'TASK_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
+export type TaskOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'PRIORITY_ASC'
+  | 'PRIORITY_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'RESULT_TRGM_SIMILARITY_ASC'
+  | 'RESULT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type CodebaseDependencyOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9484,68 +11184,6 @@ export type CompanyOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type ContactOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'EMAIL_ASC'
-  | 'EMAIL_DESC'
-  | 'RELATIONSHIP_TYPE_ASC'
-  | 'RELATIONSHIP_TYPE_DESC'
-  | 'TWITTER_HANDLE_ASC'
-  | 'TWITTER_HANDLE_DESC'
-  | 'GITHUB_USERNAME_ASC'
-  | 'GITHUB_USERNAME_DESC'
-  | 'MAIN_IMAGE_ID_ASC'
-  | 'MAIN_IMAGE_ID_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'LOCATION_GEO_ASC'
-  | 'LOCATION_GEO_DESC'
-  | 'SEARCH_TSV_RANK_ASC'
-  | 'SEARCH_TSV_RANK_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'FIRST_NAME_TRGM_SIMILARITY_ASC'
-  | 'FIRST_NAME_TRGM_SIMILARITY_DESC'
-  | 'LAST_NAME_TRGM_SIMILARITY_ASC'
-  | 'LAST_NAME_TRGM_SIMILARITY_DESC'
-  | 'EMAIL_TRGM_SIMILARITY_ASC'
-  | 'EMAIL_TRGM_SIMILARITY_DESC'
-  | 'PHONE_TRGM_SIMILARITY_ASC'
-  | 'PHONE_TRGM_SIMILARITY_DESC'
-  | 'HEADLINE_TRGM_SIMILARITY_ASC'
-  | 'HEADLINE_TRGM_SIMILARITY_DESC'
-  | 'BIO_TRGM_SIMILARITY_ASC'
-  | 'BIO_TRGM_SIMILARITY_DESC'
-  | 'LOCATION_TRGM_SIMILARITY_ASC'
-  | 'LOCATION_TRGM_SIMILARITY_DESC'
-  | 'RELATIONSHIP_TYPE_TRGM_SIMILARITY_ASC'
-  | 'RELATIONSHIP_TYPE_TRGM_SIMILARITY_DESC'
-  | 'HOW_WE_MET_TRGM_SIMILARITY_ASC'
-  | 'HOW_WE_MET_TRGM_SIMILARITY_DESC'
-  | 'TWITTER_HANDLE_TRGM_SIMILARITY_ASC'
-  | 'TWITTER_HANDLE_TRGM_SIMILARITY_DESC'
-  | 'LINKEDIN_URL_TRGM_SIMILARITY_ASC'
-  | 'LINKEDIN_URL_TRGM_SIMILARITY_DESC'
-  | 'GITHUB_USERNAME_TRGM_SIMILARITY_ASC'
-  | 'GITHUB_USERNAME_TRGM_SIMILARITY_DESC'
-  | 'INSTAGRAM_HANDLE_TRGM_SIMILARITY_ASC'
-  | 'INSTAGRAM_HANDLE_TRGM_SIMILARITY_DESC'
-  | 'WEBSITE_TRGM_SIMILARITY_ASC'
-  | 'WEBSITE_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
 export type DealOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9608,6 +11246,8 @@ export type EventOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'LOCATION_GEO_ASC'
+  | 'LOCATION_GEO_DESC'
   | 'SEARCH_TSV_RANK_ASC'
   | 'SEARCH_TSV_RANK_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
@@ -9686,6 +11326,8 @@ export type MemoryOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'LOCATION_GEO_ASC'
+  | 'LOCATION_GEO_DESC'
   | 'AGENT_ID_ASC'
   | 'AGENT_ID_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
@@ -9728,40 +11370,6 @@ export type CompanyNoteOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
-export type NoteOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'CONTENT_ASC'
-  | 'CONTENT_DESC'
-  | 'ACTIVE_COUNT_ASC'
-  | 'ACTIVE_COUNT_DESC'
-  | 'LAST_ACCESSED_AT_ASC'
-  | 'LAST_ACCESSED_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'CONTENT_BM25_SCORE_ASC'
-  | 'CONTENT_BM25_SCORE_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'CONTENT_TRGM_SIMILARITY_ASC'
-  | 'CONTENT_TRGM_SIMILARITY_DESC'
-  | 'ABSTRACT_TRGM_SIMILARITY_ASC'
-  | 'ABSTRACT_TRGM_SIMILARITY_DESC'
-  | 'OVERVIEW_TRGM_SIMILARITY_ASC'
-  | 'OVERVIEW_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
 export type ContactCompanyOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9774,6 +11382,82 @@ export type ContactCompanyOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type EmailOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'PROVIDER_MESSAGE_ID_ASC'
+  | 'PROVIDER_MESSAGE_ID_DESC'
+  | 'FROM_CONTACT_ID_ASC'
+  | 'FROM_CONTACT_ID_DESC'
+  | 'SENT_AT_ASC'
+  | 'SENT_AT_DESC'
+  | 'IS_DRAFT_ASC'
+  | 'IS_DRAFT_DESC'
+  | 'IS_READ_ASC'
+  | 'IS_READ_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMAIL_THREAD_ID_ASC'
+  | 'EMAIL_THREAD_ID_DESC'
+  | 'SEARCH_TSV_RANK_ASC'
+  | 'SEARCH_TSV_RANK_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_ASC'
+  | 'PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_DESC'
+  | 'SUBJECT_TRGM_SIMILARITY_ASC'
+  | 'SUBJECT_TRGM_SIMILARITY_DESC'
+  | 'BODY_TEXT_TRGM_SIMILARITY_ASC'
+  | 'BODY_TEXT_TRGM_SIMILARITY_DESC'
+  | 'BODY_HTML_TRGM_SIMILARITY_ASC'
+  | 'BODY_HTML_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type EmailThreadOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'PROVIDER_THREAD_ID_ASC'
+  | 'PROVIDER_THREAD_ID_DESC'
+  | 'LAST_MESSAGE_AT_ASC'
+  | 'LAST_MESSAGE_AT_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'PROVIDER_THREAD_ID_TRGM_SIMILARITY_ASC'
+  | 'PROVIDER_THREAD_ID_TRGM_SIMILARITY_DESC'
+  | 'SUBJECT_TRGM_SIMILARITY_ASC'
+  | 'SUBJECT_TRGM_SIMILARITY_DESC'
+  | 'SUMMARY_TRGM_SIMILARITY_ASC'
+  | 'SUMMARY_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ContactEventOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9900,40 +11584,6 @@ export type ContactsChunkOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
-export type TaskOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'PRIORITY_ASC'
-  | 'PRIORITY_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'RESULT_TRGM_SIMILARITY_ASC'
-  | 'RESULT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
 export type ConversationOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -10024,6 +11674,78 @@ export type DealsChunkOrderBy =
   | 'ID_DESC'
   | 'DEALS_ID_ASC'
   | 'DEALS_ID_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type EmailAttachmentOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EMAIL_ID_ASC'
+  | 'EMAIL_ID_DESC'
+  | 'CONTENT_TYPE_ASC'
+  | 'CONTENT_TYPE_DESC';
+export type EmailNoteOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'EMAIL_ID_ASC'
+  | 'EMAIL_ID_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
+export type EmailRecipientOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'EMAIL_ID_ASC'
+  | 'EMAIL_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
+export type EmailsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'EMAILS_ID_ASC'
+  | 'EMAILS_ID_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type EmailThreadsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'EMAIL_THREADS_ID_ASC'
+  | 'EMAIL_THREADS_ID_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'CREATED_AT_ASC'
@@ -10648,6 +12370,22 @@ export type ProjectsChunkOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type ProviderSyncStateOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'PROVIDER_ASC'
+  | 'PROVIDER_DESC'
+  | 'RESOURCE_TYPE_ASC'
+  | 'RESOURCE_TYPE_DESC'
+  | 'LAST_SYNC_AT_ASC'
+  | 'LAST_SYNC_AT_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC';
 export type RuleOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -11018,6 +12756,18 @@ export type TasksChunkOrderBy =
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type ThreadParticipantOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'EMAIL_THREAD_ID_ASC'
+  | 'EMAIL_THREAD_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
 export type ToolExecutionOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -11419,6 +13169,338 @@ export interface DeleteAutonomyRecordsChunkInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateCalendarAttendeeInput {
+  clientMutationId?: string;
+  calendarAttendee: {
+    entityId: string;
+    calendarEventId: string;
+    contactId: string;
+    responseStatus?: string;
+    role?: string;
+  };
+}
+export interface CalendarAttendeePatch {
+  entityId?: string | null;
+  calendarEventId?: string | null;
+  contactId?: string | null;
+  responseStatus?: string | null;
+  role?: string | null;
+}
+export interface UpdateCalendarAttendeeInput {
+  clientMutationId?: string;
+  id: string;
+  calendarAttendeePatch: CalendarAttendeePatch;
+}
+export interface DeleteCalendarAttendeeInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCalendarInput {
+  clientMutationId?: string;
+  calendar: {
+    entityId: string;
+    providerAccountId?: string;
+    providerCalendarId?: string;
+    name: string;
+    color?: string;
+    isPrimary?: boolean;
+    isActive?: boolean;
+  };
+}
+export interface CalendarPatch {
+  entityId?: string | null;
+  providerAccountId?: string | null;
+  providerCalendarId?: string | null;
+  name?: string | null;
+  color?: string | null;
+  isPrimary?: boolean | null;
+  isActive?: boolean | null;
+}
+export interface UpdateCalendarInput {
+  clientMutationId?: string;
+  id: string;
+  calendarPatch: CalendarPatch;
+}
+export interface DeleteCalendarInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCalendarEventInput {
+  clientMutationId?: string;
+  calendarEvent: {
+    entityId: string;
+    calendarId: string;
+    providerEventId?: string;
+    title: string;
+    description?: string;
+    startTime?: string;
+    endTime?: string;
+    isAllDay?: boolean;
+    meetingUrl?: string;
+    organizerContactId?: string;
+    recurrenceRule?: string;
+    status?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface CalendarEventPatch {
+  entityId?: string | null;
+  calendarId?: string | null;
+  providerEventId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  startTime?: string | null;
+  endTime?: string | null;
+  isAllDay?: boolean | null;
+  meetingUrl?: string | null;
+  organizerContactId?: string | null;
+  recurrenceRule?: string | null;
+  status?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateCalendarEventInput {
+  clientMutationId?: string;
+  id: string;
+  calendarEventPatch: CalendarEventPatch;
+}
+export interface DeleteCalendarEventInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCalendarEventContactInput {
+  clientMutationId?: string;
+  calendarEventContact: {
+    calendarEventId: string;
+    contactId: string;
+    entityId: string;
+  };
+}
+export interface CalendarEventContactPatch {
+  calendarEventId?: string | null;
+  contactId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateCalendarEventContactInput {
+  clientMutationId?: string;
+  id: string;
+  calendarEventContactPatch: CalendarEventContactPatch;
+}
+export interface DeleteCalendarEventContactInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactInput {
+  clientMutationId?: string;
+  contact: {
+    entityId: string;
+    firstName: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    headline?: string;
+    bio?: string;
+    location?: string;
+    birthday?: string;
+    relationshipType?: string;
+    howWeMet?: string;
+    twitterHandle?: string;
+    linkedinUrl?: string;
+    githubUsername?: string;
+    instagramHandle?: string;
+    website?: string;
+    tags?: string[];
+    mainImageId?: string;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface ContactPatch {
+  entityId?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  headline?: string | null;
+  bio?: string | null;
+  location?: string | null;
+  birthday?: string | null;
+  relationshipType?: string | null;
+  howWeMet?: string | null;
+  twitterHandle?: string | null;
+  linkedinUrl?: string | null;
+  githubUsername?: string | null;
+  instagramHandle?: string | null;
+  website?: string | null;
+  tags?: string[] | null;
+  mainImageId?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateContactInput {
+  clientMutationId?: string;
+  id: string;
+  contactPatch: ContactPatch;
+}
+export interface DeleteContactInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCalendarEventNoteInput {
+  clientMutationId?: string;
+  calendarEventNote: {
+    calendarEventId: string;
+    noteId: string;
+    entityId: string;
+  };
+}
+export interface CalendarEventNotePatch {
+  calendarEventId?: string | null;
+  noteId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateCalendarEventNoteInput {
+  clientMutationId?: string;
+  id: string;
+  calendarEventNotePatch: CalendarEventNotePatch;
+}
+export interface DeleteCalendarEventNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateNoteInput {
+  clientMutationId?: string;
+  note: {
+    entityId: string;
+    content: string;
+    abstract?: string;
+    overview?: string;
+    activeCount?: number;
+    lastAccessedAt?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface NotePatch {
+  entityId?: string | null;
+  content?: string | null;
+  abstract?: string | null;
+  overview?: string | null;
+  activeCount?: number | null;
+  lastAccessedAt?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateNoteInput {
+  clientMutationId?: string;
+  id: string;
+  notePatch: NotePatch;
+}
+export interface DeleteNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCalendarEventsChunkInput {
+  clientMutationId?: string;
+  calendarEventsChunk: {
+    calendarEventsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+  };
+}
+export interface CalendarEventsChunkPatch {
+  calendarEventsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+}
+export interface UpdateCalendarEventsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  calendarEventsChunkPatch: CalendarEventsChunkPatch;
+}
+export interface DeleteCalendarEventsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCalendarEventTaskInput {
+  clientMutationId?: string;
+  calendarEventTask: {
+    calendarEventId: string;
+    taskId: string;
+    entityId: string;
+  };
+}
+export interface CalendarEventTaskPatch {
+  calendarEventId?: string | null;
+  taskId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateCalendarEventTaskInput {
+  clientMutationId?: string;
+  id: string;
+  calendarEventTaskPatch: CalendarEventTaskPatch;
+}
+export interface DeleteCalendarEventTaskInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTaskInput {
+  clientMutationId?: string;
+  task: {
+    entityId: string;
+    agentId?: string;
+    title: string;
+    description?: string;
+    status?: string;
+    priority?: number;
+    result?: string;
+    startedAt?: string;
+    completedAt?: string;
+    meta?: Record<string, unknown>;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface TaskPatch {
+  entityId?: string | null;
+  agentId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  status?: string | null;
+  priority?: number | null;
+  result?: string | null;
+  startedAt?: string | null;
+  completedAt?: string | null;
+  meta?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateTaskInput {
+  clientMutationId?: string;
+  id: string;
+  taskPatch: TaskPatch;
+}
+export interface DeleteTaskInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateCodebaseDependencyInput {
   clientMutationId?: string;
   codebaseDependency: {
@@ -11610,64 +13692,6 @@ export interface UpdateCompanyInput {
   companyPatch: CompanyPatch;
 }
 export interface DeleteCompanyInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateContactInput {
-  clientMutationId?: string;
-  contact: {
-    entityId: string;
-    firstName: string;
-    lastName?: string;
-    email?: string;
-    phone?: string;
-    headline?: string;
-    bio?: string;
-    location?: string;
-    birthday?: string;
-    relationshipType?: string;
-    howWeMet?: string;
-    twitterHandle?: string;
-    linkedinUrl?: string;
-    githubUsername?: string;
-    instagramHandle?: string;
-    website?: string;
-    tags?: string[];
-    mainImageId?: string;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface ContactPatch {
-  entityId?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  email?: string | null;
-  phone?: string | null;
-  headline?: string | null;
-  bio?: string | null;
-  location?: string | null;
-  birthday?: string | null;
-  relationshipType?: string | null;
-  howWeMet?: string | null;
-  twitterHandle?: string | null;
-  linkedinUrl?: string | null;
-  githubUsername?: string | null;
-  instagramHandle?: string | null;
-  website?: string | null;
-  tags?: string[] | null;
-  mainImageId?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateContactInput {
-  clientMutationId?: string;
-  id: string;
-  contactPatch: ContactPatch;
-}
-export interface DeleteContactInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11937,42 +13961,6 @@ export interface DeleteCompanyNoteInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateNoteInput {
-  clientMutationId?: string;
-  note: {
-    entityId: string;
-    content: string;
-    abstract?: string;
-    overview?: string;
-    activeCount?: number;
-    lastAccessedAt?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface NotePatch {
-  entityId?: string | null;
-  content?: string | null;
-  abstract?: string | null;
-  overview?: string | null;
-  activeCount?: number | null;
-  lastAccessedAt?: string | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateNoteInput {
-  clientMutationId?: string;
-  id: string;
-  notePatch: NotePatch;
-}
-export interface DeleteNoteInput {
-  clientMutationId?: string;
-  id: string;
-}
 export interface CreateContactCompanyInput {
   clientMutationId?: string;
   contactCompany: {
@@ -11992,6 +13980,94 @@ export interface UpdateContactCompanyInput {
   contactCompanyPatch: ContactCompanyPatch;
 }
 export interface DeleteContactCompanyInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailInput {
+  clientMutationId?: string;
+  email: {
+    entityId: string;
+    threadId: string;
+    providerMessageId?: string;
+    fromContactId?: string;
+    subject?: string;
+    bodyText: string;
+    bodyHtml?: string;
+    sentAt?: string;
+    toRecipients?: Record<string, unknown>;
+    ccRecipients?: Record<string, unknown>;
+    bccRecipients?: Record<string, unknown>;
+    isDraft?: boolean;
+    isRead?: boolean;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    emailThreadId: string;
+  };
+}
+export interface EmailPatch {
+  entityId?: string | null;
+  threadId?: string | null;
+  providerMessageId?: string | null;
+  fromContactId?: string | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  bodyHtml?: string | null;
+  sentAt?: string | null;
+  toRecipients?: Record<string, unknown> | null;
+  ccRecipients?: Record<string, unknown> | null;
+  bccRecipients?: Record<string, unknown> | null;
+  isDraft?: boolean | null;
+  isRead?: boolean | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  emailThreadId?: string | null;
+}
+export interface UpdateEmailInput {
+  clientMutationId?: string;
+  id: string;
+  emailPatch: EmailPatch;
+}
+export interface DeleteEmailInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailThreadInput {
+  clientMutationId?: string;
+  emailThread: {
+    entityId: string;
+    providerThreadId?: string;
+    subject: string;
+    lastMessageAt?: string;
+    summary?: string;
+    status?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface EmailThreadPatch {
+  entityId?: string | null;
+  providerThreadId?: string | null;
+  subject?: string | null;
+  lastMessageAt?: string | null;
+  summary?: string | null;
+  status?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateEmailThreadInput {
+  clientMutationId?: string;
+  id: string;
+  emailThreadPatch: EmailThreadPatch;
+}
+export interface DeleteEmailThreadInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12201,48 +14277,6 @@ export interface DeleteContactsChunkInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateTaskInput {
-  clientMutationId?: string;
-  task: {
-    entityId: string;
-    agentId?: string;
-    title: string;
-    description?: string;
-    status?: string;
-    priority?: number;
-    result?: string;
-    startedAt?: string;
-    completedAt?: string;
-    meta?: Record<string, unknown>;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface TaskPatch {
-  entityId?: string | null;
-  agentId?: string | null;
-  title?: string | null;
-  description?: string | null;
-  status?: string | null;
-  priority?: number | null;
-  result?: string | null;
-  startedAt?: string | null;
-  completedAt?: string | null;
-  meta?: Record<string, unknown> | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateTaskInput {
-  clientMutationId?: string;
-  id: string;
-  taskPatch: TaskPatch;
-}
-export interface DeleteTaskInput {
-  clientMutationId?: string;
-  id: string;
-}
 export interface CreateConversationInput {
   clientMutationId?: string;
   conversation: {
@@ -12390,6 +14424,132 @@ export interface UpdateDealsChunkInput {
   dealsChunkPatch: DealsChunkPatch;
 }
 export interface DeleteDealsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailAttachmentInput {
+  clientMutationId?: string;
+  emailAttachment: {
+    entityId: string;
+    emailId: string;
+    filename: string;
+    contentType?: string;
+    sizeBytes?: number;
+    storageUrl?: string;
+    meta?: Record<string, unknown>;
+  };
+}
+export interface EmailAttachmentPatch {
+  entityId?: string | null;
+  emailId?: string | null;
+  filename?: string | null;
+  contentType?: string | null;
+  sizeBytes?: number | null;
+  storageUrl?: string | null;
+  meta?: Record<string, unknown> | null;
+}
+export interface UpdateEmailAttachmentInput {
+  clientMutationId?: string;
+  id: string;
+  emailAttachmentPatch: EmailAttachmentPatch;
+}
+export interface DeleteEmailAttachmentInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailNoteInput {
+  clientMutationId?: string;
+  emailNote: {
+    emailId: string;
+    noteId: string;
+    entityId: string;
+  };
+}
+export interface EmailNotePatch {
+  emailId?: string | null;
+  noteId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateEmailNoteInput {
+  clientMutationId?: string;
+  id: string;
+  emailNotePatch: EmailNotePatch;
+}
+export interface DeleteEmailNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailRecipientInput {
+  clientMutationId?: string;
+  emailRecipient: {
+    emailId: string;
+    contactId: string;
+    entityId: string;
+  };
+}
+export interface EmailRecipientPatch {
+  emailId?: string | null;
+  contactId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateEmailRecipientInput {
+  clientMutationId?: string;
+  id: string;
+  emailRecipientPatch: EmailRecipientPatch;
+}
+export interface DeleteEmailRecipientInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailsChunkInput {
+  clientMutationId?: string;
+  emailsChunk: {
+    emailsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+  };
+}
+export interface EmailsChunkPatch {
+  emailsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+}
+export interface UpdateEmailsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  emailsChunkPatch: EmailsChunkPatch;
+}
+export interface DeleteEmailsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailThreadsChunkInput {
+  clientMutationId?: string;
+  emailThreadsChunk: {
+    emailThreadsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+  };
+}
+export interface EmailThreadsChunkPatch {
+  emailThreadsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+}
+export interface UpdateEmailThreadsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  emailThreadsChunkPatch: EmailThreadsChunkPatch;
+}
+export interface DeleteEmailThreadsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -13219,6 +15379,38 @@ export interface DeleteProjectsChunkInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateProviderSyncStateInput {
+  clientMutationId?: string;
+  providerSyncState: {
+    entityId: string;
+    provider: string;
+    resourceType: string;
+    syncCursor?: string;
+    lastSyncAt?: string;
+    status?: string;
+    errorMessage?: string;
+    config?: Record<string, unknown>;
+  };
+}
+export interface ProviderSyncStatePatch {
+  entityId?: string | null;
+  provider?: string | null;
+  resourceType?: string | null;
+  syncCursor?: string | null;
+  lastSyncAt?: string | null;
+  status?: string | null;
+  errorMessage?: string | null;
+  config?: Record<string, unknown> | null;
+}
+export interface UpdateProviderSyncStateInput {
+  clientMutationId?: string;
+  id: string;
+  providerSyncStatePatch: ProviderSyncStatePatch;
+}
+export interface DeleteProviderSyncStateInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateRuleInput {
   clientMutationId?: string;
   rule: {
@@ -13817,6 +16009,28 @@ export interface DeleteTasksChunkInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateThreadParticipantInput {
+  clientMutationId?: string;
+  threadParticipant: {
+    emailThreadId: string;
+    contactId: string;
+    entityId: string;
+  };
+}
+export interface ThreadParticipantPatch {
+  emailThreadId?: string | null;
+  contactId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateThreadParticipantInput {
+  clientMutationId?: string;
+  id: string;
+  threadParticipantPatch: ThreadParticipantPatch;
+}
+export interface DeleteThreadParticipantInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateToolExecutionInput {
   clientMutationId?: string;
   toolExecution: {
@@ -14091,6 +16305,79 @@ export const connectionFieldsMap = {
     autonomyRecordsChunksByAutonomyRecordsId: 'AutonomyRecordsChunk',
     autonomyRecordLinks: 'AutonomyRecordLink',
   },
+  Calendar: {
+    calendarEvents: 'CalendarEvent',
+  },
+  CalendarEvent: {
+    notes: 'Note',
+    tasks: 'Task',
+    calendarEventsChunksByCalendarEventsId: 'CalendarEventsChunk',
+    calendarAttendees: 'CalendarAttendee',
+    calendarEventContacts: 'CalendarEventContact',
+    calendarEventNotes: 'CalendarEventNote',
+    calendarEventTasks: 'CalendarEventTask',
+    contactsByCalendarEventContactCalendarEventIdAndContactId: 'Contact',
+  },
+  Contact: {
+    projects: 'Project',
+    tasks: 'Task',
+    notes: 'Note',
+    memories: 'Memory',
+    emails: 'Email',
+    contactsChunksByContactsId: 'ContactsChunk',
+    interactions: 'Interaction',
+    touchpoints: 'Touchpoint',
+    contactLinks: 'ContactLink',
+    contactImages: 'ContactImage',
+    contactCompanies: 'ContactCompany',
+    contactEvents: 'ContactEvent',
+    dealContacts: 'DealContact',
+    contactRelationships: 'ContactRelationship',
+    emailsByFromContactId: 'Email',
+    calendarEventsByOrganizerContactId: 'CalendarEvent',
+    calendarAttendees: 'CalendarAttendee',
+    projectContacts: 'ProjectContact',
+    taskContacts: 'TaskContact',
+    calendarEventContacts: 'CalendarEventContact',
+    contactNotes: 'ContactNote',
+    contactMemories: 'ContactMemory',
+    threadParticipants: 'ThreadParticipant',
+    emailRecipients: 'EmailRecipient',
+    imagesByContactImageContactIdAndImageId: 'Image',
+    companiesByContactCompanyContactIdAndCompanyId: 'Company',
+    eventsByContactEventContactIdAndEventId: 'Event',
+    dealsByDealContactContactIdAndDealId: 'Deal',
+    calendarEventsByCalendarEventContactContactIdAndCalendarEventId: 'CalendarEvent',
+    emailThreadsByThreadParticipantContactIdAndEmailThreadId: 'EmailThread',
+  },
+  Note: {
+    contacts: 'Contact',
+    companies: 'Company',
+    deals: 'Deal',
+    events: 'Event',
+    tasks: 'Task',
+    emails: 'Email',
+    calendarEvents: 'CalendarEvent',
+    notesChunksByNotesId: 'NotesChunk',
+    contactNotes: 'ContactNote',
+    companyNotes: 'CompanyNote',
+    dealNotes: 'DealNote',
+    eventNotes: 'EventNote',
+    taskNotes: 'TaskNote',
+    emailNotes: 'EmailNote',
+    calendarEventNotes: 'CalendarEventNote',
+  },
+  Task: {
+    contacts: 'Contact',
+    projects: 'Project',
+    notes: 'Note',
+    calendarEvents: 'CalendarEvent',
+    tasksChunksByTasksId: 'TasksChunk',
+    taskContacts: 'TaskContact',
+    taskProjects: 'TaskProject',
+    taskNotes: 'TaskNote',
+    calendarEventTasks: 'CalendarEventTask',
+  },
   Codebasis: {
     codebasesChunksByCodebasesId: 'CodebasesChunk',
     codeChunks: 'CodeChunk',
@@ -14112,29 +16399,6 @@ export const connectionFieldsMap = {
     contactsByContactCompanyCompanyIdAndContactId: 'Contact',
     eventsByCompanyEventCompanyIdAndEventId: 'Event',
     dealsByDealCompanyCompanyIdAndDealId: 'Deal',
-  },
-  Contact: {
-    projects: 'Project',
-    tasks: 'Task',
-    notes: 'Note',
-    memories: 'Memory',
-    contactsChunksByContactsId: 'ContactsChunk',
-    interactions: 'Interaction',
-    touchpoints: 'Touchpoint',
-    contactLinks: 'ContactLink',
-    contactImages: 'ContactImage',
-    contactCompanies: 'ContactCompany',
-    contactEvents: 'ContactEvent',
-    dealContacts: 'DealContact',
-    contactRelationships: 'ContactRelationship',
-    projectContacts: 'ProjectContact',
-    taskContacts: 'TaskContact',
-    contactNotes: 'ContactNote',
-    contactMemories: 'ContactMemory',
-    imagesByContactImageContactIdAndImageId: 'Image',
-    companiesByContactCompanyContactIdAndCompanyId: 'Company',
-    eventsByContactEventContactIdAndEventId: 'Event',
-    dealsByDealContactContactIdAndDealId: 'Deal',
   },
   Deal: {
     notes: 'Note',
@@ -14182,18 +16446,19 @@ export const connectionFieldsMap = {
     contactMemories: 'ContactMemory',
     companyMemories: 'CompanyMemory',
   },
-  Note: {
-    contacts: 'Contact',
-    companies: 'Company',
-    deals: 'Deal',
-    events: 'Event',
-    tasks: 'Task',
-    notesChunksByNotesId: 'NotesChunk',
-    contactNotes: 'ContactNote',
-    companyNotes: 'CompanyNote',
-    dealNotes: 'DealNote',
-    eventNotes: 'EventNote',
-    taskNotes: 'TaskNote',
+  Email: {
+    notes: 'Note',
+    emailsChunksByEmailsId: 'EmailsChunk',
+    emailAttachments: 'EmailAttachment',
+    emailRecipients: 'EmailRecipient',
+    emailNotes: 'EmailNote',
+    contactsByEmailRecipientEmailIdAndContactId: 'Contact',
+  },
+  EmailThread: {
+    emailThreadsChunksByEmailThreadsId: 'EmailThreadsChunk',
+    emails: 'Email',
+    threadParticipants: 'ThreadParticipant',
+    contactsByThreadParticipantEmailThreadIdAndContactId: 'Contact',
   },
   Project: {
     contacts: 'Contact',
@@ -14203,15 +16468,6 @@ export const connectionFieldsMap = {
     projectContacts: 'ProjectContact',
     taskProjects: 'TaskProject',
     goalProjects: 'GoalProject',
-  },
-  Task: {
-    contacts: 'Contact',
-    projects: 'Project',
-    notes: 'Note',
-    tasksChunksByTasksId: 'TasksChunk',
-    taskContacts: 'TaskContact',
-    taskProjects: 'TaskProject',
-    taskNotes: 'TaskNote',
   },
   Conversation: {
     conversationsChunksByConversationsId: 'ConversationsChunk',
@@ -14489,6 +16745,348 @@ export interface AutonomyRecordToManyAutonomyRecordLinkFilter {
   /** Filters to entities where no related entity matches. */
   none?: AutonomyRecordLinkFilter;
 }
+/** A filter to be used against many `CalendarEvent` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarToManyCalendarEventFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventFilter;
+}
+/** A filter to be used against many `CalendarEventsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventToManyCalendarEventsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventsChunkFilter;
+}
+/** A filter to be used against many `CalendarAttendee` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventToManyCalendarAttendeeFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarAttendeeFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarAttendeeFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarAttendeeFilter;
+}
+/** A filter to be used against many `CalendarEventContact` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventToManyCalendarEventContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventContactFilter;
+}
+/** A filter to be used against many `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventToManyCalendarEventNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventNoteFilter;
+}
+/** A filter to be used against many `CalendarEventTask` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventToManyCalendarEventTaskFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventTaskFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventTaskFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventTaskFilter;
+}
+/** A filter to be used against many `ContactsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactsChunkFilter;
+}
+/** A filter to be used against many `Interaction` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyInteractionFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: InteractionFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: InteractionFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: InteractionFilter;
+}
+/** A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyTouchpointFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TouchpointFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TouchpointFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TouchpointFilter;
+}
+/** A filter to be used against many `ContactLink` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactLinkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactLinkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactLinkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactLinkFilter;
+}
+/** A filter to be used against many `ContactImage` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactImageFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactImageFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactImageFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactImageFilter;
+}
+/** A filter to be used against many `ContactCompany` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactCompanyFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactCompanyFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactCompanyFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactCompanyFilter;
+}
+/** A filter to be used against many `ContactEvent` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactEventFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactEventFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactEventFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactEventFilter;
+}
+/** A filter to be used against many `DealContact` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyDealContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: DealContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: DealContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: DealContactFilter;
+}
+/** A filter to be used against many `ContactRelationship` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactRelationshipFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactRelationshipFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactRelationshipFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactRelationshipFilter;
+}
+/** A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyEmailFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailFilter;
+}
+/** A filter to be used against many `CalendarEvent` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyCalendarEventFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventFilter;
+}
+/** A filter to be used against many `CalendarAttendee` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyCalendarAttendeeFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarAttendeeFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarAttendeeFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarAttendeeFilter;
+}
+/** A filter to be used against many `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyProjectContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ProjectContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ProjectContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ProjectContactFilter;
+}
+/** A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyTaskContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskContactFilter;
+}
+/** A filter to be used against many `CalendarEventContact` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyCalendarEventContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventContactFilter;
+}
+/** A filter to be used against many `ContactNote` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactNoteFilter;
+}
+/** A filter to be used against many `ContactMemory` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactMemoryFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactMemoryFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactMemoryFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactMemoryFilter;
+}
+/** A filter to be used against many `ThreadParticipant` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyThreadParticipantFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ThreadParticipantFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ThreadParticipantFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ThreadParticipantFilter;
+}
+/** A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyEmailRecipientFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailRecipientFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailRecipientFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailRecipientFilter;
+}
+/** A filter to be used against many `NotesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyNotesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: NotesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: NotesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: NotesChunkFilter;
+}
+/** A filter to be used against many `ContactNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyContactNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactNoteFilter;
+}
+/** A filter to be used against many `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyCompanyNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CompanyNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CompanyNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CompanyNoteFilter;
+}
+/** A filter to be used against many `DealNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyDealNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: DealNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: DealNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: DealNoteFilter;
+}
+/** A filter to be used against many `EventNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyEventNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EventNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EventNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EventNoteFilter;
+}
+/** A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyTaskNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskNoteFilter;
+}
+/** A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyEmailNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailNoteFilter;
+}
+/** A filter to be used against many `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyCalendarEventNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventNoteFilter;
+}
+/** A filter to be used against many `TasksChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTasksChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TasksChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TasksChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TasksChunkFilter;
+}
+/** A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTaskContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskContactFilter;
+}
+/** A filter to be used against many `TaskProject` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTaskProjectFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskProjectFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskProjectFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskProjectFilter;
+}
+/** A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTaskNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskNoteFilter;
+}
+/** A filter to be used against many `CalendarEventTask` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyCalendarEventTaskFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventTaskFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventTaskFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventTaskFilter;
+}
 /** A filter to be used against many `CodebasesChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface CodebasisToManyCodebasesChunkFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14596,123 +17194,6 @@ export interface CompanyToManyCompanyMemoryFilter {
   every?: CompanyMemoryFilter;
   /** Filters to entities where no related entity matches. */
   none?: CompanyMemoryFilter;
-}
-/** A filter to be used against many `ContactsChunk` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyContactsChunkFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ContactsChunkFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ContactsChunkFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ContactsChunkFilter;
-}
-/** A filter to be used against many `Interaction` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyInteractionFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: InteractionFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: InteractionFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: InteractionFilter;
-}
-/** A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyTouchpointFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: TouchpointFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: TouchpointFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: TouchpointFilter;
-}
-/** A filter to be used against many `ContactLink` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyContactLinkFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ContactLinkFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ContactLinkFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ContactLinkFilter;
-}
-/** A filter to be used against many `ContactImage` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyContactImageFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ContactImageFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ContactImageFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ContactImageFilter;
-}
-/** A filter to be used against many `ContactCompany` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyContactCompanyFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ContactCompanyFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ContactCompanyFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ContactCompanyFilter;
-}
-/** A filter to be used against many `ContactEvent` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyContactEventFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ContactEventFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ContactEventFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ContactEventFilter;
-}
-/** A filter to be used against many `DealContact` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyDealContactFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: DealContactFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: DealContactFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: DealContactFilter;
-}
-/** A filter to be used against many `ContactRelationship` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyContactRelationshipFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ContactRelationshipFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ContactRelationshipFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ContactRelationshipFilter;
-}
-/** A filter to be used against many `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyProjectContactFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ProjectContactFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ProjectContactFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ProjectContactFilter;
-}
-/** A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyTaskContactFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: TaskContactFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: TaskContactFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: TaskContactFilter;
-}
-/** A filter to be used against many `ContactNote` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyContactNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ContactNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ContactNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ContactNoteFilter;
-}
-/** A filter to be used against many `ContactMemory` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyContactMemoryFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: ContactMemoryFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: ContactMemoryFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: ContactMemoryFilter;
 }
 /** A filter to be used against many `DealsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface DealToManyDealsChunkFilter {
@@ -14930,59 +17411,68 @@ export interface MemoryToManyCompanyMemoryFilter {
   /** Filters to entities where no related entity matches. */
   none?: CompanyMemoryFilter;
 }
-/** A filter to be used against many `NotesChunk` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyNotesChunkFilter {
+/** A filter to be used against many `EmailsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailToManyEmailsChunkFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: NotesChunkFilter;
+  some?: EmailsChunkFilter;
   /** Filters to entities where every related entity matches. */
-  every?: NotesChunkFilter;
+  every?: EmailsChunkFilter;
   /** Filters to entities where no related entity matches. */
-  none?: NotesChunkFilter;
+  none?: EmailsChunkFilter;
 }
-/** A filter to be used against many `ContactNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyContactNoteFilter {
+/** A filter to be used against many `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailToManyEmailAttachmentFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: ContactNoteFilter;
+  some?: EmailAttachmentFilter;
   /** Filters to entities where every related entity matches. */
-  every?: ContactNoteFilter;
+  every?: EmailAttachmentFilter;
   /** Filters to entities where no related entity matches. */
-  none?: ContactNoteFilter;
+  none?: EmailAttachmentFilter;
 }
-/** A filter to be used against many `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyCompanyNoteFilter {
+/** A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailToManyEmailRecipientFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: CompanyNoteFilter;
+  some?: EmailRecipientFilter;
   /** Filters to entities where every related entity matches. */
-  every?: CompanyNoteFilter;
+  every?: EmailRecipientFilter;
   /** Filters to entities where no related entity matches. */
-  none?: CompanyNoteFilter;
+  none?: EmailRecipientFilter;
 }
-/** A filter to be used against many `DealNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyDealNoteFilter {
+/** A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailToManyEmailNoteFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: DealNoteFilter;
+  some?: EmailNoteFilter;
   /** Filters to entities where every related entity matches. */
-  every?: DealNoteFilter;
+  every?: EmailNoteFilter;
   /** Filters to entities where no related entity matches. */
-  none?: DealNoteFilter;
+  none?: EmailNoteFilter;
 }
-/** A filter to be used against many `EventNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyEventNoteFilter {
+/** A filter to be used against many `EmailThreadsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadToManyEmailThreadsChunkFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: EventNoteFilter;
+  some?: EmailThreadsChunkFilter;
   /** Filters to entities where every related entity matches. */
-  every?: EventNoteFilter;
+  every?: EmailThreadsChunkFilter;
   /** Filters to entities where no related entity matches. */
-  none?: EventNoteFilter;
+  none?: EmailThreadsChunkFilter;
 }
-/** A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyTaskNoteFilter {
+/** A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadToManyEmailFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: TaskNoteFilter;
+  some?: EmailFilter;
   /** Filters to entities where every related entity matches. */
-  every?: TaskNoteFilter;
+  every?: EmailFilter;
   /** Filters to entities where no related entity matches. */
-  none?: TaskNoteFilter;
+  none?: EmailFilter;
+}
+/** A filter to be used against many `ThreadParticipant` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadToManyThreadParticipantFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ThreadParticipantFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ThreadParticipantFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ThreadParticipantFilter;
 }
 /** A filter to be used against many `ProjectsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectToManyProjectsChunkFilter {
@@ -15019,42 +17509,6 @@ export interface ProjectToManyGoalProjectFilter {
   every?: GoalProjectFilter;
   /** Filters to entities where no related entity matches. */
   none?: GoalProjectFilter;
-}
-/** A filter to be used against many `TasksChunk` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskToManyTasksChunkFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: TasksChunkFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: TasksChunkFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: TasksChunkFilter;
-}
-/** A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskToManyTaskContactFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: TaskContactFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: TaskContactFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: TaskContactFilter;
-}
-/** A filter to be used against many `TaskProject` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskToManyTaskProjectFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: TaskProjectFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: TaskProjectFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: TaskProjectFilter;
-}
-/** A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskToManyTaskNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: TaskNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: TaskNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: TaskNoteFilter;
 }
 /** A filter to be used against many `ConversationsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ConversationToManyConversationsChunkFilter {
@@ -15460,6 +17914,10 @@ export interface TaskFilter {
   taskNotes?: TaskToManyTaskNoteFilter;
   /** `taskNotes` exist. */
   taskNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventTasks` relation. */
+  calendarEventTasks?: TaskToManyCalendarEventTaskFilter;
+  /** `calendarEventTasks` exist. */
+  calendarEventTasksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -15860,6 +18318,946 @@ export interface AutonomyRecordLinkFilter {
   /** Filter by the object’s `autonomyRecord` relation. */
   autonomyRecord?: AutonomyRecordFilter;
 }
+/** A filter to be used against `CalendarEvent` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `calendarId` field. */
+  calendarId?: UUIDFilter;
+  /** Filter by the object’s `providerEventId` field. */
+  providerEventId?: StringTrgmFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `startTime` field. */
+  startTime?: DatetimeFilter;
+  /** Filter by the object’s `endTime` field. */
+  endTime?: DatetimeFilter;
+  /** Filter by the object’s `isAllDay` field. */
+  isAllDay?: BooleanFilter;
+  /** Filter by the object’s `meetingUrl` field. */
+  meetingUrl?: StringTrgmFilter;
+  /** Filter by the object’s `organizerContactId` field. */
+  organizerContactId?: UUIDFilter;
+  /** Filter by the object’s `recurrenceRule` field. */
+  recurrenceRule?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventFilter;
+  /** Filter by the object’s `calendar` relation. */
+  calendar?: CalendarFilter;
+  /** Filter by the object’s `organizerContact` relation. */
+  organizerContact?: ContactFilter;
+  /** A related `organizerContact` exists. */
+  organizerContactExists?: boolean;
+  /** Filter by the object’s `calendarEventsChunksByCalendarEventsId` relation. */
+  calendarEventsChunksByCalendarEventsId?: CalendarEventToManyCalendarEventsChunkFilter;
+  /** `calendarEventsChunksByCalendarEventsId` exist. */
+  calendarEventsChunksByCalendarEventsIdExist?: boolean;
+  /** Filter by the object’s `calendarAttendees` relation. */
+  calendarAttendees?: CalendarEventToManyCalendarAttendeeFilter;
+  /** `calendarAttendees` exist. */
+  calendarAttendeesExist?: boolean;
+  /** Filter by the object’s `calendarEventContacts` relation. */
+  calendarEventContacts?: CalendarEventToManyCalendarEventContactFilter;
+  /** `calendarEventContacts` exist. */
+  calendarEventContactsExist?: boolean;
+  /** Filter by the object’s `calendarEventNotes` relation. */
+  calendarEventNotes?: CalendarEventToManyCalendarEventNoteFilter;
+  /** `calendarEventNotes` exist. */
+  calendarEventNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventTasks` relation. */
+  calendarEventTasks?: CalendarEventToManyCalendarEventTaskFilter;
+  /** `calendarEventTasks` exist. */
+  calendarEventTasksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_event_id` column. */
+  trgmProviderEventId?: TrgmSearchInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `meeting_url` column. */
+  trgmMeetingUrl?: TrgmSearchInput;
+  /** TRGM search on the `recurrence_rule` column. */
+  trgmRecurrenceRule?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+/** A filter to be used against `CalendarEventsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `calendarEventsId` field. */
+  calendarEventsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventsChunkFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventsChunkFilter;
+  /** Filter by the object’s `calendarEvents` relation. */
+  calendarEvents?: CalendarEventFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `CalendarAttendee` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarAttendeeFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `responseStatus` field. */
+  responseStatus?: StringFilter;
+  /** Filter by the object’s `role` field. */
+  role?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarAttendeeFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarAttendeeFilter[];
+  /** Negates the expression. */
+  not?: CalendarAttendeeFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+/** A filter to be used against `CalendarEventContact` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventContactFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventContactFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventContactFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+/** A filter to be used against `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventNoteFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventNoteFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventNoteFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `CalendarEventTask` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventTaskFilter {
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventTaskFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventTaskFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventTaskFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+/** A filter to be used against `ContactsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `contactsId` field. */
+  contactsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactsChunkFilter[];
+  /** Negates the expression. */
+  not?: ContactsChunkFilter;
+  /** Filter by the object’s `contacts` relation. */
+  contacts?: ContactFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `Interaction` object types. All fields are combined with a logical ‘and.’ */
+export interface InteractionFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `type` field. */
+  type?: StringTrgmFilter;
+  /** Filter by the object’s `occurredAt` field. */
+  occurredAt?: DatetimeFilter;
+  /** Filter by the object’s `summary` field. */
+  summary?: StringTrgmFilter;
+  /** Filter by the object’s `sentiment` field. */
+  sentiment?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: InteractionFilter[];
+  /** Checks for any expressions in this list. */
+  or?: InteractionFilter[];
+  /** Negates the expression. */
+  not?: InteractionFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `interactionsChunksByInteractionsId` relation. */
+  interactionsChunksByInteractionsId?: InteractionToManyInteractionsChunkFilter;
+  /** `interactionsChunksByInteractionsId` exist. */
+  interactionsChunksByInteractionsIdExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `type` column. */
+  trgmType?: TrgmSearchInput;
+  /** TRGM search on the `summary` column. */
+  trgmSummary?: TrgmSearchInput;
+  /** TRGM search on the `sentiment` column. */
+  trgmSentiment?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+/** A filter to be used against `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
+export interface TouchpointFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `touchpointType` field. */
+  touchpointType?: StringTrgmFilter;
+  /** Filter by the object’s `occurredAt` field. */
+  occurredAt?: DatetimeFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringTrgmFilter;
+  /** Filter by the object’s `summary` field. */
+  summary?: StringTrgmFilter;
+  /** Filter by the object’s `sentiment` field. */
+  sentiment?: StringTrgmFilter;
+  /** Filter by the object’s `direction` field. */
+  direction?: StringTrgmFilter;
+  /** Filter by the object’s `channel` field. */
+  channel?: StringTrgmFilter;
+  /** Filter by the object’s `dealId` field. */
+  dealId?: UUIDFilter;
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: TouchpointFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TouchpointFilter[];
+  /** Negates the expression. */
+  not?: TouchpointFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** A related `company` exists. */
+  companyExists?: boolean;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `deal` relation. */
+  deal?: DealFilter;
+  /** A related `deal` exists. */
+  dealExists?: boolean;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** A related `event` exists. */
+  eventExists?: boolean;
+  /** Filter by the object’s `touchpointsChunksByTouchpointsId` relation. */
+  touchpointsChunksByTouchpointsId?: TouchpointToManyTouchpointsChunkFilter;
+  /** `touchpointsChunksByTouchpointsId` exist. */
+  touchpointsChunksByTouchpointsIdExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `touchpoint_type` column. */
+  trgmTouchpointType?: TrgmSearchInput;
+  /** TRGM search on the `subject` column. */
+  trgmSubject?: TrgmSearchInput;
+  /** TRGM search on the `summary` column. */
+  trgmSummary?: TrgmSearchInput;
+  /** TRGM search on the `sentiment` column. */
+  trgmSentiment?: TrgmSearchInput;
+  /** TRGM search on the `direction` column. */
+  trgmDirection?: TrgmSearchInput;
+  /** TRGM search on the `channel` column. */
+  trgmChannel?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+/** A filter to be used against `ContactLink` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactLinkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringFilter;
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactLinkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactLinkFilter[];
+  /** Negates the expression. */
+  not?: ContactLinkFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `ContactImage` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactImageFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `imageId` field. */
+  imageId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactImageFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactImageFilter[];
+  /** Negates the expression. */
+  not?: ContactImageFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `image` relation. */
+  image?: ImageFilter;
+}
+/** A filter to be used against `ContactCompany` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactCompanyFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactCompanyFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactCompanyFilter[];
+  /** Negates the expression. */
+  not?: ContactCompanyFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+/** A filter to be used against `ContactEvent` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactEventFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactEventFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactEventFilter[];
+  /** Negates the expression. */
+  not?: ContactEventFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+}
+/** A filter to be used against `DealContact` object types. All fields are combined with a logical ‘and.’ */
+export interface DealContactFilter {
+  /** Filter by the object’s `dealId` field. */
+  dealId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealContactFilter[];
+  /** Negates the expression. */
+  not?: DealContactFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `deal` relation. */
+  deal?: DealFilter;
+}
+/** A filter to be used against `ContactRelationship` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactRelationshipFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactRelationshipFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactRelationshipFilter[];
+  /** Negates the expression. */
+  not?: ContactRelationshipFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+/** A filter to be used against `Email` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `threadId` field. */
+  threadId?: UUIDFilter;
+  /** Filter by the object’s `providerMessageId` field. */
+  providerMessageId?: StringTrgmFilter;
+  /** Filter by the object’s `fromContactId` field. */
+  fromContactId?: UUIDFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringTrgmFilter;
+  /** Filter by the object’s `bodyText` field. */
+  bodyText?: StringTrgmFilter;
+  /** Filter by the object’s `bodyHtml` field. */
+  bodyHtml?: StringTrgmFilter;
+  /** Filter by the object’s `sentAt` field. */
+  sentAt?: DatetimeFilter;
+  /** Filter by the object’s `toRecipients` field. */
+  toRecipients?: JSONFilter;
+  /** Filter by the object’s `ccRecipients` field. */
+  ccRecipients?: JSONFilter;
+  /** Filter by the object’s `bccRecipients` field. */
+  bccRecipients?: JSONFilter;
+  /** Filter by the object’s `isDraft` field. */
+  isDraft?: BooleanFilter;
+  /** Filter by the object’s `isRead` field. */
+  isRead?: BooleanFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `emailThreadId` field. */
+  emailThreadId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailFilter[];
+  /** Negates the expression. */
+  not?: EmailFilter;
+  /** Filter by the object’s `emailThread` relation. */
+  emailThread?: EmailThreadFilter;
+  /** Filter by the object’s `fromContact` relation. */
+  fromContact?: ContactFilter;
+  /** A related `fromContact` exists. */
+  fromContactExists?: boolean;
+  /** Filter by the object’s `emailsChunksByEmailsId` relation. */
+  emailsChunksByEmailsId?: EmailToManyEmailsChunkFilter;
+  /** `emailsChunksByEmailsId` exist. */
+  emailsChunksByEmailsIdExist?: boolean;
+  /** Filter by the object’s `emailAttachments` relation. */
+  emailAttachments?: EmailToManyEmailAttachmentFilter;
+  /** `emailAttachments` exist. */
+  emailAttachmentsExist?: boolean;
+  /** Filter by the object’s `emailRecipients` relation. */
+  emailRecipients?: EmailToManyEmailRecipientFilter;
+  /** `emailRecipients` exist. */
+  emailRecipientsExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: EmailToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_message_id` column. */
+  trgmProviderMessageId?: TrgmSearchInput;
+  /** TRGM search on the `subject` column. */
+  trgmSubject?: TrgmSearchInput;
+  /** TRGM search on the `body_text` column. */
+  trgmBodyText?: TrgmSearchInput;
+  /** TRGM search on the `body_html` column. */
+  trgmBodyHtml?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+/** A filter to be used against `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
+export interface ProjectContactFilter {
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ProjectContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ProjectContactFilter[];
+  /** Negates the expression. */
+  not?: ProjectContactFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+}
+/** A filter to be used against `TaskContact` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskContactFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskContactFilter[];
+  /** Negates the expression. */
+  not?: TaskContactFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+/** A filter to be used against `ContactNote` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactNoteFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactNoteFilter[];
+  /** Negates the expression. */
+  not?: ContactNoteFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `ContactMemory` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactMemoryFilter {
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `memoryId` field. */
+  memoryId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactMemoryFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactMemoryFilter[];
+  /** Negates the expression. */
+  not?: ContactMemoryFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `memory` relation. */
+  memory?: MemoryFilter;
+}
+/** A filter to be used against `ThreadParticipant` object types. All fields are combined with a logical ‘and.’ */
+export interface ThreadParticipantFilter {
+  /** Filter by the object’s `emailThreadId` field. */
+  emailThreadId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ThreadParticipantFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ThreadParticipantFilter[];
+  /** Negates the expression. */
+  not?: ThreadParticipantFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `emailThread` relation. */
+  emailThread?: EmailThreadFilter;
+}
+/** A filter to be used against `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailRecipientFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailRecipientFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailRecipientFilter[];
+  /** Negates the expression. */
+  not?: EmailRecipientFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+}
+/** A filter to be used against `NotesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface NotesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `notesId` field. */
+  notesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: NotesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: NotesChunkFilter[];
+  /** Negates the expression. */
+  not?: NotesChunkFilter;
+  /** Filter by the object’s `notes` relation. */
+  notes?: NoteFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
+export interface CompanyNoteFilter {
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompanyNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompanyNoteFilter[];
+  /** Negates the expression. */
+  not?: CompanyNoteFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `DealNote` object types. All fields are combined with a logical ‘and.’ */
+export interface DealNoteFilter {
+  /** Filter by the object’s `dealId` field. */
+  dealId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealNoteFilter[];
+  /** Negates the expression. */
+  not?: DealNoteFilter;
+  /** Filter by the object’s `deal` relation. */
+  deal?: DealFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `EventNote` object types. All fields are combined with a logical ‘and.’ */
+export interface EventNoteFilter {
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EventNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EventNoteFilter[];
+  /** Negates the expression. */
+  not?: EventNoteFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `TaskNote` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskNoteFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskNoteFilter[];
+  /** Negates the expression. */
+  not?: TaskNoteFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+/** A filter to be used against `EmailNote` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailNoteFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailNoteFilter[];
+  /** Negates the expression. */
+  not?: EmailNoteFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `TasksChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface TasksChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `tasksId` field. */
+  tasksId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: TasksChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TasksChunkFilter[];
+  /** Negates the expression. */
+  not?: TasksChunkFilter;
+  /** Filter by the object’s `tasks` relation. */
+  tasks?: TaskFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `TaskProject` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskProjectFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskProjectFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskProjectFilter[];
+  /** Negates the expression. */
+  not?: TaskProjectFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
 /** A filter to be used against `CodebasesChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface CodebasesChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -16003,98 +19401,6 @@ export interface CompaniesChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
-/** A filter to be used against `Touchpoint` object types. All fields are combined with a logical ‘and.’ */
-export interface TouchpointFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `touchpointType` field. */
-  touchpointType?: StringTrgmFilter;
-  /** Filter by the object’s `occurredAt` field. */
-  occurredAt?: DatetimeFilter;
-  /** Filter by the object’s `subject` field. */
-  subject?: StringTrgmFilter;
-  /** Filter by the object’s `summary` field. */
-  summary?: StringTrgmFilter;
-  /** Filter by the object’s `sentiment` field. */
-  sentiment?: StringTrgmFilter;
-  /** Filter by the object’s `direction` field. */
-  direction?: StringTrgmFilter;
-  /** Filter by the object’s `channel` field. */
-  channel?: StringTrgmFilter;
-  /** Filter by the object’s `dealId` field. */
-  dealId?: UUIDFilter;
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: TouchpointFilter[];
-  /** Checks for any expressions in this list. */
-  or?: TouchpointFilter[];
-  /** Negates the expression. */
-  not?: TouchpointFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** A related `company` exists. */
-  companyExists?: boolean;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `deal` relation. */
-  deal?: DealFilter;
-  /** A related `deal` exists. */
-  dealExists?: boolean;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-  /** A related `event` exists. */
-  eventExists?: boolean;
-  /** Filter by the object’s `touchpointsChunksByTouchpointsId` relation. */
-  touchpointsChunksByTouchpointsId?: TouchpointToManyTouchpointsChunkFilter;
-  /** `touchpointsChunksByTouchpointsId` exist. */
-  touchpointsChunksByTouchpointsIdExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `touchpoint_type` column. */
-  trgmTouchpointType?: TrgmSearchInput;
-  /** TRGM search on the `subject` column. */
-  trgmSubject?: TrgmSearchInput;
-  /** TRGM search on the `summary` column. */
-  trgmSummary?: TrgmSearchInput;
-  /** TRGM search on the `sentiment` column. */
-  trgmSentiment?: TrgmSearchInput;
-  /** TRGM search on the `direction` column. */
-  trgmDirection?: TrgmSearchInput;
-  /** TRGM search on the `channel` column. */
-  trgmChannel?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
 /** A filter to be used against `CompanyLink` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyLinkFilter {
   /** Filter by the object’s `id` field. */
@@ -16147,27 +19453,6 @@ export interface CompanyImageFilter {
   /** Filter by the object’s `image` relation. */
   image?: ImageFilter;
 }
-/** A filter to be used against `ContactCompany` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactCompanyFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactCompanyFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactCompanyFilter[];
-  /** Negates the expression. */
-  not?: ContactCompanyFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-}
 /** A filter to be used against `CompanyEvent` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyEventFilter {
   /** Filter by the object’s `companyId` field. */
@@ -16210,27 +19495,6 @@ export interface DealCompanyFilter {
   /** Filter by the object’s `deal` relation. */
   deal?: DealFilter;
 }
-/** A filter to be used against `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
-export interface CompanyNoteFilter {
-  /** Filter by the object’s `companyId` field. */
-  companyId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: CompanyNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: CompanyNoteFilter[];
-  /** Negates the expression. */
-  not?: CompanyNoteFilter;
-  /** Filter by the object’s `company` relation. */
-  company?: CompanyFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
 /** A filter to be used against `CompanyMemory` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyMemoryFilter {
   /** Filter by the object’s `companyId` field. */
@@ -16249,290 +19513,6 @@ export interface CompanyMemoryFilter {
   not?: CompanyMemoryFilter;
   /** Filter by the object’s `company` relation. */
   company?: CompanyFilter;
-  /** Filter by the object’s `memory` relation. */
-  memory?: MemoryFilter;
-}
-/** A filter to be used against `ContactsChunk` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactsChunkFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `contactsId` field. */
-  contactsId?: UUIDFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringFilter;
-  /** Filter by the object’s `chunkIndex` field. */
-  chunkIndex?: IntFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `metadata` field. */
-  metadata?: JSONFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactsChunkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactsChunkFilter[];
-  /** Negates the expression. */
-  not?: ContactsChunkFilter;
-  /** Filter by the object’s `contacts` relation. */
-  contacts?: ContactFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-/** A filter to be used against `Interaction` object types. All fields are combined with a logical ‘and.’ */
-export interface InteractionFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `type` field. */
-  type?: StringTrgmFilter;
-  /** Filter by the object’s `occurredAt` field. */
-  occurredAt?: DatetimeFilter;
-  /** Filter by the object’s `summary` field. */
-  summary?: StringTrgmFilter;
-  /** Filter by the object’s `sentiment` field. */
-  sentiment?: StringTrgmFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: InteractionFilter[];
-  /** Checks for any expressions in this list. */
-  or?: InteractionFilter[];
-  /** Negates the expression. */
-  not?: InteractionFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `interactionsChunksByInteractionsId` relation. */
-  interactionsChunksByInteractionsId?: InteractionToManyInteractionsChunkFilter;
-  /** `interactionsChunksByInteractionsId` exist. */
-  interactionsChunksByInteractionsIdExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `type` column. */
-  trgmType?: TrgmSearchInput;
-  /** TRGM search on the `summary` column. */
-  trgmSummary?: TrgmSearchInput;
-  /** TRGM search on the `sentiment` column. */
-  trgmSentiment?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `ContactLink` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactLinkFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `title` field. */
-  title?: StringFilter;
-  /** Filter by the object’s `url` field. */
-  url?: StringFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactLinkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactLinkFilter[];
-  /** Negates the expression. */
-  not?: ContactLinkFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-/** A filter to be used against `ContactImage` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactImageFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `imageId` field. */
-  imageId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactImageFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactImageFilter[];
-  /** Negates the expression. */
-  not?: ContactImageFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `image` relation. */
-  image?: ImageFilter;
-}
-/** A filter to be used against `ContactEvent` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactEventFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactEventFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactEventFilter[];
-  /** Negates the expression. */
-  not?: ContactEventFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-}
-/** A filter to be used against `DealContact` object types. All fields are combined with a logical ‘and.’ */
-export interface DealContactFilter {
-  /** Filter by the object’s `dealId` field. */
-  dealId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: DealContactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: DealContactFilter[];
-  /** Negates the expression. */
-  not?: DealContactFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `deal` relation. */
-  deal?: DealFilter;
-}
-/** A filter to be used against `ContactRelationship` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactRelationshipFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactRelationshipFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactRelationshipFilter[];
-  /** Negates the expression. */
-  not?: ContactRelationshipFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-}
-/** A filter to be used against `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
-export interface ProjectContactFilter {
-  /** Filter by the object’s `projectId` field. */
-  projectId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ProjectContactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ProjectContactFilter[];
-  /** Negates the expression. */
-  not?: ProjectContactFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `project` relation. */
-  project?: ProjectFilter;
-}
-/** A filter to be used against `TaskContact` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskContactFilter {
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: TaskContactFilter[];
-  /** Checks for any expressions in this list. */
-  or?: TaskContactFilter[];
-  /** Negates the expression. */
-  not?: TaskContactFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `task` relation. */
-  task?: TaskFilter;
-}
-/** A filter to be used against `ContactNote` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactNoteFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactNoteFilter[];
-  /** Negates the expression. */
-  not?: ContactNoteFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-/** A filter to be used against `ContactMemory` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactMemoryFilter {
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `memoryId` field. */
-  memoryId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: ContactMemoryFilter[];
-  /** Checks for any expressions in this list. */
-  or?: ContactMemoryFilter[];
-  /** Negates the expression. */
-  not?: ContactMemoryFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
   /** Filter by the object’s `memory` relation. */
   memory?: MemoryFilter;
 }
@@ -16564,27 +19544,6 @@ export interface DealsChunkFilter {
   deals?: DealFilter;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-}
-/** A filter to be used against `DealNote` object types. All fields are combined with a logical ‘and.’ */
-export interface DealNoteFilter {
-  /** Filter by the object’s `dealId` field. */
-  dealId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: DealNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: DealNoteFilter[];
-  /** Negates the expression. */
-  not?: DealNoteFilter;
-  /** Filter by the object’s `deal` relation. */
-  deal?: DealFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
 }
 /** A filter to be used against `EventsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface EventsChunkFilter {
@@ -16688,27 +19647,6 @@ export interface EventVenueFilter {
   /** Filter by the object’s `venue` relation. */
   venue?: VenueFilter;
 }
-/** A filter to be used against `EventNote` object types. All fields are combined with a logical ‘and.’ */
-export interface EventNoteFilter {
-  /** Filter by the object’s `eventId` field. */
-  eventId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EventNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EventNoteFilter[];
-  /** Negates the expression. */
-  not?: EventNoteFilter;
-  /** Filter by the object’s `event` relation. */
-  event?: EventFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
 /** A filter to be used against `Contact` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactFilter {
   /** Filter by the object’s `id` field. */
@@ -16807,6 +19745,18 @@ export interface ContactFilter {
   contactRelationships?: ContactToManyContactRelationshipFilter;
   /** `contactRelationships` exist. */
   contactRelationshipsExist?: boolean;
+  /** Filter by the object’s `emailsByFromContactId` relation. */
+  emailsByFromContactId?: ContactToManyEmailFilter;
+  /** `emailsByFromContactId` exist. */
+  emailsByFromContactIdExist?: boolean;
+  /** Filter by the object’s `calendarEventsByOrganizerContactId` relation. */
+  calendarEventsByOrganizerContactId?: ContactToManyCalendarEventFilter;
+  /** `calendarEventsByOrganizerContactId` exist. */
+  calendarEventsByOrganizerContactIdExist?: boolean;
+  /** Filter by the object’s `calendarAttendees` relation. */
+  calendarAttendees?: ContactToManyCalendarAttendeeFilter;
+  /** `calendarAttendees` exist. */
+  calendarAttendeesExist?: boolean;
   /** Filter by the object’s `projectContacts` relation. */
   projectContacts?: ContactToManyProjectContactFilter;
   /** `projectContacts` exist. */
@@ -16815,6 +19765,10 @@ export interface ContactFilter {
   taskContacts?: ContactToManyTaskContactFilter;
   /** `taskContacts` exist. */
   taskContactsExist?: boolean;
+  /** Filter by the object’s `calendarEventContacts` relation. */
+  calendarEventContacts?: ContactToManyCalendarEventContactFilter;
+  /** `calendarEventContacts` exist. */
+  calendarEventContactsExist?: boolean;
   /** Filter by the object’s `contactNotes` relation. */
   contactNotes?: ContactToManyContactNoteFilter;
   /** `contactNotes` exist. */
@@ -16823,6 +19777,14 @@ export interface ContactFilter {
   contactMemories?: ContactToManyContactMemoryFilter;
   /** `contactMemories` exist. */
   contactMemoriesExist?: boolean;
+  /** Filter by the object’s `threadParticipants` relation. */
+  threadParticipants?: ContactToManyThreadParticipantFilter;
+  /** `threadParticipants` exist. */
+  threadParticipantsExist?: boolean;
+  /** Filter by the object’s `emailRecipients` relation. */
+  emailRecipients?: ContactToManyEmailRecipientFilter;
+  /** `emailRecipients` exist. */
+  emailRecipientsExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
   /** BM25 search on the `embedding_text` column. */
@@ -17225,12 +20187,12 @@ export interface MemoriesChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
-/** A filter to be used against `NotesChunk` object types. All fields are combined with a logical ‘and.’ */
-export interface NotesChunkFilter {
+/** A filter to be used against `EmailsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailsChunkFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
-  /** Filter by the object’s `notesId` field. */
-  notesId?: UUIDFilter;
+  /** Filter by the object’s `emailsId` field. */
+  emailsId?: UUIDFilter;
   /** Filter by the object’s `content` field. */
   content?: StringFilter;
   /** Filter by the object’s `chunkIndex` field. */
@@ -17244,36 +20206,75 @@ export interface NotesChunkFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
-  and?: NotesChunkFilter[];
+  and?: EmailsChunkFilter[];
   /** Checks for any expressions in this list. */
-  or?: NotesChunkFilter[];
+  or?: EmailsChunkFilter[];
   /** Negates the expression. */
-  not?: NotesChunkFilter;
-  /** Filter by the object’s `notes` relation. */
-  notes?: NoteFilter;
+  not?: EmailsChunkFilter;
+  /** Filter by the object’s `emails` relation. */
+  emails?: EmailFilter;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
-/** A filter to be used against `TaskNote` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskNoteFilter {
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
+/** A filter to be used against `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailAttachmentFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `filename` field. */
+  filename?: StringFilter;
+  /** Filter by the object’s `contentType` field. */
+  contentType?: StringFilter;
+  /** Filter by the object’s `sizeBytes` field. */
+  sizeBytes?: IntFilter;
+  /** Filter by the object’s `storageUrl` field. */
+  storageUrl?: StringFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Checks for all expressions in this list. */
-  and?: TaskNoteFilter[];
+  and?: EmailAttachmentFilter[];
   /** Checks for any expressions in this list. */
-  or?: TaskNoteFilter[];
+  or?: EmailAttachmentFilter[];
   /** Negates the expression. */
-  not?: TaskNoteFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-  /** Filter by the object’s `task` relation. */
-  task?: TaskFilter;
+  not?: EmailAttachmentFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+}
+/** A filter to be used against `EmailThreadsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `emailThreadsId` field. */
+  emailThreadsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailThreadsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailThreadsChunkFilter[];
+  /** Negates the expression. */
+  not?: EmailThreadsChunkFilter;
+  /** Filter by the object’s `emailThreads` relation. */
+  emailThreads?: EmailThreadFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `ProjectsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectsChunkFilter {
@@ -17304,27 +20305,6 @@ export interface ProjectsChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
-/** A filter to be used against `TaskProject` object types. All fields are combined with a logical ‘and.’ */
-export interface TaskProjectFilter {
-  /** Filter by the object’s `taskId` field. */
-  taskId?: UUIDFilter;
-  /** Filter by the object’s `projectId` field. */
-  projectId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: TaskProjectFilter[];
-  /** Checks for any expressions in this list. */
-  or?: TaskProjectFilter[];
-  /** Negates the expression. */
-  not?: TaskProjectFilter;
-  /** Filter by the object’s `project` relation. */
-  project?: ProjectFilter;
-  /** Filter by the object’s `task` relation. */
-  task?: TaskFilter;
-}
 /** A filter to be used against `GoalProject` object types. All fields are combined with a logical ‘and.’ */
 export interface GoalProjectFilter {
   /** Filter by the object’s `goalId` field. */
@@ -17345,35 +20325,6 @@ export interface GoalProjectFilter {
   goal?: GoalFilter;
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
-}
-/** A filter to be used against `TasksChunk` object types. All fields are combined with a logical ‘and.’ */
-export interface TasksChunkFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `tasksId` field. */
-  tasksId?: UUIDFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringFilter;
-  /** Filter by the object’s `chunkIndex` field. */
-  chunkIndex?: IntFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `metadata` field. */
-  metadata?: JSONFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: TasksChunkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: TasksChunkFilter[];
-  /** Negates the expression. */
-  not?: TasksChunkFilter;
-  /** Filter by the object’s `tasks` relation. */
-  tasks?: TaskFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `ConversationsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ConversationsChunkFilter {
@@ -18657,28 +21608,55 @@ export interface AutonomyRecordFilter {
    */
   fullTextSearch?: string;
 }
-/** A filter to be used against `Codebasis` object types. All fields are combined with a logical ‘and.’ */
-export interface CodebasisFilter {
+/** A filter to be used against `Calendar` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
+  /** Filter by the object’s `providerAccountId` field. */
+  providerAccountId?: StringFilter;
+  /** Filter by the object’s `providerCalendarId` field. */
+  providerCalendarId?: StringFilter;
   /** Filter by the object’s `name` field. */
-  name?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `repositoryUrl` field. */
-  repositoryUrl?: StringTrgmFilter;
-  /** Filter by the object’s `defaultBranch` field. */
-  defaultBranch?: StringTrgmFilter;
-  /** Filter by the object’s `language` field. */
-  language?: StringTrgmFilter;
-  /** Filter by the object’s `framework` field. */
-  framework?: StringTrgmFilter;
-  /** Filter by the object’s `lastSyncedAt` field. */
-  lastSyncedAt?: DatetimeFilter;
-  /** Filter by the object’s `config` field. */
-  config?: JSONFilter;
+  name?: StringFilter;
+  /** Filter by the object’s `color` field. */
+  color?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `isActive` field. */
+  isActive?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarFilter[];
+  /** Negates the expression. */
+  not?: CalendarFilter;
+  /** Filter by the object’s `calendarEvents` relation. */
+  calendarEvents?: CalendarToManyCalendarEventFilter;
+  /** `calendarEvents` exist. */
+  calendarEventsExist?: boolean;
+}
+/** A filter to be used against `Note` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringTrgmFilter;
+  /** Filter by the object’s `abstract` field. */
+  abstract?: StringTrgmFilter;
+  /** Filter by the object’s `overview` field. */
+  overview?: StringTrgmFilter;
+  /** Filter by the object’s `activeCount` field. */
+  activeCount?: IntFilter;
+  /** Filter by the object’s `lastAccessedAt` field. */
+  lastAccessedAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
   /** Filter by the object’s `createdAt` field. */
@@ -18692,39 +21670,55 @@ export interface CodebasisFilter {
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: CodebasisFilter[];
+  and?: NoteFilter[];
   /** Checks for any expressions in this list. */
-  or?: CodebasisFilter[];
+  or?: NoteFilter[];
   /** Negates the expression. */
-  not?: CodebasisFilter;
-  /** Filter by the object’s `codebasesChunksByCodebasesId` relation. */
-  codebasesChunksByCodebasesId?: CodebasisToManyCodebasesChunkFilter;
-  /** `codebasesChunksByCodebasesId` exist. */
-  codebasesChunksByCodebasesIdExist?: boolean;
-  /** Filter by the object’s `codeChunks` relation. */
-  codeChunks?: CodebasisToManyCodeChunkFilter;
-  /** `codeChunks` exist. */
-  codeChunksExist?: boolean;
-  /** Filter by the object’s `codebaseDependencies` relation. */
-  codebaseDependencies?: CodebasisToManyCodebaseDependencyFilter;
-  /** `codebaseDependencies` exist. */
-  codebaseDependenciesExist?: boolean;
+  not?: NoteFilter;
+  /** Filter by the object’s `notesChunksByNotesId` relation. */
+  notesChunksByNotesId?: NoteToManyNotesChunkFilter;
+  /** `notesChunksByNotesId` exist. */
+  notesChunksByNotesIdExist?: boolean;
+  /** Filter by the object’s `contactNotes` relation. */
+  contactNotes?: NoteToManyContactNoteFilter;
+  /** `contactNotes` exist. */
+  contactNotesExist?: boolean;
+  /** Filter by the object’s `companyNotes` relation. */
+  companyNotes?: NoteToManyCompanyNoteFilter;
+  /** `companyNotes` exist. */
+  companyNotesExist?: boolean;
+  /** Filter by the object’s `dealNotes` relation. */
+  dealNotes?: NoteToManyDealNoteFilter;
+  /** `dealNotes` exist. */
+  dealNotesExist?: boolean;
+  /** Filter by the object’s `eventNotes` relation. */
+  eventNotes?: NoteToManyEventNoteFilter;
+  /** `eventNotes` exist. */
+  eventNotesExist?: boolean;
+  /** Filter by the object’s `taskNotes` relation. */
+  taskNotes?: NoteToManyTaskNoteFilter;
+  /** `taskNotes` exist. */
+  taskNotesExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: NoteToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
+  /** Filter by the object’s `calendarEventNotes` relation. */
+  calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
+  /** `calendarEventNotes` exist. */
+  calendarEventNotesExist?: boolean;
+  /** BM25 search on the `content` column. */
+  bm25Content?: Bm25SearchInput;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `name` column. */
-  trgmName?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `repository_url` column. */
-  trgmRepositoryUrl?: TrgmSearchInput;
-  /** TRGM search on the `default_branch` column. */
-  trgmDefaultBranch?: TrgmSearchInput;
-  /** TRGM search on the `language` column. */
-  trgmLanguage?: TrgmSearchInput;
-  /** TRGM search on the `framework` column. */
-  trgmFramework?: TrgmSearchInput;
+  /** TRGM search on the `content` column. */
+  trgmContent?: TrgmSearchInput;
+  /** TRGM search on the `abstract` column. */
+  trgmAbstract?: TrgmSearchInput;
+  /** TRGM search on the `overview` column. */
+  trgmOverview?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
@@ -18865,7 +21859,7 @@ export interface ImageFilter {
   companyImages?: ImageToManyCompanyImageFilter;
   /** `companyImages` exist. */
   companyImagesExist?: boolean;
-  /** Filter by the object��s `eventImages` relation. */
+  /** Filter by the object’s `eventImages` relation. */
   eventImages?: ImageToManyEventImageFilter;
   /** `eventImages` exist. */
   eventImagesExist?: boolean;
@@ -18876,22 +21870,41 @@ export interface ImageFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
-/** A filter to be used against `Note` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteFilter {
+/** A filter to be used against FullText fields. All fields are combined with a logical ‘and.’ */
+export interface FullTextFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: string;
+  /** Not equal to the specified value. */
+  notEqualTo?: string;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: string;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: string;
+  /** Included in the specified list. */
+  in?: string[];
+  /** Not included in the specified list. */
+  notIn?: string[];
+  /** Performs a full text search on the field. */
+  matches?: string;
+}
+/** A filter to be used against `EmailThread` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringTrgmFilter;
-  /** Filter by the object’s `abstract` field. */
-  abstract?: StringTrgmFilter;
-  /** Filter by the object’s `overview` field. */
-  overview?: StringTrgmFilter;
-  /** Filter by the object’s `activeCount` field. */
-  activeCount?: IntFilter;
-  /** Filter by the object’s `lastAccessedAt` field. */
-  lastAccessedAt?: DatetimeFilter;
+  /** Filter by the object’s `providerThreadId` field. */
+  providerThreadId?: StringTrgmFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringTrgmFilter;
+  /** Filter by the object’s `lastMessageAt` field. */
+  lastMessageAt?: DatetimeFilter;
+  /** Filter by the object’s `summary` field. */
+  summary?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
   /** Filter by the object’s `createdAt` field. */
@@ -18905,47 +21918,35 @@ export interface NoteFilter {
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: NoteFilter[];
+  and?: EmailThreadFilter[];
   /** Checks for any expressions in this list. */
-  or?: NoteFilter[];
+  or?: EmailThreadFilter[];
   /** Negates the expression. */
-  not?: NoteFilter;
-  /** Filter by the object’s `notesChunksByNotesId` relation. */
-  notesChunksByNotesId?: NoteToManyNotesChunkFilter;
-  /** `notesChunksByNotesId` exist. */
-  notesChunksByNotesIdExist?: boolean;
-  /** Filter by the object’s `contactNotes` relation. */
-  contactNotes?: NoteToManyContactNoteFilter;
-  /** `contactNotes` exist. */
-  contactNotesExist?: boolean;
-  /** Filter by the object’s `companyNotes` relation. */
-  companyNotes?: NoteToManyCompanyNoteFilter;
-  /** `companyNotes` exist. */
-  companyNotesExist?: boolean;
-  /** Filter by the object’s `dealNotes` relation. */
-  dealNotes?: NoteToManyDealNoteFilter;
-  /** `dealNotes` exist. */
-  dealNotesExist?: boolean;
-  /** Filter by the object’s `eventNotes` relation. */
-  eventNotes?: NoteToManyEventNoteFilter;
-  /** `eventNotes` exist. */
-  eventNotesExist?: boolean;
-  /** Filter by the object’s `taskNotes` relation. */
-  taskNotes?: NoteToManyTaskNoteFilter;
-  /** `taskNotes` exist. */
-  taskNotesExist?: boolean;
-  /** BM25 search on the `content` column. */
-  bm25Content?: Bm25SearchInput;
+  not?: EmailThreadFilter;
+  /** Filter by the object’s `emailThreadsChunksByEmailThreadsId` relation. */
+  emailThreadsChunksByEmailThreadsId?: EmailThreadToManyEmailThreadsChunkFilter;
+  /** `emailThreadsChunksByEmailThreadsId` exist. */
+  emailThreadsChunksByEmailThreadsIdExist?: boolean;
+  /** Filter by the object’s `emails` relation. */
+  emails?: EmailThreadToManyEmailFilter;
+  /** `emails` exist. */
+  emailsExist?: boolean;
+  /** Filter by the object’s `threadParticipants` relation. */
+  threadParticipants?: EmailThreadToManyThreadParticipantFilter;
+  /** `threadParticipants` exist. */
+  threadParticipantsExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `content` column. */
-  trgmContent?: TrgmSearchInput;
-  /** TRGM search on the `abstract` column. */
-  trgmAbstract?: TrgmSearchInput;
-  /** TRGM search on the `overview` column. */
-  trgmOverview?: TrgmSearchInput;
+  /** TRGM search on the `provider_thread_id` column. */
+  trgmProviderThreadId?: TrgmSearchInput;
+  /** TRGM search on the `subject` column. */
+  trgmSubject?: TrgmSearchInput;
+  /** TRGM search on the `summary` column. */
+  trgmSummary?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
@@ -19036,6 +22037,84 @@ export interface ProjectFilter {
    */
   fullTextSearch?: string;
 }
+/** A filter to be used against `Codebasis` object types. All fields are combined with a logical ‘and.’ */
+export interface CodebasisFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `repositoryUrl` field. */
+  repositoryUrl?: StringTrgmFilter;
+  /** Filter by the object’s `defaultBranch` field. */
+  defaultBranch?: StringTrgmFilter;
+  /** Filter by the object’s `language` field. */
+  language?: StringTrgmFilter;
+  /** Filter by the object’s `framework` field. */
+  framework?: StringTrgmFilter;
+  /** Filter by the object’s `lastSyncedAt` field. */
+  lastSyncedAt?: DatetimeFilter;
+  /** Filter by the object’s `config` field. */
+  config?: JSONFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: CodebasisFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CodebasisFilter[];
+  /** Negates the expression. */
+  not?: CodebasisFilter;
+  /** Filter by the object’s `codebasesChunksByCodebasesId` relation. */
+  codebasesChunksByCodebasesId?: CodebasisToManyCodebasesChunkFilter;
+  /** `codebasesChunksByCodebasesId` exist. */
+  codebasesChunksByCodebasesIdExist?: boolean;
+  /** Filter by the object’s `codeChunks` relation. */
+  codeChunks?: CodebasisToManyCodeChunkFilter;
+  /** `codeChunks` exist. */
+  codeChunksExist?: boolean;
+  /** Filter by the object’s `codebaseDependencies` relation. */
+  codebaseDependencies?: CodebasisToManyCodebaseDependencyFilter;
+  /** `codebaseDependencies` exist. */
+  codebaseDependenciesExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `repository_url` column. */
+  trgmRepositoryUrl?: TrgmSearchInput;
+  /** TRGM search on the `default_branch` column. */
+  trgmDefaultBranch?: TrgmSearchInput;
+  /** TRGM search on the `language` column. */
+  trgmLanguage?: TrgmSearchInput;
+  /** TRGM search on the `framework` column. */
+  trgmFramework?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
 /** A filter to be used against Date fields. All fields are combined with a logical ‘and.’ */
 export interface DateFilter {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
@@ -19060,25 +22139,6 @@ export interface DateFilter {
   greaterThan?: string;
   /** Greater than or equal to the specified value. */
   greaterThanOrEqualTo?: string;
-}
-/** A filter to be used against FullText fields. All fields are combined with a logical ‘and.’ */
-export interface FullTextFilter {
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: boolean;
-  /** Equal to the specified value. */
-  equalTo?: string;
-  /** Not equal to the specified value. */
-  notEqualTo?: string;
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: string;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: string;
-  /** Included in the specified list. */
-  in?: string[];
-  /** Not included in the specified list. */
-  notIn?: string[];
-  /** Performs a full text search on the field. */
-  matches?: string;
 }
 /** A filter to be used against BigFloat fields. All fields are combined with a logical ‘and.’ */
 export interface BigFloatFilter {
@@ -20011,6 +23071,456 @@ export type DeleteAutonomyRecordsChunkPayloadSelect = {
     select: AutonomyRecordsChunkEdgeSelect;
   };
 };
+export interface CreateCalendarAttendeePayload {
+  clientMutationId?: string | null;
+  /** The `CalendarAttendee` that was created by this mutation. */
+  calendarAttendee?: CalendarAttendee | null;
+  calendarAttendeeEdge?: CalendarAttendeeEdge | null;
+}
+export type CreateCalendarAttendeePayloadSelect = {
+  clientMutationId?: boolean;
+  calendarAttendee?: {
+    select: CalendarAttendeeSelect;
+  };
+  calendarAttendeeEdge?: {
+    select: CalendarAttendeeEdgeSelect;
+  };
+};
+export interface UpdateCalendarAttendeePayload {
+  clientMutationId?: string | null;
+  /** The `CalendarAttendee` that was updated by this mutation. */
+  calendarAttendee?: CalendarAttendee | null;
+  calendarAttendeeEdge?: CalendarAttendeeEdge | null;
+}
+export type UpdateCalendarAttendeePayloadSelect = {
+  clientMutationId?: boolean;
+  calendarAttendee?: {
+    select: CalendarAttendeeSelect;
+  };
+  calendarAttendeeEdge?: {
+    select: CalendarAttendeeEdgeSelect;
+  };
+};
+export interface DeleteCalendarAttendeePayload {
+  clientMutationId?: string | null;
+  /** The `CalendarAttendee` that was deleted by this mutation. */
+  calendarAttendee?: CalendarAttendee | null;
+  calendarAttendeeEdge?: CalendarAttendeeEdge | null;
+}
+export type DeleteCalendarAttendeePayloadSelect = {
+  clientMutationId?: boolean;
+  calendarAttendee?: {
+    select: CalendarAttendeeSelect;
+  };
+  calendarAttendeeEdge?: {
+    select: CalendarAttendeeEdgeSelect;
+  };
+};
+export interface CreateCalendarPayload {
+  clientMutationId?: string | null;
+  /** The `Calendar` that was created by this mutation. */
+  calendar?: Calendar | null;
+  calendarEdge?: CalendarEdge | null;
+}
+export type CreateCalendarPayloadSelect = {
+  clientMutationId?: boolean;
+  calendar?: {
+    select: CalendarSelect;
+  };
+  calendarEdge?: {
+    select: CalendarEdgeSelect;
+  };
+};
+export interface UpdateCalendarPayload {
+  clientMutationId?: string | null;
+  /** The `Calendar` that was updated by this mutation. */
+  calendar?: Calendar | null;
+  calendarEdge?: CalendarEdge | null;
+}
+export type UpdateCalendarPayloadSelect = {
+  clientMutationId?: boolean;
+  calendar?: {
+    select: CalendarSelect;
+  };
+  calendarEdge?: {
+    select: CalendarEdgeSelect;
+  };
+};
+export interface DeleteCalendarPayload {
+  clientMutationId?: string | null;
+  /** The `Calendar` that was deleted by this mutation. */
+  calendar?: Calendar | null;
+  calendarEdge?: CalendarEdge | null;
+}
+export type DeleteCalendarPayloadSelect = {
+  clientMutationId?: boolean;
+  calendar?: {
+    select: CalendarSelect;
+  };
+  calendarEdge?: {
+    select: CalendarEdgeSelect;
+  };
+};
+export interface CreateCalendarEventPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEvent` that was created by this mutation. */
+  calendarEvent?: CalendarEvent | null;
+  calendarEventEdge?: CalendarEventEdge | null;
+}
+export type CreateCalendarEventPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  calendarEventEdge?: {
+    select: CalendarEventEdgeSelect;
+  };
+};
+export interface UpdateCalendarEventPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEvent` that was updated by this mutation. */
+  calendarEvent?: CalendarEvent | null;
+  calendarEventEdge?: CalendarEventEdge | null;
+}
+export type UpdateCalendarEventPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  calendarEventEdge?: {
+    select: CalendarEventEdgeSelect;
+  };
+};
+export interface DeleteCalendarEventPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEvent` that was deleted by this mutation. */
+  calendarEvent?: CalendarEvent | null;
+  calendarEventEdge?: CalendarEventEdge | null;
+}
+export type DeleteCalendarEventPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
+  };
+  calendarEventEdge?: {
+    select: CalendarEventEdgeSelect;
+  };
+};
+export interface CreateCalendarEventContactPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventContact` that was created by this mutation. */
+  calendarEventContact?: CalendarEventContact | null;
+  calendarEventContactEdge?: CalendarEventContactEdge | null;
+}
+export type CreateCalendarEventContactPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventContact?: {
+    select: CalendarEventContactSelect;
+  };
+  calendarEventContactEdge?: {
+    select: CalendarEventContactEdgeSelect;
+  };
+};
+export interface UpdateCalendarEventContactPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventContact` that was updated by this mutation. */
+  calendarEventContact?: CalendarEventContact | null;
+  calendarEventContactEdge?: CalendarEventContactEdge | null;
+}
+export type UpdateCalendarEventContactPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventContact?: {
+    select: CalendarEventContactSelect;
+  };
+  calendarEventContactEdge?: {
+    select: CalendarEventContactEdgeSelect;
+  };
+};
+export interface DeleteCalendarEventContactPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventContact` that was deleted by this mutation. */
+  calendarEventContact?: CalendarEventContact | null;
+  calendarEventContactEdge?: CalendarEventContactEdge | null;
+}
+export type DeleteCalendarEventContactPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventContact?: {
+    select: CalendarEventContactSelect;
+  };
+  calendarEventContactEdge?: {
+    select: CalendarEventContactEdgeSelect;
+  };
+};
+export interface CreateContactPayload {
+  clientMutationId?: string | null;
+  /** The `Contact` that was created by this mutation. */
+  contact?: Contact | null;
+  contactEdge?: ContactEdge | null;
+}
+export type CreateContactPayloadSelect = {
+  clientMutationId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  contactEdge?: {
+    select: ContactEdgeSelect;
+  };
+};
+export interface UpdateContactPayload {
+  clientMutationId?: string | null;
+  /** The `Contact` that was updated by this mutation. */
+  contact?: Contact | null;
+  contactEdge?: ContactEdge | null;
+}
+export type UpdateContactPayloadSelect = {
+  clientMutationId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  contactEdge?: {
+    select: ContactEdgeSelect;
+  };
+};
+export interface DeleteContactPayload {
+  clientMutationId?: string | null;
+  /** The `Contact` that was deleted by this mutation. */
+  contact?: Contact | null;
+  contactEdge?: ContactEdge | null;
+}
+export type DeleteContactPayloadSelect = {
+  clientMutationId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  contactEdge?: {
+    select: ContactEdgeSelect;
+  };
+};
+export interface CreateCalendarEventNotePayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventNote` that was created by this mutation. */
+  calendarEventNote?: CalendarEventNote | null;
+  calendarEventNoteEdge?: CalendarEventNoteEdge | null;
+}
+export type CreateCalendarEventNotePayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventNote?: {
+    select: CalendarEventNoteSelect;
+  };
+  calendarEventNoteEdge?: {
+    select: CalendarEventNoteEdgeSelect;
+  };
+};
+export interface UpdateCalendarEventNotePayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventNote` that was updated by this mutation. */
+  calendarEventNote?: CalendarEventNote | null;
+  calendarEventNoteEdge?: CalendarEventNoteEdge | null;
+}
+export type UpdateCalendarEventNotePayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventNote?: {
+    select: CalendarEventNoteSelect;
+  };
+  calendarEventNoteEdge?: {
+    select: CalendarEventNoteEdgeSelect;
+  };
+};
+export interface DeleteCalendarEventNotePayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventNote` that was deleted by this mutation. */
+  calendarEventNote?: CalendarEventNote | null;
+  calendarEventNoteEdge?: CalendarEventNoteEdge | null;
+}
+export type DeleteCalendarEventNotePayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventNote?: {
+    select: CalendarEventNoteSelect;
+  };
+  calendarEventNoteEdge?: {
+    select: CalendarEventNoteEdgeSelect;
+  };
+};
+export interface CreateNotePayload {
+  clientMutationId?: string | null;
+  /** The `Note` that was created by this mutation. */
+  note?: Note | null;
+  noteEdge?: NoteEdge | null;
+}
+export type CreateNotePayloadSelect = {
+  clientMutationId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  noteEdge?: {
+    select: NoteEdgeSelect;
+  };
+};
+export interface UpdateNotePayload {
+  clientMutationId?: string | null;
+  /** The `Note` that was updated by this mutation. */
+  note?: Note | null;
+  noteEdge?: NoteEdge | null;
+}
+export type UpdateNotePayloadSelect = {
+  clientMutationId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  noteEdge?: {
+    select: NoteEdgeSelect;
+  };
+};
+export interface DeleteNotePayload {
+  clientMutationId?: string | null;
+  /** The `Note` that was deleted by this mutation. */
+  note?: Note | null;
+  noteEdge?: NoteEdge | null;
+}
+export type DeleteNotePayloadSelect = {
+  clientMutationId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  noteEdge?: {
+    select: NoteEdgeSelect;
+  };
+};
+export interface CreateCalendarEventsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventsChunk` that was created by this mutation. */
+  calendarEventsChunk?: CalendarEventsChunk | null;
+  calendarEventsChunkEdge?: CalendarEventsChunkEdge | null;
+}
+export type CreateCalendarEventsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventsChunk?: {
+    select: CalendarEventsChunkSelect;
+  };
+  calendarEventsChunkEdge?: {
+    select: CalendarEventsChunkEdgeSelect;
+  };
+};
+export interface UpdateCalendarEventsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventsChunk` that was updated by this mutation. */
+  calendarEventsChunk?: CalendarEventsChunk | null;
+  calendarEventsChunkEdge?: CalendarEventsChunkEdge | null;
+}
+export type UpdateCalendarEventsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventsChunk?: {
+    select: CalendarEventsChunkSelect;
+  };
+  calendarEventsChunkEdge?: {
+    select: CalendarEventsChunkEdgeSelect;
+  };
+};
+export interface DeleteCalendarEventsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventsChunk` that was deleted by this mutation. */
+  calendarEventsChunk?: CalendarEventsChunk | null;
+  calendarEventsChunkEdge?: CalendarEventsChunkEdge | null;
+}
+export type DeleteCalendarEventsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventsChunk?: {
+    select: CalendarEventsChunkSelect;
+  };
+  calendarEventsChunkEdge?: {
+    select: CalendarEventsChunkEdgeSelect;
+  };
+};
+export interface CreateCalendarEventTaskPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventTask` that was created by this mutation. */
+  calendarEventTask?: CalendarEventTask | null;
+  calendarEventTaskEdge?: CalendarEventTaskEdge | null;
+}
+export type CreateCalendarEventTaskPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventTask?: {
+    select: CalendarEventTaskSelect;
+  };
+  calendarEventTaskEdge?: {
+    select: CalendarEventTaskEdgeSelect;
+  };
+};
+export interface UpdateCalendarEventTaskPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventTask` that was updated by this mutation. */
+  calendarEventTask?: CalendarEventTask | null;
+  calendarEventTaskEdge?: CalendarEventTaskEdge | null;
+}
+export type UpdateCalendarEventTaskPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventTask?: {
+    select: CalendarEventTaskSelect;
+  };
+  calendarEventTaskEdge?: {
+    select: CalendarEventTaskEdgeSelect;
+  };
+};
+export interface DeleteCalendarEventTaskPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventTask` that was deleted by this mutation. */
+  calendarEventTask?: CalendarEventTask | null;
+  calendarEventTaskEdge?: CalendarEventTaskEdge | null;
+}
+export type DeleteCalendarEventTaskPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventTask?: {
+    select: CalendarEventTaskSelect;
+  };
+  calendarEventTaskEdge?: {
+    select: CalendarEventTaskEdgeSelect;
+  };
+};
+export interface CreateTaskPayload {
+  clientMutationId?: string | null;
+  /** The `Task` that was created by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
+}
+export type CreateTaskPayloadSelect = {
+  clientMutationId?: boolean;
+  task?: {
+    select: TaskSelect;
+  };
+  taskEdge?: {
+    select: TaskEdgeSelect;
+  };
+};
+export interface UpdateTaskPayload {
+  clientMutationId?: string | null;
+  /** The `Task` that was updated by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
+}
+export type UpdateTaskPayloadSelect = {
+  clientMutationId?: boolean;
+  task?: {
+    select: TaskSelect;
+  };
+  taskEdge?: {
+    select: TaskEdgeSelect;
+  };
+};
+export interface DeleteTaskPayload {
+  clientMutationId?: string | null;
+  /** The `Task` that was deleted by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
+}
+export type DeleteTaskPayloadSelect = {
+  clientMutationId?: boolean;
+  task?: {
+    select: TaskSelect;
+  };
+  taskEdge?: {
+    select: TaskEdgeSelect;
+  };
+};
 export interface CreateCodebaseDependencyPayload {
   clientMutationId?: string | null;
   /** The `CodebaseDependency` that was created by this mutation. */
@@ -20279,51 +23789,6 @@ export type DeleteCompanyPayloadSelect = {
   };
   companyEdge?: {
     select: CompanyEdgeSelect;
-  };
-};
-export interface CreateContactPayload {
-  clientMutationId?: string | null;
-  /** The `Contact` that was created by this mutation. */
-  contact?: Contact | null;
-  contactEdge?: ContactEdge | null;
-}
-export type CreateContactPayloadSelect = {
-  clientMutationId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  contactEdge?: {
-    select: ContactEdgeSelect;
-  };
-};
-export interface UpdateContactPayload {
-  clientMutationId?: string | null;
-  /** The `Contact` that was updated by this mutation. */
-  contact?: Contact | null;
-  contactEdge?: ContactEdge | null;
-}
-export type UpdateContactPayloadSelect = {
-  clientMutationId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  contactEdge?: {
-    select: ContactEdgeSelect;
-  };
-};
-export interface DeleteContactPayload {
-  clientMutationId?: string | null;
-  /** The `Contact` that was deleted by this mutation. */
-  contact?: Contact | null;
-  contactEdge?: ContactEdge | null;
-}
-export type DeleteContactPayloadSelect = {
-  clientMutationId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  contactEdge?: {
-    select: ContactEdgeSelect;
   };
 };
 export interface CreateDealPayload {
@@ -20731,51 +24196,6 @@ export type DeleteCompanyNotePayloadSelect = {
     select: CompanyNoteEdgeSelect;
   };
 };
-export interface CreateNotePayload {
-  clientMutationId?: string | null;
-  /** The `Note` that was created by this mutation. */
-  note?: Note | null;
-  noteEdge?: NoteEdge | null;
-}
-export type CreateNotePayloadSelect = {
-  clientMutationId?: boolean;
-  note?: {
-    select: NoteSelect;
-  };
-  noteEdge?: {
-    select: NoteEdgeSelect;
-  };
-};
-export interface UpdateNotePayload {
-  clientMutationId?: string | null;
-  /** The `Note` that was updated by this mutation. */
-  note?: Note | null;
-  noteEdge?: NoteEdge | null;
-}
-export type UpdateNotePayloadSelect = {
-  clientMutationId?: boolean;
-  note?: {
-    select: NoteSelect;
-  };
-  noteEdge?: {
-    select: NoteEdgeSelect;
-  };
-};
-export interface DeleteNotePayload {
-  clientMutationId?: string | null;
-  /** The `Note` that was deleted by this mutation. */
-  note?: Note | null;
-  noteEdge?: NoteEdge | null;
-}
-export type DeleteNotePayloadSelect = {
-  clientMutationId?: boolean;
-  note?: {
-    select: NoteSelect;
-  };
-  noteEdge?: {
-    select: NoteEdgeSelect;
-  };
-};
 export interface CreateContactCompanyPayload {
   clientMutationId?: string | null;
   /** The `ContactCompany` that was created by this mutation. */
@@ -20819,6 +24239,96 @@ export type DeleteContactCompanyPayloadSelect = {
   };
   contactCompanyEdge?: {
     select: ContactCompanyEdgeSelect;
+  };
+};
+export interface CreateEmailPayload {
+  clientMutationId?: string | null;
+  /** The `Email` that was created by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
+}
+export type CreateEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  emailEdge?: {
+    select: EmailEdgeSelect;
+  };
+};
+export interface UpdateEmailPayload {
+  clientMutationId?: string | null;
+  /** The `Email` that was updated by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
+}
+export type UpdateEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  emailEdge?: {
+    select: EmailEdgeSelect;
+  };
+};
+export interface DeleteEmailPayload {
+  clientMutationId?: string | null;
+  /** The `Email` that was deleted by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
+}
+export type DeleteEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  emailEdge?: {
+    select: EmailEdgeSelect;
+  };
+};
+export interface CreateEmailThreadPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThread` that was created by this mutation. */
+  emailThread?: EmailThread | null;
+  emailThreadEdge?: EmailThreadEdge | null;
+}
+export type CreateEmailThreadPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThread?: {
+    select: EmailThreadSelect;
+  };
+  emailThreadEdge?: {
+    select: EmailThreadEdgeSelect;
+  };
+};
+export interface UpdateEmailThreadPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThread` that was updated by this mutation. */
+  emailThread?: EmailThread | null;
+  emailThreadEdge?: EmailThreadEdge | null;
+}
+export type UpdateEmailThreadPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThread?: {
+    select: EmailThreadSelect;
+  };
+  emailThreadEdge?: {
+    select: EmailThreadEdgeSelect;
+  };
+};
+export interface DeleteEmailThreadPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThread` that was deleted by this mutation. */
+  emailThread?: EmailThread | null;
+  emailThreadEdge?: EmailThreadEdge | null;
+}
+export type DeleteEmailThreadPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThread?: {
+    select: EmailThreadSelect;
+  };
+  emailThreadEdge?: {
+    select: EmailThreadEdgeSelect;
   };
 };
 export interface CreateContactEventPayload {
@@ -21181,51 +24691,6 @@ export type DeleteContactsChunkPayloadSelect = {
     select: ContactsChunkEdgeSelect;
   };
 };
-export interface CreateTaskPayload {
-  clientMutationId?: string | null;
-  /** The `Task` that was created by this mutation. */
-  task?: Task | null;
-  taskEdge?: TaskEdge | null;
-}
-export type CreateTaskPayloadSelect = {
-  clientMutationId?: boolean;
-  task?: {
-    select: TaskSelect;
-  };
-  taskEdge?: {
-    select: TaskEdgeSelect;
-  };
-};
-export interface UpdateTaskPayload {
-  clientMutationId?: string | null;
-  /** The `Task` that was updated by this mutation. */
-  task?: Task | null;
-  taskEdge?: TaskEdge | null;
-}
-export type UpdateTaskPayloadSelect = {
-  clientMutationId?: boolean;
-  task?: {
-    select: TaskSelect;
-  };
-  taskEdge?: {
-    select: TaskEdgeSelect;
-  };
-};
-export interface DeleteTaskPayload {
-  clientMutationId?: string | null;
-  /** The `Task` that was deleted by this mutation. */
-  task?: Task | null;
-  taskEdge?: TaskEdge | null;
-}
-export type DeleteTaskPayloadSelect = {
-  clientMutationId?: boolean;
-  task?: {
-    select: TaskSelect;
-  };
-  taskEdge?: {
-    select: TaskEdgeSelect;
-  };
-};
 export interface CreateConversationPayload {
   clientMutationId?: string | null;
   /** The `Conversation` that was created by this mutation. */
@@ -21494,6 +24959,231 @@ export type DeleteDealsChunkPayloadSelect = {
   };
   dealsChunkEdge?: {
     select: DealsChunkEdgeSelect;
+  };
+};
+export interface CreateEmailAttachmentPayload {
+  clientMutationId?: string | null;
+  /** The `EmailAttachment` that was created by this mutation. */
+  emailAttachment?: EmailAttachment | null;
+  emailAttachmentEdge?: EmailAttachmentEdge | null;
+}
+export type CreateEmailAttachmentPayloadSelect = {
+  clientMutationId?: boolean;
+  emailAttachment?: {
+    select: EmailAttachmentSelect;
+  };
+  emailAttachmentEdge?: {
+    select: EmailAttachmentEdgeSelect;
+  };
+};
+export interface UpdateEmailAttachmentPayload {
+  clientMutationId?: string | null;
+  /** The `EmailAttachment` that was updated by this mutation. */
+  emailAttachment?: EmailAttachment | null;
+  emailAttachmentEdge?: EmailAttachmentEdge | null;
+}
+export type UpdateEmailAttachmentPayloadSelect = {
+  clientMutationId?: boolean;
+  emailAttachment?: {
+    select: EmailAttachmentSelect;
+  };
+  emailAttachmentEdge?: {
+    select: EmailAttachmentEdgeSelect;
+  };
+};
+export interface DeleteEmailAttachmentPayload {
+  clientMutationId?: string | null;
+  /** The `EmailAttachment` that was deleted by this mutation. */
+  emailAttachment?: EmailAttachment | null;
+  emailAttachmentEdge?: EmailAttachmentEdge | null;
+}
+export type DeleteEmailAttachmentPayloadSelect = {
+  clientMutationId?: boolean;
+  emailAttachment?: {
+    select: EmailAttachmentSelect;
+  };
+  emailAttachmentEdge?: {
+    select: EmailAttachmentEdgeSelect;
+  };
+};
+export interface CreateEmailNotePayload {
+  clientMutationId?: string | null;
+  /** The `EmailNote` that was created by this mutation. */
+  emailNote?: EmailNote | null;
+  emailNoteEdge?: EmailNoteEdge | null;
+}
+export type CreateEmailNotePayloadSelect = {
+  clientMutationId?: boolean;
+  emailNote?: {
+    select: EmailNoteSelect;
+  };
+  emailNoteEdge?: {
+    select: EmailNoteEdgeSelect;
+  };
+};
+export interface UpdateEmailNotePayload {
+  clientMutationId?: string | null;
+  /** The `EmailNote` that was updated by this mutation. */
+  emailNote?: EmailNote | null;
+  emailNoteEdge?: EmailNoteEdge | null;
+}
+export type UpdateEmailNotePayloadSelect = {
+  clientMutationId?: boolean;
+  emailNote?: {
+    select: EmailNoteSelect;
+  };
+  emailNoteEdge?: {
+    select: EmailNoteEdgeSelect;
+  };
+};
+export interface DeleteEmailNotePayload {
+  clientMutationId?: string | null;
+  /** The `EmailNote` that was deleted by this mutation. */
+  emailNote?: EmailNote | null;
+  emailNoteEdge?: EmailNoteEdge | null;
+}
+export type DeleteEmailNotePayloadSelect = {
+  clientMutationId?: boolean;
+  emailNote?: {
+    select: EmailNoteSelect;
+  };
+  emailNoteEdge?: {
+    select: EmailNoteEdgeSelect;
+  };
+};
+export interface CreateEmailRecipientPayload {
+  clientMutationId?: string | null;
+  /** The `EmailRecipient` that was created by this mutation. */
+  emailRecipient?: EmailRecipient | null;
+  emailRecipientEdge?: EmailRecipientEdge | null;
+}
+export type CreateEmailRecipientPayloadSelect = {
+  clientMutationId?: boolean;
+  emailRecipient?: {
+    select: EmailRecipientSelect;
+  };
+  emailRecipientEdge?: {
+    select: EmailRecipientEdgeSelect;
+  };
+};
+export interface UpdateEmailRecipientPayload {
+  clientMutationId?: string | null;
+  /** The `EmailRecipient` that was updated by this mutation. */
+  emailRecipient?: EmailRecipient | null;
+  emailRecipientEdge?: EmailRecipientEdge | null;
+}
+export type UpdateEmailRecipientPayloadSelect = {
+  clientMutationId?: boolean;
+  emailRecipient?: {
+    select: EmailRecipientSelect;
+  };
+  emailRecipientEdge?: {
+    select: EmailRecipientEdgeSelect;
+  };
+};
+export interface DeleteEmailRecipientPayload {
+  clientMutationId?: string | null;
+  /** The `EmailRecipient` that was deleted by this mutation. */
+  emailRecipient?: EmailRecipient | null;
+  emailRecipientEdge?: EmailRecipientEdge | null;
+}
+export type DeleteEmailRecipientPayloadSelect = {
+  clientMutationId?: boolean;
+  emailRecipient?: {
+    select: EmailRecipientSelect;
+  };
+  emailRecipientEdge?: {
+    select: EmailRecipientEdgeSelect;
+  };
+};
+export interface CreateEmailsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailsChunk` that was created by this mutation. */
+  emailsChunk?: EmailsChunk | null;
+  emailsChunkEdge?: EmailsChunkEdge | null;
+}
+export type CreateEmailsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailsChunk?: {
+    select: EmailsChunkSelect;
+  };
+  emailsChunkEdge?: {
+    select: EmailsChunkEdgeSelect;
+  };
+};
+export interface UpdateEmailsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailsChunk` that was updated by this mutation. */
+  emailsChunk?: EmailsChunk | null;
+  emailsChunkEdge?: EmailsChunkEdge | null;
+}
+export type UpdateEmailsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailsChunk?: {
+    select: EmailsChunkSelect;
+  };
+  emailsChunkEdge?: {
+    select: EmailsChunkEdgeSelect;
+  };
+};
+export interface DeleteEmailsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailsChunk` that was deleted by this mutation. */
+  emailsChunk?: EmailsChunk | null;
+  emailsChunkEdge?: EmailsChunkEdge | null;
+}
+export type DeleteEmailsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailsChunk?: {
+    select: EmailsChunkSelect;
+  };
+  emailsChunkEdge?: {
+    select: EmailsChunkEdgeSelect;
+  };
+};
+export interface CreateEmailThreadsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThreadsChunk` that was created by this mutation. */
+  emailThreadsChunk?: EmailThreadsChunk | null;
+  emailThreadsChunkEdge?: EmailThreadsChunkEdge | null;
+}
+export type CreateEmailThreadsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThreadsChunk?: {
+    select: EmailThreadsChunkSelect;
+  };
+  emailThreadsChunkEdge?: {
+    select: EmailThreadsChunkEdgeSelect;
+  };
+};
+export interface UpdateEmailThreadsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThreadsChunk` that was updated by this mutation. */
+  emailThreadsChunk?: EmailThreadsChunk | null;
+  emailThreadsChunkEdge?: EmailThreadsChunkEdge | null;
+}
+export type UpdateEmailThreadsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThreadsChunk?: {
+    select: EmailThreadsChunkSelect;
+  };
+  emailThreadsChunkEdge?: {
+    select: EmailThreadsChunkEdgeSelect;
+  };
+};
+export interface DeleteEmailThreadsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThreadsChunk` that was deleted by this mutation. */
+  emailThreadsChunk?: EmailThreadsChunk | null;
+  emailThreadsChunkEdge?: EmailThreadsChunkEdge | null;
+}
+export type DeleteEmailThreadsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThreadsChunk?: {
+    select: EmailThreadsChunkSelect;
+  };
+  emailThreadsChunkEdge?: {
+    select: EmailThreadsChunkEdgeSelect;
   };
 };
 export interface CreateEventImagePayload {
@@ -22711,6 +26401,51 @@ export type DeleteProjectsChunkPayloadSelect = {
     select: ProjectsChunkEdgeSelect;
   };
 };
+export interface CreateProviderSyncStatePayload {
+  clientMutationId?: string | null;
+  /** The `ProviderSyncState` that was created by this mutation. */
+  providerSyncState?: ProviderSyncState | null;
+  providerSyncStateEdge?: ProviderSyncStateEdge | null;
+}
+export type CreateProviderSyncStatePayloadSelect = {
+  clientMutationId?: boolean;
+  providerSyncState?: {
+    select: ProviderSyncStateSelect;
+  };
+  providerSyncStateEdge?: {
+    select: ProviderSyncStateEdgeSelect;
+  };
+};
+export interface UpdateProviderSyncStatePayload {
+  clientMutationId?: string | null;
+  /** The `ProviderSyncState` that was updated by this mutation. */
+  providerSyncState?: ProviderSyncState | null;
+  providerSyncStateEdge?: ProviderSyncStateEdge | null;
+}
+export type UpdateProviderSyncStatePayloadSelect = {
+  clientMutationId?: boolean;
+  providerSyncState?: {
+    select: ProviderSyncStateSelect;
+  };
+  providerSyncStateEdge?: {
+    select: ProviderSyncStateEdgeSelect;
+  };
+};
+export interface DeleteProviderSyncStatePayload {
+  clientMutationId?: string | null;
+  /** The `ProviderSyncState` that was deleted by this mutation. */
+  providerSyncState?: ProviderSyncState | null;
+  providerSyncStateEdge?: ProviderSyncStateEdge | null;
+}
+export type DeleteProviderSyncStatePayloadSelect = {
+  clientMutationId?: boolean;
+  providerSyncState?: {
+    select: ProviderSyncStateSelect;
+  };
+  providerSyncStateEdge?: {
+    select: ProviderSyncStateEdgeSelect;
+  };
+};
 export interface CreateRulePayload {
   clientMutationId?: string | null;
   /** The `Rule` that was created by this mutation. */
@@ -23656,6 +27391,51 @@ export type DeleteTasksChunkPayloadSelect = {
     select: TasksChunkEdgeSelect;
   };
 };
+export interface CreateThreadParticipantPayload {
+  clientMutationId?: string | null;
+  /** The `ThreadParticipant` that was created by this mutation. */
+  threadParticipant?: ThreadParticipant | null;
+  threadParticipantEdge?: ThreadParticipantEdge | null;
+}
+export type CreateThreadParticipantPayloadSelect = {
+  clientMutationId?: boolean;
+  threadParticipant?: {
+    select: ThreadParticipantSelect;
+  };
+  threadParticipantEdge?: {
+    select: ThreadParticipantEdgeSelect;
+  };
+};
+export interface UpdateThreadParticipantPayload {
+  clientMutationId?: string | null;
+  /** The `ThreadParticipant` that was updated by this mutation. */
+  threadParticipant?: ThreadParticipant | null;
+  threadParticipantEdge?: ThreadParticipantEdge | null;
+}
+export type UpdateThreadParticipantPayloadSelect = {
+  clientMutationId?: boolean;
+  threadParticipant?: {
+    select: ThreadParticipantSelect;
+  };
+  threadParticipantEdge?: {
+    select: ThreadParticipantEdgeSelect;
+  };
+};
+export interface DeleteThreadParticipantPayload {
+  clientMutationId?: string | null;
+  /** The `ThreadParticipant` that was deleted by this mutation. */
+  threadParticipant?: ThreadParticipant | null;
+  threadParticipantEdge?: ThreadParticipantEdge | null;
+}
+export type DeleteThreadParticipantPayloadSelect = {
+  clientMutationId?: boolean;
+  threadParticipant?: {
+    select: ThreadParticipantSelect;
+  };
+  threadParticipantEdge?: {
+    select: ThreadParticipantEdgeSelect;
+  };
+};
 export interface CreateToolExecutionPayload {
   clientMutationId?: string | null;
   /** The `ToolExecution` that was created by this mutation. */
@@ -24157,6 +27937,126 @@ export type AutonomyRecordsChunkEdgeSelect = {
     select: AutonomyRecordsChunkSelect;
   };
 };
+/** A `CalendarAttendee` edge in the connection. */
+export interface CalendarAttendeeEdge {
+  cursor?: string | null;
+  /** The `CalendarAttendee` at the end of the edge. */
+  node?: CalendarAttendee | null;
+}
+export type CalendarAttendeeEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CalendarAttendeeSelect;
+  };
+};
+/** A `Calendar` edge in the connection. */
+export interface CalendarEdge {
+  cursor?: string | null;
+  /** The `Calendar` at the end of the edge. */
+  node?: Calendar | null;
+}
+export type CalendarEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CalendarSelect;
+  };
+};
+/** A `CalendarEvent` edge in the connection. */
+export interface CalendarEventEdge {
+  cursor?: string | null;
+  /** The `CalendarEvent` at the end of the edge. */
+  node?: CalendarEvent | null;
+}
+export type CalendarEventEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CalendarEventSelect;
+  };
+};
+/** A `CalendarEventContact` edge in the connection. */
+export interface CalendarEventContactEdge {
+  cursor?: string | null;
+  /** The `CalendarEventContact` at the end of the edge. */
+  node?: CalendarEventContact | null;
+}
+export type CalendarEventContactEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CalendarEventContactSelect;
+  };
+};
+/** A `Contact` edge in the connection. */
+export interface ContactEdge {
+  cursor?: string | null;
+  /** The `Contact` at the end of the edge. */
+  node?: Contact | null;
+}
+export type ContactEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactSelect;
+  };
+};
+/** A `CalendarEventNote` edge in the connection. */
+export interface CalendarEventNoteEdge {
+  cursor?: string | null;
+  /** The `CalendarEventNote` at the end of the edge. */
+  node?: CalendarEventNote | null;
+}
+export type CalendarEventNoteEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CalendarEventNoteSelect;
+  };
+};
+/** A `Note` edge in the connection. */
+export interface NoteEdge {
+  cursor?: string | null;
+  /** The `Note` at the end of the edge. */
+  node?: Note | null;
+}
+export type NoteEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: NoteSelect;
+  };
+};
+/** A `CalendarEventsChunk` edge in the connection. */
+export interface CalendarEventsChunkEdge {
+  cursor?: string | null;
+  /** The `CalendarEventsChunk` at the end of the edge. */
+  node?: CalendarEventsChunk | null;
+}
+export type CalendarEventsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CalendarEventsChunkSelect;
+  };
+};
+/** A `CalendarEventTask` edge in the connection. */
+export interface CalendarEventTaskEdge {
+  cursor?: string | null;
+  /** The `CalendarEventTask` at the end of the edge. */
+  node?: CalendarEventTask | null;
+}
+export type CalendarEventTaskEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CalendarEventTaskSelect;
+  };
+};
+/** A `Task` edge in the connection. */
+export interface TaskEdge {
+  cursor?: string | null;
+  /** The `Task` at the end of the edge. */
+  node?: Task | null;
+}
+export type TaskEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TaskSelect;
+  };
+};
 /** A `CodebaseDependency` edge in the connection. */
 export interface CodebaseDependencyEdge {
   cursor?: string | null;
@@ -24227,18 +28127,6 @@ export type CompanyEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: CompanySelect;
-  };
-};
-/** A `Contact` edge in the connection. */
-export interface ContactEdge {
-  cursor?: string | null;
-  /** The `Contact` at the end of the edge. */
-  node?: Contact | null;
-}
-export type ContactEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: ContactSelect;
   };
 };
 /** A `Deal` edge in the connection. */
@@ -24349,18 +28237,6 @@ export type CompanyNoteEdgeSelect = {
     select: CompanyNoteSelect;
   };
 };
-/** A `Note` edge in the connection. */
-export interface NoteEdge {
-  cursor?: string | null;
-  /** The `Note` at the end of the edge. */
-  node?: Note | null;
-}
-export type NoteEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: NoteSelect;
-  };
-};
 /** A `ContactCompany` edge in the connection. */
 export interface ContactCompanyEdge {
   cursor?: string | null;
@@ -24371,6 +28247,30 @@ export type ContactCompanyEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ContactCompanySelect;
+  };
+};
+/** A `Email` edge in the connection. */
+export interface EmailEdge {
+  cursor?: string | null;
+  /** The `Email` at the end of the edge. */
+  node?: Email | null;
+}
+export type EmailEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailSelect;
+  };
+};
+/** A `EmailThread` edge in the connection. */
+export interface EmailThreadEdge {
+  cursor?: string | null;
+  /** The `EmailThread` at the end of the edge. */
+  node?: EmailThread | null;
+}
+export type EmailThreadEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailThreadSelect;
   };
 };
 /** A `ContactEvent` edge in the connection. */
@@ -24469,18 +28369,6 @@ export type ContactsChunkEdgeSelect = {
     select: ContactsChunkSelect;
   };
 };
-/** A `Task` edge in the connection. */
-export interface TaskEdge {
-  cursor?: string | null;
-  /** The `Task` at the end of the edge. */
-  node?: Task | null;
-}
-export type TaskEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: TaskSelect;
-  };
-};
 /** A `Conversation` edge in the connection. */
 export interface ConversationEdge {
   cursor?: string | null;
@@ -24551,6 +28439,66 @@ export type DealsChunkEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: DealsChunkSelect;
+  };
+};
+/** A `EmailAttachment` edge in the connection. */
+export interface EmailAttachmentEdge {
+  cursor?: string | null;
+  /** The `EmailAttachment` at the end of the edge. */
+  node?: EmailAttachment | null;
+}
+export type EmailAttachmentEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailAttachmentSelect;
+  };
+};
+/** A `EmailNote` edge in the connection. */
+export interface EmailNoteEdge {
+  cursor?: string | null;
+  /** The `EmailNote` at the end of the edge. */
+  node?: EmailNote | null;
+}
+export type EmailNoteEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailNoteSelect;
+  };
+};
+/** A `EmailRecipient` edge in the connection. */
+export interface EmailRecipientEdge {
+  cursor?: string | null;
+  /** The `EmailRecipient` at the end of the edge. */
+  node?: EmailRecipient | null;
+}
+export type EmailRecipientEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailRecipientSelect;
+  };
+};
+/** A `EmailsChunk` edge in the connection. */
+export interface EmailsChunkEdge {
+  cursor?: string | null;
+  /** The `EmailsChunk` at the end of the edge. */
+  node?: EmailsChunk | null;
+}
+export type EmailsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailsChunkSelect;
+  };
+};
+/** A `EmailThreadsChunk` edge in the connection. */
+export interface EmailThreadsChunkEdge {
+  cursor?: string | null;
+  /** The `EmailThreadsChunk` at the end of the edge. */
+  node?: EmailThreadsChunk | null;
+}
+export type EmailThreadsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailThreadsChunkSelect;
   };
 };
 /** A `EventImage` edge in the connection. */
@@ -24877,6 +28825,18 @@ export type ProjectsChunkEdgeSelect = {
     select: ProjectsChunkSelect;
   };
 };
+/** A `ProviderSyncState` edge in the connection. */
+export interface ProviderSyncStateEdge {
+  cursor?: string | null;
+  /** The `ProviderSyncState` at the end of the edge. */
+  node?: ProviderSyncState | null;
+}
+export type ProviderSyncStateEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ProviderSyncStateSelect;
+  };
+};
 /** A `Rule` edge in the connection. */
 export interface RuleEdge {
   cursor?: string | null;
@@ -25127,6 +29087,18 @@ export type TasksChunkEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: TasksChunkSelect;
+  };
+};
+/** A `ThreadParticipant` edge in the connection. */
+export interface ThreadParticipantEdge {
+  cursor?: string | null;
+  /** The `ThreadParticipant` at the end of the edge. */
+  node?: ThreadParticipant | null;
+}
+export type ThreadParticipantEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ThreadParticipantSelect;
   };
 };
 /** A `ToolExecution` edge in the connection. */

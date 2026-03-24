@@ -3,9 +3,8 @@
 
 -- requires: schemas/agentic_db_user_identifiers_public/schema
 -- requires: schemas/agentic_db_user_identifiers_public/tables/emails/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_user_identifiers_public/tables/emails/columns/updated_at/column
 
 
-CREATE INDEX emails_updated_at_idx ON agentic_db_user_identifiers_public.emails ( updated_at );
+CREATE INDEX emails_updated_at_idx ON "agentic_db_user_identifiers_public".emails ( updated_at );
 

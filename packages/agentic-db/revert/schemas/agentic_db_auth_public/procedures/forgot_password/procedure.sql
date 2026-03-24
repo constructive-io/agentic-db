@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION agentic_db_auth_public.forgot_password;
+DROP FUNCTION "agentic_db_auth_public".forgot_password;
 
 

@@ -3,9 +3,8 @@
 
 -- requires: schemas/agentic_db_invites_public/schema
 -- requires: schemas/agentic_db_invites_public/tables/claimed_invites/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_invites_public/tables/claimed_invites/columns/updated_at/column
 
 
-CREATE INDEX claimed_invites_updated_at_idx ON agentic_db_invites_public.claimed_invites ( updated_at );
+CREATE INDEX claimed_invites_updated_at_idx ON "agentic_db_invites_public".claimed_invites ( updated_at );
 

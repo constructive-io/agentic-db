@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-GRANT SELECT ON agentic_db_app_public.runtime_logs TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".runtime_logs TO authenticated;
 

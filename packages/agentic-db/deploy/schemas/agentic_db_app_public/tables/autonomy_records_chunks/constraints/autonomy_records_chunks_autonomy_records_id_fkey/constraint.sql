@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/table
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records_chunks/table
--- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/provider_sync_states/indexes/provider_sync_states_last_sync_at_idx
 
 
-ALTER TABLE agentic_db_app_public.autonomy_records_chunks 
+ALTER TABLE "agentic_db_app_public".autonomy_records_chunks 
   ADD CONSTRAINT autonomy_records_chunks_autonomy_records_id_fkey 
     FOREIGN KEY(autonomy_records_id) 
-    REFERENCES agentic_db_app_public.autonomy_records (id) 
+    REFERENCES "agentic_db_app_public".autonomy_records (id) 
     ON DELETE CASCADE;
 

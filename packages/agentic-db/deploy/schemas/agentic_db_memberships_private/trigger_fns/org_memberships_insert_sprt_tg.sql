@@ -2,13 +2,12 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_memberships_private/schema
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_memberships_private/tables/app_memberships_sprt/table
 -- requires: schemas/agentic_db_memberships_private/tables/org_memberships_sprt/table
 
 
 
-CREATE FUNCTION agentic_db_memberships_private.org_memberships_insert_sprt_tg ()
+CREATE FUNCTION "agentic_db_memberships_private".org_memberships_insert_sprt_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
@@ -29,16 +28,16 @@ BEGIN
     ) INTO NEW.is_active;
     IF (NEW.is_active IS TRUE) THEN 
         SELECT EXISTS (
-            SELECT 1 FROM agentic_db_memberships_private.app_memberships_sprt
+            SELECT 1 FROM "agentic_db_memberships_private".app_memberships_sprt
             WHERE actor_id = NEW.actor_id
         ) INTO has_active_parent;
         IF (has_active_parent IS TRUE) THEN
-            INSERT INTO agentic_db_memberships_private.org_memberships_sprt 
+            INSERT INTO "agentic_db_memberships_private".org_memberships_sprt 
                 (is_owner, is_admin, permissions, actor_id, entity_id)
             VALUES 
                 (NEW.is_owner, NEW.is_admin, NEW.permissions, NEW.actor_id, NEW.entity_id)
             ;
-            INSERT INTO agentic_db_memberships_public.org_members 
+            INSERT INTO "agentic_db_memberships_public".org_members 
                 (is_admin, actor_id, entity_id)
             VALUES 
                 (NEW.is_admin, NEW.actor_id, NEW.entity_id)

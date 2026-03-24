@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_auth_private/schema
 -- requires: schemas/agentic_db_auth_private/tables/sessions/table
 -- requires: schemas/agentic_db_auth_private/tables/session_credentials/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_auth_private/tables/sessions/columns/user_id/column
 -- requires: schemas/agentic_db_auth_private/tables/session_credentials/columns/expires_at/column
 -- requires: schemas/agentic_db_auth_private/tables/session_credentials/columns/session_id/column
@@ -12,7 +11,7 @@
 
 
 
-CREATE FUNCTION agentic_db_auth_private.authenticate (token_str text)
+CREATE FUNCTION "agentic_db_auth_private".authenticate (token_str text)
     RETURNS TABLE (
         id uuid,
         user_id uuid
@@ -22,8 +21,8 @@ SELECT
     cred.id,
     sess.user_id
 FROM
-    agentic_db_auth_private.session_credentials AS cred
-    JOIN agentic_db_auth_private.sessions AS sess ON sess.id = cred.session_id
+    "agentic_db_auth_private".session_credentials AS cred
+    JOIN "agentic_db_auth_private".sessions AS sess ON sess.id = cred.session_id
 WHERE
     cred.secret_hash = digest(authenticate.token_str, 'sha256')
     AND EXTRACT(EPOCH FROM (cred.expires_at - NOW())) > 0
@@ -33,6 +32,6 @@ WHERE
 $$
 LANGUAGE 'sql' STABLE
 SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION agentic_db_auth_private.authenticate TO anonymous;
-GRANT EXECUTE ON FUNCTION agentic_db_auth_private.authenticate TO authenticated;
+GRANT EXECUTE ON FUNCTION "agentic_db_auth_private".authenticate TO anonymous;
+GRANT EXECUTE ON FUNCTION "agentic_db_auth_private".authenticate TO authenticated;
 

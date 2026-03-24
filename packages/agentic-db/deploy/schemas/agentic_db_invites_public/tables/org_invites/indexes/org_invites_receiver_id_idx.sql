@@ -3,9 +3,8 @@
 
 -- requires: schemas/agentic_db_invites_public/schema
 -- requires: schemas/agentic_db_invites_public/tables/org_invites/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_invites_public/tables/org_invites/columns/receiver_id/column
 
 
-CREATE INDEX org_invites_receiver_id_idx ON agentic_db_invites_public.org_invites USING BTREE ( receiver_id );
+CREATE INDEX org_invites_receiver_id_idx ON "agentic_db_invites_public".org_invites USING BTREE ( receiver_id );
 

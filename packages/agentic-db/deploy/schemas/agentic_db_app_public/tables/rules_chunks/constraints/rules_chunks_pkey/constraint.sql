@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-ALTER TABLE agentic_db_app_public.rules_chunks 
+ALTER TABLE "agentic_db_app_public".rules_chunks 
   ADD CONSTRAINT rules_chunks_pkey PRIMARY KEY (id);
 

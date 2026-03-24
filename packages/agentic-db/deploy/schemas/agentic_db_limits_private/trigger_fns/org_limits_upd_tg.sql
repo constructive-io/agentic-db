@@ -2,11 +2,10 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_limits_private/schema
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION agentic_db_limits_private.org_limits_upd_tg ()
+CREATE FUNCTION "agentic_db_limits_private".org_limits_upd_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
@@ -25,10 +24,10 @@ BEGIN
         USING NEW INTO new_actor_id;
         EXECUTE format('SELECT ($1).%s', TG_ARGV[1])
         USING OLD INTO old_actor_id;
-        PERFORM agentic_db_limits_private.org_limits_dec(
+        PERFORM "agentic_db_limits_private".org_limits_dec(
             limitname, old_actor_id
         );
-        limit_ok = agentic_db_limits_private.org_limits_inc(
+        limit_ok = "agentic_db_limits_private".org_limits_inc(
             limitname, new_actor_id
         );
         

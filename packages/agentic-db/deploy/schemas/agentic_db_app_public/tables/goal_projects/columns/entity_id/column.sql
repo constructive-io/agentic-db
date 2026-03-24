@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/task_projects/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.goal_projects 
+ALTER TABLE "agentic_db_app_public".goal_projects 
   ADD COLUMN entity_id uuid;
 

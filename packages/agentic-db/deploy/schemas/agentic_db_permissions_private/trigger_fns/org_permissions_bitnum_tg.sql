@@ -2,11 +2,10 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_permissions_private/schema
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION agentic_db_permissions_private.org_permissions_bitnum_tg ()
+CREATE FUNCTION "agentic_db_permissions_private".org_permissions_bitnum_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
-GRANT INSERT ON agentic_db_app_public.codebases TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".codebases TO authenticated;
 

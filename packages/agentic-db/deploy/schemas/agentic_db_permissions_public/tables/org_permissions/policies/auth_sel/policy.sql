@@ -3,10 +3,9 @@
 
 -- requires: schemas/agentic_db_permissions_public/schema
 -- requires: schemas/agentic_db_permissions_public/tables/org_permissions/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE POLICY auth_sel ON agentic_db_permissions_public.org_permissions
+CREATE POLICY auth_sel ON "agentic_db_permissions_public".org_permissions
 FOR SELECT
 TO authenticated
 USING (

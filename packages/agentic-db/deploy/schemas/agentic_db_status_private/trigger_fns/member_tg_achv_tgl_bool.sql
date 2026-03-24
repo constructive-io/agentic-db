@@ -2,12 +2,11 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_status_private/schema
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_status_private/procedures/member_completed_step/procedure
 
 
 
-CREATE FUNCTION agentic_db_status_private.member_tg_achv_tgl_bool ()
+CREATE FUNCTION "agentic_db_status_private".member_tg_achv_tgl_bool ()
   RETURNS TRIGGER
   AS $$
 DECLARE
@@ -22,9 +21,9 @@ BEGIN
         EXECUTE format('SELECT ($1).%s', TG_ARGV[1])
         USING NEW INTO entity_id;
         IF (is_true IS TRUE) THEN
-            PERFORM agentic_db_status_private.member_completed_step(task_name, entity_id);
+            PERFORM "agentic_db_status_private".member_completed_step(task_name, entity_id);
         ELSE
-            PERFORM agentic_db_status_private.member_incompleted_step(task_name, entity_id);
+            PERFORM "agentic_db_status_private".member_incompleted_step(task_name, entity_id);
         END IF;
         RETURN NEW;
     END IF;
@@ -32,5 +31,5 @@ END;
 $$
 LANGUAGE 'plpgsql'
 VOLATILE;
-GRANT EXECUTE ON FUNCTION agentic_db_status_private.member_tg_achv_tgl_bool TO authenticated;
+GRANT EXECUTE ON FUNCTION "agentic_db_status_private".member_tg_achv_tgl_bool TO authenticated;
 

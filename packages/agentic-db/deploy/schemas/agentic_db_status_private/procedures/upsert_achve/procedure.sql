@@ -3,13 +3,12 @@
 
 -- requires: schemas/agentic_db_status_private/schema
 -- requires: schemas/agentic_db_status_public/tables/app_achievements/table
--- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION agentic_db_status_private.upsert_achve ( vactor_id uuid, vname text, vcount int ) RETURNS void AS $EOFCODE$
+CREATE FUNCTION "agentic_db_status_private".upsert_achve ( vactor_id uuid, vname text, vcount int ) RETURNS void AS $EOFCODE$
 BEGIN
-    INSERT INTO agentic_db_status_public.app_achievements (actor_id, name, count)
+    INSERT INTO "agentic_db_status_public".app_achievements (actor_id, name, count)
     VALUES 
         (vactor_id, vname, GREATEST(vcount, 0))
     ON CONFLICT ( actor_id, name )
@@ -18,5 +17,5 @@ BEGIN
     ;
 END;
 $EOFCODE$ LANGUAGE plpgsql VOLATILE;
-GRANT EXECUTE ON FUNCTION agentic_db_status_private.upsert_achve TO authenticated;
+GRANT EXECUTE ON FUNCTION "agentic_db_status_private".upsert_achve TO authenticated;
 

@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER events_enqueue_chunking_insert_tg
-AFTER INSERT ON agentic_db_app_public.events
+AFTER INSERT ON "agentic_db_app_public".events
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.events_enqueue_chunking ( );
+EXECUTE PROCEDURE "agentic_db_private".events_enqueue_chunking ( );
 

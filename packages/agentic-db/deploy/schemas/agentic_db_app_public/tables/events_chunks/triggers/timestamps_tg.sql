@@ -7,7 +7,7 @@
 
 
 CREATE TRIGGER timestamps_tg
-BEFORE INSERT OR UPDATE ON agentic_db_app_public.events_chunks
+BEFORE INSERT OR UPDATE ON "agentic_db_app_public".events_chunks
 FOR EACH ROW
 EXECUTE PROCEDURE stamps.timestamps ( );
 

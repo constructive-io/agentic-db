@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-ALTER TABLE agentic_db_app_public.agents_chunks 
+ALTER TABLE "agentic_db_app_public".agents_chunks 
   ADD COLUMN chunk_index integer;
 

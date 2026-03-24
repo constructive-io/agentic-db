@@ -13,13 +13,22 @@ import { AgentsChunkModel } from './models/agentsChunk';
 import { AutonomyRecordModel } from './models/autonomyRecord';
 import { AutonomyRecordLinkModel } from './models/autonomyRecordLink';
 import { AutonomyRecordsChunkModel } from './models/autonomyRecordsChunk';
+import { CalendarAttendeeModel } from './models/calendarAttendee';
+import { CalendarModel } from './models/calendar';
+import { CalendarEventModel } from './models/calendarEvent';
+import { CalendarEventContactModel } from './models/calendarEventContact';
+import { ContactModel } from './models/contact';
+import { CalendarEventNoteModel } from './models/calendarEventNote';
+import { NoteModel } from './models/note';
+import { CalendarEventsChunkModel } from './models/calendarEventsChunk';
+import { CalendarEventTaskModel } from './models/calendarEventTask';
+import { TaskModel } from './models/task';
 import { CodebaseDependencyModel } from './models/codebaseDependency';
 import { CodebasesChunkModel } from './models/codebasesChunk';
 import { CodebasisModel } from './models/codebasis';
 import { CodeChunkModel } from './models/codeChunk';
 import { CompaniesChunkModel } from './models/companiesChunk';
 import { CompanyModel } from './models/company';
-import { ContactModel } from './models/contact';
 import { DealModel } from './models/deal';
 import { CompanyEventModel } from './models/companyEvent';
 import { EventModel } from './models/event';
@@ -29,8 +38,9 @@ import { CompanyLinkModel } from './models/companyLink';
 import { MemoryModel } from './models/memory';
 import { CompanyMemoryModel } from './models/companyMemory';
 import { CompanyNoteModel } from './models/companyNote';
-import { NoteModel } from './models/note';
 import { ContactCompanyModel } from './models/contactCompany';
+import { EmailModel } from './models/email';
+import { EmailThreadModel } from './models/emailThread';
 import { ContactEventModel } from './models/contactEvent';
 import { ContactImageModel } from './models/contactImage';
 import { ContactLinkModel } from './models/contactLink';
@@ -39,13 +49,17 @@ import { ContactNoteModel } from './models/contactNote';
 import { ProjectModel } from './models/project';
 import { ContactRelationshipModel } from './models/contactRelationship';
 import { ContactsChunkModel } from './models/contactsChunk';
-import { TaskModel } from './models/task';
 import { ConversationModel } from './models/conversation';
 import { ConversationsChunkModel } from './models/conversationsChunk';
 import { DealCompanyModel } from './models/dealCompany';
 import { DealContactModel } from './models/dealContact';
 import { DealNoteModel } from './models/dealNote';
 import { DealsChunkModel } from './models/dealsChunk';
+import { EmailAttachmentModel } from './models/emailAttachment';
+import { EmailNoteModel } from './models/emailNote';
+import { EmailRecipientModel } from './models/emailRecipient';
+import { EmailsChunkModel } from './models/emailsChunk';
+import { EmailThreadsChunkModel } from './models/emailThreadsChunk';
 import { EventImageModel } from './models/eventImage';
 import { EventLinkModel } from './models/eventLink';
 import { EventNoteModel } from './models/eventNote';
@@ -73,6 +87,7 @@ import { PlaceModel } from './models/place';
 import { PlacesChunkModel } from './models/placesChunk';
 import { ProjectContactModel } from './models/projectContact';
 import { ProjectsChunkModel } from './models/projectsChunk';
+import { ProviderSyncStateModel } from './models/providerSyncState';
 import { RuleModel } from './models/rule';
 import { RulesChunkModel } from './models/rulesChunk';
 import { RuntimeArtifactModel } from './models/runtimeArtifact';
@@ -94,6 +109,7 @@ import { TaskContactModel } from './models/taskContact';
 import { TaskNoteModel } from './models/taskNote';
 import { TaskProjectModel } from './models/taskProject';
 import { TasksChunkModel } from './models/tasksChunk';
+import { ThreadParticipantModel } from './models/threadParticipant';
 import { ToolExecutionModel } from './models/toolExecution';
 import { TouchpointModel } from './models/touchpoint';
 import { TouchpointsChunkModel } from './models/touchpointsChunk';
@@ -143,13 +159,22 @@ export function createClient(config: OrmClientConfig) {
     autonomyRecord: new AutonomyRecordModel(client),
     autonomyRecordLink: new AutonomyRecordLinkModel(client),
     autonomyRecordsChunk: new AutonomyRecordsChunkModel(client),
+    calendarAttendee: new CalendarAttendeeModel(client),
+    calendar: new CalendarModel(client),
+    calendarEvent: new CalendarEventModel(client),
+    calendarEventContact: new CalendarEventContactModel(client),
+    contact: new ContactModel(client),
+    calendarEventNote: new CalendarEventNoteModel(client),
+    note: new NoteModel(client),
+    calendarEventsChunk: new CalendarEventsChunkModel(client),
+    calendarEventTask: new CalendarEventTaskModel(client),
+    task: new TaskModel(client),
     codebaseDependency: new CodebaseDependencyModel(client),
     codebasesChunk: new CodebasesChunkModel(client),
     codebasis: new CodebasisModel(client),
     codeChunk: new CodeChunkModel(client),
     companiesChunk: new CompaniesChunkModel(client),
     company: new CompanyModel(client),
-    contact: new ContactModel(client),
     deal: new DealModel(client),
     companyEvent: new CompanyEventModel(client),
     event: new EventModel(client),
@@ -159,8 +184,9 @@ export function createClient(config: OrmClientConfig) {
     memory: new MemoryModel(client),
     companyMemory: new CompanyMemoryModel(client),
     companyNote: new CompanyNoteModel(client),
-    note: new NoteModel(client),
     contactCompany: new ContactCompanyModel(client),
+    email: new EmailModel(client),
+    emailThread: new EmailThreadModel(client),
     contactEvent: new ContactEventModel(client),
     contactImage: new ContactImageModel(client),
     contactLink: new ContactLinkModel(client),
@@ -169,13 +195,17 @@ export function createClient(config: OrmClientConfig) {
     project: new ProjectModel(client),
     contactRelationship: new ContactRelationshipModel(client),
     contactsChunk: new ContactsChunkModel(client),
-    task: new TaskModel(client),
     conversation: new ConversationModel(client),
     conversationsChunk: new ConversationsChunkModel(client),
     dealCompany: new DealCompanyModel(client),
     dealContact: new DealContactModel(client),
     dealNote: new DealNoteModel(client),
     dealsChunk: new DealsChunkModel(client),
+    emailAttachment: new EmailAttachmentModel(client),
+    emailNote: new EmailNoteModel(client),
+    emailRecipient: new EmailRecipientModel(client),
+    emailsChunk: new EmailsChunkModel(client),
+    emailThreadsChunk: new EmailThreadsChunkModel(client),
     eventImage: new EventImageModel(client),
     eventLink: new EventLinkModel(client),
     eventNote: new EventNoteModel(client),
@@ -203,6 +233,7 @@ export function createClient(config: OrmClientConfig) {
     placesChunk: new PlacesChunkModel(client),
     projectContact: new ProjectContactModel(client),
     projectsChunk: new ProjectsChunkModel(client),
+    providerSyncState: new ProviderSyncStateModel(client),
     rule: new RuleModel(client),
     rulesChunk: new RulesChunkModel(client),
     runtimeArtifact: new RuntimeArtifactModel(client),
@@ -224,6 +255,7 @@ export function createClient(config: OrmClientConfig) {
     taskNote: new TaskNoteModel(client),
     taskProject: new TaskProjectModel(client),
     tasksChunk: new TasksChunkModel(client),
+    threadParticipant: new ThreadParticipantModel(client),
     toolExecution: new ToolExecutionModel(client),
     touchpoint: new TouchpointModel(client),
     touchpointsChunk: new TouchpointsChunkModel(client),
