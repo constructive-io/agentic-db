@@ -26,8 +26,6 @@ const db = createClient({
 | `agentLog` | findMany, findOne, create, update, delete |
 | `agentLogsChunk` | findMany, findOne, create, update, delete |
 | `agentsChunk` | findMany, findOne, create, update, delete |
-| `agentTask` | findMany, findOne, create, update, delete |
-| `agentTasksChunk` | findMany, findOne, create, update, delete |
 | `autonomyRecord` | findMany, findOne, create, update, delete |
 | `autonomyRecordLink` | findMany, findOne, create, update, delete |
 | `autonomyRecordsChunk` | findMany, findOne, create, update, delete |
@@ -57,6 +55,7 @@ const db = createClient({
 | `project` | findMany, findOne, create, update, delete |
 | `contactRelationship` | findMany, findOne, create, update, delete |
 | `contactsChunk` | findMany, findOne, create, update, delete |
+| `task` | findMany, findOne, create, update, delete |
 | `conversation` | findMany, findOne, create, update, delete |
 | `conversationsChunk` | findMany, findOne, create, update, delete |
 | `dealCompany` | findMany, findOne, create, update, delete |
@@ -107,6 +106,10 @@ const db = createClient({
 | `skillTool` | findMany, findOne, create, update, delete |
 | `toolDefinition` | findMany, findOne, create, update, delete |
 | `tag` | findMany, findOne, create, update, delete |
+| `taskContact` | findMany, findOne, create, update, delete |
+| `taskNote` | findMany, findOne, create, update, delete |
+| `taskProject` | findMany, findOne, create, update, delete |
+| `tasksChunk` | findMany, findOne, create, update, delete |
 | `toolExecution` | findMany, findOne, create, update, delete |
 | `touchpoint` | findMany, findOne, create, update, delete |
 | `touchpointsChunk` | findMany, findOne, create, update, delete |
@@ -322,96 +325,6 @@ const updated = await db.agentsChunk.update({ where: { id: '<UUID>' }, data: { a
 
 // Delete
 const deleted = await db.agentsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.agentTask`
-
-CRUD operations for AgentTask records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `agentId` | UUID | Yes |
-| `title` | String | Yes |
-| `description` | String | Yes |
-| `status` | String | Yes |
-| `priority` | Int | Yes |
-| `result` | String | Yes |
-| `startedAt` | Datetime | Yes |
-| `completedAt` | Datetime | Yes |
-| `meta` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingText` | String | Yes |
-| `embedding` | Vector | Yes |
-| `embeddingStale` | Boolean | Yes |
-| `embeddingTextBm25Score` | Float | Yes |
-| `embeddingVectorDistance` | Float | Yes |
-| `titleTrgmSimilarity` | Float | Yes |
-| `descriptionTrgmSimilarity` | Float | Yes |
-| `statusTrgmSimilarity` | Float | Yes |
-| `resultTrgmSimilarity` | Float | Yes |
-| `embeddingTextTrgmSimilarity` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all agentTask records
-const items = await db.agentTask.findMany({ select: { id: true, entityId: true, agentId: true, title: true, description: true, status: true, priority: true, result: true, startedAt: true, completedAt: true, meta: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, descriptionTrgmSimilarity: true, statusTrgmSimilarity: true, resultTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.agentTask.findOne({ id: '<UUID>', select: { id: true, entityId: true, agentId: true, title: true, description: true, status: true, priority: true, result: true, startedAt: true, completedAt: true, meta: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, descriptionTrgmSimilarity: true, statusTrgmSimilarity: true, resultTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.agentTask.create({ data: { entityId: '<UUID>', agentId: '<UUID>', title: '<String>', description: '<String>', status: '<String>', priority: '<Int>', result: '<String>', startedAt: '<Datetime>', completedAt: '<Datetime>', meta: '<JSON>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', resultTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.agentTask.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.agentTask.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.agentTasksChunk`
-
-CRUD operations for AgentTasksChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `agentTasksId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all agentTasksChunk records
-const items = await db.agentTasksChunk.findMany({ select: { id: true, agentTasksId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.agentTasksChunk.findOne({ id: '<UUID>', select: { id: true, agentTasksId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.agentTasksChunk.create({ data: { agentTasksId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.agentTasksChunk.update({ where: { id: '<UUID>' }, data: { agentTasksId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.agentTasksChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.autonomyRecord`
@@ -1604,6 +1517,58 @@ const updated = await db.contactsChunk.update({ where: { id: '<UUID>' }, data: {
 
 // Delete
 const deleted = await db.contactsChunk.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.task`
+
+CRUD operations for Task records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `agentId` | UUID | Yes |
+| `title` | String | Yes |
+| `description` | String | Yes |
+| `status` | String | Yes |
+| `priority` | Int | Yes |
+| `result` | String | Yes |
+| `startedAt` | Datetime | Yes |
+| `completedAt` | Datetime | Yes |
+| `meta` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `titleTrgmSimilarity` | Float | Yes |
+| `descriptionTrgmSimilarity` | Float | Yes |
+| `statusTrgmSimilarity` | Float | Yes |
+| `resultTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all task records
+const items = await db.task.findMany({ select: { id: true, entityId: true, agentId: true, title: true, description: true, status: true, priority: true, result: true, startedAt: true, completedAt: true, meta: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, descriptionTrgmSimilarity: true, statusTrgmSimilarity: true, resultTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.task.findOne({ id: '<UUID>', select: { id: true, entityId: true, agentId: true, title: true, description: true, status: true, priority: true, result: true, startedAt: true, completedAt: true, meta: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, titleTrgmSimilarity: true, descriptionTrgmSimilarity: true, statusTrgmSimilarity: true, resultTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.task.create({ data: { entityId: '<UUID>', agentId: '<UUID>', title: '<String>', description: '<String>', status: '<String>', priority: '<Int>', result: '<String>', startedAt: '<Datetime>', completedAt: '<Datetime>', meta: '<JSON>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', statusTrgmSimilarity: '<Float>', resultTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.task.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.task.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.conversation`
@@ -3629,6 +3594,140 @@ const updated = await db.tag.update({ where: { id: '<UUID>' }, data: { entityId:
 
 // Delete
 const deleted = await db.tag.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.taskContact`
+
+CRUD operations for TaskContact records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `taskId` | UUID | Yes |
+| `contactId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all taskContact records
+const items = await db.taskContact.findMany({ select: { taskId: true, contactId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.taskContact.findOne({ id: '<UUID>', select: { taskId: true, contactId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.taskContact.create({ data: { taskId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.taskContact.update({ where: { id: '<UUID>' }, data: { taskId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.taskContact.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.taskNote`
+
+CRUD operations for TaskNote records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `taskId` | UUID | Yes |
+| `noteId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all taskNote records
+const items = await db.taskNote.findMany({ select: { taskId: true, noteId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.taskNote.findOne({ id: '<UUID>', select: { taskId: true, noteId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.taskNote.create({ data: { taskId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.taskNote.update({ where: { id: '<UUID>' }, data: { taskId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.taskNote.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.taskProject`
+
+CRUD operations for TaskProject records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `taskId` | UUID | Yes |
+| `projectId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all taskProject records
+const items = await db.taskProject.findMany({ select: { taskId: true, projectId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.taskProject.findOne({ id: '<UUID>', select: { taskId: true, projectId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.taskProject.create({ data: { taskId: '<UUID>', projectId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.taskProject.update({ where: { id: '<UUID>' }, data: { taskId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.taskProject.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.tasksChunk`
+
+CRUD operations for TasksChunk records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `tasksId` | UUID | Yes |
+| `content` | String | Yes |
+| `chunkIndex` | Int | Yes |
+| `embedding` | Vector | Yes |
+| `metadata` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingVectorDistance` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all tasksChunk records
+const items = await db.tasksChunk.findMany({ select: { id: true, tasksId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.tasksChunk.findOne({ id: '<UUID>', select: { id: true, tasksId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.tasksChunk.create({ data: { tasksId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.tasksChunk.update({ where: { id: '<UUID>' }, data: { tasksId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.tasksChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.toolExecution`

@@ -1,13 +1,13 @@
 ---
 name: cli-default
-description: CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 0 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 98 tables and 0 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 0 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 98 tables and 0 custom operations
 
 ## Usage
 
@@ -61,8 +61,6 @@ See the `references/` directory for detailed per-entity API documentation:
 - [agent-log](references/agent-log.md)
 - [agent-logs-chunk](references/agent-logs-chunk.md)
 - [agents-chunk](references/agents-chunk.md)
-- [agent-task](references/agent-task.md)
-- [agent-tasks-chunk](references/agent-tasks-chunk.md)
 - [autonomy-record](references/autonomy-record.md)
 - [autonomy-record-link](references/autonomy-record-link.md)
 - [autonomy-records-chunk](references/autonomy-records-chunk.md)
@@ -92,6 +90,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [project](references/project.md)
 - [contact-relationship](references/contact-relationship.md)
 - [contacts-chunk](references/contacts-chunk.md)
+- [task](references/task.md)
 - [conversation](references/conversation.md)
 - [conversations-chunk](references/conversations-chunk.md)
 - [deal-company](references/deal-company.md)
@@ -142,6 +141,10 @@ See the `references/` directory for detailed per-entity API documentation:
 - [skill-tool](references/skill-tool.md)
 - [tool-definition](references/tool-definition.md)
 - [tag](references/tag.md)
+- [task-contact](references/task-contact.md)
+- [task-note](references/task-note.md)
+- [task-project](references/task-project.md)
+- [tasks-chunk](references/tasks-chunk.md)
 - [tool-execution](references/tool-execution.md)
 - [touchpoint](references/touchpoint.md)
 - [touchpoints-chunk](references/touchpoints-chunk.md)

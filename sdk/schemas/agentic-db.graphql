@@ -151,64 +151,6 @@ enum AgentsChunkOrderBy {
   SEARCH_SCORE_DESC
 }
 
-"Methods to use when ordering `AgentTask`."
-enum AgentTaskOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
-  AGENT_ID_ASC
-  AGENT_ID_DESC
-  STATUS_ASC
-  STATUS_DESC
-  PRIORITY_ASC
-  PRIORITY_DESC
-  EMBEDDING_TEXT_ASC
-  EMBEDDING_TEXT_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  EMBEDDING_TEXT_BM25_SCORE_ASC
-  EMBEDDING_TEXT_BM25_SCORE_DESC
-  EMBEDDING_VECTOR_DISTANCE_ASC
-  EMBEDDING_VECTOR_DISTANCE_DESC
-  TITLE_TRGM_SIMILARITY_ASC
-  TITLE_TRGM_SIMILARITY_DESC
-  DESCRIPTION_TRGM_SIMILARITY_ASC
-  DESCRIPTION_TRGM_SIMILARITY_DESC
-  STATUS_TRGM_SIMILARITY_ASC
-  STATUS_TRGM_SIMILARITY_DESC
-  RESULT_TRGM_SIMILARITY_ASC
-  RESULT_TRGM_SIMILARITY_DESC
-  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
-  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
-  SEARCH_SCORE_ASC
-  SEARCH_SCORE_DESC
-}
-
-"Methods to use when ordering `AgentTasksChunk`."
-enum AgentTasksChunkOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  ID_ASC
-  ID_DESC
-  AGENT_TASKS_ID_ASC
-  AGENT_TASKS_ID_DESC
-  EMBEDDING_ASC
-  EMBEDDING_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
-  EMBEDDING_VECTOR_DISTANCE_ASC
-  EMBEDDING_VECTOR_DISTANCE_DESC
-  SEARCH_SCORE_ASC
-  SEARCH_SCORE_DESC
-}
-
 "Methods to use when ordering `AutonomyRecordLink`."
 enum AutonomyRecordLinkOrderBy {
   NATURAL
@@ -2003,6 +1945,109 @@ enum TagOrderBy {
   CATEGORY_DESC
 }
 
+"Methods to use when ordering `TaskContact`."
+enum TaskContactOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  TASK_ID_ASC
+  TASK_ID_DESC
+  CONTACT_ID_ASC
+  CONTACT_ID_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+}
+
+"Methods to use when ordering `TaskNote`."
+enum TaskNoteOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  TASK_ID_ASC
+  TASK_ID_DESC
+  NOTE_ID_ASC
+  NOTE_ID_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+}
+
+"Methods to use when ordering `Task`."
+enum TaskOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  AGENT_ID_ASC
+  AGENT_ID_DESC
+  STATUS_ASC
+  STATUS_DESC
+  PRIORITY_ASC
+  PRIORITY_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  TITLE_TRGM_SIMILARITY_ASC
+  TITLE_TRGM_SIMILARITY_DESC
+  DESCRIPTION_TRGM_SIMILARITY_ASC
+  DESCRIPTION_TRGM_SIMILARITY_DESC
+  STATUS_TRGM_SIMILARITY_ASC
+  STATUS_TRGM_SIMILARITY_DESC
+  RESULT_TRGM_SIMILARITY_ASC
+  RESULT_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
+"Methods to use when ordering `TaskProject`."
+enum TaskProjectOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  TASK_ID_ASC
+  TASK_ID_DESC
+  PROJECT_ID_ASC
+  PROJECT_ID_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+}
+
+"Methods to use when ordering `TasksChunk`."
+enum TasksChunkOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  TASKS_ID_ASC
+  TASKS_ID_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
 "Methods to use when ordering `ToolDefinition`."
 enum ToolDefinitionOrderBy {
   NATURAL
@@ -2354,8 +2399,8 @@ type Agent {
     "The method to use when ordering `AgentsChunk`."
     orderBy: [AgentsChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): AgentsChunkConnection!
-  "Reads and enables pagination through a set of `AgentTask`."
-  agentTasks(
+  "Reads and enables pagination through a set of `Task`."
+  tasks(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -2370,10 +2415,10 @@ type Agent {
     "Read all values in the set after (below) this cursor."
     after: Cursor
     "A filter to be used in determining which values should be returned by the collection."
-    where: AgentTaskFilter
-    "The method to use when ordering `AgentTask`."
-    orderBy: [AgentTaskOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AgentTaskConnection!
+    where: TaskFilter
+    "The method to use when ordering `Task`."
+    orderBy: [TaskOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskConnection!
   "Reads and enables pagination through a set of `AgentLog`."
   agentLogs(
     "Only read the first `n` values of the set."
@@ -2686,122 +2731,6 @@ type AgentsChunkEdge {
   cursor: Cursor
   "The `AgentsChunk` at the end of the edge."
   node: AgentsChunk
-}
-
-"@@hasChunks {\"chunks_table\": \"agent_tasks_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
-type AgentTask {
-  id: UUID!
-  entityId: UUID!
-  agentId: UUID!
-  title: String!
-  description: String
-  status: String
-  priority: Int
-  result: String
-  startedAt: Datetime
-  completedAt: Datetime
-  meta: JSON
-  createdAt: Datetime!
-  updatedAt: Datetime!
-  embeddingText: String
-  embedding: Vector
-  embeddingStale: Boolean!
-  "Reads a single `Agent` that is related to this `AgentTask`."
-  agent: Agent
-  "Reads and enables pagination through a set of `AgentTasksChunk`."
-  agentTasksChunksByAgentTasksId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AgentTasksChunkFilter
-    "The method to use when ordering `AgentTasksChunk`."
-    orderBy: [AgentTasksChunkOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AgentTasksChunkConnection!
-  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
-  embeddingTextBm25Score: Float
-  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
-  embeddingVectorDistance: Float
-  "TRGM similarity when searching `title`. Returns null when no trgm search filter is active."
-  titleTrgmSimilarity: Float
-  "TRGM similarity when searching `description`. Returns null when no trgm search filter is active."
-  descriptionTrgmSimilarity: Float
-  "TRGM similarity when searching `status`. Returns null when no trgm search filter is active."
-  statusTrgmSimilarity: Float
-  "TRGM similarity when searching `result`. Returns null when no trgm search filter is active."
-  resultTrgmSimilarity: Float
-  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
-  embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
-  searchScore: Float
-}
-
-"A connection to a list of `AgentTask` values."
-type AgentTaskConnection {
-  "A list of `AgentTask` objects."
-  nodes: [AgentTask]!
-  "A list of edges which contains the `AgentTask` and cursor to aid in pagination."
-  edges: [AgentTaskEdge]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `AgentTask` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `AgentTask` edge in the connection."
-type AgentTaskEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `AgentTask` at the end of the edge."
-  node: AgentTask
-}
-
-"@@chunksOf {\"parent_fk\": \"agent_tasks_id\", \"parent_table\": \"agent_tasks\"}"
-type AgentTasksChunk {
-  id: UUID!
-  agentTasksId: UUID!
-  content: String!
-  chunkIndex: Int!
-  embedding: Vector
-  metadata: JSON
-  createdAt: Datetime
-  updatedAt: Datetime
-  "Reads a single `AgentTask` that is related to this `AgentTasksChunk`."
-  agentTasks: AgentTask
-  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
-  embeddingVectorDistance: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
-  searchScore: Float
-}
-
-"A connection to a list of `AgentTasksChunk` values."
-type AgentTasksChunkConnection {
-  "A list of `AgentTasksChunk` objects."
-  nodes: [AgentTasksChunk]!
-  "A list of edges which contains the `AgentTasksChunk` and cursor to aid in pagination."
-  edges: [AgentTasksChunkEdge]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `AgentTasksChunk` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `AgentTasksChunk` edge in the connection."
-type AgentTasksChunkEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `AgentTasksChunk` at the end of the edge."
-  node: AgentTasksChunk
 }
 
 "@@hasChunks {\"chunks_table\": \"autonomy_records_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
@@ -4139,6 +4068,26 @@ type Contact {
     "The method to use when ordering `Project`."
     orderBy: [ProjectOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactProjectsManyToManyConnection!
+  "Reads and enables pagination through a set of `Task`."
+  tasks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskFilter
+    "The method to use when ordering `Task`."
+    orderBy: [TaskOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactTasksManyToManyConnection!
   "Reads and enables pagination through a set of `Note`."
   notes(
     "Only read the first `n` values of the set."
@@ -4381,6 +4330,26 @@ type Contact {
     "The method to use when ordering `ProjectContact`."
     orderBy: [ProjectContactOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectContactConnection!
+  "Reads and enables pagination through a set of `TaskContact`."
+  taskContacts(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskContactFilter
+    "The method to use when ordering `TaskContact`."
+    orderBy: [TaskContactOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskContactConnection!
   "Reads and enables pagination through a set of `ContactNote`."
   contactNotes(
     "Only read the first `n` values of the set."
@@ -5020,6 +4989,46 @@ type ContactsChunkEdge {
   node: ContactsChunk
 }
 
+"A connection to a list of `Task` values, with data from `TaskContact`."
+type ContactTasksManyToManyConnection {
+  "A list of `Task` objects."
+  nodes: [Task]!
+  "A list of edges which contains the `Task`, info from the `TaskContact`, and the cursor to aid in pagination."
+  edges: [ContactTasksManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Task` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Task` edge in the connection, with data from `TaskContact`."
+type ContactTasksManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Task` at the end of the edge."
+  node: Task
+  "Reads and enables pagination through a set of `TaskContact`."
+  taskContactsByTaskId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskContactFilter
+    "The method to use when ordering `TaskContact`."
+    orderBy: [TaskContactOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskContactConnection!
+}
+
 "@@hasChunks {\"chunks_table\": \"conversations_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Conversation {
   id: UUID!
@@ -5233,42 +5242,6 @@ type CreateAgentsChunkPayload {
     "The method to use when ordering `AgentsChunk`."
     orderBy: [AgentsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): AgentsChunkEdge
-}
-
-"The output of our create `AgentTask` mutation."
-type CreateAgentTaskPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `AgentTask` that was created by this mutation."
-  agentTask: AgentTask
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `AgentTask`. May be used by Relay 1."
-  agentTaskEdge(
-    "The method to use when ordering `AgentTask`."
-    orderBy: [AgentTaskOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AgentTaskEdge
-}
-
-"The output of our create `AgentTasksChunk` mutation."
-type CreateAgentTasksChunkPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `AgentTasksChunk` that was created by this mutation."
-  agentTasksChunk: AgentTasksChunk
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `AgentTasksChunk`. May be used by Relay 1."
-  agentTasksChunkEdge(
-    "The method to use when ordering `AgentTasksChunk`."
-    orderBy: [AgentTasksChunkOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AgentTasksChunkEdge
 }
 
 "The output of our create `AutonomyRecordLink` mutation."
@@ -6639,6 +6612,96 @@ type CreateTagPayload {
   ): TagEdge
 }
 
+"The output of our create `TaskContact` mutation."
+type CreateTaskContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TaskContact` that was created by this mutation."
+  taskContact: TaskContact
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TaskContact`. May be used by Relay 1."
+  taskContactEdge(
+    "The method to use when ordering `TaskContact`."
+    orderBy: [TaskContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskContactEdge
+}
+
+"The output of our create `TaskNote` mutation."
+type CreateTaskNotePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TaskNote` that was created by this mutation."
+  taskNote: TaskNote
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TaskNote`. May be used by Relay 1."
+  taskNoteEdge(
+    "The method to use when ordering `TaskNote`."
+    orderBy: [TaskNoteOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskNoteEdge
+}
+
+"The output of our create `Task` mutation."
+type CreateTaskPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `Task` that was created by this mutation."
+  task: Task
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `Task`. May be used by Relay 1."
+  taskEdge(
+    "The method to use when ordering `Task`."
+    orderBy: [TaskOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskEdge
+}
+
+"The output of our create `TaskProject` mutation."
+type CreateTaskProjectPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TaskProject` that was created by this mutation."
+  taskProject: TaskProject
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TaskProject`. May be used by Relay 1."
+  taskProjectEdge(
+    "The method to use when ordering `TaskProject`."
+    orderBy: [TaskProjectOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskProjectEdge
+}
+
+"The output of our create `TasksChunk` mutation."
+type CreateTasksChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TasksChunk` that was created by this mutation."
+  tasksChunk: TasksChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TasksChunk`. May be used by Relay 1."
+  tasksChunkEdge(
+    "The method to use when ordering `TasksChunk`."
+    orderBy: [TasksChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TasksChunkEdge
+}
+
 "The output of our create `ToolDefinition` mutation."
 type CreateToolDefinitionPayload {
   """
@@ -7408,42 +7471,6 @@ type DeleteAgentsChunkPayload {
     "The method to use when ordering `AgentsChunk`."
     orderBy: [AgentsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): AgentsChunkEdge
-}
-
-"The output of our delete `AgentTask` mutation."
-type DeleteAgentTaskPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `AgentTask` that was deleted by this mutation."
-  agentTask: AgentTask
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `AgentTask`. May be used by Relay 1."
-  agentTaskEdge(
-    "The method to use when ordering `AgentTask`."
-    orderBy: [AgentTaskOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AgentTaskEdge
-}
-
-"The output of our delete `AgentTasksChunk` mutation."
-type DeleteAgentTasksChunkPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `AgentTasksChunk` that was deleted by this mutation."
-  agentTasksChunk: AgentTasksChunk
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `AgentTasksChunk`. May be used by Relay 1."
-  agentTasksChunkEdge(
-    "The method to use when ordering `AgentTasksChunk`."
-    orderBy: [AgentTasksChunkOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AgentTasksChunkEdge
 }
 
 "The output of our delete `AutonomyRecordLink` mutation."
@@ -8812,6 +8839,96 @@ type DeleteTagPayload {
     "The method to use when ordering `Tag`."
     orderBy: [TagOrderBy!]! = [PRIMARY_KEY_ASC]
   ): TagEdge
+}
+
+"The output of our delete `TaskContact` mutation."
+type DeleteTaskContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TaskContact` that was deleted by this mutation."
+  taskContact: TaskContact
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TaskContact`. May be used by Relay 1."
+  taskContactEdge(
+    "The method to use when ordering `TaskContact`."
+    orderBy: [TaskContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskContactEdge
+}
+
+"The output of our delete `TaskNote` mutation."
+type DeleteTaskNotePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TaskNote` that was deleted by this mutation."
+  taskNote: TaskNote
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TaskNote`. May be used by Relay 1."
+  taskNoteEdge(
+    "The method to use when ordering `TaskNote`."
+    orderBy: [TaskNoteOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskNoteEdge
+}
+
+"The output of our delete `Task` mutation."
+type DeleteTaskPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `Task` that was deleted by this mutation."
+  task: Task
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `Task`. May be used by Relay 1."
+  taskEdge(
+    "The method to use when ordering `Task`."
+    orderBy: [TaskOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskEdge
+}
+
+"The output of our delete `TaskProject` mutation."
+type DeleteTaskProjectPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TaskProject` that was deleted by this mutation."
+  taskProject: TaskProject
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TaskProject`. May be used by Relay 1."
+  taskProjectEdge(
+    "The method to use when ordering `TaskProject`."
+    orderBy: [TaskProjectOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskProjectEdge
+}
+
+"The output of our delete `TasksChunk` mutation."
+type DeleteTasksChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TasksChunk` that was deleted by this mutation."
+  tasksChunk: TasksChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TasksChunk`. May be used by Relay 1."
+  tasksChunkEdge(
+    "The method to use when ordering `TasksChunk`."
+    orderBy: [TasksChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TasksChunkEdge
 }
 
 "The output of our delete `ToolDefinition` mutation."
@@ -11769,6 +11886,21 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateSkillToolInput!
   ): CreateSkillToolPayload
+  "Creates a single `TaskContact`."
+  createTaskContact(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateTaskContactInput!
+  ): CreateTaskContactPayload
+  "Creates a single `TaskNote`."
+  createTaskNote(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateTaskNoteInput!
+  ): CreateTaskNotePayload
+  "Creates a single `TaskProject`."
+  createTaskProject(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateTaskProjectInput!
+  ): CreateTaskProjectPayload
   "Creates a single `TripHikingTrail`."
   createTripHikingTrail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11874,21 +12006,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateVenueLinkInput!
   ): CreateVenueLinkPayload
-  "Creates a single `AgentTask`."
-  createAgentTask(
+  "Creates a single `Task`."
+  createTask(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateAgentTaskInput!
-  ): CreateAgentTaskPayload
+    input: CreateTaskInput!
+  ): CreateTaskPayload
   "Creates a single `AgentLogsChunk`."
   createAgentLogsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateAgentLogsChunkInput!
   ): CreateAgentLogsChunkPayload
-  "Creates a single `AgentTasksChunk`."
-  createAgentTasksChunk(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateAgentTasksChunkInput!
-  ): CreateAgentTasksChunkPayload
   "Creates a single `AgentsChunk`."
   createAgentsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11999,6 +12126,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateSkillsChunkInput!
   ): CreateSkillsChunkPayload
+  "Creates a single `TasksChunk`."
+  createTasksChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateTasksChunkInput!
+  ): CreateTasksChunkPayload
   "Creates a single `TouchpointsChunk`."
   createTouchpointsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12244,6 +12376,21 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateSkillToolInput!
   ): UpdateSkillToolPayload
+  "Updates a single `TaskContact` using a unique key and a patch."
+  updateTaskContact(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateTaskContactInput!
+  ): UpdateTaskContactPayload
+  "Updates a single `TaskNote` using a unique key and a patch."
+  updateTaskNote(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateTaskNoteInput!
+  ): UpdateTaskNotePayload
+  "Updates a single `TaskProject` using a unique key and a patch."
+  updateTaskProject(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateTaskProjectInput!
+  ): UpdateTaskProjectPayload
   "Updates a single `TripHikingTrail` using a unique key and a patch."
   updateTripHikingTrail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12349,21 +12496,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateVenueLinkInput!
   ): UpdateVenueLinkPayload
-  "Updates a single `AgentTask` using a unique key and a patch."
-  updateAgentTask(
+  "Updates a single `Task` using a unique key and a patch."
+  updateTask(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateAgentTaskInput!
-  ): UpdateAgentTaskPayload
+    input: UpdateTaskInput!
+  ): UpdateTaskPayload
   "Updates a single `AgentLogsChunk` using a unique key and a patch."
   updateAgentLogsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateAgentLogsChunkInput!
   ): UpdateAgentLogsChunkPayload
-  "Updates a single `AgentTasksChunk` using a unique key and a patch."
-  updateAgentTasksChunk(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateAgentTasksChunkInput!
-  ): UpdateAgentTasksChunkPayload
   "Updates a single `AgentsChunk` using a unique key and a patch."
   updateAgentsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12474,6 +12616,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateSkillsChunkInput!
   ): UpdateSkillsChunkPayload
+  "Updates a single `TasksChunk` using a unique key and a patch."
+  updateTasksChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateTasksChunkInput!
+  ): UpdateTasksChunkPayload
   "Updates a single `TouchpointsChunk` using a unique key and a patch."
   updateTouchpointsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12719,6 +12866,21 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteSkillToolInput!
   ): DeleteSkillToolPayload
+  "Deletes a single `TaskContact` using a unique key."
+  deleteTaskContact(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteTaskContactInput!
+  ): DeleteTaskContactPayload
+  "Deletes a single `TaskNote` using a unique key."
+  deleteTaskNote(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteTaskNoteInput!
+  ): DeleteTaskNotePayload
+  "Deletes a single `TaskProject` using a unique key."
+  deleteTaskProject(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteTaskProjectInput!
+  ): DeleteTaskProjectPayload
   "Deletes a single `TripHikingTrail` using a unique key."
   deleteTripHikingTrail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12824,21 +12986,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteVenueLinkInput!
   ): DeleteVenueLinkPayload
-  "Deletes a single `AgentTask` using a unique key."
-  deleteAgentTask(
+  "Deletes a single `Task` using a unique key."
+  deleteTask(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteAgentTaskInput!
-  ): DeleteAgentTaskPayload
+    input: DeleteTaskInput!
+  ): DeleteTaskPayload
   "Deletes a single `AgentLogsChunk` using a unique key."
   deleteAgentLogsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteAgentLogsChunkInput!
   ): DeleteAgentLogsChunkPayload
-  "Deletes a single `AgentTasksChunk` using a unique key."
-  deleteAgentTasksChunk(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteAgentTasksChunkInput!
-  ): DeleteAgentTasksChunkPayload
   "Deletes a single `AgentsChunk` using a unique key."
   deleteAgentsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12949,6 +13106,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteSkillsChunkInput!
   ): DeleteSkillsChunkPayload
+  "Deletes a single `TasksChunk` using a unique key."
+  deleteTasksChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteTasksChunkInput!
+  ): DeleteTasksChunkPayload
   "Deletes a single `TouchpointsChunk` using a unique key."
   deleteTouchpointsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13171,6 +13333,26 @@ type Note {
     "The method to use when ordering `Event`."
     orderBy: [EventOrderBy!] = [PRIMARY_KEY_ASC]
   ): NoteEventsManyToManyConnection!
+  "Reads and enables pagination through a set of `Task`."
+  tasks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskFilter
+    "The method to use when ordering `Task`."
+    orderBy: [TaskOrderBy!] = [PRIMARY_KEY_ASC]
+  ): NoteTasksManyToManyConnection!
   "Reads and enables pagination through a set of `NotesChunk`."
   notesChunksByNotesId(
     "Only read the first `n` values of the set."
@@ -13271,6 +13453,26 @@ type Note {
     "The method to use when ordering `EventNote`."
     orderBy: [EventNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): EventNoteConnection!
+  "Reads and enables pagination through a set of `TaskNote`."
+  taskNotes(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskNoteFilter
+    "The method to use when ordering `TaskNote`."
+    orderBy: [TaskNoteOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskNoteConnection!
   "BM25 score when searching `content`. Returns null when no bm25 search filter is active."
   contentBm25Score: Float
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
@@ -13505,6 +13707,46 @@ type NotesChunkEdge {
   cursor: Cursor
   "The `NotesChunk` at the end of the edge."
   node: NotesChunk
+}
+
+"A connection to a list of `Task` values, with data from `TaskNote`."
+type NoteTasksManyToManyConnection {
+  "A list of `Task` objects."
+  nodes: [Task]!
+  "A list of edges which contains the `Task`, info from the `TaskNote`, and the cursor to aid in pagination."
+  edges: [NoteTasksManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Task` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Task` edge in the connection, with data from `TaskNote`."
+type NoteTasksManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Task` at the end of the edge."
+  node: Task
+  "Reads and enables pagination through a set of `TaskNote`."
+  taskNotesByTaskId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskNoteFilter
+    "The method to use when ordering `TaskNote`."
+    orderBy: [TaskNoteOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskNoteConnection!
 }
 
 "Information about pagination in a connection."
@@ -13778,6 +14020,26 @@ type Project {
     "The method to use when ordering `Contact`."
     orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectContactsManyToManyConnection!
+  "Reads and enables pagination through a set of `Task`."
+  tasks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskFilter
+    "The method to use when ordering `Task`."
+    orderBy: [TaskOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ProjectTasksManyToManyConnection!
   "Reads and enables pagination through a set of `Goal`."
   goals(
     "Only read the first `n` values of the set."
@@ -13838,6 +14100,26 @@ type Project {
     "The method to use when ordering `ProjectContact`."
     orderBy: [ProjectContactOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectContactConnection!
+  "Reads and enables pagination through a set of `TaskProject`."
+  taskProjects(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskProjectFilter
+    "The method to use when ordering `TaskProject`."
+    orderBy: [TaskProjectOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskProjectConnection!
   "Reads and enables pagination through a set of `GoalProject`."
   goalProjects(
     "Only read the first `n` values of the set."
@@ -14043,6 +14325,46 @@ type ProjectsChunkEdge {
   cursor: Cursor
   "The `ProjectsChunk` at the end of the edge."
   node: ProjectsChunk
+}
+
+"A connection to a list of `Task` values, with data from `TaskProject`."
+type ProjectTasksManyToManyConnection {
+  "A list of `Task` objects."
+  nodes: [Task]!
+  "A list of edges which contains the `Task`, info from the `TaskProject`, and the cursor to aid in pagination."
+  edges: [ProjectTasksManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Task` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Task` edge in the connection, with data from `TaskProject`."
+type ProjectTasksManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Task` at the end of the edge."
+  node: Task
+  "Reads and enables pagination through a set of `TaskProject`."
+  taskProjectsByTaskId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskProjectFilter
+    "The method to use when ordering `TaskProject`."
+    orderBy: [TaskProjectOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskProjectConnection!
 }
 
 "The root query type which gives access points into the data universe."
@@ -14527,6 +14849,66 @@ type Query {
     "The method to use when ordering `SkillTool`."
     orderBy: [SkillToolOrderBy!] = [PRIMARY_KEY_ASC]
   ): SkillToolConnection
+  "Reads and enables pagination through a set of `TaskContact`."
+  taskContacts(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskContactFilter
+    "The method to use when ordering `TaskContact`."
+    orderBy: [TaskContactOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskContactConnection
+  "Reads and enables pagination through a set of `TaskNote`."
+  taskNotes(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskNoteFilter
+    "The method to use when ordering `TaskNote`."
+    orderBy: [TaskNoteOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskNoteConnection
+  "Reads and enables pagination through a set of `TaskProject`."
+  taskProjects(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskProjectFilter
+    "The method to use when ordering `TaskProject`."
+    orderBy: [TaskProjectOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskProjectConnection
   "Reads and enables pagination through a set of `TripHikingTrail`."
   tripHikingTrails(
     "Only read the first `n` values of the set."
@@ -14947,8 +15329,8 @@ type Query {
     "The method to use when ordering `VenueLink`."
     orderBy: [VenueLinkOrderBy!] = [PRIMARY_KEY_ASC]
   ): VenueLinkConnection
-  "Reads and enables pagination through a set of `AgentTask`."
-  agentTasks(
+  "Reads and enables pagination through a set of `Task`."
+  tasks(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -14963,10 +15345,10 @@ type Query {
     "Read all values in the set after (below) this cursor."
     after: Cursor
     "A filter to be used in determining which values should be returned by the collection."
-    where: AgentTaskFilter
-    "The method to use when ordering `AgentTask`."
-    orderBy: [AgentTaskOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AgentTaskConnection
+    where: TaskFilter
+    "The method to use when ordering `Task`."
+    orderBy: [TaskOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskConnection
   "Reads and enables pagination through a set of `AgentLogsChunk`."
   agentLogsChunks(
     "Only read the first `n` values of the set."
@@ -14987,26 +15369,6 @@ type Query {
     "The method to use when ordering `AgentLogsChunk`."
     orderBy: [AgentLogsChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): AgentLogsChunkConnection
-  "Reads and enables pagination through a set of `AgentTasksChunk`."
-  agentTasksChunks(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: AgentTasksChunkFilter
-    "The method to use when ordering `AgentTasksChunk`."
-    orderBy: [AgentTasksChunkOrderBy!] = [PRIMARY_KEY_ASC]
-  ): AgentTasksChunkConnection
   "Reads and enables pagination through a set of `AgentsChunk`."
   agentsChunks(
     "Only read the first `n` values of the set."
@@ -15447,6 +15809,26 @@ type Query {
     "The method to use when ordering `SkillsChunk`."
     orderBy: [SkillsChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): SkillsChunkConnection
+  "Reads and enables pagination through a set of `TasksChunk`."
+  tasksChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TasksChunkFilter
+    "The method to use when ordering `TasksChunk`."
+    orderBy: [TasksChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TasksChunkConnection
   "Reads and enables pagination through a set of `TouchpointsChunk`."
   touchpointsChunks(
     "Only read the first `n` values of the set."
@@ -16827,6 +17209,455 @@ type TagEdge {
   node: Tag
 }
 
+"@@hasChunks {\"chunks_table\": \"tasks_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+type Task {
+  id: UUID!
+  entityId: UUID!
+  agentId: UUID
+  title: String!
+  description: String
+  status: String
+  priority: Int
+  result: String
+  startedAt: Datetime
+  completedAt: Datetime
+  meta: JSON
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean!
+  "Reads and enables pagination through a set of `Contact`."
+  contacts(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactFilter
+    "The method to use when ordering `Contact`."
+    orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskContactsManyToManyConnection!
+  "Reads and enables pagination through a set of `Project`."
+  projects(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ProjectFilter
+    "The method to use when ordering `Project`."
+    orderBy: [ProjectOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskProjectsManyToManyConnection!
+  "Reads and enables pagination through a set of `Note`."
+  notes(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: NoteFilter
+    "The method to use when ordering `Note`."
+    orderBy: [NoteOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskNotesManyToManyConnection!
+  "Reads a single `Agent` that is related to this `Task`."
+  agent: Agent
+  "Reads and enables pagination through a set of `TasksChunk`."
+  tasksChunksByTasksId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TasksChunkFilter
+    "The method to use when ordering `TasksChunk`."
+    orderBy: [TasksChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TasksChunkConnection!
+  "Reads and enables pagination through a set of `TaskContact`."
+  taskContacts(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskContactFilter
+    "The method to use when ordering `TaskContact`."
+    orderBy: [TaskContactOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskContactConnection!
+  "Reads and enables pagination through a set of `TaskProject`."
+  taskProjects(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskProjectFilter
+    "The method to use when ordering `TaskProject`."
+    orderBy: [TaskProjectOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskProjectConnection!
+  "Reads and enables pagination through a set of `TaskNote`."
+  taskNotes(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskNoteFilter
+    "The method to use when ordering `TaskNote`."
+    orderBy: [TaskNoteOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskNoteConnection!
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `title`. Returns null when no trgm search filter is active."
+  titleTrgmSimilarity: Float
+  "TRGM similarity when searching `description`. Returns null when no trgm search filter is active."
+  descriptionTrgmSimilarity: Float
+  "TRGM similarity when searching `status`. Returns null when no trgm search filter is active."
+  statusTrgmSimilarity: Float
+  "TRGM similarity when searching `result`. Returns null when no trgm search filter is active."
+  resultTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `Task` values."
+type TaskConnection {
+  "A list of `Task` objects."
+  nodes: [Task]!
+  "A list of edges which contains the `Task` and cursor to aid in pagination."
+  edges: [TaskEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Task` you could get from the connection."
+  totalCount: Int!
+}
+
+type TaskContact {
+  taskId: UUID!
+  contactId: UUID!
+  id: UUID!
+  entityId: UUID!
+  "Reads a single `Contact` that is related to this `TaskContact`."
+  contact: Contact
+  "Reads a single `Task` that is related to this `TaskContact`."
+  task: Task
+}
+
+"A connection to a list of `TaskContact` values."
+type TaskContactConnection {
+  "A list of `TaskContact` objects."
+  nodes: [TaskContact]!
+  "A list of edges which contains the `TaskContact` and cursor to aid in pagination."
+  edges: [TaskContactEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `TaskContact` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `TaskContact` edge in the connection."
+type TaskContactEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `TaskContact` at the end of the edge."
+  node: TaskContact
+}
+
+"A connection to a list of `Contact` values, with data from `TaskContact`."
+type TaskContactsManyToManyConnection {
+  "A list of `Contact` objects."
+  nodes: [Contact]!
+  "A list of edges which contains the `Contact`, info from the `TaskContact`, and the cursor to aid in pagination."
+  edges: [TaskContactsManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Contact` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Contact` edge in the connection, with data from `TaskContact`."
+type TaskContactsManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Contact` at the end of the edge."
+  node: Contact
+  "Reads and enables pagination through a set of `TaskContact`."
+  taskContactsByContactId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskContactFilter
+    "The method to use when ordering `TaskContact`."
+    orderBy: [TaskContactOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskContactConnection!
+}
+
+"A `Task` edge in the connection."
+type TaskEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Task` at the end of the edge."
+  node: Task
+}
+
+type TaskNote {
+  taskId: UUID!
+  noteId: UUID!
+  id: UUID!
+  entityId: UUID!
+  "Reads a single `Note` that is related to this `TaskNote`."
+  note: Note
+  "Reads a single `Task` that is related to this `TaskNote`."
+  task: Task
+}
+
+"A connection to a list of `TaskNote` values."
+type TaskNoteConnection {
+  "A list of `TaskNote` objects."
+  nodes: [TaskNote]!
+  "A list of edges which contains the `TaskNote` and cursor to aid in pagination."
+  edges: [TaskNoteEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `TaskNote` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `TaskNote` edge in the connection."
+type TaskNoteEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `TaskNote` at the end of the edge."
+  node: TaskNote
+}
+
+"A connection to a list of `Note` values, with data from `TaskNote`."
+type TaskNotesManyToManyConnection {
+  "A list of `Note` objects."
+  nodes: [Note]!
+  "A list of edges which contains the `Note`, info from the `TaskNote`, and the cursor to aid in pagination."
+  edges: [TaskNotesManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Note` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Note` edge in the connection, with data from `TaskNote`."
+type TaskNotesManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Note` at the end of the edge."
+  node: Note
+  "Reads and enables pagination through a set of `TaskNote`."
+  taskNotesByNoteId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskNoteFilter
+    "The method to use when ordering `TaskNote`."
+    orderBy: [TaskNoteOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskNoteConnection!
+}
+
+type TaskProject {
+  taskId: UUID!
+  projectId: UUID!
+  id: UUID!
+  entityId: UUID!
+  "Reads a single `Project` that is related to this `TaskProject`."
+  project: Project
+  "Reads a single `Task` that is related to this `TaskProject`."
+  task: Task
+}
+
+"A connection to a list of `TaskProject` values."
+type TaskProjectConnection {
+  "A list of `TaskProject` objects."
+  nodes: [TaskProject]!
+  "A list of edges which contains the `TaskProject` and cursor to aid in pagination."
+  edges: [TaskProjectEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `TaskProject` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `TaskProject` edge in the connection."
+type TaskProjectEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `TaskProject` at the end of the edge."
+  node: TaskProject
+}
+
+"A connection to a list of `Project` values, with data from `TaskProject`."
+type TaskProjectsManyToManyConnection {
+  "A list of `Project` objects."
+  nodes: [Project]!
+  "A list of edges which contains the `Project`, info from the `TaskProject`, and the cursor to aid in pagination."
+  edges: [TaskProjectsManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Project` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Project` edge in the connection, with data from `TaskProject`."
+type TaskProjectsManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Project` at the end of the edge."
+  node: Project
+  "Reads and enables pagination through a set of `TaskProject`."
+  taskProjectsByProjectId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TaskProjectFilter
+    "The method to use when ordering `TaskProject`."
+    orderBy: [TaskProjectOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TaskProjectConnection!
+}
+
+"@@chunksOf {\"parent_fk\": \"tasks_id\", \"parent_table\": \"tasks\"}"
+type TasksChunk {
+  id: UUID!
+  tasksId: UUID!
+  content: String!
+  chunkIndex: Int!
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+  "Reads a single `Task` that is related to this `TasksChunk`."
+  tasks: Task
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `TasksChunk` values."
+type TasksChunkConnection {
+  "A list of `TasksChunk` objects."
+  nodes: [TasksChunk]!
+  "A list of edges which contains the `TasksChunk` and cursor to aid in pagination."
+  edges: [TasksChunkEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `TasksChunk` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `TasksChunk` edge in the connection."
+type TasksChunkEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `TasksChunk` at the end of the edge."
+  node: TasksChunk
+}
+
 type ToolDefinition {
   id: UUID!
   entityId: UUID!
@@ -17573,42 +18404,6 @@ type UpdateAgentsChunkPayload {
     "The method to use when ordering `AgentsChunk`."
     orderBy: [AgentsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): AgentsChunkEdge
-}
-
-"The output of our update `AgentTask` mutation."
-type UpdateAgentTaskPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `AgentTask` that was updated by this mutation."
-  agentTask: AgentTask
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `AgentTask`. May be used by Relay 1."
-  agentTaskEdge(
-    "The method to use when ordering `AgentTask`."
-    orderBy: [AgentTaskOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AgentTaskEdge
-}
-
-"The output of our update `AgentTasksChunk` mutation."
-type UpdateAgentTasksChunkPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `AgentTasksChunk` that was updated by this mutation."
-  agentTasksChunk: AgentTasksChunk
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `AgentTasksChunk`. May be used by Relay 1."
-  agentTasksChunkEdge(
-    "The method to use when ordering `AgentTasksChunk`."
-    orderBy: [AgentTasksChunkOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AgentTasksChunkEdge
 }
 
 "The output of our update `AutonomyRecordLink` mutation."
@@ -18979,6 +19774,96 @@ type UpdateTagPayload {
   ): TagEdge
 }
 
+"The output of our update `TaskContact` mutation."
+type UpdateTaskContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TaskContact` that was updated by this mutation."
+  taskContact: TaskContact
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TaskContact`. May be used by Relay 1."
+  taskContactEdge(
+    "The method to use when ordering `TaskContact`."
+    orderBy: [TaskContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskContactEdge
+}
+
+"The output of our update `TaskNote` mutation."
+type UpdateTaskNotePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TaskNote` that was updated by this mutation."
+  taskNote: TaskNote
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TaskNote`. May be used by Relay 1."
+  taskNoteEdge(
+    "The method to use when ordering `TaskNote`."
+    orderBy: [TaskNoteOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskNoteEdge
+}
+
+"The output of our update `Task` mutation."
+type UpdateTaskPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `Task` that was updated by this mutation."
+  task: Task
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `Task`. May be used by Relay 1."
+  taskEdge(
+    "The method to use when ordering `Task`."
+    orderBy: [TaskOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskEdge
+}
+
+"The output of our update `TaskProject` mutation."
+type UpdateTaskProjectPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TaskProject` that was updated by this mutation."
+  taskProject: TaskProject
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TaskProject`. May be used by Relay 1."
+  taskProjectEdge(
+    "The method to use when ordering `TaskProject`."
+    orderBy: [TaskProjectOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TaskProjectEdge
+}
+
+"The output of our update `TasksChunk` mutation."
+type UpdateTasksChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TasksChunk` that was updated by this mutation."
+  tasksChunk: TasksChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TasksChunk`. May be used by Relay 1."
+  tasksChunkEdge(
+    "The method to use when ordering `TasksChunk`."
+    orderBy: [TasksChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TasksChunkEdge
+}
+
 "The output of our update `ToolDefinition` mutation."
 type UpdateToolDefinitionPayload {
   """
@@ -19651,10 +20536,10 @@ input AgentFilter {
   agentsChunksByAgentsId: AgentToManyAgentsChunkFilter
   "`agentsChunksByAgentsId` exist."
   agentsChunksByAgentsIdExist: Boolean
-  "Filter by the object’s `agentTasks` relation."
-  agentTasks: AgentToManyAgentTaskFilter
-  "`agentTasks` exist."
-  agentTasksExist: Boolean
+  "Filter by the object’s `tasks` relation."
+  tasks: AgentToManyTaskFilter
+  "`tasks` exist."
+  tasksExist: Boolean
   "Filter by the object’s `agentLogs` relation."
   agentLogs: AgentToManyAgentLogFilter
   "`agentLogs` exist."
@@ -19945,179 +20830,6 @@ input AgentsChunkPatch {
   updatedAt: Datetime
 }
 
-"A filter to be used against `AgentTask` object types. All fields are combined with a logical ‘and.’"
-input AgentTaskFilter {
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
-  "Filter by the object’s `agentId` field."
-  agentId: UUIDFilter
-  "Filter by the object’s `title` field."
-  title: StringTrgmFilter
-  "Filter by the object’s `description` field."
-  description: StringTrgmFilter
-  "Filter by the object’s `status` field."
-  status: StringTrgmFilter
-  "Filter by the object’s `priority` field."
-  priority: IntFilter
-  "Filter by the object’s `result` field."
-  result: StringTrgmFilter
-  "Filter by the object’s `startedAt` field."
-  startedAt: DatetimeFilter
-  "Filter by the object’s `completedAt` field."
-  completedAt: DatetimeFilter
-  "Filter by the object’s `meta` field."
-  meta: JSONFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
-  "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
-  "Filter by the object’s `embedding` field."
-  embedding: VectorFilter
-  "Filter by the object’s `embeddingStale` field."
-  embeddingStale: BooleanFilter
-  "Checks for all expressions in this list."
-  and: [AgentTaskFilter!]
-  "Checks for any expressions in this list."
-  or: [AgentTaskFilter!]
-  "Negates the expression."
-  not: AgentTaskFilter
-  "Filter by the object’s `agent` relation."
-  agent: AgentFilter
-  "Filter by the object’s `agentTasksChunksByAgentTasksId` relation."
-  agentTasksChunksByAgentTasksId: AgentTaskToManyAgentTasksChunkFilter
-  "`agentTasksChunksByAgentTasksId` exist."
-  agentTasksChunksByAgentTasksIdExist: Boolean
-  "BM25 search on the `embedding_text` column."
-  bm25EmbeddingText: Bm25SearchInput
-  "VECTOR search on the `embedding` column."
-  vectorEmbedding: VectorNearbyInput
-  "TRGM search on the `title` column."
-  trgmTitle: TrgmSearchInput
-  "TRGM search on the `description` column."
-  trgmDescription: TrgmSearchInput
-  "TRGM search on the `status` column."
-  trgmStatus: TrgmSearchInput
-  "TRGM search on the `result` column."
-  trgmResult: TrgmSearchInput
-  "TRGM search on the `embedding_text` column."
-  trgmEmbeddingText: TrgmSearchInput
-  """
-  Composite full-text search. Provide a search string and it will be dispatched
-  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
-  fields are populated.
-  """
-  fullTextSearch: String
-}
-
-"An input for mutations affecting `AgentTask`"
-input AgentTaskInput {
-  id: UUID
-  entityId: UUID!
-  agentId: UUID!
-  title: String!
-  description: String
-  status: String
-  priority: Int
-  result: String
-  startedAt: Datetime
-  completedAt: Datetime
-  meta: JSON
-  createdAt: Datetime
-  updatedAt: Datetime
-  embeddingText: String
-  embedding: Vector
-  embeddingStale: Boolean
-}
-
-"Represents an update to a `AgentTask`. Fields that are set will be updated."
-input AgentTaskPatch {
-  id: UUID
-  entityId: UUID
-  agentId: UUID
-  title: String
-  description: String
-  status: String
-  priority: Int
-  result: String
-  startedAt: Datetime
-  completedAt: Datetime
-  meta: JSON
-  createdAt: Datetime
-  updatedAt: Datetime
-  embeddingText: String
-  embedding: Vector
-  embeddingStale: Boolean
-}
-
-"A filter to be used against `AgentTasksChunk` object types. All fields are combined with a logical ‘and.’"
-input AgentTasksChunkFilter {
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `agentTasksId` field."
-  agentTasksId: UUIDFilter
-  "Filter by the object’s `content` field."
-  content: StringFilter
-  "Filter by the object’s `chunkIndex` field."
-  chunkIndex: IntFilter
-  "Filter by the object’s `embedding` field."
-  embedding: VectorFilter
-  "Filter by the object’s `metadata` field."
-  metadata: JSONFilter
-  "Filter by the object’s `createdAt` field."
-  createdAt: DatetimeFilter
-  "Filter by the object’s `updatedAt` field."
-  updatedAt: DatetimeFilter
-  "Checks for all expressions in this list."
-  and: [AgentTasksChunkFilter!]
-  "Checks for any expressions in this list."
-  or: [AgentTasksChunkFilter!]
-  "Negates the expression."
-  not: AgentTasksChunkFilter
-  "Filter by the object’s `agentTasks` relation."
-  agentTasks: AgentTaskFilter
-  "VECTOR search on the `embedding` column."
-  vectorEmbedding: VectorNearbyInput
-}
-
-"An input for mutations affecting `AgentTasksChunk`"
-input AgentTasksChunkInput {
-  id: UUID
-  agentTasksId: UUID!
-  content: String!
-  chunkIndex: Int
-  embedding: Vector
-  metadata: JSON
-  createdAt: Datetime
-  updatedAt: Datetime
-}
-
-"Represents an update to a `AgentTasksChunk`. Fields that are set will be updated."
-input AgentTasksChunkPatch {
-  id: UUID
-  agentTasksId: UUID
-  content: String
-  chunkIndex: Int
-  embedding: Vector
-  metadata: JSON
-  createdAt: Datetime
-  updatedAt: Datetime
-}
-
-"A filter to be used against many `AgentTasksChunk` object types. All fields are combined with a logical ‘and.’"
-input AgentTaskToManyAgentTasksChunkFilter {
-  "Filters to entities where at least one related entity matches."
-  some: AgentTasksChunkFilter
-  "Filters to entities where every related entity matches."
-  every: AgentTasksChunkFilter
-  "Filters to entities where no related entity matches."
-  none: AgentTasksChunkFilter
-}
-
 "A filter to be used against many `AgentCollaborator` object types. All fields are combined with a logical ‘and.’"
 input AgentToManyAgentCollaboratorFilter {
   "Filters to entities where at least one related entity matches."
@@ -20148,16 +20860,6 @@ input AgentToManyAgentsChunkFilter {
   none: AgentsChunkFilter
 }
 
-"A filter to be used against many `AgentTask` object types. All fields are combined with a logical ‘and.’"
-input AgentToManyAgentTaskFilter {
-  "Filters to entities where at least one related entity matches."
-  some: AgentTaskFilter
-  "Filters to entities where every related entity matches."
-  every: AgentTaskFilter
-  "Filters to entities where no related entity matches."
-  none: AgentTaskFilter
-}
-
 "A filter to be used against many `Memory` object types. All fields are combined with a logical ‘and.’"
 input AgentToManyMemoryFilter {
   "Filters to entities where at least one related entity matches."
@@ -20186,6 +20888,16 @@ input AgentToManySkillFilter {
   every: SkillFilter
   "Filters to entities where no related entity matches."
   none: SkillFilter
+}
+
+"A filter to be used against many `Task` object types. All fields are combined with a logical ‘and.’"
+input AgentToManyTaskFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TaskFilter
+  "Filters to entities where every related entity matches."
+  every: TaskFilter
+  "Filters to entities where no related entity matches."
+  none: TaskFilter
 }
 
 "A filter to be used against `AutonomyRecord` object types. All fields are combined with a logical ‘and.’"
@@ -21476,6 +22188,10 @@ input ContactFilter {
   projectContacts: ContactToManyProjectContactFilter
   "`projectContacts` exist."
   projectContactsExist: Boolean
+  "Filter by the object’s `taskContacts` relation."
+  taskContacts: ContactToManyTaskContactFilter
+  "`taskContacts` exist."
+  taskContactsExist: Boolean
   "Filter by the object’s `contactNotes` relation."
   contactNotes: ContactToManyContactNoteFilter
   "`contactNotes` exist."
@@ -21953,6 +22669,16 @@ input ContactToManyProjectContactFilter {
   none: ProjectContactFilter
 }
 
+"A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’"
+input ContactToManyTaskContactFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TaskContactFilter
+  "Filters to entities where every related entity matches."
+  every: TaskContactFilter
+  "Filters to entities where no related entity matches."
+  none: TaskContactFilter
+}
+
 "A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’"
 input ContactToManyTouchpointFilter {
   "Filters to entities where at least one related entity matches."
@@ -22177,28 +22903,6 @@ input CreateAgentsChunkInput {
   clientMutationId: String
   "The `AgentsChunk` to be created by this mutation."
   agentsChunk: AgentsChunkInput!
-}
-
-"All input for the create `AgentTask` mutation."
-input CreateAgentTaskInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  "The `AgentTask` to be created by this mutation."
-  agentTask: AgentTaskInput!
-}
-
-"All input for the create `AgentTasksChunk` mutation."
-input CreateAgentTasksChunkInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  "The `AgentTasksChunk` to be created by this mutation."
-  agentTasksChunk: AgentTasksChunkInput!
 }
 
 "All input for the create `AutonomyRecord` mutation."
@@ -23037,6 +23741,61 @@ input CreateTagInput {
   tag: TagInput!
 }
 
+"All input for the create `TaskContact` mutation."
+input CreateTaskContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `TaskContact` to be created by this mutation."
+  taskContact: TaskContactInput!
+}
+
+"All input for the create `Task` mutation."
+input CreateTaskInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `Task` to be created by this mutation."
+  task: TaskInput!
+}
+
+"All input for the create `TaskNote` mutation."
+input CreateTaskNoteInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `TaskNote` to be created by this mutation."
+  taskNote: TaskNoteInput!
+}
+
+"All input for the create `TaskProject` mutation."
+input CreateTaskProjectInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `TaskProject` to be created by this mutation."
+  taskProject: TaskProjectInput!
+}
+
+"All input for the create `TasksChunk` mutation."
+input CreateTasksChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `TasksChunk` to be created by this mutation."
+  tasksChunk: TasksChunkInput!
+}
+
 "All input for the create `ToolDefinition` mutation."
 input CreateToolDefinitionInput {
   """
@@ -23596,26 +24355,6 @@ input DeleteAgentLogsChunkInput {
 
 "All input for the `deleteAgentsChunk` mutation."
 input DeleteAgentsChunkInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteAgentTask` mutation."
-input DeleteAgentTaskInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteAgentTasksChunk` mutation."
-input DeleteAgentTasksChunkInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -24376,6 +25115,56 @@ input DeleteSkillToolInput {
 
 "All input for the `deleteTag` mutation."
 input DeleteTagInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteTaskContact` mutation."
+input DeleteTaskContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteTask` mutation."
+input DeleteTaskInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteTaskNote` mutation."
+input DeleteTaskNoteInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteTaskProject` mutation."
+input DeleteTaskProjectInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteTasksChunk` mutation."
+input DeleteTasksChunkInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -25674,7 +26463,7 @@ input ImageFilter {
   companyImages: ImageToManyCompanyImageFilter
   "`companyImages` exist."
   companyImagesExist: Boolean
-  "Filter by the object’s `eventImages` relation."
+  "Filter by the object��s `eventImages` relation."
   eventImages: ImageToManyEventImageFilter
   "`eventImages` exist."
   eventImagesExist: Boolean
@@ -26614,6 +27403,10 @@ input NoteFilter {
   eventNotes: NoteToManyEventNoteFilter
   "`eventNotes` exist."
   eventNotesExist: Boolean
+  "Filter by the object’s `taskNotes` relation."
+  taskNotes: NoteToManyTaskNoteFilter
+  "`taskNotes` exist."
+  taskNotesExist: Boolean
   "BM25 search on the `content` column."
   bm25Content: Bm25SearchInput
   "BM25 search on the `embedding_text` column."
@@ -26773,6 +27566,16 @@ input NoteToManyNotesChunkFilter {
   every: NotesChunkFilter
   "Filters to entities where no related entity matches."
   none: NotesChunkFilter
+}
+
+"A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’"
+input NoteToManyTaskNoteFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TaskNoteFilter
+  "Filters to entities where every related entity matches."
+  every: TaskNoteFilter
+  "Filters to entities where no related entity matches."
+  none: TaskNoteFilter
 }
 
 "A filter to be used against `Place` object types. All fields are combined with a logical ‘and.’"
@@ -27068,6 +27871,10 @@ input ProjectFilter {
   projectContacts: ProjectToManyProjectContactFilter
   "`projectContacts` exist."
   projectContactsExist: Boolean
+  "Filter by the object’s `taskProjects` relation."
+  taskProjects: ProjectToManyTaskProjectFilter
+  "`taskProjects` exist."
+  taskProjectsExist: Boolean
   "Filter by the object’s `goalProjects` relation."
   goalProjects: ProjectToManyGoalProjectFilter
   "`goalProjects` exist."
@@ -27219,6 +28026,16 @@ input ProjectToManyProjectsChunkFilter {
   every: ProjectsChunkFilter
   "Filters to entities where no related entity matches."
   none: ProjectsChunkFilter
+}
+
+"A filter to be used against many `TaskProject` object types. All fields are combined with a logical ‘and.’"
+input ProjectToManyTaskProjectFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TaskProjectFilter
+  "Filters to entities where every related entity matches."
+  every: TaskProjectFilter
+  "Filters to entities where no related entity matches."
+  none: TaskProjectFilter
 }
 
 "A filter to be used against `Rule` object types. All fields are combined with a logical ‘and.’"
@@ -28569,6 +29386,337 @@ input TagPatch {
   updatedAt: Datetime
 }
 
+"A filter to be used against `TaskContact` object types. All fields are combined with a logical ‘and.’"
+input TaskContactFilter {
+  "Filter by the object’s `taskId` field."
+  taskId: UUIDFilter
+  "Filter by the object’s `contactId` field."
+  contactId: UUIDFilter
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [TaskContactFilter!]
+  "Checks for any expressions in this list."
+  or: [TaskContactFilter!]
+  "Negates the expression."
+  not: TaskContactFilter
+  "Filter by the object’s `contact` relation."
+  contact: ContactFilter
+  "Filter by the object’s `task` relation."
+  task: TaskFilter
+}
+
+"An input for mutations affecting `TaskContact`"
+input TaskContactInput {
+  taskId: UUID!
+  contactId: UUID!
+  id: UUID
+  entityId: UUID!
+}
+
+"Represents an update to a `TaskContact`. Fields that are set will be updated."
+input TaskContactPatch {
+  taskId: UUID
+  contactId: UUID
+  id: UUID
+  entityId: UUID
+}
+
+"A filter to be used against `Task` object types. All fields are combined with a logical ‘and.’"
+input TaskFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `agentId` field."
+  agentId: UUIDFilter
+  "Filter by the object’s `title` field."
+  title: StringTrgmFilter
+  "Filter by the object’s `description` field."
+  description: StringTrgmFilter
+  "Filter by the object’s `status` field."
+  status: StringTrgmFilter
+  "Filter by the object’s `priority` field."
+  priority: IntFilter
+  "Filter by the object’s `result` field."
+  result: StringTrgmFilter
+  "Filter by the object’s `startedAt` field."
+  startedAt: DatetimeFilter
+  "Filter by the object’s `completedAt` field."
+  completedAt: DatetimeFilter
+  "Filter by the object’s `meta` field."
+  meta: JSONFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `embeddingStale` field."
+  embeddingStale: BooleanFilter
+  "Checks for all expressions in this list."
+  and: [TaskFilter!]
+  "Checks for any expressions in this list."
+  or: [TaskFilter!]
+  "Negates the expression."
+  not: TaskFilter
+  "Filter by the object’s `agent` relation."
+  agent: AgentFilter
+  "A related `agent` exists."
+  agentExists: Boolean
+  "Filter by the object’s `tasksChunksByTasksId` relation."
+  tasksChunksByTasksId: TaskToManyTasksChunkFilter
+  "`tasksChunksByTasksId` exist."
+  tasksChunksByTasksIdExist: Boolean
+  "Filter by the object’s `taskContacts` relation."
+  taskContacts: TaskToManyTaskContactFilter
+  "`taskContacts` exist."
+  taskContactsExist: Boolean
+  "Filter by the object’s `taskProjects` relation."
+  taskProjects: TaskToManyTaskProjectFilter
+  "`taskProjects` exist."
+  taskProjectsExist: Boolean
+  "Filter by the object’s `taskNotes` relation."
+  taskNotes: TaskToManyTaskNoteFilter
+  "`taskNotes` exist."
+  taskNotesExist: Boolean
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `title` column."
+  trgmTitle: TrgmSearchInput
+  "TRGM search on the `description` column."
+  trgmDescription: TrgmSearchInput
+  "TRGM search on the `status` column."
+  trgmStatus: TrgmSearchInput
+  "TRGM search on the `result` column."
+  trgmResult: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
+}
+
+"An input for mutations affecting `Task`"
+input TaskInput {
+  id: UUID
+  entityId: UUID!
+  agentId: UUID
+  title: String!
+  description: String
+  status: String
+  priority: Int
+  result: String
+  startedAt: Datetime
+  completedAt: Datetime
+  meta: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+}
+
+"A filter to be used against `TaskNote` object types. All fields are combined with a logical ‘and.’"
+input TaskNoteFilter {
+  "Filter by the object’s `taskId` field."
+  taskId: UUIDFilter
+  "Filter by the object’s `noteId` field."
+  noteId: UUIDFilter
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [TaskNoteFilter!]
+  "Checks for any expressions in this list."
+  or: [TaskNoteFilter!]
+  "Negates the expression."
+  not: TaskNoteFilter
+  "Filter by the object’s `note` relation."
+  note: NoteFilter
+  "Filter by the object’s `task` relation."
+  task: TaskFilter
+}
+
+"An input for mutations affecting `TaskNote`"
+input TaskNoteInput {
+  taskId: UUID!
+  noteId: UUID!
+  id: UUID
+  entityId: UUID!
+}
+
+"Represents an update to a `TaskNote`. Fields that are set will be updated."
+input TaskNotePatch {
+  taskId: UUID
+  noteId: UUID
+  id: UUID
+  entityId: UUID
+}
+
+"Represents an update to a `Task`. Fields that are set will be updated."
+input TaskPatch {
+  id: UUID
+  entityId: UUID
+  agentId: UUID
+  title: String
+  description: String
+  status: String
+  priority: Int
+  result: String
+  startedAt: Datetime
+  completedAt: Datetime
+  meta: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+}
+
+"A filter to be used against `TaskProject` object types. All fields are combined with a logical ‘and.’"
+input TaskProjectFilter {
+  "Filter by the object’s `taskId` field."
+  taskId: UUIDFilter
+  "Filter by the object’s `projectId` field."
+  projectId: UUIDFilter
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [TaskProjectFilter!]
+  "Checks for any expressions in this list."
+  or: [TaskProjectFilter!]
+  "Negates the expression."
+  not: TaskProjectFilter
+  "Filter by the object’s `project` relation."
+  project: ProjectFilter
+  "Filter by the object’s `task` relation."
+  task: TaskFilter
+}
+
+"An input for mutations affecting `TaskProject`"
+input TaskProjectInput {
+  taskId: UUID!
+  projectId: UUID!
+  id: UUID
+  entityId: UUID!
+}
+
+"Represents an update to a `TaskProject`. Fields that are set will be updated."
+input TaskProjectPatch {
+  taskId: UUID
+  projectId: UUID
+  id: UUID
+  entityId: UUID
+}
+
+"A filter to be used against `TasksChunk` object types. All fields are combined with a logical ‘and.’"
+input TasksChunkFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `tasksId` field."
+  tasksId: UUIDFilter
+  "Filter by the object’s `content` field."
+  content: StringFilter
+  "Filter by the object’s `chunkIndex` field."
+  chunkIndex: IntFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `metadata` field."
+  metadata: JSONFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Checks for all expressions in this list."
+  and: [TasksChunkFilter!]
+  "Checks for any expressions in this list."
+  or: [TasksChunkFilter!]
+  "Negates the expression."
+  not: TasksChunkFilter
+  "Filter by the object’s `tasks` relation."
+  tasks: TaskFilter
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+}
+
+"An input for mutations affecting `TasksChunk`"
+input TasksChunkInput {
+  id: UUID
+  tasksId: UUID!
+  content: String!
+  chunkIndex: Int
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"Represents an update to a `TasksChunk`. Fields that are set will be updated."
+input TasksChunkPatch {
+  id: UUID
+  tasksId: UUID
+  content: String
+  chunkIndex: Int
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’"
+input TaskToManyTaskContactFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TaskContactFilter
+  "Filters to entities where every related entity matches."
+  every: TaskContactFilter
+  "Filters to entities where no related entity matches."
+  none: TaskContactFilter
+}
+
+"A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’"
+input TaskToManyTaskNoteFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TaskNoteFilter
+  "Filters to entities where every related entity matches."
+  every: TaskNoteFilter
+  "Filters to entities where no related entity matches."
+  none: TaskNoteFilter
+}
+
+"A filter to be used against many `TaskProject` object types. All fields are combined with a logical ‘and.’"
+input TaskToManyTaskProjectFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TaskProjectFilter
+  "Filters to entities where every related entity matches."
+  every: TaskProjectFilter
+  "Filters to entities where no related entity matches."
+  none: TaskProjectFilter
+}
+
+"A filter to be used against many `TasksChunk` object types. All fields are combined with a logical ‘and.’"
+input TaskToManyTasksChunkFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TasksChunkFilter
+  "Filters to entities where every related entity matches."
+  every: TasksChunkFilter
+  "Filters to entities where no related entity matches."
+  none: TasksChunkFilter
+}
+
 "A filter to be used against `ToolDefinition` object types. All fields are combined with a logical ‘and.’"
 input ToolDefinitionFilter {
   "Filter by the object’s `id` field."
@@ -29285,30 +30433,6 @@ input UpdateAgentsChunkInput {
   id: UUID!
   "An object where the defined keys will be set on the `AgentsChunk` being updated."
   agentsChunkPatch: AgentsChunkPatch!
-}
-
-"All input for the `updateAgentTask` mutation."
-input UpdateAgentTaskInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `AgentTask` being updated."
-  agentTaskPatch: AgentTaskPatch!
-}
-
-"All input for the `updateAgentTasksChunk` mutation."
-input UpdateAgentTasksChunkInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `AgentTasksChunk` being updated."
-  agentTasksChunkPatch: AgentTasksChunkPatch!
 }
 
 "All input for the `updateAutonomyRecord` mutation."
@@ -30221,6 +31345,66 @@ input UpdateTagInput {
   id: UUID!
   "An object where the defined keys will be set on the `Tag` being updated."
   tagPatch: TagPatch!
+}
+
+"All input for the `updateTaskContact` mutation."
+input UpdateTaskContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `TaskContact` being updated."
+  taskContactPatch: TaskContactPatch!
+}
+
+"All input for the `updateTask` mutation."
+input UpdateTaskInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `Task` being updated."
+  taskPatch: TaskPatch!
+}
+
+"All input for the `updateTaskNote` mutation."
+input UpdateTaskNoteInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `TaskNote` being updated."
+  taskNotePatch: TaskNotePatch!
+}
+
+"All input for the `updateTaskProject` mutation."
+input UpdateTaskProjectInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `TaskProject` being updated."
+  taskProjectPatch: TaskProjectPatch!
+}
+
+"All input for the `updateTasksChunk` mutation."
+input UpdateTasksChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `TasksChunk` being updated."
+  tasksChunkPatch: TasksChunkPatch!
 }
 
 "All input for the `updateToolDefinition` mutation."

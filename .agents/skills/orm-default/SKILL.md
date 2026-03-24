@@ -1,13 +1,13 @@
 ---
 name: orm-default
-description: ORM client for the default API — provides typed CRUD operations for 95 tables and 0 custom operations
+description: ORM client for the default API — provides typed CRUD operations for 98 tables and 0 custom operations
 ---
 
 # orm-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-ORM client for the default API — provides typed CRUD operations for 95 tables and 0 custom operations
+ORM client for the default API — provides typed CRUD operations for 98 tables and 0 custom operations
 
 ## Usage
 
@@ -15,7 +15,7 @@ ORM client for the default API — provides typed CRUD operations for 95 tables 
 // Import the ORM client
 import { db } from './orm';
 
-// Available models: agentCollaborator, agent, agentLog, agentLogsChunk, agentsChunk, agentTask, agentTasksChunk, autonomyRecord, ...
+// Available models: agentCollaborator, agent, agentLog, agentLogsChunk, agentsChunk, autonomyRecord, autonomyRecordLink, autonomyRecordsChunk, ...
 db.<model>.findMany({ select: { id: true } }).execute()
 db.<model>.findOne({ id: '<UUID>', select: { id: true } }).execute()
 db.<model>.create({ data: { ... }, select: { id: true } }).execute()
@@ -42,8 +42,6 @@ See the `references/` directory for detailed per-entity API documentation:
 - [agent-log](references/agent-log.md)
 - [agent-logs-chunk](references/agent-logs-chunk.md)
 - [agents-chunk](references/agents-chunk.md)
-- [agent-task](references/agent-task.md)
-- [agent-tasks-chunk](references/agent-tasks-chunk.md)
 - [autonomy-record](references/autonomy-record.md)
 - [autonomy-record-link](references/autonomy-record-link.md)
 - [autonomy-records-chunk](references/autonomy-records-chunk.md)
@@ -73,6 +71,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [project](references/project.md)
 - [contact-relationship](references/contact-relationship.md)
 - [contacts-chunk](references/contacts-chunk.md)
+- [task](references/task.md)
 - [conversation](references/conversation.md)
 - [conversations-chunk](references/conversations-chunk.md)
 - [deal-company](references/deal-company.md)
@@ -123,6 +122,10 @@ See the `references/` directory for detailed per-entity API documentation:
 - [skill-tool](references/skill-tool.md)
 - [tool-definition](references/tool-definition.md)
 - [tag](references/tag.md)
+- [task-contact](references/task-contact.md)
+- [task-note](references/task-note.md)
+- [task-project](references/task-project.md)
+- [tasks-chunk](references/tasks-chunk.md)
 - [tool-execution](references/tool-execution.md)
 - [touchpoint](references/touchpoint.md)
 - [touchpoints-chunk](references/touchpoints-chunk.md)
