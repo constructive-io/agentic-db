@@ -98,6 +98,7 @@ const M2N_RELATIONS: M2NRelation[] = [
   { sourceTable: 'tasks',           targetTable: 'notes',     junctionTableName: 'task_notes',              sourceFieldName: 'task_id',           targetFieldName: 'note_id' },
   { sourceTable: 'contacts',        targetTable: 'memories',  junctionTableName: 'contact_memories',        sourceFieldName: 'contact_id',        targetFieldName: 'memory_id' },
   { sourceTable: 'companies',       targetTable: 'memories',  junctionTableName: 'company_memories',        sourceFieldName: 'company_id',        targetFieldName: 'memory_id' },
+  { sourceTable: 'skills',          targetTable: 'tool_definitions', junctionTableName: 'skill_tools',      sourceFieldName: 'skill_id',          targetFieldName: 'tool_definition_id' },
 ];
 
 const BELONGS_TO_RELATIONS: BelongsToRelation[] = [
