@@ -4,5 +4,5 @@
 
 
 
-CREATE SCHEMA agentic_db_encrypted;
+CREATE SCHEMA "agentic_db_encrypted";
 

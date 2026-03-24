@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_status_public/tables/app_level_requirements/columns/created_at/column
 
 
-CREATE INDEX app_level_requirements_created_at_idx ON agentic_db_status_public.app_level_requirements ( created_at );
+CREATE INDEX app_level_requirements_created_at_idx ON "agentic_db_status_public".app_level_requirements ( created_at );
 

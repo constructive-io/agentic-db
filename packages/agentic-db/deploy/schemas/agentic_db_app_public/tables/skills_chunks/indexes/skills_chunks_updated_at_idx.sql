@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/skills_chunks/table
--- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 -- requires: schemas/agentic_db_app_public/tables/skills_chunks/columns/updated_at/column
+-- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-CREATE INDEX skills_chunks_updated_at_idx ON agentic_db_app_public.skills_chunks ( updated_at );
+CREATE INDEX skills_chunks_updated_at_idx ON "agentic_db_app_public".skills_chunks ( updated_at );
 

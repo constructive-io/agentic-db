@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/phone_numbers/table
 
 
-GRANT DELETE ON agentic_db_user_identifiers_public.phone_numbers TO authenticated;
+GRANT DELETE ON "agentic_db_user_identifiers_public".phone_numbers TO authenticated;
 

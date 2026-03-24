@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-ALTER TABLE agentic_db_app_public.runtime_state_dependencies 
+ALTER TABLE "agentic_db_app_public".runtime_state_dependencies 
   ENABLE ROW LEVEL SECURITY;
 

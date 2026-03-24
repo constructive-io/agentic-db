@@ -1,13 +1,13 @@
 ---
 name: cli-default
-description: CLI tool (agentic-db) for the default API — provides CRUD commands for 90 tables and 0 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 0 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agentic-db) for the default API — provides CRUD commands for 90 tables and 0 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 95 tables and 0 custom operations
 
 ## Usage
 
@@ -73,6 +73,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [companies-chunk](references/companies-chunk.md)
 - [company](references/company.md)
 - [contact](references/contact.md)
+- [deal](references/deal.md)
 - [company-event](references/company-event.md)
 - [event](references/event.md)
 - [company-image](references/company-image.md)
@@ -83,16 +84,17 @@ See the `references/` directory for detailed per-entity API documentation:
 - [company-note](references/company-note.md)
 - [note](references/note.md)
 - [contact-company](references/contact-company.md)
-- [deal](references/deal.md)
 - [contact-event](references/contact-event.md)
 - [contact-image](references/contact-image.md)
 - [contact-link](references/contact-link.md)
 - [contact-memory](references/contact-memory.md)
 - [contact-note](references/contact-note.md)
 - [project](references/project.md)
+- [contact-relationship](references/contact-relationship.md)
 - [contacts-chunk](references/contacts-chunk.md)
 - [conversation](references/conversation.md)
 - [conversations-chunk](references/conversations-chunk.md)
+- [deal-company](references/deal-company.md)
 - [deal-contact](references/deal-contact.md)
 - [deal-note](references/deal-note.md)
 - [deals-chunk](references/deals-chunk.md)
@@ -137,9 +139,12 @@ See the `references/` directory for detailed per-entity API documentation:
 - [runtime-states-chunk](references/runtime-states-chunk.md)
 - [skill](references/skill.md)
 - [skills-chunk](references/skills-chunk.md)
-- [tag](references/tag.md)
+- [skill-tool](references/skill-tool.md)
 - [tool-definition](references/tool-definition.md)
+- [tag](references/tag.md)
 - [tool-execution](references/tool-execution.md)
+- [touchpoint](references/touchpoint.md)
+- [touchpoints-chunk](references/touchpoints-chunk.md)
 - [trip-hiking-trail](references/trip-hiking-trail.md)
 - [trip-place](references/trip-place.md)
 - [trips-chunk](references/trips-chunk.md)

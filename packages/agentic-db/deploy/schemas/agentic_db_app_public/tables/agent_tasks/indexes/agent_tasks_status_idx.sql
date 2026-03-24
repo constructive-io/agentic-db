@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_tasks/table
--- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
 -- requires: schemas/agentic_db_app_public/tables/agent_tasks/columns/status/column
+-- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-CREATE INDEX agent_tasks_status_idx ON agentic_db_app_public.agent_tasks USING BTREE ( status );
+CREATE INDEX agent_tasks_status_idx ON "agentic_db_app_public".agent_tasks USING BTREE ( status );
 

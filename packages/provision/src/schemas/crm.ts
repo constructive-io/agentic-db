@@ -195,6 +195,28 @@ const definition: BlueprintDefinition = {
         }),
       ]),
 
+    // -- Touchpoints (cross-entity interaction timeline) --------------------
+    orgTable('touchpoints', [
+      req('contact_id', 'uuid'),
+      req('touchpoint_type', 'text'),
+      req('occurred_at', 'timestamptz'),
+      f('subject', 'text'),
+      f('summary', 'text'),
+      f('sentiment', 'text'),
+      f('direction', 'text'),
+      f('channel', 'text'),
+      f('deal_id', 'uuid'),
+      f('company_id', 'uuid'),
+      f('event_id', 'uuid'),
+      f('meta', 'jsonb'),
+      f('tags', 'citext[]'),
+    ], [
+        dataSearch({
+          embedding_source_fields: ['subject', 'summary'],
+          chunks: true,
+        }),
+      ]),
+
     // -- Tags (no embeddings) -----------------------------------------------
     orgTable('tags', [
       req('name', 'text'),
@@ -236,6 +258,18 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationManyToMany', source_ref: 'companies', target_ref: 'events',    junction_table_name: 'company_events',    source_field_name: 'company_id', target_field_name: 'event_id',   is_required: false, data: M2M_JUNCTION_OPTS },
     { $type: 'RelationManyToMany', source_ref: 'events',    target_ref: 'venues',    junction_table_name: 'event_venues',      source_field_name: 'event_id',   target_field_name: 'venue_id',   is_required: false, data: M2M_JUNCTION_OPTS },
     { $type: 'RelationManyToMany', source_ref: 'deals',     target_ref: 'contacts',  junction_table_name: 'deal_contacts',     source_field_name: 'deal_id',    target_field_name: 'contact_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'deals',     target_ref: 'companies', junction_table_name: 'deal_companies',    source_field_name: 'deal_id',    target_field_name: 'company_id', is_required: false, data: M2M_JUNCTION_OPTS },
+
+    // Self-referencing: contact-to-contact relationships
+    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'contacts',  junction_table_name: 'contact_relationships', source_field_name: 'contact_id', target_field_name: 'related_contact_id', is_required: false, data: M2M_JUNCTION_OPTS },
+
+    // Touchpoints belong to contacts
+    { $type: 'RelationHasMany', source_ref: 'contacts', target_ref: 'touchpoints', delete_action: 'c' },
+
+    // Touchpoints optional FKs to other entities
+    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'deals',     field_name: 'deal_id',    source_field_name: 'deal_id',    target_field_name: 'id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'companies', field_name: 'company_id', source_field_name: 'company_id', target_field_name: 'id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'events',    field_name: 'event_id',   source_field_name: 'event_id',   target_field_name: 'id', delete_action: 'n', is_required: false },
   ],
 
   // Phase 3: Only indexes without Data* equivalents
@@ -273,6 +307,16 @@ const definition: BlueprintDefinition = {
     btreeIndex('notes', 'last_accessed_at'),
     btreeIndex('tags', 'name'),
     btreeIndex('tags', 'category'),
+
+    // touchpoints
+    ginIndex('touchpoints', 'tags'),
+    btreeIndex('touchpoints', 'touchpoint_type'),
+    btreeIndex('touchpoints', 'occurred_at'),
+    btreeIndex('touchpoints', 'direction'),
+    btreeIndex('touchpoints', 'channel'),
+    // btreeIndex('touchpoints', 'deal_id'),    — auto-created by FK (BelongsTo deals)
+    // btreeIndex('touchpoints', 'company_id'), — auto-created by FK (BelongsTo companies)
+    // btreeIndex('touchpoints', 'event_id'),   — auto-created by FK (BelongsTo events)
   ],
 };
 

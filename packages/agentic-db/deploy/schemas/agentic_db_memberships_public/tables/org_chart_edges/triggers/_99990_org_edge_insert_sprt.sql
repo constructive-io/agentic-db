@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _99990_org_edge_insert_sprt
-AFTER INSERT ON agentic_db_memberships_public.org_chart_edges
+AFTER INSERT ON "agentic_db_memberships_public".org_chart_edges
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_memberships_private.org_org_chart_edge_insert_tg ( );
+EXECUTE PROCEDURE "agentic_db_memberships_private".org_org_chart_edge_insert_tg ( );
 

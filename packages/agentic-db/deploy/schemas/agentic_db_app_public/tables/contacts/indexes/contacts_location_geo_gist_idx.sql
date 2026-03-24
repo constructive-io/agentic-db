@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX contacts_location_geo_gist_idx ON agentic_db_app_public.contacts USING GIST ( location_geo );
+CREATE INDEX contacts_location_geo_gist_idx ON "agentic_db_app_public".contacts USING GIST ( location_geo );
 

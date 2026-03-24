@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_tasks/table
--- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
+-- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-ALTER TABLE agentic_db_app_public.agent_tasks 
+ALTER TABLE "agentic_db_app_public".agent_tasks 
   ADD COLUMN started_at timestamptz;
 

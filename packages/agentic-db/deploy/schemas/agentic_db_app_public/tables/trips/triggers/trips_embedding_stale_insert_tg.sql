@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER trips_embedding_stale_insert_tg
-BEFORE INSERT ON agentic_db_app_public.trips
+BEFORE INSERT ON "agentic_db_app_public".trips
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.trips_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".trips_embedding_stale ( );
 

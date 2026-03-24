@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agent_logs_chunks/table
--- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
+-- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-GRANT UPDATE ON agentic_db_app_public.agent_logs_chunks TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".agent_logs_chunks TO authenticated;
 

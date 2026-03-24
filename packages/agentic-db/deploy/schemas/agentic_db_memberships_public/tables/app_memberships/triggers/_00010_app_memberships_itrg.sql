@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _00010_app_memberships_itrg
-BEFORE INSERT ON agentic_db_memberships_public.app_memberships
+BEFORE INSERT ON "agentic_db_memberships_public".app_memberships
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_memberships_private.app_memberships_itg ( );
+EXECUTE PROCEDURE "agentic_db_memberships_private".app_memberships_itg ( );
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/phone_numbers/columns/updated_at/column
 
 
-CREATE INDEX phone_numbers_updated_at_idx ON agentic_db_user_identifiers_public.phone_numbers ( updated_at );
+CREATE INDEX phone_numbers_updated_at_idx ON "agentic_db_user_identifiers_public".phone_numbers ( updated_at );
 

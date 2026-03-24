@@ -38,6 +38,7 @@ const db = createClient({
 | `companiesChunk` | findMany, findOne, create, update, delete |
 | `company` | findMany, findOne, create, update, delete |
 | `contact` | findMany, findOne, create, update, delete |
+| `deal` | findMany, findOne, create, update, delete |
 | `companyEvent` | findMany, findOne, create, update, delete |
 | `event` | findMany, findOne, create, update, delete |
 | `companyImage` | findMany, findOne, create, update, delete |
@@ -48,16 +49,17 @@ const db = createClient({
 | `companyNote` | findMany, findOne, create, update, delete |
 | `note` | findMany, findOne, create, update, delete |
 | `contactCompany` | findMany, findOne, create, update, delete |
-| `deal` | findMany, findOne, create, update, delete |
 | `contactEvent` | findMany, findOne, create, update, delete |
 | `contactImage` | findMany, findOne, create, update, delete |
 | `contactLink` | findMany, findOne, create, update, delete |
 | `contactMemory` | findMany, findOne, create, update, delete |
 | `contactNote` | findMany, findOne, create, update, delete |
 | `project` | findMany, findOne, create, update, delete |
+| `contactRelationship` | findMany, findOne, create, update, delete |
 | `contactsChunk` | findMany, findOne, create, update, delete |
 | `conversation` | findMany, findOne, create, update, delete |
 | `conversationsChunk` | findMany, findOne, create, update, delete |
+| `dealCompany` | findMany, findOne, create, update, delete |
 | `dealContact` | findMany, findOne, create, update, delete |
 | `dealNote` | findMany, findOne, create, update, delete |
 | `dealsChunk` | findMany, findOne, create, update, delete |
@@ -102,9 +104,12 @@ const db = createClient({
 | `runtimeStatesChunk` | findMany, findOne, create, update, delete |
 | `skill` | findMany, findOne, create, update, delete |
 | `skillsChunk` | findMany, findOne, create, update, delete |
-| `tag` | findMany, findOne, create, update, delete |
+| `skillTool` | findMany, findOne, create, update, delete |
 | `toolDefinition` | findMany, findOne, create, update, delete |
+| `tag` | findMany, findOne, create, update, delete |
 | `toolExecution` | findMany, findOne, create, update, delete |
+| `touchpoint` | findMany, findOne, create, update, delete |
+| `touchpointsChunk` | findMany, findOne, create, update, delete |
 | `tripHikingTrail` | findMany, findOne, create, update, delete |
 | `tripPlace` | findMany, findOne, create, update, delete |
 | `tripsChunk` | findMany, findOne, create, update, delete |
@@ -868,6 +873,56 @@ const updated = await db.contact.update({ where: { id: '<UUID>' }, data: { entit
 const deleted = await db.contact.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+### `db.deal`
+
+CRUD operations for Deal records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `name` | String | Yes |
+| `stage` | String | Yes |
+| `value` | BigFloat | Yes |
+| `currency` | String | Yes |
+| `expectedCloseDate` | Datetime | Yes |
+| `notesText` | String | Yes |
+| `tags` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `nameTrgmSimilarity` | Float | Yes |
+| `stageTrgmSimilarity` | Float | Yes |
+| `currencyTrgmSimilarity` | Float | Yes |
+| `notesTextTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all deal records
+const items = await db.deal.findMany({ select: { id: true, entityId: true, name: true, stage: true, value: true, currency: true, expectedCloseDate: true, notesText: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, nameTrgmSimilarity: true, stageTrgmSimilarity: true, currencyTrgmSimilarity: true, notesTextTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.deal.findOne({ id: '<UUID>', select: { id: true, entityId: true, name: true, stage: true, value: true, currency: true, expectedCloseDate: true, notesText: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, nameTrgmSimilarity: true, stageTrgmSimilarity: true, currencyTrgmSimilarity: true, notesTextTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.deal.create({ data: { entityId: '<UUID>', name: '<String>', stage: '<String>', value: '<BigFloat>', currency: '<String>', expectedCloseDate: '<Datetime>', notesText: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', nameTrgmSimilarity: '<Float>', stageTrgmSimilarity: '<Float>', currencyTrgmSimilarity: '<Float>', notesTextTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.deal.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.deal.delete({ where: { id: '<UUID>' } }).execute();
+```
+
 ### `db.companyEvent`
 
 CRUD operations for CompanyEvent records.
@@ -1262,56 +1317,6 @@ const updated = await db.contactCompany.update({ where: { id: '<UUID>' }, data: 
 const deleted = await db.contactCompany.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.deal`
-
-CRUD operations for Deal records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `name` | String | Yes |
-| `stage` | String | Yes |
-| `value` | BigFloat | Yes |
-| `currency` | String | Yes |
-| `expectedCloseDate` | Datetime | Yes |
-| `notesText` | String | Yes |
-| `tags` | String | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingText` | String | Yes |
-| `embedding` | Vector | Yes |
-| `embeddingStale` | Boolean | Yes |
-| `embeddingTextBm25Score` | Float | Yes |
-| `embeddingVectorDistance` | Float | Yes |
-| `nameTrgmSimilarity` | Float | Yes |
-| `stageTrgmSimilarity` | Float | Yes |
-| `currencyTrgmSimilarity` | Float | Yes |
-| `notesTextTrgmSimilarity` | Float | Yes |
-| `embeddingTextTrgmSimilarity` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all deal records
-const items = await db.deal.findMany({ select: { id: true, entityId: true, name: true, stage: true, value: true, currency: true, expectedCloseDate: true, notesText: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, nameTrgmSimilarity: true, stageTrgmSimilarity: true, currencyTrgmSimilarity: true, notesTextTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.deal.findOne({ id: '<UUID>', select: { id: true, entityId: true, name: true, stage: true, value: true, currency: true, expectedCloseDate: true, notesText: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, nameTrgmSimilarity: true, stageTrgmSimilarity: true, currencyTrgmSimilarity: true, notesTextTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.deal.create({ data: { entityId: '<UUID>', name: '<String>', stage: '<String>', value: '<BigFloat>', currency: '<String>', expectedCloseDate: '<Datetime>', notesText: '<String>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', nameTrgmSimilarity: '<Float>', stageTrgmSimilarity: '<Float>', currencyTrgmSimilarity: '<Float>', notesTextTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.deal.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.deal.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.contactEvent`
 
 CRUD operations for ContactEvent records.
@@ -1532,6 +1537,37 @@ const updated = await db.project.update({ where: { id: '<UUID>' }, data: { entit
 const deleted = await db.project.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+### `db.contactRelationship`
+
+CRUD operations for ContactRelationship records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `contactId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all contactRelationship records
+const items = await db.contactRelationship.findMany({ select: { contactId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.contactRelationship.findOne({ id: '<UUID>', select: { contactId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.contactRelationship.create({ data: { contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.contactRelationship.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.contactRelationship.delete({ where: { id: '<UUID>' } }).execute();
+```
+
 ### `db.contactsChunk`
 
 CRUD operations for ContactsChunk records.
@@ -1651,6 +1687,38 @@ const updated = await db.conversationsChunk.update({ where: { id: '<UUID>' }, da
 
 // Delete
 const deleted = await db.conversationsChunk.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.dealCompany`
+
+CRUD operations for DealCompany records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `dealId` | UUID | Yes |
+| `companyId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all dealCompany records
+const items = await db.dealCompany.findMany({ select: { dealId: true, companyId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.dealCompany.findOne({ id: '<UUID>', select: { dealId: true, companyId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.dealCompany.create({ data: { dealId: '<UUID>', companyId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.dealCompany.update({ where: { id: '<UUID>' }, data: { dealId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.dealCompany.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.dealContact`
@@ -3457,40 +3525,36 @@ const updated = await db.skillsChunk.update({ where: { id: '<UUID>' }, data: { s
 const deleted = await db.skillsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.tag`
+### `db.skillTool`
 
-CRUD operations for Tag records.
+CRUD operations for SkillTool records.
 
 **Fields:**
 
 | Field | Type | Editable |
 |-------|------|----------|
+| `skillId` | UUID | Yes |
+| `toolDefinitionId` | UUID | Yes |
 | `id` | UUID | No |
 | `entityId` | UUID | Yes |
-| `name` | String | Yes |
-| `color` | String | Yes |
-| `category` | String | Yes |
-| `usageCount` | Int | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
 
 **Operations:**
 
 ```typescript
-// List all tag records
-const items = await db.tag.findMany({ select: { id: true, entityId: true, name: true, color: true, category: true, usageCount: true, createdAt: true, updatedAt: true } }).execute();
+// List all skillTool records
+const items = await db.skillTool.findMany({ select: { skillId: true, toolDefinitionId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.tag.findOne({ id: '<UUID>', select: { id: true, entityId: true, name: true, color: true, category: true, usageCount: true, createdAt: true, updatedAt: true } }).execute();
+const item = await db.skillTool.findOne({ id: '<UUID>', select: { skillId: true, toolDefinitionId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.tag.create({ data: { entityId: '<UUID>', name: '<String>', color: '<String>', category: '<String>', usageCount: '<Int>' }, select: { id: true } }).execute();
+const created = await db.skillTool.create({ data: { skillId: '<UUID>', toolDefinitionId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
-const updated = await db.tag.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+const updated = await db.skillTool.update({ where: { id: '<UUID>' }, data: { skillId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
-const deleted = await db.tag.delete({ where: { id: '<UUID>' } }).execute();
+const deleted = await db.skillTool.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.toolDefinition`
@@ -3531,6 +3595,42 @@ const updated = await db.toolDefinition.update({ where: { id: '<UUID>' }, data: 
 const deleted = await db.toolDefinition.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+### `db.tag`
+
+CRUD operations for Tag records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `name` | String | Yes |
+| `color` | String | Yes |
+| `category` | String | Yes |
+| `usageCount` | Int | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+
+**Operations:**
+
+```typescript
+// List all tag records
+const items = await db.tag.findMany({ select: { id: true, entityId: true, name: true, color: true, category: true, usageCount: true, createdAt: true, updatedAt: true } }).execute();
+
+// Get one by id
+const item = await db.tag.findOne({ id: '<UUID>', select: { id: true, entityId: true, name: true, color: true, category: true, usageCount: true, createdAt: true, updatedAt: true } }).execute();
+
+// Create
+const created = await db.tag.create({ data: { entityId: '<UUID>', name: '<String>', color: '<String>', category: '<String>', usageCount: '<Int>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.tag.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.tag.delete({ where: { id: '<UUID>' } }).execute();
+```
+
 ### `db.toolExecution`
 
 CRUD operations for ToolExecution records.
@@ -3569,6 +3669,102 @@ const updated = await db.toolExecution.update({ where: { id: '<UUID>' }, data: {
 
 // Delete
 const deleted = await db.toolExecution.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.touchpoint`
+
+CRUD operations for Touchpoint records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `contactId` | UUID | Yes |
+| `touchpointType` | String | Yes |
+| `occurredAt` | Datetime | Yes |
+| `subject` | String | Yes |
+| `summary` | String | Yes |
+| `sentiment` | String | Yes |
+| `direction` | String | Yes |
+| `channel` | String | Yes |
+| `dealId` | UUID | Yes |
+| `companyId` | UUID | Yes |
+| `eventId` | UUID | Yes |
+| `meta` | JSON | Yes |
+| `tags` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `touchpointTypeTrgmSimilarity` | Float | Yes |
+| `subjectTrgmSimilarity` | Float | Yes |
+| `summaryTrgmSimilarity` | Float | Yes |
+| `sentimentTrgmSimilarity` | Float | Yes |
+| `directionTrgmSimilarity` | Float | Yes |
+| `channelTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all touchpoint records
+const items = await db.touchpoint.findMany({ select: { id: true, entityId: true, contactId: true, touchpointType: true, occurredAt: true, subject: true, summary: true, sentiment: true, direction: true, channel: true, dealId: true, companyId: true, eventId: true, meta: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, touchpointTypeTrgmSimilarity: true, subjectTrgmSimilarity: true, summaryTrgmSimilarity: true, sentimentTrgmSimilarity: true, directionTrgmSimilarity: true, channelTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.touchpoint.findOne({ id: '<UUID>', select: { id: true, entityId: true, contactId: true, touchpointType: true, occurredAt: true, subject: true, summary: true, sentiment: true, direction: true, channel: true, dealId: true, companyId: true, eventId: true, meta: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, touchpointTypeTrgmSimilarity: true, subjectTrgmSimilarity: true, summaryTrgmSimilarity: true, sentimentTrgmSimilarity: true, directionTrgmSimilarity: true, channelTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.touchpoint.create({ data: { entityId: '<UUID>', contactId: '<UUID>', touchpointType: '<String>', occurredAt: '<Datetime>', subject: '<String>', summary: '<String>', sentiment: '<String>', direction: '<String>', channel: '<String>', dealId: '<UUID>', companyId: '<UUID>', eventId: '<UUID>', meta: '<JSON>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', touchpointTypeTrgmSimilarity: '<Float>', subjectTrgmSimilarity: '<Float>', summaryTrgmSimilarity: '<Float>', sentimentTrgmSimilarity: '<Float>', directionTrgmSimilarity: '<Float>', channelTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.touchpoint.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.touchpoint.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.touchpointsChunk`
+
+CRUD operations for TouchpointsChunk records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `touchpointsId` | UUID | Yes |
+| `content` | String | Yes |
+| `chunkIndex` | Int | Yes |
+| `embedding` | Vector | Yes |
+| `metadata` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingVectorDistance` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all touchpointsChunk records
+const items = await db.touchpointsChunk.findMany({ select: { id: true, touchpointsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.touchpointsChunk.findOne({ id: '<UUID>', select: { id: true, touchpointsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.touchpointsChunk.create({ data: { touchpointsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.touchpointsChunk.update({ where: { id: '<UUID>' }, data: { touchpointsId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.touchpointsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.tripHikingTrail`

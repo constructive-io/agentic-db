@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER autonomy_records_embedding_stale_insert_tg
-BEFORE INSERT ON agentic_db_app_public.autonomy_records
+BEFORE INSERT ON "agentic_db_app_public".autonomy_records
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.autonomy_records_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".autonomy_records_embedding_stale ( );
 

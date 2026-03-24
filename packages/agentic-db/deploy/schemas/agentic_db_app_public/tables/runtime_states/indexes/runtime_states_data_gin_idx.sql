@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
 
 
-CREATE INDEX runtime_states_data_gin_idx ON agentic_db_app_public.runtime_states USING GIN ( data );
+CREATE INDEX runtime_states_data_gin_idx ON "agentic_db_app_public".runtime_states USING GIN ( data );
 
