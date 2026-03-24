@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE services_public.site_metadata (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     site_id uuid NOT NULL,
     title text,
@@ -32,10 +32,8 @@ COMMENT ON COLUMN services_public.site_metadata.description IS 'Meta description
 COMMENT ON COLUMN services_public.site_metadata.og_image IS 'Open Graph image for social media previews';
 
 ALTER TABLE services_public.site_metadata ADD CONSTRAINT site_metadata_site_id_fkey FOREIGN KEY ( site_id ) REFERENCES services_public.sites ( id );
-COMMENT ON CONSTRAINT site_metadata_site_id_fkey ON services_public.site_metadata IS E'@omit manyToMany';
 CREATE INDEX site_metadata_site_id_idx ON services_public.site_metadata ( site_id );
 
-COMMENT ON CONSTRAINT db_fkey ON services_public.site_metadata IS E'@omit manyToMany';
 CREATE INDEX site_metadata_database_id_idx ON services_public.site_metadata ( database_id );
 
 COMMIT;

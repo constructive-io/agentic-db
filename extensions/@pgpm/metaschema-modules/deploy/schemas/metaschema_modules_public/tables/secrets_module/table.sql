@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.secrets_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     --
     schema_id uuid NOT NULL DEFAULT uuid_nil(),
@@ -18,11 +18,6 @@ CREATE TABLE metaschema_modules_public.secrets_module (
 
 );
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.secrets_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.secrets_module IS E'@omit manyToMany';
 CREATE INDEX secrets_module_database_id_idx ON metaschema_modules_public.secrets_module ( database_id );
-
-COMMENT ON CONSTRAINT table_fkey
-     ON metaschema_modules_public.secrets_module IS E'@omit manyToMany';
 
 COMMIT;

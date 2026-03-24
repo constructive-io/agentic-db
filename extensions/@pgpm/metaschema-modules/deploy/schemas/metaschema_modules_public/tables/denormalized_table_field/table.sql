@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.denormalized_table_field (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
 
     table_id uuid NOT NULL,
@@ -31,11 +31,6 @@ CREATE TABLE metaschema_modules_public.denormalized_table_field (
     CONSTRAINT ref_field_fkey FOREIGN KEY (ref_field_id) REFERENCES metaschema_public.field (id) ON DELETE CASCADE
 );
 
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.denormalized_table_field IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT table_fkey ON metaschema_modules_public.denormalized_table_field IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT ref_table_fkey ON metaschema_modules_public.denormalized_table_field IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT field_fkey ON metaschema_modules_public.denormalized_table_field IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT ref_field_fkey ON metaschema_modules_public.denormalized_table_field IS E'@omit manyToMany';
 CREATE INDEX denormalized_table_field_database_id_idx ON metaschema_modules_public.denormalized_table_field ( database_id );
 
 COMMIT;

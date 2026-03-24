@@ -9,7 +9,7 @@ BEGIN;
 -- https://www.postgresql.org/docs/12/sql-createtrigger.html
 
 CREATE TABLE metaschema_public.trigger (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL DEFAULT uuid_nil(),
   
   table_id uuid NOT NULL,
@@ -31,8 +31,6 @@ CREATE TABLE metaschema_public.trigger (
   UNIQUE(table_id, name)
 );
 
-COMMENT ON CONSTRAINT table_fkey ON metaschema_public.trigger IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.trigger IS E'@omit manyToMany';
 
 CREATE INDEX trigger_table_id_idx ON metaschema_public.trigger ( table_id );
 CREATE INDEX trigger_database_id_idx ON metaschema_public.trigger ( database_id );

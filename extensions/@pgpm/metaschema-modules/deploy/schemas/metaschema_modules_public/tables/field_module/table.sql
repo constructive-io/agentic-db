@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.field_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     
     private_schema_id uuid NOT NULL DEFAULT uuid_nil(),
@@ -33,10 +33,6 @@ CREATE TABLE metaschema_modules_public.field_module (
     CONSTRAINT private_schema_fkey FOREIGN KEY (private_schema_id) REFERENCES metaschema_public.schema (id) ON DELETE CASCADE
 );
 
-COMMENT ON CONSTRAINT private_schema_fkey ON metaschema_modules_public.field_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT table_fkey ON metaschema_modules_public.field_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT field_fkey ON metaschema_modules_public.field_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.field_module IS E'@omit manyToMany';
 CREATE INDEX field_module_database_id_idx ON metaschema_modules_public.field_module ( database_id );
 CREATE INDEX field_module_node_type_idx ON metaschema_modules_public.field_module ( node_type );
 

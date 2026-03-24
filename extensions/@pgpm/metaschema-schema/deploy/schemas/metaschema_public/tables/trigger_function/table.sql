@@ -6,7 +6,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.trigger_function (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL,
 
   name text NOT NULL,
@@ -17,7 +17,6 @@ CREATE TABLE metaschema_public.trigger_function (
   UNIQUE (database_id, name)
 );
 
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.trigger_function IS E'@omit manyToMany';
 CREATE INDEX trigger_function_database_id_idx ON metaschema_public.trigger_function ( database_id );
 
 COMMIT;

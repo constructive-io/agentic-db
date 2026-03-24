@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.hierarchy_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     
     -- Schema references
@@ -56,24 +56,6 @@ CREATE TABLE metaschema_modules_public.hierarchy_module (
     CONSTRAINT hierarchy_module_database_unique UNIQUE (database_id)
 );
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.hierarchy_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT private_schema_fkey ON metaschema_modules_public.hierarchy_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.hierarchy_module IS E'@omit manyToMany';
 CREATE INDEX hierarchy_module_database_id_idx ON metaschema_modules_public.hierarchy_module ( database_id );
-
-COMMENT ON CONSTRAINT chart_edges_table_fkey
-     ON metaschema_modules_public.hierarchy_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT hierarchy_sprt_table_fkey
-     ON metaschema_modules_public.hierarchy_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT chart_edge_grants_table_fkey
-     ON metaschema_modules_public.hierarchy_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT entity_table_fkey
-     ON metaschema_modules_public.hierarchy_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT users_table_fkey
-     ON metaschema_modules_public.hierarchy_module IS E'@omit manyToMany';
 
 COMMIT;

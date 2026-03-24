@@ -6,10 +6,9 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.rls_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
 
-    api_id uuid NOT NULL DEFAULT uuid_nil(),
     schema_id uuid NOT NULL DEFAULT uuid_nil(),
     private_schema_id uuid NOT NULL DEFAULT uuid_nil(),
     session_credentials_table_id uuid NOT NULL DEFAULT uuid_nil(),
@@ -25,7 +24,6 @@ CREATE TABLE metaschema_modules_public.rls_module (
 
     --
     CONSTRAINT db_fkey FOREIGN KEY (database_id) REFERENCES metaschema_public.database (id) ON DELETE CASCADE,
-    CONSTRAINT api_fkey FOREIGN KEY (api_id) REFERENCES services_public.apis (id) ON DELETE CASCADE,
     CONSTRAINT session_credentials_table_fkey FOREIGN KEY (session_credentials_table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE,
     CONSTRAINT sessions_table_fkey FOREIGN KEY (sessions_table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE,
     CONSTRAINT users_table_fkey FOREIGN KEY (users_table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE,
@@ -33,12 +31,9 @@ CREATE TABLE metaschema_modules_public.rls_module (
     CONSTRAINT pschema_fkey FOREIGN KEY (private_schema_id) REFERENCES metaschema_public.schema (id) ON DELETE CASCADE,
 
     --
-    CONSTRAINT api_id_uniq UNIQUE(api_id)
+    CONSTRAINT database_id_uniq UNIQUE(database_id)
 );
 
-COMMENT ON CONSTRAINT api_fkey ON metaschema_modules_public.rls_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.rls_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT pschema_fkey ON metaschema_modules_public.rls_module IS E'@omit manyToMany';
 
 COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.rls_module IS E'@omit';
 COMMENT ON CONSTRAINT session_credentials_table_fkey ON metaschema_modules_public.rls_module IS E'@omit';

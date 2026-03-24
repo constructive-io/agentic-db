@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.levels_module (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL,
 
   --
@@ -59,13 +59,6 @@ CREATE TABLE metaschema_modules_public.levels_module (
   CONSTRAINT actor_table_fkey FOREIGN KEY (actor_table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE
 );
 
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.levels_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.levels_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT steps_table_fkey ON metaschema_modules_public.levels_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT achievements_table_fkey ON metaschema_modules_public.levels_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT levels_table_fkey ON metaschema_modules_public.levels_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT level_requirements_table_fkey ON metaschema_modules_public.levels_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT actor_table_fkey ON metaschema_modules_public.levels_module IS E'@omit manyToMany';
 CREATE INDEX user_status_module_database_id_idx ON metaschema_modules_public.levels_module ( database_id );
 
 COMMIT;

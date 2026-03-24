@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.profiles_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     --
     schema_id uuid NOT NULL DEFAULT uuid_nil(),
@@ -55,33 +55,6 @@ CREATE TABLE metaschema_modules_public.profiles_module (
     CONSTRAINT profiles_module_unique UNIQUE (database_id, membership_type)
 );
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT private_schema_fkey ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
 CREATE INDEX profiles_module_database_id_idx ON metaschema_modules_public.profiles_module ( database_id );
-
-COMMENT ON CONSTRAINT table_fkey
-     ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT profile_permissions_table_fkey
-     ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT profile_grants_table_fkey
-     ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT profile_definition_grants_table_fkey
-     ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT entity_table_fkey
-     ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT actor_table_fkey
-     ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT permissions_table_fkey
-     ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT memberships_table_fkey
-     ON metaschema_modules_public.profiles_module IS E'@omit manyToMany';
 
 COMMIT;

@@ -11,6 +11,7 @@ SELECT
     field_name,
     delete_action,
     is_required,
+    api_required,
     junction_table_id,
     junction_table_name,
     junction_schema_id,

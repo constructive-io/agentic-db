@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.relation_provision (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
 
     database_id uuid NOT NULL,
 
@@ -31,6 +31,8 @@ CREATE TABLE metaschema_modules_public.relation_provision (
 
     is_required boolean NOT NULL DEFAULT true,
 
+    api_required boolean NOT NULL DEFAULT false,
+
     -- =========================================================================
     -- ManyToMany: junction table identity
     -- =========================================================================
@@ -52,6 +54,18 @@ CREATE TABLE metaschema_modules_public.relation_provision (
     use_composite_key boolean NOT NULL DEFAULT false,
 
     -- =========================================================================
+    -- Index creation on FK fields
+    -- =========================================================================
+
+    create_index boolean NOT NULL DEFAULT true,
+
+    -- =========================================================================
+    -- ManyToMany: API visibility (PostGraphile v5 @behavior +manyToMany)
+    -- =========================================================================
+
+    expose_in_api boolean NOT NULL DEFAULT true,
+
+    -- =========================================================================
     -- ManyToMany: field creation (forwarded to secure_table_provision)
     -- =========================================================================
 
@@ -65,7 +79,7 @@ CREATE TABLE metaschema_modules_public.relation_provision (
 
     grant_roles text[] NOT NULL DEFAULT ARRAY['authenticated'],
 
-    grant_privileges jsonb NOT NULL DEFAULT '[["select","*"],["insert","*"],["delete","*"]]',
+    grant_privileges jsonb[] NOT NULL DEFAULT ARRAY['["select","*"]'::jsonb, '["insert","*"]'::jsonb, '["delete","*"]'::jsonb],
 
     -- =========================================================================
     -- ManyToMany: RLS policies (forwarded to secure_table_provision)
@@ -167,6 +181,12 @@ COMMENT ON COLUMN metaschema_modules_public.relation_provision.is_required IS
      - RelationHasOne: typically true.
      Ignored for RelationManyToMany (junction FK fields are always required).';
 
+COMMENT ON COLUMN metaschema_modules_public.relation_provision.api_required IS
+    'Whether the FK field should be required at the API level even though it is nullable at the database level. Defaults to false.
+     When true and is_required is false, the field is created as nullable (allowing SET NULL cascade) but a @requiredInput smart tag is added so PostGraphile treats it as non-null in create/update input types.
+     When is_required is true, api_required is ignored (the field is already required at both levels).
+     Ignored for RelationManyToMany (junction FK fields are always required).';
+
 -- =============================================================================
 -- ManyToMany: junction table identity
 -- =============================================================================
@@ -200,6 +220,28 @@ COMMENT ON COLUMN metaschema_modules_public.relation_provision.use_composite_key
      use_composite_key and node_type=''DataId'' are mutually exclusive — using both would create two conflicting PKs.
      Ignored for RelationBelongsTo/RelationHasOne.';
 
+COMMENT ON COLUMN metaschema_modules_public.relation_provision.create_index IS
+    'Whether to create a btree index on FK fields created by this relation. Defaults to true.
+     PostgreSQL does not automatically index foreign key columns (only the referenced PK side is indexed).
+     Without indexes on FK columns, JOINs, CASCADE deletes, and RLS policy lookups perform sequential scans.
+     - RelationBelongsTo: creates an index on the FK field on the source table.
+     - RelationHasMany: creates an index on the FK field on the target table.
+     - RelationHasOne: skipped — the unique constraint already creates an implicit index.
+     - RelationManyToMany: creates indexes on both FK fields on the junction table.
+     Set to false only for very small tables or write-heavy tables where index maintenance cost outweighs read performance.';
+
+-- =============================================================================
+-- ManyToMany: API visibility
+-- =============================================================================
+
+COMMENT ON COLUMN metaschema_modules_public.relation_provision.expose_in_api IS
+    'For RelationManyToMany: whether to expose the M:N shortcut fields in the GraphQL API. Defaults to true.
+     When true, sets @behavior +manyToMany on the junction table smart_tags so PostGraphile generates
+     clean M:N connection fields (e.g., event.contacts instead of event.contactEventsByEventId).
+     When false (or toggled off via UPDATE), the behavior tag is removed and the M:N fields disappear from GraphQL.
+     Toggling is supported: UPDATE expose_in_api to true/false and the smart tag is added/removed automatically.
+     Ignored for RelationBelongsTo/RelationHasOne/RelationHasMany.';
+
 -- =============================================================================
 -- ManyToMany: field creation (forwarded to secure_table_provision)
 -- =============================================================================
@@ -227,7 +269,7 @@ COMMENT ON COLUMN metaschema_modules_public.relation_provision.grant_roles IS
     'For RelationManyToMany: database roles to grant privileges to on the junction table. Forwarded to secure_table_provision as-is. Supports multiple roles, e.g. ARRAY[''authenticated'', ''admin'']. Each role receives all privileges defined in grant_privileges. Defaults to ARRAY[''authenticated'']. Ignored for RelationBelongsTo/RelationHasOne.';
 
 COMMENT ON COLUMN metaschema_modules_public.relation_provision.grant_privileges IS
-    'For RelationManyToMany: privilege grants for the junction table. Forwarded to secure_table_provision as-is. Format: array of [privilege, columns] tuples. Examples: [["select","*"],["insert","*"]] for full access, or [["update",["name","bio"]]] for column-level grants. "*" means all columns. Defaults to select/insert/delete for all columns. Ignored for RelationBelongsTo/RelationHasOne.';
+    'For RelationManyToMany: privilege grants for the junction table. Forwarded to secure_table_provision as-is. Format: PostgreSQL array of jsonb [privilege, columns] tuples. Examples: ARRAY[''["select","*"]''::jsonb, ''["insert","*"]''::jsonb] for full access, or ARRAY[''["update",["name","bio"]]''::jsonb] for column-level grants. "*" means all columns. Defaults to select/insert/delete for all columns. Ignored for RelationBelongsTo/RelationHasOne.';
 
 -- =============================================================================
 -- ManyToMany: RLS policies (forwarded to secure_table_provision)
@@ -274,10 +316,6 @@ COMMENT ON COLUMN metaschema_modules_public.relation_provision.out_source_field_
 
 COMMENT ON COLUMN metaschema_modules_public.relation_provision.out_target_field_id IS
     'Output column for RelationManyToMany: the UUID of the FK field on the junction table referencing the target table. Populated by the trigger. NULL for RelationBelongsTo/RelationHasOne. Callers should not set this directly.';
-
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.relation_provision IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT source_table_fkey ON metaschema_modules_public.relation_provision IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT target_table_fkey ON metaschema_modules_public.relation_provision IS E'@omit manyToMany';
 
 CREATE INDEX relation_provision_database_id_idx ON metaschema_modules_public.relation_provision ( database_id );
 CREATE INDEX relation_provision_relation_type_idx ON metaschema_modules_public.relation_provision ( relation_type );

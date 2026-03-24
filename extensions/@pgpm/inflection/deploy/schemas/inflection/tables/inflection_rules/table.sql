@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE inflection.inflection_rules (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     type text, -- singular, plural
     test text,
     replacement text

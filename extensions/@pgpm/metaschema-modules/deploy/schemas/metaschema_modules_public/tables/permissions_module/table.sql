@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.permissions_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     --
     schema_id uuid NOT NULL DEFAULT uuid_nil(),
@@ -48,18 +48,6 @@ CREATE TABLE metaschema_modules_public.permissions_module (
     CONSTRAINT actor_table_fkey FOREIGN KEY (actor_table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE
 );
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.permissions_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT private_schema_fkey ON metaschema_modules_public.permissions_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.permissions_module IS E'@omit manyToMany';
 CREATE INDEX permissions_module_database_id_idx ON metaschema_modules_public.permissions_module ( database_id );
-
-COMMENT ON CONSTRAINT table_fkey
-     ON metaschema_modules_public.permissions_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT default_table_fkey
-     ON metaschema_modules_public.permissions_module IS E'@omit manyToMany';
-
-COMMENT ON CONSTRAINT actor_table_fkey
-     ON metaschema_modules_public.permissions_module IS E'@omit manyToMany';
 
 COMMIT;
