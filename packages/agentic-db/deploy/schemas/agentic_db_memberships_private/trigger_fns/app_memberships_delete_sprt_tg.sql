@@ -2,17 +2,18 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_memberships_private/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_memberships_private/tables/app_memberships_sprt/table
 
 
 
-CREATE FUNCTION "agentic_db_memberships_private".app_memberships_delete_sprt_tg ()
+CREATE FUNCTION agentic_db_memberships_private.app_memberships_delete_sprt_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
     v_num_updated int;
 BEGIN
-    DELETE FROM "agentic_db_memberships_private".app_memberships_sprt 
+    DELETE FROM agentic_db_memberships_private.app_memberships_sprt 
         WHERE actor_id = OLD.actor_id;
     RETURN OLD;
 END;

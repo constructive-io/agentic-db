@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agentic_db_limits_private".org_limits_inc;
+DROP FUNCTION agentic_db_limits_private.org_limits_inc;
 
 

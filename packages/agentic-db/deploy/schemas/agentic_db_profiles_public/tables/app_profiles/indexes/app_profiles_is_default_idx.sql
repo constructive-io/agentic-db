@@ -3,8 +3,9 @@
 
 -- requires: schemas/agentic_db_profiles_public/schema
 -- requires: schemas/agentic_db_profiles_public/tables/app_profiles/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_profiles_public/tables/app_profiles/columns/is_default/column
 
 
-CREATE INDEX app_profiles_is_default_idx ON "agentic_db_profiles_public".app_profiles USING BTREE ( is_default );
+CREATE INDEX app_profiles_is_default_idx ON agentic_db_profiles_public.app_profiles USING BTREE ( is_default );
 

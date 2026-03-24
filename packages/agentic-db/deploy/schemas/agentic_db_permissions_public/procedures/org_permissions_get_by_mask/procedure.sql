@@ -2,16 +2,17 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_permissions_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION "agentic_db_permissions_public".org_permissions_get_by_mask (mask bit varying)
-  RETURNS SETOF "agentic_db_permissions_public".org_permissions
+CREATE FUNCTION agentic_db_permissions_public.org_permissions_get_by_mask (mask bit varying)
+  RETURNS SETOF agentic_db_permissions_public.org_permissions
 AS $CODEZ$
     SELECT * FROM 
-      "agentic_db_permissions_public".org_permissions
-    WHERE bitstr & "agentic_db_permissions_public".org_permissions_get_padded_mask(mask) = bitstr;
+      agentic_db_permissions_public.org_permissions
+    WHERE bitstr & agentic_db_permissions_public.org_permissions_get_padded_mask(mask) = bitstr;
 $CODEZ$
 LANGUAGE sql STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_permissions_public".org_permissions_get_by_mask TO authenticated;
+GRANT EXECUTE ON FUNCTION agentic_db_permissions_public.org_permissions_get_by_mask TO authenticated;
 

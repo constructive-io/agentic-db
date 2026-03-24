@@ -31,8 +31,6 @@ agentic-db auth set-token <your-token>
 | `agent-log` | agentLog CRUD operations |
 | `agent-logs-chunk` | agentLogsChunk CRUD operations |
 | `agents-chunk` | agentsChunk CRUD operations |
-| `agent-task` | agentTask CRUD operations |
-| `agent-tasks-chunk` | agentTasksChunk CRUD operations |
 | `autonomy-record` | autonomyRecord CRUD operations |
 | `autonomy-record-link` | autonomyRecordLink CRUD operations |
 | `autonomy-records-chunk` | autonomyRecordsChunk CRUD operations |
@@ -62,6 +60,7 @@ agentic-db auth set-token <your-token>
 | `project` | project CRUD operations |
 | `contact-relationship` | contactRelationship CRUD operations |
 | `contacts-chunk` | contactsChunk CRUD operations |
+| `task` | task CRUD operations |
 | `conversation` | conversation CRUD operations |
 | `conversations-chunk` | conversationsChunk CRUD operations |
 | `deal-company` | dealCompany CRUD operations |
@@ -112,6 +111,10 @@ agentic-db auth set-token <your-token>
 | `skill-tool` | skillTool CRUD operations |
 | `tool-definition` | toolDefinition CRUD operations |
 | `tag` | tag CRUD operations |
+| `task-contact` | taskContact CRUD operations |
+| `task-note` | taskNote CRUD operations |
+| `task-project` | taskProject CRUD operations |
+| `tasks-chunk` | tasksChunk CRUD operations |
 | `tool-execution` | toolExecution CRUD operations |
 | `touchpoint` | touchpoint CRUD operations |
 | `touchpoints-chunk` | touchpointsChunk CRUD operations |
@@ -334,86 +337,6 @@ CRUD operations for AgentsChunk records.
 | `searchScore` | Float |
 
 **Required create fields:** `agentsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `agent-task`
-
-CRUD operations for AgentTask records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentTask records |
-| `get` | Get a agentTask by id |
-| `create` | Create a new agentTask |
-| `update` | Update an existing agentTask |
-| `delete` | Delete a agentTask |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `agentId` | UUID |
-| `title` | String |
-| `description` | String |
-| `status` | String |
-| `priority` | Int |
-| `result` | String |
-| `startedAt` | Datetime |
-| `completedAt` | Datetime |
-| `meta` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `titleTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `resultTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `agentId`, `title`
-**Optional create fields (backend defaults):** `description`, `status`, `priority`, `result`, `startedAt`, `completedAt`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `statusTrgmSimilarity`, `resultTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `agent-tasks-chunk`
-
-CRUD operations for AgentTasksChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentTasksChunk records |
-| `get` | Get a agentTasksChunk by id |
-| `create` | Create a new agentTasksChunk |
-| `update` | Update an existing agentTasksChunk |
-| `delete` | Delete a agentTasksChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `agentTasksId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `agentTasksId`, `content`
 **Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
 > **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
@@ -1415,6 +1338,53 @@ CRUD operations for ContactsChunk records.
 **Required create fields:** `contactsId`, `content`
 **Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
 > **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
+### `task`
+
+CRUD operations for Task records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all task records |
+| `get` | Get a task by id |
+| `create` | Create a new task |
+| `update` | Update an existing task |
+| `delete` | Delete a task |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `agentId` | UUID |
+| `title` | String |
+| `description` | String |
+| `status` | String |
+| `priority` | Int |
+| `result` | String |
+| `startedAt` | Datetime |
+| `completedAt` | Datetime |
+| `meta` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
+| `embeddingVectorDistance` | Float |
+| `titleTrgmSimilarity` | Float |
+| `descriptionTrgmSimilarity` | Float |
+| `statusTrgmSimilarity` | Float |
+| `resultTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `title`
+**Optional create fields (backend defaults):** `agentId`, `description`, `status`, `priority`, `result`, `startedAt`, `completedAt`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `statusTrgmSimilarity`, `resultTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -3127,6 +3097,108 @@ CRUD operations for Tag records.
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `color`, `category`, `usageCount`
+
+### `task-contact`
+
+CRUD operations for TaskContact records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all taskContact records |
+| `get` | Get a taskContact by id |
+| `create` | Create a new taskContact |
+| `update` | Update an existing taskContact |
+| `delete` | Delete a taskContact |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `taskId` | UUID |
+| `contactId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `taskId`, `contactId`, `entityId`
+
+### `task-note`
+
+CRUD operations for TaskNote records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all taskNote records |
+| `get` | Get a taskNote by id |
+| `create` | Create a new taskNote |
+| `update` | Update an existing taskNote |
+| `delete` | Delete a taskNote |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `taskId` | UUID |
+| `noteId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `taskId`, `noteId`, `entityId`
+
+### `task-project`
+
+CRUD operations for TaskProject records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all taskProject records |
+| `get` | Get a taskProject by id |
+| `create` | Create a new taskProject |
+| `update` | Update an existing taskProject |
+| `delete` | Delete a taskProject |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `taskId` | UUID |
+| `projectId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `taskId`, `projectId`, `entityId`
+
+### `tasks-chunk`
+
+CRUD operations for TasksChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all tasksChunk records |
+| `get` | Get a tasksChunk by id |
+| `create` | Create a new tasksChunk |
+| `update` | Update an existing tasksChunk |
+| `delete` | Delete a tasksChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `tasksId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `tasksId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
 
 ### `tool-execution`
 

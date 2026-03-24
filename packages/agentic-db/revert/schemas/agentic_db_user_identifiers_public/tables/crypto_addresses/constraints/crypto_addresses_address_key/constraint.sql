@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_user_identifiers_public/tables/crypto_addresses/constraints/crypto_addresses_address_key/constraint
 
 
-ALTER TABLE "agentic_db_user_identifiers_public".crypto_addresses 
+ALTER TABLE agentic_db_user_identifiers_public.crypto_addresses 
   DROP CONSTRAINT crypto_addresses_address_key;
 
 

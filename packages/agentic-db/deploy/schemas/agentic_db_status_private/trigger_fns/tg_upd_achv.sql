@@ -2,19 +2,20 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_status_private/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_status_private/procedures/upsert_achve/procedure
 
 
 
-CREATE FUNCTION "agentic_db_status_private".tg_upd_achv ()
+CREATE FUNCTION agentic_db_status_private.tg_upd_achv ()
   RETURNS TRIGGER
   AS
 $EOFCODE$
 DECLARE
 BEGIN
-    PERFORM "agentic_db_status_private".upsert_achve(NEW.actor_id, NEW.name, NEW.count);
+    PERFORM agentic_db_status_private.upsert_achve(NEW.actor_id, NEW.name, NEW.count);
     RETURN NEW;
 END;
 $EOFCODE$ LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION "agentic_db_status_private".tg_upd_achv TO authenticated;
+GRANT EXECUTE ON FUNCTION agentic_db_status_private.tg_upd_achv TO authenticated;
 

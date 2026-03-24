@@ -3,8 +3,9 @@
 
 -- requires: schemas/agentic_db_auth_private/schema
 -- requires: schemas/agentic_db_auth_private/tables/session_credentials/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_auth_private/tables/session_credentials/columns/kind/column
 
 
-CREATE INDEX session_credentials_kind_idx ON "agentic_db_auth_private".session_credentials USING BTREE ( kind );
+CREATE INDEX session_credentials_kind_idx ON agentic_db_auth_private.session_credentials USING BTREE ( kind );
 

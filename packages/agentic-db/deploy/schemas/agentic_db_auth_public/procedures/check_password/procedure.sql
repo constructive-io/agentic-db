@@ -2,10 +2,11 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_auth_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION "agentic_db_auth_public".check_password (
+CREATE FUNCTION agentic_db_auth_public.check_password (
   password text
 )
   RETURNS void
@@ -842,5 +843,5 @@ BEGIN
 END;
 $$
 LANGUAGE 'plpgsql';
-GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".check_password TO public;
+GRANT EXECUTE ON FUNCTION agentic_db_auth_public.check_password TO public;
 

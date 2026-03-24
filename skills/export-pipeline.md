@@ -12,7 +12,7 @@ Export a provisioned agentic-db database into deployable artifacts: pgpm SQL mod
 - Database provisioned (see `skills/database-lifecycle.md`)
 - cnc server running on port 3000
 - `eval "$(pgpm env)"` sourced
-- pgpm >= 4.7.4 installed globally (`npm install -g pgpm@4.7.4`)
+- pgpm >= 4.8.1 installed globally (`npm install -g pgpm@4.8.1`)
 
 ## Quick Start (Full Pipeline)
 
@@ -39,7 +39,7 @@ Exports the provisioned database into installable pgpm SQL modules.
 1. Connects to Postgres via `pgpm env` variables
 2. Resolves the database ID (from `DATABASE_ID` env or latest non-constructive DB)
 3. Fetches all schema names for the database
-4. Calls `exportMigrations()` from `@pgpmjs/core` (pgpm 4.x)
+4. Calls `exportMigrations()` from `@pgpmjs/export` (pgpm 4.x+)
 5. Outputs to `packages/agentic-db/` and `packages/agentic-db-services/`
 
 **Output:**
@@ -184,7 +184,7 @@ pnpm run export:all
 
 ## Troubleshooting
 
-- **"Cannot find module '@pgpmjs/core'"**: pgpm < 4.x installed. Run `npm install -g pgpm@4.7.4`.
+- **"Cannot find module '@pgpmjs/export'"**: Missing dependency. Run `pnpm install` in the workspace root.
 - **"No provisioned databases found"**: No database created yet. Run `pnpm run create-db` first.
 - **Schema export HTTP 404**: cnc server is running with `API_IS_PUBLIC=false` but no `APP_SCHEMATA` or `DATABASE_ID` env var set. Find the schema name with `psql -d postgres -t -c "SELECT schema_name FROM information_schema.schemata WHERE schema_name LIKE '%app-public%';"` and set `APP_SCHEMATA` in `.env`.
 - **Schema export returns empty/error**: cnc server not running or database name doesn't match the vhost.

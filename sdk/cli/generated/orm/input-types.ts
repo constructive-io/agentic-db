@@ -325,54 +325,6 @@ export interface AgentsChunk {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
-export interface AgentTask {
-  id: string;
-  entityId?: string | null;
-  agentId?: string | null;
-  title?: string | null;
-  description?: string | null;
-  status?: string | null;
-  priority?: number | null;
-  result?: string | null;
-  startedAt?: string | null;
-  completedAt?: string | null;
-  meta?: Record<string, unknown> | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
-  titleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
-  descriptionTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
-  statusTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `result`. Returns null when no trgm search filter is active. */
-  resultTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
-export interface AgentTasksChunk {
-  id: string;
-  agentTasksId?: string | null;
-  content?: string | null;
-  chunkIndex?: number | null;
-  embedding?: number[] | null;
-  metadata?: Record<string, unknown> | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
-}
 export interface AutonomyRecord {
   id: string;
   entityId?: string | null;
@@ -920,6 +872,40 @@ export interface ContactsChunk {
   updatedAt?: string | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface Task {
+  id: string;
+  entityId?: string | null;
+  agentId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  status?: string | null;
+  priority?: number | null;
+  result?: string | null;
+  startedAt?: string | null;
+  completedAt?: string | null;
+  meta?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `title`. Returns null when no trgm search filter is active. */
+  titleTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `description`. Returns null when no trgm search filter is active. */
+  descriptionTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `status`. Returns null when no trgm search filter is active. */
+  statusTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `result`. Returns null when no trgm search filter is active. */
+  resultTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1803,6 +1789,38 @@ export interface Tag {
   createdAt?: string | null;
   updatedAt?: string | null;
 }
+export interface TaskContact {
+  taskId?: string | null;
+  contactId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
+export interface TaskNote {
+  taskId?: string | null;
+  noteId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
+export interface TaskProject {
+  taskId?: string | null;
+  projectId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
+export interface TasksChunk {
+  id: string;
+  tasksId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface ToolExecution {
   id: string;
   entityId?: string | null;
@@ -1952,7 +1970,7 @@ export interface AgentCollaboratorRelations {
 }
 export interface AgentRelations {
   agentsChunksByAgentsId?: ConnectionResult<AgentsChunk>;
-  agentTasks?: ConnectionResult<AgentTask>;
+  tasks?: ConnectionResult<Task>;
   agentLogs?: ConnectionResult<AgentLog>;
   rules?: ConnectionResult<Rule>;
   skills?: ConnectionResult<Skill>;
@@ -1968,13 +1986,6 @@ export interface AgentLogsChunkRelations {
 }
 export interface AgentsChunkRelations {
   agents?: Agent | null;
-}
-export interface AgentTaskRelations {
-  agent?: Agent | null;
-  agentTasksChunksByAgentTasksId?: ConnectionResult<AgentTasksChunk>;
-}
-export interface AgentTasksChunkRelations {
-  agentTasks?: AgentTask | null;
 }
 export interface AutonomyRecordRelations {
   autonomyRecordsChunksByAutonomyRecordsId?: ConnectionResult<AutonomyRecordsChunk>;
@@ -2024,6 +2035,7 @@ export interface CompanyRelations {
 export interface ContactRelations {
   mainImage?: Image | null;
   projects?: ConnectionResult<Project>;
+  tasks?: ConnectionResult<Task>;
   notes?: ConnectionResult<Note>;
   memories?: ConnectionResult<Memory>;
   contactsChunksByContactsId?: ConnectionResult<ContactsChunk>;
@@ -2036,6 +2048,7 @@ export interface ContactRelations {
   dealContacts?: ConnectionResult<DealContact>;
   contactRelationships?: ConnectionResult<ContactRelationship>;
   projectContacts?: ConnectionResult<ProjectContact>;
+  taskContacts?: ConnectionResult<TaskContact>;
   contactNotes?: ConnectionResult<ContactNote>;
   contactMemories?: ConnectionResult<ContactMemory>;
   imagesByContactImageContactIdAndImageId?: ConnectionResult<Image>;
@@ -2115,11 +2128,13 @@ export interface NoteRelations {
   companies?: ConnectionResult<Company>;
   deals?: ConnectionResult<Deal>;
   events?: ConnectionResult<Event>;
+  tasks?: ConnectionResult<Task>;
   notesChunksByNotesId?: ConnectionResult<NotesChunk>;
   contactNotes?: ConnectionResult<ContactNote>;
   companyNotes?: ConnectionResult<CompanyNote>;
   dealNotes?: ConnectionResult<DealNote>;
   eventNotes?: ConnectionResult<EventNote>;
+  taskNotes?: ConnectionResult<TaskNote>;
 }
 export interface ContactCompanyRelations {
   company?: Company | null;
@@ -2146,9 +2161,11 @@ export interface ContactNoteRelations {
 }
 export interface ProjectRelations {
   contacts?: ConnectionResult<Contact>;
+  tasks?: ConnectionResult<Task>;
   goals?: ConnectionResult<Goal>;
   projectsChunksByProjectsId?: ConnectionResult<ProjectsChunk>;
   projectContacts?: ConnectionResult<ProjectContact>;
+  taskProjects?: ConnectionResult<TaskProject>;
   goalProjects?: ConnectionResult<GoalProject>;
 }
 export interface ContactRelationshipRelations {
@@ -2156,6 +2173,16 @@ export interface ContactRelationshipRelations {
 }
 export interface ContactsChunkRelations {
   contacts?: Contact | null;
+}
+export interface TaskRelations {
+  agent?: Agent | null;
+  contacts?: ConnectionResult<Contact>;
+  projects?: ConnectionResult<Project>;
+  notes?: ConnectionResult<Note>;
+  tasksChunksByTasksId?: ConnectionResult<TasksChunk>;
+  taskContacts?: ConnectionResult<TaskContact>;
+  taskProjects?: ConnectionResult<TaskProject>;
+  taskNotes?: ConnectionResult<TaskNote>;
 }
 export interface ConversationRelations {
   conversationsChunksByConversationsId?: ConnectionResult<ConversationsChunk>;
@@ -2347,6 +2374,21 @@ export interface ToolDefinitionRelations {
   skillTools?: ConnectionResult<SkillTool>;
 }
 export interface TagRelations {}
+export interface TaskContactRelations {
+  contact?: Contact | null;
+  task?: Task | null;
+}
+export interface TaskNoteRelations {
+  note?: Note | null;
+  task?: Task | null;
+}
+export interface TaskProjectRelations {
+  project?: Project | null;
+  task?: Task | null;
+}
+export interface TasksChunkRelations {
+  tasks?: Task | null;
+}
 export interface ToolExecutionRelations {
   toolDefinition?: ToolDefinition | null;
 }
@@ -2387,8 +2429,6 @@ export type AgentWithRelations = Agent & AgentRelations;
 export type AgentLogWithRelations = AgentLog & AgentLogRelations;
 export type AgentLogsChunkWithRelations = AgentLogsChunk & AgentLogsChunkRelations;
 export type AgentsChunkWithRelations = AgentsChunk & AgentsChunkRelations;
-export type AgentTaskWithRelations = AgentTask & AgentTaskRelations;
-export type AgentTasksChunkWithRelations = AgentTasksChunk & AgentTasksChunkRelations;
 export type AutonomyRecordWithRelations = AutonomyRecord & AutonomyRecordRelations;
 export type AutonomyRecordLinkWithRelations = AutonomyRecordLink & AutonomyRecordLinkRelations;
 export type AutonomyRecordsChunkWithRelations = AutonomyRecordsChunk &
@@ -2419,6 +2459,7 @@ export type ContactNoteWithRelations = ContactNote & ContactNoteRelations;
 export type ProjectWithRelations = Project & ProjectRelations;
 export type ContactRelationshipWithRelations = ContactRelationship & ContactRelationshipRelations;
 export type ContactsChunkWithRelations = ContactsChunk & ContactsChunkRelations;
+export type TaskWithRelations = Task & TaskRelations;
 export type ConversationWithRelations = Conversation & ConversationRelations;
 export type ConversationsChunkWithRelations = ConversationsChunk & ConversationsChunkRelations;
 export type DealCompanyWithRelations = DealCompany & DealCompanyRelations;
@@ -2470,6 +2511,10 @@ export type SkillsChunkWithRelations = SkillsChunk & SkillsChunkRelations;
 export type SkillToolWithRelations = SkillTool & SkillToolRelations;
 export type ToolDefinitionWithRelations = ToolDefinition & ToolDefinitionRelations;
 export type TagWithRelations = Tag & TagRelations;
+export type TaskContactWithRelations = TaskContact & TaskContactRelations;
+export type TaskNoteWithRelations = TaskNote & TaskNoteRelations;
+export type TaskProjectWithRelations = TaskProject & TaskProjectRelations;
+export type TasksChunkWithRelations = TasksChunk & TasksChunkRelations;
 export type ToolExecutionWithRelations = ToolExecution & ToolExecutionRelations;
 export type TouchpointWithRelations = Touchpoint & TouchpointRelations;
 export type TouchpointsChunkWithRelations = TouchpointsChunk & TouchpointsChunkRelations;
@@ -2519,11 +2564,11 @@ export type AgentSelect = {
     filter?: AgentsChunkFilter;
     orderBy?: AgentsChunkOrderBy[];
   };
-  agentTasks?: {
-    select: AgentTaskSelect;
+  tasks?: {
+    select: TaskSelect;
     first?: number;
-    filter?: AgentTaskFilter;
-    orderBy?: AgentTaskOrderBy[];
+    filter?: TaskFilter;
+    orderBy?: TaskOrderBy[];
   };
   agentLogs?: {
     select: AgentLogSelect;
@@ -2613,56 +2658,6 @@ export type AgentsChunkSelect = {
   searchScore?: boolean;
   agents?: {
     select: AgentSelect;
-  };
-};
-export type AgentTaskSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  agentId?: boolean;
-  title?: boolean;
-  description?: boolean;
-  status?: boolean;
-  priority?: boolean;
-  result?: boolean;
-  startedAt?: boolean;
-  completedAt?: boolean;
-  meta?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  titleTrgmSimilarity?: boolean;
-  descriptionTrgmSimilarity?: boolean;
-  statusTrgmSimilarity?: boolean;
-  resultTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
-  agent?: {
-    select: AgentSelect;
-  };
-  agentTasksChunksByAgentTasksId?: {
-    select: AgentTasksChunkSelect;
-    first?: number;
-    filter?: AgentTasksChunkFilter;
-    orderBy?: AgentTasksChunkOrderBy[];
-  };
-};
-export type AgentTasksChunkSelect = {
-  id?: boolean;
-  agentTasksId?: boolean;
-  content?: boolean;
-  chunkIndex?: boolean;
-  embedding?: boolean;
-  metadata?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingVectorDistance?: boolean;
-  searchScore?: boolean;
-  agentTasks?: {
-    select: AgentTaskSelect;
   };
 };
 export type AutonomyRecordSelect = {
@@ -3013,6 +3008,12 @@ export type ContactSelect = {
     filter?: ProjectFilter;
     orderBy?: ProjectOrderBy[];
   };
+  tasks?: {
+    select: TaskSelect;
+    first?: number;
+    filter?: TaskFilter;
+    orderBy?: TaskOrderBy[];
+  };
   notes?: {
     select: NoteSelect;
     first?: number;
@@ -3084,6 +3085,12 @@ export type ContactSelect = {
     first?: number;
     filter?: ProjectContactFilter;
     orderBy?: ProjectContactOrderBy[];
+  };
+  taskContacts?: {
+    select: TaskContactSelect;
+    first?: number;
+    filter?: TaskContactFilter;
+    orderBy?: TaskContactOrderBy[];
   };
   contactNotes?: {
     select: ContactNoteSelect;
@@ -3558,6 +3565,12 @@ export type NoteSelect = {
     filter?: EventFilter;
     orderBy?: EventOrderBy[];
   };
+  tasks?: {
+    select: TaskSelect;
+    first?: number;
+    filter?: TaskFilter;
+    orderBy?: TaskOrderBy[];
+  };
   notesChunksByNotesId?: {
     select: NotesChunkSelect;
     first?: number;
@@ -3587,6 +3600,12 @@ export type NoteSelect = {
     first?: number;
     filter?: EventNoteFilter;
     orderBy?: EventNoteOrderBy[];
+  };
+  taskNotes?: {
+    select: TaskNoteSelect;
+    first?: number;
+    filter?: TaskNoteFilter;
+    orderBy?: TaskNoteOrderBy[];
   };
 };
 export type ContactCompanySelect = {
@@ -3697,6 +3716,12 @@ export type ProjectSelect = {
     filter?: ContactFilter;
     orderBy?: ContactOrderBy[];
   };
+  tasks?: {
+    select: TaskSelect;
+    first?: number;
+    filter?: TaskFilter;
+    orderBy?: TaskOrderBy[];
+  };
   goals?: {
     select: GoalSelect;
     first?: number;
@@ -3714,6 +3739,12 @@ export type ProjectSelect = {
     first?: number;
     filter?: ProjectContactFilter;
     orderBy?: ProjectContactOrderBy[];
+  };
+  taskProjects?: {
+    select: TaskProjectSelect;
+    first?: number;
+    filter?: TaskProjectFilter;
+    orderBy?: TaskProjectOrderBy[];
   };
   goalProjects?: {
     select: GoalProjectSelect;
@@ -3743,6 +3774,77 @@ export type ContactsChunkSelect = {
   searchScore?: boolean;
   contacts?: {
     select: ContactSelect;
+  };
+};
+export type TaskSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  agentId?: boolean;
+  title?: boolean;
+  description?: boolean;
+  status?: boolean;
+  priority?: boolean;
+  result?: boolean;
+  startedAt?: boolean;
+  completedAt?: boolean;
+  meta?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  titleTrgmSimilarity?: boolean;
+  descriptionTrgmSimilarity?: boolean;
+  statusTrgmSimilarity?: boolean;
+  resultTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  agent?: {
+    select: AgentSelect;
+  };
+  contacts?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+  projects?: {
+    select: ProjectSelect;
+    first?: number;
+    filter?: ProjectFilter;
+    orderBy?: ProjectOrderBy[];
+  };
+  notes?: {
+    select: NoteSelect;
+    first?: number;
+    filter?: NoteFilter;
+    orderBy?: NoteOrderBy[];
+  };
+  tasksChunksByTasksId?: {
+    select: TasksChunkSelect;
+    first?: number;
+    filter?: TasksChunkFilter;
+    orderBy?: TasksChunkOrderBy[];
+  };
+  taskContacts?: {
+    select: TaskContactSelect;
+    first?: number;
+    filter?: TaskContactFilter;
+    orderBy?: TaskContactOrderBy[];
+  };
+  taskProjects?: {
+    select: TaskProjectSelect;
+    first?: number;
+    filter?: TaskProjectFilter;
+    orderBy?: TaskProjectOrderBy[];
+  };
+  taskNotes?: {
+    select: TaskNoteSelect;
+    first?: number;
+    filter?: TaskNoteFilter;
+    orderBy?: TaskNoteOrderBy[];
   };
 };
 export type ConversationSelect = {
@@ -4887,6 +4989,57 @@ export type TagSelect = {
   createdAt?: boolean;
   updatedAt?: boolean;
 };
+export type TaskContactSelect = {
+  taskId?: boolean;
+  contactId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  task?: {
+    select: TaskSelect;
+  };
+};
+export type TaskNoteSelect = {
+  taskId?: boolean;
+  noteId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
+  task?: {
+    select: TaskSelect;
+  };
+};
+export type TaskProjectSelect = {
+  taskId?: boolean;
+  projectId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  project?: {
+    select: ProjectSelect;
+  };
+  task?: {
+    select: TaskSelect;
+  };
+};
+export type TasksChunkSelect = {
+  id?: boolean;
+  tasksId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  tasks?: {
+    select: TaskSelect;
+  };
+};
 export type ToolExecutionSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -5109,10 +5262,10 @@ export interface AgentFilter {
   agentsChunksByAgentsId?: AgentToManyAgentsChunkFilter;
   /** `agentsChunksByAgentsId` exist. */
   agentsChunksByAgentsIdExist?: boolean;
-  /** Filter by the object’s `agentTasks` relation. */
-  agentTasks?: AgentToManyAgentTaskFilter;
-  /** `agentTasks` exist. */
-  agentTasksExist?: boolean;
+  /** Filter by the object’s `tasks` relation. */
+  tasks?: AgentToManyTaskFilter;
+  /** `tasks` exist. */
+  tasksExist?: boolean;
   /** Filter by the object’s `agentLogs` relation. */
   agentLogs?: AgentToManyAgentLogFilter;
   /** `agentLogs` exist. */
@@ -5265,101 +5418,6 @@ export interface AgentsChunkFilter {
   not?: AgentsChunkFilter;
   /** Filter by the object’s `agents` relation. */
   agents?: AgentFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-export interface AgentTaskFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `agentId` field. */
-  agentId?: UUIDFilter;
-  /** Filter by the object’s `title` field. */
-  title?: StringTrgmFilter;
-  /** Filter by the object’s `description` field. */
-  description?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `priority` field. */
-  priority?: IntFilter;
-  /** Filter by the object’s `result` field. */
-  result?: StringTrgmFilter;
-  /** Filter by the object’s `startedAt` field. */
-  startedAt?: DatetimeFilter;
-  /** Filter by the object’s `completedAt` field. */
-  completedAt?: DatetimeFilter;
-  /** Filter by the object’s `meta` field. */
-  meta?: JSONFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: AgentTaskFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AgentTaskFilter[];
-  /** Negates the expression. */
-  not?: AgentTaskFilter;
-  /** Filter by the object’s `agent` relation. */
-  agent?: AgentFilter;
-  /** Filter by the object’s `agentTasksChunksByAgentTasksId` relation. */
-  agentTasksChunksByAgentTasksId?: AgentTaskToManyAgentTasksChunkFilter;
-  /** `agentTasksChunksByAgentTasksId` exist. */
-  agentTasksChunksByAgentTasksIdExist?: boolean;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `title` column. */
-  trgmTitle?: TrgmSearchInput;
-  /** TRGM search on the `description` column. */
-  trgmDescription?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `result` column. */
-  trgmResult?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-export interface AgentTasksChunkFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `agentTasksId` field. */
-  agentTasksId?: UUIDFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringFilter;
-  /** Filter by the object’s `chunkIndex` field. */
-  chunkIndex?: IntFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `metadata` field. */
-  metadata?: JSONFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: AgentTasksChunkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AgentTasksChunkFilter[];
-  /** Negates the expression. */
-  not?: AgentTasksChunkFilter;
-  /** Filter by the object’s `agentTasks` relation. */
-  agentTasks?: AgentTaskFilter;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
@@ -5892,6 +5950,10 @@ export interface ContactFilter {
   projectContacts?: ContactToManyProjectContactFilter;
   /** `projectContacts` exist. */
   projectContactsExist?: boolean;
+  /** Filter by the object’s `taskContacts` relation. */
+  taskContacts?: ContactToManyTaskContactFilter;
+  /** `taskContacts` exist. */
+  taskContactsExist?: boolean;
   /** Filter by the object’s `contactNotes` relation. */
   contactNotes?: ContactToManyContactNoteFilter;
   /** `contactNotes` exist. */
@@ -6215,7 +6277,7 @@ export interface ImageFilter {
   companyImages?: ImageToManyCompanyImageFilter;
   /** `companyImages` exist. */
   companyImagesExist?: boolean;
-  /** Filter by the object’s `eventImages` relation. */
+  /** Filter by the object��s `eventImages` relation. */
   eventImages?: ImageToManyEventImageFilter;
   /** `eventImages` exist. */
   eventImagesExist?: boolean;
@@ -6424,6 +6486,10 @@ export interface NoteFilter {
   eventNotes?: NoteToManyEventNoteFilter;
   /** `eventNotes` exist. */
   eventNotesExist?: boolean;
+  /** Filter by the object’s `taskNotes` relation. */
+  taskNotes?: NoteToManyTaskNoteFilter;
+  /** `taskNotes` exist. */
+  taskNotesExist?: boolean;
   /** BM25 search on the `content` column. */
   bm25Content?: Bm25SearchInput;
   /** BM25 search on the `embedding_text` column. */
@@ -6625,6 +6691,10 @@ export interface ProjectFilter {
   projectContacts?: ProjectToManyProjectContactFilter;
   /** `projectContacts` exist. */
   projectContactsExist?: boolean;
+  /** Filter by the object’s `taskProjects` relation. */
+  taskProjects?: ProjectToManyTaskProjectFilter;
+  /** `taskProjects` exist. */
+  taskProjectsExist?: boolean;
   /** Filter by the object’s `goalProjects` relation. */
   goalProjects?: ProjectToManyGoalProjectFilter;
   /** `goalProjects` exist. */
@@ -6694,6 +6764,87 @@ export interface ContactsChunkFilter {
   contacts?: ContactFilter;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
+}
+export interface TaskFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `priority` field. */
+  priority?: IntFilter;
+  /** Filter by the object’s `result` field. */
+  result?: StringTrgmFilter;
+  /** Filter by the object’s `startedAt` field. */
+  startedAt?: DatetimeFilter;
+  /** Filter by the object’s `completedAt` field. */
+  completedAt?: DatetimeFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskFilter[];
+  /** Negates the expression. */
+  not?: TaskFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** A related `agent` exists. */
+  agentExists?: boolean;
+  /** Filter by the object’s `tasksChunksByTasksId` relation. */
+  tasksChunksByTasksId?: TaskToManyTasksChunkFilter;
+  /** `tasksChunksByTasksId` exist. */
+  tasksChunksByTasksIdExist?: boolean;
+  /** Filter by the object’s `taskContacts` relation. */
+  taskContacts?: TaskToManyTaskContactFilter;
+  /** `taskContacts` exist. */
+  taskContactsExist?: boolean;
+  /** Filter by the object’s `taskProjects` relation. */
+  taskProjects?: TaskToManyTaskProjectFilter;
+  /** `taskProjects` exist. */
+  taskProjectsExist?: boolean;
+  /** Filter by the object’s `taskNotes` relation. */
+  taskNotes?: TaskToManyTaskNoteFilter;
+  /** `taskNotes` exist. */
+  taskNotesExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `title` column. */
+  trgmTitle?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `result` column. */
+  trgmResult?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 export interface ConversationFilter {
   /** Filter by the object’s `id` field. */
@@ -8617,6 +8768,94 @@ export interface TagFilter {
   /** Negates the expression. */
   not?: TagFilter;
 }
+export interface TaskContactFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskContactFilter[];
+  /** Negates the expression. */
+  not?: TaskContactFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+export interface TaskNoteFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskNoteFilter[];
+  /** Negates the expression. */
+  not?: TaskNoteFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+export interface TaskProjectFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskProjectFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskProjectFilter[];
+  /** Negates the expression. */
+  not?: TaskProjectFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
+export interface TasksChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `tasksId` field. */
+  tasksId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: TasksChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TasksChunkFilter[];
+  /** Negates the expression. */
+  not?: TasksChunkFilter;
+  /** Filter by the object’s `tasks` relation. */
+  tasks?: TaskFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 export interface ToolExecutionFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -9015,58 +9254,6 @@ export type AgentsChunkOrderBy =
   | 'ID_DESC'
   | 'AGENTS_ID_ASC'
   | 'AGENTS_ID_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'CREATED_AT_ASC'
-  | 'CREATED_AT_DESC'
-  | 'UPDATED_AT_ASC'
-  | 'UPDATED_AT_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type AgentTaskOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'AGENT_ID_ASC'
-  | 'AGENT_ID_DESC'
-  | 'STATUS_ASC'
-  | 'STATUS_DESC'
-  | 'PRIORITY_ASC'
-  | 'PRIORITY_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'TITLE_TRGM_SIMILARITY_ASC'
-  | 'TITLE_TRGM_SIMILARITY_DESC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
-  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
-  | 'STATUS_TRGM_SIMILARITY_ASC'
-  | 'STATUS_TRGM_SIMILARITY_DESC'
-  | 'RESULT_TRGM_SIMILARITY_ASC'
-  | 'RESULT_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
-export type AgentTasksChunkOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'AGENT_TASKS_ID_ASC'
-  | 'AGENT_TASKS_ID_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'CREATED_AT_ASC'
@@ -9711,6 +9898,40 @@ export type ContactsChunkOrderBy =
   | 'UPDATED_AT_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
   | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type TaskOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'STATUS_ASC'
+  | 'STATUS_DESC'
+  | 'PRIORITY_ASC'
+  | 'PRIORITY_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'TITLE_TRGM_SIMILARITY_ASC'
+  | 'TITLE_TRGM_SIMILARITY_DESC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_ASC'
+  | 'DESCRIPTION_TRGM_SIMILARITY_DESC'
+  | 'STATUS_TRGM_SIMILARITY_ASC'
+  | 'STATUS_TRGM_SIMILARITY_DESC'
+  | 'RESULT_TRGM_SIMILARITY_ASC'
+  | 'RESULT_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ConversationOrderBy =
@@ -10743,6 +10964,60 @@ export type TagOrderBy =
   | 'NAME_DESC'
   | 'CATEGORY_ASC'
   | 'CATEGORY_DESC';
+export type TaskContactOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'TASK_ID_ASC'
+  | 'TASK_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
+export type TaskNoteOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'TASK_ID_ASC'
+  | 'TASK_ID_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
+export type TaskProjectOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'TASK_ID_ASC'
+  | 'TASK_ID_DESC'
+  | 'PROJECT_ID_ASC'
+  | 'PROJECT_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
+export type TasksChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'TASKS_ID_ASC'
+  | 'TASKS_ID_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ToolExecutionOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -11055,74 +11330,6 @@ export interface UpdateAgentsChunkInput {
   agentsChunkPatch: AgentsChunkPatch;
 }
 export interface DeleteAgentsChunkInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateAgentTaskInput {
-  clientMutationId?: string;
-  agentTask: {
-    entityId: string;
-    agentId: string;
-    title: string;
-    description?: string;
-    status?: string;
-    priority?: number;
-    result?: string;
-    startedAt?: string;
-    completedAt?: string;
-    meta?: Record<string, unknown>;
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-  };
-}
-export interface AgentTaskPatch {
-  entityId?: string | null;
-  agentId?: string | null;
-  title?: string | null;
-  description?: string | null;
-  status?: string | null;
-  priority?: number | null;
-  result?: string | null;
-  startedAt?: string | null;
-  completedAt?: string | null;
-  meta?: Record<string, unknown> | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-}
-export interface UpdateAgentTaskInput {
-  clientMutationId?: string;
-  id: string;
-  agentTaskPatch: AgentTaskPatch;
-}
-export interface DeleteAgentTaskInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateAgentTasksChunkInput {
-  clientMutationId?: string;
-  agentTasksChunk: {
-    agentTasksId: string;
-    content: string;
-    chunkIndex?: number;
-    embedding?: number[];
-    metadata?: Record<string, unknown>;
-  };
-}
-export interface AgentTasksChunkPatch {
-  agentTasksId?: string | null;
-  content?: string | null;
-  chunkIndex?: number | null;
-  embedding?: number[] | null;
-  metadata?: Record<string, unknown> | null;
-}
-export interface UpdateAgentTasksChunkInput {
-  clientMutationId?: string;
-  id: string;
-  agentTasksChunkPatch: AgentTasksChunkPatch;
-}
-export interface DeleteAgentTasksChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11991,6 +12198,48 @@ export interface UpdateContactsChunkInput {
   contactsChunkPatch: ContactsChunkPatch;
 }
 export interface DeleteContactsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTaskInput {
+  clientMutationId?: string;
+  task: {
+    entityId: string;
+    agentId?: string;
+    title: string;
+    description?: string;
+    status?: string;
+    priority?: number;
+    result?: string;
+    startedAt?: string;
+    completedAt?: string;
+    meta?: Record<string, unknown>;
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+  };
+}
+export interface TaskPatch {
+  entityId?: string | null;
+  agentId?: string | null;
+  title?: string | null;
+  description?: string | null;
+  status?: string | null;
+  priority?: number | null;
+  result?: string | null;
+  startedAt?: string | null;
+  completedAt?: string | null;
+  meta?: Record<string, unknown> | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+}
+export interface UpdateTaskInput {
+  clientMutationId?: string;
+  id: string;
+  taskPatch: TaskPatch;
+}
+export interface DeleteTaskInput {
   clientMutationId?: string;
   id: string;
 }
@@ -13476,6 +13725,98 @@ export interface DeleteTagInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateTaskContactInput {
+  clientMutationId?: string;
+  taskContact: {
+    taskId: string;
+    contactId: string;
+    entityId: string;
+  };
+}
+export interface TaskContactPatch {
+  taskId?: string | null;
+  contactId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateTaskContactInput {
+  clientMutationId?: string;
+  id: string;
+  taskContactPatch: TaskContactPatch;
+}
+export interface DeleteTaskContactInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTaskNoteInput {
+  clientMutationId?: string;
+  taskNote: {
+    taskId: string;
+    noteId: string;
+    entityId: string;
+  };
+}
+export interface TaskNotePatch {
+  taskId?: string | null;
+  noteId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateTaskNoteInput {
+  clientMutationId?: string;
+  id: string;
+  taskNotePatch: TaskNotePatch;
+}
+export interface DeleteTaskNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTaskProjectInput {
+  clientMutationId?: string;
+  taskProject: {
+    taskId: string;
+    projectId: string;
+    entityId: string;
+  };
+}
+export interface TaskProjectPatch {
+  taskId?: string | null;
+  projectId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateTaskProjectInput {
+  clientMutationId?: string;
+  id: string;
+  taskProjectPatch: TaskProjectPatch;
+}
+export interface DeleteTaskProjectInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTasksChunkInput {
+  clientMutationId?: string;
+  tasksChunk: {
+    tasksId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+  };
+}
+export interface TasksChunkPatch {
+  tasksId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+}
+export interface UpdateTasksChunkInput {
+  clientMutationId?: string;
+  id: string;
+  tasksChunkPatch: TasksChunkPatch;
+}
+export interface DeleteTasksChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateToolExecutionInput {
   clientMutationId?: string;
   toolExecution: {
@@ -13736,7 +14077,7 @@ export interface DeleteVenuesChunkInput {
 export const connectionFieldsMap = {
   Agent: {
     agentsChunksByAgentsId: 'AgentsChunk',
-    agentTasks: 'AgentTask',
+    tasks: 'Task',
     agentLogs: 'AgentLog',
     rules: 'Rule',
     skills: 'Skill',
@@ -13745,9 +14086,6 @@ export const connectionFieldsMap = {
   },
   AgentLog: {
     agentLogsChunksByAgentLogsId: 'AgentLogsChunk',
-  },
-  AgentTask: {
-    agentTasksChunksByAgentTasksId: 'AgentTasksChunk',
   },
   AutonomyRecord: {
     autonomyRecordsChunksByAutonomyRecordsId: 'AutonomyRecordsChunk',
@@ -13777,6 +14115,7 @@ export const connectionFieldsMap = {
   },
   Contact: {
     projects: 'Project',
+    tasks: 'Task',
     notes: 'Note',
     memories: 'Memory',
     contactsChunksByContactsId: 'ContactsChunk',
@@ -13789,6 +14128,7 @@ export const connectionFieldsMap = {
     dealContacts: 'DealContact',
     contactRelationships: 'ContactRelationship',
     projectContacts: 'ProjectContact',
+    taskContacts: 'TaskContact',
     contactNotes: 'ContactNote',
     contactMemories: 'ContactMemory',
     imagesByContactImageContactIdAndImageId: 'Image',
@@ -13847,18 +14187,31 @@ export const connectionFieldsMap = {
     companies: 'Company',
     deals: 'Deal',
     events: 'Event',
+    tasks: 'Task',
     notesChunksByNotesId: 'NotesChunk',
     contactNotes: 'ContactNote',
     companyNotes: 'CompanyNote',
     dealNotes: 'DealNote',
     eventNotes: 'EventNote',
+    taskNotes: 'TaskNote',
   },
   Project: {
     contacts: 'Contact',
+    tasks: 'Task',
     goals: 'Goal',
     projectsChunksByProjectsId: 'ProjectsChunk',
     projectContacts: 'ProjectContact',
+    taskProjects: 'TaskProject',
     goalProjects: 'GoalProject',
+  },
+  Task: {
+    contacts: 'Contact',
+    projects: 'Project',
+    notes: 'Note',
+    tasksChunksByTasksId: 'TasksChunk',
+    taskContacts: 'TaskContact',
+    taskProjects: 'TaskProject',
+    taskNotes: 'TaskNote',
   },
   Conversation: {
     conversationsChunksByConversationsId: 'ConversationsChunk',
@@ -14030,14 +14383,14 @@ export interface AgentToManyAgentsChunkFilter {
   /** Filters to entities where no related entity matches. */
   none?: AgentsChunkFilter;
 }
-/** A filter to be used against many `AgentTask` object types. All fields are combined with a logical ‘and.’ */
-export interface AgentToManyAgentTaskFilter {
+/** A filter to be used against many `Task` object types. All fields are combined with a logical ‘and.’ */
+export interface AgentToManyTaskFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: AgentTaskFilter;
+  some?: TaskFilter;
   /** Filters to entities where every related entity matches. */
-  every?: AgentTaskFilter;
+  every?: TaskFilter;
   /** Filters to entities where no related entity matches. */
-  none?: AgentTaskFilter;
+  none?: TaskFilter;
 }
 /** A filter to be used against many `AgentLog` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentToManyAgentLogFilter {
@@ -14117,15 +14470,6 @@ export interface AgentLogToManyAgentLogsChunkFilter {
   every?: AgentLogsChunkFilter;
   /** Filters to entities where no related entity matches. */
   none?: AgentLogsChunkFilter;
-}
-/** A filter to be used against many `AgentTasksChunk` object types. All fields are combined with a logical ‘and.’ */
-export interface AgentTaskToManyAgentTasksChunkFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: AgentTasksChunkFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: AgentTasksChunkFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: AgentTasksChunkFilter;
 }
 /** A filter to be used against many `AutonomyRecordsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AutonomyRecordToManyAutonomyRecordsChunkFilter {
@@ -14342,6 +14686,15 @@ export interface ContactToManyProjectContactFilter {
   every?: ProjectContactFilter;
   /** Filters to entities where no related entity matches. */
   none?: ProjectContactFilter;
+}
+/** A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyTaskContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskContactFilter;
 }
 /** A filter to be used against many `ContactNote` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyContactNoteFilter {
@@ -14622,6 +14975,15 @@ export interface NoteToManyEventNoteFilter {
   /** Filters to entities where no related entity matches. */
   none?: EventNoteFilter;
 }
+/** A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyTaskNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskNoteFilter;
+}
 /** A filter to be used against many `ProjectsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectToManyProjectsChunkFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14640,6 +15002,15 @@ export interface ProjectToManyProjectContactFilter {
   /** Filters to entities where no related entity matches. */
   none?: ProjectContactFilter;
 }
+/** A filter to be used against many `TaskProject` object types. All fields are combined with a logical ‘and.’ */
+export interface ProjectToManyTaskProjectFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskProjectFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskProjectFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskProjectFilter;
+}
 /** A filter to be used against many `GoalProject` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectToManyGoalProjectFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14648,6 +15019,42 @@ export interface ProjectToManyGoalProjectFilter {
   every?: GoalProjectFilter;
   /** Filters to entities where no related entity matches. */
   none?: GoalProjectFilter;
+}
+/** A filter to be used against many `TasksChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTasksChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TasksChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TasksChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TasksChunkFilter;
+}
+/** A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTaskContactFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskContactFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskContactFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskContactFilter;
+}
+/** A filter to be used against many `TaskProject` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTaskProjectFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskProjectFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskProjectFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskProjectFilter;
+}
+/** A filter to be used against many `TaskNote` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTaskNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TaskNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TaskNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TaskNoteFilter;
 }
 /** A filter to be used against many `ConversationsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ConversationToManyConversationsChunkFilter {
@@ -14993,8 +15400,8 @@ export interface AgentsChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
-/** A filter to be used against `AgentTask` object types. All fields are combined with a logical ‘and.’ */
-export interface AgentTaskFilter {
+/** A filter to be used against `Task` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
@@ -15028,17 +15435,31 @@ export interface AgentTaskFilter {
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
   /** Checks for all expressions in this list. */
-  and?: AgentTaskFilter[];
+  and?: TaskFilter[];
   /** Checks for any expressions in this list. */
-  or?: AgentTaskFilter[];
+  or?: TaskFilter[];
   /** Negates the expression. */
-  not?: AgentTaskFilter;
+  not?: TaskFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
-  /** Filter by the object’s `agentTasksChunksByAgentTasksId` relation. */
-  agentTasksChunksByAgentTasksId?: AgentTaskToManyAgentTasksChunkFilter;
-  /** `agentTasksChunksByAgentTasksId` exist. */
-  agentTasksChunksByAgentTasksIdExist?: boolean;
+  /** A related `agent` exists. */
+  agentExists?: boolean;
+  /** Filter by the object’s `tasksChunksByTasksId` relation. */
+  tasksChunksByTasksId?: TaskToManyTasksChunkFilter;
+  /** `tasksChunksByTasksId` exist. */
+  tasksChunksByTasksIdExist?: boolean;
+  /** Filter by the object’s `taskContacts` relation. */
+  taskContacts?: TaskToManyTaskContactFilter;
+  /** `taskContacts` exist. */
+  taskContactsExist?: boolean;
+  /** Filter by the object’s `taskProjects` relation. */
+  taskProjects?: TaskToManyTaskProjectFilter;
+  /** `taskProjects` exist. */
+  taskProjectsExist?: boolean;
+  /** Filter by the object’s `taskNotes` relation. */
+  taskNotes?: TaskToManyTaskNoteFilter;
+  /** `taskNotes` exist. */
+  taskNotesExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -15390,35 +15811,6 @@ export interface AgentLogsChunkFilter {
   not?: AgentLogsChunkFilter;
   /** Filter by the object’s `agentLogs` relation. */
   agentLogs?: AgentLogFilter;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-}
-/** A filter to be used against `AgentTasksChunk` object types. All fields are combined with a logical ‘and.’ */
-export interface AgentTasksChunkFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `agentTasksId` field. */
-  agentTasksId?: UUIDFilter;
-  /** Filter by the object’s `content` field. */
-  content?: StringFilter;
-  /** Filter by the object’s `chunkIndex` field. */
-  chunkIndex?: IntFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `metadata` field. */
-  metadata?: JSONFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Checks for all expressions in this list. */
-  and?: AgentTasksChunkFilter[];
-  /** Checks for any expressions in this list. */
-  or?: AgentTasksChunkFilter[];
-  /** Negates the expression. */
-  not?: AgentTasksChunkFilter;
-  /** Filter by the object’s `agentTasks` relation. */
-  agentTasks?: AgentTaskFilter;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
@@ -16081,6 +16473,27 @@ export interface ProjectContactFilter {
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
 }
+/** A filter to be used against `TaskContact` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskContactFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskContactFilter[];
+  /** Negates the expression. */
+  not?: TaskContactFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
 /** A filter to be used against `ContactNote` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactNoteFilter {
   /** Filter by the object’s `contactId` field. */
@@ -16398,6 +16811,10 @@ export interface ContactFilter {
   projectContacts?: ContactToManyProjectContactFilter;
   /** `projectContacts` exist. */
   projectContactsExist?: boolean;
+  /** Filter by the object’s `taskContacts` relation. */
+  taskContacts?: ContactToManyTaskContactFilter;
+  /** `taskContacts` exist. */
+  taskContactsExist?: boolean;
   /** Filter by the object’s `contactNotes` relation. */
   contactNotes?: ContactToManyContactNoteFilter;
   /** `contactNotes` exist. */
@@ -16837,6 +17254,27 @@ export interface NotesChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
+/** A filter to be used against `TaskNote` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskNoteFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskNoteFilter[];
+  /** Negates the expression. */
+  not?: TaskNoteFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
 /** A filter to be used against `ProjectsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectsChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -16866,6 +17304,27 @@ export interface ProjectsChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
+/** A filter to be used against `TaskProject` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskProjectFilter {
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TaskProjectFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TaskProjectFilter[];
+  /** Negates the expression. */
+  not?: TaskProjectFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+}
 /** A filter to be used against `GoalProject` object types. All fields are combined with a logical ‘and.’ */
 export interface GoalProjectFilter {
   /** Filter by the object’s `goalId` field. */
@@ -16886,6 +17345,35 @@ export interface GoalProjectFilter {
   goal?: GoalFilter;
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
+}
+/** A filter to be used against `TasksChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface TasksChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `tasksId` field. */
+  tasksId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: TasksChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TasksChunkFilter[];
+  /** Negates the expression. */
+  not?: TasksChunkFilter;
+  /** Filter by the object’s `tasks` relation. */
+  tasks?: TaskFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `ConversationsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ConversationsChunkFilter {
@@ -17987,10 +18475,10 @@ export interface AgentFilter {
   agentsChunksByAgentsId?: AgentToManyAgentsChunkFilter;
   /** `agentsChunksByAgentsId` exist. */
   agentsChunksByAgentsIdExist?: boolean;
-  /** Filter by the object’s `agentTasks` relation. */
-  agentTasks?: AgentToManyAgentTaskFilter;
-  /** `agentTasks` exist. */
-  agentTasksExist?: boolean;
+  /** Filter by the object’s `tasks` relation. */
+  tasks?: AgentToManyTaskFilter;
+  /** `tasks` exist. */
+  tasksExist?: boolean;
   /** Filter by the object’s `agentLogs` relation. */
   agentLogs?: AgentToManyAgentLogFilter;
   /** `agentLogs` exist. */
@@ -18377,7 +18865,7 @@ export interface ImageFilter {
   companyImages?: ImageToManyCompanyImageFilter;
   /** `companyImages` exist. */
   companyImagesExist?: boolean;
-  /** Filter by the object’s `eventImages` relation. */
+  /** Filter by the object��s `eventImages` relation. */
   eventImages?: ImageToManyEventImageFilter;
   /** `eventImages` exist. */
   eventImagesExist?: boolean;
@@ -18442,6 +18930,10 @@ export interface NoteFilter {
   eventNotes?: NoteToManyEventNoteFilter;
   /** `eventNotes` exist. */
   eventNotesExist?: boolean;
+  /** Filter by the object’s `taskNotes` relation. */
+  taskNotes?: NoteToManyTaskNoteFilter;
+  /** `taskNotes` exist. */
+  taskNotesExist?: boolean;
   /** BM25 search on the `content` column. */
   bm25Content?: Bm25SearchInput;
   /** BM25 search on the `embedding_text` column. */
@@ -18514,6 +19006,10 @@ export interface ProjectFilter {
   projectContacts?: ProjectToManyProjectContactFilter;
   /** `projectContacts` exist. */
   projectContactsExist?: boolean;
+  /** Filter by the object’s `taskProjects` relation. */
+  taskProjects?: ProjectToManyTaskProjectFilter;
+  /** `taskProjects` exist. */
+  taskProjectsExist?: boolean;
   /** Filter by the object’s `goalProjects` relation. */
   goalProjects?: ProjectToManyGoalProjectFilter;
   /** `goalProjects` exist. */
@@ -19378,96 +19874,6 @@ export type DeleteAgentsChunkPayloadSelect = {
   };
   agentsChunkEdge?: {
     select: AgentsChunkEdgeSelect;
-  };
-};
-export interface CreateAgentTaskPayload {
-  clientMutationId?: string | null;
-  /** The `AgentTask` that was created by this mutation. */
-  agentTask?: AgentTask | null;
-  agentTaskEdge?: AgentTaskEdge | null;
-}
-export type CreateAgentTaskPayloadSelect = {
-  clientMutationId?: boolean;
-  agentTask?: {
-    select: AgentTaskSelect;
-  };
-  agentTaskEdge?: {
-    select: AgentTaskEdgeSelect;
-  };
-};
-export interface UpdateAgentTaskPayload {
-  clientMutationId?: string | null;
-  /** The `AgentTask` that was updated by this mutation. */
-  agentTask?: AgentTask | null;
-  agentTaskEdge?: AgentTaskEdge | null;
-}
-export type UpdateAgentTaskPayloadSelect = {
-  clientMutationId?: boolean;
-  agentTask?: {
-    select: AgentTaskSelect;
-  };
-  agentTaskEdge?: {
-    select: AgentTaskEdgeSelect;
-  };
-};
-export interface DeleteAgentTaskPayload {
-  clientMutationId?: string | null;
-  /** The `AgentTask` that was deleted by this mutation. */
-  agentTask?: AgentTask | null;
-  agentTaskEdge?: AgentTaskEdge | null;
-}
-export type DeleteAgentTaskPayloadSelect = {
-  clientMutationId?: boolean;
-  agentTask?: {
-    select: AgentTaskSelect;
-  };
-  agentTaskEdge?: {
-    select: AgentTaskEdgeSelect;
-  };
-};
-export interface CreateAgentTasksChunkPayload {
-  clientMutationId?: string | null;
-  /** The `AgentTasksChunk` that was created by this mutation. */
-  agentTasksChunk?: AgentTasksChunk | null;
-  agentTasksChunkEdge?: AgentTasksChunkEdge | null;
-}
-export type CreateAgentTasksChunkPayloadSelect = {
-  clientMutationId?: boolean;
-  agentTasksChunk?: {
-    select: AgentTasksChunkSelect;
-  };
-  agentTasksChunkEdge?: {
-    select: AgentTasksChunkEdgeSelect;
-  };
-};
-export interface UpdateAgentTasksChunkPayload {
-  clientMutationId?: string | null;
-  /** The `AgentTasksChunk` that was updated by this mutation. */
-  agentTasksChunk?: AgentTasksChunk | null;
-  agentTasksChunkEdge?: AgentTasksChunkEdge | null;
-}
-export type UpdateAgentTasksChunkPayloadSelect = {
-  clientMutationId?: boolean;
-  agentTasksChunk?: {
-    select: AgentTasksChunkSelect;
-  };
-  agentTasksChunkEdge?: {
-    select: AgentTasksChunkEdgeSelect;
-  };
-};
-export interface DeleteAgentTasksChunkPayload {
-  clientMutationId?: string | null;
-  /** The `AgentTasksChunk` that was deleted by this mutation. */
-  agentTasksChunk?: AgentTasksChunk | null;
-  agentTasksChunkEdge?: AgentTasksChunkEdge | null;
-}
-export type DeleteAgentTasksChunkPayloadSelect = {
-  clientMutationId?: boolean;
-  agentTasksChunk?: {
-    select: AgentTasksChunkSelect;
-  };
-  agentTasksChunkEdge?: {
-    select: AgentTasksChunkEdgeSelect;
   };
 };
 export interface CreateAutonomyRecordPayload {
@@ -20773,6 +21179,51 @@ export type DeleteContactsChunkPayloadSelect = {
   };
   contactsChunkEdge?: {
     select: ContactsChunkEdgeSelect;
+  };
+};
+export interface CreateTaskPayload {
+  clientMutationId?: string | null;
+  /** The `Task` that was created by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
+}
+export type CreateTaskPayloadSelect = {
+  clientMutationId?: boolean;
+  task?: {
+    select: TaskSelect;
+  };
+  taskEdge?: {
+    select: TaskEdgeSelect;
+  };
+};
+export interface UpdateTaskPayload {
+  clientMutationId?: string | null;
+  /** The `Task` that was updated by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
+}
+export type UpdateTaskPayloadSelect = {
+  clientMutationId?: boolean;
+  task?: {
+    select: TaskSelect;
+  };
+  taskEdge?: {
+    select: TaskEdgeSelect;
+  };
+};
+export interface DeleteTaskPayload {
+  clientMutationId?: string | null;
+  /** The `Task` that was deleted by this mutation. */
+  task?: Task | null;
+  taskEdge?: TaskEdge | null;
+}
+export type DeleteTaskPayloadSelect = {
+  clientMutationId?: boolean;
+  task?: {
+    select: TaskSelect;
+  };
+  taskEdge?: {
+    select: TaskEdgeSelect;
   };
 };
 export interface CreateConversationPayload {
@@ -23025,6 +23476,186 @@ export type DeleteTagPayloadSelect = {
     select: TagEdgeSelect;
   };
 };
+export interface CreateTaskContactPayload {
+  clientMutationId?: string | null;
+  /** The `TaskContact` that was created by this mutation. */
+  taskContact?: TaskContact | null;
+  taskContactEdge?: TaskContactEdge | null;
+}
+export type CreateTaskContactPayloadSelect = {
+  clientMutationId?: boolean;
+  taskContact?: {
+    select: TaskContactSelect;
+  };
+  taskContactEdge?: {
+    select: TaskContactEdgeSelect;
+  };
+};
+export interface UpdateTaskContactPayload {
+  clientMutationId?: string | null;
+  /** The `TaskContact` that was updated by this mutation. */
+  taskContact?: TaskContact | null;
+  taskContactEdge?: TaskContactEdge | null;
+}
+export type UpdateTaskContactPayloadSelect = {
+  clientMutationId?: boolean;
+  taskContact?: {
+    select: TaskContactSelect;
+  };
+  taskContactEdge?: {
+    select: TaskContactEdgeSelect;
+  };
+};
+export interface DeleteTaskContactPayload {
+  clientMutationId?: string | null;
+  /** The `TaskContact` that was deleted by this mutation. */
+  taskContact?: TaskContact | null;
+  taskContactEdge?: TaskContactEdge | null;
+}
+export type DeleteTaskContactPayloadSelect = {
+  clientMutationId?: boolean;
+  taskContact?: {
+    select: TaskContactSelect;
+  };
+  taskContactEdge?: {
+    select: TaskContactEdgeSelect;
+  };
+};
+export interface CreateTaskNotePayload {
+  clientMutationId?: string | null;
+  /** The `TaskNote` that was created by this mutation. */
+  taskNote?: TaskNote | null;
+  taskNoteEdge?: TaskNoteEdge | null;
+}
+export type CreateTaskNotePayloadSelect = {
+  clientMutationId?: boolean;
+  taskNote?: {
+    select: TaskNoteSelect;
+  };
+  taskNoteEdge?: {
+    select: TaskNoteEdgeSelect;
+  };
+};
+export interface UpdateTaskNotePayload {
+  clientMutationId?: string | null;
+  /** The `TaskNote` that was updated by this mutation. */
+  taskNote?: TaskNote | null;
+  taskNoteEdge?: TaskNoteEdge | null;
+}
+export type UpdateTaskNotePayloadSelect = {
+  clientMutationId?: boolean;
+  taskNote?: {
+    select: TaskNoteSelect;
+  };
+  taskNoteEdge?: {
+    select: TaskNoteEdgeSelect;
+  };
+};
+export interface DeleteTaskNotePayload {
+  clientMutationId?: string | null;
+  /** The `TaskNote` that was deleted by this mutation. */
+  taskNote?: TaskNote | null;
+  taskNoteEdge?: TaskNoteEdge | null;
+}
+export type DeleteTaskNotePayloadSelect = {
+  clientMutationId?: boolean;
+  taskNote?: {
+    select: TaskNoteSelect;
+  };
+  taskNoteEdge?: {
+    select: TaskNoteEdgeSelect;
+  };
+};
+export interface CreateTaskProjectPayload {
+  clientMutationId?: string | null;
+  /** The `TaskProject` that was created by this mutation. */
+  taskProject?: TaskProject | null;
+  taskProjectEdge?: TaskProjectEdge | null;
+}
+export type CreateTaskProjectPayloadSelect = {
+  clientMutationId?: boolean;
+  taskProject?: {
+    select: TaskProjectSelect;
+  };
+  taskProjectEdge?: {
+    select: TaskProjectEdgeSelect;
+  };
+};
+export interface UpdateTaskProjectPayload {
+  clientMutationId?: string | null;
+  /** The `TaskProject` that was updated by this mutation. */
+  taskProject?: TaskProject | null;
+  taskProjectEdge?: TaskProjectEdge | null;
+}
+export type UpdateTaskProjectPayloadSelect = {
+  clientMutationId?: boolean;
+  taskProject?: {
+    select: TaskProjectSelect;
+  };
+  taskProjectEdge?: {
+    select: TaskProjectEdgeSelect;
+  };
+};
+export interface DeleteTaskProjectPayload {
+  clientMutationId?: string | null;
+  /** The `TaskProject` that was deleted by this mutation. */
+  taskProject?: TaskProject | null;
+  taskProjectEdge?: TaskProjectEdge | null;
+}
+export type DeleteTaskProjectPayloadSelect = {
+  clientMutationId?: boolean;
+  taskProject?: {
+    select: TaskProjectSelect;
+  };
+  taskProjectEdge?: {
+    select: TaskProjectEdgeSelect;
+  };
+};
+export interface CreateTasksChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TasksChunk` that was created by this mutation. */
+  tasksChunk?: TasksChunk | null;
+  tasksChunkEdge?: TasksChunkEdge | null;
+}
+export type CreateTasksChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  tasksChunk?: {
+    select: TasksChunkSelect;
+  };
+  tasksChunkEdge?: {
+    select: TasksChunkEdgeSelect;
+  };
+};
+export interface UpdateTasksChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TasksChunk` that was updated by this mutation. */
+  tasksChunk?: TasksChunk | null;
+  tasksChunkEdge?: TasksChunkEdge | null;
+}
+export type UpdateTasksChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  tasksChunk?: {
+    select: TasksChunkSelect;
+  };
+  tasksChunkEdge?: {
+    select: TasksChunkEdgeSelect;
+  };
+};
+export interface DeleteTasksChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TasksChunk` that was deleted by this mutation. */
+  tasksChunk?: TasksChunk | null;
+  tasksChunkEdge?: TasksChunkEdge | null;
+}
+export type DeleteTasksChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  tasksChunk?: {
+    select: TasksChunkSelect;
+  };
+  tasksChunkEdge?: {
+    select: TasksChunkEdgeSelect;
+  };
+};
 export interface CreateToolExecutionPayload {
   clientMutationId?: string | null;
   /** The `ToolExecution` that was created by this mutation. */
@@ -23490,30 +24121,6 @@ export type AgentsChunkEdgeSelect = {
     select: AgentsChunkSelect;
   };
 };
-/** A `AgentTask` edge in the connection. */
-export interface AgentTaskEdge {
-  cursor?: string | null;
-  /** The `AgentTask` at the end of the edge. */
-  node?: AgentTask | null;
-}
-export type AgentTaskEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: AgentTaskSelect;
-  };
-};
-/** A `AgentTasksChunk` edge in the connection. */
-export interface AgentTasksChunkEdge {
-  cursor?: string | null;
-  /** The `AgentTasksChunk` at the end of the edge. */
-  node?: AgentTasksChunk | null;
-}
-export type AgentTasksChunkEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: AgentTasksChunkSelect;
-  };
-};
 /** A `AutonomyRecord` edge in the connection. */
 export interface AutonomyRecordEdge {
   cursor?: string | null;
@@ -23860,6 +24467,18 @@ export type ContactsChunkEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ContactsChunkSelect;
+  };
+};
+/** A `Task` edge in the connection. */
+export interface TaskEdge {
+  cursor?: string | null;
+  /** The `Task` at the end of the edge. */
+  node?: Task | null;
+}
+export type TaskEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TaskSelect;
   };
 };
 /** A `Conversation` edge in the connection. */
@@ -24460,6 +25079,54 @@ export type TagEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: TagSelect;
+  };
+};
+/** A `TaskContact` edge in the connection. */
+export interface TaskContactEdge {
+  cursor?: string | null;
+  /** The `TaskContact` at the end of the edge. */
+  node?: TaskContact | null;
+}
+export type TaskContactEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TaskContactSelect;
+  };
+};
+/** A `TaskNote` edge in the connection. */
+export interface TaskNoteEdge {
+  cursor?: string | null;
+  /** The `TaskNote` at the end of the edge. */
+  node?: TaskNote | null;
+}
+export type TaskNoteEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TaskNoteSelect;
+  };
+};
+/** A `TaskProject` edge in the connection. */
+export interface TaskProjectEdge {
+  cursor?: string | null;
+  /** The `TaskProject` at the end of the edge. */
+  node?: TaskProject | null;
+}
+export type TaskProjectEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TaskProjectSelect;
+  };
+};
+/** A `TasksChunk` edge in the connection. */
+export interface TasksChunkEdge {
+  cursor?: string | null;
+  /** The `TasksChunk` at the end of the edge. */
+  node?: TasksChunk | null;
+}
+export type TasksChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TasksChunkSelect;
   };
 };
 /** A `ToolExecution` edge in the connection. */

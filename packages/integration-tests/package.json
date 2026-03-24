@@ -15,15 +15,15 @@
   "devDependencies": {
     "@agentic-kit/ollama": "^1.0.3",
     "@0no-co/graphql.web": "^1.2.0",
-    "@constructive-io/graphql-codegen": "4.21.2",
-    "@constructive-io/graphql-query": "3.9.1",
+    "@constructive-io/graphql-codegen": "4.22.1",
+    "@constructive-io/graphql-query": "3.10.1",
     "@constructive-io/graphql-types": "3.3.4",
     "@types/pg": "^8.16.0",
     "gql-ast": "3.3.3",
-    "graphile-settings": "4.12.2",
-    "graphile-test": "^4.5.10",
+    "graphile-settings": "4.13.1",
+    "graphile-test": "^4.6.1",
     "graphql": "16.13.0",
-    "pgsql-test": "^4.5.10",
+    "pgsql-test": "^4.6.1",
     "typescript": "^5.9.3"
   }
 }

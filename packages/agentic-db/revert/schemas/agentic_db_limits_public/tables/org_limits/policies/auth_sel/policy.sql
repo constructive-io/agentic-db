@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_limits_public/tables/org_limits/policies/auth_sel/policy
 
 
-DROP POLICY auth_sel ON "agentic_db_limits_public".org_limits;
+DROP POLICY auth_sel ON agentic_db_limits_public.org_limits;
 
 

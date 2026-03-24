@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER rules_enqueue_chunking_update_tg
-AFTER UPDATE ON "agentic_db_app_public".rules
+AFTER UPDATE ON agentic_db_app_public.rules
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".rules_enqueue_chunking ( );
+EXECUTE PROCEDURE agentic_db_private.rules_enqueue_chunking ( );
 

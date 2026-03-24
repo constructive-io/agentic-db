@@ -2,9 +2,10 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_memberships_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_memberships_public/tables/app_owner_grants/table
 -- requires: schemas/agentic_db_memberships_public/tables/app_owner_grants/columns/grantor_id/column
 
 
-CREATE INDEX app_owner_grants_grantor_id_idx ON "agentic_db_memberships_public".app_owner_grants USING BTREE ( grantor_id );
+CREATE INDEX app_owner_grants_grantor_id_idx ON agentic_db_memberships_public.app_owner_grants USING BTREE ( grantor_id );
 

@@ -3,10 +3,11 @@
 
 -- requires: schemas/agentic_db_memberships_public/schema
 -- requires: schemas/agentic_db_memberships_public/tables/org_chart_edges/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 CREATE TRIGGER timestamps_tg
-BEFORE INSERT OR UPDATE ON "agentic_db_memberships_public".org_chart_edges
+BEFORE INSERT OR UPDATE ON agentic_db_memberships_public.org_chart_edges
 FOR EACH ROW
 EXECUTE PROCEDURE stamps.timestamps ( );
 

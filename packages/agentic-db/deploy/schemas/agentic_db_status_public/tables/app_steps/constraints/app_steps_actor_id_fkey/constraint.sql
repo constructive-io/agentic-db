@@ -4,11 +4,12 @@
 -- requires: schemas/agentic_db_status_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_status_public/tables/app_steps/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-ALTER TABLE "agentic_db_status_public".app_steps 
+ALTER TABLE agentic_db_status_public.app_steps 
   ADD CONSTRAINT app_steps_actor_id_fkey 
     FOREIGN KEY(actor_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE CASCADE;
 

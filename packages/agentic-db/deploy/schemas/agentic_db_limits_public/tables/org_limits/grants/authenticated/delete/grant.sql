@@ -3,7 +3,8 @@
 
 -- requires: schemas/agentic_db_limits_public/schema
 -- requires: schemas/agentic_db_limits_public/tables/org_limits/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-GRANT DELETE ON "agentic_db_limits_public".org_limits TO authenticated;
+GRANT DELETE ON agentic_db_limits_public.org_limits TO authenticated;
 

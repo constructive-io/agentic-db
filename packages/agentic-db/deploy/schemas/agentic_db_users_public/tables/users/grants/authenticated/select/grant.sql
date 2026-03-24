@@ -3,7 +3,8 @@
 
 -- requires: schemas/agentic_db_users_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-GRANT SELECT ON "agentic_db_users_public".users TO authenticated;
+GRANT SELECT ON agentic_db_users_public.users TO authenticated;
 

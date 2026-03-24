@@ -3,8 +3,9 @@
 
 -- requires: schemas/agentic_db_profiles_public/schema
 -- requires: schemas/agentic_db_profiles_public/tables/app_profiles/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_profiles_public/tables/app_profiles/columns/updated_at/column
 
 
-CREATE INDEX app_profiles_updated_at_idx ON "agentic_db_profiles_public".app_profiles ( updated_at );
+CREATE INDEX app_profiles_updated_at_idx ON agentic_db_profiles_public.app_profiles ( updated_at );
 

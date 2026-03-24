@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-ALTER TABLE "agentic_db_app_public".company_links 
+ALTER TABLE agentic_db_app_public.company_links 
   ADD COLUMN url text;
 

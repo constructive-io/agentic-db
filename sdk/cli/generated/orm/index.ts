@@ -10,8 +10,6 @@ import { AgentModel } from './models/agent';
 import { AgentLogModel } from './models/agentLog';
 import { AgentLogsChunkModel } from './models/agentLogsChunk';
 import { AgentsChunkModel } from './models/agentsChunk';
-import { AgentTaskModel } from './models/agentTask';
-import { AgentTasksChunkModel } from './models/agentTasksChunk';
 import { AutonomyRecordModel } from './models/autonomyRecord';
 import { AutonomyRecordLinkModel } from './models/autonomyRecordLink';
 import { AutonomyRecordsChunkModel } from './models/autonomyRecordsChunk';
@@ -41,6 +39,7 @@ import { ContactNoteModel } from './models/contactNote';
 import { ProjectModel } from './models/project';
 import { ContactRelationshipModel } from './models/contactRelationship';
 import { ContactsChunkModel } from './models/contactsChunk';
+import { TaskModel } from './models/task';
 import { ConversationModel } from './models/conversation';
 import { ConversationsChunkModel } from './models/conversationsChunk';
 import { DealCompanyModel } from './models/dealCompany';
@@ -91,6 +90,10 @@ import { SkillsChunkModel } from './models/skillsChunk';
 import { SkillToolModel } from './models/skillTool';
 import { ToolDefinitionModel } from './models/toolDefinition';
 import { TagModel } from './models/tag';
+import { TaskContactModel } from './models/taskContact';
+import { TaskNoteModel } from './models/taskNote';
+import { TaskProjectModel } from './models/taskProject';
+import { TasksChunkModel } from './models/tasksChunk';
 import { ToolExecutionModel } from './models/toolExecution';
 import { TouchpointModel } from './models/touchpoint';
 import { TouchpointsChunkModel } from './models/touchpointsChunk';
@@ -137,8 +140,6 @@ export function createClient(config: OrmClientConfig) {
     agentLog: new AgentLogModel(client),
     agentLogsChunk: new AgentLogsChunkModel(client),
     agentsChunk: new AgentsChunkModel(client),
-    agentTask: new AgentTaskModel(client),
-    agentTasksChunk: new AgentTasksChunkModel(client),
     autonomyRecord: new AutonomyRecordModel(client),
     autonomyRecordLink: new AutonomyRecordLinkModel(client),
     autonomyRecordsChunk: new AutonomyRecordsChunkModel(client),
@@ -168,6 +169,7 @@ export function createClient(config: OrmClientConfig) {
     project: new ProjectModel(client),
     contactRelationship: new ContactRelationshipModel(client),
     contactsChunk: new ContactsChunkModel(client),
+    task: new TaskModel(client),
     conversation: new ConversationModel(client),
     conversationsChunk: new ConversationsChunkModel(client),
     dealCompany: new DealCompanyModel(client),
@@ -218,6 +220,10 @@ export function createClient(config: OrmClientConfig) {
     skillTool: new SkillToolModel(client),
     toolDefinition: new ToolDefinitionModel(client),
     tag: new TagModel(client),
+    taskContact: new TaskContactModel(client),
+    taskNote: new TaskNoteModel(client),
+    taskProject: new TaskProjectModel(client),
+    tasksChunk: new TasksChunkModel(client),
     toolExecution: new ToolExecutionModel(client),
     touchpoint: new TouchpointModel(client),
     touchpointsChunk: new TouchpointsChunkModel(client),

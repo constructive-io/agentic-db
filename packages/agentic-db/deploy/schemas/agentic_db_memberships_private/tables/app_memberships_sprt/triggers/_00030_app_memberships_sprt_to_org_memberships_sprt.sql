@@ -2,13 +2,13 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_memberships_private/schema
--- requires: schemas/agentic_db_memberships_private/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_memberships_private/tables/app_memberships_sprt/table
 -- requires: schemas/agentic_db_memberships_private/trigger_fns/app_memberships_sprt_to_org_memberships_sprt_tg
 
 
 CREATE TRIGGER _00030_app_memberships_sprt_to_org_memberships_sprt
-AFTER INSERT OR DELETE ON "agentic_db_memberships_private".app_memberships_sprt
+AFTER INSERT OR DELETE ON agentic_db_memberships_private.app_memberships_sprt
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_memberships_private".app_memberships_sprt_to_org_memberships_sprt_tg ( );
+EXECUTE PROCEDURE agentic_db_memberships_private.app_memberships_sprt_to_org_memberships_sprt_tg ( );
 

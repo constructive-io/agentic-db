@@ -2,10 +2,11 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_profiles_private/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION "agentic_db_profiles_private".org_memberships_profile_sync_tg ()
+CREATE FUNCTION agentic_db_profiles_private.org_memberships_profile_sync_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
@@ -16,7 +17,7 @@ BEGIN
     END IF;
     IF (NEW.profile_id IS NOT NULL) THEN
         SELECT permissions INTO v_profile_permissions
-        FROM "agentic_db_profiles_public".org_profiles
+        FROM agentic_db_profiles_public.org_profiles
         WHERE id = NEW.profile_id;
         IF (FOUND AND v_profile_permissions IS NOT NULL) THEN
             NEW.permissions := NEW.granted | v_profile_permissions;

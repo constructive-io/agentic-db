@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX venue_images_entity_id_idx ON "agentic_db_app_public".venue_images USING BTREE ( entity_id );
+CREATE INDEX venue_images_entity_id_idx ON agentic_db_app_public.venue_images USING BTREE ( entity_id );
 

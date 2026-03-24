@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_public/schema
 
 
-GRANT USAGE ON SCHEMA "agentic_db_public" TO anonymous;
+GRANT USAGE ON SCHEMA agentic_db_public TO anonymous;
 

@@ -1,8 +1,8 @@
 /**
  * Non-interactive pgpm export script for agentic-db.
  *
- * Calls exportMigrations from @pgpmjs/core (pgpm 4.x) to generate
- * installable SQL modules from a provisioned database. pgpm 4.x
+ * Calls exportMigrations from @pgpmjs/export to generate
+ * installable SQL modules from a provisioned database. pgpm 4.x+
  * filters db_migrate.sql_actions by database_id natively, so only
  * agentic-db schemas are exported (no constructive platform leakage).
  *
@@ -14,19 +14,11 @@
  *   PGDATABASE   - Postgres database name (default: constructive)
  */
 
-// pgpm is installed globally; resolve its modules from there
-const pgpmRoot = require('child_process')
-  .execSync('npm root -g', { encoding: 'utf-8' })
-  .trim();
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { PgpmPackage, exportMigrations } = require(`${pgpmRoot}/pgpm/node_modules/@pgpmjs/core`);
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { getEnvOptions } = require(`${pgpmRoot}/pgpm/node_modules/@pgpmjs/env`);
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { getPgPool } = require(`${pgpmRoot}/pgpm/node_modules/pg-cache`);
-
-const path = require('path');
+import { PgpmPackage } from '@pgpmjs/core';
+import { exportMigrations } from '@pgpmjs/export';
+import { getPgEnvOptions } from 'pg-env';
+import { getPgPool } from 'pg-cache';
+import path from 'path';
 
 async function main() {
   const workspaceRoot = path.resolve(__dirname, '../../..');
@@ -48,7 +40,7 @@ async function main() {
   project.ensureWorkspace();
   project.resetCwd(project.workspacePath);
 
-  const options = getEnvOptions();
+  const options = getPgEnvOptions();
 
   // 2. Connect to the database
   const db = await getPgPool({ database: dbname });

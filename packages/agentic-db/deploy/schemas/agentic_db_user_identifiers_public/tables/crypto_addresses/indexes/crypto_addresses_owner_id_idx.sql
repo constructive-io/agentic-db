@@ -2,9 +2,10 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_user_identifiers_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_user_identifiers_public/tables/crypto_addresses/table
 -- requires: schemas/agentic_db_user_identifiers_public/tables/crypto_addresses/columns/owner_id/column
 
 
-CREATE INDEX crypto_addresses_owner_id_idx ON "agentic_db_user_identifiers_public".crypto_addresses USING BTREE ( owner_id );
+CREATE INDEX crypto_addresses_owner_id_idx ON agentic_db_user_identifiers_public.crypto_addresses USING BTREE ( owner_id );
 

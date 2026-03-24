@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
-ALTER TABLE "agentic_db_app_public".codebase_dependencies 
+ALTER TABLE agentic_db_app_public.codebase_dependencies 
   ADD COLUMN id uuid;
 

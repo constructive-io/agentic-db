@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
-CREATE INDEX codebases_entity_id_idx ON "agentic_db_app_public".codebases USING BTREE ( entity_id );
+CREATE INDEX codebases_entity_id_idx ON agentic_db_app_public.codebases USING BTREE ( entity_id );
 

@@ -5,7 +5,7 @@
  * Must run AFTER all individual schema modules so table IDs can be resolved.
  *
  * M:N junctions:
- *   projects <-> contacts, tasks <-> contacts, goals <-> habits,
+ *   projects <-> contacts, tasks <-> contacts, tasks <-> projects, goals <-> habits,
  *   goals <-> projects, calendar_events <-> contacts, expenses <-> contacts,
  *   agents <-> prompts,
  *   contacts <-> notes, companies <-> notes, deals <-> notes,
@@ -85,6 +85,7 @@ interface BelongsToRelation {
 const M2N_RELATIONS: M2NRelation[] = [
   { sourceTable: 'projects',        targetTable: 'contacts',  junctionTableName: 'project_contacts',        sourceFieldName: 'project_id',        targetFieldName: 'contact_id' },
   { sourceTable: 'tasks',           targetTable: 'contacts',  junctionTableName: 'task_contacts',           sourceFieldName: 'task_id',           targetFieldName: 'contact_id' },
+  { sourceTable: 'tasks',           targetTable: 'projects',  junctionTableName: 'task_projects',           sourceFieldName: 'task_id',           targetFieldName: 'project_id' },
   { sourceTable: 'goals',           targetTable: 'habits',    junctionTableName: 'goal_habits',             sourceFieldName: 'goal_id',           targetFieldName: 'habit_id' },
   { sourceTable: 'goals',           targetTable: 'projects',  junctionTableName: 'goal_projects',           sourceFieldName: 'goal_id',           targetFieldName: 'project_id' },
   { sourceTable: 'calendar_events', targetTable: 'contacts',  junctionTableName: 'calendar_event_contacts', sourceFieldName: 'calendar_event_id', targetFieldName: 'contact_id' },

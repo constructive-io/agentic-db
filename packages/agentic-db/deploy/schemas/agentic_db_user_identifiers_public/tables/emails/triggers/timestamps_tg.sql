@@ -3,10 +3,11 @@
 
 -- requires: schemas/agentic_db_user_identifiers_public/schema
 -- requires: schemas/agentic_db_user_identifiers_public/tables/emails/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 CREATE TRIGGER timestamps_tg
-BEFORE INSERT OR UPDATE ON "agentic_db_user_identifiers_public".emails
+BEFORE INSERT OR UPDATE ON agentic_db_user_identifiers_public.emails
 FOR EACH ROW
 EXECUTE PROCEDURE stamps.timestamps ( );
 

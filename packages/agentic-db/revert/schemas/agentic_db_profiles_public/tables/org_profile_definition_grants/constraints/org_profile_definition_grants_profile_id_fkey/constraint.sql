@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_profiles_public/tables/org_profile_definition_grants/constraints/org_profile_definition_grants_profile_id_fkey/constraint
 
 
-ALTER TABLE "agentic_db_profiles_public".org_profile_definition_grants 
+ALTER TABLE agentic_db_profiles_public.org_profile_definition_grants 
   DROP CONSTRAINT org_profile_definition_grants_profile_id_fkey;
 
 

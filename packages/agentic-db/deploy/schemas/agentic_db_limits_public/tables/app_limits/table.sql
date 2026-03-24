@@ -2,7 +2,8 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_limits_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE TABLE "agentic_db_limits_public".app_limits ();
+CREATE TABLE agentic_db_limits_public.app_limits ();
 

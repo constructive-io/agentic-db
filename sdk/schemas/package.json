@@ -13,7 +13,7 @@
     "export": "tsx scripts/export.ts"
   },
   "devDependencies": {
-    "@constructive-io/graphql-codegen": "^4.21.2",
+    "@constructive-io/graphql-codegen": "^4.22.1",
     "dotenv": "^16.4.5",
     "tsx": "^4.19.0"
   }

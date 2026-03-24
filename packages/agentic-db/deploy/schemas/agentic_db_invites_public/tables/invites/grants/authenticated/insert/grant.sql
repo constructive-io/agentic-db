@@ -3,7 +3,8 @@
 
 -- requires: schemas/agentic_db_invites_public/schema
 -- requires: schemas/agentic_db_invites_public/tables/invites/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-GRANT INSERT (email, expires_at, multiple, invite_limit) ON "agentic_db_invites_public".invites TO authenticated;
+GRANT INSERT (email, expires_at, multiple, invite_limit) ON agentic_db_invites_public.invites TO authenticated;
 

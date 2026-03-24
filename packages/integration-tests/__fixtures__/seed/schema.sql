@@ -51,11 +51,11 @@ CREATE TABLE "agentic_db_app_public".agents (
 );
 
 -- =============================================================================
--- Table: agent_tasks
+-- Table: tasks
 -- =============================================================================
-CREATE TABLE "agentic_db_app_public".agent_tasks (
+CREATE TABLE "agentic_db_app_public".tasks (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  agent_id uuid NOT NULL REFERENCES "agentic_db_app_public".agents(id) ON DELETE CASCADE,
+  agent_id uuid REFERENCES "agentic_db_app_public".agents(id) ON DELETE NO ACTION,
   title text NOT NULL,
   description text,
   status text,
@@ -106,7 +106,7 @@ CREATE TABLE "agentic_db_app_public".note_chunks (
 -- =============================================================================
 -- Indexes
 -- =============================================================================
-CREATE INDEX agent_tasks_agent_id_idx ON "agentic_db_app_public".agent_tasks (agent_id);
+CREATE INDEX tasks_agent_id_idx ON "agentic_db_app_public".tasks (agent_id);
 CREATE INDEX contact_notes_contact_id_idx ON "agentic_db_app_public".contact_notes (contact_id);
 CREATE INDEX contact_notes_note_id_idx ON "agentic_db_app_public".contact_notes (note_id);
 CREATE INDEX contact_chunks_contact_id_idx ON "agentic_db_app_public".contact_chunks (contact_id);
@@ -120,7 +120,7 @@ GRANT CREATE ON SCHEMA "agentic_db_app_public" TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".contacts TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".notes TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".agents TO PUBLIC;
-GRANT ALL ON "agentic_db_app_public".agent_tasks TO PUBLIC;
+GRANT ALL ON "agentic_db_app_public".tasks TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".contact_notes TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".contact_chunks TO PUBLIC;
 GRANT ALL ON "agentic_db_app_public".note_chunks TO PUBLIC;
