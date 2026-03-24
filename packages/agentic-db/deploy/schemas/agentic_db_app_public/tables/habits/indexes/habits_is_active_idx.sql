@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE INDEX habits_is_active_idx ON agentic_db_app_public.habits USING BTREE ( is_active );
+CREATE INDEX habits_is_active_idx ON "agentic_db_app_public".habits USING BTREE ( is_active );
 

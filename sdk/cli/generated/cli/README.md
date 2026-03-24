@@ -43,6 +43,7 @@ agentic-db auth set-token <your-token>
 | `companies-chunk` | companiesChunk CRUD operations |
 | `company` | company CRUD operations |
 | `contact` | contact CRUD operations |
+| `deal` | deal CRUD operations |
 | `company-event` | companyEvent CRUD operations |
 | `event` | event CRUD operations |
 | `company-image` | companyImage CRUD operations |
@@ -53,16 +54,17 @@ agentic-db auth set-token <your-token>
 | `company-note` | companyNote CRUD operations |
 | `note` | note CRUD operations |
 | `contact-company` | contactCompany CRUD operations |
-| `deal` | deal CRUD operations |
 | `contact-event` | contactEvent CRUD operations |
 | `contact-image` | contactImage CRUD operations |
 | `contact-link` | contactLink CRUD operations |
 | `contact-memory` | contactMemory CRUD operations |
 | `contact-note` | contactNote CRUD operations |
 | `project` | project CRUD operations |
+| `contact-relationship` | contactRelationship CRUD operations |
 | `contacts-chunk` | contactsChunk CRUD operations |
 | `conversation` | conversation CRUD operations |
 | `conversations-chunk` | conversationsChunk CRUD operations |
+| `deal-company` | dealCompany CRUD operations |
 | `deal-contact` | dealContact CRUD operations |
 | `deal-note` | dealNote CRUD operations |
 | `deals-chunk` | dealsChunk CRUD operations |
@@ -107,9 +109,12 @@ agentic-db auth set-token <your-token>
 | `runtime-states-chunk` | runtimeStatesChunk CRUD operations |
 | `skill` | skill CRUD operations |
 | `skills-chunk` | skillsChunk CRUD operations |
-| `tag` | tag CRUD operations |
+| `skill-tool` | skillTool CRUD operations |
 | `tool-definition` | toolDefinition CRUD operations |
+| `tag` | tag CRUD operations |
 | `tool-execution` | toolExecution CRUD operations |
+| `touchpoint` | touchpoint CRUD operations |
+| `touchpoints-chunk` | touchpointsChunk CRUD operations |
 | `trip-hiking-trail` | tripHikingTrail CRUD operations |
 | `trip-place` | tripPlace CRUD operations |
 | `trips-chunk` | tripsChunk CRUD operations |
@@ -815,6 +820,51 @@ CRUD operations for Contact records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
+### `deal`
+
+CRUD operations for Deal records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all deal records |
+| `get` | Get a deal by id |
+| `create` | Create a new deal |
+| `update` | Update an existing deal |
+| `delete` | Delete a deal |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `name` | String |
+| `stage` | String |
+| `value` | BigFloat |
+| `currency` | String |
+| `expectedCloseDate` | Datetime |
+| `notesText` | String |
+| `tags` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
+| `embeddingVectorDistance` | Float |
+| `nameTrgmSimilarity` | Float |
+| `stageTrgmSimilarity` | Float |
+| `currencyTrgmSimilarity` | Float |
+| `notesTextTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `name`
+**Optional create fields (backend defaults):** `stage`, `value`, `currency`, `expectedCloseDate`, `notesText`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `stageTrgmSimilarity`, `currencyTrgmSimilarity`, `notesTextTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
 ### `company-event`
 
 CRUD operations for CompanyEvent records.
@@ -1139,51 +1189,6 @@ CRUD operations for ContactCompany records.
 
 **Required create fields:** `contactId`, `companyId`, `entityId`
 
-### `deal`
-
-CRUD operations for Deal records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all deal records |
-| `get` | Get a deal by id |
-| `create` | Create a new deal |
-| `update` | Update an existing deal |
-| `delete` | Delete a deal |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `stage` | String |
-| `value` | BigFloat |
-| `currency` | String |
-| `expectedCloseDate` | Datetime |
-| `notesText` | String |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `stageTrgmSimilarity` | Float |
-| `currencyTrgmSimilarity` | Float |
-| `notesTextTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `stage`, `value`, `currency`, `expectedCloseDate`, `notesText`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `stageTrgmSimilarity`, `currencyTrgmSimilarity`, `notesTextTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
 ### `contact-event`
 
 CRUD operations for ContactEvent records.
@@ -1358,6 +1363,28 @@ CRUD operations for Project records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
+### `contact-relationship`
+
+CRUD operations for ContactRelationship records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all contactRelationship records |
+| `get` | Get a contactRelationship by id |
+| `create` | Create a new contactRelationship |
+| `update` | Update an existing contactRelationship |
+| `delete` | Delete a contactRelationship |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `contactId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `contactId`, `entityId`
+
 ### `contacts-chunk`
 
 CRUD operations for ContactsChunk records.
@@ -1463,6 +1490,29 @@ CRUD operations for ConversationsChunk records.
 > **Unified Search API fields:** `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
+
+### `deal-company`
+
+CRUD operations for DealCompany records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all dealCompany records |
+| `get` | Get a dealCompany by id |
+| `create` | Create a new dealCompany |
+| `update` | Update an existing dealCompany |
+| `delete` | Delete a dealCompany |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `dealId` | UUID |
+| `companyId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `dealId`, `companyId`, `entityId`
 
 ### `deal-contact`
 
@@ -2997,33 +3047,28 @@ CRUD operations for SkillsChunk records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `tag`
+### `skill-tool`
 
-CRUD operations for Tag records.
+CRUD operations for SkillTool records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all tag records |
-| `get` | Get a tag by id |
-| `create` | Create a new tag |
-| `update` | Update an existing tag |
-| `delete` | Delete a tag |
+| `list` | List all skillTool records |
+| `get` | Get a skillTool by id |
+| `create` | Create a new skillTool |
+| `update` | Update an existing skillTool |
+| `delete` | Delete a skillTool |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
+| `skillId` | UUID |
+| `toolDefinitionId` | UUID |
 | `id` | UUID |
 | `entityId` | UUID |
-| `name` | String |
-| `color` | String |
-| `category` | String |
-| `usageCount` | Int |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `color`, `category`, `usageCount`
+**Required create fields:** `skillId`, `toolDefinitionId`, `entityId`
 
 ### `tool-definition`
 
@@ -3054,6 +3099,34 @@ CRUD operations for ToolDefinition records.
 
 **Required create fields:** `entityId`, `name`
 **Optional create fields (backend defaults):** `description`, `inputSchema`, `outputSchema`, `implementation`, `isActive`
+
+### `tag`
+
+CRUD operations for Tag records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all tag records |
+| `get` | Get a tag by id |
+| `create` | Create a new tag |
+| `update` | Update an existing tag |
+| `delete` | Delete a tag |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `name` | String |
+| `color` | String |
+| `category` | String |
+| `usageCount` | Int |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `entityId`, `name`
+**Optional create fields (backend defaults):** `color`, `category`, `usageCount`
 
 ### `tool-execution`
 
@@ -3086,6 +3159,92 @@ CRUD operations for ToolExecution records.
 
 **Required create fields:** `entityId`, `toolDefinitionId`
 **Optional create fields (backend defaults):** `messageId`, `input`, `output`, `status`, `startedAt`, `completedAt`, `error`
+
+### `touchpoint`
+
+CRUD operations for Touchpoint records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all touchpoint records |
+| `get` | Get a touchpoint by id |
+| `create` | Create a new touchpoint |
+| `update` | Update an existing touchpoint |
+| `delete` | Delete a touchpoint |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `contactId` | UUID |
+| `touchpointType` | String |
+| `occurredAt` | Datetime |
+| `subject` | String |
+| `summary` | String |
+| `sentiment` | String |
+| `direction` | String |
+| `channel` | String |
+| `dealId` | UUID |
+| `companyId` | UUID |
+| `eventId` | UUID |
+| `meta` | JSON |
+| `tags` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingStale` | Boolean |
+| `embeddingTextBm25Score` | Float |
+| `embeddingVectorDistance` | Float |
+| `touchpointTypeTrgmSimilarity` | Float |
+| `subjectTrgmSimilarity` | Float |
+| `summaryTrgmSimilarity` | Float |
+| `sentimentTrgmSimilarity` | Float |
+| `directionTrgmSimilarity` | Float |
+| `channelTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `contactId`, `touchpointType`, `occurredAt`
+**Optional create fields (backend defaults):** `subject`, `summary`, `sentiment`, `direction`, `channel`, `dealId`, `companyId`, `eventId`, `meta`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `touchpointTypeTrgmSimilarity`, `subjectTrgmSimilarity`, `summaryTrgmSimilarity`, `sentimentTrgmSimilarity`, `directionTrgmSimilarity`, `channelTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
+### `touchpoints-chunk`
+
+CRUD operations for TouchpointsChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all touchpointsChunk records |
+| `get` | Get a touchpointsChunk by id |
+| `create` | Create a new touchpointsChunk |
+| `update` | Update an existing touchpointsChunk |
+| `delete` | Delete a touchpointsChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `touchpointsId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `touchpointsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
 
 ### `trip-hiking-trail`
 

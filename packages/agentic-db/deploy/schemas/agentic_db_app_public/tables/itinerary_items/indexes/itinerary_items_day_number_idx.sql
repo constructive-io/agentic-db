@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE INDEX itinerary_items_day_number_idx ON agentic_db_app_public.itinerary_items USING BTREE ( day_number );
+CREATE INDEX itinerary_items_day_number_idx ON "agentic_db_app_public".itinerary_items USING BTREE ( day_number );
 

@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_memberships_private/schema
 
 
-CREATE TABLE agentic_db_memberships_private.org_hierarchy_sprts ();
+CREATE TABLE "agentic_db_memberships_private".org_hierarchy_sprts ();
 

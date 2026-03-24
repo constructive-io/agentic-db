@@ -5,11 +5,11 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/rules/table
 -- requires: schemas/agentic_db_private/trigger_fns/rules_enqueue_chunking
--- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
+-- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
 CREATE TRIGGER rules_enqueue_chunking_update_tg
-AFTER UPDATE ON agentic_db_app_public.rules
+AFTER UPDATE ON "agentic_db_app_public".rules
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.rules_enqueue_chunking ( );
+EXECUTE PROCEDURE "agentic_db_private".rules_enqueue_chunking ( );
 

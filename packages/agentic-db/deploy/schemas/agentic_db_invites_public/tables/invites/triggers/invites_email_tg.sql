@@ -8,7 +8,7 @@
 
 
 
-CREATE FUNCTION agentic_db_invites_private.invites_insert_before_tg()
+CREATE FUNCTION "agentic_db_invites_private".invites_insert_before_tg()
 RETURNS TRIGGER AS $$
 BEGIN
     IF (NEW.email IS NOT NULL) THEN 
@@ -29,7 +29,7 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE 'plpgsql' VOLATILE SECURITY DEFINER;
-CREATE FUNCTION agentic_db_invites_private.invites_insert_after_tg()
+CREATE FUNCTION "agentic_db_invites_private".invites_insert_after_tg()
 RETURNS TRIGGER AS $$
 DECLARE
     email_exists boolean;
@@ -38,7 +38,7 @@ BEGIN
         SELECT EXISTS( SELECT 
                     1 
                 FROM 
-                    agentic_db_user_identifiers_public.emails e
+                    "agentic_db_user_identifiers_public".emails e
                 WHERE 
                     e.email = NEW.email)
         INTO email_exists;
@@ -51,10 +51,10 @@ END;
 $$ LANGUAGE 'plpgsql' SECURITY DEFINER;
 CREATE TRIGGER invite_trigger_ensure_email_not_exists BEFORE
 INSERT ON
-agentic_db_invites_public.invites FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_invites_private.invites_insert_after_tg ();
+"agentic_db_invites_public".invites FOR EACH ROW
+EXECUTE PROCEDURE "agentic_db_invites_private".invites_insert_after_tg ();
 CREATE TRIGGER invite_trigger_send_email AFTER
 INSERT ON
-agentic_db_invites_public.invites FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_invites_private.invites_insert_before_tg ();
+"agentic_db_invites_public".invites FOR EACH ROW
+EXECUTE PROCEDURE "agentic_db_invites_private".invites_insert_before_tg ();
 

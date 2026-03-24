@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
 
 
-ALTER TABLE agentic_db_app_public.autonomy_records_chunks 
+ALTER TABLE "agentic_db_app_public".autonomy_records_chunks 
   ADD COLUMN embedding vector(768);
 

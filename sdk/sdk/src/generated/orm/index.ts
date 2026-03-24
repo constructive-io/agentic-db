@@ -22,6 +22,7 @@ import { CodeChunkModel } from './models/codeChunk';
 import { CompaniesChunkModel } from './models/companiesChunk';
 import { CompanyModel } from './models/company';
 import { ContactModel } from './models/contact';
+import { DealModel } from './models/deal';
 import { CompanyEventModel } from './models/companyEvent';
 import { EventModel } from './models/event';
 import { CompanyImageModel } from './models/companyImage';
@@ -32,16 +33,17 @@ import { CompanyMemoryModel } from './models/companyMemory';
 import { CompanyNoteModel } from './models/companyNote';
 import { NoteModel } from './models/note';
 import { ContactCompanyModel } from './models/contactCompany';
-import { DealModel } from './models/deal';
 import { ContactEventModel } from './models/contactEvent';
 import { ContactImageModel } from './models/contactImage';
 import { ContactLinkModel } from './models/contactLink';
 import { ContactMemoryModel } from './models/contactMemory';
 import { ContactNoteModel } from './models/contactNote';
 import { ProjectModel } from './models/project';
+import { ContactRelationshipModel } from './models/contactRelationship';
 import { ContactsChunkModel } from './models/contactsChunk';
 import { ConversationModel } from './models/conversation';
 import { ConversationsChunkModel } from './models/conversationsChunk';
+import { DealCompanyModel } from './models/dealCompany';
 import { DealContactModel } from './models/dealContact';
 import { DealNoteModel } from './models/dealNote';
 import { DealsChunkModel } from './models/dealsChunk';
@@ -86,9 +88,12 @@ import { RuntimeStateDependencyModel } from './models/runtimeStateDependency';
 import { RuntimeStatesChunkModel } from './models/runtimeStatesChunk';
 import { SkillModel } from './models/skill';
 import { SkillsChunkModel } from './models/skillsChunk';
-import { TagModel } from './models/tag';
+import { SkillToolModel } from './models/skillTool';
 import { ToolDefinitionModel } from './models/toolDefinition';
+import { TagModel } from './models/tag';
 import { ToolExecutionModel } from './models/toolExecution';
+import { TouchpointModel } from './models/touchpoint';
+import { TouchpointsChunkModel } from './models/touchpointsChunk';
 import { TripHikingTrailModel } from './models/tripHikingTrail';
 import { TripPlaceModel } from './models/tripPlace';
 import { TripsChunkModel } from './models/tripsChunk';
@@ -144,6 +149,7 @@ export function createClient(config: OrmClientConfig) {
     companiesChunk: new CompaniesChunkModel(client),
     company: new CompanyModel(client),
     contact: new ContactModel(client),
+    deal: new DealModel(client),
     companyEvent: new CompanyEventModel(client),
     event: new EventModel(client),
     companyImage: new CompanyImageModel(client),
@@ -154,16 +160,17 @@ export function createClient(config: OrmClientConfig) {
     companyNote: new CompanyNoteModel(client),
     note: new NoteModel(client),
     contactCompany: new ContactCompanyModel(client),
-    deal: new DealModel(client),
     contactEvent: new ContactEventModel(client),
     contactImage: new ContactImageModel(client),
     contactLink: new ContactLinkModel(client),
     contactMemory: new ContactMemoryModel(client),
     contactNote: new ContactNoteModel(client),
     project: new ProjectModel(client),
+    contactRelationship: new ContactRelationshipModel(client),
     contactsChunk: new ContactsChunkModel(client),
     conversation: new ConversationModel(client),
     conversationsChunk: new ConversationsChunkModel(client),
+    dealCompany: new DealCompanyModel(client),
     dealContact: new DealContactModel(client),
     dealNote: new DealNoteModel(client),
     dealsChunk: new DealsChunkModel(client),
@@ -208,9 +215,12 @@ export function createClient(config: OrmClientConfig) {
     runtimeStatesChunk: new RuntimeStatesChunkModel(client),
     skill: new SkillModel(client),
     skillsChunk: new SkillsChunkModel(client),
-    tag: new TagModel(client),
+    skillTool: new SkillToolModel(client),
     toolDefinition: new ToolDefinitionModel(client),
+    tag: new TagModel(client),
     toolExecution: new ToolExecutionModel(client),
+    touchpoint: new TouchpointModel(client),
+    touchpointsChunk: new TouchpointsChunkModel(client),
     tripHikingTrail: new TripHikingTrailModel(client),
     tripPlace: new TripPlaceModel(client),
     tripsChunk: new TripsChunkModel(client),

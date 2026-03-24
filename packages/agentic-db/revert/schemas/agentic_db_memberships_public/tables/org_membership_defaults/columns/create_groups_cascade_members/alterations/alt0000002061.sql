@@ -1,6 +1,0 @@
--- Revert: schemas/agentic_db_memberships_public/tables/org_membership_defaults/columns/create_groups_cascade_members/alterations/alt0000002061
-
-
-COMMENT ON COLUMN agentic_db_memberships_public.org_membership_defaults.create_groups_cascade_members IS NULL;
-
-

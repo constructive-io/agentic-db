@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_auth_private/tables/app_auth_settings/table
 
 
-ALTER TABLE agentic_db_auth_private.app_auth_settings 
+ALTER TABLE "agentic_db_auth_private".app_auth_settings 
   ADD COLUMN enable_cookie_auth boolean;
 

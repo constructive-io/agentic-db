@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/hiking_trails_chunks/columns/created_at/column
 
 
-CREATE INDEX hiking_trails_chunks_created_at_idx ON agentic_db_app_public.hiking_trails_chunks ( created_at );
+CREATE INDEX hiking_trails_chunks_created_at_idx ON "agentic_db_app_public".hiking_trails_chunks ( created_at );
 

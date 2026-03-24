@@ -694,6 +694,19 @@ enum ContactOrderBy {
   SEARCH_SCORE_DESC
 }
 
+"Methods to use when ordering `ContactRelationship`."
+enum ContactRelationshipOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  CONTACT_ID_ASC
+  CONTACT_ID_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+}
+
 "Methods to use when ordering `ContactsChunk`."
 enum ContactsChunkOrderBy {
   NATURAL
@@ -765,6 +778,21 @@ enum ConversationsChunkOrderBy {
   EMBEDDING_VECTOR_DISTANCE_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
+}
+
+"Methods to use when ordering `DealCompany`."
+enum DealCompanyOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  DEAL_ID_ASC
+  DEAL_ID_DESC
+  COMPANY_ID_ASC
+  COMPANY_ID_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `DealContact`."
@@ -1945,6 +1973,21 @@ enum SkillsChunkOrderBy {
   SEARCH_SCORE_DESC
 }
 
+"Methods to use when ordering `SkillTool`."
+enum SkillToolOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  SKILL_ID_ASC
+  SKILL_ID_DESC
+  TOOL_DEFINITION_ID_ASC
+  TOOL_DEFINITION_ID_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+}
+
 "Methods to use when ordering `Tag`."
 enum TagOrderBy {
   NATURAL
@@ -1990,6 +2033,78 @@ enum ToolExecutionOrderBy {
   MESSAGE_ID_DESC
   STATUS_ASC
   STATUS_DESC
+}
+
+"Methods to use when ordering `Touchpoint`."
+enum TouchpointOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  CONTACT_ID_ASC
+  CONTACT_ID_DESC
+  TOUCHPOINT_TYPE_ASC
+  TOUCHPOINT_TYPE_DESC
+  OCCURRED_AT_ASC
+  OCCURRED_AT_DESC
+  DIRECTION_ASC
+  DIRECTION_DESC
+  CHANNEL_ASC
+  CHANNEL_DESC
+  DEAL_ID_ASC
+  DEAL_ID_DESC
+  COMPANY_ID_ASC
+  COMPANY_ID_DESC
+  EVENT_ID_ASC
+  EVENT_ID_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  TOUCHPOINT_TYPE_TRGM_SIMILARITY_ASC
+  TOUCHPOINT_TYPE_TRGM_SIMILARITY_DESC
+  SUBJECT_TRGM_SIMILARITY_ASC
+  SUBJECT_TRGM_SIMILARITY_DESC
+  SUMMARY_TRGM_SIMILARITY_ASC
+  SUMMARY_TRGM_SIMILARITY_DESC
+  SENTIMENT_TRGM_SIMILARITY_ASC
+  SENTIMENT_TRGM_SIMILARITY_DESC
+  DIRECTION_TRGM_SIMILARITY_ASC
+  DIRECTION_TRGM_SIMILARITY_DESC
+  CHANNEL_TRGM_SIMILARITY_ASC
+  CHANNEL_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
+"Methods to use when ordering `TouchpointsChunk`."
+enum TouchpointsChunkOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  TOUCHPOINTS_ID_ASC
+  TOUCHPOINTS_ID_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
 }
 
 "Methods to use when ordering `TripHikingTrail`."
@@ -3174,7 +3289,7 @@ type Company {
     orderBy: [ImageOrderBy!] = [PRIMARY_KEY_ASC]
   ): CompanyImagesByCompanyImageCompanyIdAndImageIdManyToManyConnection!
   "Reads and enables pagination through a set of `Contact`."
-  contacts(
+  contactsByContactCompanyCompanyIdAndContactId(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -3192,9 +3307,9 @@ type Company {
     where: ContactFilter
     "The method to use when ordering `Contact`."
     orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CompanyContactsManyToManyConnection!
+  ): CompanyContactsByContactCompanyCompanyIdAndContactIdManyToManyConnection!
   "Reads and enables pagination through a set of `Event`."
-  events(
+  eventsByCompanyEventCompanyIdAndEventId(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -3212,7 +3327,27 @@ type Company {
     where: EventFilter
     "The method to use when ordering `Event`."
     orderBy: [EventOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CompanyEventsManyToManyConnection!
+  ): CompanyEventsByCompanyEventCompanyIdAndEventIdManyToManyConnection!
+  "Reads and enables pagination through a set of `Deal`."
+  dealsByDealCompanyCompanyIdAndDealId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DealFilter
+    "The method to use when ordering `Deal`."
+    orderBy: [DealOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CompanyDealsByDealCompanyCompanyIdAndDealIdManyToManyConnection!
   "Reads and enables pagination through a set of `Note`."
   notes(
     "Only read the first `n` values of the set."
@@ -3275,6 +3410,26 @@ type Company {
     "The method to use when ordering `CompaniesChunk`."
     orderBy: [CompaniesChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): CompaniesChunkConnection!
+  "Reads and enables pagination through a set of `Touchpoint`."
+  touchpoints(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TouchpointFilter
+    "The method to use when ordering `Touchpoint`."
+    orderBy: [TouchpointOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TouchpointConnection!
   "Reads and enables pagination through a set of `CompanyLink`."
   companyLinks(
     "Only read the first `n` values of the set."
@@ -3355,6 +3510,26 @@ type Company {
     "The method to use when ordering `CompanyEvent`."
     orderBy: [CompanyEventOrderBy!] = [PRIMARY_KEY_ASC]
   ): CompanyEventConnection!
+  "Reads and enables pagination through a set of `DealCompany`."
+  dealCompanies(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DealCompanyFilter
+    "The method to use when ordering `DealCompany`."
+    orderBy: [DealCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DealCompanyConnection!
   "Reads and enables pagination through a set of `CompanyNote`."
   companyNotes(
     "Only read the first `n` values of the set."
@@ -3428,11 +3603,11 @@ type CompanyConnection {
 }
 
 "A connection to a list of `Contact` values, with data from `ContactCompany`."
-type CompanyContactsManyToManyConnection {
+type CompanyContactsByContactCompanyCompanyIdAndContactIdManyToManyConnection {
   "A list of `Contact` objects."
   nodes: [Contact]!
   "A list of edges which contains the `Contact`, info from the `ContactCompany`, and the cursor to aid in pagination."
-  edges: [CompanyContactsManyToManyEdge!]!
+  edges: [CompanyContactsByContactCompanyCompanyIdAndContactIdManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Contact` you could get from the connection."
@@ -3440,7 +3615,7 @@ type CompanyContactsManyToManyConnection {
 }
 
 "A `Contact` edge in the connection, with data from `ContactCompany`."
-type CompanyContactsManyToManyEdge {
+type CompanyContactsByContactCompanyCompanyIdAndContactIdManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Contact` at the end of the edge."
@@ -3465,6 +3640,46 @@ type CompanyContactsManyToManyEdge {
     "The method to use when ordering `ContactCompany`."
     orderBy: [ContactCompanyOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactCompanyConnection!
+}
+
+"A connection to a list of `Deal` values, with data from `DealCompany`."
+type CompanyDealsByDealCompanyCompanyIdAndDealIdManyToManyConnection {
+  "A list of `Deal` objects."
+  nodes: [Deal]!
+  "A list of edges which contains the `Deal`, info from the `DealCompany`, and the cursor to aid in pagination."
+  edges: [CompanyDealsByDealCompanyCompanyIdAndDealIdManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Deal` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Deal` edge in the connection, with data from `DealCompany`."
+type CompanyDealsByDealCompanyCompanyIdAndDealIdManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Deal` at the end of the edge."
+  node: Deal
+  "Reads and enables pagination through a set of `DealCompany`."
+  dealCompaniesByDealId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DealCompanyFilter
+    "The method to use when ordering `DealCompany`."
+    orderBy: [DealCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DealCompanyConnection!
 }
 
 "A `Company` edge in the connection."
@@ -3507,11 +3722,11 @@ type CompanyEventEdge {
 }
 
 "A connection to a list of `Event` values, with data from `CompanyEvent`."
-type CompanyEventsManyToManyConnection {
+type CompanyEventsByCompanyEventCompanyIdAndEventIdManyToManyConnection {
   "A list of `Event` objects."
   nodes: [Event]!
   "A list of edges which contains the `Event`, info from the `CompanyEvent`, and the cursor to aid in pagination."
-  edges: [CompanyEventsManyToManyEdge!]!
+  edges: [CompanyEventsByCompanyEventCompanyIdAndEventIdManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Event` you could get from the connection."
@@ -3519,7 +3734,7 @@ type CompanyEventsManyToManyConnection {
 }
 
 "A `Event` edge in the connection, with data from `CompanyEvent`."
-type CompanyEventsManyToManyEdge {
+type CompanyEventsByCompanyEventCompanyIdAndEventIdManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Event` at the end of the edge."
@@ -3845,7 +4060,7 @@ type Contact {
     orderBy: [ImageOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactImagesByContactImageContactIdAndImageIdManyToManyConnection!
   "Reads and enables pagination through a set of `Company`."
-  companies(
+  companiesByContactCompanyContactIdAndCompanyId(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -3863,9 +4078,9 @@ type Contact {
     where: CompanyFilter
     "The method to use when ordering `Company`."
     orderBy: [CompanyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactCompaniesManyToManyConnection!
+  ): ContactCompaniesByContactCompanyContactIdAndCompanyIdManyToManyConnection!
   "Reads and enables pagination through a set of `Event`."
-  events(
+  eventsByContactEventContactIdAndEventId(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -3883,9 +4098,9 @@ type Contact {
     where: EventFilter
     "The method to use when ordering `Event`."
     orderBy: [EventOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactEventsManyToManyConnection!
+  ): ContactEventsByContactEventContactIdAndEventIdManyToManyConnection!
   "Reads and enables pagination through a set of `Deal`."
-  deals(
+  dealsByDealContactContactIdAndDealId(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -3903,7 +4118,7 @@ type Contact {
     where: DealFilter
     "The method to use when ordering `Deal`."
     orderBy: [DealOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactDealsManyToManyConnection!
+  ): ContactDealsByDealContactContactIdAndDealIdManyToManyConnection!
   "Reads and enables pagination through a set of `Project`."
   projects(
     "Only read the first `n` values of the set."
@@ -4006,6 +4221,26 @@ type Contact {
     "The method to use when ordering `Interaction`."
     orderBy: [InteractionOrderBy!] = [PRIMARY_KEY_ASC]
   ): InteractionConnection!
+  "Reads and enables pagination through a set of `Touchpoint`."
+  touchpoints(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TouchpointFilter
+    "The method to use when ordering `Touchpoint`."
+    orderBy: [TouchpointOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TouchpointConnection!
   "Reads and enables pagination through a set of `ContactLink`."
   contactLinks(
     "Only read the first `n` values of the set."
@@ -4106,6 +4341,26 @@ type Contact {
     "The method to use when ordering `DealContact`."
     orderBy: [DealContactOrderBy!] = [PRIMARY_KEY_ASC]
   ): DealContactConnection!
+  "Reads and enables pagination through a set of `ContactRelationship`."
+  contactRelationships(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactRelationshipFilter
+    "The method to use when ordering `ContactRelationship`."
+    orderBy: [ContactRelationshipOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactRelationshipConnection!
   "Reads and enables pagination through a set of `ProjectContact`."
   projectContacts(
     "Only read the first `n` values of the set."
@@ -4207,11 +4462,11 @@ type Contact {
 }
 
 "A connection to a list of `Company` values, with data from `ContactCompany`."
-type ContactCompaniesManyToManyConnection {
+type ContactCompaniesByContactCompanyContactIdAndCompanyIdManyToManyConnection {
   "A list of `Company` objects."
   nodes: [Company]!
   "A list of edges which contains the `Company`, info from the `ContactCompany`, and the cursor to aid in pagination."
-  edges: [ContactCompaniesManyToManyEdge!]!
+  edges: [ContactCompaniesByContactCompanyContactIdAndCompanyIdManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Company` you could get from the connection."
@@ -4219,7 +4474,7 @@ type ContactCompaniesManyToManyConnection {
 }
 
 "A `Company` edge in the connection, with data from `ContactCompany`."
-type ContactCompaniesManyToManyEdge {
+type ContactCompaniesByContactCompanyContactIdAndCompanyIdManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Company` at the end of the edge."
@@ -4290,11 +4545,11 @@ type ContactConnection {
 }
 
 "A connection to a list of `Deal` values, with data from `DealContact`."
-type ContactDealsManyToManyConnection {
+type ContactDealsByDealContactContactIdAndDealIdManyToManyConnection {
   "A list of `Deal` objects."
   nodes: [Deal]!
   "A list of edges which contains the `Deal`, info from the `DealContact`, and the cursor to aid in pagination."
-  edges: [ContactDealsManyToManyEdge!]!
+  edges: [ContactDealsByDealContactContactIdAndDealIdManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Deal` you could get from the connection."
@@ -4302,7 +4557,7 @@ type ContactDealsManyToManyConnection {
 }
 
 "A `Deal` edge in the connection, with data from `DealContact`."
-type ContactDealsManyToManyEdge {
+type ContactDealsByDealContactContactIdAndDealIdManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Deal` at the end of the edge."
@@ -4369,11 +4624,11 @@ type ContactEventEdge {
 }
 
 "A connection to a list of `Event` values, with data from `ContactEvent`."
-type ContactEventsManyToManyConnection {
+type ContactEventsByContactEventContactIdAndEventIdManyToManyConnection {
   "A list of `Event` objects."
   nodes: [Event]!
   "A list of edges which contains the `Event`, info from the `ContactEvent`, and the cursor to aid in pagination."
-  edges: [ContactEventsManyToManyEdge!]!
+  edges: [ContactEventsByContactEventContactIdAndEventIdManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Event` you could get from the connection."
@@ -4381,7 +4636,7 @@ type ContactEventsManyToManyConnection {
 }
 
 "A `Event` edge in the connection, with data from `ContactEvent`."
-type ContactEventsManyToManyEdge {
+type ContactEventsByContactEventContactIdAndEventIdManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Event` at the end of the edge."
@@ -4697,6 +4952,34 @@ type ContactProjectsManyToManyEdge {
     "The method to use when ordering `ProjectContact`."
     orderBy: [ProjectContactOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectContactConnection!
+}
+
+type ContactRelationship {
+  contactId: UUID!
+  id: UUID!
+  entityId: UUID!
+  "Reads a single `Contact` that is related to this `ContactRelationship`."
+  contact: Contact
+}
+
+"A connection to a list of `ContactRelationship` values."
+type ContactRelationshipConnection {
+  "A list of `ContactRelationship` objects."
+  nodes: [ContactRelationship]!
+  "A list of edges which contains the `ContactRelationship` and cursor to aid in pagination."
+  edges: [ContactRelationshipEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `ContactRelationship` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `ContactRelationship` edge in the connection."
+type ContactRelationshipEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `ContactRelationship` at the end of the edge."
+  node: ContactRelationship
 }
 
 "@@chunksOf {\"parent_fk\": \"contacts_id\", \"parent_table\": \"contacts\"}"
@@ -5366,6 +5649,24 @@ type CreateContactPayload {
   ): ContactEdge
 }
 
+"The output of our create `ContactRelationship` mutation."
+type CreateContactRelationshipPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactRelationship` that was created by this mutation."
+  contactRelationship: ContactRelationship
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactRelationship`. May be used by Relay 1."
+  contactRelationshipEdge(
+    "The method to use when ordering `ContactRelationship`."
+    orderBy: [ContactRelationshipOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactRelationshipEdge
+}
+
 "The output of our create `ContactsChunk` mutation."
 type CreateContactsChunkPayload {
   """
@@ -5418,6 +5719,24 @@ type CreateConversationsChunkPayload {
     "The method to use when ordering `ConversationsChunk`."
     orderBy: [ConversationsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ConversationsChunkEdge
+}
+
+"The output of our create `DealCompany` mutation."
+type CreateDealCompanyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `DealCompany` that was created by this mutation."
+  dealCompany: DealCompany
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `DealCompany`. May be used by Relay 1."
+  dealCompanyEdge(
+    "The method to use when ordering `DealCompany`."
+    orderBy: [DealCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DealCompanyEdge
 }
 
 "The output of our create `DealContact` mutation."
@@ -6284,6 +6603,24 @@ type CreateSkillsChunkPayload {
   ): SkillsChunkEdge
 }
 
+"The output of our create `SkillTool` mutation."
+type CreateSkillToolPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `SkillTool` that was created by this mutation."
+  skillTool: SkillTool
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `SkillTool`. May be used by Relay 1."
+  skillToolEdge(
+    "The method to use when ordering `SkillTool`."
+    orderBy: [SkillToolOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): SkillToolEdge
+}
+
 "The output of our create `Tag` mutation."
 type CreateTagPayload {
   """
@@ -6336,6 +6673,42 @@ type CreateToolExecutionPayload {
     "The method to use when ordering `ToolExecution`."
     orderBy: [ToolExecutionOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ToolExecutionEdge
+}
+
+"The output of our create `Touchpoint` mutation."
+type CreateTouchpointPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `Touchpoint` that was created by this mutation."
+  touchpoint: Touchpoint
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `Touchpoint`. May be used by Relay 1."
+  touchpointEdge(
+    "The method to use when ordering `Touchpoint`."
+    orderBy: [TouchpointOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TouchpointEdge
+}
+
+"The output of our create `TouchpointsChunk` mutation."
+type CreateTouchpointsChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TouchpointsChunk` that was created by this mutation."
+  touchpointsChunk: TouchpointsChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TouchpointsChunk`. May be used by Relay 1."
+  touchpointsChunkEdge(
+    "The method to use when ordering `TouchpointsChunk`."
+    orderBy: [TouchpointsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TouchpointsChunkEdge
 }
 
 "The output of our create `TripHikingTrail` mutation."
@@ -6499,7 +6872,7 @@ type Deal {
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Contact`."
-  contacts(
+  contactsByDealContactDealIdAndContactId(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -6517,7 +6890,27 @@ type Deal {
     where: ContactFilter
     "The method to use when ordering `Contact`."
     orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
-  ): DealContactsManyToManyConnection!
+  ): DealContactsByDealContactDealIdAndContactIdManyToManyConnection!
+  "Reads and enables pagination through a set of `Company`."
+  companiesByDealCompanyDealIdAndCompanyId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: CompanyFilter
+    "The method to use when ordering `Company`."
+    orderBy: [CompanyOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DealCompaniesByDealCompanyDealIdAndCompanyIdManyToManyConnection!
   "Reads and enables pagination through a set of `Note`."
   notes(
     "Only read the first `n` values of the set."
@@ -6558,6 +6951,26 @@ type Deal {
     "The method to use when ordering `DealsChunk`."
     orderBy: [DealsChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): DealsChunkConnection!
+  "Reads and enables pagination through a set of `Touchpoint`."
+  touchpoints(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TouchpointFilter
+    "The method to use when ordering `Touchpoint`."
+    orderBy: [TouchpointOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TouchpointConnection!
   "Reads and enables pagination through a set of `DealContact`."
   dealContacts(
     "Only read the first `n` values of the set."
@@ -6578,6 +6991,26 @@ type Deal {
     "The method to use when ordering `DealContact`."
     orderBy: [DealContactOrderBy!] = [PRIMARY_KEY_ASC]
   ): DealContactConnection!
+  "Reads and enables pagination through a set of `DealCompany`."
+  dealCompanies(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DealCompanyFilter
+    "The method to use when ordering `DealCompany`."
+    orderBy: [DealCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DealCompanyConnection!
   "Reads and enables pagination through a set of `DealNote`."
   dealNotes(
     "Only read the first `n` values of the set."
@@ -6614,6 +7047,77 @@ type Deal {
   embeddingTextTrgmSimilarity: Float
   "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
+}
+
+"A connection to a list of `Company` values, with data from `DealCompany`."
+type DealCompaniesByDealCompanyDealIdAndCompanyIdManyToManyConnection {
+  "A list of `Company` objects."
+  nodes: [Company]!
+  "A list of edges which contains the `Company`, info from the `DealCompany`, and the cursor to aid in pagination."
+  edges: [DealCompaniesByDealCompanyDealIdAndCompanyIdManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Company` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Company` edge in the connection, with data from `DealCompany`."
+type DealCompaniesByDealCompanyDealIdAndCompanyIdManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Company` at the end of the edge."
+  node: Company
+  "Reads and enables pagination through a set of `DealCompany`."
+  dealCompaniesByCompanyId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DealCompanyFilter
+    "The method to use when ordering `DealCompany`."
+    orderBy: [DealCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DealCompanyConnection!
+}
+
+type DealCompany {
+  dealId: UUID!
+  companyId: UUID!
+  id: UUID!
+  entityId: UUID!
+  "Reads a single `Company` that is related to this `DealCompany`."
+  company: Company
+  "Reads a single `Deal` that is related to this `DealCompany`."
+  deal: Deal
+}
+
+"A connection to a list of `DealCompany` values."
+type DealCompanyConnection {
+  "A list of `DealCompany` objects."
+  nodes: [DealCompany]!
+  "A list of edges which contains the `DealCompany` and cursor to aid in pagination."
+  edges: [DealCompanyEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `DealCompany` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `DealCompany` edge in the connection."
+type DealCompanyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `DealCompany` at the end of the edge."
+  node: DealCompany
 }
 
 "A connection to a list of `Deal` values."
@@ -6660,11 +7164,11 @@ type DealContactEdge {
 }
 
 "A connection to a list of `Contact` values, with data from `DealContact`."
-type DealContactsManyToManyConnection {
+type DealContactsByDealContactDealIdAndContactIdManyToManyConnection {
   "A list of `Contact` objects."
   nodes: [Contact]!
   "A list of edges which contains the `Contact`, info from the `DealContact`, and the cursor to aid in pagination."
-  edges: [DealContactsManyToManyEdge!]!
+  edges: [DealContactsByDealContactDealIdAndContactIdManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Contact` you could get from the connection."
@@ -6672,7 +7176,7 @@ type DealContactsManyToManyConnection {
 }
 
 "A `Contact` edge in the connection, with data from `DealContact`."
-type DealContactsManyToManyEdge {
+type DealContactsByDealContactDealIdAndContactIdManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Contact` at the end of the edge."
@@ -7320,6 +7824,24 @@ type DeleteContactPayload {
   ): ContactEdge
 }
 
+"The output of our delete `ContactRelationship` mutation."
+type DeleteContactRelationshipPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactRelationship` that was deleted by this mutation."
+  contactRelationship: ContactRelationship
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactRelationship`. May be used by Relay 1."
+  contactRelationshipEdge(
+    "The method to use when ordering `ContactRelationship`."
+    orderBy: [ContactRelationshipOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactRelationshipEdge
+}
+
 "The output of our delete `ContactsChunk` mutation."
 type DeleteContactsChunkPayload {
   """
@@ -7372,6 +7894,24 @@ type DeleteConversationsChunkPayload {
     "The method to use when ordering `ConversationsChunk`."
     orderBy: [ConversationsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ConversationsChunkEdge
+}
+
+"The output of our delete `DealCompany` mutation."
+type DeleteDealCompanyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `DealCompany` that was deleted by this mutation."
+  dealCompany: DealCompany
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `DealCompany`. May be used by Relay 1."
+  dealCompanyEdge(
+    "The method to use when ordering `DealCompany`."
+    orderBy: [DealCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DealCompanyEdge
 }
 
 "The output of our delete `DealContact` mutation."
@@ -8238,6 +8778,24 @@ type DeleteSkillsChunkPayload {
   ): SkillsChunkEdge
 }
 
+"The output of our delete `SkillTool` mutation."
+type DeleteSkillToolPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `SkillTool` that was deleted by this mutation."
+  skillTool: SkillTool
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `SkillTool`. May be used by Relay 1."
+  skillToolEdge(
+    "The method to use when ordering `SkillTool`."
+    orderBy: [SkillToolOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): SkillToolEdge
+}
+
 "The output of our delete `Tag` mutation."
 type DeleteTagPayload {
   """
@@ -8290,6 +8848,42 @@ type DeleteToolExecutionPayload {
     "The method to use when ordering `ToolExecution`."
     orderBy: [ToolExecutionOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ToolExecutionEdge
+}
+
+"The output of our delete `Touchpoint` mutation."
+type DeleteTouchpointPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `Touchpoint` that was deleted by this mutation."
+  touchpoint: Touchpoint
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `Touchpoint`. May be used by Relay 1."
+  touchpointEdge(
+    "The method to use when ordering `Touchpoint`."
+    orderBy: [TouchpointOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TouchpointEdge
+}
+
+"The output of our delete `TouchpointsChunk` mutation."
+type DeleteTouchpointsChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TouchpointsChunk` that was deleted by this mutation."
+  touchpointsChunk: TouchpointsChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TouchpointsChunk`. May be used by Relay 1."
+  touchpointsChunkEdge(
+    "The method to use when ordering `TouchpointsChunk`."
+    orderBy: [TouchpointsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TouchpointsChunkEdge
 }
 
 "The output of our delete `TripHikingTrail` mutation."
@@ -8476,7 +9070,7 @@ type Event {
     orderBy: [ImageOrderBy!] = [PRIMARY_KEY_ASC]
   ): EventImagesByEventImageEventIdAndImageIdManyToManyConnection!
   "Reads and enables pagination through a set of `Contact`."
-  contacts(
+  contactsByContactEventEventIdAndContactId(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -8494,9 +9088,9 @@ type Event {
     where: ContactFilter
     "The method to use when ordering `Contact`."
     orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EventContactsManyToManyConnection!
+  ): EventContactsByContactEventEventIdAndContactIdManyToManyConnection!
   "Reads and enables pagination through a set of `Company`."
-  companies(
+  companiesByCompanyEventEventIdAndCompanyId(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -8514,7 +9108,7 @@ type Event {
     where: CompanyFilter
     "The method to use when ordering `Company`."
     orderBy: [CompanyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EventCompaniesManyToManyConnection!
+  ): EventCompaniesByCompanyEventEventIdAndCompanyIdManyToManyConnection!
   "Reads and enables pagination through a set of `Venue`."
   venues(
     "Only read the first `n` values of the set."
@@ -8577,6 +9171,26 @@ type Event {
     "The method to use when ordering `EventsChunk`."
     orderBy: [EventsChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): EventsChunkConnection!
+  "Reads and enables pagination through a set of `Touchpoint`."
+  touchpoints(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TouchpointFilter
+    "The method to use when ordering `Touchpoint`."
+    orderBy: [TouchpointOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TouchpointConnection!
   "Reads and enables pagination through a set of `EventLink`."
   eventLinks(
     "Only read the first `n` values of the set."
@@ -8720,11 +9334,11 @@ type Event {
 }
 
 "A connection to a list of `Company` values, with data from `CompanyEvent`."
-type EventCompaniesManyToManyConnection {
+type EventCompaniesByCompanyEventEventIdAndCompanyIdManyToManyConnection {
   "A list of `Company` objects."
   nodes: [Company]!
   "A list of edges which contains the `Company`, info from the `CompanyEvent`, and the cursor to aid in pagination."
-  edges: [EventCompaniesManyToManyEdge!]!
+  edges: [EventCompaniesByCompanyEventEventIdAndCompanyIdManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Company` you could get from the connection."
@@ -8732,7 +9346,7 @@ type EventCompaniesManyToManyConnection {
 }
 
 "A `Company` edge in the connection, with data from `CompanyEvent`."
-type EventCompaniesManyToManyEdge {
+type EventCompaniesByCompanyEventEventIdAndCompanyIdManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Company` at the end of the edge."
@@ -8772,11 +9386,11 @@ type EventConnection {
 }
 
 "A connection to a list of `Contact` values, with data from `ContactEvent`."
-type EventContactsManyToManyConnection {
+type EventContactsByContactEventEventIdAndContactIdManyToManyConnection {
   "A list of `Contact` objects."
   nodes: [Contact]!
   "A list of edges which contains the `Contact`, info from the `ContactEvent`, and the cursor to aid in pagination."
-  edges: [EventContactsManyToManyEdge!]!
+  edges: [EventContactsByContactEventEventIdAndContactIdManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Contact` you could get from the connection."
@@ -8784,7 +9398,7 @@ type EventContactsManyToManyConnection {
 }
 
 "A `Contact` edge in the connection, with data from `ContactEvent`."
-type EventContactsManyToManyEdge {
+type EventContactsByContactEventEventIdAndContactIdManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Contact` at the end of the edge."
@@ -11050,6 +11664,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateCodebaseDependencyInput!
   ): CreateCodebaseDependencyPayload
+  "Creates a single `ContactRelationship`."
+  createContactRelationship(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateContactRelationshipInput!
+  ): CreateContactRelationshipPayload
   "Creates a single `RuntimeStateDependency`."
   createRuntimeStateDependency(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11100,6 +11719,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateContactNoteInput!
   ): CreateContactNotePayload
+  "Creates a single `DealCompany`."
+  createDealCompany(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateDealCompanyInput!
+  ): CreateDealCompanyPayload
   "Creates a single `DealContact`."
   createDealContact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11140,6 +11764,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateProjectContactInput!
   ): CreateProjectContactPayload
+  "Creates a single `SkillTool`."
+  createSkillTool(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateSkillToolInput!
+  ): CreateSkillToolPayload
   "Creates a single `TripHikingTrail`."
   createTripHikingTrail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11370,6 +11999,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateSkillsChunkInput!
   ): CreateSkillsChunkPayload
+  "Creates a single `TouchpointsChunk`."
+  createTouchpointsChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateTouchpointsChunkInput!
+  ): CreateTouchpointsChunkPayload
   "Creates a single `TripsChunk`."
   createTripsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11445,6 +12079,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateProjectInput!
   ): CreateProjectPayload
+  "Creates a single `Touchpoint`."
+  createTouchpoint(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateTouchpointInput!
+  ): CreateTouchpointPayload
   "Creates a single `Memory`."
   createMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11500,6 +12139,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateCodebaseDependencyInput!
   ): UpdateCodebaseDependencyPayload
+  "Updates a single `ContactRelationship` using a unique key and a patch."
+  updateContactRelationship(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateContactRelationshipInput!
+  ): UpdateContactRelationshipPayload
   "Updates a single `RuntimeStateDependency` using a unique key and a patch."
   updateRuntimeStateDependency(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11550,6 +12194,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateContactNoteInput!
   ): UpdateContactNotePayload
+  "Updates a single `DealCompany` using a unique key and a patch."
+  updateDealCompany(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateDealCompanyInput!
+  ): UpdateDealCompanyPayload
   "Updates a single `DealContact` using a unique key and a patch."
   updateDealContact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11590,6 +12239,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateProjectContactInput!
   ): UpdateProjectContactPayload
+  "Updates a single `SkillTool` using a unique key and a patch."
+  updateSkillTool(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateSkillToolInput!
+  ): UpdateSkillToolPayload
   "Updates a single `TripHikingTrail` using a unique key and a patch."
   updateTripHikingTrail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11820,6 +12474,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateSkillsChunkInput!
   ): UpdateSkillsChunkPayload
+  "Updates a single `TouchpointsChunk` using a unique key and a patch."
+  updateTouchpointsChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateTouchpointsChunkInput!
+  ): UpdateTouchpointsChunkPayload
   "Updates a single `TripsChunk` using a unique key and a patch."
   updateTripsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11895,6 +12554,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateProjectInput!
   ): UpdateProjectPayload
+  "Updates a single `Touchpoint` using a unique key and a patch."
+  updateTouchpoint(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateTouchpointInput!
+  ): UpdateTouchpointPayload
   "Updates a single `Memory` using a unique key and a patch."
   updateMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11950,6 +12614,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteCodebaseDependencyInput!
   ): DeleteCodebaseDependencyPayload
+  "Deletes a single `ContactRelationship` using a unique key."
+  deleteContactRelationship(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteContactRelationshipInput!
+  ): DeleteContactRelationshipPayload
   "Deletes a single `RuntimeStateDependency` using a unique key."
   deleteRuntimeStateDependency(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12000,6 +12669,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteContactNoteInput!
   ): DeleteContactNotePayload
+  "Deletes a single `DealCompany` using a unique key."
+  deleteDealCompany(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteDealCompanyInput!
+  ): DeleteDealCompanyPayload
   "Deletes a single `DealContact` using a unique key."
   deleteDealContact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12040,6 +12714,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteProjectContactInput!
   ): DeleteProjectContactPayload
+  "Deletes a single `SkillTool` using a unique key."
+  deleteSkillTool(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteSkillToolInput!
+  ): DeleteSkillToolPayload
   "Deletes a single `TripHikingTrail` using a unique key."
   deleteTripHikingTrail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12270,6 +12949,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteSkillsChunkInput!
   ): DeleteSkillsChunkPayload
+  "Deletes a single `TouchpointsChunk` using a unique key."
+  deleteTouchpointsChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteTouchpointsChunkInput!
+  ): DeleteTouchpointsChunkPayload
   "Deletes a single `TripsChunk` using a unique key."
   deleteTripsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12345,6 +13029,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteProjectInput!
   ): DeleteProjectPayload
+  "Deletes a single `Touchpoint` using a unique key."
+  deleteTouchpoint(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteTouchpointInput!
+  ): DeleteTouchpointPayload
   "Deletes a single `Memory` using a unique key."
   deleteMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -13418,6 +14107,26 @@ type Query {
     "The method to use when ordering `CodebaseDependency`."
     orderBy: [CodebaseDependencyOrderBy!] = [PRIMARY_KEY_ASC]
   ): CodebaseDependencyConnection
+  "Reads and enables pagination through a set of `ContactRelationship`."
+  contactRelationships(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactRelationshipFilter
+    "The method to use when ordering `ContactRelationship`."
+    orderBy: [ContactRelationshipOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactRelationshipConnection
   "Reads and enables pagination through a set of `RuntimeStateDependency`."
   runtimeStateDependencies(
     "Only read the first `n` values of the set."
@@ -13618,6 +14327,26 @@ type Query {
     "The method to use when ordering `ContactNote`."
     orderBy: [ContactNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactNoteConnection
+  "Reads and enables pagination through a set of `DealCompany`."
+  dealCompanies(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DealCompanyFilter
+    "The method to use when ordering `DealCompany`."
+    orderBy: [DealCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DealCompanyConnection
   "Reads and enables pagination through a set of `DealContact`."
   dealContacts(
     "Only read the first `n` values of the set."
@@ -13778,6 +14507,26 @@ type Query {
     "The method to use when ordering `ProjectContact`."
     orderBy: [ProjectContactOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectContactConnection
+  "Reads and enables pagination through a set of `SkillTool`."
+  skillTools(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: SkillToolFilter
+    "The method to use when ordering `SkillTool`."
+    orderBy: [SkillToolOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SkillToolConnection
   "Reads and enables pagination through a set of `TripHikingTrail`."
   tripHikingTrails(
     "Only read the first `n` values of the set."
@@ -14698,6 +15447,26 @@ type Query {
     "The method to use when ordering `SkillsChunk`."
     orderBy: [SkillsChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): SkillsChunkConnection
+  "Reads and enables pagination through a set of `TouchpointsChunk`."
+  touchpointsChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TouchpointsChunkFilter
+    "The method to use when ordering `TouchpointsChunk`."
+    orderBy: [TouchpointsChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TouchpointsChunkConnection
   "Reads and enables pagination through a set of `TripsChunk`."
   tripsChunks(
     "Only read the first `n` values of the set."
@@ -14998,6 +15767,26 @@ type Query {
     "The method to use when ordering `Project`."
     orderBy: [ProjectOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProjectConnection
+  "Reads and enables pagination through a set of `Touchpoint`."
+  touchpoints(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TouchpointFilter
+    "The method to use when ordering `Touchpoint`."
+    orderBy: [TouchpointOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TouchpointConnection
   "Reads and enables pagination through a set of `Memory`."
   memories(
     "Only read the first `n` values of the set."
@@ -15794,6 +16583,26 @@ type Skill {
   embeddingStale: Boolean!
   intentTriggerEmbedding: Vector
   agentId: UUID!
+  "Reads and enables pagination through a set of `ToolDefinition`."
+  toolDefinitions(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ToolDefinitionFilter
+    "The method to use when ordering `ToolDefinition`."
+    orderBy: [ToolDefinitionOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SkillToolDefinitionsManyToManyConnection!
   "Reads a single `Agent` that is related to this `Skill`."
   agent: Agent
   "Reads and enables pagination through a set of `SkillsChunk`."
@@ -15816,6 +16625,26 @@ type Skill {
     "The method to use when ordering `SkillsChunk`."
     orderBy: [SkillsChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): SkillsChunkConnection!
+  "Reads and enables pagination through a set of `SkillTool`."
+  skillTools(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: SkillToolFilter
+    "The method to use when ordering `SkillTool`."
+    orderBy: [SkillToolOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SkillToolConnection!
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
@@ -15896,6 +16725,77 @@ type SkillsChunkEdge {
   node: SkillsChunk
 }
 
+type SkillTool {
+  skillId: UUID!
+  toolDefinitionId: UUID!
+  id: UUID!
+  entityId: UUID!
+  "Reads a single `Skill` that is related to this `SkillTool`."
+  skill: Skill
+  "Reads a single `ToolDefinition` that is related to this `SkillTool`."
+  toolDefinition: ToolDefinition
+}
+
+"A connection to a list of `SkillTool` values."
+type SkillToolConnection {
+  "A list of `SkillTool` objects."
+  nodes: [SkillTool]!
+  "A list of edges which contains the `SkillTool` and cursor to aid in pagination."
+  edges: [SkillToolEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `SkillTool` you could get from the connection."
+  totalCount: Int!
+}
+
+"A connection to a list of `ToolDefinition` values, with data from `SkillTool`."
+type SkillToolDefinitionsManyToManyConnection {
+  "A list of `ToolDefinition` objects."
+  nodes: [ToolDefinition]!
+  "A list of edges which contains the `ToolDefinition`, info from the `SkillTool`, and the cursor to aid in pagination."
+  edges: [SkillToolDefinitionsManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `ToolDefinition` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `ToolDefinition` edge in the connection, with data from `SkillTool`."
+type SkillToolDefinitionsManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `ToolDefinition` at the end of the edge."
+  node: ToolDefinition
+  "Reads and enables pagination through a set of `SkillTool`."
+  skillToolsByToolDefinitionId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: SkillToolFilter
+    "The method to use when ordering `SkillTool`."
+    orderBy: [SkillToolOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SkillToolConnection!
+}
+
+"A `SkillTool` edge in the connection."
+type SkillToolEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `SkillTool` at the end of the edge."
+  node: SkillTool
+}
+
 type Tag {
   id: UUID!
   entityId: UUID!
@@ -15938,6 +16838,26 @@ type ToolDefinition {
   isActive: Boolean
   createdAt: Datetime!
   updatedAt: Datetime!
+  "Reads and enables pagination through a set of `Skill`."
+  skills(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: SkillFilter
+    "The method to use when ordering `Skill`."
+    orderBy: [SkillOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ToolDefinitionSkillsManyToManyConnection!
   "Reads and enables pagination through a set of `ToolExecution`."
   toolExecutions(
     "Only read the first `n` values of the set."
@@ -15958,6 +16878,26 @@ type ToolDefinition {
     "The method to use when ordering `ToolExecution`."
     orderBy: [ToolExecutionOrderBy!] = [PRIMARY_KEY_ASC]
   ): ToolExecutionConnection!
+  "Reads and enables pagination through a set of `SkillTool`."
+  skillTools(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: SkillToolFilter
+    "The method to use when ordering `SkillTool`."
+    orderBy: [SkillToolOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SkillToolConnection!
 }
 
 "A connection to a list of `ToolDefinition` values."
@@ -15978,6 +16918,46 @@ type ToolDefinitionEdge {
   cursor: Cursor
   "The `ToolDefinition` at the end of the edge."
   node: ToolDefinition
+}
+
+"A connection to a list of `Skill` values, with data from `SkillTool`."
+type ToolDefinitionSkillsManyToManyConnection {
+  "A list of `Skill` objects."
+  nodes: [Skill]!
+  "A list of edges which contains the `Skill`, info from the `SkillTool`, and the cursor to aid in pagination."
+  edges: [ToolDefinitionSkillsManyToManyEdge!]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Skill` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Skill` edge in the connection, with data from `SkillTool`."
+type ToolDefinitionSkillsManyToManyEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Skill` at the end of the edge."
+  node: Skill
+  "Reads and enables pagination through a set of `SkillTool`."
+  skillToolsBySkillId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: SkillToolFilter
+    "The method to use when ordering `SkillTool`."
+    orderBy: [SkillToolOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SkillToolConnection!
 }
 
 type ToolExecution {
@@ -16015,6 +16995,136 @@ type ToolExecutionEdge {
   cursor: Cursor
   "The `ToolExecution` at the end of the edge."
   node: ToolExecution
+}
+
+"@@hasChunks {\"chunks_table\": \"touchpoints_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+type Touchpoint {
+  id: UUID!
+  entityId: UUID!
+  contactId: UUID!
+  touchpointType: String!
+  occurredAt: Datetime!
+  subject: String
+  summary: String
+  sentiment: String
+  direction: String
+  channel: String
+  dealId: UUID
+  companyId: UUID
+  eventId: UUID
+  meta: JSON
+  tags: [String]
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean!
+  "Reads a single `Company` that is related to this `Touchpoint`."
+  company: Company
+  "Reads a single `Contact` that is related to this `Touchpoint`."
+  contact: Contact
+  "Reads a single `Deal` that is related to this `Touchpoint`."
+  deal: Deal
+  "Reads a single `Event` that is related to this `Touchpoint`."
+  event: Event
+  "Reads and enables pagination through a set of `TouchpointsChunk`."
+  touchpointsChunksByTouchpointsId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: TouchpointsChunkFilter
+    "The method to use when ordering `TouchpointsChunk`."
+    orderBy: [TouchpointsChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TouchpointsChunkConnection!
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `touchpointType`. Returns null when no trgm search filter is active."
+  touchpointTypeTrgmSimilarity: Float
+  "TRGM similarity when searching `subject`. Returns null when no trgm search filter is active."
+  subjectTrgmSimilarity: Float
+  "TRGM similarity when searching `summary`. Returns null when no trgm search filter is active."
+  summaryTrgmSimilarity: Float
+  "TRGM similarity when searching `sentiment`. Returns null when no trgm search filter is active."
+  sentimentTrgmSimilarity: Float
+  "TRGM similarity when searching `direction`. Returns null when no trgm search filter is active."
+  directionTrgmSimilarity: Float
+  "TRGM similarity when searching `channel`. Returns null when no trgm search filter is active."
+  channelTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `Touchpoint` values."
+type TouchpointConnection {
+  "A list of `Touchpoint` objects."
+  nodes: [Touchpoint]!
+  "A list of edges which contains the `Touchpoint` and cursor to aid in pagination."
+  edges: [TouchpointEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `Touchpoint` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `Touchpoint` edge in the connection."
+type TouchpointEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `Touchpoint` at the end of the edge."
+  node: Touchpoint
+}
+
+"@@chunksOf {\"parent_fk\": \"touchpoints_id\", \"parent_table\": \"touchpoints\"}"
+type TouchpointsChunk {
+  id: UUID!
+  touchpointsId: UUID!
+  content: String!
+  chunkIndex: Int!
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+  "Reads a single `Touchpoint` that is related to this `TouchpointsChunk`."
+  touchpoints: Touchpoint
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `TouchpointsChunk` values."
+type TouchpointsChunkConnection {
+  "A list of `TouchpointsChunk` objects."
+  nodes: [TouchpointsChunk]!
+  "A list of edges which contains the `TouchpointsChunk` and cursor to aid in pagination."
+  edges: [TouchpointsChunkEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `TouchpointsChunk` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `TouchpointsChunk` edge in the connection."
+type TouchpointsChunkEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `TouchpointsChunk` at the end of the edge."
+  node: TouchpointsChunk
 }
 
 "@@hasChunks {\"chunks_table\": \"trips_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
@@ -16879,6 +17989,24 @@ type UpdateContactPayload {
   ): ContactEdge
 }
 
+"The output of our update `ContactRelationship` mutation."
+type UpdateContactRelationshipPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactRelationship` that was updated by this mutation."
+  contactRelationship: ContactRelationship
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactRelationship`. May be used by Relay 1."
+  contactRelationshipEdge(
+    "The method to use when ordering `ContactRelationship`."
+    orderBy: [ContactRelationshipOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactRelationshipEdge
+}
+
 "The output of our update `ContactsChunk` mutation."
 type UpdateContactsChunkPayload {
   """
@@ -16931,6 +18059,24 @@ type UpdateConversationsChunkPayload {
     "The method to use when ordering `ConversationsChunk`."
     orderBy: [ConversationsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ConversationsChunkEdge
+}
+
+"The output of our update `DealCompany` mutation."
+type UpdateDealCompanyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `DealCompany` that was updated by this mutation."
+  dealCompany: DealCompany
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `DealCompany`. May be used by Relay 1."
+  dealCompanyEdge(
+    "The method to use when ordering `DealCompany`."
+    orderBy: [DealCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): DealCompanyEdge
 }
 
 "The output of our update `DealContact` mutation."
@@ -17797,6 +18943,24 @@ type UpdateSkillsChunkPayload {
   ): SkillsChunkEdge
 }
 
+"The output of our update `SkillTool` mutation."
+type UpdateSkillToolPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `SkillTool` that was updated by this mutation."
+  skillTool: SkillTool
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `SkillTool`. May be used by Relay 1."
+  skillToolEdge(
+    "The method to use when ordering `SkillTool`."
+    orderBy: [SkillToolOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): SkillToolEdge
+}
+
 "The output of our update `Tag` mutation."
 type UpdateTagPayload {
   """
@@ -17849,6 +19013,42 @@ type UpdateToolExecutionPayload {
     "The method to use when ordering `ToolExecution`."
     orderBy: [ToolExecutionOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ToolExecutionEdge
+}
+
+"The output of our update `Touchpoint` mutation."
+type UpdateTouchpointPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `Touchpoint` that was updated by this mutation."
+  touchpoint: Touchpoint
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `Touchpoint`. May be used by Relay 1."
+  touchpointEdge(
+    "The method to use when ordering `Touchpoint`."
+    orderBy: [TouchpointOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TouchpointEdge
+}
+
+"The output of our update `TouchpointsChunk` mutation."
+type UpdateTouchpointsChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `TouchpointsChunk` that was updated by this mutation."
+  touchpointsChunk: TouchpointsChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `TouchpointsChunk`. May be used by Relay 1."
+  touchpointsChunkEdge(
+    "The method to use when ordering `TouchpointsChunk`."
+    orderBy: [TouchpointsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): TouchpointsChunkEdge
 }
 
 "The output of our update `TripHikingTrail` mutation."
@@ -19745,6 +20945,10 @@ input CompanyFilter {
   companiesChunksByCompaniesId: CompanyToManyCompaniesChunkFilter
   "`companiesChunksByCompaniesId` exist."
   companiesChunksByCompaniesIdExist: Boolean
+  "Filter by the object’s `touchpoints` relation."
+  touchpoints: CompanyToManyTouchpointFilter
+  "`touchpoints` exist."
+  touchpointsExist: Boolean
   "Filter by the object’s `companyLinks` relation."
   companyLinks: CompanyToManyCompanyLinkFilter
   "`companyLinks` exist."
@@ -19761,6 +20965,10 @@ input CompanyFilter {
   companyEvents: CompanyToManyCompanyEventFilter
   "`companyEvents` exist."
   companyEventsExist: Boolean
+  "Filter by the object’s `dealCompanies` relation."
+  dealCompanies: CompanyToManyDealCompanyFilter
+  "`dealCompanies` exist."
+  dealCompaniesExist: Boolean
   "Filter by the object’s `companyNotes` relation."
   companyNotes: CompanyToManyCompanyNoteFilter
   "`companyNotes` exist."
@@ -20070,6 +21278,26 @@ input CompanyToManyContactCompanyFilter {
   none: ContactCompanyFilter
 }
 
+"A filter to be used against many `DealCompany` object types. All fields are combined with a logical ‘and.’"
+input CompanyToManyDealCompanyFilter {
+  "Filters to entities where at least one related entity matches."
+  some: DealCompanyFilter
+  "Filters to entities where every related entity matches."
+  every: DealCompanyFilter
+  "Filters to entities where no related entity matches."
+  none: DealCompanyFilter
+}
+
+"A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’"
+input CompanyToManyTouchpointFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TouchpointFilter
+  "Filters to entities where every related entity matches."
+  every: TouchpointFilter
+  "Filters to entities where no related entity matches."
+  none: TouchpointFilter
+}
+
 "A filter to be used against `ContactCompany` object types. All fields are combined with a logical ‘and.’"
 input ContactCompanyFilter {
   "Filter by the object’s `contactId` field."
@@ -20216,6 +21444,10 @@ input ContactFilter {
   interactions: ContactToManyInteractionFilter
   "`interactions` exist."
   interactionsExist: Boolean
+  "Filter by the object’s `touchpoints` relation."
+  touchpoints: ContactToManyTouchpointFilter
+  "`touchpoints` exist."
+  touchpointsExist: Boolean
   "Filter by the object’s `contactLinks` relation."
   contactLinks: ContactToManyContactLinkFilter
   "`contactLinks` exist."
@@ -20236,6 +21468,10 @@ input ContactFilter {
   dealContacts: ContactToManyDealContactFilter
   "`dealContacts` exist."
   dealContactsExist: Boolean
+  "Filter by the object’s `contactRelationships` relation."
+  contactRelationships: ContactToManyContactRelationshipFilter
+  "`contactRelationships` exist."
+  contactRelationshipsExist: Boolean
   "Filter by the object’s `projectContacts` relation."
   projectContacts: ContactToManyProjectContactFilter
   "`projectContacts` exist."
@@ -20521,6 +21757,38 @@ input ContactPatch {
   embeddingStale: Boolean
 }
 
+"A filter to be used against `ContactRelationship` object types. All fields are combined with a logical ‘and.’"
+input ContactRelationshipFilter {
+  "Filter by the object’s `contactId` field."
+  contactId: UUIDFilter
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [ContactRelationshipFilter!]
+  "Checks for any expressions in this list."
+  or: [ContactRelationshipFilter!]
+  "Negates the expression."
+  not: ContactRelationshipFilter
+  "Filter by the object’s `contact` relation."
+  contact: ContactFilter
+}
+
+"An input for mutations affecting `ContactRelationship`"
+input ContactRelationshipInput {
+  contactId: UUID!
+  id: UUID
+  entityId: UUID!
+}
+
+"Represents an update to a `ContactRelationship`. Fields that are set will be updated."
+input ContactRelationshipPatch {
+  contactId: UUID
+  id: UUID
+  entityId: UUID
+}
+
 "A filter to be used against `ContactsChunk` object types. All fields are combined with a logical ‘and.’"
 input ContactsChunkFilter {
   "Filter by the object’s `id` field."
@@ -20635,6 +21903,16 @@ input ContactToManyContactNoteFilter {
   none: ContactNoteFilter
 }
 
+"A filter to be used against many `ContactRelationship` object types. All fields are combined with a logical ‘and.’"
+input ContactToManyContactRelationshipFilter {
+  "Filters to entities where at least one related entity matches."
+  some: ContactRelationshipFilter
+  "Filters to entities where every related entity matches."
+  every: ContactRelationshipFilter
+  "Filters to entities where no related entity matches."
+  none: ContactRelationshipFilter
+}
+
 "A filter to be used against many `ContactsChunk` object types. All fields are combined with a logical ‘and.’"
 input ContactToManyContactsChunkFilter {
   "Filters to entities where at least one related entity matches."
@@ -20673,6 +21951,16 @@ input ContactToManyProjectContactFilter {
   every: ProjectContactFilter
   "Filters to entities where no related entity matches."
   none: ProjectContactFilter
+}
+
+"A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’"
+input ContactToManyTouchpointFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TouchpointFilter
+  "Filters to entities where every related entity matches."
+  every: TouchpointFilter
+  "Filters to entities where no related entity matches."
+  none: TouchpointFilter
 }
 
 "A filter to be used against `Conversation` object types. All fields are combined with a logical ‘and.’"
@@ -21144,6 +22432,17 @@ input CreateContactNoteInput {
   contactNote: ContactNoteInput!
 }
 
+"All input for the create `ContactRelationship` mutation."
+input CreateContactRelationshipInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `ContactRelationship` to be created by this mutation."
+  contactRelationship: ContactRelationshipInput!
+}
+
 "All input for the create `ContactsChunk` mutation."
 input CreateContactsChunkInput {
   """
@@ -21175,6 +22474,17 @@ input CreateConversationsChunkInput {
   clientMutationId: String
   "The `ConversationsChunk` to be created by this mutation."
   conversationsChunk: ConversationsChunkInput!
+}
+
+"All input for the create `DealCompany` mutation."
+input CreateDealCompanyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `DealCompany` to be created by this mutation."
+  dealCompany: DealCompanyInput!
 }
 
 "All input for the create `DealContact` mutation."
@@ -21705,6 +23015,17 @@ input CreateSkillsChunkInput {
   skillsChunk: SkillsChunkInput!
 }
 
+"All input for the create `SkillTool` mutation."
+input CreateSkillToolInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `SkillTool` to be created by this mutation."
+  skillTool: SkillToolInput!
+}
+
 "All input for the create `Tag` mutation."
 input CreateTagInput {
   """
@@ -21736,6 +23057,28 @@ input CreateToolExecutionInput {
   clientMutationId: String
   "The `ToolExecution` to be created by this mutation."
   toolExecution: ToolExecutionInput!
+}
+
+"All input for the create `Touchpoint` mutation."
+input CreateTouchpointInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `Touchpoint` to be created by this mutation."
+  touchpoint: TouchpointInput!
+}
+
+"All input for the create `TouchpointsChunk` mutation."
+input CreateTouchpointsChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `TouchpointsChunk` to be created by this mutation."
+  touchpointsChunk: TouchpointsChunkInput!
 }
 
 "All input for the create `TripHikingTrail` mutation."
@@ -21878,6 +23221,44 @@ input DatetimeFilter {
   greaterThanOrEqualTo: Datetime
 }
 
+"A filter to be used against `DealCompany` object types. All fields are combined with a logical ‘and.’"
+input DealCompanyFilter {
+  "Filter by the object’s `dealId` field."
+  dealId: UUIDFilter
+  "Filter by the object’s `companyId` field."
+  companyId: UUIDFilter
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [DealCompanyFilter!]
+  "Checks for any expressions in this list."
+  or: [DealCompanyFilter!]
+  "Negates the expression."
+  not: DealCompanyFilter
+  "Filter by the object’s `company` relation."
+  company: CompanyFilter
+  "Filter by the object’s `deal` relation."
+  deal: DealFilter
+}
+
+"An input for mutations affecting `DealCompany`"
+input DealCompanyInput {
+  dealId: UUID!
+  companyId: UUID!
+  id: UUID
+  entityId: UUID!
+}
+
+"Represents an update to a `DealCompany`. Fields that are set will be updated."
+input DealCompanyPatch {
+  dealId: UUID
+  companyId: UUID
+  id: UUID
+  entityId: UUID
+}
+
 "A filter to be used against `DealContact` object types. All fields are combined with a logical ‘and.’"
 input DealContactFilter {
   "Filter by the object’s `dealId` field."
@@ -21956,10 +23337,18 @@ input DealFilter {
   dealsChunksByDealsId: DealToManyDealsChunkFilter
   "`dealsChunksByDealsId` exist."
   dealsChunksByDealsIdExist: Boolean
+  "Filter by the object’s `touchpoints` relation."
+  touchpoints: DealToManyTouchpointFilter
+  "`touchpoints` exist."
+  touchpointsExist: Boolean
   "Filter by the object’s `dealContacts` relation."
   dealContacts: DealToManyDealContactFilter
   "`dealContacts` exist."
   dealContactsExist: Boolean
+  "Filter by the object’s `dealCompanies` relation."
+  dealCompanies: DealToManyDealCompanyFilter
+  "`dealCompanies` exist."
+  dealCompaniesExist: Boolean
   "Filter by the object’s `dealNotes` relation."
   dealNotes: DealToManyDealNoteFilter
   "`dealNotes` exist."
@@ -22115,6 +23504,16 @@ input DealsChunkPatch {
   updatedAt: Datetime
 }
 
+"A filter to be used against many `DealCompany` object types. All fields are combined with a logical ‘and.’"
+input DealToManyDealCompanyFilter {
+  "Filters to entities where at least one related entity matches."
+  some: DealCompanyFilter
+  "Filters to entities where every related entity matches."
+  every: DealCompanyFilter
+  "Filters to entities where no related entity matches."
+  none: DealCompanyFilter
+}
+
 "A filter to be used against many `DealContact` object types. All fields are combined with a logical ‘and.’"
 input DealToManyDealContactFilter {
   "Filters to entities where at least one related entity matches."
@@ -22143,6 +23542,16 @@ input DealToManyDealsChunkFilter {
   every: DealsChunkFilter
   "Filters to entities where no related entity matches."
   none: DealsChunkFilter
+}
+
+"A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’"
+input DealToManyTouchpointFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TouchpointFilter
+  "Filters to entities where every related entity matches."
+  every: TouchpointFilter
+  "Filters to entities where no related entity matches."
+  none: TouchpointFilter
 }
 
 "All input for the `deleteAgentCollaborator` mutation."
@@ -22425,6 +23834,16 @@ input DeleteContactNoteInput {
   id: UUID!
 }
 
+"All input for the `deleteContactRelationship` mutation."
+input DeleteContactRelationshipInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
 "All input for the `deleteContactsChunk` mutation."
 input DeleteContactsChunkInput {
   """
@@ -22447,6 +23866,16 @@ input DeleteConversationInput {
 
 "All input for the `deleteConversationsChunk` mutation."
 input DeleteConversationsChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteDealCompany` mutation."
+input DeleteDealCompanyInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -22935,6 +24364,16 @@ input DeleteSkillsChunkInput {
   id: UUID!
 }
 
+"All input for the `deleteSkillTool` mutation."
+input DeleteSkillToolInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
 "All input for the `deleteTag` mutation."
 input DeleteTagInput {
   """
@@ -22957,6 +24396,26 @@ input DeleteToolDefinitionInput {
 
 "All input for the `deleteToolExecution` mutation."
 input DeleteToolExecutionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteTouchpoint` mutation."
+input DeleteTouchpointInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteTouchpointsChunk` mutation."
+input DeleteTouchpointsChunkInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -23095,6 +24554,10 @@ input EventFilter {
   eventsChunksByEventsId: EventToManyEventsChunkFilter
   "`eventsChunksByEventsId` exist."
   eventsChunksByEventsIdExist: Boolean
+  "Filter by the object’s `touchpoints` relation."
+  touchpoints: EventToManyTouchpointFilter
+  "`touchpoints` exist."
+  touchpointsExist: Boolean
   "Filter by the object’s `eventLinks` relation."
   eventLinks: EventToManyEventLinkFilter
   "`eventLinks` exist."
@@ -23442,6 +24905,16 @@ input EventToManyEventVenueFilter {
   every: EventVenueFilter
   "Filters to entities where no related entity matches."
   none: EventVenueFilter
+}
+
+"A filter to be used against many `Touchpoint` object types. All fields are combined with a logical ‘and.’"
+input EventToManyTouchpointFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TouchpointFilter
+  "Filters to entities where every related entity matches."
+  every: TouchpointFilter
+  "Filters to entities where no related entity matches."
+  none: TouchpointFilter
 }
 
 "A filter to be used against `EventVenue` object types. All fields are combined with a logical ‘and.’"
@@ -26663,6 +28136,10 @@ input SkillFilter {
   skillsChunksBySkillsId: SkillToManySkillsChunkFilter
   "`skillsChunksBySkillsId` exist."
   skillsChunksBySkillsIdExist: Boolean
+  "Filter by the object’s `skillTools` relation."
+  skillTools: SkillToManySkillToolFilter
+  "`skillTools` exist."
+  skillToolsExist: Boolean
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -26792,6 +28269,54 @@ input SkillToManySkillsChunkFilter {
   every: SkillsChunkFilter
   "Filters to entities where no related entity matches."
   none: SkillsChunkFilter
+}
+
+"A filter to be used against many `SkillTool` object types. All fields are combined with a logical ‘and.’"
+input SkillToManySkillToolFilter {
+  "Filters to entities where at least one related entity matches."
+  some: SkillToolFilter
+  "Filters to entities where every related entity matches."
+  every: SkillToolFilter
+  "Filters to entities where no related entity matches."
+  none: SkillToolFilter
+}
+
+"A filter to be used against `SkillTool` object types. All fields are combined with a logical ‘and.’"
+input SkillToolFilter {
+  "Filter by the object’s `skillId` field."
+  skillId: UUIDFilter
+  "Filter by the object’s `toolDefinitionId` field."
+  toolDefinitionId: UUIDFilter
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [SkillToolFilter!]
+  "Checks for any expressions in this list."
+  or: [SkillToolFilter!]
+  "Negates the expression."
+  not: SkillToolFilter
+  "Filter by the object’s `skill` relation."
+  skill: SkillFilter
+  "Filter by the object’s `toolDefinition` relation."
+  toolDefinition: ToolDefinitionFilter
+}
+
+"An input for mutations affecting `SkillTool`"
+input SkillToolInput {
+  skillId: UUID!
+  toolDefinitionId: UUID!
+  id: UUID
+  entityId: UUID!
+}
+
+"Represents an update to a `SkillTool`. Fields that are set will be updated."
+input SkillToolPatch {
+  skillId: UUID
+  toolDefinitionId: UUID
+  id: UUID
+  entityId: UUID
 }
 
 "A filter to be used against String fields. All fields are combined with a logical ‘and.’"
@@ -27076,6 +28601,10 @@ input ToolDefinitionFilter {
   toolExecutions: ToolDefinitionToManyToolExecutionFilter
   "`toolExecutions` exist."
   toolExecutionsExist: Boolean
+  "Filter by the object’s `skillTools` relation."
+  skillTools: ToolDefinitionToManySkillToolFilter
+  "`skillTools` exist."
+  skillToolsExist: Boolean
 }
 
 "An input for mutations affecting `ToolDefinition`"
@@ -27104,6 +28633,16 @@ input ToolDefinitionPatch {
   isActive: Boolean
   createdAt: Datetime
   updatedAt: Datetime
+}
+
+"A filter to be used against many `SkillTool` object types. All fields are combined with a logical ‘and.’"
+input ToolDefinitionToManySkillToolFilter {
+  "Filters to entities where at least one related entity matches."
+  some: SkillToolFilter
+  "Filters to entities where every related entity matches."
+  every: SkillToolFilter
+  "Filters to entities where no related entity matches."
+  none: SkillToolFilter
 }
 
 "A filter to be used against many `ToolExecution` object types. All fields are combined with a logical ‘and.’"
@@ -27182,6 +28721,211 @@ input ToolExecutionPatch {
   error: String
   createdAt: Datetime
   updatedAt: Datetime
+}
+
+"A filter to be used against `Touchpoint` object types. All fields are combined with a logical ‘and.’"
+input TouchpointFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `contactId` field."
+  contactId: UUIDFilter
+  "Filter by the object’s `touchpointType` field."
+  touchpointType: StringTrgmFilter
+  "Filter by the object’s `occurredAt` field."
+  occurredAt: DatetimeFilter
+  "Filter by the object’s `subject` field."
+  subject: StringTrgmFilter
+  "Filter by the object’s `summary` field."
+  summary: StringTrgmFilter
+  "Filter by the object’s `sentiment` field."
+  sentiment: StringTrgmFilter
+  "Filter by the object’s `direction` field."
+  direction: StringTrgmFilter
+  "Filter by the object’s `channel` field."
+  channel: StringTrgmFilter
+  "Filter by the object’s `dealId` field."
+  dealId: UUIDFilter
+  "Filter by the object’s `companyId` field."
+  companyId: UUIDFilter
+  "Filter by the object’s `eventId` field."
+  eventId: UUIDFilter
+  "Filter by the object’s `meta` field."
+  meta: JSONFilter
+  "Filter by the object’s `tags` field."
+  tags: StringListFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `embeddingStale` field."
+  embeddingStale: BooleanFilter
+  "Checks for all expressions in this list."
+  and: [TouchpointFilter!]
+  "Checks for any expressions in this list."
+  or: [TouchpointFilter!]
+  "Negates the expression."
+  not: TouchpointFilter
+  "Filter by the object’s `company` relation."
+  company: CompanyFilter
+  "A related `company` exists."
+  companyExists: Boolean
+  "Filter by the object’s `contact` relation."
+  contact: ContactFilter
+  "Filter by the object’s `deal` relation."
+  deal: DealFilter
+  "A related `deal` exists."
+  dealExists: Boolean
+  "Filter by the object’s `event` relation."
+  event: EventFilter
+  "A related `event` exists."
+  eventExists: Boolean
+  "Filter by the object’s `touchpointsChunksByTouchpointsId` relation."
+  touchpointsChunksByTouchpointsId: TouchpointToManyTouchpointsChunkFilter
+  "`touchpointsChunksByTouchpointsId` exist."
+  touchpointsChunksByTouchpointsIdExist: Boolean
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `touchpoint_type` column."
+  trgmTouchpointType: TrgmSearchInput
+  "TRGM search on the `subject` column."
+  trgmSubject: TrgmSearchInput
+  "TRGM search on the `summary` column."
+  trgmSummary: TrgmSearchInput
+  "TRGM search on the `sentiment` column."
+  trgmSentiment: TrgmSearchInput
+  "TRGM search on the `direction` column."
+  trgmDirection: TrgmSearchInput
+  "TRGM search on the `channel` column."
+  trgmChannel: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
+}
+
+"An input for mutations affecting `Touchpoint`"
+input TouchpointInput {
+  id: UUID
+  entityId: UUID!
+  contactId: UUID!
+  touchpointType: String!
+  occurredAt: Datetime!
+  subject: String
+  summary: String
+  sentiment: String
+  direction: String
+  channel: String
+  dealId: UUID
+  companyId: UUID
+  eventId: UUID
+  meta: JSON
+  tags: [String]
+  createdAt: Datetime
+  updatedAt: Datetime
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+}
+
+"Represents an update to a `Touchpoint`. Fields that are set will be updated."
+input TouchpointPatch {
+  id: UUID
+  entityId: UUID
+  contactId: UUID
+  touchpointType: String
+  occurredAt: Datetime
+  subject: String
+  summary: String
+  sentiment: String
+  direction: String
+  channel: String
+  dealId: UUID
+  companyId: UUID
+  eventId: UUID
+  meta: JSON
+  tags: [String]
+  createdAt: Datetime
+  updatedAt: Datetime
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+}
+
+"A filter to be used against `TouchpointsChunk` object types. All fields are combined with a logical ‘and.’"
+input TouchpointsChunkFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `touchpointsId` field."
+  touchpointsId: UUIDFilter
+  "Filter by the object’s `content` field."
+  content: StringFilter
+  "Filter by the object’s `chunkIndex` field."
+  chunkIndex: IntFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `metadata` field."
+  metadata: JSONFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Checks for all expressions in this list."
+  and: [TouchpointsChunkFilter!]
+  "Checks for any expressions in this list."
+  or: [TouchpointsChunkFilter!]
+  "Negates the expression."
+  not: TouchpointsChunkFilter
+  "Filter by the object’s `touchpoints` relation."
+  touchpoints: TouchpointFilter
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+}
+
+"An input for mutations affecting `TouchpointsChunk`"
+input TouchpointsChunkInput {
+  id: UUID
+  touchpointsId: UUID!
+  content: String!
+  chunkIndex: Int
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"Represents an update to a `TouchpointsChunk`. Fields that are set will be updated."
+input TouchpointsChunkPatch {
+  id: UUID
+  touchpointsId: UUID
+  content: String
+  chunkIndex: Int
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"A filter to be used against many `TouchpointsChunk` object types. All fields are combined with a logical ‘and.’"
+input TouchpointToManyTouchpointsChunkFilter {
+  "Filters to entities where at least one related entity matches."
+  some: TouchpointsChunkFilter
+  "Filters to entities where every related entity matches."
+  every: TouchpointsChunkFilter
+  "Filters to entities where no related entity matches."
+  none: TouchpointsChunkFilter
 }
 
 "Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold."
@@ -27819,6 +29563,18 @@ input UpdateContactNoteInput {
   contactNotePatch: ContactNotePatch!
 }
 
+"All input for the `updateContactRelationship` mutation."
+input UpdateContactRelationshipInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `ContactRelationship` being updated."
+  contactRelationshipPatch: ContactRelationshipPatch!
+}
+
 "All input for the `updateContactsChunk` mutation."
 input UpdateContactsChunkInput {
   """
@@ -27853,6 +29609,18 @@ input UpdateConversationsChunkInput {
   id: UUID!
   "An object where the defined keys will be set on the `ConversationsChunk` being updated."
   conversationsChunkPatch: ConversationsChunkPatch!
+}
+
+"All input for the `updateDealCompany` mutation."
+input UpdateDealCompanyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `DealCompany` being updated."
+  dealCompanyPatch: DealCompanyPatch!
 }
 
 "All input for the `updateDealContact` mutation."
@@ -28431,6 +30199,18 @@ input UpdateSkillsChunkInput {
   skillsChunkPatch: SkillsChunkPatch!
 }
 
+"All input for the `updateSkillTool` mutation."
+input UpdateSkillToolInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `SkillTool` being updated."
+  skillToolPatch: SkillToolPatch!
+}
+
 "All input for the `updateTag` mutation."
 input UpdateTagInput {
   """
@@ -28465,6 +30245,30 @@ input UpdateToolExecutionInput {
   id: UUID!
   "An object where the defined keys will be set on the `ToolExecution` being updated."
   toolExecutionPatch: ToolExecutionPatch!
+}
+
+"All input for the `updateTouchpoint` mutation."
+input UpdateTouchpointInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `Touchpoint` being updated."
+  touchpointPatch: TouchpointPatch!
+}
+
+"All input for the `updateTouchpointsChunk` mutation."
+input UpdateTouchpointsChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `TouchpointsChunk` being updated."
+  touchpointsChunkPatch: TouchpointsChunkPatch!
 }
 
 "All input for the `updateTripHikingTrail` mutation."

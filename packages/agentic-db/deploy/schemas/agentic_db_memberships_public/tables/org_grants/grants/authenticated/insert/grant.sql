@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_grants/table
 
 
-GRANT INSERT ON agentic_db_memberships_public.org_grants TO authenticated;
+GRANT INSERT ON "agentic_db_memberships_public".org_grants TO authenticated;
 

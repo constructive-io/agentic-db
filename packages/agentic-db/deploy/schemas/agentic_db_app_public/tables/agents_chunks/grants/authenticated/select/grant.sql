@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/agents_chunks/table
--- requires: schemas/agentic_db_app_public/tables/tags/indexes/tags_category_idx
+-- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-GRANT SELECT ON agentic_db_app_public.agents_chunks TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".agents_chunks TO authenticated;
 

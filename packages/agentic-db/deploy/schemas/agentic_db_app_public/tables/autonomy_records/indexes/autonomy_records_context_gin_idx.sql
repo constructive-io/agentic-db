@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/columns/context/column
 
 
-CREATE INDEX autonomy_records_context_gin_idx ON agentic_db_app_public.autonomy_records USING GIN ( context );
+CREATE INDEX autonomy_records_context_gin_idx ON "agentic_db_app_public".autonomy_records USING GIN ( context );
 

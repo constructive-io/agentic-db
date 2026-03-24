@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/columns/embedding/column
 
 
-CREATE INDEX autonomy_records_embedding_hnsw_idx ON agentic_db_app_public.autonomy_records USING hnsw ( embedding vector_cosine_ops );
+CREATE INDEX autonomy_records_embedding_hnsw_idx ON "agentic_db_app_public".autonomy_records USING hnsw ( embedding vector_cosine_ops );
 

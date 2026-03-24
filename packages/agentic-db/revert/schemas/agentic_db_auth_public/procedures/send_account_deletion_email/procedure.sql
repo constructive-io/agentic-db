@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION agentic_db_auth_public.send_account_deletion_email;
+DROP FUNCTION "agentic_db_auth_public".send_account_deletion_email;
 
 

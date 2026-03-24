@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER memories_enqueue_chunking_insert_tg
-AFTER INSERT ON agentic_db_app_public.memories
+AFTER INSERT ON "agentic_db_app_public".memories
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.memories_enqueue_chunking ( );
+EXECUTE PROCEDURE "agentic_db_private".memories_enqueue_chunking ( );
 
