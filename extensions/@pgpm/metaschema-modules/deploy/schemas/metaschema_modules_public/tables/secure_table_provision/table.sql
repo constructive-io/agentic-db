@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.secure_table_provision (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
 
     database_id uuid NOT NULL,
 
@@ -21,9 +21,11 @@ CREATE TABLE metaschema_modules_public.secure_table_provision (
 
     node_data jsonb NOT NULL DEFAULT '{}',
 
+    fields jsonb[] NOT NULL DEFAULT '{}',
+
     grant_roles text[] NOT NULL DEFAULT ARRAY['authenticated'],
 
-    grant_privileges jsonb NOT NULL DEFAULT '[]',
+    grant_privileges jsonb[] NOT NULL DEFAULT '{}',
 
     policy_type text DEFAULT NULL,
 
@@ -69,13 +71,16 @@ COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.use_rls IS
     'If true and Row Level Security is not yet enabled on the target table, enable it. Automatically set to true by the trigger when policy_type is provided. Defaults to true.';
 
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.node_data IS
-    'Configuration passed to the generator function for field creation (only used when node_type is set). Known keys include: field_name (text, default ''id'') for DataId, owner_field_name (text, default ''owner_id'') for DataDirectOwner/DataOwnershipInEntity, entity_field_name (text, default ''entity_id'') for DataEntityMembership/DataOwnershipInEntity, include_id (boolean, default true) for most node_types, include_user_fk (boolean, default true) to add FK to users table. Defaults to ''{}''.';
+    'Configuration passed to the generator function for field creation (only used when node_type is set). Known keys include: field_name (text, default ''id'') for DataId, owner_field_name (text, default ''owner_id'') for DataDirectOwner/DataOwnershipInEntity, entity_field_name (text, default ''entity_id'') for DataEntityMembership/DataOwnershipInEntity, include_id (boolean, default true) for most node_types, include_user_fk (boolean, default true) to add FK to users table, create_index (boolean, default true) to create btree indexes on FK fields for join and cascade performance. Defaults to ''{}''.';
+
+COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.fields IS
+    'PostgreSQL array of jsonb field definition objects to create on the target table. Each object has keys: "name" (text, required), "type" (text, required), "default" (text, optional), "is_required" (boolean, optional, defaults to false), "min" (float, optional), "max" (float, optional), "regexp" (text, optional), "index" (boolean, optional, defaults to false — creates a btree index on the field). min/max generate CHECK constraints: for text/citext they constrain character_length, for integer/float types they constrain the value. regexp generates a CHECK (col ~ pattern) constraint for text/citext. Fields are created via metaschema.create_field() after any node_type generator runs, and their IDs are appended to out_fields. Example: ARRAY[''{"name":"username","type":"citext","max":256,"regexp":"^[a-z0-9_]+$"}''::jsonb, ''{"name":"score","type":"integer","min":0,"max":100}''::jsonb]. Defaults to ''{}'' (no additional fields).';
 
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.grant_roles IS
     'Database roles to grant privileges to. Supports multiple roles, e.g. ARRAY[''authenticated'', ''admin'']. Each role receives all privileges defined in grant_privileges. Defaults to ARRAY[''authenticated''].';
 
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.grant_privileges IS
-    'Array of [privilege, columns] tuples defining table grants. Examples: [["select","*"],["insert","*"]] for full access, or [["update",["name","bio"]]] for column-level grants. "*" means all columns; an array means column-level grant. Defaults to ''[]'' (no grants). The trigger validates this is a proper jsonb array.';
+    'PostgreSQL array of jsonb [privilege, columns] tuples defining table grants. Examples: ARRAY[''["select","*"]''::jsonb, ''["insert","*"]''::jsonb] for full access, or ARRAY[''["update",["name","bio"]]''::jsonb] for column-level grants. "*" means all columns; an array means column-level grant. Defaults to ''{}'' (no grants). Type safety is enforced by PostgreSQL at INSERT time.';
 
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.policy_type IS
     'Policy generator type, e.g. ''AuthzEntityMembership'', ''AuthzMembership'', ''AuthzAllowAll''. NULL means no policy is created. When set, the trigger automatically enables RLS on the target table.';
@@ -98,9 +103,6 @@ COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.policy_data I
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.out_fields IS
     'Output column populated by the trigger after field creation. Contains the UUIDs of the metaschema fields created on the target table by this provision row''s generator. NULL when node_type is NULL or before the trigger runs. Callers should not set this directly.';
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.secure_table_provision IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT table_fkey ON metaschema_modules_public.secure_table_provision IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.secure_table_provision IS E'@omit manyToMany';
 
 CREATE INDEX secure_table_provision_database_id_idx ON metaschema_modules_public.secure_table_provision ( database_id );
 CREATE INDEX secure_table_provision_table_id_idx ON metaschema_modules_public.secure_table_provision ( table_id );

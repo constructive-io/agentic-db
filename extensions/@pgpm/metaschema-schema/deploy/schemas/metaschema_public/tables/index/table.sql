@@ -8,7 +8,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.index (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL,
   table_id uuid NOT NULL,
   name text NOT NULL DEFAULT '',
@@ -21,6 +21,9 @@ CREATE TABLE metaschema_public.index (
   index_params jsonb,
   where_clause jsonb,
   is_unique boolean NOT NULL default false,
+
+  options jsonb,
+  op_classes text[],
 
   smart_tags jsonb,
 
@@ -37,8 +40,6 @@ CREATE TABLE metaschema_public.index (
   UNIQUE (database_id, name)
 );
 
-COMMENT ON CONSTRAINT table_fkey ON metaschema_public.index IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.index IS E'@omit manyToMany';
 
 CREATE INDEX index_table_id_idx ON metaschema_public.index ( table_id );
 CREATE INDEX index_database_id_idx ON metaschema_public.index ( database_id );

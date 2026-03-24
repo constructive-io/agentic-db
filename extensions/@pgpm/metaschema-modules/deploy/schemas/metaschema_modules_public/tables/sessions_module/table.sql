@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.sessions_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
 
     --
@@ -29,17 +29,13 @@ CREATE TABLE metaschema_modules_public.sessions_module (
     CONSTRAINT users_table_fkey FOREIGN KEY (users_table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE
 );
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.sessions_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.sessions_module IS E'@omit manyToMany';
 CREATE INDEX sessions_module_database_id_idx ON metaschema_modules_public.sessions_module ( database_id );
 
 COMMENT ON CONSTRAINT sessions_table_fkey
-     ON metaschema_modules_public.sessions_module IS E'@fieldName sessionsTableBySessionsTableId\n@omit manyToMany';
+     ON metaschema_modules_public.sessions_module IS E'@fieldName sessionsTableBySessionsTableId';
 COMMENT ON CONSTRAINT session_credentials_table_fkey
-     ON metaschema_modules_public.sessions_module IS E'@fieldName sessionCredentialsTableBySessionCredentialsTableId\n@omit manyToMany';
+     ON metaschema_modules_public.sessions_module IS E'@fieldName sessionCredentialsTableBySessionCredentialsTableId';
 COMMENT ON CONSTRAINT auth_settings_table_fkey
-     ON metaschema_modules_public.sessions_module IS E'@fieldName authSettingsTableByAuthSettingsTableId\n@omit manyToMany';
-COMMENT ON CONSTRAINT users_table_fkey
-     ON metaschema_modules_public.sessions_module IS E'@omit manyToMany';
+     ON metaschema_modules_public.sessions_module IS E'@fieldName authSettingsTableByAuthSettingsTableId';
 
 COMMIT;

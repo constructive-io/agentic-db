@@ -6,7 +6,7 @@
 BEGIN;
 
 CREATE TABLE services_public.sites (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL,
   title text,
   description text,
@@ -35,7 +35,6 @@ COMMENT ON COLUMN services_public.sites.apple_touch_icon IS 'Apple touch icon fo
 COMMENT ON COLUMN services_public.sites.logo IS 'Primary logo image for the site';
 COMMENT ON COLUMN services_public.sites.dbname IS 'PostgreSQL database name this site connects to';
 
-COMMENT ON CONSTRAINT db_fkey ON services_public.sites IS E'@omit manyToMany';
 CREATE INDEX sites_database_id_idx ON services_public.sites ( database_id );
 
 COMMIT;

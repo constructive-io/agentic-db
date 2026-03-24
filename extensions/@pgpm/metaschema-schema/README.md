@@ -261,7 +261,7 @@ Stores column definitions:
 - `smart_tags`: JSONB smart tags
 - `is_required`: NOT NULL constraint
 - `default_value`: Default value
-- `is_hidden`: Hide from API
+- `smart_tags`: Use smart tags with `@omit` to hide from API
 - `type`: PostgreSQL type
 - `field_order`: Display order
 - `regexp`: Validation regex

@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE services_public.api_schemas (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL,
   schema_id uuid NOT NULL,
   api_id uuid NOT NULL,
@@ -24,9 +24,6 @@ COMMENT ON COLUMN services_public.api_schemas.database_id IS 'Reference to the m
 COMMENT ON COLUMN services_public.api_schemas.schema_id IS 'Metaschema schema being exposed through the API';
 COMMENT ON COLUMN services_public.api_schemas.api_id IS 'API that exposes this schema';
 
--- COMMENT ON CONSTRAINT schema_fkey ON services_public.api_schemas IS E'@omit manyToMany';
--- COMMENT ON CONSTRAINT api_fkey ON services_public.api_schemas IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON services_public.api_schemas IS E'@omit manyToMany';
 
 
 CREATE INDEX api_schemas_database_id_idx ON services_public.api_schemas ( database_id );

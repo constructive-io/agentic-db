@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.database (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   owner_id uuid,
   schema_hash text,
   

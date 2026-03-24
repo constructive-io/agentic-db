@@ -6,7 +6,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.table_grant (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL DEFAULT uuid_nil(),
     
     table_id uuid NOT NULL,
@@ -22,8 +22,6 @@ CREATE TABLE metaschema_public.table_grant (
     CONSTRAINT table_fkey FOREIGN KEY (table_id) REFERENCES metaschema_public.table (id) ON DELETE CASCADE
 );
 
-COMMENT ON CONSTRAINT table_fkey ON metaschema_public.table_grant IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.table_grant IS E'@omit manyToMany';
 
 CREATE INDEX table_grant_table_id_idx ON metaschema_public.table_grant ( table_id );
 CREATE INDEX table_grant_database_id_idx ON metaschema_public.table_grant ( database_id );

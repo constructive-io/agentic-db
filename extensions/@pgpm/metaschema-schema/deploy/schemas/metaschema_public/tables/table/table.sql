@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.table (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL DEFAULT uuid_nil(),
 
   schema_id uuid NOT NULL,
@@ -42,8 +42,6 @@ CREATE TABLE metaschema_public.table (
 ALTER TABLE metaschema_public.table ADD COLUMN
     inherits_id uuid NULL REFERENCES metaschema_public.table(id);
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_public.table IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.table IS E'@omit manyToMany';
 
 CREATE INDEX table_schema_id_idx ON metaschema_public.table ( schema_id );
 CREATE INDEX table_database_id_idx ON metaschema_public.table ( database_id );

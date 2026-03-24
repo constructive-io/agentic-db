@@ -1,6 +1,0 @@
--- Revert: schemas/agentic_db_memberships_public/tables/app_membership_defaults/triggers/app_membership_defaults_insert_trg
-
-
-DROP TRIGGER app_membership_defaults_insert_trg ON "agentic_db_memberships_public".app_membership_defaults;
-
-

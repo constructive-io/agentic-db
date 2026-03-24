@@ -5,7 +5,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_modules_public.table_template_module (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     
     schema_id uuid NOT NULL DEFAULT uuid_nil(),
@@ -33,11 +33,6 @@ CREATE TABLE metaschema_modules_public.table_template_module (
     CONSTRAINT private_schema_fkey FOREIGN KEY (private_schema_id) REFERENCES metaschema_public.schema (id) ON DELETE CASCADE
 );
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_modules_public.table_template_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT private_schema_fkey ON metaschema_modules_public.table_template_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT table_fkey ON metaschema_modules_public.table_template_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT owner_table_fkey ON metaschema_modules_public.table_template_module IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_modules_public.table_template_module IS E'@omit manyToMany';
 CREATE INDEX table_template_module_database_id_idx ON metaschema_modules_public.table_template_module ( database_id );
 CREATE INDEX table_template_module_schema_id_idx ON metaschema_modules_public.table_template_module ( schema_id );
 CREATE INDEX table_template_module_private_schema_id_idx ON metaschema_modules_public.table_template_module ( private_schema_id );

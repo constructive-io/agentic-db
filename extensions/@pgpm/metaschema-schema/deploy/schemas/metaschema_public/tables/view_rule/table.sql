@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.view_rule (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL DEFAULT uuid_nil(),
 
   view_id uuid NOT NULL,
@@ -25,8 +25,6 @@ COMMENT ON TABLE metaschema_public.view_rule IS 'DO INSTEAD rules for views (e.g
 COMMENT ON COLUMN metaschema_public.view_rule.event IS 'INSERT, UPDATE, or DELETE';
 COMMENT ON COLUMN metaschema_public.view_rule.action IS 'NOTHING (for read-only) or custom action';
 
-COMMENT ON CONSTRAINT view_fkey ON metaschema_public.view_rule IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.view_rule IS E'@omit manyToMany';
 
 CREATE INDEX view_rule_view_id_idx ON metaschema_public.view_rule ( view_id );
 CREATE INDEX view_rule_database_id_idx ON metaschema_public.view_rule ( database_id );

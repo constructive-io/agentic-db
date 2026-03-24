@@ -8,7 +8,7 @@
 BEGIN;
 
 CREATE TABLE services_public.domains (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     
     api_id uuid,
@@ -37,13 +37,10 @@ COMMENT ON COLUMN services_public.domains.site_id IS 'Site this domain routes to
 COMMENT ON COLUMN services_public.domains.subdomain IS 'Subdomain portion of the hostname';
 COMMENT ON COLUMN services_public.domains.domain IS 'Root domain of the hostname';
 
-COMMENT ON CONSTRAINT db_fkey ON services_public.domains IS E'@omit manyToMany';
 CREATE INDEX domains_database_id_idx ON services_public.domains ( database_id );
 
-COMMENT ON CONSTRAINT api_fkey ON services_public.domains IS E'@omit manyToMany';
 CREATE INDEX domains_api_id_idx ON services_public.domains ( api_id );
 
-COMMENT ON CONSTRAINT site_fkey ON services_public.domains IS E'@omit manyToMany';
 CREATE INDEX domains_site_id_idx ON services_public.domains ( site_id );
 
 COMMIT;

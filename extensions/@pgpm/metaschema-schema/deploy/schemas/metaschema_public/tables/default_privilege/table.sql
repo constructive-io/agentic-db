@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE metaschema_public.default_privilege (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  id uuid PRIMARY KEY DEFAULT uuidv7(),
   database_id uuid NOT NULL DEFAULT uuid_nil(),
 
   schema_id uuid NOT NULL,
@@ -30,8 +30,6 @@ CREATE TABLE metaschema_public.default_privilege (
   UNIQUE (schema_id, object_type, privilege, grantee_name, is_grant)
 );
 
-COMMENT ON CONSTRAINT schema_fkey ON metaschema_public.default_privilege IS E'@omit manyToMany';
-COMMENT ON CONSTRAINT db_fkey ON metaschema_public.default_privilege IS E'@omit manyToMany';
 
 CREATE INDEX default_privilege_schema_id_idx ON metaschema_public.default_privilege ( schema_id );
 CREATE INDEX default_privilege_database_id_idx ON metaschema_public.default_privilege ( database_id );

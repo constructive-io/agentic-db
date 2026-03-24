@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE services_public.apps (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     site_id uuid NOT NULL,
     name text,
@@ -35,10 +35,8 @@ COMMENT ON COLUMN services_public.apps.app_id_prefix IS 'Apple App ID prefix (Te
 COMMENT ON COLUMN services_public.apps.play_store_link IS 'URL to the Google Play Store listing';
 
 ALTER TABLE services_public.apps ADD CONSTRAINT apps_site_id_fkey FOREIGN KEY ( site_id ) REFERENCES services_public.sites ( id );
-COMMENT ON CONSTRAINT apps_site_id_fkey ON services_public.apps IS E'@omit manyToMany';
 CREATE INDEX apps_site_id_idx ON services_public.apps ( site_id );
 
-COMMENT ON CONSTRAINT db_fkey ON services_public.apps IS E'@omit manyToMany';
 CREATE INDEX apps_database_id_idx ON services_public.apps ( database_id );
 
 

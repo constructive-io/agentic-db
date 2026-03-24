@@ -6,7 +6,7 @@
 BEGIN;
 
 CREATE TABLE services_public.apis (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    id uuid PRIMARY KEY DEFAULT uuidv7(),
     database_id uuid NOT NULL,
     name text NOT NULL,
     dbname text NOT NULL DEFAULT current_database(),
@@ -29,7 +29,6 @@ COMMENT ON COLUMN services_public.apis.role_name IS 'PostgreSQL role used for au
 COMMENT ON COLUMN services_public.apis.anon_role IS 'PostgreSQL role used for anonymous/unauthenticated requests';
 COMMENT ON COLUMN services_public.apis.is_public IS 'Whether this API is publicly accessible without authentication';
 
-COMMENT ON CONSTRAINT db_fkey ON services_public.apis IS E'@omit manyToMany';
 CREATE INDEX apis_database_id_idx ON services_public.apis ( database_id );
 
 COMMIT;
