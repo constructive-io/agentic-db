@@ -258,9 +258,14 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     // Grant anonymous role read access to app tables so the CLI
     // can query via the HTTP server without JWT auth.
     // Data is seeded via superuser (pg), bypassing RLS entirely.
+    // We also disable RLS on the tables we query so the anonymous role
+    // can see the seeded data without needing JWT claims.
     await pg.query(`
       GRANT USAGE ON SCHEMA agentic_db_app_public TO anonymous;
       GRANT SELECT ON ALL TABLES IN SCHEMA agentic_db_app_public TO anonymous;
+      ALTER TABLE agentic_db_app_public.contacts DISABLE ROW LEVEL SECURITY;
+      ALTER TABLE agentic_db_app_public.notes DISABLE ROW LEVEL SECURITY;
+      ALTER TABLE agentic_db_app_public.contacts_chunks DISABLE ROW LEVEL SECURITY;
     `);
 
     // ---- Seed all test data once (superuser, bypasses RLS) ----
@@ -439,7 +444,9 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
 
   it('should run "search" and find Carol for a database query', async () => {
     const output = await runCli('search "PostgreSQL distributed systems engineer" --json --tty false');
-    const results = JSON.parse(output);
+    // stdout includes "Searching: ..." before JSON — extract the JSON array
+    const jsonStr = output.slice(output.indexOf('['));
+    const results = JSON.parse(jsonStr);
 
     expect(Array.isArray(results)).toBe(true);
     expect(results.length).toBeGreaterThan(0);
@@ -456,7 +463,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
 
   it('should run "search" and rank Dave higher for cooking query', async () => {
     const output = await runCli('search "French pastry chef chocolate dessert" --json --tty false');
-    const results = JSON.parse(output);
+    const jsonStr = output.slice(output.indexOf('['));
+    const results = JSON.parse(jsonStr);
 
     expect(Array.isArray(results)).toBe(true);
     expect(results.length).toBeGreaterThan(0);
@@ -476,7 +484,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
 
   it('should run "search" with --tables filter', async () => {
     const output = await runCli('search "pgvector architecture" --tables contacts --json --tty false');
-    const results = JSON.parse(output);
+    const jsonStr = output.slice(output.indexOf('['));
+    const results = JSON.parse(jsonStr);
 
     expect(Array.isArray(results)).toBe(true);
     // All results should be from contacts table only
@@ -487,7 +496,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
 
   it('should run "search" with --limit flag', async () => {
     const output = await runCli('search "engineer" --limit 1 --json --tty false');
-    const results = JSON.parse(output);
+    const jsonStr = output.slice(output.indexOf('['));
+    const results = JSON.parse(jsonStr);
 
     expect(Array.isArray(results)).toBe(true);
     // Should respect the per-table limit
@@ -497,7 +507,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
 
   it('should return results from multiple tables', async () => {
     const output = await runCli('search "vector database architecture" --tables contacts,notes --json --tty false');
-    const results = JSON.parse(output);
+    const jsonStr = output.slice(output.indexOf('['));
+    const results = JSON.parse(jsonStr);
 
     expect(Array.isArray(results)).toBe(true);
 
