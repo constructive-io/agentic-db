@@ -21,7 +21,7 @@
  *   - OLLAMA_URL (default: http://localhost:11434)
  *   - Standard PG env vars (PGHOST, PGPORT, PGUSER, PGPASSWORD)
  */
-jest.setTimeout(300000);
+jest.setTimeout(600000);
 
 import { execSync } from 'child_process';
 import { mkdirSync, writeFileSync } from 'fs';
@@ -45,9 +45,11 @@ const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
 const REPO_ROOT = join(__dirname, '..', '..', '..');
 const CLI_ENTRY = join(REPO_ROOT, 'sdk', 'cli', 'src', 'index.ts');
 
+// CLI subprocess timeout — generous to account for npx tsx cold start + Ollama model loading
+const CLI_TIMEOUT = 120_000;
+
 let server: { url: string; graphqlUrl: string; port: number };
 let pg: any;
-let db: any;
 let teardown: () => Promise<void>;
 let query: any;
 
@@ -101,7 +103,7 @@ function runCli(args: string, options: { timeout?: number } = {}): string {
   const cmd = `npx tsx ${CLI_ENTRY} ${args}`;
   const result = execSync(cmd, {
     cwd: REPO_ROOT,
-    timeout: options.timeout || 60000,
+    timeout: options.timeout || CLI_TIMEOUT,
     env: {
       ...process.env,
       HOME: testHome,
@@ -141,7 +143,6 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
 
     server = connections.server;
     pg = connections.pg;
-    db = connections.db;
     query = connections.query;
     teardown = connections.teardown;
 
@@ -152,20 +153,9 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
       GRANT USAGE ON SCHEMA agentic_db_app_public TO anonymous;
       GRANT SELECT ON ALL TABLES IN SCHEMA agentic_db_app_public TO anonymous;
     `);
-  });
 
-  afterAll(async () => {
-    if (teardown) await teardown();
-  });
+    // ---- Seed all test data once (superuser, bypasses RLS) ----
 
-  beforeEach(() => db.beforeEach());
-  afterEach(() => db.afterEach());
-
-  /**
-   * Seed test data entirely via direct SQL (superuser).
-   * Bypasses RLS/auth — no GraphQL mutations needed for data creation.
-   */
-  async function seedTestData(): Promise<void> {
     // 0. Create a stub for app_jobs.add_job so that INSERT triggers
     //    (e.g. contacts_enqueue_chunking, notes_enqueue_chunking) don't fail.
     //    The real function lives in graphile-worker which isn't deployed in the test DB.
@@ -274,9 +264,27 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
       ],
     );
 
-    // 6. Configure CLI context to point at test server (no auth needed)
+    // 6. Configure CLI context to point at test server
     setupCliContext(server.graphqlUrl);
-  }
+
+    // 7. Warm up Ollama model so first CLI call doesn't timeout on model load
+    try {
+      const warmUpRes = await fetch(`${OLLAMA_URL}/api/embeddings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: 'nomic-embed-text', prompt: 'warm up' }),
+      });
+      if (!warmUpRes.ok) {
+        console.warn(`Ollama warm-up returned ${warmUpRes.status}`);
+      }
+    } catch (e) {
+      console.warn('Ollama warm-up failed (may cause timeouts):', e);
+    }
+  });
+
+  afterAll(async () => {
+    if (teardown) await teardown();
+  });
 
   // =========================================================================
   // Server health
@@ -299,9 +307,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   // CLI subprocess tests — search command
   // =========================================================================
 
-  it('should run "search" and find Carol for a database query', async () => {
-    await seedTestData();
-
+  it('should run "search" and find Carol for a database query', () => {
     const output = runCli('search "PostgreSQL distributed systems engineer" --json --tty false');
     const results = JSON.parse(output);
 
@@ -318,9 +324,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     expect(carol.table).toBe('contacts');
   });
 
-  it('should run "search" and rank Dave higher for cooking query', async () => {
-    await seedTestData();
-
+  it('should run "search" and rank Dave higher for cooking query', () => {
     const output = runCli('search "French pastry chef chocolate dessert" --json --tty false');
     const results = JSON.parse(output);
 
@@ -340,9 +344,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     expect(dave.score).toBeGreaterThan(carol.score);
   });
 
-  it('should run "search" with --tables filter', async () => {
-    await seedTestData();
-
+  it('should run "search" with --tables filter', () => {
     const output = runCli('search "pgvector architecture" --tables contacts --json --tty false');
     const results = JSON.parse(output);
 
@@ -353,9 +355,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     }
   });
 
-  it('should run "search" with --limit flag', async () => {
-    await seedTestData();
-
+  it('should run "search" with --limit flag', () => {
     const output = runCli('search "engineer" --limit 1 --json --tty false');
     const results = JSON.parse(output);
 
@@ -365,9 +365,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     expect(contactResults.length).toBeLessThanOrEqual(1);
   });
 
-  it('should return results from multiple tables', async () => {
-    await seedTestData();
-
+  it('should return results from multiple tables', () => {
     const output = runCli('search "vector database architecture" --tables contacts,notes --json --tty false');
     const results = JSON.parse(output);
 
@@ -383,9 +381,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   // CLI subprocess tests — human-readable output
   // =========================================================================
 
-  it('should produce human-readable output without --json', async () => {
-    await seedTestData();
-
+  it('should produce human-readable output without --json', () => {
     const output = runCli('search "PostgreSQL engineer" --tty false');
 
     // Should contain search indicator and result formatting
@@ -400,9 +396,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   // CLI subprocess tests — ask command (context mode)
   // =========================================================================
 
-  it('should run "ask" in context-only mode and return relevant context', async () => {
-    await seedTestData();
-
+  it('should run "ask" in context-only mode and return relevant context', () => {
     // --context flag skips LLM call, just dumps retrieved context
     const output = runCli('ask "Who knows about databases?" --context --tty false');
 
