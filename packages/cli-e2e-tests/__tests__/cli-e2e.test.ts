@@ -166,6 +166,18 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
    * Bypasses RLS/auth — no GraphQL mutations needed for data creation.
    */
   async function seedTestData(): Promise<void> {
+    // 0. Create a stub for app_jobs.add_job so that INSERT triggers
+    //    (e.g. contacts_enqueue_chunking, notes_enqueue_chunking) don't fail.
+    //    The real function lives in graphile-worker which isn't deployed in the test DB.
+    await pg.query(`
+      CREATE SCHEMA IF NOT EXISTS app_jobs;
+      CREATE OR REPLACE FUNCTION app_jobs.add_job(
+        _database_id uuid,
+        _task text,
+        _payload jsonb DEFAULT '{}'::jsonb
+      ) RETURNS void AS $$ BEGIN /* no-op stub */ END; $$ LANGUAGE plpgsql;
+    `);
+
     // 1. Create a user entity via signUp (anonymous mutation — no auth needed)
     const signUpResult = await query(
       `mutation SignUp($input: SignUpInput!) {
