@@ -109,6 +109,10 @@ agentic-db auth set-token <your-token>
 | `project-contact` | projectContact CRUD operations |
 | `projects-chunk` | projectsChunk CRUD operations |
 | `provider-sync-state` | providerSyncState CRUD operations |
+| `raw-contact` | rawContact CRUD operations |
+| `raw-contact-email` | rawContactEmail CRUD operations |
+| `raw-contact-phone` | rawContactPhone CRUD operations |
+| `raw-contact-url` | rawContactUrl CRUD operations |
 | `rule` | rule CRUD operations |
 | `rules-chunk` | rulesChunk CRUD operations |
 | `runtime-artifact` | runtimeArtifact CRUD operations |
@@ -3029,6 +3033,137 @@ CRUD operations for ProviderSyncState records.
 
 **Required create fields:** `entityId`, `provider`, `resourceType`
 **Optional create fields (backend defaults):** `syncCursor`, `lastSyncAt`, `status`, `errorMessage`, `config`
+
+### `raw-contact`
+
+CRUD operations for RawContact records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all rawContact records |
+| `get` | Get a rawContact by id |
+| `create` | Create a new rawContact |
+| `update` | Update an existing rawContact |
+| `delete` | Delete a rawContact |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `externalId` | String |
+| `source` | String |
+| `firstName` | String |
+| `lastName` | String |
+| `email` | String |
+| `phone` | String |
+| `company` | String |
+| `title` | String |
+| `location` | String |
+| `linkedinUrl` | String |
+| `twitterHandle` | String |
+| `website` | String |
+| `confidence` | BigFloat |
+| `rawData` | JSON |
+| `ingestedAt` | Datetime |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `entityId`
+**Optional create fields (backend defaults):** `externalId`, `source`, `firstName`, `lastName`, `email`, `phone`, `company`, `title`, `location`, `linkedinUrl`, `twitterHandle`, `website`, `confidence`, `rawData`, `ingestedAt`
+
+### `raw-contact-email`
+
+CRUD operations for RawContactEmail records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all rawContactEmail records |
+| `get` | Get a rawContactEmail by id |
+| `create` | Create a new rawContactEmail |
+| `update` | Update an existing rawContactEmail |
+| `delete` | Delete a rawContactEmail |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `rawContactId` | UUID |
+| `email` | String |
+| `emailType` | String |
+| `isPrimary` | Boolean |
+| `source` | String |
+| `confidence` | BigFloat |
+| `ingestedAt` | Datetime |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `entityId`, `rawContactId`, `email`
+**Optional create fields (backend defaults):** `emailType`, `isPrimary`, `source`, `confidence`, `ingestedAt`
+
+### `raw-contact-phone`
+
+CRUD operations for RawContactPhone records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all rawContactPhone records |
+| `get` | Get a rawContactPhone by id |
+| `create` | Create a new rawContactPhone |
+| `update` | Update an existing rawContactPhone |
+| `delete` | Delete a rawContactPhone |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `rawContactId` | UUID |
+| `phone` | String |
+| `phoneType` | String |
+| `isPrimary` | Boolean |
+| `source` | String |
+| `confidence` | BigFloat |
+| `ingestedAt` | Datetime |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `entityId`, `rawContactId`, `phone`
+**Optional create fields (backend defaults):** `phoneType`, `isPrimary`, `source`, `confidence`, `ingestedAt`
+
+### `raw-contact-url`
+
+CRUD operations for RawContactUrl records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all rawContactUrl records |
+| `get` | Get a rawContactUrl by id |
+| `create` | Create a new rawContactUrl |
+| `update` | Update an existing rawContactUrl |
+| `delete` | Delete a rawContactUrl |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `rawContactId` | UUID |
+| `url` | String |
+| `urlType` | String |
+| `source` | String |
+| `confidence` | BigFloat |
+| `ingestedAt` | Datetime |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `entityId`, `rawContactId`, `url`
+**Optional create fields (backend defaults):** `urlType`, `source`, `confidence`, `ingestedAt`
 
 ### `rule`
 

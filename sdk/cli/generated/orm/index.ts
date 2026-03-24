@@ -88,6 +88,10 @@ import { PlacesChunkModel } from './models/placesChunk';
 import { ProjectContactModel } from './models/projectContact';
 import { ProjectsChunkModel } from './models/projectsChunk';
 import { ProviderSyncStateModel } from './models/providerSyncState';
+import { RawContactModel } from './models/rawContact';
+import { RawContactEmailModel } from './models/rawContactEmail';
+import { RawContactPhoneModel } from './models/rawContactPhone';
+import { RawContactUrlModel } from './models/rawContactUrl';
 import { RuleModel } from './models/rule';
 import { RulesChunkModel } from './models/rulesChunk';
 import { RuntimeArtifactModel } from './models/runtimeArtifact';
@@ -234,6 +238,10 @@ export function createClient(config: OrmClientConfig) {
     projectContact: new ProjectContactModel(client),
     projectsChunk: new ProjectsChunkModel(client),
     providerSyncState: new ProviderSyncStateModel(client),
+    rawContact: new RawContactModel(client),
+    rawContactEmail: new RawContactEmailModel(client),
+    rawContactPhone: new RawContactPhoneModel(client),
+    rawContactUrl: new RawContactUrlModel(client),
     rule: new RuleModel(client),
     rulesChunk: new RulesChunkModel(client),
     runtimeArtifact: new RuntimeArtifactModel(client),

@@ -1936,6 +1936,80 @@ enum ProviderSyncStateOrderBy {
   STATUS_DESC
 }
 
+"Methods to use when ordering `RawContactEmail`."
+enum RawContactEmailOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  RAW_CONTACT_ID_ASC
+  RAW_CONTACT_ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  SOURCE_ASC
+  SOURCE_DESC
+}
+
+"Methods to use when ordering `RawContact`."
+enum RawContactOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  EXTERNAL_ID_ASC
+  EXTERNAL_ID_DESC
+  SOURCE_ASC
+  SOURCE_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  PHONE_ASC
+  PHONE_DESC
+  LINKEDIN_URL_ASC
+  LINKEDIN_URL_DESC
+  INGESTED_AT_ASC
+  INGESTED_AT_DESC
+}
+
+"Methods to use when ordering `RawContactPhone`."
+enum RawContactPhoneOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  RAW_CONTACT_ID_ASC
+  RAW_CONTACT_ID_DESC
+  PHONE_ASC
+  PHONE_DESC
+  SOURCE_ASC
+  SOURCE_DESC
+}
+
+"Methods to use when ordering `RawContactUrl`."
+enum RawContactUrlOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  RAW_CONTACT_ID_ASC
+  RAW_CONTACT_ID_DESC
+  URL_ASC
+  URL_DESC
+  SOURCE_ASC
+  SOURCE_DESC
+}
+
 "Methods to use when ordering `Rule`."
 enum RuleOrderBy {
   NATURAL
@@ -7818,6 +7892,78 @@ type CreateProviderSyncStatePayload {
   ): ProviderSyncStateEdge
 }
 
+"The output of our create `RawContactEmail` mutation."
+type CreateRawContactEmailPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContactEmail` that was created by this mutation."
+  rawContactEmail: RawContactEmail
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContactEmail`. May be used by Relay 1."
+  rawContactEmailEdge(
+    "The method to use when ordering `RawContactEmail`."
+    orderBy: [RawContactEmailOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactEmailEdge
+}
+
+"The output of our create `RawContact` mutation."
+type CreateRawContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContact` that was created by this mutation."
+  rawContact: RawContact
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContact`. May be used by Relay 1."
+  rawContactEdge(
+    "The method to use when ordering `RawContact`."
+    orderBy: [RawContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactEdge
+}
+
+"The output of our create `RawContactPhone` mutation."
+type CreateRawContactPhonePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContactPhone` that was created by this mutation."
+  rawContactPhone: RawContactPhone
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContactPhone`. May be used by Relay 1."
+  rawContactPhoneEdge(
+    "The method to use when ordering `RawContactPhone`."
+    orderBy: [RawContactPhoneOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactPhoneEdge
+}
+
+"The output of our create `RawContactUrl` mutation."
+type CreateRawContactUrlPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContactUrl` that was created by this mutation."
+  rawContactUrl: RawContactUrl
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContactUrl`. May be used by Relay 1."
+  rawContactUrlEdge(
+    "The method to use when ordering `RawContactUrl`."
+    orderBy: [RawContactUrlOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactUrlEdge
+}
+
 "The output of our create `Rule` mutation."
 type CreateRulePayload {
   """
@@ -10333,6 +10479,78 @@ type DeleteProviderSyncStatePayload {
     "The method to use when ordering `ProviderSyncState`."
     orderBy: [ProviderSyncStateOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ProviderSyncStateEdge
+}
+
+"The output of our delete `RawContactEmail` mutation."
+type DeleteRawContactEmailPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContactEmail` that was deleted by this mutation."
+  rawContactEmail: RawContactEmail
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContactEmail`. May be used by Relay 1."
+  rawContactEmailEdge(
+    "The method to use when ordering `RawContactEmail`."
+    orderBy: [RawContactEmailOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactEmailEdge
+}
+
+"The output of our delete `RawContact` mutation."
+type DeleteRawContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContact` that was deleted by this mutation."
+  rawContact: RawContact
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContact`. May be used by Relay 1."
+  rawContactEdge(
+    "The method to use when ordering `RawContact`."
+    orderBy: [RawContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactEdge
+}
+
+"The output of our delete `RawContactPhone` mutation."
+type DeleteRawContactPhonePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContactPhone` that was deleted by this mutation."
+  rawContactPhone: RawContactPhone
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContactPhone`. May be used by Relay 1."
+  rawContactPhoneEdge(
+    "The method to use when ordering `RawContactPhone`."
+    orderBy: [RawContactPhoneOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactPhoneEdge
+}
+
+"The output of our delete `RawContactUrl` mutation."
+type DeleteRawContactUrlPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContactUrl` that was deleted by this mutation."
+  rawContactUrl: RawContactUrl
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContactUrl`. May be used by Relay 1."
+  rawContactUrlEdge(
+    "The method to use when ordering `RawContactUrl`."
+    orderBy: [RawContactUrlOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactUrlEdge
 }
 
 "The output of our delete `Rule` mutation."
@@ -14380,21 +14598,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeEventInput!
   ): CreateRuntimeEventPayload
-  "Creates a single `EmailAttachment`."
-  createEmailAttachment(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateEmailAttachmentInput!
-  ): CreateEmailAttachmentPayload
-  "Creates a single `ToolExecution`."
-  createToolExecution(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateToolExecutionInput!
-  ): CreateToolExecutionPayload
-  "Creates a single `RuntimeMetric`."
-  createRuntimeMetric(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRuntimeMetricInput!
-  ): CreateRuntimeMetricPayload
   "Creates a single `RuntimeConfig`."
   createRuntimeConfig(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14405,21 +14608,51 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateToolDefinitionInput!
   ): CreateToolDefinitionPayload
-  "Creates a single `ProviderSyncState`."
-  createProviderSyncState(
+  "Creates a single `RawContactUrl`."
+  createRawContactUrl(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateProviderSyncStateInput!
-  ): CreateProviderSyncStatePayload
+    input: CreateRawContactUrlInput!
+  ): CreateRawContactUrlPayload
+  "Creates a single `EmailAttachment`."
+  createEmailAttachment(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateEmailAttachmentInput!
+  ): CreateEmailAttachmentPayload
+  "Creates a single `ToolExecution`."
+  createToolExecution(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateToolExecutionInput!
+  ): CreateToolExecutionPayload
   "Creates a single `Calendar`."
   createCalendar(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateCalendarInput!
   ): CreateCalendarPayload
+  "Creates a single `RuntimeMetric`."
+  createRuntimeMetric(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRuntimeMetricInput!
+  ): CreateRuntimeMetricPayload
+  "Creates a single `ProviderSyncState`."
+  createProviderSyncState(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateProviderSyncStateInput!
+  ): CreateProviderSyncStatePayload
   "Creates a single `RuntimeSchedule`."
   createRuntimeSchedule(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeScheduleInput!
   ): CreateRuntimeSchedulePayload
+  "Creates a single `RawContactEmail`."
+  createRawContactEmail(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRawContactEmailInput!
+  ): CreateRawContactEmailPayload
+  "Creates a single `RawContactPhone`."
+  createRawContactPhone(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRawContactPhoneInput!
+  ): CreateRawContactPhonePayload
   "Creates a single `Image`."
   createImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14630,6 +14863,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateSkillInput!
   ): CreateSkillPayload
+  "Creates a single `Rule`."
+  createRule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRuleInput!
+  ): CreateRulePayload
+  "Creates a single `RawContact`."
+  createRawContact(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRawContactInput!
+  ): CreateRawContactPayload
   "Creates a single `CodeChunk`."
   createCodeChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14640,11 +14883,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateItineraryItemInput!
   ): CreateItineraryItemPayload
-  "Creates a single `Rule`."
-  createRule(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRuleInput!
-  ): CreateRulePayload
   "Creates a single `Note`."
   createNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14675,16 +14913,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateAgentInput!
   ): CreateAgentPayload
-  "Creates a single `Goal`."
-  createGoal(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateGoalInput!
-  ): CreateGoalPayload
   "Creates a single `Habit`."
   createHabit(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateHabitInput!
   ): CreateHabitPayload
+  "Creates a single `Goal`."
+  createGoal(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateGoalInput!
+  ): CreateGoalPayload
   "Creates a single `Deal`."
   createDeal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14950,21 +15188,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeEventInput!
   ): UpdateRuntimeEventPayload
-  "Updates a single `EmailAttachment` using a unique key and a patch."
-  updateEmailAttachment(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateEmailAttachmentInput!
-  ): UpdateEmailAttachmentPayload
-  "Updates a single `ToolExecution` using a unique key and a patch."
-  updateToolExecution(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateToolExecutionInput!
-  ): UpdateToolExecutionPayload
-  "Updates a single `RuntimeMetric` using a unique key and a patch."
-  updateRuntimeMetric(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuntimeMetricInput!
-  ): UpdateRuntimeMetricPayload
   "Updates a single `RuntimeConfig` using a unique key and a patch."
   updateRuntimeConfig(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14975,21 +15198,51 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateToolDefinitionInput!
   ): UpdateToolDefinitionPayload
-  "Updates a single `ProviderSyncState` using a unique key and a patch."
-  updateProviderSyncState(
+  "Updates a single `RawContactUrl` using a unique key and a patch."
+  updateRawContactUrl(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateProviderSyncStateInput!
-  ): UpdateProviderSyncStatePayload
+    input: UpdateRawContactUrlInput!
+  ): UpdateRawContactUrlPayload
+  "Updates a single `EmailAttachment` using a unique key and a patch."
+  updateEmailAttachment(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateEmailAttachmentInput!
+  ): UpdateEmailAttachmentPayload
+  "Updates a single `ToolExecution` using a unique key and a patch."
+  updateToolExecution(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateToolExecutionInput!
+  ): UpdateToolExecutionPayload
   "Updates a single `Calendar` using a unique key and a patch."
   updateCalendar(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateCalendarInput!
   ): UpdateCalendarPayload
+  "Updates a single `RuntimeMetric` using a unique key and a patch."
+  updateRuntimeMetric(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRuntimeMetricInput!
+  ): UpdateRuntimeMetricPayload
+  "Updates a single `ProviderSyncState` using a unique key and a patch."
+  updateProviderSyncState(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateProviderSyncStateInput!
+  ): UpdateProviderSyncStatePayload
   "Updates a single `RuntimeSchedule` using a unique key and a patch."
   updateRuntimeSchedule(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeScheduleInput!
   ): UpdateRuntimeSchedulePayload
+  "Updates a single `RawContactEmail` using a unique key and a patch."
+  updateRawContactEmail(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRawContactEmailInput!
+  ): UpdateRawContactEmailPayload
+  "Updates a single `RawContactPhone` using a unique key and a patch."
+  updateRawContactPhone(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRawContactPhoneInput!
+  ): UpdateRawContactPhonePayload
   "Updates a single `Image` using a unique key and a patch."
   updateImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15200,6 +15453,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateSkillInput!
   ): UpdateSkillPayload
+  "Updates a single `Rule` using a unique key and a patch."
+  updateRule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRuleInput!
+  ): UpdateRulePayload
+  "Updates a single `RawContact` using a unique key and a patch."
+  updateRawContact(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRawContactInput!
+  ): UpdateRawContactPayload
   "Updates a single `CodeChunk` using a unique key and a patch."
   updateCodeChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15210,11 +15473,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateItineraryItemInput!
   ): UpdateItineraryItemPayload
-  "Updates a single `Rule` using a unique key and a patch."
-  updateRule(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuleInput!
-  ): UpdateRulePayload
   "Updates a single `Note` using a unique key and a patch."
   updateNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15245,16 +15503,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateAgentInput!
   ): UpdateAgentPayload
-  "Updates a single `Goal` using a unique key and a patch."
-  updateGoal(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateGoalInput!
-  ): UpdateGoalPayload
   "Updates a single `Habit` using a unique key and a patch."
   updateHabit(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateHabitInput!
   ): UpdateHabitPayload
+  "Updates a single `Goal` using a unique key and a patch."
+  updateGoal(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateGoalInput!
+  ): UpdateGoalPayload
   "Updates a single `Deal` using a unique key and a patch."
   updateDeal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15520,21 +15778,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeEventInput!
   ): DeleteRuntimeEventPayload
-  "Deletes a single `EmailAttachment` using a unique key."
-  deleteEmailAttachment(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteEmailAttachmentInput!
-  ): DeleteEmailAttachmentPayload
-  "Deletes a single `ToolExecution` using a unique key."
-  deleteToolExecution(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteToolExecutionInput!
-  ): DeleteToolExecutionPayload
-  "Deletes a single `RuntimeMetric` using a unique key."
-  deleteRuntimeMetric(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuntimeMetricInput!
-  ): DeleteRuntimeMetricPayload
   "Deletes a single `RuntimeConfig` using a unique key."
   deleteRuntimeConfig(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15545,21 +15788,51 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteToolDefinitionInput!
   ): DeleteToolDefinitionPayload
-  "Deletes a single `ProviderSyncState` using a unique key."
-  deleteProviderSyncState(
+  "Deletes a single `RawContactUrl` using a unique key."
+  deleteRawContactUrl(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteProviderSyncStateInput!
-  ): DeleteProviderSyncStatePayload
+    input: DeleteRawContactUrlInput!
+  ): DeleteRawContactUrlPayload
+  "Deletes a single `EmailAttachment` using a unique key."
+  deleteEmailAttachment(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteEmailAttachmentInput!
+  ): DeleteEmailAttachmentPayload
+  "Deletes a single `ToolExecution` using a unique key."
+  deleteToolExecution(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteToolExecutionInput!
+  ): DeleteToolExecutionPayload
   "Deletes a single `Calendar` using a unique key."
   deleteCalendar(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteCalendarInput!
   ): DeleteCalendarPayload
+  "Deletes a single `RuntimeMetric` using a unique key."
+  deleteRuntimeMetric(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRuntimeMetricInput!
+  ): DeleteRuntimeMetricPayload
+  "Deletes a single `ProviderSyncState` using a unique key."
+  deleteProviderSyncState(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteProviderSyncStateInput!
+  ): DeleteProviderSyncStatePayload
   "Deletes a single `RuntimeSchedule` using a unique key."
   deleteRuntimeSchedule(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeScheduleInput!
   ): DeleteRuntimeSchedulePayload
+  "Deletes a single `RawContactEmail` using a unique key."
+  deleteRawContactEmail(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRawContactEmailInput!
+  ): DeleteRawContactEmailPayload
+  "Deletes a single `RawContactPhone` using a unique key."
+  deleteRawContactPhone(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRawContactPhoneInput!
+  ): DeleteRawContactPhonePayload
   "Deletes a single `Image` using a unique key."
   deleteImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15770,6 +16043,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteSkillInput!
   ): DeleteSkillPayload
+  "Deletes a single `Rule` using a unique key."
+  deleteRule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRuleInput!
+  ): DeleteRulePayload
+  "Deletes a single `RawContact` using a unique key."
+  deleteRawContact(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRawContactInput!
+  ): DeleteRawContactPayload
   "Deletes a single `CodeChunk` using a unique key."
   deleteCodeChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15780,11 +16063,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteItineraryItemInput!
   ): DeleteItineraryItemPayload
-  "Deletes a single `Rule` using a unique key."
-  deleteRule(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuleInput!
-  ): DeleteRulePayload
   "Deletes a single `Note` using a unique key."
   deleteNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15815,16 +16093,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteAgentInput!
   ): DeleteAgentPayload
-  "Deletes a single `Goal` using a unique key."
-  deleteGoal(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteGoalInput!
-  ): DeleteGoalPayload
   "Deletes a single `Habit` using a unique key."
   deleteHabit(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteHabitInput!
   ): DeleteHabitPayload
+  "Deletes a single `Goal` using a unique key."
+  deleteGoal(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteGoalInput!
+  ): DeleteGoalPayload
   "Deletes a single `Deal` using a unique key."
   deleteDeal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -18017,66 +18295,6 @@ type Query {
     "The method to use when ordering `RuntimeEvent`."
     orderBy: [RuntimeEventOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeEventConnection
-  "Reads and enables pagination through a set of `EmailAttachment`."
-  emailAttachments(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailAttachmentFilter
-    "The method to use when ordering `EmailAttachment`."
-    orderBy: [EmailAttachmentOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailAttachmentConnection
-  "Reads and enables pagination through a set of `ToolExecution`."
-  toolExecutions(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ToolExecutionFilter
-    "The method to use when ordering `ToolExecution`."
-    orderBy: [ToolExecutionOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ToolExecutionConnection
-  "Reads and enables pagination through a set of `RuntimeMetric`."
-  runtimeMetrics(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeMetricFilter
-    "The method to use when ordering `RuntimeMetric`."
-    orderBy: [RuntimeMetricOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeMetricConnection
   "Reads and enables pagination through a set of `RuntimeConfig`."
   runtimeConfigs(
     "Only read the first `n` values of the set."
@@ -18117,8 +18335,8 @@ type Query {
     "The method to use when ordering `ToolDefinition`."
     orderBy: [ToolDefinitionOrderBy!] = [PRIMARY_KEY_ASC]
   ): ToolDefinitionConnection
-  "Reads and enables pagination through a set of `ProviderSyncState`."
-  providerSyncStates(
+  "Reads and enables pagination through a set of `RawContactUrl`."
+  rawContactUrls(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -18133,10 +18351,50 @@ type Query {
     "Read all values in the set after (below) this cursor."
     after: Cursor
     "A filter to be used in determining which values should be returned by the collection."
-    where: ProviderSyncStateFilter
-    "The method to use when ordering `ProviderSyncState`."
-    orderBy: [ProviderSyncStateOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ProviderSyncStateConnection
+    where: RawContactUrlFilter
+    "The method to use when ordering `RawContactUrl`."
+    orderBy: [RawContactUrlOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawContactUrlConnection
+  "Reads and enables pagination through a set of `EmailAttachment`."
+  emailAttachments(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: EmailAttachmentFilter
+    "The method to use when ordering `EmailAttachment`."
+    orderBy: [EmailAttachmentOrderBy!] = [PRIMARY_KEY_ASC]
+  ): EmailAttachmentConnection
+  "Reads and enables pagination through a set of `ToolExecution`."
+  toolExecutions(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ToolExecutionFilter
+    "The method to use when ordering `ToolExecution`."
+    orderBy: [ToolExecutionOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ToolExecutionConnection
   "Reads and enables pagination through a set of `Calendar`."
   calendars(
     "Only read the first `n` values of the set."
@@ -18157,6 +18415,46 @@ type Query {
     "The method to use when ordering `Calendar`."
     orderBy: [CalendarOrderBy!] = [PRIMARY_KEY_ASC]
   ): CalendarConnection
+  "Reads and enables pagination through a set of `RuntimeMetric`."
+  runtimeMetrics(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RuntimeMetricFilter
+    "The method to use when ordering `RuntimeMetric`."
+    orderBy: [RuntimeMetricOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuntimeMetricConnection
+  "Reads and enables pagination through a set of `ProviderSyncState`."
+  providerSyncStates(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ProviderSyncStateFilter
+    "The method to use when ordering `ProviderSyncState`."
+    orderBy: [ProviderSyncStateOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ProviderSyncStateConnection
   "Reads and enables pagination through a set of `RuntimeSchedule`."
   runtimeSchedules(
     "Only read the first `n` values of the set."
@@ -18177,6 +18475,46 @@ type Query {
     "The method to use when ordering `RuntimeSchedule`."
     orderBy: [RuntimeScheduleOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeScheduleConnection
+  "Reads and enables pagination through a set of `RawContactEmail`."
+  rawContactEmails(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawContactEmailFilter
+    "The method to use when ordering `RawContactEmail`."
+    orderBy: [RawContactEmailOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawContactEmailConnection
+  "Reads and enables pagination through a set of `RawContactPhone`."
+  rawContactPhones(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawContactPhoneFilter
+    "The method to use when ordering `RawContactPhone`."
+    orderBy: [RawContactPhoneOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawContactPhoneConnection
   "Reads and enables pagination through a set of `Image`."
   images(
     "Only read the first `n` values of the set."
@@ -19017,6 +19355,46 @@ type Query {
     "The method to use when ordering `Skill`."
     orderBy: [SkillOrderBy!] = [PRIMARY_KEY_ASC]
   ): SkillConnection
+  "Reads and enables pagination through a set of `Rule`."
+  rules(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RuleFilter
+    "The method to use when ordering `Rule`."
+    orderBy: [RuleOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuleConnection
+  "Reads and enables pagination through a set of `RawContact`."
+  rawContacts(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawContactFilter
+    "The method to use when ordering `RawContact`."
+    orderBy: [RawContactOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawContactConnection
   "Reads and enables pagination through a set of `CodeChunk`."
   codeChunks(
     "Only read the first `n` values of the set."
@@ -19057,26 +19435,6 @@ type Query {
     "The method to use when ordering `ItineraryItem`."
     orderBy: [ItineraryItemOrderBy!] = [PRIMARY_KEY_ASC]
   ): ItineraryItemConnection
-  "Reads and enables pagination through a set of `Rule`."
-  rules(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuleFilter
-    "The method to use when ordering `Rule`."
-    orderBy: [RuleOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuleConnection
   "Reads and enables pagination through a set of `Note`."
   notes(
     "Only read the first `n` values of the set."
@@ -19197,26 +19555,6 @@ type Query {
     "The method to use when ordering `Agent`."
     orderBy: [AgentOrderBy!] = [PRIMARY_KEY_ASC]
   ): AgentConnection
-  "Reads and enables pagination through a set of `Goal`."
-  goals(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: GoalFilter
-    "The method to use when ordering `Goal`."
-    orderBy: [GoalOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GoalConnection
   "Reads and enables pagination through a set of `Habit`."
   habits(
     "Only read the first `n` values of the set."
@@ -19237,6 +19575,26 @@ type Query {
     "The method to use when ordering `Habit`."
     orderBy: [HabitOrderBy!] = [PRIMARY_KEY_ASC]
   ): HabitConnection
+  "Reads and enables pagination through a set of `Goal`."
+  goals(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: GoalFilter
+    "The method to use when ordering `Goal`."
+    orderBy: [GoalOrderBy!] = [PRIMARY_KEY_ASC]
+  ): GoalConnection
   "Reads and enables pagination through a set of `Deal`."
   deals(
     "Only read the first `n` values of the set."
@@ -19499,6 +19857,215 @@ type Query {
   ): MemoryConnection
   "Metadata about the database schema, including tables, fields, indexes, and constraints. Useful for code generation tools."
   _meta: MetaSchema
+}
+
+type RawContact {
+  id: UUID!
+  entityId: UUID!
+  externalId: String
+  source: String
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  company: String
+  title: String
+  location: String
+  linkedinUrl: String
+  twitterHandle: String
+  website: String
+  confidence: BigFloat
+  rawData: JSON
+  ingestedAt: Datetime
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  "Reads and enables pagination through a set of `RawContactEmail`."
+  rawContactEmails(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawContactEmailFilter
+    "The method to use when ordering `RawContactEmail`."
+    orderBy: [RawContactEmailOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawContactEmailConnection!
+  "Reads and enables pagination through a set of `RawContactPhone`."
+  rawContactPhones(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawContactPhoneFilter
+    "The method to use when ordering `RawContactPhone`."
+    orderBy: [RawContactPhoneOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawContactPhoneConnection!
+  "Reads and enables pagination through a set of `RawContactUrl`."
+  rawContactUrls(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawContactUrlFilter
+    "The method to use when ordering `RawContactUrl`."
+    orderBy: [RawContactUrlOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawContactUrlConnection!
+}
+
+"A connection to a list of `RawContact` values."
+type RawContactConnection {
+  "A list of `RawContact` objects."
+  nodes: [RawContact]!
+  "A list of edges which contains the `RawContact` and cursor to aid in pagination."
+  edges: [RawContactEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `RawContact` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `RawContact` edge in the connection."
+type RawContactEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `RawContact` at the end of the edge."
+  node: RawContact
+}
+
+type RawContactEmail {
+  id: UUID!
+  entityId: UUID!
+  rawContactId: UUID!
+  email: String!
+  emailType: String
+  isPrimary: Boolean
+  source: String
+  confidence: BigFloat
+  ingestedAt: Datetime
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  "Reads a single `RawContact` that is related to this `RawContactEmail`."
+  rawContact: RawContact
+}
+
+"A connection to a list of `RawContactEmail` values."
+type RawContactEmailConnection {
+  "A list of `RawContactEmail` objects."
+  nodes: [RawContactEmail]!
+  "A list of edges which contains the `RawContactEmail` and cursor to aid in pagination."
+  edges: [RawContactEmailEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `RawContactEmail` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `RawContactEmail` edge in the connection."
+type RawContactEmailEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `RawContactEmail` at the end of the edge."
+  node: RawContactEmail
+}
+
+type RawContactPhone {
+  id: UUID!
+  entityId: UUID!
+  rawContactId: UUID!
+  phone: String!
+  phoneType: String
+  isPrimary: Boolean
+  source: String
+  confidence: BigFloat
+  ingestedAt: Datetime
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  "Reads a single `RawContact` that is related to this `RawContactPhone`."
+  rawContact: RawContact
+}
+
+"A connection to a list of `RawContactPhone` values."
+type RawContactPhoneConnection {
+  "A list of `RawContactPhone` objects."
+  nodes: [RawContactPhone]!
+  "A list of edges which contains the `RawContactPhone` and cursor to aid in pagination."
+  edges: [RawContactPhoneEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `RawContactPhone` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `RawContactPhone` edge in the connection."
+type RawContactPhoneEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `RawContactPhone` at the end of the edge."
+  node: RawContactPhone
+}
+
+type RawContactUrl {
+  id: UUID!
+  entityId: UUID!
+  rawContactId: UUID!
+  url: String!
+  urlType: String
+  source: String
+  confidence: BigFloat
+  ingestedAt: Datetime
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  "Reads a single `RawContact` that is related to this `RawContactUrl`."
+  rawContact: RawContact
+}
+
+"A connection to a list of `RawContactUrl` values."
+type RawContactUrlConnection {
+  "A list of `RawContactUrl` objects."
+  nodes: [RawContactUrl]!
+  "A list of edges which contains the `RawContactUrl` and cursor to aid in pagination."
+  edges: [RawContactUrlEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `RawContactUrl` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `RawContactUrl` edge in the connection."
+type RawContactUrlEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `RawContactUrl` at the end of the edge."
+  node: RawContactUrl
 }
 
 "@@hasChunks {\"chunks_table\": \"rules_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
@@ -23033,6 +23600,78 @@ type UpdateProviderSyncStatePayload {
     "The method to use when ordering `ProviderSyncState`."
     orderBy: [ProviderSyncStateOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ProviderSyncStateEdge
+}
+
+"The output of our update `RawContactEmail` mutation."
+type UpdateRawContactEmailPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContactEmail` that was updated by this mutation."
+  rawContactEmail: RawContactEmail
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContactEmail`. May be used by Relay 1."
+  rawContactEmailEdge(
+    "The method to use when ordering `RawContactEmail`."
+    orderBy: [RawContactEmailOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactEmailEdge
+}
+
+"The output of our update `RawContact` mutation."
+type UpdateRawContactPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContact` that was updated by this mutation."
+  rawContact: RawContact
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContact`. May be used by Relay 1."
+  rawContactEdge(
+    "The method to use when ordering `RawContact`."
+    orderBy: [RawContactOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactEdge
+}
+
+"The output of our update `RawContactPhone` mutation."
+type UpdateRawContactPhonePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContactPhone` that was updated by this mutation."
+  rawContactPhone: RawContactPhone
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContactPhone`. May be used by Relay 1."
+  rawContactPhoneEdge(
+    "The method to use when ordering `RawContactPhone`."
+    orderBy: [RawContactPhoneOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactPhoneEdge
+}
+
+"The output of our update `RawContactUrl` mutation."
+type UpdateRawContactUrlPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `RawContactUrl` that was updated by this mutation."
+  rawContactUrl: RawContactUrl
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `RawContactUrl`. May be used by Relay 1."
+  rawContactUrlEdge(
+    "The method to use when ordering `RawContactUrl`."
+    orderBy: [RawContactUrlOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): RawContactUrlEdge
 }
 
 "The output of our update `Rule` mutation."
@@ -27870,6 +28509,50 @@ input CreateProviderSyncStateInput {
   providerSyncState: ProviderSyncStateInput!
 }
 
+"All input for the create `RawContactEmail` mutation."
+input CreateRawContactEmailInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `RawContactEmail` to be created by this mutation."
+  rawContactEmail: RawContactEmailInput!
+}
+
+"All input for the create `RawContact` mutation."
+input CreateRawContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `RawContact` to be created by this mutation."
+  rawContact: RawContactInput!
+}
+
+"All input for the create `RawContactPhone` mutation."
+input CreateRawContactPhoneInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `RawContactPhone` to be created by this mutation."
+  rawContactPhone: RawContactPhoneInput!
+}
+
+"All input for the create `RawContactUrl` mutation."
+input CreateRawContactUrlInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `RawContactUrl` to be created by this mutation."
+  rawContactUrl: RawContactUrlInput!
+}
+
 "All input for the create `Rule` mutation."
 input CreateRuleInput {
   """
@@ -29421,6 +30104,46 @@ input DeleteProjectsChunkInput {
 
 "All input for the `deleteProviderSyncState` mutation."
 input DeleteProviderSyncStateInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteRawContactEmail` mutation."
+input DeleteRawContactEmailInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteRawContact` mutation."
+input DeleteRawContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteRawContactPhone` mutation."
+input DeleteRawContactPhoneInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteRawContactUrl` mutation."
+input DeleteRawContactUrlInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -33170,6 +33893,330 @@ input ProviderSyncStatePatch {
   updatedAt: Datetime
 }
 
+"A filter to be used against `RawContactEmail` object types. All fields are combined with a logical ‘and.’"
+input RawContactEmailFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `rawContactId` field."
+  rawContactId: UUIDFilter
+  "Filter by the object’s `email` field."
+  email: StringFilter
+  "Filter by the object’s `emailType` field."
+  emailType: StringFilter
+  "Filter by the object’s `isPrimary` field."
+  isPrimary: BooleanFilter
+  "Filter by the object’s `source` field."
+  source: StringFilter
+  "Filter by the object’s `confidence` field."
+  confidence: BigFloatFilter
+  "Filter by the object’s `ingestedAt` field."
+  ingestedAt: DatetimeFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Checks for all expressions in this list."
+  and: [RawContactEmailFilter!]
+  "Checks for any expressions in this list."
+  or: [RawContactEmailFilter!]
+  "Negates the expression."
+  not: RawContactEmailFilter
+  "Filter by the object’s `rawContact` relation."
+  rawContact: RawContactFilter
+}
+
+"An input for mutations affecting `RawContactEmail`"
+input RawContactEmailInput {
+  id: UUID
+  entityId: UUID!
+  rawContactId: UUID!
+  email: String!
+  emailType: String
+  isPrimary: Boolean
+  source: String
+  confidence: BigFloat
+  ingestedAt: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"Represents an update to a `RawContactEmail`. Fields that are set will be updated."
+input RawContactEmailPatch {
+  id: UUID
+  entityId: UUID
+  rawContactId: UUID
+  email: String
+  emailType: String
+  isPrimary: Boolean
+  source: String
+  confidence: BigFloat
+  ingestedAt: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"A filter to be used against `RawContact` object types. All fields are combined with a logical ‘and.’"
+input RawContactFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `externalId` field."
+  externalId: StringFilter
+  "Filter by the object’s `source` field."
+  source: StringFilter
+  "Filter by the object’s `firstName` field."
+  firstName: StringFilter
+  "Filter by the object’s `lastName` field."
+  lastName: StringFilter
+  "Filter by the object’s `email` field."
+  email: StringFilter
+  "Filter by the object’s `phone` field."
+  phone: StringFilter
+  "Filter by the object’s `company` field."
+  company: StringFilter
+  "Filter by the object’s `title` field."
+  title: StringFilter
+  "Filter by the object’s `location` field."
+  location: StringFilter
+  "Filter by the object’s `linkedinUrl` field."
+  linkedinUrl: StringFilter
+  "Filter by the object’s `twitterHandle` field."
+  twitterHandle: StringFilter
+  "Filter by the object’s `website` field."
+  website: StringFilter
+  "Filter by the object’s `confidence` field."
+  confidence: BigFloatFilter
+  "Filter by the object’s `rawData` field."
+  rawData: JSONFilter
+  "Filter by the object’s `ingestedAt` field."
+  ingestedAt: DatetimeFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Checks for all expressions in this list."
+  and: [RawContactFilter!]
+  "Checks for any expressions in this list."
+  or: [RawContactFilter!]
+  "Negates the expression."
+  not: RawContactFilter
+  "Filter by the object’s `rawContactEmails` relation."
+  rawContactEmails: RawContactToManyRawContactEmailFilter
+  "`rawContactEmails` exist."
+  rawContactEmailsExist: Boolean
+  "Filter by the object’s `rawContactPhones` relation."
+  rawContactPhones: RawContactToManyRawContactPhoneFilter
+  "`rawContactPhones` exist."
+  rawContactPhonesExist: Boolean
+  "Filter by the object’s `rawContactUrls` relation."
+  rawContactUrls: RawContactToManyRawContactUrlFilter
+  "`rawContactUrls` exist."
+  rawContactUrlsExist: Boolean
+}
+
+"An input for mutations affecting `RawContact`"
+input RawContactInput {
+  id: UUID
+  entityId: UUID!
+  externalId: String
+  source: String
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  company: String
+  title: String
+  location: String
+  linkedinUrl: String
+  twitterHandle: String
+  website: String
+  confidence: BigFloat
+  rawData: JSON
+  ingestedAt: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"Represents an update to a `RawContact`. Fields that are set will be updated."
+input RawContactPatch {
+  id: UUID
+  entityId: UUID
+  externalId: String
+  source: String
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  company: String
+  title: String
+  location: String
+  linkedinUrl: String
+  twitterHandle: String
+  website: String
+  confidence: BigFloat
+  rawData: JSON
+  ingestedAt: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"A filter to be used against `RawContactPhone` object types. All fields are combined with a logical ‘and.’"
+input RawContactPhoneFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `rawContactId` field."
+  rawContactId: UUIDFilter
+  "Filter by the object’s `phone` field."
+  phone: StringFilter
+  "Filter by the object’s `phoneType` field."
+  phoneType: StringFilter
+  "Filter by the object’s `isPrimary` field."
+  isPrimary: BooleanFilter
+  "Filter by the object’s `source` field."
+  source: StringFilter
+  "Filter by the object’s `confidence` field."
+  confidence: BigFloatFilter
+  "Filter by the object’s `ingestedAt` field."
+  ingestedAt: DatetimeFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Checks for all expressions in this list."
+  and: [RawContactPhoneFilter!]
+  "Checks for any expressions in this list."
+  or: [RawContactPhoneFilter!]
+  "Negates the expression."
+  not: RawContactPhoneFilter
+  "Filter by the object’s `rawContact` relation."
+  rawContact: RawContactFilter
+}
+
+"An input for mutations affecting `RawContactPhone`"
+input RawContactPhoneInput {
+  id: UUID
+  entityId: UUID!
+  rawContactId: UUID!
+  phone: String!
+  phoneType: String
+  isPrimary: Boolean
+  source: String
+  confidence: BigFloat
+  ingestedAt: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"Represents an update to a `RawContactPhone`. Fields that are set will be updated."
+input RawContactPhonePatch {
+  id: UUID
+  entityId: UUID
+  rawContactId: UUID
+  phone: String
+  phoneType: String
+  isPrimary: Boolean
+  source: String
+  confidence: BigFloat
+  ingestedAt: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"A filter to be used against many `RawContactEmail` object types. All fields are combined with a logical ‘and.’"
+input RawContactToManyRawContactEmailFilter {
+  "Filters to entities where at least one related entity matches."
+  some: RawContactEmailFilter
+  "Filters to entities where every related entity matches."
+  every: RawContactEmailFilter
+  "Filters to entities where no related entity matches."
+  none: RawContactEmailFilter
+}
+
+"A filter to be used against many `RawContactPhone` object types. All fields are combined with a logical ‘and.’"
+input RawContactToManyRawContactPhoneFilter {
+  "Filters to entities where at least one related entity matches."
+  some: RawContactPhoneFilter
+  "Filters to entities where every related entity matches."
+  every: RawContactPhoneFilter
+  "Filters to entities where no related entity matches."
+  none: RawContactPhoneFilter
+}
+
+"A filter to be used against many `RawContactUrl` object types. All fields are combined with a logical ‘and.’"
+input RawContactToManyRawContactUrlFilter {
+  "Filters to entities where at least one related entity matches."
+  some: RawContactUrlFilter
+  "Filters to entities where every related entity matches."
+  every: RawContactUrlFilter
+  "Filters to entities where no related entity matches."
+  none: RawContactUrlFilter
+}
+
+"A filter to be used against `RawContactUrl` object types. All fields are combined with a logical ‘and.’"
+input RawContactUrlFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `rawContactId` field."
+  rawContactId: UUIDFilter
+  "Filter by the object’s `url` field."
+  url: StringFilter
+  "Filter by the object’s `urlType` field."
+  urlType: StringFilter
+  "Filter by the object’s `source` field."
+  source: StringFilter
+  "Filter by the object’s `confidence` field."
+  confidence: BigFloatFilter
+  "Filter by the object’s `ingestedAt` field."
+  ingestedAt: DatetimeFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Checks for all expressions in this list."
+  and: [RawContactUrlFilter!]
+  "Checks for any expressions in this list."
+  or: [RawContactUrlFilter!]
+  "Negates the expression."
+  not: RawContactUrlFilter
+  "Filter by the object’s `rawContact` relation."
+  rawContact: RawContactFilter
+}
+
+"An input for mutations affecting `RawContactUrl`"
+input RawContactUrlInput {
+  id: UUID
+  entityId: UUID!
+  rawContactId: UUID!
+  url: String!
+  urlType: String
+  source: String
+  confidence: BigFloat
+  ingestedAt: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"Represents an update to a `RawContactUrl`. Fields that are set will be updated."
+input RawContactUrlPatch {
+  id: UUID
+  entityId: UUID
+  rawContactId: UUID
+  url: String
+  urlType: String
+  source: String
+  confidence: BigFloat
+  ingestedAt: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
 "A filter to be used against `Rule` object types. All fields are combined with a logical ‘and.’"
 input RuleFilter {
   "Filter by the object’s `id` field."
@@ -36517,6 +37564,54 @@ input UpdateProviderSyncStateInput {
   id: UUID!
   "An object where the defined keys will be set on the `ProviderSyncState` being updated."
   providerSyncStatePatch: ProviderSyncStatePatch!
+}
+
+"All input for the `updateRawContactEmail` mutation."
+input UpdateRawContactEmailInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `RawContactEmail` being updated."
+  rawContactEmailPatch: RawContactEmailPatch!
+}
+
+"All input for the `updateRawContact` mutation."
+input UpdateRawContactInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `RawContact` being updated."
+  rawContactPatch: RawContactPatch!
+}
+
+"All input for the `updateRawContactPhone` mutation."
+input UpdateRawContactPhoneInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `RawContactPhone` being updated."
+  rawContactPhonePatch: RawContactPhonePatch!
+}
+
+"All input for the `updateRawContactUrl` mutation."
+input UpdateRawContactUrlInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `RawContactUrl` being updated."
+  rawContactUrlPatch: RawContactUrlPatch!
 }
 
 "All input for the `updateRule` mutation."
