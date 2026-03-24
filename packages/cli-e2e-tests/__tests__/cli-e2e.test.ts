@@ -24,8 +24,9 @@
 jest.setTimeout(600000);
 
 import { execSync } from 'child_process';
+import { createServer, IncomingMessage, ServerResponse, Server } from 'http';
 import { mkdirSync, writeFileSync, rmSync } from 'fs';
-import { homedir } from 'os';
+import { tmpdir } from 'os';
 import { join } from 'path';
 import { getConnections } from 'graphql-server-test';
 import { seed } from 'pgsql-test';
@@ -56,18 +57,59 @@ let pg: any;
 let teardown: () => Promise<void>;
 let query: any;
 
-// Use real HOME for config — overriding HOME in subprocesses can break
-// Node.js fetch/undici in some CI environments.
-const REAL_HOME = homedir();
+// Isolated HOME for appstash config so tests don't pollute real config
+let testHome: string;
+
+// Local Ollama proxy — forwards embedding requests to real Ollama.
+// This avoids networking issues when tsx subprocesses call Docker services.
+let ollamaProxy: Server;
+let ollamaProxyUrl: string;
+
+/**
+ * Create a simple HTTP proxy that forwards requests to the real Ollama server.
+ * Runs inside the Jest process where fetch() is known to work.
+ */
+function createOllamaProxy(): Promise<{ server: Server; url: string }> {
+  return new Promise((resolve, reject) => {
+    const proxyServer = createServer((req: IncomingMessage, res: ServerResponse) => {
+      const chunks: Buffer[] = [];
+      req.on('data', (chunk: Buffer) => chunks.push(chunk));
+      req.on('end', async () => {
+        const body = Buffer.concat(chunks).toString();
+        try {
+          const ollamaRes = await fetch(`${OLLAMA_URL}${req.url}`, {
+            method: req.method || 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body,
+          });
+          const data = await ollamaRes.text();
+          res.writeHead(ollamaRes.status, { 'Content-Type': 'application/json' });
+          res.end(data);
+        } catch (e: any) {
+          res.writeHead(502);
+          res.end(JSON.stringify({ error: e.message }));
+        }
+      });
+    });
+
+    proxyServer.listen(0, '127.0.0.1', () => {
+      const addr = proxyServer.address() as { port: number };
+      resolve({
+        server: proxyServer,
+        url: `http://127.0.0.1:${addr.port}`,
+      });
+    });
+
+    proxyServer.on('error', reject);
+  });
+}
 
 /**
  * Set up appstash config files so the CLI subprocess can find
  * the test server's GraphQL endpoint.
- * Writes to real HOME so the subprocess inherits them without
- * needing a HOME override (which can break fetch/undici in CI).
  */
-function setupCliContext(graphqlUrl: string): void {
-  const appstashRoot = join(REAL_HOME, '.agentic-db');
+function setupCliContext(graphqlUrl: string, ollamaUrl: string): void {
+  const appstashRoot = join(testHome, '.agentic-db');
   const configDir = join(appstashRoot, 'config');
   const contextsDir = join(configDir, 'contexts');
 
@@ -89,13 +131,13 @@ function setupCliContext(graphqlUrl: string): void {
     JSON.stringify({ currentContext: 'e2e-test' }),
   );
 
-  // Write RAG config (defaults to Ollama)
-  mkdirSync(join(REAL_HOME, '.config', 'agentic-db'), { recursive: true });
+  // Write RAG config pointing at the local Ollama proxy
+  mkdirSync(join(testHome, '.config', 'agentic-db'), { recursive: true });
   writeFileSync(
-    join(REAL_HOME, '.config', 'agentic-db', 'rag.json'),
+    join(testHome, '.config', 'agentic-db', 'rag.json'),
     JSON.stringify({
       provider: 'ollama',
-      ollamaUrl: OLLAMA_URL,
+      ollamaUrl: ollamaUrl,
       embeddingModel: 'nomic-embed-text',
       chatModel: 'llama3.2',
     }),
@@ -103,21 +145,11 @@ function setupCliContext(graphqlUrl: string): void {
 }
 
 /**
- * Clean up config files written to real HOME.
- */
-function cleanupCliContext(): void {
-  try {
-    rmSync(join(REAL_HOME, '.agentic-db'), { recursive: true, force: true });
-  } catch { /* ignore */ }
-  try {
-    rmSync(join(REAL_HOME, '.config', 'agentic-db'), { recursive: true, force: true });
-  } catch { /* ignore */ }
-}
-
-/**
  * Run a CLI command as a subprocess, returning stdout.
  * Uses the direct tsx binary to avoid npx cache/download issues.
- * Does NOT override HOME — config is written to real HOME.
+ * HOME is overridden to testHome for config isolation.
+ * NODE_OPTIONS is cleared to prevent Jest-inherited flags from
+ * interfering with tsx.
  */
 function runCli(args: string, options: { timeout?: number } = {}): string {
   const cmd = `"${TSX_BIN}" ${CLI_ENTRY} ${args}`;
@@ -127,9 +159,12 @@ function runCli(args: string, options: { timeout?: number } = {}): string {
       timeout: options.timeout || CLI_TIMEOUT,
       env: {
         ...process.env,
-        OLLAMA_URL,
+        HOME: testHome,
+        OLLAMA_URL: ollamaProxyUrl,
         PATH: process.env.PATH,
         NODE_PATH: join(REPO_ROOT, 'node_modules'),
+        // Clear Jest-inherited NODE_OPTIONS that may conflict with tsx
+        NODE_OPTIONS: '',
       },
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
@@ -144,8 +179,16 @@ function runCli(args: string, options: { timeout?: number } = {}): string {
 
 describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   beforeAll(async () => {
+    // Create isolated temp home for appstash
+    testHome = join(tmpdir(), `agentic-db-e2e-${Date.now()}`);
+    mkdirSync(testHome, { recursive: true });
+
+    // Start local Ollama proxy (avoids tsx subprocess networking issues)
+    const proxy = await createOllamaProxy();
+    ollamaProxy = proxy.server;
+    ollamaProxyUrl = proxy.url;
+
     // Spin up real PostGraphile HTTP server + test database
-    // Deploy the agentic-db pgpm package from its directory
     const connections = await getConnections(
       {
         schemas: SCHEMAS,
@@ -284,8 +327,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
       ],
     );
 
-    // 6. Configure CLI context to point at test server
-    setupCliContext(server.graphqlUrl);
+    // 6. Configure CLI context to point at test server + Ollama proxy
+    setupCliContext(server.graphqlUrl, ollamaProxyUrl);
 
     // 7. Warm up Ollama model so first CLI call doesn't timeout on model load
     try {
@@ -303,7 +346,12 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   });
 
   afterAll(async () => {
-    cleanupCliContext();
+    if (ollamaProxy) {
+      await new Promise<void>((resolve) => ollamaProxy.close(() => resolve()));
+    }
+    try {
+      rmSync(testHome, { recursive: true, force: true });
+    } catch { /* ignore */ }
     if (teardown) await teardown();
   });
 
@@ -325,18 +373,18 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   });
 
   // =========================================================================
-  // Diagnostic — verify Ollama is reachable from subprocess
+  // Diagnostic — verify Ollama proxy is working
   // =========================================================================
 
-  it('should reach Ollama from a subprocess', () => {
-    const script = `fetch('${OLLAMA_URL}/api/embeddings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'nomic-embed-text',prompt:'test'})}).then(r=>r.json()).then(d=>console.log(d.embedding.length)).catch(e=>{console.error(e.message);process.exit(1)})`;
-    const result = execSync(`node -e "${script}"`, {
-      cwd: REPO_ROOT,
-      timeout: 60_000,
-      env: { ...process.env, OLLAMA_URL },
-      encoding: 'utf-8',
+  it('should reach Ollama through the local proxy', async () => {
+    const res = await fetch(`${ollamaProxyUrl}/api/embeddings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'nomic-embed-text', prompt: 'proxy test' }),
     });
-    expect(parseInt(result.trim())).toBe(768);
+    expect(res.ok).toBe(true);
+    const data = (await res.json()) as { embedding: number[] };
+    expect(data.embedding.length).toBe(768);
   });
 
   // =========================================================================
