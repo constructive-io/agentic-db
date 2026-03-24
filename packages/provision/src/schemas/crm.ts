@@ -314,9 +314,9 @@ const definition: BlueprintDefinition = {
     btreeIndex('touchpoints', 'occurred_at'),
     btreeIndex('touchpoints', 'direction'),
     btreeIndex('touchpoints', 'channel'),
-    btreeIndex('touchpoints', 'deal_id'),
-    btreeIndex('touchpoints', 'company_id'),
-    btreeIndex('touchpoints', 'event_id'),
+    // btreeIndex('touchpoints', 'deal_id'),    — auto-created by FK (BelongsTo deals)
+    // btreeIndex('touchpoints', 'company_id'), — auto-created by FK (BelongsTo companies)
+    // btreeIndex('touchpoints', 'event_id'),   — auto-created by FK (BelongsTo events)
   ],
 };
 
