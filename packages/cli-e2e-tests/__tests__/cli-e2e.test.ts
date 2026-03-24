@@ -2,8 +2,12 @@
  * CLI End-to-End Tests — Real HTTP Server + CLI Subprocess
  *
  * Spins up a real PostGraphile HTTP server via graphql-server-test,
- * seeds contacts/notes with pre-baked embeddings, then runs the
- * agentic-db CLI as a subprocess and asserts on the output.
+ * seeds contacts/notes with pre-baked embeddings via direct SQL,
+ * then runs the agentic-db CLI as a subprocess and asserts on output.
+ *
+ * Data seeding uses the superuser `pg` connection (bypasses RLS) so we
+ * don't need to configure the full auth stack for mutations.
+ * The CLI subprocess reads data through the anonymous GraphQL endpoint.
  *
  * Tests exercise the full stack:
  *   CLI arg parsing → Ollama embedding → HTTP → PostGraphile → pgvector → results
@@ -49,21 +53,18 @@ let query: any;
 
 // Isolated HOME for appstash config so tests don't pollute real config
 let testHome: string;
-let testConfigDir: string;
 
 /**
  * Set up appstash config files so the CLI subprocess can find
  * the test server's GraphQL endpoint.
  */
-function setupCliContext(graphqlUrl: string, accessToken?: string): void {
-  // appstash stores config at ~/.<tool>/config/
+function setupCliContext(graphqlUrl: string): void {
   const appstashRoot = join(testHome, '.agentic-db');
   const configDir = join(appstashRoot, 'config');
   const contextsDir = join(configDir, 'contexts');
 
   mkdirSync(contextsDir, { recursive: true });
 
-  // Write context file
   const now = new Date().toISOString();
   writeFileSync(
     join(contextsDir, 'e2e-test.json'),
@@ -75,26 +76,10 @@ function setupCliContext(graphqlUrl: string, accessToken?: string): void {
     }),
   );
 
-  // Write settings pointing to our context
   writeFileSync(
     join(configDir, 'settings.json'),
     JSON.stringify({ currentContext: 'e2e-test' }),
   );
-
-  // Write credentials if we have a token
-  if (accessToken) {
-    writeFileSync(
-      join(configDir, 'credentials.json'),
-      JSON.stringify({
-        tokens: {
-          'e2e-test': {
-            token: accessToken,
-            expiresAt: new Date(Date.now() + 3600000).toISOString(),
-          },
-        },
-      }),
-    );
-  }
 
   // Write RAG config (defaults to Ollama)
   mkdirSync(join(testHome, '.config', 'agentic-db'), { recursive: true });
@@ -135,7 +120,6 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   beforeAll(async () => {
     // Create isolated temp home for appstash
     testHome = join(tmpdir(), `agentic-db-e2e-${Date.now()}`);
-    testConfigDir = join(testHome, '.agentic-db', 'config');
     mkdirSync(testHome, { recursive: true });
 
     // Spin up real PostGraphile HTTP server + test database
@@ -161,17 +145,12 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     query = connections.query;
     teardown = connections.teardown;
 
-    // Bootstrap: set app membership defaults and create app_jobs stub
-    await pg.query(
-      `UPDATE "agentic_db_memberships_public".app_membership_defaults
-       SET is_verified = true, is_approved = true`,
-    );
+    // Grant anonymous role read access to app tables so the CLI
+    // can query via the HTTP server without JWT auth.
+    // Data is seeded via superuser (pg), bypassing RLS entirely.
     await pg.query(`
-      CREATE OR REPLACE FUNCTION app_jobs.add_job(
-        _database_id uuid, _task text, _payload jsonb
-      ) RETURNS void AS $$ BEGIN END; $$ LANGUAGE plpgsql;
-      GRANT USAGE ON SCHEMA app_jobs TO authenticated;
-      GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app_jobs TO authenticated;
+      GRANT USAGE ON SCHEMA agentic_db_app_public TO anonymous;
+      GRANT SELECT ON ALL TABLES IN SCHEMA agentic_db_app_public TO anonymous;
     `);
   });
 
@@ -183,16 +162,15 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
   afterEach(() => db.afterEach());
 
   /**
-   * Seed test data: sign up, create contacts/notes with pre-baked embeddings,
-   * insert chunks, and configure CLI context.
-   * Returns the access token for authenticated requests.
+   * Seed test data entirely via direct SQL (superuser).
+   * Bypasses RLS/auth — no GraphQL mutations needed for data creation.
    */
-  async function seedTestData(): Promise<string> {
-    // 1. Sign up a test user
+  async function seedTestData(): Promise<void> {
+    // 1. Create a user entity via signUp (anonymous mutation — no auth needed)
     const signUpResult = await query(
       `mutation SignUp($input: SignUpInput!) {
         signUp(input: $input) {
-          result { userId accessToken }
+          result { userId }
         }
       }`,
       {
@@ -206,87 +184,57 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     const signUpData = (signUpResult as any)?.data?.signUp?.result;
     if (!signUpData) throw new Error(`signUp failed: ${JSON.stringify(signUpResult)}`);
 
-    const { userId, accessToken } = signUpData;
+    const { userId } = signUpData;
 
-    // Auth headers for HTTP-based GraphQL queries (SuperTest)
-    // db.setContext() only works for direct DB connections, not HTTP requests
-    const authHeaders = { Authorization: `Bearer ${accessToken}` };
-
-    // 2. Create contacts via GraphQL (with auth headers)
-    const createContact = async (
+    // 2. Insert contacts via direct SQL (superuser, bypasses RLS)
+    const insertContact = async (
       firstName: string,
       lastName: string,
       headline: string,
       bio: string,
-    ) => {
-      const result = await query(
-        `mutation CreateContact($input: CreateContactInput!) {
-          createContact(input: $input) {
-            contact { id }
-          }
-        }`,
-        {
-          input: {
-            contact: {
-              entityId: userId,
-              firstName,
-              lastName,
-              headline,
-              bio,
-            },
-          },
-        },
-        authHeaders,
+    ): Promise<string> => {
+      const result = await pg.query(
+        `INSERT INTO "agentic_db_app_public".contacts
+           (entity_id, first_name, last_name, headline, bio)
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING id`,
+        [userId, firstName, lastName, headline, bio],
       );
-      const data = (result as any)?.data?.createContact?.contact;
-      if (!data) throw new Error(`createContact failed: ${JSON.stringify(result)}`);
-      return data.id;
+      return result.rows[0].id;
     };
 
-    const carolId = await createContact(
+    const carolId = await insertContact(
       'Carol', 'Engineer',
       fixtures.records.carol.data.headline,
       fixtures.records.carol.data.bio,
     );
-    const daveId = await createContact(
+    const daveId = await insertContact(
       'Dave', 'Chef',
       fixtures.records.dave.data.headline,
       fixtures.records.dave.data.bio,
     );
-    const eveId = await createContact(
+    const eveId = await insertContact(
       'Eve', 'Scientist',
       fixtures.records.eve.data.headline,
       fixtures.records.eve.data.bio,
     );
 
-    // 3. Create notes via GraphQL (with auth headers)
-    const createNote = async (content: string) => {
-      const result = await query(
-        `mutation CreateNote($input: CreateNoteInput!) {
-          createNote(input: $input) {
-            note { id }
-          }
-        }`,
-        {
-          input: {
-            note: {
-              entityId: userId,
-              content,
-            },
-          },
-        },
-        authHeaders,
+    // 3. Insert notes via direct SQL (superuser)
+    const insertNote = async (content: string): Promise<string> => {
+      const result = await pg.query(
+        `INSERT INTO "agentic_db_app_public".notes
+           (entity_id, content)
+         VALUES ($1, $2)
+         RETURNING id`,
+        [userId, content],
       );
-      const data = (result as any)?.data?.createNote?.note;
-      if (!data) throw new Error(`createNote failed: ${JSON.stringify(result)}`);
-      return data.id;
+      return result.rows[0].id;
     };
 
-    const noteArchId = await createNote(fixtures.records.note_architecture.data.content);
-    await createNote(fixtures.records.note_meeting.data.content);
+    const noteArchId = await insertNote(fixtures.records.note_architecture.data.content);
+    await insertNote(fixtures.records.note_meeting.data.content);
 
     // 4. Set embeddings via direct SQL (superuser)
-
     const setEmbedding = async (table: string, id: string, embedding: number[], text: string) => {
       await pg.query(
         `UPDATE "agentic_db_app_public".${table}
@@ -301,7 +249,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     await setEmbedding('contacts', eveId, fixtures.records.eve.embedding, fixtures.records.eve.text);
     await setEmbedding('notes', noteArchId, fixtures.records.note_architecture.embedding, fixtures.records.note_architecture.text);
 
-    // 5. Insert chunks
+    // 5. Insert chunks via direct SQL
     await pg.query(
       `INSERT INTO "agentic_db_app_public".contacts_chunks
          (contacts_id, content, chunk_index, embedding)
@@ -314,10 +262,8 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
       ],
     );
 
-    // 6. Configure CLI context to point at test server
-    setupCliContext(server.graphqlUrl, accessToken);
-
-    return accessToken;
+    // 6. Configure CLI context to point at test server (no auth needed)
+    setupCliContext(server.graphqlUrl);
   }
 
   // =========================================================================
