@@ -149,23 +149,14 @@ const definition: BlueprintDefinition = {
     // Emails -> attachments (cascade)
     { $type: 'RelationHasMany', source_ref: 'emails', target_ref: 'email_attachments', delete_action: 'c' },
 
-    // Emails -> contacts (from_contact_id, optional FK)
-    { $type: 'RelationBelongsTo', source_ref: 'emails', target_ref: 'contacts', field_name: 'from_contact_id', source_field_name: 'from_contact_id', target_field_name: 'id', delete_action: 'n', is_required: false },
-
     // Calendar -> calendar_events (cascade: delete calendar = delete events)
     { $type: 'RelationHasMany', source_ref: 'calendars', target_ref: 'calendar_events', delete_action: 'c' },
 
     // Calendar events -> attendees (cascade: delete event = delete attendees)
     { $type: 'RelationHasMany', source_ref: 'calendar_events', target_ref: 'calendar_attendees', delete_action: 'c' },
 
-    // Calendar attendees -> contacts (BelongsTo, no cascade)
-    { $type: 'RelationBelongsTo', source_ref: 'calendar_attendees', target_ref: 'contacts', field_name: 'contact_id', source_field_name: 'contact_id', target_field_name: 'id', delete_action: 'n', is_required: true },
-
-    // Calendar events -> contacts (organizer, optional FK)
-    { $type: 'RelationBelongsTo', source_ref: 'calendar_events', target_ref: 'contacts', field_name: 'organizer_contact_id', source_field_name: 'organizer_contact_id', target_field_name: 'id', delete_action: 'n', is_required: false },
-
-    // Email recipients: emails <-> contacts (M:N junction)
-    { $type: 'RelationManyToMany', source_ref: 'emails', target_ref: 'contacts', junction_table_name: 'email_recipients', source_field_name: 'email_id', target_field_name: 'contact_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    // NOTE: Cross-schema relations to contacts (from_contact_id, organizer_contact_id,
+    //   calendar_attendees->contacts, email_recipients M:N) are in cross-relations.ts
   ],
 
   indexes: [
