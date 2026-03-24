@@ -44,8 +44,11 @@ const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
 // Paths relative to repo root
 const REPO_ROOT = join(__dirname, '..', '..', '..');
 const CLI_ENTRY = join(REPO_ROOT, 'sdk', 'cli', 'src', 'index.ts');
+// Use the direct tsx binary — avoids npx overhead and HOME-cache issues
+// that cause hangs when HOME is overridden to a temp directory.
+const TSX_BIN = join(REPO_ROOT, 'node_modules', '.bin', 'tsx');
 
-// CLI subprocess timeout — generous to account for npx tsx cold start + Ollama model loading
+// CLI subprocess timeout — generous to account for tsx cold start + Ollama model loading
 const CLI_TIMEOUT = 120_000;
 
 let server: { url: string; graphqlUrl: string; port: number };
@@ -98,24 +101,33 @@ function setupCliContext(graphqlUrl: string): void {
 
 /**
  * Run a CLI command as a subprocess, returning stdout.
+ * Uses spawnSync with the direct tsx binary to avoid npx
+ * cache/download issues when HOME is overridden.
  */
 function runCli(args: string, options: { timeout?: number } = {}): string {
-  const cmd = `npx tsx ${CLI_ENTRY} ${args}`;
-  const result = execSync(cmd, {
-    cwd: REPO_ROOT,
-    timeout: options.timeout || CLI_TIMEOUT,
-    env: {
-      ...process.env,
-      HOME: testHome,
-      OLLAMA_URL,
-      // Ensure the subprocess can find node_modules
-      PATH: process.env.PATH,
-      NODE_PATH: join(REPO_ROOT, 'node_modules'),
-    },
-    encoding: 'utf-8',
-    stdio: ['pipe', 'pipe', 'pipe'],
-  });
-  return result;
+  const cmd = `"${TSX_BIN}" ${CLI_ENTRY} ${args}`;
+  try {
+    const result = execSync(cmd, {
+      cwd: REPO_ROOT,
+      timeout: options.timeout || CLI_TIMEOUT,
+      env: {
+        ...process.env,
+        HOME: testHome,
+        OLLAMA_URL,
+        // Ensure the subprocess can find node_modules
+        PATH: process.env.PATH,
+        NODE_PATH: join(REPO_ROOT, 'node_modules'),
+      },
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
+    return result;
+  } catch (e: any) {
+    // Include stderr in the error message for CI debugging
+    const stderr = e.stderr ? `\nstderr: ${e.stderr}` : '';
+    const stdout = e.stdout ? `\nstdout: ${e.stdout}` : '';
+    throw new Error(`CLI command failed: ${cmd}\n${e.message}${stderr}${stdout}`);
+  }
 }
 
 describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
