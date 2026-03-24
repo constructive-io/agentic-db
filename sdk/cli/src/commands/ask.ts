@@ -18,6 +18,7 @@ Options:
   --tables <list>    Comma-separated tables to search (default: all)
   --limit <n>        Context items per table (default: 3)
   --top <n>          Top results to use as context (default: 5)
+  --context          Show retrieved context only (skip LLM answer)
   --json             Output raw JSON (context + answer)
 
 Examples:
@@ -68,7 +69,7 @@ export default async (
 
   console.log(`  Found ${topResults.length} relevant items\n`);
 
-  // Format context for LLM
+  // Format context
   const contextText = topResults
     .map((item, i) => {
       const d = item.data;
@@ -107,6 +108,36 @@ export default async (
       return `[${i + 1}] ${content}`;
     })
     .join('\n\n');
+
+  // --context flag: dump context and exit (skip LLM)
+  if (argv.context) {
+    if (argv.json) {
+      console.log(
+        JSON.stringify(
+          {
+            question,
+            context: topResults.map((r) => ({
+              table: r.table,
+              name: r.name,
+              score: r.score,
+              data: r.data,
+            })),
+          },
+          null,
+          2
+        )
+      );
+    } else {
+      console.log('Context:\n');
+      console.log(contextText);
+      console.log('\nSources:\n');
+      for (const item of topResults) {
+        console.log(`  [${item.table}] ${item.name} (${(item.score * 100).toFixed(1)}%)`);
+      }
+      console.log('');
+    }
+    return;
+  }
 
   const systemPrompt =
     'You are a helpful personal assistant with access to a database containing contacts, events, tasks, notes, projects, and more. Answer questions based on the provided context. Be concise and specific. If the answer is not in the context, say so.';
