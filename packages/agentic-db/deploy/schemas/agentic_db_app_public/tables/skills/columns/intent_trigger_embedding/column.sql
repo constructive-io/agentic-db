@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-ALTER TABLE "agentic_db_app_public".skills 
+ALTER TABLE agentic_db_app_public.skills 
   ADD COLUMN intent_trigger_embedding vector(768);
 

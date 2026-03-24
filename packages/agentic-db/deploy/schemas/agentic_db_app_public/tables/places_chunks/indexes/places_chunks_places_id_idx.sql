@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE INDEX places_chunks_places_id_idx ON "agentic_db_app_public".places_chunks USING BTREE ( places_id );
+CREATE INDEX places_chunks_places_id_idx ON agentic_db_app_public.places_chunks USING BTREE ( places_id );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/trip_hiking_trails/columns/hiking_trail_id/column
 
 
-CREATE INDEX trip_hiking_trails_hiking_trail_id_idx ON "agentic_db_app_public".trip_hiking_trails USING BTREE ( hiking_trail_id );
+CREATE INDEX trip_hiking_trails_hiking_trail_id_idx ON agentic_db_app_public.trip_hiking_trails USING BTREE ( hiking_trail_id );
 

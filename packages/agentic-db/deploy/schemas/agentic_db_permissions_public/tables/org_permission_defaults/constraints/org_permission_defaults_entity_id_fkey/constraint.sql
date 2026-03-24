@@ -3,12 +3,13 @@
 
 -- requires: schemas/agentic_db_permissions_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_permissions_public/tables/org_permission_defaults/table
 
 
-ALTER TABLE "agentic_db_permissions_public".org_permission_defaults 
+ALTER TABLE agentic_db_permissions_public.org_permission_defaults 
   ADD CONSTRAINT org_permission_defaults_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE CASCADE;
 

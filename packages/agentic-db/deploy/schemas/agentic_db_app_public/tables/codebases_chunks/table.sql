@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
-CREATE TABLE "agentic_db_app_public".codebases_chunks ();
+CREATE TABLE agentic_db_app_public.codebases_chunks ();
 

@@ -2,10 +2,11 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_status_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_status_public/tables/app_level_requirements/table
 
 
-ALTER TABLE "agentic_db_status_public".app_level_requirements 
+ALTER TABLE agentic_db_status_public.app_level_requirements 
   ADD CONSTRAINT app_level_requirements_name_level_key 
     UNIQUE (name, level);
 

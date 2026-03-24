@@ -3,13 +3,14 @@
 
 -- requires: schemas/agentic_db_encrypted/schema
 -- requires: schemas/agentic_db_auth_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION "agentic_db_auth_public".send_verification_email(email email)
+CREATE FUNCTION agentic_db_auth_public.send_verification_email(email email)
 RETURNS boolean AS $$
 DECLARE
-  v_email "agentic_db_user_identifiers_public".emails;
+  v_email agentic_db_user_identifiers_public.emails;
   v_user_id uuid;
   v_verification_token text;
   v_verification_min_duration_between_emails interval = interval '3 minutes';
@@ -17,7 +18,7 @@ DECLARE
   verification_token_name text;
   verification_email_sent_at timestamptz;
 BEGIN
-  SELECT * FROM "agentic_db_user_identifiers_public".emails e
+  SELECT * FROM agentic_db_user_identifiers_public.emails e
     WHERE e.email = send_verification_email.email
   INTO v_email;
   IF (NOT FOUND) THEN 
@@ -25,18 +26,18 @@ BEGIN
   END IF;
   verification_token_name = v_email.email::text || '_verification_token';
   IF ( v_email.is_verified IS TRUE ) THEN
-    PERFORM "agentic_db_simple_secrets".del(v_email.owner_id, ARRAY[
+    PERFORM agentic_db_simple_secrets.del(v_email.owner_id, ARRAY[
         'verification_email_sent_at',
         'verification_email_attempts',
         'first_failed_verification_email_attempt'
     ]);
-    PERFORM "agentic_db_encrypted".del(v_email.owner_id, ARRAY[
+    PERFORM agentic_db_encrypted.del(v_email.owner_id, ARRAY[
         verification_token_name
     ]);
     RETURN FALSE;
   END IF;
   v_user_id = v_email.owner_id;
-  verification_email_sent_at = "agentic_db_simple_secrets".get(v_user_id, 'verification_email_sent_at');
+  verification_email_sent_at = agentic_db_simple_secrets.get(v_user_id, 'verification_email_sent_at');
     IF (
       verification_email_sent_at IS NOT NULL AND
       NOW() < verification_email_sent_at + v_verification_min_duration_between_emails
@@ -48,16 +49,16 @@ BEGIN
     verification_email_sent_at IS NOT NULL AND
     NOW() < verification_email_sent_at + v_verification_min_duration_between_new_tokens 
   ) THEN 
-    v_verification_token = "agentic_db_encrypted".get
+    v_verification_token = agentic_db_encrypted.get
         (v_user_id, verification_token_name, encode(gen_random_bytes(10), 'hex'));
   ELSE
     v_verification_token = encode(gen_random_bytes(10), 'hex');
   END IF;
   verification_email_sent_at = NOW();
   
-  PERFORM "agentic_db_simple_secrets".set
+  PERFORM agentic_db_simple_secrets.set
     (v_user_id, 'verification_email_sent_at', verification_email_sent_at);
-  PERFORM "agentic_db_encrypted".set
+  PERFORM agentic_db_encrypted.set
     (v_user_id, verification_token_name, v_verification_token, 'pgp');
   PERFORM
       app_jobs.add_job (
@@ -74,5 +75,5 @@ BEGIN
 END;
 $$
 LANGUAGE 'plpgsql' VOLATILE SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".send_verification_email TO authenticated, anonymous;
+GRANT EXECUTE ON FUNCTION agentic_db_auth_public.send_verification_email TO authenticated, anonymous;
 

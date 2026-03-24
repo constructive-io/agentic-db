@@ -2,9 +2,10 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_memberships_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE FUNCTION "agentic_db_memberships_public".org_get_managers(
+CREATE FUNCTION agentic_db_memberships_public.org_get_managers(
   IN p_entity_id uuid,
   IN p_user_id uuid,
   IN p_max_depth int DEFAULT NULL
@@ -13,7 +14,7 @@ CREATE FUNCTION "agentic_db_memberships_public".org_get_managers(
         BEGIN
             RETURN QUERY
             SELECT ancestor_id AS user_id, h.depth
-            FROM "agentic_db_memberships_private".org_hierarchy_sprts h
+            FROM agentic_db_memberships_private.org_hierarchy_sprts h
             WHERE h.entity_id = p_entity_id
                 AND h.descendant_id = p_user_id
                 AND h.ancestor_id != p_user_id

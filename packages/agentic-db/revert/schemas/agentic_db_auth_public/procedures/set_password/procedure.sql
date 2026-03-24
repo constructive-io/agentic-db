@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agentic_db_auth_public".set_password;
+DROP FUNCTION agentic_db_auth_public.set_password;
 
 

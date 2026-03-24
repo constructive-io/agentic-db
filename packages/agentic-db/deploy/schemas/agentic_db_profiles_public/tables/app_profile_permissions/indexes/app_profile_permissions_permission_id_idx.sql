@@ -2,9 +2,10 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_profiles_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_profiles_public/tables/app_profile_permissions/table
 -- requires: schemas/agentic_db_profiles_public/tables/app_profile_permissions/columns/permission_id/column
 
 
-CREATE INDEX app_profile_permissions_permission_id_idx ON "agentic_db_profiles_public".app_profile_permissions USING BTREE ( permission_id );
+CREATE INDEX app_profile_permissions_permission_id_idx ON agentic_db_profiles_public.app_profile_permissions USING BTREE ( permission_id );
 

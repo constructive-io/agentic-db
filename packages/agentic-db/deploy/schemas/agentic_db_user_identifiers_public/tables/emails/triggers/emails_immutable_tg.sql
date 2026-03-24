@@ -3,10 +3,11 @@
 
 -- requires: schemas/agentic_db_user_identifiers_public/schema
 -- requires: schemas/agentic_db_user_identifiers_public/tables/emails/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 CREATE TRIGGER emails_immutable_tg
-BEFORE UPDATE ON "agentic_db_user_identifiers_public".emails
+BEFORE UPDATE ON agentic_db_user_identifiers_public.emails
 FOR EACH ROW
 WHEN (OLD.email IS DISTINCT FROM NEW.email AND OLD.email IS NOT NULL)
 EXECUTE PROCEDURE utils.throw ( 'IMMUTABLE_PROPERTY', 'email' );

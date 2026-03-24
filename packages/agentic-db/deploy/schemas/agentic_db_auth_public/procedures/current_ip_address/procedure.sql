@@ -2,10 +2,11 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_auth_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION "agentic_db_auth_public".current_ip_address ()
+CREATE FUNCTION agentic_db_auth_public.current_ip_address ()
   RETURNS inet
 AS $$
 DECLARE
@@ -27,5 +28,5 @@ BEGIN
 END;
 $$
 LANGUAGE 'plpgsql' STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".current_ip_address TO authenticated;
+GRANT EXECUTE ON FUNCTION agentic_db_auth_public.current_ip_address TO authenticated;
 

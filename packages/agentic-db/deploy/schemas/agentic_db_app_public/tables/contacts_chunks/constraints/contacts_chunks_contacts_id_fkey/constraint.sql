@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-ALTER TABLE "agentic_db_app_public".contacts_chunks 
+ALTER TABLE agentic_db_app_public.contacts_chunks 
   ADD CONSTRAINT contacts_chunks_contacts_id_fkey 
     FOREIGN KEY(contacts_id) 
-    REFERENCES "agentic_db_app_public".contacts (id) 
+    REFERENCES agentic_db_app_public.contacts (id) 
     ON DELETE CASCADE;
 

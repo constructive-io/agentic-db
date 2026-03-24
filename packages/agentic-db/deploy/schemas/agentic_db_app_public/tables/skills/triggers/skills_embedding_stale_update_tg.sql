@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER skills_embedding_stale_update_tg
-BEFORE UPDATE ON "agentic_db_app_public".skills
+BEFORE UPDATE ON agentic_db_app_public.skills
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.intent_trigger IS DISTINCT FROM NEW.intent_trigger)
-EXECUTE PROCEDURE "agentic_db_private".skills_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_private.skills_embedding_stale ( );
 

@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER runtime_states_embedding_stale_update_tg
-BEFORE UPDATE ON "agentic_db_app_public".runtime_states
+BEFORE UPDATE ON agentic_db_app_public.runtime_states
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.state_type IS DISTINCT FROM NEW.state_type)
-EXECUTE PROCEDURE "agentic_db_private".runtime_states_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_private.runtime_states_embedding_stale ( );
 

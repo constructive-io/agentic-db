@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-CREATE INDEX skills_chunks_created_at_idx ON "agentic_db_app_public".skills_chunks ( created_at );
+CREATE INDEX skills_chunks_created_at_idx ON agentic_db_app_public.skills_chunks ( created_at );
 

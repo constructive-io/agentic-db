@@ -2,16 +2,17 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_memberships_private/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE FUNCTION "agentic_db_memberships_private".org_org_chart_validate_active_member_tg() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_memberships_private.org_org_chart_validate_active_member_tg() RETURNS TRIGGER AS $_PGFN_$
 
                 DECLARE
                     v_is_active boolean;
                 BEGIN
                     -- Check if child_id is an active member of the entity
                     SELECT (m.is_approved IS TRUE AND m.is_disabled IS FALSE AND m.is_banned IS FALSE)
-                    FROM "agentic_db_memberships_public".org_memberships m
+                    FROM agentic_db_memberships_public.org_memberships m
                     WHERE m.entity_id = NEW.entity_id
                         AND m.actor_id = NEW.child_id
                     INTO v_is_active;
@@ -24,7 +25,7 @@ CREATE FUNCTION "agentic_db_memberships_private".org_org_chart_validate_active_m
                     -- Also check parent_id if provided
                     IF (NEW.parent_id IS NOT NULL) THEN
                         SELECT (m.is_approved IS TRUE AND m.is_disabled IS FALSE AND m.is_banned IS FALSE)
-                        FROM "agentic_db_memberships_public".org_memberships m
+                        FROM agentic_db_memberships_public.org_memberships m
                         WHERE m.entity_id = NEW.entity_id
                             AND m.actor_id = NEW.parent_id
                         INTO v_is_active;

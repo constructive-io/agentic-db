@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-ALTER TABLE "agentic_db_app_public".goals 
+ALTER TABLE agentic_db_app_public.goals 
   ADD COLUMN embedding_stale boolean;
 

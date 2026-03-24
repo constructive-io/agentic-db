@@ -3,7 +3,8 @@
 
 -- requires: schemas/agentic_db_auth_private/schema
 -- requires: schemas/agentic_db_auth_private/tables/app_auth_settings/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-GRANT UPDATE ON "agentic_db_auth_private".app_auth_settings TO authenticated;
+GRANT UPDATE ON agentic_db_auth_private.app_auth_settings TO authenticated;
 

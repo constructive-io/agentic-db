@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/skills/policies/enable_row_level_security
 
 
-ALTER TABLE "agentic_db_app_public".skills 
+ALTER TABLE agentic_db_app_public.skills 
   DISABLE ROW LEVEL SECURITY;
 
 

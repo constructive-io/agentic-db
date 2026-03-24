@@ -3,9 +3,10 @@
 
 -- requires: schemas/agentic_db_limits_public/schema
 -- requires: schemas/agentic_db_limits_public/tables/org_limits/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE POLICY auth_sel_own ON "agentic_db_limits_public".org_limits
+CREATE POLICY auth_sel_own ON agentic_db_limits_public.org_limits
 FOR SELECT
 TO authenticated
 USING (

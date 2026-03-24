@@ -2,8 +2,9 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_permissions_public/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_permissions_public/tables/org_permission_defaults/table
 
 
-GRANT INSERT ON "agentic_db_permissions_public".org_permission_defaults TO authenticated;
+GRANT INSERT ON agentic_db_permissions_public.org_permission_defaults TO authenticated;
 

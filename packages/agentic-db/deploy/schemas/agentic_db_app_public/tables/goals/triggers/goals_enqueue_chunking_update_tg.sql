@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER goals_enqueue_chunking_update_tg
-AFTER UPDATE ON "agentic_db_app_public".goals
+AFTER UPDATE ON agentic_db_app_public.goals
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".goals_enqueue_chunking ( );
+EXECUTE PROCEDURE agentic_db_private.goals_enqueue_chunking ( );
 

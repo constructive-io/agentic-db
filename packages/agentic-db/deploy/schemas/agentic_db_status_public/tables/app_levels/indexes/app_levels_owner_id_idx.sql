@@ -3,8 +3,9 @@
 
 -- requires: schemas/agentic_db_status_public/schema
 -- requires: schemas/agentic_db_status_public/tables/app_levels/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_status_public/tables/app_levels/columns/owner_id/column
 
 
-CREATE INDEX app_levels_owner_id_idx ON "agentic_db_status_public".app_levels USING BTREE ( owner_id );
+CREATE INDEX app_levels_owner_id_idx ON agentic_db_status_public.app_levels USING BTREE ( owner_id );
 

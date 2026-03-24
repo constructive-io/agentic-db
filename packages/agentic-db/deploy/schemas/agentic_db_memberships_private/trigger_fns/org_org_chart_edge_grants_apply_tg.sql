@@ -2,13 +2,14 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_memberships_private/schema
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
-CREATE FUNCTION "agentic_db_memberships_private".org_org_chart_edge_grants_apply_tg() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_memberships_private.org_org_chart_edge_grants_apply_tg() RETURNS TRIGGER AS $_PGFN_$
 
             BEGIN
                 IF (NEW.is_grant = true) THEN
-                    INSERT INTO "agentic_db_memberships_public".org_chart_edges (
+                    INSERT INTO agentic_db_memberships_public.org_chart_edges (
                         entity_id, child_id, parent_id, position_title, position_level,
                         created_at, updated_at
                     ) VALUES (
@@ -21,7 +22,7 @@ CREATE FUNCTION "agentic_db_memberships_private".org_org_chart_edge_grants_apply
                         position_level = EXCLUDED.position_level,
                         updated_at = now();
                 ELSE
-                    DELETE FROM "agentic_db_memberships_public".org_chart_edges
+                    DELETE FROM agentic_db_memberships_public.org_chart_edges
                     WHERE entity_id = NEW.entity_id
                         AND child_id = NEW.child_id;
                 END IF;

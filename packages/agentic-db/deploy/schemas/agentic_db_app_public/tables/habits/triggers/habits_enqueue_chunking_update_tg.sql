@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER habits_enqueue_chunking_update_tg
-AFTER UPDATE ON "agentic_db_app_public".habits
+AFTER UPDATE ON agentic_db_app_public.habits
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".habits_enqueue_chunking ( );
+EXECUTE PROCEDURE agentic_db_private.habits_enqueue_chunking ( );
 

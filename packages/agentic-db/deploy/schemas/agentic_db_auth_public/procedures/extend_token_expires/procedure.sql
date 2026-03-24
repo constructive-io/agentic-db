@@ -4,10 +4,11 @@
 -- requires: schemas/agentic_db_auth_public/schema
 -- requires: schemas/agentic_db_auth_private/tables/sessions/table
 -- requires: schemas/agentic_db_auth_private/tables/session_credentials/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 
 
 
-CREATE FUNCTION "agentic_db_auth_public".extend_token_expires (
+CREATE FUNCTION agentic_db_auth_public.extend_token_expires (
   amount interval default '30 minutes'::interval
 )
   RETURNS TABLE (
@@ -19,13 +20,13 @@ CREATE FUNCTION "agentic_db_auth_public".extend_token_expires (
 DECLARE
   v_token_id uuid = jwt_private.current_token_id();
   v_session_id uuid = jwt_private.current_session_id();
-  v_credential "agentic_db_auth_private".session_credentials;
-  v_session "agentic_db_auth_private".sessions;
+  v_credential agentic_db_auth_private.session_credentials;
+  v_session agentic_db_auth_private.sessions;
 BEGIN
     IF (v_token_id IS NULL) THEN 
       RETURN;
     END IF;
-    SELECT cred.* FROM "agentic_db_auth_private".session_credentials cred
+    SELECT cred.* FROM agentic_db_auth_private.session_credentials cred
     WHERE cred.id = v_token_id
       AND cred.revoked_at IS NULL
       AND (cred.expires_at IS NULL OR EXTRACT(EPOCH FROM (cred.expires_at - NOW())) > 0)
@@ -33,7 +34,7 @@ BEGIN
     IF (NOT FOUND) THEN 
       RETURN;
     END IF;
-    SELECT sess.* FROM "agentic_db_auth_private".sessions sess
+    SELECT sess.* FROM agentic_db_auth_private.sessions sess
     WHERE sess.id = v_credential.session_id
       AND sess.revoked_at IS NULL
       AND EXTRACT(EPOCH FROM (sess.expires_at - NOW())) > 0
@@ -51,7 +52,7 @@ BEGIN
     IF (NOT FOUND) THEN 
       RETURN;
     END IF;
-    UPDATE "agentic_db_auth_private".session_credentials c
+    UPDATE agentic_db_auth_private.session_credentials c
     SET 
       expires_at = COALESCE(c.expires_at, NOW()) + amount
       WHERE c.id = v_credential.id
@@ -62,5 +63,5 @@ $$
 LANGUAGE 'plpgsql'
 STRICT
 SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".extend_token_expires TO authenticated;
+GRANT EXECUTE ON FUNCTION agentic_db_auth_public.extend_token_expires TO authenticated;
 

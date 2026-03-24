@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER hiking_trails_embedding_stale_insert_tg
-BEFORE INSERT ON "agentic_db_app_public".hiking_trails
+BEFORE INSERT ON agentic_db_app_public.hiking_trails
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".hiking_trails_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_private.hiking_trails_embedding_stale ( );
 

@@ -3,12 +3,13 @@
 
 -- requires: schemas/agentic_db_encrypted/schema
 -- requires: schemas/agentic_db_encrypted/tables/encrypted_secrets/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_encrypted/tables/encrypted_secrets/columns/algo/column
 -- requires: schemas/agentic_db_encrypted/tables/encrypted_secrets/columns/owner_id/column
 
 
 
-CREATE FUNCTION "agentic_db_encrypted".verify (
+CREATE FUNCTION agentic_db_encrypted.verify (
   owner_id uuid,
   secret_name text,
   value text
@@ -17,17 +18,17 @@ CREATE FUNCTION "agentic_db_encrypted".verify (
   AS $$
 DECLARE
   v_secret_text text;
-  v_secret "agentic_db_encrypted".encrypted_secrets;
+  v_secret agentic_db_encrypted.encrypted_secrets;
 BEGIN
   SELECT
     *
   FROM
-    "agentic_db_encrypted".get (verify.owner_id, verify.secret_name)
+    agentic_db_encrypted.get (verify.owner_id, verify.secret_name)
   INTO v_secret_text;
   SELECT
     *
   FROM
-    "agentic_db_encrypted".encrypted_secrets s
+    agentic_db_encrypted.encrypted_secrets s
   WHERE
     s.name = verify.secret_name
     AND s.owner_id = verify.owner_id INTO v_secret;
@@ -41,5 +42,5 @@ END
 $$
 LANGUAGE 'plpgsql'
 STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_encrypted".verify TO authenticated;
+GRANT EXECUTE ON FUNCTION agentic_db_encrypted.verify TO authenticated;
 

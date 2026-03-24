@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-ALTER TABLE "agentic_db_app_public".agent_collaborators 
+ALTER TABLE agentic_db_app_public.agent_collaborators 
   ADD CONSTRAINT agent_collaborators_pkey PRIMARY KEY (id);
 

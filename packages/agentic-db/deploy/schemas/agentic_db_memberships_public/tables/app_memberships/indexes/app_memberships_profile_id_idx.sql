@@ -3,8 +3,9 @@
 
 -- requires: schemas/agentic_db_memberships_public/schema
 -- requires: schemas/agentic_db_memberships_public/tables/app_memberships/table
+-- requires: schemas/agentic_db_private/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_memberships_public/tables/app_memberships/columns/profile_id/column
 
 
-CREATE INDEX app_memberships_profile_id_idx ON "agentic_db_memberships_public".app_memberships USING BTREE ( profile_id );
+CREATE INDEX app_memberships_profile_id_idx ON agentic_db_memberships_public.app_memberships USING BTREE ( profile_id );
 
