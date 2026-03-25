@@ -2,15 +2,15 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-ORM operations for Email records
+User email addresses with verification and primary-email management
 
 ## Usage
 
 ```typescript
 db.email.findMany({ select: { id: true } }).execute()
 db.email.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.email.create({ data: { entityId: '<UUID>', threadId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', toRecipients: '<JSON>', ccRecipients: '<JSON>', bccRecipients: '<JSON>', isDraft: '<Boolean>', isRead: '<Boolean>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', providerMessageIdTrgmSimilarity: '<Float>', subjectTrgmSimilarity: '<Float>', bodyTextTrgmSimilarity: '<Float>', bodyHtmlTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.email.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.email.create({ data: { ownerId: '<UUID>', email: '<Email>', isVerified: '<Boolean>', isPrimary: '<Boolean>' }, select: { id: true } }).execute()
+db.email.update({ where: { id: '<UUID>' }, data: { ownerId: '<UUID>' }, select: { id: true } }).execute()
 db.email.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.email.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.email.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, ownerId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.email.findMany({
 
 ```typescript
 const item = await db.email.create({
-  data: { entityId: '<UUID>', threadId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', toRecipients: '<JSON>', ccRecipients: '<JSON>', bccRecipients: '<JSON>', isDraft: '<Boolean>', isRead: '<Boolean>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', providerMessageIdTrgmSimilarity: '<Float>', subjectTrgmSimilarity: '<Float>', bodyTextTrgmSimilarity: '<Float>', bodyHtmlTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
+  data: { ownerId: '<UUID>', email: '<Email>', isVerified: '<Boolean>', isPrimary: '<Boolean>' },
   select: { id: true }
 }).execute();
 ```

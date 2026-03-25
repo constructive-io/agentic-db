@@ -2,15 +2,15 @@
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-ORM operations for Blueprint records
+An owned, executable blueprint scoped to a specific database. Created by copying from a blueprint_template via copy_template_to_blueprint() or built from scratch. The owner can customize the definition before executing it with construct_blueprint(). Each blueprint tracks its execution status (draft/constructed/failed) and stores the ref_map of created table IDs after construction.
 
 ## Usage
 
 ```typescript
 db.blueprint.findMany({ select: { id: true } }).execute()
 db.blueprint.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.blueprint.create({ data: { entityId: '<UUID>', title: '<String>', steps: '<JSON>', triggerConditions: '<String>', conversationId: '<UUID>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', triggerConditionsTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.blueprint.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.blueprint.create({ data: { ownerId: '<UUID>', databaseId: '<UUID>', name: '<String>', displayName: '<String>', description: '<String>', definition: '<JSON>', templateId: '<UUID>', status: '<String>', constructedAt: '<Datetime>', errorDetails: '<String>', refMap: '<JSON>', constructedDefinition: '<JSON>', definitionHash: '<UUID>', tableHashes: '<JSON>' }, select: { id: true } }).execute()
+db.blueprint.update({ where: { id: '<UUID>' }, data: { ownerId: '<UUID>' }, select: { id: true } }).execute()
 db.blueprint.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.blueprint.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.blueprint.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, ownerId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.blueprint.findMany({
 
 ```typescript
 const item = await db.blueprint.create({
-  data: { entityId: '<UUID>', title: '<String>', steps: '<JSON>', triggerConditions: '<String>', conversationId: '<UUID>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', titleTrgmSimilarity: '<Float>', triggerConditionsTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' },
+  data: { ownerId: '<UUID>', databaseId: '<UUID>', name: '<String>', displayName: '<String>', description: '<String>', definition: '<JSON>', templateId: '<UUID>', status: '<String>', constructedAt: '<Datetime>', errorDetails: '<String>', refMap: '<JSON>', constructedDefinition: '<JSON>', definitionHash: '<UUID>', tableHashes: '<JSON>' },
   select: { id: true }
 }).execute();
 ```
