@@ -6,33 +6,39 @@
 
 import {
   type BlueprintDefinition,
-  orgTable,
-  provisionBlueprint,
-  f,
-  req,
+  ORG_NODES,
+  ORG_POLICY,
+  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
-  dataSearch,
-  btreeIndex,
-  ginIndex,
+  provisionBlueprint,
 } from '../blueprint';
 
 const definition: BlueprintDefinition = {
   tables: [
-    orgTable('autonomy_records', [
-      req('title', 'text'),
-      f('record_type', 'text'),
-      f('content', 'text'),
-      f('status', 'text', { default_value: "'active'" }),
-      f('priority', 'int', { default_value: '0' }),
-      f('source', 'text'),
-      f('context', 'jsonb'),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['title', 'content'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'autonomy_records',
+      table_name: 'autonomy_records',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['title', 'content'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'title', type: 'text', is_required: true },
+        { name: 'record_type', type: 'text' },
+        { name: 'content', type: 'text' },
+        { name: 'status', type: 'text', default_value: "'active'" },
+        { name: 'priority', type: 'int', default_value: '0' },
+        { name: 'source', type: 'text' },
+        { name: 'context', type: 'jsonb' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
@@ -40,12 +46,12 @@ const definition: BlueprintDefinition = {
   ],
 
   indexes: [
-    ginIndex('autonomy_records', 'tags'),
-    ginIndex('autonomy_records', 'context'),
-    btreeIndex('autonomy_records', 'record_type'),
-    btreeIndex('autonomy_records', 'status'),
-    btreeIndex('autonomy_records', 'priority'),
-    btreeIndex('autonomy_records', 'source'),
+    { table_ref: 'autonomy_records', column: 'tags', access_method: 'gin' },
+    { table_ref: 'autonomy_records', column: 'context', access_method: 'gin' },
+    { table_ref: 'autonomy_records', column: 'record_type', access_method: 'btree' },
+    { table_ref: 'autonomy_records', column: 'status', access_method: 'btree' },
+    { table_ref: 'autonomy_records', column: 'priority', access_method: 'btree' },
+    { table_ref: 'autonomy_records', column: 'source', access_method: 'btree' },
   ],
 };
 

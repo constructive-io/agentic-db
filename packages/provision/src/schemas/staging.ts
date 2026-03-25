@@ -1,100 +1,108 @@
 /**
- * staging.ts - Raw data staging area (blueprint definition)
+ * staging.ts — Raw staging tables for contact data import (blueprint definition)
  *
- * Simple storage tables for raw imported data before enrichment/dedup.
- * No embeddings, no search — just flexible storage with indexes for matching.
+ * Tables: raw_contacts, raw_contact_emails, raw_contact_phones, raw_contact_urls
+ * No embeddings — pure storage for unprocessed data.
  */
 
 import {
   type BlueprintDefinition,
-  orgTable,
+  ORG_NODES,
+  ORG_POLICY,
+  CRUD_GRANTS,
   provisionBlueprint,
-  f,
-  req,
-  btreeIndex,
 } from '../blueprint';
 
 const definition: BlueprintDefinition = {
   tables: [
-    // -- Raw Contacts (staging) ---------------------------------------------
-    orgTable('raw_contacts', [
-      f('external_id', 'text'),
-      f('source', 'text'),
-      f('first_name', 'text'),
-      f('last_name', 'text'),
-      f('email', 'text'),
-      f('phone', 'text'),
-      f('company', 'text'),
-      f('title', 'text'),
-      f('location', 'text'),
-      f('linkedin_url', 'text'),
-      f('twitter_handle', 'text'),
-      f('website', 'text'),
-      f('confidence', 'numeric'),
-      f('raw_data', 'jsonb'),
-      f('ingested_at', 'timestamptz'),
-    ]),
+    // -- Raw Contacts -------------------------------------------------------
+    {
+      ref: 'raw_contacts',
+      table_name: 'raw_contacts',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'external_id', type: 'text' },
+        { name: 'source', type: 'text' },
+        { name: 'first_name', type: 'text' },
+        { name: 'last_name', type: 'text' },
+        { name: 'full_name', type: 'text' },
+        { name: 'headline', type: 'text' },
+        { name: 'bio', type: 'text' },
+        { name: 'location', type: 'text' },
+        { name: 'company', type: 'text' },
+        { name: 'job_title', type: 'text' },
+        { name: 'raw_data', type: 'jsonb' },
+        { name: 'confidence', type: 'numeric' },
+        { name: 'ingested_at', type: 'timestamptz', default_value: 'now()' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Raw Contact Emails -------------------------------------------------
-    orgTable('raw_contact_emails', [
-      req('raw_contact_id', 'uuid'),
-      req('email', 'text'),
-      f('email_type', 'text'),
-      f('is_primary', 'bool', { default_value: 'false' }),
-      f('source', 'text'),
-      f('confidence', 'numeric'),
-      f('ingested_at', 'timestamptz'),
-    ]),
+    {
+      ref: 'raw_contact_emails',
+      table_name: 'raw_contact_emails',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'email', type: 'text', is_required: true },
+        { name: 'email_type', type: 'text' },
+        { name: 'is_primary', type: 'bool', default_value: 'false' },
+        { name: 'source', type: 'text' },
+        { name: 'confidence', type: 'numeric' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Raw Contact Phones -------------------------------------------------
-    orgTable('raw_contact_phones', [
-      req('raw_contact_id', 'uuid'),
-      req('phone', 'text'),
-      f('phone_type', 'text'),
-      f('is_primary', 'bool', { default_value: 'false' }),
-      f('source', 'text'),
-      f('confidence', 'numeric'),
-      f('ingested_at', 'timestamptz'),
-    ]),
+    {
+      ref: 'raw_contact_phones',
+      table_name: 'raw_contact_phones',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'phone', type: 'text', is_required: true },
+        { name: 'phone_type', type: 'text' },
+        { name: 'is_primary', type: 'bool', default_value: 'false' },
+        { name: 'source', type: 'text' },
+        { name: 'confidence', type: 'numeric' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Raw Contact URLs ---------------------------------------------------
-    orgTable('raw_contact_urls', [
-      req('raw_contact_id', 'uuid'),
-      req('url', 'text'),
-      f('url_type', 'text'),
-      f('source', 'text'),
-      f('confidence', 'numeric'),
-      f('ingested_at', 'timestamptz'),
-    ]),
+    {
+      ref: 'raw_contact_urls',
+      table_name: 'raw_contact_urls',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'url', type: 'text', is_required: true },
+        { name: 'url_type', type: 'text' },
+        { name: 'source', type: 'text' },
+        { name: 'confidence', type: 'numeric' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
-    // Children belong to raw_contacts
     { $type: 'RelationHasMany', source_ref: 'raw_contacts', target_ref: 'raw_contact_emails', delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'raw_contacts', target_ref: 'raw_contact_phones', delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'raw_contacts', target_ref: 'raw_contact_urls',   delete_action: 'c' },
   ],
 
   indexes: [
-    // raw_contacts lookups
-    btreeIndex('raw_contacts', 'external_id'),
-    btreeIndex('raw_contacts', 'source'),
-    btreeIndex('raw_contacts', 'email'),
-    btreeIndex('raw_contacts', 'phone'),
-    btreeIndex('raw_contacts', 'linkedin_url'),
-    btreeIndex('raw_contacts', 'ingested_at'),
-
-    // raw_contact_emails matching
-    btreeIndex('raw_contact_emails', 'email'),
-    btreeIndex('raw_contact_emails', 'source'),
-
-    // raw_contact_phones matching
-    btreeIndex('raw_contact_phones', 'phone'),
-    btreeIndex('raw_contact_phones', 'source'),
-
-    // raw_contact_urls matching
-    btreeIndex('raw_contact_urls', 'url'),
-    btreeIndex('raw_contact_urls', 'source'),
+    { table_ref: 'raw_contacts', column: 'external_id', access_method: 'btree' },
+    { table_ref: 'raw_contacts', column: 'source', access_method: 'btree' },
+    { table_ref: 'raw_contact_emails', column: 'email', access_method: 'btree' },
+    { table_ref: 'raw_contact_phones', column: 'phone', access_method: 'btree' },
+    { table_ref: 'raw_contact_urls', column: 'url', access_method: 'btree' },
   ],
 };
 

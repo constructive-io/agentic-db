@@ -1,67 +1,63 @@
 /**
- * email_calendar.ts - Email & Calendar schema (blueprint definition)
+ * email_calendar.ts — Email & Calendar domain schema (blueprint definition)
  *
- * Turns agentic-db into an email and calendar powerhouse with full CRM
- * integration. Every thread, email body, and calendar description is
- * chunked/embedded for instant RAG retrieval.
- *
- * Data* nodes: DataSearch, DataPostGIS
+ * Tables: email_threads, emails, email_attachments, calendars,
+ *         calendar_events, calendar_attendees, provider_sync_states
+ * Data* nodes: DataSearch
  */
 
 import {
   type BlueprintDefinition,
-  orgTable,
+  ORG_NODES,
+  ORG_POLICY,
+  CRUD_GRANTS,
   provisionBlueprint,
-  f,
-  req,
-  M2M_JUNCTION_OPTS,
-  dataSearch,
-  dataPostGIS,
-  btreeIndex,
-  ginIndex,
 } from '../blueprint';
 
 const definition: BlueprintDefinition = {
   tables: [
-    // =========================================================================
-    //  EMAIL
-    // =========================================================================
+    // -- Email Threads ------------------------------------------------------
+    {
+      ref: 'email_threads',
+      table_name: 'email_threads',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['subject', 'summary'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+          full_text_search: {
+            field_name: 'search_tsv',
+            source_fields: [
+              { field: 'subject', weight: 'A' },
+              { field: 'summary', weight: 'B' },
+            ],
+          },
+          trgm_fields: ['subject'],
+        }},
+      ],
+      fields: [
+        { name: 'provider_thread_id', type: 'text' },
+        { name: 'subject', type: 'text' },
+        { name: 'last_message_at', type: 'timestamptz' },
+        { name: 'summary', type: 'text' },
+        { name: 'status', type: 'text', default_value: "'open'" },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
-    // -- Email Threads --------------------------------------------------------
-    orgTable('email_threads', [
-      f('provider_thread_id', 'text'),
-      req('subject', 'text'),
-      f('last_message_at', 'timestamptz'),
-      f('summary', 'text'),
-      f('status', 'text', { default_value: "'open'" }),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['subject', 'summary'],
-          chunks: true,
-        }),
-      ]),
-
-    // -- Emails ---------------------------------------------------------------
-    orgTable('emails', [
-      req('thread_id', 'uuid'),
-      f('provider_message_id', 'text'),
-      f('from_contact_id', 'uuid'),
-      f('subject', 'text'),
-      req('body_text', 'text'),
-      f('body_html', 'text'),
-      f('sent_at', 'timestamptz'),
-      f('to_recipients', 'jsonb'),
-      f('cc_recipients', 'jsonb'),
-      f('bcc_recipients', 'jsonb'),
-      f('is_draft', 'bool', { default_value: 'false' }),
-      f('is_read', 'bool', { default_value: 'false' }),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['body_text', 'subject'],
-          chunks: true,
-          fts: {
+    // -- Emails -------------------------------------------------------------
+    {
+      ref: 'emails',
+      table_name: 'emails',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['subject', 'body_text'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+          full_text_search: {
             field_name: 'search_tsv',
             source_fields: [
               { field: 'subject', weight: 'A' },
@@ -69,144 +65,165 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['subject'],
-        }),
-      ]),
+        }},
+      ],
+      fields: [
+        { name: 'provider_message_id', type: 'text' },
+        { name: 'from_contact_id', type: 'uuid' },
+        { name: 'to', type: 'jsonb' },
+        { name: 'cc', type: 'jsonb' },
+        { name: 'bcc', type: 'jsonb' },
+        { name: 'subject', type: 'text' },
+        { name: 'body_text', type: 'text' },
+        { name: 'body_html', type: 'text' },
+        { name: 'sent_at', type: 'timestamptz' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
-    // -- Email Attachments ----------------------------------------------------
-    orgTable('email_attachments', [
-      req('email_id', 'uuid'),
-      req('filename', 'text'),
-      f('content_type', 'text'),
-      f('size_bytes', 'int'),
-      f('storage_url', 'text'),
-      f('meta', 'jsonb'),
-    ]),
+    // -- Email Attachments --------------------------------------------------
+    {
+      ref: 'email_attachments',
+      table_name: 'email_attachments',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'filename', type: 'text', is_required: true },
+        { name: 'content_type', type: 'text' },
+        { name: 'size_bytes', type: 'int' },
+        { name: 'storage_url', type: 'text' },
+        { name: 'provider_attachment_id', type: 'text' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
-    // =========================================================================
-    //  CALENDAR
-    // =========================================================================
+    // -- Calendars ----------------------------------------------------------
+    {
+      ref: 'calendars',
+      table_name: 'calendars',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'provider_account_id', type: 'text' },
+        { name: 'provider_calendar_id', type: 'text' },
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'color', type: 'text' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
-    // -- Calendars ------------------------------------------------------------
-    orgTable('calendars', [
-      f('provider_account_id', 'text'),
-      f('provider_calendar_id', 'text'),
-      req('name', 'text'),
-      f('color', 'text'),
-      f('is_primary', 'bool', { default_value: 'false' }),
-      f('is_active', 'bool', { default_value: 'true' }),
-    ]),
+    // -- Calendar Events ----------------------------------------------------
+    {
+      ref: 'calendar_events',
+      table_name: 'calendar_events',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['title', 'description'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+          full_text_search: {
+            field_name: 'search_tsv',
+            source_fields: [
+              { field: 'title', weight: 'A' },
+              { field: 'description', weight: 'B' },
+            ],
+          },
+          trgm_fields: ['title'],
+        }},
+      ],
+      fields: [
+        { name: 'provider_event_id', type: 'text' },
+        { name: 'title', type: 'text', is_required: true },
+        { name: 'description', type: 'text' },
+        { name: 'start_time', type: 'timestamptz' },
+        { name: 'end_time', type: 'timestamptz' },
+        { name: 'meeting_url', type: 'text' },
+        { name: 'organizer_contact_id', type: 'uuid' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
-    // -- Calendar Events ------------------------------------------------------
-    orgTable('calendar_events', [
-      req('calendar_id', 'uuid'),
-      f('provider_event_id', 'text'),
-      req('title', 'text'),
-      f('description', 'text'),
-      f('start_time', 'timestamptz'),
-      f('end_time', 'timestamptz'),
-      f('is_all_day', 'bool', { default_value: 'false' }),
-      f('meeting_url', 'text'),
-      f('organizer_contact_id', 'uuid'),
-      f('recurrence_rule', 'text'),
-      f('status', 'text', { default_value: "'confirmed'" }),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['title', 'description'],
-          chunks: true,
-        }),
-        dataPostGIS({ field_name: 'location', use_geography: true }),
-      ]),
+    // -- Calendar Attendees (junction) --------------------------------------
+    {
+      ref: 'calendar_attendees',
+      table_name: 'calendar_attendees',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'contact_id', type: 'uuid' },
+        { name: 'response_status', type: 'text', default_value: "'needs_action'" },
+        { name: 'role', type: 'text', default_value: "'required'" },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
-    // -- Calendar Attendees (junction with metadata) --------------------------
-    orgTable('calendar_attendees', [
-      req('calendar_event_id', 'uuid'),
-      req('contact_id', 'uuid'),
-      f('response_status', 'text', { default_value: "'needs_action'" }),
-      f('role', 'text', { default_value: "'required'" }),
-    ]),
-
-    // =========================================================================
-    //  SYNC ENGINE
-    // =========================================================================
-
-    // -- Provider Sync States -------------------------------------------------
-    orgTable('provider_sync_states', [
-      req('provider', 'text'),
-      req('resource_type', 'text'),
-      f('sync_cursor', 'text'),
-      f('last_sync_at', 'timestamptz'),
-      f('status', 'text', { default_value: "'active'" }),
-      f('error_message', 'text'),
-      f('config', 'jsonb'),
-    ]),
+    // -- Provider Sync States (infra) ---------------------------------------
+    {
+      ref: 'provider_sync_states',
+      table_name: 'provider_sync_states',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'provider', type: 'text', is_required: true },
+        { name: 'resource_type', type: 'text', is_required: true },
+        { name: 'sync_cursor', type: 'text' },
+        { name: 'history_id', type: 'text' },
+        { name: 'last_sync_at', type: 'timestamptz' },
+        { name: 'status', type: 'text', default_value: "'active'" },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
-    // Email threads -> emails (cascade: delete thread = delete emails)
+    // Emails belong to threads
     { $type: 'RelationHasMany', source_ref: 'email_threads', target_ref: 'emails', delete_action: 'c' },
-
-    // Emails -> attachments (cascade)
+    // Attachments belong to emails
     { $type: 'RelationHasMany', source_ref: 'emails', target_ref: 'email_attachments', delete_action: 'c' },
-
-    // Calendar -> calendar_events (cascade: delete calendar = delete events)
+    // Calendar events belong to calendars
     { $type: 'RelationHasMany', source_ref: 'calendars', target_ref: 'calendar_events', delete_action: 'c' },
-
-    // Calendar events -> attendees (cascade: delete event = delete attendees)
+    // Attendees belong to calendar events
     { $type: 'RelationHasMany', source_ref: 'calendar_events', target_ref: 'calendar_attendees', delete_action: 'c' },
-
-    // NOTE: Cross-schema relations to contacts (from_contact_id, organizer_contact_id,
-    //   calendar_attendees->contacts, email_recipients M:N) are in cross-relations.ts
   ],
 
   indexes: [
-    // Email threads
-    ginIndex('email_threads', 'tags'),
-    btreeIndex('email_threads', 'provider_thread_id'),
-    btreeIndex('email_threads', 'status'),
-    btreeIndex('email_threads', 'last_message_at'),
+    // email_threads
+    { table_ref: 'email_threads', column: 'tags', access_method: 'gin' },
+    { table_ref: 'email_threads', column: 'provider_thread_id', access_method: 'btree' },
+    { table_ref: 'email_threads', column: 'last_message_at', access_method: 'btree' },
+    { table_ref: 'email_threads', column: 'status', access_method: 'btree' },
 
-    // Emails
-    ginIndex('emails', 'tags'),
-    ginIndex('emails', 'to_recipients'),
-    ginIndex('emails', 'cc_recipients'),
-    ginIndex('emails', 'bcc_recipients'),
-    btreeIndex('emails', 'provider_message_id'),
-    btreeIndex('emails', 'sent_at'),
-    // btreeIndex('emails', 'thread_id'), — auto-created by FK (email_threads -> emails)
-    // btreeIndex('emails', 'from_contact_id'), — auto-created by FK (BelongsTo contacts)
-    btreeIndex('emails', 'is_draft'),
-    btreeIndex('emails', 'is_read'),
+    // emails
+    { table_ref: 'emails', column: 'tags', access_method: 'gin' },
+    { table_ref: 'emails', column: 'provider_message_id', access_method: 'btree' },
+    { table_ref: 'emails', column: 'sent_at', access_method: 'btree' },
 
-    // Email attachments
-    // btreeIndex('email_attachments', 'email_id'), — auto-created by FK (emails -> email_attachments)
-    btreeIndex('email_attachments', 'content_type'),
+    // calendars
+    { table_ref: 'calendars', column: 'provider_calendar_id', access_method: 'btree' },
 
-    // Calendars
-    btreeIndex('calendars', 'provider_account_id'),
-    btreeIndex('calendars', 'provider_calendar_id'),
-    btreeIndex('calendars', 'is_active'),
+    // calendar_events
+    { table_ref: 'calendar_events', column: 'tags', access_method: 'gin' },
+    { table_ref: 'calendar_events', column: 'provider_event_id', access_method: 'btree' },
+    { table_ref: 'calendar_events', column: 'start_time', access_method: 'btree' },
+    { table_ref: 'calendar_events', column: 'end_time', access_method: 'btree' },
 
-    // Calendar events
-    ginIndex('calendar_events', 'tags'),
-    btreeIndex('calendar_events', 'provider_event_id'),
-    btreeIndex('calendar_events', 'start_time'),
-    btreeIndex('calendar_events', 'end_time'),
-    btreeIndex('calendar_events', 'status'),
-    // btreeIndex('calendar_events', 'calendar_id'), — auto-created by FK (calendars -> calendar_events)
-    // btreeIndex('calendar_events', 'organizer_contact_id'), — auto-created by FK (BelongsTo contacts)
+    // calendar_attendees
+    { table_ref: 'calendar_attendees', column: 'response_status', access_method: 'btree' },
 
-    // Calendar attendees
-    btreeIndex('calendar_attendees', 'response_status'),
-    btreeIndex('calendar_attendees', 'role'),
-    // btreeIndex('calendar_attendees', 'calendar_event_id'), — auto-created by FK
-    // btreeIndex('calendar_attendees', 'contact_id'), — auto-created by FK (BelongsTo contacts)
-
-    // Provider sync states
-    btreeIndex('provider_sync_states', 'provider'),
-    btreeIndex('provider_sync_states', 'resource_type'),
-    btreeIndex('provider_sync_states', 'status'),
-    btreeIndex('provider_sync_states', 'last_sync_at'),
+    // provider_sync_states
+    { table_ref: 'provider_sync_states', column: 'provider', access_method: 'btree' },
+    { table_ref: 'provider_sync_states', column: 'resource_type', access_method: 'btree' },
+    { table_ref: 'provider_sync_states', column: 'status', access_method: 'btree' },
   ],
 };
 

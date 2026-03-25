@@ -1,195 +1,239 @@
 /**
- * life_os.ts - Life OS schema (blueprint definition)
+ * life_os.ts — Life-OS domain schema (blueprint definition)
  *
+ * Tables: projects, goals, habits, memories, expenses, trips,
+ *         hiking_trails, places
  * Data* nodes: DataSearch, DataPostGIS
  */
 
 import {
   type BlueprintDefinition,
-  orgTable,
+  ORG_NODES,
+  ORG_POLICY,
+  CRUD_GRANTS,
   provisionBlueprint,
-  f,
-  req,
-  M2M_JUNCTION_OPTS,
-  dataSearch,
-  dataPostGIS,
-  btreeIndex,
-  ginIndex,
 } from '../blueprint';
 
 const definition: BlueprintDefinition = {
   tables: [
-    // -- Trips --------------------------------------------------------------
-    orgTable('trips', [
-      req('name', 'text'),
-      f('description', 'text'),
-      f('destination', 'text'),
-      f('started_at', 'timestamptz'),
-      f('ended_at', 'timestamptz'),
-      f('status', 'text', { default_value: "'planning'" }),
-      f('budget', 'numeric'),
-      f('currency', 'text', { default_value: "'USD'" }),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'description', 'destination'],
-          chunks: true,
-        }),
-        dataPostGIS({ field_name: 'location', use_geography: true }),
-      ]),
-
-    // -- Places -------------------------------------------------------------
-    orgTable('places', [
-      req('name', 'text'),
-      f('description', 'text'),
-      f('address', 'text'),
-      f('city', 'text'),
-      f('country', 'text'),
-      f('category', 'text'),
-      f('rating', 'numeric'),
-      f('notes', 'text'),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'description', 'notes'],
-          chunks: true,
-        }),
-        dataPostGIS({ field_name: 'location', use_geography: true }),
-      ]),
-
-    // -- Itinerary Items ----------------------------------------------------
-    orgTable('itinerary_items', [
-      req('trip_id', 'uuid'),
-      req('name', 'text'),
-      f('description', 'text'),
-      f('day_number', 'int'),
-      f('start_time', 'timestamptz'),
-      f('end_time', 'timestamptz'),
-      f('place_id', 'uuid'),
-      f('category', 'text'),
-      f('cost', 'numeric'),
-      f('notes', 'text'),
-      f('sort_order', 'int', { default_value: '0' }),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'description', 'notes'],
-          chunks: true,
-        }),
-      ]),
-
-    // -- Hiking Trails ------------------------------------------------------
-    orgTable('hiking_trails', [
-      req('name', 'text'),
-      f('description', 'text'),
-      f('difficulty', 'text'),
-      f('distance_km', 'numeric'),
-      f('elevation_gain_m', 'numeric'),
-      f('estimated_time_hours', 'numeric'),
-      f('trail_type', 'text'),
-      f('region', 'text'),
-      f('notes', 'text'),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'description', 'region'],
-          chunks: true,
-        }),
-        dataPostGIS({ field_name: 'location', use_geography: true }),
-      ]),
-
-    // -- Memories -----------------------------------------------------------
-    orgTable('memories', [
-      req('title', 'text'),
-      f('content', 'text'),
-      f('occurred_at', 'timestamptz'),
-      f('location', 'text'),
-      f('mood', 'text'),
-      f('importance', 'int', { default_value: '5' }),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['title', 'content'],
-          chunks: true,
-        }),
-        dataPostGIS({ field_name: 'location_geo', use_geography: true }),
-      ]),
+    // -- Projects -----------------------------------------------------------
+    {
+      ref: 'projects',
+      table_name: 'projects',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['name', 'description'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'description', type: 'text' },
+        { name: 'status', type: 'text', default_value: "'active'" },
+        { name: 'priority', type: 'int', default_value: '0' },
+        { name: 'due_date', type: 'timestamptz' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Goals --------------------------------------------------------------
-    orgTable('goals', [
-      req('title', 'text'),
-      f('description', 'text'),
-      f('category', 'text'),
-      f('status', 'text', { default_value: "'active'" }),
-      f('priority', 'int', { default_value: '0' }),
-      f('target_date', 'timestamptz'),
-      f('completed_at', 'timestamptz'),
-      f('progress', 'numeric', { default_value: '0' }),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['title', 'description'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'goals',
+      table_name: 'goals',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['title', 'description'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'title', type: 'text', is_required: true },
+        { name: 'description', type: 'text' },
+        { name: 'status', type: 'text', default_value: "'active'" },
+        { name: 'target_date', type: 'timestamptz' },
+        { name: 'progress', type: 'numeric', default_value: '0' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Habits -------------------------------------------------------------
-    orgTable('habits', [
-      req('name', 'text'),
-      f('description', 'text'),
-      f('frequency', 'text', { default_value: "'daily'" }),
-      f('target_count', 'int', { default_value: '1' }),
-      f('current_streak', 'int', { default_value: '0' }),
-      f('best_streak', 'int', { default_value: '0' }),
-      f('is_active', 'bool', { default_value: 'true' }),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'description'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'habits',
+      table_name: 'habits',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'frequency', type: 'text', default_value: "'daily'" },
+        { name: 'streak', type: 'int', default_value: '0' },
+        { name: 'last_completed_at', type: 'timestamptz' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    // -- Memories -----------------------------------------------------------
+    {
+      ref: 'memories',
+      table_name: 'memories',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['title', 'content', 'location'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+        { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+      ],
+      fields: [
+        { name: 'title', type: 'text', is_required: true },
+        { name: 'content', type: 'text' },
+        { name: 'location', type: 'text' },
+        { name: 'occurred_at', type: 'timestamptz' },
+        { name: 'mood', type: 'text' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    // -- Expenses -----------------------------------------------------------
+    {
+      ref: 'expenses',
+      table_name: 'expenses',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'description', type: 'text', is_required: true },
+        { name: 'amount', type: 'numeric', is_required: true },
+        { name: 'currency', type: 'text', default_value: "'USD'" },
+        { name: 'category', type: 'text' },
+        { name: 'occurred_at', type: 'timestamptz' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    // -- Trips --------------------------------------------------------------
+    {
+      ref: 'trips',
+      table_name: 'trips',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['name', 'description', 'destination'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+        { $type: 'DataPostGIS', data: { field_name: 'destination_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+      ],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'destination', type: 'text' },
+        { name: 'description', type: 'text' },
+        { name: 'start_date', type: 'timestamptz' },
+        { name: 'end_date', type: 'timestamptz' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    // -- Hiking Trails ------------------------------------------------------
+    {
+      ref: 'hiking_trails',
+      table_name: 'hiking_trails',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['name', 'description', 'location'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+        { $type: 'DataPostGIS', data: { field_name: 'trailhead_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+      ],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'location', type: 'text' },
+        { name: 'description', type: 'text' },
+        { name: 'difficulty', type: 'text' },
+        { name: 'distance_km', type: 'numeric' },
+        { name: 'elevation_gain_m', type: 'numeric' },
+        { name: 'rating', type: 'numeric' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    // -- Places -------------------------------------------------------------
+    {
+      ref: 'places',
+      table_name: 'places',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['name', 'description', 'address'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+        { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+      ],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'address', type: 'text' },
+        { name: 'description', type: 'text' },
+        { name: 'category', type: 'text' },
+        { name: 'rating', type: 'numeric' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
-    { $type: 'RelationHasMany', source_ref: 'trips',  target_ref: 'itinerary_items', delete_action: 'c' },
-    { $type: 'RelationBelongsTo', source_ref: 'itinerary_items', target_ref: 'places', field_name: 'place_id', source_field_name: 'place_id', target_field_name: 'id', delete_action: 'n', is_required: false },
-
-    { $type: 'RelationManyToMany', source_ref: 'trips', target_ref: 'places', junction_table_name: 'trip_places', source_field_name: 'trip_id', target_field_name: 'place_id', is_required: false, data: M2M_JUNCTION_OPTS },
-    { $type: 'RelationManyToMany', source_ref: 'trips', target_ref: 'hiking_trails', junction_table_name: 'trip_hiking_trails', source_field_name: 'trip_id', target_field_name: 'hiking_trail_id', is_required: false, data: M2M_JUNCTION_OPTS },
-    { $type: 'RelationManyToMany', source_ref: 'goals', target_ref: 'habits', junction_table_name: 'goal_habits', source_field_name: 'goal_id', target_field_name: 'habit_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    // HasMany: goals -> habits (via goal_habits junction is in cross-relations)
+    // Projects have expenses
+    { $type: 'RelationHasMany', source_ref: 'trips', target_ref: 'expenses', delete_action: 'n' },
   ],
 
   indexes: [
-    ginIndex('trips', 'tags'),
-    ginIndex('places', 'tags'),
-    ginIndex('hiking_trails', 'tags'),
-    ginIndex('memories', 'tags'),
-    ginIndex('goals', 'tags'),
-    ginIndex('habits', 'tags'),
+    { table_ref: 'projects', column: 'tags', access_method: 'gin' },
+    { table_ref: 'goals', column: 'tags', access_method: 'gin' },
+    { table_ref: 'habits', column: 'tags', access_method: 'gin' },
+    { table_ref: 'memories', column: 'tags', access_method: 'gin' },
+    { table_ref: 'expenses', column: 'tags', access_method: 'gin' },
+    { table_ref: 'trips', column: 'tags', access_method: 'gin' },
+    { table_ref: 'hiking_trails', column: 'tags', access_method: 'gin' },
+    { table_ref: 'places', column: 'tags', access_method: 'gin' },
 
-    btreeIndex('trips', 'status'),
-    btreeIndex('trips', 'started_at'),
-    btreeIndex('places', 'city'),
-    btreeIndex('places', 'country'),
-    btreeIndex('places', 'category'),
-    // btreeIndex('itinerary_items', 'trip_id'), — auto-created by FK (trips → itinerary_items)
-    btreeIndex('itinerary_items', 'day_number'),
-    // btreeIndex('itinerary_items', 'place_id'), — auto-created by FK (BelongsTo places)
-    btreeIndex('hiking_trails', 'difficulty'),
-    btreeIndex('hiking_trails', 'trail_type'),
-    btreeIndex('hiking_trails', 'region'),
-    btreeIndex('memories', 'occurred_at'),
-    btreeIndex('memories', 'mood'),
-    btreeIndex('goals', 'status'),
-    btreeIndex('goals', 'category'),
-    btreeIndex('goals', 'priority'),
-    btreeIndex('habits', 'frequency'),
-    btreeIndex('habits', 'is_active'),
+    { table_ref: 'projects', column: 'status', access_method: 'btree' },
+    { table_ref: 'projects', column: 'due_date', access_method: 'btree' },
+    { table_ref: 'goals', column: 'status', access_method: 'btree' },
+    { table_ref: 'goals', column: 'target_date', access_method: 'btree' },
+    { table_ref: 'habits', column: 'frequency', access_method: 'btree' },
+    { table_ref: 'memories', column: 'occurred_at', access_method: 'btree' },
+    { table_ref: 'expenses', column: 'category', access_method: 'btree' },
+    { table_ref: 'expenses', column: 'occurred_at', access_method: 'btree' },
+    { table_ref: 'trips', column: 'start_date', access_method: 'btree' },
+    { table_ref: 'hiking_trails', column: 'difficulty', access_method: 'btree' },
+    { table_ref: 'places', column: 'category', access_method: 'btree' },
   ],
 };
 
 async function main() {
-  await provisionBlueprint(definition, 'Life OS Schema');
+  await provisionBlueprint(definition, 'Life-OS Schema');
 }
 
 export { main as default };
