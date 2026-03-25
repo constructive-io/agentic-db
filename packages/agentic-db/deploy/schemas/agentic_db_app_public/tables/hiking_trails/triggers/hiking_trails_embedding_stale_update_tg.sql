@@ -11,6 +11,6 @@
 CREATE TRIGGER hiking_trails_embedding_stale_update_tg
 BEFORE UPDATE ON "agentic_db_app_public".hiking_trails
 FOR EACH ROW
-WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.region IS DISTINCT FROM NEW.region)
+WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.location IS DISTINCT FROM NEW.location)
 EXECUTE PROCEDURE "agentic_db_private".hiking_trails_embedding_stale ( );
 

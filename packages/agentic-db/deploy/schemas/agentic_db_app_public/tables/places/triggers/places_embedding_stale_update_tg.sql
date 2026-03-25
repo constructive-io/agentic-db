@@ -11,6 +11,6 @@
 CREATE TRIGGER places_embedding_stale_update_tg
 BEFORE UPDATE ON "agentic_db_app_public".places
 FOR EACH ROW
-WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.notes IS DISTINCT FROM NEW.notes)
+WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.address IS DISTINCT FROM NEW.address)
 EXECUTE PROCEDURE "agentic_db_private".places_embedding_stale ( );
 

@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/emails/table
 -- requires: schemas/agentic_db_private/trigger_fns/emails_enqueue_embedding
--- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
 CREATE TRIGGER emails_enqueue_embedding_insert_tg

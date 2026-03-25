@@ -1,6 +1,0 @@
--- Verify: schemas/agentic_db_app_public/tables/raw_contacts/indexes/raw_contacts_linkedin_url_idx
-
-
-SELECT verify_index('agentic_db_app_public.raw_contacts', 'raw_contacts_linkedin_url_idx');
-
-

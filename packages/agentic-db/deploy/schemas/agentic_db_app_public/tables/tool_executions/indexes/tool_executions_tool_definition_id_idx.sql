@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/table
--- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/memories/indexes/memories_agent_id_idx
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/columns/tool_definition_id/column
 
 

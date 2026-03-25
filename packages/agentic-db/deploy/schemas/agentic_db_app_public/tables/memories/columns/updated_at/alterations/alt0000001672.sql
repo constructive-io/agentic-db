@@ -7,7 +7,6 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-
 ALTER TABLE "agentic_db_app_public".memories 
-    ALTER COLUMN updated_at SET DEFAULT now();
+  ALTER COLUMN updated_at SET NOT NULL;
 

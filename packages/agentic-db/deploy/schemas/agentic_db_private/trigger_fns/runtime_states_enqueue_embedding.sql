@@ -2,7 +2,7 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_private/schema
--- requires: schemas/agentic_db_app_public/tables/skills/indexes/skills_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
 CREATE FUNCTION "agentic_db_private".runtime_states_enqueue_embedding() RETURNS TRIGGER AS $_PGFN_$

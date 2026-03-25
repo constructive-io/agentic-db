@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/email_threads_chunks/table
--- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
 CREATE POLICY auth_upd_auth_upd_entity_membership ON "agentic_db_app_public".email_threads_chunks

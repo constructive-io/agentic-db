@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/table
 -- requires: schemas/agentic_db_private/trigger_fns/calendar_events_embedding_stale
--- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
 CREATE TRIGGER calendar_events_embedding_stale_update_tg
