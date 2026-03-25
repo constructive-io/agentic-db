@@ -196,24 +196,7 @@ const definition: BlueprintDefinition = {
       policies: [ORG_POLICY],
     },
 
-    // -- Tool Definitions & Executions --------------------------------------
-    {
-      ref: 'tool_definitions',
-      table_name: 'tool_definitions',
-      nodes: [...ORG_NODES],
-      fields: [
-        { name: 'name', type: 'text', is_required: true },
-        { name: 'description', type: 'text' },
-        { name: 'input_schema', type: 'jsonb' },
-        { name: 'output_schema', type: 'jsonb' },
-        { name: 'implementation', type: 'text' },
-        { name: 'is_active', type: 'bool', default_value: 'true' },
-      ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
-    },
-
+    // -- Tool Executions (tool_definitions lives in agent.ts) ----------------
     {
       ref: 'tool_executions',
       table_name: 'tool_executions',
@@ -240,7 +223,7 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'runtime_states', target_ref: 'runtime_metrics',    delete_action: 'c' },
 
     { $type: 'RelationHasMany', source_ref: 'conversations',    target_ref: 'messages',         delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'tool_definitions', target_ref: 'tool_executions',  delete_action: 'c' },
+    // tool_definitions -> tool_executions FK handled in cross-relations.ts
 
     { $type: 'RelationManyToMany', source_ref: 'runtime_states', target_ref: 'runtime_states', junction_table_name: 'runtime_state_dependencies', source_field_name: 'state_id', target_field_name: 'dependency_id', is_required: false, data: M2M_JUNCTION_OPTS },
   ],
@@ -265,9 +248,7 @@ const definition: BlueprintDefinition = {
     { table_ref: 'conversations', column: 'status', access_method: 'btree' },
     // messages.conversation_id btree — auto-created by FK
     { table_ref: 'messages', column: 'role', access_method: 'btree' },
-    { table_ref: 'tool_definitions', column: 'name', access_method: 'btree' },
-    { table_ref: 'tool_definitions', column: 'is_active', access_method: 'btree' },
-    // tool_executions.tool_definition_id btree — auto-created by FK
+    // tool_executions.tool_definition_id btree — auto-created by FK (cross-relations)
     { table_ref: 'tool_executions', column: 'message_id', access_method: 'btree' },
     { table_ref: 'tool_executions', column: 'status', access_method: 'btree' },
   ],

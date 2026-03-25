@@ -11,12 +11,12 @@ import type { CreateCalendarAttendeeInput, CalendarAttendeePatch } from '../../o
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  calendarEventId: 'uuid',
   contactId: 'uuid',
   responseStatus: 'string',
   role: 'string',
   createdAt: 'string',
   updatedAt: 'string',
+  calendarEventId: 'uuid',
 };
 const usage =
   '\ncalendar-attendee <command>\n\nCommands:\n  list                  List all calendarAttendee records\n  get                   Get a calendarAttendee by ID\n  create                Create a new calendarAttendee\n  update                Update an existing calendarAttendee\n  delete                Delete a calendarAttendee\n\n  --help, -h            Show this help message\n';
@@ -72,12 +72,12 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          calendarEventId: true,
           contactId: true,
           responseStatus: true,
           role: true,
           createdAt: true,
           updatedAt: true,
+          calendarEventId: true,
         },
       })
       .execute();
@@ -107,12 +107,12 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          calendarEventId: true,
           contactId: true,
           responseStatus: true,
           role: true,
           createdAt: true,
           updatedAt: true,
+          calendarEventId: true,
         },
       })
       .execute();
@@ -136,15 +136,10 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'calendarEventId',
-        message: 'calendarEventId',
-        required: true,
-      },
-      {
-        type: 'text',
         name: 'contactId',
         message: 'contactId',
-        required: true,
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
@@ -160,6 +155,12 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'calendarEventId',
+        message: 'calendarEventId',
+        required: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(
@@ -171,20 +172,20 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       .create({
         data: {
           entityId: cleanedData.entityId,
-          calendarEventId: cleanedData.calendarEventId,
           contactId: cleanedData.contactId,
           responseStatus: cleanedData.responseStatus,
           role: cleanedData.role,
+          calendarEventId: cleanedData.calendarEventId,
         },
         select: {
           id: true,
           entityId: true,
-          calendarEventId: true,
           contactId: true,
           responseStatus: true,
           role: true,
           createdAt: true,
           updatedAt: true,
+          calendarEventId: true,
         },
       })
       .execute();
@@ -214,15 +215,10 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'calendarEventId',
-        message: 'calendarEventId',
-        required: false,
-      },
-      {
-        type: 'text',
         name: 'contactId',
         message: 'contactId',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
@@ -238,6 +234,12 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'calendarEventId',
+        message: 'calendarEventId',
+        required: false,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CalendarAttendeePatch;
@@ -249,20 +251,20 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           entityId: cleanedData.entityId,
-          calendarEventId: cleanedData.calendarEventId,
           contactId: cleanedData.contactId,
           responseStatus: cleanedData.responseStatus,
           role: cleanedData.role,
+          calendarEventId: cleanedData.calendarEventId,
         },
         select: {
           id: true,
           entityId: true,
-          calendarEventId: true,
           contactId: true,
           responseStatus: true,
           role: true,
           createdAt: true,
           updatedAt: true,
+          calendarEventId: true,
         },
       })
       .execute();

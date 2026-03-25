@@ -11,15 +11,14 @@ import type { CreateRawContactPhoneInput, RawContactPhonePatch } from '../../orm
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  rawContactId: 'uuid',
   phone: 'string',
   phoneType: 'string',
   isPrimary: 'boolean',
   source: 'string',
   confidence: 'string',
-  ingestedAt: 'string',
   createdAt: 'string',
   updatedAt: 'string',
+  rawContactId: 'uuid',
 };
 const usage =
   '\nraw-contact-phone <command>\n\nCommands:\n  list                  List all rawContactPhone records\n  get                   Get a rawContactPhone by ID\n  create                Create a new rawContactPhone\n  update                Update an existing rawContactPhone\n  delete                Delete a rawContactPhone\n\n  --help, -h            Show this help message\n';
@@ -75,15 +74,14 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          rawContactId: true,
           phone: true,
           phoneType: true,
           isPrimary: true,
           source: true,
           confidence: true,
-          ingestedAt: true,
           createdAt: true,
           updatedAt: true,
+          rawContactId: true,
         },
       })
       .execute();
@@ -113,15 +111,14 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          rawContactId: true,
           phone: true,
           phoneType: true,
           isPrimary: true,
           source: true,
           confidence: true,
-          ingestedAt: true,
           createdAt: true,
           updatedAt: true,
+          rawContactId: true,
         },
       })
       .execute();
@@ -141,12 +138,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         type: 'text',
         name: 'entityId',
         message: 'entityId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'rawContactId',
-        message: 'rawContactId',
         required: true,
       },
       {
@@ -185,10 +176,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'ingestedAt',
-        message: 'ingestedAt',
-        required: false,
-        skipPrompt: true,
+        name: 'rawContactId',
+        message: 'rawContactId',
+        required: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
@@ -201,26 +191,24 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       .create({
         data: {
           entityId: cleanedData.entityId,
-          rawContactId: cleanedData.rawContactId,
           phone: cleanedData.phone,
           phoneType: cleanedData.phoneType,
           isPrimary: cleanedData.isPrimary,
           source: cleanedData.source,
           confidence: cleanedData.confidence,
-          ingestedAt: cleanedData.ingestedAt,
+          rawContactId: cleanedData.rawContactId,
         },
         select: {
           id: true,
           entityId: true,
-          rawContactId: true,
           phone: true,
           phoneType: true,
           isPrimary: true,
           source: true,
           confidence: true,
-          ingestedAt: true,
           createdAt: true,
           updatedAt: true,
+          rawContactId: true,
         },
       })
       .execute();
@@ -250,12 +238,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'rawContactId',
-        message: 'rawContactId',
-        required: false,
-      },
-      {
-        type: 'text',
         name: 'phone',
         message: 'phone',
         required: false,
@@ -290,10 +272,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'ingestedAt',
-        message: 'ingestedAt',
+        name: 'rawContactId',
+        message: 'rawContactId',
         required: false,
-        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
@@ -306,26 +287,24 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           entityId: cleanedData.entityId,
-          rawContactId: cleanedData.rawContactId,
           phone: cleanedData.phone,
           phoneType: cleanedData.phoneType,
           isPrimary: cleanedData.isPrimary,
           source: cleanedData.source,
           confidence: cleanedData.confidence,
-          ingestedAt: cleanedData.ingestedAt,
+          rawContactId: cleanedData.rawContactId,
         },
         select: {
           id: true,
           entityId: true,
-          rawContactId: true,
           phone: true,
           phoneType: true,
           isPrimary: true,
           source: true,
           confidence: true,
-          ingestedAt: true,
           createdAt: true,
           updatedAt: true,
+          rawContactId: true,
         },
       })
       .execute();

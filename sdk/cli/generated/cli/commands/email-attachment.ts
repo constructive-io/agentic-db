@@ -11,14 +11,14 @@ import type { CreateEmailAttachmentInput, EmailAttachmentPatch } from '../../orm
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  emailId: 'uuid',
   filename: 'string',
   contentType: 'string',
   sizeBytes: 'int',
   storageUrl: 'string',
-  meta: 'json',
+  providerAttachmentId: 'string',
   createdAt: 'string',
   updatedAt: 'string',
+  emailId: 'uuid',
 };
 const usage =
   '\nemail-attachment <command>\n\nCommands:\n  list                  List all emailAttachment records\n  get                   Get a emailAttachment by ID\n  create                Create a new emailAttachment\n  update                Update an existing emailAttachment\n  delete                Delete a emailAttachment\n\n  --help, -h            Show this help message\n';
@@ -74,14 +74,14 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          emailId: true,
           filename: true,
           contentType: true,
           sizeBytes: true,
           storageUrl: true,
-          meta: true,
+          providerAttachmentId: true,
           createdAt: true,
           updatedAt: true,
+          emailId: true,
         },
       })
       .execute();
@@ -111,14 +111,14 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          emailId: true,
           filename: true,
           contentType: true,
           sizeBytes: true,
           storageUrl: true,
-          meta: true,
+          providerAttachmentId: true,
           createdAt: true,
           updatedAt: true,
+          emailId: true,
         },
       })
       .execute();
@@ -138,12 +138,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         type: 'text',
         name: 'entityId',
         message: 'entityId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'emailId',
-        message: 'emailId',
         required: true,
       },
       {
@@ -174,11 +168,17 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         skipPrompt: true,
       },
       {
-        type: 'json',
-        name: 'meta',
-        message: 'meta',
+        type: 'text',
+        name: 'providerAttachmentId',
+        message: 'providerAttachmentId',
         required: false,
         skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'emailId',
+        message: 'emailId',
+        required: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
@@ -191,24 +191,24 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       .create({
         data: {
           entityId: cleanedData.entityId,
-          emailId: cleanedData.emailId,
           filename: cleanedData.filename,
           contentType: cleanedData.contentType,
           sizeBytes: cleanedData.sizeBytes,
           storageUrl: cleanedData.storageUrl,
-          meta: cleanedData.meta,
+          providerAttachmentId: cleanedData.providerAttachmentId,
+          emailId: cleanedData.emailId,
         },
         select: {
           id: true,
           entityId: true,
-          emailId: true,
           filename: true,
           contentType: true,
           sizeBytes: true,
           storageUrl: true,
-          meta: true,
+          providerAttachmentId: true,
           createdAt: true,
           updatedAt: true,
+          emailId: true,
         },
       })
       .execute();
@@ -238,12 +238,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'emailId',
-        message: 'emailId',
-        required: false,
-      },
-      {
-        type: 'text',
         name: 'filename',
         message: 'filename',
         required: false,
@@ -270,11 +264,17 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         skipPrompt: true,
       },
       {
-        type: 'json',
-        name: 'meta',
-        message: 'meta',
+        type: 'text',
+        name: 'providerAttachmentId',
+        message: 'providerAttachmentId',
         required: false,
         skipPrompt: true,
+      },
+      {
+        type: 'text',
+        name: 'emailId',
+        message: 'emailId',
+        required: false,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
@@ -287,24 +287,24 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           entityId: cleanedData.entityId,
-          emailId: cleanedData.emailId,
           filename: cleanedData.filename,
           contentType: cleanedData.contentType,
           sizeBytes: cleanedData.sizeBytes,
           storageUrl: cleanedData.storageUrl,
-          meta: cleanedData.meta,
+          providerAttachmentId: cleanedData.providerAttachmentId,
+          emailId: cleanedData.emailId,
         },
         select: {
           id: true,
           entityId: true,
-          emailId: true,
           filename: true,
           contentType: true,
           sizeBytes: true,
           storageUrl: true,
-          meta: true,
+          providerAttachmentId: true,
           createdAt: true,
           updatedAt: true,
+          emailId: true,
         },
       })
       .execute();

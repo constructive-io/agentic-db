@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/emails/table
 -- requires: schemas/agentic_db_app_public/tables/contacts/table
--- requires: schemas/agentic_db_app_public/tables/memories/indexes/memories_agent_id_idx
+-- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_trip_id_idx
 
 
 ALTER TABLE "agentic_db_app_public".emails 

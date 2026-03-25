@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/email_threads/table
 -- requires: schemas/agentic_db_app_public/tables/email_threads_chunks/table
--- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
 ALTER TABLE "agentic_db_app_public".email_threads_chunks 

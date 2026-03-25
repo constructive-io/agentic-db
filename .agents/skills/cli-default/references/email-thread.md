@@ -12,7 +12,7 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db email-thread list
 agentic-db email-thread get --id <UUID>
-agentic-db email-thread create --entityId <UUID> --subject <String> [--providerThreadId <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db email-thread create --entityId <UUID> [--providerThreadId <String>] [--subject <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db email-thread update --id <UUID> [--entityId <UUID>] [--providerThreadId <String>] [--subject <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db email-thread delete --id <UUID>
 ```
@@ -28,7 +28,7 @@ agentic-db email-thread list
 ### Create a emailThread
 
 ```bash
-agentic-db email-thread create --entityId <UUID> --subject <String> [--providerThreadId <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db email-thread create --entityId <UUID> [--providerThreadId <String>] [--subject <String>] [--lastMessageAt <Datetime>] [--summary <String>] [--status <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a emailThread by id

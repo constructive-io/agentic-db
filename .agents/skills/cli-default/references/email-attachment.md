@@ -9,8 +9,8 @@ CRUD operations for EmailAttachment records via agentic-db CLI
 ```bash
 agentic-db email-attachment list
 agentic-db email-attachment get --id <UUID>
-agentic-db email-attachment create --entityId <UUID> --emailId <UUID> --filename <String> [--contentType <String>] [--sizeBytes <Int>] [--storageUrl <String>] [--meta <JSON>]
-agentic-db email-attachment update --id <UUID> [--entityId <UUID>] [--emailId <UUID>] [--filename <String>] [--contentType <String>] [--sizeBytes <Int>] [--storageUrl <String>] [--meta <JSON>]
+agentic-db email-attachment create --entityId <UUID> --filename <String> --emailId <UUID> [--contentType <String>] [--sizeBytes <Int>] [--storageUrl <String>] [--providerAttachmentId <String>]
+agentic-db email-attachment update --id <UUID> [--entityId <UUID>] [--filename <String>] [--contentType <String>] [--sizeBytes <Int>] [--storageUrl <String>] [--providerAttachmentId <String>] [--emailId <UUID>]
 agentic-db email-attachment delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db email-attachment list
 ### Create a emailAttachment
 
 ```bash
-agentic-db email-attachment create --entityId <UUID> --emailId <UUID> --filename <String> [--contentType <String>] [--sizeBytes <Int>] [--storageUrl <String>] [--meta <JSON>]
+agentic-db email-attachment create --entityId <UUID> --filename <String> --emailId <UUID> [--contentType <String>] [--sizeBytes <Int>] [--storageUrl <String>] [--providerAttachmentId <String>]
 ```
 
 ### Get a emailAttachment by id

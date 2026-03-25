@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/table
+-- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/tags/column
--- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
 
 
 CREATE INDEX calendar_events_tags_gin_idx ON "agentic_db_app_public".calendar_events USING GIN ( tags );

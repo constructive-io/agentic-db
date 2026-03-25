@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db memory list
 agentic-db memory get --id <UUID>
-agentic-db memory create --entityId <UUID> --title <String> [--content <String>] [--occurredAt <Datetime>] [--location <String>] [--mood <String>] [--importance <Int>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--agentId <UUID>]
-agentic-db memory update --id <UUID> [--entityId <UUID>] [--title <String>] [--content <String>] [--occurredAt <Datetime>] [--location <String>] [--mood <String>] [--importance <Int>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--agentId <UUID>]
+agentic-db memory create --entityId <UUID> --title <String> [--content <String>] [--location <String>] [--occurredAt <Datetime>] [--mood <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--agentId <UUID>]
+agentic-db memory update --id <UUID> [--entityId <UUID>] [--title <String>] [--content <String>] [--location <String>] [--occurredAt <Datetime>] [--mood <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--agentId <UUID>]
 agentic-db memory delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db memory list
 ### Create a memory
 
 ```bash
-agentic-db memory create --entityId <UUID> --title <String> [--content <String>] [--occurredAt <Datetime>] [--location <String>] [--mood <String>] [--importance <Int>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--agentId <UUID>]
+agentic-db memory create --entityId <UUID> --title <String> [--content <String>] [--location <String>] [--occurredAt <Datetime>] [--mood <String>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--agentId <UUID>]
 ```
 
 ### Get a memory by id

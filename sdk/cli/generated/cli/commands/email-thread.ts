@@ -20,8 +20,10 @@ const fieldSchema: FieldSchema = {
   createdAt: 'string',
   updatedAt: 'string',
   embeddingText: 'string',
+  searchTsv: 'string',
   embedding: 'string',
   embeddingStale: 'boolean',
+  searchTsvRank: 'float',
   embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
   providerThreadIdTrgmSimilarity: 'float',
@@ -168,7 +170,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         type: 'text',
         name: 'subject',
         message: 'subject',
-        required: true,
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
@@ -293,6 +296,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'subject',
         message: 'subject',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',

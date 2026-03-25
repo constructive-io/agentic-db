@@ -15,8 +15,6 @@ const fieldSchema: FieldSchema = {
   providerCalendarId: 'string',
   name: 'string',
   color: 'string',
-  isPrimary: 'boolean',
-  isActive: 'boolean',
   createdAt: 'string',
   updatedAt: 'string',
 };
@@ -78,8 +76,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           providerCalendarId: true,
           name: true,
           color: true,
-          isPrimary: true,
-          isActive: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -115,8 +111,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           providerCalendarId: true,
           name: true,
           color: true,
-          isPrimary: true,
-          isActive: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -167,20 +161,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
-      {
-        type: 'boolean',
-        name: 'isPrimary',
-        message: 'isPrimary',
-        required: false,
-        skipPrompt: true,
-      },
-      {
-        type: 'boolean',
-        name: 'isActive',
-        message: 'isActive',
-        required: false,
-        skipPrompt: true,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CreateCalendarInput['calendar'];
@@ -193,8 +173,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           providerCalendarId: cleanedData.providerCalendarId,
           name: cleanedData.name,
           color: cleanedData.color,
-          isPrimary: cleanedData.isPrimary,
-          isActive: cleanedData.isActive,
         },
         select: {
           id: true,
@@ -203,8 +181,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           providerCalendarId: true,
           name: true,
           color: true,
-          isPrimary: true,
-          isActive: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -261,20 +237,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
-      {
-        type: 'boolean',
-        name: 'isPrimary',
-        message: 'isPrimary',
-        required: false,
-        skipPrompt: true,
-      },
-      {
-        type: 'boolean',
-        name: 'isActive',
-        message: 'isActive',
-        required: false,
-        skipPrompt: true,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CalendarPatch;
@@ -290,8 +252,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           providerCalendarId: cleanedData.providerCalendarId,
           name: cleanedData.name,
           color: cleanedData.color,
-          isPrimary: cleanedData.isPrimary,
-          isActive: cleanedData.isActive,
         },
         select: {
           id: true,
@@ -300,8 +260,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           providerCalendarId: true,
           name: true,
           color: true,
-          isPrimary: true,
-          isActive: true,
           createdAt: true,
           updatedAt: true,
         },

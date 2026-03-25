@@ -9,7 +9,7 @@ ORM operations for RawContactPhone records
 ```typescript
 db.rawContactPhone.findMany({ select: { id: true } }).execute()
 db.rawContactPhone.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.rawContactPhone.create({ data: { entityId: '<UUID>', rawContactId: '<UUID>', phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', source: '<String>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' }, select: { id: true } }).execute()
+db.rawContactPhone.create({ data: { entityId: '<UUID>', phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', source: '<String>', confidence: '<BigFloat>', rawContactId: '<UUID>' }, select: { id: true } }).execute()
 db.rawContactPhone.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.rawContactPhone.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.rawContactPhone.findMany({
 
 ```typescript
 const item = await db.rawContactPhone.create({
-  data: { entityId: '<UUID>', rawContactId: '<UUID>', phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', source: '<String>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' },
+  data: { entityId: '<UUID>', phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', source: '<String>', confidence: '<BigFloat>', rawContactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

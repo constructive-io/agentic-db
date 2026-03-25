@@ -11,14 +11,13 @@ import type { CreateRawContactUrlInput, RawContactUrlPatch } from '../../orm/inp
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
-  rawContactId: 'uuid',
   url: 'string',
   urlType: 'string',
   source: 'string',
   confidence: 'string',
-  ingestedAt: 'string',
   createdAt: 'string',
   updatedAt: 'string',
+  rawContactId: 'uuid',
 };
 const usage =
   '\nraw-contact-url <command>\n\nCommands:\n  list                  List all rawContactUrl records\n  get                   Get a rawContactUrl by ID\n  create                Create a new rawContactUrl\n  update                Update an existing rawContactUrl\n  delete                Delete a rawContactUrl\n\n  --help, -h            Show this help message\n';
@@ -74,14 +73,13 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           id: true,
           entityId: true,
-          rawContactId: true,
           url: true,
           urlType: true,
           source: true,
           confidence: true,
-          ingestedAt: true,
           createdAt: true,
           updatedAt: true,
+          rawContactId: true,
         },
       })
       .execute();
@@ -111,14 +109,13 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         select: {
           id: true,
           entityId: true,
-          rawContactId: true,
           url: true,
           urlType: true,
           source: true,
           confidence: true,
-          ingestedAt: true,
           createdAt: true,
           updatedAt: true,
+          rawContactId: true,
         },
       })
       .execute();
@@ -138,12 +135,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         type: 'text',
         name: 'entityId',
         message: 'entityId',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'rawContactId',
-        message: 'rawContactId',
         required: true,
       },
       {
@@ -175,10 +166,9 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'ingestedAt',
-        message: 'ingestedAt',
-        required: false,
-        skipPrompt: true,
+        name: 'rawContactId',
+        message: 'rawContactId',
+        required: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
@@ -191,24 +181,22 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       .create({
         data: {
           entityId: cleanedData.entityId,
-          rawContactId: cleanedData.rawContactId,
           url: cleanedData.url,
           urlType: cleanedData.urlType,
           source: cleanedData.source,
           confidence: cleanedData.confidence,
-          ingestedAt: cleanedData.ingestedAt,
+          rawContactId: cleanedData.rawContactId,
         },
         select: {
           id: true,
           entityId: true,
-          rawContactId: true,
           url: true,
           urlType: true,
           source: true,
           confidence: true,
-          ingestedAt: true,
           createdAt: true,
           updatedAt: true,
+          rawContactId: true,
         },
       })
       .execute();
@@ -238,12 +226,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'rawContactId',
-        message: 'rawContactId',
-        required: false,
-      },
-      {
-        type: 'text',
         name: 'url',
         message: 'url',
         required: false,
@@ -271,10 +253,9 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'ingestedAt',
-        message: 'ingestedAt',
+        name: 'rawContactId',
+        message: 'rawContactId',
         required: false,
-        skipPrompt: true,
       },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
@@ -287,24 +268,22 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         },
         data: {
           entityId: cleanedData.entityId,
-          rawContactId: cleanedData.rawContactId,
           url: cleanedData.url,
           urlType: cleanedData.urlType,
           source: cleanedData.source,
           confidence: cleanedData.confidence,
-          ingestedAt: cleanedData.ingestedAt,
+          rawContactId: cleanedData.rawContactId,
         },
         select: {
           id: true,
           entityId: true,
-          rawContactId: true,
           url: true,
           urlType: true,
           source: true,
           confidence: true,
-          ingestedAt: true,
           createdAt: true,
           updatedAt: true,
+          rawContactId: true,
         },
       })
       .execute();

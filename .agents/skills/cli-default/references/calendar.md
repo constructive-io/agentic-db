@@ -9,8 +9,8 @@ CRUD operations for Calendar records via agentic-db CLI
 ```bash
 agentic-db calendar list
 agentic-db calendar get --id <UUID>
-agentic-db calendar create --entityId <UUID> --name <String> [--providerAccountId <String>] [--providerCalendarId <String>] [--color <String>] [--isPrimary <Boolean>] [--isActive <Boolean>]
-agentic-db calendar update --id <UUID> [--entityId <UUID>] [--providerAccountId <String>] [--providerCalendarId <String>] [--name <String>] [--color <String>] [--isPrimary <Boolean>] [--isActive <Boolean>]
+agentic-db calendar create --entityId <UUID> --name <String> [--providerAccountId <String>] [--providerCalendarId <String>] [--color <String>]
+agentic-db calendar update --id <UUID> [--entityId <UUID>] [--providerAccountId <String>] [--providerCalendarId <String>] [--name <String>] [--color <String>]
 agentic-db calendar delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db calendar list
 ### Create a calendar
 
 ```bash
-agentic-db calendar create --entityId <UUID> --name <String> [--providerAccountId <String>] [--providerCalendarId <String>] [--color <String>] [--isPrimary <Boolean>] [--isActive <Boolean>]
+agentic-db calendar create --entityId <UUID> --name <String> [--providerAccountId <String>] [--providerCalendarId <String>] [--color <String>]
 ```
 
 ### Get a calendar by id

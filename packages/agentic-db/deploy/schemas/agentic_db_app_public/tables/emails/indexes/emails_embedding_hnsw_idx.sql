@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/emails/table
 -- requires: schemas/agentic_db_app_public/tables/emails/columns/embedding/column
--- requires: schemas/agentic_db_app_public/tables/habits/indexes/habits_is_active_idx
+-- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
 CREATE INDEX emails_embedding_hnsw_idx ON "agentic_db_app_public".emails USING hnsw ( embedding vector_cosine_ops );

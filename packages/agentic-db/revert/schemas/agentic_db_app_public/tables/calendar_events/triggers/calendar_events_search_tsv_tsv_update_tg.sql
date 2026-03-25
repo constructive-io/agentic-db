@@ -1,0 +1,6 @@
+-- Revert: schemas/agentic_db_app_public/tables/calendar_events/triggers/calendar_events_search_tsv_tsv_update_tg
+
+
+DROP TRIGGER calendar_events_search_tsv_tsv_update_tg ON "agentic_db_app_public".calendar_events;
+
+

@@ -1,13 +1,13 @@
 ---
 name: cli-default
-description: CLI tool (agentic-db) for the default API — provides CRUD commands for 118 tables and 0 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 120 tables and 0 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agentic-db) for the default API — provides CRUD commands for 118 tables and 0 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 120 tables and 0 custom operations
 
 ## Usage
 
@@ -60,6 +60,8 @@ See the `references/` directory for detailed per-entity API documentation:
 - [agent](references/agent.md)
 - [agent-log](references/agent-log.md)
 - [agent-logs-chunk](references/agent-logs-chunk.md)
+- [agent-prompt](references/agent-prompt.md)
+- [prompt](references/prompt.md)
 - [agents-chunk](references/agents-chunk.md)
 - [autonomy-record](references/autonomy-record.md)
 - [autonomy-record-link](references/autonomy-record-link.md)
@@ -93,6 +95,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [email](references/email.md)
 - [email-thread](references/email-thread.md)
 - [contact-event](references/contact-event.md)
+- [expense](references/expense.md)
 - [contact-image](references/contact-image.md)
 - [contact-link](references/contact-link.md)
 - [contact-memory](references/contact-memory.md)
@@ -117,19 +120,17 @@ See the `references/` directory for detailed per-entity API documentation:
 - [events-chunk](references/events-chunk.md)
 - [event-venue](references/event-venue.md)
 - [venue](references/venue.md)
+- [expense-contact](references/expense-contact.md)
+- [expenses-chunk](references/expenses-chunk.md)
 - [goal](references/goal.md)
 - [goal-habit](references/goal-habit.md)
 - [habit](references/habit.md)
 - [goal-project](references/goal-project.md)
 - [goals-chunk](references/goals-chunk.md)
-- [habits-chunk](references/habits-chunk.md)
 - [hiking-trail](references/hiking-trail.md)
 - [hiking-trails-chunk](references/hiking-trails-chunk.md)
-- [trip](references/trip.md)
 - [interaction](references/interaction.md)
 - [interactions-chunk](references/interactions-chunk.md)
-- [itinerary-item](references/itinerary-item.md)
-- [itinerary-items-chunk](references/itinerary-items-chunk.md)
 - [memories-chunk](references/memories-chunk.md)
 - [message](references/message.md)
 - [messages-chunk](references/messages-chunk.md)
@@ -138,6 +139,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [places-chunk](references/places-chunk.md)
 - [project-contact](references/project-contact.md)
 - [projects-chunk](references/projects-chunk.md)
+- [prompts-chunk](references/prompts-chunk.md)
 - [provider-sync-state](references/provider-sync-state.md)
 - [raw-contact](references/raw-contact.md)
 - [raw-contact-email](references/raw-contact-email.md)
@@ -165,11 +167,11 @@ See the `references/` directory for detailed per-entity API documentation:
 - [task-project](references/task-project.md)
 - [tasks-chunk](references/tasks-chunk.md)
 - [thread-participant](references/thread-participant.md)
+- [tool-definitions-chunk](references/tool-definitions-chunk.md)
 - [tool-execution](references/tool-execution.md)
 - [touchpoint](references/touchpoint.md)
 - [touchpoints-chunk](references/touchpoints-chunk.md)
-- [trip-hiking-trail](references/trip-hiking-trail.md)
-- [trip-place](references/trip-place.md)
+- [trip](references/trip.md)
 - [trips-chunk](references/trips-chunk.md)
 - [venue-image](references/venue-image.md)
 - [venue-link](references/venue-link.md)

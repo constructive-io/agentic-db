@@ -7,5 +7,5 @@
 
 
 ALTER TABLE "agentic_db_app_public".hiking_trails 
-  ADD COLUMN location geography(Point,4326);
+  ADD COLUMN location text;
 
