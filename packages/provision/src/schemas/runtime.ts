@@ -6,143 +6,232 @@
 
 import {
   type BlueprintDefinition,
-  orgTable,
-  provisionBlueprint,
-  f,
-  req,
+  ORG_NODES,
+  ORG_POLICY,
+  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
-  dataSearch,
-  btreeIndex,
-  ginIndex,
+  provisionBlueprint,
 } from '../blueprint';
 
 const definition: BlueprintDefinition = {
   tables: [
     // -- Runtime States -----------------------------------------------------
-    orgTable('runtime_states', [
-      req('name', 'text'),
-      f('state_type', 'text'),
-      f('status', 'text', { default_value: "'active'" }),
-      f('data', 'jsonb'),
-      f('parent_id', 'uuid'),
-      f('started_at', 'timestamptz'),
-      f('ended_at', 'timestamptz'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'state_type'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'runtime_states',
+      table_name: 'runtime_states',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['name', 'state_type'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'state_type', type: 'text' },
+        { name: 'status', type: 'text', default_value: "'active'" },
+        { name: 'data', type: 'jsonb' },
+        { name: 'parent_id', type: 'uuid' },
+        { name: 'started_at', type: 'timestamptz' },
+        { name: 'ended_at', type: 'timestamptz' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Runtime Logs -------------------------------------------------------
-    orgTable('runtime_logs', [
-      req('runtime_state_id', 'uuid'),
-      req('level', 'text'),
-      req('message', 'text'),
-      f('context', 'jsonb'),
-      f('step_index', 'int'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['message'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'runtime_logs',
+      table_name: 'runtime_logs',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['message'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'runtime_state_id', type: 'uuid', is_required: true },
+        { name: 'level', type: 'text', is_required: true },
+        { name: 'message', type: 'text', is_required: true },
+        { name: 'context', type: 'jsonb' },
+        { name: 'step_index', type: 'int' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Runtime Artifacts ---------------------------------------------------
-    orgTable('runtime_artifacts', [
-      req('runtime_state_id', 'uuid'),
-      req('name', 'text'),
-      f('artifact_type', 'text'),
-      f('content', 'text'),
-      f('meta', 'jsonb'),
-      f('size_bytes', 'int'),
-    ]),
+    {
+      ref: 'runtime_artifacts',
+      table_name: 'runtime_artifacts',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'runtime_state_id', type: 'uuid', is_required: true },
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'artifact_type', type: 'text' },
+        { name: 'content', type: 'text' },
+        { name: 'meta', type: 'jsonb' },
+        { name: 'size_bytes', type: 'int' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Runtime Metrics ----------------------------------------------------
-    orgTable('runtime_metrics', [
-      req('runtime_state_id', 'uuid'),
-      req('metric_name', 'text'),
-      req('metric_value', 'numeric'),
-      f('unit', 'text'),
-      f('meta', 'jsonb'),
-    ]),
+    {
+      ref: 'runtime_metrics',
+      table_name: 'runtime_metrics',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'runtime_state_id', type: 'uuid', is_required: true },
+        { name: 'metric_name', type: 'text', is_required: true },
+        { name: 'metric_value', type: 'numeric', is_required: true },
+        { name: 'unit', type: 'text' },
+        { name: 'meta', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Runtime Schedules --------------------------------------------------
-    orgTable('runtime_schedules', [
-      req('name', 'text'),
-      f('cron_expression', 'text'),
-      f('next_run_at', 'timestamptz'),
-      f('last_run_at', 'timestamptz'),
-      f('is_active', 'bool', { default_value: 'true' }),
-      f('config', 'jsonb'),
-      f('timezone', 'text', { default_value: "'UTC'" }),
-    ]),
+    {
+      ref: 'runtime_schedules',
+      table_name: 'runtime_schedules',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'cron_expression', type: 'text' },
+        { name: 'next_run_at', type: 'timestamptz' },
+        { name: 'last_run_at', type: 'timestamptz' },
+        { name: 'is_active', type: 'bool', default_value: 'true' },
+        { name: 'config', type: 'jsonb' },
+        { name: 'timezone', type: 'text', default_value: "'UTC'" },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Runtime Events -----------------------------------------------------
-    orgTable('runtime_events', [
-      req('event_type', 'text'),
-      req('payload', 'jsonb'),
-      f('source', 'text'),
-      f('processed_at', 'timestamptz'),
-      f('status', 'text', { default_value: "'pending'" }),
-    ]),
+    {
+      ref: 'runtime_events',
+      table_name: 'runtime_events',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'event_type', type: 'text', is_required: true },
+        { name: 'payload', type: 'jsonb', is_required: true },
+        { name: 'source', type: 'text' },
+        { name: 'processed_at', type: 'timestamptz' },
+        { name: 'status', type: 'text', default_value: "'pending'" },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Runtime Config -----------------------------------------------------
-    orgTable('runtime_config', [
-      req('key', 'text'),
-      f('value', 'jsonb'),
-      f('description', 'text'),
-      f('is_secret', 'bool', { default_value: 'false' }),
-    ]),
+    {
+      ref: 'runtime_config',
+      table_name: 'runtime_config',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'key', type: 'text', is_required: true },
+        { name: 'value', type: 'jsonb' },
+        { name: 'description', type: 'text' },
+        { name: 'is_secret', type: 'bool', default_value: 'false' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Conversations & Messages -------------------------------------------
-    orgTable('conversations', [
-      req('title', 'text'),
-      f('agent_id', 'uuid'),
-      f('status', 'text', { default_value: "'active'" }),
-      f('meta', 'jsonb'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['title'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'conversations',
+      table_name: 'conversations',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['title'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'title', type: 'text', is_required: true },
+        { name: 'agent_id', type: 'uuid' },
+        { name: 'status', type: 'text', default_value: "'active'" },
+        { name: 'meta', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
-    orgTable('messages', [
-      req('conversation_id', 'uuid'),
-      req('role', 'text'),
-      req('content', 'text'),
-      f('token_count', 'int'),
-      f('meta', 'jsonb'),
-      f('tool_calls', 'jsonb'),
-      f('tool_results', 'jsonb'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['content'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'messages',
+      table_name: 'messages',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['content'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'conversation_id', type: 'uuid', is_required: true },
+        { name: 'role', type: 'text', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'token_count', type: 'int' },
+        { name: 'meta', type: 'jsonb' },
+        { name: 'tool_calls', type: 'jsonb' },
+        { name: 'tool_results', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Tool Definitions & Executions --------------------------------------
-    orgTable('tool_definitions', [
-      req('name', 'text'),
-      f('description', 'text'),
-      f('input_schema', 'jsonb'),
-      f('output_schema', 'jsonb'),
-      f('implementation', 'text'),
-      f('is_active', 'bool', { default_value: 'true' }),
-    ]),
+    {
+      ref: 'tool_definitions',
+      table_name: 'tool_definitions',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'description', type: 'text' },
+        { name: 'input_schema', type: 'jsonb' },
+        { name: 'output_schema', type: 'jsonb' },
+        { name: 'implementation', type: 'text' },
+        { name: 'is_active', type: 'bool', default_value: 'true' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
-    orgTable('tool_executions', [
-      req('tool_definition_id', 'uuid'),
-      f('message_id', 'uuid'),
-      f('input', 'jsonb'),
-      f('output', 'jsonb'),
-      f('status', 'text', { default_value: "'pending'" }),
-      f('started_at', 'timestamptz'),
-      f('completed_at', 'timestamptz'),
-      f('error', 'text'),
-    ]),
+    {
+      ref: 'tool_executions',
+      table_name: 'tool_executions',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'tool_definition_id', type: 'uuid', is_required: true },
+        { name: 'message_id', type: 'uuid' },
+        { name: 'input', type: 'jsonb' },
+        { name: 'output', type: 'jsonb' },
+        { name: 'status', type: 'text', default_value: "'pending'" },
+        { name: 'started_at', type: 'timestamptz' },
+        { name: 'completed_at', type: 'timestamptz' },
+        { name: 'error', type: 'text' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
@@ -157,30 +246,30 @@ const definition: BlueprintDefinition = {
   ],
 
   indexes: [
-    ginIndex('runtime_states', 'data'),
-    btreeIndex('runtime_states', 'state_type'),
-    btreeIndex('runtime_states', 'status'),
-    btreeIndex('runtime_states', 'parent_id'),
-    // btreeIndex('runtime_logs', 'runtime_state_id'), — auto-created by FK (runtime_states → runtime_logs)
-    btreeIndex('runtime_logs', 'level'),
-    // btreeIndex('runtime_artifacts', 'runtime_state_id'), — auto-created by FK
-    btreeIndex('runtime_artifacts', 'artifact_type'),
-    // btreeIndex('runtime_metrics', 'runtime_state_id'), — auto-created by FK
-    btreeIndex('runtime_metrics', 'metric_name'),
-    btreeIndex('runtime_schedules', 'is_active'),
-    btreeIndex('runtime_schedules', 'next_run_at'),
-    btreeIndex('runtime_events', 'event_type'),
-    btreeIndex('runtime_events', 'status'),
-    btreeIndex('runtime_config', 'key'),
-    btreeIndex('conversations', 'agent_id'),
-    btreeIndex('conversations', 'status'),
-    // btreeIndex('messages', 'conversation_id'), — auto-created by FK (conversations → messages)
-    btreeIndex('messages', 'role'),
-    btreeIndex('tool_definitions', 'name'),
-    btreeIndex('tool_definitions', 'is_active'),
-    // btreeIndex('tool_executions', 'tool_definition_id'), — auto-created by FK
-    btreeIndex('tool_executions', 'message_id'),
-    btreeIndex('tool_executions', 'status'),
+    { table_ref: 'runtime_states', column: 'data', access_method: 'gin' },
+    { table_ref: 'runtime_states', column: 'state_type', access_method: 'btree' },
+    { table_ref: 'runtime_states', column: 'status', access_method: 'btree' },
+    { table_ref: 'runtime_states', column: 'parent_id', access_method: 'btree' },
+    // runtime_logs.runtime_state_id btree — auto-created by FK
+    { table_ref: 'runtime_logs', column: 'level', access_method: 'btree' },
+    // runtime_artifacts.runtime_state_id btree — auto-created by FK
+    { table_ref: 'runtime_artifacts', column: 'artifact_type', access_method: 'btree' },
+    // runtime_metrics.runtime_state_id btree — auto-created by FK
+    { table_ref: 'runtime_metrics', column: 'metric_name', access_method: 'btree' },
+    { table_ref: 'runtime_schedules', column: 'is_active', access_method: 'btree' },
+    { table_ref: 'runtime_schedules', column: 'next_run_at', access_method: 'btree' },
+    { table_ref: 'runtime_events', column: 'event_type', access_method: 'btree' },
+    { table_ref: 'runtime_events', column: 'status', access_method: 'btree' },
+    { table_ref: 'runtime_config', column: 'key', access_method: 'btree' },
+    { table_ref: 'conversations', column: 'agent_id', access_method: 'btree' },
+    { table_ref: 'conversations', column: 'status', access_method: 'btree' },
+    // messages.conversation_id btree — auto-created by FK
+    { table_ref: 'messages', column: 'role', access_method: 'btree' },
+    { table_ref: 'tool_definitions', column: 'name', access_method: 'btree' },
+    { table_ref: 'tool_definitions', column: 'is_active', access_method: 'btree' },
+    // tool_executions.tool_definition_id btree — auto-created by FK
+    { table_ref: 'tool_executions', column: 'message_id', access_method: 'btree' },
+    { table_ref: 'tool_executions', column: 'status', access_method: 'btree' },
   ],
 };
 

@@ -1,58 +1,52 @@
 /**
  * crm.ts - CRM domain schema (blueprint definition)
  *
+ * Tables: images, contacts, companies, deals, events, venues, notes,
+ *         interactions, touchpoints, tags, contact_links, company_links,
+ *         event_links, venue_links
  * Data* nodes: DataSearch, DataPostGIS, DataEmbedding
  */
 
 import {
   type BlueprintDefinition,
-  orgTable,
-  provisionBlueprint,
-  f,
-  req,
+  ORG_NODES,
+  ORG_POLICY,
+  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
-  dataSearch,
-  dataPostGIS,
-  dataEmbedding,
-  bm25Index,
-  btreeIndex,
-  ginIndex,
+  provisionBlueprint,
 } from '../blueprint';
 
 const definition: BlueprintDefinition = {
   tables: [
     // -- Images (standalone embedding, no BM25/FTS) -------------------------
-    orgTable('images', [
-      req('url', 'text'),
-      f('meta', 'jsonb'),
-      f('alt_text', 'text'),
-      f('caption', 'text'),
-    ], [dataEmbedding({ field_name: 'embedding' })]),
+    {
+      ref: 'images',
+      table_name: 'images',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } },
+      ],
+      fields: [
+        { name: 'url', type: 'text', is_required: true },
+        { name: 'meta', type: 'jsonb' },
+        { name: 'alt_text', type: 'text' },
+        { name: 'caption', type: 'text' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Contacts -----------------------------------------------------------
-    orgTable('contacts', [
-      req('first_name', 'text'),
-      f('last_name', 'text'),
-      f('email', 'text'),
-      f('phone', 'text'),
-      f('headline', 'text'),
-      f('bio', 'text'),
-      f('location', 'text'),
-      f('birthday', 'date'),
-      f('relationship_type', 'text'),
-      f('how_we_met', 'text'),
-      f('twitter_handle', 'text'),
-      f('linkedin_url', 'text'),
-      f('github_username', 'text'),
-      f('instagram_handle', 'text'),
-      f('website', 'text'),
-      f('tags', 'citext[]'),
-      f('main_image_id', 'uuid'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['first_name', 'last_name', 'headline', 'bio'],
-          chunks: true,
-          fts: {
+    {
+      ref: 'contacts',
+      table_name: 'contacts',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+          full_text_search: {
             field_name: 'search_tsv',
             source_fields: [
               { field: 'first_name', weight: 'A' },
@@ -62,23 +56,43 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['first_name', 'last_name'],
-        }),
-        dataPostGIS({ field_name: 'location_geo', use_geography: true }),
-      ]),
+        }},
+        { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+      ],
+      fields: [
+        { name: 'first_name', type: 'text', is_required: true },
+        { name: 'last_name', type: 'text' },
+        { name: 'email', type: 'text' },
+        { name: 'phone', type: 'text' },
+        { name: 'headline', type: 'text' },
+        { name: 'bio', type: 'text' },
+        { name: 'location', type: 'text' },
+        { name: 'birthday', type: 'date' },
+        { name: 'relationship_type', type: 'text' },
+        { name: 'how_we_met', type: 'text' },
+        { name: 'twitter_handle', type: 'text' },
+        { name: 'linkedin_url', type: 'text' },
+        { name: 'github_username', type: 'text' },
+        { name: 'instagram_handle', type: 'text' },
+        { name: 'website', type: 'text' },
+        { name: 'tags', type: 'citext[]' },
+        { name: 'main_image_id', type: 'uuid' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Companies ----------------------------------------------------------
-    orgTable('companies', [
-      req('name', 'text'),
-      f('domain', 'text'),
-      f('industry', 'text'),
-      f('description', 'text'),
-      f('tags', 'citext[]'),
-      f('main_image_id', 'uuid'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'description', 'industry'],
-          chunks: true,
-          fts: {
+    {
+      ref: 'companies',
+      table_name: 'companies',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['name', 'description', 'industry'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+          full_text_search: {
             field_name: 'search_tsv',
             source_fields: [
               { field: 'name', weight: 'A' },
@@ -87,41 +101,56 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['name'],
-        }),
-      ]),
+        }},
+      ],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'domain', type: 'text' },
+        { name: 'industry', type: 'text' },
+        { name: 'description', type: 'text' },
+        { name: 'tags', type: 'citext[]' },
+        { name: 'main_image_id', type: 'uuid' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Deals --------------------------------------------------------------
-    orgTable('deals', [
-      req('name', 'text'),
-      f('stage', 'text', { default_value: "'lead'" }),
-      f('value', 'numeric'),
-      f('currency', 'text', { default_value: "'USD'" }),
-      f('expected_close_date', 'timestamptz'),
-      f('notes_text', 'text'),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'notes_text'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'deals',
+      table_name: 'deals',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['name', 'notes_text'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'stage', type: 'text', default_value: "'lead'" },
+        { name: 'value', type: 'numeric' },
+        { name: 'currency', type: 'text', default_value: "'USD'" },
+        { name: 'expected_close_date', type: 'timestamptz' },
+        { name: 'notes_text', type: 'text' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Events -------------------------------------------------------------
-    orgTable('events', [
-      req('name', 'text'),
-      f('event_type', 'text'),
-      f('location', 'text'),
-      f('city', 'text'),
-      f('started_at', 'timestamptz'),
-      f('ended_at', 'timestamptz'),
-      f('notes_text', 'text'),
-      f('tags', 'citext[]'),
-      f('main_image_id', 'uuid'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'notes_text', 'location'],
-          chunks: true,
-          fts: {
+    {
+      ref: 'events',
+      table_name: 'events',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['name', 'notes_text', 'location'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+          full_text_search: {
             field_name: 'search_tsv',
             source_fields: [
               { field: 'name', weight: 'A' },
@@ -130,30 +159,35 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['name'],
-        }),
-        dataPostGIS({ field_name: 'location_geo', use_geography: true }),
-      ]),
+        }},
+        { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+      ],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'event_type', type: 'text' },
+        { name: 'location', type: 'text' },
+        { name: 'city', type: 'text' },
+        { name: 'started_at', type: 'timestamptz' },
+        { name: 'ended_at', type: 'timestamptz' },
+        { name: 'notes_text', type: 'text' },
+        { name: 'tags', type: 'citext[]' },
+        { name: 'main_image_id', type: 'uuid' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Venues -------------------------------------------------------------
-    orgTable('venues', [
-      req('name', 'text'),
-      f('address', 'text'),
-      f('neighborhood', 'text'),
-      f('city', 'text'),
-      f('category', 'text'),
-      f('status', 'text', { default_value: "'potential'" }),
-      f('google_place_id', 'text'),
-      f('rating', 'numeric'),
-      f('price_level', 'text'),
-      f('is_favorite', 'bool', { default_value: 'false' }),
-      f('notes', 'text'),
-      f('tags', 'citext[]'),
-      f('main_image_id', 'uuid'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'notes', 'neighborhood'],
-          chunks: true,
-          fts: {
+    {
+      ref: 'venues',
+      table_name: 'venues',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['name', 'notes', 'neighborhood'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+          full_text_search: {
             field_name: 'search_tsv',
             source_fields: [
               { field: 'name', weight: 'A' },
@@ -162,75 +196,161 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['name'],
-        }),
-        dataPostGIS({ field_name: 'location', use_geography: true }),
-      ]),
+        }},
+        { $type: 'DataPostGIS', data: { field_name: 'location', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+      ],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'address', type: 'text' },
+        { name: 'neighborhood', type: 'text' },
+        { name: 'city', type: 'text' },
+        { name: 'category', type: 'text' },
+        { name: 'status', type: 'text', default_value: "'potential'" },
+        { name: 'google_place_id', type: 'text' },
+        { name: 'rating', type: 'numeric' },
+        { name: 'price_level', type: 'text' },
+        { name: 'is_favorite', type: 'bool', default_value: 'false' },
+        { name: 'notes', type: 'text' },
+        { name: 'tags', type: 'citext[]' },
+        { name: 'main_image_id', type: 'uuid' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Notes --------------------------------------------------------------
-    orgTable('notes', [
-      req('content', 'text'),
-      f('abstract', 'text'),
-      f('overview', 'text'),
-      f('active_count', 'int', { default_value: '0' }),
-      f('last_accessed_at', 'timestamptz'),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['content', 'abstract'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'notes',
+      table_name: 'notes',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['content', 'abstract'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'abstract', type: 'text' },
+        { name: 'overview', type: 'text' },
+        { name: 'active_count', type: 'int', default_value: '0' },
+        { name: 'last_accessed_at', type: 'timestamptz' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Interactions -------------------------------------------------------
-    orgTable('interactions', [
-      req('contact_id', 'uuid'),
-      req('type', 'text'),
-      req('occurred_at', 'timestamptz'),
-      f('summary', 'text'),
-      f('sentiment', 'text'),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['summary'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'interactions',
+      table_name: 'interactions',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['summary'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'contact_id', type: 'uuid', is_required: true },
+        { name: 'type', type: 'text', is_required: true },
+        { name: 'occurred_at', type: 'timestamptz', is_required: true },
+        { name: 'summary', type: 'text' },
+        { name: 'sentiment', type: 'text' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Touchpoints (cross-entity interaction timeline) --------------------
-    orgTable('touchpoints', [
-      req('contact_id', 'uuid'),
-      req('touchpoint_type', 'text'),
-      req('occurred_at', 'timestamptz'),
-      f('subject', 'text'),
-      f('summary', 'text'),
-      f('sentiment', 'text'),
-      f('direction', 'text'),
-      f('channel', 'text'),
-      f('deal_id', 'uuid'),
-      f('company_id', 'uuid'),
-      f('event_id', 'uuid'),
-      f('meta', 'jsonb'),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['subject', 'summary'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'touchpoints',
+      table_name: 'touchpoints',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['subject', 'summary'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'contact_id', type: 'uuid', is_required: true },
+        { name: 'touchpoint_type', type: 'text', is_required: true },
+        { name: 'occurred_at', type: 'timestamptz', is_required: true },
+        { name: 'subject', type: 'text' },
+        { name: 'summary', type: 'text' },
+        { name: 'sentiment', type: 'text' },
+        { name: 'direction', type: 'text' },
+        { name: 'channel', type: 'text' },
+        { name: 'deal_id', type: 'uuid' },
+        { name: 'company_id', type: 'uuid' },
+        { name: 'event_id', type: 'uuid' },
+        { name: 'meta', type: 'jsonb' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Tags (no embeddings) -----------------------------------------------
-    orgTable('tags', [
-      req('name', 'text'),
-      f('color', 'text'),
-      f('category', 'text'),
-      f('usage_count', 'int', { default_value: '0' }),
-    ]),
+    {
+      ref: 'tags',
+      table_name: 'tags',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'color', type: 'text' },
+        { name: 'category', type: 'text' },
+        { name: 'usage_count', type: 'int', default_value: '0' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
     // -- Link tables (standalone embedding) ---------------------------------
-    orgTable('contact_links', [f('title', 'text'), req('url', 'text')], [dataEmbedding({ field_name: 'embedding' })]),
-    orgTable('company_links', [f('title', 'text'), req('url', 'text')], [dataEmbedding({ field_name: 'embedding' })]),
-    orgTable('event_links', [f('title', 'text'), req('url', 'text')], [dataEmbedding({ field_name: 'embedding' })]),
-    orgTable('venue_links', [f('title', 'text'), req('url', 'text')], [dataEmbedding({ field_name: 'embedding' })]),
+    {
+      ref: 'contact_links',
+      table_name: 'contact_links',
+      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+    {
+      ref: 'company_links',
+      table_name: 'company_links',
+      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+    {
+      ref: 'event_links',
+      table_name: 'event_links',
+      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+    {
+      ref: 'venue_links',
+      table_name: 'venue_links',
+      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
@@ -273,51 +393,43 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'events',    field_name: 'event_id',   source_field_name: 'event_id',   target_field_name: 'id', delete_action: 'n', is_required: false },
   ],
 
-  // Phase 3: Only indexes without Data* equivalents
-  // DataSearch handles: HNSW, BM25, GIN(search_tsv), trigram
-  // DataPostGIS handles: GIST on geography
-  // DataEmbedding handles: HNSW on standalone vectors
   indexes: [
-    bm25Index('notes', 'content'),
+    { table_ref: 'notes', column: 'content', access_method: 'bm25', options: { text_config: 'english' } },
 
-    ginIndex('contacts', 'tags'),
-    ginIndex('companies', 'tags'),
-    ginIndex('deals', 'tags'),
-    ginIndex('events', 'tags'),
-    ginIndex('venues', 'tags'),
-    ginIndex('notes', 'tags'),
-    ginIndex('interactions', 'tags'),
+    { table_ref: 'contacts', column: 'tags', access_method: 'gin' },
+    { table_ref: 'companies', column: 'tags', access_method: 'gin' },
+    { table_ref: 'deals', column: 'tags', access_method: 'gin' },
+    { table_ref: 'events', column: 'tags', access_method: 'gin' },
+    { table_ref: 'venues', column: 'tags', access_method: 'gin' },
+    { table_ref: 'notes', column: 'tags', access_method: 'gin' },
+    { table_ref: 'interactions', column: 'tags', access_method: 'gin' },
 
-    btreeIndex('contacts', 'email'),
-    btreeIndex('contacts', 'relationship_type'),
-    btreeIndex('contacts', 'twitter_handle'),
-    btreeIndex('contacts', 'github_username'),
-    btreeIndex('companies', 'domain'),
-    btreeIndex('deals', 'stage'),
-    btreeIndex('deals', 'expected_close_date'),
-    btreeIndex('events', 'started_at'),
-    btreeIndex('events', 'event_type'),
-    btreeIndex('venues', 'city'),
-    btreeIndex('venues', 'category'),
-    btreeIndex('venues', 'is_favorite'),
-    btreeIndex('venues', 'google_place_id'),
-    // btreeIndex('interactions', 'contact_id'), — auto-created by FK (contacts → interactions)
-    btreeIndex('interactions', 'type'),
-    btreeIndex('interactions', 'occurred_at'),
-    btreeIndex('notes', 'active_count'),
-    btreeIndex('notes', 'last_accessed_at'),
-    btreeIndex('tags', 'name'),
-    btreeIndex('tags', 'category'),
+    { table_ref: 'contacts', column: 'email', access_method: 'btree' },
+    { table_ref: 'contacts', column: 'relationship_type', access_method: 'btree' },
+    { table_ref: 'contacts', column: 'twitter_handle', access_method: 'btree' },
+    { table_ref: 'contacts', column: 'github_username', access_method: 'btree' },
+    { table_ref: 'companies', column: 'domain', access_method: 'btree' },
+    { table_ref: 'deals', column: 'stage', access_method: 'btree' },
+    { table_ref: 'deals', column: 'expected_close_date', access_method: 'btree' },
+    { table_ref: 'events', column: 'started_at', access_method: 'btree' },
+    { table_ref: 'events', column: 'event_type', access_method: 'btree' },
+    { table_ref: 'venues', column: 'city', access_method: 'btree' },
+    { table_ref: 'venues', column: 'category', access_method: 'btree' },
+    { table_ref: 'venues', column: 'is_favorite', access_method: 'btree' },
+    { table_ref: 'venues', column: 'google_place_id', access_method: 'btree' },
+    { table_ref: 'interactions', column: 'type', access_method: 'btree' },
+    { table_ref: 'interactions', column: 'occurred_at', access_method: 'btree' },
+    { table_ref: 'notes', column: 'active_count', access_method: 'btree' },
+    { table_ref: 'notes', column: 'last_accessed_at', access_method: 'btree' },
+    { table_ref: 'tags', column: 'name', access_method: 'btree' },
+    { table_ref: 'tags', column: 'category', access_method: 'btree' },
 
     // touchpoints
-    ginIndex('touchpoints', 'tags'),
-    btreeIndex('touchpoints', 'touchpoint_type'),
-    btreeIndex('touchpoints', 'occurred_at'),
-    btreeIndex('touchpoints', 'direction'),
-    btreeIndex('touchpoints', 'channel'),
-    // btreeIndex('touchpoints', 'deal_id'),    — auto-created by FK (BelongsTo deals)
-    // btreeIndex('touchpoints', 'company_id'), — auto-created by FK (BelongsTo companies)
-    // btreeIndex('touchpoints', 'event_id'),   — auto-created by FK (BelongsTo events)
+    { table_ref: 'touchpoints', column: 'tags', access_method: 'gin' },
+    { table_ref: 'touchpoints', column: 'touchpoint_type', access_method: 'btree' },
+    { table_ref: 'touchpoints', column: 'occurred_at', access_method: 'btree' },
+    { table_ref: 'touchpoints', column: 'direction', access_method: 'btree' },
+    { table_ref: 'touchpoints', column: 'channel', access_method: 'btree' },
   ],
 };
 

@@ -31,21 +31,15 @@ async function main() {
   });
   const authClient = auth.createClient({ adapter: authAdapter });
 
-  const signUpResult = await authClient.mutation
+  const signUpData = await authClient.mutation
     .signUp(
       { input: { email: uniqueEmail, password: config.adminPassword } },
       { select: { result: { select: { userId: true, accessToken: true } } } }
     )
-    .execute();
+    .unwrap();
 
-  if (!signUpResult.ok) {
-    console.error('❌ Sign up failed:', JSON.stringify(signUpResult, null, 2));
-    process.exit(1);
-  }
-
-  const data = (signUpResult as any).data;
-  const userId = data?.signUp?.result?.userId;
-  const accessToken = data?.signUp?.result?.accessToken;
+  const userId = signUpData?.signUp?.result?.userId;
+  const accessToken = signUpData?.signUp?.result?.accessToken;
 
   if (!accessToken || !userId) {
     console.error('❌ No token/userId returned from signUp');
@@ -62,7 +56,7 @@ async function main() {
   });
   const apiClient = public_.createClient({ adapter: apiAdapter });
 
-  const provisionResult = await withRetry(() =>
+  const provData = await withRetry(() =>
     apiClient.databaseProvisionModule
       .create({
         data: {
@@ -76,10 +70,9 @@ async function main() {
         },
         select: { id: true, databaseId: true, errorMessage: true },
       })
-      .execute()
+      .unwrap()
   );
 
-  const provData = (provisionResult as any).data;
   const dbProv =
     provData?.createDatabaseProvisionModule?.databaseProvisionModule;
 

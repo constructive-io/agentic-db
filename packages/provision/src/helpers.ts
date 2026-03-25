@@ -33,12 +33,12 @@ export async function withRetry<T>(
 /**
  * Standard grants for org-scoped tables (full CRUD for authenticated users)
  */
-export const entityGrants = [
+export const entityGrants: [string, string][] = [
   ['select', '*'],
   ['insert', '*'],
   ['update', '*'],
   ['delete', '*'],
-] as unknown as Record<string, unknown>;
+];
 
 /**
  * Standard policy data for org-scoped tables (AuthzEntityMembership)
@@ -46,14 +46,14 @@ export const entityGrants = [
 export const entityPolicyData = {
   entity_field: 'entity_id',
   membership_type: 2, // Org
-} as unknown as Record<string, unknown>;
+};
 
 /**
  * Read-only grants (for lookup/shared tables)
  */
-export const readOnlyGrants = [
+export const readOnlyGrants: [string, string][] = [
   ['select', '*'],
-] as unknown as Record<string, unknown>;
+];
 
 /**
  * Create a platform API client using @constructive-io/node.

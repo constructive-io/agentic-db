@@ -6,67 +6,82 @@
 
 import {
   type BlueprintDefinition,
-  orgTable,
-  provisionBlueprint,
-  f,
-  req,
+  ORG_NODES,
+  ORG_POLICY,
+  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
-  dataSearch,
-  btreeIndex,
-  ginIndex,
+  provisionBlueprint,
 } from '../blueprint';
 
 const definition: BlueprintDefinition = {
   tables: [
-    orgTable('codebases', [
-      req('name', 'text'),
-      f('description', 'text'),
-      f('repository_url', 'text'),
-      f('default_branch', 'text', { default_value: "'main'" }),
-      f('language', 'text'),
-      f('framework', 'text'),
-      f('last_synced_at', 'timestamptz'),
-      f('config', 'jsonb'),
-      f('tags', 'citext[]'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['name', 'description'],
-          chunks: true,
-        }),
-      ]),
+    {
+      ref: 'codebases',
+      table_name: 'codebases',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['name', 'description'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'name', type: 'text', is_required: true },
+        { name: 'description', type: 'text' },
+        { name: 'repository_url', type: 'text' },
+        { name: 'default_branch', type: 'text', default_value: "'main'" },
+        { name: 'language', type: 'text' },
+        { name: 'framework', type: 'text' },
+        { name: 'last_synced_at', type: 'timestamptz' },
+        { name: 'config', type: 'jsonb' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
 
-    orgTable('code_chunks', [
-      req('codebase_id', 'uuid'),
-      req('file_path', 'text'),
-      f('chunk_index', 'int'),
-      req('content', 'text'),
-      f('language', 'text'),
-      f('start_line', 'int'),
-      f('end_line', 'int'),
-      f('symbol_name', 'text'),
-      f('symbol_type', 'text'),
-    ], [
-        dataSearch({
-          embedding_source_fields: ['content', 'file_path', 'symbol_name'],
-        }),
-      ]),
+    {
+      ref: 'code_chunks',
+      table_name: 'code_chunks',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['content', 'file_path', 'symbol_name'] },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'codebase_id', type: 'uuid', is_required: true },
+        { name: 'file_path', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'language', type: 'text' },
+        { name: 'start_line', type: 'int' },
+        { name: 'end_line', type: 'int' },
+        { name: 'symbol_name', type: 'text' },
+        { name: 'symbol_type', type: 'text' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
     { $type: 'RelationHasMany', source_ref: 'codebases', target_ref: 'code_chunks', delete_action: 'c' },
-
     { $type: 'RelationManyToMany', source_ref: 'codebases', target_ref: 'codebases', junction_table_name: 'codebase_dependencies', source_field_name: 'codebase_id', target_field_name: 'dependency_id', is_required: false, data: M2M_JUNCTION_OPTS },
   ],
 
   indexes: [
-    ginIndex('codebases', 'tags'),
-    ginIndex('codebases', 'config'),
-    btreeIndex('codebases', 'language'),
-    btreeIndex('codebases', 'framework'),
-    // btreeIndex('code_chunks', 'codebase_id'), — auto-created by FK (codebases → code_chunks)
-    btreeIndex('code_chunks', 'file_path'),
-    btreeIndex('code_chunks', 'symbol_type'),
-    btreeIndex('code_chunks', 'language'),
+    { table_ref: 'codebases', column: 'tags', access_method: 'gin' },
+    { table_ref: 'codebases', column: 'config', access_method: 'gin' },
+    { table_ref: 'codebases', column: 'language', access_method: 'btree' },
+    { table_ref: 'codebases', column: 'framework', access_method: 'btree' },
+    // code_chunks.codebase_id btree — auto-created by FK
+    { table_ref: 'code_chunks', column: 'file_path', access_method: 'btree' },
+    { table_ref: 'code_chunks', column: 'symbol_type', access_method: 'btree' },
+    { table_ref: 'code_chunks', column: 'language', access_method: 'btree' },
   ],
 };
 

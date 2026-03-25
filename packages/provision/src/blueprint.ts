@@ -1,12 +1,11 @@
 /**
- * blueprint.ts — Declarative blueprint definition types and provision helper
+ * blueprint.ts — Blueprint definition types and provision engine
  *
- * Mirrors the constructive-db blueprint definition format:
+ * Types mirror the constructive-db blueprint definition format:
  *   { tables: [...], relations: [...], indexes: [...], full_text_searches: [...] }
  *
- * Each schema module exports a BlueprintDefinition. The provisionBlueprint()
- * function creates a server-side blueprint record and executes it via the
- * constructBlueprint mutation (all 4 phases run server-side).
+ * The provisionBlueprint() function creates a server-side blueprint record
+ * and executes it via the constructBlueprint mutation (all 4 phases server-side).
  *
  * Phases (server-side):
  *   1. Tables (with fields, nodes, policies, grants)
@@ -19,13 +18,11 @@ import {
   createPlatformClient,
   requireDatabaseId,
   withRetry,
-  entityGrants,
-  entityPolicyData,
   type PlatformClient,
 } from './helpers';
 
 // ---------------------------------------------------------------------------
-// Blueprint definition types (matches constructive-db format)
+// Blueprint definition types (matches constructive-db server format)
 // ---------------------------------------------------------------------------
 
 export interface FieldDef {
@@ -116,17 +113,17 @@ export interface BlueprintDefinition {
 }
 
 // ---------------------------------------------------------------------------
-// Standard org-scoped table definition helpers
+// Shared constants — standard org-scoped table defaults
 // ---------------------------------------------------------------------------
 
 /** Standard entity membership nodes (DataEntityMembership + DataTimestamps) */
-const ORG_NODES: TableDef['nodes'] = [
+export const ORG_NODES: TableDef['nodes'] = [
   'DataEntityMembership',
   { $type: 'DataTimestamps', data: { include_id: false } },
 ];
 
 /** Standard entity membership policy */
-const ORG_POLICY: TableDef['policies'][0] = {
+export const ORG_POLICY: TableDef['policies'][0] = {
   $type: 'AuthzEntityMembership',
   privileges: ['select', 'insert', 'update', 'delete'],
   permissive: true,
@@ -137,151 +134,12 @@ const ORG_POLICY: TableDef['policies'][0] = {
 };
 
 /** Full CRUD grants */
-const CRUD_GRANTS: [string, string][] = [
+export const CRUD_GRANTS: [string, string][] = [
   ['select', '*'],
   ['insert', '*'],
   ['update', '*'],
   ['delete', '*'],
 ];
-
-/**
- * Create a standard org-scoped table definition.
- * All tables in agentic-db share the same nodes, grants, and policies.
- * Pass extra Data* nodes (DataSearch, DataEmbedding, DataPostGIS, etc.) as the third arg.
- */
-export function orgTable(
-  ref: string,
-  fields: FieldDef[],
-  extraNodes?: NodeDef[]
-): TableDef {
-  return {
-    ref,
-    table_name: ref,
-    nodes: [...ORG_NODES, ...(extraNodes ?? [])],
-    fields,
-    grant_roles: ['authenticated'],
-    grants: CRUD_GRANTS,
-    policies: [ORG_POLICY],
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Data* node helper functions — build NodeDef entries for common patterns
-// ---------------------------------------------------------------------------
-
-/**
- * Create a DataSearch node that orchestrates embedding + BM25 + optional FTS + optional trigram.
- * This replaces manual EMBEDDING_FIELDS + embeddingIndexes() + bm25Index() + full_text_searches[].
- *
- * DataSearch auto-creates:
- *   - embedding vector(768) + HNSW index + embedding_stale bool + stale trigger + enqueue trigger
- *   - BM25 index on embedding_text
- *   - TSVector field + GIN index + populate trigger (if fts configured)
- *   - @trgmSearch smart tags on specified fields
- *   - @searchConfig smart tag with unified weights
- */
-export function dataSearch(opts: {
-  /** Source fields that feed the embedding (for stale tracking) */
-  embedding_source_fields?: string[];
-  /** BM25 field name (default: 'embedding_text') */
-  bm25_field?: string;
-  /** Full-text search config (omit to skip FTS) */
-  fts?: {
-    field_name?: string;
-    source_fields: { field: string; weight: string; lang?: string }[];
-  };
-  /** Field names for trigram fuzzy matching */
-  trgm_fields?: string[];
-  /**
-   * Enable automatic chunk table creation via DataEmbedding's embedding_chunks
-   * trigger. Pass `true` for defaults or an object to override chunking params.
-   * The trigger auto-creates a <parent>_chunks table with: id, FK to parent,
-   * content, chunk_index, embedding vector + HNSW index, metadata jsonb,
-   * timestamps, and inherited RLS policies.
-   */
-  chunks?: boolean | {
-    content_field_name?: string;
-    chunk_size?: number;
-    chunk_overlap?: number;
-    chunk_strategy?: string;
-    metadata_fields?: string[];
-    enqueue_chunking_job?: boolean;
-    chunking_task_name?: string;
-  };
-}): NodeDef {
-  const data: Record<string, unknown> = {};
-
-  // Embedding config
-  const embeddingConfig: Record<string, unknown> = {};
-  if (opts.embedding_source_fields) {
-    embeddingConfig.source_fields = opts.embedding_source_fields;
-  }
-
-  // Chunks config — passed through embedding → embedding_chunks trigger
-  if (opts.chunks) {
-    embeddingConfig.chunks = opts.chunks === true ? {} : opts.chunks;
-  }
-
-  data.embedding = embeddingConfig;
-
-  // BM25 config (ParadeDB pg_search)
-  data.bm25 = { field_name: opts.bm25_field ?? 'embedding_text' };
-
-  // FTS config
-  if (opts.fts) {
-    data.full_text_search = {
-      field_name: opts.fts.field_name ?? 'search_tsv',
-      source_fields: opts.fts.source_fields,
-    };
-  }
-
-  // Trigram fields
-  if (opts.trgm_fields && opts.trgm_fields.length > 0) {
-    data.trgm_fields = opts.trgm_fields;
-  }
-
-  return { $type: 'DataSearch', data };
-}
-
-/**
- * Create a DataPostGIS node for geography/geometry columns.
- * Replaces manual f('field', 'geography(Point,4326)') + gistGeoIndex().
- */
-export function dataPostGIS(opts: {
-  field_name: string;
-  use_geography?: boolean;
-  geometry_type?: string;
-  srid?: number;
-}): NodeDef {
-  return {
-    $type: 'DataPostGIS',
-    data: {
-      field_name: opts.field_name,
-      use_geography: opts.use_geography ?? true,
-      geometry_type: opts.geometry_type ?? 'Point',
-      srid: opts.srid ?? 4326,
-    },
-  };
-}
-
-/**
- * Create a DataEmbedding node for standalone vector columns (secondary embeddings).
- * Use for extra vector columns like trigger_concept, intent_trigger on rules/skills.
- */
-export function dataEmbedding(opts: {
-  field_name: string;
-  source_fields?: string[];
-  enqueue_job?: boolean;
-}): NodeDef {
-  return {
-    $type: 'DataEmbedding',
-    data: {
-      field_name: opts.field_name,
-      ...(opts.source_fields ? { source_fields: opts.source_fields } : {}),
-      enqueue_job: opts.enqueue_job ?? false,
-    },
-  };
-}
 
 /** Standard M:N junction table options (entity membership + CRUD) */
 export const M2M_JUNCTION_OPTS: RelationDef['data'] = {
@@ -293,106 +151,11 @@ export const M2M_JUNCTION_OPTS: RelationDef['data'] = {
   grant_privileges: [['select', '*'], ['insert', '*'], ['delete', '*']],
 };
 
-/** Shorthand: field definition */
-export function f(
-  name: string,
-  type: string,
-  opts?: { is_required?: boolean; default_value?: string }
-): FieldDef {
-  return { name, type, ...opts };
-}
-
-/** Shorthand: required field */
-export function req(name: string, type: string): FieldDef {
-  return { name, type, is_required: true };
-}
-
-// ---------------------------------------------------------------------------
-// Index helper functions — create IndexDef entries for common patterns
-// ---------------------------------------------------------------------------
-
-/** HNSW vector similarity index (pgvector) */
-export function hnswIndex(
-  table_ref: string,
-  column = 'embedding',
-  opts?: { m?: number; ef_construction?: number; opclass?: string }
-): IndexDef {
-  return {
-    table_ref,
-    column,
-    access_method: 'hnsw',
-    op_classes: [opts?.opclass ?? 'vector_cosine_ops'],
-    options: { m: opts?.m ?? 16, ef_construction: opts?.ef_construction ?? 128 },
-  };
-}
-
-/** BM25 keyword search index (ParadeDB) */
-export function bm25Index(
-  table_ref: string,
-  column = 'embedding_text',
-  opts?: { text_config?: string }
-): IndexDef {
-  return {
-    table_ref,
-    column,
-    access_method: 'bm25',
-    options: { text_config: opts?.text_config ?? 'english' },
-  };
-}
-
-/** B-tree index for lookups, sorting, FKs */
-export function btreeIndex(table_ref: string, column: string): IndexDef {
-  return { table_ref, column, access_method: 'btree' };
-}
-
-/** GIN index on array/jsonb columns */
-export function ginIndex(table_ref: string, column: string): IndexDef {
-  return { table_ref, column, access_method: 'gin' };
-}
-
-/** GIN trigram index for fuzzy text matching (pg_trgm) */
-export function trgmIndex(table_ref: string, column: string): IndexDef {
-  return {
-    table_ref,
-    column,
-    access_method: 'gin',
-    op_classes: ['gin_trgm_ops'],
-  };
-}
-
-/** GIST index for geography/geometry columns (PostGIS) */
-export function gistGeoIndex(table_ref: string, column: string): IndexDef {
-  return { table_ref, column, access_method: 'gist' };
-}
-
-
 // ---------------------------------------------------------------------------
 // Provision engine — server-side constructBlueprint via the SDK
 // ---------------------------------------------------------------------------
 
 const databaseId = requireDatabaseId();
-
-/**
- * Convert a BlueprintDefinition to the server-side JSON format expected by
- * construct_blueprint. The TypeScript types mirror the server format closely;
- * this function handles any remaining field-name differences.
- */
-function toServerDefinition(def: BlueprintDefinition): Record<string, unknown> {
-  return {
-    tables: def.tables.map((t) => ({
-      ref: t.ref,
-      table_name: t.table_name,
-      nodes: t.nodes,
-      fields: t.fields,
-      grant_roles: t.grant_roles,
-      grants: t.grants,
-      policies: t.policies,
-    })),
-    relations: def.relations,
-    indexes: def.indexes ?? [],
-    full_text_searches: def.full_text_searches ?? [],
-  };
-}
 
 /**
  * Provision a blueprint definition using the server-side constructBlueprint
@@ -418,12 +181,25 @@ export async function provisionBlueprint(
   const dbResult = await withRetry(() =>
     sdk.database.findOne({ id: databaseId, select: { ownerId: true } }).unwrap()
   );
-  const ownerId = (dbResult as any)?.database?.ownerId;
+  const ownerId = dbResult?.database?.ownerId;
   if (!ownerId) throw new Error('Could not resolve database owner_id');
 
   // 2. Create a draft blueprint record with the full definition
   const blueprintName = `agentic_${label.toLowerCase().replace(/[^a-z0-9]+/g, '_')}_${Date.now()}`;
-  const serverDef = toServerDefinition(definition);
+  const serverDef: Record<string, unknown> = {
+    tables: definition.tables.map((t) => ({
+      ref: t.ref,
+      table_name: t.table_name,
+      nodes: t.nodes,
+      fields: t.fields,
+      grant_roles: t.grant_roles,
+      grants: t.grants,
+      policies: t.policies,
+    })),
+    relations: definition.relations,
+    indexes: definition.indexes ?? [],
+    full_text_searches: definition.full_text_searches ?? [],
+  };
 
   const bpResult = await withRetry(() =>
     sdk.blueprint.create({
@@ -437,7 +213,7 @@ export async function provisionBlueprint(
       select: { id: true },
     }).unwrap()
   );
-  const blueprintId = (bpResult as any)?.createBlueprint?.blueprint?.id;
+  const blueprintId = bpResult?.createBlueprint?.blueprint?.id;
   if (!blueprintId) throw new Error('Failed to create blueprint record');
 
   console.log(`   Blueprint: ${blueprintId}`);
@@ -450,15 +226,14 @@ export async function provisionBlueprint(
     ).unwrap()
   );
 
-  const refMapJson = (constructResult as any)?.constructBlueprint?.result;
+  const refMapJson = constructResult?.constructBlueprint?.result;
   if (!refMapJson) {
     // Check blueprint status for error details
     const bpCheck = await sdk.blueprint.findOne({
       id: blueprintId,
       select: { status: true, errorDetails: true },
     }).unwrap();
-    const bp = (bpCheck as any)?.blueprint;
-    throw new Error(`constructBlueprint failed: ${bp?.errorDetails ?? 'unknown error'}`);
+    throw new Error(`constructBlueprint failed: ${bpCheck?.blueprint?.errorDetails ?? 'unknown error'}`);
   }
 
   // 4. Parse ref_map from server response

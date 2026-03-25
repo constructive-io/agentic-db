@@ -47,7 +47,7 @@ async function fetchAllTables(): Promise<Map<string, string>> {
       })
       .unwrap()
   );
-  const nodes = (result as any)?.tables?.nodes ?? [];
+  const nodes = result?.tables?.nodes ?? [];
   for (const n of nodes) {
     if (n.name && n.id && n.databaseId === databaseId) {
       map.set(n.name, n.id);
@@ -70,7 +70,7 @@ const m2mOpts = {
     ['select', '*'],
     ['insert', '*'],
     ['delete', '*'],
-  ] as any,
+  ] as unknown as Record<string, unknown>[],
 };
 
 interface M2NRelation {
