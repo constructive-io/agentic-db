@@ -104,6 +104,10 @@ const db = createClient({
 | `projectContact` | findMany, findOne, create, update, delete |
 | `projectsChunk` | findMany, findOne, create, update, delete |
 | `providerSyncState` | findMany, findOne, create, update, delete |
+| `rawContact` | findMany, findOne, create, update, delete |
+| `rawContactEmail` | findMany, findOne, create, update, delete |
+| `rawContactPhone` | findMany, findOne, create, update, delete |
+| `rawContactUrl` | findMany, findOne, create, update, delete |
 | `rule` | findMany, findOne, create, update, delete |
 | `rulesChunk` | findMany, findOne, create, update, delete |
 | `runtimeArtifact` | findMany, findOne, create, update, delete |
@@ -3519,6 +3523,169 @@ const updated = await db.providerSyncState.update({ where: { id: '<UUID>' }, dat
 
 // Delete
 const deleted = await db.providerSyncState.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.rawContact`
+
+CRUD operations for RawContact records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `externalId` | String | Yes |
+| `source` | String | Yes |
+| `firstName` | String | Yes |
+| `lastName` | String | Yes |
+| `email` | String | Yes |
+| `phone` | String | Yes |
+| `company` | String | Yes |
+| `title` | String | Yes |
+| `location` | String | Yes |
+| `linkedinUrl` | String | Yes |
+| `twitterHandle` | String | Yes |
+| `website` | String | Yes |
+| `confidence` | BigFloat | Yes |
+| `rawData` | JSON | Yes |
+| `ingestedAt` | Datetime | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+
+**Operations:**
+
+```typescript
+// List all rawContact records
+const items = await db.rawContact.findMany({ select: { id: true, entityId: true, externalId: true, source: true, firstName: true, lastName: true, email: true, phone: true, company: true, title: true, location: true, linkedinUrl: true, twitterHandle: true, website: true, confidence: true, rawData: true, ingestedAt: true, createdAt: true, updatedAt: true } }).execute();
+
+// Get one by id
+const item = await db.rawContact.findOne({ id: '<UUID>', select: { id: true, entityId: true, externalId: true, source: true, firstName: true, lastName: true, email: true, phone: true, company: true, title: true, location: true, linkedinUrl: true, twitterHandle: true, website: true, confidence: true, rawData: true, ingestedAt: true, createdAt: true, updatedAt: true } }).execute();
+
+// Create
+const created = await db.rawContact.create({ data: { entityId: '<UUID>', externalId: '<String>', source: '<String>', firstName: '<String>', lastName: '<String>', email: '<String>', phone: '<String>', company: '<String>', title: '<String>', location: '<String>', linkedinUrl: '<String>', twitterHandle: '<String>', website: '<String>', confidence: '<BigFloat>', rawData: '<JSON>', ingestedAt: '<Datetime>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.rawContact.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.rawContact.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.rawContactEmail`
+
+CRUD operations for RawContactEmail records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `rawContactId` | UUID | Yes |
+| `email` | String | Yes |
+| `emailType` | String | Yes |
+| `isPrimary` | Boolean | Yes |
+| `source` | String | Yes |
+| `confidence` | BigFloat | Yes |
+| `ingestedAt` | Datetime | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+
+**Operations:**
+
+```typescript
+// List all rawContactEmail records
+const items = await db.rawContactEmail.findMany({ select: { id: true, entityId: true, rawContactId: true, email: true, emailType: true, isPrimary: true, source: true, confidence: true, ingestedAt: true, createdAt: true, updatedAt: true } }).execute();
+
+// Get one by id
+const item = await db.rawContactEmail.findOne({ id: '<UUID>', select: { id: true, entityId: true, rawContactId: true, email: true, emailType: true, isPrimary: true, source: true, confidence: true, ingestedAt: true, createdAt: true, updatedAt: true } }).execute();
+
+// Create
+const created = await db.rawContactEmail.create({ data: { entityId: '<UUID>', rawContactId: '<UUID>', email: '<String>', emailType: '<String>', isPrimary: '<Boolean>', source: '<String>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.rawContactEmail.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.rawContactEmail.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.rawContactPhone`
+
+CRUD operations for RawContactPhone records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `rawContactId` | UUID | Yes |
+| `phone` | String | Yes |
+| `phoneType` | String | Yes |
+| `isPrimary` | Boolean | Yes |
+| `source` | String | Yes |
+| `confidence` | BigFloat | Yes |
+| `ingestedAt` | Datetime | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+
+**Operations:**
+
+```typescript
+// List all rawContactPhone records
+const items = await db.rawContactPhone.findMany({ select: { id: true, entityId: true, rawContactId: true, phone: true, phoneType: true, isPrimary: true, source: true, confidence: true, ingestedAt: true, createdAt: true, updatedAt: true } }).execute();
+
+// Get one by id
+const item = await db.rawContactPhone.findOne({ id: '<UUID>', select: { id: true, entityId: true, rawContactId: true, phone: true, phoneType: true, isPrimary: true, source: true, confidence: true, ingestedAt: true, createdAt: true, updatedAt: true } }).execute();
+
+// Create
+const created = await db.rawContactPhone.create({ data: { entityId: '<UUID>', rawContactId: '<UUID>', phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', source: '<String>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.rawContactPhone.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.rawContactPhone.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.rawContactUrl`
+
+CRUD operations for RawContactUrl records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `rawContactId` | UUID | Yes |
+| `url` | String | Yes |
+| `urlType` | String | Yes |
+| `source` | String | Yes |
+| `confidence` | BigFloat | Yes |
+| `ingestedAt` | Datetime | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+
+**Operations:**
+
+```typescript
+// List all rawContactUrl records
+const items = await db.rawContactUrl.findMany({ select: { id: true, entityId: true, rawContactId: true, url: true, urlType: true, source: true, confidence: true, ingestedAt: true, createdAt: true, updatedAt: true } }).execute();
+
+// Get one by id
+const item = await db.rawContactUrl.findOne({ id: '<UUID>', select: { id: true, entityId: true, rawContactId: true, url: true, urlType: true, source: true, confidence: true, ingestedAt: true, createdAt: true, updatedAt: true } }).execute();
+
+// Create
+const created = await db.rawContactUrl.create({ data: { entityId: '<UUID>', rawContactId: '<UUID>', url: '<String>', urlType: '<String>', source: '<String>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.rawContactUrl.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.rawContactUrl.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.rule`

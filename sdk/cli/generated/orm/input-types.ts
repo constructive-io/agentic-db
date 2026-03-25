@@ -1742,6 +1742,65 @@ export interface ProviderSyncState {
   createdAt?: string | null;
   updatedAt?: string | null;
 }
+export interface RawContact {
+  id: string;
+  entityId?: string | null;
+  externalId?: string | null;
+  source?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  company?: string | null;
+  title?: string | null;
+  location?: string | null;
+  linkedinUrl?: string | null;
+  twitterHandle?: string | null;
+  website?: string | null;
+  confidence?: string | null;
+  rawData?: Record<string, unknown> | null;
+  ingestedAt?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RawContactEmail {
+  id: string;
+  entityId?: string | null;
+  rawContactId?: string | null;
+  email?: string | null;
+  emailType?: string | null;
+  isPrimary?: boolean | null;
+  source?: string | null;
+  confidence?: string | null;
+  ingestedAt?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RawContactPhone {
+  id: string;
+  entityId?: string | null;
+  rawContactId?: string | null;
+  phone?: string | null;
+  phoneType?: string | null;
+  isPrimary?: boolean | null;
+  source?: string | null;
+  confidence?: string | null;
+  ingestedAt?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RawContactUrl {
+  id: string;
+  entityId?: string | null;
+  rawContactId?: string | null;
+  url?: string | null;
+  urlType?: string | null;
+  source?: string | null;
+  confidence?: string | null;
+  ingestedAt?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
 export interface Rule {
   id: string;
   entityId?: string | null;
@@ -2641,6 +2700,20 @@ export interface ProjectsChunkRelations {
   projects?: Project | null;
 }
 export interface ProviderSyncStateRelations {}
+export interface RawContactRelations {
+  rawContactEmails?: ConnectionResult<RawContactEmail>;
+  rawContactPhones?: ConnectionResult<RawContactPhone>;
+  rawContactUrls?: ConnectionResult<RawContactUrl>;
+}
+export interface RawContactEmailRelations {
+  rawContact?: RawContact | null;
+}
+export interface RawContactPhoneRelations {
+  rawContact?: RawContact | null;
+}
+export interface RawContactUrlRelations {
+  rawContact?: RawContact | null;
+}
 export interface RuleRelations {
   agent?: Agent | null;
   rulesChunksByRulesId?: ConnectionResult<RulesChunk>;
@@ -2835,6 +2908,10 @@ export type PlacesChunkWithRelations = PlacesChunk & PlacesChunkRelations;
 export type ProjectContactWithRelations = ProjectContact & ProjectContactRelations;
 export type ProjectsChunkWithRelations = ProjectsChunk & ProjectsChunkRelations;
 export type ProviderSyncStateWithRelations = ProviderSyncState & ProviderSyncStateRelations;
+export type RawContactWithRelations = RawContact & RawContactRelations;
+export type RawContactEmailWithRelations = RawContactEmail & RawContactEmailRelations;
+export type RawContactPhoneWithRelations = RawContactPhone & RawContactPhoneRelations;
+export type RawContactUrlWithRelations = RawContactUrl & RawContactUrlRelations;
 export type RuleWithRelations = Rule & RuleRelations;
 export type RulesChunkWithRelations = RulesChunk & RulesChunkRelations;
 export type RuntimeArtifactWithRelations = RuntimeArtifact & RuntimeArtifactRelations;
@@ -5442,6 +5519,92 @@ export type ProviderSyncStateSelect = {
   config?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+};
+export type RawContactSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  externalId?: boolean;
+  source?: boolean;
+  firstName?: boolean;
+  lastName?: boolean;
+  email?: boolean;
+  phone?: boolean;
+  company?: boolean;
+  title?: boolean;
+  location?: boolean;
+  linkedinUrl?: boolean;
+  twitterHandle?: boolean;
+  website?: boolean;
+  confidence?: boolean;
+  rawData?: boolean;
+  ingestedAt?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  rawContactEmails?: {
+    select: RawContactEmailSelect;
+    first?: number;
+    filter?: RawContactEmailFilter;
+    orderBy?: RawContactEmailOrderBy[];
+  };
+  rawContactPhones?: {
+    select: RawContactPhoneSelect;
+    first?: number;
+    filter?: RawContactPhoneFilter;
+    orderBy?: RawContactPhoneOrderBy[];
+  };
+  rawContactUrls?: {
+    select: RawContactUrlSelect;
+    first?: number;
+    filter?: RawContactUrlFilter;
+    orderBy?: RawContactUrlOrderBy[];
+  };
+};
+export type RawContactEmailSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  rawContactId?: boolean;
+  email?: boolean;
+  emailType?: boolean;
+  isPrimary?: boolean;
+  source?: boolean;
+  confidence?: boolean;
+  ingestedAt?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  rawContact?: {
+    select: RawContactSelect;
+  };
+};
+export type RawContactPhoneSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  rawContactId?: boolean;
+  phone?: boolean;
+  phoneType?: boolean;
+  isPrimary?: boolean;
+  source?: boolean;
+  confidence?: boolean;
+  ingestedAt?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  rawContact?: {
+    select: RawContactSelect;
+  };
+};
+export type RawContactUrlSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  rawContactId?: boolean;
+  url?: boolean;
+  urlType?: boolean;
+  source?: boolean;
+  confidence?: boolean;
+  ingestedAt?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  rawContact?: {
+    select: RawContactSelect;
+  };
 };
 export type RuleSelect = {
   id?: boolean;
@@ -9562,6 +9725,158 @@ export interface ProviderSyncStateFilter {
   /** Negates the expression. */
   not?: ProviderSyncStateFilter;
 }
+export interface RawContactFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `externalId` field. */
+  externalId?: StringFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `firstName` field. */
+  firstName?: StringFilter;
+  /** Filter by the object’s `lastName` field. */
+  lastName?: StringFilter;
+  /** Filter by the object’s `email` field. */
+  email?: StringFilter;
+  /** Filter by the object’s `phone` field. */
+  phone?: StringFilter;
+  /** Filter by the object’s `company` field. */
+  company?: StringFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringFilter;
+  /** Filter by the object’s `location` field. */
+  location?: StringFilter;
+  /** Filter by the object’s `linkedinUrl` field. */
+  linkedinUrl?: StringFilter;
+  /** Filter by the object’s `twitterHandle` field. */
+  twitterHandle?: StringFilter;
+  /** Filter by the object’s `website` field. */
+  website?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `rawData` field. */
+  rawData?: JSONFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactFilter[];
+  /** Negates the expression. */
+  not?: RawContactFilter;
+  /** Filter by the object’s `rawContactEmails` relation. */
+  rawContactEmails?: RawContactToManyRawContactEmailFilter;
+  /** `rawContactEmails` exist. */
+  rawContactEmailsExist?: boolean;
+  /** Filter by the object’s `rawContactPhones` relation. */
+  rawContactPhones?: RawContactToManyRawContactPhoneFilter;
+  /** `rawContactPhones` exist. */
+  rawContactPhonesExist?: boolean;
+  /** Filter by the object’s `rawContactUrls` relation. */
+  rawContactUrls?: RawContactToManyRawContactUrlFilter;
+  /** `rawContactUrls` exist. */
+  rawContactUrlsExist?: boolean;
+}
+export interface RawContactEmailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `rawContactId` field. */
+  rawContactId?: UUIDFilter;
+  /** Filter by the object’s `email` field. */
+  email?: StringFilter;
+  /** Filter by the object’s `emailType` field. */
+  emailType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactEmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactEmailFilter[];
+  /** Negates the expression. */
+  not?: RawContactEmailFilter;
+  /** Filter by the object’s `rawContact` relation. */
+  rawContact?: RawContactFilter;
+}
+export interface RawContactPhoneFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `rawContactId` field. */
+  rawContactId?: UUIDFilter;
+  /** Filter by the object’s `phone` field. */
+  phone?: StringFilter;
+  /** Filter by the object’s `phoneType` field. */
+  phoneType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactPhoneFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactPhoneFilter[];
+  /** Negates the expression. */
+  not?: RawContactPhoneFilter;
+  /** Filter by the object’s `rawContact` relation. */
+  rawContact?: RawContactFilter;
+}
+export interface RawContactUrlFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `rawContactId` field. */
+  rawContactId?: UUIDFilter;
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `urlType` field. */
+  urlType?: StringFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactUrlFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactUrlFilter[];
+  /** Negates the expression. */
+  not?: RawContactUrlFilter;
+  /** Filter by the object’s `rawContact` relation. */
+  rawContact?: RawContactFilter;
+}
 export interface RuleFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -12386,6 +12701,68 @@ export type ProviderSyncStateOrderBy =
   | 'LAST_SYNC_AT_DESC'
   | 'STATUS_ASC'
   | 'STATUS_DESC';
+export type RawContactOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EXTERNAL_ID_ASC'
+  | 'EXTERNAL_ID_DESC'
+  | 'SOURCE_ASC'
+  | 'SOURCE_DESC'
+  | 'EMAIL_ASC'
+  | 'EMAIL_DESC'
+  | 'PHONE_ASC'
+  | 'PHONE_DESC'
+  | 'LINKEDIN_URL_ASC'
+  | 'LINKEDIN_URL_DESC'
+  | 'INGESTED_AT_ASC'
+  | 'INGESTED_AT_DESC';
+export type RawContactEmailOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'RAW_CONTACT_ID_ASC'
+  | 'RAW_CONTACT_ID_DESC'
+  | 'EMAIL_ASC'
+  | 'EMAIL_DESC'
+  | 'SOURCE_ASC'
+  | 'SOURCE_DESC';
+export type RawContactPhoneOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'RAW_CONTACT_ID_ASC'
+  | 'RAW_CONTACT_ID_DESC'
+  | 'PHONE_ASC'
+  | 'PHONE_DESC'
+  | 'SOURCE_ASC'
+  | 'SOURCE_DESC';
+export type RawContactUrlOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'RAW_CONTACT_ID_ASC'
+  | 'RAW_CONTACT_ID_DESC'
+  | 'URL_ASC'
+  | 'URL_DESC'
+  | 'SOURCE_ASC'
+  | 'SOURCE_DESC';
 export type RuleOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -15411,6 +15788,148 @@ export interface DeleteProviderSyncStateInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateRawContactInput {
+  clientMutationId?: string;
+  rawContact: {
+    entityId: string;
+    externalId?: string;
+    source?: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    company?: string;
+    title?: string;
+    location?: string;
+    linkedinUrl?: string;
+    twitterHandle?: string;
+    website?: string;
+    confidence?: string;
+    rawData?: Record<string, unknown>;
+    ingestedAt?: string;
+  };
+}
+export interface RawContactPatch {
+  entityId?: string | null;
+  externalId?: string | null;
+  source?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  company?: string | null;
+  title?: string | null;
+  location?: string | null;
+  linkedinUrl?: string | null;
+  twitterHandle?: string | null;
+  website?: string | null;
+  confidence?: string | null;
+  rawData?: Record<string, unknown> | null;
+  ingestedAt?: string | null;
+}
+export interface UpdateRawContactInput {
+  clientMutationId?: string;
+  id: string;
+  rawContactPatch: RawContactPatch;
+}
+export interface DeleteRawContactInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateRawContactEmailInput {
+  clientMutationId?: string;
+  rawContactEmail: {
+    entityId: string;
+    rawContactId: string;
+    email: string;
+    emailType?: string;
+    isPrimary?: boolean;
+    source?: string;
+    confidence?: string;
+    ingestedAt?: string;
+  };
+}
+export interface RawContactEmailPatch {
+  entityId?: string | null;
+  rawContactId?: string | null;
+  email?: string | null;
+  emailType?: string | null;
+  isPrimary?: boolean | null;
+  source?: string | null;
+  confidence?: string | null;
+  ingestedAt?: string | null;
+}
+export interface UpdateRawContactEmailInput {
+  clientMutationId?: string;
+  id: string;
+  rawContactEmailPatch: RawContactEmailPatch;
+}
+export interface DeleteRawContactEmailInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateRawContactPhoneInput {
+  clientMutationId?: string;
+  rawContactPhone: {
+    entityId: string;
+    rawContactId: string;
+    phone: string;
+    phoneType?: string;
+    isPrimary?: boolean;
+    source?: string;
+    confidence?: string;
+    ingestedAt?: string;
+  };
+}
+export interface RawContactPhonePatch {
+  entityId?: string | null;
+  rawContactId?: string | null;
+  phone?: string | null;
+  phoneType?: string | null;
+  isPrimary?: boolean | null;
+  source?: string | null;
+  confidence?: string | null;
+  ingestedAt?: string | null;
+}
+export interface UpdateRawContactPhoneInput {
+  clientMutationId?: string;
+  id: string;
+  rawContactPhonePatch: RawContactPhonePatch;
+}
+export interface DeleteRawContactPhoneInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateRawContactUrlInput {
+  clientMutationId?: string;
+  rawContactUrl: {
+    entityId: string;
+    rawContactId: string;
+    url: string;
+    urlType?: string;
+    source?: string;
+    confidence?: string;
+    ingestedAt?: string;
+  };
+}
+export interface RawContactUrlPatch {
+  entityId?: string | null;
+  rawContactId?: string | null;
+  url?: string | null;
+  urlType?: string | null;
+  source?: string | null;
+  confidence?: string | null;
+  ingestedAt?: string | null;
+}
+export interface UpdateRawContactUrlInput {
+  clientMutationId?: string;
+  id: string;
+  rawContactUrlPatch: RawContactUrlPatch;
+}
+export interface DeleteRawContactUrlInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateRuleInput {
   clientMutationId?: string;
   rule: {
@@ -16520,6 +17039,11 @@ export const connectionFieldsMap = {
     itineraryItems: 'ItineraryItem',
     tripPlaces: 'TripPlace',
     tripsByTripPlacePlaceIdAndTripId: 'Trip',
+  },
+  RawContact: {
+    rawContactEmails: 'RawContactEmail',
+    rawContactPhones: 'RawContactPhone',
+    rawContactUrls: 'RawContactUrl',
   },
   Rule: {
     rulesChunksByRulesId: 'RulesChunk',
@@ -17716,6 +18240,33 @@ export interface PlaceToManyTripPlaceFilter {
   every?: TripPlaceFilter;
   /** Filters to entities where no related entity matches. */
   none?: TripPlaceFilter;
+}
+/** A filter to be used against many `RawContactEmail` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactToManyRawContactEmailFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RawContactEmailFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RawContactEmailFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RawContactEmailFilter;
+}
+/** A filter to be used against many `RawContactPhone` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactToManyRawContactPhoneFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RawContactPhoneFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RawContactPhoneFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RawContactPhoneFilter;
+}
+/** A filter to be used against many `RawContactUrl` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactToManyRawContactUrlFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RawContactUrlFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RawContactUrlFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RawContactUrlFilter;
 }
 /** A filter to be used against many `RulesChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface RuleToManyRulesChunkFilter {
@@ -20846,6 +21397,103 @@ export interface PlacesChunkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
+/** A filter to be used against `RawContactEmail` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactEmailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `rawContactId` field. */
+  rawContactId?: UUIDFilter;
+  /** Filter by the object’s `email` field. */
+  email?: StringFilter;
+  /** Filter by the object’s `emailType` field. */
+  emailType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactEmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactEmailFilter[];
+  /** Negates the expression. */
+  not?: RawContactEmailFilter;
+  /** Filter by the object’s `rawContact` relation. */
+  rawContact?: RawContactFilter;
+}
+/** A filter to be used against `RawContactPhone` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactPhoneFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `rawContactId` field. */
+  rawContactId?: UUIDFilter;
+  /** Filter by the object’s `phone` field. */
+  phone?: StringFilter;
+  /** Filter by the object’s `phoneType` field. */
+  phoneType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactPhoneFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactPhoneFilter[];
+  /** Negates the expression. */
+  not?: RawContactPhoneFilter;
+  /** Filter by the object’s `rawContact` relation. */
+  rawContact?: RawContactFilter;
+}
+/** A filter to be used against `RawContactUrl` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactUrlFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `rawContactId` field. */
+  rawContactId?: UUIDFilter;
+  /** Filter by the object’s `url` field. */
+  url?: StringFilter;
+  /** Filter by the object’s `urlType` field. */
+  urlType?: StringFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactUrlFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactUrlFilter[];
+  /** Negates the expression. */
+  not?: RawContactUrlFilter;
+  /** Filter by the object’s `rawContact` relation. */
+  rawContact?: RawContactFilter;
+}
 /** A filter to be used against `RulesChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface RulesChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -22596,6 +23244,65 @@ export interface PlaceFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+/** A filter to be used against `RawContact` object types. All fields are combined with a logical ‘and.’ */
+export interface RawContactFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `externalId` field. */
+  externalId?: StringFilter;
+  /** Filter by the object’s `source` field. */
+  source?: StringFilter;
+  /** Filter by the object’s `firstName` field. */
+  firstName?: StringFilter;
+  /** Filter by the object’s `lastName` field. */
+  lastName?: StringFilter;
+  /** Filter by the object’s `email` field. */
+  email?: StringFilter;
+  /** Filter by the object’s `phone` field. */
+  phone?: StringFilter;
+  /** Filter by the object’s `company` field. */
+  company?: StringFilter;
+  /** Filter by the object’s `title` field. */
+  title?: StringFilter;
+  /** Filter by the object’s `location` field. */
+  location?: StringFilter;
+  /** Filter by the object’s `linkedinUrl` field. */
+  linkedinUrl?: StringFilter;
+  /** Filter by the object’s `twitterHandle` field. */
+  twitterHandle?: StringFilter;
+  /** Filter by the object’s `website` field. */
+  website?: StringFilter;
+  /** Filter by the object’s `confidence` field. */
+  confidence?: BigFloatFilter;
+  /** Filter by the object’s `rawData` field. */
+  rawData?: JSONFilter;
+  /** Filter by the object’s `ingestedAt` field. */
+  ingestedAt?: DatetimeFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: RawContactFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RawContactFilter[];
+  /** Negates the expression. */
+  not?: RawContactFilter;
+  /** Filter by the object’s `rawContactEmails` relation. */
+  rawContactEmails?: RawContactToManyRawContactEmailFilter;
+  /** `rawContactEmails` exist. */
+  rawContactEmailsExist?: boolean;
+  /** Filter by the object’s `rawContactPhones` relation. */
+  rawContactPhones?: RawContactToManyRawContactPhoneFilter;
+  /** `rawContactPhones` exist. */
+  rawContactPhonesExist?: boolean;
+  /** Filter by the object’s `rawContactUrls` relation. */
+  rawContactUrls?: RawContactToManyRawContactUrlFilter;
+  /** `rawContactUrls` exist. */
+  rawContactUrlsExist?: boolean;
 }
 /** A filter to be used against `RuntimeState` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeStateFilter {
@@ -26446,6 +27153,186 @@ export type DeleteProviderSyncStatePayloadSelect = {
     select: ProviderSyncStateEdgeSelect;
   };
 };
+export interface CreateRawContactPayload {
+  clientMutationId?: string | null;
+  /** The `RawContact` that was created by this mutation. */
+  rawContact?: RawContact | null;
+  rawContactEdge?: RawContactEdge | null;
+}
+export type CreateRawContactPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContact?: {
+    select: RawContactSelect;
+  };
+  rawContactEdge?: {
+    select: RawContactEdgeSelect;
+  };
+};
+export interface UpdateRawContactPayload {
+  clientMutationId?: string | null;
+  /** The `RawContact` that was updated by this mutation. */
+  rawContact?: RawContact | null;
+  rawContactEdge?: RawContactEdge | null;
+}
+export type UpdateRawContactPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContact?: {
+    select: RawContactSelect;
+  };
+  rawContactEdge?: {
+    select: RawContactEdgeSelect;
+  };
+};
+export interface DeleteRawContactPayload {
+  clientMutationId?: string | null;
+  /** The `RawContact` that was deleted by this mutation. */
+  rawContact?: RawContact | null;
+  rawContactEdge?: RawContactEdge | null;
+}
+export type DeleteRawContactPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContact?: {
+    select: RawContactSelect;
+  };
+  rawContactEdge?: {
+    select: RawContactEdgeSelect;
+  };
+};
+export interface CreateRawContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `RawContactEmail` that was created by this mutation. */
+  rawContactEmail?: RawContactEmail | null;
+  rawContactEmailEdge?: RawContactEmailEdge | null;
+}
+export type CreateRawContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactEmail?: {
+    select: RawContactEmailSelect;
+  };
+  rawContactEmailEdge?: {
+    select: RawContactEmailEdgeSelect;
+  };
+};
+export interface UpdateRawContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `RawContactEmail` that was updated by this mutation. */
+  rawContactEmail?: RawContactEmail | null;
+  rawContactEmailEdge?: RawContactEmailEdge | null;
+}
+export type UpdateRawContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactEmail?: {
+    select: RawContactEmailSelect;
+  };
+  rawContactEmailEdge?: {
+    select: RawContactEmailEdgeSelect;
+  };
+};
+export interface DeleteRawContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `RawContactEmail` that was deleted by this mutation. */
+  rawContactEmail?: RawContactEmail | null;
+  rawContactEmailEdge?: RawContactEmailEdge | null;
+}
+export type DeleteRawContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactEmail?: {
+    select: RawContactEmailSelect;
+  };
+  rawContactEmailEdge?: {
+    select: RawContactEmailEdgeSelect;
+  };
+};
+export interface CreateRawContactPhonePayload {
+  clientMutationId?: string | null;
+  /** The `RawContactPhone` that was created by this mutation. */
+  rawContactPhone?: RawContactPhone | null;
+  rawContactPhoneEdge?: RawContactPhoneEdge | null;
+}
+export type CreateRawContactPhonePayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactPhone?: {
+    select: RawContactPhoneSelect;
+  };
+  rawContactPhoneEdge?: {
+    select: RawContactPhoneEdgeSelect;
+  };
+};
+export interface UpdateRawContactPhonePayload {
+  clientMutationId?: string | null;
+  /** The `RawContactPhone` that was updated by this mutation. */
+  rawContactPhone?: RawContactPhone | null;
+  rawContactPhoneEdge?: RawContactPhoneEdge | null;
+}
+export type UpdateRawContactPhonePayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactPhone?: {
+    select: RawContactPhoneSelect;
+  };
+  rawContactPhoneEdge?: {
+    select: RawContactPhoneEdgeSelect;
+  };
+};
+export interface DeleteRawContactPhonePayload {
+  clientMutationId?: string | null;
+  /** The `RawContactPhone` that was deleted by this mutation. */
+  rawContactPhone?: RawContactPhone | null;
+  rawContactPhoneEdge?: RawContactPhoneEdge | null;
+}
+export type DeleteRawContactPhonePayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactPhone?: {
+    select: RawContactPhoneSelect;
+  };
+  rawContactPhoneEdge?: {
+    select: RawContactPhoneEdgeSelect;
+  };
+};
+export interface CreateRawContactUrlPayload {
+  clientMutationId?: string | null;
+  /** The `RawContactUrl` that was created by this mutation. */
+  rawContactUrl?: RawContactUrl | null;
+  rawContactUrlEdge?: RawContactUrlEdge | null;
+}
+export type CreateRawContactUrlPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactUrl?: {
+    select: RawContactUrlSelect;
+  };
+  rawContactUrlEdge?: {
+    select: RawContactUrlEdgeSelect;
+  };
+};
+export interface UpdateRawContactUrlPayload {
+  clientMutationId?: string | null;
+  /** The `RawContactUrl` that was updated by this mutation. */
+  rawContactUrl?: RawContactUrl | null;
+  rawContactUrlEdge?: RawContactUrlEdge | null;
+}
+export type UpdateRawContactUrlPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactUrl?: {
+    select: RawContactUrlSelect;
+  };
+  rawContactUrlEdge?: {
+    select: RawContactUrlEdgeSelect;
+  };
+};
+export interface DeleteRawContactUrlPayload {
+  clientMutationId?: string | null;
+  /** The `RawContactUrl` that was deleted by this mutation. */
+  rawContactUrl?: RawContactUrl | null;
+  rawContactUrlEdge?: RawContactUrlEdge | null;
+}
+export type DeleteRawContactUrlPayloadSelect = {
+  clientMutationId?: boolean;
+  rawContactUrl?: {
+    select: RawContactUrlSelect;
+  };
+  rawContactUrlEdge?: {
+    select: RawContactUrlEdgeSelect;
+  };
+};
 export interface CreateRulePayload {
   clientMutationId?: string | null;
   /** The `Rule` that was created by this mutation. */
@@ -28835,6 +29722,54 @@ export type ProviderSyncStateEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ProviderSyncStateSelect;
+  };
+};
+/** A `RawContact` edge in the connection. */
+export interface RawContactEdge {
+  cursor?: string | null;
+  /** The `RawContact` at the end of the edge. */
+  node?: RawContact | null;
+}
+export type RawContactEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RawContactSelect;
+  };
+};
+/** A `RawContactEmail` edge in the connection. */
+export interface RawContactEmailEdge {
+  cursor?: string | null;
+  /** The `RawContactEmail` at the end of the edge. */
+  node?: RawContactEmail | null;
+}
+export type RawContactEmailEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RawContactEmailSelect;
+  };
+};
+/** A `RawContactPhone` edge in the connection. */
+export interface RawContactPhoneEdge {
+  cursor?: string | null;
+  /** The `RawContactPhone` at the end of the edge. */
+  node?: RawContactPhone | null;
+}
+export type RawContactPhoneEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RawContactPhoneSelect;
+  };
+};
+/** A `RawContactUrl` edge in the connection. */
+export interface RawContactUrlEdge {
+  cursor?: string | null;
+  /** The `RawContactUrl` at the end of the edge. */
+  node?: RawContactUrl | null;
+}
+export type RawContactUrlEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RawContactUrlSelect;
   };
 };
 /** A `Rule` edge in the connection. */

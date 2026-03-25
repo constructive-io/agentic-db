@@ -71,6 +71,7 @@ async function main() {
     ['Codebase',         './schemas/codebase'],
     ['Life OS',          './schemas/life_os'],
     ['Email & Calendar', './schemas/email_calendar'],
+    ['Staging',          './schemas/staging'],
     ['Autonomy',         './schemas/autonomy'],
     ['Cross-Relations',  './schemas/cross-relations'],
   ];
