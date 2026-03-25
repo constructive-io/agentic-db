@@ -112,13 +112,17 @@ const M2N_RELATIONS: M2NRelation[] = [
   { sourceTable: 'email_threads',    targetTable: 'contacts',  junctionTableName: 'thread_participants',     sourceFieldName: 'email_thread_id',   targetFieldName: 'contact_id' },
   { sourceTable: 'emails',           targetTable: 'contacts',  junctionTableName: 'email_recipients',        sourceFieldName: 'email_id',          targetFieldName: 'contact_id' },
   { sourceTable: 'emails',           targetTable: 'notes',     junctionTableName: 'email_notes',             sourceFieldName: 'email_id',          targetFieldName: 'note_id' },
-  { sourceTable: 'calendar_events',  targetTable: 'contacts',  junctionTableName: 'calendar_event_contacts', sourceFieldName: 'calendar_event_id', targetFieldName: 'contact_id' },
+  // calendar_events <-> contacts already defined above (line 98)
   { sourceTable: 'calendar_events',  targetTable: 'notes',     junctionTableName: 'calendar_event_notes',    sourceFieldName: 'calendar_event_id', targetFieldName: 'note_id' },
   { sourceTable: 'calendar_events',  targetTable: 'tasks',     junctionTableName: 'calendar_event_tasks',    sourceFieldName: 'calendar_event_id', targetFieldName: 'task_id' },
 ];
 
 const BELONGS_TO_RELATIONS: BelongsToRelation[] = [
   { sourceTable: 'memories', targetTable: 'agents', fieldName: 'agent_id', deleteAction: 'n', isRequired: false },
+  // Runtime cross-schema FK
+  { sourceTable: 'tool_executions', targetTable: 'tool_definitions', fieldName: 'tool_definition_id', deleteAction: 'c', isRequired: true },
+  // Life-OS cross-schema FK (expenses lives in agent.ts)
+  { sourceTable: 'expenses', targetTable: 'trips', fieldName: 'trip_id', deleteAction: 'n', isRequired: false },
   // Email & calendar BelongsTo contacts
   { sourceTable: 'emails', targetTable: 'contacts', fieldName: 'from_contact_id', deleteAction: 'n', isRequired: false },
   { sourceTable: 'calendar_events', targetTable: 'contacts', fieldName: 'organizer_contact_id', deleteAction: 'n', isRequired: false },
