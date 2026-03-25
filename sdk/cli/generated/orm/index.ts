@@ -5,130 +5,124 @@
  */
 import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
-import { AgentCollaboratorModel } from './models/agentCollaborator';
-import { AgentModel } from './models/agent';
-import { AgentLogModel } from './models/agentLog';
-import { AgentLogsChunkModel } from './models/agentLogsChunk';
-import { AgentsChunkModel } from './models/agentsChunk';
-import { AutonomyRecordModel } from './models/autonomyRecord';
-import { AutonomyRecordLinkModel } from './models/autonomyRecordLink';
-import { AutonomyRecordsChunkModel } from './models/autonomyRecordsChunk';
-import { CalendarAttendeeModel } from './models/calendarAttendee';
-import { CalendarModel } from './models/calendar';
-import { CalendarEventModel } from './models/calendarEvent';
-import { CalendarEventContactModel } from './models/calendarEventContact';
-import { ContactModel } from './models/contact';
-import { CalendarEventNoteModel } from './models/calendarEventNote';
-import { NoteModel } from './models/note';
-import { CalendarEventsChunkModel } from './models/calendarEventsChunk';
-import { CalendarEventTaskModel } from './models/calendarEventTask';
-import { TaskModel } from './models/task';
-import { CodebaseDependencyModel } from './models/codebaseDependency';
-import { CodebasesChunkModel } from './models/codebasesChunk';
-import { CodebasisModel } from './models/codebasis';
-import { CodeChunkModel } from './models/codeChunk';
-import { CompaniesChunkModel } from './models/companiesChunk';
-import { CompanyModel } from './models/company';
-import { DealModel } from './models/deal';
-import { CompanyEventModel } from './models/companyEvent';
-import { EventModel } from './models/event';
-import { CompanyImageModel } from './models/companyImage';
-import { ImageModel } from './models/image';
-import { CompanyLinkModel } from './models/companyLink';
-import { MemoryModel } from './models/memory';
-import { CompanyMemoryModel } from './models/companyMemory';
-import { CompanyNoteModel } from './models/companyNote';
-import { ContactCompanyModel } from './models/contactCompany';
+import { ApiModel } from './models/api';
+import { ApiModuleModel } from './models/apiModule';
+import { ApiSchemaModel } from './models/apiSchema';
+import { AppAchievementModel } from './models/appAchievement';
+import { AppAdminGrantModel } from './models/appAdminGrant';
+import { AppModel } from './models/app';
+import { AppGrantModel } from './models/appGrant';
+import { AppLevelModel } from './models/appLevel';
+import { AppLevelRequirementModel } from './models/appLevelRequirement';
+import { AppLimitModel } from './models/appLimit';
+import { AppLimitDefaultModel } from './models/appLimitDefault';
+import { AppMembershipModel } from './models/appMembership';
+import { AppMembershipDefaultModel } from './models/appMembershipDefault';
+import { AppOwnerGrantModel } from './models/appOwnerGrant';
+import { AppPermissionModel } from './models/appPermission';
+import { AppPermissionDefaultModel } from './models/appPermissionDefault';
+import { AppProfileModel } from './models/appProfile';
+import { AppProfileDefinitionGrantModel } from './models/appProfileDefinitionGrant';
+import { AppProfileGrantModel } from './models/appProfileGrant';
+import { AppProfilePermissionModel } from './models/appProfilePermission';
+import { AppStepModel } from './models/appStep';
+import { AuditLogModel } from './models/auditLog';
+import { BlueprintModel } from './models/blueprint';
+import { BlueprintTemplateModel } from './models/blueprintTemplate';
+import { CheckConstraintModel } from './models/checkConstraint';
+import { ClaimedInviteModel } from './models/claimedInvite';
+import { ConnectedAccountModel } from './models/connectedAccount';
+import { ConnectedAccountsModuleModel } from './models/connectedAccountsModule';
+import { CryptoAddressModel } from './models/cryptoAddress';
+import { CryptoAddressesModuleModel } from './models/cryptoAddressesModule';
+import { CryptoAuthModuleModel } from './models/cryptoAuthModule';
+import { DatabaseModel } from './models/database';
+import { DatabaseProvisionModuleModel } from './models/databaseProvisionModule';
+import { DatabaseTransferModel } from './models/databaseTransfer';
+import { DefaultIdsModuleModel } from './models/defaultIdsModule';
+import { DefaultPrivilegeModel } from './models/defaultPrivilege';
+import { DenormalizedTableFieldModel } from './models/denormalizedTableField';
+import { DomainModel } from './models/domain';
 import { EmailModel } from './models/email';
-import { EmailThreadModel } from './models/emailThread';
-import { ContactEventModel } from './models/contactEvent';
-import { ContactImageModel } from './models/contactImage';
-import { ContactLinkModel } from './models/contactLink';
-import { ContactMemoryModel } from './models/contactMemory';
-import { ContactNoteModel } from './models/contactNote';
-import { ProjectModel } from './models/project';
-import { ContactRelationshipModel } from './models/contactRelationship';
-import { ContactsChunkModel } from './models/contactsChunk';
-import { ConversationModel } from './models/conversation';
-import { ConversationsChunkModel } from './models/conversationsChunk';
-import { DealCompanyModel } from './models/dealCompany';
-import { DealContactModel } from './models/dealContact';
-import { DealNoteModel } from './models/dealNote';
-import { DealsChunkModel } from './models/dealsChunk';
-import { EmailAttachmentModel } from './models/emailAttachment';
-import { EmailNoteModel } from './models/emailNote';
-import { EmailRecipientModel } from './models/emailRecipient';
-import { EmailsChunkModel } from './models/emailsChunk';
-import { EmailThreadsChunkModel } from './models/emailThreadsChunk';
-import { EventImageModel } from './models/eventImage';
-import { EventLinkModel } from './models/eventLink';
-import { EventNoteModel } from './models/eventNote';
-import { EventsChunkModel } from './models/eventsChunk';
-import { EventVenueModel } from './models/eventVenue';
-import { VenueModel } from './models/venue';
-import { GoalModel } from './models/goal';
-import { GoalHabitModel } from './models/goalHabit';
-import { HabitModel } from './models/habit';
-import { GoalProjectModel } from './models/goalProject';
-import { GoalsChunkModel } from './models/goalsChunk';
-import { HabitsChunkModel } from './models/habitsChunk';
-import { HikingTrailModel } from './models/hikingTrail';
-import { HikingTrailsChunkModel } from './models/hikingTrailsChunk';
-import { TripModel } from './models/trip';
-import { InteractionModel } from './models/interaction';
-import { InteractionsChunkModel } from './models/interactionsChunk';
-import { ItineraryItemModel } from './models/itineraryItem';
-import { ItineraryItemsChunkModel } from './models/itineraryItemsChunk';
-import { MemoriesChunkModel } from './models/memoriesChunk';
-import { MessageModel } from './models/message';
-import { MessagesChunkModel } from './models/messagesChunk';
-import { NotesChunkModel } from './models/notesChunk';
-import { PlaceModel } from './models/place';
-import { PlacesChunkModel } from './models/placesChunk';
-import { ProjectContactModel } from './models/projectContact';
-import { ProjectsChunkModel } from './models/projectsChunk';
-import { ProviderSyncStateModel } from './models/providerSyncState';
-import { RawContactModel } from './models/rawContact';
-import { RawContactEmailModel } from './models/rawContactEmail';
-import { RawContactPhoneModel } from './models/rawContactPhone';
-import { RawContactUrlModel } from './models/rawContactUrl';
-import { RuleModel } from './models/rule';
-import { RulesChunkModel } from './models/rulesChunk';
-import { RuntimeArtifactModel } from './models/runtimeArtifact';
-import { RuntimeConfigModel } from './models/runtimeConfig';
-import { RuntimeEventModel } from './models/runtimeEvent';
-import { RuntimeLogModel } from './models/runtimeLog';
-import { RuntimeLogsChunkModel } from './models/runtimeLogsChunk';
-import { RuntimeMetricModel } from './models/runtimeMetric';
-import { RuntimeScheduleModel } from './models/runtimeSchedule';
-import { RuntimeStateModel } from './models/runtimeState';
-import { RuntimeStateDependencyModel } from './models/runtimeStateDependency';
-import { RuntimeStatesChunkModel } from './models/runtimeStatesChunk';
-import { SkillModel } from './models/skill';
-import { SkillsChunkModel } from './models/skillsChunk';
-import { SkillToolModel } from './models/skillTool';
-import { ToolDefinitionModel } from './models/toolDefinition';
-import { TagModel } from './models/tag';
-import { TaskContactModel } from './models/taskContact';
-import { TaskNoteModel } from './models/taskNote';
-import { TaskProjectModel } from './models/taskProject';
-import { TasksChunkModel } from './models/tasksChunk';
-import { ThreadParticipantModel } from './models/threadParticipant';
-import { ToolExecutionModel } from './models/toolExecution';
-import { TouchpointModel } from './models/touchpoint';
-import { TouchpointsChunkModel } from './models/touchpointsChunk';
-import { TripHikingTrailModel } from './models/tripHikingTrail';
-import { TripPlaceModel } from './models/tripPlace';
-import { TripsChunkModel } from './models/tripsChunk';
-import { VenueImageModel } from './models/venueImage';
-import { VenueLinkModel } from './models/venueLink';
-import { VenuesChunkModel } from './models/venuesChunk';
+import { EmailsModuleModel } from './models/emailsModule';
+import { EmbeddingChunkModel } from './models/embeddingChunk';
+import { EncryptedSecretsModuleModel } from './models/encryptedSecretsModule';
+import { EnumModel } from './models/enum';
+import { FieldModel } from './models/field';
+import { FieldModuleModel } from './models/fieldModule';
+import { ForeignKeyConstraintModel } from './models/foreignKeyConstraint';
+import { FullTextSearchModel } from './models/fullTextSearch';
+import { HierarchyModuleModel } from './models/hierarchyModule';
+import { IndexModel } from './models/index';
+import { InviteModel } from './models/invite';
+import { InvitesModuleModel } from './models/invitesModule';
+import { LevelsModuleModel } from './models/levelsModule';
+import { LimitsModuleModel } from './models/limitsModule';
+import { MembershipsModuleModel } from './models/membershipsModule';
+import { MembershipTypeModel } from './models/membershipType';
+import { MembershipTypesModuleModel } from './models/membershipTypesModule';
+import { NodeTypeRegistryModel } from './models/nodeTypeRegistry';
+import { OrgAdminGrantModel } from './models/orgAdminGrant';
+import { OrgChartEdgeModel } from './models/orgChartEdge';
+import { OrgChartEdgeGrantModel } from './models/orgChartEdgeGrant';
+import { OrgClaimedInviteModel } from './models/orgClaimedInvite';
+import { OrgGetManagersRecordModel } from './models/orgGetManagersRecord';
+import { OrgGetSubordinatesRecordModel } from './models/orgGetSubordinatesRecord';
+import { OrgGrantModel } from './models/orgGrant';
+import { OrgInviteModel } from './models/orgInvite';
+import { OrgLimitModel } from './models/orgLimit';
+import { OrgLimitDefaultModel } from './models/orgLimitDefault';
+import { OrgMemberModel } from './models/orgMember';
+import { OrgMembershipModel } from './models/orgMembership';
+import { OrgMembershipDefaultModel } from './models/orgMembershipDefault';
+import { OrgOwnerGrantModel } from './models/orgOwnerGrant';
+import { OrgPermissionModel } from './models/orgPermission';
+import { OrgPermissionDefaultModel } from './models/orgPermissionDefault';
+import { OrgProfileModel } from './models/orgProfile';
+import { OrgProfileDefinitionGrantModel } from './models/orgProfileDefinitionGrant';
+import { OrgProfileGrantModel } from './models/orgProfileGrant';
+import { OrgProfilePermissionModel } from './models/orgProfilePermission';
+import { PermissionsModuleModel } from './models/permissionsModule';
+import { PhoneNumberModel } from './models/phoneNumber';
+import { PhoneNumbersModuleModel } from './models/phoneNumbersModule';
+import { PolicyModel } from './models/policy';
+import { PrimaryKeyConstraintModel } from './models/primaryKeyConstraint';
+import { ProfilesModuleModel } from './models/profilesModule';
+import { RelationProvisionModel } from './models/relationProvision';
+import { RlsModuleModel } from './models/rlsModule';
+import { RoleTypeModel } from './models/roleType';
+import { SchemaModel } from './models/schema';
+import { SchemaGrantModel } from './models/schemaGrant';
+import { SecretsModuleModel } from './models/secretsModule';
+import { SecureTableProvisionModel } from './models/secureTableProvision';
+import { SessionsModuleModel } from './models/sessionsModule';
+import { SiteModel } from './models/site';
+import { SiteMetadatumModel } from './models/siteMetadatum';
+import { SiteModuleModel } from './models/siteModule';
+import { SiteThemeModel } from './models/siteTheme';
+import { TableModel } from './models/table';
+import { TableGrantModel } from './models/tableGrant';
+import { TableTemplateModuleModel } from './models/tableTemplateModule';
+import { TriggerModel } from './models/trigger';
+import { TriggerFunctionModel } from './models/triggerFunction';
+import { UniqueConstraintModel } from './models/uniqueConstraint';
+import { UserAuthModuleModel } from './models/userAuthModule';
+import { UserModel } from './models/user';
+import { UsersModuleModel } from './models/usersModule';
+import { ViewModel } from './models/view';
+import { ViewGrantModel } from './models/viewGrant';
+import { ViewRuleModel } from './models/viewRule';
+import { ViewTableModel } from './models/viewTable';
+import { createQueryOperations } from './query';
+import { createMutationOperations } from './mutation';
 export type { OrmClientConfig, QueryResult, GraphQLError, GraphQLAdapter } from './client';
 export { GraphQLRequestError } from './client';
 export { QueryBuilder } from './query-builder';
 export * from './select-types';
 export * from './models';
 export { NodeHttpAdapter } from './node-fetch';
+export { createQueryOperations } from './query';
+export { createMutationOperations } from './mutation';
 /**
  * Create an ORM client instance
  *
@@ -155,123 +149,115 @@ export { NodeHttpAdapter } from './node-fetch';
 export function createClient(config: OrmClientConfig) {
   const client = new OrmClient(config);
   return {
-    agentCollaborator: new AgentCollaboratorModel(client),
-    agent: new AgentModel(client),
-    agentLog: new AgentLogModel(client),
-    agentLogsChunk: new AgentLogsChunkModel(client),
-    agentsChunk: new AgentsChunkModel(client),
-    autonomyRecord: new AutonomyRecordModel(client),
-    autonomyRecordLink: new AutonomyRecordLinkModel(client),
-    autonomyRecordsChunk: new AutonomyRecordsChunkModel(client),
-    calendarAttendee: new CalendarAttendeeModel(client),
-    calendar: new CalendarModel(client),
-    calendarEvent: new CalendarEventModel(client),
-    calendarEventContact: new CalendarEventContactModel(client),
-    contact: new ContactModel(client),
-    calendarEventNote: new CalendarEventNoteModel(client),
-    note: new NoteModel(client),
-    calendarEventsChunk: new CalendarEventsChunkModel(client),
-    calendarEventTask: new CalendarEventTaskModel(client),
-    task: new TaskModel(client),
-    codebaseDependency: new CodebaseDependencyModel(client),
-    codebasesChunk: new CodebasesChunkModel(client),
-    codebasis: new CodebasisModel(client),
-    codeChunk: new CodeChunkModel(client),
-    companiesChunk: new CompaniesChunkModel(client),
-    company: new CompanyModel(client),
-    deal: new DealModel(client),
-    companyEvent: new CompanyEventModel(client),
-    event: new EventModel(client),
-    companyImage: new CompanyImageModel(client),
-    image: new ImageModel(client),
-    companyLink: new CompanyLinkModel(client),
-    memory: new MemoryModel(client),
-    companyMemory: new CompanyMemoryModel(client),
-    companyNote: new CompanyNoteModel(client),
-    contactCompany: new ContactCompanyModel(client),
+    api: new ApiModel(client),
+    apiModule: new ApiModuleModel(client),
+    apiSchema: new ApiSchemaModel(client),
+    appAchievement: new AppAchievementModel(client),
+    appAdminGrant: new AppAdminGrantModel(client),
+    app: new AppModel(client),
+    appGrant: new AppGrantModel(client),
+    appLevel: new AppLevelModel(client),
+    appLevelRequirement: new AppLevelRequirementModel(client),
+    appLimit: new AppLimitModel(client),
+    appLimitDefault: new AppLimitDefaultModel(client),
+    appMembership: new AppMembershipModel(client),
+    appMembershipDefault: new AppMembershipDefaultModel(client),
+    appOwnerGrant: new AppOwnerGrantModel(client),
+    appPermission: new AppPermissionModel(client),
+    appPermissionDefault: new AppPermissionDefaultModel(client),
+    appProfile: new AppProfileModel(client),
+    appProfileDefinitionGrant: new AppProfileDefinitionGrantModel(client),
+    appProfileGrant: new AppProfileGrantModel(client),
+    appProfilePermission: new AppProfilePermissionModel(client),
+    appStep: new AppStepModel(client),
+    auditLog: new AuditLogModel(client),
+    blueprint: new BlueprintModel(client),
+    blueprintTemplate: new BlueprintTemplateModel(client),
+    checkConstraint: new CheckConstraintModel(client),
+    claimedInvite: new ClaimedInviteModel(client),
+    connectedAccount: new ConnectedAccountModel(client),
+    connectedAccountsModule: new ConnectedAccountsModuleModel(client),
+    cryptoAddress: new CryptoAddressModel(client),
+    cryptoAddressesModule: new CryptoAddressesModuleModel(client),
+    cryptoAuthModule: new CryptoAuthModuleModel(client),
+    database: new DatabaseModel(client),
+    databaseProvisionModule: new DatabaseProvisionModuleModel(client),
+    databaseTransfer: new DatabaseTransferModel(client),
+    defaultIdsModule: new DefaultIdsModuleModel(client),
+    defaultPrivilege: new DefaultPrivilegeModel(client),
+    denormalizedTableField: new DenormalizedTableFieldModel(client),
+    domain: new DomainModel(client),
     email: new EmailModel(client),
-    emailThread: new EmailThreadModel(client),
-    contactEvent: new ContactEventModel(client),
-    contactImage: new ContactImageModel(client),
-    contactLink: new ContactLinkModel(client),
-    contactMemory: new ContactMemoryModel(client),
-    contactNote: new ContactNoteModel(client),
-    project: new ProjectModel(client),
-    contactRelationship: new ContactRelationshipModel(client),
-    contactsChunk: new ContactsChunkModel(client),
-    conversation: new ConversationModel(client),
-    conversationsChunk: new ConversationsChunkModel(client),
-    dealCompany: new DealCompanyModel(client),
-    dealContact: new DealContactModel(client),
-    dealNote: new DealNoteModel(client),
-    dealsChunk: new DealsChunkModel(client),
-    emailAttachment: new EmailAttachmentModel(client),
-    emailNote: new EmailNoteModel(client),
-    emailRecipient: new EmailRecipientModel(client),
-    emailsChunk: new EmailsChunkModel(client),
-    emailThreadsChunk: new EmailThreadsChunkModel(client),
-    eventImage: new EventImageModel(client),
-    eventLink: new EventLinkModel(client),
-    eventNote: new EventNoteModel(client),
-    eventsChunk: new EventsChunkModel(client),
-    eventVenue: new EventVenueModel(client),
-    venue: new VenueModel(client),
-    goal: new GoalModel(client),
-    goalHabit: new GoalHabitModel(client),
-    habit: new HabitModel(client),
-    goalProject: new GoalProjectModel(client),
-    goalsChunk: new GoalsChunkModel(client),
-    habitsChunk: new HabitsChunkModel(client),
-    hikingTrail: new HikingTrailModel(client),
-    hikingTrailsChunk: new HikingTrailsChunkModel(client),
-    trip: new TripModel(client),
-    interaction: new InteractionModel(client),
-    interactionsChunk: new InteractionsChunkModel(client),
-    itineraryItem: new ItineraryItemModel(client),
-    itineraryItemsChunk: new ItineraryItemsChunkModel(client),
-    memoriesChunk: new MemoriesChunkModel(client),
-    message: new MessageModel(client),
-    messagesChunk: new MessagesChunkModel(client),
-    notesChunk: new NotesChunkModel(client),
-    place: new PlaceModel(client),
-    placesChunk: new PlacesChunkModel(client),
-    projectContact: new ProjectContactModel(client),
-    projectsChunk: new ProjectsChunkModel(client),
-    providerSyncState: new ProviderSyncStateModel(client),
-    rawContact: new RawContactModel(client),
-    rawContactEmail: new RawContactEmailModel(client),
-    rawContactPhone: new RawContactPhoneModel(client),
-    rawContactUrl: new RawContactUrlModel(client),
-    rule: new RuleModel(client),
-    rulesChunk: new RulesChunkModel(client),
-    runtimeArtifact: new RuntimeArtifactModel(client),
-    runtimeConfig: new RuntimeConfigModel(client),
-    runtimeEvent: new RuntimeEventModel(client),
-    runtimeLog: new RuntimeLogModel(client),
-    runtimeLogsChunk: new RuntimeLogsChunkModel(client),
-    runtimeMetric: new RuntimeMetricModel(client),
-    runtimeSchedule: new RuntimeScheduleModel(client),
-    runtimeState: new RuntimeStateModel(client),
-    runtimeStateDependency: new RuntimeStateDependencyModel(client),
-    runtimeStatesChunk: new RuntimeStatesChunkModel(client),
-    skill: new SkillModel(client),
-    skillsChunk: new SkillsChunkModel(client),
-    skillTool: new SkillToolModel(client),
-    toolDefinition: new ToolDefinitionModel(client),
-    tag: new TagModel(client),
-    taskContact: new TaskContactModel(client),
-    taskNote: new TaskNoteModel(client),
-    taskProject: new TaskProjectModel(client),
-    tasksChunk: new TasksChunkModel(client),
-    threadParticipant: new ThreadParticipantModel(client),
-    toolExecution: new ToolExecutionModel(client),
-    touchpoint: new TouchpointModel(client),
-    touchpointsChunk: new TouchpointsChunkModel(client),
-    tripHikingTrail: new TripHikingTrailModel(client),
-    tripPlace: new TripPlaceModel(client),
-    tripsChunk: new TripsChunkModel(client),
-    venueImage: new VenueImageModel(client),
-    venueLink: new VenueLinkModel(client),
-    venuesChunk: new VenuesChunkModel(client),
+    emailsModule: new EmailsModuleModel(client),
+    embeddingChunk: new EmbeddingChunkModel(client),
+    encryptedSecretsModule: new EncryptedSecretsModuleModel(client),
+    enum: new EnumModel(client),
+    field: new FieldModel(client),
+    fieldModule: new FieldModuleModel(client),
+    foreignKeyConstraint: new ForeignKeyConstraintModel(client),
+    fullTextSearch: new FullTextSearchModel(client),
+    hierarchyModule: new HierarchyModuleModel(client),
+    index: new IndexModel(client),
+    invite: new InviteModel(client),
+    invitesModule: new InvitesModuleModel(client),
+    levelsModule: new LevelsModuleModel(client),
+    limitsModule: new LimitsModuleModel(client),
+    membershipsModule: new MembershipsModuleModel(client),
+    membershipType: new MembershipTypeModel(client),
+    membershipTypesModule: new MembershipTypesModuleModel(client),
+    nodeTypeRegistry: new NodeTypeRegistryModel(client),
+    orgAdminGrant: new OrgAdminGrantModel(client),
+    orgChartEdge: new OrgChartEdgeModel(client),
+    orgChartEdgeGrant: new OrgChartEdgeGrantModel(client),
+    orgClaimedInvite: new OrgClaimedInviteModel(client),
+    orgGetManagersRecord: new OrgGetManagersRecordModel(client),
+    orgGetSubordinatesRecord: new OrgGetSubordinatesRecordModel(client),
+    orgGrant: new OrgGrantModel(client),
+    orgInvite: new OrgInviteModel(client),
+    orgLimit: new OrgLimitModel(client),
+    orgLimitDefault: new OrgLimitDefaultModel(client),
+    orgMember: new OrgMemberModel(client),
+    orgMembership: new OrgMembershipModel(client),
+    orgMembershipDefault: new OrgMembershipDefaultModel(client),
+    orgOwnerGrant: new OrgOwnerGrantModel(client),
+    orgPermission: new OrgPermissionModel(client),
+    orgPermissionDefault: new OrgPermissionDefaultModel(client),
+    orgProfile: new OrgProfileModel(client),
+    orgProfileDefinitionGrant: new OrgProfileDefinitionGrantModel(client),
+    orgProfileGrant: new OrgProfileGrantModel(client),
+    orgProfilePermission: new OrgProfilePermissionModel(client),
+    permissionsModule: new PermissionsModuleModel(client),
+    phoneNumber: new PhoneNumberModel(client),
+    phoneNumbersModule: new PhoneNumbersModuleModel(client),
+    policy: new PolicyModel(client),
+    primaryKeyConstraint: new PrimaryKeyConstraintModel(client),
+    profilesModule: new ProfilesModuleModel(client),
+    relationProvision: new RelationProvisionModel(client),
+    rlsModule: new RlsModuleModel(client),
+    roleType: new RoleTypeModel(client),
+    schema: new SchemaModel(client),
+    schemaGrant: new SchemaGrantModel(client),
+    secretsModule: new SecretsModuleModel(client),
+    secureTableProvision: new SecureTableProvisionModel(client),
+    sessionsModule: new SessionsModuleModel(client),
+    site: new SiteModel(client),
+    siteMetadatum: new SiteMetadatumModel(client),
+    siteModule: new SiteModuleModel(client),
+    siteTheme: new SiteThemeModel(client),
+    table: new TableModel(client),
+    tableGrant: new TableGrantModel(client),
+    tableTemplateModule: new TableTemplateModuleModel(client),
+    trigger: new TriggerModel(client),
+    triggerFunction: new TriggerFunctionModel(client),
+    uniqueConstraint: new UniqueConstraintModel(client),
+    userAuthModule: new UserAuthModuleModel(client),
+    user: new UserModel(client),
+    usersModule: new UsersModuleModel(client),
+    view: new ViewModel(client),
+    viewGrant: new ViewGrantModel(client),
+    viewRule: new ViewRuleModel(client),
+    viewTable: new ViewTableModel(client),
+    query: createQueryOperations(client),
+    mutation: createMutationOperations(client),
   };
 }

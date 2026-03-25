@@ -26,124 +26,167 @@ agentic-db auth set-token <your-token>
 | `context` | Manage API contexts (endpoints) |
 | `auth` | Manage authentication tokens |
 | `config` | Manage config key-value store (per-context) |
-| `agent-collaborator` | agentCollaborator CRUD operations |
-| `agent` | agent CRUD operations |
-| `agent-log` | agentLog CRUD operations |
-| `agent-logs-chunk` | agentLogsChunk CRUD operations |
-| `agents-chunk` | agentsChunk CRUD operations |
-| `autonomy-record` | autonomyRecord CRUD operations |
-| `autonomy-record-link` | autonomyRecordLink CRUD operations |
-| `autonomy-records-chunk` | autonomyRecordsChunk CRUD operations |
-| `calendar-attendee` | calendarAttendee CRUD operations |
-| `calendar` | calendar CRUD operations |
-| `calendar-event` | calendarEvent CRUD operations |
-| `calendar-event-contact` | calendarEventContact CRUD operations |
-| `contact` | contact CRUD operations |
-| `calendar-event-note` | calendarEventNote CRUD operations |
-| `note` | note CRUD operations |
-| `calendar-events-chunk` | calendarEventsChunk CRUD operations |
-| `calendar-event-task` | calendarEventTask CRUD operations |
-| `task` | task CRUD operations |
-| `codebase-dependency` | codebaseDependency CRUD operations |
-| `codebases-chunk` | codebasesChunk CRUD operations |
-| `codebasis` | codebasis CRUD operations |
-| `code-chunk` | codeChunk CRUD operations |
-| `companies-chunk` | companiesChunk CRUD operations |
-| `company` | company CRUD operations |
-| `deal` | deal CRUD operations |
-| `company-event` | companyEvent CRUD operations |
-| `event` | event CRUD operations |
-| `company-image` | companyImage CRUD operations |
-| `image` | image CRUD operations |
-| `company-link` | companyLink CRUD operations |
-| `memory` | memory CRUD operations |
-| `company-memory` | companyMemory CRUD operations |
-| `company-note` | companyNote CRUD operations |
-| `contact-company` | contactCompany CRUD operations |
+| `api` | api CRUD operations |
+| `api-module` | apiModule CRUD operations |
+| `api-schema` | apiSchema CRUD operations |
+| `app-achievement` | appAchievement CRUD operations |
+| `app-admin-grant` | appAdminGrant CRUD operations |
+| `app` | app CRUD operations |
+| `app-grant` | appGrant CRUD operations |
+| `app-level` | appLevel CRUD operations |
+| `app-level-requirement` | appLevelRequirement CRUD operations |
+| `app-limit` | appLimit CRUD operations |
+| `app-limit-default` | appLimitDefault CRUD operations |
+| `app-membership` | appMembership CRUD operations |
+| `app-membership-default` | appMembershipDefault CRUD operations |
+| `app-owner-grant` | appOwnerGrant CRUD operations |
+| `app-permission` | appPermission CRUD operations |
+| `app-permission-default` | appPermissionDefault CRUD operations |
+| `app-profile` | appProfile CRUD operations |
+| `app-profile-definition-grant` | appProfileDefinitionGrant CRUD operations |
+| `app-profile-grant` | appProfileGrant CRUD operations |
+| `app-profile-permission` | appProfilePermission CRUD operations |
+| `app-step` | appStep CRUD operations |
+| `audit-log` | auditLog CRUD operations |
+| `blueprint` | blueprint CRUD operations |
+| `blueprint-template` | blueprintTemplate CRUD operations |
+| `check-constraint` | checkConstraint CRUD operations |
+| `claimed-invite` | claimedInvite CRUD operations |
+| `connected-account` | connectedAccount CRUD operations |
+| `connected-accounts-module` | connectedAccountsModule CRUD operations |
+| `crypto-address` | cryptoAddress CRUD operations |
+| `crypto-addresses-module` | cryptoAddressesModule CRUD operations |
+| `crypto-auth-module` | cryptoAuthModule CRUD operations |
+| `database` | database CRUD operations |
+| `database-provision-module` | databaseProvisionModule CRUD operations |
+| `database-transfer` | databaseTransfer CRUD operations |
+| `default-ids-module` | defaultIdsModule CRUD operations |
+| `default-privilege` | defaultPrivilege CRUD operations |
+| `denormalized-table-field` | denormalizedTableField CRUD operations |
+| `domain` | domain CRUD operations |
 | `email` | email CRUD operations |
-| `email-thread` | emailThread CRUD operations |
-| `contact-event` | contactEvent CRUD operations |
-| `contact-image` | contactImage CRUD operations |
-| `contact-link` | contactLink CRUD operations |
-| `contact-memory` | contactMemory CRUD operations |
-| `contact-note` | contactNote CRUD operations |
-| `project` | project CRUD operations |
-| `contact-relationship` | contactRelationship CRUD operations |
-| `contacts-chunk` | contactsChunk CRUD operations |
-| `conversation` | conversation CRUD operations |
-| `conversations-chunk` | conversationsChunk CRUD operations |
-| `deal-company` | dealCompany CRUD operations |
-| `deal-contact` | dealContact CRUD operations |
-| `deal-note` | dealNote CRUD operations |
-| `deals-chunk` | dealsChunk CRUD operations |
-| `email-attachment` | emailAttachment CRUD operations |
-| `email-note` | emailNote CRUD operations |
-| `email-recipient` | emailRecipient CRUD operations |
-| `emails-chunk` | emailsChunk CRUD operations |
-| `email-threads-chunk` | emailThreadsChunk CRUD operations |
-| `event-image` | eventImage CRUD operations |
-| `event-link` | eventLink CRUD operations |
-| `event-note` | eventNote CRUD operations |
-| `events-chunk` | eventsChunk CRUD operations |
-| `event-venue` | eventVenue CRUD operations |
-| `venue` | venue CRUD operations |
-| `goal` | goal CRUD operations |
-| `goal-habit` | goalHabit CRUD operations |
-| `habit` | habit CRUD operations |
-| `goal-project` | goalProject CRUD operations |
-| `goals-chunk` | goalsChunk CRUD operations |
-| `habits-chunk` | habitsChunk CRUD operations |
-| `hiking-trail` | hikingTrail CRUD operations |
-| `hiking-trails-chunk` | hikingTrailsChunk CRUD operations |
-| `trip` | trip CRUD operations |
-| `interaction` | interaction CRUD operations |
-| `interactions-chunk` | interactionsChunk CRUD operations |
-| `itinerary-item` | itineraryItem CRUD operations |
-| `itinerary-items-chunk` | itineraryItemsChunk CRUD operations |
-| `memories-chunk` | memoriesChunk CRUD operations |
-| `message` | message CRUD operations |
-| `messages-chunk` | messagesChunk CRUD operations |
-| `notes-chunk` | notesChunk CRUD operations |
-| `place` | place CRUD operations |
-| `places-chunk` | placesChunk CRUD operations |
-| `project-contact` | projectContact CRUD operations |
-| `projects-chunk` | projectsChunk CRUD operations |
-| `provider-sync-state` | providerSyncState CRUD operations |
-| `raw-contact` | rawContact CRUD operations |
-| `raw-contact-email` | rawContactEmail CRUD operations |
-| `raw-contact-phone` | rawContactPhone CRUD operations |
-| `raw-contact-url` | rawContactUrl CRUD operations |
-| `rule` | rule CRUD operations |
-| `rules-chunk` | rulesChunk CRUD operations |
-| `runtime-artifact` | runtimeArtifact CRUD operations |
-| `runtime-config` | runtimeConfig CRUD operations |
-| `runtime-event` | runtimeEvent CRUD operations |
-| `runtime-log` | runtimeLog CRUD operations |
-| `runtime-logs-chunk` | runtimeLogsChunk CRUD operations |
-| `runtime-metric` | runtimeMetric CRUD operations |
-| `runtime-schedule` | runtimeSchedule CRUD operations |
-| `runtime-state` | runtimeState CRUD operations |
-| `runtime-state-dependency` | runtimeStateDependency CRUD operations |
-| `runtime-states-chunk` | runtimeStatesChunk CRUD operations |
-| `skill` | skill CRUD operations |
-| `skills-chunk` | skillsChunk CRUD operations |
-| `skill-tool` | skillTool CRUD operations |
-| `tool-definition` | toolDefinition CRUD operations |
-| `tag` | tag CRUD operations |
-| `task-contact` | taskContact CRUD operations |
-| `task-note` | taskNote CRUD operations |
-| `task-project` | taskProject CRUD operations |
-| `tasks-chunk` | tasksChunk CRUD operations |
-| `thread-participant` | threadParticipant CRUD operations |
-| `tool-execution` | toolExecution CRUD operations |
-| `touchpoint` | touchpoint CRUD operations |
-| `touchpoints-chunk` | touchpointsChunk CRUD operations |
-| `trip-hiking-trail` | tripHikingTrail CRUD operations |
-| `trip-place` | tripPlace CRUD operations |
-| `trips-chunk` | tripsChunk CRUD operations |
-| `venue-image` | venueImage CRUD operations |
-| `venue-link` | venueLink CRUD operations |
-| `venues-chunk` | venuesChunk CRUD operations |
+| `emails-module` | emailsModule CRUD operations |
+| `embedding-chunk` | embeddingChunk CRUD operations |
+| `encrypted-secrets-module` | encryptedSecretsModule CRUD operations |
+| `enum` | enum CRUD operations |
+| `field` | field CRUD operations |
+| `field-module` | fieldModule CRUD operations |
+| `foreign-key-constraint` | foreignKeyConstraint CRUD operations |
+| `full-text-search` | fullTextSearch CRUD operations |
+| `hierarchy-module` | hierarchyModule CRUD operations |
+| `index` | index CRUD operations |
+| `invite` | invite CRUD operations |
+| `invites-module` | invitesModule CRUD operations |
+| `levels-module` | levelsModule CRUD operations |
+| `limits-module` | limitsModule CRUD operations |
+| `memberships-module` | membershipsModule CRUD operations |
+| `membership-type` | membershipType CRUD operations |
+| `membership-types-module` | membershipTypesModule CRUD operations |
+| `node-type-registry` | nodeTypeRegistry CRUD operations |
+| `org-admin-grant` | orgAdminGrant CRUD operations |
+| `org-chart-edge` | orgChartEdge CRUD operations |
+| `org-chart-edge-grant` | orgChartEdgeGrant CRUD operations |
+| `org-claimed-invite` | orgClaimedInvite CRUD operations |
+| `org-get-managers-record` | orgGetManagersRecord CRUD operations |
+| `org-get-subordinates-record` | orgGetSubordinatesRecord CRUD operations |
+| `org-grant` | orgGrant CRUD operations |
+| `org-invite` | orgInvite CRUD operations |
+| `org-limit` | orgLimit CRUD operations |
+| `org-limit-default` | orgLimitDefault CRUD operations |
+| `org-member` | orgMember CRUD operations |
+| `org-membership` | orgMembership CRUD operations |
+| `org-membership-default` | orgMembershipDefault CRUD operations |
+| `org-owner-grant` | orgOwnerGrant CRUD operations |
+| `org-permission` | orgPermission CRUD operations |
+| `org-permission-default` | orgPermissionDefault CRUD operations |
+| `org-profile` | orgProfile CRUD operations |
+| `org-profile-definition-grant` | orgProfileDefinitionGrant CRUD operations |
+| `org-profile-grant` | orgProfileGrant CRUD operations |
+| `org-profile-permission` | orgProfilePermission CRUD operations |
+| `permissions-module` | permissionsModule CRUD operations |
+| `phone-number` | phoneNumber CRUD operations |
+| `phone-numbers-module` | phoneNumbersModule CRUD operations |
+| `policy` | policy CRUD operations |
+| `primary-key-constraint` | primaryKeyConstraint CRUD operations |
+| `profiles-module` | profilesModule CRUD operations |
+| `relation-provision` | relationProvision CRUD operations |
+| `rls-module` | rlsModule CRUD operations |
+| `role-type` | roleType CRUD operations |
+| `schema` | schema CRUD operations |
+| `schema-grant` | schemaGrant CRUD operations |
+| `secrets-module` | secretsModule CRUD operations |
+| `secure-table-provision` | secureTableProvision CRUD operations |
+| `sessions-module` | sessionsModule CRUD operations |
+| `site` | site CRUD operations |
+| `site-metadatum` | siteMetadatum CRUD operations |
+| `site-module` | siteModule CRUD operations |
+| `site-theme` | siteTheme CRUD operations |
+| `table` | table CRUD operations |
+| `table-grant` | tableGrant CRUD operations |
+| `table-template-module` | tableTemplateModule CRUD operations |
+| `trigger` | trigger CRUD operations |
+| `trigger-function` | triggerFunction CRUD operations |
+| `unique-constraint` | uniqueConstraint CRUD operations |
+| `user-auth-module` | userAuthModule CRUD operations |
+| `user` | user CRUD operations |
+| `users-module` | usersModule CRUD operations |
+| `view` | view CRUD operations |
+| `view-grant` | viewGrant CRUD operations |
+| `view-rule` | viewRule CRUD operations |
+| `view-table` | viewTable CRUD operations |
+| `current-user-id` | currentUserId |
+| `current-ip-address` | currentIpAddress |
+| `current-user-agent` | currentUserAgent |
+| `app-permissions-get-padded-mask` | appPermissionsGetPaddedMask |
+| `org-permissions-get-padded-mask` | orgPermissionsGetPaddedMask |
+| `steps-achieved` | stepsAchieved |
+| `org-is-manager-of` | orgIsManagerOf |
+| `app-permissions-get-mask` | appPermissionsGetMask |
+| `org-permissions-get-mask` | orgPermissionsGetMask |
+| `app-permissions-get-mask-by-names` | appPermissionsGetMaskByNames |
+| `org-permissions-get-mask-by-names` | orgPermissionsGetMaskByNames |
+| `app-permissions-get-by-mask` | Reads and enables pagination through a set of `AppPermission`. |
+| `org-permissions-get-by-mask` | Reads and enables pagination through a set of `OrgPermission`. |
+| `steps-required` | Reads and enables pagination through a set of `AppLevelRequirement`. |
+| `current-user` | currentUser |
+| `sign-out` | signOut |
+| `send-account-deletion-email` | sendAccountDeletionEmail |
+| `check-password` | checkPassword |
+| `submit-invite-code` | submitInviteCode |
+| `submit-org-invite-code` | submitOrgInviteCode |
+| `construct-blueprint` | Executes a draft blueprint definition. Four phases: (1) create tables with nodes[], fields, and policies[], (2) create relations between tables, (3) create indexes on table fields (supports BTREE, HNSW, GIN, GIST, BM25, etc.), (4) create full-text search configurations with weighted multi-field TSVector support. nodes[] entries can be strings or {$type, data} objects. Relations use $type for relation_type with junction config in data. Indexes reference table_ref + column name(s) and are resolved to field_ids. Full-text searches reference table_ref + tsvector field + source fields with weights/langs. Builds a ref_map of local ref names to created table UUIDs. Updates blueprint status to constructed (or failed with error_details). Returns the ref_map. |
+| `confirm-delete-account` | confirmDeleteAccount |
+| `set-password` | setPassword |
+| `verify-email` | verifyEmail |
+| `reset-password` | resetPassword |
+| `copy-template-to-blueprint` | Creates a new blueprint by copying a template definition. Checks visibility: owners can always copy their own templates, others require public visibility. Increments the template copy_count. Returns the new blueprint ID. |
+| `set-field-order` | setFieldOrder |
+| `apply-rls` | applyRls |
+| `sign-in-one-time-token` | signInOneTimeToken |
+| `create-user-database` | Creates a new user database with all required modules, permissions, and RLS policies.
+
+Parameters:
+  - database_name: Name for the new database (required)
+  - owner_id: UUID of the owner user (required)
+  - include_invites: Include invite system (default: true)
+  - include_groups: Include group-level memberships (default: false)
+  - include_levels: Include levels/achievements (default: false)
+  - bitlen: Bit length for permission masks (default: 64)
+  - tokens_expiration: Token expiration interval (default: 30 days)
+
+Returns the database_id UUID of the newly created database.
+
+Example usage:
+  SELECT metaschema_public.create_user_database('my_app', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'::uuid);
+  SELECT metaschema_public.create_user_database('my_app', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'::uuid, true, true);  -- with invites and groups |
+| `extend-token-expires` | extendTokenExpires |
+| `sign-in` | signIn |
+| `sign-up` | signUp |
+| `one-time-token` | oneTimeToken |
+| `forgot-password` | forgotPassword |
+| `send-verification-email` | sendVerificationEmail |
+| `verify-password` | verifyPassword |
+| `verify-totp` | verifyTotp |
 
 ## Infrastructure Commands
 
@@ -186,1210 +229,1065 @@ Variables are scoped to the active context and stored at `~/.agentic-db/config/`
 
 ## Table Commands
 
-### `agent-collaborator`
+### `api`
 
-CRUD operations for AgentCollaborator records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentCollaborator records |
-| `get` | Get a agentCollaborator by id |
-| `create` | Create a new agentCollaborator |
-| `update` | Update an existing agentCollaborator |
-| `delete` | Delete a agentCollaborator |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `agentId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `agentId`, `entityId`
-
-### `agent`
-
-CRUD operations for Agent records.
+CRUD operations for Api records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all agent records |
-| `get` | Get a agent by id |
-| `create` | Create a new agent |
-| `update` | Update an existing agent |
-| `delete` | Delete a agent |
+| `list` | List all api records |
+| `get` | Get a api by id |
+| `create` | Create a new api |
+| `update` | Update an existing api |
+| `delete` | Delete a api |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
+| `databaseId` | UUID |
 | `name` | String |
-| `description` | String |
-| `systemPrompt` | String |
-| `model` | String |
-| `temperature` | BigFloat |
-| `status` | String |
-| `config` | JSON |
-| `tags` | String |
+| `dbname` | String |
+| `roleName` | String |
+| `anonRole` | String |
+| `isPublic` | Boolean |
+
+**Required create fields:** `databaseId`, `name`
+**Optional create fields (backend defaults):** `dbname`, `roleName`, `anonRole`, `isPublic`
+
+### `api-module`
+
+CRUD operations for ApiModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all apiModule records |
+| `get` | Get a apiModule by id |
+| `create` | Create a new apiModule |
+| `update` | Update an existing apiModule |
+| `delete` | Delete a apiModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `apiId` | UUID |
+| `name` | String |
+| `data` | JSON |
+
+**Required create fields:** `databaseId`, `apiId`, `name`, `data`
+
+### `api-schema`
+
+CRUD operations for ApiSchema records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all apiSchema records |
+| `get` | Get a apiSchema by id |
+| `create` | Create a new apiSchema |
+| `update` | Update an existing apiSchema |
+| `delete` | Delete a apiSchema |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `apiId` | UUID |
+
+**Required create fields:** `databaseId`, `schemaId`, `apiId`
+
+### `app-achievement`
+
+CRUD operations for AppAchievement records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appAchievement records |
+| `get` | Get a appAchievement by id |
+| `create` | Create a new appAchievement |
+| `update` | Update an existing appAchievement |
+| `delete` | Delete a appAchievement |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `actorId` | UUID |
+| `name` | String |
+| `count` | Int |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `systemPromptTrgmSimilarity` | Float |
-| `modelTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `description`, `systemPrompt`, `model`, `temperature`, `status`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `systemPromptTrgmSimilarity`, `modelTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `name`
+**Optional create fields (backend defaults):** `actorId`, `count`
 
+### `app-admin-grant`
 
-### `agent-log`
-
-CRUD operations for AgentLog records.
+CRUD operations for AppAdminGrant records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all agentLog records |
-| `get` | Get a agentLog by id |
-| `create` | Create a new agentLog |
-| `update` | Update an existing agentLog |
-| `delete` | Delete a agentLog |
+| `list` | List all appAdminGrant records |
+| `get` | Get a appAdminGrant by id |
+| `create` | Create a new appAdminGrant |
+| `update` | Update an existing appAdminGrant |
+| `delete` | Delete a appAdminGrant |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `agentId` | UUID |
+| `isGrant` | Boolean |
+| `actorId` | UUID |
+| `grantorId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `actorId`
+**Optional create fields (backend defaults):** `isGrant`, `grantorId`
+
+### `app`
+
+CRUD operations for App records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all app records |
+| `get` | Get a app by id |
+| `create` | Create a new app |
+| `update` | Update an existing app |
+| `delete` | Delete a app |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `siteId` | UUID |
+| `name` | String |
+| `appImage` | Image |
+| `appStoreLink` | Url |
+| `appStoreId` | String |
+| `appIdPrefix` | String |
+| `playStoreLink` | Url |
+
+**Required create fields:** `databaseId`, `siteId`
+**Optional create fields (backend defaults):** `name`, `appImage`, `appStoreLink`, `appStoreId`, `appIdPrefix`, `playStoreLink`
+
+### `app-grant`
+
+CRUD operations for AppGrant records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appGrant records |
+| `get` | Get a appGrant by id |
+| `create` | Create a new appGrant |
+| `update` | Update an existing appGrant |
+| `delete` | Delete a appGrant |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `permissions` | BitString |
+| `isGrant` | Boolean |
+| `actorId` | UUID |
+| `grantorId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `actorId`
+**Optional create fields (backend defaults):** `permissions`, `isGrant`, `grantorId`
+
+### `app-level`
+
+CRUD operations for AppLevel records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appLevel records |
+| `get` | Get a appLevel by id |
+| `create` | Create a new appLevel |
+| `update` | Update an existing appLevel |
+| `delete` | Delete a appLevel |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `name` | String |
+| `description` | String |
+| `image` | Image |
+| `ownerId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `name`
+**Optional create fields (backend defaults):** `description`, `image`, `ownerId`
+
+### `app-level-requirement`
+
+CRUD operations for AppLevelRequirement records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appLevelRequirement records |
+| `get` | Get a appLevelRequirement by id |
+| `create` | Create a new appLevelRequirement |
+| `update` | Update an existing appLevelRequirement |
+| `delete` | Delete a appLevelRequirement |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `name` | String |
 | `level` | String |
-| `message` | String |
-| `context` | JSON |
-| `taskId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `levelTrgmSimilarity` | Float |
-| `messageTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `agentId`, `level`, `message`
-**Optional create fields (backend defaults):** `context`, `taskId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `levelTrgmSimilarity`, `messageTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `agent-logs-chunk`
-
-CRUD operations for AgentLogsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentLogsChunk records |
-| `get` | Get a agentLogsChunk by id |
-| `create` | Create a new agentLogsChunk |
-| `update` | Update an existing agentLogsChunk |
-| `delete` | Delete a agentLogsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `agentLogsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `agentLogsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `agents-chunk`
-
-CRUD operations for AgentsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentsChunk records |
-| `get` | Get a agentsChunk by id |
-| `create` | Create a new agentsChunk |
-| `update` | Update an existing agentsChunk |
-| `delete` | Delete a agentsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `agentsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `agentsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `autonomy-record`
-
-CRUD operations for AutonomyRecord records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all autonomyRecord records |
-| `get` | Get a autonomyRecord by id |
-| `create` | Create a new autonomyRecord |
-| `update` | Update an existing autonomyRecord |
-| `delete` | Delete a autonomyRecord |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `title` | String |
-| `recordType` | String |
-| `content` | String |
-| `status` | String |
+| `description` | String |
+| `requiredCount` | Int |
 | `priority` | Int |
-| `source` | String |
-| `context` | JSON |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `titleTrgmSimilarity` | Float |
-| `recordTypeTrgmSimilarity` | Float |
-| `contentTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `sourceTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `title`
-**Optional create fields (backend defaults):** `recordType`, `content`, `status`, `priority`, `source`, `context`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `recordTypeTrgmSimilarity`, `contentTrgmSimilarity`, `statusTrgmSimilarity`, `sourceTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `autonomy-record-link`
-
-CRUD operations for AutonomyRecordLink records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all autonomyRecordLink records |
-| `get` | Get a autonomyRecordLink by id |
-| `create` | Create a new autonomyRecordLink |
-| `update` | Update an existing autonomyRecordLink |
-| `delete` | Delete a autonomyRecordLink |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `autonomyRecordId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `autonomyRecordId`, `entityId`
-
-### `autonomy-records-chunk`
-
-CRUD operations for AutonomyRecordsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all autonomyRecordsChunk records |
-| `get` | Get a autonomyRecordsChunk by id |
-| `create` | Create a new autonomyRecordsChunk |
-| `update` | Update an existing autonomyRecordsChunk |
-| `delete` | Delete a autonomyRecordsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `autonomyRecordsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `autonomyRecordsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `calendar-attendee`
-
-CRUD operations for CalendarAttendee records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all calendarAttendee records |
-| `get` | Get a calendarAttendee by id |
-| `create` | Create a new calendarAttendee |
-| `update` | Update an existing calendarAttendee |
-| `delete` | Delete a calendarAttendee |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `calendarEventId` | UUID |
-| `contactId` | UUID |
-| `responseStatus` | String |
-| `role` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `calendarEventId`, `contactId`
-**Optional create fields (backend defaults):** `responseStatus`, `role`
+**Required create fields:** `name`, `level`
+**Optional create fields (backend defaults):** `description`, `requiredCount`, `priority`
 
-### `calendar`
+### `app-limit`
 
-CRUD operations for Calendar records.
+CRUD operations for AppLimit records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all calendar records |
-| `get` | Get a calendar by id |
-| `create` | Create a new calendar |
-| `update` | Update an existing calendar |
-| `delete` | Delete a calendar |
+| `list` | List all appLimit records |
+| `get` | Get a appLimit by id |
+| `create` | Create a new appLimit |
+| `update` | Update an existing appLimit |
+| `delete` | Delete a appLimit |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `providerAccountId` | String |
-| `providerCalendarId` | String |
 | `name` | String |
-| `color` | String |
-| `isPrimary` | Boolean |
+| `actorId` | UUID |
+| `num` | Int |
+| `max` | Int |
+
+**Required create fields:** `actorId`
+**Optional create fields (backend defaults):** `name`, `num`, `max`
+
+### `app-limit-default`
+
+CRUD operations for AppLimitDefault records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appLimitDefault records |
+| `get` | Get a appLimitDefault by id |
+| `create` | Create a new appLimitDefault |
+| `update` | Update an existing appLimitDefault |
+| `delete` | Delete a appLimitDefault |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `name` | String |
+| `max` | Int |
+
+**Required create fields:** `name`
+**Optional create fields (backend defaults):** `max`
+
+### `app-membership`
+
+CRUD operations for AppMembership records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appMembership records |
+| `get` | Get a appMembership by id |
+| `create` | Create a new appMembership |
+| `update` | Update an existing appMembership |
+| `delete` | Delete a appMembership |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `createdBy` | UUID |
+| `updatedBy` | UUID |
+| `isApproved` | Boolean |
+| `isBanned` | Boolean |
+| `isDisabled` | Boolean |
+| `isVerified` | Boolean |
 | `isActive` | Boolean |
+| `isOwner` | Boolean |
+| `isAdmin` | Boolean |
+| `permissions` | BitString |
+| `granted` | BitString |
+| `actorId` | UUID |
+| `profileId` | UUID |
+
+**Required create fields:** `actorId`
+**Optional create fields (backend defaults):** `createdBy`, `updatedBy`, `isApproved`, `isBanned`, `isDisabled`, `isVerified`, `isActive`, `isOwner`, `isAdmin`, `permissions`, `granted`, `profileId`
+
+### `app-membership-default`
+
+CRUD operations for AppMembershipDefault records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appMembershipDefault records |
+| `get` | Get a appMembershipDefault by id |
+| `create` | Create a new appMembershipDefault |
+| `update` | Update an existing appMembershipDefault |
+| `delete` | Delete a appMembershipDefault |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `createdBy` | UUID |
+| `updatedBy` | UUID |
+| `isApproved` | Boolean |
+| `isVerified` | Boolean |
+
+**Optional create fields (backend defaults):** `createdBy`, `updatedBy`, `isApproved`, `isVerified`
+
+### `app-owner-grant`
+
+CRUD operations for AppOwnerGrant records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appOwnerGrant records |
+| `get` | Get a appOwnerGrant by id |
+| `create` | Create a new appOwnerGrant |
+| `update` | Update an existing appOwnerGrant |
+| `delete` | Delete a appOwnerGrant |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `isGrant` | Boolean |
+| `actorId` | UUID |
+| `grantorId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `providerAccountId`, `providerCalendarId`, `color`, `isPrimary`, `isActive`
+**Required create fields:** `actorId`
+**Optional create fields (backend defaults):** `isGrant`, `grantorId`
 
-### `calendar-event`
+### `app-permission`
 
-CRUD operations for CalendarEvent records.
+CRUD operations for AppPermission records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all calendarEvent records |
-| `get` | Get a calendarEvent by id |
-| `create` | Create a new calendarEvent |
-| `update` | Update an existing calendarEvent |
-| `delete` | Delete a calendarEvent |
+| `list` | List all appPermission records |
+| `get` | Get a appPermission by id |
+| `create` | Create a new appPermission |
+| `update` | Update an existing appPermission |
+| `delete` | Delete a appPermission |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `calendarId` | UUID |
-| `providerEventId` | String |
-| `title` | String |
-| `description` | String |
-| `startTime` | Datetime |
-| `endTime` | Datetime |
-| `isAllDay` | Boolean |
-| `meetingUrl` | String |
-| `organizerContactId` | UUID |
-| `recurrenceRule` | String |
-| `status` | String |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `providerEventIdTrgmSimilarity` | Float |
-| `titleTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `meetingUrlTrgmSimilarity` | Float |
-| `recurrenceRuleTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `calendarId`, `title`
-**Optional create fields (backend defaults):** `providerEventId`, `description`, `startTime`, `endTime`, `isAllDay`, `meetingUrl`, `organizerContactId`, `recurrenceRule`, `status`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `providerEventIdTrgmSimilarity`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `meetingUrlTrgmSimilarity`, `recurrenceRuleTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `calendar-event-contact`
-
-CRUD operations for CalendarEventContact records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all calendarEventContact records |
-| `get` | Get a calendarEventContact by id |
-| `create` | Create a new calendarEventContact |
-| `update` | Update an existing calendarEventContact |
-| `delete` | Delete a calendarEventContact |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `calendarEventId` | UUID |
-| `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `calendarEventId`, `contactId`, `entityId`
-
-### `contact`
-
-CRUD operations for Contact records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all contact records |
-| `get` | Get a contact by id |
-| `create` | Create a new contact |
-| `update` | Update an existing contact |
-| `delete` | Delete a contact |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `firstName` | String |
-| `lastName` | String |
-| `email` | String |
-| `phone` | String |
-| `headline` | String |
-| `bio` | String |
-| `location` | String |
-| `birthday` | Date |
-| `relationshipType` | String |
-| `howWeMet` | String |
-| `twitterHandle` | String |
-| `linkedinUrl` | String |
-| `githubUsername` | String |
-| `instagramHandle` | String |
-| `website` | String |
-| `tags` | String |
-| `mainImageId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `searchTsv` | FullText |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `searchTsvRank` | Float |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `firstNameTrgmSimilarity` | Float |
-| `lastNameTrgmSimilarity` | Float |
-| `emailTrgmSimilarity` | Float |
-| `phoneTrgmSimilarity` | Float |
-| `headlineTrgmSimilarity` | Float |
-| `bioTrgmSimilarity` | Float |
-| `locationTrgmSimilarity` | Float |
-| `relationshipTypeTrgmSimilarity` | Float |
-| `howWeMetTrgmSimilarity` | Float |
-| `twitterHandleTrgmSimilarity` | Float |
-| `linkedinUrlTrgmSimilarity` | Float |
-| `githubUsernameTrgmSimilarity` | Float |
-| `instagramHandleTrgmSimilarity` | Float |
-| `websiteTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `firstName`
-**Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipType`, `howWeMet`, `twitterHandle`, `linkedinUrl`, `githubUsername`, `instagramHandle`, `website`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `firstNameTrgmSimilarity`, `lastNameTrgmSimilarity`, `emailTrgmSimilarity`, `phoneTrgmSimilarity`, `headlineTrgmSimilarity`, `bioTrgmSimilarity`, `locationTrgmSimilarity`, `relationshipTypeTrgmSimilarity`, `howWeMetTrgmSimilarity`, `twitterHandleTrgmSimilarity`, `linkedinUrlTrgmSimilarity`, `githubUsernameTrgmSimilarity`, `instagramHandleTrgmSimilarity`, `websiteTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `calendar-event-note`
-
-CRUD operations for CalendarEventNote records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all calendarEventNote records |
-| `get` | Get a calendarEventNote by id |
-| `create` | Create a new calendarEventNote |
-| `update` | Update an existing calendarEventNote |
-| `delete` | Delete a calendarEventNote |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `calendarEventId` | UUID |
-| `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `calendarEventId`, `noteId`, `entityId`
-
-### `note`
-
-CRUD operations for Note records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all note records |
-| `get` | Get a note by id |
-| `create` | Create a new note |
-| `update` | Update an existing note |
-| `delete` | Delete a note |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `content` | String |
-| `abstract` | String |
-| `overview` | String |
-| `activeCount` | Int |
-| `lastAccessedAt` | Datetime |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `contentBm25Score` | Float |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `contentTrgmSimilarity` | Float |
-| `abstractTrgmSimilarity` | Float |
-| `overviewTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `content`
-**Optional create fields (backend defaults):** `abstract`, `overview`, `activeCount`, `lastAccessedAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `contentBm25Score`, `embeddingTextBm25Score`, `contentTrgmSimilarity`, `abstractTrgmSimilarity`, `overviewTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `calendar-events-chunk`
-
-CRUD operations for CalendarEventsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all calendarEventsChunk records |
-| `get` | Get a calendarEventsChunk by id |
-| `create` | Create a new calendarEventsChunk |
-| `update` | Update an existing calendarEventsChunk |
-| `delete` | Delete a calendarEventsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `calendarEventsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `calendarEventsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `calendar-event-task`
-
-CRUD operations for CalendarEventTask records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all calendarEventTask records |
-| `get` | Get a calendarEventTask by id |
-| `create` | Create a new calendarEventTask |
-| `update` | Update an existing calendarEventTask |
-| `delete` | Delete a calendarEventTask |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `calendarEventId` | UUID |
-| `taskId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `calendarEventId`, `taskId`, `entityId`
-
-### `task`
-
-CRUD operations for Task records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all task records |
-| `get` | Get a task by id |
-| `create` | Create a new task |
-| `update` | Update an existing task |
-| `delete` | Delete a task |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `agentId` | UUID |
-| `title` | String |
-| `description` | String |
-| `status` | String |
-| `priority` | Int |
-| `result` | String |
-| `startedAt` | Datetime |
-| `completedAt` | Datetime |
-| `meta` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `titleTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `resultTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `title`
-**Optional create fields (backend defaults):** `agentId`, `description`, `status`, `priority`, `result`, `startedAt`, `completedAt`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `statusTrgmSimilarity`, `resultTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `codebase-dependency`
-
-CRUD operations for CodebaseDependency records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all codebaseDependency records |
-| `get` | Get a codebaseDependency by id |
-| `create` | Create a new codebaseDependency |
-| `update` | Update an existing codebaseDependency |
-| `delete` | Delete a codebaseDependency |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `codebasisId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `codebasisId`, `entityId`
-
-### `codebases-chunk`
-
-CRUD operations for CodebasesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all codebasesChunk records |
-| `get` | Get a codebasesChunk by id |
-| `create` | Create a new codebasesChunk |
-| `update` | Update an existing codebasesChunk |
-| `delete` | Delete a codebasesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `codebasesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `codebasesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `codebasis`
-
-CRUD operations for Codebasis records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all codebasis records |
-| `get` | Get a codebasis by id |
-| `create` | Create a new codebasis |
-| `update` | Update an existing codebasis |
-| `delete` | Delete a codebasis |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
+| `bitnum` | Int |
+| `bitstr` | BitString |
 | `description` | String |
-| `repositoryUrl` | String |
-| `defaultBranch` | String |
-| `language` | String |
-| `framework` | String |
-| `lastSyncedAt` | Datetime |
-| `config` | JSON |
+
+**Optional create fields (backend defaults):** `name`, `bitnum`, `bitstr`, `description`
+
+### `app-permission-default`
+
+CRUD operations for AppPermissionDefault records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appPermissionDefault records |
+| `get` | Get a appPermissionDefault by id |
+| `create` | Create a new appPermissionDefault |
+| `update` | Update an existing appPermissionDefault |
+| `delete` | Delete a appPermissionDefault |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `permissions` | BitString |
+
+**Optional create fields (backend defaults):** `permissions`
+
+### `app-profile`
+
+CRUD operations for AppProfile records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appProfile records |
+| `get` | Get a appProfile by id |
+| `create` | Create a new appProfile |
+| `update` | Update an existing appProfile |
+| `delete` | Delete a appProfile |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `name` | String |
+| `slug` | String |
+| `description` | String |
+| `permissions` | BitString |
+| `isSystem` | Boolean |
+| `isDefault` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `name`, `slug`
+**Optional create fields (backend defaults):** `description`, `permissions`, `isSystem`, `isDefault`
+
+### `app-profile-definition-grant`
+
+CRUD operations for AppProfileDefinitionGrant records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appProfileDefinitionGrant records |
+| `get` | Get a appProfileDefinitionGrant by id |
+| `create` | Create a new appProfileDefinitionGrant |
+| `update` | Update an existing appProfileDefinitionGrant |
+| `delete` | Delete a appProfileDefinitionGrant |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `profileId` | UUID |
+| `permissionId` | UUID |
+| `grantorId` | UUID |
+| `isGrant` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `profileId`, `permissionId`
+**Optional create fields (backend defaults):** `grantorId`, `isGrant`
+
+### `app-profile-grant`
+
+CRUD operations for AppProfileGrant records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appProfileGrant records |
+| `get` | Get a appProfileGrant by id |
+| `create` | Create a new appProfileGrant |
+| `update` | Update an existing appProfileGrant |
+| `delete` | Delete a appProfileGrant |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `membershipId` | UUID |
+| `profileId` | UUID |
+| `grantorId` | UUID |
+| `isGrant` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `membershipId`
+**Optional create fields (backend defaults):** `profileId`, `grantorId`, `isGrant`
+
+### `app-profile-permission`
+
+CRUD operations for AppProfilePermission records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appProfilePermission records |
+| `get` | Get a appProfilePermission by id |
+| `create` | Create a new appProfilePermission |
+| `update` | Update an existing appProfilePermission |
+| `delete` | Delete a appProfilePermission |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `profileId` | UUID |
+| `permissionId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `profileId`, `permissionId`
+
+### `app-step`
+
+CRUD operations for AppStep records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all appStep records |
+| `get` | Get a appStep by id |
+| `create` | Create a new appStep |
+| `update` | Update an existing appStep |
+| `delete` | Delete a appStep |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `actorId` | UUID |
+| `name` | String |
+| `count` | Int |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `name`
+**Optional create fields (backend defaults):** `actorId`, `count`
+
+### `audit-log`
+
+CRUD operations for AuditLog records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all auditLog records |
+| `get` | Get a auditLog by id |
+| `create` | Create a new auditLog |
+| `update` | Update an existing auditLog |
+| `delete` | Delete a auditLog |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `event` | String |
+| `actorId` | UUID |
+| `origin` | Origin |
+| `userAgent` | String |
+| `ipAddress` | InternetAddress |
+| `success` | Boolean |
+| `createdAt` | Datetime |
+
+**Required create fields:** `event`, `success`
+**Optional create fields (backend defaults):** `actorId`, `origin`, `userAgent`, `ipAddress`
+
+### `blueprint`
+
+CRUD operations for Blueprint records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all blueprint records |
+| `get` | Get a blueprint by id |
+| `create` | Create a new blueprint |
+| `update` | Update an existing blueprint |
+| `delete` | Delete a blueprint |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `ownerId` | UUID |
+| `databaseId` | UUID |
+| `name` | String |
+| `displayName` | String |
+| `description` | String |
+| `definition` | JSON |
+| `templateId` | UUID |
+| `status` | String |
+| `constructedAt` | Datetime |
+| `errorDetails` | String |
+| `refMap` | JSON |
+| `constructedDefinition` | JSON |
+| `definitionHash` | UUID |
+| `tableHashes` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `ownerId`, `databaseId`, `name`, `displayName`, `definition`
+**Optional create fields (backend defaults):** `description`, `templateId`, `status`, `constructedAt`, `errorDetails`, `refMap`, `constructedDefinition`, `definitionHash`, `tableHashes`
+
+### `blueprint-template`
+
+CRUD operations for BlueprintTemplate records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all blueprintTemplate records |
+| `get` | Get a blueprintTemplate by id |
+| `create` | Create a new blueprintTemplate |
+| `update` | Update an existing blueprintTemplate |
+| `delete` | Delete a blueprintTemplate |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `name` | String |
+| `version` | String |
+| `displayName` | String |
+| `description` | String |
+| `ownerId` | UUID |
+| `visibility` | String |
+| `categories` | String |
+| `tags` | String |
+| `definition` | JSON |
+| `definitionSchemaVersion` | String |
+| `source` | String |
+| `complexity` | String |
+| `copyCount` | Int |
+| `forkCount` | Int |
+| `forkedFromId` | UUID |
+| `definitionHash` | UUID |
+| `tableHashes` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `name`, `displayName`, `ownerId`, `definition`
+**Optional create fields (backend defaults):** `version`, `description`, `visibility`, `categories`, `tags`, `definitionSchemaVersion`, `source`, `complexity`, `copyCount`, `forkCount`, `forkedFromId`, `definitionHash`, `tableHashes`
+
+### `check-constraint`
+
+CRUD operations for CheckConstraint records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all checkConstraint records |
+| `get` | Get a checkConstraint by id |
+| `create` | Create a new checkConstraint |
+| `update` | Update an existing checkConstraint |
+| `delete` | Delete a checkConstraint |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `tableId` | UUID |
+| `name` | String |
+| `type` | String |
+| `fieldIds` | UUID |
+| `expr` | JSON |
+| `smartTags` | JSON |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
 | `tags` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `repositoryUrlTrgmSimilarity` | Float |
-| `defaultBranchTrgmSimilarity` | Float |
-| `languageTrgmSimilarity` | Float |
-| `frameworkTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `description`, `repositoryUrl`, `defaultBranch`, `language`, `framework`, `lastSyncedAt`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `repositoryUrlTrgmSimilarity`, `defaultBranchTrgmSimilarity`, `languageTrgmSimilarity`, `frameworkTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `tableId`, `fieldIds`
+**Optional create fields (backend defaults):** `databaseId`, `name`, `type`, `expr`, `smartTags`, `category`, `module`, `scope`, `tags`
 
+### `claimed-invite`
 
-### `code-chunk`
-
-CRUD operations for CodeChunk records.
+CRUD operations for ClaimedInvite records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all codeChunk records |
-| `get` | Get a codeChunk by id |
-| `create` | Create a new codeChunk |
-| `update` | Update an existing codeChunk |
-| `delete` | Delete a codeChunk |
+| `list` | List all claimedInvite records |
+| `get` | Get a claimedInvite by id |
+| `create` | Create a new claimedInvite |
+| `update` | Update an existing claimedInvite |
+| `delete` | Delete a claimedInvite |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `codebaseId` | UUID |
-| `filePath` | String |
-| `chunkIndex` | Int |
-| `content` | String |
-| `language` | String |
-| `startLine` | Int |
-| `endLine` | Int |
-| `symbolName` | String |
-| `symbolType` | String |
+| `data` | JSON |
+| `senderId` | UUID |
+| `receiverId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `codebasisId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `filePathTrgmSimilarity` | Float |
-| `contentTrgmSimilarity` | Float |
-| `languageTrgmSimilarity` | Float |
-| `symbolNameTrgmSimilarity` | Float |
-| `symbolTypeTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `codebaseId`, `filePath`, `content`, `codebasisId`
-**Optional create fields (backend defaults):** `chunkIndex`, `language`, `startLine`, `endLine`, `symbolName`, `symbolType`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `filePathTrgmSimilarity`, `contentTrgmSimilarity`, `languageTrgmSimilarity`, `symbolNameTrgmSimilarity`, `symbolTypeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Optional create fields (backend defaults):** `data`, `senderId`, `receiverId`
 
+### `connected-account`
 
-### `companies-chunk`
-
-CRUD operations for CompaniesChunk records.
+CRUD operations for ConnectedAccount records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all companiesChunk records |
-| `get` | Get a companiesChunk by id |
-| `create` | Create a new companiesChunk |
-| `update` | Update an existing companiesChunk |
-| `delete` | Delete a companiesChunk |
+| `list` | List all connectedAccount records |
+| `get` | Get a connectedAccount by id |
+| `create` | Create a new connectedAccount |
+| `update` | Update an existing connectedAccount |
+| `delete` | Delete a connectedAccount |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `companiesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
+| `ownerId` | UUID |
+| `service` | String |
+| `identifier` | String |
+| `details` | JSON |
+| `isVerified` | Boolean |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `companiesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `service`, `identifier`, `details`
+**Optional create fields (backend defaults):** `ownerId`, `isVerified`
 
+### `connected-accounts-module`
 
-### `company`
-
-CRUD operations for Company records.
+CRUD operations for ConnectedAccountsModule records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all company records |
-| `get` | Get a company by id |
-| `create` | Create a new company |
-| `update` | Update an existing company |
-| `delete` | Delete a company |
+| `list` | List all connectedAccountsModule records |
+| `get` | Get a connectedAccountsModule by id |
+| `create` | Create a new connectedAccountsModule |
+| `update` | Update an existing connectedAccountsModule |
+| `delete` | Delete a connectedAccountsModule |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `tableId` | UUID |
+| `ownerTableId` | UUID |
+| `tableName` | String |
+
+**Required create fields:** `databaseId`, `tableName`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `tableId`, `ownerTableId`
+
+### `crypto-address`
+
+CRUD operations for CryptoAddress records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all cryptoAddress records |
+| `get` | Get a cryptoAddress by id |
+| `create` | Create a new cryptoAddress |
+| `update` | Update an existing cryptoAddress |
+| `delete` | Delete a cryptoAddress |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `ownerId` | UUID |
+| `address` | String |
+| `isVerified` | Boolean |
+| `isPrimary` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `address`
+**Optional create fields (backend defaults):** `ownerId`, `isVerified`, `isPrimary`
+
+### `crypto-addresses-module`
+
+CRUD operations for CryptoAddressesModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all cryptoAddressesModule records |
+| `get` | Get a cryptoAddressesModule by id |
+| `create` | Create a new cryptoAddressesModule |
+| `update` | Update an existing cryptoAddressesModule |
+| `delete` | Delete a cryptoAddressesModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `tableId` | UUID |
+| `ownerTableId` | UUID |
+| `tableName` | String |
+| `cryptoNetwork` | String |
+
+**Required create fields:** `databaseId`, `tableName`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `tableId`, `ownerTableId`, `cryptoNetwork`
+
+### `crypto-auth-module`
+
+CRUD operations for CryptoAuthModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all cryptoAuthModule records |
+| `get` | Get a cryptoAuthModule by id |
+| `create` | Create a new cryptoAuthModule |
+| `update` | Update an existing cryptoAuthModule |
+| `delete` | Delete a cryptoAuthModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `usersTableId` | UUID |
+| `secretsTableId` | UUID |
+| `sessionsTableId` | UUID |
+| `sessionCredentialsTableId` | UUID |
+| `addressesTableId` | UUID |
+| `userField` | String |
+| `cryptoNetwork` | String |
+| `signInRequestChallenge` | String |
+| `signInRecordFailure` | String |
+| `signUpWithKey` | String |
+| `signInWithChallenge` | String |
+
+**Required create fields:** `databaseId`, `userField`
+**Optional create fields (backend defaults):** `schemaId`, `usersTableId`, `secretsTableId`, `sessionsTableId`, `sessionCredentialsTableId`, `addressesTableId`, `cryptoNetwork`, `signInRequestChallenge`, `signInRecordFailure`, `signUpWithKey`, `signInWithChallenge`
+
+### `database`
+
+CRUD operations for Database records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all database records |
+| `get` | Get a database by id |
+| `create` | Create a new database |
+| `update` | Update an existing database |
+| `delete` | Delete a database |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `ownerId` | UUID |
+| `schemaHash` | String |
 | `name` | String |
+| `label` | String |
+| `hash` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Optional create fields (backend defaults):** `ownerId`, `schemaHash`, `name`, `label`, `hash`
+
+### `database-provision-module`
+
+CRUD operations for DatabaseProvisionModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all databaseProvisionModule records |
+| `get` | Get a databaseProvisionModule by id |
+| `create` | Create a new databaseProvisionModule |
+| `update` | Update an existing databaseProvisionModule |
+| `delete` | Delete a databaseProvisionModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseName` | String |
+| `ownerId` | UUID |
+| `subdomain` | String |
 | `domain` | String |
-| `industry` | String |
-| `description` | String |
-| `tags` | String |
-| `mainImageId` | UUID |
+| `modules` | String |
+| `options` | JSON |
+| `bootstrapUser` | Boolean |
+| `status` | String |
+| `errorMessage` | String |
+| `databaseId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `searchTsv` | FullText |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `searchTsvRank` | Float |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `domainTrgmSimilarity` | Float |
-| `industryTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
+| `completedAt` | Datetime |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `domain`, `industry`, `description`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `domainTrgmSimilarity`, `industryTrgmSimilarity`, `descriptionTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `databaseName`, `ownerId`, `domain`
+**Optional create fields (backend defaults):** `subdomain`, `modules`, `options`, `bootstrapUser`, `status`, `errorMessage`, `databaseId`, `completedAt`
 
+### `database-transfer`
 
-### `deal`
-
-CRUD operations for Deal records.
+CRUD operations for DatabaseTransfer records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all deal records |
-| `get` | Get a deal by id |
-| `create` | Create a new deal |
-| `update` | Update an existing deal |
-| `delete` | Delete a deal |
+| `list` | List all databaseTransfer records |
+| `get` | Get a databaseTransfer by id |
+| `create` | Create a new databaseTransfer |
+| `update` | Update an existing databaseTransfer |
+| `delete` | Delete a databaseTransfer |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `stage` | String |
-| `value` | BigFloat |
-| `currency` | String |
-| `expectedCloseDate` | Datetime |
-| `notesText` | String |
-| `tags` | String |
+| `databaseId` | UUID |
+| `targetOwnerId` | UUID |
+| `sourceApproved` | Boolean |
+| `targetApproved` | Boolean |
+| `sourceApprovedAt` | Datetime |
+| `targetApprovedAt` | Datetime |
+| `status` | String |
+| `initiatedBy` | UUID |
+| `notes` | String |
+| `expiresAt` | Datetime |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `stageTrgmSimilarity` | Float |
-| `currencyTrgmSimilarity` | Float |
-| `notesTextTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
+| `completedAt` | Datetime |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `stage`, `value`, `currency`, `expectedCloseDate`, `notesText`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `stageTrgmSimilarity`, `currencyTrgmSimilarity`, `notesTextTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `databaseId`, `targetOwnerId`, `initiatedBy`
+**Optional create fields (backend defaults):** `sourceApproved`, `targetApproved`, `sourceApprovedAt`, `targetApprovedAt`, `status`, `notes`, `expiresAt`, `completedAt`
 
+### `default-ids-module`
 
-### `company-event`
-
-CRUD operations for CompanyEvent records.
+CRUD operations for DefaultIdsModule records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all companyEvent records |
-| `get` | Get a companyEvent by id |
-| `create` | Create a new companyEvent |
-| `update` | Update an existing companyEvent |
-| `delete` | Delete a companyEvent |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `companyId` | UUID |
-| `eventId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `companyId`, `eventId`, `entityId`
-
-### `event`
-
-CRUD operations for Event records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all event records |
-| `get` | Get a event by id |
-| `create` | Create a new event |
-| `update` | Update an existing event |
-| `delete` | Delete a event |
+| `list` | List all defaultIdsModule records |
+| `get` | Get a defaultIdsModule by id |
+| `create` | Create a new defaultIdsModule |
+| `update` | Update an existing defaultIdsModule |
+| `delete` | Delete a defaultIdsModule |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `eventType` | String |
-| `location` | String |
-| `city` | String |
-| `startedAt` | Datetime |
-| `endedAt` | Datetime |
-| `notesText` | String |
-| `tags` | String |
-| `mainImageId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `searchTsv` | FullText |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `searchTsvRank` | Float |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `eventTypeTrgmSimilarity` | Float |
-| `locationTrgmSimilarity` | Float |
-| `cityTrgmSimilarity` | Float |
-| `notesTextTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
+| `databaseId` | UUID |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notesText`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `eventTypeTrgmSimilarity`, `locationTrgmSimilarity`, `cityTrgmSimilarity`, `notesTextTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `databaseId`
 
+### `default-privilege`
 
-### `company-image`
-
-CRUD operations for CompanyImage records.
+CRUD operations for DefaultPrivilege records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all companyImage records |
-| `get` | Get a companyImage by id |
-| `create` | Create a new companyImage |
-| `update` | Update an existing companyImage |
-| `delete` | Delete a companyImage |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `companyId` | UUID |
-| `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `companyId`, `imageId`, `entityId`
-
-### `image`
-
-CRUD operations for Image records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all image records |
-| `get` | Get a image by id |
-| `create` | Create a new image |
-| `update` | Update an existing image |
-| `delete` | Delete a image |
+| `list` | List all defaultPrivilege records |
+| `get` | Get a defaultPrivilege by id |
+| `create` | Create a new defaultPrivilege |
+| `update` | Update an existing defaultPrivilege |
+| `delete` | Delete a defaultPrivilege |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `url` | String |
-| `meta` | JSON |
-| `altText` | String |
-| `caption` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `objectType` | String |
+| `privilege` | String |
+| `granteeName` | String |
+| `isGrant` | Boolean |
 
-**Required create fields:** `entityId`, `url`
-**Optional create fields (backend defaults):** `meta`, `altText`, `caption`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `schemaId`, `objectType`, `privilege`, `granteeName`
+**Optional create fields (backend defaults):** `databaseId`, `isGrant`
 
+### `denormalized-table-field`
 
-### `company-link`
-
-CRUD operations for CompanyLink records.
+CRUD operations for DenormalizedTableField records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all companyLink records |
-| `get` | Get a companyLink by id |
-| `create` | Create a new companyLink |
-| `update` | Update an existing companyLink |
-| `delete` | Delete a companyLink |
+| `list` | List all denormalizedTableField records |
+| `get` | Get a denormalizedTableField by id |
+| `create` | Create a new denormalizedTableField |
+| `update` | Update an existing denormalizedTableField |
+| `delete` | Delete a denormalizedTableField |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `title` | String |
-| `url` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `companyId` | UUID |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
+| `databaseId` | UUID |
+| `tableId` | UUID |
+| `fieldId` | UUID |
+| `setIds` | UUID |
+| `refTableId` | UUID |
+| `refFieldId` | UUID |
+| `refIds` | UUID |
+| `useUpdates` | Boolean |
+| `updateDefaults` | Boolean |
+| `funcName` | String |
+| `funcOrder` | Int |
 
-**Required create fields:** `entityId`, `url`, `companyId`
-**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `databaseId`, `tableId`, `fieldId`, `refTableId`, `refFieldId`
+**Optional create fields (backend defaults):** `setIds`, `refIds`, `useUpdates`, `updateDefaults`, `funcName`, `funcOrder`
 
+### `domain`
 
-### `memory`
-
-CRUD operations for Memory records.
+CRUD operations for Domain records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all memory records |
-| `get` | Get a memory by id |
-| `create` | Create a new memory |
-| `update` | Update an existing memory |
-| `delete` | Delete a memory |
+| `list` | List all domain records |
+| `get` | Get a domain by id |
+| `create` | Create a new domain |
+| `update` | Update an existing domain |
+| `delete` | Delete a domain |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `title` | String |
-| `content` | String |
-| `occurredAt` | Datetime |
-| `location` | String |
-| `mood` | String |
-| `importance` | Int |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `agentId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `titleTrgmSimilarity` | Float |
-| `contentTrgmSimilarity` | Float |
-| `locationTrgmSimilarity` | Float |
-| `moodTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
+| `databaseId` | UUID |
+| `apiId` | UUID |
+| `siteId` | UUID |
+| `subdomain` | Hostname |
+| `domain` | Hostname |
 
-**Required create fields:** `entityId`, `title`
-**Optional create fields (backend defaults):** `content`, `occurredAt`, `location`, `mood`, `importance`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `agentId`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `contentTrgmSimilarity`, `locationTrgmSimilarity`, `moodTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `company-memory`
-
-CRUD operations for CompanyMemory records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all companyMemory records |
-| `get` | Get a companyMemory by id |
-| `create` | Create a new companyMemory |
-| `update` | Update an existing companyMemory |
-| `delete` | Delete a companyMemory |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `companyId` | UUID |
-| `memoryId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `companyId`, `memoryId`, `entityId`
-
-### `company-note`
-
-CRUD operations for CompanyNote records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all companyNote records |
-| `get` | Get a companyNote by id |
-| `create` | Create a new companyNote |
-| `update` | Update an existing companyNote |
-| `delete` | Delete a companyNote |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `companyId` | UUID |
-| `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `companyId`, `noteId`, `entityId`
-
-### `contact-company`
-
-CRUD operations for ContactCompany records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all contactCompany records |
-| `get` | Get a contactCompany by id |
-| `create` | Create a new contactCompany |
-| `update` | Update an existing contactCompany |
-| `delete` | Delete a contactCompany |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `contactId` | UUID |
-| `companyId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `contactId`, `companyId`, `entityId`
+**Required create fields:** `databaseId`
+**Optional create fields (backend defaults):** `apiId`, `siteId`, `subdomain`, `domain`
 
 ### `email`
 
@@ -1408,2741 +1306,2625 @@ CRUD operations for Email records.
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `threadId` | UUID |
-| `providerMessageId` | String |
-| `fromContactId` | UUID |
-| `subject` | String |
-| `bodyText` | String |
-| `bodyHtml` | String |
-| `sentAt` | Datetime |
-| `toRecipients` | JSON |
-| `ccRecipients` | JSON |
-| `bccRecipients` | JSON |
-| `isDraft` | Boolean |
-| `isRead` | Boolean |
-| `tags` | String |
+| `ownerId` | UUID |
+| `email` | Email |
+| `isVerified` | Boolean |
+| `isPrimary` | Boolean |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `searchTsv` | FullText |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `emailThreadId` | UUID |
-| `searchTsvRank` | Float |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `providerMessageIdTrgmSimilarity` | Float |
-| `subjectTrgmSimilarity` | Float |
-| `bodyTextTrgmSimilarity` | Float |
-| `bodyHtmlTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `threadId`, `bodyText`, `emailThreadId`
-**Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `subject`, `bodyHtml`, `sentAt`, `toRecipients`, `ccRecipients`, `bccRecipients`, `isDraft`, `isRead`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `providerMessageIdTrgmSimilarity`, `subjectTrgmSimilarity`, `bodyTextTrgmSimilarity`, `bodyHtmlTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `email`
+**Optional create fields (backend defaults):** `ownerId`, `isVerified`, `isPrimary`
 
+### `emails-module`
 
-### `email-thread`
-
-CRUD operations for EmailThread records.
+CRUD operations for EmailsModule records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all emailThread records |
-| `get` | Get a emailThread by id |
-| `create` | Create a new emailThread |
-| `update` | Update an existing emailThread |
-| `delete` | Delete a emailThread |
+| `list` | List all emailsModule records |
+| `get` | Get a emailsModule by id |
+| `create` | Create a new emailsModule |
+| `update` | Update an existing emailsModule |
+| `delete` | Delete a emailsModule |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `providerThreadId` | String |
-| `subject` | String |
-| `lastMessageAt` | Datetime |
-| `summary` | String |
-| `status` | String |
-| `tags` | String |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `tableId` | UUID |
+| `ownerTableId` | UUID |
+| `tableName` | String |
+
+**Required create fields:** `databaseId`, `tableName`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `tableId`, `ownerTableId`
+
+### `embedding-chunk`
+
+CRUD operations for EmbeddingChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all embeddingChunk records |
+| `get` | Get a embeddingChunk by id |
+| `create` | Create a new embeddingChunk |
+| `update` | Update an existing embeddingChunk |
+| `delete` | Delete a embeddingChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `tableId` | UUID |
+| `embeddingFieldId` | UUID |
+| `chunksTableId` | UUID |
+| `chunksTableName` | String |
+| `contentFieldName` | String |
+| `dimensions` | Int |
+| `metric` | String |
+| `chunkSize` | Int |
+| `chunkOverlap` | Int |
+| `chunkStrategy` | String |
+| `metadataFields` | JSON |
+| `enqueueChunkingJob` | Boolean |
+| `chunkingTaskName` | String |
+| `parentFkFieldId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `providerThreadIdTrgmSimilarity` | Float |
-| `subjectTrgmSimilarity` | Float |
-| `summaryTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `subject`
-**Optional create fields (backend defaults):** `providerThreadId`, `lastMessageAt`, `summary`, `status`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `providerThreadIdTrgmSimilarity`, `subjectTrgmSimilarity`, `summaryTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `tableId`
+**Optional create fields (backend defaults):** `databaseId`, `embeddingFieldId`, `chunksTableId`, `chunksTableName`, `contentFieldName`, `dimensions`, `metric`, `chunkSize`, `chunkOverlap`, `chunkStrategy`, `metadataFields`, `enqueueChunkingJob`, `chunkingTaskName`, `parentFkFieldId`
 
+### `encrypted-secrets-module`
 
-### `contact-event`
-
-CRUD operations for ContactEvent records.
+CRUD operations for EncryptedSecretsModule records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all contactEvent records |
-| `get` | Get a contactEvent by id |
-| `create` | Create a new contactEvent |
-| `update` | Update an existing contactEvent |
-| `delete` | Delete a contactEvent |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `contactId` | UUID |
-| `eventId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `contactId`, `eventId`, `entityId`
-
-### `contact-image`
-
-CRUD operations for ContactImage records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all contactImage records |
-| `get` | Get a contactImage by id |
-| `create` | Create a new contactImage |
-| `update` | Update an existing contactImage |
-| `delete` | Delete a contactImage |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `contactId` | UUID |
-| `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `contactId`, `imageId`, `entityId`
-
-### `contact-link`
-
-CRUD operations for ContactLink records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all contactLink records |
-| `get` | Get a contactLink by id |
-| `create` | Create a new contactLink |
-| `update` | Update an existing contactLink |
-| `delete` | Delete a contactLink |
+| `list` | List all encryptedSecretsModule records |
+| `get` | Get a encryptedSecretsModule by id |
+| `create` | Create a new encryptedSecretsModule |
+| `update` | Update an existing encryptedSecretsModule |
+| `delete` | Delete a encryptedSecretsModule |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `title` | String |
-| `url` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `contactId` | UUID |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `tableId` | UUID |
+| `tableName` | String |
 
-**Required create fields:** `entityId`, `url`, `contactId`
-**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `databaseId`
+**Optional create fields (backend defaults):** `schemaId`, `tableId`, `tableName`
 
+### `enum`
 
-### `contact-memory`
-
-CRUD operations for ContactMemory records.
+CRUD operations for Enum records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all contactMemory records |
-| `get` | Get a contactMemory by id |
-| `create` | Create a new contactMemory |
-| `update` | Update an existing contactMemory |
-| `delete` | Delete a contactMemory |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `contactId` | UUID |
-| `memoryId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `contactId`, `memoryId`, `entityId`
-
-### `contact-note`
-
-CRUD operations for ContactNote records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all contactNote records |
-| `get` | Get a contactNote by id |
-| `create` | Create a new contactNote |
-| `update` | Update an existing contactNote |
-| `delete` | Delete a contactNote |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `contactId` | UUID |
-| `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `contactId`, `noteId`, `entityId`
-
-### `project`
-
-CRUD operations for Project records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all project records |
-| `get` | Get a project by id |
-| `create` | Create a new project |
-| `update` | Update an existing project |
-| `delete` | Delete a project |
+| `list` | List all enum records |
+| `get` | Get a enum by id |
+| `create` | Create a new enum |
+| `update` | Update an existing enum |
+| `delete` | Delete a enum |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
 | `name` | String |
+| `label` | String |
 | `description` | String |
-| `status` | String |
-| `projectType` | String |
-| `priority` | Int |
-| `startedAt` | Datetime |
-| `targetDate` | Datetime |
-| `completedAt` | Datetime |
-| `config` | JSON |
+| `values` | String |
+| `smartTags` | JSON |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
 | `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `projectTypeTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `description`, `status`, `projectType`, `priority`, `startedAt`, `targetDate`, `completedAt`, `config`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `statusTrgmSimilarity`, `projectTypeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `databaseId`, `schemaId`, `name`
+**Optional create fields (backend defaults):** `label`, `description`, `values`, `smartTags`, `category`, `module`, `scope`, `tags`
 
+### `field`
 
-### `contact-relationship`
-
-CRUD operations for ContactRelationship records.
+CRUD operations for Field records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all contactRelationship records |
-| `get` | Get a contactRelationship by id |
-| `create` | Create a new contactRelationship |
-| `update` | Update an existing contactRelationship |
-| `delete` | Delete a contactRelationship |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `contactId`, `entityId`
-
-### `contacts-chunk`
-
-CRUD operations for ContactsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all contactsChunk records |
-| `get` | Get a contactsChunk by id |
-| `create` | Create a new contactsChunk |
-| `update` | Update an existing contactsChunk |
-| `delete` | Delete a contactsChunk |
+| `list` | List all field records |
+| `get` | Get a field by id |
+| `create` | Create a new field |
+| `update` | Update an existing field |
+| `delete` | Delete a field |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `contactsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `contactsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `conversation`
-
-CRUD operations for Conversation records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all conversation records |
-| `get` | Get a conversation by id |
-| `create` | Create a new conversation |
-| `update` | Update an existing conversation |
-| `delete` | Delete a conversation |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `title` | String |
-| `agentId` | UUID |
-| `status` | String |
-| `meta` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `titleTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `title`
-**Optional create fields (backend defaults):** `agentId`, `status`, `meta`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `conversations-chunk`
-
-CRUD operations for ConversationsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all conversationsChunk records |
-| `get` | Get a conversationsChunk by id |
-| `create` | Create a new conversationsChunk |
-| `update` | Update an existing conversationsChunk |
-| `delete` | Delete a conversationsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `conversationsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `conversationsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `deal-company`
-
-CRUD operations for DealCompany records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all dealCompany records |
-| `get` | Get a dealCompany by id |
-| `create` | Create a new dealCompany |
-| `update` | Update an existing dealCompany |
-| `delete` | Delete a dealCompany |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `dealId` | UUID |
-| `companyId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `dealId`, `companyId`, `entityId`
-
-### `deal-contact`
-
-CRUD operations for DealContact records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all dealContact records |
-| `get` | Get a dealContact by id |
-| `create` | Create a new dealContact |
-| `update` | Update an existing dealContact |
-| `delete` | Delete a dealContact |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `dealId` | UUID |
-| `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `dealId`, `contactId`, `entityId`
-
-### `deal-note`
-
-CRUD operations for DealNote records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all dealNote records |
-| `get` | Get a dealNote by id |
-| `create` | Create a new dealNote |
-| `update` | Update an existing dealNote |
-| `delete` | Delete a dealNote |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `dealId` | UUID |
-| `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `dealId`, `noteId`, `entityId`
-
-### `deals-chunk`
-
-CRUD operations for DealsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all dealsChunk records |
-| `get` | Get a dealsChunk by id |
-| `create` | Create a new dealsChunk |
-| `update` | Update an existing dealsChunk |
-| `delete` | Delete a dealsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `dealsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `dealsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `email-attachment`
-
-CRUD operations for EmailAttachment records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all emailAttachment records |
-| `get` | Get a emailAttachment by id |
-| `create` | Create a new emailAttachment |
-| `update` | Update an existing emailAttachment |
-| `delete` | Delete a emailAttachment |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `emailId` | UUID |
-| `filename` | String |
-| `contentType` | String |
-| `sizeBytes` | Int |
-| `storageUrl` | String |
-| `meta` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-
-**Required create fields:** `entityId`, `emailId`, `filename`
-**Optional create fields (backend defaults):** `contentType`, `sizeBytes`, `storageUrl`, `meta`
-
-### `email-note`
-
-CRUD operations for EmailNote records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all emailNote records |
-| `get` | Get a emailNote by id |
-| `create` | Create a new emailNote |
-| `update` | Update an existing emailNote |
-| `delete` | Delete a emailNote |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `emailId` | UUID |
-| `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `emailId`, `noteId`, `entityId`
-
-### `email-recipient`
-
-CRUD operations for EmailRecipient records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all emailRecipient records |
-| `get` | Get a emailRecipient by id |
-| `create` | Create a new emailRecipient |
-| `update` | Update an existing emailRecipient |
-| `delete` | Delete a emailRecipient |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `emailId` | UUID |
-| `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `emailId`, `contactId`, `entityId`
-
-### `emails-chunk`
-
-CRUD operations for EmailsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all emailsChunk records |
-| `get` | Get a emailsChunk by id |
-| `create` | Create a new emailsChunk |
-| `update` | Update an existing emailsChunk |
-| `delete` | Delete a emailsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `emailsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `emailsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `email-threads-chunk`
-
-CRUD operations for EmailThreadsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all emailThreadsChunk records |
-| `get` | Get a emailThreadsChunk by id |
-| `create` | Create a new emailThreadsChunk |
-| `update` | Update an existing emailThreadsChunk |
-| `delete` | Delete a emailThreadsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `emailThreadsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `emailThreadsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `event-image`
-
-CRUD operations for EventImage records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all eventImage records |
-| `get` | Get a eventImage by id |
-| `create` | Create a new eventImage |
-| `update` | Update an existing eventImage |
-| `delete` | Delete a eventImage |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `eventId` | UUID |
-| `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `eventId`, `imageId`, `entityId`
-
-### `event-link`
-
-CRUD operations for EventLink records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all eventLink records |
-| `get` | Get a eventLink by id |
-| `create` | Create a new eventLink |
-| `update` | Update an existing eventLink |
-| `delete` | Delete a eventLink |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `title` | String |
-| `url` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `eventId` | UUID |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `url`, `eventId`
-**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `event-note`
-
-CRUD operations for EventNote records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all eventNote records |
-| `get` | Get a eventNote by id |
-| `create` | Create a new eventNote |
-| `update` | Update an existing eventNote |
-| `delete` | Delete a eventNote |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `eventId` | UUID |
-| `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `eventId`, `noteId`, `entityId`
-
-### `events-chunk`
-
-CRUD operations for EventsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all eventsChunk records |
-| `get` | Get a eventsChunk by id |
-| `create` | Create a new eventsChunk |
-| `update` | Update an existing eventsChunk |
-| `delete` | Delete a eventsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `eventsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `eventsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `event-venue`
-
-CRUD operations for EventVenue records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all eventVenue records |
-| `get` | Get a eventVenue by id |
-| `create` | Create a new eventVenue |
-| `update` | Update an existing eventVenue |
-| `delete` | Delete a eventVenue |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `eventId` | UUID |
-| `venueId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `eventId`, `venueId`, `entityId`
-
-### `venue`
-
-CRUD operations for Venue records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all venue records |
-| `get` | Get a venue by id |
-| `create` | Create a new venue |
-| `update` | Update an existing venue |
-| `delete` | Delete a venue |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
+| `databaseId` | UUID |
+| `tableId` | UUID |
 | `name` | String |
-| `address` | String |
-| `neighborhood` | String |
-| `city` | String |
-| `category` | String |
-| `status` | String |
-| `googlePlaceId` | String |
-| `rating` | BigFloat |
-| `priceLevel` | String |
-| `isFavorite` | Boolean |
-| `notes` | String |
-| `tags` | String |
-| `mainImageId` | UUID |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `searchTsv` | FullText |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `searchTsvRank` | Float |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `addressTrgmSimilarity` | Float |
-| `neighborhoodTrgmSimilarity` | Float |
-| `cityTrgmSimilarity` | Float |
-| `categoryTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `googlePlaceIdTrgmSimilarity` | Float |
-| `priceLevelTrgmSimilarity` | Float |
-| `notesTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `addressTrgmSimilarity`, `neighborhoodTrgmSimilarity`, `cityTrgmSimilarity`, `categoryTrgmSimilarity`, `statusTrgmSimilarity`, `googlePlaceIdTrgmSimilarity`, `priceLevelTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `goal`
-
-CRUD operations for Goal records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all goal records |
-| `get` | Get a goal by id |
-| `create` | Create a new goal |
-| `update` | Update an existing goal |
-| `delete` | Delete a goal |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `title` | String |
+| `label` | String |
 | `description` | String |
-| `category` | String |
-| `status` | String |
-| `priority` | Int |
-| `targetDate` | Datetime |
-| `completedAt` | Datetime |
-| `progress` | BigFloat |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `titleTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `categoryTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `title`
-**Optional create fields (backend defaults):** `description`, `category`, `status`, `priority`, `targetDate`, `completedAt`, `progress`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `descriptionTrgmSimilarity`, `categoryTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `goal-habit`
-
-CRUD operations for GoalHabit records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all goalHabit records |
-| `get` | Get a goalHabit by id |
-| `create` | Create a new goalHabit |
-| `update` | Update an existing goalHabit |
-| `delete` | Delete a goalHabit |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `goalId` | UUID |
-| `habitId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `goalId`, `habitId`, `entityId`
-
-### `habit`
-
-CRUD operations for Habit records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all habit records |
-| `get` | Get a habit by id |
-| `create` | Create a new habit |
-| `update` | Update an existing habit |
-| `delete` | Delete a habit |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `description` | String |
-| `frequency` | String |
-| `targetCount` | Int |
-| `currentStreak` | Int |
-| `bestStreak` | Int |
-| `isActive` | Boolean |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `frequencyTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `description`, `frequency`, `targetCount`, `currentStreak`, `bestStreak`, `isActive`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `frequencyTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `goal-project`
-
-CRUD operations for GoalProject records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all goalProject records |
-| `get` | Get a goalProject by id |
-| `create` | Create a new goalProject |
-| `update` | Update an existing goalProject |
-| `delete` | Delete a goalProject |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `goalId` | UUID |
-| `projectId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `goalId`, `projectId`, `entityId`
-
-### `goals-chunk`
-
-CRUD operations for GoalsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all goalsChunk records |
-| `get` | Get a goalsChunk by id |
-| `create` | Create a new goalsChunk |
-| `update` | Update an existing goalsChunk |
-| `delete` | Delete a goalsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `goalsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `goalsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `habits-chunk`
-
-CRUD operations for HabitsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all habitsChunk records |
-| `get` | Get a habitsChunk by id |
-| `create` | Create a new habitsChunk |
-| `update` | Update an existing habitsChunk |
-| `delete` | Delete a habitsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `habitsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `habitsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `hiking-trail`
-
-CRUD operations for HikingTrail records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all hikingTrail records |
-| `get` | Get a hikingTrail by id |
-| `create` | Create a new hikingTrail |
-| `update` | Update an existing hikingTrail |
-| `delete` | Delete a hikingTrail |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `description` | String |
-| `difficulty` | String |
-| `distanceKm` | BigFloat |
-| `elevationGainm` | BigFloat |
-| `estimatedTimeHours` | BigFloat |
-| `trailType` | String |
-| `region` | String |
-| `notes` | String |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `difficultyTrgmSimilarity` | Float |
-| `trailTypeTrgmSimilarity` | Float |
-| `regionTrgmSimilarity` | Float |
-| `notesTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `description`, `difficulty`, `distanceKm`, `elevationGainm`, `estimatedTimeHours`, `trailType`, `region`, `notes`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `difficultyTrgmSimilarity`, `trailTypeTrgmSimilarity`, `regionTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `hiking-trails-chunk`
-
-CRUD operations for HikingTrailsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all hikingTrailsChunk records |
-| `get` | Get a hikingTrailsChunk by id |
-| `create` | Create a new hikingTrailsChunk |
-| `update` | Update an existing hikingTrailsChunk |
-| `delete` | Delete a hikingTrailsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `hikingTrailsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `hikingTrailsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `trip`
-
-CRUD operations for Trip records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all trip records |
-| `get` | Get a trip by id |
-| `create` | Create a new trip |
-| `update` | Update an existing trip |
-| `delete` | Delete a trip |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `description` | String |
-| `destination` | String |
-| `startedAt` | Datetime |
-| `endedAt` | Datetime |
-| `status` | String |
-| `budget` | BigFloat |
-| `currency` | String |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `destinationTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `currencyTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `description`, `destination`, `startedAt`, `endedAt`, `status`, `budget`, `currency`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `destinationTrgmSimilarity`, `statusTrgmSimilarity`, `currencyTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `interaction`
-
-CRUD operations for Interaction records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all interaction records |
-| `get` | Get a interaction by id |
-| `create` | Create a new interaction |
-| `update` | Update an existing interaction |
-| `delete` | Delete a interaction |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `contactId` | UUID |
+| `smartTags` | JSON |
+| `isRequired` | Boolean |
+| `apiRequired` | Boolean |
+| `defaultValue` | String |
+| `defaultValueAst` | JSON |
 | `type` | String |
-| `occurredAt` | Datetime |
-| `summary` | String |
-| `sentiment` | String |
+| `fieldOrder` | Int |
+| `regexp` | String |
+| `chk` | JSON |
+| `chkExpr` | JSON |
+| `min` | Float |
+| `max` | Float |
+| `tags` | String |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `tableId`, `name`, `type`
+**Optional create fields (backend defaults):** `databaseId`, `label`, `description`, `smartTags`, `isRequired`, `apiRequired`, `defaultValue`, `defaultValueAst`, `fieldOrder`, `regexp`, `chk`, `chkExpr`, `min`, `max`, `tags`, `category`, `module`, `scope`
+
+### `field-module`
+
+CRUD operations for FieldModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all fieldModule records |
+| `get` | Get a fieldModule by id |
+| `create` | Create a new fieldModule |
+| `update` | Update an existing fieldModule |
+| `delete` | Delete a fieldModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `privateSchemaId` | UUID |
+| `tableId` | UUID |
+| `fieldId` | UUID |
+| `nodeType` | String |
+| `data` | JSON |
+| `triggers` | String |
+| `functions` | String |
+
+**Required create fields:** `databaseId`, `nodeType`
+**Optional create fields (backend defaults):** `privateSchemaId`, `tableId`, `fieldId`, `data`, `triggers`, `functions`
+
+### `foreign-key-constraint`
+
+CRUD operations for ForeignKeyConstraint records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all foreignKeyConstraint records |
+| `get` | Get a foreignKeyConstraint by id |
+| `create` | Create a new foreignKeyConstraint |
+| `update` | Update an existing foreignKeyConstraint |
+| `delete` | Delete a foreignKeyConstraint |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `tableId` | UUID |
+| `name` | String |
+| `description` | String |
+| `smartTags` | JSON |
+| `type` | String |
+| `fieldIds` | UUID |
+| `refTableId` | UUID |
+| `refFieldIds` | UUID |
+| `deleteAction` | String |
+| `updateAction` | String |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
 | `tags` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `typeTrgmSimilarity` | Float |
-| `summaryTrgmSimilarity` | Float |
-| `sentimentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `contactId`, `type`, `occurredAt`
-**Optional create fields (backend defaults):** `summary`, `sentiment`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `typeTrgmSimilarity`, `summaryTrgmSimilarity`, `sentimentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `tableId`, `fieldIds`, `refTableId`, `refFieldIds`
+**Optional create fields (backend defaults):** `databaseId`, `name`, `description`, `smartTags`, `type`, `deleteAction`, `updateAction`, `category`, `module`, `scope`, `tags`
 
+### `full-text-search`
 
-### `interactions-chunk`
-
-CRUD operations for InteractionsChunk records.
+CRUD operations for FullTextSearch records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all interactionsChunk records |
-| `get` | Get a interactionsChunk by id |
-| `create` | Create a new interactionsChunk |
-| `update` | Update an existing interactionsChunk |
-| `delete` | Delete a interactionsChunk |
+| `list` | List all fullTextSearch records |
+| `get` | Get a fullTextSearch by id |
+| `create` | Create a new fullTextSearch |
+| `update` | Update an existing fullTextSearch |
+| `delete` | Delete a fullTextSearch |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `interactionsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
+| `databaseId` | UUID |
+| `tableId` | UUID |
+| `fieldId` | UUID |
+| `fieldIds` | UUID |
+| `weights` | String |
+| `langs` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `interactionsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `tableId`, `fieldId`, `fieldIds`, `weights`, `langs`
+**Optional create fields (backend defaults):** `databaseId`
 
+### `hierarchy-module`
 
-### `itinerary-item`
-
-CRUD operations for ItineraryItem records.
+CRUD operations for HierarchyModule records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all itineraryItem records |
-| `get` | Get a itineraryItem by id |
-| `create` | Create a new itineraryItem |
-| `update` | Update an existing itineraryItem |
-| `delete` | Delete a itineraryItem |
+| `list` | List all hierarchyModule records |
+| `get` | Get a hierarchyModule by id |
+| `create` | Create a new hierarchyModule |
+| `update` | Update an existing hierarchyModule |
+| `delete` | Delete a hierarchyModule |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `tripId` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `chartEdgesTableId` | UUID |
+| `chartEdgesTableName` | String |
+| `hierarchySprtTableId` | UUID |
+| `hierarchySprtTableName` | String |
+| `chartEdgeGrantsTableId` | UUID |
+| `chartEdgeGrantsTableName` | String |
+| `entityTableId` | UUID |
+| `usersTableId` | UUID |
+| `prefix` | String |
+| `privateSchemaName` | String |
+| `sprtTableName` | String |
+| `rebuildHierarchyFunction` | String |
+| `getSubordinatesFunction` | String |
+| `getManagersFunction` | String |
+| `isManagerOfFunction` | String |
+| `createdAt` | Datetime |
+
+**Required create fields:** `databaseId`, `entityTableId`, `usersTableId`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `chartEdgesTableId`, `chartEdgesTableName`, `hierarchySprtTableId`, `hierarchySprtTableName`, `chartEdgeGrantsTableId`, `chartEdgeGrantsTableName`, `prefix`, `privateSchemaName`, `sprtTableName`, `rebuildHierarchyFunction`, `getSubordinatesFunction`, `getManagersFunction`, `isManagerOfFunction`
+
+### `index`
+
+CRUD operations for Index records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all index records |
+| `get` | Get a index by id |
+| `create` | Create a new index |
+| `update` | Update an existing index |
+| `delete` | Delete a index |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `tableId` | UUID |
 | `name` | String |
-| `description` | String |
-| `dayNumber` | Int |
-| `startTime` | Datetime |
-| `endTime` | Datetime |
-| `placeId` | UUID |
-| `category` | String |
-| `cost` | BigFloat |
-| `notes` | String |
-| `sortOrder` | Int |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `categoryTrgmSimilarity` | Float |
-| `notesTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `tripId`, `name`
-**Optional create fields (backend defaults):** `description`, `dayNumber`, `startTime`, `endTime`, `placeId`, `category`, `cost`, `notes`, `sortOrder`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `categoryTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `itinerary-items-chunk`
-
-CRUD operations for ItineraryItemsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all itineraryItemsChunk records |
-| `get` | Get a itineraryItemsChunk by id |
-| `create` | Create a new itineraryItemsChunk |
-| `update` | Update an existing itineraryItemsChunk |
-| `delete` | Delete a itineraryItemsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `itineraryItemsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `itineraryItemsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `memories-chunk`
-
-CRUD operations for MemoriesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all memoriesChunk records |
-| `get` | Get a memoriesChunk by id |
-| `create` | Create a new memoriesChunk |
-| `update` | Update an existing memoriesChunk |
-| `delete` | Delete a memoriesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `memoriesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `memoriesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `message`
-
-CRUD operations for Message records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all message records |
-| `get` | Get a message by id |
-| `create` | Create a new message |
-| `update` | Update an existing message |
-| `delete` | Delete a message |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `conversationId` | UUID |
-| `role` | String |
-| `content` | String |
-| `tokenCount` | Int |
-| `meta` | JSON |
-| `toolCalls` | JSON |
-| `toolResults` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `roleTrgmSimilarity` | Float |
-| `contentTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `conversationId`, `role`, `content`
-**Optional create fields (backend defaults):** `tokenCount`, `meta`, `toolCalls`, `toolResults`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `roleTrgmSimilarity`, `contentTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `messages-chunk`
-
-CRUD operations for MessagesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all messagesChunk records |
-| `get` | Get a messagesChunk by id |
-| `create` | Create a new messagesChunk |
-| `update` | Update an existing messagesChunk |
-| `delete` | Delete a messagesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `messagesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `messagesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `notes-chunk`
-
-CRUD operations for NotesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all notesChunk records |
-| `get` | Get a notesChunk by id |
-| `create` | Create a new notesChunk |
-| `update` | Update an existing notesChunk |
-| `delete` | Delete a notesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `notesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `notesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `place`
-
-CRUD operations for Place records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all place records |
-| `get` | Get a place by id |
-| `create` | Create a new place |
-| `update` | Update an existing place |
-| `delete` | Delete a place |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `description` | String |
-| `address` | String |
-| `city` | String |
-| `country` | String |
-| `category` | String |
-| `rating` | BigFloat |
-| `notes` | String |
+| `fieldIds` | UUID |
+| `includeFieldIds` | UUID |
+| `accessMethod` | String |
+| `indexParams` | JSON |
+| `whereClause` | JSON |
+| `isUnique` | Boolean |
+| `options` | JSON |
+| `opClasses` | String |
+| `smartTags` | JSON |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
 | `tags` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `addressTrgmSimilarity` | Float |
-| `cityTrgmSimilarity` | Float |
-| `countryTrgmSimilarity` | Float |
-| `categoryTrgmSimilarity` | Float |
-| `notesTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `description`, `address`, `city`, `country`, `category`, `rating`, `notes`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `addressTrgmSimilarity`, `cityTrgmSimilarity`, `countryTrgmSimilarity`, `categoryTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `databaseId`, `tableId`
+**Optional create fields (backend defaults):** `name`, `fieldIds`, `includeFieldIds`, `accessMethod`, `indexParams`, `whereClause`, `isUnique`, `options`, `opClasses`, `smartTags`, `category`, `module`, `scope`, `tags`
 
+### `invite`
 
-### `places-chunk`
-
-CRUD operations for PlacesChunk records.
+CRUD operations for Invite records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all placesChunk records |
-| `get` | Get a placesChunk by id |
-| `create` | Create a new placesChunk |
-| `update` | Update an existing placesChunk |
-| `delete` | Delete a placesChunk |
+| `list` | List all invite records |
+| `get` | Get a invite by id |
+| `create` | Create a new invite |
+| `update` | Update an existing invite |
+| `delete` | Delete a invite |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `placesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
+| `email` | Email |
+| `senderId` | UUID |
+| `inviteToken` | String |
+| `inviteValid` | Boolean |
+| `inviteLimit` | Int |
+| `inviteCount` | Int |
+| `multiple` | Boolean |
+| `data` | JSON |
+| `expiresAt` | Datetime |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `placesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Optional create fields (backend defaults):** `email`, `senderId`, `inviteToken`, `inviteValid`, `inviteLimit`, `inviteCount`, `multiple`, `data`, `expiresAt`
 
+### `invites-module`
 
-### `project-contact`
-
-CRUD operations for ProjectContact records.
+CRUD operations for InvitesModule records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all projectContact records |
-| `get` | Get a projectContact by id |
-| `create` | Create a new projectContact |
-| `update` | Update an existing projectContact |
-| `delete` | Delete a projectContact |
+| `list` | List all invitesModule records |
+| `get` | Get a invitesModule by id |
+| `create` | Create a new invitesModule |
+| `update` | Update an existing invitesModule |
+| `delete` | Delete a invitesModule |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
-| `projectId` | UUID |
-| `contactId` | UUID |
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `emailsTableId` | UUID |
+| `usersTableId` | UUID |
+| `invitesTableId` | UUID |
+| `claimedInvitesTableId` | UUID |
+| `invitesTableName` | String |
+| `claimedInvitesTableName` | String |
+| `submitInviteCodeFunction` | String |
+| `prefix` | String |
+| `membershipType` | Int |
+| `entityTableId` | UUID |
+
+**Required create fields:** `databaseId`, `membershipType`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `emailsTableId`, `usersTableId`, `invitesTableId`, `claimedInvitesTableId`, `invitesTableName`, `claimedInvitesTableName`, `submitInviteCodeFunction`, `prefix`, `entityTableId`
+
+### `levels-module`
+
+CRUD operations for LevelsModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all levelsModule records |
+| `get` | Get a levelsModule by id |
+| `create` | Create a new levelsModule |
+| `update` | Update an existing levelsModule |
+| `delete` | Delete a levelsModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `stepsTableId` | UUID |
+| `stepsTableName` | String |
+| `achievementsTableId` | UUID |
+| `achievementsTableName` | String |
+| `levelsTableId` | UUID |
+| `levelsTableName` | String |
+| `levelRequirementsTableId` | UUID |
+| `levelRequirementsTableName` | String |
+| `completedStep` | String |
+| `incompletedStep` | String |
+| `tgAchievement` | String |
+| `tgAchievementToggle` | String |
+| `tgAchievementToggleBoolean` | String |
+| `tgAchievementBoolean` | String |
+| `upsertAchievement` | String |
+| `tgUpdateAchievements` | String |
+| `stepsRequired` | String |
+| `levelAchieved` | String |
+| `prefix` | String |
+| `membershipType` | Int |
+| `entityTableId` | UUID |
+| `actorTableId` | UUID |
+
+**Required create fields:** `databaseId`, `membershipType`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `stepsTableId`, `stepsTableName`, `achievementsTableId`, `achievementsTableName`, `levelsTableId`, `levelsTableName`, `levelRequirementsTableId`, `levelRequirementsTableName`, `completedStep`, `incompletedStep`, `tgAchievement`, `tgAchievementToggle`, `tgAchievementToggleBoolean`, `tgAchievementBoolean`, `upsertAchievement`, `tgUpdateAchievements`, `stepsRequired`, `levelAchieved`, `prefix`, `entityTableId`, `actorTableId`
+
+### `limits-module`
+
+CRUD operations for LimitsModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all limitsModule records |
+| `get` | Get a limitsModule by id |
+| `create` | Create a new limitsModule |
+| `update` | Update an existing limitsModule |
+| `delete` | Delete a limitsModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `tableId` | UUID |
+| `tableName` | String |
+| `defaultTableId` | UUID |
+| `defaultTableName` | String |
+| `limitIncrementFunction` | String |
+| `limitDecrementFunction` | String |
+| `limitIncrementTrigger` | String |
+| `limitDecrementTrigger` | String |
+| `limitUpdateTrigger` | String |
+| `limitCheckFunction` | String |
+| `prefix` | String |
+| `membershipType` | Int |
+| `entityTableId` | UUID |
+| `actorTableId` | UUID |
+
+**Required create fields:** `databaseId`, `membershipType`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `tableId`, `tableName`, `defaultTableId`, `defaultTableName`, `limitIncrementFunction`, `limitDecrementFunction`, `limitIncrementTrigger`, `limitDecrementTrigger`, `limitUpdateTrigger`, `limitCheckFunction`, `prefix`, `entityTableId`, `actorTableId`
+
+### `memberships-module`
+
+CRUD operations for MembershipsModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all membershipsModule records |
+| `get` | Get a membershipsModule by id |
+| `create` | Create a new membershipsModule |
+| `update` | Update an existing membershipsModule |
+| `delete` | Delete a membershipsModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `membershipsTableId` | UUID |
+| `membershipsTableName` | String |
+| `membersTableId` | UUID |
+| `membersTableName` | String |
+| `membershipDefaultsTableId` | UUID |
+| `membershipDefaultsTableName` | String |
+| `grantsTableId` | UUID |
+| `grantsTableName` | String |
+| `actorTableId` | UUID |
+| `limitsTableId` | UUID |
+| `defaultLimitsTableId` | UUID |
+| `permissionsTableId` | UUID |
+| `defaultPermissionsTableId` | UUID |
+| `sprtTableId` | UUID |
+| `adminGrantsTableId` | UUID |
+| `adminGrantsTableName` | String |
+| `ownerGrantsTableId` | UUID |
+| `ownerGrantsTableName` | String |
+| `membershipType` | Int |
+| `entityTableId` | UUID |
+| `entityTableOwnerId` | UUID |
+| `prefix` | String |
+| `actorMaskCheck` | String |
+| `actorPermCheck` | String |
+| `entityIdsByMask` | String |
+| `entityIdsByPerm` | String |
+| `entityIdsFunction` | String |
+
+**Required create fields:** `databaseId`, `membershipType`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `membershipsTableId`, `membershipsTableName`, `membersTableId`, `membersTableName`, `membershipDefaultsTableId`, `membershipDefaultsTableName`, `grantsTableId`, `grantsTableName`, `actorTableId`, `limitsTableId`, `defaultLimitsTableId`, `permissionsTableId`, `defaultPermissionsTableId`, `sprtTableId`, `adminGrantsTableId`, `adminGrantsTableName`, `ownerGrantsTableId`, `ownerGrantsTableName`, `entityTableId`, `entityTableOwnerId`, `prefix`, `actorMaskCheck`, `actorPermCheck`, `entityIdsByMask`, `entityIdsByPerm`, `entityIdsFunction`
+
+### `membership-type`
+
+CRUD operations for MembershipType records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all membershipType records |
+| `get` | Get a membershipType by id |
+| `create` | Create a new membershipType |
+| `update` | Update an existing membershipType |
+| `delete` | Delete a membershipType |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | Int |
+| `name` | String |
+| `description` | String |
+| `prefix` | String |
+
+**Required create fields:** `name`, `description`, `prefix`
+
+### `membership-types-module`
+
+CRUD operations for MembershipTypesModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all membershipTypesModule records |
+| `get` | Get a membershipTypesModule by id |
+| `create` | Create a new membershipTypesModule |
+| `update` | Update an existing membershipTypesModule |
+| `delete` | Delete a membershipTypesModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `tableId` | UUID |
+| `tableName` | String |
+
+**Required create fields:** `databaseId`
+**Optional create fields (backend defaults):** `schemaId`, `tableId`, `tableName`
+
+### `node-type-registry`
+
+CRUD operations for NodeTypeRegistry records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all nodeTypeRegistry records |
+| `get` | Get a nodeTypeRegistry by name |
+| `create` | Create a new nodeTypeRegistry |
+| `update` | Update an existing nodeTypeRegistry |
+| `delete` | Delete a nodeTypeRegistry |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `name` | String |
+| `slug` | String |
+| `category` | String |
+| `displayName` | String |
+| `description` | String |
+| `parameterSchema` | JSON |
+| `tags` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `slug`, `category`
+**Optional create fields (backend defaults):** `displayName`, `description`, `parameterSchema`, `tags`
+
+### `org-admin-grant`
+
+CRUD operations for OrgAdminGrant records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgAdminGrant records |
+| `get` | Get a orgAdminGrant by id |
+| `create` | Create a new orgAdminGrant |
+| `update` | Update an existing orgAdminGrant |
+| `delete` | Delete a orgAdminGrant |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `isGrant` | Boolean |
+| `actorId` | UUID |
+| `entityId` | UUID |
+| `grantorId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `actorId`, `entityId`
+**Optional create fields (backend defaults):** `isGrant`, `grantorId`
+
+### `org-chart-edge`
+
+CRUD operations for OrgChartEdge records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgChartEdge records |
+| `get` | Get a orgChartEdge by id |
+| `create` | Create a new orgChartEdge |
+| `update` | Update an existing orgChartEdge |
+| `delete` | Delete a orgChartEdge |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `entityId` | UUID |
+| `childId` | UUID |
+| `parentId` | UUID |
+| `positionTitle` | String |
+| `positionLevel` | Int |
+
+**Required create fields:** `entityId`, `childId`
+**Optional create fields (backend defaults):** `parentId`, `positionTitle`, `positionLevel`
+
+### `org-chart-edge-grant`
+
+CRUD operations for OrgChartEdgeGrant records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgChartEdgeGrant records |
+| `get` | Get a orgChartEdgeGrant by id |
+| `create` | Create a new orgChartEdgeGrant |
+| `update` | Update an existing orgChartEdgeGrant |
+| `delete` | Delete a orgChartEdgeGrant |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
 | `id` | UUID |
 | `entityId` | UUID |
+| `childId` | UUID |
+| `parentId` | UUID |
+| `grantorId` | UUID |
+| `isGrant` | Boolean |
+| `positionTitle` | String |
+| `positionLevel` | Int |
+| `createdAt` | Datetime |
 
-**Required create fields:** `projectId`, `contactId`, `entityId`
+**Required create fields:** `entityId`, `childId`
+**Optional create fields (backend defaults):** `parentId`, `grantorId`, `isGrant`, `positionTitle`, `positionLevel`
 
-### `projects-chunk`
+### `org-claimed-invite`
 
-CRUD operations for ProjectsChunk records.
+CRUD operations for OrgClaimedInvite records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all projectsChunk records |
-| `get` | Get a projectsChunk by id |
-| `create` | Create a new projectsChunk |
-| `update` | Update an existing projectsChunk |
-| `delete` | Delete a projectsChunk |
+| `list` | List all orgClaimedInvite records |
+| `get` | Get a orgClaimedInvite by id |
+| `create` | Create a new orgClaimedInvite |
+| `update` | Update an existing orgClaimedInvite |
+| `delete` | Delete a orgClaimedInvite |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `projectsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
+| `data` | JSON |
+| `senderId` | UUID |
+| `receiverId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `projectsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `provider-sync-state`
-
-CRUD operations for ProviderSyncState records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all providerSyncState records |
-| `get` | Get a providerSyncState by id |
-| `create` | Create a new providerSyncState |
-| `update` | Update an existing providerSyncState |
-| `delete` | Delete a providerSyncState |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
 | `entityId` | UUID |
-| `provider` | String |
-| `resourceType` | String |
-| `syncCursor` | String |
-| `lastSyncAt` | Datetime |
-| `status` | String |
-| `errorMessage` | String |
-| `config` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-
-**Required create fields:** `entityId`, `provider`, `resourceType`
-**Optional create fields (backend defaults):** `syncCursor`, `lastSyncAt`, `status`, `errorMessage`, `config`
-
-### `raw-contact`
-
-CRUD operations for RawContact records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all rawContact records |
-| `get` | Get a rawContact by id |
-| `create` | Create a new rawContact |
-| `update` | Update an existing rawContact |
-| `delete` | Delete a rawContact |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `externalId` | String |
-| `source` | String |
-| `firstName` | String |
-| `lastName` | String |
-| `email` | String |
-| `phone` | String |
-| `company` | String |
-| `title` | String |
-| `location` | String |
-| `linkedinUrl` | String |
-| `twitterHandle` | String |
-| `website` | String |
-| `confidence` | BigFloat |
-| `rawData` | JSON |
-| `ingestedAt` | Datetime |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 
 **Required create fields:** `entityId`
-**Optional create fields (backend defaults):** `externalId`, `source`, `firstName`, `lastName`, `email`, `phone`, `company`, `title`, `location`, `linkedinUrl`, `twitterHandle`, `website`, `confidence`, `rawData`, `ingestedAt`
+**Optional create fields (backend defaults):** `data`, `senderId`, `receiverId`
 
-### `raw-contact-email`
+### `org-get-managers-record`
 
-CRUD operations for RawContactEmail records.
+CRUD operations for OrgGetManagersRecord records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all rawContactEmail records |
-| `get` | Get a rawContactEmail by id |
-| `create` | Create a new rawContactEmail |
-| `update` | Update an existing rawContactEmail |
-| `delete` | Delete a rawContactEmail |
+| `list` | List all orgGetManagersRecord records |
+| `get` | Get a orgGetManagersRecord by id |
+| `create` | Create a new orgGetManagersRecord |
+| `update` | Update an existing orgGetManagersRecord |
+| `delete` | Delete a orgGetManagersRecord |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `userId` | UUID |
+| `depth` | Int |
+
+**Required create fields:** `userId`, `depth`
+
+### `org-get-subordinates-record`
+
+CRUD operations for OrgGetSubordinatesRecord records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgGetSubordinatesRecord records |
+| `get` | Get a orgGetSubordinatesRecord by id |
+| `create` | Create a new orgGetSubordinatesRecord |
+| `update` | Update an existing orgGetSubordinatesRecord |
+| `delete` | Delete a orgGetSubordinatesRecord |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `userId` | UUID |
+| `depth` | Int |
+
+**Required create fields:** `userId`, `depth`
+
+### `org-grant`
+
+CRUD operations for OrgGrant records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgGrant records |
+| `get` | Get a orgGrant by id |
+| `create` | Create a new orgGrant |
+| `update` | Update an existing orgGrant |
+| `delete` | Delete a orgGrant |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
+| `permissions` | BitString |
+| `isGrant` | Boolean |
+| `actorId` | UUID |
 | `entityId` | UUID |
-| `rawContactId` | UUID |
-| `email` | String |
-| `emailType` | String |
-| `isPrimary` | Boolean |
-| `source` | String |
-| `confidence` | BigFloat |
-| `ingestedAt` | Datetime |
+| `grantorId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `rawContactId`, `email`
-**Optional create fields (backend defaults):** `emailType`, `isPrimary`, `source`, `confidence`, `ingestedAt`
+**Required create fields:** `actorId`, `entityId`
+**Optional create fields (backend defaults):** `permissions`, `isGrant`, `grantorId`
 
-### `raw-contact-phone`
+### `org-invite`
 
-CRUD operations for RawContactPhone records.
+CRUD operations for OrgInvite records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all rawContactPhone records |
-| `get` | Get a rawContactPhone by id |
-| `create` | Create a new rawContactPhone |
-| `update` | Update an existing rawContactPhone |
-| `delete` | Delete a rawContactPhone |
+| `list` | List all orgInvite records |
+| `get` | Get a orgInvite by id |
+| `create` | Create a new orgInvite |
+| `update` | Update an existing orgInvite |
+| `delete` | Delete a orgInvite |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `rawContactId` | UUID |
-| `phone` | String |
-| `phoneType` | String |
-| `isPrimary` | Boolean |
-| `source` | String |
-| `confidence` | BigFloat |
-| `ingestedAt` | Datetime |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-
-**Required create fields:** `entityId`, `rawContactId`, `phone`
-**Optional create fields (backend defaults):** `phoneType`, `isPrimary`, `source`, `confidence`, `ingestedAt`
-
-### `raw-contact-url`
-
-CRUD operations for RawContactUrl records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all rawContactUrl records |
-| `get` | Get a rawContactUrl by id |
-| `create` | Create a new rawContactUrl |
-| `update` | Update an existing rawContactUrl |
-| `delete` | Delete a rawContactUrl |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `rawContactId` | UUID |
-| `url` | String |
-| `urlType` | String |
-| `source` | String |
-| `confidence` | BigFloat |
-| `ingestedAt` | Datetime |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-
-**Required create fields:** `entityId`, `rawContactId`, `url`
-**Optional create fields (backend defaults):** `urlType`, `source`, `confidence`, `ingestedAt`
-
-### `rule`
-
-CRUD operations for Rule records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all rule records |
-| `get` | Get a rule by id |
-| `create` | Create a new rule |
-| `update` | Update an existing rule |
-| `delete` | Delete a rule |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `description` | String |
-| `triggerType` | String |
-| `triggerConfig` | JSON |
-| `actionType` | String |
-| `actionConfig` | JSON |
-| `isActive` | Boolean |
-| `priority` | Int |
-| `triggerConcept` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `triggerConceptEmbedding` | Vector |
-| `agentId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `triggerConceptEmbeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `triggerTypeTrgmSimilarity` | Float |
-| `actionTypeTrgmSimilarity` | Float |
-| `triggerConceptTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `name`, `agentId`
-**Optional create fields (backend defaults):** `description`, `triggerType`, `triggerConfig`, `actionType`, `actionConfig`, `isActive`, `priority`, `triggerConcept`, `embeddingText`, `embedding`, `embeddingStale`, `triggerConceptEmbedding`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `triggerTypeTrgmSimilarity`, `actionTypeTrgmSimilarity`, `triggerConceptTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `rules-chunk`
-
-CRUD operations for RulesChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all rulesChunk records |
-| `get` | Get a rulesChunk by id |
-| `create` | Create a new rulesChunk |
-| `update` | Update an existing rulesChunk |
-| `delete` | Delete a rulesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `rulesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `rulesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `runtime-artifact`
-
-CRUD operations for RuntimeArtifact records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeArtifact records |
-| `get` | Get a runtimeArtifact by id |
-| `create` | Create a new runtimeArtifact |
-| `update` | Update an existing runtimeArtifact |
-| `delete` | Delete a runtimeArtifact |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `runtimeStateId` | UUID |
-| `name` | String |
-| `artifactType` | String |
-| `content` | String |
-| `meta` | JSON |
-| `sizeBytes` | Int |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-
-**Required create fields:** `entityId`, `runtimeStateId`, `name`
-**Optional create fields (backend defaults):** `artifactType`, `content`, `meta`, `sizeBytes`
-
-### `runtime-config`
-
-CRUD operations for RuntimeConfig records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeConfig records |
-| `get` | Get a runtimeConfig by id |
-| `create` | Create a new runtimeConfig |
-| `update` | Update an existing runtimeConfig |
-| `delete` | Delete a runtimeConfig |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `key` | String |
-| `value` | JSON |
-| `description` | String |
-| `isSecret` | Boolean |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-
-**Required create fields:** `entityId`, `key`
-**Optional create fields (backend defaults):** `value`, `description`, `isSecret`
-
-### `runtime-event`
-
-CRUD operations for RuntimeEvent records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeEvent records |
-| `get` | Get a runtimeEvent by id |
-| `create` | Create a new runtimeEvent |
-| `update` | Update an existing runtimeEvent |
-| `delete` | Delete a runtimeEvent |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `eventType` | String |
-| `payload` | JSON |
-| `source` | String |
-| `processedAt` | Datetime |
-| `status` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-
-**Required create fields:** `entityId`, `eventType`, `payload`
-**Optional create fields (backend defaults):** `source`, `processedAt`, `status`
-
-### `runtime-log`
-
-CRUD operations for RuntimeLog records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeLog records |
-| `get` | Get a runtimeLog by id |
-| `create` | Create a new runtimeLog |
-| `update` | Update an existing runtimeLog |
-| `delete` | Delete a runtimeLog |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `runtimeStateId` | UUID |
-| `level` | String |
-| `message` | String |
-| `context` | JSON |
-| `stepIndex` | Int |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `levelTrgmSimilarity` | Float |
-| `messageTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `runtimeStateId`, `level`, `message`
-**Optional create fields (backend defaults):** `context`, `stepIndex`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `levelTrgmSimilarity`, `messageTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `runtime-logs-chunk`
-
-CRUD operations for RuntimeLogsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeLogsChunk records |
-| `get` | Get a runtimeLogsChunk by id |
-| `create` | Create a new runtimeLogsChunk |
-| `update` | Update an existing runtimeLogsChunk |
-| `delete` | Delete a runtimeLogsChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `runtimeLogsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `runtimeLogsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `runtime-metric`
-
-CRUD operations for RuntimeMetric records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeMetric records |
-| `get` | Get a runtimeMetric by id |
-| `create` | Create a new runtimeMetric |
-| `update` | Update an existing runtimeMetric |
-| `delete` | Delete a runtimeMetric |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `runtimeStateId` | UUID |
-| `metricName` | String |
-| `metricValue` | BigFloat |
-| `unit` | String |
-| `meta` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-
-**Required create fields:** `entityId`, `runtimeStateId`, `metricName`, `metricValue`
-**Optional create fields (backend defaults):** `unit`, `meta`
-
-### `runtime-schedule`
-
-CRUD operations for RuntimeSchedule records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeSchedule records |
-| `get` | Get a runtimeSchedule by id |
-| `create` | Create a new runtimeSchedule |
-| `update` | Update an existing runtimeSchedule |
-| `delete` | Delete a runtimeSchedule |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `cronExpression` | String |
-| `nextRunAt` | Datetime |
-| `lastRunAt` | Datetime |
-| `isActive` | Boolean |
-| `config` | JSON |
-| `timezone` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `cronExpression`, `nextRunAt`, `lastRunAt`, `isActive`, `config`, `timezone`
-
-### `runtime-state`
-
-CRUD operations for RuntimeState records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeState records |
-| `get` | Get a runtimeState by id |
-| `create` | Create a new runtimeState |
-| `update` | Update an existing runtimeState |
-| `delete` | Delete a runtimeState |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `name` | String |
-| `stateType` | String |
-| `status` | String |
+| `email` | Email |
+| `senderId` | UUID |
+| `receiverId` | UUID |
+| `inviteToken` | String |
+| `inviteValid` | Boolean |
+| `inviteLimit` | Int |
+| `inviteCount` | Int |
+| `multiple` | Boolean |
 | `data` | JSON |
-| `parentId` | UUID |
-| `startedAt` | Datetime |
-| `endedAt` | Datetime |
+| `expiresAt` | Datetime |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `stateTypeTrgmSimilarity` | Float |
-| `statusTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `stateType`, `status`, `data`, `parentId`, `startedAt`, `endedAt`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `stateTypeTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `runtime-state-dependency`
-
-CRUD operations for RuntimeStateDependency records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all runtimeStateDependency records |
-| `get` | Get a runtimeStateDependency by id |
-| `create` | Create a new runtimeStateDependency |
-| `update` | Update an existing runtimeStateDependency |
-| `delete` | Delete a runtimeStateDependency |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `runtimeStateId` | UUID |
-| `id` | UUID |
 | `entityId` | UUID |
 
-**Required create fields:** `runtimeStateId`, `entityId`
+**Required create fields:** `entityId`
+**Optional create fields (backend defaults):** `email`, `senderId`, `receiverId`, `inviteToken`, `inviteValid`, `inviteLimit`, `inviteCount`, `multiple`, `data`, `expiresAt`
 
-### `runtime-states-chunk`
+### `org-limit`
 
-CRUD operations for RuntimeStatesChunk records.
+CRUD operations for OrgLimit records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all runtimeStatesChunk records |
-| `get` | Get a runtimeStatesChunk by id |
-| `create` | Create a new runtimeStatesChunk |
-| `update` | Update an existing runtimeStatesChunk |
-| `delete` | Delete a runtimeStatesChunk |
+| `list` | List all orgLimit records |
+| `get` | Get a orgLimit by id |
+| `create` | Create a new orgLimit |
+| `update` | Update an existing orgLimit |
+| `delete` | Delete a orgLimit |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `runtimeStatesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `runtimeStatesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `skill`
-
-CRUD operations for Skill records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all skill records |
-| `get` | Get a skill by id |
-| `create` | Create a new skill |
-| `update` | Update an existing skill |
-| `delete` | Delete a skill |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
-| `description` | String |
-| `category` | String |
-| `implementation` | String |
-| `config` | JSON |
+| `actorId` | UUID |
+| `num` | Int |
+| `max` | Int |
+| `entityId` | UUID |
+
+**Required create fields:** `actorId`, `entityId`
+**Optional create fields (backend defaults):** `name`, `num`, `max`
+
+### `org-limit-default`
+
+CRUD operations for OrgLimitDefault records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgLimitDefault records |
+| `get` | Get a orgLimitDefault by id |
+| `create` | Create a new orgLimitDefault |
+| `update` | Update an existing orgLimitDefault |
+| `delete` | Delete a orgLimitDefault |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `name` | String |
+| `max` | Int |
+
+**Required create fields:** `name`
+**Optional create fields (backend defaults):** `max`
+
+### `org-member`
+
+CRUD operations for OrgMember records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgMember records |
+| `get` | Get a orgMember by id |
+| `create` | Create a new orgMember |
+| `update` | Update an existing orgMember |
+| `delete` | Delete a orgMember |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `isAdmin` | Boolean |
+| `actorId` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `actorId`, `entityId`
+**Optional create fields (backend defaults):** `isAdmin`
+
+### `org-membership`
+
+CRUD operations for OrgMembership records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgMembership records |
+| `get` | Get a orgMembership by id |
+| `create` | Create a new orgMembership |
+| `update` | Update an existing orgMembership |
+| `delete` | Delete a orgMembership |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `createdBy` | UUID |
+| `updatedBy` | UUID |
+| `isApproved` | Boolean |
+| `isBanned` | Boolean |
+| `isDisabled` | Boolean |
 | `isActive` | Boolean |
-| `intentTrigger` | String |
+| `isOwner` | Boolean |
+| `isAdmin` | Boolean |
+| `permissions` | BitString |
+| `granted` | BitString |
+| `actorId` | UUID |
+| `entityId` | UUID |
+| `profileId` | UUID |
+
+**Required create fields:** `actorId`, `entityId`
+**Optional create fields (backend defaults):** `createdBy`, `updatedBy`, `isApproved`, `isBanned`, `isDisabled`, `isActive`, `isOwner`, `isAdmin`, `permissions`, `granted`, `profileId`
+
+### `org-membership-default`
+
+CRUD operations for OrgMembershipDefault records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgMembershipDefault records |
+| `get` | Get a orgMembershipDefault by id |
+| `create` | Create a new orgMembershipDefault |
+| `update` | Update an existing orgMembershipDefault |
+| `delete` | Delete a orgMembershipDefault |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `intentTriggerEmbedding` | Vector |
-| `agentId` | UUID |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `intentTriggerEmbeddingVectorDistance` | Float |
-| `nameTrgmSimilarity` | Float |
-| `descriptionTrgmSimilarity` | Float |
-| `categoryTrgmSimilarity` | Float |
-| `implementationTrgmSimilarity` | Float |
-| `intentTriggerTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
+| `createdBy` | UUID |
+| `updatedBy` | UUID |
+| `isApproved` | Boolean |
+| `entityId` | UUID |
+| `deleteMemberCascadeGroups` | Boolean |
+| `createGroupsCascadeMembers` | Boolean |
 
-**Required create fields:** `entityId`, `name`, `agentId`
-**Optional create fields (backend defaults):** `description`, `category`, `implementation`, `config`, `isActive`, `intentTrigger`, `embeddingText`, `embedding`, `embeddingStale`, `intentTriggerEmbedding`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `categoryTrgmSimilarity`, `implementationTrgmSimilarity`, `intentTriggerTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `entityId`
+**Optional create fields (backend defaults):** `createdBy`, `updatedBy`, `isApproved`, `deleteMemberCascadeGroups`, `createGroupsCascadeMembers`
 
+### `org-owner-grant`
 
-### `skills-chunk`
-
-CRUD operations for SkillsChunk records.
+CRUD operations for OrgOwnerGrant records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all skillsChunk records |
-| `get` | Get a skillsChunk by id |
-| `create` | Create a new skillsChunk |
-| `update` | Update an existing skillsChunk |
-| `delete` | Delete a skillsChunk |
+| `list` | List all orgOwnerGrant records |
+| `get` | Get a orgOwnerGrant by id |
+| `create` | Create a new orgOwnerGrant |
+| `update` | Update an existing orgOwnerGrant |
+| `delete` | Delete a orgOwnerGrant |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `skillsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
+| `isGrant` | Boolean |
+| `actorId` | UUID |
+| `entityId` | UUID |
+| `grantorId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `skillsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `actorId`, `entityId`
+**Optional create fields (backend defaults):** `isGrant`, `grantorId`
 
+### `org-permission`
 
-### `skill-tool`
-
-CRUD operations for SkillTool records.
+CRUD operations for OrgPermission records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all skillTool records |
-| `get` | Get a skillTool by id |
-| `create` | Create a new skillTool |
-| `update` | Update an existing skillTool |
-| `delete` | Delete a skillTool |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `skillId` | UUID |
-| `toolDefinitionId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `skillId`, `toolDefinitionId`, `entityId`
-
-### `tool-definition`
-
-CRUD operations for ToolDefinition records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all toolDefinition records |
-| `get` | Get a toolDefinition by id |
-| `create` | Create a new toolDefinition |
-| `update` | Update an existing toolDefinition |
-| `delete` | Delete a toolDefinition |
+| `list` | List all orgPermission records |
+| `get` | Get a orgPermission by id |
+| `create` | Create a new orgPermission |
+| `update` | Update an existing orgPermission |
+| `delete` | Delete a orgPermission |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
 | `name` | String |
+| `bitnum` | Int |
+| `bitstr` | BitString |
 | `description` | String |
-| `inputSchema` | JSON |
-| `outputSchema` | JSON |
-| `implementation` | String |
-| `isActive` | Boolean |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `description`, `inputSchema`, `outputSchema`, `implementation`, `isActive`
+**Optional create fields (backend defaults):** `name`, `bitnum`, `bitstr`, `description`
 
-### `tag`
+### `org-permission-default`
 
-CRUD operations for Tag records.
+CRUD operations for OrgPermissionDefault records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all tag records |
-| `get` | Get a tag by id |
-| `create` | Create a new tag |
-| `update` | Update an existing tag |
-| `delete` | Delete a tag |
+| `list` | List all orgPermissionDefault records |
+| `get` | Get a orgPermissionDefault by id |
+| `create` | Create a new orgPermissionDefault |
+| `update` | Update an existing orgPermissionDefault |
+| `delete` | Delete a orgPermissionDefault |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
+| `permissions` | BitString |
 | `entityId` | UUID |
+
+**Required create fields:** `entityId`
+**Optional create fields (backend defaults):** `permissions`
+
+### `org-profile`
+
+CRUD operations for OrgProfile records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgProfile records |
+| `get` | Get a orgProfile by id |
+| `create` | Create a new orgProfile |
+| `update` | Update an existing orgProfile |
+| `delete` | Delete a orgProfile |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
 | `name` | String |
-| `color` | String |
-| `category` | String |
-| `usageCount` | Int |
+| `slug` | String |
+| `description` | String |
+| `permissions` | BitString |
+| `isSystem` | Boolean |
+| `isDefault` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `entityId` | UUID |
+
+**Required create fields:** `name`, `slug`
+**Optional create fields (backend defaults):** `description`, `permissions`, `isSystem`, `isDefault`, `entityId`
+
+### `org-profile-definition-grant`
+
+CRUD operations for OrgProfileDefinitionGrant records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all orgProfileDefinitionGrant records |
+| `get` | Get a orgProfileDefinitionGrant by id |
+| `create` | Create a new orgProfileDefinitionGrant |
+| `update` | Update an existing orgProfileDefinitionGrant |
+| `delete` | Delete a orgProfileDefinitionGrant |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `profileId` | UUID |
+| `permissionId` | UUID |
+| `grantorId` | UUID |
+| `isGrant` | Boolean |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `color`, `category`, `usageCount`
+**Required create fields:** `profileId`, `permissionId`
+**Optional create fields (backend defaults):** `grantorId`, `isGrant`
 
-### `task-contact`
+### `org-profile-grant`
 
-CRUD operations for TaskContact records.
+CRUD operations for OrgProfileGrant records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all taskContact records |
-| `get` | Get a taskContact by id |
-| `create` | Create a new taskContact |
-| `update` | Update an existing taskContact |
-| `delete` | Delete a taskContact |
+| `list` | List all orgProfileGrant records |
+| `get` | Get a orgProfileGrant by id |
+| `create` | Create a new orgProfileGrant |
+| `update` | Update an existing orgProfileGrant |
+| `delete` | Delete a orgProfileGrant |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
-| `taskId` | UUID |
-| `contactId` | UUID |
 | `id` | UUID |
+| `membershipId` | UUID |
+| `profileId` | UUID |
 | `entityId` | UUID |
-
-**Required create fields:** `taskId`, `contactId`, `entityId`
-
-### `task-note`
-
-CRUD operations for TaskNote records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all taskNote records |
-| `get` | Get a taskNote by id |
-| `create` | Create a new taskNote |
-| `update` | Update an existing taskNote |
-| `delete` | Delete a taskNote |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `taskId` | UUID |
-| `noteId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `taskId`, `noteId`, `entityId`
-
-### `task-project`
-
-CRUD operations for TaskProject records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all taskProject records |
-| `get` | Get a taskProject by id |
-| `create` | Create a new taskProject |
-| `update` | Update an existing taskProject |
-| `delete` | Delete a taskProject |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `taskId` | UUID |
-| `projectId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `taskId`, `projectId`, `entityId`
-
-### `tasks-chunk`
-
-CRUD operations for TasksChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all tasksChunk records |
-| `get` | Get a tasksChunk by id |
-| `create` | Create a new tasksChunk |
-| `update` | Update an existing tasksChunk |
-| `delete` | Delete a tasksChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `tasksId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `tasksId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `thread-participant`
-
-CRUD operations for ThreadParticipant records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all threadParticipant records |
-| `get` | Get a threadParticipant by id |
-| `create` | Create a new threadParticipant |
-| `update` | Update an existing threadParticipant |
-| `delete` | Delete a threadParticipant |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `emailThreadId` | UUID |
-| `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `emailThreadId`, `contactId`, `entityId`
-
-### `tool-execution`
-
-CRUD operations for ToolExecution records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all toolExecution records |
-| `get` | Get a toolExecution by id |
-| `create` | Create a new toolExecution |
-| `update` | Update an existing toolExecution |
-| `delete` | Delete a toolExecution |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `toolDefinitionId` | UUID |
-| `messageId` | UUID |
-| `input` | JSON |
-| `output` | JSON |
-| `status` | String |
-| `startedAt` | Datetime |
-| `completedAt` | Datetime |
-| `error` | String |
+| `grantorId` | UUID |
+| `isGrant` | Boolean |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
 
-**Required create fields:** `entityId`, `toolDefinitionId`
-**Optional create fields (backend defaults):** `messageId`, `input`, `output`, `status`, `startedAt`, `completedAt`, `error`
+**Required create fields:** `membershipId`
+**Optional create fields (backend defaults):** `profileId`, `entityId`, `grantorId`, `isGrant`
 
-### `touchpoint`
+### `org-profile-permission`
 
-CRUD operations for Touchpoint records.
+CRUD operations for OrgProfilePermission records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all touchpoint records |
-| `get` | Get a touchpoint by id |
-| `create` | Create a new touchpoint |
-| `update` | Update an existing touchpoint |
-| `delete` | Delete a touchpoint |
+| `list` | List all orgProfilePermission records |
+| `get` | Get a orgProfilePermission by id |
+| `create` | Create a new orgProfilePermission |
+| `update` | Update an existing orgProfilePermission |
+| `delete` | Delete a orgProfilePermission |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
-| `contactId` | UUID |
-| `touchpointType` | String |
-| `occurredAt` | Datetime |
-| `subject` | String |
-| `summary` | String |
-| `sentiment` | String |
-| `direction` | String |
-| `channel` | String |
-| `dealId` | UUID |
-| `companyId` | UUID |
-| `eventId` | UUID |
-| `meta` | JSON |
+| `profileId` | UUID |
+| `permissionId` | UUID |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `profileId`, `permissionId`
+
+### `permissions-module`
+
+CRUD operations for PermissionsModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all permissionsModule records |
+| `get` | Get a permissionsModule by id |
+| `create` | Create a new permissionsModule |
+| `update` | Update an existing permissionsModule |
+| `delete` | Delete a permissionsModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `tableId` | UUID |
+| `tableName` | String |
+| `defaultTableId` | UUID |
+| `defaultTableName` | String |
+| `bitlen` | Int |
+| `membershipType` | Int |
+| `entityTableId` | UUID |
+| `actorTableId` | UUID |
+| `prefix` | String |
+| `getPaddedMask` | String |
+| `getMask` | String |
+| `getByMask` | String |
+| `getMaskByName` | String |
+
+**Required create fields:** `databaseId`, `membershipType`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `tableId`, `tableName`, `defaultTableId`, `defaultTableName`, `bitlen`, `entityTableId`, `actorTableId`, `prefix`, `getPaddedMask`, `getMask`, `getByMask`, `getMaskByName`
+
+### `phone-number`
+
+CRUD operations for PhoneNumber records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all phoneNumber records |
+| `get` | Get a phoneNumber by id |
+| `create` | Create a new phoneNumber |
+| `update` | Update an existing phoneNumber |
+| `delete` | Delete a phoneNumber |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `ownerId` | UUID |
+| `cc` | String |
+| `number` | String |
+| `isVerified` | Boolean |
+| `isPrimary` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `cc`, `number`
+**Optional create fields (backend defaults):** `ownerId`, `isVerified`, `isPrimary`
+
+### `phone-numbers-module`
+
+CRUD operations for PhoneNumbersModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all phoneNumbersModule records |
+| `get` | Get a phoneNumbersModule by id |
+| `create` | Create a new phoneNumbersModule |
+| `update` | Update an existing phoneNumbersModule |
+| `delete` | Delete a phoneNumbersModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `tableId` | UUID |
+| `ownerTableId` | UUID |
+| `tableName` | String |
+
+**Required create fields:** `databaseId`, `tableName`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `tableId`, `ownerTableId`
+
+### `policy`
+
+CRUD operations for Policy records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all policy records |
+| `get` | Get a policy by id |
+| `create` | Create a new policy |
+| `update` | Update an existing policy |
+| `delete` | Delete a policy |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `tableId` | UUID |
+| `name` | String |
+| `granteeName` | String |
+| `privilege` | String |
+| `permissive` | Boolean |
+| `disabled` | Boolean |
+| `policyType` | String |
+| `data` | JSON |
+| `smartTags` | JSON |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
 | `tags` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `touchpointTypeTrgmSimilarity` | Float |
-| `subjectTrgmSimilarity` | Float |
-| `summaryTrgmSimilarity` | Float |
-| `sentimentTrgmSimilarity` | Float |
-| `directionTrgmSimilarity` | Float |
-| `channelTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `entityId`, `contactId`, `touchpointType`, `occurredAt`
-**Optional create fields (backend defaults):** `subject`, `summary`, `sentiment`, `direction`, `channel`, `dealId`, `companyId`, `eventId`, `meta`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `touchpointTypeTrgmSimilarity`, `subjectTrgmSimilarity`, `summaryTrgmSimilarity`, `sentimentTrgmSimilarity`, `directionTrgmSimilarity`, `channelTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `tableId`
+**Optional create fields (backend defaults):** `databaseId`, `name`, `granteeName`, `privilege`, `permissive`, `disabled`, `policyType`, `data`, `smartTags`, `category`, `module`, `scope`, `tags`
 
+### `primary-key-constraint`
 
-### `touchpoints-chunk`
-
-CRUD operations for TouchpointsChunk records.
+CRUD operations for PrimaryKeyConstraint records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all touchpointsChunk records |
-| `get` | Get a touchpointsChunk by id |
-| `create` | Create a new touchpointsChunk |
-| `update` | Update an existing touchpointsChunk |
-| `delete` | Delete a touchpointsChunk |
+| `list` | List all primaryKeyConstraint records |
+| `get` | Get a primaryKeyConstraint by id |
+| `create` | Create a new primaryKeyConstraint |
+| `update` | Update an existing primaryKeyConstraint |
+| `delete` | Delete a primaryKeyConstraint |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `touchpointsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
+| `databaseId` | UUID |
+| `tableId` | UUID |
+| `name` | String |
+| `type` | String |
+| `fieldIds` | UUID |
+| `smartTags` | JSON |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
+| `tags` | String |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `touchpointsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `tableId`, `fieldIds`
+**Optional create fields (backend defaults):** `databaseId`, `name`, `type`, `smartTags`, `category`, `module`, `scope`, `tags`
 
+### `profiles-module`
 
-### `trip-hiking-trail`
-
-CRUD operations for TripHikingTrail records.
+CRUD operations for ProfilesModule records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all tripHikingTrail records |
-| `get` | Get a tripHikingTrail by id |
-| `create` | Create a new tripHikingTrail |
-| `update` | Update an existing tripHikingTrail |
-| `delete` | Delete a tripHikingTrail |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `tripId` | UUID |
-| `hikingTrailId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `tripId`, `hikingTrailId`, `entityId`
-
-### `trip-place`
-
-CRUD operations for TripPlace records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all tripPlace records |
-| `get` | Get a tripPlace by id |
-| `create` | Create a new tripPlace |
-| `update` | Update an existing tripPlace |
-| `delete` | Delete a tripPlace |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `tripId` | UUID |
-| `placeId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `tripId`, `placeId`, `entityId`
-
-### `trips-chunk`
-
-CRUD operations for TripsChunk records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all tripsChunk records |
-| `get` | Get a tripsChunk by id |
-| `create` | Create a new tripsChunk |
-| `update` | Update an existing tripsChunk |
-| `delete` | Delete a tripsChunk |
+| `list` | List all profilesModule records |
+| `get` | Get a profilesModule by id |
+| `create` | Create a new profilesModule |
+| `update` | Update an existing profilesModule |
+| `delete` | Delete a profilesModule |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `tripsId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `tableId` | UUID |
+| `tableName` | String |
+| `profilePermissionsTableId` | UUID |
+| `profilePermissionsTableName` | String |
+| `profileGrantsTableId` | UUID |
+| `profileGrantsTableName` | String |
+| `profileDefinitionGrantsTableId` | UUID |
+| `profileDefinitionGrantsTableName` | String |
+| `membershipType` | Int |
+| `entityTableId` | UUID |
+| `actorTableId` | UUID |
+| `permissionsTableId` | UUID |
+| `membershipsTableId` | UUID |
+| `prefix` | String |
+
+**Required create fields:** `databaseId`, `membershipType`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `tableId`, `tableName`, `profilePermissionsTableId`, `profilePermissionsTableName`, `profileGrantsTableId`, `profileGrantsTableName`, `profileDefinitionGrantsTableId`, `profileDefinitionGrantsTableName`, `entityTableId`, `actorTableId`, `permissionsTableId`, `membershipsTableId`, `prefix`
+
+### `relation-provision`
+
+CRUD operations for RelationProvision records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all relationProvision records |
+| `get` | Get a relationProvision by id |
+| `create` | Create a new relationProvision |
+| `update` | Update an existing relationProvision |
+| `delete` | Delete a relationProvision |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `relationType` | String |
+| `sourceTableId` | UUID |
+| `targetTableId` | UUID |
+| `fieldName` | String |
+| `deleteAction` | String |
+| `isRequired` | Boolean |
+| `apiRequired` | Boolean |
+| `junctionTableId` | UUID |
+| `junctionTableName` | String |
+| `junctionSchemaId` | UUID |
+| `sourceFieldName` | String |
+| `targetFieldName` | String |
+| `useCompositeKey` | Boolean |
+| `createIndex` | Boolean |
+| `exposeInApi` | Boolean |
+| `nodeType` | String |
+| `nodeData` | JSON |
+| `grantRoles` | String |
+| `grantPrivileges` | JSON |
+| `policyType` | String |
+| `policyPrivileges` | String |
+| `policyRole` | String |
+| `policyPermissive` | Boolean |
+| `policyName` | String |
+| `policyData` | JSON |
+| `outFieldId` | UUID |
+| `outJunctionTableId` | UUID |
+| `outSourceFieldId` | UUID |
+| `outTargetFieldId` | UUID |
+
+**Required create fields:** `databaseId`, `relationType`, `sourceTableId`, `targetTableId`
+**Optional create fields (backend defaults):** `fieldName`, `deleteAction`, `isRequired`, `apiRequired`, `junctionTableId`, `junctionTableName`, `junctionSchemaId`, `sourceFieldName`, `targetFieldName`, `useCompositeKey`, `createIndex`, `exposeInApi`, `nodeType`, `nodeData`, `grantRoles`, `grantPrivileges`, `policyType`, `policyPrivileges`, `policyRole`, `policyPermissive`, `policyName`, `policyData`, `outFieldId`, `outJunctionTableId`, `outSourceFieldId`, `outTargetFieldId`
+
+### `rls-module`
+
+CRUD operations for RlsModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all rlsModule records |
+| `get` | Get a rlsModule by id |
+| `create` | Create a new rlsModule |
+| `update` | Update an existing rlsModule |
+| `delete` | Delete a rlsModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `sessionCredentialsTableId` | UUID |
+| `sessionsTableId` | UUID |
+| `usersTableId` | UUID |
+| `authenticate` | String |
+| `authenticateStrict` | String |
+| `currentRole` | String |
+| `currentRoleId` | String |
+
+**Required create fields:** `databaseId`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `sessionCredentialsTableId`, `sessionsTableId`, `usersTableId`, `authenticate`, `authenticateStrict`, `currentRole`, `currentRoleId`
+
+### `role-type`
+
+CRUD operations for RoleType records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all roleType records |
+| `get` | Get a roleType by id |
+| `create` | Create a new roleType |
+| `update` | Update an existing roleType |
+| `delete` | Delete a roleType |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | Int |
+| `name` | String |
+
+**Required create fields:** `name`
+
+### `schema`
+
+CRUD operations for Schema records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all schema records |
+| `get` | Get a schema by id |
+| `create` | Create a new schema |
+| `update` | Update an existing schema |
+| `delete` | Delete a schema |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `name` | String |
+| `schemaName` | String |
+| `label` | String |
+| `description` | String |
+| `smartTags` | JSON |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
+| `tags` | String |
+| `isPublic` | Boolean |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
 
-**Required create fields:** `tripsId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `databaseId`, `name`, `schemaName`
+**Optional create fields (backend defaults):** `label`, `description`, `smartTags`, `category`, `module`, `scope`, `tags`, `isPublic`
 
+### `schema-grant`
 
-### `venue-image`
-
-CRUD operations for VenueImage records.
+CRUD operations for SchemaGrant records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all venueImage records |
-| `get` | Get a venueImage by id |
-| `create` | Create a new venueImage |
-| `update` | Update an existing venueImage |
-| `delete` | Delete a venueImage |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `venueId` | UUID |
-| `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `venueId`, `imageId`, `entityId`
-
-### `venue-link`
-
-CRUD operations for VenueLink records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all venueLink records |
-| `get` | Get a venueLink by id |
-| `create` | Create a new venueLink |
-| `update` | Update an existing venueLink |
-| `delete` | Delete a venueLink |
+| `list` | List all schemaGrant records |
+| `get` | Get a schemaGrant by id |
+| `create` | Create a new schemaGrant |
+| `update` | Update an existing schemaGrant |
+| `delete` | Delete a schemaGrant |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `entityId` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `granteeName` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `schemaId`, `granteeName`
+**Optional create fields (backend defaults):** `databaseId`
+
+### `secrets-module`
+
+CRUD operations for SecretsModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all secretsModule records |
+| `get` | Get a secretsModule by id |
+| `create` | Create a new secretsModule |
+| `update` | Update an existing secretsModule |
+| `delete` | Delete a secretsModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `tableId` | UUID |
+| `tableName` | String |
+
+**Required create fields:** `databaseId`
+**Optional create fields (backend defaults):** `schemaId`, `tableId`, `tableName`
+
+### `secure-table-provision`
+
+CRUD operations for SecureTableProvision records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all secureTableProvision records |
+| `get` | Get a secureTableProvision by id |
+| `create` | Create a new secureTableProvision |
+| `update` | Update an existing secureTableProvision |
+| `delete` | Delete a secureTableProvision |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `tableId` | UUID |
+| `tableName` | String |
+| `nodeType` | String |
+| `useRls` | Boolean |
+| `nodeData` | JSON |
+| `fields` | JSON |
+| `grantRoles` | String |
+| `grantPrivileges` | JSON |
+| `policyType` | String |
+| `policyPrivileges` | String |
+| `policyRole` | String |
+| `policyPermissive` | Boolean |
+| `policyName` | String |
+| `policyData` | JSON |
+| `outFields` | UUID |
+
+**Required create fields:** `databaseId`
+**Optional create fields (backend defaults):** `schemaId`, `tableId`, `tableName`, `nodeType`, `useRls`, `nodeData`, `fields`, `grantRoles`, `grantPrivileges`, `policyType`, `policyPrivileges`, `policyRole`, `policyPermissive`, `policyName`, `policyData`, `outFields`
+
+### `sessions-module`
+
+CRUD operations for SessionsModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all sessionsModule records |
+| `get` | Get a sessionsModule by id |
+| `create` | Create a new sessionsModule |
+| `update` | Update an existing sessionsModule |
+| `delete` | Delete a sessionsModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `sessionsTableId` | UUID |
+| `sessionCredentialsTableId` | UUID |
+| `authSettingsTableId` | UUID |
+| `usersTableId` | UUID |
+| `sessionsDefaultExpiration` | Interval |
+| `sessionsTable` | String |
+| `sessionCredentialsTable` | String |
+| `authSettingsTable` | String |
+
+**Required create fields:** `databaseId`
+**Optional create fields (backend defaults):** `schemaId`, `sessionsTableId`, `sessionCredentialsTableId`, `authSettingsTableId`, `usersTableId`, `sessionsDefaultExpiration`, `sessionsTable`, `sessionCredentialsTable`, `authSettingsTable`
+
+### `site`
+
+CRUD operations for Site records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all site records |
+| `get` | Get a site by id |
+| `create` | Create a new site |
+| `update` | Update an existing site |
+| `delete` | Delete a site |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
 | `title` | String |
-| `url` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `venueId` | UUID |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
+| `description` | String |
+| `ogImage` | Image |
+| `favicon` | Attachment |
+| `appleTouchIcon` | Image |
+| `logo` | Image |
+| `dbname` | String |
 
-**Required create fields:** `entityId`, `url`, `venueId`
-**Optional create fields (backend defaults):** `title`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+**Required create fields:** `databaseId`
+**Optional create fields (backend defaults):** `title`, `description`, `ogImage`, `favicon`, `appleTouchIcon`, `logo`, `dbname`
 
+### `site-metadatum`
 
-### `venues-chunk`
-
-CRUD operations for VenuesChunk records.
+CRUD operations for SiteMetadatum records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all venuesChunk records |
-| `get` | Get a venuesChunk by id |
-| `create` | Create a new venuesChunk |
-| `update` | Update an existing venuesChunk |
-| `delete` | Delete a venuesChunk |
+| `list` | List all siteMetadatum records |
+| `get` | Get a siteMetadatum by id |
+| `create` | Create a new siteMetadatum |
+| `update` | Update an existing siteMetadatum |
+| `delete` | Delete a siteMetadatum |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
 | `id` | UUID |
-| `venuesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
+| `databaseId` | UUID |
+| `siteId` | UUID |
+| `title` | String |
+| `description` | String |
+| `ogImage` | Image |
+
+**Required create fields:** `databaseId`, `siteId`
+**Optional create fields (backend defaults):** `title`, `description`, `ogImage`
+
+### `site-module`
+
+CRUD operations for SiteModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all siteModule records |
+| `get` | Get a siteModule by id |
+| `create` | Create a new siteModule |
+| `update` | Update an existing siteModule |
+| `delete` | Delete a siteModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `siteId` | UUID |
+| `name` | String |
+| `data` | JSON |
+
+**Required create fields:** `databaseId`, `siteId`, `name`, `data`
+
+### `site-theme`
+
+CRUD operations for SiteTheme records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all siteTheme records |
+| `get` | Get a siteTheme by id |
+| `create` | Create a new siteTheme |
+| `update` | Update an existing siteTheme |
+| `delete` | Delete a siteTheme |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `siteId` | UUID |
+| `theme` | JSON |
+
+**Required create fields:** `databaseId`, `siteId`, `theme`
+
+### `table`
+
+CRUD operations for Table records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all table records |
+| `get` | Get a table by id |
+| `create` | Create a new table |
+| `update` | Update an existing table |
+| `delete` | Delete a table |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `name` | String |
+| `label` | String |
+| `description` | String |
+| `smartTags` | JSON |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
+| `useRls` | Boolean |
+| `timestamps` | Boolean |
+| `peoplestamps` | Boolean |
+| `pluralName` | String |
+| `singularName` | String |
+| `tags` | String |
+| `inheritsId` | UUID |
 | `createdAt` | Datetime |
 | `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
+
+**Required create fields:** `schemaId`, `name`
+**Optional create fields (backend defaults):** `databaseId`, `label`, `description`, `smartTags`, `category`, `module`, `scope`, `useRls`, `timestamps`, `peoplestamps`, `pluralName`, `singularName`, `tags`, `inheritsId`
+
+### `table-grant`
+
+CRUD operations for TableGrant records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all tableGrant records |
+| `get` | Get a tableGrant by id |
+| `create` | Create a new tableGrant |
+| `update` | Update an existing tableGrant |
+| `delete` | Delete a tableGrant |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `tableId` | UUID |
+| `privilege` | String |
+| `granteeName` | String |
+| `fieldIds` | UUID |
+| `isGrant` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `tableId`, `privilege`, `granteeName`
+**Optional create fields (backend defaults):** `databaseId`, `fieldIds`, `isGrant`
+
+### `table-template-module`
+
+CRUD operations for TableTemplateModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all tableTemplateModule records |
+| `get` | Get a tableTemplateModule by id |
+| `create` | Create a new tableTemplateModule |
+| `update` | Update an existing tableTemplateModule |
+| `delete` | Delete a tableTemplateModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `privateSchemaId` | UUID |
+| `tableId` | UUID |
+| `ownerTableId` | UUID |
+| `tableName` | String |
+| `nodeType` | String |
+| `data` | JSON |
+
+**Required create fields:** `databaseId`, `tableName`, `nodeType`
+**Optional create fields (backend defaults):** `schemaId`, `privateSchemaId`, `tableId`, `ownerTableId`, `data`
+
+### `trigger`
+
+CRUD operations for Trigger records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all trigger records |
+| `get` | Get a trigger by id |
+| `create` | Create a new trigger |
+| `update` | Update an existing trigger |
+| `delete` | Delete a trigger |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `tableId` | UUID |
+| `name` | String |
+| `event` | String |
+| `functionName` | String |
+| `smartTags` | JSON |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
+| `tags` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `tableId`, `name`
+**Optional create fields (backend defaults):** `databaseId`, `event`, `functionName`, `smartTags`, `category`, `module`, `scope`, `tags`
+
+### `trigger-function`
+
+CRUD operations for TriggerFunction records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all triggerFunction records |
+| `get` | Get a triggerFunction by id |
+| `create` | Create a new triggerFunction |
+| `update` | Update an existing triggerFunction |
+| `delete` | Delete a triggerFunction |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `name` | String |
+| `code` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `databaseId`, `name`
+**Optional create fields (backend defaults):** `code`
+
+### `unique-constraint`
+
+CRUD operations for UniqueConstraint records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all uniqueConstraint records |
+| `get` | Get a uniqueConstraint by id |
+| `create` | Create a new uniqueConstraint |
+| `update` | Update an existing uniqueConstraint |
+| `delete` | Delete a uniqueConstraint |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `tableId` | UUID |
+| `name` | String |
+| `description` | String |
+| `smartTags` | JSON |
+| `type` | String |
+| `fieldIds` | UUID |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
+| `tags` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+
+**Required create fields:** `tableId`, `fieldIds`
+**Optional create fields (backend defaults):** `databaseId`, `name`, `description`, `smartTags`, `type`, `category`, `module`, `scope`, `tags`
+
+### `user-auth-module`
+
+CRUD operations for UserAuthModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all userAuthModule records |
+| `get` | Get a userAuthModule by id |
+| `create` | Create a new userAuthModule |
+| `update` | Update an existing userAuthModule |
+| `delete` | Delete a userAuthModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `emailsTableId` | UUID |
+| `usersTableId` | UUID |
+| `secretsTableId` | UUID |
+| `encryptedTableId` | UUID |
+| `sessionsTableId` | UUID |
+| `sessionCredentialsTableId` | UUID |
+| `auditsTableId` | UUID |
+| `auditsTableName` | String |
+| `signInFunction` | String |
+| `signUpFunction` | String |
+| `signOutFunction` | String |
+| `setPasswordFunction` | String |
+| `resetPasswordFunction` | String |
+| `forgotPasswordFunction` | String |
+| `sendVerificationEmailFunction` | String |
+| `verifyEmailFunction` | String |
+| `verifyPasswordFunction` | String |
+| `checkPasswordFunction` | String |
+| `sendAccountDeletionEmailFunction` | String |
+| `deleteAccountFunction` | String |
+| `signInOneTimeTokenFunction` | String |
+| `oneTimeTokenFunction` | String |
+| `extendTokenExpires` | String |
+
+**Required create fields:** `databaseId`
+**Optional create fields (backend defaults):** `schemaId`, `emailsTableId`, `usersTableId`, `secretsTableId`, `encryptedTableId`, `sessionsTableId`, `sessionCredentialsTableId`, `auditsTableId`, `auditsTableName`, `signInFunction`, `signUpFunction`, `signOutFunction`, `setPasswordFunction`, `resetPasswordFunction`, `forgotPasswordFunction`, `sendVerificationEmailFunction`, `verifyEmailFunction`, `verifyPasswordFunction`, `checkPasswordFunction`, `sendAccountDeletionEmailFunction`, `deleteAccountFunction`, `signInOneTimeTokenFunction`, `oneTimeTokenFunction`, `extendTokenExpires`
+
+### `user`
+
+CRUD operations for User records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all user records |
+| `get` | Get a user by id |
+| `create` | Create a new user |
+| `update` | Update an existing user |
+| `delete` | Delete a user |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `username` | String |
+| `displayName` | String |
+| `profilePicture` | Image |
+| `searchTsv` | FullText |
+| `type` | Int |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `searchTsvRank` | Float |
+| `displayNameTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `venuesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
+**Optional create fields (backend defaults):** `username`, `displayName`, `profilePicture`, `type`
+> **Unified Search API fields:** `displayNameTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
+
+### `users-module`
+
+CRUD operations for UsersModule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all usersModule records |
+| `get` | Get a usersModule by id |
+| `create` | Create a new usersModule |
+| `update` | Update an existing usersModule |
+| `delete` | Delete a usersModule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `tableId` | UUID |
+| `tableName` | String |
+| `typeTableId` | UUID |
+| `typeTableName` | String |
+
+**Required create fields:** `databaseId`
+**Optional create fields (backend defaults):** `schemaId`, `tableId`, `tableName`, `typeTableId`, `typeTableName`
+
+### `view`
+
+CRUD operations for View records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all view records |
+| `get` | Get a view by id |
+| `create` | Create a new view |
+| `update` | Update an existing view |
+| `delete` | Delete a view |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `schemaId` | UUID |
+| `name` | String |
+| `tableId` | UUID |
+| `viewType` | String |
+| `data` | JSON |
+| `filterType` | String |
+| `filterData` | JSON |
+| `securityInvoker` | Boolean |
+| `isReadOnly` | Boolean |
+| `smartTags` | JSON |
+| `category` | ObjectCategory |
+| `module` | String |
+| `scope` | Int |
+| `tags` | String |
+
+**Required create fields:** `schemaId`, `name`, `viewType`
+**Optional create fields (backend defaults):** `databaseId`, `tableId`, `data`, `filterType`, `filterData`, `securityInvoker`, `isReadOnly`, `smartTags`, `category`, `module`, `scope`, `tags`
+
+### `view-grant`
+
+CRUD operations for ViewGrant records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all viewGrant records |
+| `get` | Get a viewGrant by id |
+| `create` | Create a new viewGrant |
+| `update` | Update an existing viewGrant |
+| `delete` | Delete a viewGrant |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `viewId` | UUID |
+| `granteeName` | String |
+| `privilege` | String |
+| `withGrantOption` | Boolean |
+| `isGrant` | Boolean |
+
+**Required create fields:** `viewId`, `granteeName`, `privilege`
+**Optional create fields (backend defaults):** `databaseId`, `withGrantOption`, `isGrant`
+
+### `view-rule`
+
+CRUD operations for ViewRule records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all viewRule records |
+| `get` | Get a viewRule by id |
+| `create` | Create a new viewRule |
+| `update` | Update an existing viewRule |
+| `delete` | Delete a viewRule |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `databaseId` | UUID |
+| `viewId` | UUID |
+| `name` | String |
+| `event` | String |
+| `action` | String |
+
+**Required create fields:** `viewId`, `name`, `event`
+**Optional create fields (backend defaults):** `databaseId`, `action`
+
+### `view-table`
+
+CRUD operations for ViewTable records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all viewTable records |
+| `get` | Get a viewTable by id |
+| `create` | Create a new viewTable |
+| `update` | Update an existing viewTable |
+| `delete` | Delete a viewTable |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `viewId` | UUID |
+| `tableId` | UUID |
+| `joinOrder` | Int |
+
+**Required create fields:** `viewId`, `tableId`
+**Optional create fields (backend defaults):** `joinOrder`
+
+## Custom Operations
+
+### `current-user-id`
+
+currentUserId
+
+- **Type:** query
+- **Arguments:** none
+
+### `current-ip-address`
+
+currentIpAddress
+
+- **Type:** query
+- **Arguments:** none
+
+### `current-user-agent`
+
+currentUserAgent
+
+- **Type:** query
+- **Arguments:** none
+
+### `app-permissions-get-padded-mask`
+
+appPermissionsGetPaddedMask
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--mask` | BitString |
+
+### `org-permissions-get-padded-mask`
+
+orgPermissionsGetPaddedMask
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--mask` | BitString |
+
+### `steps-achieved`
+
+stepsAchieved
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--vlevel` | String |
+  | `--vroleId` | UUID |
+
+### `org-is-manager-of`
+
+orgIsManagerOf
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--pEntityId` | UUID |
+  | `--pManagerId` | UUID |
+  | `--pUserId` | UUID |
+  | `--pMaxDepth` | Int |
+
+### `app-permissions-get-mask`
+
+appPermissionsGetMask
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--ids` | UUID |
+
+### `org-permissions-get-mask`
+
+orgPermissionsGetMask
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--ids` | UUID |
+
+### `app-permissions-get-mask-by-names`
+
+appPermissionsGetMaskByNames
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--names` | String |
+
+### `org-permissions-get-mask-by-names`
+
+orgPermissionsGetMaskByNames
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--names` | String |
+
+### `app-permissions-get-by-mask`
+
+Reads and enables pagination through a set of `AppPermission`.
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--mask` | BitString |
+  | `--first` | Int |
+  | `--offset` | Int |
+  | `--after` | Cursor |
+
+### `org-permissions-get-by-mask`
+
+Reads and enables pagination through a set of `OrgPermission`.
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--mask` | BitString |
+  | `--first` | Int |
+  | `--offset` | Int |
+  | `--after` | Cursor |
+
+### `steps-required`
+
+Reads and enables pagination through a set of `AppLevelRequirement`.
+
+- **Type:** query
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--vlevel` | String |
+  | `--vroleId` | UUID |
+  | `--first` | Int |
+  | `--offset` | Int |
+  | `--after` | Cursor |
+
+### `current-user`
+
+currentUser
+
+- **Type:** query
+- **Arguments:** none
+
+### `sign-out`
+
+signOut
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+
+### `send-account-deletion-email`
+
+sendAccountDeletionEmail
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+
+### `check-password`
+
+checkPassword
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.password` | String |
+
+### `submit-invite-code`
+
+submitInviteCode
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.token` | String |
+
+### `submit-org-invite-code`
+
+submitOrgInviteCode
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.token` | String |
+
+### `construct-blueprint`
+
+Executes a draft blueprint definition. Four phases: (1) create tables with nodes[], fields, and policies[], (2) create relations between tables, (3) create indexes on table fields (supports BTREE, HNSW, GIN, GIST, BM25, etc.), (4) create full-text search configurations with weighted multi-field TSVector support. nodes[] entries can be strings or {$type, data} objects. Relations use $type for relation_type with junction config in data. Indexes reference table_ref + column name(s) and are resolved to field_ids. Full-text searches reference table_ref + tsvector field + source fields with weights/langs. Builds a ref_map of local ref names to created table UUIDs. Updates blueprint status to constructed (or failed with error_details). Returns the ref_map.
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.blueprintId` | UUID |
+  | `--input.schemaId` | UUID |
+
+### `confirm-delete-account`
+
+confirmDeleteAccount
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.userId` | UUID |
+  | `--input.token` | String |
+
+### `set-password`
+
+setPassword
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.currentPassword` | String |
+  | `--input.newPassword` | String |
+
+### `verify-email`
+
+verifyEmail
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.emailId` | UUID |
+  | `--input.token` | String |
+
+### `reset-password`
+
+resetPassword
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.roleId` | UUID |
+  | `--input.resetToken` | String |
+  | `--input.newPassword` | String |
+
+### `copy-template-to-blueprint`
+
+Creates a new blueprint by copying a template definition. Checks visibility: owners can always copy their own templates, others require public visibility. Increments the template copy_count. Returns the new blueprint ID.
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.templateId` | UUID |
+  | `--input.databaseId` | UUID |
+  | `--input.ownerId` | UUID |
+  | `--input.nameOverride` | String |
+  | `--input.displayNameOverride` | String |
+
+### `set-field-order`
+
+setFieldOrder
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.fieldIds` | UUID |
+
+### `apply-rls`
+
+applyRls
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.tableId` | UUID |
+  | `--input.grants` | JSON |
+  | `--input.policyType` | String |
+  | `--input.vars` | JSON |
+  | `--input.fieldIds` | UUID |
+  | `--input.permissive` | Boolean |
+  | `--input.name` | String |
+
+### `sign-in-one-time-token`
+
+signInOneTimeToken
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.token` | String |
+  | `--input.credentialKind` | String |
+
+### `create-user-database`
+
+Creates a new user database with all required modules, permissions, and RLS policies.
+
+Parameters:
+  - database_name: Name for the new database (required)
+  - owner_id: UUID of the owner user (required)
+  - include_invites: Include invite system (default: true)
+  - include_groups: Include group-level memberships (default: false)
+  - include_levels: Include levels/achievements (default: false)
+  - bitlen: Bit length for permission masks (default: 64)
+  - tokens_expiration: Token expiration interval (default: 30 days)
+
+Returns the database_id UUID of the newly created database.
+
+Example usage:
+  SELECT metaschema_public.create_user_database('my_app', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'::uuid);
+  SELECT metaschema_public.create_user_database('my_app', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'::uuid, true, true);  -- with invites and groups
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.databaseName` | String |
+  | `--input.ownerId` | UUID |
+  | `--input.includeInvites` | Boolean |
+  | `--input.includeGroups` | Boolean |
+  | `--input.includeLevels` | Boolean |
+  | `--input.bitlen` | Int |
+  | `--input.tokensExpiration` | IntervalInput |
+
+### `extend-token-expires`
+
+extendTokenExpires
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.amount` | IntervalInput |
+
+### `sign-in`
+
+signIn
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.email` | String |
+  | `--input.password` | String |
+  | `--input.rememberMe` | Boolean |
+  | `--input.credentialKind` | String |
+  | `--input.csrfToken` | String |
+
+### `sign-up`
+
+signUp
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.email` | String |
+  | `--input.password` | String |
+  | `--input.rememberMe` | Boolean |
+  | `--input.credentialKind` | String |
+  | `--input.csrfToken` | String |
+
+### `one-time-token`
+
+oneTimeToken
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.email` | String |
+  | `--input.password` | String |
+  | `--input.origin` | Origin |
+  | `--input.rememberMe` | Boolean |
+
+### `forgot-password`
+
+forgotPassword
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.email` | Email |
+
+### `send-verification-email`
+
+sendVerificationEmail
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.email` | Email |
+
+### `verify-password`
+
+verifyPassword
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.password` | String (required) |
+
+### `verify-totp`
+
+verifyTotp
+
+- **Type:** mutation
+- **Arguments:**
+
+  | Argument | Type |
+  |----------|------|
+  | `--input.clientMutationId` | String |
+  | `--input.totpValue` | String (required) |
 
 ## Output
 
