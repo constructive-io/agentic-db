@@ -9,7 +9,7 @@ ORM operations for ProviderSyncState records
 ```typescript
 db.providerSyncState.findMany({ select: { id: true } }).execute()
 db.providerSyncState.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.providerSyncState.create({ data: { entityId: '<UUID>', provider: '<String>', resourceType: '<String>', syncCursor: '<String>', lastSyncAt: '<Datetime>', status: '<String>', errorMessage: '<String>', config: '<JSON>' }, select: { id: true } }).execute()
+db.providerSyncState.create({ data: { entityId: '<UUID>', provider: '<String>', resourceType: '<String>', syncCursor: '<String>', historyId: '<String>', lastSyncAt: '<Datetime>', status: '<String>' }, select: { id: true } }).execute()
 db.providerSyncState.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.providerSyncState.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.providerSyncState.findMany({
 
 ```typescript
 const item = await db.providerSyncState.create({
-  data: { entityId: '<UUID>', provider: '<String>', resourceType: '<String>', syncCursor: '<String>', lastSyncAt: '<Datetime>', status: '<String>', errorMessage: '<String>', config: '<JSON>' },
+  data: { entityId: '<UUID>', provider: '<String>', resourceType: '<String>', syncCursor: '<String>', historyId: '<String>', lastSyncAt: '<Datetime>', status: '<String>' },
   select: { id: true }
 }).execute();
 ```

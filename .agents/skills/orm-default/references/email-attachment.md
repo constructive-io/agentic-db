@@ -9,7 +9,7 @@ ORM operations for EmailAttachment records
 ```typescript
 db.emailAttachment.findMany({ select: { id: true } }).execute()
 db.emailAttachment.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.emailAttachment.create({ data: { entityId: '<UUID>', emailId: '<UUID>', filename: '<String>', contentType: '<String>', sizeBytes: '<Int>', storageUrl: '<String>', meta: '<JSON>' }, select: { id: true } }).execute()
+db.emailAttachment.create({ data: { entityId: '<UUID>', filename: '<String>', contentType: '<String>', sizeBytes: '<Int>', storageUrl: '<String>', providerAttachmentId: '<String>', emailId: '<UUID>' }, select: { id: true } }).execute()
 db.emailAttachment.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.emailAttachment.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.emailAttachment.findMany({
 
 ```typescript
 const item = await db.emailAttachment.create({
-  data: { entityId: '<UUID>', emailId: '<UUID>', filename: '<String>', contentType: '<String>', sizeBytes: '<Int>', storageUrl: '<String>', meta: '<JSON>' },
+  data: { entityId: '<UUID>', filename: '<String>', contentType: '<String>', sizeBytes: '<Int>', storageUrl: '<String>', providerAttachmentId: '<String>', emailId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

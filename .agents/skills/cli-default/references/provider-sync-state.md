@@ -9,8 +9,8 @@ CRUD operations for ProviderSyncState records via agentic-db CLI
 ```bash
 agentic-db provider-sync-state list
 agentic-db provider-sync-state get --id <UUID>
-agentic-db provider-sync-state create --entityId <UUID> --provider <String> --resourceType <String> [--syncCursor <String>] [--lastSyncAt <Datetime>] [--status <String>] [--errorMessage <String>] [--config <JSON>]
-agentic-db provider-sync-state update --id <UUID> [--entityId <UUID>] [--provider <String>] [--resourceType <String>] [--syncCursor <String>] [--lastSyncAt <Datetime>] [--status <String>] [--errorMessage <String>] [--config <JSON>]
+agentic-db provider-sync-state create --entityId <UUID> --provider <String> --resourceType <String> [--syncCursor <String>] [--historyId <String>] [--lastSyncAt <Datetime>] [--status <String>]
+agentic-db provider-sync-state update --id <UUID> [--entityId <UUID>] [--provider <String>] [--resourceType <String>] [--syncCursor <String>] [--historyId <String>] [--lastSyncAt <Datetime>] [--status <String>]
 agentic-db provider-sync-state delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db provider-sync-state list
 ### Create a providerSyncState
 
 ```bash
-agentic-db provider-sync-state create --entityId <UUID> --provider <String> --resourceType <String> [--syncCursor <String>] [--lastSyncAt <Datetime>] [--status <String>] [--errorMessage <String>] [--config <JSON>]
+agentic-db provider-sync-state create --entityId <UUID> --provider <String> --resourceType <String> [--syncCursor <String>] [--historyId <String>] [--lastSyncAt <Datetime>] [--status <String>]
 ```
 
 ### Get a providerSyncState by id

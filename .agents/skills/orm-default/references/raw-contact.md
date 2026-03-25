@@ -9,7 +9,7 @@ ORM operations for RawContact records
 ```typescript
 db.rawContact.findMany({ select: { id: true } }).execute()
 db.rawContact.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.rawContact.create({ data: { entityId: '<UUID>', externalId: '<String>', source: '<String>', firstName: '<String>', lastName: '<String>', email: '<String>', phone: '<String>', company: '<String>', title: '<String>', location: '<String>', linkedinUrl: '<String>', twitterHandle: '<String>', website: '<String>', confidence: '<BigFloat>', rawData: '<JSON>', ingestedAt: '<Datetime>' }, select: { id: true } }).execute()
+db.rawContact.create({ data: { entityId: '<UUID>', externalId: '<String>', source: '<String>', firstName: '<String>', lastName: '<String>', fullName: '<String>', headline: '<String>', bio: '<String>', location: '<String>', company: '<String>', jobTitle: '<String>', rawData: '<JSON>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' }, select: { id: true } }).execute()
 db.rawContact.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.rawContact.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.rawContact.findMany({
 
 ```typescript
 const item = await db.rawContact.create({
-  data: { entityId: '<UUID>', externalId: '<String>', source: '<String>', firstName: '<String>', lastName: '<String>', email: '<String>', phone: '<String>', company: '<String>', title: '<String>', location: '<String>', linkedinUrl: '<String>', twitterHandle: '<String>', website: '<String>', confidence: '<BigFloat>', rawData: '<JSON>', ingestedAt: '<Datetime>' },
+  data: { entityId: '<UUID>', externalId: '<String>', source: '<String>', firstName: '<String>', lastName: '<String>', fullName: '<String>', headline: '<String>', bio: '<String>', location: '<String>', company: '<String>', jobTitle: '<String>', rawData: '<JSON>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' },
   select: { id: true }
 }).execute();
 ```

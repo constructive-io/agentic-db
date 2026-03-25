@@ -6,152 +6,126 @@
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import contextCmd from './commands/context';
 import authCmd from './commands/auth';
-import apiCmd from './commands/api';
-import apiModuleCmd from './commands/api-module';
-import apiSchemaCmd from './commands/api-schema';
-import appAchievementCmd from './commands/app-achievement';
-import appAdminGrantCmd from './commands/app-admin-grant';
-import appCmd from './commands/app';
-import appGrantCmd from './commands/app-grant';
-import appLevelCmd from './commands/app-level';
-import appLevelRequirementCmd from './commands/app-level-requirement';
-import appLimitCmd from './commands/app-limit';
-import appLimitDefaultCmd from './commands/app-limit-default';
-import appMembershipCmd from './commands/app-membership';
-import appMembershipDefaultCmd from './commands/app-membership-default';
-import appOwnerGrantCmd from './commands/app-owner-grant';
-import appPermissionCmd from './commands/app-permission';
-import appPermissionDefaultCmd from './commands/app-permission-default';
-import appProfileCmd from './commands/app-profile';
-import appProfileDefinitionGrantCmd from './commands/app-profile-definition-grant';
-import appProfileGrantCmd from './commands/app-profile-grant';
-import appProfilePermissionCmd from './commands/app-profile-permission';
-import appStepCmd from './commands/app-step';
-import auditLogCmd from './commands/audit-log';
-import blueprintCmd from './commands/blueprint';
-import blueprintTemplateCmd from './commands/blueprint-template';
-import checkConstraintCmd from './commands/check-constraint';
-import claimedInviteCmd from './commands/claimed-invite';
-import connectedAccountCmd from './commands/connected-account';
-import connectedAccountsModuleCmd from './commands/connected-accounts-module';
-import cryptoAddressCmd from './commands/crypto-address';
-import cryptoAddressesModuleCmd from './commands/crypto-addresses-module';
-import cryptoAuthModuleCmd from './commands/crypto-auth-module';
-import databaseCmd from './commands/database';
-import databaseProvisionModuleCmd from './commands/database-provision-module';
-import databaseTransferCmd from './commands/database-transfer';
-import defaultIdsModuleCmd from './commands/default-ids-module';
-import defaultPrivilegeCmd from './commands/default-privilege';
-import denormalizedTableFieldCmd from './commands/denormalized-table-field';
-import domainCmd from './commands/domain';
+import agentCollaboratorCmd from './commands/agent-collaborator';
+import agentCmd from './commands/agent';
+import agentLogCmd from './commands/agent-log';
+import agentLogsChunkCmd from './commands/agent-logs-chunk';
+import agentPromptCmd from './commands/agent-prompt';
+import promptCmd from './commands/prompt';
+import agentsChunkCmd from './commands/agents-chunk';
+import autonomyRecordCmd from './commands/autonomy-record';
+import autonomyRecordLinkCmd from './commands/autonomy-record-link';
+import autonomyRecordsChunkCmd from './commands/autonomy-records-chunk';
+import calendarAttendeeCmd from './commands/calendar-attendee';
+import calendarCmd from './commands/calendar';
+import calendarEventCmd from './commands/calendar-event';
+import calendarEventContactCmd from './commands/calendar-event-contact';
+import contactCmd from './commands/contact';
+import calendarEventNoteCmd from './commands/calendar-event-note';
+import noteCmd from './commands/note';
+import calendarEventsChunkCmd from './commands/calendar-events-chunk';
+import calendarEventTaskCmd from './commands/calendar-event-task';
+import taskCmd from './commands/task';
+import codebaseDependencyCmd from './commands/codebase-dependency';
+import codebasesChunkCmd from './commands/codebases-chunk';
+import codebasisCmd from './commands/codebasis';
+import codeChunkCmd from './commands/code-chunk';
+import companiesChunkCmd from './commands/companies-chunk';
+import companyCmd from './commands/company';
+import dealCmd from './commands/deal';
+import companyEventCmd from './commands/company-event';
+import eventCmd from './commands/event';
+import companyImageCmd from './commands/company-image';
+import imageCmd from './commands/image';
+import companyLinkCmd from './commands/company-link';
+import memoryCmd from './commands/memory';
+import companyMemoryCmd from './commands/company-memory';
+import companyNoteCmd from './commands/company-note';
+import contactCompanyCmd from './commands/contact-company';
 import emailCmd from './commands/email';
-import emailsModuleCmd from './commands/emails-module';
-import embeddingChunkCmd from './commands/embedding-chunk';
-import encryptedSecretsModuleCmd from './commands/encrypted-secrets-module';
-import enumCmd from './commands/enum';
-import fieldCmd from './commands/field';
-import fieldModuleCmd from './commands/field-module';
-import foreignKeyConstraintCmd from './commands/foreign-key-constraint';
-import fullTextSearchCmd from './commands/full-text-search';
-import hierarchyModuleCmd from './commands/hierarchy-module';
-import indexCmd from './commands/index';
-import inviteCmd from './commands/invite';
-import invitesModuleCmd from './commands/invites-module';
-import levelsModuleCmd from './commands/levels-module';
-import limitsModuleCmd from './commands/limits-module';
-import membershipsModuleCmd from './commands/memberships-module';
-import membershipTypeCmd from './commands/membership-type';
-import membershipTypesModuleCmd from './commands/membership-types-module';
-import nodeTypeRegistryCmd from './commands/node-type-registry';
-import orgAdminGrantCmd from './commands/org-admin-grant';
-import orgChartEdgeCmd from './commands/org-chart-edge';
-import orgChartEdgeGrantCmd from './commands/org-chart-edge-grant';
-import orgClaimedInviteCmd from './commands/org-claimed-invite';
-import orgGetManagersRecordCmd from './commands/org-get-managers-record';
-import orgGetSubordinatesRecordCmd from './commands/org-get-subordinates-record';
-import orgGrantCmd from './commands/org-grant';
-import orgInviteCmd from './commands/org-invite';
-import orgLimitCmd from './commands/org-limit';
-import orgLimitDefaultCmd from './commands/org-limit-default';
-import orgMemberCmd from './commands/org-member';
-import orgMembershipCmd from './commands/org-membership';
-import orgMembershipDefaultCmd from './commands/org-membership-default';
-import orgOwnerGrantCmd from './commands/org-owner-grant';
-import orgPermissionCmd from './commands/org-permission';
-import orgPermissionDefaultCmd from './commands/org-permission-default';
-import orgProfileCmd from './commands/org-profile';
-import orgProfileDefinitionGrantCmd from './commands/org-profile-definition-grant';
-import orgProfileGrantCmd from './commands/org-profile-grant';
-import orgProfilePermissionCmd from './commands/org-profile-permission';
-import permissionsModuleCmd from './commands/permissions-module';
-import phoneNumberCmd from './commands/phone-number';
-import phoneNumbersModuleCmd from './commands/phone-numbers-module';
-import policyCmd from './commands/policy';
-import primaryKeyConstraintCmd from './commands/primary-key-constraint';
-import profilesModuleCmd from './commands/profiles-module';
-import relationProvisionCmd from './commands/relation-provision';
-import rlsModuleCmd from './commands/rls-module';
-import roleTypeCmd from './commands/role-type';
-import schemaCmd from './commands/schema';
-import schemaGrantCmd from './commands/schema-grant';
-import secretsModuleCmd from './commands/secrets-module';
-import secureTableProvisionCmd from './commands/secure-table-provision';
-import sessionsModuleCmd from './commands/sessions-module';
-import siteCmd from './commands/site';
-import siteMetadatumCmd from './commands/site-metadatum';
-import siteModuleCmd from './commands/site-module';
-import siteThemeCmd from './commands/site-theme';
-import tableCmd from './commands/table';
-import tableGrantCmd from './commands/table-grant';
-import tableTemplateModuleCmd from './commands/table-template-module';
-import triggerCmd from './commands/trigger';
-import triggerFunctionCmd from './commands/trigger-function';
-import uniqueConstraintCmd from './commands/unique-constraint';
-import userAuthModuleCmd from './commands/user-auth-module';
-import userCmd from './commands/user';
-import usersModuleCmd from './commands/users-module';
-import viewCmd from './commands/view';
-import viewGrantCmd from './commands/view-grant';
-import viewRuleCmd from './commands/view-rule';
-import viewTableCmd from './commands/view-table';
-import currentUserIdCmd from './commands/current-user-id';
-import currentIpAddressCmd from './commands/current-ip-address';
-import currentUserAgentCmd from './commands/current-user-agent';
-import appPermissionsGetPaddedMaskCmd from './commands/app-permissions-get-padded-mask';
-import orgPermissionsGetPaddedMaskCmd from './commands/org-permissions-get-padded-mask';
-import stepsAchievedCmd from './commands/steps-achieved';
-import orgIsManagerOfCmd from './commands/org-is-manager-of';
-import appPermissionsGetMaskCmd from './commands/app-permissions-get-mask';
-import orgPermissionsGetMaskCmd from './commands/org-permissions-get-mask';
-import appPermissionsGetMaskByNamesCmd from './commands/app-permissions-get-mask-by-names';
-import orgPermissionsGetMaskByNamesCmd from './commands/org-permissions-get-mask-by-names';
-import appPermissionsGetByMaskCmd from './commands/app-permissions-get-by-mask';
-import orgPermissionsGetByMaskCmd from './commands/org-permissions-get-by-mask';
-import stepsRequiredCmd from './commands/steps-required';
-import currentUserCmd from './commands/current-user';
-import signOutCmd from './commands/sign-out';
-import sendAccountDeletionEmailCmd from './commands/send-account-deletion-email';
-import checkPasswordCmd from './commands/check-password';
-import submitInviteCodeCmd from './commands/submit-invite-code';
-import submitOrgInviteCodeCmd from './commands/submit-org-invite-code';
-import constructBlueprintCmd from './commands/construct-blueprint';
-import confirmDeleteAccountCmd from './commands/confirm-delete-account';
-import setPasswordCmd from './commands/set-password';
-import verifyEmailCmd from './commands/verify-email';
-import resetPasswordCmd from './commands/reset-password';
-import copyTemplateToBlueprintCmd from './commands/copy-template-to-blueprint';
-import setFieldOrderCmd from './commands/set-field-order';
-import applyRlsCmd from './commands/apply-rls';
-import signInOneTimeTokenCmd from './commands/sign-in-one-time-token';
-import createUserDatabaseCmd from './commands/create-user-database';
-import extendTokenExpiresCmd from './commands/extend-token-expires';
-import signInCmd from './commands/sign-in';
-import signUpCmd from './commands/sign-up';
-import oneTimeTokenCmd from './commands/one-time-token';
-import forgotPasswordCmd from './commands/forgot-password';
-import sendVerificationEmailCmd from './commands/send-verification-email';
-import verifyPasswordCmd from './commands/verify-password';
-import verifyTotpCmd from './commands/verify-totp';
+import emailThreadCmd from './commands/email-thread';
+import contactEventCmd from './commands/contact-event';
+import expenseCmd from './commands/expense';
+import contactImageCmd from './commands/contact-image';
+import contactLinkCmd from './commands/contact-link';
+import contactMemoryCmd from './commands/contact-memory';
+import contactNoteCmd from './commands/contact-note';
+import projectCmd from './commands/project';
+import contactRelationshipCmd from './commands/contact-relationship';
+import contactsChunkCmd from './commands/contacts-chunk';
+import conversationCmd from './commands/conversation';
+import conversationsChunkCmd from './commands/conversations-chunk';
+import dealCompanyCmd from './commands/deal-company';
+import dealContactCmd from './commands/deal-contact';
+import dealNoteCmd from './commands/deal-note';
+import dealsChunkCmd from './commands/deals-chunk';
+import emailAttachmentCmd from './commands/email-attachment';
+import emailNoteCmd from './commands/email-note';
+import emailRecipientCmd from './commands/email-recipient';
+import emailsChunkCmd from './commands/emails-chunk';
+import emailThreadsChunkCmd from './commands/email-threads-chunk';
+import eventImageCmd from './commands/event-image';
+import eventLinkCmd from './commands/event-link';
+import eventNoteCmd from './commands/event-note';
+import eventsChunkCmd from './commands/events-chunk';
+import eventVenueCmd from './commands/event-venue';
+import venueCmd from './commands/venue';
+import expenseContactCmd from './commands/expense-contact';
+import expensesChunkCmd from './commands/expenses-chunk';
+import goalCmd from './commands/goal';
+import goalHabitCmd from './commands/goal-habit';
+import habitCmd from './commands/habit';
+import goalProjectCmd from './commands/goal-project';
+import goalsChunkCmd from './commands/goals-chunk';
+import hikingTrailCmd from './commands/hiking-trail';
+import hikingTrailsChunkCmd from './commands/hiking-trails-chunk';
+import interactionCmd from './commands/interaction';
+import interactionsChunkCmd from './commands/interactions-chunk';
+import memoriesChunkCmd from './commands/memories-chunk';
+import messageCmd from './commands/message';
+import messagesChunkCmd from './commands/messages-chunk';
+import notesChunkCmd from './commands/notes-chunk';
+import placeCmd from './commands/place';
+import placesChunkCmd from './commands/places-chunk';
+import projectContactCmd from './commands/project-contact';
+import projectsChunkCmd from './commands/projects-chunk';
+import promptsChunkCmd from './commands/prompts-chunk';
+import providerSyncStateCmd from './commands/provider-sync-state';
+import rawContactCmd from './commands/raw-contact';
+import rawContactEmailCmd from './commands/raw-contact-email';
+import rawContactPhoneCmd from './commands/raw-contact-phone';
+import rawContactUrlCmd from './commands/raw-contact-url';
+import ruleCmd from './commands/rule';
+import rulesChunkCmd from './commands/rules-chunk';
+import runtimeArtifactCmd from './commands/runtime-artifact';
+import runtimeConfigCmd from './commands/runtime-config';
+import runtimeEventCmd from './commands/runtime-event';
+import runtimeLogCmd from './commands/runtime-log';
+import runtimeLogsChunkCmd from './commands/runtime-logs-chunk';
+import runtimeMetricCmd from './commands/runtime-metric';
+import runtimeScheduleCmd from './commands/runtime-schedule';
+import runtimeStateCmd from './commands/runtime-state';
+import runtimeStateDependencyCmd from './commands/runtime-state-dependency';
+import runtimeStatesChunkCmd from './commands/runtime-states-chunk';
+import skillCmd from './commands/skill';
+import skillsChunkCmd from './commands/skills-chunk';
+import skillToolCmd from './commands/skill-tool';
+import toolDefinitionCmd from './commands/tool-definition';
+import tagCmd from './commands/tag';
+import taskContactCmd from './commands/task-contact';
+import taskNoteCmd from './commands/task-note';
+import taskProjectCmd from './commands/task-project';
+import tasksChunkCmd from './commands/tasks-chunk';
+import threadParticipantCmd from './commands/thread-participant';
+import toolDefinitionsChunkCmd from './commands/tool-definitions-chunk';
+import toolExecutionCmd from './commands/tool-execution';
+import touchpointCmd from './commands/touchpoint';
+import touchpointsChunkCmd from './commands/touchpoints-chunk';
+import tripCmd from './commands/trip';
+import tripsChunkCmd from './commands/trips-chunk';
+import venueImageCmd from './commands/venue-image';
+import venueLinkCmd from './commands/venue-link';
+import venuesChunkCmd from './commands/venues-chunk';
 const createCommandMap: () => Record<
   string,
   (
@@ -162,155 +136,129 @@ const createCommandMap: () => Record<
 > = () => ({
   context: contextCmd,
   auth: authCmd,
-  api: apiCmd,
-  'api-module': apiModuleCmd,
-  'api-schema': apiSchemaCmd,
-  'app-achievement': appAchievementCmd,
-  'app-admin-grant': appAdminGrantCmd,
-  app: appCmd,
-  'app-grant': appGrantCmd,
-  'app-level': appLevelCmd,
-  'app-level-requirement': appLevelRequirementCmd,
-  'app-limit': appLimitCmd,
-  'app-limit-default': appLimitDefaultCmd,
-  'app-membership': appMembershipCmd,
-  'app-membership-default': appMembershipDefaultCmd,
-  'app-owner-grant': appOwnerGrantCmd,
-  'app-permission': appPermissionCmd,
-  'app-permission-default': appPermissionDefaultCmd,
-  'app-profile': appProfileCmd,
-  'app-profile-definition-grant': appProfileDefinitionGrantCmd,
-  'app-profile-grant': appProfileGrantCmd,
-  'app-profile-permission': appProfilePermissionCmd,
-  'app-step': appStepCmd,
-  'audit-log': auditLogCmd,
-  blueprint: blueprintCmd,
-  'blueprint-template': blueprintTemplateCmd,
-  'check-constraint': checkConstraintCmd,
-  'claimed-invite': claimedInviteCmd,
-  'connected-account': connectedAccountCmd,
-  'connected-accounts-module': connectedAccountsModuleCmd,
-  'crypto-address': cryptoAddressCmd,
-  'crypto-addresses-module': cryptoAddressesModuleCmd,
-  'crypto-auth-module': cryptoAuthModuleCmd,
-  database: databaseCmd,
-  'database-provision-module': databaseProvisionModuleCmd,
-  'database-transfer': databaseTransferCmd,
-  'default-ids-module': defaultIdsModuleCmd,
-  'default-privilege': defaultPrivilegeCmd,
-  'denormalized-table-field': denormalizedTableFieldCmd,
-  domain: domainCmd,
+  'agent-collaborator': agentCollaboratorCmd,
+  agent: agentCmd,
+  'agent-log': agentLogCmd,
+  'agent-logs-chunk': agentLogsChunkCmd,
+  'agent-prompt': agentPromptCmd,
+  prompt: promptCmd,
+  'agents-chunk': agentsChunkCmd,
+  'autonomy-record': autonomyRecordCmd,
+  'autonomy-record-link': autonomyRecordLinkCmd,
+  'autonomy-records-chunk': autonomyRecordsChunkCmd,
+  'calendar-attendee': calendarAttendeeCmd,
+  calendar: calendarCmd,
+  'calendar-event': calendarEventCmd,
+  'calendar-event-contact': calendarEventContactCmd,
+  contact: contactCmd,
+  'calendar-event-note': calendarEventNoteCmd,
+  note: noteCmd,
+  'calendar-events-chunk': calendarEventsChunkCmd,
+  'calendar-event-task': calendarEventTaskCmd,
+  task: taskCmd,
+  'codebase-dependency': codebaseDependencyCmd,
+  'codebases-chunk': codebasesChunkCmd,
+  codebasis: codebasisCmd,
+  'code-chunk': codeChunkCmd,
+  'companies-chunk': companiesChunkCmd,
+  company: companyCmd,
+  deal: dealCmd,
+  'company-event': companyEventCmd,
+  event: eventCmd,
+  'company-image': companyImageCmd,
+  image: imageCmd,
+  'company-link': companyLinkCmd,
+  memory: memoryCmd,
+  'company-memory': companyMemoryCmd,
+  'company-note': companyNoteCmd,
+  'contact-company': contactCompanyCmd,
   email: emailCmd,
-  'emails-module': emailsModuleCmd,
-  'embedding-chunk': embeddingChunkCmd,
-  'encrypted-secrets-module': encryptedSecretsModuleCmd,
-  enum: enumCmd,
-  field: fieldCmd,
-  'field-module': fieldModuleCmd,
-  'foreign-key-constraint': foreignKeyConstraintCmd,
-  'full-text-search': fullTextSearchCmd,
-  'hierarchy-module': hierarchyModuleCmd,
-  index: indexCmd,
-  invite: inviteCmd,
-  'invites-module': invitesModuleCmd,
-  'levels-module': levelsModuleCmd,
-  'limits-module': limitsModuleCmd,
-  'memberships-module': membershipsModuleCmd,
-  'membership-type': membershipTypeCmd,
-  'membership-types-module': membershipTypesModuleCmd,
-  'node-type-registry': nodeTypeRegistryCmd,
-  'org-admin-grant': orgAdminGrantCmd,
-  'org-chart-edge': orgChartEdgeCmd,
-  'org-chart-edge-grant': orgChartEdgeGrantCmd,
-  'org-claimed-invite': orgClaimedInviteCmd,
-  'org-get-managers-record': orgGetManagersRecordCmd,
-  'org-get-subordinates-record': orgGetSubordinatesRecordCmd,
-  'org-grant': orgGrantCmd,
-  'org-invite': orgInviteCmd,
-  'org-limit': orgLimitCmd,
-  'org-limit-default': orgLimitDefaultCmd,
-  'org-member': orgMemberCmd,
-  'org-membership': orgMembershipCmd,
-  'org-membership-default': orgMembershipDefaultCmd,
-  'org-owner-grant': orgOwnerGrantCmd,
-  'org-permission': orgPermissionCmd,
-  'org-permission-default': orgPermissionDefaultCmd,
-  'org-profile': orgProfileCmd,
-  'org-profile-definition-grant': orgProfileDefinitionGrantCmd,
-  'org-profile-grant': orgProfileGrantCmd,
-  'org-profile-permission': orgProfilePermissionCmd,
-  'permissions-module': permissionsModuleCmd,
-  'phone-number': phoneNumberCmd,
-  'phone-numbers-module': phoneNumbersModuleCmd,
-  policy: policyCmd,
-  'primary-key-constraint': primaryKeyConstraintCmd,
-  'profiles-module': profilesModuleCmd,
-  'relation-provision': relationProvisionCmd,
-  'rls-module': rlsModuleCmd,
-  'role-type': roleTypeCmd,
-  schema: schemaCmd,
-  'schema-grant': schemaGrantCmd,
-  'secrets-module': secretsModuleCmd,
-  'secure-table-provision': secureTableProvisionCmd,
-  'sessions-module': sessionsModuleCmd,
-  site: siteCmd,
-  'site-metadatum': siteMetadatumCmd,
-  'site-module': siteModuleCmd,
-  'site-theme': siteThemeCmd,
-  table: tableCmd,
-  'table-grant': tableGrantCmd,
-  'table-template-module': tableTemplateModuleCmd,
-  trigger: triggerCmd,
-  'trigger-function': triggerFunctionCmd,
-  'unique-constraint': uniqueConstraintCmd,
-  'user-auth-module': userAuthModuleCmd,
-  user: userCmd,
-  'users-module': usersModuleCmd,
-  view: viewCmd,
-  'view-grant': viewGrantCmd,
-  'view-rule': viewRuleCmd,
-  'view-table': viewTableCmd,
-  'current-user-id': currentUserIdCmd,
-  'current-ip-address': currentIpAddressCmd,
-  'current-user-agent': currentUserAgentCmd,
-  'app-permissions-get-padded-mask': appPermissionsGetPaddedMaskCmd,
-  'org-permissions-get-padded-mask': orgPermissionsGetPaddedMaskCmd,
-  'steps-achieved': stepsAchievedCmd,
-  'org-is-manager-of': orgIsManagerOfCmd,
-  'app-permissions-get-mask': appPermissionsGetMaskCmd,
-  'org-permissions-get-mask': orgPermissionsGetMaskCmd,
-  'app-permissions-get-mask-by-names': appPermissionsGetMaskByNamesCmd,
-  'org-permissions-get-mask-by-names': orgPermissionsGetMaskByNamesCmd,
-  'app-permissions-get-by-mask': appPermissionsGetByMaskCmd,
-  'org-permissions-get-by-mask': orgPermissionsGetByMaskCmd,
-  'steps-required': stepsRequiredCmd,
-  'current-user': currentUserCmd,
-  'sign-out': signOutCmd,
-  'send-account-deletion-email': sendAccountDeletionEmailCmd,
-  'check-password': checkPasswordCmd,
-  'submit-invite-code': submitInviteCodeCmd,
-  'submit-org-invite-code': submitOrgInviteCodeCmd,
-  'construct-blueprint': constructBlueprintCmd,
-  'confirm-delete-account': confirmDeleteAccountCmd,
-  'set-password': setPasswordCmd,
-  'verify-email': verifyEmailCmd,
-  'reset-password': resetPasswordCmd,
-  'copy-template-to-blueprint': copyTemplateToBlueprintCmd,
-  'set-field-order': setFieldOrderCmd,
-  'apply-rls': applyRlsCmd,
-  'sign-in-one-time-token': signInOneTimeTokenCmd,
-  'create-user-database': createUserDatabaseCmd,
-  'extend-token-expires': extendTokenExpiresCmd,
-  'sign-in': signInCmd,
-  'sign-up': signUpCmd,
-  'one-time-token': oneTimeTokenCmd,
-  'forgot-password': forgotPasswordCmd,
-  'send-verification-email': sendVerificationEmailCmd,
-  'verify-password': verifyPasswordCmd,
-  'verify-totp': verifyTotpCmd,
+  'email-thread': emailThreadCmd,
+  'contact-event': contactEventCmd,
+  expense: expenseCmd,
+  'contact-image': contactImageCmd,
+  'contact-link': contactLinkCmd,
+  'contact-memory': contactMemoryCmd,
+  'contact-note': contactNoteCmd,
+  project: projectCmd,
+  'contact-relationship': contactRelationshipCmd,
+  'contacts-chunk': contactsChunkCmd,
+  conversation: conversationCmd,
+  'conversations-chunk': conversationsChunkCmd,
+  'deal-company': dealCompanyCmd,
+  'deal-contact': dealContactCmd,
+  'deal-note': dealNoteCmd,
+  'deals-chunk': dealsChunkCmd,
+  'email-attachment': emailAttachmentCmd,
+  'email-note': emailNoteCmd,
+  'email-recipient': emailRecipientCmd,
+  'emails-chunk': emailsChunkCmd,
+  'email-threads-chunk': emailThreadsChunkCmd,
+  'event-image': eventImageCmd,
+  'event-link': eventLinkCmd,
+  'event-note': eventNoteCmd,
+  'events-chunk': eventsChunkCmd,
+  'event-venue': eventVenueCmd,
+  venue: venueCmd,
+  'expense-contact': expenseContactCmd,
+  'expenses-chunk': expensesChunkCmd,
+  goal: goalCmd,
+  'goal-habit': goalHabitCmd,
+  habit: habitCmd,
+  'goal-project': goalProjectCmd,
+  'goals-chunk': goalsChunkCmd,
+  'hiking-trail': hikingTrailCmd,
+  'hiking-trails-chunk': hikingTrailsChunkCmd,
+  interaction: interactionCmd,
+  'interactions-chunk': interactionsChunkCmd,
+  'memories-chunk': memoriesChunkCmd,
+  message: messageCmd,
+  'messages-chunk': messagesChunkCmd,
+  'notes-chunk': notesChunkCmd,
+  place: placeCmd,
+  'places-chunk': placesChunkCmd,
+  'project-contact': projectContactCmd,
+  'projects-chunk': projectsChunkCmd,
+  'prompts-chunk': promptsChunkCmd,
+  'provider-sync-state': providerSyncStateCmd,
+  'raw-contact': rawContactCmd,
+  'raw-contact-email': rawContactEmailCmd,
+  'raw-contact-phone': rawContactPhoneCmd,
+  'raw-contact-url': rawContactUrlCmd,
+  rule: ruleCmd,
+  'rules-chunk': rulesChunkCmd,
+  'runtime-artifact': runtimeArtifactCmd,
+  'runtime-config': runtimeConfigCmd,
+  'runtime-event': runtimeEventCmd,
+  'runtime-log': runtimeLogCmd,
+  'runtime-logs-chunk': runtimeLogsChunkCmd,
+  'runtime-metric': runtimeMetricCmd,
+  'runtime-schedule': runtimeScheduleCmd,
+  'runtime-state': runtimeStateCmd,
+  'runtime-state-dependency': runtimeStateDependencyCmd,
+  'runtime-states-chunk': runtimeStatesChunkCmd,
+  skill: skillCmd,
+  'skills-chunk': skillsChunkCmd,
+  'skill-tool': skillToolCmd,
+  'tool-definition': toolDefinitionCmd,
+  tag: tagCmd,
+  'task-contact': taskContactCmd,
+  'task-note': taskNoteCmd,
+  'task-project': taskProjectCmd,
+  'tasks-chunk': tasksChunkCmd,
+  'thread-participant': threadParticipantCmd,
+  'tool-definitions-chunk': toolDefinitionsChunkCmd,
+  'tool-execution': toolExecutionCmd,
+  touchpoint: touchpointCmd,
+  'touchpoints-chunk': touchpointsChunkCmd,
+  trip: tripCmd,
+  'trips-chunk': tripsChunkCmd,
+  'venue-image': venueImageCmd,
+  'venue-link': venueLinkCmd,
+  'venues-chunk': venuesChunkCmd,
 });
 const usage =
-  "\nagentic-db <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  api                  api CRUD operations\n  api-module           apiModule CRUD operations\n  api-schema           apiSchema CRUD operations\n  app-achievement      appAchievement CRUD operations\n  app-admin-grant      appAdminGrant CRUD operations\n  app                  app CRUD operations\n  app-grant            appGrant CRUD operations\n  app-level            appLevel CRUD operations\n  app-level-requirement appLevelRequirement CRUD operations\n  app-limit            appLimit CRUD operations\n  app-limit-default    appLimitDefault CRUD operations\n  app-membership       appMembership CRUD operations\n  app-membership-default appMembershipDefault CRUD operations\n  app-owner-grant      appOwnerGrant CRUD operations\n  app-permission       appPermission CRUD operations\n  app-permission-default appPermissionDefault CRUD operations\n  app-profile          appProfile CRUD operations\n  app-profile-definition-grant appProfileDefinitionGrant CRUD operations\n  app-profile-grant    appProfileGrant CRUD operations\n  app-profile-permission appProfilePermission CRUD operations\n  app-step             appStep CRUD operations\n  audit-log            auditLog CRUD operations\n  blueprint            blueprint CRUD operations\n  blueprint-template   blueprintTemplate CRUD operations\n  check-constraint     checkConstraint CRUD operations\n  claimed-invite       claimedInvite CRUD operations\n  connected-account    connectedAccount CRUD operations\n  connected-accounts-module connectedAccountsModule CRUD operations\n  crypto-address       cryptoAddress CRUD operations\n  crypto-addresses-module cryptoAddressesModule CRUD operations\n  crypto-auth-module   cryptoAuthModule CRUD operations\n  database             database CRUD operations\n  database-provision-module databaseProvisionModule CRUD operations\n  database-transfer    databaseTransfer CRUD operations\n  default-ids-module   defaultIdsModule CRUD operations\n  default-privilege    defaultPrivilege CRUD operations\n  denormalized-table-field denormalizedTableField CRUD operations\n  domain               domain CRUD operations\n  email                email CRUD operations\n  emails-module        emailsModule CRUD operations\n  embedding-chunk      embeddingChunk CRUD operations\n  encrypted-secrets-module encryptedSecretsModule CRUD operations\n  enum                 enum CRUD operations\n  field                field CRUD operations\n  field-module         fieldModule CRUD operations\n  foreign-key-constraint foreignKeyConstraint CRUD operations\n  full-text-search     fullTextSearch CRUD operations\n  hierarchy-module     hierarchyModule CRUD operations\n  index                index CRUD operations\n  invite               invite CRUD operations\n  invites-module       invitesModule CRUD operations\n  levels-module        levelsModule CRUD operations\n  limits-module        limitsModule CRUD operations\n  memberships-module   membershipsModule CRUD operations\n  membership-type      membershipType CRUD operations\n  membership-types-module membershipTypesModule CRUD operations\n  node-type-registry   nodeTypeRegistry CRUD operations\n  org-admin-grant      orgAdminGrant CRUD operations\n  org-chart-edge       orgChartEdge CRUD operations\n  org-chart-edge-grant orgChartEdgeGrant CRUD operations\n  org-claimed-invite   orgClaimedInvite CRUD operations\n  org-get-managers-record orgGetManagersRecord CRUD operations\n  org-get-subordinates-record orgGetSubordinatesRecord CRUD operations\n  org-grant            orgGrant CRUD operations\n  org-invite           orgInvite CRUD operations\n  org-limit            orgLimit CRUD operations\n  org-limit-default    orgLimitDefault CRUD operations\n  org-member           orgMember CRUD operations\n  org-membership       orgMembership CRUD operations\n  org-membership-default orgMembershipDefault CRUD operations\n  org-owner-grant      orgOwnerGrant CRUD operations\n  org-permission       orgPermission CRUD operations\n  org-permission-default orgPermissionDefault CRUD operations\n  org-profile          orgProfile CRUD operations\n  org-profile-definition-grant orgProfileDefinitionGrant CRUD operations\n  org-profile-grant    orgProfileGrant CRUD operations\n  org-profile-permission orgProfilePermission CRUD operations\n  permissions-module   permissionsModule CRUD operations\n  phone-number         phoneNumber CRUD operations\n  phone-numbers-module phoneNumbersModule CRUD operations\n  policy               policy CRUD operations\n  primary-key-constraint primaryKeyConstraint CRUD operations\n  profiles-module      profilesModule CRUD operations\n  relation-provision   relationProvision CRUD operations\n  rls-module           rlsModule CRUD operations\n  role-type            roleType CRUD operations\n  schema               schema CRUD operations\n  schema-grant         schemaGrant CRUD operations\n  secrets-module       secretsModule CRUD operations\n  secure-table-provision secureTableProvision CRUD operations\n  sessions-module      sessionsModule CRUD operations\n  site                 site CRUD operations\n  site-metadatum       siteMetadatum CRUD operations\n  site-module          siteModule CRUD operations\n  site-theme           siteTheme CRUD operations\n  table                table CRUD operations\n  table-grant          tableGrant CRUD operations\n  table-template-module tableTemplateModule CRUD operations\n  trigger              trigger CRUD operations\n  trigger-function     triggerFunction CRUD operations\n  unique-constraint    uniqueConstraint CRUD operations\n  user-auth-module     userAuthModule CRUD operations\n  user                 user CRUD operations\n  users-module         usersModule CRUD operations\n  view                 view CRUD operations\n  view-grant           viewGrant CRUD operations\n  view-rule            viewRule CRUD operations\n  view-table           viewTable CRUD operations\n  current-user-id      currentUserId\n  current-ip-address   currentIpAddress\n  current-user-agent   currentUserAgent\n  app-permissions-get-padded-mask appPermissionsGetPaddedMask\n  org-permissions-get-padded-mask orgPermissionsGetPaddedMask\n  steps-achieved       stepsAchieved\n  org-is-manager-of    orgIsManagerOf\n  app-permissions-get-mask appPermissionsGetMask\n  org-permissions-get-mask orgPermissionsGetMask\n  app-permissions-get-mask-by-names appPermissionsGetMaskByNames\n  org-permissions-get-mask-by-names orgPermissionsGetMaskByNames\n  app-permissions-get-by-mask Reads and enables pagination through a set of `AppPermission`.\n  org-permissions-get-by-mask Reads and enables pagination through a set of `OrgPermission`.\n  steps-required       Reads and enables pagination through a set of `AppLevelRequirement`.\n  current-user         currentUser\n  sign-out             signOut\n  send-account-deletion-email sendAccountDeletionEmail\n  check-password       checkPassword\n  submit-invite-code   submitInviteCode\n  submit-org-invite-code submitOrgInviteCode\n  construct-blueprint  Executes a draft blueprint definition. Four phases: (1) create tables with nodes[], fields, and policies[], (2) create relations between tables, (3) create indexes on table fields (supports BTREE, HNSW, GIN, GIST, BM25, etc.), (4) create full-text search configurations with weighted multi-field TSVector support. nodes[] entries can be strings or {$type, data} objects. Relations use $type for relation_type with junction config in data. Indexes reference table_ref + column name(s) and are resolved to field_ids. Full-text searches reference table_ref + tsvector field + source fields with weights/langs. Builds a ref_map of local ref names to created table UUIDs. Updates blueprint status to constructed (or failed with error_details). Returns the ref_map.\n  confirm-delete-account confirmDeleteAccount\n  set-password         setPassword\n  verify-email         verifyEmail\n  reset-password       resetPassword\n  copy-template-to-blueprint Creates a new blueprint by copying a template definition. Checks visibility: owners can always copy their own templates, others require public visibility. Increments the template copy_count. Returns the new blueprint ID.\n  set-field-order      setFieldOrder\n  apply-rls            applyRls\n  sign-in-one-time-token signInOneTimeToken\n  create-user-database Creates a new user database with all required modules, permissions, and RLS policies.\n\nParameters:\n  - database_name: Name for the new database (required)\n  - owner_id: UUID of the owner user (required)\n  - include_invites: Include invite system (default: true)\n  - include_groups: Include group-level memberships (default: false)\n  - include_levels: Include levels/achievements (default: false)\n  - bitlen: Bit length for permission masks (default: 64)\n  - tokens_expiration: Token expiration interval (default: 30 days)\n\nReturns the database_id UUID of the newly created database.\n\nExample usage:\n  SELECT metaschema_public.create_user_database('my_app', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'::uuid);\n  SELECT metaschema_public.create_user_database('my_app', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'::uuid, true, true);  -- with invites and groups\n  extend-token-expires extendTokenExpires\n  sign-in              signIn\n  sign-up              signUp\n  one-time-token       oneTimeToken\n  forgot-password      forgotPassword\n  send-verification-email sendVerificationEmail\n  verify-password      verifyPassword\n  verify-totp          verifyTotp\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n";
+  '\nagentic-db <command>\n\nCommands:\n  context               Manage API contexts\n  auth                  Manage authentication\n  agent-collaborator   agentCollaborator CRUD operations\n  agent                agent CRUD operations\n  agent-log            agentLog CRUD operations\n  agent-logs-chunk     agentLogsChunk CRUD operations\n  agent-prompt         agentPrompt CRUD operations\n  prompt               prompt CRUD operations\n  agents-chunk         agentsChunk CRUD operations\n  autonomy-record      autonomyRecord CRUD operations\n  autonomy-record-link autonomyRecordLink CRUD operations\n  autonomy-records-chunk autonomyRecordsChunk CRUD operations\n  calendar-attendee    calendarAttendee CRUD operations\n  calendar             calendar CRUD operations\n  calendar-event       calendarEvent CRUD operations\n  calendar-event-contact calendarEventContact CRUD operations\n  contact              contact CRUD operations\n  calendar-event-note  calendarEventNote CRUD operations\n  note                 note CRUD operations\n  calendar-events-chunk calendarEventsChunk CRUD operations\n  calendar-event-task  calendarEventTask CRUD operations\n  task                 task CRUD operations\n  codebase-dependency  codebaseDependency CRUD operations\n  codebases-chunk      codebasesChunk CRUD operations\n  codebasis            codebasis CRUD operations\n  code-chunk           codeChunk CRUD operations\n  companies-chunk      companiesChunk CRUD operations\n  company              company CRUD operations\n  deal                 deal CRUD operations\n  company-event        companyEvent CRUD operations\n  event                event CRUD operations\n  company-image        companyImage CRUD operations\n  image                image CRUD operations\n  company-link         companyLink CRUD operations\n  memory               memory CRUD operations\n  company-memory       companyMemory CRUD operations\n  company-note         companyNote CRUD operations\n  contact-company      contactCompany CRUD operations\n  email                email CRUD operations\n  email-thread         emailThread CRUD operations\n  contact-event        contactEvent CRUD operations\n  expense              expense CRUD operations\n  contact-image        contactImage CRUD operations\n  contact-link         contactLink CRUD operations\n  contact-memory       contactMemory CRUD operations\n  contact-note         contactNote CRUD operations\n  project              project CRUD operations\n  contact-relationship contactRelationship CRUD operations\n  contacts-chunk       contactsChunk CRUD operations\n  conversation         conversation CRUD operations\n  conversations-chunk  conversationsChunk CRUD operations\n  deal-company         dealCompany CRUD operations\n  deal-contact         dealContact CRUD operations\n  deal-note            dealNote CRUD operations\n  deals-chunk          dealsChunk CRUD operations\n  email-attachment     emailAttachment CRUD operations\n  email-note           emailNote CRUD operations\n  email-recipient      emailRecipient CRUD operations\n  emails-chunk         emailsChunk CRUD operations\n  email-threads-chunk  emailThreadsChunk CRUD operations\n  event-image          eventImage CRUD operations\n  event-link           eventLink CRUD operations\n  event-note           eventNote CRUD operations\n  events-chunk         eventsChunk CRUD operations\n  event-venue          eventVenue CRUD operations\n  venue                venue CRUD operations\n  expense-contact      expenseContact CRUD operations\n  expenses-chunk       expensesChunk CRUD operations\n  goal                 goal CRUD operations\n  goal-habit           goalHabit CRUD operations\n  habit                habit CRUD operations\n  goal-project         goalProject CRUD operations\n  goals-chunk          goalsChunk CRUD operations\n  hiking-trail         hikingTrail CRUD operations\n  hiking-trails-chunk  hikingTrailsChunk CRUD operations\n  interaction          interaction CRUD operations\n  interactions-chunk   interactionsChunk CRUD operations\n  memories-chunk       memoriesChunk CRUD operations\n  message              message CRUD operations\n  messages-chunk       messagesChunk CRUD operations\n  notes-chunk          notesChunk CRUD operations\n  place                place CRUD operations\n  places-chunk         placesChunk CRUD operations\n  project-contact      projectContact CRUD operations\n  projects-chunk       projectsChunk CRUD operations\n  prompts-chunk        promptsChunk CRUD operations\n  provider-sync-state  providerSyncState CRUD operations\n  raw-contact          rawContact CRUD operations\n  raw-contact-email    rawContactEmail CRUD operations\n  raw-contact-phone    rawContactPhone CRUD operations\n  raw-contact-url      rawContactUrl CRUD operations\n  rule                 rule CRUD operations\n  rules-chunk          rulesChunk CRUD operations\n  runtime-artifact     runtimeArtifact CRUD operations\n  runtime-config       runtimeConfig CRUD operations\n  runtime-event        runtimeEvent CRUD operations\n  runtime-log          runtimeLog CRUD operations\n  runtime-logs-chunk   runtimeLogsChunk CRUD operations\n  runtime-metric       runtimeMetric CRUD operations\n  runtime-schedule     runtimeSchedule CRUD operations\n  runtime-state        runtimeState CRUD operations\n  runtime-state-dependency runtimeStateDependency CRUD operations\n  runtime-states-chunk runtimeStatesChunk CRUD operations\n  skill                skill CRUD operations\n  skills-chunk         skillsChunk CRUD operations\n  skill-tool           skillTool CRUD operations\n  tool-definition      toolDefinition CRUD operations\n  tag                  tag CRUD operations\n  task-contact         taskContact CRUD operations\n  task-note            taskNote CRUD operations\n  task-project         taskProject CRUD operations\n  tasks-chunk          tasksChunk CRUD operations\n  thread-participant   threadParticipant CRUD operations\n  tool-definitions-chunk toolDefinitionsChunk CRUD operations\n  tool-execution       toolExecution CRUD operations\n  touchpoint           touchpoint CRUD operations\n  touchpoints-chunk    touchpointsChunk CRUD operations\n  trip                 trip CRUD operations\n  trips-chunk          tripsChunk CRUD operations\n  venue-image          venueImage CRUD operations\n  venue-link           venueLink CRUD operations\n  venues-chunk         venuesChunk CRUD operations\n\n  --help, -h            Show this help message\n  --version, -v         Show version\n';
 export const commands = async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
