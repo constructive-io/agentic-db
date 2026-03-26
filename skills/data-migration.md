@@ -67,3 +67,19 @@ UPDATE agentic_db_app_public.contacts SET embedding_stale = true;
 UPDATE agentic_db_app_public.emails SET embedding_stale = true;
 -- (Repeat for all chunked tables)
 ```
+
+## Reference: Exact Migration Script
+
+If you need to re-run the pure SQL mapping script from `avengers` to `agentic-db`, the full script is maintained at `packages/import-avengers/scripts/sql-migration.sql`.
+
+To run it headless:
+```bash
+# 1. Start the PG connection and disable triggers
+PGPASSWORD=password psql -U postgres -h localhost -d agentic-db -c "SET session_replication_role = replica;"
+
+# 2. Run the migration script
+PGPASSWORD=password psql -U postgres -h localhost -d agentic-db -f packages/import-avengers/scripts/sql-migration.sql
+
+# 3. Re-enable triggers
+PGPASSWORD=password psql -U postgres -h localhost -d agentic-db -c "SET session_replication_role = DEFAULT;"
+```
