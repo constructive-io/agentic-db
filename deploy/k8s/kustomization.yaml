@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: agentic-db
+
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  # Copy secrets.yaml.example to secrets.yaml and fill in real values
+  - secrets.yaml
+  - postgres.yaml
+  - server-public.yaml
+  - server-admin.yaml
+  - ollama.yaml
