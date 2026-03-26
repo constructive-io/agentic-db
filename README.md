@@ -21,8 +21,8 @@ This workspace was generated with `pgpm init workspace`. For a complete guide on
 # Install dependencies
 pnpm install
 
-# Start PostgreSQL (requires Docker)
-pgpm docker start
+# Start PostgreSQL + Ollama (requires Docker)
+docker compose up -d
 
 # Load environment variables
 eval "$(pgpm env)"
@@ -39,9 +39,38 @@ pnpm test:watch
 
 - Node.js 20+
 - pnpm
-- Docker
+- Docker (with Compose V2)
 - PostgreSQL client tools (`psql`)
 - pgpm (`npm install -g pgpm`)
+
+### Docker Setup
+
+This repo includes a `docker-compose.yml` that starts PostgreSQL and Ollama with settings tuned for large vector workloads (embeddings, bulk restores, etc.):
+
+```sh
+# Start all services
+docker compose up -d
+
+# Stop all services (data is preserved in named volumes)
+docker compose down
+
+# Stop and delete all data
+docker compose down -v
+```
+
+Key Postgres settings applied by the compose file:
+
+| Setting | Value | Purpose |
+|---------|-------|---------|
+| `shm_size` | 2GB | Prevents "No space left on device" during bulk COPY of vector data |
+| `shared_buffers` | 512MB | More RAM for caching table/index pages |
+| `work_mem` | 64MB | Per-sort/hash memory for vector operations |
+| `maintenance_work_mem` | 512MB | Used by pg_restore, VACUUM, CREATE INDEX |
+| `max_wal_size` | 2GB | Reduces checkpoint frequency during bulk loads |
+
+Data is persisted in named Docker volumes (`pgdata`, `ollama_data`) so it survives `docker compose down` / `docker compose up` cycles.
+
+> **Note:** You can still use `pgpm docker start` for a quick default container, but `docker compose up -d` is recommended for agentic-db development since it includes Ollama and tuned Postgres settings.
 
 See [Prerequisites](https://constructive.io/learn/quickstart/prerequisites) for detailed setup instructions.
 
