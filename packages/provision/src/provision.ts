@@ -80,6 +80,22 @@ async function main() {
     await run(label, mod);
   }
 
+  // Enable app membership defaults: set is_approved and is_verified to TRUE.
+  // The memberships_module generator seeds both as FALSE (secure by default),
+  // but for agentic-db we want users to be immediately active on sign-up.
+  // This follows the same pattern as constructive-db's enableAppMembershipDefaults().
+  // Can also be run standalone: pnpm run enable-membership-defaults
+  if (pgAvailable) {
+    console.log('\n\ud83d\udd11 Enabling app membership defaults...');
+    const defaultsPool = new Pool({ database: process.env.PGDATABASE || 'constructive' });
+    await defaultsPool.query(
+      `UPDATE agentic_db_memberships_public.app_membership_defaults
+       SET is_approved = TRUE, is_verified = TRUE`
+    );
+    await defaultsPool.end();
+    console.log('   is_approved = TRUE, is_verified = TRUE');
+  }
+
   // Reset provision-only settings so normal operation uses random UUIDs.
   // Keep schema naming vars — they're needed at runtime too.
   if (pgAvailable) {
