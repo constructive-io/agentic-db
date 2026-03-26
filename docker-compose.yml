@@ -30,6 +30,15 @@ services:
       timeout: 5s
       retries: 5
 
+  # Ollama for embedding generation.
+  #
+  # Three modes — pick one:
+  #
+  #   CPU (default):     docker compose up -d
+  #   GPU (NVIDIA):      docker compose --profile gpu up -d
+  #   External / host:   docker compose up -d postgres
+  #                      (then point OLLAMA_URL at your host Ollama)
+  #
   ollama:
     container_name: pgpm-ollama
     image: ollama/ollama:latest
@@ -38,6 +47,27 @@ services:
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
+
+  # GPU-accelerated Ollama (opt-in, mutually exclusive with CPU ollama).
+  # Requires NVIDIA Container Toolkit:
+  #   https://docs.nvidia.com/datacenter/cloud-native/container-toolkit
+  ollama-gpu:
+    container_name: pgpm-ollama
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    profiles:
+      - gpu
 
 volumes:
   pgdata:
