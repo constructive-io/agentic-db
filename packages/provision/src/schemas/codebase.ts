@@ -26,7 +26,7 @@ const definition: BlueprintDefinition = {
         }},
       ],
       fields: [
-        { name: 'name', type: 'text', is_not_null: true },
+        { name: 'name', type: 'text', is_required: true },
         { name: 'description', type: 'text' },
         { name: 'repository_url', type: 'text' },
         { name: 'default_branch', type: 'text', default_value: "'main'" },
@@ -52,10 +52,10 @@ const definition: BlueprintDefinition = {
         }},
       ],
       fields: [
-        { name: 'codebase_id', type: 'uuid', is_not_null: true },
-        { name: 'file_path', type: 'text', is_not_null: true },
+        { name: 'codebase_id', type: 'uuid', is_required: true },
+        { name: 'file_path', type: 'text', is_required: true },
         { name: 'chunk_index', type: 'int' },
-        { name: 'content', type: 'text', is_not_null: true },
+        { name: 'content', type: 'text', is_required: true },
         { name: 'language', type: 'text' },
         { name: 'start_line', type: 'int' },
         { name: 'end_line', type: 'int' },

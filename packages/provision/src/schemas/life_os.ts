@@ -28,7 +28,7 @@ const definition: BlueprintDefinition = {
         }},
       ],
       fields: [
-        { name: 'title', type: 'text', is_not_null: true },
+        { name: 'title', type: 'text', is_required: true },
         { name: 'description', type: 'text' },
         { name: 'status', type: 'text', default_value: "'active'" },
         { name: 'target_date', type: 'timestamptz' },
@@ -46,7 +46,7 @@ const definition: BlueprintDefinition = {
       table_name: 'habits',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'name', type: 'text', is_not_null: true },
+        { name: 'name', type: 'text', is_required: true },
         { name: 'frequency', type: 'text', default_value: "'daily'" },
         { name: 'streak', type: 'int', default_value: '0' },
         { name: 'last_completed_at', type: 'timestamptz' },
@@ -69,8 +69,8 @@ const definition: BlueprintDefinition = {
         }},
       ],
       fields: [
-        { name: 'activity_type', type: 'text', is_not_null: true },
-        { name: 'completed_at', type: 'timestamptz', is_not_null: true },
+        { name: 'activity_type', type: 'text', is_required: true },
+        { name: 'completed_at', type: 'timestamptz', is_required: true },
         { name: 'duration_minutes', type: 'int' },
         { name: 'quantity', type: 'numeric' },
         { name: 'quantity_unit', type: 'text' },
@@ -97,7 +97,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
-        { name: 'title', type: 'text', is_not_null: true },
+        { name: 'title', type: 'text', is_required: true },
         { name: 'content', type: 'text' },
         { name: 'location', type: 'text' },
         { name: 'occurred_at', type: 'timestamptz' },
@@ -122,7 +122,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataPostGIS', data: { field_name: 'destination_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
-        { name: 'name', type: 'text', is_not_null: true },
+        { name: 'name', type: 'text', is_required: true },
         { name: 'destination', type: 'text' },
         { name: 'description', type: 'text' },
         { name: 'start_date', type: 'timestamptz' },
@@ -147,7 +147,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataPostGIS', data: { field_name: 'trailhead_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
-        { name: 'name', type: 'text', is_not_null: true },
+        { name: 'name', type: 'text', is_required: true },
         { name: 'location', type: 'text' },
         { name: 'description', type: 'text' },
         { name: 'difficulty', type: 'text' },
@@ -174,7 +174,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
-        { name: 'name', type: 'text', is_not_null: true },
+        { name: 'name', type: 'text', is_required: true },
         { name: 'address', type: 'text' },
         { name: 'description', type: 'text' },
         { name: 'category', type: 'text' },

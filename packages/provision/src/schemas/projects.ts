@@ -25,7 +25,7 @@ const definition: BlueprintDefinition = {
         }},
       ],
       fields: [
-        { name: 'name', type: 'text', is_not_null: true },
+        { name: 'name', type: 'text', is_required: true },
         { name: 'description', type: 'text' },
         { name: 'status', type: 'text', default_value: "'active'" },
         { name: 'project_type', type: 'text' },
