@@ -21,6 +21,7 @@
  *
  * BelongsTo:
  *   memories -> agents (agent_id FK)
+ *   activity_logs -> habits (habit_id FK)
  */
 
 import {
@@ -121,8 +122,9 @@ const BELONGS_TO_RELATIONS: BelongsToRelation[] = [
   { sourceTable: 'memories', targetTable: 'agents', fieldName: 'agent_id', deleteAction: 'n', isRequired: false },
   // Runtime cross-schema FK
   { sourceTable: 'tool_executions', targetTable: 'tool_definitions', fieldName: 'tool_definition_id', deleteAction: 'c', isRequired: true },
-  // Life-OS cross-schema FK (expenses lives in agent.ts)
+  // Life-OS cross-schema FKs
   { sourceTable: 'expenses', targetTable: 'trips', fieldName: 'trip_id', deleteAction: 'n', isRequired: false },
+  { sourceTable: 'activity_logs', targetTable: 'habits', fieldName: 'habit_id', deleteAction: 'n', isRequired: false },
   // Email & calendar BelongsTo contacts
   { sourceTable: 'emails', targetTable: 'contacts', fieldName: 'from_contact_id', deleteAction: 'n', isRequired: false },
   { sourceTable: 'calendar_events', targetTable: 'contacts', fieldName: 'organizer_contact_id', deleteAction: 'n', isRequired: false },

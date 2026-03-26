@@ -1,7 +1,7 @@
 /**
  * life_os.ts — Life-OS domain schema (blueprint definition)
  *
- * Tables: goals, habits, memories, trips, hiking_trails, places
+ * Tables: goals, habits, activity_logs, memories, trips, hiking_trails, places
  * (projects lives in projects.ts; expenses lives in agent.ts)
  * Data* nodes: DataSearch, DataPostGIS
  */
@@ -50,6 +50,33 @@ const definition: BlueprintDefinition = {
         { name: 'frequency', type: 'text', default_value: "'daily'" },
         { name: 'streak', type: 'int', default_value: '0' },
         { name: 'last_completed_at', type: 'timestamptz' },
+        { name: 'tags', type: 'citext[]' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    // -- Activity Logs ------------------------------------------------------
+    {
+      ref: 'activity_logs',
+      table_name: 'activity_logs',
+      nodes: [
+        ...ORG_NODES,
+        { $type: 'DataSearch', data: {
+          embedding: { source_fields: ['activity_type', 'notes'], chunks: {} },
+          bm25: { field_name: 'embedding_text' },
+        }},
+      ],
+      fields: [
+        { name: 'activity_type', type: 'text', is_required: true },
+        { name: 'completed_at', type: 'timestamptz', is_required: true },
+        { name: 'duration_minutes', type: 'int' },
+        { name: 'quantity', type: 'numeric' },
+        { name: 'quantity_unit', type: 'text' },
+        { name: 'intensity', type: 'text' },
+        { name: 'notes', type: 'text' },
+        { name: 'meta', type: 'jsonb' },
         { name: 'tags', type: 'citext[]' },
       ],
       grant_roles: ['authenticated'],
@@ -163,6 +190,7 @@ const definition: BlueprintDefinition = {
   relations: [
     // HasMany: goals -> habits (via goal_habits junction is in cross-relations)
     // trips -> expenses FK handled in cross-relations.ts (expenses lives in agent.ts)
+    // activity_logs -> habits FK handled in cross-relations.ts
   ],
 
   indexes: [
@@ -177,6 +205,9 @@ const definition: BlueprintDefinition = {
 
     { table_ref: 'goals', column: 'status', access_method: 'btree' },
     { table_ref: 'goals', column: 'target_date', access_method: 'btree' },
+    { table_ref: 'activity_logs', column: 'tags', access_method: 'gin' },
+    { table_ref: 'activity_logs', column: 'activity_type', access_method: 'btree' },
+    { table_ref: 'activity_logs', column: 'completed_at', access_method: 'btree' },
     { table_ref: 'habits', column: 'frequency', access_method: 'btree' },
     { table_ref: 'memories', column: 'occurred_at', access_method: 'btree' },
     { table_ref: 'trips', column: 'start_date', access_method: 'btree' },

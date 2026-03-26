@@ -81,7 +81,7 @@ const definition: BlueprintDefinition = {
         }},
       ],
       fields: [
-        { name: 'agent_id', type: 'uuid', is_required: true },
+        { name: 'agent_id', type: 'uuid' },
         { name: 'level', type: 'text', is_required: true },
         { name: 'message', type: 'text', is_required: true },
         { name: 'context', type: 'jsonb' },
