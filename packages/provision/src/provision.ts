@@ -84,6 +84,7 @@ async function main() {
   // The memberships_module generator seeds both as FALSE (secure by default),
   // but for agentic-db we want users to be immediately active on sign-up.
   // This follows the same pattern as constructive-db's enableAppMembershipDefaults().
+  // Can also be run standalone: pnpm run enable-membership-defaults
   if (pgAvailable) {
     console.log('\n\ud83d\udd11 Enabling app membership defaults...');
     const defaultsPool = new Pool({ database: process.env.PGDATABASE || 'constructive' });
