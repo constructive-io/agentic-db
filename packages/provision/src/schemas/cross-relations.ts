@@ -6,7 +6,7 @@
  *
  * M:N junctions:
  *   projects <-> contacts, tasks <-> contacts, tasks <-> projects, goals <-> habits,
- *   goals <-> projects, calendar_events <-> contacts, expenses <-> contacts,
+ *   goals <-> projects, goals <-> tasks, calendar_events <-> contacts, expenses <-> contacts,
  *   agents <-> prompts,
  *   contacts <-> notes, companies <-> notes, deals <-> notes,
  *   events <-> notes, tasks <-> notes, contacts <-> memories,
@@ -21,6 +21,7 @@
  *
  * BelongsTo:
  *   memories -> agents (agent_id FK)
+ *   activity_logs -> habits (habit_id FK)
  */
 
 import {
@@ -95,6 +96,7 @@ const M2N_RELATIONS: M2NRelation[] = [
   { sourceTable: 'tasks',           targetTable: 'projects',  junctionTableName: 'task_projects',           sourceFieldName: 'task_id',           targetFieldName: 'project_id' },
   { sourceTable: 'goals',           targetTable: 'habits',    junctionTableName: 'goal_habits',             sourceFieldName: 'goal_id',           targetFieldName: 'habit_id' },
   { sourceTable: 'goals',           targetTable: 'projects',  junctionTableName: 'goal_projects',           sourceFieldName: 'goal_id',           targetFieldName: 'project_id' },
+  { sourceTable: 'goals',           targetTable: 'tasks',     junctionTableName: 'goal_tasks',              sourceFieldName: 'goal_id',           targetFieldName: 'task_id' },
   { sourceTable: 'calendar_events', targetTable: 'contacts',  junctionTableName: 'calendar_event_contacts', sourceFieldName: 'calendar_event_id', targetFieldName: 'contact_id' },
   { sourceTable: 'expenses',        targetTable: 'contacts',  junctionTableName: 'expense_contacts',        sourceFieldName: 'expense_id',        targetFieldName: 'contact_id' },
   // NOTE: agents <-> rules and agents <-> skills are HasMany in agent.ts (not M2N)
@@ -121,8 +123,9 @@ const BELONGS_TO_RELATIONS: BelongsToRelation[] = [
   { sourceTable: 'memories', targetTable: 'agents', fieldName: 'agent_id', deleteAction: 'n', isRequired: false },
   // Runtime cross-schema FK
   { sourceTable: 'tool_executions', targetTable: 'tool_definitions', fieldName: 'tool_definition_id', deleteAction: 'c', isRequired: true },
-  // Life-OS cross-schema FK (expenses lives in agent.ts)
+  // Life-OS cross-schema FKs
   { sourceTable: 'expenses', targetTable: 'trips', fieldName: 'trip_id', deleteAction: 'n', isRequired: false },
+  { sourceTable: 'activity_logs', targetTable: 'habits', fieldName: 'habit_id', deleteAction: 'n', isRequired: false },
   // Email & calendar BelongsTo contacts
   { sourceTable: 'emails', targetTable: 'contacts', fieldName: 'from_contact_id', deleteAction: 'n', isRequired: false },
   { sourceTable: 'calendar_events', targetTable: 'contacts', fieldName: 'organizer_contact_id', deleteAction: 'n', isRequired: false },
