@@ -7,6 +7,7 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
+
 ALTER TABLE "agentic_db_app_public".codebases 
-  ALTER COLUMN created_at SET NOT NULL;
+    ALTER COLUMN created_at SET DEFAULT now();
 

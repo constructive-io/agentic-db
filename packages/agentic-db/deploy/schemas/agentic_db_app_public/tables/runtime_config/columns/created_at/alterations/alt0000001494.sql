@@ -7,6 +7,7 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_config/columns/created_at/column
 
 
+
 ALTER TABLE "agentic_db_app_public".runtime_config 
-  ALTER COLUMN created_at SET NOT NULL;
+    ALTER COLUMN created_at SET DEFAULT now();
 

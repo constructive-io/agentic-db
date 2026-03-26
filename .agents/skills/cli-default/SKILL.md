@@ -1,13 +1,13 @@
 ---
 name: cli-default
-description: CLI tool (agentic-db) for the default API — provides CRUD commands for 120 tables and 0 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 122 tables and 0 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agentic-db) for the default API — provides CRUD commands for 120 tables and 0 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 122 tables and 0 custom operations
 
 ## Usage
 
@@ -23,13 +23,13 @@ agentic-db auth set-token <token>
 agentic-db config set <key> <value>
 agentic-db config get <key>
 
-# CRUD for any table (e.g. agent-collaborator)
-agentic-db agent-collaborator list
-agentic-db agent-collaborator get --id <value>
-agentic-db agent-collaborator create --<field> <value>
+# CRUD for any table (e.g. activity-log)
+agentic-db activity-log list
+agentic-db activity-log get --id <value>
+agentic-db activity-log create --<field> <value>
 
 # Non-interactive mode (skip all prompts, use flags only)
-agentic-db --no-tty agent-collaborator list
+agentic-db --no-tty activity-log list
 ```
 
 ## Examples
@@ -40,13 +40,13 @@ agentic-db --no-tty agent-collaborator list
 agentic-db context create local --endpoint http://localhost:5000/graphql
 agentic-db context use local
 agentic-db auth set-token <token>
-agentic-db agent-collaborator list
+agentic-db activity-log list
 ```
 
 ### Non-interactive mode (for scripts and CI)
 
 ```bash
-agentic-db --no-tty agent-collaborator create --<field> <value>
+agentic-db --no-tty activity-log create --<field> <value>
 ```
 
 ## References
@@ -56,6 +56,8 @@ See the `references/` directory for detailed per-entity API documentation:
 - [context](references/context.md)
 - [auth](references/auth.md)
 - [config](references/config.md)
+- [activity-log](references/activity-log.md)
+- [activity-logs-chunk](references/activity-logs-chunk.md)
 - [agent-collaborator](references/agent-collaborator.md)
 - [agent](references/agent.md)
 - [agent-log](references/agent-log.md)

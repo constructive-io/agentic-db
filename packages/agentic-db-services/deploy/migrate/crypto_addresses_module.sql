@@ -30,7 +30,7 @@ INSERT INTO metaschema_modules_public.crypto_addresses_module (
   table_name,
   crypto_network
 ) VALUES
-  ('019d2728-2336-7402-840b-964b742fcfe0', '019d2727-6ebb-7f47-9b5c-037b66e19618', '019d2728-1547-7fd8-9754-8b07b30fbec5', '019d2728-1621-717e-8122-efc23849441c', '019d2728-26da-71e7-8d72-0d02ca072d71', '019d2727-7153-7bae-b8ec-6f398ecf0b75', 'crypto_addresses', 'BTC');
+  ('019d2832-21bc-72c3-93be-99c9489f0ab2', '019d2831-6080-7e86-a360-21cd48c6ce49', '019d2832-1382-7e2d-a593-789721ef4d4c', '019d2832-1456-702c-8ded-db3f420fc155', '019d2832-2597-71a0-b86f-7e4a08533794', '019d2831-6349-7cde-a517-c115bf8f4bff', 'crypto_addresses', 'BTC');
 
 
 SET session_replication_role TO DEFAULT;

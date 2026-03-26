@@ -7,6 +7,7 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
+
 ALTER TABLE "agentic_db_app_public".rules_chunks 
-  ALTER COLUMN chunk_index SET NOT NULL;
+    ALTER COLUMN chunk_index SET DEFAULT 0;
 

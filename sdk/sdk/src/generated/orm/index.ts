@@ -5,6 +5,8 @@
  */
 import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
+import { ActivityLogModel } from './models/activityLog';
+import { ActivityLogsChunkModel } from './models/activityLogsChunk';
 import { AgentCollaboratorModel } from './models/agentCollaborator';
 import { AgentModel } from './models/agent';
 import { AgentLogModel } from './models/agentLog';
@@ -157,6 +159,8 @@ export { NodeHttpAdapter } from './node-fetch';
 export function createClient(config: OrmClientConfig) {
   const client = new OrmClient(config);
   return {
+    activityLog: new ActivityLogModel(client),
+    activityLogsChunk: new ActivityLogsChunkModel(client),
     agentCollaborator: new AgentCollaboratorModel(client),
     agent: new AgentModel(client),
     agentLog: new AgentLogModel(client),
