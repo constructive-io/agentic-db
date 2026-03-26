@@ -31,9 +31,15 @@ echo ""
 # 1. Ensure pgpm env is loaded
 eval "$(pgpm env)"
 
-# 2. Start Docker with postgres-plus image (includes pg_search extension for BM25)
-echo "--- Step 1: Ensuring Docker/pgpm is running ---"
-pgpm docker start --image docker.io/constructiveio/postgres-plus:18 --recreate 2>/dev/null || pgpm docker start 2>/dev/null || true
+# 2. Start Docker services (postgres-plus + ollama)
+echo "--- Step 1: Ensuring Docker services are running ---"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+if [ -f "${REPO_DIR}/docker-compose.yml" ]; then
+  docker compose -f "${REPO_DIR}/docker-compose.yml" up -d postgres
+else
+  pgpm docker start --image docker.io/constructiveio/postgres-plus:18 --recreate 2>/dev/null || pgpm docker start 2>/dev/null || true
+fi
 
 # 3. Create the database
 echo ""

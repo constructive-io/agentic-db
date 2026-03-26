@@ -1,0 +1,44 @@
+services:
+  postgres:
+    container_name: pgpm-postgres
+    image: docker.io/constructiveio/postgres-plus:18
+    shm_size: "2g"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_buffers=512MB"
+      - "-c"
+      - "work_mem=64MB"
+      - "-c"
+      - "maintenance_work_mem=512MB"
+      - "-c"
+      - "max_wal_size=2GB"
+      - "-c"
+      - "checkpoint_completion_target=0.9"
+      - "-c"
+      - "effective_cache_size=2GB"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ollama:
+    container_name: pgpm-ollama
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  ollama_data:
