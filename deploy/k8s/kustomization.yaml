@@ -1,14 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: agentic-db
+# Points to the default overlay (bundled Ollama on CPU).
+# For other setups, apply an overlay directly:
+#   kubectl apply -k deploy/k8s/overlays/external-ollama
+#   kubectl apply -k deploy/k8s/overlays/gpu-ollama
 
 resources:
-  - namespace.yaml
-  - configmap.yaml
-  # Copy secrets.yaml.example to secrets.yaml and fill in real values
-  - secrets.yaml
-  - postgres.yaml
-  - server-public.yaml
-  - server-admin.yaml
-  - ollama.yaml
+  - overlays/default

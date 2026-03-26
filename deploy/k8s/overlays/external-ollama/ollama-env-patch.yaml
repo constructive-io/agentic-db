@@ -1,0 +1,8 @@
+# Patch server configs to point OLLAMA_URL at the external service
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ollama-config
+  namespace: agentic-db
+data:
+  OLLAMA_HOST: "ollama:11434"

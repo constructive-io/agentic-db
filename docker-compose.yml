@@ -30,6 +30,15 @@ services:
       timeout: 5s
       retries: 5
 
+  # Default: bundled Ollama on CPU.
+  # Starts with: docker compose up -d
+  #
+  # To use an existing Ollama on the host instead, skip this service:
+  #   docker compose up -d postgres
+  #   Then set OLLAMA_HOST=http://host.docker.internal:11434 (or localhost:11434)
+  #
+  # For GPU acceleration, use the gpu profile instead:
+  #   docker compose --profile gpu up -d
   ollama:
     container_name: pgpm-ollama
     image: ollama/ollama:latest
@@ -38,6 +47,28 @@ services:
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
+
+  # GPU-accelerated Ollama (opt-in via profile).
+  # Requires NVIDIA Container Toolkit: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit
+  # Usage: docker compose --profile gpu up -d
+  # Note: stop the CPU ollama first if running: docker compose stop ollama
+  ollama-gpu:
+    container_name: pgpm-ollama-gpu
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    profiles:
+      - gpu
 
 volumes:
   pgdata:

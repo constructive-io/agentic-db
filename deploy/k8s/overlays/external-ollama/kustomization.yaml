@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# External Ollama overlay: connect to an Ollama instance running
+# on the host machine (or any external host) with hardware acceleration.
+# No Ollama pod is deployed inside the cluster.
+
+resources:
+  - ../../base
+  - ollama-external-service.yaml
+
+patches:
+  - path: ollama-env-patch.yaml
