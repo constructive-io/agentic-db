@@ -23,12 +23,12 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'description'], chunks: {} },
+          embedding: { source_fields: ['title', 'description'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
       fields: [
-        { name: 'title', type: 'text', is_required: true },
+        { name: 'title', type: 'text', is_not_null: true },
         { name: 'description', type: 'text' },
         { name: 'status', type: 'text', default_value: "'active'" },
         { name: 'target_date', type: 'timestamptz' },
@@ -46,7 +46,7 @@ const definition: BlueprintDefinition = {
       table_name: 'habits',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'name', type: 'text', is_required: true },
+        { name: 'name', type: 'text', is_not_null: true },
         { name: 'frequency', type: 'text', default_value: "'daily'" },
         { name: 'streak', type: 'int', default_value: '0' },
         { name: 'last_completed_at', type: 'timestamptz' },
@@ -64,13 +64,13 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['activity_type', 'notes'], chunks: {} },
+          embedding: { source_fields: ['activity_type', 'notes'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
       fields: [
-        { name: 'activity_type', type: 'text', is_required: true },
-        { name: 'completed_at', type: 'timestamptz', is_required: true },
+        { name: 'activity_type', type: 'text', is_not_null: true },
+        { name: 'completed_at', type: 'timestamptz', is_not_null: true },
         { name: 'duration_minutes', type: 'int' },
         { name: 'quantity', type: 'numeric' },
         { name: 'quantity_unit', type: 'text' },
@@ -91,13 +91,13 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'content', 'location'], chunks: {} },
+          embedding: { source_fields: ['title', 'content', 'location'] },
           bm25: { field_name: 'embedding_text' },
         }},
         { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
-        { name: 'title', type: 'text', is_required: true },
+        { name: 'title', type: 'text', is_not_null: true },
         { name: 'content', type: 'text' },
         { name: 'location', type: 'text' },
         { name: 'occurred_at', type: 'timestamptz' },
@@ -116,13 +116,13 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'destination'], chunks: {} },
+          embedding: { source_fields: ['name', 'description', 'destination'] },
           bm25: { field_name: 'embedding_text' },
         }},
         { $type: 'DataPostGIS', data: { field_name: 'destination_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
-        { name: 'name', type: 'text', is_required: true },
+        { name: 'name', type: 'text', is_not_null: true },
         { name: 'destination', type: 'text' },
         { name: 'description', type: 'text' },
         { name: 'start_date', type: 'timestamptz' },
@@ -141,13 +141,13 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'location'], chunks: {} },
+          embedding: { source_fields: ['name', 'description', 'location'] },
           bm25: { field_name: 'embedding_text' },
         }},
         { $type: 'DataPostGIS', data: { field_name: 'trailhead_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
-        { name: 'name', type: 'text', is_required: true },
+        { name: 'name', type: 'text', is_not_null: true },
         { name: 'location', type: 'text' },
         { name: 'description', type: 'text' },
         { name: 'difficulty', type: 'text' },
@@ -168,13 +168,13 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'address'], chunks: {} },
+          embedding: { source_fields: ['name', 'description', 'address'] },
           bm25: { field_name: 'embedding_text' },
         }},
         { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
-        { name: 'name', type: 'text', is_required: true },
+        { name: 'name', type: 'text', is_not_null: true },
         { name: 'address', type: 'text' },
         { name: 'description', type: 'text' },
         { name: 'category', type: 'text' },

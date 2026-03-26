@@ -23,7 +23,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['subject', 'summary'], chunks: {} },
+          embedding: { source_fields: ['subject', 'summary'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -55,7 +55,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['subject', 'body_text'], chunks: {} },
+          embedding: { source_fields: ['subject', 'body_text'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -90,7 +90,7 @@ const definition: BlueprintDefinition = {
       table_name: 'email_attachments',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'filename', type: 'text', is_required: true },
+        { name: 'filename', type: 'text', is_not_null: true },
         { name: 'content_type', type: 'text' },
         { name: 'size_bytes', type: 'int' },
         { name: 'storage_url', type: 'text' },
@@ -109,7 +109,7 @@ const definition: BlueprintDefinition = {
       fields: [
         { name: 'provider_account_id', type: 'text' },
         { name: 'provider_calendar_id', type: 'text' },
-        { name: 'name', type: 'text', is_required: true },
+        { name: 'name', type: 'text', is_not_null: true },
         { name: 'color', type: 'text' },
       ],
       grant_roles: ['authenticated'],
@@ -124,7 +124,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'description'], chunks: {} },
+          embedding: { source_fields: ['title', 'description'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -138,7 +138,7 @@ const definition: BlueprintDefinition = {
       ],
       fields: [
         { name: 'provider_event_id', type: 'text' },
-        { name: 'title', type: 'text', is_required: true },
+        { name: 'title', type: 'text', is_not_null: true },
         { name: 'description', type: 'text' },
         { name: 'start_time', type: 'timestamptz' },
         { name: 'end_time', type: 'timestamptz' },
@@ -172,8 +172,8 @@ const definition: BlueprintDefinition = {
       table_name: 'provider_sync_states',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'provider', type: 'text', is_required: true },
-        { name: 'resource_type', type: 'text', is_required: true },
+        { name: 'provider', type: 'text', is_not_null: true },
+        { name: 'resource_type', type: 'text', is_not_null: true },
         { name: 'sync_cursor', type: 'text' },
         { name: 'history_id', type: 'text' },
         { name: 'last_sync_at', type: 'timestamptz' },

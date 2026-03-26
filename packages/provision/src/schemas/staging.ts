@@ -46,7 +46,7 @@ const definition: BlueprintDefinition = {
       table_name: 'raw_contact_emails',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'email', type: 'text', is_required: true },
+        { name: 'email', type: 'text', is_not_null: true },
         { name: 'email_type', type: 'text' },
         { name: 'is_primary', type: 'bool', default_value: 'false' },
         { name: 'source', type: 'text' },
@@ -63,7 +63,7 @@ const definition: BlueprintDefinition = {
       table_name: 'raw_contact_phones',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'phone', type: 'text', is_required: true },
+        { name: 'phone', type: 'text', is_not_null: true },
         { name: 'phone_type', type: 'text' },
         { name: 'is_primary', type: 'bool', default_value: 'false' },
         { name: 'source', type: 'text' },
@@ -80,7 +80,7 @@ const definition: BlueprintDefinition = {
       table_name: 'raw_contact_urls',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'url', type: 'text', is_required: true },
+        { name: 'url', type: 'text', is_not_null: true },
         { name: 'url_type', type: 'text' },
         { name: 'source', type: 'text' },
         { name: 'confidence', type: 'numeric' },

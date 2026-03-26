@@ -21,12 +21,12 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description'], chunks: {} },
+          embedding: { source_fields: ['name', 'description'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
       fields: [
-        { name: 'name', type: 'text', is_required: true },
+        { name: 'name', type: 'text', is_not_null: true },
         { name: 'description', type: 'text' },
         { name: 'repository_url', type: 'text' },
         { name: 'default_branch', type: 'text', default_value: "'main'" },
@@ -52,10 +52,10 @@ const definition: BlueprintDefinition = {
         }},
       ],
       fields: [
-        { name: 'codebase_id', type: 'uuid', is_required: true },
-        { name: 'file_path', type: 'text', is_required: true },
+        { name: 'codebase_id', type: 'uuid', is_not_null: true },
+        { name: 'file_path', type: 'text', is_not_null: true },
         { name: 'chunk_index', type: 'int' },
-        { name: 'content', type: 'text', is_required: true },
+        { name: 'content', type: 'text', is_not_null: true },
         { name: 'language', type: 'text' },
         { name: 'start_line', type: 'int' },
         { name: 'end_line', type: 'int' },
@@ -70,7 +70,7 @@ const definition: BlueprintDefinition = {
 
   relations: [
     { $type: 'RelationHasMany', source_ref: 'codebases', target_ref: 'code_chunks', delete_action: 'c' },
-    { $type: 'RelationManyToMany', source_ref: 'codebases', target_ref: 'codebases', junction_table_name: 'codebase_dependencies', source_field_name: 'codebase_id', target_field_name: 'dependency_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'codebases', target_ref: 'codebases', junction_table_name: 'codebase_dependencies', source_field_name: 'codebase_id', target_field_name: 'dependency_id', ...M2M_JUNCTION_OPTS },
   ],
 
   indexes: [

@@ -22,12 +22,12 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'state_type'], chunks: {} },
+          embedding: { source_fields: ['name', 'state_type'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
       fields: [
-        { name: 'name', type: 'text', is_required: true },
+        { name: 'name', type: 'text', is_not_null: true },
         { name: 'state_type', type: 'text' },
         { name: 'status', type: 'text', default_value: "'active'" },
         { name: 'data', type: 'jsonb' },
@@ -47,14 +47,14 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['message'], chunks: {} },
+          embedding: { source_fields: ['message'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
       fields: [
-        { name: 'runtime_state_id', type: 'uuid', is_required: true },
-        { name: 'level', type: 'text', is_required: true },
-        { name: 'message', type: 'text', is_required: true },
+        { name: 'runtime_state_id', type: 'uuid', is_not_null: true },
+        { name: 'level', type: 'text', is_not_null: true },
+        { name: 'message', type: 'text', is_not_null: true },
         { name: 'context', type: 'jsonb' },
         { name: 'step_index', type: 'int' },
       ],
@@ -69,8 +69,8 @@ const definition: BlueprintDefinition = {
       table_name: 'runtime_artifacts',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'runtime_state_id', type: 'uuid', is_required: true },
-        { name: 'name', type: 'text', is_required: true },
+        { name: 'runtime_state_id', type: 'uuid', is_not_null: true },
+        { name: 'name', type: 'text', is_not_null: true },
         { name: 'artifact_type', type: 'text' },
         { name: 'content', type: 'text' },
         { name: 'meta', type: 'jsonb' },
@@ -87,9 +87,9 @@ const definition: BlueprintDefinition = {
       table_name: 'runtime_metrics',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'runtime_state_id', type: 'uuid', is_required: true },
-        { name: 'metric_name', type: 'text', is_required: true },
-        { name: 'metric_value', type: 'numeric', is_required: true },
+        { name: 'runtime_state_id', type: 'uuid', is_not_null: true },
+        { name: 'metric_name', type: 'text', is_not_null: true },
+        { name: 'metric_value', type: 'numeric', is_not_null: true },
         { name: 'unit', type: 'text' },
         { name: 'meta', type: 'jsonb' },
       ],
@@ -104,7 +104,7 @@ const definition: BlueprintDefinition = {
       table_name: 'runtime_schedules',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'name', type: 'text', is_required: true },
+        { name: 'name', type: 'text', is_not_null: true },
         { name: 'cron_expression', type: 'text' },
         { name: 'next_run_at', type: 'timestamptz' },
         { name: 'last_run_at', type: 'timestamptz' },
@@ -123,8 +123,8 @@ const definition: BlueprintDefinition = {
       table_name: 'runtime_events',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'event_type', type: 'text', is_required: true },
-        { name: 'payload', type: 'jsonb', is_required: true },
+        { name: 'event_type', type: 'text', is_not_null: true },
+        { name: 'payload', type: 'jsonb', is_not_null: true },
         { name: 'source', type: 'text' },
         { name: 'processed_at', type: 'timestamptz' },
         { name: 'status', type: 'text', default_value: "'pending'" },
@@ -140,7 +140,7 @@ const definition: BlueprintDefinition = {
       table_name: 'runtime_config',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'key', type: 'text', is_required: true },
+        { name: 'key', type: 'text', is_not_null: true },
         { name: 'value', type: 'jsonb' },
         { name: 'description', type: 'text' },
         { name: 'is_secret', type: 'bool', default_value: 'false' },
@@ -157,12 +157,12 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title'], chunks: {} },
+          embedding: { source_fields: ['title'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
       fields: [
-        { name: 'title', type: 'text', is_required: true },
+        { name: 'title', type: 'text', is_not_null: true },
         { name: 'agent_id', type: 'uuid' },
         { name: 'status', type: 'text', default_value: "'active'" },
         { name: 'meta', type: 'jsonb' },
@@ -178,14 +178,14 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['content'], chunks: {} },
+          embedding: { source_fields: ['content'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
       fields: [
-        { name: 'conversation_id', type: 'uuid', is_required: true },
-        { name: 'role', type: 'text', is_required: true },
-        { name: 'content', type: 'text', is_required: true },
+        { name: 'conversation_id', type: 'uuid', is_not_null: true },
+        { name: 'role', type: 'text', is_not_null: true },
+        { name: 'content', type: 'text', is_not_null: true },
         { name: 'token_count', type: 'int' },
         { name: 'meta', type: 'jsonb' },
         { name: 'tool_calls', type: 'jsonb' },
@@ -202,7 +202,7 @@ const definition: BlueprintDefinition = {
       table_name: 'tool_executions',
       nodes: [...ORG_NODES],
       fields: [
-        { name: 'tool_definition_id', type: 'uuid', is_required: true },
+        { name: 'tool_definition_id', type: 'uuid', is_not_null: true },
         { name: 'message_id', type: 'uuid' },
         { name: 'input', type: 'jsonb' },
         { name: 'output', type: 'jsonb' },
@@ -225,7 +225,7 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'conversations',    target_ref: 'messages',         delete_action: 'c' },
     // tool_definitions -> tool_executions FK handled in cross-relations.ts
 
-    { $type: 'RelationManyToMany', source_ref: 'runtime_states', target_ref: 'runtime_states', junction_table_name: 'runtime_state_dependencies', source_field_name: 'state_id', target_field_name: 'dependency_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'runtime_states', target_ref: 'runtime_states', junction_table_name: 'runtime_state_dependencies', source_field_name: 'state_id', target_field_name: 'dependency_id', ...M2M_JUNCTION_OPTS },
   ],
 
   indexes: [

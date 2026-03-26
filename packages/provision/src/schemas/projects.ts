@@ -20,12 +20,12 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description'], chunks: {} },
+          embedding: { source_fields: ['name', 'description'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
       fields: [
-        { name: 'name', type: 'text', is_required: true },
+        { name: 'name', type: 'text', is_not_null: true },
         { name: 'description', type: 'text' },
         { name: 'status', type: 'text', default_value: "'active'" },
         { name: 'project_type', type: 'text' },
