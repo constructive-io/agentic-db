@@ -41,7 +41,7 @@ INSERT INTO metaschema_modules_public.hierarchy_module (
   get_managers_function,
   is_manager_of_function
 ) VALUES
-  ('019d2727-f337-7790-90a9-6cb6cc96137e', '019d2727-6ebb-7f47-9b5c-037b66e19618', '019d2727-7441-782b-8fbb-66db0def84ca', '019d2727-7d11-762f-a2e0-1e65abab72fe', '019d2727-f33f-79db-9f54-b31a4bb3c77b', 'org_chart_edges', '019d2727-f628-7968-820f-bdbb8e2ea44c', 'org_hierarchy_sprts', '019d2727-f7d6-756f-9f89-64a5cb854bc4', 'org_chart_edge_grants', '019d2727-7153-7bae-b8ec-6f398ecf0b75', '019d2727-7153-7bae-b8ec-6f398ecf0b75', 'org', 'agentic_db_memberships_private', 'org_hierarchy_sprts', 'org_rebuild_org_hierarchy_sprt', 'org_get_subordinates', 'org_get_managers', 'org_is_manager_of');
+  ('019d2831-f140-7542-8454-b0cf8572bfa6', '019d2831-6080-7e86-a360-21cd48c6ce49', '019d2831-667f-7d04-8346-45045ab70d5c', '019d2831-6ff3-7744-8389-bc9167060dbe', '019d2831-f149-7d89-a983-3a738af9398d', 'org_chart_edges', '019d2831-f445-765d-b3b8-9505bec1fcfe', 'org_hierarchy_sprts', '019d2831-f607-7bbe-b47c-e6baa4828889', 'org_chart_edge_grants', '019d2831-6349-7cde-a517-c115bf8f4bff', '019d2831-6349-7cde-a517-c115bf8f4bff', 'org', 'agentic_db_memberships_private', 'org_hierarchy_sprts', 'org_rebuild_org_hierarchy_sprt', 'org_get_subordinates', 'org_get_managers', 'org_is_manager_of');
 
 
 SET session_replication_role TO DEFAULT;

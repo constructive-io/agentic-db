@@ -7,6 +7,7 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/columns/updated_at/column
 
 
+
 ALTER TABLE "agentic_db_app_public".runtime_artifacts 
-  ALTER COLUMN updated_at SET NOT NULL;
+    ALTER COLUMN updated_at SET DEFAULT now();
 

@@ -7,6 +7,7 @@
 -- requires: schemas/agentic_db_app_public/tables/codebase_dependencies/columns/id/column
 
 
+
 ALTER TABLE "agentic_db_app_public".codebase_dependencies 
-  ALTER COLUMN id SET NOT NULL;
+    ALTER COLUMN id SET DEFAULT uuidv7();
 

@@ -28,6 +28,64 @@ scalar UUID
 "A pgvector embedding — array of floats. Dimensions must match the column (e.g. 768 for nomic-embed-text)."
 scalar Vector
 
+"Methods to use when ordering `ActivityLog`."
+enum ActivityLogOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  ACTIVITY_TYPE_ASC
+  ACTIVITY_TYPE_DESC
+  COMPLETED_AT_ASC
+  COMPLETED_AT_DESC
+  EMBEDDING_TEXT_ASC
+  EMBEDDING_TEXT_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  HABIT_ID_ASC
+  HABIT_ID_DESC
+  EMBEDDING_TEXT_BM25_SCORE_ASC
+  EMBEDDING_TEXT_BM25_SCORE_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  ACTIVITY_TYPE_TRGM_SIMILARITY_ASC
+  ACTIVITY_TYPE_TRGM_SIMILARITY_DESC
+  QUANTITY_UNIT_TRGM_SIMILARITY_ASC
+  QUANTITY_UNIT_TRGM_SIMILARITY_DESC
+  INTENSITY_TRGM_SIMILARITY_ASC
+  INTENSITY_TRGM_SIMILARITY_DESC
+  NOTES_TRGM_SIMILARITY_ASC
+  NOTES_TRGM_SIMILARITY_DESC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
+  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
+"Methods to use when ordering `ActivityLogsChunk`."
+enum ActivityLogsChunkOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ACTIVITY_LOGS_ID_ASC
+  ACTIVITY_LOGS_ID_DESC
+  EMBEDDING_ASC
+  EMBEDDING_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  EMBEDDING_VECTOR_DISTANCE_ASC
+  EMBEDDING_VECTOR_DISTANCE_DESC
+  SEARCH_SCORE_ASC
+  SEARCH_SCORE_DESC
+}
+
 "Methods to use when ordering `AgentCollaborator`."
 enum AgentCollaboratorOrderBy {
   NATURAL
@@ -2768,6 +2826,123 @@ enum VenuesChunkOrderBy {
   SEARCH_SCORE_DESC
 }
 
+"@@hasChunks {\"chunks_table\": \"activity_logs_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
+type ActivityLog {
+  id: UUID!
+  entityId: UUID!
+  activityType: String!
+  completedAt: Datetime!
+  durationMinutes: Int
+  quantity: BigFloat
+  quantityUnit: String
+  intensity: String
+  notes: String
+  meta: JSON
+  tags: [String]
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean!
+  habitId: UUID
+  "Reads a single `Habit` that is related to this `ActivityLog`."
+  habit: Habit
+  "Reads and enables pagination through a set of `ActivityLogsChunk`."
+  activityLogsChunksByActivityLogsId(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ActivityLogsChunkFilter
+    "The method to use when ordering `ActivityLogsChunk`."
+    orderBy: [ActivityLogsChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ActivityLogsChunkConnection!
+  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
+  embeddingTextBm25Score: Float
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "TRGM similarity when searching `activityType`. Returns null when no trgm search filter is active."
+  activityTypeTrgmSimilarity: Float
+  "TRGM similarity when searching `quantityUnit`. Returns null when no trgm search filter is active."
+  quantityUnitTrgmSimilarity: Float
+  "TRGM similarity when searching `intensity`. Returns null when no trgm search filter is active."
+  intensityTrgmSimilarity: Float
+  "TRGM similarity when searching `notes`. Returns null when no trgm search filter is active."
+  notesTrgmSimilarity: Float
+  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
+  embeddingTextTrgmSimilarity: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `ActivityLog` values."
+type ActivityLogConnection {
+  "A list of `ActivityLog` objects."
+  nodes: [ActivityLog]!
+  "A list of edges which contains the `ActivityLog` and cursor to aid in pagination."
+  edges: [ActivityLogEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `ActivityLog` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `ActivityLog` edge in the connection."
+type ActivityLogEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `ActivityLog` at the end of the edge."
+  node: ActivityLog
+}
+
+"@@chunksOf {\"parent_fk\": \"activity_logs_id\", \"parent_table\": \"activity_logs\"}"
+type ActivityLogsChunk {
+  id: UUID!
+  activityLogsId: UUID!
+  content: String!
+  chunkIndex: Int!
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+  "Reads a single `ActivityLog` that is related to this `ActivityLogsChunk`."
+  activityLogs: ActivityLog
+  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
+  embeddingVectorDistance: Float
+  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
+  searchScore: Float
+}
+
+"A connection to a list of `ActivityLogsChunk` values."
+type ActivityLogsChunkConnection {
+  "A list of `ActivityLogsChunk` objects."
+  nodes: [ActivityLogsChunk]!
+  "A list of edges which contains the `ActivityLogsChunk` and cursor to aid in pagination."
+  edges: [ActivityLogsChunkEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `ActivityLogsChunk` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `ActivityLogsChunk` edge in the connection."
+type ActivityLogsChunkEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `ActivityLogsChunk` at the end of the edge."
+  node: ActivityLogsChunk
+}
+
 "@@hasChunks {\"chunks_table\": \"agents_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Agent {
   id: UUID!
@@ -3037,7 +3212,7 @@ type AgentEdge {
 type AgentLog {
   id: UUID!
   entityId: UUID!
-  agentId: UUID!
+  agentId: UUID
   level: String!
   message: String!
   context: JSON
@@ -6611,6 +6786,42 @@ type ConversationsChunkEdge {
   node: ConversationsChunk
 }
 
+"The output of our create `ActivityLog` mutation."
+type CreateActivityLogPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ActivityLog` that was created by this mutation."
+  activityLog: ActivityLog
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ActivityLog`. May be used by Relay 1."
+  activityLogEdge(
+    "The method to use when ordering `ActivityLog`."
+    orderBy: [ActivityLogOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ActivityLogEdge
+}
+
+"The output of our create `ActivityLogsChunk` mutation."
+type CreateActivityLogsChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ActivityLogsChunk` that was created by this mutation."
+  activityLogsChunk: ActivityLogsChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ActivityLogsChunk`. May be used by Relay 1."
+  activityLogsChunkEdge(
+    "The method to use when ordering `ActivityLogsChunk`."
+    orderBy: [ActivityLogsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ActivityLogsChunkEdge
+}
+
 "The output of our create `AgentCollaborator` mutation."
 type CreateAgentCollaboratorPayload {
   """
@@ -9234,6 +9445,42 @@ type DealsChunkEdge {
   cursor: Cursor
   "The `DealsChunk` at the end of the edge."
   node: DealsChunk
+}
+
+"The output of our delete `ActivityLog` mutation."
+type DeleteActivityLogPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ActivityLog` that was deleted by this mutation."
+  activityLog: ActivityLog
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ActivityLog`. May be used by Relay 1."
+  activityLogEdge(
+    "The method to use when ordering `ActivityLog`."
+    orderBy: [ActivityLogOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ActivityLogEdge
+}
+
+"The output of our delete `ActivityLogsChunk` mutation."
+type DeleteActivityLogsChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ActivityLogsChunk` that was deleted by this mutation."
+  activityLogsChunk: ActivityLogsChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ActivityLogsChunk`. May be used by Relay 1."
+  activityLogsChunkEdge(
+    "The method to use when ordering `ActivityLogsChunk`."
+    orderBy: [ActivityLogsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ActivityLogsChunkEdge
 }
 
 "The output of our delete `AgentCollaborator` mutation."
@@ -13274,6 +13521,26 @@ type Habit {
     "The method to use when ordering `Goal`."
     orderBy: [GoalOrderBy!] = [PRIMARY_KEY_ASC]
   ): HabitGoalsManyToManyConnection!
+  "Reads and enables pagination through a set of `ActivityLog`."
+  activityLogs(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ActivityLogFilter
+    "The method to use when ordering `ActivityLog`."
+    orderBy: [ActivityLogOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ActivityLogConnection!
   "Reads and enables pagination through a set of `GoalHabit`."
   goalHabits(
     "Only read the first `n` values of the set."
@@ -14734,6 +15001,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateCalendarInput!
   ): CreateCalendarPayload
+  "Creates a single `CalendarAttendee`."
+  createCalendarAttendee(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateCalendarAttendeeInput!
+  ): CreateCalendarAttendeePayload
   "Creates a single `Tag`."
   createTag(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14744,21 +15016,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeArtifactInput!
   ): CreateRuntimeArtifactPayload
-  "Creates a single `CalendarAttendee`."
-  createCalendarAttendee(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateCalendarAttendeeInput!
-  ): CreateCalendarAttendeePayload
-  "Creates a single `RawContactUrl`."
-  createRawContactUrl(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRawContactUrlInput!
-  ): CreateRawContactUrlPayload
-  "Creates a single `RuntimeConfig`."
-  createRuntimeConfig(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRuntimeConfigInput!
-  ): CreateRuntimeConfigPayload
   "Creates a single `ProviderSyncState`."
   createProviderSyncState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14769,21 +15026,36 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeEventInput!
   ): CreateRuntimeEventPayload
-  "Creates a single `RuntimeMetric`."
-  createRuntimeMetric(
+  "Creates a single `RawContactUrl`."
+  createRawContactUrl(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRuntimeMetricInput!
-  ): CreateRuntimeMetricPayload
+    input: CreateRawContactUrlInput!
+  ): CreateRawContactUrlPayload
+  "Creates a single `RuntimeConfig`."
+  createRuntimeConfig(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRuntimeConfigInput!
+  ): CreateRuntimeConfigPayload
   "Creates a single `ToolExecution`."
   createToolExecution(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateToolExecutionInput!
   ): CreateToolExecutionPayload
+  "Creates a single `RuntimeMetric`."
+  createRuntimeMetric(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRuntimeMetricInput!
+  ): CreateRuntimeMetricPayload
   "Creates a single `EmailAttachment`."
   createEmailAttachment(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateEmailAttachmentInput!
   ): CreateEmailAttachmentPayload
+  "Creates a single `RuntimeSchedule`."
+  createRuntimeSchedule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRuntimeScheduleInput!
+  ): CreateRuntimeSchedulePayload
   "Creates a single `RawContactEmail`."
   createRawContactEmail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14794,11 +15066,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRawContactPhoneInput!
   ): CreateRawContactPhonePayload
-  "Creates a single `RuntimeSchedule`."
-  createRuntimeSchedule(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRuntimeScheduleInput!
-  ): CreateRuntimeSchedulePayload
   "Creates a single `Image`."
   createImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14819,16 +15086,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeLogInput!
   ): CreateRuntimeLogPayload
-  "Creates a single `ToolDefinition`."
-  createToolDefinition(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateToolDefinitionInput!
-  ): CreateToolDefinitionPayload
   "Creates a single `RuntimeState`."
   createRuntimeState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeStateInput!
   ): CreateRuntimeStatePayload
+  "Creates a single `ToolDefinition`."
+  createToolDefinition(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateToolDefinitionInput!
+  ): CreateToolDefinitionPayload
   "Creates a single `Message`."
   createMessage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14864,6 +15131,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateTaskInput!
   ): CreateTaskPayload
+  "Creates a single `ActivityLogsChunk`."
+  createActivityLogsChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateActivityLogsChunkInput!
+  ): CreateActivityLogsChunkPayload
   "Creates a single `AgentLogsChunk`."
   createAgentLogsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15039,6 +15311,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateHabitInput!
   ): CreateHabitPayload
+  "Creates a single `Goal`."
+  createGoal(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateGoalInput!
+  ): CreateGoalPayload
   "Creates a single `Note`."
   createNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15049,16 +15326,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreatePromptInput!
   ): CreatePromptPayload
-  "Creates a single `Goal`."
-  createGoal(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateGoalInput!
-  ): CreateGoalPayload
   "Creates a single `Codebasis`."
   createCodebasis(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateCodebasisInput!
   ): CreateCodebasisPayload
+  "Creates a single `Interaction`."
+  createInteraction(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateInteractionInput!
+  ): CreateInteractionPayload
   "Creates a single `AutonomyRecord`."
   createAutonomyRecord(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15069,11 +15346,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateAgentInput!
   ): CreateAgentPayload
-  "Creates a single `Interaction`."
-  createInteraction(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateInteractionInput!
-  ): CreateInteractionPayload
   "Creates a single `Deal`."
   createDeal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15094,6 +15366,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateExpenseInput!
   ): CreateExpensePayload
+  "Creates a single `ActivityLog`."
+  createActivityLog(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateActivityLogInput!
+  ): CreateActivityLogPayload
   "Creates a single `EmailThread`."
   createEmailThread(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15334,6 +15611,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateCalendarInput!
   ): UpdateCalendarPayload
+  "Updates a single `CalendarAttendee` using a unique key and a patch."
+  updateCalendarAttendee(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateCalendarAttendeeInput!
+  ): UpdateCalendarAttendeePayload
   "Updates a single `Tag` using a unique key and a patch."
   updateTag(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15344,21 +15626,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeArtifactInput!
   ): UpdateRuntimeArtifactPayload
-  "Updates a single `CalendarAttendee` using a unique key and a patch."
-  updateCalendarAttendee(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateCalendarAttendeeInput!
-  ): UpdateCalendarAttendeePayload
-  "Updates a single `RawContactUrl` using a unique key and a patch."
-  updateRawContactUrl(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRawContactUrlInput!
-  ): UpdateRawContactUrlPayload
-  "Updates a single `RuntimeConfig` using a unique key and a patch."
-  updateRuntimeConfig(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuntimeConfigInput!
-  ): UpdateRuntimeConfigPayload
   "Updates a single `ProviderSyncState` using a unique key and a patch."
   updateProviderSyncState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15369,21 +15636,36 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeEventInput!
   ): UpdateRuntimeEventPayload
-  "Updates a single `RuntimeMetric` using a unique key and a patch."
-  updateRuntimeMetric(
+  "Updates a single `RawContactUrl` using a unique key and a patch."
+  updateRawContactUrl(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuntimeMetricInput!
-  ): UpdateRuntimeMetricPayload
+    input: UpdateRawContactUrlInput!
+  ): UpdateRawContactUrlPayload
+  "Updates a single `RuntimeConfig` using a unique key and a patch."
+  updateRuntimeConfig(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRuntimeConfigInput!
+  ): UpdateRuntimeConfigPayload
   "Updates a single `ToolExecution` using a unique key and a patch."
   updateToolExecution(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateToolExecutionInput!
   ): UpdateToolExecutionPayload
+  "Updates a single `RuntimeMetric` using a unique key and a patch."
+  updateRuntimeMetric(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRuntimeMetricInput!
+  ): UpdateRuntimeMetricPayload
   "Updates a single `EmailAttachment` using a unique key and a patch."
   updateEmailAttachment(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateEmailAttachmentInput!
   ): UpdateEmailAttachmentPayload
+  "Updates a single `RuntimeSchedule` using a unique key and a patch."
+  updateRuntimeSchedule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRuntimeScheduleInput!
+  ): UpdateRuntimeSchedulePayload
   "Updates a single `RawContactEmail` using a unique key and a patch."
   updateRawContactEmail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15394,11 +15676,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRawContactPhoneInput!
   ): UpdateRawContactPhonePayload
-  "Updates a single `RuntimeSchedule` using a unique key and a patch."
-  updateRuntimeSchedule(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuntimeScheduleInput!
-  ): UpdateRuntimeSchedulePayload
   "Updates a single `Image` using a unique key and a patch."
   updateImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15419,16 +15696,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeLogInput!
   ): UpdateRuntimeLogPayload
-  "Updates a single `ToolDefinition` using a unique key and a patch."
-  updateToolDefinition(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateToolDefinitionInput!
-  ): UpdateToolDefinitionPayload
   "Updates a single `RuntimeState` using a unique key and a patch."
   updateRuntimeState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeStateInput!
   ): UpdateRuntimeStatePayload
+  "Updates a single `ToolDefinition` using a unique key and a patch."
+  updateToolDefinition(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateToolDefinitionInput!
+  ): UpdateToolDefinitionPayload
   "Updates a single `Message` using a unique key and a patch."
   updateMessage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15464,6 +15741,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateTaskInput!
   ): UpdateTaskPayload
+  "Updates a single `ActivityLogsChunk` using a unique key and a patch."
+  updateActivityLogsChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateActivityLogsChunkInput!
+  ): UpdateActivityLogsChunkPayload
   "Updates a single `AgentLogsChunk` using a unique key and a patch."
   updateAgentLogsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15639,6 +15921,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateHabitInput!
   ): UpdateHabitPayload
+  "Updates a single `Goal` using a unique key and a patch."
+  updateGoal(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateGoalInput!
+  ): UpdateGoalPayload
   "Updates a single `Note` using a unique key and a patch."
   updateNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15649,16 +15936,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdatePromptInput!
   ): UpdatePromptPayload
-  "Updates a single `Goal` using a unique key and a patch."
-  updateGoal(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateGoalInput!
-  ): UpdateGoalPayload
   "Updates a single `Codebasis` using a unique key and a patch."
   updateCodebasis(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateCodebasisInput!
   ): UpdateCodebasisPayload
+  "Updates a single `Interaction` using a unique key and a patch."
+  updateInteraction(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateInteractionInput!
+  ): UpdateInteractionPayload
   "Updates a single `AutonomyRecord` using a unique key and a patch."
   updateAutonomyRecord(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15669,11 +15956,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateAgentInput!
   ): UpdateAgentPayload
-  "Updates a single `Interaction` using a unique key and a patch."
-  updateInteraction(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateInteractionInput!
-  ): UpdateInteractionPayload
   "Updates a single `Deal` using a unique key and a patch."
   updateDeal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15694,6 +15976,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateExpenseInput!
   ): UpdateExpensePayload
+  "Updates a single `ActivityLog` using a unique key and a patch."
+  updateActivityLog(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateActivityLogInput!
+  ): UpdateActivityLogPayload
   "Updates a single `EmailThread` using a unique key and a patch."
   updateEmailThread(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15934,6 +16221,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteCalendarInput!
   ): DeleteCalendarPayload
+  "Deletes a single `CalendarAttendee` using a unique key."
+  deleteCalendarAttendee(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteCalendarAttendeeInput!
+  ): DeleteCalendarAttendeePayload
   "Deletes a single `Tag` using a unique key."
   deleteTag(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15944,21 +16236,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeArtifactInput!
   ): DeleteRuntimeArtifactPayload
-  "Deletes a single `CalendarAttendee` using a unique key."
-  deleteCalendarAttendee(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteCalendarAttendeeInput!
-  ): DeleteCalendarAttendeePayload
-  "Deletes a single `RawContactUrl` using a unique key."
-  deleteRawContactUrl(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRawContactUrlInput!
-  ): DeleteRawContactUrlPayload
-  "Deletes a single `RuntimeConfig` using a unique key."
-  deleteRuntimeConfig(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuntimeConfigInput!
-  ): DeleteRuntimeConfigPayload
   "Deletes a single `ProviderSyncState` using a unique key."
   deleteProviderSyncState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15969,21 +16246,36 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeEventInput!
   ): DeleteRuntimeEventPayload
-  "Deletes a single `RuntimeMetric` using a unique key."
-  deleteRuntimeMetric(
+  "Deletes a single `RawContactUrl` using a unique key."
+  deleteRawContactUrl(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuntimeMetricInput!
-  ): DeleteRuntimeMetricPayload
+    input: DeleteRawContactUrlInput!
+  ): DeleteRawContactUrlPayload
+  "Deletes a single `RuntimeConfig` using a unique key."
+  deleteRuntimeConfig(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRuntimeConfigInput!
+  ): DeleteRuntimeConfigPayload
   "Deletes a single `ToolExecution` using a unique key."
   deleteToolExecution(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteToolExecutionInput!
   ): DeleteToolExecutionPayload
+  "Deletes a single `RuntimeMetric` using a unique key."
+  deleteRuntimeMetric(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRuntimeMetricInput!
+  ): DeleteRuntimeMetricPayload
   "Deletes a single `EmailAttachment` using a unique key."
   deleteEmailAttachment(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteEmailAttachmentInput!
   ): DeleteEmailAttachmentPayload
+  "Deletes a single `RuntimeSchedule` using a unique key."
+  deleteRuntimeSchedule(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRuntimeScheduleInput!
+  ): DeleteRuntimeSchedulePayload
   "Deletes a single `RawContactEmail` using a unique key."
   deleteRawContactEmail(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15994,11 +16286,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRawContactPhoneInput!
   ): DeleteRawContactPhonePayload
-  "Deletes a single `RuntimeSchedule` using a unique key."
-  deleteRuntimeSchedule(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuntimeScheduleInput!
-  ): DeleteRuntimeSchedulePayload
   "Deletes a single `Image` using a unique key."
   deleteImage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16019,16 +16306,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeLogInput!
   ): DeleteRuntimeLogPayload
-  "Deletes a single `ToolDefinition` using a unique key."
-  deleteToolDefinition(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteToolDefinitionInput!
-  ): DeleteToolDefinitionPayload
   "Deletes a single `RuntimeState` using a unique key."
   deleteRuntimeState(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeStateInput!
   ): DeleteRuntimeStatePayload
+  "Deletes a single `ToolDefinition` using a unique key."
+  deleteToolDefinition(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteToolDefinitionInput!
+  ): DeleteToolDefinitionPayload
   "Deletes a single `Message` using a unique key."
   deleteMessage(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16064,6 +16351,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteTaskInput!
   ): DeleteTaskPayload
+  "Deletes a single `ActivityLogsChunk` using a unique key."
+  deleteActivityLogsChunk(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteActivityLogsChunkInput!
+  ): DeleteActivityLogsChunkPayload
   "Deletes a single `AgentLogsChunk` using a unique key."
   deleteAgentLogsChunk(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16239,6 +16531,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteHabitInput!
   ): DeleteHabitPayload
+  "Deletes a single `Goal` using a unique key."
+  deleteGoal(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteGoalInput!
+  ): DeleteGoalPayload
   "Deletes a single `Note` using a unique key."
   deleteNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16249,16 +16546,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeletePromptInput!
   ): DeletePromptPayload
-  "Deletes a single `Goal` using a unique key."
-  deleteGoal(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteGoalInput!
-  ): DeleteGoalPayload
   "Deletes a single `Codebasis` using a unique key."
   deleteCodebasis(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteCodebasisInput!
   ): DeleteCodebasisPayload
+  "Deletes a single `Interaction` using a unique key."
+  deleteInteraction(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteInteractionInput!
+  ): DeleteInteractionPayload
   "Deletes a single `AutonomyRecord` using a unique key."
   deleteAutonomyRecord(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16269,11 +16566,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteAgentInput!
   ): DeleteAgentPayload
-  "Deletes a single `Interaction` using a unique key."
-  deleteInteraction(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteInteractionInput!
-  ): DeleteInteractionPayload
   "Deletes a single `Deal` using a unique key."
   deleteDeal(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16294,6 +16586,11 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteExpenseInput!
   ): DeleteExpensePayload
+  "Deletes a single `ActivityLog` using a unique key."
+  deleteActivityLog(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteActivityLogInput!
+  ): DeleteActivityLogPayload
   "Deletes a single `EmailThread` using a unique key."
   deleteEmailThread(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -18495,6 +18792,26 @@ type Query {
     "The method to use when ordering `Calendar`."
     orderBy: [CalendarOrderBy!] = [PRIMARY_KEY_ASC]
   ): CalendarConnection
+  "Reads and enables pagination through a set of `CalendarAttendee`."
+  calendarAttendees(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: CalendarAttendeeFilter
+    "The method to use when ordering `CalendarAttendee`."
+    orderBy: [CalendarAttendeeOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CalendarAttendeeConnection
   "Reads and enables pagination through a set of `Tag`."
   tags(
     "Only read the first `n` values of the set."
@@ -18535,66 +18852,6 @@ type Query {
     "The method to use when ordering `RuntimeArtifact`."
     orderBy: [RuntimeArtifactOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeArtifactConnection
-  "Reads and enables pagination through a set of `CalendarAttendee`."
-  calendarAttendees(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: CalendarAttendeeFilter
-    "The method to use when ordering `CalendarAttendee`."
-    orderBy: [CalendarAttendeeOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CalendarAttendeeConnection
-  "Reads and enables pagination through a set of `RawContactUrl`."
-  rawContactUrls(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RawContactUrlFilter
-    "The method to use when ordering `RawContactUrl`."
-    orderBy: [RawContactUrlOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RawContactUrlConnection
-  "Reads and enables pagination through a set of `RuntimeConfig`."
-  runtimeConfigs(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeConfigFilter
-    "The method to use when ordering `RuntimeConfig`."
-    orderBy: [RuntimeConfigOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeConfigConnection
   "Reads and enables pagination through a set of `ProviderSyncState`."
   providerSyncStates(
     "Only read the first `n` values of the set."
@@ -18635,8 +18892,8 @@ type Query {
     "The method to use when ordering `RuntimeEvent`."
     orderBy: [RuntimeEventOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeEventConnection
-  "Reads and enables pagination through a set of `RuntimeMetric`."
-  runtimeMetrics(
+  "Reads and enables pagination through a set of `RawContactUrl`."
+  rawContactUrls(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -18651,10 +18908,30 @@ type Query {
     "Read all values in the set after (below) this cursor."
     after: Cursor
     "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeMetricFilter
-    "The method to use when ordering `RuntimeMetric`."
-    orderBy: [RuntimeMetricOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeMetricConnection
+    where: RawContactUrlFilter
+    "The method to use when ordering `RawContactUrl`."
+    orderBy: [RawContactUrlOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawContactUrlConnection
+  "Reads and enables pagination through a set of `RuntimeConfig`."
+  runtimeConfigs(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RuntimeConfigFilter
+    "The method to use when ordering `RuntimeConfig`."
+    orderBy: [RuntimeConfigOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuntimeConfigConnection
   "Reads and enables pagination through a set of `ToolExecution`."
   toolExecutions(
     "Only read the first `n` values of the set."
@@ -18675,6 +18952,26 @@ type Query {
     "The method to use when ordering `ToolExecution`."
     orderBy: [ToolExecutionOrderBy!] = [PRIMARY_KEY_ASC]
   ): ToolExecutionConnection
+  "Reads and enables pagination through a set of `RuntimeMetric`."
+  runtimeMetrics(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RuntimeMetricFilter
+    "The method to use when ordering `RuntimeMetric`."
+    orderBy: [RuntimeMetricOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuntimeMetricConnection
   "Reads and enables pagination through a set of `EmailAttachment`."
   emailAttachments(
     "Only read the first `n` values of the set."
@@ -18695,6 +18992,26 @@ type Query {
     "The method to use when ordering `EmailAttachment`."
     orderBy: [EmailAttachmentOrderBy!] = [PRIMARY_KEY_ASC]
   ): EmailAttachmentConnection
+  "Reads and enables pagination through a set of `RuntimeSchedule`."
+  runtimeSchedules(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RuntimeScheduleFilter
+    "The method to use when ordering `RuntimeSchedule`."
+    orderBy: [RuntimeScheduleOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RuntimeScheduleConnection
   "Reads and enables pagination through a set of `RawContactEmail`."
   rawContactEmails(
     "Only read the first `n` values of the set."
@@ -18735,26 +19052,6 @@ type Query {
     "The method to use when ordering `RawContactPhone`."
     orderBy: [RawContactPhoneOrderBy!] = [PRIMARY_KEY_ASC]
   ): RawContactPhoneConnection
-  "Reads and enables pagination through a set of `RuntimeSchedule`."
-  runtimeSchedules(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RuntimeScheduleFilter
-    "The method to use when ordering `RuntimeSchedule`."
-    orderBy: [RuntimeScheduleOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RuntimeScheduleConnection
   "Reads and enables pagination through a set of `Image`."
   images(
     "Only read the first `n` values of the set."
@@ -18835,26 +19132,6 @@ type Query {
     "The method to use when ordering `RuntimeLog`."
     orderBy: [RuntimeLogOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeLogConnection
-  "Reads and enables pagination through a set of `ToolDefinition`."
-  toolDefinitions(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ToolDefinitionFilter
-    "The method to use when ordering `ToolDefinition`."
-    orderBy: [ToolDefinitionOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ToolDefinitionConnection
   "Reads and enables pagination through a set of `RuntimeState`."
   runtimeStates(
     "Only read the first `n` values of the set."
@@ -18875,6 +19152,26 @@ type Query {
     "The method to use when ordering `RuntimeState`."
     orderBy: [RuntimeStateOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeStateConnection
+  "Reads and enables pagination through a set of `ToolDefinition`."
+  toolDefinitions(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ToolDefinitionFilter
+    "The method to use when ordering `ToolDefinition`."
+    orderBy: [ToolDefinitionOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ToolDefinitionConnection
   "Reads and enables pagination through a set of `Message`."
   messages(
     "Only read the first `n` values of the set."
@@ -19015,6 +19312,26 @@ type Query {
     "The method to use when ordering `Task`."
     orderBy: [TaskOrderBy!] = [PRIMARY_KEY_ASC]
   ): TaskConnection
+  "Reads and enables pagination through a set of `ActivityLogsChunk`."
+  activityLogsChunks(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ActivityLogsChunkFilter
+    "The method to use when ordering `ActivityLogsChunk`."
+    orderBy: [ActivityLogsChunkOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ActivityLogsChunkConnection
   "Reads and enables pagination through a set of `AgentLogsChunk`."
   agentLogsChunks(
     "Only read the first `n` values of the set."
@@ -19715,6 +20032,26 @@ type Query {
     "The method to use when ordering `Habit`."
     orderBy: [HabitOrderBy!] = [PRIMARY_KEY_ASC]
   ): HabitConnection
+  "Reads and enables pagination through a set of `Goal`."
+  goals(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: GoalFilter
+    "The method to use when ordering `Goal`."
+    orderBy: [GoalOrderBy!] = [PRIMARY_KEY_ASC]
+  ): GoalConnection
   "Reads and enables pagination through a set of `Note`."
   notes(
     "Only read the first `n` values of the set."
@@ -19755,26 +20092,6 @@ type Query {
     "The method to use when ordering `Prompt`."
     orderBy: [PromptOrderBy!] = [PRIMARY_KEY_ASC]
   ): PromptConnection
-  "Reads and enables pagination through a set of `Goal`."
-  goals(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: GoalFilter
-    "The method to use when ordering `Goal`."
-    orderBy: [GoalOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GoalConnection
   "Reads and enables pagination through a set of `Codebasis`."
   codebases(
     "Only read the first `n` values of the set."
@@ -19795,6 +20112,26 @@ type Query {
     "The method to use when ordering `Codebasis`."
     orderBy: [CodebasisOrderBy!] = [PRIMARY_KEY_ASC]
   ): CodebasisConnection
+  "Reads and enables pagination through a set of `Interaction`."
+  interactions(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: InteractionFilter
+    "The method to use when ordering `Interaction`."
+    orderBy: [InteractionOrderBy!] = [PRIMARY_KEY_ASC]
+  ): InteractionConnection
   "Reads and enables pagination through a set of `AutonomyRecord`."
   autonomyRecords(
     "Only read the first `n` values of the set."
@@ -19835,26 +20172,6 @@ type Query {
     "The method to use when ordering `Agent`."
     orderBy: [AgentOrderBy!] = [PRIMARY_KEY_ASC]
   ): AgentConnection
-  "Reads and enables pagination through a set of `Interaction`."
-  interactions(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: InteractionFilter
-    "The method to use when ordering `Interaction`."
-    orderBy: [InteractionOrderBy!] = [PRIMARY_KEY_ASC]
-  ): InteractionConnection
   "Reads and enables pagination through a set of `Deal`."
   deals(
     "Only read the first `n` values of the set."
@@ -19935,6 +20252,26 @@ type Query {
     "The method to use when ordering `Expense`."
     orderBy: [ExpenseOrderBy!] = [PRIMARY_KEY_ASC]
   ): ExpenseConnection
+  "Reads and enables pagination through a set of `ActivityLog`."
+  activityLogs(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ActivityLogFilter
+    "The method to use when ordering `ActivityLog`."
+    orderBy: [ActivityLogOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ActivityLogConnection
   "Reads and enables pagination through a set of `EmailThread`."
   emailThreads(
     "Only read the first `n` values of the set."
@@ -22302,6 +22639,42 @@ type TripsChunkEdge {
   cursor: Cursor
   "The `TripsChunk` at the end of the edge."
   node: TripsChunk
+}
+
+"The output of our update `ActivityLog` mutation."
+type UpdateActivityLogPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ActivityLog` that was updated by this mutation."
+  activityLog: ActivityLog
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ActivityLog`. May be used by Relay 1."
+  activityLogEdge(
+    "The method to use when ordering `ActivityLog`."
+    orderBy: [ActivityLogOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ActivityLogEdge
+}
+
+"The output of our update `ActivityLogsChunk` mutation."
+type UpdateActivityLogsChunkPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ActivityLogsChunk` that was updated by this mutation."
+  activityLogsChunk: ActivityLogsChunk
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ActivityLogsChunk`. May be used by Relay 1."
+  activityLogsChunkEdge(
+    "The method to use when ordering `ActivityLogsChunk`."
+    orderBy: [ActivityLogsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ActivityLogsChunkEdge
 }
 
 "The output of our update `AgentCollaborator` mutation."
@@ -24846,6 +25219,185 @@ type VenuesChunkEdge {
   node: VenuesChunk
 }
 
+"A filter to be used against `ActivityLog` object types. All fields are combined with a logical ‘and.’"
+input ActivityLogFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `activityType` field."
+  activityType: StringTrgmFilter
+  "Filter by the object’s `completedAt` field."
+  completedAt: DatetimeFilter
+  "Filter by the object’s `durationMinutes` field."
+  durationMinutes: IntFilter
+  "Filter by the object’s `quantity` field."
+  quantity: BigFloatFilter
+  "Filter by the object’s `quantityUnit` field."
+  quantityUnit: StringTrgmFilter
+  "Filter by the object’s `intensity` field."
+  intensity: StringTrgmFilter
+  "Filter by the object’s `notes` field."
+  notes: StringTrgmFilter
+  "Filter by the object’s `meta` field."
+  meta: JSONFilter
+  "Filter by the object’s `tags` field."
+  tags: StringListFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `embeddingText` field."
+  embeddingText: StringTrgmFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `embeddingStale` field."
+  embeddingStale: BooleanFilter
+  "Filter by the object’s `habitId` field."
+  habitId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [ActivityLogFilter!]
+  "Checks for any expressions in this list."
+  or: [ActivityLogFilter!]
+  "Negates the expression."
+  not: ActivityLogFilter
+  "Filter by the object’s `habit` relation."
+  habit: HabitFilter
+  "A related `habit` exists."
+  habitExists: Boolean
+  "Filter by the object’s `activityLogsChunksByActivityLogsId` relation."
+  activityLogsChunksByActivityLogsId: ActivityLogToManyActivityLogsChunkFilter
+  "`activityLogsChunksByActivityLogsId` exist."
+  activityLogsChunksByActivityLogsIdExist: Boolean
+  "BM25 search on the `embedding_text` column."
+  bm25EmbeddingText: Bm25SearchInput
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+  "TRGM search on the `activity_type` column."
+  trgmActivityType: TrgmSearchInput
+  "TRGM search on the `quantity_unit` column."
+  trgmQuantityUnit: TrgmSearchInput
+  "TRGM search on the `intensity` column."
+  trgmIntensity: TrgmSearchInput
+  "TRGM search on the `notes` column."
+  trgmNotes: TrgmSearchInput
+  "TRGM search on the `embedding_text` column."
+  trgmEmbeddingText: TrgmSearchInput
+  """
+  Composite full-text search. Provide a search string and it will be dispatched
+  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+  simultaneously. Rows matching ANY algorithm are returned. All matching score
+  fields are populated.
+  """
+  fullTextSearch: String
+}
+
+"An input for mutations affecting `ActivityLog`"
+input ActivityLogInput {
+  id: UUID
+  entityId: UUID!
+  activityType: String!
+  completedAt: Datetime!
+  durationMinutes: Int
+  quantity: BigFloat
+  quantityUnit: String
+  intensity: String
+  notes: String
+  meta: JSON
+  tags: [String]
+  createdAt: Datetime
+  updatedAt: Datetime
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+  habitId: UUID
+}
+
+"Represents an update to a `ActivityLog`. Fields that are set will be updated."
+input ActivityLogPatch {
+  id: UUID
+  entityId: UUID
+  activityType: String
+  completedAt: Datetime
+  durationMinutes: Int
+  quantity: BigFloat
+  quantityUnit: String
+  intensity: String
+  notes: String
+  meta: JSON
+  tags: [String]
+  createdAt: Datetime
+  updatedAt: Datetime
+  embeddingText: String
+  embedding: Vector
+  embeddingStale: Boolean
+  habitId: UUID
+}
+
+"A filter to be used against `ActivityLogsChunk` object types. All fields are combined with a logical ‘and.’"
+input ActivityLogsChunkFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `activityLogsId` field."
+  activityLogsId: UUIDFilter
+  "Filter by the object’s `content` field."
+  content: StringFilter
+  "Filter by the object’s `chunkIndex` field."
+  chunkIndex: IntFilter
+  "Filter by the object’s `embedding` field."
+  embedding: VectorFilter
+  "Filter by the object’s `metadata` field."
+  metadata: JSONFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Checks for all expressions in this list."
+  and: [ActivityLogsChunkFilter!]
+  "Checks for any expressions in this list."
+  or: [ActivityLogsChunkFilter!]
+  "Negates the expression."
+  not: ActivityLogsChunkFilter
+  "Filter by the object’s `activityLogs` relation."
+  activityLogs: ActivityLogFilter
+  "VECTOR search on the `embedding` column."
+  vectorEmbedding: VectorNearbyInput
+}
+
+"An input for mutations affecting `ActivityLogsChunk`"
+input ActivityLogsChunkInput {
+  id: UUID
+  activityLogsId: UUID!
+  content: String!
+  chunkIndex: Int
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"Represents an update to a `ActivityLogsChunk`. Fields that are set will be updated."
+input ActivityLogsChunkPatch {
+  id: UUID
+  activityLogsId: UUID
+  content: String
+  chunkIndex: Int
+  embedding: Vector
+  metadata: JSON
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+"A filter to be used against many `ActivityLogsChunk` object types. All fields are combined with a logical ‘and.’"
+input ActivityLogToManyActivityLogsChunkFilter {
+  "Filters to entities where at least one related entity matches."
+  some: ActivityLogsChunkFilter
+  "Filters to entities where every related entity matches."
+  every: ActivityLogsChunkFilter
+  "Filters to entities where no related entity matches."
+  none: ActivityLogsChunkFilter
+}
+
 "A filter to be used against `AgentCollaborator` object types. All fields are combined with a logical ‘and.’"
 input AgentCollaboratorFilter {
   "Filter by the object’s `agentId` field."
@@ -25026,6 +25578,8 @@ input AgentLogFilter {
   not: AgentLogFilter
   "Filter by the object’s `agent` relation."
   agent: AgentFilter
+  "A related `agent` exists."
+  agentExists: Boolean
   "Filter by the object’s `agentLogsChunksByAgentLogsId` relation."
   agentLogsChunksByAgentLogsId: AgentLogToManyAgentLogsChunkFilter
   "`agentLogsChunksByAgentLogsId` exist."
@@ -25053,7 +25607,7 @@ input AgentLogFilter {
 input AgentLogInput {
   id: UUID
   entityId: UUID!
-  agentId: UUID!
+  agentId: UUID
   level: String!
   message: String!
   context: JSON
@@ -27855,6 +28409,28 @@ input ConversationToManyMessageFilter {
   none: MessageFilter
 }
 
+"All input for the create `ActivityLog` mutation."
+input CreateActivityLogInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `ActivityLog` to be created by this mutation."
+  activityLog: ActivityLogInput!
+}
+
+"All input for the create `ActivityLogsChunk` mutation."
+input CreateActivityLogsChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `ActivityLogsChunk` to be created by this mutation."
+  activityLogsChunk: ActivityLogsChunkInput!
+}
+
 "All input for the create `AgentCollaborator` mutation."
 input CreateAgentCollaboratorInput {
   """
@@ -29558,6 +30134,26 @@ input DealToManyTouchpointFilter {
   every: TouchpointFilter
   "Filters to entities where no related entity matches."
   none: TouchpointFilter
+}
+
+"All input for the `deleteActivityLog` mutation."
+input DeleteActivityLogInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteActivityLogsChunk` mutation."
+input DeleteActivityLogsChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
 }
 
 "All input for the `deleteAgentCollaborator` mutation."
@@ -32282,6 +32878,10 @@ input HabitFilter {
   or: [HabitFilter!]
   "Negates the expression."
   not: HabitFilter
+  "Filter by the object’s `activityLogs` relation."
+  activityLogs: HabitToManyActivityLogFilter
+  "`activityLogs` exist."
+  activityLogsExist: Boolean
   "Filter by the object’s `goalHabits` relation."
   goalHabits: HabitToManyGoalHabitFilter
   "`goalHabits` exist."
@@ -32312,6 +32912,16 @@ input HabitPatch {
   tags: [String]
   createdAt: Datetime
   updatedAt: Datetime
+}
+
+"A filter to be used against many `ActivityLog` object types. All fields are combined with a logical ‘and.’"
+input HabitToManyActivityLogFilter {
+  "Filters to entities where at least one related entity matches."
+  some: ActivityLogFilter
+  "Filters to entities where every related entity matches."
+  every: ActivityLogFilter
+  "Filters to entities where no related entity matches."
+  none: ActivityLogFilter
 }
 
 "A filter to be used against many `GoalHabit` object types. All fields are combined with a logical ‘and.’"
@@ -36810,6 +37420,30 @@ input TripToManyTripsChunkFilter {
   every: TripsChunkFilter
   "Filters to entities where no related entity matches."
   none: TripsChunkFilter
+}
+
+"All input for the `updateActivityLog` mutation."
+input UpdateActivityLogInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `ActivityLog` being updated."
+  activityLogPatch: ActivityLogPatch!
+}
+
+"All input for the `updateActivityLogsChunk` mutation."
+input UpdateActivityLogsChunkInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `ActivityLogsChunk` being updated."
+  activityLogsChunkPatch: ActivityLogsChunkPatch!
 }
 
 "All input for the `updateAgentCollaborator` mutation."

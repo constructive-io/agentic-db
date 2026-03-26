@@ -1,13 +1,13 @@
 ---
 name: orm-default
-description: ORM client for the default API — provides typed CRUD operations for 120 tables and 0 custom operations
+description: ORM client for the default API — provides typed CRUD operations for 122 tables and 0 custom operations
 ---
 
 # orm-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-ORM client for the default API — provides typed CRUD operations for 120 tables and 0 custom operations
+ORM client for the default API — provides typed CRUD operations for 122 tables and 0 custom operations
 
 ## Usage
 
@@ -15,7 +15,7 @@ ORM client for the default API — provides typed CRUD operations for 120 tables
 // Import the ORM client
 import { db } from './orm';
 
-// Available models: agentCollaborator, agent, agentLog, agentLogsChunk, agentPrompt, prompt, agentsChunk, autonomyRecord, ...
+// Available models: activityLog, activityLogsChunk, agentCollaborator, agent, agentLog, agentLogsChunk, agentPrompt, prompt, ...
 db.<model>.findMany({ select: { id: true } }).execute()
 db.<model>.findOne({ id: '<UUID>', select: { id: true } }).execute()
 db.<model>.create({ data: { ... }, select: { id: true } }).execute()
@@ -28,7 +28,7 @@ db.<model>.delete({ where: { id: '<UUID>' } }).execute()
 ### Query records
 
 ```typescript
-const items = await db.agentCollaborator.findMany({
+const items = await db.activityLog.findMany({
   select: { id: true }
 }).execute();
 ```
@@ -37,6 +37,8 @@ const items = await db.agentCollaborator.findMany({
 
 See the `references/` directory for detailed per-entity API documentation:
 
+- [activity-log](references/activity-log.md)
+- [activity-logs-chunk](references/activity-logs-chunk.md)
 - [agent-collaborator](references/agent-collaborator.md)
 - [agent](references/agent.md)
 - [agent-log](references/agent-log.md)

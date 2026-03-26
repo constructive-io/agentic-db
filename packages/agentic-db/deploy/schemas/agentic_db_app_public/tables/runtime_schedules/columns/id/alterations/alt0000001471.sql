@@ -7,6 +7,7 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
+
 ALTER TABLE "agentic_db_app_public".runtime_schedules 
-  ALTER COLUMN id SET NOT NULL;
+    ALTER COLUMN id SET DEFAULT uuidv7();
 

@@ -231,6 +231,55 @@ export interface UUIDListFilter {
   anyGreaterThanOrEqualTo?: string;
 }
 // ============ Entity Types ============
+export interface ActivityLog {
+  id: string;
+  entityId?: string | null;
+  activityType?: string | null;
+  completedAt?: string | null;
+  durationMinutes?: number | null;
+  quantity?: string | null;
+  quantityUnit?: string | null;
+  intensity?: string | null;
+  notes?: string | null;
+  meta?: Record<string, unknown> | null;
+  tags?: string[] | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  habitId?: string | null;
+  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
+  embeddingTextBm25Score?: number | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** TRGM similarity when searching `activityType`. Returns null when no trgm search filter is active. */
+  activityTypeTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `quantityUnit`. Returns null when no trgm search filter is active. */
+  quantityUnitTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `intensity`. Returns null when no trgm search filter is active. */
+  intensityTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `notes`. Returns null when no trgm search filter is active. */
+  notesTrgmSimilarity?: number | null;
+  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
+  embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface ActivityLogsChunk {
+  id: string;
+  activityLogsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface AgentCollaborator {
   agentId?: string | null;
   id: string;
@@ -2245,6 +2294,13 @@ export interface PageInfo {
   endCursor?: string | null;
 }
 // ============ Entity Relation Types ============
+export interface ActivityLogRelations {
+  habit?: Habit | null;
+  activityLogsChunksByActivityLogsId?: ConnectionResult<ActivityLogsChunk>;
+}
+export interface ActivityLogsChunkRelations {
+  activityLogs?: ActivityLog | null;
+}
 export interface AgentCollaboratorRelations {
   agent?: Agent | null;
 }
@@ -2634,6 +2690,7 @@ export interface GoalHabitRelations {
 }
 export interface HabitRelations {
   goals?: ConnectionResult<Goal>;
+  activityLogs?: ConnectionResult<ActivityLog>;
   goalHabits?: ConnectionResult<GoalHabit>;
 }
 export interface GoalProjectRelations {
@@ -2809,6 +2866,8 @@ export interface VenuesChunkRelations {
   venues?: Venue | null;
 }
 // ============ Entity Types With Relations ============
+export type ActivityLogWithRelations = ActivityLog & ActivityLogRelations;
+export type ActivityLogsChunkWithRelations = ActivityLogsChunk & ActivityLogsChunkRelations;
 export type AgentCollaboratorWithRelations = AgentCollaborator & AgentCollaboratorRelations;
 export type AgentWithRelations = Agent & AgentRelations;
 export type AgentLogWithRelations = AgentLog & AgentLogRelations;
@@ -2934,6 +2993,57 @@ export type VenueImageWithRelations = VenueImage & VenueImageRelations;
 export type VenueLinkWithRelations = VenueLink & VenueLinkRelations;
 export type VenuesChunkWithRelations = VenuesChunk & VenuesChunkRelations;
 // ============ Entity Select Types ============
+export type ActivityLogSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  activityType?: boolean;
+  completedAt?: boolean;
+  durationMinutes?: boolean;
+  quantity?: boolean;
+  quantityUnit?: boolean;
+  intensity?: boolean;
+  notes?: boolean;
+  meta?: boolean;
+  tags?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  habitId?: boolean;
+  embeddingTextBm25Score?: boolean;
+  embeddingVectorDistance?: boolean;
+  activityTypeTrgmSimilarity?: boolean;
+  quantityUnitTrgmSimilarity?: boolean;
+  intensityTrgmSimilarity?: boolean;
+  notesTrgmSimilarity?: boolean;
+  embeddingTextTrgmSimilarity?: boolean;
+  searchScore?: boolean;
+  habit?: {
+    select: HabitSelect;
+  };
+  activityLogsChunksByActivityLogsId?: {
+    select: ActivityLogsChunkSelect;
+    first?: number;
+    filter?: ActivityLogsChunkFilter;
+    orderBy?: ActivityLogsChunkOrderBy[];
+  };
+};
+export type ActivityLogsChunkSelect = {
+  id?: boolean;
+  activityLogsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  activityLogs?: {
+    select: ActivityLogSelect;
+  };
+};
 export type AgentCollaboratorSelect = {
   agentId?: boolean;
   id?: boolean;
@@ -5162,6 +5272,12 @@ export type HabitSelect = {
     filter?: GoalFilter;
     orderBy?: GoalOrderBy[];
   };
+  activityLogs?: {
+    select: ActivityLogSelect;
+    first?: number;
+    filter?: ActivityLogFilter;
+    orderBy?: ActivityLogOrderBy[];
+  };
   goalHabits?: {
     select: GoalHabitSelect;
     first?: number;
@@ -6165,6 +6281,105 @@ export type VenuesChunkSelect = {
   };
 };
 // ============ Table Filter Types ============
+export interface ActivityLogFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `activityType` field. */
+  activityType?: StringTrgmFilter;
+  /** Filter by the object’s `completedAt` field. */
+  completedAt?: DatetimeFilter;
+  /** Filter by the object’s `durationMinutes` field. */
+  durationMinutes?: IntFilter;
+  /** Filter by the object’s `quantity` field. */
+  quantity?: BigFloatFilter;
+  /** Filter by the object’s `quantityUnit` field. */
+  quantityUnit?: StringTrgmFilter;
+  /** Filter by the object’s `intensity` field. */
+  intensity?: StringTrgmFilter;
+  /** Filter by the object’s `notes` field. */
+  notes?: StringTrgmFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `habitId` field. */
+  habitId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ActivityLogFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ActivityLogFilter[];
+  /** Negates the expression. */
+  not?: ActivityLogFilter;
+  /** Filter by the object’s `habit` relation. */
+  habit?: HabitFilter;
+  /** A related `habit` exists. */
+  habitExists?: boolean;
+  /** Filter by the object’s `activityLogsChunksByActivityLogsId` relation. */
+  activityLogsChunksByActivityLogsId?: ActivityLogToManyActivityLogsChunkFilter;
+  /** `activityLogsChunksByActivityLogsId` exist. */
+  activityLogsChunksByActivityLogsIdExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `activity_type` column. */
+  trgmActivityType?: TrgmSearchInput;
+  /** TRGM search on the `quantity_unit` column. */
+  trgmQuantityUnit?: TrgmSearchInput;
+  /** TRGM search on the `intensity` column. */
+  trgmIntensity?: TrgmSearchInput;
+  /** TRGM search on the `notes` column. */
+  trgmNotes?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+export interface ActivityLogsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `activityLogsId` field. */
+  activityLogsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: ActivityLogsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ActivityLogsChunkFilter[];
+  /** Negates the expression. */
+  not?: ActivityLogsChunkFilter;
+  /** Filter by the object’s `activityLogs` relation. */
+  activityLogs?: ActivityLogFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 export interface AgentCollaboratorFilter {
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
@@ -6307,6 +6522,8 @@ export interface AgentLogFilter {
   not?: AgentLogFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
+  /** A related `agent` exists. */
+  agentExists?: boolean;
   /** Filter by the object’s `agentLogsChunksByAgentLogsId` relation. */
   agentLogsChunksByAgentLogsId?: AgentLogToManyAgentLogsChunkFilter;
   /** `agentLogsChunksByAgentLogsId` exist. */
@@ -9056,6 +9273,10 @@ export interface HabitFilter {
   or?: HabitFilter[];
   /** Negates the expression. */
   not?: HabitFilter;
+  /** Filter by the object’s `activityLogs` relation. */
+  activityLogs?: HabitToManyActivityLogFilter;
+  /** `activityLogs` exist. */
+  activityLogsExist?: boolean;
   /** Filter by the object’s `goalHabits` relation. */
   goalHabits?: HabitToManyGoalHabitFilter;
   /** `goalHabits` exist. */
@@ -10875,6 +11096,58 @@ export interface VenuesChunkFilter {
   vectorEmbedding?: VectorNearbyInput;
 }
 // ============ OrderBy Types ============
+export type ActivityLogOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'ACTIVITY_TYPE_ASC'
+  | 'ACTIVITY_TYPE_DESC'
+  | 'COMPLETED_AT_ASC'
+  | 'COMPLETED_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'HABIT_ID_ASC'
+  | 'HABIT_ID_DESC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
+  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'ACTIVITY_TYPE_TRGM_SIMILARITY_ASC'
+  | 'ACTIVITY_TYPE_TRGM_SIMILARITY_DESC'
+  | 'QUANTITY_UNIT_TRGM_SIMILARITY_ASC'
+  | 'QUANTITY_UNIT_TRGM_SIMILARITY_DESC'
+  | 'INTENSITY_TRGM_SIMILARITY_ASC'
+  | 'INTENSITY_TRGM_SIMILARITY_DESC'
+  | 'NOTES_TRGM_SIMILARITY_ASC'
+  | 'NOTES_TRGM_SIMILARITY_DESC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
+  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type ActivityLogsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ACTIVITY_LOGS_ID_ASC'
+  | 'ACTIVITY_LOGS_ID_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'CREATED_AT_ASC'
+  | 'CREATED_AT_DESC'
+  | 'UPDATED_AT_ASC'
+  | 'UPDATED_AT_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type AgentCollaboratorOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -13246,6 +13519,76 @@ export type VenuesChunkOrderBy =
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 // ============ CRUD Input Types ============
+export interface CreateActivityLogInput {
+  clientMutationId?: string;
+  activityLog: {
+    entityId: string;
+    activityType: string;
+    completedAt: string;
+    durationMinutes?: number;
+    quantity?: string;
+    quantityUnit?: string;
+    intensity?: string;
+    notes?: string;
+    meta?: Record<string, unknown>;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    habitId?: string;
+  };
+}
+export interface ActivityLogPatch {
+  entityId?: string | null;
+  activityType?: string | null;
+  completedAt?: string | null;
+  durationMinutes?: number | null;
+  quantity?: string | null;
+  quantityUnit?: string | null;
+  intensity?: string | null;
+  notes?: string | null;
+  meta?: Record<string, unknown> | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  habitId?: string | null;
+}
+export interface UpdateActivityLogInput {
+  clientMutationId?: string;
+  id: string;
+  activityLogPatch: ActivityLogPatch;
+}
+export interface DeleteActivityLogInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateActivityLogsChunkInput {
+  clientMutationId?: string;
+  activityLogsChunk: {
+    activityLogsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+  };
+}
+export interface ActivityLogsChunkPatch {
+  activityLogsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+}
+export interface UpdateActivityLogsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  activityLogsChunkPatch: ActivityLogsChunkPatch;
+}
+export interface DeleteActivityLogsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateAgentCollaboratorInput {
   clientMutationId?: string;
   agentCollaborator: {
@@ -13310,7 +13653,7 @@ export interface CreateAgentLogInput {
   clientMutationId?: string;
   agentLog: {
     entityId: string;
-    agentId: string;
+    agentId?: string;
     level: string;
     message: string;
     context?: Record<string, unknown>;
@@ -16740,6 +17083,9 @@ export interface DeleteVenuesChunkInput {
 }
 // ============ Connection Fields Map ============
 export const connectionFieldsMap = {
+  ActivityLog: {
+    activityLogsChunksByActivityLogsId: 'ActivityLogsChunk',
+  },
   Agent: {
     prompts: 'Prompt',
     agentsChunksByAgentsId: 'AgentsChunk',
@@ -16955,6 +17301,7 @@ export const connectionFieldsMap = {
   },
   Habit: {
     goals: 'Goal',
+    activityLogs: 'ActivityLog',
     goalHabits: 'GoalHabit',
   },
   HikingTrail: {
@@ -17088,6 +17435,40 @@ export interface StringTrgmFilter {
   /** Fuzzy matches using pg_trgm word_similarity. Finds the best matching substring within the column value. */
   wordSimilarTo?: TrgmSearchInput;
 }
+/** A filter to be used against many `ActivityLogsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ActivityLogToManyActivityLogsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ActivityLogsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ActivityLogsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ActivityLogsChunkFilter;
+}
+/** Input for BM25 ranked text search. Provide a search query string and optional score threshold. */
+export interface Bm25SearchInput {
+  /** The search query text. Uses pg_textsearch BM25 ranking. */
+  query: string;
+  /** Maximum BM25 score threshold (negative values). Only rows with score <= threshold are returned. */
+  threshold?: number;
+}
+/** Input for vector similarity search. Provide a query vector, optional metric, and optional max distance threshold. */
+export interface VectorNearbyInput {
+  /** Query vector for similarity search. */
+  vector: number[];
+  /** Similarity metric to use (default: COSINE). */
+  metric?: VectorMetric;
+  /** Maximum distance threshold. Only rows within this distance are returned. */
+  distance?: number;
+  /** When true (default for tables with @hasChunks), transparently queries the chunks table and returns the minimum distance across parent + all chunks. Set to false to only search the parent embedding. */
+  includeChunks?: boolean;
+}
+/** Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold. */
+export interface TrgmSearchInput {
+  /** The text to fuzzy-match against. Typos and misspellings are tolerated. */
+  value: string;
+  /** Minimum similarity threshold (0.0 to 1.0). Higher = stricter matching. Default is 0.3. */
+  threshold?: number;
+}
 /** A filter to be used against many `AgentsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentToManyAgentsChunkFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -17159,31 +17540,6 @@ export interface AgentToManyAgentPromptFilter {
   every?: AgentPromptFilter;
   /** Filters to entities where no related entity matches. */
   none?: AgentPromptFilter;
-}
-/** Input for BM25 ranked text search. Provide a search query string and optional score threshold. */
-export interface Bm25SearchInput {
-  /** The search query text. Uses pg_textsearch BM25 ranking. */
-  query: string;
-  /** Maximum BM25 score threshold (negative values). Only rows with score <= threshold are returned. */
-  threshold?: number;
-}
-/** Input for vector similarity search. Provide a query vector, optional metric, and optional max distance threshold. */
-export interface VectorNearbyInput {
-  /** Query vector for similarity search. */
-  vector: number[];
-  /** Similarity metric to use (default: COSINE). */
-  metric?: VectorMetric;
-  /** Maximum distance threshold. Only rows within this distance are returned. */
-  distance?: number;
-  /** When true (default for tables with @hasChunks), transparently queries the chunks table and returns the minimum distance across parent + all chunks. Set to false to only search the parent embedding. */
-  includeChunks?: boolean;
-}
-/** Input for pg_trgm fuzzy text matching. Provide a search value and optional similarity threshold. */
-export interface TrgmSearchInput {
-  /** The text to fuzzy-match against. Typos and misspellings are tolerated. */
-  value: string;
-  /** Minimum similarity threshold (0.0 to 1.0). Higher = stricter matching. Default is 0.3. */
-  threshold?: number;
 }
 /** A filter to be used against many `AgentLogsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentLogToManyAgentLogsChunkFilter {
@@ -18103,6 +18459,15 @@ export interface GoalToManyGoalProjectFilter {
   /** Filters to entities where no related entity matches. */
   none?: GoalProjectFilter;
 }
+/** A filter to be used against many `ActivityLog` object types. All fields are combined with a logical ‘and.’ */
+export interface HabitToManyActivityLogFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ActivityLogFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ActivityLogFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ActivityLogFilter;
+}
 /** A filter to be used against many `GoalHabit` object types. All fields are combined with a logical ‘and.’ */
 export interface HabitToManyGoalHabitFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -18310,6 +18675,37 @@ export interface TripToManyTripsChunkFilter {
   /** Filters to entities where no related entity matches. */
   none?: TripsChunkFilter;
 }
+/** A filter to be used against `ActivityLogsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ActivityLogsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `activityLogsId` field. */
+  activityLogsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Checks for all expressions in this list. */
+  and?: ActivityLogsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ActivityLogsChunkFilter[];
+  /** Negates the expression. */
+  not?: ActivityLogsChunkFilter;
+  /** Filter by the object’s `activityLogs` relation. */
+  activityLogs?: ActivityLogFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** Similarity metric for vector search */
+export type VectorMetric = 'COSINE' | 'L2' | 'IP';
 /** A filter to be used against `AgentsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentsChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -18459,6 +18855,8 @@ export interface AgentLogFilter {
   not?: AgentLogFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
+  /** A related `agent` exists. */
+  agentExists?: boolean;
   /** Filter by the object’s `agentLogsChunksByAgentLogsId` relation. */
   agentLogsChunksByAgentLogsId?: AgentLogToManyAgentLogsChunkFilter;
   /** `agentLogsChunksByAgentLogsId` exist. */
@@ -18745,8 +19143,6 @@ export interface AgentPromptFilter {
   /** Filter by the object’s `prompt` relation. */
   prompt?: PromptFilter;
 }
-/** Similarity metric for vector search */
-export type VectorMetric = 'COSINE' | 'L2' | 'IP';
 /** A filter to be used against `AgentLogsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentLogsChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -21079,6 +21475,78 @@ export interface GoalHabitFilter {
   /** Filter by the object’s `habit` relation. */
   habit?: HabitFilter;
 }
+/** A filter to be used against `ActivityLog` object types. All fields are combined with a logical ‘and.’ */
+export interface ActivityLogFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `activityType` field. */
+  activityType?: StringTrgmFilter;
+  /** Filter by the object’s `completedAt` field. */
+  completedAt?: DatetimeFilter;
+  /** Filter by the object’s `durationMinutes` field. */
+  durationMinutes?: IntFilter;
+  /** Filter by the object’s `quantity` field. */
+  quantity?: BigFloatFilter;
+  /** Filter by the object’s `quantityUnit` field. */
+  quantityUnit?: StringTrgmFilter;
+  /** Filter by the object’s `intensity` field. */
+  intensity?: StringTrgmFilter;
+  /** Filter by the object’s `notes` field. */
+  notes?: StringTrgmFilter;
+  /** Filter by the object’s `meta` field. */
+  meta?: JSONFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `habitId` field. */
+  habitId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ActivityLogFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ActivityLogFilter[];
+  /** Negates the expression. */
+  not?: ActivityLogFilter;
+  /** Filter by the object’s `habit` relation. */
+  habit?: HabitFilter;
+  /** A related `habit` exists. */
+  habitExists?: boolean;
+  /** Filter by the object’s `activityLogsChunksByActivityLogsId` relation. */
+  activityLogsChunksByActivityLogsId?: ActivityLogToManyActivityLogsChunkFilter;
+  /** `activityLogsChunksByActivityLogsId` exist. */
+  activityLogsChunksByActivityLogsIdExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `activity_type` column. */
+  trgmActivityType?: TrgmSearchInput;
+  /** TRGM search on the `quantity_unit` column. */
+  trgmQuantityUnit?: TrgmSearchInput;
+  /** TRGM search on the `intensity` column. */
+  trgmIntensity?: TrgmSearchInput;
+  /** TRGM search on the `notes` column. */
+  trgmNotes?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
 /** A filter to be used against `HikingTrailsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface HikingTrailsChunkFilter {
   /** Filter by the object’s `id` field. */
@@ -22953,6 +23421,10 @@ export interface HabitFilter {
   or?: HabitFilter[];
   /** Negates the expression. */
   not?: HabitFilter;
+  /** Filter by the object’s `activityLogs` relation. */
+  activityLogs?: HabitToManyActivityLogFilter;
+  /** `activityLogs` exist. */
+  activityLogsExist?: boolean;
   /** Filter by the object’s `goalHabits` relation. */
   goalHabits?: HabitToManyGoalHabitFilter;
   /** `goalHabits` exist. */
@@ -23342,6 +23814,96 @@ export interface TripFilter {
   fullTextSearch?: string;
 }
 // ============ Payload/Return Types (for custom operations) ============
+export interface CreateActivityLogPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLog` that was created by this mutation. */
+  activityLog?: ActivityLog | null;
+  activityLogEdge?: ActivityLogEdge | null;
+}
+export type CreateActivityLogPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLog?: {
+    select: ActivityLogSelect;
+  };
+  activityLogEdge?: {
+    select: ActivityLogEdgeSelect;
+  };
+};
+export interface UpdateActivityLogPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLog` that was updated by this mutation. */
+  activityLog?: ActivityLog | null;
+  activityLogEdge?: ActivityLogEdge | null;
+}
+export type UpdateActivityLogPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLog?: {
+    select: ActivityLogSelect;
+  };
+  activityLogEdge?: {
+    select: ActivityLogEdgeSelect;
+  };
+};
+export interface DeleteActivityLogPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLog` that was deleted by this mutation. */
+  activityLog?: ActivityLog | null;
+  activityLogEdge?: ActivityLogEdge | null;
+}
+export type DeleteActivityLogPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLog?: {
+    select: ActivityLogSelect;
+  };
+  activityLogEdge?: {
+    select: ActivityLogEdgeSelect;
+  };
+};
+export interface CreateActivityLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLogsChunk` that was created by this mutation. */
+  activityLogsChunk?: ActivityLogsChunk | null;
+  activityLogsChunkEdge?: ActivityLogsChunkEdge | null;
+}
+export type CreateActivityLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLogsChunk?: {
+    select: ActivityLogsChunkSelect;
+  };
+  activityLogsChunkEdge?: {
+    select: ActivityLogsChunkEdgeSelect;
+  };
+};
+export interface UpdateActivityLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLogsChunk` that was updated by this mutation. */
+  activityLogsChunk?: ActivityLogsChunk | null;
+  activityLogsChunkEdge?: ActivityLogsChunkEdge | null;
+}
+export type UpdateActivityLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLogsChunk?: {
+    select: ActivityLogsChunkSelect;
+  };
+  activityLogsChunkEdge?: {
+    select: ActivityLogsChunkEdgeSelect;
+  };
+};
+export interface DeleteActivityLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLogsChunk` that was deleted by this mutation. */
+  activityLogsChunk?: ActivityLogsChunk | null;
+  activityLogsChunkEdge?: ActivityLogsChunkEdge | null;
+}
+export type DeleteActivityLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLogsChunk?: {
+    select: ActivityLogsChunkSelect;
+  };
+  activityLogsChunkEdge?: {
+    select: ActivityLogsChunkEdgeSelect;
+  };
+};
 export interface CreateAgentCollaboratorPayload {
   clientMutationId?: string | null;
   /** The `AgentCollaborator` that was created by this mutation. */
@@ -28740,6 +29302,30 @@ export type DeleteVenuesChunkPayloadSelect = {
   };
   venuesChunkEdge?: {
     select: VenuesChunkEdgeSelect;
+  };
+};
+/** A `ActivityLog` edge in the connection. */
+export interface ActivityLogEdge {
+  cursor?: string | null;
+  /** The `ActivityLog` at the end of the edge. */
+  node?: ActivityLog | null;
+}
+export type ActivityLogEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ActivityLogSelect;
+  };
+};
+/** A `ActivityLogsChunk` edge in the connection. */
+export interface ActivityLogsChunkEdge {
+  cursor?: string | null;
+  /** The `ActivityLogsChunk` at the end of the edge. */
+  node?: ActivityLogsChunk | null;
+}
+export type ActivityLogsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ActivityLogsChunkSelect;
   };
 };
 /** A `AgentCollaborator` edge in the connection. */

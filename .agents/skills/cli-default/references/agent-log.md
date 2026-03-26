@@ -12,7 +12,7 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db agent-log list
 agentic-db agent-log get --id <UUID>
-agentic-db agent-log create --entityId <UUID> --agentId <UUID> --level <String> --message <String> [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db agent-log create --entityId <UUID> --level <String> --message <String> [--agentId <UUID>] [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db agent-log update --id <UUID> [--entityId <UUID>] [--agentId <UUID>] [--level <String>] [--message <String>] [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db agent-log delete --id <UUID>
 ```
@@ -28,7 +28,7 @@ agentic-db agent-log list
 ### Create a agentLog
 
 ```bash
-agentic-db agent-log create --entityId <UUID> --agentId <UUID> --level <String> --message <String> [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db agent-log create --entityId <UUID> --level <String> --message <String> [--agentId <UUID>] [--context <JSON>] [--taskId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a agentLog by id

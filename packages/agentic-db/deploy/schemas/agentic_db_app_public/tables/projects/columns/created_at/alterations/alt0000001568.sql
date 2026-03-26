@@ -7,6 +7,7 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_status_idx
 
 
+
 ALTER TABLE "agentic_db_app_public".projects 
-  ALTER COLUMN created_at SET NOT NULL;
+    ALTER COLUMN created_at SET DEFAULT now();
 

@@ -26,6 +26,8 @@ agentic-db auth set-token <your-token>
 | `context` | Manage API contexts (endpoints) |
 | `auth` | Manage authentication tokens |
 | `config` | Manage config key-value store (per-context) |
+| `activity-log` | activityLog CRUD operations |
+| `activity-logs-chunk` | activityLogsChunk CRUD operations |
 | `agent-collaborator` | agentCollaborator CRUD operations |
 | `agent` | agent CRUD operations |
 | `agent-log` | agentLog CRUD operations |
@@ -188,6 +190,87 @@ Variables are scoped to the active context and stored at `~/.agentic-db/config/`
 
 ## Table Commands
 
+### `activity-log`
+
+CRUD operations for ActivityLog records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all activityLog records |
+| `get` | Get a activityLog by id |
+| `create` | Create a new activityLog |
+| `update` | Update an existing activityLog |
+| `delete` | Delete a activityLog |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `activityType` | String |
+| `completedAt` | Datetime |
+| `durationMinutes` | Int |
+| `quantity` | BigFloat |
+| `quantityUnit` | String |
+| `intensity` | String |
+| `notes` | String |
+| `meta` | JSON |
+| `tags` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingText` | String |
+| `embedding` | Vector |
+| `embeddingStale` | Boolean |
+| `habitId` | UUID |
+| `embeddingTextBm25Score` | Float |
+| `embeddingVectorDistance` | Float |
+| `activityTypeTrgmSimilarity` | Float |
+| `quantityUnitTrgmSimilarity` | Float |
+| `intensityTrgmSimilarity` | Float |
+| `notesTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `activityType`, `completedAt`
+**Optional create fields (backend defaults):** `durationMinutes`, `quantity`, `quantityUnit`, `intensity`, `notes`, `meta`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `habitId`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `activityTypeTrgmSimilarity`, `quantityUnitTrgmSimilarity`, `intensityTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
+### `activity-logs-chunk`
+
+CRUD operations for ActivityLogsChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all activityLogsChunk records |
+| `get` | Get a activityLogsChunk by id |
+| `create` | Create a new activityLogsChunk |
+| `update` | Update an existing activityLogsChunk |
+| `delete` | Delete a activityLogsChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `activityLogsId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `activityLogsId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
 ### `agent-collaborator`
 
 CRUD operations for AgentCollaborator records.
@@ -292,8 +375,8 @@ CRUD operations for AgentLog records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `agentId`, `level`, `message`
-**Optional create fields (backend defaults):** `context`, `taskId`, `embeddingText`, `embedding`, `embeddingStale`
+**Required create fields:** `entityId`, `level`, `message`
+**Optional create fields (backend defaults):** `agentId`, `context`, `taskId`, `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `levelTrgmSimilarity`, `messageTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 

@@ -7,6 +7,7 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_definitions/columns/embedding_stale/column
 
 
+
 ALTER TABLE "agentic_db_app_public".tool_definitions 
-  ALTER COLUMN embedding_stale SET NOT NULL;
+    ALTER COLUMN embedding_stale SET DEFAULT true;
 

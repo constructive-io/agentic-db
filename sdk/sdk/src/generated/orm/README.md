@@ -21,6 +21,8 @@ const db = createClient({
 
 | Model | Operations |
 |-------|------------|
+| `activityLog` | findMany, findOne, create, update, delete |
+| `activityLogsChunk` | findMany, findOne, create, update, delete |
 | `agentCollaborator` | findMany, findOne, create, update, delete |
 | `agent` | findMany, findOne, create, update, delete |
 | `agentLog` | findMany, findOne, create, update, delete |
@@ -143,6 +145,97 @@ const db = createClient({
 | `venuesChunk` | findMany, findOne, create, update, delete |
 
 ## Table Operations
+
+### `db.activityLog`
+
+CRUD operations for ActivityLog records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `activityType` | String | Yes |
+| `completedAt` | Datetime | Yes |
+| `durationMinutes` | Int | Yes |
+| `quantity` | BigFloat | Yes |
+| `quantityUnit` | String | Yes |
+| `intensity` | String | Yes |
+| `notes` | String | Yes |
+| `meta` | JSON | Yes |
+| `tags` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `habitId` | UUID | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `activityTypeTrgmSimilarity` | Float | Yes |
+| `quantityUnitTrgmSimilarity` | Float | Yes |
+| `intensityTrgmSimilarity` | Float | Yes |
+| `notesTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all activityLog records
+const items = await db.activityLog.findMany({ select: { id: true, entityId: true, activityType: true, completedAt: true, durationMinutes: true, quantity: true, quantityUnit: true, intensity: true, notes: true, meta: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, habitId: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, activityTypeTrgmSimilarity: true, quantityUnitTrgmSimilarity: true, intensityTrgmSimilarity: true, notesTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.activityLog.findOne({ id: '<UUID>', select: { id: true, entityId: true, activityType: true, completedAt: true, durationMinutes: true, quantity: true, quantityUnit: true, intensity: true, notes: true, meta: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, habitId: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, activityTypeTrgmSimilarity: true, quantityUnitTrgmSimilarity: true, intensityTrgmSimilarity: true, notesTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.activityLog.create({ data: { entityId: '<UUID>', activityType: '<String>', completedAt: '<Datetime>', durationMinutes: '<Int>', quantity: '<BigFloat>', quantityUnit: '<String>', intensity: '<String>', notes: '<String>', meta: '<JSON>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', habitId: '<UUID>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', activityTypeTrgmSimilarity: '<Float>', quantityUnitTrgmSimilarity: '<Float>', intensityTrgmSimilarity: '<Float>', notesTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.activityLog.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.activityLog.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.activityLogsChunk`
+
+CRUD operations for ActivityLogsChunk records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `activityLogsId` | UUID | Yes |
+| `content` | String | Yes |
+| `chunkIndex` | Int | Yes |
+| `embedding` | Vector | Yes |
+| `metadata` | JSON | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingVectorDistance` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all activityLogsChunk records
+const items = await db.activityLogsChunk.findMany({ select: { id: true, activityLogsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.activityLogsChunk.findOne({ id: '<UUID>', select: { id: true, activityLogsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.activityLogsChunk.create({ data: { activityLogsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.activityLogsChunk.update({ where: { id: '<UUID>' }, data: { activityLogsId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.activityLogsChunk.delete({ where: { id: '<UUID>' } }).execute();
+```
 
 ### `db.agentCollaborator`
 

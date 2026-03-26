@@ -7,6 +7,7 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
+
 ALTER TABLE "agentic_db_app_public".expenses 
-  ALTER COLUMN updated_at SET NOT NULL;
+    ALTER COLUMN updated_at SET DEFAULT now();
 

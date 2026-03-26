@@ -156,7 +156,8 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         type: 'text',
         name: 'agentId',
         message: 'agentId',
-        required: true,
+        required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',
@@ -267,6 +268,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'agentId',
         message: 'agentId',
         required: false,
+        skipPrompt: true,
       },
       {
         type: 'text',

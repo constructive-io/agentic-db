@@ -7,6 +7,7 @@
 -- requires: schemas/agentic_db_app_public/tables/messages_chunks/columns/chunk_index/column
 
 
+
 ALTER TABLE "agentic_db_app_public".messages_chunks 
-  ALTER COLUMN chunk_index SET NOT NULL;
+    ALTER COLUMN chunk_index SET DEFAULT 0;
 
