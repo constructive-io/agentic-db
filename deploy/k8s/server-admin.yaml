@@ -27,6 +27,8 @@ spec:
           env:
             - name: API_IS_PUBLIC
               value: "false"
+            - name: API_ENABLE_SERVICES
+              value: "true"
             - name: API_ANON_ROLE
               value: "administrator"
             - name: API_ROLE_NAME

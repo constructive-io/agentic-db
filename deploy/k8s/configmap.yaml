@@ -6,12 +6,6 @@ metadata:
 data:
   POSTGRES_USER: postgres
   POSTGRES_DB: postgres
-  # Tuned for vector workloads (embeddings, bulk restores)
-  POSTGRES_SHARED_BUFFERS: "512MB"
-  POSTGRES_WORK_MEM: "64MB"
-  POSTGRES_MAINTENANCE_WORK_MEM: "512MB"
-  POSTGRES_MAX_WAL_SIZE: "2GB"
-  POSTGRES_EFFECTIVE_CACHE_SIZE: "2GB"
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -29,7 +23,8 @@ data:
   PGPORT: "5432"
   PGUSER: postgres
   PGDATABASE: constructive
-  API_ENABLE_SERVICES: "true"
+  # Overridden per-deployment: public=false, admin=true
+  API_ENABLE_SERVICES: "false"
   API_EXPOSED_SCHEMAS: "metaschema_public,services_public,constructive_auth_public"
   API_META_SCHEMAS: "metaschema_public,services_public,metaschema_modules_public,constructive_auth_public"
 ---
