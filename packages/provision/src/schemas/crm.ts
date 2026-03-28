@@ -355,10 +355,10 @@ const definition: BlueprintDefinition = {
 
   relations: [
     // BelongsTo: main_image
-    { $type: 'RelationBelongsTo', source_ref: 'contacts',  target_ref: 'images', field_name: 'main_image_id', delete_action: 'n' },
-    { $type: 'RelationBelongsTo', source_ref: 'companies', target_ref: 'images', field_name: 'main_image_id', delete_action: 'n' },
-    { $type: 'RelationBelongsTo', source_ref: 'events',    target_ref: 'images', field_name: 'main_image_id', delete_action: 'n' },
-    { $type: 'RelationBelongsTo', source_ref: 'venues',    target_ref: 'images', field_name: 'main_image_id', delete_action: 'n' },
+    { $type: 'RelationBelongsTo', source_ref: 'contacts',  target_ref: 'images', field_name: 'main_image_id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'companies', target_ref: 'images', field_name: 'main_image_id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'events',    target_ref: 'images', field_name: 'main_image_id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'venues',    target_ref: 'images', field_name: 'main_image_id', delete_action: 'n', is_required: false },
 
     // M:N: image galleries
     { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'images', junction_table_name: 'contact_images', source_field_name: 'contact_id', target_field_name: 'image_id', ...M2M_JUNCTION_OPTS },
@@ -388,9 +388,9 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'contacts', target_ref: 'touchpoints', delete_action: 'c' },
 
     // Touchpoints optional FKs to other entities
-    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'deals',     field_name: 'deal_id',    delete_action: 'n' },
-    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'companies', field_name: 'company_id', delete_action: 'n' },
-    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'events',    field_name: 'event_id',   delete_action: 'n' },
+    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'deals',     field_name: 'deal_id',    delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'companies', field_name: 'company_id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'events',    field_name: 'event_id',   delete_action: 'n', is_required: false },
   ],
 
   indexes: [
