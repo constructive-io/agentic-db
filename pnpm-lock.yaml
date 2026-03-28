@@ -254,8 +254,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.7
       node-type-registry:
-        specifier: ^0.6.0
-        version: 0.6.0
+        specifier: ^0.6.1
+        version: 0.6.1
       pg:
         specifier: ^8.20.0
         version: 8.20.0
@@ -4913,8 +4913,8 @@ packages:
   node-releases@2.0.27:
     resolution: {integrity: sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA==}
 
-  node-type-registry@0.6.0:
-    resolution: {integrity: sha512-RweSGQmysHyV02U/oMXMe3QCm3UUC3yhx0rJ78F/S8V/XQN1D2+VKfqLxSnnuJJOzV47tmW4B01ICg+uWbMYOw==}
+  node-type-registry@0.6.1:
+    resolution: {integrity: sha512-CmtfanpgtqLLCNdRvoamxKep8o+RKBpCJMcGODSQyzdQDPJ/qGeFrmjhbk/MKHR86N5sN9qQ09tzm2G46xbLCQ==}
 
   nopt@8.1.0:
     resolution: {integrity: sha512-ieGu42u/Qsa4TFktmaKEwM6MQH0pOWnaB3htzh0JRtx84+Mebc0cbZYN5bC+6WTZ4+77xrL9Pn5m7CV6VIkV7A==}
@@ -12869,7 +12869,7 @@ snapshots:
 
   node-releases@2.0.27: {}
 
-  node-type-registry@0.6.0:
+  node-type-registry@0.6.1:
     dependencies:
       '@babel/generator': 7.29.1
       '@babel/types': 7.29.0

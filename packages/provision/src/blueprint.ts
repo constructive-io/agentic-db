@@ -54,7 +54,7 @@ export const ORG_NODES: BlueprintTable['nodes'] = [
 
 /** Standard entity membership policy */
 export const ORG_POLICY: BlueprintPolicy = {
-  $type: 'AuthzEntityMembership',
+  policy_type: 'AuthzEntityMembership',
   privileges: ['select', 'insert', 'update', 'delete'],
   permissive: true,
   data: {
