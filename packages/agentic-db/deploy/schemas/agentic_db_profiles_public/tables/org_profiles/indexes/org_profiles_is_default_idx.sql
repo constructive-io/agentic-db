@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_profiles_public/tables/org_profiles/columns/is_default/column
 
 
-CREATE INDEX org_profiles_is_default_idx ON "agentic_db_profiles_public".org_profiles USING BTREE ( is_default );
+CREATE INDEX org_profiles_is_default_idx ON agentic_db_profiles_public.org_profiles USING BTREE ( is_default );
 

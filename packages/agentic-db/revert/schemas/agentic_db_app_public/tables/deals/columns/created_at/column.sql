@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/deals/columns/created_at/column
 
 
-ALTER TABLE "agentic_db_app_public".deals 
+ALTER TABLE agentic_db_app_public.deals 
   DROP COLUMN created_at RESTRICT;
 
 

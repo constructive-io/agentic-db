@@ -21,7 +21,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description'] },
+          embedding: { source_fields: ['name', 'description'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
-GRANT DELETE ON "agentic_db_app_public".tool_executions TO authenticated;
+GRANT DELETE ON agentic_db_app_public.tool_executions TO authenticated;
 

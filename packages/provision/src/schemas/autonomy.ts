@@ -21,7 +21,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'content'] },
+          embedding: { source_fields: ['title', 'content'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -39,6 +39,7 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
   ],
 
   relations: [

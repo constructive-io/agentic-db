@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/expense_contacts/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX agent_prompts_prompt_id_idx ON "agentic_db_app_public".agent_prompts USING BTREE ( prompt_id );
+CREATE INDEX agent_prompts_prompt_id_idx ON agentic_db_app_public.agent_prompts USING BTREE ( prompt_id );
 

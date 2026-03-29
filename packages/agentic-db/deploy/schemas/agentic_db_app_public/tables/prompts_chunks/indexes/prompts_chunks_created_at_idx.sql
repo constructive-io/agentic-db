@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-CREATE INDEX prompts_chunks_created_at_idx ON "agentic_db_app_public".prompts_chunks ( created_at );
+CREATE INDEX prompts_chunks_created_at_idx ON agentic_db_app_public.prompts_chunks ( created_at );
 

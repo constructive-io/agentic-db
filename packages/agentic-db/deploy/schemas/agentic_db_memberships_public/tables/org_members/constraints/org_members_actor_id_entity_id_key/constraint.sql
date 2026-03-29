@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_members/table
 
 
-ALTER TABLE "agentic_db_memberships_public".org_members 
+ALTER TABLE agentic_db_memberships_public.org_members 
   ADD CONSTRAINT org_members_actor_id_entity_id_key 
     UNIQUE (actor_id, entity_id);
 

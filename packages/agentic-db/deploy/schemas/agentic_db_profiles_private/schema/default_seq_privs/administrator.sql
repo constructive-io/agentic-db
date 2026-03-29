@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_profiles_private/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA "agentic_db_profiles_private" GRANT USAGE ON SEQUENCES TO administrator;
+ALTER DEFAULT PRIVILEGES IN SCHEMA agentic_db_profiles_private GRANT USAGE ON SEQUENCES TO administrator;
 

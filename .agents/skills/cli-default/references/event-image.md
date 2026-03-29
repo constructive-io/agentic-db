@@ -9,8 +9,8 @@ CRUD operations for EventImage records via agentic-db CLI
 ```bash
 agentic-db event-image list
 agentic-db event-image get --id <UUID>
-agentic-db event-image create --eventId <UUID> --imageId <UUID> --entityId <UUID>
-agentic-db event-image update --id <UUID> [--eventId <UUID>] [--imageId <UUID>] [--entityId <UUID>]
+agentic-db event-image create --eventId <UUID> --imageId <UUID>
+agentic-db event-image update --id <UUID> [--eventId <UUID>] [--imageId <UUID>]
 agentic-db event-image delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db event-image list
 ### Create a eventImage
 
 ```bash
-agentic-db event-image create --eventId <UUID> --imageId <UUID> --entityId <UUID>
+agentic-db event-image create --eventId <UUID> --imageId <UUID>
 ```
 
 ### Get a eventImage by id

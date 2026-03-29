@@ -44,7 +44,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'] },
+          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -90,7 +90,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'industry'] },
+          embedding: { source_fields: ['name', 'description', 'industry'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -123,7 +123,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes_text'] },
+          embedding: { source_fields: ['name', 'notes_text'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -148,7 +148,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes_text', 'location'] },
+          embedding: { source_fields: ['name', 'notes_text', 'location'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -185,7 +185,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes', 'neighborhood'] },
+          embedding: { source_fields: ['name', 'notes', 'neighborhood'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -226,7 +226,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['content', 'abstract'] },
+          embedding: { source_fields: ['content', 'abstract'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -250,7 +250,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['summary'] },
+          embedding: { source_fields: ['summary'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -274,7 +274,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['subject', 'summary'] },
+          embedding: { source_fields: ['subject', 'summary'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -351,6 +351,7 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
   ],
 
   relations: [

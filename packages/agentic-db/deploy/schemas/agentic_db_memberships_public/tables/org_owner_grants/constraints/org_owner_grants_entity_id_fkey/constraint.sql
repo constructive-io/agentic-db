@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_owner_grants/table
 
 
-ALTER TABLE "agentic_db_memberships_public".org_owner_grants 
+ALTER TABLE agentic_db_memberships_public.org_owner_grants 
   ADD CONSTRAINT org_owner_grants_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE CASCADE;
 

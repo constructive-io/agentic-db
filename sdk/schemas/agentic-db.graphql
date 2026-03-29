@@ -89,14 +89,8 @@ enum ActivityLogsChunkOrderBy {
 "Methods to use when ordering `AgentCollaborator`."
 enum AgentCollaboratorOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   AGENT_ID_ASC
   AGENT_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `AgentLog`."
@@ -227,14 +221,8 @@ enum AgentsChunkOrderBy {
 "Methods to use when ordering `AutonomyRecordLink`."
 enum AutonomyRecordLinkOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   AUTONOMY_RECORD_ID_ASC
   AUTONOMY_RECORD_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `AutonomyRecord`."
@@ -441,14 +429,8 @@ enum CalendarOrderBy {
 "Methods to use when ordering `CodebaseDependency`."
 enum CodebaseDependencyOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   CODEBASIS_ID_ASC
   CODEBASIS_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `CodebasesChunk`."
@@ -576,31 +558,19 @@ enum CompaniesChunkOrderBy {
 "Methods to use when ordering `CompanyEvent`."
 enum CompanyEventOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   COMPANY_ID_ASC
   COMPANY_ID_DESC
   EVENT_ID_ASC
   EVENT_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `CompanyImage`."
 enum CompanyImageOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   COMPANY_ID_ASC
   COMPANY_ID_DESC
   IMAGE_ID_ASC
   IMAGE_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `CompanyLink`."
@@ -692,46 +662,28 @@ enum CompanyOrderBy {
 "Methods to use when ordering `ContactCompany`."
 enum ContactCompanyOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   CONTACT_ID_ASC
   CONTACT_ID_DESC
   COMPANY_ID_ASC
   COMPANY_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `ContactEvent`."
 enum ContactEventOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   CONTACT_ID_ASC
   CONTACT_ID_DESC
   EVENT_ID_ASC
   EVENT_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `ContactImage`."
 enum ContactImageOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   CONTACT_ID_ASC
   CONTACT_ID_DESC
   IMAGE_ID_ASC
   IMAGE_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `ContactLink`."
@@ -851,14 +803,8 @@ enum ContactOrderBy {
 "Methods to use when ordering `ContactRelationship`."
 enum ContactRelationshipOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   CONTACT_ID_ASC
   CONTACT_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `ContactsChunk`."
@@ -937,31 +883,19 @@ enum ConversationsChunkOrderBy {
 "Methods to use when ordering `DealCompany`."
 enum DealCompanyOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   DEAL_ID_ASC
   DEAL_ID_DESC
   COMPANY_ID_ASC
   COMPANY_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `DealContact`."
 enum DealContactOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   DEAL_ID_ASC
   DEAL_ID_DESC
   CONTACT_ID_ASC
   CONTACT_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `DealNote`."
@@ -1048,21 +982,6 @@ enum EmailAttachmentOrderBy {
   EMAIL_ID_DESC
 }
 
-"Methods to use when ordering `EmailNote`."
-enum EmailNoteOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  EMAIL_ID_ASC
-  EMAIL_ID_DESC
-  NOTE_ID_ASC
-  NOTE_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
-}
-
 "Methods to use when ordering `Email`."
 enum EmailOrderBy {
   NATURAL
@@ -1074,8 +993,6 @@ enum EmailOrderBy {
   ENTITY_ID_DESC
   PROVIDER_MESSAGE_ID_ASC
   PROVIDER_MESSAGE_ID_DESC
-  FROM_CONTACT_ID_ASC
-  FROM_CONTACT_ID_DESC
   SENT_AT_ASC
   SENT_AT_DESC
   EMBEDDING_TEXT_ASC
@@ -1084,21 +1001,6 @@ enum EmailOrderBy {
   EMBEDDING_DESC
   EMAIL_THREAD_ID_ASC
   EMAIL_THREAD_ID_DESC
-}
-
-"Methods to use when ordering `EmailRecipient`."
-enum EmailRecipientOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  EMAIL_ID_ASC
-  EMAIL_ID_DESC
-  CONTACT_ID_ASC
-  CONTACT_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `EmailsChunk`."
@@ -1185,16 +1087,10 @@ enum EmailThreadsChunkOrderBy {
 "Methods to use when ordering `EventImage`."
 enum EventImageOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   EVENT_ID_ASC
   EVENT_ID_DESC
   IMAGE_ID_ASC
   IMAGE_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `EventLink`."
@@ -1298,16 +1194,10 @@ enum EventsChunkOrderBy {
 "Methods to use when ordering `EventVenue`."
 enum EventVenueOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   EVENT_ID_ASC
   EVENT_ID_DESC
   VENUE_ID_ASC
   VENUE_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `ExpenseContact`."
@@ -2231,14 +2121,8 @@ enum RuntimeScheduleOrderBy {
 "Methods to use when ordering `RuntimeStateDependency`."
 enum RuntimeStateDependencyOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   RUNTIME_STATE_ID_ASC
   RUNTIME_STATE_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `RuntimeState`."
@@ -2719,16 +2603,10 @@ enum VectorMetric {
 "Methods to use when ordering `VenueImage`."
 enum VenueImageOrderBy {
   NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   VENUE_ID_ASC
   VENUE_ID_DESC
   IMAGE_ID_ASC
   IMAGE_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `VenueLink`."
@@ -3098,7 +2976,7 @@ type Agent {
     "A filter to be used in determining which values should be returned by the collection."
     where: AgentCollaboratorFilter
     "The method to use when ordering `AgentCollaborator`."
-    orderBy: [AgentCollaboratorOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [AgentCollaboratorOrderBy!] = [NATURAL]
   ): AgentCollaboratorConnection!
   "Reads and enables pagination through a set of `Memory`."
   memories(
@@ -3162,8 +3040,6 @@ type Agent {
 
 type AgentCollaborator {
   agentId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Agent` that is related to this `AgentCollaborator`."
   agent: Agent
 }
@@ -3480,7 +3356,7 @@ type AutonomyRecord {
     "A filter to be used in determining which values should be returned by the collection."
     where: AutonomyRecordLinkFilter
     "The method to use when ordering `AutonomyRecordLink`."
-    orderBy: [AutonomyRecordLinkOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [AutonomyRecordLinkOrderBy!] = [NATURAL]
   ): AutonomyRecordLinkConnection!
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
@@ -3524,8 +3400,6 @@ type AutonomyRecordEdge {
 
 type AutonomyRecordLink {
   autonomyRecordId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `AutonomyRecord` that is related to this `AutonomyRecordLink`."
   autonomyRecord: AutonomyRecord
 }
@@ -4150,8 +4024,6 @@ type CalendarEventTasksManyToManyEdge {
 
 type CodebaseDependency {
   codebasisId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Codebasis` that is related to this `CodebaseDependency`."
   codebasis: Codebasis
 }
@@ -4290,7 +4162,7 @@ type Codebasis {
     "A filter to be used in determining which values should be returned by the collection."
     where: CodebaseDependencyFilter
     "The method to use when ordering `CodebaseDependency`."
-    orderBy: [CodebaseDependencyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [CodebaseDependencyOrderBy!] = [NATURAL]
   ): CodebaseDependencyConnection!
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
@@ -4649,7 +4521,7 @@ type Company {
     "A filter to be used in determining which values should be returned by the collection."
     where: CompanyImageFilter
     "The method to use when ordering `CompanyImage`."
-    orderBy: [CompanyImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [CompanyImageOrderBy!] = [NATURAL]
   ): CompanyImageConnection!
   "Reads and enables pagination through a set of `ContactCompany`."
   contactCompanies(
@@ -4669,7 +4541,7 @@ type Company {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactCompanyFilter
     "The method to use when ordering `ContactCompany`."
-    orderBy: [ContactCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactCompanyOrderBy!] = [NATURAL]
   ): ContactCompanyConnection!
   "Reads and enables pagination through a set of `CompanyEvent`."
   companyEvents(
@@ -4689,7 +4561,7 @@ type Company {
     "A filter to be used in determining which values should be returned by the collection."
     where: CompanyEventFilter
     "The method to use when ordering `CompanyEvent`."
-    orderBy: [CompanyEventOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [CompanyEventOrderBy!] = [NATURAL]
   ): CompanyEventConnection!
   "Reads and enables pagination through a set of `DealCompany`."
   dealCompanies(
@@ -4709,7 +4581,7 @@ type Company {
     "A filter to be used in determining which values should be returned by the collection."
     where: DealCompanyFilter
     "The method to use when ordering `DealCompany`."
-    orderBy: [DealCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [DealCompanyOrderBy!] = [NATURAL]
   ): DealCompanyConnection!
   "Reads and enables pagination through a set of `CompanyNote`."
   companyNotes(
@@ -4819,7 +4691,7 @@ type CompanyContactsByContactCompanyCompanyIdAndContactIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactCompanyFilter
     "The method to use when ordering `ContactCompany`."
-    orderBy: [ContactCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactCompanyOrderBy!] = [NATURAL]
   ): ContactCompanyConnection!
 }
 
@@ -4859,7 +4731,7 @@ type CompanyDealsByDealCompanyCompanyIdAndDealIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: DealCompanyFilter
     "The method to use when ordering `DealCompany`."
-    orderBy: [DealCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [DealCompanyOrderBy!] = [NATURAL]
   ): DealCompanyConnection!
 }
 
@@ -4874,8 +4746,6 @@ type CompanyEdge {
 type CompanyEvent {
   companyId: UUID!
   eventId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Company` that is related to this `CompanyEvent`."
   company: Company
   "Reads a single `Event` that is related to this `CompanyEvent`."
@@ -4938,15 +4808,13 @@ type CompanyEventsByCompanyEventCompanyIdAndEventIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: CompanyEventFilter
     "The method to use when ordering `CompanyEvent`."
-    orderBy: [CompanyEventOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [CompanyEventOrderBy!] = [NATURAL]
   ): CompanyEventConnection!
 }
 
 type CompanyImage {
   companyId: UUID!
   imageId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Company` that is related to this `CompanyImage`."
   company: Company
   "Reads a single `Image` that is related to this `CompanyImage`."
@@ -5009,7 +4877,7 @@ type CompanyImagesByCompanyImageCompanyIdAndImageIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: CompanyImageFilter
     "The method to use when ordering `CompanyImage`."
-    orderBy: [CompanyImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [CompanyImageOrderBy!] = [NATURAL]
   ): CompanyImageConnection!
 }
 
@@ -5421,7 +5289,7 @@ type Contact {
     orderBy: [MemoryOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactMemoriesManyToManyConnection!
   "Reads and enables pagination through a set of `EmailThread`."
-  emailThreadsByThreadParticipantContactIdAndEmailThreadId(
+  emailThreads(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -5439,27 +5307,7 @@ type Contact {
     where: EmailThreadFilter
     "The method to use when ordering `EmailThread`."
     orderBy: [EmailThreadOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyConnection!
-  "Reads and enables pagination through a set of `Email`."
-  emails(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailFilter
-    "The method to use when ordering `Email`."
-    orderBy: [EmailOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactEmailsManyToManyConnection!
+  ): ContactEmailThreadsManyToManyConnection!
   "Reads a single `Image` that is related to this `Contact`."
   mainImage: Image
   "Reads and enables pagination through a set of `ContactsChunk`."
@@ -5560,7 +5408,7 @@ type Contact {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactImageFilter
     "The method to use when ordering `ContactImage`."
-    orderBy: [ContactImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactImageOrderBy!] = [NATURAL]
   ): ContactImageConnection!
   "Reads and enables pagination through a set of `ContactCompany`."
   contactCompanies(
@@ -5580,7 +5428,7 @@ type Contact {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactCompanyFilter
     "The method to use when ordering `ContactCompany`."
-    orderBy: [ContactCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactCompanyOrderBy!] = [NATURAL]
   ): ContactCompanyConnection!
   "Reads and enables pagination through a set of `ContactEvent`."
   contactEvents(
@@ -5600,7 +5448,7 @@ type Contact {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactEventFilter
     "The method to use when ordering `ContactEvent`."
-    orderBy: [ContactEventOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactEventOrderBy!] = [NATURAL]
   ): ContactEventConnection!
   "Reads and enables pagination through a set of `DealContact`."
   dealContacts(
@@ -5620,7 +5468,7 @@ type Contact {
     "A filter to be used in determining which values should be returned by the collection."
     where: DealContactFilter
     "The method to use when ordering `DealContact`."
-    orderBy: [DealContactOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [DealContactOrderBy!] = [NATURAL]
   ): DealContactConnection!
   "Reads and enables pagination through a set of `ContactRelationship`."
   contactRelationships(
@@ -5640,28 +5488,8 @@ type Contact {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactRelationshipFilter
     "The method to use when ordering `ContactRelationship`."
-    orderBy: [ContactRelationshipOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactRelationshipOrderBy!] = [NATURAL]
   ): ContactRelationshipConnection!
-  "Reads and enables pagination through a set of `Email`."
-  emailsByFromContactId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailFilter
-    "The method to use when ordering `Email`."
-    orderBy: [EmailOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailConnection!
   "Reads and enables pagination through a set of `CalendarEvent`."
   calendarEventsByOrganizerContactId(
     "Only read the first `n` values of the set."
@@ -5842,26 +5670,6 @@ type Contact {
     "The method to use when ordering `ThreadParticipant`."
     orderBy: [ThreadParticipantOrderBy!] = [PRIMARY_KEY_ASC]
   ): ThreadParticipantConnection!
-  "Reads and enables pagination through a set of `EmailRecipient`."
-  emailRecipients(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailRecipientFilter
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailRecipientConnection!
   "TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active."
   searchTsvRank: Float
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
@@ -5978,15 +5786,13 @@ type ContactCompaniesByContactCompanyContactIdAndCompanyIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactCompanyFilter
     "The method to use when ordering `ContactCompany`."
-    orderBy: [ContactCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactCompanyOrderBy!] = [NATURAL]
   ): ContactCompanyConnection!
 }
 
 type ContactCompany {
   contactId: UUID!
   companyId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Company` that is related to this `ContactCompany`."
   company: Company
   "Reads a single `Contact` that is related to this `ContactCompany`."
@@ -6061,7 +5867,7 @@ type ContactDealsByDealContactContactIdAndDealIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: DealContactFilter
     "The method to use when ordering `DealContact`."
-    orderBy: [DealContactOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [DealContactOrderBy!] = [NATURAL]
   ): DealContactConnection!
 }
 
@@ -6073,52 +5879,12 @@ type ContactEdge {
   node: Contact
 }
 
-"A connection to a list of `Email` values, with data from `EmailRecipient`."
-type ContactEmailsManyToManyConnection {
-  "A list of `Email` objects."
-  nodes: [Email]!
-  "A list of edges which contains the `Email`, info from the `EmailRecipient`, and the cursor to aid in pagination."
-  edges: [ContactEmailsManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Email` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Email` edge in the connection, with data from `EmailRecipient`."
-type ContactEmailsManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Email` at the end of the edge."
-  node: Email
-  "Reads and enables pagination through a set of `EmailRecipient`."
-  emailRecipientsByEmailId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailRecipientFilter
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailRecipientConnection!
-}
-
 "A connection to a list of `EmailThread` values, with data from `ThreadParticipant`."
-type ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyConnection {
+type ContactEmailThreadsManyToManyConnection {
   "A list of `EmailThread` objects."
   nodes: [EmailThread]!
   "A list of edges which contains the `EmailThread`, info from the `ThreadParticipant`, and the cursor to aid in pagination."
-  edges: [ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyEdge!]!
+  edges: [ContactEmailThreadsManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `EmailThread` you could get from the connection."
@@ -6126,7 +5892,7 @@ type ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyCo
 }
 
 "A `EmailThread` edge in the connection, with data from `ThreadParticipant`."
-type ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyEdge {
+type ContactEmailThreadsManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `EmailThread` at the end of the edge."
@@ -6156,8 +5922,6 @@ type ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyEd
 type ContactEvent {
   contactId: UUID!
   eventId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Contact` that is related to this `ContactEvent`."
   contact: Contact
   "Reads a single `Event` that is related to this `ContactEvent`."
@@ -6220,7 +5984,7 @@ type ContactEventsByContactEventContactIdAndEventIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactEventFilter
     "The method to use when ordering `ContactEvent`."
-    orderBy: [ContactEventOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactEventOrderBy!] = [NATURAL]
   ): ContactEventConnection!
 }
 
@@ -6267,8 +6031,6 @@ type ContactExpensesManyToManyEdge {
 type ContactImage {
   contactId: UUID!
   imageId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Contact` that is related to this `ContactImage`."
   contact: Contact
   "Reads a single `Image` that is related to this `ContactImage`."
@@ -6331,7 +6093,7 @@ type ContactImagesByContactImageContactIdAndImageIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactImageFilter
     "The method to use when ordering `ContactImage`."
-    orderBy: [ContactImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactImageOrderBy!] = [NATURAL]
   ): ContactImageConnection!
 }
 
@@ -6557,8 +6319,6 @@ type ContactProjectsManyToManyEdge {
 
 type ContactRelationship {
   contactId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Contact` that is related to this `ContactRelationship`."
   contact: Contact
 }
@@ -6833,11 +6593,6 @@ type CreateAgentCollaboratorPayload {
   agentCollaborator: AgentCollaborator
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `AgentCollaborator`. May be used by Relay 1."
-  agentCollaboratorEdge(
-    "The method to use when ordering `AgentCollaborator`."
-    orderBy: [AgentCollaboratorOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AgentCollaboratorEdge
 }
 
 "The output of our create `AgentLog` mutation."
@@ -6941,11 +6696,6 @@ type CreateAutonomyRecordLinkPayload {
   autonomyRecordLink: AutonomyRecordLink
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `AutonomyRecordLink`. May be used by Relay 1."
-  autonomyRecordLinkEdge(
-    "The method to use when ordering `AutonomyRecordLink`."
-    orderBy: [AutonomyRecordLinkOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AutonomyRecordLinkEdge
 }
 
 "The output of our create `AutonomyRecord` mutation."
@@ -7121,11 +6871,6 @@ type CreateCodebaseDependencyPayload {
   codebaseDependency: CodebaseDependency
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `CodebaseDependency`. May be used by Relay 1."
-  codebaseDependencyEdge(
-    "The method to use when ordering `CodebaseDependency`."
-    orderBy: [CodebaseDependencyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): CodebaseDependencyEdge
 }
 
 "The output of our create `CodebasesChunk` mutation."
@@ -7211,11 +6956,6 @@ type CreateCompanyEventPayload {
   companyEvent: CompanyEvent
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `CompanyEvent`. May be used by Relay 1."
-  companyEventEdge(
-    "The method to use when ordering `CompanyEvent`."
-    orderBy: [CompanyEventOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): CompanyEventEdge
 }
 
 "The output of our create `CompanyImage` mutation."
@@ -7229,11 +6969,6 @@ type CreateCompanyImagePayload {
   companyImage: CompanyImage
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `CompanyImage`. May be used by Relay 1."
-  companyImageEdge(
-    "The method to use when ordering `CompanyImage`."
-    orderBy: [CompanyImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): CompanyImageEdge
 }
 
 "The output of our create `CompanyLink` mutation."
@@ -7319,11 +7054,6 @@ type CreateContactCompanyPayload {
   contactCompany: ContactCompany
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `ContactCompany`. May be used by Relay 1."
-  contactCompanyEdge(
-    "The method to use when ordering `ContactCompany`."
-    orderBy: [ContactCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactCompanyEdge
 }
 
 "The output of our create `ContactEvent` mutation."
@@ -7337,11 +7067,6 @@ type CreateContactEventPayload {
   contactEvent: ContactEvent
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `ContactEvent`. May be used by Relay 1."
-  contactEventEdge(
-    "The method to use when ordering `ContactEvent`."
-    orderBy: [ContactEventOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactEventEdge
 }
 
 "The output of our create `ContactImage` mutation."
@@ -7355,11 +7080,6 @@ type CreateContactImagePayload {
   contactImage: ContactImage
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `ContactImage`. May be used by Relay 1."
-  contactImageEdge(
-    "The method to use when ordering `ContactImage`."
-    orderBy: [ContactImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactImageEdge
 }
 
 "The output of our create `ContactLink` mutation."
@@ -7445,11 +7165,6 @@ type CreateContactRelationshipPayload {
   contactRelationship: ContactRelationship
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `ContactRelationship`. May be used by Relay 1."
-  contactRelationshipEdge(
-    "The method to use when ordering `ContactRelationship`."
-    orderBy: [ContactRelationshipOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactRelationshipEdge
 }
 
 "The output of our create `ContactsChunk` mutation."
@@ -7517,11 +7232,6 @@ type CreateDealCompanyPayload {
   dealCompany: DealCompany
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `DealCompany`. May be used by Relay 1."
-  dealCompanyEdge(
-    "The method to use when ordering `DealCompany`."
-    orderBy: [DealCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): DealCompanyEdge
 }
 
 "The output of our create `DealContact` mutation."
@@ -7535,11 +7245,6 @@ type CreateDealContactPayload {
   dealContact: DealContact
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `DealContact`. May be used by Relay 1."
-  dealContactEdge(
-    "The method to use when ordering `DealContact`."
-    orderBy: [DealContactOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): DealContactEdge
 }
 
 "The output of our create `DealNote` mutation."
@@ -7614,24 +7319,6 @@ type CreateEmailAttachmentPayload {
   ): EmailAttachmentEdge
 }
 
-"The output of our create `EmailNote` mutation."
-type CreateEmailNotePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailNote` that was created by this mutation."
-  emailNote: EmailNote
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailNote`. May be used by Relay 1."
-  emailNoteEdge(
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailNoteEdge
-}
-
 "The output of our create `Email` mutation."
 type CreateEmailPayload {
   """
@@ -7648,24 +7335,6 @@ type CreateEmailPayload {
     "The method to use when ordering `Email`."
     orderBy: [EmailOrderBy!]! = [PRIMARY_KEY_ASC]
   ): EmailEdge
-}
-
-"The output of our create `EmailRecipient` mutation."
-type CreateEmailRecipientPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailRecipient` that was created by this mutation."
-  emailRecipient: EmailRecipient
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailRecipient`. May be used by Relay 1."
-  emailRecipientEdge(
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailRecipientEdge
 }
 
 "The output of our create `EmailsChunk` mutation."
@@ -7733,11 +7402,6 @@ type CreateEventImagePayload {
   eventImage: EventImage
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `EventImage`. May be used by Relay 1."
-  eventImageEdge(
-    "The method to use when ordering `EventImage`."
-    orderBy: [EventImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EventImageEdge
 }
 
 "The output of our create `EventLink` mutation."
@@ -7823,11 +7487,6 @@ type CreateEventVenuePayload {
   eventVenue: EventVenue
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `EventVenue`. May be used by Relay 1."
-  eventVenueEdge(
-    "The method to use when ordering `EventVenue`."
-    orderBy: [EventVenueOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EventVenueEdge
 }
 
 "The output of our create `ExpenseContact` mutation."
@@ -8561,11 +8220,6 @@ type CreateRuntimeStateDependencyPayload {
   runtimeStateDependency: RuntimeStateDependency
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `RuntimeStateDependency`. May be used by Relay 1."
-  runtimeStateDependencyEdge(
-    "The method to use when ordering `RuntimeStateDependency`."
-    orderBy: [RuntimeStateDependencyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): RuntimeStateDependencyEdge
 }
 
 "The output of our create `RuntimeState` mutation."
@@ -8921,11 +8575,6 @@ type CreateVenueImagePayload {
   venueImage: VenueImage
   "Our root query field type. Allows us to run any query from our mutation payload."
   query: Query
-  "An edge for our `VenueImage`. May be used by Relay 1."
-  venueImageEdge(
-    "The method to use when ordering `VenueImage`."
-    orderBy: [VenueImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): VenueImageEdge
 }
 
 "The output of our create `VenueLink` mutation."
@@ -9116,7 +8765,7 @@ type Deal {
     "A filter to be used in determining which values should be returned by the collection."
     where: DealContactFilter
     "The method to use when ordering `DealContact`."
-    orderBy: [DealContactOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [DealContactOrderBy!] = [NATURAL]
   ): DealContactConnection!
   "Reads and enables pagination through a set of `DealCompany`."
   dealCompanies(
@@ -9136,7 +8785,7 @@ type Deal {
     "A filter to be used in determining which values should be returned by the collection."
     where: DealCompanyFilter
     "The method to use when ordering `DealCompany`."
-    orderBy: [DealCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [DealCompanyOrderBy!] = [NATURAL]
   ): DealCompanyConnection!
   "Reads and enables pagination through a set of `DealNote`."
   dealNotes(
@@ -9212,15 +8861,13 @@ type DealCompaniesByDealCompanyDealIdAndCompanyIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: DealCompanyFilter
     "The method to use when ordering `DealCompany`."
-    orderBy: [DealCompanyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [DealCompanyOrderBy!] = [NATURAL]
   ): DealCompanyConnection!
 }
 
 type DealCompany {
   dealId: UUID!
   companyId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Company` that is related to this `DealCompany`."
   company: Company
   "Reads a single `Deal` that is related to this `DealCompany`."
@@ -9262,8 +8909,6 @@ type DealConnection {
 type DealContact {
   dealId: UUID!
   contactId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Contact` that is related to this `DealContact`."
   contact: Contact
   "Reads a single `Deal` that is related to this `DealContact`."
@@ -9326,7 +8971,7 @@ type DealContactsByDealContactDealIdAndContactIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: DealContactFilter
     "The method to use when ordering `DealContact`."
-    orderBy: [DealContactOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [DealContactOrderBy!] = [NATURAL]
   ): DealContactConnection!
 }
 
@@ -9483,24 +9128,6 @@ type DeleteActivityLogsChunkPayload {
   ): ActivityLogsChunkEdge
 }
 
-"The output of our delete `AgentCollaborator` mutation."
-type DeleteAgentCollaboratorPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `AgentCollaborator` that was deleted by this mutation."
-  agentCollaborator: AgentCollaborator
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `AgentCollaborator`. May be used by Relay 1."
-  agentCollaboratorEdge(
-    "The method to use when ordering `AgentCollaborator`."
-    orderBy: [AgentCollaboratorOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AgentCollaboratorEdge
-}
-
 "The output of our delete `AgentLog` mutation."
 type DeleteAgentLogPayload {
   """
@@ -9589,24 +9216,6 @@ type DeleteAgentsChunkPayload {
     "The method to use when ordering `AgentsChunk`."
     orderBy: [AgentsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): AgentsChunkEdge
-}
-
-"The output of our delete `AutonomyRecordLink` mutation."
-type DeleteAutonomyRecordLinkPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `AutonomyRecordLink` that was deleted by this mutation."
-  autonomyRecordLink: AutonomyRecordLink
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `AutonomyRecordLink`. May be used by Relay 1."
-  autonomyRecordLinkEdge(
-    "The method to use when ordering `AutonomyRecordLink`."
-    orderBy: [AutonomyRecordLinkOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AutonomyRecordLinkEdge
 }
 
 "The output of our delete `AutonomyRecord` mutation."
@@ -9771,24 +9380,6 @@ type DeleteCalendarPayload {
   ): CalendarEdge
 }
 
-"The output of our delete `CodebaseDependency` mutation."
-type DeleteCodebaseDependencyPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `CodebaseDependency` that was deleted by this mutation."
-  codebaseDependency: CodebaseDependency
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `CodebaseDependency`. May be used by Relay 1."
-  codebaseDependencyEdge(
-    "The method to use when ordering `CodebaseDependency`."
-    orderBy: [CodebaseDependencyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): CodebaseDependencyEdge
-}
-
 "The output of our delete `CodebasesChunk` mutation."
 type DeleteCodebasesChunkPayload {
   """
@@ -9859,42 +9450,6 @@ type DeleteCompaniesChunkPayload {
     "The method to use when ordering `CompaniesChunk`."
     orderBy: [CompaniesChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): CompaniesChunkEdge
-}
-
-"The output of our delete `CompanyEvent` mutation."
-type DeleteCompanyEventPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `CompanyEvent` that was deleted by this mutation."
-  companyEvent: CompanyEvent
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `CompanyEvent`. May be used by Relay 1."
-  companyEventEdge(
-    "The method to use when ordering `CompanyEvent`."
-    orderBy: [CompanyEventOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): CompanyEventEdge
-}
-
-"The output of our delete `CompanyImage` mutation."
-type DeleteCompanyImagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `CompanyImage` that was deleted by this mutation."
-  companyImage: CompanyImage
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `CompanyImage`. May be used by Relay 1."
-  companyImageEdge(
-    "The method to use when ordering `CompanyImage`."
-    orderBy: [CompanyImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): CompanyImageEdge
 }
 
 "The output of our delete `CompanyLink` mutation."
@@ -9969,60 +9524,6 @@ type DeleteCompanyPayload {
   ): CompanyEdge
 }
 
-"The output of our delete `ContactCompany` mutation."
-type DeleteContactCompanyPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `ContactCompany` that was deleted by this mutation."
-  contactCompany: ContactCompany
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `ContactCompany`. May be used by Relay 1."
-  contactCompanyEdge(
-    "The method to use when ordering `ContactCompany`."
-    orderBy: [ContactCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactCompanyEdge
-}
-
-"The output of our delete `ContactEvent` mutation."
-type DeleteContactEventPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `ContactEvent` that was deleted by this mutation."
-  contactEvent: ContactEvent
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `ContactEvent`. May be used by Relay 1."
-  contactEventEdge(
-    "The method to use when ordering `ContactEvent`."
-    orderBy: [ContactEventOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactEventEdge
-}
-
-"The output of our delete `ContactImage` mutation."
-type DeleteContactImagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `ContactImage` that was deleted by this mutation."
-  contactImage: ContactImage
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `ContactImage`. May be used by Relay 1."
-  contactImageEdge(
-    "The method to use when ordering `ContactImage`."
-    orderBy: [ContactImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactImageEdge
-}
-
 "The output of our delete `ContactLink` mutation."
 type DeleteContactLinkPayload {
   """
@@ -10095,24 +9596,6 @@ type DeleteContactPayload {
   ): ContactEdge
 }
 
-"The output of our delete `ContactRelationship` mutation."
-type DeleteContactRelationshipPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `ContactRelationship` that was deleted by this mutation."
-  contactRelationship: ContactRelationship
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `ContactRelationship`. May be used by Relay 1."
-  contactRelationshipEdge(
-    "The method to use when ordering `ContactRelationship`."
-    orderBy: [ContactRelationshipOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactRelationshipEdge
-}
-
 "The output of our delete `ContactsChunk` mutation."
 type DeleteContactsChunkPayload {
   """
@@ -10165,42 +9648,6 @@ type DeleteConversationsChunkPayload {
     "The method to use when ordering `ConversationsChunk`."
     orderBy: [ConversationsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ConversationsChunkEdge
-}
-
-"The output of our delete `DealCompany` mutation."
-type DeleteDealCompanyPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `DealCompany` that was deleted by this mutation."
-  dealCompany: DealCompany
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `DealCompany`. May be used by Relay 1."
-  dealCompanyEdge(
-    "The method to use when ordering `DealCompany`."
-    orderBy: [DealCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): DealCompanyEdge
-}
-
-"The output of our delete `DealContact` mutation."
-type DeleteDealContactPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `DealContact` that was deleted by this mutation."
-  dealContact: DealContact
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `DealContact`. May be used by Relay 1."
-  dealContactEdge(
-    "The method to use when ordering `DealContact`."
-    orderBy: [DealContactOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): DealContactEdge
 }
 
 "The output of our delete `DealNote` mutation."
@@ -10275,24 +9722,6 @@ type DeleteEmailAttachmentPayload {
   ): EmailAttachmentEdge
 }
 
-"The output of our delete `EmailNote` mutation."
-type DeleteEmailNotePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailNote` that was deleted by this mutation."
-  emailNote: EmailNote
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailNote`. May be used by Relay 1."
-  emailNoteEdge(
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailNoteEdge
-}
-
 "The output of our delete `Email` mutation."
 type DeleteEmailPayload {
   """
@@ -10309,24 +9738,6 @@ type DeleteEmailPayload {
     "The method to use when ordering `Email`."
     orderBy: [EmailOrderBy!]! = [PRIMARY_KEY_ASC]
   ): EmailEdge
-}
-
-"The output of our delete `EmailRecipient` mutation."
-type DeleteEmailRecipientPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailRecipient` that was deleted by this mutation."
-  emailRecipient: EmailRecipient
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailRecipient`. May be used by Relay 1."
-  emailRecipientEdge(
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailRecipientEdge
 }
 
 "The output of our delete `EmailsChunk` mutation."
@@ -10381,24 +9792,6 @@ type DeleteEmailThreadsChunkPayload {
     "The method to use when ordering `EmailThreadsChunk`."
     orderBy: [EmailThreadsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): EmailThreadsChunkEdge
-}
-
-"The output of our delete `EventImage` mutation."
-type DeleteEventImagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EventImage` that was deleted by this mutation."
-  eventImage: EventImage
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EventImage`. May be used by Relay 1."
-  eventImageEdge(
-    "The method to use when ordering `EventImage`."
-    orderBy: [EventImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EventImageEdge
 }
 
 "The output of our delete `EventLink` mutation."
@@ -10471,24 +9864,6 @@ type DeleteEventsChunkPayload {
     "The method to use when ordering `EventsChunk`."
     orderBy: [EventsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): EventsChunkEdge
-}
-
-"The output of our delete `EventVenue` mutation."
-type DeleteEventVenuePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EventVenue` that was deleted by this mutation."
-  eventVenue: EventVenue
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EventVenue`. May be used by Relay 1."
-  eventVenueEdge(
-    "The method to use when ordering `EventVenue`."
-    orderBy: [EventVenueOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EventVenueEdge
 }
 
 "The output of our delete `ExpenseContact` mutation."
@@ -11211,24 +10586,6 @@ type DeleteRuntimeSchedulePayload {
   ): RuntimeScheduleEdge
 }
 
-"The output of our delete `RuntimeStateDependency` mutation."
-type DeleteRuntimeStateDependencyPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `RuntimeStateDependency` that was deleted by this mutation."
-  runtimeStateDependency: RuntimeStateDependency
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `RuntimeStateDependency`. May be used by Relay 1."
-  runtimeStateDependencyEdge(
-    "The method to use when ordering `RuntimeStateDependency`."
-    orderBy: [RuntimeStateDependencyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): RuntimeStateDependencyEdge
-}
-
 "The output of our delete `RuntimeState` mutation."
 type DeleteRuntimeStatePayload {
   """
@@ -11571,24 +10928,6 @@ type DeleteTripsChunkPayload {
   ): TripsChunkEdge
 }
 
-"The output of our delete `VenueImage` mutation."
-type DeleteVenueImagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `VenueImage` that was deleted by this mutation."
-  venueImage: VenueImage
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `VenueImage`. May be used by Relay 1."
-  venueImageEdge(
-    "The method to use when ordering `VenueImage`."
-    orderBy: [VenueImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): VenueImageEdge
-}
-
 "The output of our delete `VenueLink` mutation."
 type DeleteVenueLinkPayload {
   """
@@ -11664,50 +11003,8 @@ type Email {
   embedding: Vector
   embeddingStale: Boolean!
   emailThreadId: UUID!
-  "Reads and enables pagination through a set of `Contact`."
-  contactsByEmailRecipientEmailIdAndContactId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ContactFilter
-    "The method to use when ordering `Contact`."
-    orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailContactsByEmailRecipientEmailIdAndContactIdManyToManyConnection!
-  "Reads and enables pagination through a set of `Note`."
-  notes(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: NoteFilter
-    "The method to use when ordering `Note`."
-    orderBy: [NoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNotesManyToManyConnection!
   "Reads a single `EmailThread` that is related to this `Email`."
   emailThread: EmailThread
-  "Reads a single `Contact` that is related to this `Email`."
-  fromContact: Contact
   "Reads and enables pagination through a set of `EmailsChunk`."
   emailsChunksByEmailsId(
     "Only read the first `n` values of the set."
@@ -11748,46 +11045,6 @@ type Email {
     "The method to use when ordering `EmailAttachment`."
     orderBy: [EmailAttachmentOrderBy!] = [PRIMARY_KEY_ASC]
   ): EmailAttachmentConnection!
-  "Reads and enables pagination through a set of `EmailRecipient`."
-  emailRecipients(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailRecipientFilter
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailRecipientConnection!
-  "Reads and enables pagination through a set of `EmailNote`."
-  emailNotes(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailNoteFilter
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNoteConnection!
 }
 
 type EmailAttachment {
@@ -11837,154 +11094,12 @@ type EmailConnection {
   totalCount: Int!
 }
 
-"A connection to a list of `Contact` values, with data from `EmailRecipient`."
-type EmailContactsByEmailRecipientEmailIdAndContactIdManyToManyConnection {
-  "A list of `Contact` objects."
-  nodes: [Contact]!
-  "A list of edges which contains the `Contact`, info from the `EmailRecipient`, and the cursor to aid in pagination."
-  edges: [EmailContactsByEmailRecipientEmailIdAndContactIdManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Contact` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Contact` edge in the connection, with data from `EmailRecipient`."
-type EmailContactsByEmailRecipientEmailIdAndContactIdManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Contact` at the end of the edge."
-  node: Contact
-  "Reads and enables pagination through a set of `EmailRecipient`."
-  emailRecipientsByContactId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailRecipientFilter
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailRecipientConnection!
-}
-
 "A `Email` edge in the connection."
 type EmailEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Email` at the end of the edge."
   node: Email
-}
-
-type EmailNote {
-  emailId: UUID!
-  noteId: UUID!
-  id: UUID!
-  entityId: UUID!
-  "Reads a single `Email` that is related to this `EmailNote`."
-  email: Email
-  "Reads a single `Note` that is related to this `EmailNote`."
-  note: Note
-}
-
-"A connection to a list of `EmailNote` values."
-type EmailNoteConnection {
-  "A list of `EmailNote` objects."
-  nodes: [EmailNote]!
-  "A list of edges which contains the `EmailNote` and cursor to aid in pagination."
-  edges: [EmailNoteEdge]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `EmailNote` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `EmailNote` edge in the connection."
-type EmailNoteEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `EmailNote` at the end of the edge."
-  node: EmailNote
-}
-
-"A connection to a list of `Note` values, with data from `EmailNote`."
-type EmailNotesManyToManyConnection {
-  "A list of `Note` objects."
-  nodes: [Note]!
-  "A list of edges which contains the `Note`, info from the `EmailNote`, and the cursor to aid in pagination."
-  edges: [EmailNotesManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Note` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Note` edge in the connection, with data from `EmailNote`."
-type EmailNotesManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Note` at the end of the edge."
-  node: Note
-  "Reads and enables pagination through a set of `EmailNote`."
-  emailNotesByNoteId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailNoteFilter
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNoteConnection!
-}
-
-type EmailRecipient {
-  emailId: UUID!
-  contactId: UUID!
-  id: UUID!
-  entityId: UUID!
-  "Reads a single `Contact` that is related to this `EmailRecipient`."
-  contact: Contact
-  "Reads a single `Email` that is related to this `EmailRecipient`."
-  email: Email
-}
-
-"A connection to a list of `EmailRecipient` values."
-type EmailRecipientConnection {
-  "A list of `EmailRecipient` objects."
-  nodes: [EmailRecipient]!
-  "A list of edges which contains the `EmailRecipient` and cursor to aid in pagination."
-  edges: [EmailRecipientEdge]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `EmailRecipient` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `EmailRecipient` edge in the connection."
-type EmailRecipientEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `EmailRecipient` at the end of the edge."
-  node: EmailRecipient
 }
 
 "@@chunksOf {\"parent_fk\": \"emails_id\", \"parent_table\": \"emails\"}"
@@ -12042,7 +11157,7 @@ type EmailThread {
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Contact`."
-  contactsByThreadParticipantEmailThreadIdAndContactId(
+  contacts(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -12060,7 +11175,7 @@ type EmailThread {
     where: ContactFilter
     "The method to use when ordering `Contact`."
     orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailThreadContactsByThreadParticipantEmailThreadIdAndContactIdManyToManyConnection!
+  ): EmailThreadContactsManyToManyConnection!
   "Reads and enables pagination through a set of `EmailThreadsChunk`."
   emailThreadsChunksByEmailThreadsId(
     "Only read the first `n` values of the set."
@@ -12154,11 +11269,11 @@ type EmailThreadConnection {
 }
 
 "A connection to a list of `Contact` values, with data from `ThreadParticipant`."
-type EmailThreadContactsByThreadParticipantEmailThreadIdAndContactIdManyToManyConnection {
+type EmailThreadContactsManyToManyConnection {
   "A list of `Contact` objects."
   nodes: [Contact]!
   "A list of edges which contains the `Contact`, info from the `ThreadParticipant`, and the cursor to aid in pagination."
-  edges: [EmailThreadContactsByThreadParticipantEmailThreadIdAndContactIdManyToManyEdge!]!
+  edges: [EmailThreadContactsManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Contact` you could get from the connection."
@@ -12166,7 +11281,7 @@ type EmailThreadContactsByThreadParticipantEmailThreadIdAndContactIdManyToManyCo
 }
 
 "A `Contact` edge in the connection, with data from `ThreadParticipant`."
-type EmailThreadContactsByThreadParticipantEmailThreadIdAndContactIdManyToManyEdge {
+type EmailThreadContactsManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Contact` at the end of the edge."
@@ -12438,7 +11553,7 @@ type Event {
     "A filter to be used in determining which values should be returned by the collection."
     where: EventImageFilter
     "The method to use when ordering `EventImage`."
-    orderBy: [EventImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [EventImageOrderBy!] = [NATURAL]
   ): EventImageConnection!
   "Reads and enables pagination through a set of `ContactEvent`."
   contactEvents(
@@ -12458,7 +11573,7 @@ type Event {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactEventFilter
     "The method to use when ordering `ContactEvent`."
-    orderBy: [ContactEventOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactEventOrderBy!] = [NATURAL]
   ): ContactEventConnection!
   "Reads and enables pagination through a set of `CompanyEvent`."
   companyEvents(
@@ -12478,7 +11593,7 @@ type Event {
     "A filter to be used in determining which values should be returned by the collection."
     where: CompanyEventFilter
     "The method to use when ordering `CompanyEvent`."
-    orderBy: [CompanyEventOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [CompanyEventOrderBy!] = [NATURAL]
   ): CompanyEventConnection!
   "Reads and enables pagination through a set of `EventVenue`."
   eventVenues(
@@ -12498,7 +11613,7 @@ type Event {
     "A filter to be used in determining which values should be returned by the collection."
     where: EventVenueFilter
     "The method to use when ordering `EventVenue`."
-    orderBy: [EventVenueOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [EventVenueOrderBy!] = [NATURAL]
   ): EventVenueConnection!
   "Reads and enables pagination through a set of `EventNote`."
   eventNotes(
@@ -12578,7 +11693,7 @@ type EventCompaniesByCompanyEventEventIdAndCompanyIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: CompanyEventFilter
     "The method to use when ordering `CompanyEvent`."
-    orderBy: [CompanyEventOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [CompanyEventOrderBy!] = [NATURAL]
   ): CompanyEventConnection!
 }
 
@@ -12630,7 +11745,7 @@ type EventContactsByContactEventEventIdAndContactIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactEventFilter
     "The method to use when ordering `ContactEvent`."
-    orderBy: [ContactEventOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactEventOrderBy!] = [NATURAL]
   ): ContactEventConnection!
 }
 
@@ -12645,8 +11760,6 @@ type EventEdge {
 type EventImage {
   eventId: UUID!
   imageId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Event` that is related to this `EventImage`."
   event: Event
   "Reads a single `Image` that is related to this `EventImage`."
@@ -12709,7 +11822,7 @@ type EventImagesByEventImageEventIdAndImageIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: EventImageFilter
     "The method to use when ordering `EventImage`."
-    orderBy: [EventImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [EventImageOrderBy!] = [NATURAL]
   ): EventImageConnection!
 }
 
@@ -12863,8 +11976,6 @@ type EventsChunkEdge {
 type EventVenue {
   eventId: UUID!
   venueId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Event` that is related to this `EventVenue`."
   event: Event
   "Reads a single `Venue` that is related to this `EventVenue`."
@@ -12927,7 +12038,7 @@ type EventVenuesManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: EventVenueFilter
     "The method to use when ordering `EventVenue`."
-    orderBy: [EventVenueOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [EventVenueOrderBy!] = [NATURAL]
   ): EventVenueConnection!
 }
 
@@ -13925,7 +13036,7 @@ type Image {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactImageFilter
     "The method to use when ordering `ContactImage`."
-    orderBy: [ContactImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactImageOrderBy!] = [NATURAL]
   ): ContactImageConnection!
   "Reads and enables pagination through a set of `CompanyImage`."
   companyImages(
@@ -13945,7 +13056,7 @@ type Image {
     "A filter to be used in determining which values should be returned by the collection."
     where: CompanyImageFilter
     "The method to use when ordering `CompanyImage`."
-    orderBy: [CompanyImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [CompanyImageOrderBy!] = [NATURAL]
   ): CompanyImageConnection!
   "Reads and enables pagination through a set of `EventImage`."
   eventImages(
@@ -13965,7 +13076,7 @@ type Image {
     "A filter to be used in determining which values should be returned by the collection."
     where: EventImageFilter
     "The method to use when ordering `EventImage`."
-    orderBy: [EventImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [EventImageOrderBy!] = [NATURAL]
   ): EventImageConnection!
   "Reads and enables pagination through a set of `VenueImage`."
   venueImages(
@@ -13985,7 +13096,7 @@ type Image {
     "A filter to be used in determining which values should be returned by the collection."
     where: VenueImageFilter
     "The method to use when ordering `VenueImage`."
-    orderBy: [VenueImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [VenueImageOrderBy!] = [NATURAL]
   ): VenueImageConnection!
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
   embeddingVectorDistance: Float
@@ -14029,7 +13140,7 @@ type ImageCompaniesManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: CompanyImageFilter
     "The method to use when ordering `CompanyImage`."
-    orderBy: [CompanyImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [CompanyImageOrderBy!] = [NATURAL]
   ): CompanyImageConnection!
 }
 
@@ -14081,7 +13192,7 @@ type ImageContactsManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactImageFilter
     "The method to use when ordering `ContactImage`."
-    orderBy: [ContactImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactImageOrderBy!] = [NATURAL]
   ): ContactImageConnection!
 }
 
@@ -14129,7 +13240,7 @@ type ImageEventsManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: EventImageFilter
     "The method to use when ordering `EventImage`."
-    orderBy: [EventImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [EventImageOrderBy!] = [NATURAL]
   ): EventImageConnection!
 }
 
@@ -14169,7 +13280,7 @@ type ImageVenuesManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: VenueImageFilter
     "The method to use when ordering `VenueImage`."
-    orderBy: [VenueImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [VenueImageOrderBy!] = [NATURAL]
   ): VenueImageConnection!
 }
 
@@ -14841,6 +13952,56 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeStateDependencyInput!
   ): CreateRuntimeStateDependencyPayload
+  "Creates a single `CompanyEvent`."
+  createCompanyEvent(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateCompanyEventInput!
+  ): CreateCompanyEventPayload
+  "Creates a single `CompanyImage`."
+  createCompanyImage(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateCompanyImageInput!
+  ): CreateCompanyImagePayload
+  "Creates a single `ContactCompany`."
+  createContactCompany(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateContactCompanyInput!
+  ): CreateContactCompanyPayload
+  "Creates a single `ContactEvent`."
+  createContactEvent(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateContactEventInput!
+  ): CreateContactEventPayload
+  "Creates a single `ContactImage`."
+  createContactImage(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateContactImageInput!
+  ): CreateContactImagePayload
+  "Creates a single `DealCompany`."
+  createDealCompany(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateDealCompanyInput!
+  ): CreateDealCompanyPayload
+  "Creates a single `DealContact`."
+  createDealContact(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateDealContactInput!
+  ): CreateDealContactPayload
+  "Creates a single `EventImage`."
+  createEventImage(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateEventImageInput!
+  ): CreateEventImagePayload
+  "Creates a single `EventVenue`."
+  createEventVenue(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateEventVenueInput!
+  ): CreateEventVenuePayload
+  "Creates a single `VenueImage`."
+  createVenueImage(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateVenueImageInput!
+  ): CreateVenueImagePayload
   "Creates a single `AgentPrompt`."
   createAgentPrompt(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14861,16 +14022,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateCalendarEventTaskInput!
   ): CreateCalendarEventTaskPayload
-  "Creates a single `CompanyEvent`."
-  createCompanyEvent(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateCompanyEventInput!
-  ): CreateCompanyEventPayload
-  "Creates a single `CompanyImage`."
-  createCompanyImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateCompanyImageInput!
-  ): CreateCompanyImagePayload
   "Creates a single `CompanyMemory`."
   createCompanyMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14881,21 +14032,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateCompanyNoteInput!
   ): CreateCompanyNotePayload
-  "Creates a single `ContactCompany`."
-  createContactCompany(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateContactCompanyInput!
-  ): CreateContactCompanyPayload
-  "Creates a single `ContactEvent`."
-  createContactEvent(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateContactEventInput!
-  ): CreateContactEventPayload
-  "Creates a single `ContactImage`."
-  createContactImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateContactImageInput!
-  ): CreateContactImagePayload
   "Creates a single `ContactMemory`."
   createContactMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14906,46 +14042,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateContactNoteInput!
   ): CreateContactNotePayload
-  "Creates a single `DealCompany`."
-  createDealCompany(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateDealCompanyInput!
-  ): CreateDealCompanyPayload
-  "Creates a single `DealContact`."
-  createDealContact(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateDealContactInput!
-  ): CreateDealContactPayload
   "Creates a single `DealNote`."
   createDealNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateDealNoteInput!
   ): CreateDealNotePayload
-  "Creates a single `EmailNote`."
-  createEmailNote(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateEmailNoteInput!
-  ): CreateEmailNotePayload
-  "Creates a single `EmailRecipient`."
-  createEmailRecipient(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateEmailRecipientInput!
-  ): CreateEmailRecipientPayload
-  "Creates a single `EventImage`."
-  createEventImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateEventImageInput!
-  ): CreateEventImagePayload
   "Creates a single `EventNote`."
   createEventNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateEventNoteInput!
   ): CreateEventNotePayload
-  "Creates a single `EventVenue`."
-  createEventVenue(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateEventVenueInput!
-  ): CreateEventVenuePayload
   "Creates a single `ExpenseContact`."
   createExpenseContact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -14991,11 +14097,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateThreadParticipantInput!
   ): CreateThreadParticipantPayload
-  "Creates a single `VenueImage`."
-  createVenueImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateVenueImageInput!
-  ): CreateVenueImagePayload
   "Creates a single `Calendar`."
   createCalendar(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15426,31 +14527,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateMemoryInput!
   ): CreateMemoryPayload
-  "Updates a single `AgentCollaborator` using a unique key and a patch."
-  updateAgentCollaborator(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateAgentCollaboratorInput!
-  ): UpdateAgentCollaboratorPayload
-  "Updates a single `AutonomyRecordLink` using a unique key and a patch."
-  updateAutonomyRecordLink(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateAutonomyRecordLinkInput!
-  ): UpdateAutonomyRecordLinkPayload
-  "Updates a single `CodebaseDependency` using a unique key and a patch."
-  updateCodebaseDependency(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateCodebaseDependencyInput!
-  ): UpdateCodebaseDependencyPayload
-  "Updates a single `ContactRelationship` using a unique key and a patch."
-  updateContactRelationship(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateContactRelationshipInput!
-  ): UpdateContactRelationshipPayload
-  "Updates a single `RuntimeStateDependency` using a unique key and a patch."
-  updateRuntimeStateDependency(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRuntimeStateDependencyInput!
-  ): UpdateRuntimeStateDependencyPayload
   "Updates a single `AgentPrompt` using a unique key and a patch."
   updateAgentPrompt(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15471,16 +14547,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateCalendarEventTaskInput!
   ): UpdateCalendarEventTaskPayload
-  "Updates a single `CompanyEvent` using a unique key and a patch."
-  updateCompanyEvent(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateCompanyEventInput!
-  ): UpdateCompanyEventPayload
-  "Updates a single `CompanyImage` using a unique key and a patch."
-  updateCompanyImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateCompanyImageInput!
-  ): UpdateCompanyImagePayload
   "Updates a single `CompanyMemory` using a unique key and a patch."
   updateCompanyMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15491,21 +14557,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateCompanyNoteInput!
   ): UpdateCompanyNotePayload
-  "Updates a single `ContactCompany` using a unique key and a patch."
-  updateContactCompany(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateContactCompanyInput!
-  ): UpdateContactCompanyPayload
-  "Updates a single `ContactEvent` using a unique key and a patch."
-  updateContactEvent(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateContactEventInput!
-  ): UpdateContactEventPayload
-  "Updates a single `ContactImage` using a unique key and a patch."
-  updateContactImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateContactImageInput!
-  ): UpdateContactImagePayload
   "Updates a single `ContactMemory` using a unique key and a patch."
   updateContactMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15516,46 +14567,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateContactNoteInput!
   ): UpdateContactNotePayload
-  "Updates a single `DealCompany` using a unique key and a patch."
-  updateDealCompany(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateDealCompanyInput!
-  ): UpdateDealCompanyPayload
-  "Updates a single `DealContact` using a unique key and a patch."
-  updateDealContact(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateDealContactInput!
-  ): UpdateDealContactPayload
   "Updates a single `DealNote` using a unique key and a patch."
   updateDealNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateDealNoteInput!
   ): UpdateDealNotePayload
-  "Updates a single `EmailNote` using a unique key and a patch."
-  updateEmailNote(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateEmailNoteInput!
-  ): UpdateEmailNotePayload
-  "Updates a single `EmailRecipient` using a unique key and a patch."
-  updateEmailRecipient(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateEmailRecipientInput!
-  ): UpdateEmailRecipientPayload
-  "Updates a single `EventImage` using a unique key and a patch."
-  updateEventImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateEventImageInput!
-  ): UpdateEventImagePayload
   "Updates a single `EventNote` using a unique key and a patch."
   updateEventNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateEventNoteInput!
   ): UpdateEventNotePayload
-  "Updates a single `EventVenue` using a unique key and a patch."
-  updateEventVenue(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateEventVenueInput!
-  ): UpdateEventVenuePayload
   "Updates a single `ExpenseContact` using a unique key and a patch."
   updateExpenseContact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -15601,11 +14622,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateThreadParticipantInput!
   ): UpdateThreadParticipantPayload
-  "Updates a single `VenueImage` using a unique key and a patch."
-  updateVenueImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateVenueImageInput!
-  ): UpdateVenueImagePayload
   "Updates a single `Calendar` using a unique key and a patch."
   updateCalendar(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16036,31 +15052,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateMemoryInput!
   ): UpdateMemoryPayload
-  "Deletes a single `AgentCollaborator` using a unique key."
-  deleteAgentCollaborator(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteAgentCollaboratorInput!
-  ): DeleteAgentCollaboratorPayload
-  "Deletes a single `AutonomyRecordLink` using a unique key."
-  deleteAutonomyRecordLink(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteAutonomyRecordLinkInput!
-  ): DeleteAutonomyRecordLinkPayload
-  "Deletes a single `CodebaseDependency` using a unique key."
-  deleteCodebaseDependency(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteCodebaseDependencyInput!
-  ): DeleteCodebaseDependencyPayload
-  "Deletes a single `ContactRelationship` using a unique key."
-  deleteContactRelationship(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteContactRelationshipInput!
-  ): DeleteContactRelationshipPayload
-  "Deletes a single `RuntimeStateDependency` using a unique key."
-  deleteRuntimeStateDependency(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRuntimeStateDependencyInput!
-  ): DeleteRuntimeStateDependencyPayload
   "Deletes a single `AgentPrompt` using a unique key."
   deleteAgentPrompt(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16081,16 +15072,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteCalendarEventTaskInput!
   ): DeleteCalendarEventTaskPayload
-  "Deletes a single `CompanyEvent` using a unique key."
-  deleteCompanyEvent(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteCompanyEventInput!
-  ): DeleteCompanyEventPayload
-  "Deletes a single `CompanyImage` using a unique key."
-  deleteCompanyImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteCompanyImageInput!
-  ): DeleteCompanyImagePayload
   "Deletes a single `CompanyMemory` using a unique key."
   deleteCompanyMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16101,21 +15082,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteCompanyNoteInput!
   ): DeleteCompanyNotePayload
-  "Deletes a single `ContactCompany` using a unique key."
-  deleteContactCompany(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteContactCompanyInput!
-  ): DeleteContactCompanyPayload
-  "Deletes a single `ContactEvent` using a unique key."
-  deleteContactEvent(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteContactEventInput!
-  ): DeleteContactEventPayload
-  "Deletes a single `ContactImage` using a unique key."
-  deleteContactImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteContactImageInput!
-  ): DeleteContactImagePayload
   "Deletes a single `ContactMemory` using a unique key."
   deleteContactMemory(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16126,46 +15092,16 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteContactNoteInput!
   ): DeleteContactNotePayload
-  "Deletes a single `DealCompany` using a unique key."
-  deleteDealCompany(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteDealCompanyInput!
-  ): DeleteDealCompanyPayload
-  "Deletes a single `DealContact` using a unique key."
-  deleteDealContact(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteDealContactInput!
-  ): DeleteDealContactPayload
   "Deletes a single `DealNote` using a unique key."
   deleteDealNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteDealNoteInput!
   ): DeleteDealNotePayload
-  "Deletes a single `EmailNote` using a unique key."
-  deleteEmailNote(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteEmailNoteInput!
-  ): DeleteEmailNotePayload
-  "Deletes a single `EmailRecipient` using a unique key."
-  deleteEmailRecipient(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteEmailRecipientInput!
-  ): DeleteEmailRecipientPayload
-  "Deletes a single `EventImage` using a unique key."
-  deleteEventImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteEventImageInput!
-  ): DeleteEventImagePayload
   "Deletes a single `EventNote` using a unique key."
   deleteEventNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteEventNoteInput!
   ): DeleteEventNotePayload
-  "Deletes a single `EventVenue` using a unique key."
-  deleteEventVenue(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteEventVenueInput!
-  ): DeleteEventVenuePayload
   "Deletes a single `ExpenseContact` using a unique key."
   deleteExpenseContact(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16211,11 +15147,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteThreadParticipantInput!
   ): DeleteThreadParticipantPayload
-  "Deletes a single `VenueImage` using a unique key."
-  deleteVenueImage(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteVenueImageInput!
-  ): DeleteVenueImagePayload
   "Deletes a single `Calendar` using a unique key."
   deleteCalendar(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16763,26 +15694,6 @@ type Note {
     "The method to use when ordering `Task`."
     orderBy: [TaskOrderBy!] = [PRIMARY_KEY_ASC]
   ): NoteTasksManyToManyConnection!
-  "Reads and enables pagination through a set of `Email`."
-  emails(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailFilter
-    "The method to use when ordering `Email`."
-    orderBy: [EmailOrderBy!] = [PRIMARY_KEY_ASC]
-  ): NoteEmailsManyToManyConnection!
   "Reads and enables pagination through a set of `CalendarEvent`."
   calendarEvents(
     "Only read the first `n` values of the set."
@@ -16923,26 +15834,6 @@ type Note {
     "The method to use when ordering `TaskNote`."
     orderBy: [TaskNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): TaskNoteConnection!
-  "Reads and enables pagination through a set of `EmailNote`."
-  emailNotes(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailNoteFilter
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNoteConnection!
   "Reads and enables pagination through a set of `CalendarEventNote`."
   calendarEventNotes(
     "Only read the first `n` values of the set."
@@ -17159,46 +16050,6 @@ type NoteEdge {
   cursor: Cursor
   "The `Note` at the end of the edge."
   node: Note
-}
-
-"A connection to a list of `Email` values, with data from `EmailNote`."
-type NoteEmailsManyToManyConnection {
-  "A list of `Email` objects."
-  nodes: [Email]!
-  "A list of edges which contains the `Email`, info from the `EmailNote`, and the cursor to aid in pagination."
-  edges: [NoteEmailsManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Email` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Email` edge in the connection, with data from `EmailNote`."
-type NoteEmailsManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Email` at the end of the edge."
-  node: Email
-  "Reads and enables pagination through a set of `EmailNote`."
-  emailNotesByEmailId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailNoteFilter
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNoteConnection!
 }
 
 "A connection to a list of `Event` values, with data from `EventNote`."
@@ -18070,7 +16921,7 @@ type Query {
     "A filter to be used in determining which values should be returned by the collection."
     where: AgentCollaboratorFilter
     "The method to use when ordering `AgentCollaborator`."
-    orderBy: [AgentCollaboratorOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [AgentCollaboratorOrderBy!] = [NATURAL]
   ): AgentCollaboratorConnection
   "Reads and enables pagination through a set of `AutonomyRecordLink`."
   autonomyRecordLinks(
@@ -18090,7 +16941,7 @@ type Query {
     "A filter to be used in determining which values should be returned by the collection."
     where: AutonomyRecordLinkFilter
     "The method to use when ordering `AutonomyRecordLink`."
-    orderBy: [AutonomyRecordLinkOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [AutonomyRecordLinkOrderBy!] = [NATURAL]
   ): AutonomyRecordLinkConnection
   "Reads and enables pagination through a set of `CodebaseDependency`."
   codebaseDependencies(
@@ -18110,7 +16961,7 @@ type Query {
     "A filter to be used in determining which values should be returned by the collection."
     where: CodebaseDependencyFilter
     "The method to use when ordering `CodebaseDependency`."
-    orderBy: [CodebaseDependencyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [CodebaseDependencyOrderBy!] = [NATURAL]
   ): CodebaseDependencyConnection
   "Reads and enables pagination through a set of `ContactRelationship`."
   contactRelationships(
@@ -18130,7 +16981,7 @@ type Query {
     "A filter to be used in determining which values should be returned by the collection."
     where: ContactRelationshipFilter
     "The method to use when ordering `ContactRelationship`."
-    orderBy: [ContactRelationshipOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [ContactRelationshipOrderBy!] = [NATURAL]
   ): ContactRelationshipConnection
   "Reads and enables pagination through a set of `RuntimeStateDependency`."
   runtimeStateDependencies(
@@ -18150,8 +17001,208 @@ type Query {
     "A filter to be used in determining which values should be returned by the collection."
     where: RuntimeStateDependencyFilter
     "The method to use when ordering `RuntimeStateDependency`."
-    orderBy: [RuntimeStateDependencyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [RuntimeStateDependencyOrderBy!] = [NATURAL]
   ): RuntimeStateDependencyConnection
+  "Reads and enables pagination through a set of `CompanyEvent`."
+  companyEvents(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: CompanyEventFilter
+    "The method to use when ordering `CompanyEvent`."
+    orderBy: [CompanyEventOrderBy!] = [NATURAL]
+  ): CompanyEventConnection
+  "Reads and enables pagination through a set of `CompanyImage`."
+  companyImages(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: CompanyImageFilter
+    "The method to use when ordering `CompanyImage`."
+    orderBy: [CompanyImageOrderBy!] = [NATURAL]
+  ): CompanyImageConnection
+  "Reads and enables pagination through a set of `ContactCompany`."
+  contactCompanies(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactCompanyFilter
+    "The method to use when ordering `ContactCompany`."
+    orderBy: [ContactCompanyOrderBy!] = [NATURAL]
+  ): ContactCompanyConnection
+  "Reads and enables pagination through a set of `ContactEvent`."
+  contactEvents(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactEventFilter
+    "The method to use when ordering `ContactEvent`."
+    orderBy: [ContactEventOrderBy!] = [NATURAL]
+  ): ContactEventConnection
+  "Reads and enables pagination through a set of `ContactImage`."
+  contactImages(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactImageFilter
+    "The method to use when ordering `ContactImage`."
+    orderBy: [ContactImageOrderBy!] = [NATURAL]
+  ): ContactImageConnection
+  "Reads and enables pagination through a set of `DealCompany`."
+  dealCompanies(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DealCompanyFilter
+    "The method to use when ordering `DealCompany`."
+    orderBy: [DealCompanyOrderBy!] = [NATURAL]
+  ): DealCompanyConnection
+  "Reads and enables pagination through a set of `DealContact`."
+  dealContacts(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: DealContactFilter
+    "The method to use when ordering `DealContact`."
+    orderBy: [DealContactOrderBy!] = [NATURAL]
+  ): DealContactConnection
+  "Reads and enables pagination through a set of `EventImage`."
+  eventImages(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: EventImageFilter
+    "The method to use when ordering `EventImage`."
+    orderBy: [EventImageOrderBy!] = [NATURAL]
+  ): EventImageConnection
+  "Reads and enables pagination through a set of `EventVenue`."
+  eventVenues(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: EventVenueFilter
+    "The method to use when ordering `EventVenue`."
+    orderBy: [EventVenueOrderBy!] = [NATURAL]
+  ): EventVenueConnection
+  "Reads and enables pagination through a set of `VenueImage`."
+  venueImages(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: VenueImageFilter
+    "The method to use when ordering `VenueImage`."
+    orderBy: [VenueImageOrderBy!] = [NATURAL]
+  ): VenueImageConnection
   "Reads and enables pagination through a set of `AgentPrompt`."
   agentPrompts(
     "Only read the first `n` values of the set."
@@ -18232,46 +17283,6 @@ type Query {
     "The method to use when ordering `CalendarEventTask`."
     orderBy: [CalendarEventTaskOrderBy!] = [PRIMARY_KEY_ASC]
   ): CalendarEventTaskConnection
-  "Reads and enables pagination through a set of `CompanyEvent`."
-  companyEvents(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: CompanyEventFilter
-    "The method to use when ordering `CompanyEvent`."
-    orderBy: [CompanyEventOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CompanyEventConnection
-  "Reads and enables pagination through a set of `CompanyImage`."
-  companyImages(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: CompanyImageFilter
-    "The method to use when ordering `CompanyImage`."
-    orderBy: [CompanyImageOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CompanyImageConnection
   "Reads and enables pagination through a set of `CompanyMemory`."
   companyMemories(
     "Only read the first `n` values of the set."
@@ -18312,66 +17323,6 @@ type Query {
     "The method to use when ordering `CompanyNote`."
     orderBy: [CompanyNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): CompanyNoteConnection
-  "Reads and enables pagination through a set of `ContactCompany`."
-  contactCompanies(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ContactCompanyFilter
-    "The method to use when ordering `ContactCompany`."
-    orderBy: [ContactCompanyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactCompanyConnection
-  "Reads and enables pagination through a set of `ContactEvent`."
-  contactEvents(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ContactEventFilter
-    "The method to use when ordering `ContactEvent`."
-    orderBy: [ContactEventOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactEventConnection
-  "Reads and enables pagination through a set of `ContactImage`."
-  contactImages(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ContactImageFilter
-    "The method to use when ordering `ContactImage`."
-    orderBy: [ContactImageOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactImageConnection
   "Reads and enables pagination through a set of `ContactMemory`."
   contactMemories(
     "Only read the first `n` values of the set."
@@ -18412,46 +17363,6 @@ type Query {
     "The method to use when ordering `ContactNote`."
     orderBy: [ContactNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactNoteConnection
-  "Reads and enables pagination through a set of `DealCompany`."
-  dealCompanies(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: DealCompanyFilter
-    "The method to use when ordering `DealCompany`."
-    orderBy: [DealCompanyOrderBy!] = [PRIMARY_KEY_ASC]
-  ): DealCompanyConnection
-  "Reads and enables pagination through a set of `DealContact`."
-  dealContacts(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: DealContactFilter
-    "The method to use when ordering `DealContact`."
-    orderBy: [DealContactOrderBy!] = [PRIMARY_KEY_ASC]
-  ): DealContactConnection
   "Reads and enables pagination through a set of `DealNote`."
   dealNotes(
     "Only read the first `n` values of the set."
@@ -18472,66 +17383,6 @@ type Query {
     "The method to use when ordering `DealNote`."
     orderBy: [DealNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): DealNoteConnection
-  "Reads and enables pagination through a set of `EmailNote`."
-  emailNotes(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailNoteFilter
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNoteConnection
-  "Reads and enables pagination through a set of `EmailRecipient`."
-  emailRecipients(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailRecipientFilter
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailRecipientConnection
-  "Reads and enables pagination through a set of `EventImage`."
-  eventImages(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EventImageFilter
-    "The method to use when ordering `EventImage`."
-    orderBy: [EventImageOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EventImageConnection
   "Reads and enables pagination through a set of `EventNote`."
   eventNotes(
     "Only read the first `n` values of the set."
@@ -18552,26 +17403,6 @@ type Query {
     "The method to use when ordering `EventNote`."
     orderBy: [EventNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): EventNoteConnection
-  "Reads and enables pagination through a set of `EventVenue`."
-  eventVenues(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EventVenueFilter
-    "The method to use when ordering `EventVenue`."
-    orderBy: [EventVenueOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EventVenueConnection
   "Reads and enables pagination through a set of `ExpenseContact`."
   expenseContacts(
     "Only read the first `n` values of the set."
@@ -18752,26 +17583,6 @@ type Query {
     "The method to use when ordering `ThreadParticipant`."
     orderBy: [ThreadParticipantOrderBy!] = [PRIMARY_KEY_ASC]
   ): ThreadParticipantConnection
-  "Reads and enables pagination through a set of `VenueImage`."
-  venueImages(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: VenueImageFilter
-    "The method to use when ordering `VenueImage`."
-    orderBy: [VenueImageOrderBy!] = [PRIMARY_KEY_ASC]
-  ): VenueImageConnection
   "Reads and enables pagination through a set of `Calendar`."
   calendars(
     "Only read the first `n` values of the set."
@@ -21210,7 +20021,7 @@ type RuntimeState {
     "A filter to be used in determining which values should be returned by the collection."
     where: RuntimeStateDependencyFilter
     "The method to use when ordering `RuntimeStateDependency`."
-    orderBy: [RuntimeStateDependencyOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [RuntimeStateDependencyOrderBy!] = [NATURAL]
   ): RuntimeStateDependencyConnection!
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
@@ -21242,8 +20053,6 @@ type RuntimeStateConnection {
 
 type RuntimeStateDependency {
   runtimeStateId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `RuntimeState` that is related to this `RuntimeStateDependency`."
   runtimeState: RuntimeState
 }
@@ -22677,24 +21486,6 @@ type UpdateActivityLogsChunkPayload {
   ): ActivityLogsChunkEdge
 }
 
-"The output of our update `AgentCollaborator` mutation."
-type UpdateAgentCollaboratorPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `AgentCollaborator` that was updated by this mutation."
-  agentCollaborator: AgentCollaborator
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `AgentCollaborator`. May be used by Relay 1."
-  agentCollaboratorEdge(
-    "The method to use when ordering `AgentCollaborator`."
-    orderBy: [AgentCollaboratorOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AgentCollaboratorEdge
-}
-
 "The output of our update `AgentLog` mutation."
 type UpdateAgentLogPayload {
   """
@@ -22783,24 +21574,6 @@ type UpdateAgentsChunkPayload {
     "The method to use when ordering `AgentsChunk`."
     orderBy: [AgentsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): AgentsChunkEdge
-}
-
-"The output of our update `AutonomyRecordLink` mutation."
-type UpdateAutonomyRecordLinkPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `AutonomyRecordLink` that was updated by this mutation."
-  autonomyRecordLink: AutonomyRecordLink
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `AutonomyRecordLink`. May be used by Relay 1."
-  autonomyRecordLinkEdge(
-    "The method to use when ordering `AutonomyRecordLink`."
-    orderBy: [AutonomyRecordLinkOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): AutonomyRecordLinkEdge
 }
 
 "The output of our update `AutonomyRecord` mutation."
@@ -22965,24 +21738,6 @@ type UpdateCalendarPayload {
   ): CalendarEdge
 }
 
-"The output of our update `CodebaseDependency` mutation."
-type UpdateCodebaseDependencyPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `CodebaseDependency` that was updated by this mutation."
-  codebaseDependency: CodebaseDependency
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `CodebaseDependency`. May be used by Relay 1."
-  codebaseDependencyEdge(
-    "The method to use when ordering `CodebaseDependency`."
-    orderBy: [CodebaseDependencyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): CodebaseDependencyEdge
-}
-
 "The output of our update `CodebasesChunk` mutation."
 type UpdateCodebasesChunkPayload {
   """
@@ -23053,42 +21808,6 @@ type UpdateCompaniesChunkPayload {
     "The method to use when ordering `CompaniesChunk`."
     orderBy: [CompaniesChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): CompaniesChunkEdge
-}
-
-"The output of our update `CompanyEvent` mutation."
-type UpdateCompanyEventPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `CompanyEvent` that was updated by this mutation."
-  companyEvent: CompanyEvent
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `CompanyEvent`. May be used by Relay 1."
-  companyEventEdge(
-    "The method to use when ordering `CompanyEvent`."
-    orderBy: [CompanyEventOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): CompanyEventEdge
-}
-
-"The output of our update `CompanyImage` mutation."
-type UpdateCompanyImagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `CompanyImage` that was updated by this mutation."
-  companyImage: CompanyImage
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `CompanyImage`. May be used by Relay 1."
-  companyImageEdge(
-    "The method to use when ordering `CompanyImage`."
-    orderBy: [CompanyImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): CompanyImageEdge
 }
 
 "The output of our update `CompanyLink` mutation."
@@ -23163,60 +21882,6 @@ type UpdateCompanyPayload {
   ): CompanyEdge
 }
 
-"The output of our update `ContactCompany` mutation."
-type UpdateContactCompanyPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `ContactCompany` that was updated by this mutation."
-  contactCompany: ContactCompany
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `ContactCompany`. May be used by Relay 1."
-  contactCompanyEdge(
-    "The method to use when ordering `ContactCompany`."
-    orderBy: [ContactCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactCompanyEdge
-}
-
-"The output of our update `ContactEvent` mutation."
-type UpdateContactEventPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `ContactEvent` that was updated by this mutation."
-  contactEvent: ContactEvent
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `ContactEvent`. May be used by Relay 1."
-  contactEventEdge(
-    "The method to use when ordering `ContactEvent`."
-    orderBy: [ContactEventOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactEventEdge
-}
-
-"The output of our update `ContactImage` mutation."
-type UpdateContactImagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `ContactImage` that was updated by this mutation."
-  contactImage: ContactImage
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `ContactImage`. May be used by Relay 1."
-  contactImageEdge(
-    "The method to use when ordering `ContactImage`."
-    orderBy: [ContactImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactImageEdge
-}
-
 "The output of our update `ContactLink` mutation."
 type UpdateContactLinkPayload {
   """
@@ -23289,24 +21954,6 @@ type UpdateContactPayload {
   ): ContactEdge
 }
 
-"The output of our update `ContactRelationship` mutation."
-type UpdateContactRelationshipPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `ContactRelationship` that was updated by this mutation."
-  contactRelationship: ContactRelationship
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `ContactRelationship`. May be used by Relay 1."
-  contactRelationshipEdge(
-    "The method to use when ordering `ContactRelationship`."
-    orderBy: [ContactRelationshipOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): ContactRelationshipEdge
-}
-
 "The output of our update `ContactsChunk` mutation."
 type UpdateContactsChunkPayload {
   """
@@ -23359,42 +22006,6 @@ type UpdateConversationsChunkPayload {
     "The method to use when ordering `ConversationsChunk`."
     orderBy: [ConversationsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ConversationsChunkEdge
-}
-
-"The output of our update `DealCompany` mutation."
-type UpdateDealCompanyPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `DealCompany` that was updated by this mutation."
-  dealCompany: DealCompany
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `DealCompany`. May be used by Relay 1."
-  dealCompanyEdge(
-    "The method to use when ordering `DealCompany`."
-    orderBy: [DealCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): DealCompanyEdge
-}
-
-"The output of our update `DealContact` mutation."
-type UpdateDealContactPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `DealContact` that was updated by this mutation."
-  dealContact: DealContact
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `DealContact`. May be used by Relay 1."
-  dealContactEdge(
-    "The method to use when ordering `DealContact`."
-    orderBy: [DealContactOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): DealContactEdge
 }
 
 "The output of our update `DealNote` mutation."
@@ -23469,24 +22080,6 @@ type UpdateEmailAttachmentPayload {
   ): EmailAttachmentEdge
 }
 
-"The output of our update `EmailNote` mutation."
-type UpdateEmailNotePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailNote` that was updated by this mutation."
-  emailNote: EmailNote
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailNote`. May be used by Relay 1."
-  emailNoteEdge(
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailNoteEdge
-}
-
 "The output of our update `Email` mutation."
 type UpdateEmailPayload {
   """
@@ -23503,24 +22096,6 @@ type UpdateEmailPayload {
     "The method to use when ordering `Email`."
     orderBy: [EmailOrderBy!]! = [PRIMARY_KEY_ASC]
   ): EmailEdge
-}
-
-"The output of our update `EmailRecipient` mutation."
-type UpdateEmailRecipientPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailRecipient` that was updated by this mutation."
-  emailRecipient: EmailRecipient
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailRecipient`. May be used by Relay 1."
-  emailRecipientEdge(
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailRecipientEdge
 }
 
 "The output of our update `EmailsChunk` mutation."
@@ -23575,24 +22150,6 @@ type UpdateEmailThreadsChunkPayload {
     "The method to use when ordering `EmailThreadsChunk`."
     orderBy: [EmailThreadsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): EmailThreadsChunkEdge
-}
-
-"The output of our update `EventImage` mutation."
-type UpdateEventImagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EventImage` that was updated by this mutation."
-  eventImage: EventImage
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EventImage`. May be used by Relay 1."
-  eventImageEdge(
-    "The method to use when ordering `EventImage`."
-    orderBy: [EventImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EventImageEdge
 }
 
 "The output of our update `EventLink` mutation."
@@ -23665,24 +22222,6 @@ type UpdateEventsChunkPayload {
     "The method to use when ordering `EventsChunk`."
     orderBy: [EventsChunkOrderBy!]! = [PRIMARY_KEY_ASC]
   ): EventsChunkEdge
-}
-
-"The output of our update `EventVenue` mutation."
-type UpdateEventVenuePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EventVenue` that was updated by this mutation."
-  eventVenue: EventVenue
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EventVenue`. May be used by Relay 1."
-  eventVenueEdge(
-    "The method to use when ordering `EventVenue`."
-    orderBy: [EventVenueOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EventVenueEdge
 }
 
 "The output of our update `ExpenseContact` mutation."
@@ -24405,24 +22944,6 @@ type UpdateRuntimeSchedulePayload {
   ): RuntimeScheduleEdge
 }
 
-"The output of our update `RuntimeStateDependency` mutation."
-type UpdateRuntimeStateDependencyPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `RuntimeStateDependency` that was updated by this mutation."
-  runtimeStateDependency: RuntimeStateDependency
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `RuntimeStateDependency`. May be used by Relay 1."
-  runtimeStateDependencyEdge(
-    "The method to use when ordering `RuntimeStateDependency`."
-    orderBy: [RuntimeStateDependencyOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): RuntimeStateDependencyEdge
-}
-
 "The output of our update `RuntimeState` mutation."
 type UpdateRuntimeStatePayload {
   """
@@ -24765,24 +23286,6 @@ type UpdateTripsChunkPayload {
   ): TripsChunkEdge
 }
 
-"The output of our update `VenueImage` mutation."
-type UpdateVenueImagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `VenueImage` that was updated by this mutation."
-  venueImage: VenueImage
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `VenueImage`. May be used by Relay 1."
-  venueImageEdge(
-    "The method to use when ordering `VenueImage`."
-    orderBy: [VenueImageOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): VenueImageEdge
-}
-
 "The output of our update `VenueLink` mutation."
 type UpdateVenueLinkPayload {
   """
@@ -24960,7 +23463,7 @@ type Venue {
     "A filter to be used in determining which values should be returned by the collection."
     where: VenueImageFilter
     "The method to use when ordering `VenueImage`."
-    orderBy: [VenueImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [VenueImageOrderBy!] = [NATURAL]
   ): VenueImageConnection!
   "Reads and enables pagination through a set of `EventVenue`."
   eventVenues(
@@ -24980,7 +23483,7 @@ type Venue {
     "A filter to be used in determining which values should be returned by the collection."
     where: EventVenueFilter
     "The method to use when ordering `EventVenue`."
-    orderBy: [EventVenueOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [EventVenueOrderBy!] = [NATURAL]
   ): EventVenueConnection!
   "TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active."
   searchTsvRank: Float
@@ -25068,15 +23571,13 @@ type VenueEventsManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: EventVenueFilter
     "The method to use when ordering `EventVenue`."
-    orderBy: [EventVenueOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [EventVenueOrderBy!] = [NATURAL]
   ): EventVenueConnection!
 }
 
 type VenueImage {
   venueId: UUID!
   imageId: UUID!
-  id: UUID!
-  entityId: UUID!
   "Reads a single `Image` that is related to this `VenueImage`."
   image: Image
   "Reads a single `Venue` that is related to this `VenueImage`."
@@ -25139,7 +23640,7 @@ type VenueImagesByVenueImageVenueIdAndImageIdManyToManyEdge {
     "A filter to be used in determining which values should be returned by the collection."
     where: VenueImageFilter
     "The method to use when ordering `VenueImage`."
-    orderBy: [VenueImageOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [VenueImageOrderBy!] = [NATURAL]
   ): VenueImageConnection!
 }
 
@@ -25402,10 +23903,6 @@ input ActivityLogToManyActivityLogsChunkFilter {
 input AgentCollaboratorFilter {
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [AgentCollaboratorFilter!]
   "Checks for any expressions in this list."
@@ -25419,15 +23916,6 @@ input AgentCollaboratorFilter {
 "An input for mutations affecting `AgentCollaborator`"
 input AgentCollaboratorInput {
   agentId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `AgentCollaborator`. Fields that are set will be updated."
-input AgentCollaboratorPatch {
-  agentId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `Agent` object types. All fields are combined with a logical ‘and.’"
@@ -25984,10 +24472,6 @@ input AutonomyRecordInput {
 input AutonomyRecordLinkFilter {
   "Filter by the object’s `autonomyRecordId` field."
   autonomyRecordId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [AutonomyRecordLinkFilter!]
   "Checks for any expressions in this list."
@@ -26001,15 +24485,6 @@ input AutonomyRecordLinkFilter {
 "An input for mutations affecting `AutonomyRecordLink`"
 input AutonomyRecordLinkInput {
   autonomyRecordId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `AutonomyRecordLink`. Fields that are set will be updated."
-input AutonomyRecordLinkPatch {
-  autonomyRecordId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "Represents an update to a `AutonomyRecord`. Fields that are set will be updated."
@@ -26640,10 +25115,6 @@ input CalendarToManyCalendarEventFilter {
 input CodebaseDependencyFilter {
   "Filter by the object’s `codebasisId` field."
   codebasisId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [CodebaseDependencyFilter!]
   "Checks for any expressions in this list."
@@ -26657,15 +25128,6 @@ input CodebaseDependencyFilter {
 "An input for mutations affecting `CodebaseDependency`"
 input CodebaseDependencyInput {
   codebasisId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `CodebaseDependency`. Fields that are set will be updated."
-input CodebaseDependencyPatch {
-  codebasisId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `CodebasesChunk` object types. All fields are combined with a logical ‘and.’"
@@ -27042,10 +25504,6 @@ input CompanyEventFilter {
   companyId: UUIDFilter
   "Filter by the object’s `eventId` field."
   eventId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [CompanyEventFilter!]
   "Checks for any expressions in this list."
@@ -27062,16 +25520,6 @@ input CompanyEventFilter {
 input CompanyEventInput {
   companyId: UUID!
   eventId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `CompanyEvent`. Fields that are set will be updated."
-input CompanyEventPatch {
-  companyId: UUID
-  eventId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `Company` object types. All fields are combined with a logical ‘and.’"
@@ -27181,10 +25629,6 @@ input CompanyImageFilter {
   companyId: UUIDFilter
   "Filter by the object’s `imageId` field."
   imageId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [CompanyImageFilter!]
   "Checks for any expressions in this list."
@@ -27201,16 +25645,6 @@ input CompanyImageFilter {
 input CompanyImageInput {
   companyId: UUID!
   imageId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `CompanyImage`. Fields that are set will be updated."
-input CompanyImagePatch {
-  companyId: UUID
-  imageId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "An input for mutations affecting `Company`"
@@ -27477,10 +25911,6 @@ input ContactCompanyFilter {
   contactId: UUIDFilter
   "Filter by the object’s `companyId` field."
   companyId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [ContactCompanyFilter!]
   "Checks for any expressions in this list."
@@ -27497,16 +25927,6 @@ input ContactCompanyFilter {
 input ContactCompanyInput {
   contactId: UUID!
   companyId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `ContactCompany`. Fields that are set will be updated."
-input ContactCompanyPatch {
-  contactId: UUID
-  companyId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `ContactEvent` object types. All fields are combined with a logical ‘and.’"
@@ -27515,10 +25935,6 @@ input ContactEventFilter {
   contactId: UUIDFilter
   "Filter by the object’s `eventId` field."
   eventId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [ContactEventFilter!]
   "Checks for any expressions in this list."
@@ -27535,16 +25951,6 @@ input ContactEventFilter {
 input ContactEventInput {
   contactId: UUID!
   eventId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `ContactEvent`. Fields that are set will be updated."
-input ContactEventPatch {
-  contactId: UUID
-  eventId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `Contact` object types. All fields are combined with a logical ‘and.’"
@@ -27645,10 +26051,6 @@ input ContactFilter {
   contactRelationships: ContactToManyContactRelationshipFilter
   "`contactRelationships` exist."
   contactRelationshipsExist: Boolean
-  "Filter by the object’s `emailsByFromContactId` relation."
-  emailsByFromContactId: ContactToManyEmailFilter
-  "`emailsByFromContactId` exist."
-  emailsByFromContactIdExist: Boolean
   "Filter by the object’s `calendarEventsByOrganizerContactId` relation."
   calendarEventsByOrganizerContactId: ContactToManyCalendarEventFilter
   "`calendarEventsByOrganizerContactId` exist."
@@ -27685,10 +26087,6 @@ input ContactFilter {
   threadParticipants: ContactToManyThreadParticipantFilter
   "`threadParticipants` exist."
   threadParticipantsExist: Boolean
-  "Filter by the object’s `emailRecipients` relation."
-  emailRecipients: ContactToManyEmailRecipientFilter
-  "`emailRecipients` exist."
-  emailRecipientsExist: Boolean
   "TSV search on the `search_tsv` column."
   tsvSearchTsv: String
   "BM25 search on the `embedding_text` column."
@@ -27740,10 +26138,6 @@ input ContactImageFilter {
   contactId: UUIDFilter
   "Filter by the object’s `imageId` field."
   imageId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [ContactImageFilter!]
   "Checks for any expressions in this list."
@@ -27760,16 +26154,6 @@ input ContactImageFilter {
 input ContactImageInput {
   contactId: UUID!
   imageId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `ContactImage`. Fields that are set will be updated."
-input ContactImagePatch {
-  contactId: UUID
-  imageId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "An input for mutations affecting `Contact`"
@@ -27966,10 +26350,6 @@ input ContactPatch {
 input ContactRelationshipFilter {
   "Filter by the object’s `contactId` field."
   contactId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [ContactRelationshipFilter!]
   "Checks for any expressions in this list."
@@ -27983,15 +26363,6 @@ input ContactRelationshipFilter {
 "An input for mutations affecting `ContactRelationship`"
 input ContactRelationshipInput {
   contactId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `ContactRelationship`. Fields that are set will be updated."
-input ContactRelationshipPatch {
-  contactId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `ContactsChunk` object types. All fields are combined with a logical ‘and.’"
@@ -28166,26 +26537,6 @@ input ContactToManyDealContactFilter {
   every: DealContactFilter
   "Filters to entities where no related entity matches."
   none: DealContactFilter
-}
-
-"A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’"
-input ContactToManyEmailFilter {
-  "Filters to entities where at least one related entity matches."
-  some: EmailFilter
-  "Filters to entities where every related entity matches."
-  every: EmailFilter
-  "Filters to entities where no related entity matches."
-  none: EmailFilter
-}
-
-"A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’"
-input ContactToManyEmailRecipientFilter {
-  "Filters to entities where at least one related entity matches."
-  some: EmailRecipientFilter
-  "Filters to entities where every related entity matches."
-  every: EmailRecipientFilter
-  "Filters to entities where no related entity matches."
-  none: EmailRecipientFilter
 }
 
 "A filter to be used against many `ExpenseContact` object types. All fields are combined with a logical ‘and.’"
@@ -28924,28 +27275,6 @@ input CreateEmailInput {
   clientMutationId: String
   "The `Email` to be created by this mutation."
   email: EmailInput!
-}
-
-"All input for the create `EmailNote` mutation."
-input CreateEmailNoteInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  "The `EmailNote` to be created by this mutation."
-  emailNote: EmailNoteInput!
-}
-
-"All input for the create `EmailRecipient` mutation."
-input CreateEmailRecipientInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  "The `EmailRecipient` to be created by this mutation."
-  emailRecipient: EmailRecipientInput!
 }
 
 "All input for the create `EmailsChunk` mutation."
@@ -29809,10 +28138,6 @@ input DealCompanyFilter {
   dealId: UUIDFilter
   "Filter by the object’s `companyId` field."
   companyId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [DealCompanyFilter!]
   "Checks for any expressions in this list."
@@ -29829,16 +28154,6 @@ input DealCompanyFilter {
 input DealCompanyInput {
   dealId: UUID!
   companyId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `DealCompany`. Fields that are set will be updated."
-input DealCompanyPatch {
-  dealId: UUID
-  companyId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `DealContact` object types. All fields are combined with a logical ‘and.’"
@@ -29847,10 +28162,6 @@ input DealContactFilter {
   dealId: UUIDFilter
   "Filter by the object’s `contactId` field."
   contactId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [DealContactFilter!]
   "Checks for any expressions in this list."
@@ -29867,16 +28178,6 @@ input DealContactFilter {
 input DealContactInput {
   dealId: UUID!
   contactId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `DealContact`. Fields that are set will be updated."
-input DealContactPatch {
-  dealId: UUID
-  contactId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `Deal` object types. All fields are combined with a logical ‘and.’"
@@ -30156,16 +28457,6 @@ input DeleteActivityLogsChunkInput {
   id: UUID!
 }
 
-"All input for the `deleteAgentCollaborator` mutation."
-input DeleteAgentCollaboratorInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
 "All input for the `deleteAgent` mutation."
 input DeleteAgentInput {
   """
@@ -30218,16 +28509,6 @@ input DeleteAgentsChunkInput {
 
 "All input for the `deleteAutonomyRecord` mutation."
 input DeleteAutonomyRecordInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteAutonomyRecordLink` mutation."
-input DeleteAutonomyRecordLinkInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -30316,16 +28597,6 @@ input DeleteCalendarInput {
   id: UUID!
 }
 
-"All input for the `deleteCodebaseDependency` mutation."
-input DeleteCodebaseDependencyInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
 "All input for the `deleteCodebasesChunk` mutation."
 input DeleteCodebasesChunkInput {
   """
@@ -30358,26 +28629,6 @@ input DeleteCodeChunkInput {
 
 "All input for the `deleteCompaniesChunk` mutation."
 input DeleteCompaniesChunkInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteCompanyEvent` mutation."
-input DeleteCompanyEventInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteCompanyImage` mutation."
-input DeleteCompanyImageInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -30426,36 +28677,6 @@ input DeleteCompanyNoteInput {
   id: UUID!
 }
 
-"All input for the `deleteContactCompany` mutation."
-input DeleteContactCompanyInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteContactEvent` mutation."
-input DeleteContactEventInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteContactImage` mutation."
-input DeleteContactImageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
 "All input for the `deleteContact` mutation."
 input DeleteContactInput {
   """
@@ -30496,16 +28717,6 @@ input DeleteContactNoteInput {
   id: UUID!
 }
 
-"All input for the `deleteContactRelationship` mutation."
-input DeleteContactRelationshipInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
 "All input for the `deleteContactsChunk` mutation."
 input DeleteContactsChunkInput {
   """
@@ -30528,26 +28739,6 @@ input DeleteConversationInput {
 
 "All input for the `deleteConversationsChunk` mutation."
 input DeleteConversationsChunkInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteDealCompany` mutation."
-input DeleteDealCompanyInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteDealContact` mutation."
-input DeleteDealContactInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -30606,26 +28797,6 @@ input DeleteEmailInput {
   id: UUID!
 }
 
-"All input for the `deleteEmailNote` mutation."
-input DeleteEmailNoteInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteEmailRecipient` mutation."
-input DeleteEmailRecipientInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
 "All input for the `deleteEmailsChunk` mutation."
 input DeleteEmailsChunkInput {
   """
@@ -30648,16 +28819,6 @@ input DeleteEmailThreadInput {
 
 "All input for the `deleteEmailThreadsChunk` mutation."
 input DeleteEmailThreadsChunkInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteEventImage` mutation."
-input DeleteEventImageInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -30698,16 +28859,6 @@ input DeleteEventNoteInput {
 
 "All input for the `deleteEventsChunk` mutation."
 input DeleteEventsChunkInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteEventVenue` mutation."
-input DeleteEventVenueInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -31116,16 +29267,6 @@ input DeleteRuntimeScheduleInput {
   id: UUID!
 }
 
-"All input for the `deleteRuntimeStateDependency` mutation."
-input DeleteRuntimeStateDependencyInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
 "All input for the `deleteRuntimeState` mutation."
 input DeleteRuntimeStateInput {
   """
@@ -31316,16 +29457,6 @@ input DeleteTripsChunkInput {
   id: UUID!
 }
 
-"All input for the `deleteVenueImage` mutation."
-input DeleteVenueImageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
 "All input for the `deleteVenue` mutation."
 input DeleteVenueInput {
   """
@@ -31464,10 +29595,6 @@ input EmailFilter {
   not: EmailFilter
   "Filter by the object’s `emailThread` relation."
   emailThread: EmailThreadFilter
-  "Filter by the object’s `fromContact` relation."
-  fromContact: ContactFilter
-  "A related `fromContact` exists."
-  fromContactExists: Boolean
   "Filter by the object’s `emailsChunksByEmailsId` relation."
   emailsChunksByEmailsId: EmailToManyEmailsChunkFilter
   "`emailsChunksByEmailsId` exist."
@@ -31476,14 +29603,6 @@ input EmailFilter {
   emailAttachments: EmailToManyEmailAttachmentFilter
   "`emailAttachments` exist."
   emailAttachmentsExist: Boolean
-  "Filter by the object’s `emailRecipients` relation."
-  emailRecipients: EmailToManyEmailRecipientFilter
-  "`emailRecipients` exist."
-  emailRecipientsExist: Boolean
-  "Filter by the object’s `emailNotes` relation."
-  emailNotes: EmailToManyEmailNoteFilter
-  "`emailNotes` exist."
-  emailNotesExist: Boolean
 }
 
 "An input for mutations affecting `Email`"
@@ -31508,44 +29627,6 @@ input EmailInput {
   emailThreadId: UUID!
 }
 
-"A filter to be used against `EmailNote` object types. All fields are combined with a logical ‘and.’"
-input EmailNoteFilter {
-  "Filter by the object’s `emailId` field."
-  emailId: UUIDFilter
-  "Filter by the object’s `noteId` field."
-  noteId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
-  "Checks for all expressions in this list."
-  and: [EmailNoteFilter!]
-  "Checks for any expressions in this list."
-  or: [EmailNoteFilter!]
-  "Negates the expression."
-  not: EmailNoteFilter
-  "Filter by the object’s `email` relation."
-  email: EmailFilter
-  "Filter by the object’s `note` relation."
-  note: NoteFilter
-}
-
-"An input for mutations affecting `EmailNote`"
-input EmailNoteInput {
-  emailId: UUID!
-  noteId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `EmailNote`. Fields that are set will be updated."
-input EmailNotePatch {
-  emailId: UUID
-  noteId: UUID
-  id: UUID
-  entityId: UUID
-}
-
 "Represents an update to a `Email`. Fields that are set will be updated."
 input EmailPatch {
   id: UUID
@@ -31566,44 +29647,6 @@ input EmailPatch {
   embedding: Vector
   embeddingStale: Boolean
   emailThreadId: UUID
-}
-
-"A filter to be used against `EmailRecipient` object types. All fields are combined with a logical ‘and.’"
-input EmailRecipientFilter {
-  "Filter by the object’s `emailId` field."
-  emailId: UUIDFilter
-  "Filter by the object’s `contactId` field."
-  contactId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
-  "Checks for all expressions in this list."
-  and: [EmailRecipientFilter!]
-  "Checks for any expressions in this list."
-  or: [EmailRecipientFilter!]
-  "Negates the expression."
-  not: EmailRecipientFilter
-  "Filter by the object’s `contact` relation."
-  contact: ContactFilter
-  "Filter by the object’s `email` relation."
-  email: EmailFilter
-}
-
-"An input for mutations affecting `EmailRecipient`"
-input EmailRecipientInput {
-  emailId: UUID!
-  contactId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `EmailRecipient`. Fields that are set will be updated."
-input EmailRecipientPatch {
-  emailId: UUID
-  contactId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `EmailsChunk` object types. All fields are combined with a logical ‘and.’"
@@ -31861,26 +29904,6 @@ input EmailToManyEmailAttachmentFilter {
   none: EmailAttachmentFilter
 }
 
-"A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’"
-input EmailToManyEmailNoteFilter {
-  "Filters to entities where at least one related entity matches."
-  some: EmailNoteFilter
-  "Filters to entities where every related entity matches."
-  every: EmailNoteFilter
-  "Filters to entities where no related entity matches."
-  none: EmailNoteFilter
-}
-
-"A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’"
-input EmailToManyEmailRecipientFilter {
-  "Filters to entities where at least one related entity matches."
-  some: EmailRecipientFilter
-  "Filters to entities where every related entity matches."
-  every: EmailRecipientFilter
-  "Filters to entities where no related entity matches."
-  none: EmailRecipientFilter
-}
-
 "A filter to be used against many `EmailsChunk` object types. All fields are combined with a logical ‘and.’"
 input EmailToManyEmailsChunkFilter {
   "Filters to entities where at least one related entity matches."
@@ -32002,10 +30025,6 @@ input EventImageFilter {
   eventId: UUIDFilter
   "Filter by the object’s `imageId` field."
   imageId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [EventImageFilter!]
   "Checks for any expressions in this list."
@@ -32022,16 +30041,6 @@ input EventImageFilter {
 input EventImageInput {
   eventId: UUID!
   imageId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `EventImage`. Fields that are set will be updated."
-input EventImagePatch {
-  eventId: UUID
-  imageId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "An input for mutations affecting `Event`"
@@ -32310,10 +30319,6 @@ input EventVenueFilter {
   eventId: UUIDFilter
   "Filter by the object’s `venueId` field."
   venueId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [EventVenueFilter!]
   "Checks for any expressions in this list."
@@ -32330,16 +30335,6 @@ input EventVenueFilter {
 input EventVenueInput {
   eventId: UUID!
   venueId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `EventVenue`. Fields that are set will be updated."
-input EventVenuePatch {
-  eventId: UUID
-  venueId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `ExpenseContact` object types. All fields are combined with a logical ‘and.’"
@@ -33908,10 +31903,6 @@ input NoteFilter {
   taskNotes: NoteToManyTaskNoteFilter
   "`taskNotes` exist."
   taskNotesExist: Boolean
-  "Filter by the object’s `emailNotes` relation."
-  emailNotes: NoteToManyEmailNoteFilter
-  "`emailNotes` exist."
-  emailNotesExist: Boolean
   "Filter by the object’s `calendarEventNotes` relation."
   calendarEventNotes: NoteToManyCalendarEventNoteFilter
   "`calendarEventNotes` exist."
@@ -34065,16 +32056,6 @@ input NoteToManyDealNoteFilter {
   every: DealNoteFilter
   "Filters to entities where no related entity matches."
   none: DealNoteFilter
-}
-
-"A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’"
-input NoteToManyEmailNoteFilter {
-  "Filters to entities where at least one related entity matches."
-  some: EmailNoteFilter
-  "Filters to entities where every related entity matches."
-  every: EmailNoteFilter
-  "Filters to entities where no related entity matches."
-  none: EmailNoteFilter
 }
 
 "A filter to be used against many `EventNote` object types. All fields are combined with a logical ‘and.’"
@@ -35678,10 +33659,6 @@ input RuntimeSchedulePatch {
 input RuntimeStateDependencyFilter {
   "Filter by the object’s `runtimeStateId` field."
   runtimeStateId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [RuntimeStateDependencyFilter!]
   "Checks for any expressions in this list."
@@ -35695,15 +33672,6 @@ input RuntimeStateDependencyFilter {
 "An input for mutations affecting `RuntimeStateDependency`"
 input RuntimeStateDependencyInput {
   runtimeStateId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `RuntimeStateDependency`. Fields that are set will be updated."
-input RuntimeStateDependencyPatch {
-  runtimeStateId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `RuntimeState` object types. All fields are combined with a logical ‘and.’"
@@ -37446,18 +35414,6 @@ input UpdateActivityLogsChunkInput {
   activityLogsChunkPatch: ActivityLogsChunkPatch!
 }
 
-"All input for the `updateAgentCollaborator` mutation."
-input UpdateAgentCollaboratorInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `AgentCollaborator` being updated."
-  agentCollaboratorPatch: AgentCollaboratorPatch!
-}
-
 "All input for the `updateAgent` mutation."
 input UpdateAgentInput {
   """
@@ -37528,18 +35484,6 @@ input UpdateAutonomyRecordInput {
   id: UUID!
   "An object where the defined keys will be set on the `AutonomyRecord` being updated."
   autonomyRecordPatch: AutonomyRecordPatch!
-}
-
-"All input for the `updateAutonomyRecordLink` mutation."
-input UpdateAutonomyRecordLinkInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `AutonomyRecordLink` being updated."
-  autonomyRecordLinkPatch: AutonomyRecordLinkPatch!
 }
 
 "All input for the `updateAutonomyRecordsChunk` mutation."
@@ -37638,18 +35582,6 @@ input UpdateCalendarInput {
   calendarPatch: CalendarPatch!
 }
 
-"All input for the `updateCodebaseDependency` mutation."
-input UpdateCodebaseDependencyInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `CodebaseDependency` being updated."
-  codebaseDependencyPatch: CodebaseDependencyPatch!
-}
-
 "All input for the `updateCodebasesChunk` mutation."
 input UpdateCodebasesChunkInput {
   """
@@ -37696,30 +35628,6 @@ input UpdateCompaniesChunkInput {
   id: UUID!
   "An object where the defined keys will be set on the `CompaniesChunk` being updated."
   companiesChunkPatch: CompaniesChunkPatch!
-}
-
-"All input for the `updateCompanyEvent` mutation."
-input UpdateCompanyEventInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `CompanyEvent` being updated."
-  companyEventPatch: CompanyEventPatch!
-}
-
-"All input for the `updateCompanyImage` mutation."
-input UpdateCompanyImageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `CompanyImage` being updated."
-  companyImagePatch: CompanyImagePatch!
 }
 
 "All input for the `updateCompany` mutation."
@@ -37770,42 +35678,6 @@ input UpdateCompanyNoteInput {
   companyNotePatch: CompanyNotePatch!
 }
 
-"All input for the `updateContactCompany` mutation."
-input UpdateContactCompanyInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `ContactCompany` being updated."
-  contactCompanyPatch: ContactCompanyPatch!
-}
-
-"All input for the `updateContactEvent` mutation."
-input UpdateContactEventInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `ContactEvent` being updated."
-  contactEventPatch: ContactEventPatch!
-}
-
-"All input for the `updateContactImage` mutation."
-input UpdateContactImageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `ContactImage` being updated."
-  contactImagePatch: ContactImagePatch!
-}
-
 "All input for the `updateContact` mutation."
 input UpdateContactInput {
   """
@@ -37854,18 +35726,6 @@ input UpdateContactNoteInput {
   contactNotePatch: ContactNotePatch!
 }
 
-"All input for the `updateContactRelationship` mutation."
-input UpdateContactRelationshipInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `ContactRelationship` being updated."
-  contactRelationshipPatch: ContactRelationshipPatch!
-}
-
 "All input for the `updateContactsChunk` mutation."
 input UpdateContactsChunkInput {
   """
@@ -37900,30 +35760,6 @@ input UpdateConversationsChunkInput {
   id: UUID!
   "An object where the defined keys will be set on the `ConversationsChunk` being updated."
   conversationsChunkPatch: ConversationsChunkPatch!
-}
-
-"All input for the `updateDealCompany` mutation."
-input UpdateDealCompanyInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `DealCompany` being updated."
-  dealCompanyPatch: DealCompanyPatch!
-}
-
-"All input for the `updateDealContact` mutation."
-input UpdateDealContactInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `DealContact` being updated."
-  dealContactPatch: DealContactPatch!
 }
 
 "All input for the `updateDeal` mutation."
@@ -37986,30 +35822,6 @@ input UpdateEmailInput {
   emailPatch: EmailPatch!
 }
 
-"All input for the `updateEmailNote` mutation."
-input UpdateEmailNoteInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `EmailNote` being updated."
-  emailNotePatch: EmailNotePatch!
-}
-
-"All input for the `updateEmailRecipient` mutation."
-input UpdateEmailRecipientInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `EmailRecipient` being updated."
-  emailRecipientPatch: EmailRecipientPatch!
-}
-
 "All input for the `updateEmailsChunk` mutation."
 input UpdateEmailsChunkInput {
   """
@@ -38044,18 +35856,6 @@ input UpdateEmailThreadsChunkInput {
   id: UUID!
   "An object where the defined keys will be set on the `EmailThreadsChunk` being updated."
   emailThreadsChunkPatch: EmailThreadsChunkPatch!
-}
-
-"All input for the `updateEventImage` mutation."
-input UpdateEventImageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `EventImage` being updated."
-  eventImagePatch: EventImagePatch!
 }
 
 "All input for the `updateEvent` mutation."
@@ -38104,18 +35904,6 @@ input UpdateEventsChunkInput {
   id: UUID!
   "An object where the defined keys will be set on the `EventsChunk` being updated."
   eventsChunkPatch: EventsChunkPatch!
-}
-
-"All input for the `updateEventVenue` mutation."
-input UpdateEventVenueInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `EventVenue` being updated."
-  eventVenuePatch: EventVenuePatch!
 }
 
 "All input for the `updateExpenseContact` mutation."
@@ -38598,18 +36386,6 @@ input UpdateRuntimeScheduleInput {
   runtimeSchedulePatch: RuntimeSchedulePatch!
 }
 
-"All input for the `updateRuntimeStateDependency` mutation."
-input UpdateRuntimeStateDependencyInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `RuntimeStateDependency` being updated."
-  runtimeStateDependencyPatch: RuntimeStateDependencyPatch!
-}
-
 "All input for the `updateRuntimeState` mutation."
 input UpdateRuntimeStateInput {
   """
@@ -38838,18 +36614,6 @@ input UpdateTripsChunkInput {
   tripsChunkPatch: TripsChunkPatch!
 }
 
-"All input for the `updateVenueImage` mutation."
-input UpdateVenueImageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `VenueImage` being updated."
-  venueImagePatch: VenueImagePatch!
-}
-
 "All input for the `updateVenue` mutation."
 input UpdateVenueInput {
   """
@@ -39053,10 +36817,6 @@ input VenueImageFilter {
   venueId: UUIDFilter
   "Filter by the object’s `imageId` field."
   imageId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
   "Checks for all expressions in this list."
   and: [VenueImageFilter!]
   "Checks for any expressions in this list."
@@ -39073,16 +36833,6 @@ input VenueImageFilter {
 input VenueImageInput {
   venueId: UUID!
   imageId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `VenueImage`. Fields that are set will be updated."
-input VenueImagePatch {
-  venueId: UUID
-  imageId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "An input for mutations affecting `Venue`"

@@ -97,46 +97,6 @@ export class DealContactModel {
       variables,
     });
   }
-  findOne<S extends DealContactSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, DealContactSelect>
-  ): QueryBuilder<{
-    dealContact: InferSelectResult<DealContactWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'DealContact',
-      'dealContacts',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'DealContactFilter',
-      'DealContactOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'DealContact',
-      fieldName: 'dealContact',
-      document,
-      variables,
-      transform: (data: {
-        dealContacts?: {
-          nodes?: InferSelectResult<DealContactWithRelations, S>[];
-        };
-      }) => ({
-        dealContact: data.dealContacts?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends DealContactSelect>(
     args: CreateArgs<S, CreateDealContactInput['dealContact']> & {
       select: S;
@@ -160,76 +120,6 @@ export class DealContactModel {
       operation: 'mutation',
       operationName: 'DealContact',
       fieldName: 'createDealContact',
-      document,
-      variables,
-    });
-  }
-  update<S extends DealContactSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      DealContactPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, DealContactSelect>
-  ): QueryBuilder<{
-    updateDealContact: {
-      dealContact: InferSelectResult<DealContactWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'DealContact',
-      'updateDealContact',
-      'dealContact',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateDealContactInput',
-      'id',
-      'dealContactPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'DealContact',
-      fieldName: 'updateDealContact',
-      document,
-      variables,
-    });
-  }
-  delete<S extends DealContactSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, DealContactSelect>
-  ): QueryBuilder<{
-    deleteDealContact: {
-      dealContact: InferSelectResult<DealContactWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'DealContact',
-      'deleteDealContact',
-      'dealContact',
-      {
-        id: args.where.id,
-      },
-      'DeleteDealContactInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'DealContact',
-      fieldName: 'deleteDealContact',
       document,
       variables,
     });

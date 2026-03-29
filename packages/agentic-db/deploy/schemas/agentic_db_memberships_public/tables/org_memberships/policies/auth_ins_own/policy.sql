@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_memberships/table
 
 
-CREATE POLICY auth_ins_own ON "agentic_db_memberships_public".org_memberships
+CREATE POLICY auth_ins_own ON agentic_db_memberships_public.org_memberships
 FOR INSERT
 TO authenticated
 WITH CHECK (

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
-ALTER TABLE "agentic_db_app_public".messages 
+ALTER TABLE agentic_db_app_public.messages 
   ADD COLUMN tool_calls jsonb;
 

@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_status_public/tables/org_levels/table
 
 
-ALTER TABLE "agentic_db_status_public".org_levels 
+ALTER TABLE agentic_db_status_public.org_levels 
   ADD CONSTRAINT org_levels_owner_id_fkey 
     FOREIGN KEY(owner_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE SET NULL;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/task_projects/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX goal_habits_goal_id_idx ON "agentic_db_app_public".goal_habits USING BTREE ( goal_id );
+CREATE INDEX goal_habits_goal_id_idx ON agentic_db_app_public.goal_habits USING BTREE ( goal_id );
 

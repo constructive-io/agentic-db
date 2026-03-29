@@ -13,11 +13,9 @@ import type {
 } from '../../orm/input-types';
 const fieldSchema: FieldSchema = {
   contactId: 'uuid',
-  id: 'uuid',
-  entityId: 'uuid',
 };
 const usage =
-  '\ncontact-relationship <command>\n\nCommands:\n  list                  List all contactRelationship records\n  get                   Get a contactRelationship by ID\n  create                Create a new contactRelationship\n  update                Update an existing contactRelationship\n  delete                Delete a contactRelationship\n\n  --help, -h            Show this help message\n';
+  '\ncontact-relationship <command>\n\nCommands:\n  list                  List all contactRelationship records\n  create                Create a new contactRelationship\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -34,7 +32,7 @@ export default async (
         type: 'autocomplete',
         name: 'subcommand',
         message: 'What do you want to do?',
-        options: ['list', 'get', 'create', 'update', 'delete'],
+        options: ['list', 'create'],
       },
     ]);
     return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
@@ -49,14 +47,8 @@ async function handleTableSubcommand(
   switch (subcommand) {
     case 'list':
       return handleList(argv, prompter);
-    case 'get':
-      return handleGet(argv, prompter);
     case 'create':
       return handleCreate(argv, prompter);
-    case 'update':
-      return handleUpdate(argv, prompter);
-    case 'delete':
-      return handleDelete(argv, prompter);
     default:
       console.log(usage);
       process.exit(1);
@@ -69,44 +61,12 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
       .findMany({
         select: {
           contactId: true,
-          id: true,
-          entityId: true,
         },
       })
       .execute();
     console.log(JSON.stringify(result, null, 2));
   } catch (error) {
     console.error('Failed to list records.');
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-    process.exit(1);
-  }
-}
-async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
-  try {
-    const answers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'id',
-        message: 'id',
-        required: true,
-      },
-    ]);
-    const client = getClient();
-    const result = await client.contactRelationship
-      .findOne({
-        id: answers.id as string,
-        select: {
-          contactId: true,
-          id: true,
-          entityId: true,
-        },
-      })
-      .execute();
-    console.log(JSON.stringify(result, null, 2));
-  } catch (error) {
-    console.error('Record not found.');
     if (error instanceof Error) {
       console.error(error.message);
     }
@@ -122,12 +82,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         message: 'contactId',
         required: true,
       },
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: true,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(
@@ -139,99 +93,15 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       .create({
         data: {
           contactId: cleanedData.contactId,
-          entityId: cleanedData.entityId,
         },
         select: {
           contactId: true,
-          id: true,
-          entityId: true,
         },
       })
       .execute();
     console.log(JSON.stringify(result, null, 2));
   } catch (error) {
     console.error('Failed to create record.');
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-    process.exit(1);
-  }
-}
-async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
-  try {
-    const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'id',
-        message: 'id',
-        required: true,
-      },
-      {
-        type: 'text',
-        name: 'contactId',
-        message: 'contactId',
-        required: false,
-      },
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: false,
-      },
-    ]);
-    const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const cleanedData = stripUndefined(answers, fieldSchema) as ContactRelationshipPatch;
-    const client = getClient();
-    const result = await client.contactRelationship
-      .update({
-        where: {
-          id: answers.id as string,
-        },
-        data: {
-          contactId: cleanedData.contactId,
-          entityId: cleanedData.entityId,
-        },
-        select: {
-          contactId: true,
-          id: true,
-          entityId: true,
-        },
-      })
-      .execute();
-    console.log(JSON.stringify(result, null, 2));
-  } catch (error) {
-    console.error('Failed to update record.');
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-    process.exit(1);
-  }
-}
-async function handleDelete(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
-  try {
-    const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'id',
-        message: 'id',
-        required: true,
-      },
-    ]);
-    const answers = coerceAnswers(rawAnswers, fieldSchema);
-    const client = getClient();
-    const result = await client.contactRelationship
-      .delete({
-        where: {
-          id: answers.id as string,
-        },
-        select: {
-          id: true,
-        },
-      })
-      .execute();
-    console.log(JSON.stringify(result, null, 2));
-  } catch (error) {
-    console.error('Failed to delete record.');
     if (error instanceof Error) {
       console.error(error.message);
     }

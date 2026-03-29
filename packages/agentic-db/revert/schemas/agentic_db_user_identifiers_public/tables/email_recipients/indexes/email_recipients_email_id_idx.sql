@@ -1,0 +1,6 @@
+-- Revert: schemas/agentic_db_user_identifiers_public/tables/email_recipients/indexes/email_recipients_email_id_idx
+
+
+DROP INDEX agentic_db_user_identifiers_public.email_recipients_email_id_idx;
+
+

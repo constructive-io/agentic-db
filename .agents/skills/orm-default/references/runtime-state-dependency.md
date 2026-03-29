@@ -9,7 +9,7 @@ ORM operations for RuntimeStateDependency records
 ```typescript
 db.runtimeStateDependency.findMany({ select: { id: true } }).execute()
 db.runtimeStateDependency.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.runtimeStateDependency.create({ data: { runtimeStateId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.runtimeStateDependency.create({ data: { runtimeStateId: '<UUID>' }, select: { id: true } }).execute()
 db.runtimeStateDependency.update({ where: { id: '<UUID>' }, data: { runtimeStateId: '<UUID>' }, select: { id: true } }).execute()
 db.runtimeStateDependency.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.runtimeStateDependency.findMany({
 
 ```typescript
 const item = await db.runtimeStateDependency.create({
-  data: { runtimeStateId: '<UUID>', entityId: '<UUID>' },
+  data: { runtimeStateId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

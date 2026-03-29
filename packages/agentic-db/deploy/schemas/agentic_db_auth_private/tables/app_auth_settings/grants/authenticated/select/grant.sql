@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_auth_private/tables/app_auth_settings/table
 
 
-GRANT SELECT ON "agentic_db_auth_private".app_auth_settings TO authenticated;
+GRANT SELECT ON agentic_db_auth_private.app_auth_settings TO authenticated;
 

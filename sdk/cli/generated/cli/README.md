@@ -64,7 +64,6 @@ agentic-db auth set-token <your-token>
 | `company-memory` | companyMemory CRUD operations |
 | `company-note` | companyNote CRUD operations |
 | `contact-company` | contactCompany CRUD operations |
-| `email` | email CRUD operations |
 | `email-thread` | emailThread CRUD operations |
 | `contact-event` | contactEvent CRUD operations |
 | `expense` | expense CRUD operations |
@@ -82,8 +81,7 @@ agentic-db auth set-token <your-token>
 | `deal-note` | dealNote CRUD operations |
 | `deals-chunk` | dealsChunk CRUD operations |
 | `email-attachment` | emailAttachment CRUD operations |
-| `email-note` | emailNote CRUD operations |
-| `email-recipient` | emailRecipient CRUD operations |
+| `email` | email CRUD operations |
 | `emails-chunk` | emailsChunk CRUD operations |
 | `email-threads-chunk` | emailThreadsChunk CRUD operations |
 | `event-image` | eventImage CRUD operations |
@@ -288,10 +286,8 @@ CRUD operations for AgentCollaborator records.
 | Field | Type |
 |-------|------|
 | `agentId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `agentId`, `entityId`
+**Required create fields:** `agentId`
 
 ### `agent`
 
@@ -577,10 +573,8 @@ CRUD operations for AutonomyRecordLink records.
 | Field | Type |
 |-------|------|
 | `autonomyRecordId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `autonomyRecordId`, `entityId`
+**Required create fields:** `autonomyRecordId`
 
 ### `autonomy-records-chunk`
 
@@ -997,10 +991,8 @@ CRUD operations for CodebaseDependency records.
 | Field | Type |
 |-------|------|
 | `codebasisId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `codebasisId`, `entityId`
+**Required create fields:** `codebasisId`
 
 ### `codebases-chunk`
 
@@ -1275,10 +1267,8 @@ CRUD operations for CompanyEvent records.
 |-------|------|
 | `companyId` | UUID |
 | `eventId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `companyId`, `eventId`, `entityId`
+**Required create fields:** `companyId`, `eventId`
 
 ### `event`
 
@@ -1348,10 +1338,8 @@ CRUD operations for CompanyImage records.
 |-------|------|
 | `companyId` | UUID |
 | `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `companyId`, `imageId`, `entityId`
+**Required create fields:** `companyId`, `imageId`
 
 ### `image`
 
@@ -1531,49 +1519,8 @@ CRUD operations for ContactCompany records.
 |-------|------|
 | `contactId` | UUID |
 | `companyId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `companyId`, `entityId`
-
-### `email`
-
-CRUD operations for Email records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all email records |
-| `get` | Get a email by id |
-| `create` | Create a new email |
-| `update` | Update an existing email |
-| `delete` | Delete a email |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `providerMessageId` | String |
-| `fromContactId` | UUID |
-| `to` | JSON |
-| `cc` | JSON |
-| `bcc` | JSON |
-| `subject` | String |
-| `bodyText` | String |
-| `bodyHtml` | String |
-| `sentAt` | Datetime |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `searchTsv` | FullText |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `emailThreadId` | UUID |
-
-**Required create fields:** `entityId`, `emailThreadId`
-**Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Required create fields:** `contactId`, `companyId`
 
 ### `email-thread`
 
@@ -1639,10 +1586,8 @@ CRUD operations for ContactEvent records.
 |-------|------|
 | `contactId` | UUID |
 | `eventId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `eventId`, `entityId`
+**Required create fields:** `contactId`, `eventId`
 
 ### `expense`
 
@@ -1710,10 +1655,8 @@ CRUD operations for ContactImage records.
 |-------|------|
 | `contactId` | UUID |
 | `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `imageId`, `entityId`
+**Required create fields:** `contactId`, `imageId`
 
 ### `contact-link`
 
@@ -1860,10 +1803,8 @@ CRUD operations for ContactRelationship records.
 | Field | Type |
 |-------|------|
 | `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `entityId`
+**Required create fields:** `contactId`
 
 ### `contacts-chunk`
 
@@ -1989,10 +1930,8 @@ CRUD operations for DealCompany records.
 |-------|------|
 | `dealId` | UUID |
 | `companyId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `dealId`, `companyId`, `entityId`
+**Required create fields:** `dealId`, `companyId`
 
 ### `deal-contact`
 
@@ -2012,10 +1951,8 @@ CRUD operations for DealContact records.
 |-------|------|
 | `dealId` | UUID |
 | `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `dealId`, `contactId`, `entityId`
+**Required create fields:** `dealId`, `contactId`
 
 ### `deal-note`
 
@@ -2103,51 +2040,44 @@ CRUD operations for EmailAttachment records.
 **Required create fields:** `entityId`, `filename`, `emailId`
 **Optional create fields (backend defaults):** `contentType`, `sizeBytes`, `storageUrl`, `providerAttachmentId`
 
-### `email-note`
+### `email`
 
-CRUD operations for EmailNote records.
+CRUD operations for Email records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all emailNote records |
-| `get` | Get a emailNote by id |
-| `create` | Create a new emailNote |
-| `update` | Update an existing emailNote |
-| `delete` | Delete a emailNote |
+| `list` | List all email records |
+| `get` | Get a email by id |
+| `create` | Create a new email |
+| `update` | Update an existing email |
+| `delete` | Delete a email |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
-| `emailId` | UUID |
-| `noteId` | UUID |
 | `id` | UUID |
 | `entityId` | UUID |
+| `providerMessageId` | String |
+| `fromContactId` | UUID |
+| `to` | JSON |
+| `cc` | JSON |
+| `bcc` | JSON |
+| `subject` | String |
+| `bodyText` | String |
+| `bodyHtml` | String |
+| `sentAt` | Datetime |
+| `tags` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingText` | String |
+| `searchTsv` | FullText |
+| `embedding` | Vector |
+| `embeddingStale` | Boolean |
+| `emailThreadId` | UUID |
 
-**Required create fields:** `emailId`, `noteId`, `entityId`
-
-### `email-recipient`
-
-CRUD operations for EmailRecipient records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all emailRecipient records |
-| `get` | Get a emailRecipient by id |
-| `create` | Create a new emailRecipient |
-| `update` | Update an existing emailRecipient |
-| `delete` | Delete a emailRecipient |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `emailId` | UUID |
-| `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `emailId`, `contactId`, `entityId`
+**Required create fields:** `entityId`, `emailThreadId`
+**Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 
 ### `emails-chunk`
 
@@ -2233,10 +2163,8 @@ CRUD operations for EventImage records.
 |-------|------|
 | `eventId` | UUID |
 | `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `eventId`, `imageId`, `entityId`
+**Required create fields:** `eventId`, `imageId`
 
 ### `event-link`
 
@@ -2346,10 +2274,8 @@ CRUD operations for EventVenue records.
 |-------|------|
 | `eventId` | UUID |
 | `venueId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `eventId`, `venueId`, `entityId`
+**Required create fields:** `eventId`, `venueId`
 
 ### `venue`
 
@@ -3601,10 +3527,8 @@ CRUD operations for RuntimeStateDependency records.
 | Field | Type |
 |-------|------|
 | `runtimeStateId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `runtimeStateId`, `entityId`
+**Required create fields:** `runtimeStateId`
 
 ### `runtime-states-chunk`
 
@@ -4185,10 +4109,8 @@ CRUD operations for VenueImage records.
 |-------|------|
 | `venueId` | UUID |
 | `imageId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
 
-**Required create fields:** `venueId`, `imageId`, `entityId`
+**Required create fields:** `venueId`, `imageId`
 
 ### `venue-link`
 

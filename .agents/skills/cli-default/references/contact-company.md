@@ -9,8 +9,8 @@ CRUD operations for ContactCompany records via agentic-db CLI
 ```bash
 agentic-db contact-company list
 agentic-db contact-company get --id <UUID>
-agentic-db contact-company create --contactId <UUID> --companyId <UUID> --entityId <UUID>
-agentic-db contact-company update --id <UUID> [--contactId <UUID>] [--companyId <UUID>] [--entityId <UUID>]
+agentic-db contact-company create --contactId <UUID> --companyId <UUID>
+agentic-db contact-company update --id <UUID> [--contactId <UUID>] [--companyId <UUID>]
 agentic-db contact-company delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db contact-company list
 ### Create a contactCompany
 
 ```bash
-agentic-db contact-company create --contactId <UUID> --companyId <UUID> --entityId <UUID>
+agentic-db contact-company create --contactId <UUID> --companyId <UUID>
 ```
 
 ### Get a contactCompany by id

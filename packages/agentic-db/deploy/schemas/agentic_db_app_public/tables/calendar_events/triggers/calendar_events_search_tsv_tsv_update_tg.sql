@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER calendar_events_search_tsv_tsv_update_tg
-BEFORE UPDATE ON "agentic_db_app_public".calendar_events
+BEFORE UPDATE ON agentic_db_app_public.calendar_events
 FOR EACH ROW
 WHEN (OLD.title IS DISTINCT FROM NEW.title OR OLD.description IS DISTINCT FROM NEW.description)
-EXECUTE PROCEDURE "agentic_db_private".calendar_events_search_tsv_tsv ( );
+EXECUTE PROCEDURE agentic_db_private.calendar_events_search_tsv_tsv ( );
 

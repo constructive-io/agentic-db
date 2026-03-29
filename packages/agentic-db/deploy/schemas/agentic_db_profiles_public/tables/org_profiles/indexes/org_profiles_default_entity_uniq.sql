@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_profiles_public/tables/org_profiles/columns/is_default/column
 
 
-CREATE UNIQUE INDEX org_profiles_default_entity_uniq ON "agentic_db_profiles_public".org_profiles ( entity_id ) WHERE is_default = true AND entity_id IS NOT NULL;
+CREATE UNIQUE INDEX org_profiles_default_entity_uniq ON agentic_db_profiles_public.org_profiles ( entity_id ) WHERE is_default = true AND entity_id IS NOT NULL;
 

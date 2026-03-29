@@ -23,7 +23,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'system_prompt'] },
+          embedding: { source_fields: ['name', 'description', 'system_prompt'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -49,7 +49,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'description', 'result'] },
+          embedding: { source_fields: ['title', 'description', 'result'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -76,7 +76,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['message'] },
+          embedding: { source_fields: ['message'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -99,7 +99,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'trigger_concept'] },
+          embedding: { source_fields: ['name', 'description', 'trigger_concept'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
         { $type: 'DataEmbedding', data: { field_name: 'trigger_concept_embedding', source_fields: ['trigger_concept'], enqueue_job: false } },
@@ -127,7 +127,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'intent_trigger'] },
+          embedding: { source_fields: ['name', 'description', 'intent_trigger'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
         { $type: 'DataEmbedding', data: { field_name: 'intent_trigger_embedding', source_fields: ['intent_trigger'], enqueue_job: false } },
@@ -153,7 +153,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description'] },
+          embedding: { source_fields: ['name', 'description'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -177,7 +177,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'content'] },
+          embedding: { source_fields: ['name', 'content'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -201,7 +201,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['description', 'notes'] },
+          embedding: { source_fields: ['description', 'notes'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -219,6 +219,7 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
   ],
 
   relations: [

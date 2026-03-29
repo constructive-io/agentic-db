@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_invites_public/tables/claimed_invites/table
 
 
-ALTER TABLE "agentic_db_invites_public".claimed_invites 
+ALTER TABLE agentic_db_invites_public.claimed_invites 
   ADD CONSTRAINT claimed_invites_sender_id_fkey 
     FOREIGN KEY(sender_id) 
-    REFERENCES "agentic_db_users_public".users (id) 
+    REFERENCES agentic_db_users_public.users (id) 
     ON DELETE SET NULL;
 

@@ -23,7 +23,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'description'] },
+          embedding: { source_fields: ['title', 'description'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -64,7 +64,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['activity_type', 'notes'] },
+          embedding: { source_fields: ['activity_type', 'notes'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -91,7 +91,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'content', 'location'] },
+          embedding: { source_fields: ['title', 'content', 'location'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
         { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
@@ -116,7 +116,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'destination'] },
+          embedding: { source_fields: ['name', 'description', 'destination'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
         { $type: 'DataPostGIS', data: { field_name: 'destination_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
@@ -141,7 +141,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'location'] },
+          embedding: { source_fields: ['name', 'description', 'location'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
         { $type: 'DataPostGIS', data: { field_name: 'trailhead_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
@@ -168,7 +168,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'address'] },
+          embedding: { source_fields: ['name', 'description', 'address'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
         { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
@@ -185,6 +185,7 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
   ],
 
   relations: [

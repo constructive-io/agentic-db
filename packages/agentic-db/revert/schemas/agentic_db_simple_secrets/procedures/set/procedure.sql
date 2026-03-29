@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agentic_db_simple_secrets".set;
+DROP FUNCTION agentic_db_simple_secrets.set;
 
 

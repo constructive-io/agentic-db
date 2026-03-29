@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_invites_public/tables/org_invites/columns/sender_id/column
 
 
-CREATE INDEX org_invites_sender_id_idx ON "agentic_db_invites_public".org_invites USING BTREE ( sender_id );
+CREATE INDEX org_invites_sender_id_idx ON agentic_db_invites_public.org_invites USING BTREE ( sender_id );
 

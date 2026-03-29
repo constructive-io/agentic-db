@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_encrypted/tables/encrypted_secrets/table
 
 
-CREATE POLICY auth_del ON "agentic_db_encrypted".encrypted_secrets
+CREATE POLICY auth_del ON agentic_db_encrypted.encrypted_secrets
 FOR DELETE
 TO authenticated
 USING (

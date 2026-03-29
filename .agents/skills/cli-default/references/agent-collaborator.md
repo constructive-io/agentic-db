@@ -9,8 +9,8 @@ CRUD operations for AgentCollaborator records via agentic-db CLI
 ```bash
 agentic-db agent-collaborator list
 agentic-db agent-collaborator get --id <UUID>
-agentic-db agent-collaborator create --agentId <UUID> --entityId <UUID>
-agentic-db agent-collaborator update --id <UUID> [--agentId <UUID>] [--entityId <UUID>]
+agentic-db agent-collaborator create --agentId <UUID>
+agentic-db agent-collaborator update --id <UUID> [--agentId <UUID>]
 agentic-db agent-collaborator delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db agent-collaborator list
 ### Create a agentCollaborator
 
 ```bash
-agentic-db agent-collaborator create --agentId <UUID> --entityId <UUID>
+agentic-db agent-collaborator create --agentId <UUID>
 ```
 
 ### Get a agentCollaborator by id

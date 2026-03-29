@@ -6,7 +6,7 @@
 
 
 
-CREATE FUNCTION "agentic_db_simple_secrets".get (
+CREATE FUNCTION agentic_db_simple_secrets.get (
   v_owner_id uuid,
   v_secret_name text,
   v_default_value text default null
@@ -16,7 +16,7 @@ CREATE FUNCTION "agentic_db_simple_secrets".get (
 DECLARE
     val text;
 BEGIN
-    SELECT value FROM "agentic_db_simple_secrets".secrets t 
+    SELECT value FROM agentic_db_simple_secrets.secrets t 
         WHERE t.owner_id = get.v_owner_id
         AND t.name = get.v_secret_name
     INTO val;
@@ -28,5 +28,5 @@ END;
 $$
 LANGUAGE 'plpgsql'
 STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_simple_secrets".get TO authenticated;
+GRANT EXECUTE ON FUNCTION agentic_db_simple_secrets.get TO authenticated;
 

@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER tool_definitions_enqueue_chunking_insert_tg
-AFTER INSERT ON "agentic_db_app_public".tool_definitions
+AFTER INSERT ON agentic_db_app_public.tool_definitions
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".tool_definitions_enqueue_chunking ( );
+EXECUTE PROCEDURE agentic_db_private.tool_definitions_enqueue_chunking ( );
 

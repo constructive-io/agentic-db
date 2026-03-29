@@ -42,6 +42,14 @@ export type {
   BlueprintFullTextSearch,
 };
 
+// Extend types for server-side features not yet in node-type-registry.
+// Policies need $type for the server (policy_type alone isn't sufficient).
+declare module 'node-type-registry' {
+  interface BlueprintPolicy {
+    $type?: string;
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Shared constants — standard org-scoped table defaults
 // ---------------------------------------------------------------------------
@@ -54,6 +62,7 @@ export const ORG_NODES: BlueprintTable['nodes'] = [
 
 /** Standard entity membership policy */
 export const ORG_POLICY: BlueprintPolicy = {
+  $type: 'AuthzEntityMembership',
   policy_type: 'AuthzEntityMembership',
   privileges: ['select', 'insert', 'update', 'delete'],
   permissive: true,

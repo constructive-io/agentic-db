@@ -80,14 +80,10 @@ async function main() {
 
   // 2. Tasks
   await importTable('Tasks', 'SELECT * FROM agent.tasks', async (row) => {
-    return authClient.agentTask.create({
+    return authClient.task.create({
       data: {
         entityId: userId,
-        agentId: userId,
         title: row.title,
-        description: row.description,
-        status: row.status,
-        priority: row.priority,
       },
       select: { id: true }
     }).execute();

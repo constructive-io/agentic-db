@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER venues_enqueue_chunking_update_tg
-AFTER UPDATE ON "agentic_db_app_public".venues
+AFTER UPDATE ON agentic_db_app_public.venues
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".venues_enqueue_chunking ( );
+EXECUTE PROCEDURE agentic_db_private.venues_enqueue_chunking ( );
 

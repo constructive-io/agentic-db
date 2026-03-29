@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-GRANT UPDATE ON "agentic_db_app_public".prompts TO authenticated;
+GRANT UPDATE ON agentic_db_app_public.prompts TO authenticated;
 

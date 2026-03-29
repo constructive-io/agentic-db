@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/app_owner_grants/columns/updated_at/column
 
 
-CREATE INDEX app_owner_grants_updated_at_idx ON "agentic_db_memberships_public".app_owner_grants ( updated_at );
+CREATE INDEX app_owner_grants_updated_at_idx ON agentic_db_memberships_public.app_owner_grants ( updated_at );
 

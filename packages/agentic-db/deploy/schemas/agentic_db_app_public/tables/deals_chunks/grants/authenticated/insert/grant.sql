@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-GRANT INSERT ON "agentic_db_app_public".deals_chunks TO authenticated;
+GRANT INSERT ON agentic_db_app_public.deals_chunks TO authenticated;
 

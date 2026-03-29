@@ -9,7 +9,7 @@ ORM operations for DealContact records
 ```typescript
 db.dealContact.findMany({ select: { id: true } }).execute()
 db.dealContact.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.dealContact.create({ data: { dealId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.dealContact.create({ data: { dealId: '<UUID>', contactId: '<UUID>' }, select: { id: true } }).execute()
 db.dealContact.update({ where: { id: '<UUID>' }, data: { dealId: '<UUID>' }, select: { id: true } }).execute()
 db.dealContact.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.dealContact.findMany({
 
 ```typescript
 const item = await db.dealContact.create({
-  data: { dealId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' },
+  data: { dealId: '<UUID>', contactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_definitions_chunks/columns/tool_definitions_id/column
 
 
-CREATE INDEX tool_definitions_chunks_tool_definitions_id_idx ON "agentic_db_app_public".tool_definitions_chunks USING BTREE ( tool_definitions_id );
+CREATE INDEX tool_definitions_chunks_tool_definitions_id_idx ON agentic_db_app_public.tool_definitions_chunks USING BTREE ( tool_definitions_id );
 

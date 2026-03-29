@@ -22,7 +22,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'state_type'] },
+          embedding: { source_fields: ['name', 'state_type'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -47,7 +47,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['message'] },
+          embedding: { source_fields: ['message'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -157,7 +157,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title'] },
+          embedding: { source_fields: ['title'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -178,7 +178,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['content'] },
+          embedding: { source_fields: ['content'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -215,6 +215,7 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
   ],
 
   relations: [

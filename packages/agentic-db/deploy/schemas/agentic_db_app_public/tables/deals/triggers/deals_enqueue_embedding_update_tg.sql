@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER deals_enqueue_embedding_update_tg
-AFTER UPDATE ON "agentic_db_app_public".deals
+AFTER UPDATE ON agentic_db_app_public.deals
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".deals_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.deals_enqueue_embedding ( );
 
