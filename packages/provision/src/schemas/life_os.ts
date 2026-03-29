@@ -191,12 +191,126 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
+    {
+      ref: 'activity_logs_chunks',
+      table_name: 'activity_logs_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'activity_logs_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'goals_chunks',
+      table_name: 'goals_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'goals_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'hiking_trails_chunks',
+      table_name: 'hiking_trails_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'hiking_trails_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'memories_chunks',
+      table_name: 'memories_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'memories_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'places_chunks',
+      table_name: 'places_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'places_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'trips_chunks',
+      table_name: 'trips_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'trips_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
     // HasMany: goals -> habits (via goal_habits junction is in cross-relations)
     // trips -> expenses FK handled in cross-relations.ts (expenses lives in agent.ts)
     // activity_logs -> habits FK handled in cross-relations.ts
+    { $type: 'RelationHasMany', source_ref: 'activity_logs', target_ref: 'activity_logs_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'goals', target_ref: 'goals_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'hiking_trails', target_ref: 'hiking_trails_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'memories', target_ref: 'memories_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'places', target_ref: 'places_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'trips', target_ref: 'trips_chunks', delete_action: 'c' },
   ],
 
   indexes: [
@@ -219,6 +333,12 @@ const definition: BlueprintDefinition = {
     { table_ref: 'trips', column: 'start_date', access_method: 'btree' },
     { table_ref: 'hiking_trails', column: 'difficulty', access_method: 'btree' },
     { table_ref: 'places', column: 'category', access_method: 'btree' },
+    { table_ref: 'activity_logs_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'goals_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'hiking_trails_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'memories_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'places_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'trips_chunks', column: 'chunk_index', access_method: 'btree' },
   ],
 };
 

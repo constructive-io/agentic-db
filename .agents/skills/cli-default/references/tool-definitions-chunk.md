@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db tool-definitions-chunk list
 agentic-db tool-definitions-chunk get --id <UUID>
-agentic-db tool-definitions-chunk create --toolDefinitionsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db tool-definitions-chunk update --id <UUID> [--toolDefinitionsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db tool-definitions-chunk create --entityId <UUID> --toolDefinitionsId <UUID> --content <String> --toolDefinitionId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db tool-definitions-chunk update --id <UUID> [--entityId <UUID>] [--toolDefinitionsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--toolDefinitionId <UUID>]
 agentic-db tool-definitions-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db tool-definitions-chunk list
 ### Create a toolDefinitionsChunk
 
 ```bash
-agentic-db tool-definitions-chunk create --toolDefinitionsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db tool-definitions-chunk create --entityId <UUID> --toolDefinitionsId <UUID> --content <String> --toolDefinitionId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a toolDefinitionsChunk by id

@@ -266,6 +266,22 @@ export interface ActivityLog {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface ActivityLogsChunk {
+  id: string;
+  entityId?: string | null;
+  activityLogsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  activityLogId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface AgentCollaborator {
   agentId?: string | null;
 }
@@ -330,6 +346,22 @@ export interface AgentLog {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface AgentLogsChunk {
+  id: string;
+  entityId?: string | null;
+  agentLogsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  agentLogId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface AgentPrompt {
   agentId?: string | null;
   promptId?: string | null;
@@ -362,6 +394,22 @@ export interface Prompt {
   categoryTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface AgentsChunk {
+  id: string;
+  entityId?: string | null;
+  agentsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  agentId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -402,6 +450,22 @@ export interface AutonomyRecord {
 }
 export interface AutonomyRecordLink {
   autonomyRecordId?: string | null;
+}
+export interface AutonomyRecordsChunk {
+  id: string;
+  entityId?: string | null;
+  autonomyRecordsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  autonomyRecordId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface CalendarAttendee {
   id: string;
@@ -568,6 +632,22 @@ export interface Note {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface CalendarEventsChunk {
+  id: string;
+  entityId?: string | null;
+  calendarEventsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  calendarEventId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface CalendarEventTask {
   calendarEventId?: string | null;
   taskId?: string | null;
@@ -610,6 +690,22 @@ export interface Task {
 }
 export interface CodebaseDependency {
   codebasisId?: string | null;
+}
+export interface CodebasesChunk {
+  id: string;
+  entityId?: string | null;
+  codebasesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  codebasisId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface Codebasis {
   id: string;
@@ -683,6 +779,22 @@ export interface CodeChunk {
   symbolTypeTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface CompaniesChunk {
+  id: string;
+  entityId?: string | null;
+  companiesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  companyId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -878,6 +990,27 @@ export interface ContactCompany {
   contactId?: string | null;
   companyId?: string | null;
 }
+export interface Email {
+  id: string;
+  entityId?: string | null;
+  providerMessageId?: string | null;
+  fromContactId?: string | null;
+  to?: Record<string, unknown> | null;
+  cc?: Record<string, unknown> | null;
+  bcc?: Record<string, unknown> | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  bodyHtml?: string | null;
+  sentAt?: string | null;
+  tags?: string[] | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  searchTsv?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  emailThreadId?: string | null;
+}
 export interface EmailThread {
   id: string;
   entityId?: string | null;
@@ -1021,6 +1154,22 @@ export interface Project {
 export interface ContactRelationship {
   contactId?: string | null;
 }
+export interface ContactsChunk {
+  id: string;
+  entityId?: string | null;
+  contactsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Conversation {
   id: string;
   entityId?: string | null;
@@ -1046,6 +1195,22 @@ export interface Conversation {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface ConversationsChunk {
+  id: string;
+  entityId?: string | null;
+  conversationsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  conversationId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface DealCompany {
   dealId?: string | null;
   companyId?: string | null;
@@ -1060,6 +1225,22 @@ export interface DealNote {
   id: string;
   entityId?: string | null;
 }
+export interface DealsChunk {
+  id: string;
+  entityId?: string | null;
+  dealsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  dealId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface EmailAttachment {
   id: string;
   entityId?: string | null;
@@ -1072,26 +1253,49 @@ export interface EmailAttachment {
   updatedAt?: string | null;
   emailId?: string | null;
 }
-export interface Email {
+export interface EmailNote {
+  emailId?: string | null;
+  noteId?: string | null;
   id: string;
   entityId?: string | null;
-  providerMessageId?: string | null;
-  fromContactId?: string | null;
-  to?: Record<string, unknown> | null;
-  cc?: Record<string, unknown> | null;
-  bcc?: Record<string, unknown> | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  bodyHtml?: string | null;
-  sentAt?: string | null;
-  tags?: string[] | null;
+}
+export interface EmailRecipient {
+  emailId?: string | null;
+  contactId?: string | null;
+  id: string;
+  entityId?: string | null;
+}
+export interface EmailsChunk {
+  id: string;
+  entityId?: string | null;
+  emailsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  embeddingText?: string | null;
-  searchTsv?: string | null;
+  emailId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface EmailThreadsChunk {
+  id: string;
+  entityId?: string | null;
+  emailThreadsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   emailThreadId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface EventImage {
   eventId?: string | null;
@@ -1117,6 +1321,22 @@ export interface EventNote {
   noteId?: string | null;
   id: string;
   entityId?: string | null;
+}
+export interface EventsChunk {
+  id: string;
+  entityId?: string | null;
+  eventsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  eventId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface EventVenue {
   eventId?: string | null;
@@ -1179,6 +1399,22 @@ export interface ExpenseContact {
   id: string;
   entityId?: string | null;
 }
+export interface ExpensesChunk {
+  id: string;
+  entityId?: string | null;
+  expensesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  expenseId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Goal {
   id: string;
   entityId?: string | null;
@@ -1231,6 +1467,22 @@ export interface GoalProject {
   id: string;
   entityId?: string | null;
 }
+export interface GoalsChunk {
+  id: string;
+  entityId?: string | null;
+  goalsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  goalId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface HikingTrail {
   id: string;
   entityId?: string | null;
@@ -1264,6 +1516,22 @@ export interface HikingTrail {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface HikingTrailsChunk {
+  id: string;
+  entityId?: string | null;
+  hikingTrailsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  hikingTrailId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Interaction {
   id: string;
   entityId?: string | null;
@@ -1293,6 +1561,38 @@ export interface Interaction {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface InteractionsChunk {
+  id: string;
+  entityId?: string | null;
+  interactionsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  interactionId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface MemoriesChunk {
+  id: string;
+  entityId?: string | null;
+  memoriesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  memoryId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Message {
   id: string;
   entityId?: string | null;
@@ -1318,6 +1618,38 @@ export interface Message {
   contentTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface MessagesChunk {
+  id: string;
+  entityId?: string | null;
+  messagesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  messageId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface NotesChunk {
+  id: string;
+  entityId?: string | null;
+  notesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  noteId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1352,11 +1684,59 @@ export interface Place {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface PlacesChunk {
+  id: string;
+  entityId?: string | null;
+  placesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  placeId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface ProjectContact {
   projectId?: string | null;
   contactId?: string | null;
   id: string;
   entityId?: string | null;
+}
+export interface ProjectsChunk {
+  id: string;
+  entityId?: string | null;
+  projectsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  projectId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface PromptsChunk {
+  id: string;
+  entityId?: string | null;
+  promptsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  promptId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface ProviderSyncState {
   id: string;
@@ -1464,6 +1844,22 @@ export interface Rule {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface RulesChunk {
+  id: string;
+  entityId?: string | null;
+  rulesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  ruleId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface RuntimeArtifact {
   id: string;
   entityId?: string | null;
@@ -1520,6 +1916,22 @@ export interface RuntimeLog {
   messageTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface RuntimeLogsChunk {
+  id: string;
+  entityId?: string | null;
+  runtimeLogsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  runtimeLogId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1580,6 +1992,22 @@ export interface RuntimeState {
 export interface RuntimeStateDependency {
   runtimeStateId?: string | null;
 }
+export interface RuntimeStatesChunk {
+  id: string;
+  entityId?: string | null;
+  runtimeStatesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  runtimeStateId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Skill {
   id: string;
   entityId?: string | null;
@@ -1615,6 +2043,22 @@ export interface Skill {
   intentTriggerTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface SkillsChunk {
+  id: string;
+  entityId?: string | null;
+  skillsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  skillId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
@@ -1681,11 +2125,43 @@ export interface TaskProject {
   id: string;
   entityId?: string | null;
 }
+export interface TasksChunk {
+  id: string;
+  entityId?: string | null;
+  tasksId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  taskId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface ThreadParticipant {
   emailThreadId?: string | null;
   contactId?: string | null;
   id: string;
   entityId?: string | null;
+}
+export interface ToolDefinitionsChunk {
+  id: string;
+  entityId?: string | null;
+  toolDefinitionsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  toolDefinitionId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
 }
 export interface ToolExecution {
   id: string;
@@ -1743,6 +2219,22 @@ export interface Touchpoint {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface TouchpointsChunk {
+  id: string;
+  entityId?: string | null;
+  touchpointsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  touchpointId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface Trip {
   id: string;
   entityId?: string | null;
@@ -1772,6 +2264,22 @@ export interface Trip {
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
   searchScore?: number | null;
 }
+export interface TripsChunk {
+  id: string;
+  entityId?: string | null;
+  tripsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  tripId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
 export interface VenueImage {
   venueId?: string | null;
   imageId?: string | null;
@@ -1785,6 +2293,22 @@ export interface VenueLink {
   updatedAt?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  venueId?: string | null;
+  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
+  embeddingVectorDistance?: number | null;
+  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
+  searchScore?: number | null;
+}
+export interface VenuesChunk {
+  id: string;
+  entityId?: string | null;
+  venuesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
   venueId?: string | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
   embeddingVectorDistance?: number | null;
@@ -1806,6 +2330,10 @@ export interface PageInfo {
 // ============ Entity Relation Types ============
 export interface ActivityLogRelations {
   habit?: Habit | null;
+  activityLogsChunks?: ConnectionResult<ActivityLogsChunk>;
+}
+export interface ActivityLogsChunkRelations {
+  activityLog?: ActivityLog | null;
 }
 export interface AgentCollaboratorRelations {
   agent?: Agent | null;
@@ -1816,12 +2344,17 @@ export interface AgentRelations {
   agentLogs?: ConnectionResult<AgentLog>;
   rules?: ConnectionResult<Rule>;
   skills?: ConnectionResult<Skill>;
+  agentsChunks?: ConnectionResult<AgentsChunk>;
   agentCollaborators?: ConnectionResult<AgentCollaborator>;
   memories?: ConnectionResult<Memory>;
   agentPrompts?: ConnectionResult<AgentPrompt>;
 }
 export interface AgentLogRelations {
   agent?: Agent | null;
+  agentLogsChunks?: ConnectionResult<AgentLogsChunk>;
+}
+export interface AgentLogsChunkRelations {
+  agentLog?: AgentLog | null;
 }
 export interface AgentPromptRelations {
   agent?: Agent | null;
@@ -1829,12 +2362,20 @@ export interface AgentPromptRelations {
 }
 export interface PromptRelations {
   agents?: ConnectionResult<Agent>;
+  promptsChunks?: ConnectionResult<PromptsChunk>;
   agentPrompts?: ConnectionResult<AgentPrompt>;
 }
+export interface AgentsChunkRelations {
+  agent?: Agent | null;
+}
 export interface AutonomyRecordRelations {
+  autonomyRecordsChunks?: ConnectionResult<AutonomyRecordsChunk>;
   autonomyRecordLinks?: ConnectionResult<AutonomyRecordLink>;
 }
 export interface AutonomyRecordLinkRelations {
+  autonomyRecord?: AutonomyRecord | null;
+}
+export interface AutonomyRecordsChunkRelations {
   autonomyRecord?: AutonomyRecord | null;
 }
 export interface CalendarAttendeeRelations {
@@ -1850,6 +2391,7 @@ export interface CalendarEventRelations {
   notes?: ConnectionResult<Note>;
   tasks?: ConnectionResult<Task>;
   calendarAttendees?: ConnectionResult<CalendarAttendee>;
+  calendarEventsChunks?: ConnectionResult<CalendarEventsChunk>;
   calendarEventContacts?: ConnectionResult<CalendarEventContact>;
   calendarEventNotes?: ConnectionResult<CalendarEventNote>;
   calendarEventTasks?: ConnectionResult<CalendarEventTask>;
@@ -1866,15 +2408,17 @@ export interface ContactRelations {
   expenses?: ConnectionResult<Expense>;
   notes?: ConnectionResult<Note>;
   memories?: ConnectionResult<Memory>;
-  emailThreads?: ConnectionResult<EmailThread>;
+  emails?: ConnectionResult<Email>;
   interactions?: ConnectionResult<Interaction>;
   touchpoints?: ConnectionResult<Touchpoint>;
   contactLinks?: ConnectionResult<ContactLink>;
+  contactsChunks?: ConnectionResult<ContactsChunk>;
   contactImages?: ConnectionResult<ContactImage>;
   contactCompanies?: ConnectionResult<ContactCompany>;
   contactEvents?: ConnectionResult<ContactEvent>;
   dealContacts?: ConnectionResult<DealContact>;
   contactRelationships?: ConnectionResult<ContactRelationship>;
+  emailsByFromContactId?: ConnectionResult<Email>;
   calendarEventsByOrganizerContactId?: ConnectionResult<CalendarEvent>;
   calendarAttendees?: ConnectionResult<CalendarAttendee>;
   projectContacts?: ConnectionResult<ProjectContact>;
@@ -1884,11 +2428,13 @@ export interface ContactRelations {
   contactNotes?: ConnectionResult<ContactNote>;
   contactMemories?: ConnectionResult<ContactMemory>;
   threadParticipants?: ConnectionResult<ThreadParticipant>;
+  emailRecipients?: ConnectionResult<EmailRecipient>;
   imagesByContactImageContactIdAndImageId?: ConnectionResult<Image>;
   companiesByContactCompanyContactIdAndCompanyId?: ConnectionResult<Company>;
   eventsByContactEventContactIdAndEventId?: ConnectionResult<Event>;
   dealsByDealContactContactIdAndDealId?: ConnectionResult<Deal>;
   calendarEventsByCalendarEventContactContactIdAndCalendarEventId?: ConnectionResult<CalendarEvent>;
+  emailThreadsByThreadParticipantContactIdAndEmailThreadId?: ConnectionResult<EmailThread>;
 }
 export interface CalendarEventNoteRelations {
   calendarEvent?: CalendarEvent | null;
@@ -1900,13 +2446,19 @@ export interface NoteRelations {
   deals?: ConnectionResult<Deal>;
   events?: ConnectionResult<Event>;
   tasks?: ConnectionResult<Task>;
+  emails?: ConnectionResult<Email>;
   calendarEvents?: ConnectionResult<CalendarEvent>;
+  notesChunks?: ConnectionResult<NotesChunk>;
   contactNotes?: ConnectionResult<ContactNote>;
   companyNotes?: ConnectionResult<CompanyNote>;
   dealNotes?: ConnectionResult<DealNote>;
   eventNotes?: ConnectionResult<EventNote>;
   taskNotes?: ConnectionResult<TaskNote>;
+  emailNotes?: ConnectionResult<EmailNote>;
   calendarEventNotes?: ConnectionResult<CalendarEventNote>;
+}
+export interface CalendarEventsChunkRelations {
+  calendarEvent?: CalendarEvent | null;
 }
 export interface CalendarEventTaskRelations {
   calendarEvent?: CalendarEvent | null;
@@ -1918,6 +2470,7 @@ export interface TaskRelations {
   projects?: ConnectionResult<Project>;
   notes?: ConnectionResult<Note>;
   calendarEvents?: ConnectionResult<CalendarEvent>;
+  tasksChunks?: ConnectionResult<TasksChunk>;
   taskContacts?: ConnectionResult<TaskContact>;
   taskProjects?: ConnectionResult<TaskProject>;
   taskNotes?: ConnectionResult<TaskNote>;
@@ -1926,12 +2479,19 @@ export interface TaskRelations {
 export interface CodebaseDependencyRelations {
   codebasis?: Codebasis | null;
 }
+export interface CodebasesChunkRelations {
+  codebasis?: Codebasis | null;
+}
 export interface CodebasisRelations {
   codeChunks?: ConnectionResult<CodeChunk>;
+  codebasesChunks?: ConnectionResult<CodebasesChunk>;
   codebaseDependencies?: ConnectionResult<CodebaseDependency>;
 }
 export interface CodeChunkRelations {
   codebasis?: Codebasis | null;
+}
+export interface CompaniesChunkRelations {
+  company?: Company | null;
 }
 export interface CompanyRelations {
   mainImage?: Image | null;
@@ -1939,6 +2499,7 @@ export interface CompanyRelations {
   memories?: ConnectionResult<Memory>;
   touchpoints?: ConnectionResult<Touchpoint>;
   companyLinks?: ConnectionResult<CompanyLink>;
+  companiesChunks?: ConnectionResult<CompaniesChunk>;
   companyImages?: ConnectionResult<CompanyImage>;
   contactCompanies?: ConnectionResult<ContactCompany>;
   companyEvents?: ConnectionResult<CompanyEvent>;
@@ -1953,6 +2514,7 @@ export interface CompanyRelations {
 export interface DealRelations {
   notes?: ConnectionResult<Note>;
   touchpoints?: ConnectionResult<Touchpoint>;
+  dealsChunks?: ConnectionResult<DealsChunk>;
   dealContacts?: ConnectionResult<DealContact>;
   dealCompanies?: ConnectionResult<DealCompany>;
   dealNotes?: ConnectionResult<DealNote>;
@@ -1969,6 +2531,7 @@ export interface EventRelations {
   notes?: ConnectionResult<Note>;
   touchpoints?: ConnectionResult<Touchpoint>;
   eventLinks?: ConnectionResult<EventLink>;
+  eventsChunks?: ConnectionResult<EventsChunk>;
   eventImages?: ConnectionResult<EventImage>;
   contactEvents?: ConnectionResult<ContactEvent>;
   companyEvents?: ConnectionResult<CompanyEvent>;
@@ -2003,6 +2566,7 @@ export interface MemoryRelations {
   agent?: Agent | null;
   contacts?: ConnectionResult<Contact>;
   companies?: ConnectionResult<Company>;
+  memoriesChunks?: ConnectionResult<MemoriesChunk>;
   contactMemories?: ConnectionResult<ContactMemory>;
   companyMemories?: ConnectionResult<CompanyMemory>;
 }
@@ -2018,10 +2582,21 @@ export interface ContactCompanyRelations {
   company?: Company | null;
   contact?: Contact | null;
 }
+export interface EmailRelations {
+  emailThread?: EmailThread | null;
+  fromContact?: Contact | null;
+  notes?: ConnectionResult<Note>;
+  emailAttachments?: ConnectionResult<EmailAttachment>;
+  emailsChunks?: ConnectionResult<EmailsChunk>;
+  emailRecipients?: ConnectionResult<EmailRecipient>;
+  emailNotes?: ConnectionResult<EmailNote>;
+  contactsByEmailRecipientEmailIdAndContactId?: ConnectionResult<Contact>;
+}
 export interface EmailThreadRelations {
-  contacts?: ConnectionResult<Contact>;
   emails?: ConnectionResult<Email>;
+  emailThreadsChunks?: ConnectionResult<EmailThreadsChunk>;
   threadParticipants?: ConnectionResult<ThreadParticipant>;
+  contactsByThreadParticipantEmailThreadIdAndContactId?: ConnectionResult<Contact>;
 }
 export interface ContactEventRelations {
   contact?: Contact | null;
@@ -2030,6 +2605,7 @@ export interface ContactEventRelations {
 export interface ExpenseRelations {
   trip?: Trip | null;
   contacts?: ConnectionResult<Contact>;
+  expensesChunks?: ConnectionResult<ExpensesChunk>;
   expenseContacts?: ConnectionResult<ExpenseContact>;
 }
 export interface ContactImageRelations {
@@ -2051,6 +2627,7 @@ export interface ProjectRelations {
   contacts?: ConnectionResult<Contact>;
   tasks?: ConnectionResult<Task>;
   goals?: ConnectionResult<Goal>;
+  projectsChunks?: ConnectionResult<ProjectsChunk>;
   projectContacts?: ConnectionResult<ProjectContact>;
   taskProjects?: ConnectionResult<TaskProject>;
   goalProjects?: ConnectionResult<GoalProject>;
@@ -2058,8 +2635,15 @@ export interface ProjectRelations {
 export interface ContactRelationshipRelations {
   contact?: Contact | null;
 }
+export interface ContactsChunkRelations {
+  contact?: Contact | null;
+}
 export interface ConversationRelations {
   messages?: ConnectionResult<Message>;
+  conversationsChunks?: ConnectionResult<ConversationsChunk>;
+}
+export interface ConversationsChunkRelations {
+  conversation?: Conversation | null;
 }
 export interface DealCompanyRelations {
   company?: Company | null;
@@ -2073,12 +2657,25 @@ export interface DealNoteRelations {
   deal?: Deal | null;
   note?: Note | null;
 }
+export interface DealsChunkRelations {
+  deal?: Deal | null;
+}
 export interface EmailAttachmentRelations {
   email?: Email | null;
 }
-export interface EmailRelations {
+export interface EmailNoteRelations {
+  email?: Email | null;
+  note?: Note | null;
+}
+export interface EmailRecipientRelations {
+  contact?: Contact | null;
+  email?: Email | null;
+}
+export interface EmailsChunkRelations {
+  email?: Email | null;
+}
+export interface EmailThreadsChunkRelations {
   emailThread?: EmailThread | null;
-  emailAttachments?: ConnectionResult<EmailAttachment>;
 }
 export interface EventImageRelations {
   event?: Event | null;
@@ -2091,6 +2688,9 @@ export interface EventNoteRelations {
   event?: Event | null;
   note?: Note | null;
 }
+export interface EventsChunkRelations {
+  event?: Event | null;
+}
 export interface EventVenueRelations {
   event?: Event | null;
   venue?: Venue | null;
@@ -2099,6 +2699,7 @@ export interface VenueRelations {
   mainImage?: Image | null;
   events?: ConnectionResult<Event>;
   venueLinks?: ConnectionResult<VenueLink>;
+  venuesChunks?: ConnectionResult<VenuesChunk>;
   venueImages?: ConnectionResult<VenueImage>;
   eventVenues?: ConnectionResult<EventVenue>;
   imagesByVenueImageVenueIdAndImageId?: ConnectionResult<Image>;
@@ -2107,9 +2708,13 @@ export interface ExpenseContactRelations {
   contact?: Contact | null;
   expense?: Expense | null;
 }
+export interface ExpensesChunkRelations {
+  expense?: Expense | null;
+}
 export interface GoalRelations {
   habits?: ConnectionResult<Habit>;
   projects?: ConnectionResult<Project>;
+  goalsChunks?: ConnectionResult<GoalsChunk>;
   goalHabits?: ConnectionResult<GoalHabit>;
   goalProjects?: ConnectionResult<GoalProject>;
 }
@@ -2126,17 +2731,50 @@ export interface GoalProjectRelations {
   goal?: Goal | null;
   project?: Project | null;
 }
-export interface HikingTrailRelations {}
+export interface GoalsChunkRelations {
+  goal?: Goal | null;
+}
+export interface HikingTrailRelations {
+  hikingTrailsChunks?: ConnectionResult<HikingTrailsChunk>;
+}
+export interface HikingTrailsChunkRelations {
+  hikingTrail?: HikingTrail | null;
+}
 export interface InteractionRelations {
   contact?: Contact | null;
+  interactionsChunks?: ConnectionResult<InteractionsChunk>;
+}
+export interface InteractionsChunkRelations {
+  interaction?: Interaction | null;
+}
+export interface MemoriesChunkRelations {
+  memory?: Memory | null;
 }
 export interface MessageRelations {
   conversation?: Conversation | null;
+  messagesChunks?: ConnectionResult<MessagesChunk>;
 }
-export interface PlaceRelations {}
+export interface MessagesChunkRelations {
+  message?: Message | null;
+}
+export interface NotesChunkRelations {
+  note?: Note | null;
+}
+export interface PlaceRelations {
+  placesChunks?: ConnectionResult<PlacesChunk>;
+}
+export interface PlacesChunkRelations {
+  place?: Place | null;
+}
 export interface ProjectContactRelations {
   contact?: Contact | null;
   project?: Project | null;
+}
+export interface ProjectsChunkRelations {
+  project?: Project | null;
+}
+export interface PromptsChunkRelations {
+  prompt?: Prompt | null;
 }
 export interface ProviderSyncStateRelations {}
 export interface RawContactRelations {
@@ -2155,6 +2793,10 @@ export interface RawContactUrlRelations {
 }
 export interface RuleRelations {
   agent?: Agent | null;
+  rulesChunks?: ConnectionResult<RulesChunk>;
+}
+export interface RulesChunkRelations {
+  rule?: Rule | null;
 }
 export interface RuntimeArtifactRelations {
   runtimeState?: RuntimeState | null;
@@ -2163,6 +2805,10 @@ export interface RuntimeConfigRelations {}
 export interface RuntimeEventRelations {}
 export interface RuntimeLogRelations {
   runtimeState?: RuntimeState | null;
+  runtimeLogsChunks?: ConnectionResult<RuntimeLogsChunk>;
+}
+export interface RuntimeLogsChunkRelations {
+  runtimeLog?: RuntimeLog | null;
 }
 export interface RuntimeMetricRelations {
   runtimeState?: RuntimeState | null;
@@ -2172,15 +2818,23 @@ export interface RuntimeStateRelations {
   runtimeLogs?: ConnectionResult<RuntimeLog>;
   runtimeArtifacts?: ConnectionResult<RuntimeArtifact>;
   runtimeMetrics?: ConnectionResult<RuntimeMetric>;
+  runtimeStatesChunks?: ConnectionResult<RuntimeStatesChunk>;
   runtimeStateDependencies?: ConnectionResult<RuntimeStateDependency>;
 }
 export interface RuntimeStateDependencyRelations {
   runtimeState?: RuntimeState | null;
 }
+export interface RuntimeStatesChunkRelations {
+  runtimeState?: RuntimeState | null;
+}
 export interface SkillRelations {
   agent?: Agent | null;
   toolDefinitions?: ConnectionResult<ToolDefinition>;
+  skillsChunks?: ConnectionResult<SkillsChunk>;
   skillTools?: ConnectionResult<SkillTool>;
+}
+export interface SkillsChunkRelations {
+  skill?: Skill | null;
 }
 export interface SkillToolRelations {
   skill?: Skill | null;
@@ -2188,6 +2842,7 @@ export interface SkillToolRelations {
 }
 export interface ToolDefinitionRelations {
   skills?: ConnectionResult<Skill>;
+  toolDefinitionsChunks?: ConnectionResult<ToolDefinitionsChunk>;
   toolExecutions?: ConnectionResult<ToolExecution>;
   skillTools?: ConnectionResult<SkillTool>;
 }
@@ -2204,9 +2859,15 @@ export interface TaskProjectRelations {
   project?: Project | null;
   task?: Task | null;
 }
+export interface TasksChunkRelations {
+  task?: Task | null;
+}
 export interface ThreadParticipantRelations {
   contact?: Contact | null;
   emailThread?: EmailThread | null;
+}
+export interface ToolDefinitionsChunkRelations {
+  toolDefinition?: ToolDefinition | null;
 }
 export interface ToolExecutionRelations {
   toolDefinition?: ToolDefinition | null;
@@ -2216,9 +2877,17 @@ export interface TouchpointRelations {
   contact?: Contact | null;
   deal?: Deal | null;
   event?: Event | null;
+  touchpointsChunks?: ConnectionResult<TouchpointsChunk>;
+}
+export interface TouchpointsChunkRelations {
+  touchpoint?: Touchpoint | null;
 }
 export interface TripRelations {
   expenses?: ConnectionResult<Expense>;
+  tripsChunks?: ConnectionResult<TripsChunk>;
+}
+export interface TripsChunkRelations {
+  trip?: Trip | null;
 }
 export interface VenueImageRelations {
   image?: Image | null;
@@ -2227,15 +2896,23 @@ export interface VenueImageRelations {
 export interface VenueLinkRelations {
   venue?: Venue | null;
 }
+export interface VenuesChunkRelations {
+  venue?: Venue | null;
+}
 // ============ Entity Types With Relations ============
 export type ActivityLogWithRelations = ActivityLog & ActivityLogRelations;
+export type ActivityLogsChunkWithRelations = ActivityLogsChunk & ActivityLogsChunkRelations;
 export type AgentCollaboratorWithRelations = AgentCollaborator & AgentCollaboratorRelations;
 export type AgentWithRelations = Agent & AgentRelations;
 export type AgentLogWithRelations = AgentLog & AgentLogRelations;
+export type AgentLogsChunkWithRelations = AgentLogsChunk & AgentLogsChunkRelations;
 export type AgentPromptWithRelations = AgentPrompt & AgentPromptRelations;
 export type PromptWithRelations = Prompt & PromptRelations;
+export type AgentsChunkWithRelations = AgentsChunk & AgentsChunkRelations;
 export type AutonomyRecordWithRelations = AutonomyRecord & AutonomyRecordRelations;
 export type AutonomyRecordLinkWithRelations = AutonomyRecordLink & AutonomyRecordLinkRelations;
+export type AutonomyRecordsChunkWithRelations = AutonomyRecordsChunk &
+  AutonomyRecordsChunkRelations;
 export type CalendarAttendeeWithRelations = CalendarAttendee & CalendarAttendeeRelations;
 export type CalendarWithRelations = Calendar & CalendarRelations;
 export type CalendarEventWithRelations = CalendarEvent & CalendarEventRelations;
@@ -2244,11 +2921,14 @@ export type CalendarEventContactWithRelations = CalendarEventContact &
 export type ContactWithRelations = Contact & ContactRelations;
 export type CalendarEventNoteWithRelations = CalendarEventNote & CalendarEventNoteRelations;
 export type NoteWithRelations = Note & NoteRelations;
+export type CalendarEventsChunkWithRelations = CalendarEventsChunk & CalendarEventsChunkRelations;
 export type CalendarEventTaskWithRelations = CalendarEventTask & CalendarEventTaskRelations;
 export type TaskWithRelations = Task & TaskRelations;
 export type CodebaseDependencyWithRelations = CodebaseDependency & CodebaseDependencyRelations;
+export type CodebasesChunkWithRelations = CodebasesChunk & CodebasesChunkRelations;
 export type CodebasisWithRelations = Codebasis & CodebasisRelations;
 export type CodeChunkWithRelations = CodeChunk & CodeChunkRelations;
+export type CompaniesChunkWithRelations = CompaniesChunk & CompaniesChunkRelations;
 export type CompanyWithRelations = Company & CompanyRelations;
 export type DealWithRelations = Deal & DealRelations;
 export type CompanyEventWithRelations = CompanyEvent & CompanyEventRelations;
@@ -2260,6 +2940,7 @@ export type MemoryWithRelations = Memory & MemoryRelations;
 export type CompanyMemoryWithRelations = CompanyMemory & CompanyMemoryRelations;
 export type CompanyNoteWithRelations = CompanyNote & CompanyNoteRelations;
 export type ContactCompanyWithRelations = ContactCompany & ContactCompanyRelations;
+export type EmailWithRelations = Email & EmailRelations;
 export type EmailThreadWithRelations = EmailThread & EmailThreadRelations;
 export type ContactEventWithRelations = ContactEvent & ContactEventRelations;
 export type ExpenseWithRelations = Expense & ExpenseRelations;
@@ -2269,55 +2950,82 @@ export type ContactMemoryWithRelations = ContactMemory & ContactMemoryRelations;
 export type ContactNoteWithRelations = ContactNote & ContactNoteRelations;
 export type ProjectWithRelations = Project & ProjectRelations;
 export type ContactRelationshipWithRelations = ContactRelationship & ContactRelationshipRelations;
+export type ContactsChunkWithRelations = ContactsChunk & ContactsChunkRelations;
 export type ConversationWithRelations = Conversation & ConversationRelations;
+export type ConversationsChunkWithRelations = ConversationsChunk & ConversationsChunkRelations;
 export type DealCompanyWithRelations = DealCompany & DealCompanyRelations;
 export type DealContactWithRelations = DealContact & DealContactRelations;
 export type DealNoteWithRelations = DealNote & DealNoteRelations;
+export type DealsChunkWithRelations = DealsChunk & DealsChunkRelations;
 export type EmailAttachmentWithRelations = EmailAttachment & EmailAttachmentRelations;
-export type EmailWithRelations = Email & EmailRelations;
+export type EmailNoteWithRelations = EmailNote & EmailNoteRelations;
+export type EmailRecipientWithRelations = EmailRecipient & EmailRecipientRelations;
+export type EmailsChunkWithRelations = EmailsChunk & EmailsChunkRelations;
+export type EmailThreadsChunkWithRelations = EmailThreadsChunk & EmailThreadsChunkRelations;
 export type EventImageWithRelations = EventImage & EventImageRelations;
 export type EventLinkWithRelations = EventLink & EventLinkRelations;
 export type EventNoteWithRelations = EventNote & EventNoteRelations;
+export type EventsChunkWithRelations = EventsChunk & EventsChunkRelations;
 export type EventVenueWithRelations = EventVenue & EventVenueRelations;
 export type VenueWithRelations = Venue & VenueRelations;
 export type ExpenseContactWithRelations = ExpenseContact & ExpenseContactRelations;
+export type ExpensesChunkWithRelations = ExpensesChunk & ExpensesChunkRelations;
 export type GoalWithRelations = Goal & GoalRelations;
 export type GoalHabitWithRelations = GoalHabit & GoalHabitRelations;
 export type HabitWithRelations = Habit & HabitRelations;
 export type GoalProjectWithRelations = GoalProject & GoalProjectRelations;
+export type GoalsChunkWithRelations = GoalsChunk & GoalsChunkRelations;
 export type HikingTrailWithRelations = HikingTrail & HikingTrailRelations;
+export type HikingTrailsChunkWithRelations = HikingTrailsChunk & HikingTrailsChunkRelations;
 export type InteractionWithRelations = Interaction & InteractionRelations;
+export type InteractionsChunkWithRelations = InteractionsChunk & InteractionsChunkRelations;
+export type MemoriesChunkWithRelations = MemoriesChunk & MemoriesChunkRelations;
 export type MessageWithRelations = Message & MessageRelations;
+export type MessagesChunkWithRelations = MessagesChunk & MessagesChunkRelations;
+export type NotesChunkWithRelations = NotesChunk & NotesChunkRelations;
 export type PlaceWithRelations = Place & PlaceRelations;
+export type PlacesChunkWithRelations = PlacesChunk & PlacesChunkRelations;
 export type ProjectContactWithRelations = ProjectContact & ProjectContactRelations;
+export type ProjectsChunkWithRelations = ProjectsChunk & ProjectsChunkRelations;
+export type PromptsChunkWithRelations = PromptsChunk & PromptsChunkRelations;
 export type ProviderSyncStateWithRelations = ProviderSyncState & ProviderSyncStateRelations;
 export type RawContactWithRelations = RawContact & RawContactRelations;
 export type RawContactEmailWithRelations = RawContactEmail & RawContactEmailRelations;
 export type RawContactPhoneWithRelations = RawContactPhone & RawContactPhoneRelations;
 export type RawContactUrlWithRelations = RawContactUrl & RawContactUrlRelations;
 export type RuleWithRelations = Rule & RuleRelations;
+export type RulesChunkWithRelations = RulesChunk & RulesChunkRelations;
 export type RuntimeArtifactWithRelations = RuntimeArtifact & RuntimeArtifactRelations;
 export type RuntimeConfigWithRelations = RuntimeConfig & RuntimeConfigRelations;
 export type RuntimeEventWithRelations = RuntimeEvent & RuntimeEventRelations;
 export type RuntimeLogWithRelations = RuntimeLog & RuntimeLogRelations;
+export type RuntimeLogsChunkWithRelations = RuntimeLogsChunk & RuntimeLogsChunkRelations;
 export type RuntimeMetricWithRelations = RuntimeMetric & RuntimeMetricRelations;
 export type RuntimeScheduleWithRelations = RuntimeSchedule & RuntimeScheduleRelations;
 export type RuntimeStateWithRelations = RuntimeState & RuntimeStateRelations;
 export type RuntimeStateDependencyWithRelations = RuntimeStateDependency &
   RuntimeStateDependencyRelations;
+export type RuntimeStatesChunkWithRelations = RuntimeStatesChunk & RuntimeStatesChunkRelations;
 export type SkillWithRelations = Skill & SkillRelations;
+export type SkillsChunkWithRelations = SkillsChunk & SkillsChunkRelations;
 export type SkillToolWithRelations = SkillTool & SkillToolRelations;
 export type ToolDefinitionWithRelations = ToolDefinition & ToolDefinitionRelations;
 export type TagWithRelations = Tag & TagRelations;
 export type TaskContactWithRelations = TaskContact & TaskContactRelations;
 export type TaskNoteWithRelations = TaskNote & TaskNoteRelations;
 export type TaskProjectWithRelations = TaskProject & TaskProjectRelations;
+export type TasksChunkWithRelations = TasksChunk & TasksChunkRelations;
 export type ThreadParticipantWithRelations = ThreadParticipant & ThreadParticipantRelations;
+export type ToolDefinitionsChunkWithRelations = ToolDefinitionsChunk &
+  ToolDefinitionsChunkRelations;
 export type ToolExecutionWithRelations = ToolExecution & ToolExecutionRelations;
 export type TouchpointWithRelations = Touchpoint & TouchpointRelations;
+export type TouchpointsChunkWithRelations = TouchpointsChunk & TouchpointsChunkRelations;
 export type TripWithRelations = Trip & TripRelations;
+export type TripsChunkWithRelations = TripsChunk & TripsChunkRelations;
 export type VenueImageWithRelations = VenueImage & VenueImageRelations;
 export type VenueLinkWithRelations = VenueLink & VenueLinkRelations;
+export type VenuesChunkWithRelations = VenuesChunk & VenuesChunkRelations;
 // ============ Entity Select Types ============
 export type ActivityLogSelect = {
   id?: boolean;
@@ -2347,6 +3055,29 @@ export type ActivityLogSelect = {
   searchScore?: boolean;
   habit?: {
     select: HabitSelect;
+  };
+  activityLogsChunks?: {
+    select: ActivityLogsChunkSelect;
+    first?: number;
+    filter?: ActivityLogsChunkFilter;
+    orderBy?: ActivityLogsChunkOrderBy[];
+  };
+};
+export type ActivityLogsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  activityLogsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  activityLogId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  activityLog?: {
+    select: ActivityLogSelect;
   };
 };
 export type AgentCollaboratorSelect = {
@@ -2410,6 +3141,12 @@ export type AgentSelect = {
     filter?: SkillFilter;
     orderBy?: SkillOrderBy[];
   };
+  agentsChunks?: {
+    select: AgentsChunkSelect;
+    first?: number;
+    filter?: AgentsChunkFilter;
+    orderBy?: AgentsChunkOrderBy[];
+  };
   agentCollaborators?: {
     select: AgentCollaboratorSelect;
     first?: number;
@@ -2451,6 +3188,29 @@ export type AgentLogSelect = {
   agent?: {
     select: AgentSelect;
   };
+  agentLogsChunks?: {
+    select: AgentLogsChunkSelect;
+    first?: number;
+    filter?: AgentLogsChunkFilter;
+    orderBy?: AgentLogsChunkOrderBy[];
+  };
+};
+export type AgentLogsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  agentLogsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  agentLogId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  agentLog?: {
+    select: AgentLogSelect;
+  };
 };
 export type AgentPromptSelect = {
   agentId?: boolean;
@@ -2491,11 +3251,34 @@ export type PromptSelect = {
     filter?: AgentFilter;
     orderBy?: AgentOrderBy[];
   };
+  promptsChunks?: {
+    select: PromptsChunkSelect;
+    first?: number;
+    filter?: PromptsChunkFilter;
+    orderBy?: PromptsChunkOrderBy[];
+  };
   agentPrompts?: {
     select: AgentPromptSelect;
     first?: number;
     filter?: AgentPromptFilter;
     orderBy?: AgentPromptOrderBy[];
+  };
+};
+export type AgentsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  agentsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  agentId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  agent?: {
+    select: AgentSelect;
   };
 };
 export type AutonomyRecordSelect = {
@@ -2523,6 +3306,12 @@ export type AutonomyRecordSelect = {
   sourceTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
+  autonomyRecordsChunks?: {
+    select: AutonomyRecordsChunkSelect;
+    first?: number;
+    filter?: AutonomyRecordsChunkFilter;
+    orderBy?: AutonomyRecordsChunkOrderBy[];
+  };
   autonomyRecordLinks?: {
     select: AutonomyRecordLinkSelect;
     first?: number;
@@ -2532,6 +3321,23 @@ export type AutonomyRecordSelect = {
 };
 export type AutonomyRecordLinkSelect = {
   autonomyRecordId?: boolean;
+  autonomyRecord?: {
+    select: AutonomyRecordSelect;
+  };
+};
+export type AutonomyRecordsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  autonomyRecordsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  autonomyRecordId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
   autonomyRecord?: {
     select: AutonomyRecordSelect;
   };
@@ -2618,6 +3424,12 @@ export type CalendarEventSelect = {
     first?: number;
     filter?: CalendarAttendeeFilter;
     orderBy?: CalendarAttendeeOrderBy[];
+  };
+  calendarEventsChunks?: {
+    select: CalendarEventsChunkSelect;
+    first?: number;
+    filter?: CalendarEventsChunkFilter;
+    orderBy?: CalendarEventsChunkOrderBy[];
   };
   calendarEventContacts?: {
     select: CalendarEventContactSelect;
@@ -2734,11 +3546,11 @@ export type ContactSelect = {
     filter?: MemoryFilter;
     orderBy?: MemoryOrderBy[];
   };
-  emailThreads?: {
-    select: EmailThreadSelect;
+  emails?: {
+    select: EmailSelect;
     first?: number;
-    filter?: EmailThreadFilter;
-    orderBy?: EmailThreadOrderBy[];
+    filter?: EmailFilter;
+    orderBy?: EmailOrderBy[];
   };
   interactions?: {
     select: InteractionSelect;
@@ -2757,6 +3569,12 @@ export type ContactSelect = {
     first?: number;
     filter?: ContactLinkFilter;
     orderBy?: ContactLinkOrderBy[];
+  };
+  contactsChunks?: {
+    select: ContactsChunkSelect;
+    first?: number;
+    filter?: ContactsChunkFilter;
+    orderBy?: ContactsChunkOrderBy[];
   };
   contactImages?: {
     select: ContactImageSelect;
@@ -2787,6 +3605,12 @@ export type ContactSelect = {
     first?: number;
     filter?: ContactRelationshipFilter;
     orderBy?: ContactRelationshipOrderBy[];
+  };
+  emailsByFromContactId?: {
+    select: EmailSelect;
+    first?: number;
+    filter?: EmailFilter;
+    orderBy?: EmailOrderBy[];
   };
   calendarEventsByOrganizerContactId?: {
     select: CalendarEventSelect;
@@ -2842,6 +3666,12 @@ export type ContactSelect = {
     filter?: ThreadParticipantFilter;
     orderBy?: ThreadParticipantOrderBy[];
   };
+  emailRecipients?: {
+    select: EmailRecipientSelect;
+    first?: number;
+    filter?: EmailRecipientFilter;
+    orderBy?: EmailRecipientOrderBy[];
+  };
   imagesByContactImageContactIdAndImageId?: {
     select: ImageSelect;
     first?: number;
@@ -2871,6 +3701,12 @@ export type ContactSelect = {
     first?: number;
     filter?: CalendarEventFilter;
     orderBy?: CalendarEventOrderBy[];
+  };
+  emailThreadsByThreadParticipantContactIdAndEmailThreadId?: {
+    select: EmailThreadSelect;
+    first?: number;
+    filter?: EmailThreadFilter;
+    orderBy?: EmailThreadOrderBy[];
   };
 };
 export type CalendarEventNoteSelect = {
@@ -2937,11 +3773,23 @@ export type NoteSelect = {
     filter?: TaskFilter;
     orderBy?: TaskOrderBy[];
   };
+  emails?: {
+    select: EmailSelect;
+    first?: number;
+    filter?: EmailFilter;
+    orderBy?: EmailOrderBy[];
+  };
   calendarEvents?: {
     select: CalendarEventSelect;
     first?: number;
     filter?: CalendarEventFilter;
     orderBy?: CalendarEventOrderBy[];
+  };
+  notesChunks?: {
+    select: NotesChunkSelect;
+    first?: number;
+    filter?: NotesChunkFilter;
+    orderBy?: NotesChunkOrderBy[];
   };
   contactNotes?: {
     select: ContactNoteSelect;
@@ -2973,11 +3821,34 @@ export type NoteSelect = {
     filter?: TaskNoteFilter;
     orderBy?: TaskNoteOrderBy[];
   };
+  emailNotes?: {
+    select: EmailNoteSelect;
+    first?: number;
+    filter?: EmailNoteFilter;
+    orderBy?: EmailNoteOrderBy[];
+  };
   calendarEventNotes?: {
     select: CalendarEventNoteSelect;
     first?: number;
     filter?: CalendarEventNoteFilter;
     orderBy?: CalendarEventNoteOrderBy[];
+  };
+};
+export type CalendarEventsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  calendarEventsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  calendarEventId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  calendarEvent?: {
+    select: CalendarEventSelect;
   };
 };
 export type CalendarEventTaskSelect = {
@@ -3044,6 +3915,12 @@ export type TaskSelect = {
     filter?: CalendarEventFilter;
     orderBy?: CalendarEventOrderBy[];
   };
+  tasksChunks?: {
+    select: TasksChunkSelect;
+    first?: number;
+    filter?: TasksChunkFilter;
+    orderBy?: TasksChunkOrderBy[];
+  };
   taskContacts?: {
     select: TaskContactSelect;
     first?: number;
@@ -3071,6 +3948,23 @@ export type TaskSelect = {
 };
 export type CodebaseDependencySelect = {
   codebasisId?: boolean;
+  codebasis?: {
+    select: CodebasisSelect;
+  };
+};
+export type CodebasesChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  codebasesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  codebasisId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
   codebasis?: {
     select: CodebasisSelect;
   };
@@ -3108,6 +4002,12 @@ export type CodebasisSelect = {
     filter?: CodeChunkFilter;
     orderBy?: CodeChunkOrderBy[];
   };
+  codebasesChunks?: {
+    select: CodebasesChunkSelect;
+    first?: number;
+    filter?: CodebasesChunkFilter;
+    orderBy?: CodebasesChunkOrderBy[];
+  };
   codebaseDependencies?: {
     select: CodebaseDependencySelect;
     first?: number;
@@ -3144,6 +4044,23 @@ export type CodeChunkSelect = {
   searchScore?: boolean;
   codebasis?: {
     select: CodebasisSelect;
+  };
+};
+export type CompaniesChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  companiesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  companyId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  company?: {
+    select: CompanySelect;
   };
 };
 export type CompanySelect = {
@@ -3196,6 +4113,12 @@ export type CompanySelect = {
     first?: number;
     filter?: CompanyLinkFilter;
     orderBy?: CompanyLinkOrderBy[];
+  };
+  companiesChunks?: {
+    select: CompaniesChunkSelect;
+    first?: number;
+    filter?: CompaniesChunkFilter;
+    orderBy?: CompaniesChunkOrderBy[];
   };
   companyImages?: {
     select: CompanyImageSelect;
@@ -3293,6 +4216,12 @@ export type DealSelect = {
     filter?: TouchpointFilter;
     orderBy?: TouchpointOrderBy[];
   };
+  dealsChunks?: {
+    select: DealsChunkSelect;
+    first?: number;
+    filter?: DealsChunkFilter;
+    orderBy?: DealsChunkOrderBy[];
+  };
   dealContacts?: {
     select: DealContactSelect;
     first?: number;
@@ -3388,6 +4317,12 @@ export type EventSelect = {
     first?: number;
     filter?: EventLinkFilter;
     orderBy?: EventLinkOrderBy[];
+  };
+  eventsChunks?: {
+    select: EventsChunkSelect;
+    first?: number;
+    filter?: EventsChunkFilter;
+    orderBy?: EventsChunkOrderBy[];
   };
   eventImages?: {
     select: EventImageSelect;
@@ -3588,6 +4523,12 @@ export type MemorySelect = {
     filter?: CompanyFilter;
     orderBy?: CompanyOrderBy[];
   };
+  memoriesChunks?: {
+    select: MemoriesChunkSelect;
+    first?: number;
+    filter?: MemoriesChunkFilter;
+    orderBy?: MemoriesChunkOrderBy[];
+  };
   contactMemories?: {
     select: ContactMemorySelect;
     first?: number;
@@ -3635,6 +4576,69 @@ export type ContactCompanySelect = {
     select: ContactSelect;
   };
 };
+export type EmailSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  providerMessageId?: boolean;
+  fromContactId?: boolean;
+  to?: boolean;
+  cc?: boolean;
+  bcc?: boolean;
+  subject?: boolean;
+  bodyText?: boolean;
+  bodyHtml?: boolean;
+  sentAt?: boolean;
+  tags?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  searchTsv?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  emailThreadId?: boolean;
+  emailThread?: {
+    select: EmailThreadSelect;
+  };
+  fromContact?: {
+    select: ContactSelect;
+  };
+  notes?: {
+    select: NoteSelect;
+    first?: number;
+    filter?: NoteFilter;
+    orderBy?: NoteOrderBy[];
+  };
+  emailAttachments?: {
+    select: EmailAttachmentSelect;
+    first?: number;
+    filter?: EmailAttachmentFilter;
+    orderBy?: EmailAttachmentOrderBy[];
+  };
+  emailsChunks?: {
+    select: EmailsChunkSelect;
+    first?: number;
+    filter?: EmailsChunkFilter;
+    orderBy?: EmailsChunkOrderBy[];
+  };
+  emailRecipients?: {
+    select: EmailRecipientSelect;
+    first?: number;
+    filter?: EmailRecipientFilter;
+    orderBy?: EmailRecipientOrderBy[];
+  };
+  emailNotes?: {
+    select: EmailNoteSelect;
+    first?: number;
+    filter?: EmailNoteFilter;
+    orderBy?: EmailNoteOrderBy[];
+  };
+  contactsByEmailRecipientEmailIdAndContactId?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
+};
 export type EmailThreadSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -3659,23 +4663,29 @@ export type EmailThreadSelect = {
   statusTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
-  contacts?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
   emails?: {
     select: EmailSelect;
     first?: number;
     filter?: EmailFilter;
     orderBy?: EmailOrderBy[];
   };
+  emailThreadsChunks?: {
+    select: EmailThreadsChunkSelect;
+    first?: number;
+    filter?: EmailThreadsChunkFilter;
+    orderBy?: EmailThreadsChunkOrderBy[];
+  };
   threadParticipants?: {
     select: ThreadParticipantSelect;
     first?: number;
     filter?: ThreadParticipantFilter;
     orderBy?: ThreadParticipantOrderBy[];
+  };
+  contactsByThreadParticipantEmailThreadIdAndContactId?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
   };
 };
 export type ContactEventSelect = {
@@ -3722,6 +4732,12 @@ export type ExpenseSelect = {
     first?: number;
     filter?: ContactFilter;
     orderBy?: ContactOrderBy[];
+  };
+  expensesChunks?: {
+    select: ExpensesChunkSelect;
+    first?: number;
+    filter?: ExpensesChunkFilter;
+    orderBy?: ExpensesChunkOrderBy[];
   };
   expenseContacts?: {
     select: ExpenseContactSelect;
@@ -3824,6 +4840,12 @@ export type ProjectSelect = {
     filter?: GoalFilter;
     orderBy?: GoalOrderBy[];
   };
+  projectsChunks?: {
+    select: ProjectsChunkSelect;
+    first?: number;
+    filter?: ProjectsChunkFilter;
+    orderBy?: ProjectsChunkOrderBy[];
+  };
   projectContacts?: {
     select: ProjectContactSelect;
     first?: number;
@@ -3845,6 +4867,23 @@ export type ProjectSelect = {
 };
 export type ContactRelationshipSelect = {
   contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type ContactsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  contactsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
   contact?: {
     select: ContactSelect;
   };
@@ -3872,6 +4911,29 @@ export type ConversationSelect = {
     first?: number;
     filter?: MessageFilter;
     orderBy?: MessageOrderBy[];
+  };
+  conversationsChunks?: {
+    select: ConversationsChunkSelect;
+    first?: number;
+    filter?: ConversationsChunkFilter;
+    orderBy?: ConversationsChunkOrderBy[];
+  };
+};
+export type ConversationsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  conversationsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  conversationId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  conversation?: {
+    select: ConversationSelect;
   };
 };
 export type DealCompanySelect = {
@@ -3906,6 +4968,23 @@ export type DealNoteSelect = {
     select: NoteSelect;
   };
 };
+export type DealsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  dealsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  dealId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  deal?: {
+    select: DealSelect;
+  };
+};
 export type EmailAttachmentSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -3921,34 +5000,62 @@ export type EmailAttachmentSelect = {
     select: EmailSelect;
   };
 };
-export type EmailSelect = {
+export type EmailNoteSelect = {
+  emailId?: boolean;
+  noteId?: boolean;
   id?: boolean;
   entityId?: boolean;
-  providerMessageId?: boolean;
-  fromContactId?: boolean;
-  to?: boolean;
-  cc?: boolean;
-  bcc?: boolean;
-  subject?: boolean;
-  bodyText?: boolean;
-  bodyHtml?: boolean;
-  sentAt?: boolean;
-  tags?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  note?: {
+    select: NoteSelect;
+  };
+};
+export type EmailRecipientSelect = {
+  emailId?: boolean;
+  contactId?: boolean;
+  id?: boolean;
+  entityId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+  email?: {
+    select: EmailSelect;
+  };
+};
+export type EmailsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  emailsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
-  embeddingText?: boolean;
-  searchTsv?: boolean;
+  emailId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+};
+export type EmailThreadsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  emailThreadsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
   embedding?: boolean;
-  embeddingStale?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   emailThreadId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
   emailThread?: {
     select: EmailThreadSelect;
-  };
-  emailAttachments?: {
-    select: EmailAttachmentSelect;
-    first?: number;
-    filter?: EmailAttachmentFilter;
-    orderBy?: EmailAttachmentOrderBy[];
   };
 };
 export type EventImageSelect = {
@@ -3987,6 +5094,23 @@ export type EventNoteSelect = {
   };
   note?: {
     select: NoteSelect;
+  };
+};
+export type EventsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  eventsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  eventId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  event?: {
+    select: EventSelect;
   };
 };
 export type EventVenueSelect = {
@@ -4050,6 +5174,12 @@ export type VenueSelect = {
     filter?: VenueLinkFilter;
     orderBy?: VenueLinkOrderBy[];
   };
+  venuesChunks?: {
+    select: VenuesChunkSelect;
+    first?: number;
+    filter?: VenuesChunkFilter;
+    orderBy?: VenuesChunkOrderBy[];
+  };
   venueImages?: {
     select: VenueImageSelect;
     first?: number;
@@ -4077,6 +5207,23 @@ export type ExpenseContactSelect = {
   contact?: {
     select: ContactSelect;
   };
+  expense?: {
+    select: ExpenseSelect;
+  };
+};
+export type ExpensesChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  expensesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  expenseId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
   expense?: {
     select: ExpenseSelect;
   };
@@ -4113,6 +5260,12 @@ export type GoalSelect = {
     first?: number;
     filter?: ProjectFilter;
     orderBy?: ProjectOrderBy[];
+  };
+  goalsChunks?: {
+    select: GoalsChunkSelect;
+    first?: number;
+    filter?: GoalsChunkFilter;
+    orderBy?: GoalsChunkOrderBy[];
   };
   goalHabits?: {
     select: GoalHabitSelect;
@@ -4180,6 +5333,23 @@ export type GoalProjectSelect = {
     select: ProjectSelect;
   };
 };
+export type GoalsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  goalsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  goalId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  goal?: {
+    select: GoalSelect;
+  };
+};
 export type HikingTrailSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -4204,6 +5374,29 @@ export type HikingTrailSelect = {
   difficultyTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
+  hikingTrailsChunks?: {
+    select: HikingTrailsChunkSelect;
+    first?: number;
+    filter?: HikingTrailsChunkFilter;
+    orderBy?: HikingTrailsChunkOrderBy[];
+  };
+};
+export type HikingTrailsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  hikingTrailsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  hikingTrailId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  hikingTrail?: {
+    select: HikingTrailSelect;
+  };
 };
 export type InteractionSelect = {
   id?: boolean;
@@ -4228,6 +5421,46 @@ export type InteractionSelect = {
   searchScore?: boolean;
   contact?: {
     select: ContactSelect;
+  };
+  interactionsChunks?: {
+    select: InteractionsChunkSelect;
+    first?: number;
+    filter?: InteractionsChunkFilter;
+    orderBy?: InteractionsChunkOrderBy[];
+  };
+};
+export type InteractionsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  interactionsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  interactionId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  interaction?: {
+    select: InteractionSelect;
+  };
+};
+export type MemoriesChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  memoriesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  memoryId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  memory?: {
+    select: MemorySelect;
   };
 };
 export type MessageSelect = {
@@ -4254,6 +5487,46 @@ export type MessageSelect = {
   conversation?: {
     select: ConversationSelect;
   };
+  messagesChunks?: {
+    select: MessagesChunkSelect;
+    first?: number;
+    filter?: MessagesChunkFilter;
+    orderBy?: MessagesChunkOrderBy[];
+  };
+};
+export type MessagesChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  messagesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  messageId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  message?: {
+    select: MessageSelect;
+  };
+};
+export type NotesChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  notesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  noteId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  note?: {
+    select: NoteSelect;
+  };
 };
 export type PlaceSelect = {
   id?: boolean;
@@ -4277,6 +5550,29 @@ export type PlaceSelect = {
   categoryTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
+  placesChunks?: {
+    select: PlacesChunkSelect;
+    first?: number;
+    filter?: PlacesChunkFilter;
+    orderBy?: PlacesChunkOrderBy[];
+  };
+};
+export type PlacesChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  placesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  placeId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  place?: {
+    select: PlaceSelect;
+  };
 };
 export type ProjectContactSelect = {
   projectId?: boolean;
@@ -4288,6 +5584,40 @@ export type ProjectContactSelect = {
   };
   project?: {
     select: ProjectSelect;
+  };
+};
+export type ProjectsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  projectsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  projectId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  project?: {
+    select: ProjectSelect;
+  };
+};
+export type PromptsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  promptsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  promptId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  prompt?: {
+    select: PromptSelect;
   };
 };
 export type ProviderSyncStateSelect = {
@@ -4415,6 +5745,29 @@ export type RuleSelect = {
   agent?: {
     select: AgentSelect;
   };
+  rulesChunks?: {
+    select: RulesChunkSelect;
+    first?: number;
+    filter?: RulesChunkFilter;
+    orderBy?: RulesChunkOrderBy[];
+  };
+};
+export type RulesChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  rulesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  ruleId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  rule?: {
+    select: RuleSelect;
+  };
 };
 export type RuntimeArtifactSelect = {
   id?: boolean;
@@ -4473,6 +5826,29 @@ export type RuntimeLogSelect = {
   searchScore?: boolean;
   runtimeState?: {
     select: RuntimeStateSelect;
+  };
+  runtimeLogsChunks?: {
+    select: RuntimeLogsChunkSelect;
+    first?: number;
+    filter?: RuntimeLogsChunkFilter;
+    orderBy?: RuntimeLogsChunkOrderBy[];
+  };
+};
+export type RuntimeLogsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  runtimeLogsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  runtimeLogId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  runtimeLog?: {
+    select: RuntimeLogSelect;
   };
 };
 export type RuntimeMetricSelect = {
@@ -4542,6 +5918,12 @@ export type RuntimeStateSelect = {
     filter?: RuntimeMetricFilter;
     orderBy?: RuntimeMetricOrderBy[];
   };
+  runtimeStatesChunks?: {
+    select: RuntimeStatesChunkSelect;
+    first?: number;
+    filter?: RuntimeStatesChunkFilter;
+    orderBy?: RuntimeStatesChunkOrderBy[];
+  };
   runtimeStateDependencies?: {
     select: RuntimeStateDependencySelect;
     first?: number;
@@ -4551,6 +5933,23 @@ export type RuntimeStateSelect = {
 };
 export type RuntimeStateDependencySelect = {
   runtimeStateId?: boolean;
+  runtimeState?: {
+    select: RuntimeStateSelect;
+  };
+};
+export type RuntimeStatesChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  runtimeStatesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  runtimeStateId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
   runtimeState?: {
     select: RuntimeStateSelect;
   };
@@ -4591,11 +5990,34 @@ export type SkillSelect = {
     filter?: ToolDefinitionFilter;
     orderBy?: ToolDefinitionOrderBy[];
   };
+  skillsChunks?: {
+    select: SkillsChunkSelect;
+    first?: number;
+    filter?: SkillsChunkFilter;
+    orderBy?: SkillsChunkOrderBy[];
+  };
   skillTools?: {
     select: SkillToolSelect;
     first?: number;
     filter?: SkillToolFilter;
     orderBy?: SkillToolOrderBy[];
+  };
+};
+export type SkillsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  skillsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  skillId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  skill?: {
+    select: SkillSelect;
   };
 };
 export type SkillToolSelect = {
@@ -4636,6 +6058,12 @@ export type ToolDefinitionSelect = {
     first?: number;
     filter?: SkillFilter;
     orderBy?: SkillOrderBy[];
+  };
+  toolDefinitionsChunks?: {
+    select: ToolDefinitionsChunkSelect;
+    first?: number;
+    filter?: ToolDefinitionsChunkFilter;
+    orderBy?: ToolDefinitionsChunkOrderBy[];
   };
   toolExecutions?: {
     select: ToolExecutionSelect;
@@ -4696,6 +6124,23 @@ export type TaskProjectSelect = {
     select: TaskSelect;
   };
 };
+export type TasksChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  tasksId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  taskId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  task?: {
+    select: TaskSelect;
+  };
+};
 export type ThreadParticipantSelect = {
   emailThreadId?: boolean;
   contactId?: boolean;
@@ -4706,6 +6151,23 @@ export type ThreadParticipantSelect = {
   };
   emailThread?: {
     select: EmailThreadSelect;
+  };
+};
+export type ToolDefinitionsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  toolDefinitionsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  toolDefinitionId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  toolDefinition?: {
+    select: ToolDefinitionSelect;
   };
 };
 export type ToolExecutionSelect = {
@@ -4768,6 +6230,29 @@ export type TouchpointSelect = {
   event?: {
     select: EventSelect;
   };
+  touchpointsChunks?: {
+    select: TouchpointsChunkSelect;
+    first?: number;
+    filter?: TouchpointsChunkFilter;
+    orderBy?: TouchpointsChunkOrderBy[];
+  };
+};
+export type TouchpointsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  touchpointsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  touchpointId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  touchpoint?: {
+    select: TouchpointSelect;
+  };
 };
 export type TripSelect = {
   id?: boolean;
@@ -4796,6 +6281,29 @@ export type TripSelect = {
     filter?: ExpenseFilter;
     orderBy?: ExpenseOrderBy[];
   };
+  tripsChunks?: {
+    select: TripsChunkSelect;
+    first?: number;
+    filter?: TripsChunkFilter;
+    orderBy?: TripsChunkOrderBy[];
+  };
+};
+export type TripsChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  tripsId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  tripId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  trip?: {
+    select: TripSelect;
+  };
 };
 export type VenueImageSelect = {
   venueId?: boolean;
@@ -4816,6 +6324,23 @@ export type VenueLinkSelect = {
   updatedAt?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  venueId?: boolean;
+  embeddingVectorDistance?: boolean;
+  searchScore?: boolean;
+  venue?: {
+    select: VenueSelect;
+  };
+};
+export type VenuesChunkSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  venuesId?: boolean;
+  content?: boolean;
+  chunkIndex?: boolean;
+  embedding?: boolean;
+  metadata?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
   venueId?: boolean;
   embeddingVectorDistance?: boolean;
   searchScore?: boolean;
@@ -4869,6 +6394,10 @@ export interface ActivityLogFilter {
   habit?: HabitFilter;
   /** A related `habit` exists. */
   habitExists?: boolean;
+  /** Filter by the object’s `activityLogsChunks` relation. */
+  activityLogsChunks?: ActivityLogToManyActivityLogsChunkFilter;
+  /** `activityLogsChunks` exist. */
+  activityLogsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -4890,6 +6419,38 @@ export interface ActivityLogFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface ActivityLogsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `activityLogsId` field. */
+  activityLogsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `activityLogId` field. */
+  activityLogId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ActivityLogsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ActivityLogsChunkFilter[];
+  /** Negates the expression. */
+  not?: ActivityLogsChunkFilter;
+  /** Filter by the object’s `activityLog` relation. */
+  activityLog?: ActivityLogFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface AgentCollaboratorFilter {
   /** Filter by the object’s `agentId` field. */
@@ -4956,6 +6517,10 @@ export interface AgentFilter {
   skills?: AgentToManySkillFilter;
   /** `skills` exist. */
   skillsExist?: boolean;
+  /** Filter by the object’s `agentsChunks` relation. */
+  agentsChunks?: AgentToManyAgentsChunkFilter;
+  /** `agentsChunks` exist. */
+  agentsChunksExist?: boolean;
   /** Filter by the object’s `agentCollaborators` relation. */
   agentCollaborators?: AgentToManyAgentCollaboratorFilter;
   /** `agentCollaborators` exist. */
@@ -5027,6 +6592,10 @@ export interface AgentLogFilter {
   agent?: AgentFilter;
   /** A related `agent` exists. */
   agentExists?: boolean;
+  /** Filter by the object’s `agentLogsChunks` relation. */
+  agentLogsChunks?: AgentLogToManyAgentLogsChunkFilter;
+  /** `agentLogsChunks` exist. */
+  agentLogsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -5044,6 +6613,38 @@ export interface AgentLogFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface AgentLogsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `agentLogsId` field. */
+  agentLogsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `agentLogId` field. */
+  agentLogId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AgentLogsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AgentLogsChunkFilter[];
+  /** Negates the expression. */
+  not?: AgentLogsChunkFilter;
+  /** Filter by the object’s `agentLog` relation. */
+  agentLog?: AgentLogFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface AgentPromptFilter {
   /** Filter by the object’s `agentId` field. */
@@ -5098,6 +6699,10 @@ export interface PromptFilter {
   or?: PromptFilter[];
   /** Negates the expression. */
   not?: PromptFilter;
+  /** Filter by the object’s `promptsChunks` relation. */
+  promptsChunks?: PromptToManyPromptsChunkFilter;
+  /** `promptsChunks` exist. */
+  promptsChunksExist?: boolean;
   /** Filter by the object’s `agentPrompts` relation. */
   agentPrompts?: PromptToManyAgentPromptFilter;
   /** `agentPrompts` exist. */
@@ -5121,6 +6726,38 @@ export interface PromptFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface AgentsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `agentsId` field. */
+  agentsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AgentsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AgentsChunkFilter[];
+  /** Negates the expression. */
+  not?: AgentsChunkFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface AutonomyRecordFilter {
   /** Filter by the object’s `id` field. */
@@ -5159,6 +6796,10 @@ export interface AutonomyRecordFilter {
   or?: AutonomyRecordFilter[];
   /** Negates the expression. */
   not?: AutonomyRecordFilter;
+  /** Filter by the object’s `autonomyRecordsChunks` relation. */
+  autonomyRecordsChunks?: AutonomyRecordToManyAutonomyRecordsChunkFilter;
+  /** `autonomyRecordsChunks` exist. */
+  autonomyRecordsChunksExist?: boolean;
   /** Filter by the object’s `autonomyRecordLinks` relation. */
   autonomyRecordLinks?: AutonomyRecordToManyAutonomyRecordLinkFilter;
   /** `autonomyRecordLinks` exist. */
@@ -5198,6 +6839,38 @@ export interface AutonomyRecordLinkFilter {
   not?: AutonomyRecordLinkFilter;
   /** Filter by the object’s `autonomyRecord` relation. */
   autonomyRecord?: AutonomyRecordFilter;
+}
+export interface AutonomyRecordsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `autonomyRecordsId` field. */
+  autonomyRecordsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `autonomyRecordId` field. */
+  autonomyRecordId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AutonomyRecordsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AutonomyRecordsChunkFilter[];
+  /** Negates the expression. */
+  not?: AutonomyRecordsChunkFilter;
+  /** Filter by the object’s `autonomyRecord` relation. */
+  autonomyRecord?: AutonomyRecordFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface CalendarAttendeeFilter {
   /** Filter by the object’s `id` field. */
@@ -5308,6 +6981,10 @@ export interface CalendarEventFilter {
   calendarAttendees?: CalendarEventToManyCalendarAttendeeFilter;
   /** `calendarAttendees` exist. */
   calendarAttendeesExist?: boolean;
+  /** Filter by the object’s `calendarEventsChunks` relation. */
+  calendarEventsChunks?: CalendarEventToManyCalendarEventsChunkFilter;
+  /** `calendarEventsChunks` exist. */
+  calendarEventsChunksExist?: boolean;
   /** Filter by the object’s `calendarEventContacts` relation. */
   calendarEventContacts?: CalendarEventToManyCalendarEventContactFilter;
   /** `calendarEventContacts` exist. */
@@ -5437,6 +7114,10 @@ export interface ContactFilter {
   contactLinks?: ContactToManyContactLinkFilter;
   /** `contactLinks` exist. */
   contactLinksExist?: boolean;
+  /** Filter by the object’s `contactsChunks` relation. */
+  contactsChunks?: ContactToManyContactsChunkFilter;
+  /** `contactsChunks` exist. */
+  contactsChunksExist?: boolean;
   /** Filter by the object’s `contactImages` relation. */
   contactImages?: ContactToManyContactImageFilter;
   /** `contactImages` exist. */
@@ -5457,6 +7138,10 @@ export interface ContactFilter {
   contactRelationships?: ContactToManyContactRelationshipFilter;
   /** `contactRelationships` exist. */
   contactRelationshipsExist?: boolean;
+  /** Filter by the object’s `emailsByFromContactId` relation. */
+  emailsByFromContactId?: ContactToManyEmailFilter;
+  /** `emailsByFromContactId` exist. */
+  emailsByFromContactIdExist?: boolean;
   /** Filter by the object’s `calendarEventsByOrganizerContactId` relation. */
   calendarEventsByOrganizerContactId?: ContactToManyCalendarEventFilter;
   /** `calendarEventsByOrganizerContactId` exist. */
@@ -5493,6 +7178,10 @@ export interface ContactFilter {
   threadParticipants?: ContactToManyThreadParticipantFilter;
   /** `threadParticipants` exist. */
   threadParticipantsExist?: boolean;
+  /** Filter by the object’s `emailRecipients` relation. */
+  emailRecipients?: ContactToManyEmailRecipientFilter;
+  /** `emailRecipients` exist. */
+  emailRecipientsExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
   /** BM25 search on the `embedding_text` column. */
@@ -5590,6 +7279,10 @@ export interface NoteFilter {
   or?: NoteFilter[];
   /** Negates the expression. */
   not?: NoteFilter;
+  /** Filter by the object’s `notesChunks` relation. */
+  notesChunks?: NoteToManyNotesChunkFilter;
+  /** `notesChunks` exist. */
+  notesChunksExist?: boolean;
   /** Filter by the object’s `contactNotes` relation. */
   contactNotes?: NoteToManyContactNoteFilter;
   /** `contactNotes` exist. */
@@ -5610,6 +7303,10 @@ export interface NoteFilter {
   taskNotes?: NoteToManyTaskNoteFilter;
   /** `taskNotes` exist. */
   taskNotesExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: NoteToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
   /** Filter by the object’s `calendarEventNotes` relation. */
   calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
   /** `calendarEventNotes` exist. */
@@ -5635,6 +7332,38 @@ export interface NoteFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface CalendarEventsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `calendarEventsId` field. */
+  calendarEventsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventsChunkFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventsChunkFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface CalendarEventTaskFilter {
   /** Filter by the object’s `calendarEventId` field. */
@@ -5699,6 +7428,10 @@ export interface TaskFilter {
   agent?: AgentFilter;
   /** A related `agent` exists. */
   agentExists?: boolean;
+  /** Filter by the object’s `tasksChunks` relation. */
+  tasksChunks?: TaskToManyTasksChunkFilter;
+  /** `tasksChunks` exist. */
+  tasksChunksExist?: boolean;
   /** Filter by the object’s `taskContacts` relation. */
   taskContacts?: TaskToManyTaskContactFilter;
   /** `taskContacts` exist. */
@@ -5749,6 +7482,38 @@ export interface CodebaseDependencyFilter {
   /** Filter by the object’s `codebasis` relation. */
   codebasis?: CodebasisFilter;
 }
+export interface CodebasesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `codebasesId` field. */
+  codebasesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `codebasisId` field. */
+  codebasisId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CodebasesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CodebasesChunkFilter[];
+  /** Negates the expression. */
+  not?: CodebasesChunkFilter;
+  /** Filter by the object’s `codebasis` relation. */
+  codebasis?: CodebasisFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 export interface CodebasisFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -5792,6 +7557,10 @@ export interface CodebasisFilter {
   codeChunks?: CodebasisToManyCodeChunkFilter;
   /** `codeChunks` exist. */
   codeChunksExist?: boolean;
+  /** Filter by the object’s `codebasesChunks` relation. */
+  codebasesChunks?: CodebasisToManyCodebasesChunkFilter;
+  /** `codebasesChunks` exist. */
+  codebasesChunksExist?: boolean;
   /** Filter by the object’s `codebaseDependencies` relation. */
   codebaseDependencies?: CodebasisToManyCodebaseDependencyFilter;
   /** `codebaseDependencies` exist. */
@@ -5889,6 +7658,38 @@ export interface CodeChunkFilter {
    */
   fullTextSearch?: string;
 }
+export interface CompaniesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `companiesId` field. */
+  companiesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompaniesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompaniesChunkFilter[];
+  /** Negates the expression. */
+  not?: CompaniesChunkFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 export interface CompanyFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -5936,6 +7737,10 @@ export interface CompanyFilter {
   companyLinks?: CompanyToManyCompanyLinkFilter;
   /** `companyLinks` exist. */
   companyLinksExist?: boolean;
+  /** Filter by the object’s `companiesChunks` relation. */
+  companiesChunks?: CompanyToManyCompaniesChunkFilter;
+  /** `companiesChunks` exist. */
+  companiesChunksExist?: boolean;
   /** Filter by the object’s `companyImages` relation. */
   companyImages?: CompanyToManyCompanyImageFilter;
   /** `companyImages` exist. */
@@ -6023,6 +7828,10 @@ export interface DealFilter {
   touchpoints?: DealToManyTouchpointFilter;
   /** `touchpoints` exist. */
   touchpointsExist?: boolean;
+  /** Filter by the object’s `dealsChunks` relation. */
+  dealsChunks?: DealToManyDealsChunkFilter;
+  /** `dealsChunks` exist. */
+  dealsChunksExist?: boolean;
   /** Filter by the object’s `dealContacts` relation. */
   dealContacts?: DealToManyDealContactFilter;
   /** `dealContacts` exist. */
@@ -6126,6 +7935,10 @@ export interface EventFilter {
   eventLinks?: EventToManyEventLinkFilter;
   /** `eventLinks` exist. */
   eventLinksExist?: boolean;
+  /** Filter by the object’s `eventsChunks` relation. */
+  eventsChunks?: EventToManyEventsChunkFilter;
+  /** `eventsChunks` exist. */
+  eventsChunksExist?: boolean;
   /** Filter by the object’s `eventImages` relation. */
   eventImages?: EventToManyEventImageFilter;
   /** `eventImages` exist. */
@@ -6319,6 +8132,10 @@ export interface MemoryFilter {
   agent?: AgentFilter;
   /** A related `agent` exists. */
   agentExists?: boolean;
+  /** Filter by the object’s `memoriesChunks` relation. */
+  memoriesChunks?: MemoryToManyMemoriesChunkFilter;
+  /** `memoriesChunks` exist. */
+  memoriesChunksExist?: boolean;
   /** Filter by the object’s `contactMemories` relation. */
   contactMemories?: MemoryToManyContactMemoryFilter;
   /** `contactMemories` exist. */
@@ -6405,6 +8222,74 @@ export interface ContactCompanyFilter {
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
 }
+export interface EmailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `providerMessageId` field. */
+  providerMessageId?: StringFilter;
+  /** Filter by the object’s `fromContactId` field. */
+  fromContactId?: UUIDFilter;
+  /** Filter by the object’s `to` field. */
+  to?: JSONFilter;
+  /** Filter by the object’s `cc` field. */
+  cc?: JSONFilter;
+  /** Filter by the object’s `bcc` field. */
+  bcc?: JSONFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringFilter;
+  /** Filter by the object’s `bodyText` field. */
+  bodyText?: StringFilter;
+  /** Filter by the object’s `bodyHtml` field. */
+  bodyHtml?: StringFilter;
+  /** Filter by the object’s `sentAt` field. */
+  sentAt?: DatetimeFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `emailThreadId` field. */
+  emailThreadId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailFilter[];
+  /** Negates the expression. */
+  not?: EmailFilter;
+  /** Filter by the object’s `emailThread` relation. */
+  emailThread?: EmailThreadFilter;
+  /** Filter by the object’s `fromContact` relation. */
+  fromContact?: ContactFilter;
+  /** A related `fromContact` exists. */
+  fromContactExists?: boolean;
+  /** Filter by the object’s `emailAttachments` relation. */
+  emailAttachments?: EmailToManyEmailAttachmentFilter;
+  /** `emailAttachments` exist. */
+  emailAttachmentsExist?: boolean;
+  /** Filter by the object’s `emailsChunks` relation. */
+  emailsChunks?: EmailToManyEmailsChunkFilter;
+  /** `emailsChunks` exist. */
+  emailsChunksExist?: boolean;
+  /** Filter by the object’s `emailRecipients` relation. */
+  emailRecipients?: EmailToManyEmailRecipientFilter;
+  /** `emailRecipients` exist. */
+  emailRecipientsExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: EmailToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
+}
 export interface EmailThreadFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -6444,6 +8329,10 @@ export interface EmailThreadFilter {
   emails?: EmailThreadToManyEmailFilter;
   /** `emails` exist. */
   emailsExist?: boolean;
+  /** Filter by the object’s `emailThreadsChunks` relation. */
+  emailThreadsChunks?: EmailThreadToManyEmailThreadsChunkFilter;
+  /** `emailThreadsChunks` exist. */
+  emailThreadsChunksExist?: boolean;
   /** Filter by the object’s `threadParticipants` relation. */
   threadParticipants?: EmailThreadToManyThreadParticipantFilter;
   /** `threadParticipants` exist. */
@@ -6531,6 +8420,10 @@ export interface ExpenseFilter {
   trip?: TripFilter;
   /** A related `trip` exists. */
   tripExists?: boolean;
+  /** Filter by the object’s `expensesChunks` relation. */
+  expensesChunks?: ExpenseToManyExpensesChunkFilter;
+  /** `expensesChunks` exist. */
+  expensesChunksExist?: boolean;
   /** Filter by the object’s `expenseContacts` relation. */
   expenseContacts?: ExpenseToManyExpenseContactFilter;
   /** `expenseContacts` exist. */
@@ -6686,6 +8579,10 @@ export interface ProjectFilter {
   or?: ProjectFilter[];
   /** Negates the expression. */
   not?: ProjectFilter;
+  /** Filter by the object’s `projectsChunks` relation. */
+  projectsChunks?: ProjectToManyProjectsChunkFilter;
+  /** `projectsChunks` exist. */
+  projectsChunksExist?: boolean;
   /** Filter by the object’s `projectContacts` relation. */
   projectContacts?: ProjectToManyProjectContactFilter;
   /** `projectContacts` exist. */
@@ -6732,6 +8629,38 @@ export interface ContactRelationshipFilter {
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
 }
+export interface ContactsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `contactsId` field. */
+  contactsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactsChunkFilter[];
+  /** Negates the expression. */
+  not?: ContactsChunkFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 export interface ConversationFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -6765,6 +8694,10 @@ export interface ConversationFilter {
   messages?: ConversationToManyMessageFilter;
   /** `messages` exist. */
   messagesExist?: boolean;
+  /** Filter by the object’s `conversationsChunks` relation. */
+  conversationsChunks?: ConversationToManyConversationsChunkFilter;
+  /** `conversationsChunks` exist. */
+  conversationsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -6782,6 +8715,38 @@ export interface ConversationFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface ConversationsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `conversationsId` field. */
+  conversationsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `conversationId` field. */
+  conversationId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ConversationsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ConversationsChunkFilter[];
+  /** Negates the expression. */
+  not?: ConversationsChunkFilter;
+  /** Filter by the object’s `conversation` relation. */
+  conversation?: ConversationFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface DealCompanyFilter {
   /** Filter by the object’s `dealId` field. */
@@ -6835,6 +8800,38 @@ export interface DealNoteFilter {
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
 }
+export interface DealsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `dealsId` field. */
+  dealsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `dealId` field. */
+  dealId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealsChunkFilter[];
+  /** Negates the expression. */
+  not?: DealsChunkFilter;
+  /** Filter by the object’s `deal` relation. */
+  deal?: DealFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 export interface EmailAttachmentFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -6865,57 +8862,109 @@ export interface EmailAttachmentFilter {
   /** Filter by the object’s `email` relation. */
   email?: EmailFilter;
 }
-export interface EmailFilter {
+export interface EmailNoteFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringFilter;
-  /** Filter by the object’s `fromContactId` field. */
-  fromContactId?: UUIDFilter;
-  /** Filter by the object’s `to` field. */
-  to?: JSONFilter;
-  /** Filter by the object’s `cc` field. */
-  cc?: JSONFilter;
-  /** Filter by the object’s `bcc` field. */
-  bcc?: JSONFilter;
-  /** Filter by the object’s `subject` field. */
-  subject?: StringFilter;
-  /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringFilter;
-  /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringFilter;
-  /** Filter by the object’s `sentAt` field. */
-  sentAt?: DatetimeFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailNoteFilter[];
+  /** Negates the expression. */
+  not?: EmailNoteFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+export interface EmailRecipientFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailRecipientFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailRecipientFilter[];
+  /** Negates the expression. */
+  not?: EmailRecipientFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+}
+export interface EmailsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `emailsId` field. */
+  emailsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailsChunkFilter[];
+  /** Negates the expression. */
+  not?: EmailsChunkFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface EmailThreadsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `emailThreadsId` field. */
+  emailThreadsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `emailThreadId` field. */
   emailThreadId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: EmailFilter[];
+  and?: EmailThreadsChunkFilter[];
   /** Checks for any expressions in this list. */
-  or?: EmailFilter[];
+  or?: EmailThreadsChunkFilter[];
   /** Negates the expression. */
-  not?: EmailFilter;
+  not?: EmailThreadsChunkFilter;
   /** Filter by the object’s `emailThread` relation. */
   emailThread?: EmailThreadFilter;
-  /** Filter by the object’s `emailAttachments` relation. */
-  emailAttachments?: EmailToManyEmailAttachmentFilter;
-  /** `emailAttachments` exist. */
-  emailAttachmentsExist?: boolean;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface EventImageFilter {
   /** Filter by the object’s `eventId` field. */
@@ -6982,6 +9031,38 @@ export interface EventNoteFilter {
   event?: EventFilter;
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
+}
+export interface EventsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `eventsId` field. */
+  eventsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EventsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EventsChunkFilter[];
+  /** Negates the expression. */
+  not?: EventsChunkFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface EventVenueFilter {
   /** Filter by the object’s `eventId` field. */
@@ -7056,6 +9137,10 @@ export interface VenueFilter {
   venueLinks?: VenueToManyVenueLinkFilter;
   /** `venueLinks` exist. */
   venueLinksExist?: boolean;
+  /** Filter by the object’s `venuesChunks` relation. */
+  venuesChunks?: VenueToManyVenuesChunkFilter;
+  /** `venuesChunks` exist. */
+  venuesChunksExist?: boolean;
   /** Filter by the object’s `venueImages` relation. */
   venueImages?: VenueToManyVenueImageFilter;
   /** `venueImages` exist. */
@@ -7118,6 +9203,38 @@ export interface ExpenseContactFilter {
   /** Filter by the object’s `expense` relation. */
   expense?: ExpenseFilter;
 }
+export interface ExpensesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `expensesId` field. */
+  expensesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `expenseId` field. */
+  expenseId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ExpensesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ExpensesChunkFilter[];
+  /** Negates the expression. */
+  not?: ExpensesChunkFilter;
+  /** Filter by the object’s `expense` relation. */
+  expense?: ExpenseFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 export interface GoalFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -7151,6 +9268,10 @@ export interface GoalFilter {
   or?: GoalFilter[];
   /** Negates the expression. */
   not?: GoalFilter;
+  /** Filter by the object’s `goalsChunks` relation. */
+  goalsChunks?: GoalToManyGoalsChunkFilter;
+  /** `goalsChunks` exist. */
+  goalsChunksExist?: boolean;
   /** Filter by the object’s `goalHabits` relation. */
   goalHabits?: GoalToManyGoalHabitFilter;
   /** `goalHabits` exist. */
@@ -7253,6 +9374,38 @@ export interface GoalProjectFilter {
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
 }
+export interface GoalsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `goalsId` field. */
+  goalsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `goalId` field. */
+  goalId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: GoalsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: GoalsChunkFilter[];
+  /** Negates the expression. */
+  not?: GoalsChunkFilter;
+  /** Filter by the object’s `goal` relation. */
+  goal?: GoalFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 export interface HikingTrailFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -7290,6 +9443,10 @@ export interface HikingTrailFilter {
   or?: HikingTrailFilter[];
   /** Negates the expression. */
   not?: HikingTrailFilter;
+  /** Filter by the object’s `hikingTrailsChunks` relation. */
+  hikingTrailsChunks?: HikingTrailToManyHikingTrailsChunkFilter;
+  /** `hikingTrailsChunks` exist. */
+  hikingTrailsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -7311,6 +9468,38 @@ export interface HikingTrailFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface HikingTrailsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `hikingTrailsId` field. */
+  hikingTrailsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `hikingTrailId` field. */
+  hikingTrailId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: HikingTrailsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: HikingTrailsChunkFilter[];
+  /** Negates the expression. */
+  not?: HikingTrailsChunkFilter;
+  /** Filter by the object’s `hikingTrail` relation. */
+  hikingTrail?: HikingTrailFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface InteractionFilter {
   /** Filter by the object’s `id` field. */
@@ -7347,6 +9536,10 @@ export interface InteractionFilter {
   not?: InteractionFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
+  /** Filter by the object’s `interactionsChunks` relation. */
+  interactionsChunks?: InteractionToManyInteractionsChunkFilter;
+  /** `interactionsChunks` exist. */
+  interactionsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -7366,6 +9559,70 @@ export interface InteractionFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface InteractionsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `interactionsId` field. */
+  interactionsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `interactionId` field. */
+  interactionId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: InteractionsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: InteractionsChunkFilter[];
+  /** Negates the expression. */
+  not?: InteractionsChunkFilter;
+  /** Filter by the object’s `interaction` relation. */
+  interaction?: InteractionFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface MemoriesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `memoriesId` field. */
+  memoriesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `memoryId` field. */
+  memoryId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: MemoriesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: MemoriesChunkFilter[];
+  /** Negates the expression. */
+  not?: MemoriesChunkFilter;
+  /** Filter by the object’s `memory` relation. */
+  memory?: MemoryFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface MessageFilter {
   /** Filter by the object’s `id` field. */
@@ -7404,6 +9661,10 @@ export interface MessageFilter {
   not?: MessageFilter;
   /** Filter by the object’s `conversation` relation. */
   conversation?: ConversationFilter;
+  /** Filter by the object’s `messagesChunks` relation. */
+  messagesChunks?: MessageToManyMessagesChunkFilter;
+  /** `messagesChunks` exist. */
+  messagesChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -7421,6 +9682,70 @@ export interface MessageFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface MessagesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `messagesId` field. */
+  messagesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `messageId` field. */
+  messageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: MessagesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: MessagesChunkFilter[];
+  /** Negates the expression. */
+  not?: MessagesChunkFilter;
+  /** Filter by the object’s `message` relation. */
+  message?: MessageFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface NotesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `notesId` field. */
+  notesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: NotesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: NotesChunkFilter[];
+  /** Negates the expression. */
+  not?: NotesChunkFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface PlaceFilter {
   /** Filter by the object’s `id` field. */
@@ -7455,6 +9780,10 @@ export interface PlaceFilter {
   or?: PlaceFilter[];
   /** Negates the expression. */
   not?: PlaceFilter;
+  /** Filter by the object’s `placesChunks` relation. */
+  placesChunks?: PlaceToManyPlacesChunkFilter;
+  /** `placesChunks` exist. */
+  placesChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -7477,6 +9806,38 @@ export interface PlaceFilter {
    */
   fullTextSearch?: string;
 }
+export interface PlacesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `placesId` field. */
+  placesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `placeId` field. */
+  placeId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: PlacesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: PlacesChunkFilter[];
+  /** Negates the expression. */
+  not?: PlacesChunkFilter;
+  /** Filter by the object’s `place` relation. */
+  place?: PlaceFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 export interface ProjectContactFilter {
   /** Filter by the object’s `projectId` field. */
   projectId?: UUIDFilter;
@@ -7496,6 +9857,70 @@ export interface ProjectContactFilter {
   contact?: ContactFilter;
   /** Filter by the object’s `project` relation. */
   project?: ProjectFilter;
+}
+export interface ProjectsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `projectsId` field. */
+  projectsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ProjectsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ProjectsChunkFilter[];
+  /** Negates the expression. */
+  not?: ProjectsChunkFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+export interface PromptsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `promptsId` field. */
+  promptsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `promptId` field. */
+  promptId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: PromptsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: PromptsChunkFilter[];
+  /** Negates the expression. */
+  not?: PromptsChunkFilter;
+  /** Filter by the object’s `prompt` relation. */
+  prompt?: PromptFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface ProviderSyncStateFilter {
   /** Filter by the object’s `id` field. */
@@ -7712,6 +10137,10 @@ export interface RuleFilter {
   not?: RuleFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
+  /** Filter by the object’s `rulesChunks` relation. */
+  rulesChunks?: RuleToManyRulesChunkFilter;
+  /** `rulesChunks` exist. */
+  rulesChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -7737,6 +10166,38 @@ export interface RuleFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface RulesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `rulesId` field. */
+  rulesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `ruleId` field. */
+  ruleId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RulesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RulesChunkFilter[];
+  /** Negates the expression. */
+  not?: RulesChunkFilter;
+  /** Filter by the object’s `rule` relation. */
+  rule?: RuleFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface RuntimeArtifactFilter {
   /** Filter by the object’s `id` field. */
@@ -7851,6 +10312,10 @@ export interface RuntimeLogFilter {
   not?: RuntimeLogFilter;
   /** Filter by the object’s `runtimeState` relation. */
   runtimeState?: RuntimeStateFilter;
+  /** Filter by the object’s `runtimeLogsChunks` relation. */
+  runtimeLogsChunks?: RuntimeLogToManyRuntimeLogsChunkFilter;
+  /** `runtimeLogsChunks` exist. */
+  runtimeLogsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -7868,6 +10333,38 @@ export interface RuntimeLogFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface RuntimeLogsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `runtimeLogsId` field. */
+  runtimeLogsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `runtimeLogId` field. */
+  runtimeLogId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeLogsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeLogsChunkFilter[];
+  /** Negates the expression. */
+  not?: RuntimeLogsChunkFilter;
+  /** Filter by the object’s `runtimeLog` relation. */
+  runtimeLog?: RuntimeLogFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface RuntimeMetricFilter {
   /** Filter by the object’s `id` field. */
@@ -7974,6 +10471,10 @@ export interface RuntimeStateFilter {
   runtimeMetrics?: RuntimeStateToManyRuntimeMetricFilter;
   /** `runtimeMetrics` exist. */
   runtimeMetricsExist?: boolean;
+  /** Filter by the object’s `runtimeStatesChunks` relation. */
+  runtimeStatesChunks?: RuntimeStateToManyRuntimeStatesChunkFilter;
+  /** `runtimeStatesChunks` exist. */
+  runtimeStatesChunksExist?: boolean;
   /** Filter by the object’s `runtimeStateDependencies` relation. */
   runtimeStateDependencies?: RuntimeStateToManyRuntimeStateDependencyFilter;
   /** `runtimeStateDependencies` exist. */
@@ -8009,6 +10510,38 @@ export interface RuntimeStateDependencyFilter {
   not?: RuntimeStateDependencyFilter;
   /** Filter by the object’s `runtimeState` relation. */
   runtimeState?: RuntimeStateFilter;
+}
+export interface RuntimeStatesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `runtimeStatesId` field. */
+  runtimeStatesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `runtimeStateId` field. */
+  runtimeStateId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeStatesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeStatesChunkFilter[];
+  /** Negates the expression. */
+  not?: RuntimeStatesChunkFilter;
+  /** Filter by the object’s `runtimeState` relation. */
+  runtimeState?: RuntimeStateFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface SkillFilter {
   /** Filter by the object’s `id` field. */
@@ -8051,6 +10584,10 @@ export interface SkillFilter {
   not?: SkillFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
+  /** Filter by the object’s `skillsChunks` relation. */
+  skillsChunks?: SkillToManySkillsChunkFilter;
+  /** `skillsChunks` exist. */
+  skillsChunksExist?: boolean;
   /** Filter by the object’s `skillTools` relation. */
   skillTools?: SkillToManySkillToolFilter;
   /** `skillTools` exist. */
@@ -8080,6 +10617,38 @@ export interface SkillFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface SkillsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `skillsId` field. */
+  skillsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `skillId` field. */
+  skillId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: SkillsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: SkillsChunkFilter[];
+  /** Negates the expression. */
+  not?: SkillsChunkFilter;
+  /** Filter by the object’s `skill` relation. */
+  skill?: SkillFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface SkillToolFilter {
   /** Filter by the object’s `skillId` field. */
@@ -8134,6 +10703,10 @@ export interface ToolDefinitionFilter {
   or?: ToolDefinitionFilter[];
   /** Negates the expression. */
   not?: ToolDefinitionFilter;
+  /** Filter by the object’s `toolDefinitionsChunks` relation. */
+  toolDefinitionsChunks?: ToolDefinitionToManyToolDefinitionsChunkFilter;
+  /** `toolDefinitionsChunks` exist. */
+  toolDefinitionsChunksExist?: boolean;
   /** Filter by the object’s `toolExecutions` relation. */
   toolExecutions?: ToolDefinitionToManyToolExecutionFilter;
   /** `toolExecutions` exist. */
@@ -8246,6 +10819,38 @@ export interface TaskProjectFilter {
   /** Filter by the object’s `task` relation. */
   task?: TaskFilter;
 }
+export interface TasksChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `tasksId` field. */
+  tasksId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TasksChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TasksChunkFilter[];
+  /** Negates the expression. */
+  not?: TasksChunkFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 export interface ThreadParticipantFilter {
   /** Filter by the object’s `emailThreadId` field. */
   emailThreadId?: UUIDFilter;
@@ -8265,6 +10870,38 @@ export interface ThreadParticipantFilter {
   contact?: ContactFilter;
   /** Filter by the object’s `emailThread` relation. */
   emailThread?: EmailThreadFilter;
+}
+export interface ToolDefinitionsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `toolDefinitionsId` field. */
+  toolDefinitionsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `toolDefinitionId` field. */
+  toolDefinitionId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ToolDefinitionsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ToolDefinitionsChunkFilter[];
+  /** Negates the expression. */
+  not?: ToolDefinitionsChunkFilter;
+  /** Filter by the object’s `toolDefinition` relation. */
+  toolDefinition?: ToolDefinitionFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface ToolExecutionFilter {
   /** Filter by the object’s `id` field. */
@@ -8361,6 +10998,10 @@ export interface TouchpointFilter {
   event?: EventFilter;
   /** A related `event` exists. */
   eventExists?: boolean;
+  /** Filter by the object’s `touchpointsChunks` relation. */
+  touchpointsChunks?: TouchpointToManyTouchpointsChunkFilter;
+  /** `touchpointsChunks` exist. */
+  touchpointsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -8386,6 +11027,38 @@ export interface TouchpointFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface TouchpointsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `touchpointsId` field. */
+  touchpointsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `touchpointId` field. */
+  touchpointId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TouchpointsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TouchpointsChunkFilter[];
+  /** Negates the expression. */
+  not?: TouchpointsChunkFilter;
+  /** Filter by the object’s `touchpoint` relation. */
+  touchpoint?: TouchpointFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface TripFilter {
   /** Filter by the object’s `id` field. */
@@ -8424,6 +11097,10 @@ export interface TripFilter {
   expenses?: TripToManyExpenseFilter;
   /** `expenses` exist. */
   expensesExist?: boolean;
+  /** Filter by the object’s `tripsChunks` relation. */
+  tripsChunks?: TripToManyTripsChunkFilter;
+  /** `tripsChunks` exist. */
+  tripsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -8443,6 +11120,38 @@ export interface TripFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+export interface TripsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `tripsId` field. */
+  tripsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `tripId` field. */
+  tripId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TripsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TripsChunkFilter[];
+  /** Negates the expression. */
+  not?: TripsChunkFilter;
+  /** Filter by the object’s `trip` relation. */
+  trip?: TripFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 export interface VenueImageFilter {
   /** Filter by the object’s `venueId` field. */
@@ -8490,6 +11199,38 @@ export interface VenueLinkFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
+export interface VenuesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `venuesId` field. */
+  venuesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `venueId` field. */
+  venueId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: VenuesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: VenuesChunkFilter[];
+  /** Negates the expression. */
+  not?: VenuesChunkFilter;
+  /** Filter by the object’s `venue` relation. */
+  venue?: VenueFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 // ============ OrderBy Types ============
 export type ActivityLogOrderBy =
   | 'NATURAL'
@@ -8523,6 +11264,22 @@ export type ActivityLogOrderBy =
   | 'NOTES_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type ActivityLogsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'ACTIVITY_LOG_ID_ASC'
+  | 'ACTIVITY_LOG_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type AgentCollaboratorOrderBy = 'NATURAL' | 'AGENT_ID_ASC' | 'AGENT_ID_DESC';
@@ -8588,6 +11345,22 @@ export type AgentLogOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type AgentLogsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'AGENT_LOG_ID_ASC'
+  | 'AGENT_LOG_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type AgentPromptOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -8628,6 +11401,22 @@ export type PromptOrderBy =
   | 'CATEGORY_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type AgentsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'AGENT_ID_ASC'
+  | 'AGENT_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type AutonomyRecordOrderBy =
@@ -8672,6 +11461,22 @@ export type AutonomyRecordLinkOrderBy =
   | 'NATURAL'
   | 'AUTONOMY_RECORD_ID_ASC'
   | 'AUTONOMY_RECORD_ID_DESC';
+export type AutonomyRecordsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'AUTONOMY_RECORD_ID_ASC'
+  | 'AUTONOMY_RECORD_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type CalendarAttendeeOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -8856,6 +11661,22 @@ export type NoteOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type CalendarEventsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'CALENDAR_EVENT_ID_ASC'
+  | 'CALENDAR_EVENT_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type CalendarEventTaskOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -8903,6 +11724,22 @@ export type TaskOrderBy =
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type CodebaseDependencyOrderBy = 'NATURAL' | 'CODEBASIS_ID_ASC' | 'CODEBASIS_ID_DESC';
+export type CodebasesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'CODEBASIS_ID_ASC'
+  | 'CODEBASIS_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type CodebasisOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -8975,6 +11812,22 @@ export type CodeChunkOrderBy =
   | 'SYMBOL_TYPE_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type CompaniesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'COMPANY_ID_ASC'
+  | 'COMPANY_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type CompanyOrderBy =
@@ -9189,6 +12042,26 @@ export type ContactCompanyOrderBy =
   | 'CONTACT_ID_DESC'
   | 'COMPANY_ID_ASC'
   | 'COMPANY_ID_DESC';
+export type EmailOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'PROVIDER_MESSAGE_ID_ASC'
+  | 'PROVIDER_MESSAGE_ID_DESC'
+  | 'FROM_CONTACT_ID_ASC'
+  | 'FROM_CONTACT_ID_DESC'
+  | 'SENT_AT_ASC'
+  | 'SENT_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMAIL_THREAD_ID_ASC'
+  | 'EMAIL_THREAD_ID_DESC';
 export type EmailThreadOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9348,6 +12221,22 @@ export type ProjectOrderBy =
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type ContactRelationshipOrderBy = 'NATURAL' | 'CONTACT_ID_ASC' | 'CONTACT_ID_DESC';
+export type ContactsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ConversationOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9376,6 +12265,22 @@ export type ConversationOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type ConversationsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'CONVERSATION_ID_ASC'
+  | 'CONVERSATION_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type DealCompanyOrderBy =
   | 'NATURAL'
   | 'DEAL_ID_ASC'
@@ -9400,6 +12305,22 @@ export type DealNoteOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type DealsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'DEAL_ID_ASC'
+  | 'DEAL_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type EmailAttachmentOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9410,7 +12331,31 @@ export type EmailAttachmentOrderBy =
   | 'ENTITY_ID_DESC'
   | 'EMAIL_ID_ASC'
   | 'EMAIL_ID_DESC';
-export type EmailOrderBy =
+export type EmailNoteOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'EMAIL_ID_ASC'
+  | 'EMAIL_ID_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
+export type EmailRecipientOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'EMAIL_ID_ASC'
+  | 'EMAIL_ID_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC';
+export type EmailsChunkOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
@@ -9418,16 +12363,30 @@ export type EmailOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
-  | 'PROVIDER_MESSAGE_ID_ASC'
-  | 'PROVIDER_MESSAGE_ID_DESC'
-  | 'SENT_AT_ASC'
-  | 'SENT_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'EMAIL_ID_ASC'
+  | 'EMAIL_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type EmailThreadsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
   | 'EMAIL_THREAD_ID_ASC'
-  | 'EMAIL_THREAD_ID_DESC';
+  | 'EMAIL_THREAD_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type EventImageOrderBy =
   | 'NATURAL'
   | 'EVENT_ID_ASC'
@@ -9462,6 +12421,22 @@ export type EventNoteOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type EventsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'EVENT_ID_ASC'
+  | 'EVENT_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type EventVenueOrderBy =
   | 'NATURAL'
   | 'EVENT_ID_ASC'
@@ -9532,6 +12507,22 @@ export type ExpenseContactOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type ExpensesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'EXPENSE_ID_ASC'
+  | 'EXPENSE_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type GoalOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9596,6 +12587,22 @@ export type GoalProjectOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type GoalsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'GOAL_ID_ASC'
+  | 'GOAL_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type HikingTrailOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9626,6 +12633,22 @@ export type HikingTrailOrderBy =
   | 'DIFFICULTY_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type HikingTrailsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'HIKING_TRAIL_ID_ASC'
+  | 'HIKING_TRAIL_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type InteractionOrderBy =
@@ -9660,6 +12683,38 @@ export type InteractionOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type InteractionsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'INTERACTION_ID_ASC'
+  | 'INTERACTION_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type MemoriesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'MEMORY_ID_ASC'
+  | 'MEMORY_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type MessageOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9686,6 +12741,38 @@ export type MessageOrderBy =
   | 'CONTENT_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type MessagesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'MESSAGE_ID_ASC'
+  | 'MESSAGE_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type NotesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'NOTE_ID_ASC'
+  | 'NOTE_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type PlaceOrderBy =
@@ -9720,6 +12807,22 @@ export type PlaceOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type PlacesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'PLACE_ID_ASC'
+  | 'PLACE_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ProjectContactOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9732,6 +12835,38 @@ export type ProjectContactOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type ProjectsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'PROJECT_ID_ASC'
+  | 'PROJECT_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type PromptsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'PROMPT_ID_ASC'
+  | 'PROMPT_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ProviderSyncStateOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9834,6 +12969,22 @@ export type RuleOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type RulesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'RULE_ID_ASC'
+  | 'RULE_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type RuntimeArtifactOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9896,6 +13047,22 @@ export type RuntimeLogOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type RuntimeLogsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'RUNTIME_LOG_ID_ASC'
+  | 'RUNTIME_LOG_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type RuntimeMetricOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9956,6 +13123,22 @@ export type RuntimeStateDependencyOrderBy =
   | 'NATURAL'
   | 'RUNTIME_STATE_ID_ASC'
   | 'RUNTIME_STATE_ID_DESC';
+export type RuntimeStatesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'RUNTIME_STATE_ID_ASC'
+  | 'RUNTIME_STATE_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type SkillOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9994,6 +13177,22 @@ export type SkillOrderBy =
   | 'INTENT_TRIGGER_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type SkillsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'SKILL_ID_ASC'
+  | 'SKILL_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
 export type SkillToolOrderBy =
@@ -10086,6 +13285,22 @@ export type TaskProjectOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type TasksChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'TASK_ID_ASC'
+  | 'TASK_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ThreadParticipantOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -10098,6 +13313,22 @@ export type ThreadParticipantOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type ToolDefinitionsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'TOOL_DEFINITION_ID_ASC'
+  | 'TOOL_DEFINITION_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type ToolExecutionOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -10160,6 +13391,22 @@ export type TouchpointOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type TouchpointsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'TOUCHPOINT_ID_ASC'
+  | 'TOUCHPOINT_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type TripOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -10190,6 +13437,22 @@ export type TripOrderBy =
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
   | 'SEARCH_SCORE_DESC';
+export type TripsChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
+  | 'TRIP_ID_ASC'
+  | 'TRIP_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
 export type VenueImageOrderBy =
   | 'NATURAL'
   | 'VENUE_ID_ASC'
@@ -10206,6 +13469,22 @@ export type VenueLinkOrderBy =
   | 'ENTITY_ID_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
+  | 'VENUE_ID_ASC'
+  | 'VENUE_ID_DESC'
+  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
+  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
+  | 'SEARCH_SCORE_ASC'
+  | 'SEARCH_SCORE_DESC';
+export type VenuesChunkOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CHUNK_INDEX_ASC'
+  | 'CHUNK_INDEX_DESC'
   | 'VENUE_ID_ASC'
   | 'VENUE_ID_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -10254,6 +13533,36 @@ export interface UpdateActivityLogInput {
   activityLogPatch: ActivityLogPatch;
 }
 export interface DeleteActivityLogInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateActivityLogsChunkInput {
+  clientMutationId?: string;
+  activityLogsChunk: {
+    entityId: string;
+    activityLogsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    activityLogId: string;
+  };
+}
+export interface ActivityLogsChunkPatch {
+  entityId?: string | null;
+  activityLogsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  activityLogId?: string | null;
+}
+export interface UpdateActivityLogsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  activityLogsChunkPatch: ActivityLogsChunkPatch;
+}
+export interface DeleteActivityLogsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -10349,6 +13658,36 @@ export interface DeleteAgentLogInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateAgentLogsChunkInput {
+  clientMutationId?: string;
+  agentLogsChunk: {
+    entityId: string;
+    agentLogsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    agentLogId: string;
+  };
+}
+export interface AgentLogsChunkPatch {
+  entityId?: string | null;
+  agentLogsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  agentLogId?: string | null;
+}
+export interface UpdateAgentLogsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  agentLogsChunkPatch: AgentLogsChunkPatch;
+}
+export interface DeleteAgentLogsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateAgentPromptInput {
   clientMutationId?: string;
   agentPrompt: {
@@ -10407,6 +13746,36 @@ export interface DeletePromptInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateAgentsChunkInput {
+  clientMutationId?: string;
+  agentsChunk: {
+    entityId: string;
+    agentsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    agentId: string;
+  };
+}
+export interface AgentsChunkPatch {
+  entityId?: string | null;
+  agentsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  agentId?: string | null;
+}
+export interface UpdateAgentsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  agentsChunkPatch: AgentsChunkPatch;
+}
+export interface DeleteAgentsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateAutonomyRecordInput {
   clientMutationId?: string;
   autonomyRecord: {
@@ -10462,6 +13831,36 @@ export interface UpdateAutonomyRecordLinkInput {
   autonomyRecordLinkPatch: AutonomyRecordLinkPatch;
 }
 export interface DeleteAutonomyRecordLinkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateAutonomyRecordsChunkInput {
+  clientMutationId?: string;
+  autonomyRecordsChunk: {
+    entityId: string;
+    autonomyRecordsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    autonomyRecordId: string;
+  };
+}
+export interface AutonomyRecordsChunkPatch {
+  entityId?: string | null;
+  autonomyRecordsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  autonomyRecordId?: string | null;
+}
+export interface UpdateAutonomyRecordsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  autonomyRecordsChunkPatch: AutonomyRecordsChunkPatch;
+}
+export interface DeleteAutonomyRecordsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -10697,6 +14096,36 @@ export interface DeleteNoteInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateCalendarEventsChunkInput {
+  clientMutationId?: string;
+  calendarEventsChunk: {
+    entityId: string;
+    calendarEventsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    calendarEventId: string;
+  };
+}
+export interface CalendarEventsChunkPatch {
+  entityId?: string | null;
+  calendarEventsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  calendarEventId?: string | null;
+}
+export interface UpdateCalendarEventsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  calendarEventsChunkPatch: CalendarEventsChunkPatch;
+}
+export interface DeleteCalendarEventsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateCalendarEventTaskInput {
   clientMutationId?: string;
   calendarEventTask: {
@@ -10776,6 +14205,36 @@ export interface UpdateCodebaseDependencyInput {
   codebaseDependencyPatch: CodebaseDependencyPatch;
 }
 export interface DeleteCodebaseDependencyInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCodebasesChunkInput {
+  clientMutationId?: string;
+  codebasesChunk: {
+    entityId: string;
+    codebasesId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    codebasisId: string;
+  };
+}
+export interface CodebasesChunkPatch {
+  entityId?: string | null;
+  codebasesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  codebasisId?: string | null;
+}
+export interface UpdateCodebasesChunkInput {
+  clientMutationId?: string;
+  id: string;
+  codebasesChunkPatch: CodebasesChunkPatch;
+}
+export interface DeleteCodebasesChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -10862,6 +14321,36 @@ export interface UpdateCodeChunkInput {
   codeChunkPatch: CodeChunkPatch;
 }
 export interface DeleteCodeChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateCompaniesChunkInput {
+  clientMutationId?: string;
+  companiesChunk: {
+    entityId: string;
+    companiesId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    companyId: string;
+  };
+}
+export interface CompaniesChunkPatch {
+  entityId?: string | null;
+  companiesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  companyId?: string | null;
+}
+export interface UpdateCompaniesChunkInput {
+  clientMutationId?: string;
+  id: string;
+  companiesChunkPatch: CompaniesChunkPatch;
+}
+export interface DeleteCompaniesChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11181,6 +14670,52 @@ export interface DeleteContactCompanyInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateEmailInput {
+  clientMutationId?: string;
+  email: {
+    entityId: string;
+    providerMessageId?: string;
+    fromContactId?: string;
+    to?: Record<string, unknown>;
+    cc?: Record<string, unknown>;
+    bcc?: Record<string, unknown>;
+    subject?: string;
+    bodyText?: string;
+    bodyHtml?: string;
+    sentAt?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    emailThreadId: string;
+  };
+}
+export interface EmailPatch {
+  entityId?: string | null;
+  providerMessageId?: string | null;
+  fromContactId?: string | null;
+  to?: Record<string, unknown> | null;
+  cc?: Record<string, unknown> | null;
+  bcc?: Record<string, unknown> | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  bodyHtml?: string | null;
+  sentAt?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  emailThreadId?: string | null;
+}
+export interface UpdateEmailInput {
+  clientMutationId?: string;
+  id: string;
+  emailPatch: EmailPatch;
+}
+export interface DeleteEmailInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateEmailThreadInput {
   clientMutationId?: string;
   emailThread: {
@@ -11433,6 +14968,36 @@ export interface DeleteContactRelationshipInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateContactsChunkInput {
+  clientMutationId?: string;
+  contactsChunk: {
+    entityId: string;
+    contactsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    contactId: string;
+  };
+}
+export interface ContactsChunkPatch {
+  entityId?: string | null;
+  contactsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  contactId?: string | null;
+}
+export interface UpdateContactsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  contactsChunkPatch: ContactsChunkPatch;
+}
+export interface DeleteContactsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateConversationInput {
   clientMutationId?: string;
   conversation: {
@@ -11462,6 +15027,36 @@ export interface UpdateConversationInput {
   conversationPatch: ConversationPatch;
 }
 export interface DeleteConversationInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateConversationsChunkInput {
+  clientMutationId?: string;
+  conversationsChunk: {
+    entityId: string;
+    conversationsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    conversationId: string;
+  };
+}
+export interface ConversationsChunkPatch {
+  entityId?: string | null;
+  conversationsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  conversationId?: string | null;
+}
+export interface UpdateConversationsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  conversationsChunkPatch: ConversationsChunkPatch;
+}
+export interface DeleteConversationsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11527,6 +15122,36 @@ export interface DeleteDealNoteInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateDealsChunkInput {
+  clientMutationId?: string;
+  dealsChunk: {
+    entityId: string;
+    dealsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    dealId: string;
+  };
+}
+export interface DealsChunkPatch {
+  entityId?: string | null;
+  dealsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  dealId?: string | null;
+}
+export interface UpdateDealsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  dealsChunkPatch: DealsChunkPatch;
+}
+export interface DeleteDealsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateEmailAttachmentInput {
   clientMutationId?: string;
   emailAttachment: {
@@ -11557,49 +15182,107 @@ export interface DeleteEmailAttachmentInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateEmailInput {
+export interface CreateEmailNoteInput {
   clientMutationId?: string;
-  email: {
+  emailNote: {
+    emailId: string;
+    noteId: string;
     entityId: string;
-    providerMessageId?: string;
-    fromContactId?: string;
-    to?: Record<string, unknown>;
-    cc?: Record<string, unknown>;
-    bcc?: Record<string, unknown>;
-    subject?: string;
-    bodyText?: string;
-    bodyHtml?: string;
-    sentAt?: string;
-    tags?: string[];
-    embeddingText?: string;
+  };
+}
+export interface EmailNotePatch {
+  emailId?: string | null;
+  noteId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateEmailNoteInput {
+  clientMutationId?: string;
+  id: string;
+  emailNotePatch: EmailNotePatch;
+}
+export interface DeleteEmailNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailRecipientInput {
+  clientMutationId?: string;
+  emailRecipient: {
+    emailId: string;
+    contactId: string;
+    entityId: string;
+  };
+}
+export interface EmailRecipientPatch {
+  emailId?: string | null;
+  contactId?: string | null;
+  entityId?: string | null;
+}
+export interface UpdateEmailRecipientInput {
+  clientMutationId?: string;
+  id: string;
+  emailRecipientPatch: EmailRecipientPatch;
+}
+export interface DeleteEmailRecipientInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailsChunkInput {
+  clientMutationId?: string;
+  emailsChunk: {
+    entityId: string;
+    emailsId: string;
+    content: string;
+    chunkIndex?: number;
     embedding?: number[];
-    embeddingStale?: boolean;
+    metadata?: Record<string, unknown>;
+    emailId: string;
+  };
+}
+export interface EmailsChunkPatch {
+  entityId?: string | null;
+  emailsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  emailId?: string | null;
+}
+export interface UpdateEmailsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  emailsChunkPatch: EmailsChunkPatch;
+}
+export interface DeleteEmailsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEmailThreadsChunkInput {
+  clientMutationId?: string;
+  emailThreadsChunk: {
+    entityId: string;
+    emailThreadsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
     emailThreadId: string;
   };
 }
-export interface EmailPatch {
+export interface EmailThreadsChunkPatch {
   entityId?: string | null;
-  providerMessageId?: string | null;
-  fromContactId?: string | null;
-  to?: Record<string, unknown> | null;
-  cc?: Record<string, unknown> | null;
-  bcc?: Record<string, unknown> | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  bodyHtml?: string | null;
-  sentAt?: string | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
+  emailThreadsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
   embedding?: number[] | null;
-  embeddingStale?: boolean | null;
+  metadata?: Record<string, unknown> | null;
   emailThreadId?: string | null;
 }
-export interface UpdateEmailInput {
+export interface UpdateEmailThreadsChunkInput {
   clientMutationId?: string;
   id: string;
-  emailPatch: EmailPatch;
+  emailThreadsChunkPatch: EmailThreadsChunkPatch;
 }
-export interface DeleteEmailInput {
+export interface DeleteEmailThreadsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11670,6 +15353,36 @@ export interface UpdateEventNoteInput {
   eventNotePatch: EventNotePatch;
 }
 export interface DeleteEventNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateEventsChunkInput {
+  clientMutationId?: string;
+  eventsChunk: {
+    entityId: string;
+    eventsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    eventId: string;
+  };
+}
+export interface EventsChunkPatch {
+  entityId?: string | null;
+  eventsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  eventId?: string | null;
+}
+export interface UpdateEventsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  eventsChunkPatch: EventsChunkPatch;
+}
+export interface DeleteEventsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11762,6 +15475,36 @@ export interface UpdateExpenseContactInput {
   expenseContactPatch: ExpenseContactPatch;
 }
 export interface DeleteExpenseContactInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateExpensesChunkInput {
+  clientMutationId?: string;
+  expensesChunk: {
+    entityId: string;
+    expensesId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    expenseId: string;
+  };
+}
+export interface ExpensesChunkPatch {
+  entityId?: string | null;
+  expensesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  expenseId?: string | null;
+}
+export interface UpdateExpensesChunkInput {
+  clientMutationId?: string;
+  id: string;
+  expensesChunkPatch: ExpensesChunkPatch;
+}
+export interface DeleteExpensesChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11873,6 +15616,36 @@ export interface DeleteGoalProjectInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateGoalsChunkInput {
+  clientMutationId?: string;
+  goalsChunk: {
+    entityId: string;
+    goalsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    goalId: string;
+  };
+}
+export interface GoalsChunkPatch {
+  entityId?: string | null;
+  goalsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  goalId?: string | null;
+}
+export interface UpdateGoalsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  goalsChunkPatch: GoalsChunkPatch;
+}
+export interface DeleteGoalsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateHikingTrailInput {
   clientMutationId?: string;
   hikingTrail: {
@@ -11913,6 +15686,36 @@ export interface DeleteHikingTrailInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateHikingTrailsChunkInput {
+  clientMutationId?: string;
+  hikingTrailsChunk: {
+    entityId: string;
+    hikingTrailsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    hikingTrailId: string;
+  };
+}
+export interface HikingTrailsChunkPatch {
+  entityId?: string | null;
+  hikingTrailsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  hikingTrailId?: string | null;
+}
+export interface UpdateHikingTrailsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  hikingTrailsChunkPatch: HikingTrailsChunkPatch;
+}
+export interface DeleteHikingTrailsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateInteractionInput {
   clientMutationId?: string;
   interaction: {
@@ -11946,6 +15749,66 @@ export interface UpdateInteractionInput {
   interactionPatch: InteractionPatch;
 }
 export interface DeleteInteractionInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateInteractionsChunkInput {
+  clientMutationId?: string;
+  interactionsChunk: {
+    entityId: string;
+    interactionsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    interactionId: string;
+  };
+}
+export interface InteractionsChunkPatch {
+  entityId?: string | null;
+  interactionsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  interactionId?: string | null;
+}
+export interface UpdateInteractionsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  interactionsChunkPatch: InteractionsChunkPatch;
+}
+export interface DeleteInteractionsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateMemoriesChunkInput {
+  clientMutationId?: string;
+  memoriesChunk: {
+    entityId: string;
+    memoriesId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    memoryId: string;
+  };
+}
+export interface MemoriesChunkPatch {
+  entityId?: string | null;
+  memoriesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  memoryId?: string | null;
+}
+export interface UpdateMemoriesChunkInput {
+  clientMutationId?: string;
+  id: string;
+  memoriesChunkPatch: MemoriesChunkPatch;
+}
+export interface DeleteMemoriesChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -11987,6 +15850,66 @@ export interface DeleteMessageInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateMessagesChunkInput {
+  clientMutationId?: string;
+  messagesChunk: {
+    entityId: string;
+    messagesId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    messageId: string;
+  };
+}
+export interface MessagesChunkPatch {
+  entityId?: string | null;
+  messagesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  messageId?: string | null;
+}
+export interface UpdateMessagesChunkInput {
+  clientMutationId?: string;
+  id: string;
+  messagesChunkPatch: MessagesChunkPatch;
+}
+export interface DeleteMessagesChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateNotesChunkInput {
+  clientMutationId?: string;
+  notesChunk: {
+    entityId: string;
+    notesId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    noteId: string;
+  };
+}
+export interface NotesChunkPatch {
+  entityId?: string | null;
+  notesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  noteId?: string | null;
+}
+export interface UpdateNotesChunkInput {
+  clientMutationId?: string;
+  id: string;
+  notesChunkPatch: NotesChunkPatch;
+}
+export interface DeleteNotesChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreatePlaceInput {
   clientMutationId?: string;
   place: {
@@ -12023,6 +15946,36 @@ export interface DeletePlaceInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreatePlacesChunkInput {
+  clientMutationId?: string;
+  placesChunk: {
+    entityId: string;
+    placesId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    placeId: string;
+  };
+}
+export interface PlacesChunkPatch {
+  entityId?: string | null;
+  placesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  placeId?: string | null;
+}
+export interface UpdatePlacesChunkInput {
+  clientMutationId?: string;
+  id: string;
+  placesChunkPatch: PlacesChunkPatch;
+}
+export interface DeletePlacesChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateProjectContactInput {
   clientMutationId?: string;
   projectContact: {
@@ -12042,6 +15995,66 @@ export interface UpdateProjectContactInput {
   projectContactPatch: ProjectContactPatch;
 }
 export interface DeleteProjectContactInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateProjectsChunkInput {
+  clientMutationId?: string;
+  projectsChunk: {
+    entityId: string;
+    projectsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    projectId: string;
+  };
+}
+export interface ProjectsChunkPatch {
+  entityId?: string | null;
+  projectsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  projectId?: string | null;
+}
+export interface UpdateProjectsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  projectsChunkPatch: ProjectsChunkPatch;
+}
+export interface DeleteProjectsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreatePromptsChunkInput {
+  clientMutationId?: string;
+  promptsChunk: {
+    entityId: string;
+    promptsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    promptId: string;
+  };
+}
+export interface PromptsChunkPatch {
+  entityId?: string | null;
+  promptsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  promptId?: string | null;
+}
+export interface UpdatePromptsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  promptsChunkPatch: PromptsChunkPatch;
+}
+export interface DeletePromptsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12253,6 +16266,36 @@ export interface DeleteRuleInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateRulesChunkInput {
+  clientMutationId?: string;
+  rulesChunk: {
+    entityId: string;
+    rulesId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    ruleId: string;
+  };
+}
+export interface RulesChunkPatch {
+  entityId?: string | null;
+  rulesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  ruleId?: string | null;
+}
+export interface UpdateRulesChunkInput {
+  clientMutationId?: string;
+  id: string;
+  rulesChunkPatch: RulesChunkPatch;
+}
+export interface DeleteRulesChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateRuntimeArtifactInput {
   clientMutationId?: string;
   runtimeArtifact: {
@@ -12368,6 +16411,36 @@ export interface UpdateRuntimeLogInput {
   runtimeLogPatch: RuntimeLogPatch;
 }
 export interface DeleteRuntimeLogInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateRuntimeLogsChunkInput {
+  clientMutationId?: string;
+  runtimeLogsChunk: {
+    entityId: string;
+    runtimeLogsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    runtimeLogId: string;
+  };
+}
+export interface RuntimeLogsChunkPatch {
+  entityId?: string | null;
+  runtimeLogsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  runtimeLogId?: string | null;
+}
+export interface UpdateRuntimeLogsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  runtimeLogsChunkPatch: RuntimeLogsChunkPatch;
+}
+export interface DeleteRuntimeLogsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12487,6 +16560,36 @@ export interface DeleteRuntimeStateDependencyInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateRuntimeStatesChunkInput {
+  clientMutationId?: string;
+  runtimeStatesChunk: {
+    entityId: string;
+    runtimeStatesId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    runtimeStateId: string;
+  };
+}
+export interface RuntimeStatesChunkPatch {
+  entityId?: string | null;
+  runtimeStatesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  runtimeStateId?: string | null;
+}
+export interface UpdateRuntimeStatesChunkInput {
+  clientMutationId?: string;
+  id: string;
+  runtimeStatesChunkPatch: RuntimeStatesChunkPatch;
+}
+export interface DeleteRuntimeStatesChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateSkillInput {
   clientMutationId?: string;
   skill: {
@@ -12526,6 +16629,36 @@ export interface UpdateSkillInput {
   skillPatch: SkillPatch;
 }
 export interface DeleteSkillInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateSkillsChunkInput {
+  clientMutationId?: string;
+  skillsChunk: {
+    entityId: string;
+    skillsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    skillId: string;
+  };
+}
+export interface SkillsChunkPatch {
+  entityId?: string | null;
+  skillsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  skillId?: string | null;
+}
+export interface UpdateSkillsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  skillsChunkPatch: SkillsChunkPatch;
+}
+export interface DeleteSkillsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12679,6 +16812,36 @@ export interface DeleteTaskProjectInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateTasksChunkInput {
+  clientMutationId?: string;
+  tasksChunk: {
+    entityId: string;
+    tasksId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    taskId: string;
+  };
+}
+export interface TasksChunkPatch {
+  entityId?: string | null;
+  tasksId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  taskId?: string | null;
+}
+export interface UpdateTasksChunkInput {
+  clientMutationId?: string;
+  id: string;
+  tasksChunkPatch: TasksChunkPatch;
+}
+export interface DeleteTasksChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateThreadParticipantInput {
   clientMutationId?: string;
   threadParticipant: {
@@ -12698,6 +16861,36 @@ export interface UpdateThreadParticipantInput {
   threadParticipantPatch: ThreadParticipantPatch;
 }
 export interface DeleteThreadParticipantInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateToolDefinitionsChunkInput {
+  clientMutationId?: string;
+  toolDefinitionsChunk: {
+    entityId: string;
+    toolDefinitionsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    toolDefinitionId: string;
+  };
+}
+export interface ToolDefinitionsChunkPatch {
+  entityId?: string | null;
+  toolDefinitionsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  toolDefinitionId?: string | null;
+}
+export interface UpdateToolDefinitionsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  toolDefinitionsChunkPatch: ToolDefinitionsChunkPatch;
+}
+export interface DeleteToolDefinitionsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12785,6 +16978,36 @@ export interface DeleteTouchpointInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateTouchpointsChunkInput {
+  clientMutationId?: string;
+  touchpointsChunk: {
+    entityId: string;
+    touchpointsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    touchpointId: string;
+  };
+}
+export interface TouchpointsChunkPatch {
+  entityId?: string | null;
+  touchpointsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  touchpointId?: string | null;
+}
+export interface UpdateTouchpointsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  touchpointsChunkPatch: TouchpointsChunkPatch;
+}
+export interface DeleteTouchpointsChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateTripInput {
   clientMutationId?: string;
   trip: {
@@ -12818,6 +17041,36 @@ export interface UpdateTripInput {
   tripPatch: TripPatch;
 }
 export interface DeleteTripInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateTripsChunkInput {
+  clientMutationId?: string;
+  tripsChunk: {
+    entityId: string;
+    tripsId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    tripId: string;
+  };
+}
+export interface TripsChunkPatch {
+  entityId?: string | null;
+  tripsId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  tripId?: string | null;
+}
+export interface UpdateTripsChunkInput {
+  clientMutationId?: string;
+  id: string;
+  tripsChunkPatch: TripsChunkPatch;
+}
+export interface DeleteTripsChunkInput {
   clientMutationId?: string;
   id: string;
 }
@@ -12869,23 +17122,62 @@ export interface DeleteVenueLinkInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateVenuesChunkInput {
+  clientMutationId?: string;
+  venuesChunk: {
+    entityId: string;
+    venuesId: string;
+    content: string;
+    chunkIndex?: number;
+    embedding?: number[];
+    metadata?: Record<string, unknown>;
+    venueId: string;
+  };
+}
+export interface VenuesChunkPatch {
+  entityId?: string | null;
+  venuesId?: string | null;
+  content?: string | null;
+  chunkIndex?: number | null;
+  embedding?: number[] | null;
+  metadata?: Record<string, unknown> | null;
+  venueId?: string | null;
+}
+export interface UpdateVenuesChunkInput {
+  clientMutationId?: string;
+  id: string;
+  venuesChunkPatch: VenuesChunkPatch;
+}
+export interface DeleteVenuesChunkInput {
+  clientMutationId?: string;
+  id: string;
+}
 // ============ Connection Fields Map ============
 export const connectionFieldsMap = {
+  ActivityLog: {
+    activityLogsChunks: 'ActivityLogsChunk',
+  },
   Agent: {
     prompts: 'Prompt',
     tasks: 'Task',
     agentLogs: 'AgentLog',
     rules: 'Rule',
     skills: 'Skill',
+    agentsChunks: 'AgentsChunk',
     agentCollaborators: 'AgentCollaborator',
     memories: 'Memory',
     agentPrompts: 'AgentPrompt',
   },
+  AgentLog: {
+    agentLogsChunks: 'AgentLogsChunk',
+  },
   Prompt: {
     agents: 'Agent',
+    promptsChunks: 'PromptsChunk',
     agentPrompts: 'AgentPrompt',
   },
   AutonomyRecord: {
+    autonomyRecordsChunks: 'AutonomyRecordsChunk',
     autonomyRecordLinks: 'AutonomyRecordLink',
   },
   Calendar: {
@@ -12895,6 +17187,7 @@ export const connectionFieldsMap = {
     notes: 'Note',
     tasks: 'Task',
     calendarAttendees: 'CalendarAttendee',
+    calendarEventsChunks: 'CalendarEventsChunk',
     calendarEventContacts: 'CalendarEventContact',
     calendarEventNotes: 'CalendarEventNote',
     calendarEventTasks: 'CalendarEventTask',
@@ -12906,15 +17199,17 @@ export const connectionFieldsMap = {
     expenses: 'Expense',
     notes: 'Note',
     memories: 'Memory',
-    emailThreads: 'EmailThread',
+    emails: 'Email',
     interactions: 'Interaction',
     touchpoints: 'Touchpoint',
     contactLinks: 'ContactLink',
+    contactsChunks: 'ContactsChunk',
     contactImages: 'ContactImage',
     contactCompanies: 'ContactCompany',
     contactEvents: 'ContactEvent',
     dealContacts: 'DealContact',
     contactRelationships: 'ContactRelationship',
+    emailsByFromContactId: 'Email',
     calendarEventsByOrganizerContactId: 'CalendarEvent',
     calendarAttendees: 'CalendarAttendee',
     projectContacts: 'ProjectContact',
@@ -12924,11 +17219,13 @@ export const connectionFieldsMap = {
     contactNotes: 'ContactNote',
     contactMemories: 'ContactMemory',
     threadParticipants: 'ThreadParticipant',
+    emailRecipients: 'EmailRecipient',
     imagesByContactImageContactIdAndImageId: 'Image',
     companiesByContactCompanyContactIdAndCompanyId: 'Company',
     eventsByContactEventContactIdAndEventId: 'Event',
     dealsByDealContactContactIdAndDealId: 'Deal',
     calendarEventsByCalendarEventContactContactIdAndCalendarEventId: 'CalendarEvent',
+    emailThreadsByThreadParticipantContactIdAndEmailThreadId: 'EmailThread',
   },
   Note: {
     contacts: 'Contact',
@@ -12936,12 +17233,15 @@ export const connectionFieldsMap = {
     deals: 'Deal',
     events: 'Event',
     tasks: 'Task',
+    emails: 'Email',
     calendarEvents: 'CalendarEvent',
+    notesChunks: 'NotesChunk',
     contactNotes: 'ContactNote',
     companyNotes: 'CompanyNote',
     dealNotes: 'DealNote',
     eventNotes: 'EventNote',
     taskNotes: 'TaskNote',
+    emailNotes: 'EmailNote',
     calendarEventNotes: 'CalendarEventNote',
   },
   Task: {
@@ -12949,6 +17249,7 @@ export const connectionFieldsMap = {
     projects: 'Project',
     notes: 'Note',
     calendarEvents: 'CalendarEvent',
+    tasksChunks: 'TasksChunk',
     taskContacts: 'TaskContact',
     taskProjects: 'TaskProject',
     taskNotes: 'TaskNote',
@@ -12956,6 +17257,7 @@ export const connectionFieldsMap = {
   },
   Codebasis: {
     codeChunks: 'CodeChunk',
+    codebasesChunks: 'CodebasesChunk',
     codebaseDependencies: 'CodebaseDependency',
   },
   Company: {
@@ -12963,6 +17265,7 @@ export const connectionFieldsMap = {
     memories: 'Memory',
     touchpoints: 'Touchpoint',
     companyLinks: 'CompanyLink',
+    companiesChunks: 'CompaniesChunk',
     companyImages: 'CompanyImage',
     contactCompanies: 'ContactCompany',
     companyEvents: 'CompanyEvent',
@@ -12977,6 +17280,7 @@ export const connectionFieldsMap = {
   Deal: {
     notes: 'Note',
     touchpoints: 'Touchpoint',
+    dealsChunks: 'DealsChunk',
     dealContacts: 'DealContact',
     dealCompanies: 'DealCompany',
     dealNotes: 'DealNote',
@@ -12988,6 +17292,7 @@ export const connectionFieldsMap = {
     notes: 'Note',
     touchpoints: 'Touchpoint',
     eventLinks: 'EventLink',
+    eventsChunks: 'EventsChunk',
     eventImages: 'EventImage',
     contactEvents: 'ContactEvent',
     companyEvents: 'CompanyEvent',
@@ -13014,35 +17319,46 @@ export const connectionFieldsMap = {
   Memory: {
     contacts: 'Contact',
     companies: 'Company',
+    memoriesChunks: 'MemoriesChunk',
     contactMemories: 'ContactMemory',
     companyMemories: 'CompanyMemory',
   },
+  Email: {
+    notes: 'Note',
+    emailAttachments: 'EmailAttachment',
+    emailsChunks: 'EmailsChunk',
+    emailRecipients: 'EmailRecipient',
+    emailNotes: 'EmailNote',
+    contactsByEmailRecipientEmailIdAndContactId: 'Contact',
+  },
   EmailThread: {
-    contacts: 'Contact',
     emails: 'Email',
+    emailThreadsChunks: 'EmailThreadsChunk',
     threadParticipants: 'ThreadParticipant',
+    contactsByThreadParticipantEmailThreadIdAndContactId: 'Contact',
   },
   Expense: {
     contacts: 'Contact',
+    expensesChunks: 'ExpensesChunk',
     expenseContacts: 'ExpenseContact',
   },
   Project: {
     contacts: 'Contact',
     tasks: 'Task',
     goals: 'Goal',
+    projectsChunks: 'ProjectsChunk',
     projectContacts: 'ProjectContact',
     taskProjects: 'TaskProject',
     goalProjects: 'GoalProject',
   },
   Conversation: {
     messages: 'Message',
-  },
-  Email: {
-    emailAttachments: 'EmailAttachment',
+    conversationsChunks: 'ConversationsChunk',
   },
   Venue: {
     events: 'Event',
     venueLinks: 'VenueLink',
+    venuesChunks: 'VenuesChunk',
     venueImages: 'VenueImage',
     eventVenues: 'EventVenue',
     imagesByVenueImageVenueIdAndImageId: 'Image',
@@ -13050,6 +17366,7 @@ export const connectionFieldsMap = {
   Goal: {
     habits: 'Habit',
     projects: 'Project',
+    goalsChunks: 'GoalsChunk',
     goalHabits: 'GoalHabit',
     goalProjects: 'GoalProject',
   },
@@ -13058,28 +17375,53 @@ export const connectionFieldsMap = {
     activityLogs: 'ActivityLog',
     goalHabits: 'GoalHabit',
   },
+  HikingTrail: {
+    hikingTrailsChunks: 'HikingTrailsChunk',
+  },
+  Interaction: {
+    interactionsChunks: 'InteractionsChunk',
+  },
+  Message: {
+    messagesChunks: 'MessagesChunk',
+  },
+  Place: {
+    placesChunks: 'PlacesChunk',
+  },
   RawContact: {
     rawContactEmails: 'RawContactEmail',
     rawContactPhones: 'RawContactPhone',
     rawContactUrls: 'RawContactUrl',
   },
+  Rule: {
+    rulesChunks: 'RulesChunk',
+  },
+  RuntimeLog: {
+    runtimeLogsChunks: 'RuntimeLogsChunk',
+  },
   RuntimeState: {
     runtimeLogs: 'RuntimeLog',
     runtimeArtifacts: 'RuntimeArtifact',
     runtimeMetrics: 'RuntimeMetric',
+    runtimeStatesChunks: 'RuntimeStatesChunk',
     runtimeStateDependencies: 'RuntimeStateDependency',
   },
   Skill: {
     toolDefinitions: 'ToolDefinition',
+    skillsChunks: 'SkillsChunk',
     skillTools: 'SkillTool',
   },
   ToolDefinition: {
     skills: 'Skill',
+    toolDefinitionsChunks: 'ToolDefinitionsChunk',
     toolExecutions: 'ToolExecution',
     skillTools: 'SkillTool',
   },
+  Touchpoint: {
+    touchpointsChunks: 'TouchpointsChunk',
+  },
   Trip: {
     expenses: 'Expense',
+    tripsChunks: 'TripsChunk',
   },
 } as Record<string, Record<string, string>>;
 /** A filter to be used against String fields with pg_trgm support. All fields are combined with a logical ‘and.’ */
@@ -13164,6 +17506,15 @@ export interface StringTrgmFilter {
   /** Fuzzy matches using pg_trgm word_similarity. Finds the best matching substring within the column value. */
   wordSimilarTo?: TrgmSearchInput;
 }
+/** A filter to be used against many `ActivityLogsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ActivityLogToManyActivityLogsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ActivityLogsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ActivityLogsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ActivityLogsChunkFilter;
+}
 /** Input for BM25 ranked text search. Provide a search query string and optional score threshold. */
 export interface Bm25SearchInput {
   /** The search query text. Uses pg_textsearch BM25 ranking. */
@@ -13225,6 +17576,15 @@ export interface AgentToManySkillFilter {
   /** Filters to entities where no related entity matches. */
   none?: SkillFilter;
 }
+/** A filter to be used against many `AgentsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface AgentToManyAgentsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: AgentsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: AgentsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: AgentsChunkFilter;
+}
 /** A filter to be used against many `AgentCollaborator` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentToManyAgentCollaboratorFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13252,6 +17612,24 @@ export interface AgentToManyAgentPromptFilter {
   /** Filters to entities where no related entity matches. */
   none?: AgentPromptFilter;
 }
+/** A filter to be used against many `AgentLogsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface AgentLogToManyAgentLogsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: AgentLogsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: AgentLogsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: AgentLogsChunkFilter;
+}
+/** A filter to be used against many `PromptsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface PromptToManyPromptsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: PromptsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: PromptsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: PromptsChunkFilter;
+}
 /** A filter to be used against many `AgentPrompt` object types. All fields are combined with a logical ‘and.’ */
 export interface PromptToManyAgentPromptFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13260,6 +17638,15 @@ export interface PromptToManyAgentPromptFilter {
   every?: AgentPromptFilter;
   /** Filters to entities where no related entity matches. */
   none?: AgentPromptFilter;
+}
+/** A filter to be used against many `AutonomyRecordsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface AutonomyRecordToManyAutonomyRecordsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: AutonomyRecordsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: AutonomyRecordsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: AutonomyRecordsChunkFilter;
 }
 /** A filter to be used against many `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’ */
 export interface AutonomyRecordToManyAutonomyRecordLinkFilter {
@@ -13287,6 +17674,15 @@ export interface CalendarEventToManyCalendarAttendeeFilter {
   every?: CalendarAttendeeFilter;
   /** Filters to entities where no related entity matches. */
   none?: CalendarAttendeeFilter;
+}
+/** A filter to be used against many `CalendarEventsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventToManyCalendarEventsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CalendarEventsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CalendarEventsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CalendarEventsChunkFilter;
 }
 /** A filter to be used against many `CalendarEventContact` object types. All fields are combined with a logical ‘and.’ */
 export interface CalendarEventToManyCalendarEventContactFilter {
@@ -13342,6 +17738,15 @@ export interface ContactToManyContactLinkFilter {
   /** Filters to entities where no related entity matches. */
   none?: ContactLinkFilter;
 }
+/** A filter to be used against many `ContactsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactsChunkFilter;
+}
 /** A filter to be used against many `ContactImage` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyContactImageFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13386,6 +17791,15 @@ export interface ContactToManyContactRelationshipFilter {
   every?: ContactRelationshipFilter;
   /** Filters to entities where no related entity matches. */
   none?: ContactRelationshipFilter;
+}
+/** A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyEmailFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailFilter;
 }
 /** A filter to be used against many `CalendarEvent` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyCalendarEventFilter {
@@ -13468,6 +17882,24 @@ export interface ContactToManyThreadParticipantFilter {
   /** Filters to entities where no related entity matches. */
   none?: ThreadParticipantFilter;
 }
+/** A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyEmailRecipientFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailRecipientFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailRecipientFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailRecipientFilter;
+}
+/** A filter to be used against many `NotesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyNotesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: NotesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: NotesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: NotesChunkFilter;
+}
 /** A filter to be used against many `ContactNote` object types. All fields are combined with a logical ‘and.’ */
 export interface NoteToManyContactNoteFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13513,6 +17945,15 @@ export interface NoteToManyTaskNoteFilter {
   /** Filters to entities where no related entity matches. */
   none?: TaskNoteFilter;
 }
+/** A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’ */
+export interface NoteToManyEmailNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailNoteFilter;
+}
 /** A filter to be used against many `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
 export interface NoteToManyCalendarEventNoteFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13521,6 +17962,15 @@ export interface NoteToManyCalendarEventNoteFilter {
   every?: CalendarEventNoteFilter;
   /** Filters to entities where no related entity matches. */
   none?: CalendarEventNoteFilter;
+}
+/** A filter to be used against many `TasksChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface TaskToManyTasksChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TasksChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TasksChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TasksChunkFilter;
 }
 /** A filter to be used against many `TaskContact` object types. All fields are combined with a logical ‘and.’ */
 export interface TaskToManyTaskContactFilter {
@@ -13567,6 +18017,15 @@ export interface CodebasisToManyCodeChunkFilter {
   /** Filters to entities where no related entity matches. */
   none?: CodeChunkFilter;
 }
+/** A filter to be used against many `CodebasesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface CodebasisToManyCodebasesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CodebasesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CodebasesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CodebasesChunkFilter;
+}
 /** A filter to be used against many `CodebaseDependency` object types. All fields are combined with a logical ‘and.’ */
 export interface CodebasisToManyCodebaseDependencyFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13593,6 +18052,15 @@ export interface CompanyToManyCompanyLinkFilter {
   every?: CompanyLinkFilter;
   /** Filters to entities where no related entity matches. */
   none?: CompanyLinkFilter;
+}
+/** A filter to be used against many `CompaniesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface CompanyToManyCompaniesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: CompaniesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: CompaniesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: CompaniesChunkFilter;
 }
 /** A filter to be used against many `CompanyImage` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyToManyCompanyImageFilter {
@@ -13657,6 +18125,15 @@ export interface DealToManyTouchpointFilter {
   /** Filters to entities where no related entity matches. */
   none?: TouchpointFilter;
 }
+/** A filter to be used against many `DealsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface DealToManyDealsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: DealsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: DealsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: DealsChunkFilter;
+}
 /** A filter to be used against many `DealContact` object types. All fields are combined with a logical ‘and.’ */
 export interface DealToManyDealContactFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13701,6 +18178,15 @@ export interface EventToManyEventLinkFilter {
   every?: EventLinkFilter;
   /** Filters to entities where no related entity matches. */
   none?: EventLinkFilter;
+}
+/** A filter to be used against many `EventsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface EventToManyEventsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EventsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EventsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EventsChunkFilter;
 }
 /** A filter to be used against many `EventImage` object types. All fields are combined with a logical ‘and.’ */
 export interface EventToManyEventImageFilter {
@@ -13819,6 +18305,15 @@ export interface ImageToManyVenueImageFilter {
   /** Filters to entities where no related entity matches. */
   none?: VenueImageFilter;
 }
+/** A filter to be used against many `MemoriesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface MemoryToManyMemoriesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: MemoriesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: MemoriesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: MemoriesChunkFilter;
+}
 /** A filter to be used against many `ContactMemory` object types. All fields are combined with a logical ‘and.’ */
 export interface MemoryToManyContactMemoryFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13837,6 +18332,42 @@ export interface MemoryToManyCompanyMemoryFilter {
   /** Filters to entities where no related entity matches. */
   none?: CompanyMemoryFilter;
 }
+/** A filter to be used against many `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailToManyEmailAttachmentFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailAttachmentFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailAttachmentFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailAttachmentFilter;
+}
+/** A filter to be used against many `EmailsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailToManyEmailsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailsChunkFilter;
+}
+/** A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailToManyEmailRecipientFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailRecipientFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailRecipientFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailRecipientFilter;
+}
+/** A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailToManyEmailNoteFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailNoteFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailNoteFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailNoteFilter;
+}
 /** A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailThreadToManyEmailFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13845,6 +18376,15 @@ export interface EmailThreadToManyEmailFilter {
   every?: EmailFilter;
   /** Filters to entities where no related entity matches. */
   none?: EmailFilter;
+}
+/** A filter to be used against many `EmailThreadsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadToManyEmailThreadsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailThreadsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailThreadsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailThreadsChunkFilter;
 }
 /** A filter to be used against many `ThreadParticipant` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailThreadToManyThreadParticipantFilter {
@@ -13855,6 +18395,15 @@ export interface EmailThreadToManyThreadParticipantFilter {
   /** Filters to entities where no related entity matches. */
   none?: ThreadParticipantFilter;
 }
+/** A filter to be used against many `ExpensesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ExpenseToManyExpensesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ExpensesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ExpensesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ExpensesChunkFilter;
+}
 /** A filter to be used against many `ExpenseContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ExpenseToManyExpenseContactFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13863,6 +18412,15 @@ export interface ExpenseToManyExpenseContactFilter {
   every?: ExpenseContactFilter;
   /** Filters to entities where no related entity matches. */
   none?: ExpenseContactFilter;
+}
+/** A filter to be used against many `ProjectsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ProjectToManyProjectsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ProjectsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ProjectsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ProjectsChunkFilter;
 }
 /** A filter to be used against many `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectToManyProjectContactFilter {
@@ -13900,14 +18458,14 @@ export interface ConversationToManyMessageFilter {
   /** Filters to entities where no related entity matches. */
   none?: MessageFilter;
 }
-/** A filter to be used against many `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailToManyEmailAttachmentFilter {
+/** A filter to be used against many `ConversationsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ConversationToManyConversationsChunkFilter {
   /** Filters to entities where at least one related entity matches. */
-  some?: EmailAttachmentFilter;
+  some?: ConversationsChunkFilter;
   /** Filters to entities where every related entity matches. */
-  every?: EmailAttachmentFilter;
+  every?: ConversationsChunkFilter;
   /** Filters to entities where no related entity matches. */
-  none?: EmailAttachmentFilter;
+  none?: ConversationsChunkFilter;
 }
 /** A filter to be used against many `VenueLink` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueToManyVenueLinkFilter {
@@ -13917,6 +18475,15 @@ export interface VenueToManyVenueLinkFilter {
   every?: VenueLinkFilter;
   /** Filters to entities where no related entity matches. */
   none?: VenueLinkFilter;
+}
+/** A filter to be used against many `VenuesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface VenueToManyVenuesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: VenuesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: VenuesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: VenuesChunkFilter;
 }
 /** A filter to be used against many `VenueImage` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueToManyVenueImageFilter {
@@ -13935,6 +18502,15 @@ export interface VenueToManyEventVenueFilter {
   every?: EventVenueFilter;
   /** Filters to entities where no related entity matches. */
   none?: EventVenueFilter;
+}
+/** A filter to be used against many `GoalsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface GoalToManyGoalsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: GoalsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: GoalsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: GoalsChunkFilter;
 }
 /** A filter to be used against many `GoalHabit` object types. All fields are combined with a logical ‘and.’ */
 export interface GoalToManyGoalHabitFilter {
@@ -13972,6 +18548,42 @@ export interface HabitToManyGoalHabitFilter {
   /** Filters to entities where no related entity matches. */
   none?: GoalHabitFilter;
 }
+/** A filter to be used against many `HikingTrailsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface HikingTrailToManyHikingTrailsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: HikingTrailsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: HikingTrailsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: HikingTrailsChunkFilter;
+}
+/** A filter to be used against many `InteractionsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface InteractionToManyInteractionsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: InteractionsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: InteractionsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: InteractionsChunkFilter;
+}
+/** A filter to be used against many `MessagesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface MessageToManyMessagesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: MessagesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: MessagesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: MessagesChunkFilter;
+}
+/** A filter to be used against many `PlacesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface PlaceToManyPlacesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: PlacesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: PlacesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: PlacesChunkFilter;
+}
 /** A filter to be used against many `RawContactEmail` object types. All fields are combined with a logical ‘and.’ */
 export interface RawContactToManyRawContactEmailFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13998,6 +18610,24 @@ export interface RawContactToManyRawContactUrlFilter {
   every?: RawContactUrlFilter;
   /** Filters to entities where no related entity matches. */
   none?: RawContactUrlFilter;
+}
+/** A filter to be used against many `RulesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface RuleToManyRulesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RulesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RulesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RulesChunkFilter;
+}
+/** A filter to be used against many `RuntimeLogsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface RuntimeLogToManyRuntimeLogsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RuntimeLogsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RuntimeLogsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RuntimeLogsChunkFilter;
 }
 /** A filter to be used against many `RuntimeLog` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeStateToManyRuntimeLogFilter {
@@ -14026,6 +18656,15 @@ export interface RuntimeStateToManyRuntimeMetricFilter {
   /** Filters to entities where no related entity matches. */
   none?: RuntimeMetricFilter;
 }
+/** A filter to be used against many `RuntimeStatesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface RuntimeStateToManyRuntimeStatesChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: RuntimeStatesChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: RuntimeStatesChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: RuntimeStatesChunkFilter;
+}
 /** A filter to be used against many `RuntimeStateDependency` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeStateToManyRuntimeStateDependencyFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14035,6 +18674,15 @@ export interface RuntimeStateToManyRuntimeStateDependencyFilter {
   /** Filters to entities where no related entity matches. */
   none?: RuntimeStateDependencyFilter;
 }
+/** A filter to be used against many `SkillsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface SkillToManySkillsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: SkillsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: SkillsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: SkillsChunkFilter;
+}
 /** A filter to be used against many `SkillTool` object types. All fields are combined with a logical ‘and.’ */
 export interface SkillToManySkillToolFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14043,6 +18691,15 @@ export interface SkillToManySkillToolFilter {
   every?: SkillToolFilter;
   /** Filters to entities where no related entity matches. */
   none?: SkillToolFilter;
+}
+/** A filter to be used against many `ToolDefinitionsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ToolDefinitionToManyToolDefinitionsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ToolDefinitionsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ToolDefinitionsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ToolDefinitionsChunkFilter;
 }
 /** A filter to be used against many `ToolExecution` object types. All fields are combined with a logical ‘and.’ */
 export interface ToolDefinitionToManyToolExecutionFilter {
@@ -14062,6 +18719,15 @@ export interface ToolDefinitionToManySkillToolFilter {
   /** Filters to entities where no related entity matches. */
   none?: SkillToolFilter;
 }
+/** A filter to be used against many `TouchpointsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface TouchpointToManyTouchpointsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TouchpointsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TouchpointsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TouchpointsChunkFilter;
+}
 /** A filter to be used against many `Expense` object types. All fields are combined with a logical ‘and.’ */
 export interface TripToManyExpenseFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14070,6 +18736,48 @@ export interface TripToManyExpenseFilter {
   every?: ExpenseFilter;
   /** Filters to entities where no related entity matches. */
   none?: ExpenseFilter;
+}
+/** A filter to be used against many `TripsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface TripToManyTripsChunkFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: TripsChunkFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: TripsChunkFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: TripsChunkFilter;
+}
+/** A filter to be used against `ActivityLogsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ActivityLogsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `activityLogsId` field. */
+  activityLogsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `activityLogId` field. */
+  activityLogId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ActivityLogsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ActivityLogsChunkFilter[];
+  /** Negates the expression. */
+  not?: ActivityLogsChunkFilter;
+  /** Filter by the object’s `activityLog` relation. */
+  activityLog?: ActivityLogFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** Similarity metric for vector search */
 export type VectorMetric = 'COSINE' | 'L2' | 'IP';
@@ -14117,6 +18825,10 @@ export interface TaskFilter {
   agent?: AgentFilter;
   /** A related `agent` exists. */
   agentExists?: boolean;
+  /** Filter by the object’s `tasksChunks` relation. */
+  tasksChunks?: TaskToManyTasksChunkFilter;
+  /** `tasksChunks` exist. */
+  tasksChunksExist?: boolean;
   /** Filter by the object’s `taskContacts` relation. */
   taskContacts?: TaskToManyTaskContactFilter;
   /** `taskContacts` exist. */
@@ -14191,6 +18903,10 @@ export interface AgentLogFilter {
   agent?: AgentFilter;
   /** A related `agent` exists. */
   agentExists?: boolean;
+  /** Filter by the object’s `agentLogsChunks` relation. */
+  agentLogsChunks?: AgentLogToManyAgentLogsChunkFilter;
+  /** `agentLogsChunks` exist. */
+  agentLogsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -14255,6 +18971,10 @@ export interface RuleFilter {
   not?: RuleFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
+  /** Filter by the object’s `rulesChunks` relation. */
+  rulesChunks?: RuleToManyRulesChunkFilter;
+  /** `rulesChunks` exist. */
+  rulesChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -14323,6 +19043,10 @@ export interface SkillFilter {
   not?: SkillFilter;
   /** Filter by the object’s `agent` relation. */
   agent?: AgentFilter;
+  /** Filter by the object’s `skillsChunks` relation. */
+  skillsChunks?: SkillToManySkillsChunkFilter;
+  /** `skillsChunks` exist. */
+  skillsChunksExist?: boolean;
   /** Filter by the object’s `skillTools` relation. */
   skillTools?: SkillToManySkillToolFilter;
   /** `skillTools` exist. */
@@ -14352,6 +19076,39 @@ export interface SkillFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+/** A filter to be used against `AgentsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface AgentsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `agentsId` field. */
+  agentsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `agentId` field. */
+  agentId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AgentsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AgentsChunkFilter[];
+  /** Negates the expression. */
+  not?: AgentsChunkFilter;
+  /** Filter by the object’s `agent` relation. */
+  agent?: AgentFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `AgentCollaborator` object types. All fields are combined with a logical ‘and.’ */
 export interface AgentCollaboratorFilter {
@@ -14406,6 +19163,10 @@ export interface MemoryFilter {
   agent?: AgentFilter;
   /** A related `agent` exists. */
   agentExists?: boolean;
+  /** Filter by the object’s `memoriesChunks` relation. */
+  memoriesChunks?: MemoryToManyMemoriesChunkFilter;
+  /** `memoriesChunks` exist. */
+  memoriesChunksExist?: boolean;
   /** Filter by the object’s `contactMemories` relation. */
   contactMemories?: MemoryToManyContactMemoryFilter;
   /** `contactMemories` exist. */
@@ -14456,6 +19217,105 @@ export interface AgentPromptFilter {
   agent?: AgentFilter;
   /** Filter by the object’s `prompt` relation. */
   prompt?: PromptFilter;
+}
+/** A filter to be used against `AgentLogsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface AgentLogsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `agentLogsId` field. */
+  agentLogsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `agentLogId` field. */
+  agentLogId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AgentLogsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AgentLogsChunkFilter[];
+  /** Negates the expression. */
+  not?: AgentLogsChunkFilter;
+  /** Filter by the object’s `agentLog` relation. */
+  agentLog?: AgentLogFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `PromptsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface PromptsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `promptsId` field. */
+  promptsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `promptId` field. */
+  promptId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: PromptsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: PromptsChunkFilter[];
+  /** Negates the expression. */
+  not?: PromptsChunkFilter;
+  /** Filter by the object’s `prompt` relation. */
+  prompt?: PromptFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `AutonomyRecordsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface AutonomyRecordsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `autonomyRecordsId` field. */
+  autonomyRecordsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `autonomyRecordId` field. */
+  autonomyRecordId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: AutonomyRecordsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: AutonomyRecordsChunkFilter[];
+  /** Negates the expression. */
+  not?: AutonomyRecordsChunkFilter;
+  /** Filter by the object’s `autonomyRecord` relation. */
+  autonomyRecord?: AutonomyRecordFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `AutonomyRecordLink` object types. All fields are combined with a logical ‘and.’ */
 export interface AutonomyRecordLinkFilter {
@@ -14522,6 +19382,10 @@ export interface CalendarEventFilter {
   calendarAttendees?: CalendarEventToManyCalendarAttendeeFilter;
   /** `calendarAttendees` exist. */
   calendarAttendeesExist?: boolean;
+  /** Filter by the object’s `calendarEventsChunks` relation. */
+  calendarEventsChunks?: CalendarEventToManyCalendarEventsChunkFilter;
+  /** `calendarEventsChunks` exist. */
+  calendarEventsChunksExist?: boolean;
   /** Filter by the object’s `calendarEventContacts` relation. */
   calendarEventContacts?: CalendarEventToManyCalendarEventContactFilter;
   /** `calendarEventContacts` exist. */
@@ -14588,6 +19452,39 @@ export interface CalendarAttendeeFilter {
   contact?: ContactFilter;
   /** A related `contact` exists. */
   contactExists?: boolean;
+}
+/** A filter to be used against `CalendarEventsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface CalendarEventsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `calendarEventsId` field. */
+  calendarEventsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `calendarEventId` field. */
+  calendarEventId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CalendarEventsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CalendarEventsChunkFilter[];
+  /** Negates the expression. */
+  not?: CalendarEventsChunkFilter;
+  /** Filter by the object’s `calendarEvent` relation. */
+  calendarEvent?: CalendarEventFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `CalendarEventContact` object types. All fields are combined with a logical ‘and.’ */
 export interface CalendarEventContactFilter {
@@ -14688,6 +19585,10 @@ export interface InteractionFilter {
   not?: InteractionFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
+  /** Filter by the object’s `interactionsChunks` relation. */
+  interactionsChunks?: InteractionToManyInteractionsChunkFilter;
+  /** `interactionsChunks` exist. */
+  interactionsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -14770,6 +19671,10 @@ export interface TouchpointFilter {
   event?: EventFilter;
   /** A related `event` exists. */
   eventExists?: boolean;
+  /** Filter by the object’s `touchpointsChunks` relation. */
+  touchpointsChunks?: TouchpointToManyTouchpointsChunkFilter;
+  /** `touchpointsChunks` exist. */
+  touchpointsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -14822,6 +19727,39 @@ export interface ContactLinkFilter {
   or?: ContactLinkFilter[];
   /** Negates the expression. */
   not?: ContactLinkFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `ContactsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `contactsId` field. */
+  contactsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactsChunkFilter[];
+  /** Negates the expression. */
+  not?: ContactsChunkFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
   /** VECTOR search on the `embedding` column. */
@@ -14907,6 +19845,75 @@ export interface ContactRelationshipFilter {
   not?: ContactRelationshipFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
+}
+/** A filter to be used against `Email` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `providerMessageId` field. */
+  providerMessageId?: StringFilter;
+  /** Filter by the object’s `fromContactId` field. */
+  fromContactId?: UUIDFilter;
+  /** Filter by the object’s `to` field. */
+  to?: JSONFilter;
+  /** Filter by the object’s `cc` field. */
+  cc?: JSONFilter;
+  /** Filter by the object’s `bcc` field. */
+  bcc?: JSONFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringFilter;
+  /** Filter by the object’s `bodyText` field. */
+  bodyText?: StringFilter;
+  /** Filter by the object’s `bodyHtml` field. */
+  bodyHtml?: StringFilter;
+  /** Filter by the object’s `sentAt` field. */
+  sentAt?: DatetimeFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `emailThreadId` field. */
+  emailThreadId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailFilter[];
+  /** Negates the expression. */
+  not?: EmailFilter;
+  /** Filter by the object’s `emailThread` relation. */
+  emailThread?: EmailThreadFilter;
+  /** Filter by the object’s `fromContact` relation. */
+  fromContact?: ContactFilter;
+  /** A related `fromContact` exists. */
+  fromContactExists?: boolean;
+  /** Filter by the object’s `emailAttachments` relation. */
+  emailAttachments?: EmailToManyEmailAttachmentFilter;
+  /** `emailAttachments` exist. */
+  emailAttachmentsExist?: boolean;
+  /** Filter by the object’s `emailsChunks` relation. */
+  emailsChunks?: EmailToManyEmailsChunkFilter;
+  /** `emailsChunks` exist. */
+  emailsChunksExist?: boolean;
+  /** Filter by the object’s `emailRecipients` relation. */
+  emailRecipients?: EmailToManyEmailRecipientFilter;
+  /** `emailRecipients` exist. */
+  emailRecipientsExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: EmailToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
 }
 /** A filter to be used against `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectContactFilter {
@@ -15034,6 +20041,60 @@ export interface ThreadParticipantFilter {
   /** Filter by the object’s `emailThread` relation. */
   emailThread?: EmailThreadFilter;
 }
+/** A filter to be used against `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailRecipientFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailRecipientFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailRecipientFilter[];
+  /** Negates the expression. */
+  not?: EmailRecipientFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+}
+/** A filter to be used against `NotesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface NotesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `notesId` field. */
+  notesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: NotesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: NotesChunkFilter[];
+  /** Negates the expression. */
+  not?: NotesChunkFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 /** A filter to be used against `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyNoteFilter {
   /** Filter by the object’s `companyId` field. */
@@ -15117,6 +20178,60 @@ export interface TaskNoteFilter {
   note?: NoteFilter;
   /** Filter by the object’s `task` relation. */
   task?: TaskFilter;
+}
+/** A filter to be used against `EmailNote` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailNoteFilter {
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Filter by the object’s `noteId` field. */
+  noteId?: UUIDFilter;
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailNoteFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailNoteFilter[];
+  /** Negates the expression. */
+  not?: EmailNoteFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+  /** Filter by the object’s `note` relation. */
+  note?: NoteFilter;
+}
+/** A filter to be used against `TasksChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface TasksChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `tasksId` field. */
+  tasksId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `taskId` field. */
+  taskId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TasksChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TasksChunkFilter[];
+  /** Negates the expression. */
+  not?: TasksChunkFilter;
+  /** Filter by the object’s `task` relation. */
+  task?: TaskFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `TaskProject` object types. All fields are combined with a logical ‘and.’ */
 export interface TaskProjectFilter {
@@ -15207,6 +20322,39 @@ export interface CodeChunkFilter {
    */
   fullTextSearch?: string;
 }
+/** A filter to be used against `CodebasesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface CodebasesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `codebasesId` field. */
+  codebasesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `codebasisId` field. */
+  codebasisId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CodebasesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CodebasesChunkFilter[];
+  /** Negates the expression. */
+  not?: CodebasesChunkFilter;
+  /** Filter by the object’s `codebasis` relation. */
+  codebasis?: CodebasisFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 /** A filter to be used against `CodebaseDependency` object types. All fields are combined with a logical ‘and.’ */
 export interface CodebaseDependencyFilter {
   /** Filter by the object’s `codebasisId` field. */
@@ -15246,6 +20394,39 @@ export interface CompanyLinkFilter {
   or?: CompanyLinkFilter[];
   /** Negates the expression. */
   not?: CompanyLinkFilter;
+  /** Filter by the object’s `company` relation. */
+  company?: CompanyFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `CompaniesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface CompaniesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `companiesId` field. */
+  companiesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `companyId` field. */
+  companyId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: CompaniesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: CompaniesChunkFilter[];
+  /** Negates the expression. */
+  not?: CompaniesChunkFilter;
   /** Filter by the object’s `company` relation. */
   company?: CompanyFilter;
   /** VECTOR search on the `embedding` column. */
@@ -15323,6 +20504,39 @@ export interface CompanyMemoryFilter {
   /** Filter by the object’s `memory` relation. */
   memory?: MemoryFilter;
 }
+/** A filter to be used against `DealsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface DealsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `dealsId` field. */
+  dealsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `dealId` field. */
+  dealId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: DealsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: DealsChunkFilter[];
+  /** Negates the expression. */
+  not?: DealsChunkFilter;
+  /** Filter by the object’s `deal` relation. */
+  deal?: DealFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 /** A filter to be used against `EventLink` object types. All fields are combined with a logical ‘and.’ */
 export interface EventLinkFilter {
   /** Filter by the object’s `id` field. */
@@ -15349,6 +20563,39 @@ export interface EventLinkFilter {
   or?: EventLinkFilter[];
   /** Negates the expression. */
   not?: EventLinkFilter;
+  /** Filter by the object’s `event` relation. */
+  event?: EventFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `EventsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface EventsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `eventsId` field. */
+  eventsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `eventId` field. */
+  eventId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EventsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EventsChunkFilter[];
+  /** Negates the expression. */
+  not?: EventsChunkFilter;
   /** Filter by the object’s `event` relation. */
   event?: EventFilter;
   /** VECTOR search on the `embedding` column. */
@@ -15462,6 +20709,10 @@ export interface ContactFilter {
   contactLinks?: ContactToManyContactLinkFilter;
   /** `contactLinks` exist. */
   contactLinksExist?: boolean;
+  /** Filter by the object’s `contactsChunks` relation. */
+  contactsChunks?: ContactToManyContactsChunkFilter;
+  /** `contactsChunks` exist. */
+  contactsChunksExist?: boolean;
   /** Filter by the object’s `contactImages` relation. */
   contactImages?: ContactToManyContactImageFilter;
   /** `contactImages` exist. */
@@ -15482,6 +20733,10 @@ export interface ContactFilter {
   contactRelationships?: ContactToManyContactRelationshipFilter;
   /** `contactRelationships` exist. */
   contactRelationshipsExist?: boolean;
+  /** Filter by the object’s `emailsByFromContactId` relation. */
+  emailsByFromContactId?: ContactToManyEmailFilter;
+  /** `emailsByFromContactId` exist. */
+  emailsByFromContactIdExist?: boolean;
   /** Filter by the object’s `calendarEventsByOrganizerContactId` relation. */
   calendarEventsByOrganizerContactId?: ContactToManyCalendarEventFilter;
   /** `calendarEventsByOrganizerContactId` exist. */
@@ -15518,6 +20773,10 @@ export interface ContactFilter {
   threadParticipants?: ContactToManyThreadParticipantFilter;
   /** `threadParticipants` exist. */
   threadParticipantsExist?: boolean;
+  /** Filter by the object’s `emailRecipients` relation. */
+  emailRecipients?: ContactToManyEmailRecipientFilter;
+  /** `emailRecipients` exist. */
+  emailRecipientsExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
   /** BM25 search on the `embedding_text` column. */
@@ -15610,6 +20869,10 @@ export interface CompanyFilter {
   companyLinks?: CompanyToManyCompanyLinkFilter;
   /** `companyLinks` exist. */
   companyLinksExist?: boolean;
+  /** Filter by the object’s `companiesChunks` relation. */
+  companiesChunks?: CompanyToManyCompaniesChunkFilter;
+  /** `companiesChunks` exist. */
+  companiesChunksExist?: boolean;
   /** Filter by the object’s `companyImages` relation. */
   companyImages?: CompanyToManyCompanyImageFilter;
   /** `companyImages` exist. */
@@ -15712,6 +20975,10 @@ export interface EventFilter {
   eventLinks?: EventToManyEventLinkFilter;
   /** `eventLinks` exist. */
   eventLinksExist?: boolean;
+  /** Filter by the object’s `eventsChunks` relation. */
+  eventsChunks?: EventToManyEventsChunkFilter;
+  /** `eventsChunks` exist. */
+  eventsChunksExist?: boolean;
   /** Filter by the object’s `eventImages` relation. */
   eventImages?: EventToManyEventImageFilter;
   /** `eventImages` exist. */
@@ -15816,6 +21083,10 @@ export interface VenueFilter {
   venueLinks?: VenueToManyVenueLinkFilter;
   /** `venueLinks` exist. */
   venueLinksExist?: boolean;
+  /** Filter by the object’s `venuesChunks` relation. */
+  venuesChunks?: VenueToManyVenuesChunkFilter;
+  /** `venuesChunks` exist. */
+  venuesChunksExist?: boolean;
   /** Filter by the object’s `venueImages` relation. */
   venueImages?: VenueToManyVenueImageFilter;
   /** `venueImages` exist. */
@@ -15875,58 +21146,201 @@ export interface VenueImageFilter {
   /** Filter by the object’s `venue` relation. */
   venue?: VenueFilter;
 }
-/** A filter to be used against `Email` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailFilter {
+/** A filter to be used against `MemoriesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface MemoriesChunkFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringFilter;
-  /** Filter by the object’s `fromContactId` field. */
-  fromContactId?: UUIDFilter;
-  /** Filter by the object’s `to` field. */
-  to?: JSONFilter;
-  /** Filter by the object’s `cc` field. */
-  cc?: JSONFilter;
-  /** Filter by the object’s `bcc` field. */
-  bcc?: JSONFilter;
-  /** Filter by the object’s `subject` field. */
-  subject?: StringFilter;
-  /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringFilter;
-  /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringFilter;
-  /** Filter by the object’s `sentAt` field. */
-  sentAt?: DatetimeFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
+  /** Filter by the object’s `memoriesId` field. */
+  memoriesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `memoryId` field. */
+  memoryId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: MemoriesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: MemoriesChunkFilter[];
+  /** Negates the expression. */
+  not?: MemoriesChunkFilter;
+  /** Filter by the object’s `memory` relation. */
+  memory?: MemoryFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailAttachmentFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `filename` field. */
+  filename?: StringFilter;
+  /** Filter by the object’s `contentType` field. */
+  contentType?: StringFilter;
+  /** Filter by the object’s `sizeBytes` field. */
+  sizeBytes?: IntFilter;
+  /** Filter by the object’s `storageUrl` field. */
+  storageUrl?: StringFilter;
+  /** Filter by the object’s `providerAttachmentId` field. */
+  providerAttachmentId?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailAttachmentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailAttachmentFilter[];
+  /** Negates the expression. */
+  not?: EmailAttachmentFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+}
+/** A filter to be used against `EmailsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `emailsId` field. */
+  emailsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
   /** Filter by the object’s `embedding` field. */
   embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailsChunkFilter[];
+  /** Negates the expression. */
+  not?: EmailsChunkFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `EmailThreadsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `emailThreadsId` field. */
+  emailThreadsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
   /** Filter by the object’s `emailThreadId` field. */
   emailThreadId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: EmailFilter[];
+  and?: EmailThreadsChunkFilter[];
   /** Checks for any expressions in this list. */
-  or?: EmailFilter[];
+  or?: EmailThreadsChunkFilter[];
   /** Negates the expression. */
-  not?: EmailFilter;
+  not?: EmailThreadsChunkFilter;
   /** Filter by the object’s `emailThread` relation. */
   emailThread?: EmailThreadFilter;
-  /** Filter by the object’s `emailAttachments` relation. */
-  emailAttachments?: EmailToManyEmailAttachmentFilter;
-  /** `emailAttachments` exist. */
-  emailAttachmentsExist?: boolean;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `ExpensesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ExpensesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `expensesId` field. */
+  expensesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `expenseId` field. */
+  expenseId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ExpensesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ExpensesChunkFilter[];
+  /** Negates the expression. */
+  not?: ExpensesChunkFilter;
+  /** Filter by the object’s `expense` relation. */
+  expense?: ExpenseFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `ProjectsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ProjectsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `projectsId` field. */
+  projectsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `projectId` field. */
+  projectId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ProjectsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ProjectsChunkFilter[];
+  /** Negates the expression. */
+  not?: ProjectsChunkFilter;
+  /** Filter by the object’s `project` relation. */
+  project?: ProjectFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `GoalProject` object types. All fields are combined with a logical ‘and.’ */
 export interface GoalProjectFilter {
@@ -15987,6 +21401,10 @@ export interface MessageFilter {
   not?: MessageFilter;
   /** Filter by the object’s `conversation` relation. */
   conversation?: ConversationFilter;
+  /** Filter by the object’s `messagesChunks` relation. */
+  messagesChunks?: MessageToManyMessagesChunkFilter;
+  /** `messagesChunks` exist. */
+  messagesChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -16005,36 +21423,38 @@ export interface MessageFilter {
    */
   fullTextSearch?: string;
 }
-/** A filter to be used against `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailAttachmentFilter {
+/** A filter to be used against `ConversationsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ConversationsChunkFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `filename` field. */
-  filename?: StringFilter;
-  /** Filter by the object’s `contentType` field. */
-  contentType?: StringFilter;
-  /** Filter by the object’s `sizeBytes` field. */
-  sizeBytes?: IntFilter;
-  /** Filter by the object’s `storageUrl` field. */
-  storageUrl?: StringFilter;
-  /** Filter by the object’s `providerAttachmentId` field. */
-  providerAttachmentId?: StringFilter;
+  /** Filter by the object’s `conversationsId` field. */
+  conversationsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `emailId` field. */
-  emailId?: UUIDFilter;
+  /** Filter by the object’s `conversationId` field. */
+  conversationId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: EmailAttachmentFilter[];
+  and?: ConversationsChunkFilter[];
   /** Checks for any expressions in this list. */
-  or?: EmailAttachmentFilter[];
+  or?: ConversationsChunkFilter[];
   /** Negates the expression. */
-  not?: EmailAttachmentFilter;
-  /** Filter by the object’s `email` relation. */
-  email?: EmailFilter;
+  not?: ConversationsChunkFilter;
+  /** Filter by the object’s `conversation` relation. */
+  conversation?: ConversationFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `VenueLink` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueLinkFilter {
@@ -16064,6 +21484,72 @@ export interface VenueLinkFilter {
   not?: VenueLinkFilter;
   /** Filter by the object’s `venue` relation. */
   venue?: VenueFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `VenuesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface VenuesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `venuesId` field. */
+  venuesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `venueId` field. */
+  venueId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: VenuesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: VenuesChunkFilter[];
+  /** Negates the expression. */
+  not?: VenuesChunkFilter;
+  /** Filter by the object’s `venue` relation. */
+  venue?: VenueFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `GoalsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface GoalsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `goalsId` field. */
+  goalsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `goalId` field. */
+  goalId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: GoalsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: GoalsChunkFilter[];
+  /** Negates the expression. */
+  not?: GoalsChunkFilter;
+  /** Filter by the object’s `goal` relation. */
+  goal?: GoalFilter;
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
@@ -16134,6 +21620,10 @@ export interface ActivityLogFilter {
   habit?: HabitFilter;
   /** A related `habit` exists. */
   habitExists?: boolean;
+  /** Filter by the object’s `activityLogsChunks` relation. */
+  activityLogsChunks?: ActivityLogToManyActivityLogsChunkFilter;
+  /** `activityLogsChunks` exist. */
+  activityLogsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -16155,6 +21645,138 @@ export interface ActivityLogFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+/** A filter to be used against `HikingTrailsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface HikingTrailsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `hikingTrailsId` field. */
+  hikingTrailsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `hikingTrailId` field. */
+  hikingTrailId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: HikingTrailsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: HikingTrailsChunkFilter[];
+  /** Negates the expression. */
+  not?: HikingTrailsChunkFilter;
+  /** Filter by the object’s `hikingTrail` relation. */
+  hikingTrail?: HikingTrailFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `InteractionsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface InteractionsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `interactionsId` field. */
+  interactionsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `interactionId` field. */
+  interactionId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: InteractionsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: InteractionsChunkFilter[];
+  /** Negates the expression. */
+  not?: InteractionsChunkFilter;
+  /** Filter by the object’s `interaction` relation. */
+  interaction?: InteractionFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `MessagesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface MessagesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `messagesId` field. */
+  messagesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `messageId` field. */
+  messageId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: MessagesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: MessagesChunkFilter[];
+  /** Negates the expression. */
+  not?: MessagesChunkFilter;
+  /** Filter by the object’s `message` relation. */
+  message?: MessageFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `PlacesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface PlacesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `placesId` field. */
+  placesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `placeId` field. */
+  placeId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: PlacesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: PlacesChunkFilter[];
+  /** Negates the expression. */
+  not?: PlacesChunkFilter;
+  /** Filter by the object’s `place` relation. */
+  place?: PlaceFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `RawContactEmail` object types. All fields are combined with a logical ‘and.’ */
 export interface RawContactEmailFilter {
@@ -16247,6 +21869,72 @@ export interface RawContactUrlFilter {
   /** Filter by the object’s `rawContact` relation. */
   rawContact?: RawContactFilter;
 }
+/** A filter to be used against `RulesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface RulesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `rulesId` field. */
+  rulesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `ruleId` field. */
+  ruleId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RulesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RulesChunkFilter[];
+  /** Negates the expression. */
+  not?: RulesChunkFilter;
+  /** Filter by the object’s `rule` relation. */
+  rule?: RuleFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
+/** A filter to be used against `RuntimeLogsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface RuntimeLogsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `runtimeLogsId` field. */
+  runtimeLogsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `runtimeLogId` field. */
+  runtimeLogId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeLogsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeLogsChunkFilter[];
+  /** Negates the expression. */
+  not?: RuntimeLogsChunkFilter;
+  /** Filter by the object’s `runtimeLog` relation. */
+  runtimeLog?: RuntimeLogFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 /** A filter to be used against `RuntimeLog` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeLogFilter {
   /** Filter by the object’s `id` field. */
@@ -16281,6 +21969,10 @@ export interface RuntimeLogFilter {
   not?: RuntimeLogFilter;
   /** Filter by the object’s `runtimeState` relation. */
   runtimeState?: RuntimeStateFilter;
+  /** Filter by the object’s `runtimeLogsChunks` relation. */
+  runtimeLogsChunks?: RuntimeLogToManyRuntimeLogsChunkFilter;
+  /** `runtimeLogsChunks` exist. */
+  runtimeLogsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -16359,6 +22051,39 @@ export interface RuntimeMetricFilter {
   /** Filter by the object’s `runtimeState` relation. */
   runtimeState?: RuntimeStateFilter;
 }
+/** A filter to be used against `RuntimeStatesChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface RuntimeStatesChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `runtimeStatesId` field. */
+  runtimeStatesId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `runtimeStateId` field. */
+  runtimeStateId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: RuntimeStatesChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: RuntimeStatesChunkFilter[];
+  /** Negates the expression. */
+  not?: RuntimeStatesChunkFilter;
+  /** Filter by the object’s `runtimeState` relation. */
+  runtimeState?: RuntimeStateFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 /** A filter to be used against `RuntimeStateDependency` object types. All fields are combined with a logical ‘and.’ */
 export interface RuntimeStateDependencyFilter {
   /** Filter by the object’s `runtimeStateId` field. */
@@ -16371,6 +22096,39 @@ export interface RuntimeStateDependencyFilter {
   not?: RuntimeStateDependencyFilter;
   /** Filter by the object’s `runtimeState` relation. */
   runtimeState?: RuntimeStateFilter;
+}
+/** A filter to be used against `SkillsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface SkillsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `skillsId` field. */
+  skillsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `skillId` field. */
+  skillId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: SkillsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: SkillsChunkFilter[];
+  /** Negates the expression. */
+  not?: SkillsChunkFilter;
+  /** Filter by the object’s `skill` relation. */
+  skill?: SkillFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `SkillTool` object types. All fields are combined with a logical ‘and.’ */
 export interface SkillToolFilter {
@@ -16392,6 +22150,39 @@ export interface SkillToolFilter {
   skill?: SkillFilter;
   /** Filter by the object’s `toolDefinition` relation. */
   toolDefinition?: ToolDefinitionFilter;
+}
+/** A filter to be used against `ToolDefinitionsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface ToolDefinitionsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `toolDefinitionsId` field. */
+  toolDefinitionsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `toolDefinitionId` field. */
+  toolDefinitionId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ToolDefinitionsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ToolDefinitionsChunkFilter[];
+  /** Negates the expression. */
+  not?: ToolDefinitionsChunkFilter;
+  /** Filter by the object’s `toolDefinition` relation. */
+  toolDefinition?: ToolDefinitionFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `ToolExecution` object types. All fields are combined with a logical ‘and.’ */
 export interface ToolExecutionFilter {
@@ -16427,6 +22218,39 @@ export interface ToolExecutionFilter {
   not?: ToolExecutionFilter;
   /** Filter by the object’s `toolDefinition` relation. */
   toolDefinition?: ToolDefinitionFilter;
+}
+/** A filter to be used against `TouchpointsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface TouchpointsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `touchpointsId` field. */
+  touchpointsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `touchpointId` field. */
+  touchpointId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TouchpointsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TouchpointsChunkFilter[];
+  /** Negates the expression. */
+  not?: TouchpointsChunkFilter;
+  /** Filter by the object’s `touchpoint` relation. */
+  touchpoint?: TouchpointFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
 }
 /** A filter to be used against `Expense` object types. All fields are combined with a logical ‘and.’ */
 export interface ExpenseFilter {
@@ -16472,6 +22296,10 @@ export interface ExpenseFilter {
   trip?: TripFilter;
   /** A related `trip` exists. */
   tripExists?: boolean;
+  /** Filter by the object’s `expensesChunks` relation. */
+  expensesChunks?: ExpenseToManyExpensesChunkFilter;
+  /** `expensesChunks` exist. */
+  expensesChunksExist?: boolean;
   /** Filter by the object’s `expenseContacts` relation. */
   expenseContacts?: ExpenseToManyExpenseContactFilter;
   /** `expenseContacts` exist. */
@@ -16500,6 +22328,39 @@ export interface ExpenseFilter {
    */
   fullTextSearch?: string;
 }
+/** A filter to be used against `TripsChunk` object types. All fields are combined with a logical ‘and.’ */
+export interface TripsChunkFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `tripsId` field. */
+  tripsId?: UUIDFilter;
+  /** Filter by the object’s `content` field. */
+  content?: StringFilter;
+  /** Filter by the object’s `chunkIndex` field. */
+  chunkIndex?: IntFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `metadata` field. */
+  metadata?: JSONFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `tripId` field. */
+  tripId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: TripsChunkFilter[];
+  /** Checks for any expressions in this list. */
+  or?: TripsChunkFilter[];
+  /** Negates the expression. */
+  not?: TripsChunkFilter;
+  /** Filter by the object’s `trip` relation. */
+  trip?: TripFilter;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+}
 /** A filter to be used against UUID fields. All fields are combined with a logical ‘and.’ */
 export interface UUIDFilter {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
@@ -16524,6 +22385,83 @@ export interface UUIDFilter {
   greaterThan?: string;
   /** Greater than or equal to the specified value. */
   greaterThanOrEqualTo?: string;
+}
+/** A filter to be used against String fields. All fields are combined with a logical ‘and.’ */
+export interface StringFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: string;
+  /** Not equal to the specified value. */
+  notEqualTo?: string;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: string;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: string;
+  /** Included in the specified list. */
+  in?: string[];
+  /** Not included in the specified list. */
+  notIn?: string[];
+  /** Less than the specified value. */
+  lessThan?: string;
+  /** Less than or equal to the specified value. */
+  lessThanOrEqualTo?: string;
+  /** Greater than the specified value. */
+  greaterThan?: string;
+  /** Greater than or equal to the specified value. */
+  greaterThanOrEqualTo?: string;
+  /** Contains the specified string (case-sensitive). */
+  includes?: string;
+  /** Does not contain the specified string (case-sensitive). */
+  notIncludes?: string;
+  /** Contains the specified string (case-insensitive). */
+  includesInsensitive?: string;
+  /** Does not contain the specified string (case-insensitive). */
+  notIncludesInsensitive?: string;
+  /** Starts with the specified string (case-sensitive). */
+  startsWith?: string;
+  /** Does not start with the specified string (case-sensitive). */
+  notStartsWith?: string;
+  /** Starts with the specified string (case-insensitive). */
+  startsWithInsensitive?: string;
+  /** Does not start with the specified string (case-insensitive). */
+  notStartsWithInsensitive?: string;
+  /** Ends with the specified string (case-sensitive). */
+  endsWith?: string;
+  /** Does not end with the specified string (case-sensitive). */
+  notEndsWith?: string;
+  /** Ends with the specified string (case-insensitive). */
+  endsWithInsensitive?: string;
+  /** Does not end with the specified string (case-insensitive). */
+  notEndsWithInsensitive?: string;
+  /** Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  like?: string;
+  /** Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  notLike?: string;
+  /** Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  likeInsensitive?: string;
+  /** Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
+  notLikeInsensitive?: string;
+  /** Equal to the specified value (case-insensitive). */
+  equalToInsensitive?: string;
+  /** Not equal to the specified value (case-insensitive). */
+  notEqualToInsensitive?: string;
+  /** Not equal to the specified value, treating null like an ordinary value (case-insensitive). */
+  distinctFromInsensitive?: string;
+  /** Equal to the specified value, treating null like an ordinary value (case-insensitive). */
+  notDistinctFromInsensitive?: string;
+  /** Included in the specified list (case-insensitive). */
+  inInsensitive?: string[];
+  /** Not included in the specified list (case-insensitive). */
+  notInInsensitive?: string[];
+  /** Less than the specified value (case-insensitive). */
+  lessThanInsensitive?: string;
+  /** Less than or equal to the specified value (case-insensitive). */
+  lessThanOrEqualToInsensitive?: string;
+  /** Greater than the specified value (case-insensitive). */
+  greaterThanInsensitive?: string;
+  /** Greater than or equal to the specified value (case-insensitive). */
+  greaterThanOrEqualToInsensitive?: string;
 }
 /** A filter to be used against Int fields. All fields are combined with a logical ‘and.’ */
 export interface IntFilter {
@@ -16550,30 +22488,22 @@ export interface IntFilter {
   /** Greater than or equal to the specified value. */
   greaterThanOrEqualTo?: number;
 }
-/** A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’ */
-export interface DatetimeFilter {
+/** A filter to be used against Vector fields. All fields are combined with a logical ‘and.’ */
+export interface VectorFilter {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
   isNull?: boolean;
   /** Equal to the specified value. */
-  equalTo?: string;
+  equalTo?: number[];
   /** Not equal to the specified value. */
-  notEqualTo?: string;
+  notEqualTo?: number[];
   /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: string;
+  distinctFrom?: number[];
   /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: string;
+  notDistinctFrom?: number[];
   /** Included in the specified list. */
-  in?: string[];
+  in?: number[][];
   /** Not included in the specified list. */
-  notIn?: string[];
-  /** Less than the specified value. */
-  lessThan?: string;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: string;
-  /** Greater than the specified value. */
-  greaterThan?: string;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: string;
+  notIn?: number[][];
 }
 /** A filter to be used against JSON fields. All fields are combined with a logical ‘and.’ */
 export interface JSONFilter {
@@ -16610,22 +22540,30 @@ export interface JSONFilter {
   /** Contained by the specified JSON. */
   containedBy?: Record<string, unknown>;
 }
-/** A filter to be used against Vector fields. All fields are combined with a logical ‘and.’ */
-export interface VectorFilter {
+/** A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’ */
+export interface DatetimeFilter {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
   isNull?: boolean;
   /** Equal to the specified value. */
-  equalTo?: number[];
+  equalTo?: string;
   /** Not equal to the specified value. */
-  notEqualTo?: number[];
+  notEqualTo?: string;
   /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: number[];
+  distinctFrom?: string;
   /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: number[];
+  notDistinctFrom?: string;
   /** Included in the specified list. */
-  in?: number[][];
+  in?: string[];
   /** Not included in the specified list. */
-  notIn?: number[][];
+  notIn?: string[];
+  /** Less than the specified value. */
+  lessThan?: string;
+  /** Less than or equal to the specified value. */
+  lessThanOrEqualTo?: string;
+  /** Greater than the specified value. */
+  greaterThan?: string;
+  /** Greater than or equal to the specified value. */
+  greaterThanOrEqualTo?: string;
 }
 /** A filter to be used against Boolean fields. All fields are combined with a logical ‘and.’ */
 export interface BooleanFilter {
@@ -16706,6 +22644,10 @@ export interface AgentFilter {
   skills?: AgentToManySkillFilter;
   /** `skills` exist. */
   skillsExist?: boolean;
+  /** Filter by the object’s `agentsChunks` relation. */
+  agentsChunks?: AgentToManyAgentsChunkFilter;
+  /** `agentsChunks` exist. */
+  agentsChunksExist?: boolean;
   /** Filter by the object’s `agentCollaborators` relation. */
   agentCollaborators?: AgentToManyAgentCollaboratorFilter;
   /** `agentCollaborators` exist. */
@@ -16815,6 +22757,10 @@ export interface PromptFilter {
   or?: PromptFilter[];
   /** Negates the expression. */
   not?: PromptFilter;
+  /** Filter by the object’s `promptsChunks` relation. */
+  promptsChunks?: PromptToManyPromptsChunkFilter;
+  /** `promptsChunks` exist. */
+  promptsChunksExist?: boolean;
   /** Filter by the object’s `agentPrompts` relation. */
   agentPrompts?: PromptToManyAgentPromptFilter;
   /** `agentPrompts` exist. */
@@ -16877,6 +22823,10 @@ export interface AutonomyRecordFilter {
   or?: AutonomyRecordFilter[];
   /** Negates the expression. */
   not?: AutonomyRecordFilter;
+  /** Filter by the object’s `autonomyRecordsChunks` relation. */
+  autonomyRecordsChunks?: AutonomyRecordToManyAutonomyRecordsChunkFilter;
+  /** `autonomyRecordsChunks` exist. */
+  autonomyRecordsChunksExist?: boolean;
   /** Filter by the object’s `autonomyRecordLinks` relation. */
   autonomyRecordLinks?: AutonomyRecordToManyAutonomyRecordLinkFilter;
   /** `autonomyRecordLinks` exist. */
@@ -16953,83 +22903,6 @@ export interface CalendarFilter {
   /** `calendarEvents` exist. */
   calendarEventsExist?: boolean;
 }
-/** A filter to be used against String fields. All fields are combined with a logical ‘and.’ */
-export interface StringFilter {
-  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
-  isNull?: boolean;
-  /** Equal to the specified value. */
-  equalTo?: string;
-  /** Not equal to the specified value. */
-  notEqualTo?: string;
-  /** Not equal to the specified value, treating null like an ordinary value. */
-  distinctFrom?: string;
-  /** Equal to the specified value, treating null like an ordinary value. */
-  notDistinctFrom?: string;
-  /** Included in the specified list. */
-  in?: string[];
-  /** Not included in the specified list. */
-  notIn?: string[];
-  /** Less than the specified value. */
-  lessThan?: string;
-  /** Less than or equal to the specified value. */
-  lessThanOrEqualTo?: string;
-  /** Greater than the specified value. */
-  greaterThan?: string;
-  /** Greater than or equal to the specified value. */
-  greaterThanOrEqualTo?: string;
-  /** Contains the specified string (case-sensitive). */
-  includes?: string;
-  /** Does not contain the specified string (case-sensitive). */
-  notIncludes?: string;
-  /** Contains the specified string (case-insensitive). */
-  includesInsensitive?: string;
-  /** Does not contain the specified string (case-insensitive). */
-  notIncludesInsensitive?: string;
-  /** Starts with the specified string (case-sensitive). */
-  startsWith?: string;
-  /** Does not start with the specified string (case-sensitive). */
-  notStartsWith?: string;
-  /** Starts with the specified string (case-insensitive). */
-  startsWithInsensitive?: string;
-  /** Does not start with the specified string (case-insensitive). */
-  notStartsWithInsensitive?: string;
-  /** Ends with the specified string (case-sensitive). */
-  endsWith?: string;
-  /** Does not end with the specified string (case-sensitive). */
-  notEndsWith?: string;
-  /** Ends with the specified string (case-insensitive). */
-  endsWithInsensitive?: string;
-  /** Does not end with the specified string (case-insensitive). */
-  notEndsWithInsensitive?: string;
-  /** Matches the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  like?: string;
-  /** Does not match the specified pattern (case-sensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  notLike?: string;
-  /** Matches the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  likeInsensitive?: string;
-  /** Does not match the specified pattern (case-insensitive). An underscore (_) matches any single character; a percent sign (%) matches any sequence of zero or more characters. */
-  notLikeInsensitive?: string;
-  /** Equal to the specified value (case-insensitive). */
-  equalToInsensitive?: string;
-  /** Not equal to the specified value (case-insensitive). */
-  notEqualToInsensitive?: string;
-  /** Not equal to the specified value, treating null like an ordinary value (case-insensitive). */
-  distinctFromInsensitive?: string;
-  /** Equal to the specified value, treating null like an ordinary value (case-insensitive). */
-  notDistinctFromInsensitive?: string;
-  /** Included in the specified list (case-insensitive). */
-  inInsensitive?: string[];
-  /** Not included in the specified list (case-insensitive). */
-  notInInsensitive?: string[];
-  /** Less than the specified value (case-insensitive). */
-  lessThanInsensitive?: string;
-  /** Less than or equal to the specified value (case-insensitive). */
-  lessThanOrEqualToInsensitive?: string;
-  /** Greater than the specified value (case-insensitive). */
-  greaterThanInsensitive?: string;
-  /** Greater than or equal to the specified value (case-insensitive). */
-  greaterThanOrEqualToInsensitive?: string;
-}
 /** A filter to be used against `Note` object types. All fields are combined with a logical ‘and.’ */
 export interface NoteFilter {
   /** Filter by the object’s `id` field. */
@@ -17064,6 +22937,10 @@ export interface NoteFilter {
   or?: NoteFilter[];
   /** Negates the expression. */
   not?: NoteFilter;
+  /** Filter by the object’s `notesChunks` relation. */
+  notesChunks?: NoteToManyNotesChunkFilter;
+  /** `notesChunks` exist. */
+  notesChunksExist?: boolean;
   /** Filter by the object’s `contactNotes` relation. */
   contactNotes?: NoteToManyContactNoteFilter;
   /** `contactNotes` exist. */
@@ -17084,6 +22961,10 @@ export interface NoteFilter {
   taskNotes?: NoteToManyTaskNoteFilter;
   /** `taskNotes` exist. */
   taskNotesExist?: boolean;
+  /** Filter by the object’s `emailNotes` relation. */
+  emailNotes?: NoteToManyEmailNoteFilter;
+  /** `emailNotes` exist. */
+  emailNotesExist?: boolean;
   /** Filter by the object’s `calendarEventNotes` relation. */
   calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
   /** `calendarEventNotes` exist. */
@@ -17150,6 +23031,10 @@ export interface DealFilter {
   touchpoints?: DealToManyTouchpointFilter;
   /** `touchpoints` exist. */
   touchpointsExist?: boolean;
+  /** Filter by the object’s `dealsChunks` relation. */
+  dealsChunks?: DealToManyDealsChunkFilter;
+  /** `dealsChunks` exist. */
+  dealsChunksExist?: boolean;
   /** Filter by the object’s `dealContacts` relation. */
   dealContacts?: DealToManyDealContactFilter;
   /** `dealContacts` exist. */
@@ -17247,6 +23132,78 @@ export interface ImageFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
+/** A filter to be used against `EmailThread` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `providerThreadId` field. */
+  providerThreadId?: StringTrgmFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringTrgmFilter;
+  /** Filter by the object’s `lastMessageAt` field. */
+  lastMessageAt?: DatetimeFilter;
+  /** Filter by the object’s `summary` field. */
+  summary?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailThreadFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailThreadFilter[];
+  /** Negates the expression. */
+  not?: EmailThreadFilter;
+  /** Filter by the object’s `emails` relation. */
+  emails?: EmailThreadToManyEmailFilter;
+  /** `emails` exist. */
+  emailsExist?: boolean;
+  /** Filter by the object’s `emailThreadsChunks` relation. */
+  emailThreadsChunks?: EmailThreadToManyEmailThreadsChunkFilter;
+  /** `emailThreadsChunks` exist. */
+  emailThreadsChunksExist?: boolean;
+  /** Filter by the object’s `threadParticipants` relation. */
+  threadParticipants?: EmailThreadToManyThreadParticipantFilter;
+  /** `threadParticipants` exist. */
+  threadParticipantsExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_thread_id` column. */
+  trgmProviderThreadId?: TrgmSearchInput;
+  /** TRGM search on the `subject` column. */
+  trgmSubject?: TrgmSearchInput;
+  /** TRGM search on the `summary` column. */
+  trgmSummary?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
 /** A filter to be used against `Project` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectFilter {
   /** Filter by the object’s `id` field. */
@@ -17289,6 +23246,10 @@ export interface ProjectFilter {
   or?: ProjectFilter[];
   /** Negates the expression. */
   not?: ProjectFilter;
+  /** Filter by the object’s `projectsChunks` relation. */
+  projectsChunks?: ProjectToManyProjectsChunkFilter;
+  /** `projectsChunks` exist. */
+  projectsChunksExist?: boolean;
   /** Filter by the object’s `projectContacts` relation. */
   projectContacts?: ProjectToManyProjectContactFilter;
   /** `projectContacts` exist. */
@@ -17313,74 +23274,6 @@ export interface ProjectFilter {
   trgmStatus?: TrgmSearchInput;
   /** TRGM search on the `project_type` column. */
   trgmProjectType?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
-/** A filter to be used against `EmailThread` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailThreadFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `providerThreadId` field. */
-  providerThreadId?: StringTrgmFilter;
-  /** Filter by the object’s `subject` field. */
-  subject?: StringTrgmFilter;
-  /** Filter by the object’s `lastMessageAt` field. */
-  lastMessageAt?: DatetimeFilter;
-  /** Filter by the object’s `summary` field. */
-  summary?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailThreadFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailThreadFilter[];
-  /** Negates the expression. */
-  not?: EmailThreadFilter;
-  /** Filter by the object’s `emails` relation. */
-  emails?: EmailThreadToManyEmailFilter;
-  /** `emails` exist. */
-  emailsExist?: boolean;
-  /** Filter by the object’s `threadParticipants` relation. */
-  threadParticipants?: EmailThreadToManyThreadParticipantFilter;
-  /** `threadParticipants` exist. */
-  threadParticipantsExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_thread_id` column. */
-  trgmProviderThreadId?: TrgmSearchInput;
-  /** TRGM search on the `subject` column. */
-  trgmSubject?: TrgmSearchInput;
-  /** TRGM search on the `summary` column. */
-  trgmSummary?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
@@ -17435,6 +23328,10 @@ export interface CodebasisFilter {
   codeChunks?: CodebasisToManyCodeChunkFilter;
   /** `codeChunks` exist. */
   codeChunksExist?: boolean;
+  /** Filter by the object’s `codebasesChunks` relation. */
+  codebasesChunks?: CodebasisToManyCodebasesChunkFilter;
+  /** `codebasesChunks` exist. */
+  codebasesChunksExist?: boolean;
   /** Filter by the object’s `codebaseDependencies` relation. */
   codebaseDependencies?: CodebasisToManyCodebaseDependencyFilter;
   /** `codebaseDependencies` exist. */
@@ -17549,6 +23446,10 @@ export interface GoalFilter {
   or?: GoalFilter[];
   /** Negates the expression. */
   not?: GoalFilter;
+  /** Filter by the object’s `goalsChunks` relation. */
+  goalsChunks?: GoalToManyGoalsChunkFilter;
+  /** `goalsChunks` exist. */
+  goalsChunksExist?: boolean;
   /** Filter by the object’s `goalHabits` relation. */
   goalHabits?: GoalToManyGoalHabitFilter;
   /** `goalHabits` exist. */
@@ -17611,6 +23512,10 @@ export interface ConversationFilter {
   messages?: ConversationToManyMessageFilter;
   /** `messages` exist. */
   messagesExist?: boolean;
+  /** Filter by the object’s `conversationsChunks` relation. */
+  conversationsChunks?: ConversationToManyConversationsChunkFilter;
+  /** `conversationsChunks` exist. */
+  conversationsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -17663,6 +23568,130 @@ export interface HabitFilter {
   goalHabits?: HabitToManyGoalHabitFilter;
   /** `goalHabits` exist. */
   goalHabitsExist?: boolean;
+}
+/** A filter to be used against `HikingTrail` object types. All fields are combined with a logical ‘and.’ */
+export interface HikingTrailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `location` field. */
+  location?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `difficulty` field. */
+  difficulty?: StringTrgmFilter;
+  /** Filter by the object’s `distanceKm` field. */
+  distanceKm?: BigFloatFilter;
+  /** Filter by the object’s `elevationGainm` field. */
+  elevationGainm?: BigFloatFilter;
+  /** Filter by the object’s `rating` field. */
+  rating?: BigFloatFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: HikingTrailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: HikingTrailFilter[];
+  /** Negates the expression. */
+  not?: HikingTrailFilter;
+  /** Filter by the object’s `hikingTrailsChunks` relation. */
+  hikingTrailsChunks?: HikingTrailToManyHikingTrailsChunkFilter;
+  /** `hikingTrailsChunks` exist. */
+  hikingTrailsChunksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `location` column. */
+  trgmLocation?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `difficulty` column. */
+  trgmDifficulty?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+/** A filter to be used against `Place` object types. All fields are combined with a logical ‘and.’ */
+export interface PlaceFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `name` field. */
+  name?: StringTrgmFilter;
+  /** Filter by the object’s `address` field. */
+  address?: StringTrgmFilter;
+  /** Filter by the object’s `description` field. */
+  description?: StringTrgmFilter;
+  /** Filter by the object’s `category` field. */
+  category?: StringTrgmFilter;
+  /** Filter by the object’s `rating` field. */
+  rating?: BigFloatFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: PlaceFilter[];
+  /** Checks for any expressions in this list. */
+  or?: PlaceFilter[];
+  /** Negates the expression. */
+  not?: PlaceFilter;
+  /** Filter by the object’s `placesChunks` relation. */
+  placesChunks?: PlaceToManyPlacesChunkFilter;
+  /** `placesChunks` exist. */
+  placesChunksExist?: boolean;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `name` column. */
+  trgmName?: TrgmSearchInput;
+  /** TRGM search on the `address` column. */
+  trgmAddress?: TrgmSearchInput;
+  /** TRGM search on the `description` column. */
+  trgmDescription?: TrgmSearchInput;
+  /** TRGM search on the `category` column. */
+  trgmCategory?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
 }
 /** A filter to be used against `RawContact` object types. All fields are combined with a logical ‘and.’ */
 export interface RawContactFilter {
@@ -17767,6 +23796,10 @@ export interface RuntimeStateFilter {
   runtimeMetrics?: RuntimeStateToManyRuntimeMetricFilter;
   /** `runtimeMetrics` exist. */
   runtimeMetricsExist?: boolean;
+  /** Filter by the object’s `runtimeStatesChunks` relation. */
+  runtimeStatesChunks?: RuntimeStateToManyRuntimeStatesChunkFilter;
+  /** `runtimeStatesChunks` exist. */
+  runtimeStatesChunksExist?: boolean;
   /** Filter by the object’s `runtimeStateDependencies` relation. */
   runtimeStateDependencies?: RuntimeStateToManyRuntimeStateDependencyFilter;
   /** `runtimeStateDependencies` exist. */
@@ -17825,6 +23858,10 @@ export interface ToolDefinitionFilter {
   or?: ToolDefinitionFilter[];
   /** Negates the expression. */
   not?: ToolDefinitionFilter;
+  /** Filter by the object’s `toolDefinitionsChunks` relation. */
+  toolDefinitionsChunks?: ToolDefinitionToManyToolDefinitionsChunkFilter;
+  /** `toolDefinitionsChunks` exist. */
+  toolDefinitionsChunksExist?: boolean;
   /** Filter by the object’s `toolExecutions` relation. */
   toolExecutions?: ToolDefinitionToManyToolExecutionFilter;
   /** `toolExecutions` exist. */
@@ -17891,6 +23928,10 @@ export interface TripFilter {
   expenses?: TripToManyExpenseFilter;
   /** `expenses` exist. */
   expensesExist?: boolean;
+  /** Filter by the object’s `tripsChunks` relation. */
+  tripsChunks?: TripToManyTripsChunkFilter;
+  /** `tripsChunks` exist. */
+  tripsChunksExist?: boolean;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -17955,6 +23996,51 @@ export type DeleteActivityLogPayloadSelect = {
   };
   activityLogEdge?: {
     select: ActivityLogEdgeSelect;
+  };
+};
+export interface CreateActivityLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLogsChunk` that was created by this mutation. */
+  activityLogsChunk?: ActivityLogsChunk | null;
+  activityLogsChunkEdge?: ActivityLogsChunkEdge | null;
+}
+export type CreateActivityLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLogsChunk?: {
+    select: ActivityLogsChunkSelect;
+  };
+  activityLogsChunkEdge?: {
+    select: ActivityLogsChunkEdgeSelect;
+  };
+};
+export interface UpdateActivityLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLogsChunk` that was updated by this mutation. */
+  activityLogsChunk?: ActivityLogsChunk | null;
+  activityLogsChunkEdge?: ActivityLogsChunkEdge | null;
+}
+export type UpdateActivityLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLogsChunk?: {
+    select: ActivityLogsChunkSelect;
+  };
+  activityLogsChunkEdge?: {
+    select: ActivityLogsChunkEdgeSelect;
+  };
+};
+export interface DeleteActivityLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ActivityLogsChunk` that was deleted by this mutation. */
+  activityLogsChunk?: ActivityLogsChunk | null;
+  activityLogsChunkEdge?: ActivityLogsChunkEdge | null;
+}
+export type DeleteActivityLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  activityLogsChunk?: {
+    select: ActivityLogsChunkSelect;
+  };
+  activityLogsChunkEdge?: {
+    select: ActivityLogsChunkEdgeSelect;
   };
 };
 export interface CreateAgentCollaboratorPayload {
@@ -18058,6 +24144,51 @@ export type DeleteAgentLogPayloadSelect = {
     select: AgentLogEdgeSelect;
   };
 };
+export interface CreateAgentLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `AgentLogsChunk` that was created by this mutation. */
+  agentLogsChunk?: AgentLogsChunk | null;
+  agentLogsChunkEdge?: AgentLogsChunkEdge | null;
+}
+export type CreateAgentLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  agentLogsChunk?: {
+    select: AgentLogsChunkSelect;
+  };
+  agentLogsChunkEdge?: {
+    select: AgentLogsChunkEdgeSelect;
+  };
+};
+export interface UpdateAgentLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `AgentLogsChunk` that was updated by this mutation. */
+  agentLogsChunk?: AgentLogsChunk | null;
+  agentLogsChunkEdge?: AgentLogsChunkEdge | null;
+}
+export type UpdateAgentLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  agentLogsChunk?: {
+    select: AgentLogsChunkSelect;
+  };
+  agentLogsChunkEdge?: {
+    select: AgentLogsChunkEdgeSelect;
+  };
+};
+export interface DeleteAgentLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `AgentLogsChunk` that was deleted by this mutation. */
+  agentLogsChunk?: AgentLogsChunk | null;
+  agentLogsChunkEdge?: AgentLogsChunkEdge | null;
+}
+export type DeleteAgentLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  agentLogsChunk?: {
+    select: AgentLogsChunkSelect;
+  };
+  agentLogsChunkEdge?: {
+    select: AgentLogsChunkEdgeSelect;
+  };
+};
 export interface CreateAgentPromptPayload {
   clientMutationId?: string | null;
   /** The `AgentPrompt` that was created by this mutation. */
@@ -18148,6 +24279,51 @@ export type DeletePromptPayloadSelect = {
     select: PromptEdgeSelect;
   };
 };
+export interface CreateAgentsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `AgentsChunk` that was created by this mutation. */
+  agentsChunk?: AgentsChunk | null;
+  agentsChunkEdge?: AgentsChunkEdge | null;
+}
+export type CreateAgentsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  agentsChunk?: {
+    select: AgentsChunkSelect;
+  };
+  agentsChunkEdge?: {
+    select: AgentsChunkEdgeSelect;
+  };
+};
+export interface UpdateAgentsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `AgentsChunk` that was updated by this mutation. */
+  agentsChunk?: AgentsChunk | null;
+  agentsChunkEdge?: AgentsChunkEdge | null;
+}
+export type UpdateAgentsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  agentsChunk?: {
+    select: AgentsChunkSelect;
+  };
+  agentsChunkEdge?: {
+    select: AgentsChunkEdgeSelect;
+  };
+};
+export interface DeleteAgentsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `AgentsChunk` that was deleted by this mutation. */
+  agentsChunk?: AgentsChunk | null;
+  agentsChunkEdge?: AgentsChunkEdge | null;
+}
+export type DeleteAgentsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  agentsChunk?: {
+    select: AgentsChunkSelect;
+  };
+  agentsChunkEdge?: {
+    select: AgentsChunkEdgeSelect;
+  };
+};
 export interface CreateAutonomyRecordPayload {
   clientMutationId?: string | null;
   /** The `AutonomyRecord` that was created by this mutation. */
@@ -18202,6 +24378,51 @@ export type CreateAutonomyRecordLinkPayloadSelect = {
   clientMutationId?: boolean;
   autonomyRecordLink?: {
     select: AutonomyRecordLinkSelect;
+  };
+};
+export interface CreateAutonomyRecordsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `AutonomyRecordsChunk` that was created by this mutation. */
+  autonomyRecordsChunk?: AutonomyRecordsChunk | null;
+  autonomyRecordsChunkEdge?: AutonomyRecordsChunkEdge | null;
+}
+export type CreateAutonomyRecordsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  autonomyRecordsChunk?: {
+    select: AutonomyRecordsChunkSelect;
+  };
+  autonomyRecordsChunkEdge?: {
+    select: AutonomyRecordsChunkEdgeSelect;
+  };
+};
+export interface UpdateAutonomyRecordsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `AutonomyRecordsChunk` that was updated by this mutation. */
+  autonomyRecordsChunk?: AutonomyRecordsChunk | null;
+  autonomyRecordsChunkEdge?: AutonomyRecordsChunkEdge | null;
+}
+export type UpdateAutonomyRecordsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  autonomyRecordsChunk?: {
+    select: AutonomyRecordsChunkSelect;
+  };
+  autonomyRecordsChunkEdge?: {
+    select: AutonomyRecordsChunkEdgeSelect;
+  };
+};
+export interface DeleteAutonomyRecordsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `AutonomyRecordsChunk` that was deleted by this mutation. */
+  autonomyRecordsChunk?: AutonomyRecordsChunk | null;
+  autonomyRecordsChunkEdge?: AutonomyRecordsChunkEdge | null;
+}
+export type DeleteAutonomyRecordsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  autonomyRecordsChunk?: {
+    select: AutonomyRecordsChunkSelect;
+  };
+  autonomyRecordsChunkEdge?: {
+    select: AutonomyRecordsChunkEdgeSelect;
   };
 };
 export interface CreateCalendarAttendeePayload {
@@ -18519,6 +24740,51 @@ export type DeleteNotePayloadSelect = {
     select: NoteEdgeSelect;
   };
 };
+export interface CreateCalendarEventsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventsChunk` that was created by this mutation. */
+  calendarEventsChunk?: CalendarEventsChunk | null;
+  calendarEventsChunkEdge?: CalendarEventsChunkEdge | null;
+}
+export type CreateCalendarEventsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventsChunk?: {
+    select: CalendarEventsChunkSelect;
+  };
+  calendarEventsChunkEdge?: {
+    select: CalendarEventsChunkEdgeSelect;
+  };
+};
+export interface UpdateCalendarEventsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventsChunk` that was updated by this mutation. */
+  calendarEventsChunk?: CalendarEventsChunk | null;
+  calendarEventsChunkEdge?: CalendarEventsChunkEdge | null;
+}
+export type UpdateCalendarEventsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventsChunk?: {
+    select: CalendarEventsChunkSelect;
+  };
+  calendarEventsChunkEdge?: {
+    select: CalendarEventsChunkEdgeSelect;
+  };
+};
+export interface DeleteCalendarEventsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CalendarEventsChunk` that was deleted by this mutation. */
+  calendarEventsChunk?: CalendarEventsChunk | null;
+  calendarEventsChunkEdge?: CalendarEventsChunkEdge | null;
+}
+export type DeleteCalendarEventsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  calendarEventsChunk?: {
+    select: CalendarEventsChunkSelect;
+  };
+  calendarEventsChunkEdge?: {
+    select: CalendarEventsChunkEdgeSelect;
+  };
+};
 export interface CreateCalendarEventTaskPayload {
   clientMutationId?: string | null;
   /** The `CalendarEventTask` that was created by this mutation. */
@@ -18620,6 +24886,51 @@ export type CreateCodebaseDependencyPayloadSelect = {
     select: CodebaseDependencySelect;
   };
 };
+export interface CreateCodebasesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CodebasesChunk` that was created by this mutation. */
+  codebasesChunk?: CodebasesChunk | null;
+  codebasesChunkEdge?: CodebasesChunkEdge | null;
+}
+export type CreateCodebasesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  codebasesChunk?: {
+    select: CodebasesChunkSelect;
+  };
+  codebasesChunkEdge?: {
+    select: CodebasesChunkEdgeSelect;
+  };
+};
+export interface UpdateCodebasesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CodebasesChunk` that was updated by this mutation. */
+  codebasesChunk?: CodebasesChunk | null;
+  codebasesChunkEdge?: CodebasesChunkEdge | null;
+}
+export type UpdateCodebasesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  codebasesChunk?: {
+    select: CodebasesChunkSelect;
+  };
+  codebasesChunkEdge?: {
+    select: CodebasesChunkEdgeSelect;
+  };
+};
+export interface DeleteCodebasesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CodebasesChunk` that was deleted by this mutation. */
+  codebasesChunk?: CodebasesChunk | null;
+  codebasesChunkEdge?: CodebasesChunkEdge | null;
+}
+export type DeleteCodebasesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  codebasesChunk?: {
+    select: CodebasesChunkSelect;
+  };
+  codebasesChunkEdge?: {
+    select: CodebasesChunkEdgeSelect;
+  };
+};
 export interface CreateCodebasisPayload {
   clientMutationId?: string | null;
   /** The `Codebasis` that was created by this mutation. */
@@ -18708,6 +25019,51 @@ export type DeleteCodeChunkPayloadSelect = {
   };
   codeChunkEdge?: {
     select: CodeChunkEdgeSelect;
+  };
+};
+export interface CreateCompaniesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CompaniesChunk` that was created by this mutation. */
+  companiesChunk?: CompaniesChunk | null;
+  companiesChunkEdge?: CompaniesChunkEdge | null;
+}
+export type CreateCompaniesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  companiesChunk?: {
+    select: CompaniesChunkSelect;
+  };
+  companiesChunkEdge?: {
+    select: CompaniesChunkEdgeSelect;
+  };
+};
+export interface UpdateCompaniesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CompaniesChunk` that was updated by this mutation. */
+  companiesChunk?: CompaniesChunk | null;
+  companiesChunkEdge?: CompaniesChunkEdge | null;
+}
+export type UpdateCompaniesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  companiesChunk?: {
+    select: CompaniesChunkSelect;
+  };
+  companiesChunkEdge?: {
+    select: CompaniesChunkEdgeSelect;
+  };
+};
+export interface DeleteCompaniesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `CompaniesChunk` that was deleted by this mutation. */
+  companiesChunk?: CompaniesChunk | null;
+  companiesChunkEdge?: CompaniesChunkEdge | null;
+}
+export type DeleteCompaniesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  companiesChunk?: {
+    select: CompaniesChunkSelect;
+  };
+  companiesChunkEdge?: {
+    select: CompaniesChunkEdgeSelect;
   };
 };
 export interface CreateCompanyPayload {
@@ -19103,6 +25459,51 @@ export type CreateContactCompanyPayloadSelect = {
     select: ContactCompanySelect;
   };
 };
+export interface CreateEmailPayload {
+  clientMutationId?: string | null;
+  /** The `Email` that was created by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
+}
+export type CreateEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  emailEdge?: {
+    select: EmailEdgeSelect;
+  };
+};
+export interface UpdateEmailPayload {
+  clientMutationId?: string | null;
+  /** The `Email` that was updated by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
+}
+export type UpdateEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  emailEdge?: {
+    select: EmailEdgeSelect;
+  };
+};
+export interface DeleteEmailPayload {
+  clientMutationId?: string | null;
+  /** The `Email` that was deleted by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
+}
+export type DeleteEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  email?: {
+    select: EmailSelect;
+  };
+  emailEdge?: {
+    select: EmailEdgeSelect;
+  };
+};
 export interface CreateEmailThreadPayload {
   clientMutationId?: string | null;
   /** The `EmailThread` that was created by this mutation. */
@@ -19406,6 +25807,51 @@ export type CreateContactRelationshipPayloadSelect = {
     select: ContactRelationshipSelect;
   };
 };
+export interface CreateContactsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ContactsChunk` that was created by this mutation. */
+  contactsChunk?: ContactsChunk | null;
+  contactsChunkEdge?: ContactsChunkEdge | null;
+}
+export type CreateContactsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  contactsChunk?: {
+    select: ContactsChunkSelect;
+  };
+  contactsChunkEdge?: {
+    select: ContactsChunkEdgeSelect;
+  };
+};
+export interface UpdateContactsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ContactsChunk` that was updated by this mutation. */
+  contactsChunk?: ContactsChunk | null;
+  contactsChunkEdge?: ContactsChunkEdge | null;
+}
+export type UpdateContactsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  contactsChunk?: {
+    select: ContactsChunkSelect;
+  };
+  contactsChunkEdge?: {
+    select: ContactsChunkEdgeSelect;
+  };
+};
+export interface DeleteContactsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ContactsChunk` that was deleted by this mutation. */
+  contactsChunk?: ContactsChunk | null;
+  contactsChunkEdge?: ContactsChunkEdge | null;
+}
+export type DeleteContactsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  contactsChunk?: {
+    select: ContactsChunkSelect;
+  };
+  contactsChunkEdge?: {
+    select: ContactsChunkEdgeSelect;
+  };
+};
 export interface CreateConversationPayload {
   clientMutationId?: string | null;
   /** The `Conversation` that was created by this mutation. */
@@ -19449,6 +25895,51 @@ export type DeleteConversationPayloadSelect = {
   };
   conversationEdge?: {
     select: ConversationEdgeSelect;
+  };
+};
+export interface CreateConversationsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ConversationsChunk` that was created by this mutation. */
+  conversationsChunk?: ConversationsChunk | null;
+  conversationsChunkEdge?: ConversationsChunkEdge | null;
+}
+export type CreateConversationsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  conversationsChunk?: {
+    select: ConversationsChunkSelect;
+  };
+  conversationsChunkEdge?: {
+    select: ConversationsChunkEdgeSelect;
+  };
+};
+export interface UpdateConversationsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ConversationsChunk` that was updated by this mutation. */
+  conversationsChunk?: ConversationsChunk | null;
+  conversationsChunkEdge?: ConversationsChunkEdge | null;
+}
+export type UpdateConversationsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  conversationsChunk?: {
+    select: ConversationsChunkSelect;
+  };
+  conversationsChunkEdge?: {
+    select: ConversationsChunkEdgeSelect;
+  };
+};
+export interface DeleteConversationsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ConversationsChunk` that was deleted by this mutation. */
+  conversationsChunk?: ConversationsChunk | null;
+  conversationsChunkEdge?: ConversationsChunkEdge | null;
+}
+export type DeleteConversationsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  conversationsChunk?: {
+    select: ConversationsChunkSelect;
+  };
+  conversationsChunkEdge?: {
+    select: ConversationsChunkEdgeSelect;
   };
 };
 export interface CreateDealCompanyPayload {
@@ -19518,6 +26009,51 @@ export type DeleteDealNotePayloadSelect = {
     select: DealNoteEdgeSelect;
   };
 };
+export interface CreateDealsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `DealsChunk` that was created by this mutation. */
+  dealsChunk?: DealsChunk | null;
+  dealsChunkEdge?: DealsChunkEdge | null;
+}
+export type CreateDealsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  dealsChunk?: {
+    select: DealsChunkSelect;
+  };
+  dealsChunkEdge?: {
+    select: DealsChunkEdgeSelect;
+  };
+};
+export interface UpdateDealsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `DealsChunk` that was updated by this mutation. */
+  dealsChunk?: DealsChunk | null;
+  dealsChunkEdge?: DealsChunkEdge | null;
+}
+export type UpdateDealsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  dealsChunk?: {
+    select: DealsChunkSelect;
+  };
+  dealsChunkEdge?: {
+    select: DealsChunkEdgeSelect;
+  };
+};
+export interface DeleteDealsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `DealsChunk` that was deleted by this mutation. */
+  dealsChunk?: DealsChunk | null;
+  dealsChunkEdge?: DealsChunkEdge | null;
+}
+export type DeleteDealsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  dealsChunk?: {
+    select: DealsChunkSelect;
+  };
+  dealsChunkEdge?: {
+    select: DealsChunkEdgeSelect;
+  };
+};
 export interface CreateEmailAttachmentPayload {
   clientMutationId?: string | null;
   /** The `EmailAttachment` that was created by this mutation. */
@@ -19563,49 +26099,184 @@ export type DeleteEmailAttachmentPayloadSelect = {
     select: EmailAttachmentEdgeSelect;
   };
 };
-export interface CreateEmailPayload {
+export interface CreateEmailNotePayload {
   clientMutationId?: string | null;
-  /** The `Email` that was created by this mutation. */
-  email?: Email | null;
-  emailEdge?: EmailEdge | null;
+  /** The `EmailNote` that was created by this mutation. */
+  emailNote?: EmailNote | null;
+  emailNoteEdge?: EmailNoteEdge | null;
 }
-export type CreateEmailPayloadSelect = {
+export type CreateEmailNotePayloadSelect = {
   clientMutationId?: boolean;
-  email?: {
-    select: EmailSelect;
+  emailNote?: {
+    select: EmailNoteSelect;
   };
-  emailEdge?: {
-    select: EmailEdgeSelect;
+  emailNoteEdge?: {
+    select: EmailNoteEdgeSelect;
   };
 };
-export interface UpdateEmailPayload {
+export interface UpdateEmailNotePayload {
   clientMutationId?: string | null;
-  /** The `Email` that was updated by this mutation. */
-  email?: Email | null;
-  emailEdge?: EmailEdge | null;
+  /** The `EmailNote` that was updated by this mutation. */
+  emailNote?: EmailNote | null;
+  emailNoteEdge?: EmailNoteEdge | null;
 }
-export type UpdateEmailPayloadSelect = {
+export type UpdateEmailNotePayloadSelect = {
   clientMutationId?: boolean;
-  email?: {
-    select: EmailSelect;
+  emailNote?: {
+    select: EmailNoteSelect;
   };
-  emailEdge?: {
-    select: EmailEdgeSelect;
+  emailNoteEdge?: {
+    select: EmailNoteEdgeSelect;
   };
 };
-export interface DeleteEmailPayload {
+export interface DeleteEmailNotePayload {
   clientMutationId?: string | null;
-  /** The `Email` that was deleted by this mutation. */
-  email?: Email | null;
-  emailEdge?: EmailEdge | null;
+  /** The `EmailNote` that was deleted by this mutation. */
+  emailNote?: EmailNote | null;
+  emailNoteEdge?: EmailNoteEdge | null;
 }
-export type DeleteEmailPayloadSelect = {
+export type DeleteEmailNotePayloadSelect = {
   clientMutationId?: boolean;
-  email?: {
-    select: EmailSelect;
+  emailNote?: {
+    select: EmailNoteSelect;
   };
-  emailEdge?: {
-    select: EmailEdgeSelect;
+  emailNoteEdge?: {
+    select: EmailNoteEdgeSelect;
+  };
+};
+export interface CreateEmailRecipientPayload {
+  clientMutationId?: string | null;
+  /** The `EmailRecipient` that was created by this mutation. */
+  emailRecipient?: EmailRecipient | null;
+  emailRecipientEdge?: EmailRecipientEdge | null;
+}
+export type CreateEmailRecipientPayloadSelect = {
+  clientMutationId?: boolean;
+  emailRecipient?: {
+    select: EmailRecipientSelect;
+  };
+  emailRecipientEdge?: {
+    select: EmailRecipientEdgeSelect;
+  };
+};
+export interface UpdateEmailRecipientPayload {
+  clientMutationId?: string | null;
+  /** The `EmailRecipient` that was updated by this mutation. */
+  emailRecipient?: EmailRecipient | null;
+  emailRecipientEdge?: EmailRecipientEdge | null;
+}
+export type UpdateEmailRecipientPayloadSelect = {
+  clientMutationId?: boolean;
+  emailRecipient?: {
+    select: EmailRecipientSelect;
+  };
+  emailRecipientEdge?: {
+    select: EmailRecipientEdgeSelect;
+  };
+};
+export interface DeleteEmailRecipientPayload {
+  clientMutationId?: string | null;
+  /** The `EmailRecipient` that was deleted by this mutation. */
+  emailRecipient?: EmailRecipient | null;
+  emailRecipientEdge?: EmailRecipientEdge | null;
+}
+export type DeleteEmailRecipientPayloadSelect = {
+  clientMutationId?: boolean;
+  emailRecipient?: {
+    select: EmailRecipientSelect;
+  };
+  emailRecipientEdge?: {
+    select: EmailRecipientEdgeSelect;
+  };
+};
+export interface CreateEmailsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailsChunk` that was created by this mutation. */
+  emailsChunk?: EmailsChunk | null;
+  emailsChunkEdge?: EmailsChunkEdge | null;
+}
+export type CreateEmailsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailsChunk?: {
+    select: EmailsChunkSelect;
+  };
+  emailsChunkEdge?: {
+    select: EmailsChunkEdgeSelect;
+  };
+};
+export interface UpdateEmailsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailsChunk` that was updated by this mutation. */
+  emailsChunk?: EmailsChunk | null;
+  emailsChunkEdge?: EmailsChunkEdge | null;
+}
+export type UpdateEmailsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailsChunk?: {
+    select: EmailsChunkSelect;
+  };
+  emailsChunkEdge?: {
+    select: EmailsChunkEdgeSelect;
+  };
+};
+export interface DeleteEmailsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailsChunk` that was deleted by this mutation. */
+  emailsChunk?: EmailsChunk | null;
+  emailsChunkEdge?: EmailsChunkEdge | null;
+}
+export type DeleteEmailsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailsChunk?: {
+    select: EmailsChunkSelect;
+  };
+  emailsChunkEdge?: {
+    select: EmailsChunkEdgeSelect;
+  };
+};
+export interface CreateEmailThreadsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThreadsChunk` that was created by this mutation. */
+  emailThreadsChunk?: EmailThreadsChunk | null;
+  emailThreadsChunkEdge?: EmailThreadsChunkEdge | null;
+}
+export type CreateEmailThreadsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThreadsChunk?: {
+    select: EmailThreadsChunkSelect;
+  };
+  emailThreadsChunkEdge?: {
+    select: EmailThreadsChunkEdgeSelect;
+  };
+};
+export interface UpdateEmailThreadsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThreadsChunk` that was updated by this mutation. */
+  emailThreadsChunk?: EmailThreadsChunk | null;
+  emailThreadsChunkEdge?: EmailThreadsChunkEdge | null;
+}
+export type UpdateEmailThreadsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThreadsChunk?: {
+    select: EmailThreadsChunkSelect;
+  };
+  emailThreadsChunkEdge?: {
+    select: EmailThreadsChunkEdgeSelect;
+  };
+};
+export interface DeleteEmailThreadsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EmailThreadsChunk` that was deleted by this mutation. */
+  emailThreadsChunk?: EmailThreadsChunk | null;
+  emailThreadsChunkEdge?: EmailThreadsChunkEdge | null;
+}
+export type DeleteEmailThreadsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  emailThreadsChunk?: {
+    select: EmailThreadsChunkSelect;
+  };
+  emailThreadsChunkEdge?: {
+    select: EmailThreadsChunkEdgeSelect;
   };
 };
 export interface CreateEventImagePayload {
@@ -19709,6 +26380,51 @@ export type DeleteEventNotePayloadSelect = {
     select: EventNoteEdgeSelect;
   };
 };
+export interface CreateEventsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EventsChunk` that was created by this mutation. */
+  eventsChunk?: EventsChunk | null;
+  eventsChunkEdge?: EventsChunkEdge | null;
+}
+export type CreateEventsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  eventsChunk?: {
+    select: EventsChunkSelect;
+  };
+  eventsChunkEdge?: {
+    select: EventsChunkEdgeSelect;
+  };
+};
+export interface UpdateEventsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EventsChunk` that was updated by this mutation. */
+  eventsChunk?: EventsChunk | null;
+  eventsChunkEdge?: EventsChunkEdge | null;
+}
+export type UpdateEventsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  eventsChunk?: {
+    select: EventsChunkSelect;
+  };
+  eventsChunkEdge?: {
+    select: EventsChunkEdgeSelect;
+  };
+};
+export interface DeleteEventsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `EventsChunk` that was deleted by this mutation. */
+  eventsChunk?: EventsChunk | null;
+  eventsChunkEdge?: EventsChunkEdge | null;
+}
+export type DeleteEventsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  eventsChunk?: {
+    select: EventsChunkSelect;
+  };
+  eventsChunkEdge?: {
+    select: EventsChunkEdgeSelect;
+  };
+};
 export interface CreateEventVenuePayload {
   clientMutationId?: string | null;
   /** The `EventVenue` that was created by this mutation. */
@@ -19808,6 +26524,51 @@ export type DeleteExpenseContactPayloadSelect = {
   };
   expenseContactEdge?: {
     select: ExpenseContactEdgeSelect;
+  };
+};
+export interface CreateExpensesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ExpensesChunk` that was created by this mutation. */
+  expensesChunk?: ExpensesChunk | null;
+  expensesChunkEdge?: ExpensesChunkEdge | null;
+}
+export type CreateExpensesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  expensesChunk?: {
+    select: ExpensesChunkSelect;
+  };
+  expensesChunkEdge?: {
+    select: ExpensesChunkEdgeSelect;
+  };
+};
+export interface UpdateExpensesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ExpensesChunk` that was updated by this mutation. */
+  expensesChunk?: ExpensesChunk | null;
+  expensesChunkEdge?: ExpensesChunkEdge | null;
+}
+export type UpdateExpensesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  expensesChunk?: {
+    select: ExpensesChunkSelect;
+  };
+  expensesChunkEdge?: {
+    select: ExpensesChunkEdgeSelect;
+  };
+};
+export interface DeleteExpensesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ExpensesChunk` that was deleted by this mutation. */
+  expensesChunk?: ExpensesChunk | null;
+  expensesChunkEdge?: ExpensesChunkEdge | null;
+}
+export type DeleteExpensesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  expensesChunk?: {
+    select: ExpensesChunkSelect;
+  };
+  expensesChunkEdge?: {
+    select: ExpensesChunkEdgeSelect;
   };
 };
 export interface CreateGoalPayload {
@@ -19990,6 +26751,51 @@ export type DeleteGoalProjectPayloadSelect = {
     select: GoalProjectEdgeSelect;
   };
 };
+export interface CreateGoalsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `GoalsChunk` that was created by this mutation. */
+  goalsChunk?: GoalsChunk | null;
+  goalsChunkEdge?: GoalsChunkEdge | null;
+}
+export type CreateGoalsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  goalsChunk?: {
+    select: GoalsChunkSelect;
+  };
+  goalsChunkEdge?: {
+    select: GoalsChunkEdgeSelect;
+  };
+};
+export interface UpdateGoalsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `GoalsChunk` that was updated by this mutation. */
+  goalsChunk?: GoalsChunk | null;
+  goalsChunkEdge?: GoalsChunkEdge | null;
+}
+export type UpdateGoalsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  goalsChunk?: {
+    select: GoalsChunkSelect;
+  };
+  goalsChunkEdge?: {
+    select: GoalsChunkEdgeSelect;
+  };
+};
+export interface DeleteGoalsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `GoalsChunk` that was deleted by this mutation. */
+  goalsChunk?: GoalsChunk | null;
+  goalsChunkEdge?: GoalsChunkEdge | null;
+}
+export type DeleteGoalsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  goalsChunk?: {
+    select: GoalsChunkSelect;
+  };
+  goalsChunkEdge?: {
+    select: GoalsChunkEdgeSelect;
+  };
+};
 export interface CreateHikingTrailPayload {
   clientMutationId?: string | null;
   /** The `HikingTrail` that was created by this mutation. */
@@ -20033,6 +26839,51 @@ export type DeleteHikingTrailPayloadSelect = {
   };
   hikingTrailEdge?: {
     select: HikingTrailEdgeSelect;
+  };
+};
+export interface CreateHikingTrailsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `HikingTrailsChunk` that was created by this mutation. */
+  hikingTrailsChunk?: HikingTrailsChunk | null;
+  hikingTrailsChunkEdge?: HikingTrailsChunkEdge | null;
+}
+export type CreateHikingTrailsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  hikingTrailsChunk?: {
+    select: HikingTrailsChunkSelect;
+  };
+  hikingTrailsChunkEdge?: {
+    select: HikingTrailsChunkEdgeSelect;
+  };
+};
+export interface UpdateHikingTrailsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `HikingTrailsChunk` that was updated by this mutation. */
+  hikingTrailsChunk?: HikingTrailsChunk | null;
+  hikingTrailsChunkEdge?: HikingTrailsChunkEdge | null;
+}
+export type UpdateHikingTrailsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  hikingTrailsChunk?: {
+    select: HikingTrailsChunkSelect;
+  };
+  hikingTrailsChunkEdge?: {
+    select: HikingTrailsChunkEdgeSelect;
+  };
+};
+export interface DeleteHikingTrailsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `HikingTrailsChunk` that was deleted by this mutation. */
+  hikingTrailsChunk?: HikingTrailsChunk | null;
+  hikingTrailsChunkEdge?: HikingTrailsChunkEdge | null;
+}
+export type DeleteHikingTrailsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  hikingTrailsChunk?: {
+    select: HikingTrailsChunkSelect;
+  };
+  hikingTrailsChunkEdge?: {
+    select: HikingTrailsChunkEdgeSelect;
   };
 };
 export interface CreateInteractionPayload {
@@ -20080,6 +26931,96 @@ export type DeleteInteractionPayloadSelect = {
     select: InteractionEdgeSelect;
   };
 };
+export interface CreateInteractionsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `InteractionsChunk` that was created by this mutation. */
+  interactionsChunk?: InteractionsChunk | null;
+  interactionsChunkEdge?: InteractionsChunkEdge | null;
+}
+export type CreateInteractionsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  interactionsChunk?: {
+    select: InteractionsChunkSelect;
+  };
+  interactionsChunkEdge?: {
+    select: InteractionsChunkEdgeSelect;
+  };
+};
+export interface UpdateInteractionsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `InteractionsChunk` that was updated by this mutation. */
+  interactionsChunk?: InteractionsChunk | null;
+  interactionsChunkEdge?: InteractionsChunkEdge | null;
+}
+export type UpdateInteractionsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  interactionsChunk?: {
+    select: InteractionsChunkSelect;
+  };
+  interactionsChunkEdge?: {
+    select: InteractionsChunkEdgeSelect;
+  };
+};
+export interface DeleteInteractionsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `InteractionsChunk` that was deleted by this mutation. */
+  interactionsChunk?: InteractionsChunk | null;
+  interactionsChunkEdge?: InteractionsChunkEdge | null;
+}
+export type DeleteInteractionsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  interactionsChunk?: {
+    select: InteractionsChunkSelect;
+  };
+  interactionsChunkEdge?: {
+    select: InteractionsChunkEdgeSelect;
+  };
+};
+export interface CreateMemoriesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `MemoriesChunk` that was created by this mutation. */
+  memoriesChunk?: MemoriesChunk | null;
+  memoriesChunkEdge?: MemoriesChunkEdge | null;
+}
+export type CreateMemoriesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  memoriesChunk?: {
+    select: MemoriesChunkSelect;
+  };
+  memoriesChunkEdge?: {
+    select: MemoriesChunkEdgeSelect;
+  };
+};
+export interface UpdateMemoriesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `MemoriesChunk` that was updated by this mutation. */
+  memoriesChunk?: MemoriesChunk | null;
+  memoriesChunkEdge?: MemoriesChunkEdge | null;
+}
+export type UpdateMemoriesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  memoriesChunk?: {
+    select: MemoriesChunkSelect;
+  };
+  memoriesChunkEdge?: {
+    select: MemoriesChunkEdgeSelect;
+  };
+};
+export interface DeleteMemoriesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `MemoriesChunk` that was deleted by this mutation. */
+  memoriesChunk?: MemoriesChunk | null;
+  memoriesChunkEdge?: MemoriesChunkEdge | null;
+}
+export type DeleteMemoriesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  memoriesChunk?: {
+    select: MemoriesChunkSelect;
+  };
+  memoriesChunkEdge?: {
+    select: MemoriesChunkEdgeSelect;
+  };
+};
 export interface CreateMessagePayload {
   clientMutationId?: string | null;
   /** The `Message` that was created by this mutation. */
@@ -20123,6 +27064,96 @@ export type DeleteMessagePayloadSelect = {
   };
   messageEdge?: {
     select: MessageEdgeSelect;
+  };
+};
+export interface CreateMessagesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `MessagesChunk` that was created by this mutation. */
+  messagesChunk?: MessagesChunk | null;
+  messagesChunkEdge?: MessagesChunkEdge | null;
+}
+export type CreateMessagesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  messagesChunk?: {
+    select: MessagesChunkSelect;
+  };
+  messagesChunkEdge?: {
+    select: MessagesChunkEdgeSelect;
+  };
+};
+export interface UpdateMessagesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `MessagesChunk` that was updated by this mutation. */
+  messagesChunk?: MessagesChunk | null;
+  messagesChunkEdge?: MessagesChunkEdge | null;
+}
+export type UpdateMessagesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  messagesChunk?: {
+    select: MessagesChunkSelect;
+  };
+  messagesChunkEdge?: {
+    select: MessagesChunkEdgeSelect;
+  };
+};
+export interface DeleteMessagesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `MessagesChunk` that was deleted by this mutation. */
+  messagesChunk?: MessagesChunk | null;
+  messagesChunkEdge?: MessagesChunkEdge | null;
+}
+export type DeleteMessagesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  messagesChunk?: {
+    select: MessagesChunkSelect;
+  };
+  messagesChunkEdge?: {
+    select: MessagesChunkEdgeSelect;
+  };
+};
+export interface CreateNotesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `NotesChunk` that was created by this mutation. */
+  notesChunk?: NotesChunk | null;
+  notesChunkEdge?: NotesChunkEdge | null;
+}
+export type CreateNotesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  notesChunk?: {
+    select: NotesChunkSelect;
+  };
+  notesChunkEdge?: {
+    select: NotesChunkEdgeSelect;
+  };
+};
+export interface UpdateNotesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `NotesChunk` that was updated by this mutation. */
+  notesChunk?: NotesChunk | null;
+  notesChunkEdge?: NotesChunkEdge | null;
+}
+export type UpdateNotesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  notesChunk?: {
+    select: NotesChunkSelect;
+  };
+  notesChunkEdge?: {
+    select: NotesChunkEdgeSelect;
+  };
+};
+export interface DeleteNotesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `NotesChunk` that was deleted by this mutation. */
+  notesChunk?: NotesChunk | null;
+  notesChunkEdge?: NotesChunkEdge | null;
+}
+export type DeleteNotesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  notesChunk?: {
+    select: NotesChunkSelect;
+  };
+  notesChunkEdge?: {
+    select: NotesChunkEdgeSelect;
   };
 };
 export interface CreatePlacePayload {
@@ -20170,6 +27201,51 @@ export type DeletePlacePayloadSelect = {
     select: PlaceEdgeSelect;
   };
 };
+export interface CreatePlacesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `PlacesChunk` that was created by this mutation. */
+  placesChunk?: PlacesChunk | null;
+  placesChunkEdge?: PlacesChunkEdge | null;
+}
+export type CreatePlacesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  placesChunk?: {
+    select: PlacesChunkSelect;
+  };
+  placesChunkEdge?: {
+    select: PlacesChunkEdgeSelect;
+  };
+};
+export interface UpdatePlacesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `PlacesChunk` that was updated by this mutation. */
+  placesChunk?: PlacesChunk | null;
+  placesChunkEdge?: PlacesChunkEdge | null;
+}
+export type UpdatePlacesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  placesChunk?: {
+    select: PlacesChunkSelect;
+  };
+  placesChunkEdge?: {
+    select: PlacesChunkEdgeSelect;
+  };
+};
+export interface DeletePlacesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `PlacesChunk` that was deleted by this mutation. */
+  placesChunk?: PlacesChunk | null;
+  placesChunkEdge?: PlacesChunkEdge | null;
+}
+export type DeletePlacesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  placesChunk?: {
+    select: PlacesChunkSelect;
+  };
+  placesChunkEdge?: {
+    select: PlacesChunkEdgeSelect;
+  };
+};
 export interface CreateProjectContactPayload {
   clientMutationId?: string | null;
   /** The `ProjectContact` that was created by this mutation. */
@@ -20213,6 +27289,96 @@ export type DeleteProjectContactPayloadSelect = {
   };
   projectContactEdge?: {
     select: ProjectContactEdgeSelect;
+  };
+};
+export interface CreateProjectsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ProjectsChunk` that was created by this mutation. */
+  projectsChunk?: ProjectsChunk | null;
+  projectsChunkEdge?: ProjectsChunkEdge | null;
+}
+export type CreateProjectsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  projectsChunk?: {
+    select: ProjectsChunkSelect;
+  };
+  projectsChunkEdge?: {
+    select: ProjectsChunkEdgeSelect;
+  };
+};
+export interface UpdateProjectsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ProjectsChunk` that was updated by this mutation. */
+  projectsChunk?: ProjectsChunk | null;
+  projectsChunkEdge?: ProjectsChunkEdge | null;
+}
+export type UpdateProjectsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  projectsChunk?: {
+    select: ProjectsChunkSelect;
+  };
+  projectsChunkEdge?: {
+    select: ProjectsChunkEdgeSelect;
+  };
+};
+export interface DeleteProjectsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ProjectsChunk` that was deleted by this mutation. */
+  projectsChunk?: ProjectsChunk | null;
+  projectsChunkEdge?: ProjectsChunkEdge | null;
+}
+export type DeleteProjectsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  projectsChunk?: {
+    select: ProjectsChunkSelect;
+  };
+  projectsChunkEdge?: {
+    select: ProjectsChunkEdgeSelect;
+  };
+};
+export interface CreatePromptsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `PromptsChunk` that was created by this mutation. */
+  promptsChunk?: PromptsChunk | null;
+  promptsChunkEdge?: PromptsChunkEdge | null;
+}
+export type CreatePromptsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  promptsChunk?: {
+    select: PromptsChunkSelect;
+  };
+  promptsChunkEdge?: {
+    select: PromptsChunkEdgeSelect;
+  };
+};
+export interface UpdatePromptsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `PromptsChunk` that was updated by this mutation. */
+  promptsChunk?: PromptsChunk | null;
+  promptsChunkEdge?: PromptsChunkEdge | null;
+}
+export type UpdatePromptsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  promptsChunk?: {
+    select: PromptsChunkSelect;
+  };
+  promptsChunkEdge?: {
+    select: PromptsChunkEdgeSelect;
+  };
+};
+export interface DeletePromptsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `PromptsChunk` that was deleted by this mutation. */
+  promptsChunk?: PromptsChunk | null;
+  promptsChunkEdge?: PromptsChunkEdge | null;
+}
+export type DeletePromptsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  promptsChunk?: {
+    select: PromptsChunkSelect;
+  };
+  promptsChunkEdge?: {
+    select: PromptsChunkEdgeSelect;
   };
 };
 export interface CreateProviderSyncStatePayload {
@@ -20485,6 +27651,51 @@ export type DeleteRulePayloadSelect = {
     select: RuleEdgeSelect;
   };
 };
+export interface CreateRulesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RulesChunk` that was created by this mutation. */
+  rulesChunk?: RulesChunk | null;
+  rulesChunkEdge?: RulesChunkEdge | null;
+}
+export type CreateRulesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  rulesChunk?: {
+    select: RulesChunkSelect;
+  };
+  rulesChunkEdge?: {
+    select: RulesChunkEdgeSelect;
+  };
+};
+export interface UpdateRulesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RulesChunk` that was updated by this mutation. */
+  rulesChunk?: RulesChunk | null;
+  rulesChunkEdge?: RulesChunkEdge | null;
+}
+export type UpdateRulesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  rulesChunk?: {
+    select: RulesChunkSelect;
+  };
+  rulesChunkEdge?: {
+    select: RulesChunkEdgeSelect;
+  };
+};
+export interface DeleteRulesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RulesChunk` that was deleted by this mutation. */
+  rulesChunk?: RulesChunk | null;
+  rulesChunkEdge?: RulesChunkEdge | null;
+}
+export type DeleteRulesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  rulesChunk?: {
+    select: RulesChunkSelect;
+  };
+  rulesChunkEdge?: {
+    select: RulesChunkEdgeSelect;
+  };
+};
 export interface CreateRuntimeArtifactPayload {
   clientMutationId?: string | null;
   /** The `RuntimeArtifact` that was created by this mutation. */
@@ -20665,6 +27876,51 @@ export type DeleteRuntimeLogPayloadSelect = {
     select: RuntimeLogEdgeSelect;
   };
 };
+export interface CreateRuntimeLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeLogsChunk` that was created by this mutation. */
+  runtimeLogsChunk?: RuntimeLogsChunk | null;
+  runtimeLogsChunkEdge?: RuntimeLogsChunkEdge | null;
+}
+export type CreateRuntimeLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeLogsChunk?: {
+    select: RuntimeLogsChunkSelect;
+  };
+  runtimeLogsChunkEdge?: {
+    select: RuntimeLogsChunkEdgeSelect;
+  };
+};
+export interface UpdateRuntimeLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeLogsChunk` that was updated by this mutation. */
+  runtimeLogsChunk?: RuntimeLogsChunk | null;
+  runtimeLogsChunkEdge?: RuntimeLogsChunkEdge | null;
+}
+export type UpdateRuntimeLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeLogsChunk?: {
+    select: RuntimeLogsChunkSelect;
+  };
+  runtimeLogsChunkEdge?: {
+    select: RuntimeLogsChunkEdgeSelect;
+  };
+};
+export interface DeleteRuntimeLogsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeLogsChunk` that was deleted by this mutation. */
+  runtimeLogsChunk?: RuntimeLogsChunk | null;
+  runtimeLogsChunkEdge?: RuntimeLogsChunkEdge | null;
+}
+export type DeleteRuntimeLogsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeLogsChunk?: {
+    select: RuntimeLogsChunkSelect;
+  };
+  runtimeLogsChunkEdge?: {
+    select: RuntimeLogsChunkEdgeSelect;
+  };
+};
 export interface CreateRuntimeMetricPayload {
   clientMutationId?: string | null;
   /** The `RuntimeMetric` that was created by this mutation. */
@@ -20811,6 +28067,51 @@ export type CreateRuntimeStateDependencyPayloadSelect = {
     select: RuntimeStateDependencySelect;
   };
 };
+export interface CreateRuntimeStatesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeStatesChunk` that was created by this mutation. */
+  runtimeStatesChunk?: RuntimeStatesChunk | null;
+  runtimeStatesChunkEdge?: RuntimeStatesChunkEdge | null;
+}
+export type CreateRuntimeStatesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeStatesChunk?: {
+    select: RuntimeStatesChunkSelect;
+  };
+  runtimeStatesChunkEdge?: {
+    select: RuntimeStatesChunkEdgeSelect;
+  };
+};
+export interface UpdateRuntimeStatesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeStatesChunk` that was updated by this mutation. */
+  runtimeStatesChunk?: RuntimeStatesChunk | null;
+  runtimeStatesChunkEdge?: RuntimeStatesChunkEdge | null;
+}
+export type UpdateRuntimeStatesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeStatesChunk?: {
+    select: RuntimeStatesChunkSelect;
+  };
+  runtimeStatesChunkEdge?: {
+    select: RuntimeStatesChunkEdgeSelect;
+  };
+};
+export interface DeleteRuntimeStatesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `RuntimeStatesChunk` that was deleted by this mutation. */
+  runtimeStatesChunk?: RuntimeStatesChunk | null;
+  runtimeStatesChunkEdge?: RuntimeStatesChunkEdge | null;
+}
+export type DeleteRuntimeStatesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  runtimeStatesChunk?: {
+    select: RuntimeStatesChunkSelect;
+  };
+  runtimeStatesChunkEdge?: {
+    select: RuntimeStatesChunkEdgeSelect;
+  };
+};
 export interface CreateSkillPayload {
   clientMutationId?: string | null;
   /** The `Skill` that was created by this mutation. */
@@ -20854,6 +28155,51 @@ export type DeleteSkillPayloadSelect = {
   };
   skillEdge?: {
     select: SkillEdgeSelect;
+  };
+};
+export interface CreateSkillsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `SkillsChunk` that was created by this mutation. */
+  skillsChunk?: SkillsChunk | null;
+  skillsChunkEdge?: SkillsChunkEdge | null;
+}
+export type CreateSkillsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  skillsChunk?: {
+    select: SkillsChunkSelect;
+  };
+  skillsChunkEdge?: {
+    select: SkillsChunkEdgeSelect;
+  };
+};
+export interface UpdateSkillsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `SkillsChunk` that was updated by this mutation. */
+  skillsChunk?: SkillsChunk | null;
+  skillsChunkEdge?: SkillsChunkEdge | null;
+}
+export type UpdateSkillsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  skillsChunk?: {
+    select: SkillsChunkSelect;
+  };
+  skillsChunkEdge?: {
+    select: SkillsChunkEdgeSelect;
+  };
+};
+export interface DeleteSkillsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `SkillsChunk` that was deleted by this mutation. */
+  skillsChunk?: SkillsChunk | null;
+  skillsChunkEdge?: SkillsChunkEdge | null;
+}
+export type DeleteSkillsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  skillsChunk?: {
+    select: SkillsChunkSelect;
+  };
+  skillsChunkEdge?: {
+    select: SkillsChunkEdgeSelect;
   };
 };
 export interface CreateSkillToolPayload {
@@ -21126,6 +28472,51 @@ export type DeleteTaskProjectPayloadSelect = {
     select: TaskProjectEdgeSelect;
   };
 };
+export interface CreateTasksChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TasksChunk` that was created by this mutation. */
+  tasksChunk?: TasksChunk | null;
+  tasksChunkEdge?: TasksChunkEdge | null;
+}
+export type CreateTasksChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  tasksChunk?: {
+    select: TasksChunkSelect;
+  };
+  tasksChunkEdge?: {
+    select: TasksChunkEdgeSelect;
+  };
+};
+export interface UpdateTasksChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TasksChunk` that was updated by this mutation. */
+  tasksChunk?: TasksChunk | null;
+  tasksChunkEdge?: TasksChunkEdge | null;
+}
+export type UpdateTasksChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  tasksChunk?: {
+    select: TasksChunkSelect;
+  };
+  tasksChunkEdge?: {
+    select: TasksChunkEdgeSelect;
+  };
+};
+export interface DeleteTasksChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TasksChunk` that was deleted by this mutation. */
+  tasksChunk?: TasksChunk | null;
+  tasksChunkEdge?: TasksChunkEdge | null;
+}
+export type DeleteTasksChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  tasksChunk?: {
+    select: TasksChunkSelect;
+  };
+  tasksChunkEdge?: {
+    select: TasksChunkEdgeSelect;
+  };
+};
 export interface CreateThreadParticipantPayload {
   clientMutationId?: string | null;
   /** The `ThreadParticipant` that was created by this mutation. */
@@ -21169,6 +28560,51 @@ export type DeleteThreadParticipantPayloadSelect = {
   };
   threadParticipantEdge?: {
     select: ThreadParticipantEdgeSelect;
+  };
+};
+export interface CreateToolDefinitionsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ToolDefinitionsChunk` that was created by this mutation. */
+  toolDefinitionsChunk?: ToolDefinitionsChunk | null;
+  toolDefinitionsChunkEdge?: ToolDefinitionsChunkEdge | null;
+}
+export type CreateToolDefinitionsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  toolDefinitionsChunk?: {
+    select: ToolDefinitionsChunkSelect;
+  };
+  toolDefinitionsChunkEdge?: {
+    select: ToolDefinitionsChunkEdgeSelect;
+  };
+};
+export interface UpdateToolDefinitionsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ToolDefinitionsChunk` that was updated by this mutation. */
+  toolDefinitionsChunk?: ToolDefinitionsChunk | null;
+  toolDefinitionsChunkEdge?: ToolDefinitionsChunkEdge | null;
+}
+export type UpdateToolDefinitionsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  toolDefinitionsChunk?: {
+    select: ToolDefinitionsChunkSelect;
+  };
+  toolDefinitionsChunkEdge?: {
+    select: ToolDefinitionsChunkEdgeSelect;
+  };
+};
+export interface DeleteToolDefinitionsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `ToolDefinitionsChunk` that was deleted by this mutation. */
+  toolDefinitionsChunk?: ToolDefinitionsChunk | null;
+  toolDefinitionsChunkEdge?: ToolDefinitionsChunkEdge | null;
+}
+export type DeleteToolDefinitionsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  toolDefinitionsChunk?: {
+    select: ToolDefinitionsChunkSelect;
+  };
+  toolDefinitionsChunkEdge?: {
+    select: ToolDefinitionsChunkEdgeSelect;
   };
 };
 export interface CreateToolExecutionPayload {
@@ -21261,6 +28697,51 @@ export type DeleteTouchpointPayloadSelect = {
     select: TouchpointEdgeSelect;
   };
 };
+export interface CreateTouchpointsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TouchpointsChunk` that was created by this mutation. */
+  touchpointsChunk?: TouchpointsChunk | null;
+  touchpointsChunkEdge?: TouchpointsChunkEdge | null;
+}
+export type CreateTouchpointsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  touchpointsChunk?: {
+    select: TouchpointsChunkSelect;
+  };
+  touchpointsChunkEdge?: {
+    select: TouchpointsChunkEdgeSelect;
+  };
+};
+export interface UpdateTouchpointsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TouchpointsChunk` that was updated by this mutation. */
+  touchpointsChunk?: TouchpointsChunk | null;
+  touchpointsChunkEdge?: TouchpointsChunkEdge | null;
+}
+export type UpdateTouchpointsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  touchpointsChunk?: {
+    select: TouchpointsChunkSelect;
+  };
+  touchpointsChunkEdge?: {
+    select: TouchpointsChunkEdgeSelect;
+  };
+};
+export interface DeleteTouchpointsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TouchpointsChunk` that was deleted by this mutation. */
+  touchpointsChunk?: TouchpointsChunk | null;
+  touchpointsChunkEdge?: TouchpointsChunkEdge | null;
+}
+export type DeleteTouchpointsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  touchpointsChunk?: {
+    select: TouchpointsChunkSelect;
+  };
+  touchpointsChunkEdge?: {
+    select: TouchpointsChunkEdgeSelect;
+  };
+};
 export interface CreateTripPayload {
   clientMutationId?: string | null;
   /** The `Trip` that was created by this mutation. */
@@ -21304,6 +28785,51 @@ export type DeleteTripPayloadSelect = {
   };
   tripEdge?: {
     select: TripEdgeSelect;
+  };
+};
+export interface CreateTripsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TripsChunk` that was created by this mutation. */
+  tripsChunk?: TripsChunk | null;
+  tripsChunkEdge?: TripsChunkEdge | null;
+}
+export type CreateTripsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  tripsChunk?: {
+    select: TripsChunkSelect;
+  };
+  tripsChunkEdge?: {
+    select: TripsChunkEdgeSelect;
+  };
+};
+export interface UpdateTripsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TripsChunk` that was updated by this mutation. */
+  tripsChunk?: TripsChunk | null;
+  tripsChunkEdge?: TripsChunkEdge | null;
+}
+export type UpdateTripsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  tripsChunk?: {
+    select: TripsChunkSelect;
+  };
+  tripsChunkEdge?: {
+    select: TripsChunkEdgeSelect;
+  };
+};
+export interface DeleteTripsChunkPayload {
+  clientMutationId?: string | null;
+  /** The `TripsChunk` that was deleted by this mutation. */
+  tripsChunk?: TripsChunk | null;
+  tripsChunkEdge?: TripsChunkEdge | null;
+}
+export type DeleteTripsChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  tripsChunk?: {
+    select: TripsChunkSelect;
+  };
+  tripsChunkEdge?: {
+    select: TripsChunkEdgeSelect;
   };
 };
 export interface CreateVenueImagePayload {
@@ -21362,6 +28888,51 @@ export type DeleteVenueLinkPayloadSelect = {
     select: VenueLinkEdgeSelect;
   };
 };
+export interface CreateVenuesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `VenuesChunk` that was created by this mutation. */
+  venuesChunk?: VenuesChunk | null;
+  venuesChunkEdge?: VenuesChunkEdge | null;
+}
+export type CreateVenuesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  venuesChunk?: {
+    select: VenuesChunkSelect;
+  };
+  venuesChunkEdge?: {
+    select: VenuesChunkEdgeSelect;
+  };
+};
+export interface UpdateVenuesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `VenuesChunk` that was updated by this mutation. */
+  venuesChunk?: VenuesChunk | null;
+  venuesChunkEdge?: VenuesChunkEdge | null;
+}
+export type UpdateVenuesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  venuesChunk?: {
+    select: VenuesChunkSelect;
+  };
+  venuesChunkEdge?: {
+    select: VenuesChunkEdgeSelect;
+  };
+};
+export interface DeleteVenuesChunkPayload {
+  clientMutationId?: string | null;
+  /** The `VenuesChunk` that was deleted by this mutation. */
+  venuesChunk?: VenuesChunk | null;
+  venuesChunkEdge?: VenuesChunkEdge | null;
+}
+export type DeleteVenuesChunkPayloadSelect = {
+  clientMutationId?: boolean;
+  venuesChunk?: {
+    select: VenuesChunkSelect;
+  };
+  venuesChunkEdge?: {
+    select: VenuesChunkEdgeSelect;
+  };
+};
 /** A `ActivityLog` edge in the connection. */
 export interface ActivityLogEdge {
   cursor?: string | null;
@@ -21372,6 +28943,18 @@ export type ActivityLogEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ActivityLogSelect;
+  };
+};
+/** A `ActivityLogsChunk` edge in the connection. */
+export interface ActivityLogsChunkEdge {
+  cursor?: string | null;
+  /** The `ActivityLogsChunk` at the end of the edge. */
+  node?: ActivityLogsChunk | null;
+}
+export type ActivityLogsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ActivityLogsChunkSelect;
   };
 };
 /** A `Agent` edge in the connection. */
@@ -21398,6 +28981,18 @@ export type AgentLogEdgeSelect = {
     select: AgentLogSelect;
   };
 };
+/** A `AgentLogsChunk` edge in the connection. */
+export interface AgentLogsChunkEdge {
+  cursor?: string | null;
+  /** The `AgentLogsChunk` at the end of the edge. */
+  node?: AgentLogsChunk | null;
+}
+export type AgentLogsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: AgentLogsChunkSelect;
+  };
+};
 /** A `AgentPrompt` edge in the connection. */
 export interface AgentPromptEdge {
   cursor?: string | null;
@@ -21422,6 +29017,18 @@ export type PromptEdgeSelect = {
     select: PromptSelect;
   };
 };
+/** A `AgentsChunk` edge in the connection. */
+export interface AgentsChunkEdge {
+  cursor?: string | null;
+  /** The `AgentsChunk` at the end of the edge. */
+  node?: AgentsChunk | null;
+}
+export type AgentsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: AgentsChunkSelect;
+  };
+};
 /** A `AutonomyRecord` edge in the connection. */
 export interface AutonomyRecordEdge {
   cursor?: string | null;
@@ -21432,6 +29039,18 @@ export type AutonomyRecordEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: AutonomyRecordSelect;
+  };
+};
+/** A `AutonomyRecordsChunk` edge in the connection. */
+export interface AutonomyRecordsChunkEdge {
+  cursor?: string | null;
+  /** The `AutonomyRecordsChunk` at the end of the edge. */
+  node?: AutonomyRecordsChunk | null;
+}
+export type AutonomyRecordsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: AutonomyRecordsChunkSelect;
   };
 };
 /** A `CalendarAttendee` edge in the connection. */
@@ -21518,6 +29137,18 @@ export type NoteEdgeSelect = {
     select: NoteSelect;
   };
 };
+/** A `CalendarEventsChunk` edge in the connection. */
+export interface CalendarEventsChunkEdge {
+  cursor?: string | null;
+  /** The `CalendarEventsChunk` at the end of the edge. */
+  node?: CalendarEventsChunk | null;
+}
+export type CalendarEventsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CalendarEventsChunkSelect;
+  };
+};
 /** A `CalendarEventTask` edge in the connection. */
 export interface CalendarEventTaskEdge {
   cursor?: string | null;
@@ -21542,6 +29173,18 @@ export type TaskEdgeSelect = {
     select: TaskSelect;
   };
 };
+/** A `CodebasesChunk` edge in the connection. */
+export interface CodebasesChunkEdge {
+  cursor?: string | null;
+  /** The `CodebasesChunk` at the end of the edge. */
+  node?: CodebasesChunk | null;
+}
+export type CodebasesChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CodebasesChunkSelect;
+  };
+};
 /** A `Codebasis` edge in the connection. */
 export interface CodebasisEdge {
   cursor?: string | null;
@@ -21564,6 +29207,18 @@ export type CodeChunkEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: CodeChunkSelect;
+  };
+};
+/** A `CompaniesChunk` edge in the connection. */
+export interface CompaniesChunkEdge {
+  cursor?: string | null;
+  /** The `CompaniesChunk` at the end of the edge. */
+  node?: CompaniesChunk | null;
+}
+export type CompaniesChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: CompaniesChunkSelect;
   };
 };
 /** A `Company` edge in the connection. */
@@ -21662,6 +29317,18 @@ export type CompanyNoteEdgeSelect = {
     select: CompanyNoteSelect;
   };
 };
+/** A `Email` edge in the connection. */
+export interface EmailEdge {
+  cursor?: string | null;
+  /** The `Email` at the end of the edge. */
+  node?: Email | null;
+}
+export type EmailEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailSelect;
+  };
+};
 /** A `EmailThread` edge in the connection. */
 export interface EmailThreadEdge {
   cursor?: string | null;
@@ -21734,6 +29401,18 @@ export type ProjectEdgeSelect = {
     select: ProjectSelect;
   };
 };
+/** A `ContactsChunk` edge in the connection. */
+export interface ContactsChunkEdge {
+  cursor?: string | null;
+  /** The `ContactsChunk` at the end of the edge. */
+  node?: ContactsChunk | null;
+}
+export type ContactsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactsChunkSelect;
+  };
+};
 /** A `Conversation` edge in the connection. */
 export interface ConversationEdge {
   cursor?: string | null;
@@ -21744,6 +29423,18 @@ export type ConversationEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ConversationSelect;
+  };
+};
+/** A `ConversationsChunk` edge in the connection. */
+export interface ConversationsChunkEdge {
+  cursor?: string | null;
+  /** The `ConversationsChunk` at the end of the edge. */
+  node?: ConversationsChunk | null;
+}
+export type ConversationsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ConversationsChunkSelect;
   };
 };
 /** A `DealNote` edge in the connection. */
@@ -21758,6 +29449,18 @@ export type DealNoteEdgeSelect = {
     select: DealNoteSelect;
   };
 };
+/** A `DealsChunk` edge in the connection. */
+export interface DealsChunkEdge {
+  cursor?: string | null;
+  /** The `DealsChunk` at the end of the edge. */
+  node?: DealsChunk | null;
+}
+export type DealsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: DealsChunkSelect;
+  };
+};
 /** A `EmailAttachment` edge in the connection. */
 export interface EmailAttachmentEdge {
   cursor?: string | null;
@@ -21770,16 +29473,52 @@ export type EmailAttachmentEdgeSelect = {
     select: EmailAttachmentSelect;
   };
 };
-/** A `Email` edge in the connection. */
-export interface EmailEdge {
+/** A `EmailNote` edge in the connection. */
+export interface EmailNoteEdge {
   cursor?: string | null;
-  /** The `Email` at the end of the edge. */
-  node?: Email | null;
+  /** The `EmailNote` at the end of the edge. */
+  node?: EmailNote | null;
 }
-export type EmailEdgeSelect = {
+export type EmailNoteEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: EmailSelect;
+    select: EmailNoteSelect;
+  };
+};
+/** A `EmailRecipient` edge in the connection. */
+export interface EmailRecipientEdge {
+  cursor?: string | null;
+  /** The `EmailRecipient` at the end of the edge. */
+  node?: EmailRecipient | null;
+}
+export type EmailRecipientEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailRecipientSelect;
+  };
+};
+/** A `EmailsChunk` edge in the connection. */
+export interface EmailsChunkEdge {
+  cursor?: string | null;
+  /** The `EmailsChunk` at the end of the edge. */
+  node?: EmailsChunk | null;
+}
+export type EmailsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailsChunkSelect;
+  };
+};
+/** A `EmailThreadsChunk` edge in the connection. */
+export interface EmailThreadsChunkEdge {
+  cursor?: string | null;
+  /** The `EmailThreadsChunk` at the end of the edge. */
+  node?: EmailThreadsChunk | null;
+}
+export type EmailThreadsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EmailThreadsChunkSelect;
   };
 };
 /** A `EventLink` edge in the connection. */
@@ -21806,6 +29545,18 @@ export type EventNoteEdgeSelect = {
     select: EventNoteSelect;
   };
 };
+/** A `EventsChunk` edge in the connection. */
+export interface EventsChunkEdge {
+  cursor?: string | null;
+  /** The `EventsChunk` at the end of the edge. */
+  node?: EventsChunk | null;
+}
+export type EventsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: EventsChunkSelect;
+  };
+};
 /** A `Venue` edge in the connection. */
 export interface VenueEdge {
   cursor?: string | null;
@@ -21828,6 +29579,18 @@ export type ExpenseContactEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ExpenseContactSelect;
+  };
+};
+/** A `ExpensesChunk` edge in the connection. */
+export interface ExpensesChunkEdge {
+  cursor?: string | null;
+  /** The `ExpensesChunk` at the end of the edge. */
+  node?: ExpensesChunk | null;
+}
+export type ExpensesChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ExpensesChunkSelect;
   };
 };
 /** A `Goal` edge in the connection. */
@@ -21878,6 +29641,18 @@ export type GoalProjectEdgeSelect = {
     select: GoalProjectSelect;
   };
 };
+/** A `GoalsChunk` edge in the connection. */
+export interface GoalsChunkEdge {
+  cursor?: string | null;
+  /** The `GoalsChunk` at the end of the edge. */
+  node?: GoalsChunk | null;
+}
+export type GoalsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: GoalsChunkSelect;
+  };
+};
 /** A `HikingTrail` edge in the connection. */
 export interface HikingTrailEdge {
   cursor?: string | null;
@@ -21888,6 +29663,18 @@ export type HikingTrailEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: HikingTrailSelect;
+  };
+};
+/** A `HikingTrailsChunk` edge in the connection. */
+export interface HikingTrailsChunkEdge {
+  cursor?: string | null;
+  /** The `HikingTrailsChunk` at the end of the edge. */
+  node?: HikingTrailsChunk | null;
+}
+export type HikingTrailsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: HikingTrailsChunkSelect;
   };
 };
 /** A `Interaction` edge in the connection. */
@@ -21902,6 +29689,30 @@ export type InteractionEdgeSelect = {
     select: InteractionSelect;
   };
 };
+/** A `InteractionsChunk` edge in the connection. */
+export interface InteractionsChunkEdge {
+  cursor?: string | null;
+  /** The `InteractionsChunk` at the end of the edge. */
+  node?: InteractionsChunk | null;
+}
+export type InteractionsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: InteractionsChunkSelect;
+  };
+};
+/** A `MemoriesChunk` edge in the connection. */
+export interface MemoriesChunkEdge {
+  cursor?: string | null;
+  /** The `MemoriesChunk` at the end of the edge. */
+  node?: MemoriesChunk | null;
+}
+export type MemoriesChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: MemoriesChunkSelect;
+  };
+};
 /** A `Message` edge in the connection. */
 export interface MessageEdge {
   cursor?: string | null;
@@ -21912,6 +29723,30 @@ export type MessageEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: MessageSelect;
+  };
+};
+/** A `MessagesChunk` edge in the connection. */
+export interface MessagesChunkEdge {
+  cursor?: string | null;
+  /** The `MessagesChunk` at the end of the edge. */
+  node?: MessagesChunk | null;
+}
+export type MessagesChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: MessagesChunkSelect;
+  };
+};
+/** A `NotesChunk` edge in the connection. */
+export interface NotesChunkEdge {
+  cursor?: string | null;
+  /** The `NotesChunk` at the end of the edge. */
+  node?: NotesChunk | null;
+}
+export type NotesChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: NotesChunkSelect;
   };
 };
 /** A `Place` edge in the connection. */
@@ -21926,6 +29761,18 @@ export type PlaceEdgeSelect = {
     select: PlaceSelect;
   };
 };
+/** A `PlacesChunk` edge in the connection. */
+export interface PlacesChunkEdge {
+  cursor?: string | null;
+  /** The `PlacesChunk` at the end of the edge. */
+  node?: PlacesChunk | null;
+}
+export type PlacesChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: PlacesChunkSelect;
+  };
+};
 /** A `ProjectContact` edge in the connection. */
 export interface ProjectContactEdge {
   cursor?: string | null;
@@ -21936,6 +29783,30 @@ export type ProjectContactEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ProjectContactSelect;
+  };
+};
+/** A `ProjectsChunk` edge in the connection. */
+export interface ProjectsChunkEdge {
+  cursor?: string | null;
+  /** The `ProjectsChunk` at the end of the edge. */
+  node?: ProjectsChunk | null;
+}
+export type ProjectsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ProjectsChunkSelect;
+  };
+};
+/** A `PromptsChunk` edge in the connection. */
+export interface PromptsChunkEdge {
+  cursor?: string | null;
+  /** The `PromptsChunk` at the end of the edge. */
+  node?: PromptsChunk | null;
+}
+export type PromptsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: PromptsChunkSelect;
   };
 };
 /** A `ProviderSyncState` edge in the connection. */
@@ -22010,6 +29881,18 @@ export type RuleEdgeSelect = {
     select: RuleSelect;
   };
 };
+/** A `RulesChunk` edge in the connection. */
+export interface RulesChunkEdge {
+  cursor?: string | null;
+  /** The `RulesChunk` at the end of the edge. */
+  node?: RulesChunk | null;
+}
+export type RulesChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RulesChunkSelect;
+  };
+};
 /** A `RuntimeArtifact` edge in the connection. */
 export interface RuntimeArtifactEdge {
   cursor?: string | null;
@@ -22058,6 +29941,18 @@ export type RuntimeLogEdgeSelect = {
     select: RuntimeLogSelect;
   };
 };
+/** A `RuntimeLogsChunk` edge in the connection. */
+export interface RuntimeLogsChunkEdge {
+  cursor?: string | null;
+  /** The `RuntimeLogsChunk` at the end of the edge. */
+  node?: RuntimeLogsChunk | null;
+}
+export type RuntimeLogsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RuntimeLogsChunkSelect;
+  };
+};
 /** A `RuntimeMetric` edge in the connection. */
 export interface RuntimeMetricEdge {
   cursor?: string | null;
@@ -22094,6 +29989,18 @@ export type RuntimeStateEdgeSelect = {
     select: RuntimeStateSelect;
   };
 };
+/** A `RuntimeStatesChunk` edge in the connection. */
+export interface RuntimeStatesChunkEdge {
+  cursor?: string | null;
+  /** The `RuntimeStatesChunk` at the end of the edge. */
+  node?: RuntimeStatesChunk | null;
+}
+export type RuntimeStatesChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: RuntimeStatesChunkSelect;
+  };
+};
 /** A `Skill` edge in the connection. */
 export interface SkillEdge {
   cursor?: string | null;
@@ -22104,6 +30011,18 @@ export type SkillEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: SkillSelect;
+  };
+};
+/** A `SkillsChunk` edge in the connection. */
+export interface SkillsChunkEdge {
+  cursor?: string | null;
+  /** The `SkillsChunk` at the end of the edge. */
+  node?: SkillsChunk | null;
+}
+export type SkillsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: SkillsChunkSelect;
   };
 };
 /** A `SkillTool` edge in the connection. */
@@ -22178,6 +30097,18 @@ export type TaskProjectEdgeSelect = {
     select: TaskProjectSelect;
   };
 };
+/** A `TasksChunk` edge in the connection. */
+export interface TasksChunkEdge {
+  cursor?: string | null;
+  /** The `TasksChunk` at the end of the edge. */
+  node?: TasksChunk | null;
+}
+export type TasksChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TasksChunkSelect;
+  };
+};
 /** A `ThreadParticipant` edge in the connection. */
 export interface ThreadParticipantEdge {
   cursor?: string | null;
@@ -22188,6 +30119,18 @@ export type ThreadParticipantEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ThreadParticipantSelect;
+  };
+};
+/** A `ToolDefinitionsChunk` edge in the connection. */
+export interface ToolDefinitionsChunkEdge {
+  cursor?: string | null;
+  /** The `ToolDefinitionsChunk` at the end of the edge. */
+  node?: ToolDefinitionsChunk | null;
+}
+export type ToolDefinitionsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ToolDefinitionsChunkSelect;
   };
 };
 /** A `ToolExecution` edge in the connection. */
@@ -22214,6 +30157,18 @@ export type TouchpointEdgeSelect = {
     select: TouchpointSelect;
   };
 };
+/** A `TouchpointsChunk` edge in the connection. */
+export interface TouchpointsChunkEdge {
+  cursor?: string | null;
+  /** The `TouchpointsChunk` at the end of the edge. */
+  node?: TouchpointsChunk | null;
+}
+export type TouchpointsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TouchpointsChunkSelect;
+  };
+};
 /** A `Trip` edge in the connection. */
 export interface TripEdge {
   cursor?: string | null;
@@ -22226,6 +30181,18 @@ export type TripEdgeSelect = {
     select: TripSelect;
   };
 };
+/** A `TripsChunk` edge in the connection. */
+export interface TripsChunkEdge {
+  cursor?: string | null;
+  /** The `TripsChunk` at the end of the edge. */
+  node?: TripsChunk | null;
+}
+export type TripsChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: TripsChunkSelect;
+  };
+};
 /** A `VenueLink` edge in the connection. */
 export interface VenueLinkEdge {
   cursor?: string | null;
@@ -22236,5 +30203,17 @@ export type VenueLinkEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: VenueLinkSelect;
+  };
+};
+/** A `VenuesChunk` edge in the connection. */
+export interface VenuesChunkEdge {
+  cursor?: string | null;
+  /** The `VenuesChunk` at the end of the edge. */
+  node?: VenuesChunk | null;
+}
+export type VenuesChunkEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: VenuesChunkSelect;
   };
 };

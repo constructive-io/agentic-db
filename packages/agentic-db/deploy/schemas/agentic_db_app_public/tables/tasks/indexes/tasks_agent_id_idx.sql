@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tasks/table
 -- requires: schemas/agentic_db_app_public/tables/tasks/columns/agent_id/column
--- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
+-- requires: schemas/agentic_db_app_public/tables/venues_chunks/indexes/venues_chunks_chunk_index_idx
 
 
 CREATE INDEX tasks_agent_id_idx ON agentic_db_app_public.tasks USING BTREE ( agent_id );

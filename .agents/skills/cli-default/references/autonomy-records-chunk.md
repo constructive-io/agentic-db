@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db autonomy-records-chunk list
 agentic-db autonomy-records-chunk get --id <UUID>
-agentic-db autonomy-records-chunk create --autonomyRecordsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db autonomy-records-chunk update --id <UUID> [--autonomyRecordsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db autonomy-records-chunk create --entityId <UUID> --autonomyRecordsId <UUID> --content <String> --autonomyRecordId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db autonomy-records-chunk update --id <UUID> [--entityId <UUID>] [--autonomyRecordsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--autonomyRecordId <UUID>]
 agentic-db autonomy-records-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db autonomy-records-chunk list
 ### Create a autonomyRecordsChunk
 
 ```bash
-agentic-db autonomy-records-chunk create --autonomyRecordsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db autonomy-records-chunk create --entityId <UUID> --autonomyRecordsId <UUID> --content <String> --autonomyRecordId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a autonomyRecordsChunk by id

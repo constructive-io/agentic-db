@@ -9,8 +9,8 @@ ORM operations for GoalsChunk records
 ```typescript
 db.goalsChunk.findMany({ select: { id: true } }).execute()
 db.goalsChunk.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.goalsChunk.create({ data: { goalsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.goalsChunk.update({ where: { id: '<UUID>' }, data: { goalsId: '<UUID>' }, select: { id: true } }).execute()
+db.goalsChunk.create({ data: { entityId: '<UUID>', goalsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', goalId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.goalsChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.goalsChunk.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.goalsChunk.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.goalsChunk.findMany({
-  select: { id: true, goalsId: true }
+  select: { id: true, entityId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.goalsChunk.findMany({
 
 ```typescript
 const item = await db.goalsChunk.create({
-  data: { goalsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', goalsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', goalId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

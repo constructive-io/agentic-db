@@ -68,11 +68,30 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
+    {
+      ref: 'codebases_chunks',
+      table_name: 'codebases_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'codebases_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
     { $type: 'RelationHasMany', source_ref: 'codebases', target_ref: 'code_chunks', delete_action: 'c' },
     { $type: 'RelationManyToMany', source_ref: 'codebases', target_ref: 'codebases', junction_table_name: 'codebase_dependencies', source_field_name: 'codebase_id', target_field_name: 'dependency_id', ...M2M_JUNCTION_OPTS },
+    { $type: 'RelationHasMany', source_ref: 'codebases', target_ref: 'codebases_chunks', delete_action: 'c' },
   ],
 
   indexes: [
@@ -84,6 +103,7 @@ const definition: BlueprintDefinition = {
     { table_ref: 'code_chunks', column: 'file_path', access_method: 'btree' },
     { table_ref: 'code_chunks', column: 'symbol_type', access_method: 'btree' },
     { table_ref: 'code_chunks', column: 'language', access_method: 'btree' },
+    { table_ref: 'codebases_chunks', column: 'chunk_index', access_method: 'btree' },
   ],
 };
 

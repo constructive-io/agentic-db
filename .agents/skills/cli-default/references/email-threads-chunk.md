@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db email-threads-chunk list
 agentic-db email-threads-chunk get --id <UUID>
-agentic-db email-threads-chunk create --emailThreadsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db email-threads-chunk update --id <UUID> [--emailThreadsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db email-threads-chunk create --entityId <UUID> --emailThreadsId <UUID> --content <String> --emailThreadId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db email-threads-chunk update --id <UUID> [--entityId <UUID>] [--emailThreadsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--emailThreadId <UUID>]
 agentic-db email-threads-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db email-threads-chunk list
 ### Create a emailThreadsChunk
 
 ```bash
-agentic-db email-threads-chunk create --emailThreadsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db email-threads-chunk create --entityId <UUID> --emailThreadsId <UUID> --content <String> --emailThreadId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a emailThreadsChunk by id

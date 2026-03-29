@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db runtime-logs-chunk list
 agentic-db runtime-logs-chunk get --id <UUID>
-agentic-db runtime-logs-chunk create --runtimeLogsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db runtime-logs-chunk update --id <UUID> [--runtimeLogsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db runtime-logs-chunk create --entityId <UUID> --runtimeLogsId <UUID> --content <String> --runtimeLogId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db runtime-logs-chunk update --id <UUID> [--entityId <UUID>] [--runtimeLogsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--runtimeLogId <UUID>]
 agentic-db runtime-logs-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db runtime-logs-chunk list
 ### Create a runtimeLogsChunk
 
 ```bash
-agentic-db runtime-logs-chunk create --runtimeLogsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db runtime-logs-chunk create --entityId <UUID> --runtimeLogsId <UUID> --content <String> --runtimeLogId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a runtimeLogsChunk by id

@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/email_threads/table
 -- requires: schemas/agentic_db_private/trigger_fns/email_threads_search_tsv_tsv
--- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
+-- requires: schemas/agentic_db_app_public/tables/trips_chunks/indexes/trips_chunks_chunk_index_idx
 
 
 CREATE TRIGGER email_threads_search_tsv_tsv_insert_tg

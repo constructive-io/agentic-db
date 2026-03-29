@@ -186,6 +186,60 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
+    {
+      ref: 'calendar_events_chunks',
+      table_name: 'calendar_events_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'calendar_events_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'email_threads_chunks',
+      table_name: 'email_threads_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'email_threads_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'emails_chunks',
+      table_name: 'emails_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'emails_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
@@ -197,6 +251,9 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'calendars', target_ref: 'calendar_events', delete_action: 'c' },
     // Attendees belong to calendar events
     { $type: 'RelationHasMany', source_ref: 'calendar_events', target_ref: 'calendar_attendees', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'calendar_events', target_ref: 'calendar_events_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'email_threads', target_ref: 'email_threads_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'emails', target_ref: 'emails_chunks', delete_action: 'c' },
   ],
 
   indexes: [
@@ -227,6 +284,9 @@ const definition: BlueprintDefinition = {
     { table_ref: 'provider_sync_states', column: 'provider', access_method: 'btree' },
     { table_ref: 'provider_sync_states', column: 'resource_type', access_method: 'btree' },
     { table_ref: 'provider_sync_states', column: 'status', access_method: 'btree' },
+    { table_ref: 'calendar_events_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'email_threads_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'emails_chunks', column: 'chunk_index', access_method: 'btree' },
   ],
 };
 

@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/prompts/table
 -- requires: schemas/agentic_db_app_public/tables/prompts/columns/entity_id/column
--- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
+-- requires: schemas/agentic_db_app_public/tables/venues_chunks/indexes/venues_chunks_chunk_index_idx
 
 
 CREATE INDEX prompts_entity_id_idx ON agentic_db_app_public.prompts USING BTREE ( entity_id );

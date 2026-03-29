@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_private/schema
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/table
--- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 -- requires: schemas/agentic_db_private/trigger_fns/calendar_events_enqueue_embedding
+-- requires: schemas/agentic_db_app_public/tables/trips_chunks/indexes/trips_chunks_chunk_index_idx
 
 
 CREATE TRIGGER calendar_events_enqueue_embedding_update_tg

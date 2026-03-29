@@ -41,9 +41,29 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
+    {
+      ref: 'projects_chunks',
+      table_name: 'projects_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'projects_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
-  relations: [],
+  relations: [
+    { $type: 'RelationHasMany', source_ref: 'projects', target_ref: 'projects_chunks', delete_action: 'c' },
+  ],
 
   indexes: [
     { table_ref: 'projects', column: 'tags', access_method: 'gin' },
@@ -51,6 +71,7 @@ const definition: BlueprintDefinition = {
     { table_ref: 'projects', column: 'status', access_method: 'btree' },
     { table_ref: 'projects', column: 'project_type', access_method: 'btree' },
     { table_ref: 'projects', column: 'priority', access_method: 'btree' },
+    { table_ref: 'projects_chunks', column: 'chunk_index', access_method: 'btree' },
   ],
 };
 

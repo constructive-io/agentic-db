@@ -219,6 +219,78 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
+    {
+      ref: 'conversations_chunks',
+      table_name: 'conversations_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'conversations_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'messages_chunks',
+      table_name: 'messages_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'messages_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'runtime_logs_chunks',
+      table_name: 'runtime_logs_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'runtime_logs_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'runtime_states_chunks',
+      table_name: 'runtime_states_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'runtime_states_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
@@ -230,6 +302,10 @@ const definition: BlueprintDefinition = {
     // tool_definitions -> tool_executions FK handled in cross-relations.ts
 
     { $type: 'RelationManyToMany', source_ref: 'runtime_states', target_ref: 'runtime_states', junction_table_name: 'runtime_state_dependencies', source_field_name: 'state_id', target_field_name: 'dependency_id', ...M2M_JUNCTION_OPTS },
+    { $type: 'RelationHasMany', source_ref: 'conversations', target_ref: 'conversations_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'messages', target_ref: 'messages_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'runtime_logs', target_ref: 'runtime_logs_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'runtime_states', target_ref: 'runtime_states_chunks', delete_action: 'c' },
   ],
 
   indexes: [
@@ -255,6 +331,10 @@ const definition: BlueprintDefinition = {
     // tool_executions.tool_definition_id btree — auto-created by FK (cross-relations)
     { table_ref: 'tool_executions', column: 'message_id', access_method: 'btree' },
     { table_ref: 'tool_executions', column: 'status', access_method: 'btree' },
+    { table_ref: 'conversations_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'messages_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'runtime_logs_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'runtime_states_chunks', column: 'chunk_index', access_method: 'btree' },
   ],
 };
 

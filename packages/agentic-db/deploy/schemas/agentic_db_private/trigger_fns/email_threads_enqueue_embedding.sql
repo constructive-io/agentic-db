@@ -2,7 +2,7 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_private/schema
--- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
+-- requires: schemas/agentic_db_app_public/tables/trips_chunks/indexes/trips_chunks_chunk_index_idx
 
 
 CREATE FUNCTION agentic_db_private.email_threads_enqueue_embedding() RETURNS TRIGGER AS $_PGFN_$

@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_states/table
--- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 -- requires: schemas/agentic_db_app_public/tables/runtime_states/columns/state_type/column
+-- requires: schemas/agentic_db_app_public/tables/tool_definitions_chunks/indexes/tool_definitions_chunks_chunk_index_idx
 
 
 CREATE INDEX runtime_states_state_type_idx ON agentic_db_app_public.runtime_states USING BTREE ( state_type );

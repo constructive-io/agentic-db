@@ -9,8 +9,8 @@ ORM operations for AutonomyRecordsChunk records
 ```typescript
 db.autonomyRecordsChunk.findMany({ select: { id: true } }).execute()
 db.autonomyRecordsChunk.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.autonomyRecordsChunk.create({ data: { autonomyRecordsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.autonomyRecordsChunk.update({ where: { id: '<UUID>' }, data: { autonomyRecordsId: '<UUID>' }, select: { id: true } }).execute()
+db.autonomyRecordsChunk.create({ data: { entityId: '<UUID>', autonomyRecordsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', autonomyRecordId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.autonomyRecordsChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.autonomyRecordsChunk.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.autonomyRecordsChunk.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.autonomyRecordsChunk.findMany({
-  select: { id: true, autonomyRecordsId: true }
+  select: { id: true, entityId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.autonomyRecordsChunk.findMany({
 
 ```typescript
 const item = await db.autonomyRecordsChunk.create({
-  data: { autonomyRecordsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', autonomyRecordsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', autonomyRecordId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

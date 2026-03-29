@@ -9,8 +9,8 @@ ORM operations for EmailThreadsChunk records
 ```typescript
 db.emailThreadsChunk.findMany({ select: { id: true } }).execute()
 db.emailThreadsChunk.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.emailThreadsChunk.create({ data: { emailThreadsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.emailThreadsChunk.update({ where: { id: '<UUID>' }, data: { emailThreadsId: '<UUID>' }, select: { id: true } }).execute()
+db.emailThreadsChunk.create({ data: { entityId: '<UUID>', emailThreadsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', emailThreadId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.emailThreadsChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.emailThreadsChunk.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.emailThreadsChunk.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.emailThreadsChunk.findMany({
-  select: { id: true, emailThreadsId: true }
+  select: { id: true, entityId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.emailThreadsChunk.findMany({
 
 ```typescript
 const item = await db.emailThreadsChunk.create({
-  data: { emailThreadsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', emailThreadsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', emailThreadId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

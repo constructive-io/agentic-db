@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/prompts/table
 -- requires: schemas/agentic_db_app_public/tables/prompts/columns/embedding_text/column
--- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
+-- requires: schemas/agentic_db_app_public/tables/venues_chunks/indexes/venues_chunks_chunk_index_idx
 
 
 CREATE INDEX prompts_embedding_text_bm25_idx ON agentic_db_app_public.prompts USING bm25 ( embedding_text ) WITH ( text_config = english );

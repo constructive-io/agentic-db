@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/habits/table
 -- requires: schemas/agentic_db_users_public/tables/users/table
--- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
+-- requires: schemas/agentic_db_app_public/tables/codebases_chunks/indexes/codebases_chunks_chunk_index_idx
 
 
 ALTER TABLE agentic_db_app_public.habits 

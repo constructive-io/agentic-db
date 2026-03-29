@@ -9,8 +9,8 @@ ORM operations for CalendarEventsChunk records
 ```typescript
 db.calendarEventsChunk.findMany({ select: { id: true } }).execute()
 db.calendarEventsChunk.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.calendarEventsChunk.create({ data: { calendarEventsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.calendarEventsChunk.update({ where: { id: '<UUID>' }, data: { calendarEventsId: '<UUID>' }, select: { id: true } }).execute()
+db.calendarEventsChunk.create({ data: { entityId: '<UUID>', calendarEventsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', calendarEventId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.calendarEventsChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.calendarEventsChunk.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.calendarEventsChunk.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.calendarEventsChunk.findMany({
-  select: { id: true, calendarEventsId: true }
+  select: { id: true, entityId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.calendarEventsChunk.findMany({
 
 ```typescript
 const item = await db.calendarEventsChunk.create({
-  data: { calendarEventsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', calendarEventsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', calendarEventId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

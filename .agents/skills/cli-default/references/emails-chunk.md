@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db emails-chunk list
 agentic-db emails-chunk get --id <UUID>
-agentic-db emails-chunk create --emailsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db emails-chunk update --id <UUID> [--emailsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db emails-chunk create --entityId <UUID> --emailsId <UUID> --content <String> --emailId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db emails-chunk update --id <UUID> [--entityId <UUID>] [--emailsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--emailId <UUID>]
 agentic-db emails-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db emails-chunk list
 ### Create a emailsChunk
 
 ```bash
-agentic-db emails-chunk create --emailsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db emails-chunk create --entityId <UUID> --emailsId <UUID> --content <String> --emailId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a emailsChunk by id

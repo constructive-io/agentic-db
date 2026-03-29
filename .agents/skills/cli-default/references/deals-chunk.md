@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db deals-chunk list
 agentic-db deals-chunk get --id <UUID>
-agentic-db deals-chunk create --dealsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db deals-chunk update --id <UUID> [--dealsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db deals-chunk create --entityId <UUID> --dealsId <UUID> --content <String> --dealId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db deals-chunk update --id <UUID> [--entityId <UUID>] [--dealsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--dealId <UUID>]
 agentic-db deals-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db deals-chunk list
 ### Create a dealsChunk
 
 ```bash
-agentic-db deals-chunk create --dealsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db deals-chunk create --entityId <UUID> --dealsId <UUID> --content <String> --dealId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a dealsChunk by id

@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/prompts/table
 -- requires: schemas/agentic_db_app_public/tables/prompts/columns/tags/column
--- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
+-- requires: schemas/agentic_db_app_public/tables/venues_chunks/indexes/venues_chunks_chunk_index_idx
 
 
 CREATE INDEX prompts_tags_gin_idx ON agentic_db_app_public.prompts USING GIN ( tags );

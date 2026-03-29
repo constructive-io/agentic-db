@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/table
--- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/end_time/column
+-- requires: schemas/agentic_db_app_public/tables/trips_chunks/indexes/trips_chunks_chunk_index_idx
 
 
 CREATE INDEX calendar_events_end_time_idx ON agentic_db_app_public.calendar_events USING BTREE ( end_time );

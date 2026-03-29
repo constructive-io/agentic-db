@@ -359,6 +359,150 @@ const definition: BlueprintDefinition = {
       grants: CRUD_GRANTS,
       policies: [ORG_POLICY],
     },
+
+    {
+      ref: 'contacts_chunks',
+      table_name: 'contacts_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'contacts_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'companies_chunks',
+      table_name: 'companies_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'companies_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'deals_chunks',
+      table_name: 'deals_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'deals_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'events_chunks',
+      table_name: 'events_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'events_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'interactions_chunks',
+      table_name: 'interactions_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'interactions_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'notes_chunks',
+      table_name: 'notes_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'notes_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'touchpoints_chunks',
+      table_name: 'touchpoints_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'touchpoints_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
+    {
+      ref: 'venues_chunks',
+      table_name: 'venues_chunks',
+      nodes: [
+        ...ORG_NODES,
+      ],
+      fields: [
+        { name: 'venues_id', type: 'uuid', is_required: true },
+        { name: 'content', type: 'text', is_required: true },
+        { name: 'chunk_index', type: 'int' },
+        { name: 'embedding', type: 'vector(1536)' },
+        { name: 'metadata', type: 'jsonb' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
   ],
 
   relations: [
@@ -399,6 +543,14 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'deals',     field_name: 'deal_id',    delete_action: 'n', is_required: false },
     { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'companies', field_name: 'company_id', delete_action: 'n', is_required: false },
     { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'events',    field_name: 'event_id',   delete_action: 'n', is_required: false },
+    { $type: 'RelationHasMany', source_ref: 'contacts', target_ref: 'contacts_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'companies', target_ref: 'companies_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'deals', target_ref: 'deals_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'events', target_ref: 'events_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'interactions', target_ref: 'interactions_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'notes', target_ref: 'notes_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'touchpoints', target_ref: 'touchpoints_chunks', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'venues', target_ref: 'venues_chunks', delete_action: 'c' },
   ],
 
   indexes: [
@@ -438,6 +590,14 @@ const definition: BlueprintDefinition = {
     { table_ref: 'touchpoints', column: 'occurred_at', access_method: 'btree' },
     { table_ref: 'touchpoints', column: 'direction', access_method: 'btree' },
     { table_ref: 'touchpoints', column: 'channel', access_method: 'btree' },
+    { table_ref: 'contacts_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'companies_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'deals_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'events_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'interactions_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'notes_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'touchpoints_chunks', column: 'chunk_index', access_method: 'btree' },
+    { table_ref: 'venues_chunks', column: 'chunk_index', access_method: 'btree' },
   ],
 };
 

@@ -9,8 +9,8 @@ ORM operations for RuntimeStatesChunk records
 ```typescript
 db.runtimeStatesChunk.findMany({ select: { id: true } }).execute()
 db.runtimeStatesChunk.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.runtimeStatesChunk.create({ data: { runtimeStatesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.runtimeStatesChunk.update({ where: { id: '<UUID>' }, data: { runtimeStatesId: '<UUID>' }, select: { id: true } }).execute()
+db.runtimeStatesChunk.create({ data: { entityId: '<UUID>', runtimeStatesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', runtimeStateId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.runtimeStatesChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.runtimeStatesChunk.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.runtimeStatesChunk.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.runtimeStatesChunk.findMany({
-  select: { id: true, runtimeStatesId: true }
+  select: { id: true, entityId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.runtimeStatesChunk.findMany({
 
 ```typescript
 const item = await db.runtimeStatesChunk.create({
-  data: { runtimeStatesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', runtimeStatesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', runtimeStateId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

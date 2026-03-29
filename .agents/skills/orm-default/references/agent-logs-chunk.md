@@ -9,8 +9,8 @@ ORM operations for AgentLogsChunk records
 ```typescript
 db.agentLogsChunk.findMany({ select: { id: true } }).execute()
 db.agentLogsChunk.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.agentLogsChunk.create({ data: { agentLogsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.agentLogsChunk.update({ where: { id: '<UUID>' }, data: { agentLogsId: '<UUID>' }, select: { id: true } }).execute()
+db.agentLogsChunk.create({ data: { entityId: '<UUID>', agentLogsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', agentLogId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.agentLogsChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
 db.agentLogsChunk.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.agentLogsChunk.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.agentLogsChunk.findMany({
-  select: { id: true, agentLogsId: true }
+  select: { id: true, entityId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.agentLogsChunk.findMany({
 
 ```typescript
 const item = await db.agentLogsChunk.create({
-  data: { agentLogsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { entityId: '<UUID>', agentLogsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', agentLogId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db calendar-events-chunk list
 agentic-db calendar-events-chunk get --id <UUID>
-agentic-db calendar-events-chunk create --calendarEventsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db calendar-events-chunk update --id <UUID> [--calendarEventsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db calendar-events-chunk create --entityId <UUID> --calendarEventsId <UUID> --content <String> --calendarEventId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db calendar-events-chunk update --id <UUID> [--entityId <UUID>] [--calendarEventsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--calendarEventId <UUID>]
 agentic-db calendar-events-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db calendar-events-chunk list
 ### Create a calendarEventsChunk
 
 ```bash
-agentic-db calendar-events-chunk create --calendarEventsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db calendar-events-chunk create --entityId <UUID> --calendarEventsId <UUID> --content <String> --calendarEventId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a calendarEventsChunk by id
