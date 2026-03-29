@@ -366,16 +366,21 @@ BEGIN
                 v_rel_node_data := COALESCE(v_relation_entry->'node_data', '{}'::jsonb);
                 v_rel_policy_type := v_relation_entry->>'policy_type';
                 v_rel_policy_data := COALESCE(v_relation_entry->'policy_data', '{}'::jsonb);
-                v_rel_policy_permissive := (v_relation_entry->>'policy_permissive')::boolean;
-                v_rel_grant_privileges := COALESCE(v_relation_entry->'grant_privileges', '[]'::jsonb);
+                v_rel_policy_permissive := COALESCE((v_relation_entry->>'policy_permissive')::boolean, true);
+                -- Resolve grant_privileges (default to select/insert/delete matching relation_provision table default)
+                IF v_relation_entry ? 'grant_privileges' THEN
+                    v_rel_grant_privileges := v_relation_entry->'grant_privileges';
+                ELSE
+                    v_rel_grant_privileges := '[["select","*"],["insert","*"],["delete","*"]]'::jsonb;
+                END IF;
 
-                -- Resolve grant_roles from JSON array to text[]
+                -- Resolve grant_roles from JSON array to text[] (default to authenticated)
                 IF v_relation_entry ? 'grant_roles' THEN
                     v_rel_grant_roles := ARRAY(
                         SELECT jsonb_array_elements_text(v_relation_entry->'grant_roles')
                     );
                 ELSE
-                    v_rel_grant_roles := NULL;
+                    v_rel_grant_roles := ARRAY['authenticated'];
                 END IF;
 
                 -- Convert relation grant_privileges from jsonb to jsonb[]
