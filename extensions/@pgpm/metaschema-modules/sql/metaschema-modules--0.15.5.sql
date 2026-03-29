@@ -37,11 +37,11 @@ CREATE TABLE metaschema_modules_public.connected_accounts_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT owner_table_fkey
     FOREIGN KEY(owner_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT schema_fkey
     FOREIGN KEY(schema_id)
@@ -70,11 +70,11 @@ CREATE TABLE metaschema_modules_public.crypto_addresses_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT owner_table_fkey
     FOREIGN KEY(owner_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT schema_fkey
     FOREIGN KEY(schema_id)
@@ -109,19 +109,19 @@ CREATE TABLE metaschema_modules_public.crypto_auth_module (
     ON DELETE CASCADE,
   CONSTRAINT secrets_table_fkey
     FOREIGN KEY(secrets_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT users_table_fkey
     FOREIGN KEY(users_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT sessions_table_fkey
     FOREIGN KEY(sessions_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT session_credentials_table_fkey
     FOREIGN KEY(session_credentials_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT schema_fkey
     FOREIGN KEY(schema_id)
@@ -161,11 +161,11 @@ CREATE TABLE metaschema_modules_public.denormalized_table_field (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT ref_table_fkey
     FOREIGN KEY(ref_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT field_fkey
     FOREIGN KEY(field_id)
@@ -193,11 +193,11 @@ CREATE TABLE metaschema_modules_public.emails_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT owner_table_fkey
     FOREIGN KEY(owner_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT schema_fkey
     FOREIGN KEY(schema_id)
@@ -227,7 +227,7 @@ CREATE TABLE metaschema_modules_public.encrypted_secrets_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -249,7 +249,7 @@ CREATE TABLE metaschema_modules_public.field_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT field_fkey
     FOREIGN KEY(field_id)
@@ -286,23 +286,23 @@ CREATE TABLE metaschema_modules_public.invites_module (
     ON DELETE CASCADE,
   CONSTRAINT invites_table_fkey
     FOREIGN KEY(invites_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT emails_table_fkey
     FOREIGN KEY(emails_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT users_table_fkey
     FOREIGN KEY(users_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT entity_table_fkey
     FOREIGN KEY(entity_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT claimed_invites_table_fkey
     FOREIGN KEY(claimed_invites_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT schema_fkey
     FOREIGN KEY(schema_id)
@@ -357,27 +357,27 @@ CREATE TABLE metaschema_modules_public.levels_module (
     ON DELETE CASCADE,
   CONSTRAINT steps_table_fkey
     FOREIGN KEY(steps_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT achievements_table_fkey
     FOREIGN KEY(achievements_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT levels_table_fkey
     FOREIGN KEY(levels_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT level_requirements_table_fkey
     FOREIGN KEY(level_requirements_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT entity_table_fkey
     FOREIGN KEY(entity_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT actor_table_fkey
     FOREIGN KEY(actor_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -416,19 +416,19 @@ CREATE TABLE metaschema_modules_public.limits_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT default_table_fkey
     FOREIGN KEY(default_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT entity_table_fkey
     FOREIGN KEY(entity_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT actor_table_fkey
     FOREIGN KEY(actor_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -450,7 +450,7 @@ CREATE TABLE metaschema_modules_public.membership_types_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -502,27 +502,27 @@ CREATE TABLE metaschema_modules_public.memberships_module (
     ON DELETE CASCADE,
   CONSTRAINT memberships_table_fkey
     FOREIGN KEY(memberships_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT membership_defaults_table_fkey
     FOREIGN KEY(membership_defaults_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT members_table_fkey
     FOREIGN KEY(members_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT grants_table_fkey
     FOREIGN KEY(grants_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT sprt_table_fkey
     FOREIGN KEY(sprt_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT entity_table_fkey
     FOREIGN KEY(entity_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT entity_table_owner_fkey
     FOREIGN KEY(entity_table_owner_id)
@@ -530,23 +530,23 @@ CREATE TABLE metaschema_modules_public.memberships_module (
     ON DELETE CASCADE,
   CONSTRAINT actor_table_fkey
     FOREIGN KEY(actor_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT limits_table_fkey
     FOREIGN KEY(limits_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT default_limits_table_fkey
     FOREIGN KEY(default_limits_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT permissions_table_fkey
     FOREIGN KEY(permissions_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT default_permissions_table_fkey
     FOREIGN KEY(default_permissions_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -584,19 +584,19 @@ CREATE TABLE metaschema_modules_public.permissions_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT default_table_fkey
     FOREIGN KEY(default_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT entity_table_fkey
     FOREIGN KEY(entity_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT actor_table_fkey
     FOREIGN KEY(actor_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -616,11 +616,11 @@ CREATE TABLE metaschema_modules_public.phone_numbers_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT owner_table_fkey
     FOREIGN KEY(owner_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT schema_fkey
     FOREIGN KEY(schema_id)
@@ -667,35 +667,35 @@ CREATE TABLE metaschema_modules_public.profiles_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT profile_permissions_table_fkey
     FOREIGN KEY(profile_permissions_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT profile_grants_table_fkey
     FOREIGN KEY(profile_grants_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT profile_definition_grants_table_fkey
     FOREIGN KEY(profile_definition_grants_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT entity_table_fkey
     FOREIGN KEY(entity_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT actor_table_fkey
     FOREIGN KEY(actor_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT permissions_table_fkey
     FOREIGN KEY(permissions_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT memberships_table_fkey
     FOREIGN KEY(memberships_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT profiles_module_unique 
     UNIQUE (database_id, membership_type)
@@ -721,15 +721,15 @@ CREATE TABLE metaschema_modules_public.rls_module (
     ON DELETE CASCADE,
   CONSTRAINT session_credentials_table_fkey
     FOREIGN KEY(session_credentials_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT sessions_table_fkey
     FOREIGN KEY(sessions_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT users_table_fkey
     FOREIGN KEY(users_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT schema_fkey
     FOREIGN KEY(schema_id)
@@ -769,7 +769,7 @@ CREATE TABLE metaschema_modules_public.secrets_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -797,19 +797,19 @@ CREATE TABLE metaschema_modules_public.sessions_module (
     ON DELETE CASCADE,
   CONSTRAINT sessions_table_fkey
     FOREIGN KEY(sessions_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT session_credentials_table_fkey
     FOREIGN KEY(session_credentials_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT auth_settings_table_fkey
     FOREIGN KEY(auth_settings_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT users_table_fkey
     FOREIGN KEY(users_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -858,27 +858,27 @@ CREATE TABLE metaschema_modules_public.user_auth_module (
     ON DELETE CASCADE,
   CONSTRAINT email_table_fkey
     FOREIGN KEY(emails_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT users_table_fkey
     FOREIGN KEY(users_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT secrets_table_fkey
     FOREIGN KEY(secrets_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT encrypted_table_fkey
     FOREIGN KEY(encrypted_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT sessions_table_fkey
     FOREIGN KEY(sessions_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT session_credentials_table_fkey
     FOREIGN KEY(session_credentials_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -914,11 +914,11 @@ CREATE TABLE metaschema_modules_public.users_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT type_table_fkey
     FOREIGN KEY(type_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -959,23 +959,23 @@ CREATE TABLE metaschema_modules_public.hierarchy_module (
     ON DELETE CASCADE,
   CONSTRAINT chart_edges_table_fkey
     FOREIGN KEY(chart_edges_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT hierarchy_sprt_table_fkey
     FOREIGN KEY(hierarchy_sprt_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT chart_edge_grants_table_fkey
     FOREIGN KEY(chart_edge_grants_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT entity_table_fkey
     FOREIGN KEY(entity_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT users_table_fkey
     FOREIGN KEY(users_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT hierarchy_module_database_unique 
     UNIQUE (database_id)
@@ -999,11 +999,11 @@ CREATE TABLE metaschema_modules_public.table_template_module (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT owner_table_fkey
     FOREIGN KEY(owner_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT schema_fkey
     FOREIGN KEY(schema_id)
@@ -1052,7 +1052,7 @@ CREATE TABLE metaschema_modules_public.secure_table_provision (
     ON DELETE CASCADE,
   CONSTRAINT table_fkey
     FOREIGN KEY(table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT schema_fkey
     FOREIGN KEY(schema_id)
@@ -1142,11 +1142,11 @@ CREATE TABLE metaschema_modules_public.relation_provision (
     ON DELETE CASCADE,
   CONSTRAINT source_table_fkey
     FOREIGN KEY(source_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE,
   CONSTRAINT target_table_fkey
     FOREIGN KEY(target_table_id)
-    REFERENCES metaschema_public."table" (id)
+    REFERENCES metaschema_public.table (id)
     ON DELETE CASCADE
 );
 
@@ -1449,7 +1449,13 @@ CREATE INDEX blueprint_status_idx ON metaschema_modules_public.blueprint (status
 
 CREATE INDEX blueprint_definition_hash_idx ON metaschema_modules_public.blueprint (definition_hash);
 
-CREATE FUNCTION metaschema_modules_public.copy_template_to_blueprint(template_id uuid, database_id uuid, owner_id uuid, name_override text DEFAULT NULL, display_name_override text DEFAULT NULL) RETURNS uuid AS $EOFCODE$
+CREATE FUNCTION metaschema_modules_public.copy_template_to_blueprint(
+  template_id uuid,
+  database_id uuid,
+  owner_id uuid,
+  name_override text DEFAULT NULL,
+  display_name_override text DEFAULT NULL
+) RETURNS uuid AS $EOFCODE$
 #variable_conflict use_variable
 DECLARE
     v_template metaschema_modules_public.blueprint_template;
@@ -1509,7 +1515,10 @@ $EOFCODE$ LANGUAGE plpgsql VOLATILE;
 
 COMMENT ON FUNCTION metaschema_modules_public.copy_template_to_blueprint IS 'Creates a new blueprint by copying a template definition. Checks visibility: owners can always copy their own templates, others require public visibility. Increments the template copy_count. Returns the new blueprint ID.';
 
-CREATE FUNCTION metaschema_modules_public.construct_blueprint(blueprint_id uuid, schema_id uuid DEFAULT uuid_nil()) RETURNS jsonb AS $EOFCODE$
+CREATE FUNCTION metaschema_modules_public.construct_blueprint(
+  blueprint_id uuid,
+  schema_id uuid DEFAULT uuid_nil()
+) RETURNS jsonb AS $EOFCODE$
 #variable_conflict use_variable
 DECLARE
     v_blueprint metaschema_modules_public.blueprint;
@@ -1557,12 +1566,44 @@ DECLARE
     v_delete_action text;
     v_is_required boolean;
     v_junction_table_name text;
-    v_rel_data jsonb;
+    v_rel_source_field_name text;
+    v_rel_target_field_name text;
     v_rel_node_type text;
+    v_rel_node_data jsonb;
     v_rel_policy_type text;
     v_rel_policy_data jsonb;
+    v_rel_policy_permissive boolean;
+    v_rel_grant_roles text[];
     v_rel_grant_privileges jsonb;
     v_rel_grant_array jsonb[];
+
+    -- Phase 3: indexes
+    v_index_entry jsonb;
+    v_idx_table_ref text;
+    v_idx_table_id uuid;
+    v_idx_field_id uuid;
+    v_idx_field_ids uuid[];
+    v_idx_column_name text;
+    v_idx_access_method text;
+    v_idx_op_classes text[];
+    v_idx_options jsonb;
+    v_idx_name text;
+    v_idx_is_unique boolean;
+    v_idx_columns jsonb;
+    v_idx_col jsonb;
+    v_idx_col_idx integer;
+
+    -- Phase 4: full_text_search
+    v_fts_entry jsonb;
+    v_fts_table_ref text;
+    v_fts_table_id uuid;
+    v_fts_field_id uuid;
+    v_fts_source_field_ids uuid[];
+    v_fts_weights text[];
+    v_fts_langs text[];
+    v_fts_source jsonb;
+    v_fts_source_idx integer;
+    v_fts_source_field_id uuid;
 BEGIN
     -- Load the blueprint
     SELECT * INTO v_blueprint
@@ -1797,7 +1838,7 @@ BEGIN
         -- For each relation in definition.relations:
         --   - $type specifies the relation type (e.g. "RelationBelongsTo")
         --   - Resolve source_ref and target_ref to table_ids via ref_map
-        --   - Junction table config lives in data: {node_type, policy_type, ...}
+        --   - Junction table config is top-level: node_type, policy_type, etc.
         --   - INSERT into relation_provision
         -- =====================================================================
 
@@ -1826,12 +1867,24 @@ BEGIN
                 v_is_required := COALESCE((v_relation_entry->>'is_required')::boolean, true);
                 v_junction_table_name := v_relation_entry->>'junction_table_name';
 
-                -- Junction table config lives in data
-                v_rel_data := COALESCE(v_relation_entry->'data', '{}'::jsonb);
-                v_rel_node_type := v_rel_data->>'node_type';
-                v_rel_policy_type := v_rel_data->>'policy_type';
-                v_rel_policy_data := COALESCE(v_rel_data->'policy_data', '{}'::jsonb);
-                v_rel_grant_privileges := COALESCE(v_rel_data->'grant_privileges', '[]'::jsonb);
+                -- Junction table config (top-level fields, pass-through to relation_provision)
+                v_rel_source_field_name := v_relation_entry->>'source_field_name';
+                v_rel_target_field_name := v_relation_entry->>'target_field_name';
+                v_rel_node_type := v_relation_entry->>'node_type';
+                v_rel_node_data := COALESCE(v_relation_entry->'node_data', '{}'::jsonb);
+                v_rel_policy_type := v_relation_entry->>'policy_type';
+                v_rel_policy_data := COALESCE(v_relation_entry->'policy_data', '{}'::jsonb);
+                v_rel_policy_permissive := (v_relation_entry->>'policy_permissive')::boolean;
+                v_rel_grant_privileges := COALESCE(v_relation_entry->'grant_privileges', '[]'::jsonb);
+
+                -- Resolve grant_roles from JSON array to text[]
+                IF v_relation_entry ? 'grant_roles' THEN
+                    v_rel_grant_roles := ARRAY(
+                        SELECT jsonb_array_elements_text(v_relation_entry->'grant_roles')
+                    );
+                ELSE
+                    v_rel_grant_roles := NULL;
+                END IF;
 
                 -- Convert relation grant_privileges from jsonb to jsonb[]
                 v_rel_grant_array := '{}';
@@ -1850,10 +1903,15 @@ BEGIN
                     delete_action,
                     is_required,
                     junction_table_name,
+                    source_field_name,
+                    target_field_name,
                     node_type,
+                    node_data,
+                    grant_roles,
+                    grant_privileges,
                     policy_type,
-                    policy_data,
-                    grant_privileges
+                    policy_permissive,
+                    policy_data
                 ) VALUES (
                     v_blueprint.database_id,
                     v_relation_type,
@@ -1863,23 +1921,189 @@ BEGIN
                     v_delete_action,
                     v_is_required,
                     v_junction_table_name,
+                    v_rel_source_field_name,
+                    v_rel_target_field_name,
                     v_rel_node_type,
+                    v_rel_node_data,
+                    v_rel_grant_roles,
+                    v_rel_grant_array,
                     v_rel_policy_type,
-                    v_rel_policy_data,
-                    v_rel_grant_array
+                    v_rel_policy_permissive,
+                    v_rel_policy_data
                 );
 
             END LOOP;
         END IF;
 
         -- =====================================================================
-        -- No Phase 3: all node types are inline in the table's nodes[] array.
-        -- All node types (DataTimestamps, DataSearch, etc.) are now inline
-        -- in the table's nodes[] array.
+        -- PHASE 3: Create indexes
+        -- For each index in definition.indexes:
+        --   - Resolve table_ref to table_id via ref_map
+        --   - Resolve column name(s) to field_id(s) via metaschema_public.field
+        --   - INSERT into metaschema_public.index
+        -- Supports: BTREE, HNSW, GIN, GIST, BM25, and any other access_method
         -- =====================================================================
 
+        IF v_definition ? 'indexes' AND jsonb_typeof(v_definition->'indexes') = 'array'
+           AND jsonb_array_length(v_definition->'indexes') > 0 THEN
+            FOR v_index_entry IN SELECT jsonb_array_elements(v_definition->'indexes') LOOP
+
+                v_idx_table_ref := v_index_entry->>'table_ref';
+                v_idx_table_id := (v_ref_map->>v_idx_table_ref)::uuid;
+
+                IF v_idx_table_id IS NULL THEN
+                    RAISE EXCEPTION 'CONSTRUCT_BLUEPRINT: unresolved table_ref "%" in index definition', v_idx_table_ref;
+                END IF;
+
+                v_idx_access_method := UPPER(v_index_entry->>'access_method');
+                v_idx_options := v_index_entry->'options';
+                v_idx_is_unique := COALESCE((v_index_entry->>'is_unique')::boolean, false);
+
+                -- Resolve op_classes from JSON array to text[]
+                IF v_index_entry ? 'op_classes' AND jsonb_array_length(v_index_entry->'op_classes') > 0 THEN
+                    v_idx_op_classes := ARRAY(
+                        SELECT jsonb_array_elements_text(v_index_entry->'op_classes')
+                    );
+                ELSE
+                    v_idx_op_classes := NULL;
+                END IF;
+
+                -- Support both single "column" and multi-column "columns" array
+                IF v_index_entry ? 'columns' AND jsonb_typeof(v_index_entry->'columns') = 'array' THEN
+                    -- Multi-column index: resolve each column name to field_id
+                    v_idx_field_ids := '{}';
+                    v_idx_col_idx := 0;
+                    WHILE v_idx_col_idx < jsonb_array_length(v_index_entry->'columns') LOOP
+                        v_idx_column_name := v_index_entry->'columns'->>v_idx_col_idx;
+
+                        SELECT id INTO v_idx_field_id
+                        FROM metaschema_public.field
+                        WHERE table_id = v_idx_table_id AND name = v_idx_column_name;
+
+                        IF v_idx_field_id IS NULL THEN
+                            RAISE EXCEPTION 'CONSTRUCT_BLUEPRINT: field "%" not found on table ref "%" for index', v_idx_column_name, v_idx_table_ref;
+                        END IF;
+
+                        v_idx_field_ids := array_append(v_idx_field_ids, v_idx_field_id);
+                        v_idx_col_idx := v_idx_col_idx + 1;
+                    END LOOP;
+                ELSE
+                    -- Single column index
+                    v_idx_column_name := v_index_entry->>'column';
+
+                    SELECT id INTO v_idx_field_id
+                    FROM metaschema_public.field
+                    WHERE table_id = v_idx_table_id AND name = v_idx_column_name;
+
+                    IF v_idx_field_id IS NULL THEN
+                        RAISE EXCEPTION 'CONSTRUCT_BLUEPRINT: field "%" not found on table ref "%" for index', v_idx_column_name, v_idx_table_ref;
+                    END IF;
+
+                    v_idx_field_ids := ARRAY[v_idx_field_id];
+                END IF;
+
+                -- Derive index name if not provided
+                v_idx_name := v_index_entry->>'name';
+                IF v_idx_name IS NULL OR v_idx_name = '' THEN
+                    v_idx_name := v_idx_table_ref || '_' || v_idx_column_name || '_' || LOWER(v_idx_access_method) || '_idx';
+                END IF;
+
+                INSERT INTO metaschema_public.index (
+                    database_id,
+                    table_id,
+                    name,
+                    field_ids,
+                    access_method,
+                    op_classes,
+                    options,
+                    is_unique
+                ) VALUES (
+                    v_blueprint.database_id,
+                    v_idx_table_id,
+                    v_idx_name,
+                    v_idx_field_ids,
+                    v_idx_access_method,
+                    v_idx_op_classes,
+                    v_idx_options,
+                    v_idx_is_unique
+                );
+
+            END LOOP;
+        END IF;
+
+        -- =====================================================================
+        -- PHASE 4: Create full-text search configurations
+        -- For each entry in definition.full_text_searches:
+        --   - Resolve table_ref to table_id via ref_map
+        --   - Resolve field (tsvector column) to field_id
+        --   - Resolve sources[].field names to field_ids
+        --   - INSERT into metaschema_public.full_text_search
         -- =====================================================================
 
+        IF v_definition ? 'full_text_searches' AND jsonb_typeof(v_definition->'full_text_searches') = 'array'
+           AND jsonb_array_length(v_definition->'full_text_searches') > 0 THEN
+            FOR v_fts_entry IN SELECT jsonb_array_elements(v_definition->'full_text_searches') LOOP
+
+                v_fts_table_ref := v_fts_entry->>'table_ref';
+                v_fts_table_id := (v_ref_map->>v_fts_table_ref)::uuid;
+
+                IF v_fts_table_id IS NULL THEN
+                    RAISE EXCEPTION 'CONSTRUCT_BLUEPRINT: unresolved table_ref "%" in full_text_search definition', v_fts_table_ref;
+                END IF;
+
+                -- Resolve the tsvector field
+                SELECT id INTO v_fts_field_id
+                FROM metaschema_public.field
+                WHERE table_id = v_fts_table_id AND name = (v_fts_entry->>'field');
+
+                IF v_fts_field_id IS NULL THEN
+                    RAISE EXCEPTION 'CONSTRUCT_BLUEPRINT: tsvector field "%" not found on table ref "%"', v_fts_entry->>'field', v_fts_table_ref;
+                END IF;
+
+                -- Resolve each source field
+                v_fts_source_field_ids := '{}';
+                v_fts_weights := '{}';
+                v_fts_langs := '{}';
+                v_fts_source_idx := 0;
+
+                WHILE v_fts_source_idx < jsonb_array_length(v_fts_entry->'sources') LOOP
+                    v_fts_source := v_fts_entry->'sources'->v_fts_source_idx;
+
+                    SELECT id INTO v_fts_source_field_id
+                    FROM metaschema_public.field
+                    WHERE table_id = v_fts_table_id AND name = (v_fts_source->>'field');
+
+                    IF v_fts_source_field_id IS NULL THEN
+                        RAISE EXCEPTION 'CONSTRUCT_BLUEPRINT: source field "%" not found on table ref "%" for full_text_search', v_fts_source->>'field', v_fts_table_ref;
+                    END IF;
+
+                    v_fts_source_field_ids := array_append(v_fts_source_field_ids, v_fts_source_field_id);
+                    v_fts_weights := array_append(v_fts_weights, COALESCE(v_fts_source->>'weight', 'D'));
+                    v_fts_langs := array_append(v_fts_langs, COALESCE(v_fts_source->>'lang', 'pg_catalog.simple'));
+
+                    v_fts_source_idx := v_fts_source_idx + 1;
+                END LOOP;
+
+                INSERT INTO metaschema_public.full_text_search (
+                    database_id,
+                    table_id,
+                    field_id,
+                    field_ids,
+                    weights,
+                    langs
+                ) VALUES (
+                    v_blueprint.database_id,
+                    v_fts_table_id,
+                    v_fts_field_id,
+                    v_fts_source_field_ids,
+                    v_fts_weights,
+                    v_fts_langs
+                );
+
+            END LOOP;
+        END IF;
+
+        -- =====================================================================
         -- SUCCESS: Update blueprint status
         -- =====================================================================
 
@@ -1914,7 +2138,7 @@ BEGIN
 END;
 $EOFCODE$ LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION metaschema_modules_public.construct_blueprint IS 'Executes a draft blueprint definition. Two phases: (1) create tables with nodes[], fields, and policies[], (2) create relations between tables. nodes[] entries can be strings (type with default params, e.g. "DataTimestamps") or objects ({"$type": "...", "data": {...}}). policies[] use {"$type": "...", "data": {...}} with optional privileges/permissive/policy_name/policy_role. Relations use $type for relation_type with junction config in data. Builds a ref_map of local ref names to created table UUIDs. Updates blueprint status to constructed (or failed with error_details). Returns the ref_map.';
+COMMENT ON FUNCTION metaschema_modules_public.construct_blueprint IS 'Executes a draft blueprint definition. Four phases: (1) create tables with nodes[], fields, and policies[], (2) create relations between tables, (3) create indexes on table fields (supports BTREE, HNSW, GIN, GIST, BM25, etc.), (4) create full-text search configurations with weighted multi-field TSVector support. nodes[] entries can be strings or {$type, data} objects. Relations use $type for relation_type with junction config as top-level fields (node_type, policy_type, grant_roles, grant_privileges, policy_data, policy_permissive, source_field_name, target_field_name, node_data). Indexes reference table_ref + column name(s) and are resolved to field_ids. Full-text searches reference table_ref + tsvector field + source fields with weights/langs. Builds a ref_map of local ref names to created table UUIDs. Updates blueprint status to constructed (or failed with error_details). Returns the ref_map.';
 
 CREATE FUNCTION metaschema_modules_public.tg_validate_blueprint_definition() RETURNS trigger AS $EOFCODE$
 DECLARE
@@ -1928,6 +2152,12 @@ DECLARE
     v_relation_entry jsonb;
     v_relation_idx integer;
     v_table_ref text;
+    v_index_entry jsonb;
+    v_index_idx integer;
+    v_fts_entry jsonb;
+    v_fts_idx integer;
+    v_source_entry jsonb;
+    v_source_idx integer;
 BEGIN
     v_definition := NEW.definition;
 
@@ -2075,11 +2305,113 @@ BEGIN
         END LOOP;
     END IF;
 
+    -- Validate indexes[] if present
+    IF v_definition ? 'indexes' THEN
+        IF jsonb_typeof(v_definition->'indexes') != 'array' THEN
+            RAISE EXCEPTION 'VALIDATE_BLUEPRINT: "indexes" must be an array, got %', jsonb_typeof(v_definition->'indexes');
+        END IF;
+
+        v_index_idx := 0;
+        FOR v_index_entry IN SELECT jsonb_array_elements(v_definition->'indexes') LOOP
+
+            IF jsonb_typeof(v_index_entry) != 'object' THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: indexes[%] must be an object', v_index_idx;
+            END IF;
+
+            IF NOT (v_index_entry ? 'table_ref') THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: indexes[%] missing required key "table_ref"', v_index_idx;
+            END IF;
+
+            -- Require either "column" (single) or "columns" (multi-column array)
+            IF NOT (v_index_entry ? 'column') AND NOT (v_index_entry ? 'columns') THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: indexes[%] missing required key "column" (or "columns" for multi-column)', v_index_idx;
+            END IF;
+
+            -- If "columns" is present, it must be an array
+            IF v_index_entry ? 'columns' AND jsonb_typeof(v_index_entry->'columns') != 'array' THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: indexes[%] "columns" must be an array', v_index_idx;
+            END IF;
+
+            IF NOT (v_index_entry ? 'access_method') THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: indexes[%] missing required key "access_method"', v_index_idx;
+            END IF;
+
+            -- options key is optional, but if present must be an object
+            IF v_index_entry ? 'options' AND jsonb_typeof(v_index_entry->'options') != 'object' THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: indexes[%] "options" must be an object', v_index_idx;
+            END IF;
+
+            -- op_classes key is optional, but if present must be an array
+            IF v_index_entry ? 'op_classes' AND jsonb_typeof(v_index_entry->'op_classes') != 'array' THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: indexes[%] "op_classes" must be an array', v_index_idx;
+            END IF;
+
+            v_index_idx := v_index_idx + 1;
+        END LOOP;
+    END IF;
+
+    -- Validate full_text_searches[] if present
+    IF v_definition ? 'full_text_searches' THEN
+        IF jsonb_typeof(v_definition->'full_text_searches') != 'array' THEN
+            RAISE EXCEPTION 'VALIDATE_BLUEPRINT: "full_text_searches" must be an array, got %', jsonb_typeof(v_definition->'full_text_searches');
+        END IF;
+
+        v_fts_idx := 0;
+        FOR v_fts_entry IN SELECT jsonb_array_elements(v_definition->'full_text_searches') LOOP
+
+            IF jsonb_typeof(v_fts_entry) != 'object' THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: full_text_searches[%] must be an object', v_fts_idx;
+            END IF;
+
+            IF NOT (v_fts_entry ? 'table_ref') THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: full_text_searches[%] missing required key "table_ref"', v_fts_idx;
+            END IF;
+
+            IF NOT (v_fts_entry ? 'field') THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: full_text_searches[%] missing required key "field"', v_fts_idx;
+            END IF;
+
+            IF NOT (v_fts_entry ? 'sources') THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: full_text_searches[%] missing required key "sources"', v_fts_idx;
+            END IF;
+
+            IF jsonb_typeof(v_fts_entry->'sources') != 'array' THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: full_text_searches[%] "sources" must be an array', v_fts_idx;
+            END IF;
+
+            IF jsonb_array_length(v_fts_entry->'sources') = 0 THEN
+                RAISE EXCEPTION 'VALIDATE_BLUEPRINT: full_text_searches[%] "sources" array must not be empty', v_fts_idx;
+            END IF;
+
+            -- Validate each source entry
+            v_source_idx := 0;
+            WHILE v_source_idx < jsonb_array_length(v_fts_entry->'sources') LOOP
+                v_source_entry := v_fts_entry->'sources'->v_source_idx;
+
+                IF jsonb_typeof(v_source_entry) != 'object' THEN
+                    RAISE EXCEPTION 'VALIDATE_BLUEPRINT: full_text_searches[%] sources[%] must be an object', v_fts_idx, v_source_idx;
+                END IF;
+
+                IF NOT (v_source_entry ? 'field') THEN
+                    RAISE EXCEPTION 'VALIDATE_BLUEPRINT: full_text_searches[%] sources[%] missing required key "field"', v_fts_idx, v_source_idx;
+                END IF;
+
+                IF NOT (v_source_entry ? 'weight') THEN
+                    RAISE EXCEPTION 'VALIDATE_BLUEPRINT: full_text_searches[%] sources[%] missing required key "weight"', v_fts_idx, v_source_idx;
+                END IF;
+
+                v_source_idx := v_source_idx + 1;
+            END LOOP;
+
+            v_fts_idx := v_fts_idx + 1;
+        END LOOP;
+    END IF;
+
     RETURN NEW;
 END;
 $EOFCODE$ LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION metaschema_modules_public.tg_validate_blueprint_definition IS 'Trigger function that validates the blueprint definition format on INSERT/UPDATE. Ensures structural correctness: tables[] with nodes[] (string shorthand or {$type, data} objects), policies[] with $type, relations[] with $type/source_ref/target_ref. Rejects malformed definitions before they reach construct_blueprint().';
+COMMENT ON FUNCTION metaschema_modules_public.tg_validate_blueprint_definition IS 'Trigger function that validates the blueprint definition format on INSERT/UPDATE. Ensures structural correctness: tables[] with nodes[] (string shorthand or {$type, data} objects), policies[] with $type, relations[] with $type/source_ref/target_ref, indexes[] with table_ref/column/access_method, full_text_searches[] with table_ref/field/sources[]. Rejects malformed definitions before they reach construct_blueprint().';
 
 CREATE TRIGGER _100_validate_blueprint_definition
   BEFORE INSERT OR UPDATE OF definition
@@ -2102,6 +2434,8 @@ DECLARE
     v_table_hashes jsonb := '{}';
     v_hash_parts text := '';
     v_relations_hash uuid;
+    v_indexes_hash uuid;
+    v_fts_hash uuid;
 BEGIN
     v_definition := NEW.definition;
 
@@ -2137,6 +2471,20 @@ BEGIN
         v_hash_parts := v_hash_parts || v_relations_hash::text;
     END IF;
 
+    -- Include indexes in the Merkle root (if present)
+    IF v_definition ? 'indexes' AND jsonb_typeof(v_definition->'indexes') = 'array'
+       AND jsonb_array_length(v_definition->'indexes') > 0 THEN
+        v_indexes_hash := uuid_generate_v5(uuid_ns_url(), (v_definition->'indexes')::text);
+        v_hash_parts := v_hash_parts || v_indexes_hash::text;
+    END IF;
+
+    -- Include full_text_searches in the Merkle root (if present)
+    IF v_definition ? 'full_text_searches' AND jsonb_typeof(v_definition->'full_text_searches') = 'array'
+       AND jsonb_array_length(v_definition->'full_text_searches') > 0 THEN
+        v_fts_hash := uuid_generate_v5(uuid_ns_url(), (v_definition->'full_text_searches')::text);
+        v_hash_parts := v_hash_parts || v_fts_hash::text;
+    END IF;
+
     -- Compute Merkle root from all hash parts
     IF v_hash_parts != '' THEN
         NEW.definition_hash := uuid_generate_v5(uuid_ns_url(), v_hash_parts);
@@ -2150,7 +2498,7 @@ BEGIN
 END;
 $EOFCODE$ LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION metaschema_modules_public.tg_compute_blueprint_hash IS 'Trigger function that computes Merkle-style content hashes for blueprint definitions. Produces table_hashes (per-table UUIDv5 hashes keyed by ref) and definition_hash (Merkle root over ordered table hashes + relations hash). Uses uuid_generate_v5(uuid_ns_url(), jsonb::text) for deterministic content-addressable hashing, following the same pattern as object_store.object_hash_uuid(). Enables structural comparison, deduplication, and provenance tracking at both the table and blueprint level.';
+COMMENT ON FUNCTION metaschema_modules_public.tg_compute_blueprint_hash IS 'Trigger function that computes Merkle-style content hashes for blueprint definitions. Produces table_hashes (per-table UUIDv5 hashes keyed by ref) and definition_hash (Merkle root over ordered table hashes + relations hash + indexes hash + full_text_searches hash). Uses uuid_generate_v5(uuid_ns_url(), jsonb::text) for deterministic content-addressable hashing, following the same pattern as object_store.object_hash_uuid(). Enables structural comparison, deduplication, and provenance tracking at both the table and blueprint level.';
 
 CREATE TRIGGER _200_compute_blueprint_hash
   BEFORE INSERT OR UPDATE OF definition
