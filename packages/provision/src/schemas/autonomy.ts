@@ -21,7 +21,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'content'], chunks: {} },
+          embedding: { source_fields: ['title', 'content'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -42,7 +42,7 @@ const definition: BlueprintDefinition = {
   ],
 
   relations: [
-    { $type: 'RelationManyToMany', source_ref: 'autonomy_records', target_ref: 'autonomy_records', junction_table_name: 'autonomy_record_links', source_field_name: 'source_record_id', target_field_name: 'target_record_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'autonomy_records', target_ref: 'autonomy_records', junction_table_name: 'autonomy_record_links', source_field_name: 'source_record_id', target_field_name: 'target_record_id', ...M2M_JUNCTION_OPTS },
   ],
 
   indexes: [

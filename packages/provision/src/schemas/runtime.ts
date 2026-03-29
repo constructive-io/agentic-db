@@ -22,7 +22,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'state_type'], chunks: {} },
+          embedding: { source_fields: ['name', 'state_type'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -47,7 +47,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['message'], chunks: {} },
+          embedding: { source_fields: ['message'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -157,7 +157,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title'], chunks: {} },
+          embedding: { source_fields: ['title'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -178,7 +178,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['content'], chunks: {} },
+          embedding: { source_fields: ['content'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -225,7 +225,7 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'conversations',    target_ref: 'messages',         delete_action: 'c' },
     // tool_definitions -> tool_executions FK handled in cross-relations.ts
 
-    { $type: 'RelationManyToMany', source_ref: 'runtime_states', target_ref: 'runtime_states', junction_table_name: 'runtime_state_dependencies', source_field_name: 'state_id', target_field_name: 'dependency_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'runtime_states', target_ref: 'runtime_states', junction_table_name: 'runtime_state_dependencies', source_field_name: 'state_id', target_field_name: 'dependency_id', ...M2M_JUNCTION_OPTS },
   ],
 
   indexes: [

@@ -14,8 +14,9 @@
     "enable-membership-defaults": "tsx src/enable-membership-defaults.ts"
   },
   "dependencies": {
-    "@constructive-io/node": "^0.7.1",
+    "@constructive-io/node": "^0.8.8",
     "dotenv": "^16.4.5",
+    "node-type-registry": "^0.6.1",
     "pg": "^8.20.0"
   },
   "devDependencies": {

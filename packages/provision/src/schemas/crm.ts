@@ -44,7 +44,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'], chunks: {} },
+          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -90,7 +90,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'industry'], chunks: {} },
+          embedding: { source_fields: ['name', 'description', 'industry'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -123,7 +123,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes_text'], chunks: {} },
+          embedding: { source_fields: ['name', 'notes_text'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -148,7 +148,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes_text', 'location'], chunks: {} },
+          embedding: { source_fields: ['name', 'notes_text', 'location'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -185,7 +185,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes', 'neighborhood'], chunks: {} },
+          embedding: { source_fields: ['name', 'notes', 'neighborhood'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -226,7 +226,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['content', 'abstract'], chunks: {} },
+          embedding: { source_fields: ['content', 'abstract'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -250,7 +250,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['summary'], chunks: {} },
+          embedding: { source_fields: ['summary'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -274,7 +274,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['subject', 'summary'], chunks: {} },
+          embedding: { source_fields: ['subject', 'summary'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -355,16 +355,16 @@ const definition: BlueprintDefinition = {
 
   relations: [
     // BelongsTo: main_image
-    { $type: 'RelationBelongsTo', source_ref: 'contacts',  target_ref: 'images', field_name: 'main_image_id', source_field_name: 'main_image_id', target_field_name: 'id', delete_action: 'n', is_required: false },
-    { $type: 'RelationBelongsTo', source_ref: 'companies', target_ref: 'images', field_name: 'main_image_id', source_field_name: 'main_image_id', target_field_name: 'id', delete_action: 'n', is_required: false },
-    { $type: 'RelationBelongsTo', source_ref: 'events',    target_ref: 'images', field_name: 'main_image_id', source_field_name: 'main_image_id', target_field_name: 'id', delete_action: 'n', is_required: false },
-    { $type: 'RelationBelongsTo', source_ref: 'venues',    target_ref: 'images', field_name: 'main_image_id', source_field_name: 'main_image_id', target_field_name: 'id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'contacts',  target_ref: 'images', field_name: 'main_image_id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'companies', target_ref: 'images', field_name: 'main_image_id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'events',    target_ref: 'images', field_name: 'main_image_id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'venues',    target_ref: 'images', field_name: 'main_image_id', delete_action: 'n', is_required: false },
 
     // M:N: image galleries
-    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'images', junction_table_name: 'contact_images', source_field_name: 'contact_id', target_field_name: 'image_id', is_required: false, data: M2M_JUNCTION_OPTS },
-    { $type: 'RelationManyToMany', source_ref: 'companies', target_ref: 'images', junction_table_name: 'company_images', source_field_name: 'company_id', target_field_name: 'image_id', is_required: false, data: M2M_JUNCTION_OPTS },
-    { $type: 'RelationManyToMany', source_ref: 'events',    target_ref: 'images', junction_table_name: 'event_images',   source_field_name: 'event_id',   target_field_name: 'image_id', is_required: false, data: M2M_JUNCTION_OPTS },
-    { $type: 'RelationManyToMany', source_ref: 'venues',    target_ref: 'images', junction_table_name: 'venue_images',   source_field_name: 'venue_id',   target_field_name: 'image_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'images', junction_table_name: 'contact_images', source_field_name: 'contact_id', target_field_name: 'image_id', ...M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'companies', target_ref: 'images', junction_table_name: 'company_images', source_field_name: 'company_id', target_field_name: 'image_id', ...M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'events',    target_ref: 'images', junction_table_name: 'event_images',   source_field_name: 'event_id',   target_field_name: 'image_id', ...M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'venues',    target_ref: 'images', junction_table_name: 'venue_images',   source_field_name: 'venue_id',   target_field_name: 'image_id', ...M2M_JUNCTION_OPTS },
 
     // HasMany: children
     { $type: 'RelationHasMany', source_ref: 'contacts',  target_ref: 'interactions',  delete_action: 'c' },
@@ -374,23 +374,23 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'venues',    target_ref: 'venue_links',   delete_action: 'c' },
 
     // M:N: cross-entity junctions
-    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'companies', junction_table_name: 'contact_companies', source_field_name: 'contact_id', target_field_name: 'company_id', is_required: false, data: M2M_JUNCTION_OPTS },
-    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'events',    junction_table_name: 'contact_events',    source_field_name: 'contact_id', target_field_name: 'event_id',   is_required: false, data: M2M_JUNCTION_OPTS },
-    { $type: 'RelationManyToMany', source_ref: 'companies', target_ref: 'events',    junction_table_name: 'company_events',    source_field_name: 'company_id', target_field_name: 'event_id',   is_required: false, data: M2M_JUNCTION_OPTS },
-    { $type: 'RelationManyToMany', source_ref: 'events',    target_ref: 'venues',    junction_table_name: 'event_venues',      source_field_name: 'event_id',   target_field_name: 'venue_id',   is_required: false, data: M2M_JUNCTION_OPTS },
-    { $type: 'RelationManyToMany', source_ref: 'deals',     target_ref: 'contacts',  junction_table_name: 'deal_contacts',     source_field_name: 'deal_id',    target_field_name: 'contact_id', is_required: false, data: M2M_JUNCTION_OPTS },
-    { $type: 'RelationManyToMany', source_ref: 'deals',     target_ref: 'companies', junction_table_name: 'deal_companies',    source_field_name: 'deal_id',    target_field_name: 'company_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'companies', junction_table_name: 'contact_companies', source_field_name: 'contact_id', target_field_name: 'company_id', ...M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'events',    junction_table_name: 'contact_events',    source_field_name: 'contact_id', target_field_name: 'event_id',   ...M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'companies', target_ref: 'events',    junction_table_name: 'company_events',    source_field_name: 'company_id', target_field_name: 'event_id',   ...M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'events',    target_ref: 'venues',    junction_table_name: 'event_venues',      source_field_name: 'event_id',   target_field_name: 'venue_id',   ...M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'deals',     target_ref: 'contacts',  junction_table_name: 'deal_contacts',     source_field_name: 'deal_id',    target_field_name: 'contact_id', ...M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'deals',     target_ref: 'companies', junction_table_name: 'deal_companies',    source_field_name: 'deal_id',    target_field_name: 'company_id', ...M2M_JUNCTION_OPTS },
 
     // Self-referencing: contact-to-contact relationships
-    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'contacts',  junction_table_name: 'contact_relationships', source_field_name: 'contact_id', target_field_name: 'related_contact_id', is_required: false, data: M2M_JUNCTION_OPTS },
+    { $type: 'RelationManyToMany', source_ref: 'contacts',  target_ref: 'contacts',  junction_table_name: 'contact_relationships', source_field_name: 'contact_id', target_field_name: 'related_contact_id', ...M2M_JUNCTION_OPTS },
 
     // Touchpoints belong to contacts
     { $type: 'RelationHasMany', source_ref: 'contacts', target_ref: 'touchpoints', delete_action: 'c' },
 
     // Touchpoints optional FKs to other entities
-    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'deals',     field_name: 'deal_id',    source_field_name: 'deal_id',    target_field_name: 'id', delete_action: 'n', is_required: false },
-    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'companies', field_name: 'company_id', source_field_name: 'company_id', target_field_name: 'id', delete_action: 'n', is_required: false },
-    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'events',    field_name: 'event_id',   source_field_name: 'event_id',   target_field_name: 'id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'deals',     field_name: 'deal_id',    delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'companies', field_name: 'company_id', delete_action: 'n', is_required: false },
+    { $type: 'RelationBelongsTo', source_ref: 'touchpoints', target_ref: 'events',    field_name: 'event_id',   delete_action: 'n', is_required: false },
   ],
 
   indexes: [
