@@ -22,7 +22,7 @@
   "dependencies": {
     "@agentic-db/sdk": "workspace:*",
     "@agentic-kit/ollama": "^1.0.3",
-    "@constructive-io/node": "^0.7.1",
+    "@constructive-io/node": "^0.8.8",
     "agentic-kit": "^1.0.3",
     "dotenv": "^17.3.1",
     "graphile-worker": "^0.16.6"

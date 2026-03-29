@@ -10,8 +10,8 @@
     "export:interactive": "pgpm export"
   },
   "dependencies": {
-    "@pgpmjs/core": "^6.9.1",
-    "@pgpmjs/export": "^0.1.1",
+    "@pgpmjs/core": "^6.10.4",
+    "@pgpmjs/export": "^0.2.4",
     "pg-cache": "^3.3.4",
     "pg-env": "^1.7.3"
   },
