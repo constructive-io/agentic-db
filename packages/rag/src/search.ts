@@ -2,7 +2,7 @@ import { config } from './config';
 import { authenticate, createAuthenticatedClient } from './client';
 import { embed } from './ollama';
 
-export type TableName = 'contacts' | 'companies' | 'events' | 'venues' | 'notes' | 'agentTasks' | 'memories' | 'skills' | 'rules';
+export type TableName = 'contacts' | 'companies' | 'events' | 'venues' | 'notes' | 'tasks' | 'memories' | 'skills' | 'rules';
 
 export interface SearchResult {
   table: TableName;
@@ -84,12 +84,12 @@ async function searchNotes(client: SDKClient, qe: number[], limit: number): Prom
   return ((res.data as Record<string, any>)?.notes?.nodes || []).map((n: any) => toResult('notes', n, (x) => ((x.content as string) || '').slice(0, 80) || 'Untitled'));
 }
 
-async function searchAgentTasks(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
-  const res = await client.agentTask.findMany({
+async function searchTasks(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+  const res = await client.task.findMany({
     where: VECTOR_CONDITION(qe), first: limit,
-    select: { id: true, title: true, description: true, searchScore: true },
+    select: { id: true, title: true, searchScore: true },
   }).execute();
-  return ((res.data as Record<string, any>)?.agentTasks?.nodes || []).map((n: any) => toResult('agentTasks', n, (x) => (x.title as string) || 'Untitled'));
+  return ((res.data as Record<string, any>)?.tasks?.nodes || []).map((n: any) => toResult('tasks', n, (x) => (x.title as string) || 'Untitled'));
 }
 
 async function searchMemories(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
@@ -123,7 +123,7 @@ async function searchRules(client: SDKClient, qe: number[], limit: number): Prom
 export const TABLE_SEARCH: Record<TableName, (client: SDKClient, qe: number[], limit: number) => Promise<SearchResult[]>> = {
   contacts: searchContacts, companies: searchCompanies, events: searchEvents,
   venues: searchVenues, notes: searchNotes,
-  agentTasks: searchAgentTasks, memories: searchMemories, skills: searchSkills, rules: searchRules,
+  tasks: searchTasks, memories: searchMemories, skills: searchSkills, rules: searchRules,
 };
 
 export async function search(query: string, tables?: TableName[]) {

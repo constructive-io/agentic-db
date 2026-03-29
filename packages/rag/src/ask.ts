@@ -116,7 +116,7 @@ JSON array only:`;
       else if (item.table === 'companies') content = `Company: ${d.name || ''}\nDesc: ${d.description || 'None'}\nIndustry: ${d.industry || 'None'}`;
       else if (item.table === 'events') content = `Event: ${d.name || ''}\nNotes: ${d.notesText || 'None'}`;
       else if (item.table === 'notes') content = `Note: ${d.content || 'None'}`;
-      else if (item.table === 'agentTasks') content = `Task: ${d.title || 'Untitled'}\nDescription: ${d.description || 'None'}`;
+      else if (item.table === 'tasks') content = `Task: ${d.title || 'Untitled'}\nDescription: ${d.description || 'None'}`;
       else content = `${item.table}: ${item.name || d.title || 'Untitled'}\nData: ${JSON.stringify(d, null, 2)}`;
       
       return `[Source ${i + 1}] (${item.table})\n${content}`;

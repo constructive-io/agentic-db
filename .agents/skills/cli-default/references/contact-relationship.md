@@ -9,8 +9,8 @@ CRUD operations for ContactRelationship records via agentic-db CLI
 ```bash
 agentic-db contact-relationship list
 agentic-db contact-relationship get --id <UUID>
-agentic-db contact-relationship create --contactId <UUID> --entityId <UUID>
-agentic-db contact-relationship update --id <UUID> [--contactId <UUID>] [--entityId <UUID>]
+agentic-db contact-relationship create --contactId <UUID>
+agentic-db contact-relationship update --id <UUID> [--contactId <UUID>]
 agentic-db contact-relationship delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db contact-relationship list
 ### Create a contactRelationship
 
 ```bash
-agentic-db contact-relationship create --contactId <UUID> --entityId <UUID>
+agentic-db contact-relationship create --contactId <UUID>
 ```
 
 ### Get a contactRelationship by id

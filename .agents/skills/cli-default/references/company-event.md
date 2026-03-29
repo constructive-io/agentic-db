@@ -9,8 +9,8 @@ CRUD operations for CompanyEvent records via agentic-db CLI
 ```bash
 agentic-db company-event list
 agentic-db company-event get --id <UUID>
-agentic-db company-event create --companyId <UUID> --eventId <UUID> --entityId <UUID>
-agentic-db company-event update --id <UUID> [--companyId <UUID>] [--eventId <UUID>] [--entityId <UUID>]
+agentic-db company-event create --companyId <UUID> --eventId <UUID>
+agentic-db company-event update --id <UUID> [--companyId <UUID>] [--eventId <UUID>]
 agentic-db company-event delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db company-event list
 ### Create a companyEvent
 
 ```bash
-agentic-db company-event create --companyId <UUID> --eventId <UUID> --entityId <UUID>
+agentic-db company-event create --companyId <UUID> --eventId <UUID>
 ```
 
 ### Get a companyEvent by id

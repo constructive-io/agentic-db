@@ -99,46 +99,6 @@ export class RuntimeStateDependencyModel {
       variables,
     });
   }
-  findOne<S extends RuntimeStateDependencySelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, RuntimeStateDependencySelect>
-  ): QueryBuilder<{
-    runtimeStateDependency: InferSelectResult<RuntimeStateDependencyWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'RuntimeStateDependency',
-      'runtimeStateDependencies',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'RuntimeStateDependencyFilter',
-      'RuntimeStateDependencyOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'RuntimeStateDependency',
-      fieldName: 'runtimeStateDependency',
-      document,
-      variables,
-      transform: (data: {
-        runtimeStateDependencies?: {
-          nodes?: InferSelectResult<RuntimeStateDependencyWithRelations, S>[];
-        };
-      }) => ({
-        runtimeStateDependency: data.runtimeStateDependencies?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends RuntimeStateDependencySelect>(
     args: CreateArgs<S, CreateRuntimeStateDependencyInput['runtimeStateDependency']> & {
       select: S;
@@ -162,76 +122,6 @@ export class RuntimeStateDependencyModel {
       operation: 'mutation',
       operationName: 'RuntimeStateDependency',
       fieldName: 'createRuntimeStateDependency',
-      document,
-      variables,
-    });
-  }
-  update<S extends RuntimeStateDependencySelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      RuntimeStateDependencyPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, RuntimeStateDependencySelect>
-  ): QueryBuilder<{
-    updateRuntimeStateDependency: {
-      runtimeStateDependency: InferSelectResult<RuntimeStateDependencyWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'RuntimeStateDependency',
-      'updateRuntimeStateDependency',
-      'runtimeStateDependency',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateRuntimeStateDependencyInput',
-      'id',
-      'runtimeStateDependencyPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'RuntimeStateDependency',
-      fieldName: 'updateRuntimeStateDependency',
-      document,
-      variables,
-    });
-  }
-  delete<S extends RuntimeStateDependencySelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, RuntimeStateDependencySelect>
-  ): QueryBuilder<{
-    deleteRuntimeStateDependency: {
-      runtimeStateDependency: InferSelectResult<RuntimeStateDependencyWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'RuntimeStateDependency',
-      'deleteRuntimeStateDependency',
-      'runtimeStateDependency',
-      {
-        id: args.where.id,
-      },
-      'DeleteRuntimeStateDependencyInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'RuntimeStateDependency',
-      fieldName: 'deleteRuntimeStateDependency',
       document,
       variables,
     });

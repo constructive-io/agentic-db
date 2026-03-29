@@ -22,17 +22,13 @@ const db = createClient({
 | Model | Operations |
 |-------|------------|
 | `activityLog` | findMany, findOne, create, update, delete |
-| `activityLogsChunk` | findMany, findOne, create, update, delete |
 | `agentCollaborator` | findMany, findOne, create, update, delete |
 | `agent` | findMany, findOne, create, update, delete |
 | `agentLog` | findMany, findOne, create, update, delete |
-| `agentLogsChunk` | findMany, findOne, create, update, delete |
 | `agentPrompt` | findMany, findOne, create, update, delete |
 | `prompt` | findMany, findOne, create, update, delete |
-| `agentsChunk` | findMany, findOne, create, update, delete |
 | `autonomyRecord` | findMany, findOne, create, update, delete |
 | `autonomyRecordLink` | findMany, findOne, create, update, delete |
-| `autonomyRecordsChunk` | findMany, findOne, create, update, delete |
 | `calendarAttendee` | findMany, findOne, create, update, delete |
 | `calendar` | findMany, findOne, create, update, delete |
 | `calendarEvent` | findMany, findOne, create, update, delete |
@@ -40,14 +36,11 @@ const db = createClient({
 | `contact` | findMany, findOne, create, update, delete |
 | `calendarEventNote` | findMany, findOne, create, update, delete |
 | `note` | findMany, findOne, create, update, delete |
-| `calendarEventsChunk` | findMany, findOne, create, update, delete |
 | `calendarEventTask` | findMany, findOne, create, update, delete |
 | `task` | findMany, findOne, create, update, delete |
 | `codebaseDependency` | findMany, findOne, create, update, delete |
-| `codebasesChunk` | findMany, findOne, create, update, delete |
 | `codebasis` | findMany, findOne, create, update, delete |
 | `codeChunk` | findMany, findOne, create, update, delete |
-| `companiesChunk` | findMany, findOne, create, update, delete |
 | `company` | findMany, findOne, create, update, delete |
 | `deal` | findMany, findOne, create, update, delete |
 | `companyEvent` | findMany, findOne, create, update, delete |
@@ -69,80 +62,55 @@ const db = createClient({
 | `contactNote` | findMany, findOne, create, update, delete |
 | `project` | findMany, findOne, create, update, delete |
 | `contactRelationship` | findMany, findOne, create, update, delete |
-| `contactsChunk` | findMany, findOne, create, update, delete |
 | `conversation` | findMany, findOne, create, update, delete |
-| `conversationsChunk` | findMany, findOne, create, update, delete |
 | `dealCompany` | findMany, findOne, create, update, delete |
 | `dealContact` | findMany, findOne, create, update, delete |
 | `dealNote` | findMany, findOne, create, update, delete |
-| `dealsChunk` | findMany, findOne, create, update, delete |
 | `emailAttachment` | findMany, findOne, create, update, delete |
 | `emailNote` | findMany, findOne, create, update, delete |
 | `emailRecipient` | findMany, findOne, create, update, delete |
-| `emailsChunk` | findMany, findOne, create, update, delete |
-| `emailThreadsChunk` | findMany, findOne, create, update, delete |
 | `eventImage` | findMany, findOne, create, update, delete |
 | `eventLink` | findMany, findOne, create, update, delete |
 | `eventNote` | findMany, findOne, create, update, delete |
-| `eventsChunk` | findMany, findOne, create, update, delete |
 | `eventVenue` | findMany, findOne, create, update, delete |
 | `venue` | findMany, findOne, create, update, delete |
 | `expenseContact` | findMany, findOne, create, update, delete |
-| `expensesChunk` | findMany, findOne, create, update, delete |
 | `goal` | findMany, findOne, create, update, delete |
 | `goalHabit` | findMany, findOne, create, update, delete |
 | `habit` | findMany, findOne, create, update, delete |
 | `goalProject` | findMany, findOne, create, update, delete |
-| `goalsChunk` | findMany, findOne, create, update, delete |
 | `hikingTrail` | findMany, findOne, create, update, delete |
-| `hikingTrailsChunk` | findMany, findOne, create, update, delete |
 | `interaction` | findMany, findOne, create, update, delete |
-| `interactionsChunk` | findMany, findOne, create, update, delete |
-| `memoriesChunk` | findMany, findOne, create, update, delete |
 | `message` | findMany, findOne, create, update, delete |
-| `messagesChunk` | findMany, findOne, create, update, delete |
-| `notesChunk` | findMany, findOne, create, update, delete |
 | `place` | findMany, findOne, create, update, delete |
-| `placesChunk` | findMany, findOne, create, update, delete |
 | `projectContact` | findMany, findOne, create, update, delete |
-| `projectsChunk` | findMany, findOne, create, update, delete |
-| `promptsChunk` | findMany, findOne, create, update, delete |
 | `providerSyncState` | findMany, findOne, create, update, delete |
 | `rawContact` | findMany, findOne, create, update, delete |
 | `rawContactEmail` | findMany, findOne, create, update, delete |
 | `rawContactPhone` | findMany, findOne, create, update, delete |
 | `rawContactUrl` | findMany, findOne, create, update, delete |
 | `rule` | findMany, findOne, create, update, delete |
-| `rulesChunk` | findMany, findOne, create, update, delete |
 | `runtimeArtifact` | findMany, findOne, create, update, delete |
 | `runtimeConfig` | findMany, findOne, create, update, delete |
 | `runtimeEvent` | findMany, findOne, create, update, delete |
 | `runtimeLog` | findMany, findOne, create, update, delete |
-| `runtimeLogsChunk` | findMany, findOne, create, update, delete |
 | `runtimeMetric` | findMany, findOne, create, update, delete |
 | `runtimeSchedule` | findMany, findOne, create, update, delete |
 | `runtimeState` | findMany, findOne, create, update, delete |
 | `runtimeStateDependency` | findMany, findOne, create, update, delete |
-| `runtimeStatesChunk` | findMany, findOne, create, update, delete |
 | `skill` | findMany, findOne, create, update, delete |
-| `skillsChunk` | findMany, findOne, create, update, delete |
 | `skillTool` | findMany, findOne, create, update, delete |
 | `toolDefinition` | findMany, findOne, create, update, delete |
 | `tag` | findMany, findOne, create, update, delete |
 | `taskContact` | findMany, findOne, create, update, delete |
 | `taskNote` | findMany, findOne, create, update, delete |
 | `taskProject` | findMany, findOne, create, update, delete |
-| `tasksChunk` | findMany, findOne, create, update, delete |
 | `threadParticipant` | findMany, findOne, create, update, delete |
-| `toolDefinitionsChunk` | findMany, findOne, create, update, delete |
 | `toolExecution` | findMany, findOne, create, update, delete |
 | `touchpoint` | findMany, findOne, create, update, delete |
-| `touchpointsChunk` | findMany, findOne, create, update, delete |
 | `trip` | findMany, findOne, create, update, delete |
-| `tripsChunk` | findMany, findOne, create, update, delete |
 | `venueImage` | findMany, findOne, create, update, delete |
 | `venueLink` | findMany, findOne, create, update, delete |
-| `venuesChunk` | findMany, findOne, create, update, delete |
 
 ## Table Operations
 
@@ -199,44 +167,6 @@ const updated = await db.activityLog.update({ where: { id: '<UUID>' }, data: { e
 const deleted = await db.activityLog.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.activityLogsChunk`
-
-CRUD operations for ActivityLogsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `activityLogsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all activityLogsChunk records
-const items = await db.activityLogsChunk.findMany({ select: { id: true, activityLogsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.activityLogsChunk.findOne({ id: '<UUID>', select: { id: true, activityLogsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.activityLogsChunk.create({ data: { activityLogsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.activityLogsChunk.update({ where: { id: '<UUID>' }, data: { activityLogsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.activityLogsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.agentCollaborator`
 
 CRUD operations for AgentCollaborator records.
@@ -246,20 +176,18 @@ CRUD operations for AgentCollaborator records.
 | Field | Type | Editable |
 |-------|------|----------|
 | `agentId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all agentCollaborator records
-const items = await db.agentCollaborator.findMany({ select: { agentId: true, id: true, entityId: true } }).execute();
+const items = await db.agentCollaborator.findMany({ select: { agentId: true } }).execute();
 
 // Get one by id
-const item = await db.agentCollaborator.findOne({ id: '<UUID>', select: { agentId: true, id: true, entityId: true } }).execute();
+const item = await db.agentCollaborator.findOne({ id: '<UUID>', select: { agentId: true } }).execute();
 
 // Create
-const created = await db.agentCollaborator.create({ data: { agentId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.agentCollaborator.create({ data: { agentId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.agentCollaborator.update({ where: { id: '<UUID>' }, data: { agentId: '<UUID>' }, select: { id: true } }).execute();
@@ -366,44 +294,6 @@ const updated = await db.agentLog.update({ where: { id: '<UUID>' }, data: { enti
 const deleted = await db.agentLog.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.agentLogsChunk`
-
-CRUD operations for AgentLogsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `agentLogsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all agentLogsChunk records
-const items = await db.agentLogsChunk.findMany({ select: { id: true, agentLogsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.agentLogsChunk.findOne({ id: '<UUID>', select: { id: true, agentLogsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.agentLogsChunk.create({ data: { agentLogsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.agentLogsChunk.update({ where: { id: '<UUID>' }, data: { agentLogsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.agentLogsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.agentPrompt`
 
 CRUD operations for AgentPrompt records.
@@ -484,44 +374,6 @@ const updated = await db.prompt.update({ where: { id: '<UUID>' }, data: { entity
 const deleted = await db.prompt.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.agentsChunk`
-
-CRUD operations for AgentsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `agentsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all agentsChunk records
-const items = await db.agentsChunk.findMany({ select: { id: true, agentsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.agentsChunk.findOne({ id: '<UUID>', select: { id: true, agentsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.agentsChunk.create({ data: { agentsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.agentsChunk.update({ where: { id: '<UUID>' }, data: { agentsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.agentsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.autonomyRecord`
 
 CRUD operations for AutonomyRecord records.
@@ -583,64 +435,24 @@ CRUD operations for AutonomyRecordLink records.
 | Field | Type | Editable |
 |-------|------|----------|
 | `autonomyRecordId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all autonomyRecordLink records
-const items = await db.autonomyRecordLink.findMany({ select: { autonomyRecordId: true, id: true, entityId: true } }).execute();
+const items = await db.autonomyRecordLink.findMany({ select: { autonomyRecordId: true } }).execute();
 
 // Get one by id
-const item = await db.autonomyRecordLink.findOne({ id: '<UUID>', select: { autonomyRecordId: true, id: true, entityId: true } }).execute();
+const item = await db.autonomyRecordLink.findOne({ id: '<UUID>', select: { autonomyRecordId: true } }).execute();
 
 // Create
-const created = await db.autonomyRecordLink.create({ data: { autonomyRecordId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.autonomyRecordLink.create({ data: { autonomyRecordId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.autonomyRecordLink.update({ where: { id: '<UUID>' }, data: { autonomyRecordId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.autonomyRecordLink.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.autonomyRecordsChunk`
-
-CRUD operations for AutonomyRecordsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `autonomyRecordsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all autonomyRecordsChunk records
-const items = await db.autonomyRecordsChunk.findMany({ select: { id: true, autonomyRecordsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.autonomyRecordsChunk.findOne({ id: '<UUID>', select: { id: true, autonomyRecordsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.autonomyRecordsChunk.create({ data: { autonomyRecordsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.autonomyRecordsChunk.update({ where: { id: '<UUID>' }, data: { autonomyRecordsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.autonomyRecordsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.calendarAttendee`
@@ -954,44 +766,6 @@ const updated = await db.note.update({ where: { id: '<UUID>' }, data: { entityId
 const deleted = await db.note.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.calendarEventsChunk`
-
-CRUD operations for CalendarEventsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `calendarEventsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all calendarEventsChunk records
-const items = await db.calendarEventsChunk.findMany({ select: { id: true, calendarEventsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.calendarEventsChunk.findOne({ id: '<UUID>', select: { id: true, calendarEventsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.calendarEventsChunk.create({ data: { calendarEventsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.calendarEventsChunk.update({ where: { id: '<UUID>' }, data: { calendarEventsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.calendarEventsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.calendarEventTask`
 
 CRUD operations for CalendarEventTask records.
@@ -1085,64 +859,24 @@ CRUD operations for CodebaseDependency records.
 | Field | Type | Editable |
 |-------|------|----------|
 | `codebasisId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all codebaseDependency records
-const items = await db.codebaseDependency.findMany({ select: { codebasisId: true, id: true, entityId: true } }).execute();
+const items = await db.codebaseDependency.findMany({ select: { codebasisId: true } }).execute();
 
 // Get one by id
-const item = await db.codebaseDependency.findOne({ id: '<UUID>', select: { codebasisId: true, id: true, entityId: true } }).execute();
+const item = await db.codebaseDependency.findOne({ id: '<UUID>', select: { codebasisId: true } }).execute();
 
 // Create
-const created = await db.codebaseDependency.create({ data: { codebasisId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.codebaseDependency.create({ data: { codebasisId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.codebaseDependency.update({ where: { id: '<UUID>' }, data: { codebasisId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.codebaseDependency.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.codebasesChunk`
-
-CRUD operations for CodebasesChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `codebasesId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all codebasesChunk records
-const items = await db.codebasesChunk.findMany({ select: { id: true, codebasesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.codebasesChunk.findOne({ id: '<UUID>', select: { id: true, codebasesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.codebasesChunk.create({ data: { codebasesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.codebasesChunk.update({ where: { id: '<UUID>' }, data: { codebasesId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.codebasesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.codebasis`
@@ -1251,44 +985,6 @@ const updated = await db.codeChunk.update({ where: { id: '<UUID>' }, data: { ent
 
 // Delete
 const deleted = await db.codeChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.companiesChunk`
-
-CRUD operations for CompaniesChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `companiesId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all companiesChunk records
-const items = await db.companiesChunk.findMany({ select: { id: true, companiesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.companiesChunk.findOne({ id: '<UUID>', select: { id: true, companiesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.companiesChunk.create({ data: { companiesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.companiesChunk.update({ where: { id: '<UUID>' }, data: { companiesId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.companiesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.company`
@@ -1402,20 +1098,18 @@ CRUD operations for CompanyEvent records.
 |-------|------|----------|
 | `companyId` | UUID | Yes |
 | `eventId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all companyEvent records
-const items = await db.companyEvent.findMany({ select: { companyId: true, eventId: true, id: true, entityId: true } }).execute();
+const items = await db.companyEvent.findMany({ select: { companyId: true, eventId: true } }).execute();
 
 // Get one by id
-const item = await db.companyEvent.findOne({ id: '<UUID>', select: { companyId: true, eventId: true, id: true, entityId: true } }).execute();
+const item = await db.companyEvent.findOne({ id: '<UUID>', select: { companyId: true, eventId: true } }).execute();
 
 // Create
-const created = await db.companyEvent.create({ data: { companyId: '<UUID>', eventId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.companyEvent.create({ data: { companyId: '<UUID>', eventId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.companyEvent.update({ where: { id: '<UUID>' }, data: { companyId: '<UUID>' }, select: { id: true } }).execute();
@@ -1489,20 +1183,18 @@ CRUD operations for CompanyImage records.
 |-------|------|----------|
 | `companyId` | UUID | Yes |
 | `imageId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all companyImage records
-const items = await db.companyImage.findMany({ select: { companyId: true, imageId: true, id: true, entityId: true } }).execute();
+const items = await db.companyImage.findMany({ select: { companyId: true, imageId: true } }).execute();
 
 // Get one by id
-const item = await db.companyImage.findOne({ id: '<UUID>', select: { companyId: true, imageId: true, id: true, entityId: true } }).execute();
+const item = await db.companyImage.findOne({ id: '<UUID>', select: { companyId: true, imageId: true } }).execute();
 
 // Create
-const created = await db.companyImage.create({ data: { companyId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.companyImage.create({ data: { companyId: '<UUID>', imageId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.companyImage.update({ where: { id: '<UUID>' }, data: { companyId: '<UUID>' }, select: { id: true } }).execute();
@@ -1714,20 +1406,18 @@ CRUD operations for ContactCompany records.
 |-------|------|----------|
 | `contactId` | UUID | Yes |
 | `companyId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all contactCompany records
-const items = await db.contactCompany.findMany({ select: { contactId: true, companyId: true, id: true, entityId: true } }).execute();
+const items = await db.contactCompany.findMany({ select: { contactId: true, companyId: true } }).execute();
 
 // Get one by id
-const item = await db.contactCompany.findOne({ id: '<UUID>', select: { contactId: true, companyId: true, id: true, entityId: true } }).execute();
+const item = await db.contactCompany.findOne({ id: '<UUID>', select: { contactId: true, companyId: true } }).execute();
 
 // Create
-const created = await db.contactCompany.create({ data: { contactId: '<UUID>', companyId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.contactCompany.create({ data: { contactId: '<UUID>', companyId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contactCompany.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute();
@@ -1844,20 +1534,18 @@ CRUD operations for ContactEvent records.
 |-------|------|----------|
 | `contactId` | UUID | Yes |
 | `eventId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all contactEvent records
-const items = await db.contactEvent.findMany({ select: { contactId: true, eventId: true, id: true, entityId: true } }).execute();
+const items = await db.contactEvent.findMany({ select: { contactId: true, eventId: true } }).execute();
 
 // Get one by id
-const item = await db.contactEvent.findOne({ id: '<UUID>', select: { contactId: true, eventId: true, id: true, entityId: true } }).execute();
+const item = await db.contactEvent.findOne({ id: '<UUID>', select: { contactId: true, eventId: true } }).execute();
 
 // Create
-const created = await db.contactEvent.create({ data: { contactId: '<UUID>', eventId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.contactEvent.create({ data: { contactId: '<UUID>', eventId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contactEvent.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute();
@@ -1929,20 +1617,18 @@ CRUD operations for ContactImage records.
 |-------|------|----------|
 | `contactId` | UUID | Yes |
 | `imageId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all contactImage records
-const items = await db.contactImage.findMany({ select: { contactId: true, imageId: true, id: true, entityId: true } }).execute();
+const items = await db.contactImage.findMany({ select: { contactId: true, imageId: true } }).execute();
 
 // Get one by id
-const item = await db.contactImage.findOne({ id: '<UUID>', select: { contactId: true, imageId: true, id: true, entityId: true } }).execute();
+const item = await db.contactImage.findOne({ id: '<UUID>', select: { contactId: true, imageId: true } }).execute();
 
 // Create
-const created = await db.contactImage.create({ data: { contactId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.contactImage.create({ data: { contactId: '<UUID>', imageId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contactImage.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute();
@@ -2116,64 +1802,24 @@ CRUD operations for ContactRelationship records.
 | Field | Type | Editable |
 |-------|------|----------|
 | `contactId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all contactRelationship records
-const items = await db.contactRelationship.findMany({ select: { contactId: true, id: true, entityId: true } }).execute();
+const items = await db.contactRelationship.findMany({ select: { contactId: true } }).execute();
 
 // Get one by id
-const item = await db.contactRelationship.findOne({ id: '<UUID>', select: { contactId: true, id: true, entityId: true } }).execute();
+const item = await db.contactRelationship.findOne({ id: '<UUID>', select: { contactId: true } }).execute();
 
 // Create
-const created = await db.contactRelationship.create({ data: { contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.contactRelationship.create({ data: { contactId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contactRelationship.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.contactRelationship.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.contactsChunk`
-
-CRUD operations for ContactsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `contactsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all contactsChunk records
-const items = await db.contactsChunk.findMany({ select: { id: true, contactsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.contactsChunk.findOne({ id: '<UUID>', select: { id: true, contactsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.contactsChunk.create({ data: { contactsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.contactsChunk.update({ where: { id: '<UUID>' }, data: { contactsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.contactsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.conversation`
@@ -2221,44 +1867,6 @@ const updated = await db.conversation.update({ where: { id: '<UUID>' }, data: { 
 const deleted = await db.conversation.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.conversationsChunk`
-
-CRUD operations for ConversationsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `conversationsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all conversationsChunk records
-const items = await db.conversationsChunk.findMany({ select: { id: true, conversationsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.conversationsChunk.findOne({ id: '<UUID>', select: { id: true, conversationsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.conversationsChunk.create({ data: { conversationsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.conversationsChunk.update({ where: { id: '<UUID>' }, data: { conversationsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.conversationsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.dealCompany`
 
 CRUD operations for DealCompany records.
@@ -2269,20 +1877,18 @@ CRUD operations for DealCompany records.
 |-------|------|----------|
 | `dealId` | UUID | Yes |
 | `companyId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all dealCompany records
-const items = await db.dealCompany.findMany({ select: { dealId: true, companyId: true, id: true, entityId: true } }).execute();
+const items = await db.dealCompany.findMany({ select: { dealId: true, companyId: true } }).execute();
 
 // Get one by id
-const item = await db.dealCompany.findOne({ id: '<UUID>', select: { dealId: true, companyId: true, id: true, entityId: true } }).execute();
+const item = await db.dealCompany.findOne({ id: '<UUID>', select: { dealId: true, companyId: true } }).execute();
 
 // Create
-const created = await db.dealCompany.create({ data: { dealId: '<UUID>', companyId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.dealCompany.create({ data: { dealId: '<UUID>', companyId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.dealCompany.update({ where: { id: '<UUID>' }, data: { dealId: '<UUID>' }, select: { id: true } }).execute();
@@ -2301,20 +1907,18 @@ CRUD operations for DealContact records.
 |-------|------|----------|
 | `dealId` | UUID | Yes |
 | `contactId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all dealContact records
-const items = await db.dealContact.findMany({ select: { dealId: true, contactId: true, id: true, entityId: true } }).execute();
+const items = await db.dealContact.findMany({ select: { dealId: true, contactId: true } }).execute();
 
 // Get one by id
-const item = await db.dealContact.findOne({ id: '<UUID>', select: { dealId: true, contactId: true, id: true, entityId: true } }).execute();
+const item = await db.dealContact.findOne({ id: '<UUID>', select: { dealId: true, contactId: true } }).execute();
 
 // Create
-const created = await db.dealContact.create({ data: { dealId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.dealContact.create({ data: { dealId: '<UUID>', contactId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.dealContact.update({ where: { id: '<UUID>' }, data: { dealId: '<UUID>' }, select: { id: true } }).execute();
@@ -2353,44 +1957,6 @@ const updated = await db.dealNote.update({ where: { id: '<UUID>' }, data: { deal
 
 // Delete
 const deleted = await db.dealNote.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.dealsChunk`
-
-CRUD operations for DealsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `dealsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all dealsChunk records
-const items = await db.dealsChunk.findMany({ select: { id: true, dealsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.dealsChunk.findOne({ id: '<UUID>', select: { id: true, dealsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.dealsChunk.create({ data: { dealsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.dealsChunk.update({ where: { id: '<UUID>' }, data: { dealsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.dealsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.emailAttachment`
@@ -2495,82 +2061,6 @@ const updated = await db.emailRecipient.update({ where: { id: '<UUID>' }, data: 
 const deleted = await db.emailRecipient.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.emailsChunk`
-
-CRUD operations for EmailsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `emailsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all emailsChunk records
-const items = await db.emailsChunk.findMany({ select: { id: true, emailsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.emailsChunk.findOne({ id: '<UUID>', select: { id: true, emailsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.emailsChunk.create({ data: { emailsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.emailsChunk.update({ where: { id: '<UUID>' }, data: { emailsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.emailsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.emailThreadsChunk`
-
-CRUD operations for EmailThreadsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `emailThreadsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all emailThreadsChunk records
-const items = await db.emailThreadsChunk.findMany({ select: { id: true, emailThreadsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.emailThreadsChunk.findOne({ id: '<UUID>', select: { id: true, emailThreadsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.emailThreadsChunk.create({ data: { emailThreadsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.emailThreadsChunk.update({ where: { id: '<UUID>' }, data: { emailThreadsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.emailThreadsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.eventImage`
 
 CRUD operations for EventImage records.
@@ -2581,20 +2071,18 @@ CRUD operations for EventImage records.
 |-------|------|----------|
 | `eventId` | UUID | Yes |
 | `imageId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all eventImage records
-const items = await db.eventImage.findMany({ select: { eventId: true, imageId: true, id: true, entityId: true } }).execute();
+const items = await db.eventImage.findMany({ select: { eventId: true, imageId: true } }).execute();
 
 // Get one by id
-const item = await db.eventImage.findOne({ id: '<UUID>', select: { eventId: true, imageId: true, id: true, entityId: true } }).execute();
+const item = await db.eventImage.findOne({ id: '<UUID>', select: { eventId: true, imageId: true } }).execute();
 
 // Create
-const created = await db.eventImage.create({ data: { eventId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.eventImage.create({ data: { eventId: '<UUID>', imageId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.eventImage.update({ where: { id: '<UUID>' }, data: { eventId: '<UUID>' }, select: { id: true } }).execute();
@@ -2674,44 +2162,6 @@ const updated = await db.eventNote.update({ where: { id: '<UUID>' }, data: { eve
 const deleted = await db.eventNote.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.eventsChunk`
-
-CRUD operations for EventsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `eventsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all eventsChunk records
-const items = await db.eventsChunk.findMany({ select: { id: true, eventsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.eventsChunk.findOne({ id: '<UUID>', select: { id: true, eventsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.eventsChunk.create({ data: { eventsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.eventsChunk.update({ where: { id: '<UUID>' }, data: { eventsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.eventsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.eventVenue`
 
 CRUD operations for EventVenue records.
@@ -2722,20 +2172,18 @@ CRUD operations for EventVenue records.
 |-------|------|----------|
 | `eventId` | UUID | Yes |
 | `venueId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all eventVenue records
-const items = await db.eventVenue.findMany({ select: { eventId: true, venueId: true, id: true, entityId: true } }).execute();
+const items = await db.eventVenue.findMany({ select: { eventId: true, venueId: true } }).execute();
 
 // Get one by id
-const item = await db.eventVenue.findOne({ id: '<UUID>', select: { eventId: true, venueId: true, id: true, entityId: true } }).execute();
+const item = await db.eventVenue.findOne({ id: '<UUID>', select: { eventId: true, venueId: true } }).execute();
 
 // Create
-const created = await db.eventVenue.create({ data: { eventId: '<UUID>', venueId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.eventVenue.create({ data: { eventId: '<UUID>', venueId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.eventVenue.update({ where: { id: '<UUID>' }, data: { eventId: '<UUID>' }, select: { id: true } }).execute();
@@ -2837,44 +2285,6 @@ const updated = await db.expenseContact.update({ where: { id: '<UUID>' }, data: 
 
 // Delete
 const deleted = await db.expenseContact.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.expensesChunk`
-
-CRUD operations for ExpensesChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `expensesId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all expensesChunk records
-const items = await db.expensesChunk.findMany({ select: { id: true, expensesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.expensesChunk.findOne({ id: '<UUID>', select: { id: true, expensesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.expensesChunk.create({ data: { expensesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.expensesChunk.update({ where: { id: '<UUID>' }, data: { expensesId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.expensesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.goal`
@@ -3026,44 +2436,6 @@ const updated = await db.goalProject.update({ where: { id: '<UUID>' }, data: { g
 const deleted = await db.goalProject.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.goalsChunk`
-
-CRUD operations for GoalsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `goalsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all goalsChunk records
-const items = await db.goalsChunk.findMany({ select: { id: true, goalsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.goalsChunk.findOne({ id: '<UUID>', select: { id: true, goalsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.goalsChunk.create({ data: { goalsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.goalsChunk.update({ where: { id: '<UUID>' }, data: { goalsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.goalsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.hikingTrail`
 
 CRUD operations for HikingTrail records.
@@ -3115,44 +2487,6 @@ const updated = await db.hikingTrail.update({ where: { id: '<UUID>' }, data: { e
 const deleted = await db.hikingTrail.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.hikingTrailsChunk`
-
-CRUD operations for HikingTrailsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `hikingTrailsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all hikingTrailsChunk records
-const items = await db.hikingTrailsChunk.findMany({ select: { id: true, hikingTrailsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.hikingTrailsChunk.findOne({ id: '<UUID>', select: { id: true, hikingTrailsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.hikingTrailsChunk.create({ data: { hikingTrailsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.hikingTrailsChunk.update({ where: { id: '<UUID>' }, data: { hikingTrailsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.hikingTrailsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.interaction`
 
 CRUD operations for Interaction records.
@@ -3201,82 +2535,6 @@ const updated = await db.interaction.update({ where: { id: '<UUID>' }, data: { e
 const deleted = await db.interaction.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.interactionsChunk`
-
-CRUD operations for InteractionsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `interactionsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all interactionsChunk records
-const items = await db.interactionsChunk.findMany({ select: { id: true, interactionsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.interactionsChunk.findOne({ id: '<UUID>', select: { id: true, interactionsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.interactionsChunk.create({ data: { interactionsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.interactionsChunk.update({ where: { id: '<UUID>' }, data: { interactionsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.interactionsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.memoriesChunk`
-
-CRUD operations for MemoriesChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `memoriesId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all memoriesChunk records
-const items = await db.memoriesChunk.findMany({ select: { id: true, memoriesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.memoriesChunk.findOne({ id: '<UUID>', select: { id: true, memoriesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.memoriesChunk.create({ data: { memoriesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.memoriesChunk.update({ where: { id: '<UUID>' }, data: { memoriesId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.memoriesChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.message`
 
 CRUD operations for Message records.
@@ -3323,82 +2581,6 @@ const updated = await db.message.update({ where: { id: '<UUID>' }, data: { entit
 
 // Delete
 const deleted = await db.message.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.messagesChunk`
-
-CRUD operations for MessagesChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `messagesId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all messagesChunk records
-const items = await db.messagesChunk.findMany({ select: { id: true, messagesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.messagesChunk.findOne({ id: '<UUID>', select: { id: true, messagesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.messagesChunk.create({ data: { messagesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.messagesChunk.update({ where: { id: '<UUID>' }, data: { messagesId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.messagesChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.notesChunk`
-
-CRUD operations for NotesChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `notesId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all notesChunk records
-const items = await db.notesChunk.findMany({ select: { id: true, notesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.notesChunk.findOne({ id: '<UUID>', select: { id: true, notesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.notesChunk.create({ data: { notesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.notesChunk.update({ where: { id: '<UUID>' }, data: { notesId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.notesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.place`
@@ -3450,44 +2632,6 @@ const updated = await db.place.update({ where: { id: '<UUID>' }, data: { entityI
 const deleted = await db.place.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.placesChunk`
-
-CRUD operations for PlacesChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `placesId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all placesChunk records
-const items = await db.placesChunk.findMany({ select: { id: true, placesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.placesChunk.findOne({ id: '<UUID>', select: { id: true, placesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.placesChunk.create({ data: { placesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.placesChunk.update({ where: { id: '<UUID>' }, data: { placesId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.placesChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.projectContact`
 
 CRUD operations for ProjectContact records.
@@ -3518,82 +2662,6 @@ const updated = await db.projectContact.update({ where: { id: '<UUID>' }, data: 
 
 // Delete
 const deleted = await db.projectContact.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.projectsChunk`
-
-CRUD operations for ProjectsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `projectsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all projectsChunk records
-const items = await db.projectsChunk.findMany({ select: { id: true, projectsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.projectsChunk.findOne({ id: '<UUID>', select: { id: true, projectsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.projectsChunk.create({ data: { projectsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.projectsChunk.update({ where: { id: '<UUID>' }, data: { projectsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.projectsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.promptsChunk`
-
-CRUD operations for PromptsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `promptsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all promptsChunk records
-const items = await db.promptsChunk.findMany({ select: { id: true, promptsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.promptsChunk.findOne({ id: '<UUID>', select: { id: true, promptsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.promptsChunk.create({ data: { promptsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.promptsChunk.update({ where: { id: '<UUID>' }, data: { promptsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.promptsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.providerSyncState`
@@ -3848,44 +2916,6 @@ const updated = await db.rule.update({ where: { id: '<UUID>' }, data: { entityId
 const deleted = await db.rule.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.rulesChunk`
-
-CRUD operations for RulesChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `rulesId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all rulesChunk records
-const items = await db.rulesChunk.findMany({ select: { id: true, rulesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.rulesChunk.findOne({ id: '<UUID>', select: { id: true, rulesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.rulesChunk.create({ data: { rulesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.rulesChunk.update({ where: { id: '<UUID>' }, data: { rulesId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.rulesChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.runtimeArtifact`
 
 CRUD operations for RuntimeArtifact records.
@@ -4043,44 +3073,6 @@ const updated = await db.runtimeLog.update({ where: { id: '<UUID>' }, data: { en
 const deleted = await db.runtimeLog.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.runtimeLogsChunk`
-
-CRUD operations for RuntimeLogsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `runtimeLogsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all runtimeLogsChunk records
-const items = await db.runtimeLogsChunk.findMany({ select: { id: true, runtimeLogsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.runtimeLogsChunk.findOne({ id: '<UUID>', select: { id: true, runtimeLogsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.runtimeLogsChunk.create({ data: { runtimeLogsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.runtimeLogsChunk.update({ where: { id: '<UUID>' }, data: { runtimeLogsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.runtimeLogsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.runtimeMetric`
 
 CRUD operations for RuntimeMetric records.
@@ -4215,64 +3207,24 @@ CRUD operations for RuntimeStateDependency records.
 | Field | Type | Editable |
 |-------|------|----------|
 | `runtimeStateId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all runtimeStateDependency records
-const items = await db.runtimeStateDependency.findMany({ select: { runtimeStateId: true, id: true, entityId: true } }).execute();
+const items = await db.runtimeStateDependency.findMany({ select: { runtimeStateId: true } }).execute();
 
 // Get one by id
-const item = await db.runtimeStateDependency.findOne({ id: '<UUID>', select: { runtimeStateId: true, id: true, entityId: true } }).execute();
+const item = await db.runtimeStateDependency.findOne({ id: '<UUID>', select: { runtimeStateId: true } }).execute();
 
 // Create
-const created = await db.runtimeStateDependency.create({ data: { runtimeStateId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.runtimeStateDependency.create({ data: { runtimeStateId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.runtimeStateDependency.update({ where: { id: '<UUID>' }, data: { runtimeStateId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.runtimeStateDependency.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.runtimeStatesChunk`
-
-CRUD operations for RuntimeStatesChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `runtimeStatesId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all runtimeStatesChunk records
-const items = await db.runtimeStatesChunk.findMany({ select: { id: true, runtimeStatesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.runtimeStatesChunk.findOne({ id: '<UUID>', select: { id: true, runtimeStatesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.runtimeStatesChunk.create({ data: { runtimeStatesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.runtimeStatesChunk.update({ where: { id: '<UUID>' }, data: { runtimeStatesId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.runtimeStatesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.skill`
@@ -4327,44 +3279,6 @@ const updated = await db.skill.update({ where: { id: '<UUID>' }, data: { entityI
 
 // Delete
 const deleted = await db.skill.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.skillsChunk`
-
-CRUD operations for SkillsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `skillsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all skillsChunk records
-const items = await db.skillsChunk.findMany({ select: { id: true, skillsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.skillsChunk.findOne({ id: '<UUID>', select: { id: true, skillsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.skillsChunk.create({ data: { skillsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.skillsChunk.update({ where: { id: '<UUID>' }, data: { skillsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.skillsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.skillTool`
@@ -4579,44 +3493,6 @@ const updated = await db.taskProject.update({ where: { id: '<UUID>' }, data: { t
 const deleted = await db.taskProject.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.tasksChunk`
-
-CRUD operations for TasksChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `tasksId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all tasksChunk records
-const items = await db.tasksChunk.findMany({ select: { id: true, tasksId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.tasksChunk.findOne({ id: '<UUID>', select: { id: true, tasksId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.tasksChunk.create({ data: { tasksId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.tasksChunk.update({ where: { id: '<UUID>' }, data: { tasksId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.tasksChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.threadParticipant`
 
 CRUD operations for ThreadParticipant records.
@@ -4647,44 +3523,6 @@ const updated = await db.threadParticipant.update({ where: { id: '<UUID>' }, dat
 
 // Delete
 const deleted = await db.threadParticipant.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.toolDefinitionsChunk`
-
-CRUD operations for ToolDefinitionsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `toolDefinitionsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all toolDefinitionsChunk records
-const items = await db.toolDefinitionsChunk.findMany({ select: { id: true, toolDefinitionsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.toolDefinitionsChunk.findOne({ id: '<UUID>', select: { id: true, toolDefinitionsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.toolDefinitionsChunk.create({ data: { toolDefinitionsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.toolDefinitionsChunk.update({ where: { id: '<UUID>' }, data: { toolDefinitionsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.toolDefinitionsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.toolExecution`
@@ -4785,44 +3623,6 @@ const updated = await db.touchpoint.update({ where: { id: '<UUID>' }, data: { en
 const deleted = await db.touchpoint.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.touchpointsChunk`
-
-CRUD operations for TouchpointsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `touchpointsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all touchpointsChunk records
-const items = await db.touchpointsChunk.findMany({ select: { id: true, touchpointsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.touchpointsChunk.findOne({ id: '<UUID>', select: { id: true, touchpointsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.touchpointsChunk.create({ data: { touchpointsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.touchpointsChunk.update({ where: { id: '<UUID>' }, data: { touchpointsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.touchpointsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.trip`
 
 CRUD operations for Trip records.
@@ -4871,44 +3671,6 @@ const updated = await db.trip.update({ where: { id: '<UUID>' }, data: { entityId
 const deleted = await db.trip.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.tripsChunk`
-
-CRUD operations for TripsChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `tripsId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all tripsChunk records
-const items = await db.tripsChunk.findMany({ select: { id: true, tripsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.tripsChunk.findOne({ id: '<UUID>', select: { id: true, tripsId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.tripsChunk.create({ data: { tripsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.tripsChunk.update({ where: { id: '<UUID>' }, data: { tripsId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.tripsChunk.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.venueImage`
 
 CRUD operations for VenueImage records.
@@ -4919,20 +3681,18 @@ CRUD operations for VenueImage records.
 |-------|------|----------|
 | `venueId` | UUID | Yes |
 | `imageId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all venueImage records
-const items = await db.venueImage.findMany({ select: { venueId: true, imageId: true, id: true, entityId: true } }).execute();
+const items = await db.venueImage.findMany({ select: { venueId: true, imageId: true } }).execute();
 
 // Get one by id
-const item = await db.venueImage.findOne({ id: '<UUID>', select: { venueId: true, imageId: true, id: true, entityId: true } }).execute();
+const item = await db.venueImage.findOne({ id: '<UUID>', select: { venueId: true, imageId: true } }).execute();
 
 // Create
-const created = await db.venueImage.create({ data: { venueId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.venueImage.create({ data: { venueId: '<UUID>', imageId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.venueImage.update({ where: { id: '<UUID>' }, data: { venueId: '<UUID>' }, select: { id: true } }).execute();
@@ -4978,44 +3738,6 @@ const updated = await db.venueLink.update({ where: { id: '<UUID>' }, data: { ent
 
 // Delete
 const deleted = await db.venueLink.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.venuesChunk`
-
-CRUD operations for VenuesChunk records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `venuesId` | UUID | Yes |
-| `content` | String | Yes |
-| `chunkIndex` | Int | Yes |
-| `embedding` | Vector | Yes |
-| `metadata` | JSON | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingVectorDistance` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all venuesChunk records
-const items = await db.venuesChunk.findMany({ select: { id: true, venuesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.venuesChunk.findOne({ id: '<UUID>', select: { id: true, venuesId: true, content: true, chunkIndex: true, embedding: true, metadata: true, createdAt: true, updatedAt: true, embeddingVectorDistance: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.venuesChunk.create({ data: { venuesId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.venuesChunk.update({ where: { id: '<UUID>' }, data: { venuesId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.venuesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ---

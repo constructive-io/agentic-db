@@ -57,7 +57,7 @@ async function main() {
   const taskText = `${taskData.title} ${taskData.description}`;
   const taskEmbedding = await embed(taskText);
 
-  const taskRes = await client.agentTask.create({
+  const taskRes = await client.task.create({
     data: {
       ...taskData,
       embedding: taskEmbedding
@@ -70,7 +70,7 @@ async function main() {
     throw new Error('Failed to create task');
   }
 
-  const taskId = taskRes.data?.createAgentTask?.agentTask?.id;
+  const taskId = (taskRes.data as any)?.createTask?.task?.id;
   console.log('Created Task:', taskId);
   console.log('Done!');
 }

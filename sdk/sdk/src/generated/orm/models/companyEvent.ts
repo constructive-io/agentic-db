@@ -97,46 +97,6 @@ export class CompanyEventModel {
       variables,
     });
   }
-  findOne<S extends CompanyEventSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, CompanyEventSelect>
-  ): QueryBuilder<{
-    companyEvent: InferSelectResult<CompanyEventWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'CompanyEvent',
-      'companyEvents',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'CompanyEventFilter',
-      'CompanyEventOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'CompanyEvent',
-      fieldName: 'companyEvent',
-      document,
-      variables,
-      transform: (data: {
-        companyEvents?: {
-          nodes?: InferSelectResult<CompanyEventWithRelations, S>[];
-        };
-      }) => ({
-        companyEvent: data.companyEvents?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends CompanyEventSelect>(
     args: CreateArgs<S, CreateCompanyEventInput['companyEvent']> & {
       select: S;
@@ -160,76 +120,6 @@ export class CompanyEventModel {
       operation: 'mutation',
       operationName: 'CompanyEvent',
       fieldName: 'createCompanyEvent',
-      document,
-      variables,
-    });
-  }
-  update<S extends CompanyEventSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      CompanyEventPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, CompanyEventSelect>
-  ): QueryBuilder<{
-    updateCompanyEvent: {
-      companyEvent: InferSelectResult<CompanyEventWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'CompanyEvent',
-      'updateCompanyEvent',
-      'companyEvent',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateCompanyEventInput',
-      'id',
-      'companyEventPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'CompanyEvent',
-      fieldName: 'updateCompanyEvent',
-      document,
-      variables,
-    });
-  }
-  delete<S extends CompanyEventSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, CompanyEventSelect>
-  ): QueryBuilder<{
-    deleteCompanyEvent: {
-      companyEvent: InferSelectResult<CompanyEventWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'CompanyEvent',
-      'deleteCompanyEvent',
-      'companyEvent',
-      {
-        id: args.where.id,
-      },
-      'DeleteCompanyEventInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'CompanyEvent',
-      fieldName: 'deleteCompanyEvent',
       document,
       variables,
     });

@@ -26,7 +26,7 @@ INSERT INTO services_public.site_themes (
   site_id,
   theme
 ) VALUES
-  ('019d2831-62bd-79c9-b05d-9ea4bbc51a30', '019d2831-6080-7e86-a360-21cd48c6ce49', '019d2831-62bb-7f6c-ab0d-b2e195346cdb', '{"colors":["#66d9ff","#91d5ee","#ffffff","#33CCFF"],"primary":"#01A1FF","background":"#f2fafd"}');
+  ('019d37b9-b71f-726d-bda2-1b9d274673b1', '019d37b9-b4ba-747d-9bd7-98d3ec25d59c', '019d37b9-b71c-79a7-8b4c-77663e405898', '{"colors":["#66d9ff","#91d5ee","#ffffff","#33CCFF"],"primary":"#01A1FF","background":"#f2fafd"}');
 
 
 SET session_replication_role TO DEFAULT;

@@ -9,8 +9,8 @@ CRUD operations for EventVenue records via agentic-db CLI
 ```bash
 agentic-db event-venue list
 agentic-db event-venue get --id <UUID>
-agentic-db event-venue create --eventId <UUID> --venueId <UUID> --entityId <UUID>
-agentic-db event-venue update --id <UUID> [--eventId <UUID>] [--venueId <UUID>] [--entityId <UUID>]
+agentic-db event-venue create --eventId <UUID> --venueId <UUID>
+agentic-db event-venue update --id <UUID> [--eventId <UUID>] [--venueId <UUID>]
 agentic-db event-venue delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db event-venue list
 ### Create a eventVenue
 
 ```bash
-agentic-db event-venue create --eventId <UUID> --venueId <UUID> --entityId <UUID>
+agentic-db event-venue create --eventId <UUID> --venueId <UUID>
 ```
 
 ### Get a eventVenue by id
