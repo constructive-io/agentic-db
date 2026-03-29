@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db prompts-chunk list
 agentic-db prompts-chunk get --id <UUID>
-agentic-db prompts-chunk create --entityId <UUID> --promptsId <UUID> --content <String> --promptId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db prompts-chunk update --id <UUID> [--entityId <UUID>] [--promptsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--promptId <UUID>]
+agentic-db prompts-chunk create --promptsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db prompts-chunk update --id <UUID> [--promptsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db prompts-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db prompts-chunk list
 ### Create a promptsChunk
 
 ```bash
-agentic-db prompts-chunk create --entityId <UUID> --promptsId <UUID> --content <String> --promptId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db prompts-chunk create --promptsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a promptsChunk by id

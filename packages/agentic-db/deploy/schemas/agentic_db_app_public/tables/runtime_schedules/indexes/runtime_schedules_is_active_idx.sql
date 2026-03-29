@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_schedules/table
+-- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 -- requires: schemas/agentic_db_app_public/tables/runtime_schedules/columns/is_active/column
--- requires: schemas/agentic_db_app_public/tables/tool_definitions_chunks/indexes/tool_definitions_chunks_chunk_index_idx
 
 
 CREATE INDEX runtime_schedules_is_active_idx ON agentic_db_app_public.runtime_schedules USING BTREE ( is_active );

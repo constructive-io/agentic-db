@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db conversations-chunk list
 agentic-db conversations-chunk get --id <UUID>
-agentic-db conversations-chunk create --entityId <UUID> --conversationsId <UUID> --content <String> --conversationId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db conversations-chunk update --id <UUID> [--entityId <UUID>] [--conversationsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--conversationId <UUID>]
+agentic-db conversations-chunk create --conversationsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db conversations-chunk update --id <UUID> [--conversationsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db conversations-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db conversations-chunk list
 ### Create a conversationsChunk
 
 ```bash
-agentic-db conversations-chunk create --entityId <UUID> --conversationsId <UUID> --content <String> --conversationId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db conversations-chunk create --conversationsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a conversationsChunk by id

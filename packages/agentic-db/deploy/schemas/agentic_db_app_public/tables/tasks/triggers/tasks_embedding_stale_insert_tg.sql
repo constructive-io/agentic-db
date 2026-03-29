@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tasks/table
 -- requires: schemas/agentic_db_private/trigger_fns/tasks_embedding_stale
--- requires: schemas/agentic_db_app_public/tables/venues_chunks/indexes/venues_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
 CREATE TRIGGER tasks_embedding_stale_insert_tg

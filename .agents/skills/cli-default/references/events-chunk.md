@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db events-chunk list
 agentic-db events-chunk get --id <UUID>
-agentic-db events-chunk create --entityId <UUID> --eventsId <UUID> --content <String> --eventId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db events-chunk update --id <UUID> [--entityId <UUID>] [--eventsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--eventId <UUID>]
+agentic-db events-chunk create --eventsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db events-chunk update --id <UUID> [--eventsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db events-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db events-chunk list
 ### Create a eventsChunk
 
 ```bash
-agentic-db events-chunk create --entityId <UUID> --eventsId <UUID> --content <String> --eventId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db events-chunk create --eventsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a eventsChunk by id

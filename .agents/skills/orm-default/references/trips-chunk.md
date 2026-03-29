@@ -9,8 +9,8 @@ ORM operations for TripsChunk records
 ```typescript
 db.tripsChunk.findMany({ select: { id: true } }).execute()
 db.tripsChunk.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.tripsChunk.create({ data: { entityId: '<UUID>', tripsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', tripId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.tripsChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.tripsChunk.create({ data: { tripsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.tripsChunk.update({ where: { id: '<UUID>' }, data: { tripsId: '<UUID>' }, select: { id: true } }).execute()
 db.tripsChunk.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.tripsChunk.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.tripsChunk.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, tripsId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.tripsChunk.findMany({
 
 ```typescript
 const item = await db.tripsChunk.create({
-  data: { entityId: '<UUID>', tripsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', tripId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { tripsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

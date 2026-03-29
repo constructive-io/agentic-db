@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db codebases-chunk list
 agentic-db codebases-chunk get --id <UUID>
-agentic-db codebases-chunk create --entityId <UUID> --codebasesId <UUID> --content <String> --codebasisId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db codebases-chunk update --id <UUID> [--entityId <UUID>] [--codebasesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--codebasisId <UUID>]
+agentic-db codebases-chunk create --codebasesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db codebases-chunk update --id <UUID> [--codebasesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db codebases-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db codebases-chunk list
 ### Create a codebasesChunk
 
 ```bash
-agentic-db codebases-chunk create --entityId <UUID> --codebasesId <UUID> --content <String> --codebasisId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db codebases-chunk create --codebasesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a codebasesChunk by id

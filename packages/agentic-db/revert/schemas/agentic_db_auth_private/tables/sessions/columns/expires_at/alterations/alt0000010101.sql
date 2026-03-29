@@ -1,0 +1,7 @@
+-- Revert: schemas/agentic_db_auth_private/tables/sessions/columns/expires_at/alterations/alt0000010101
+
+
+ALTER TABLE agentic_db_auth_private.sessions 
+  ALTER COLUMN expires_at DROP NOT NULL;
+
+

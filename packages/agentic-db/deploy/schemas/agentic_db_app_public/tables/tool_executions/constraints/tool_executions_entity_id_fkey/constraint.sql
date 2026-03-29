@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_users_public/tables/users/table
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/table
--- requires: schemas/agentic_db_app_public/tables/tool_definitions_chunks/indexes/tool_definitions_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
 ALTER TABLE agentic_db_app_public.tool_executions 

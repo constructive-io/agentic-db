@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db contacts-chunk list
 agentic-db contacts-chunk get --id <UUID>
-agentic-db contacts-chunk create --entityId <UUID> --contactsId <UUID> --content <String> --contactId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db contacts-chunk update --id <UUID> [--entityId <UUID>] [--contactsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--contactId <UUID>]
+agentic-db contacts-chunk create --contactsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db contacts-chunk update --id <UUID> [--contactsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db contacts-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db contacts-chunk list
 ### Create a contactsChunk
 
 ```bash
-agentic-db contacts-chunk create --entityId <UUID> --contactsId <UUID> --content <String> --contactId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db contacts-chunk create --contactsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a contactsChunk by id

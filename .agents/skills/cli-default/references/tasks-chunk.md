@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db tasks-chunk list
 agentic-db tasks-chunk get --id <UUID>
-agentic-db tasks-chunk create --entityId <UUID> --tasksId <UUID> --content <String> --taskId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db tasks-chunk update --id <UUID> [--entityId <UUID>] [--tasksId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--taskId <UUID>]
+agentic-db tasks-chunk create --tasksId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db tasks-chunk update --id <UUID> [--tasksId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db tasks-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db tasks-chunk list
 ### Create a tasksChunk
 
 ```bash
-agentic-db tasks-chunk create --entityId <UUID> --tasksId <UUID> --content <String> --taskId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db tasks-chunk create --tasksId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a tasksChunk by id

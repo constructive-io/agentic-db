@@ -43,7 +43,6 @@ import { MemoryModel } from './models/memory';
 import { CompanyMemoryModel } from './models/companyMemory';
 import { CompanyNoteModel } from './models/companyNote';
 import { ContactCompanyModel } from './models/contactCompany';
-import { EmailModel } from './models/email';
 import { EmailThreadModel } from './models/emailThread';
 import { ContactEventModel } from './models/contactEvent';
 import { ExpenseModel } from './models/expense';
@@ -61,8 +60,7 @@ import { DealContactModel } from './models/dealContact';
 import { DealNoteModel } from './models/dealNote';
 import { DealsChunkModel } from './models/dealsChunk';
 import { EmailAttachmentModel } from './models/emailAttachment';
-import { EmailNoteModel } from './models/emailNote';
-import { EmailRecipientModel } from './models/emailRecipient';
+import { EmailModel } from './models/email';
 import { EmailsChunkModel } from './models/emailsChunk';
 import { EmailThreadsChunkModel } from './models/emailThreadsChunk';
 import { EventImageModel } from './models/eventImage';
@@ -197,7 +195,6 @@ export function createClient(config: OrmClientConfig) {
     companyMemory: new CompanyMemoryModel(client),
     companyNote: new CompanyNoteModel(client),
     contactCompany: new ContactCompanyModel(client),
-    email: new EmailModel(client),
     emailThread: new EmailThreadModel(client),
     contactEvent: new ContactEventModel(client),
     expense: new ExpenseModel(client),
@@ -215,8 +212,7 @@ export function createClient(config: OrmClientConfig) {
     dealNote: new DealNoteModel(client),
     dealsChunk: new DealsChunkModel(client),
     emailAttachment: new EmailAttachmentModel(client),
-    emailNote: new EmailNoteModel(client),
-    emailRecipient: new EmailRecipientModel(client),
+    email: new EmailModel(client),
     emailsChunk: new EmailsChunkModel(client),
     emailThreadsChunk: new EmailThreadsChunkModel(client),
     eventImage: new EventImageModel(client),

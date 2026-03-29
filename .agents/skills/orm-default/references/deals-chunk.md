@@ -9,8 +9,8 @@ ORM operations for DealsChunk records
 ```typescript
 db.dealsChunk.findMany({ select: { id: true } }).execute()
 db.dealsChunk.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.dealsChunk.create({ data: { entityId: '<UUID>', dealsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', dealId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.dealsChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.dealsChunk.create({ data: { dealsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.dealsChunk.update({ where: { id: '<UUID>' }, data: { dealsId: '<UUID>' }, select: { id: true } }).execute()
 db.dealsChunk.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.dealsChunk.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.dealsChunk.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, dealsId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.dealsChunk.findMany({
 
 ```typescript
 const item = await db.dealsChunk.create({
-  data: { entityId: '<UUID>', dealsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', dealId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { dealsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

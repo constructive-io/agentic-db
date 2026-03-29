@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db companies-chunk list
 agentic-db companies-chunk get --id <UUID>
-agentic-db companies-chunk create --entityId <UUID> --companiesId <UUID> --content <String> --companyId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db companies-chunk update --id <UUID> [--entityId <UUID>] [--companiesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--companyId <UUID>]
+agentic-db companies-chunk create --companiesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db companies-chunk update --id <UUID> [--companiesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db companies-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db companies-chunk list
 ### Create a companiesChunk
 
 ```bash
-agentic-db companies-chunk create --entityId <UUID> --companiesId <UUID> --content <String> --companyId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db companies-chunk create --companiesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a companiesChunk by id

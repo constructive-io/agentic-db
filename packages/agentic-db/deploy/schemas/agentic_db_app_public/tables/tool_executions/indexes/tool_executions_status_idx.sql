@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/table
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/columns/status/column
--- requires: schemas/agentic_db_app_public/tables/tool_definitions_chunks/indexes/tool_definitions_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
 CREATE INDEX tool_executions_status_idx ON agentic_db_app_public.tool_executions USING BTREE ( status );

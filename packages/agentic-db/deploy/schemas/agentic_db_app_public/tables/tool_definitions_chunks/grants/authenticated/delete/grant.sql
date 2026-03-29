@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tool_definitions_chunks/table
--- requires: schemas/agentic_db_app_public/tables/venues_chunks/indexes/venues_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
 GRANT DELETE ON agentic_db_app_public.tool_definitions_chunks TO authenticated;

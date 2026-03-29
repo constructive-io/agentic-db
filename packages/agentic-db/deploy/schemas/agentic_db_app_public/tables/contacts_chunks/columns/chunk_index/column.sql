@@ -7,5 +7,5 @@
 
 
 ALTER TABLE agentic_db_app_public.contacts_chunks 
-  ADD COLUMN chunk_index int;
+  ADD COLUMN chunk_index integer;
 

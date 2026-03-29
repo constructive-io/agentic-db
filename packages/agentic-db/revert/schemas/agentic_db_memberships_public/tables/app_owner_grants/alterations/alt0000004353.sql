@@ -1,6 +1,0 @@
--- Revert: schemas/agentic_db_memberships_public/tables/app_owner_grants/alterations/alt0000004353
-
-
-COMMENT ON TABLE agentic_db_memberships_public.app_owner_grants IS NULL;
-
-

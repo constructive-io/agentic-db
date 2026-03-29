@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db hiking-trails-chunk list
 agentic-db hiking-trails-chunk get --id <UUID>
-agentic-db hiking-trails-chunk create --entityId <UUID> --hikingTrailsId <UUID> --content <String> --hikingTrailId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db hiking-trails-chunk update --id <UUID> [--entityId <UUID>] [--hikingTrailsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--hikingTrailId <UUID>]
+agentic-db hiking-trails-chunk create --hikingTrailsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db hiking-trails-chunk update --id <UUID> [--hikingTrailsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db hiking-trails-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db hiking-trails-chunk list
 ### Create a hikingTrailsChunk
 
 ```bash
-agentic-db hiking-trails-chunk create --entityId <UUID> --hikingTrailsId <UUID> --content <String> --hikingTrailId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db hiking-trails-chunk create --hikingTrailsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a hikingTrailsChunk by id

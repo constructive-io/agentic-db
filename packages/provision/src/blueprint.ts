@@ -43,15 +43,8 @@ export type {
 };
 
 // Extend types for server-side features not yet in node-type-registry.
-// DataSearch accepts chunks config; policies need $type for the server.
+// Policies need $type for the server (policy_type alone isn't sufficient).
 declare module 'node-type-registry' {
-  interface DataSearchParams {
-    chunks?: {
-      chunk_size?: number;
-      chunk_overlap?: number;
-      strategy?: string;
-    };
-  }
   interface BlueprintPolicy {
     $type?: string;
   }

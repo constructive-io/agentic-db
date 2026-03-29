@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/trips_chunks/table
--- requires: schemas/agentic_db_app_public/tables/codebases_chunks/indexes/codebases_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
 ALTER TABLE agentic_db_app_public.trips_chunks 
-  ADD COLUMN embedding vector(1536);
+  ADD COLUMN embedding vector(768);
 

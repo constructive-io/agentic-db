@@ -39,8 +39,8 @@ INSERT INTO metaschema_modules_public.permissions_module (
   get_by_mask,
   get_mask_by_name
 ) VALUES
-  ('1e3f737b-3a47-5fd9-a0d1-426147a83e65', 'f2518f84-cbe2-d97a-313c-5b54d1e126ff', 'd1bcbc12-1cce-8994-1ea3-cdb659c8dc81', 'efb3b5d4-50f4-f1c2-b5ad-5c27f1a0d15e', '74063376-1e71-fe44-ce96-9da2549d606d', 'org_permissions', '6c74cd5c-b9d3-5ffc-6fe1-97e4d1eee7fc', 'org_permission_defaults', 24, 2, '5b5d99e1-9167-1378-cf99-58449ebc35bc', '5b5d99e1-9167-1378-cf99-58449ebc35bc', 'org', 'org_permissions_get_padded_mask', 'org_permissions_get_mask', 'org_permissions_get_by_mask', 'org_permissions_get_mask_by_names'),
-  ('6e473bfb-2fe5-c13a-0f78-56ed3743e66c', 'f2518f84-cbe2-d97a-313c-5b54d1e126ff', 'd1bcbc12-1cce-8994-1ea3-cdb659c8dc81', 'efb3b5d4-50f4-f1c2-b5ad-5c27f1a0d15e', '8b27fb0c-e4ef-3678-e21c-e7ceb4590584', 'app_permissions', 'bb869070-30fe-dae1-c436-67f983fee6a6', 'app_permission_defaults', 24, 1, NULL, '5b5d99e1-9167-1378-cf99-58449ebc35bc', 'app', 'app_permissions_get_padded_mask', 'app_permissions_get_mask', 'app_permissions_get_by_mask', 'app_permissions_get_mask_by_names');
+  ('05dd3c42-cd39-1f33-ed22-6e933f047514', '2ef50f93-192b-b168-969d-304c8e675e1d', 'ec5002a7-7d8e-f720-3a79-ac6edd4aee30', 'cf828ea2-ada6-30d9-9f88-49600033a4a4', 'ee8f193d-af6d-6828-39e5-ed25f55fc9a3', 'org_permissions', '74af7cdb-39ea-0abf-4770-2ebbc3f6e296', 'org_permission_defaults', 24, 2, '5353e947-3e3f-3914-7fd1-1370926dd743', '5353e947-3e3f-3914-7fd1-1370926dd743', 'org', 'org_permissions_get_padded_mask', 'org_permissions_get_mask', 'org_permissions_get_by_mask', 'org_permissions_get_mask_by_names'),
+  ('98ecea61-ccc5-74f2-92b7-f89dd549c400', '2ef50f93-192b-b168-969d-304c8e675e1d', 'ec5002a7-7d8e-f720-3a79-ac6edd4aee30', 'cf828ea2-ada6-30d9-9f88-49600033a4a4', '97c66666-071d-6f46-7967-85437fc3c183', 'app_permissions', '35c667fd-1288-823b-21c3-94457d99670c', 'app_permission_defaults', 24, 1, NULL, '5353e947-3e3f-3914-7fd1-1370926dd743', 'app', 'app_permissions_get_padded_mask', 'app_permissions_get_mask', 'app_permissions_get_by_mask', 'app_permissions_get_mask_by_names');
 
 
 SET session_replication_role TO DEFAULT;

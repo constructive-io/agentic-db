@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db expenses-chunk list
 agentic-db expenses-chunk get --id <UUID>
-agentic-db expenses-chunk create --entityId <UUID> --expensesId <UUID> --content <String> --expenseId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db expenses-chunk update --id <UUID> [--entityId <UUID>] [--expensesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--expenseId <UUID>]
+agentic-db expenses-chunk create --expensesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db expenses-chunk update --id <UUID> [--expensesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db expenses-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db expenses-chunk list
 ### Create a expensesChunk
 
 ```bash
-agentic-db expenses-chunk create --entityId <UUID> --expensesId <UUID> --content <String> --expenseId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db expenses-chunk create --expensesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a expensesChunk by id

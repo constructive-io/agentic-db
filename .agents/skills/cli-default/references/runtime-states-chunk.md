@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db runtime-states-chunk list
 agentic-db runtime-states-chunk get --id <UUID>
-agentic-db runtime-states-chunk create --entityId <UUID> --runtimeStatesId <UUID> --content <String> --runtimeStateId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db runtime-states-chunk update --id <UUID> [--entityId <UUID>] [--runtimeStatesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--runtimeStateId <UUID>]
+agentic-db runtime-states-chunk create --runtimeStatesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db runtime-states-chunk update --id <UUID> [--runtimeStatesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db runtime-states-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db runtime-states-chunk list
 ### Create a runtimeStatesChunk
 
 ```bash
-agentic-db runtime-states-chunk create --entityId <UUID> --runtimeStatesId <UUID> --content <String> --runtimeStateId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db runtime-states-chunk create --runtimeStatesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a runtimeStatesChunk by id

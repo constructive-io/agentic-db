@@ -9,8 +9,8 @@ ORM operations for PromptsChunk records
 ```typescript
 db.promptsChunk.findMany({ select: { id: true } }).execute()
 db.promptsChunk.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.promptsChunk.create({ data: { entityId: '<UUID>', promptsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', promptId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
-db.promptsChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.promptsChunk.create({ data: { promptsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute()
+db.promptsChunk.update({ where: { id: '<UUID>' }, data: { promptsId: '<UUID>' }, select: { id: true } }).execute()
 db.promptsChunk.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.promptsChunk.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.promptsChunk.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, promptsId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.promptsChunk.findMany({
 
 ```typescript
 const item = await db.promptsChunk.create({
-  data: { entityId: '<UUID>', promptsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', promptId: '<UUID>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
+  data: { promptsId: '<UUID>', content: '<String>', chunkIndex: '<Int>', embedding: '<Vector>', metadata: '<JSON>', embeddingVectorDistance: '<Float>', searchScore: '<Float>' },
   select: { id: true }
 }).execute();
 ```

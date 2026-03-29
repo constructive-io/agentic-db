@@ -10,7 +10,6 @@ import type { FieldSchema } from '../utils';
 import type { CreateRulesChunkInput, RulesChunkPatch } from '../../orm/input-types';
 const fieldSchema: FieldSchema = {
   id: 'uuid',
-  entityId: 'uuid',
   rulesId: 'uuid',
   content: 'string',
   chunkIndex: 'int',
@@ -18,7 +17,6 @@ const fieldSchema: FieldSchema = {
   metadata: 'json',
   createdAt: 'string',
   updatedAt: 'string',
-  ruleId: 'uuid',
   embeddingVectorDistance: 'float',
   searchScore: 'float',
 };
@@ -75,7 +73,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
       .findMany({
         select: {
           id: true,
-          entityId: true,
           rulesId: true,
           content: true,
           chunkIndex: true,
@@ -83,7 +80,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           metadata: true,
           createdAt: true,
           updatedAt: true,
-          ruleId: true,
         },
       })
       .execute();
@@ -112,7 +108,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         id: answers.id as string,
         select: {
           id: true,
-          entityId: true,
           rulesId: true,
           content: true,
           chunkIndex: true,
@@ -120,7 +115,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           metadata: true,
           createdAt: true,
           updatedAt: true,
-          ruleId: true,
         },
       })
       .execute();
@@ -136,12 +130,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
 async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
   try {
     const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: true,
-      },
       {
         type: 'text',
         name: 'rulesId',
@@ -175,12 +163,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
-      {
-        type: 'text',
-        name: 'ruleId',
-        message: 'ruleId',
-        required: true,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CreateRulesChunkInput['rulesChunk'];
@@ -188,17 +170,14 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.rulesChunk
       .create({
         data: {
-          entityId: cleanedData.entityId,
           rulesId: cleanedData.rulesId,
           content: cleanedData.content,
           chunkIndex: cleanedData.chunkIndex,
           embedding: cleanedData.embedding,
           metadata: cleanedData.metadata,
-          ruleId: cleanedData.ruleId,
         },
         select: {
           id: true,
-          entityId: true,
           rulesId: true,
           content: true,
           chunkIndex: true,
@@ -206,7 +185,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           metadata: true,
           createdAt: true,
           updatedAt: true,
-          ruleId: true,
         },
       })
       .execute();
@@ -230,12 +208,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: false,
-      },
-      {
-        type: 'text',
         name: 'rulesId',
         message: 'rulesId',
         required: false,
@@ -267,12 +239,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
-      {
-        type: 'text',
-        name: 'ruleId',
-        message: 'ruleId',
-        required: false,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as RulesChunkPatch;
@@ -283,17 +249,14 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          entityId: cleanedData.entityId,
           rulesId: cleanedData.rulesId,
           content: cleanedData.content,
           chunkIndex: cleanedData.chunkIndex,
           embedding: cleanedData.embedding,
           metadata: cleanedData.metadata,
-          ruleId: cleanedData.ruleId,
         },
         select: {
           id: true,
-          entityId: true,
           rulesId: true,
           content: true,
           chunkIndex: true,
@@ -301,7 +264,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           metadata: true,
           createdAt: true,
           updatedAt: true,
-          ruleId: true,
         },
       })
       .execute();

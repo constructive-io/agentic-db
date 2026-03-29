@@ -2,7 +2,7 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_private/schema
--- requires: schemas/agentic_db_app_public/tables/venues_chunks/indexes/venues_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
 CREATE FUNCTION agentic_db_private.tasks_enqueue_embedding() RETURNS TRIGGER AS $_PGFN_$

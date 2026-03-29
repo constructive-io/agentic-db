@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/goals/table
 -- requires: schemas/agentic_db_app_public/tables/goals/columns/embedding_text/column
--- requires: schemas/agentic_db_app_public/tables/codebases_chunks/indexes/codebases_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
 CREATE INDEX goals_embedding_text_bm25_idx ON agentic_db_app_public.goals USING bm25 ( embedding_text ) WITH ( text_config = english );

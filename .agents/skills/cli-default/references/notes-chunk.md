@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db notes-chunk list
 agentic-db notes-chunk get --id <UUID>
-agentic-db notes-chunk create --entityId <UUID> --notesId <UUID> --content <String> --noteId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db notes-chunk update --id <UUID> [--entityId <UUID>] [--notesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--noteId <UUID>]
+agentic-db notes-chunk create --notesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db notes-chunk update --id <UUID> [--notesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db notes-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db notes-chunk list
 ### Create a notesChunk
 
 ```bash
-agentic-db notes-chunk create --entityId <UUID> --notesId <UUID> --content <String> --noteId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db notes-chunk create --notesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a notesChunk by id

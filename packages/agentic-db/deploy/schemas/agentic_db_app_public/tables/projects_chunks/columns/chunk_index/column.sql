@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/projects_chunks/table
--- requires: schemas/agentic_db_app_public/tables/runtime_states_chunks/indexes/runtime_states_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_status_idx
 
 
 ALTER TABLE agentic_db_app_public.projects_chunks 
-  ADD COLUMN chunk_index int;
+  ADD COLUMN chunk_index integer;
 

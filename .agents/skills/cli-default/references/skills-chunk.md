@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db skills-chunk list
 agentic-db skills-chunk get --id <UUID>
-agentic-db skills-chunk create --entityId <UUID> --skillsId <UUID> --content <String> --skillId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db skills-chunk update --id <UUID> [--entityId <UUID>] [--skillsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--skillId <UUID>]
+agentic-db skills-chunk create --skillsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db skills-chunk update --id <UUID> [--skillsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db skills-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db skills-chunk list
 ### Create a skillsChunk
 
 ```bash
-agentic-db skills-chunk create --entityId <UUID> --skillsId <UUID> --content <String> --skillId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db skills-chunk create --skillsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a skillsChunk by id

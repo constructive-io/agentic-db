@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db rules-chunk list
 agentic-db rules-chunk get --id <UUID>
-agentic-db rules-chunk create --entityId <UUID> --rulesId <UUID> --content <String> --ruleId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db rules-chunk update --id <UUID> [--entityId <UUID>] [--rulesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--ruleId <UUID>]
+agentic-db rules-chunk create --rulesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db rules-chunk update --id <UUID> [--rulesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db rules-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db rules-chunk list
 ### Create a rulesChunk
 
 ```bash
-agentic-db rules-chunk create --entityId <UUID> --rulesId <UUID> --content <String> --ruleId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db rules-chunk create --rulesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a rulesChunk by id

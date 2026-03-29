@@ -1,0 +1,13 @@
+-- Deploy: schemas/agentic_db_app_public/tables/conversations_chunks/columns/id/alterations/alt0000010967
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/conversations_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/conversations_chunks/columns/id/column
+-- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
+
+
+
+ALTER TABLE agentic_db_app_public.conversations_chunks 
+    ALTER COLUMN id SET DEFAULT uuidv7();
+

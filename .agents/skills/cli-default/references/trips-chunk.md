@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db trips-chunk list
 agentic-db trips-chunk get --id <UUID>
-agentic-db trips-chunk create --entityId <UUID> --tripsId <UUID> --content <String> --tripId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db trips-chunk update --id <UUID> [--entityId <UUID>] [--tripsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--tripId <UUID>]
+agentic-db trips-chunk create --tripsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db trips-chunk update --id <UUID> [--tripsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db trips-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db trips-chunk list
 ### Create a tripsChunk
 
 ```bash
-agentic-db trips-chunk create --entityId <UUID> --tripsId <UUID> --content <String> --tripId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db trips-chunk create --tripsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a tripsChunk by id

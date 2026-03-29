@@ -3,8 +3,8 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/email_threads/table
+-- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 -- requires: schemas/agentic_db_app_public/tables/email_threads/columns/search_tsv/column
--- requires: schemas/agentic_db_app_public/tables/trips_chunks/indexes/trips_chunks_chunk_index_idx
 
 
 CREATE INDEX email_threads_search_tsv_gin_idx ON agentic_db_app_public.email_threads USING GIN ( search_tsv );

@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db touchpoints-chunk list
 agentic-db touchpoints-chunk get --id <UUID>
-agentic-db touchpoints-chunk create --entityId <UUID> --touchpointsId <UUID> --content <String> --touchpointId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db touchpoints-chunk update --id <UUID> [--entityId <UUID>] [--touchpointsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--touchpointId <UUID>]
+agentic-db touchpoints-chunk create --touchpointsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db touchpoints-chunk update --id <UUID> [--touchpointsId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db touchpoints-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db touchpoints-chunk list
 ### Create a touchpointsChunk
 
 ```bash
-agentic-db touchpoints-chunk create --entityId <UUID> --touchpointsId <UUID> --content <String> --touchpointId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db touchpoints-chunk create --touchpointsId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a touchpointsChunk by id

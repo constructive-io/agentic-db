@@ -3,7 +3,7 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/email_attachments/table
--- requires: schemas/agentic_db_app_public/tables/trips_chunks/indexes/trips_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
 CREATE POLICY auth_ins_entity_membership ON agentic_db_app_public.email_attachments

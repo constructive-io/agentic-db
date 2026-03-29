@@ -23,9 +23,8 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'system_prompt'] },
+          embedding: { source_fields: ['name', 'description', 'system_prompt'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
-        chunks: {},
         }},
       ],
       fields: [
@@ -50,9 +49,8 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'description', 'result'] },
+          embedding: { source_fields: ['title', 'description', 'result'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
-        chunks: {},
         }},
       ],
       fields: [
@@ -78,9 +76,8 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['message'] },
+          embedding: { source_fields: ['message'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
-        chunks: {},
         }},
       ],
       fields: [
@@ -102,9 +99,8 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'trigger_concept'] },
+          embedding: { source_fields: ['name', 'description', 'trigger_concept'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
-        chunks: {},
         }},
         { $type: 'DataEmbedding', data: { field_name: 'trigger_concept_embedding', source_fields: ['trigger_concept'], enqueue_job: false } },
       ],
@@ -131,9 +127,8 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'intent_trigger'] },
+          embedding: { source_fields: ['name', 'description', 'intent_trigger'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
-        chunks: {},
         }},
         { $type: 'DataEmbedding', data: { field_name: 'intent_trigger_embedding', source_fields: ['intent_trigger'], enqueue_job: false } },
       ],
@@ -158,9 +153,8 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description'] },
+          embedding: { source_fields: ['name', 'description'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
-        chunks: {},
         }},
       ],
       fields: [
@@ -183,9 +177,8 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'content'] },
+          embedding: { source_fields: ['name', 'content'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
-        chunks: {},
         }},
       ],
       fields: [
@@ -208,9 +201,8 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['description', 'notes'] },
+          embedding: { source_fields: ['description', 'notes'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
-        chunks: {},
         }},
       ],
       fields: [
@@ -228,149 +220,6 @@ const definition: BlueprintDefinition = {
       policies: [ORG_POLICY],
     },
 
-    {
-      ref: 'agents_chunks',
-      table_name: 'agents_chunks',
-      nodes: [
-        ...ORG_NODES,
-      ],
-      fields: [
-        { name: 'agents_id', type: 'uuid', is_required: true },
-        { name: 'content', type: 'text', is_required: true },
-        { name: 'chunk_index', type: 'int' },
-        { name: 'embedding', type: 'vector(1536)' },
-        { name: 'metadata', type: 'jsonb' },
-      ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
-    },
-
-    {
-      ref: 'agent_logs_chunks',
-      table_name: 'agent_logs_chunks',
-      nodes: [
-        ...ORG_NODES,
-      ],
-      fields: [
-        { name: 'agent_logs_id', type: 'uuid', is_required: true },
-        { name: 'content', type: 'text', is_required: true },
-        { name: 'chunk_index', type: 'int' },
-        { name: 'embedding', type: 'vector(1536)' },
-        { name: 'metadata', type: 'jsonb' },
-      ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
-    },
-
-    {
-      ref: 'expenses_chunks',
-      table_name: 'expenses_chunks',
-      nodes: [
-        ...ORG_NODES,
-      ],
-      fields: [
-        { name: 'expenses_id', type: 'uuid', is_required: true },
-        { name: 'content', type: 'text', is_required: true },
-        { name: 'chunk_index', type: 'int' },
-        { name: 'embedding', type: 'vector(1536)' },
-        { name: 'metadata', type: 'jsonb' },
-      ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
-    },
-
-    {
-      ref: 'prompts_chunks',
-      table_name: 'prompts_chunks',
-      nodes: [
-        ...ORG_NODES,
-      ],
-      fields: [
-        { name: 'prompts_id', type: 'uuid', is_required: true },
-        { name: 'content', type: 'text', is_required: true },
-        { name: 'chunk_index', type: 'int' },
-        { name: 'embedding', type: 'vector(1536)' },
-        { name: 'metadata', type: 'jsonb' },
-      ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
-    },
-
-    {
-      ref: 'rules_chunks',
-      table_name: 'rules_chunks',
-      nodes: [
-        ...ORG_NODES,
-      ],
-      fields: [
-        { name: 'rules_id', type: 'uuid', is_required: true },
-        { name: 'content', type: 'text', is_required: true },
-        { name: 'chunk_index', type: 'int' },
-        { name: 'embedding', type: 'vector(1536)' },
-        { name: 'metadata', type: 'jsonb' },
-      ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
-    },
-
-    {
-      ref: 'skills_chunks',
-      table_name: 'skills_chunks',
-      nodes: [
-        ...ORG_NODES,
-      ],
-      fields: [
-        { name: 'skills_id', type: 'uuid', is_required: true },
-        { name: 'content', type: 'text', is_required: true },
-        { name: 'chunk_index', type: 'int' },
-        { name: 'embedding', type: 'vector(1536)' },
-        { name: 'metadata', type: 'jsonb' },
-      ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
-    },
-
-    {
-      ref: 'tasks_chunks',
-      table_name: 'tasks_chunks',
-      nodes: [
-        ...ORG_NODES,
-      ],
-      fields: [
-        { name: 'tasks_id', type: 'uuid', is_required: true },
-        { name: 'content', type: 'text', is_required: true },
-        { name: 'chunk_index', type: 'int' },
-        { name: 'embedding', type: 'vector(1536)' },
-        { name: 'metadata', type: 'jsonb' },
-      ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
-    },
-
-    {
-      ref: 'tool_definitions_chunks',
-      table_name: 'tool_definitions_chunks',
-      nodes: [
-        ...ORG_NODES,
-      ],
-      fields: [
-        { name: 'tool_definitions_id', type: 'uuid', is_required: true },
-        { name: 'content', type: 'text', is_required: true },
-        { name: 'chunk_index', type: 'int' },
-        { name: 'embedding', type: 'vector(1536)' },
-        { name: 'metadata', type: 'jsonb' },
-      ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
-    },
   ],
 
   relations: [
@@ -379,14 +228,6 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'rules', delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'skills', delete_action: 'c' },
     { $type: 'RelationManyToMany', source_ref: 'agents', target_ref: 'agents', junction_table_name: 'agent_collaborators', source_field_name: 'agent_id', target_field_name: 'collaborator_id', ...M2M_JUNCTION_OPTS },
-    { $type: 'RelationHasMany', source_ref: 'agents', target_ref: 'agents_chunks', delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'agent_logs', target_ref: 'agent_logs_chunks', delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'expenses', target_ref: 'expenses_chunks', delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'prompts', target_ref: 'prompts_chunks', delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'rules', target_ref: 'rules_chunks', delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'skills', target_ref: 'skills_chunks', delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'tasks', target_ref: 'tasks_chunks', delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'tool_definitions', target_ref: 'tool_definitions_chunks', delete_action: 'c' },
   ],
 
   indexes: [
@@ -411,14 +252,6 @@ const definition: BlueprintDefinition = {
     { table_ref: 'expenses', column: 'category', access_method: 'btree' },
     { table_ref: 'expenses', column: 'occurred_at', access_method: 'btree' },
     { table_ref: 'expenses', column: 'tags', access_method: 'gin' },
-    { table_ref: 'agents_chunks', column: 'chunk_index', access_method: 'btree' },
-    { table_ref: 'agent_logs_chunks', column: 'chunk_index', access_method: 'btree' },
-    { table_ref: 'expenses_chunks', column: 'chunk_index', access_method: 'btree' },
-    { table_ref: 'prompts_chunks', column: 'chunk_index', access_method: 'btree' },
-    { table_ref: 'rules_chunks', column: 'chunk_index', access_method: 'btree' },
-    { table_ref: 'skills_chunks', column: 'chunk_index', access_method: 'btree' },
-    { table_ref: 'tasks_chunks', column: 'chunk_index', access_method: 'btree' },
-    { table_ref: 'tool_definitions_chunks', column: 'chunk_index', access_method: 'btree' },
   ],
 };
 

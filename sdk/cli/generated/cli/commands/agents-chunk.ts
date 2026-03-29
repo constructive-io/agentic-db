@@ -10,7 +10,6 @@ import type { FieldSchema } from '../utils';
 import type { CreateAgentsChunkInput, AgentsChunkPatch } from '../../orm/input-types';
 const fieldSchema: FieldSchema = {
   id: 'uuid',
-  entityId: 'uuid',
   agentsId: 'uuid',
   content: 'string',
   chunkIndex: 'int',
@@ -18,7 +17,6 @@ const fieldSchema: FieldSchema = {
   metadata: 'json',
   createdAt: 'string',
   updatedAt: 'string',
-  agentId: 'uuid',
   embeddingVectorDistance: 'float',
   searchScore: 'float',
 };
@@ -75,7 +73,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
       .findMany({
         select: {
           id: true,
-          entityId: true,
           agentsId: true,
           content: true,
           chunkIndex: true,
@@ -83,7 +80,6 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           metadata: true,
           createdAt: true,
           updatedAt: true,
-          agentId: true,
         },
       })
       .execute();
@@ -112,7 +108,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
         id: answers.id as string,
         select: {
           id: true,
-          entityId: true,
           agentsId: true,
           content: true,
           chunkIndex: true,
@@ -120,7 +115,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           metadata: true,
           createdAt: true,
           updatedAt: true,
-          agentId: true,
         },
       })
       .execute();
@@ -136,12 +130,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
 async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
   try {
     const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: true,
-      },
       {
         type: 'text',
         name: 'agentsId',
@@ -175,12 +163,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
-      {
-        type: 'text',
-        name: 'agentId',
-        message: 'agentId',
-        required: true,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(
@@ -191,17 +173,14 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.agentsChunk
       .create({
         data: {
-          entityId: cleanedData.entityId,
           agentsId: cleanedData.agentsId,
           content: cleanedData.content,
           chunkIndex: cleanedData.chunkIndex,
           embedding: cleanedData.embedding,
           metadata: cleanedData.metadata,
-          agentId: cleanedData.agentId,
         },
         select: {
           id: true,
-          entityId: true,
           agentsId: true,
           content: true,
           chunkIndex: true,
@@ -209,7 +188,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           metadata: true,
           createdAt: true,
           updatedAt: true,
-          agentId: true,
         },
       })
       .execute();
@@ -233,12 +211,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: false,
-      },
-      {
-        type: 'text',
         name: 'agentsId',
         message: 'agentsId',
         required: false,
@@ -270,12 +242,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
-      {
-        type: 'text',
-        name: 'agentId',
-        message: 'agentId',
-        required: false,
-      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as AgentsChunkPatch;
@@ -286,17 +252,14 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          entityId: cleanedData.entityId,
           agentsId: cleanedData.agentsId,
           content: cleanedData.content,
           chunkIndex: cleanedData.chunkIndex,
           embedding: cleanedData.embedding,
           metadata: cleanedData.metadata,
-          agentId: cleanedData.agentId,
         },
         select: {
           id: true,
-          entityId: true,
           agentsId: true,
           content: true,
           chunkIndex: true,
@@ -304,7 +267,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           metadata: true,
           createdAt: true,
           updatedAt: true,
-          agentId: true,
         },
       })
       .execute();

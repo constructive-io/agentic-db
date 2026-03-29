@@ -2,7 +2,7 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_private/schema
--- requires: schemas/agentic_db_app_public/tables/tool_definitions_chunks/indexes/tool_definitions_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
 CREATE FUNCTION agentic_db_private.messages_embedding_stale() RETURNS TRIGGER AS $_PGFN_$

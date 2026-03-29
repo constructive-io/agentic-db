@@ -7,5 +7,5 @@
 
 
 ALTER TABLE agentic_db_app_public.autonomy_records_chunks 
-  ADD COLUMN embedding vector(1536);
+  ADD COLUMN embedding vector(768);
 

@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/codebases/table
 -- requires: schemas/agentic_db_private/trigger_fns/codebases_enqueue_embedding
--- requires: schemas/agentic_db_app_public/tables/projects_chunks/indexes/projects_chunks_chunk_index_idx
+-- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
 CREATE TRIGGER codebases_enqueue_embedding_insert_tg

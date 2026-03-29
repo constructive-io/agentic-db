@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db places-chunk list
 agentic-db places-chunk get --id <UUID>
-agentic-db places-chunk create --entityId <UUID> --placesId <UUID> --content <String> --placeId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
-agentic-db places-chunk update --id <UUID> [--entityId <UUID>] [--placesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>] [--placeId <UUID>]
+agentic-db places-chunk create --placesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db places-chunk update --id <UUID> [--placesId <UUID>] [--content <String>] [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 agentic-db places-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db places-chunk list
 ### Create a placesChunk
 
 ```bash
-agentic-db places-chunk create --entityId <UUID> --placesId <UUID> --content <String> --placeId <UUID> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
+agentic-db places-chunk create --placesId <UUID> --content <String> [--chunkIndex <Int>] [--embedding <Vector>] [--metadata <JSON>]
 ```
 
 ### Get a placesChunk by id
