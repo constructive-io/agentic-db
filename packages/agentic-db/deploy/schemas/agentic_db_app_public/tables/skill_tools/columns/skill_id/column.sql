@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/company_memories/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agentic_db_app_public".skill_tools 
+ALTER TABLE agentic_db_app_public.skill_tools 
   ADD COLUMN skill_id uuid;
 

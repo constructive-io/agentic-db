@@ -33,6 +33,7 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['subject'],
+        chunks: {},
         }},
       ],
       fields: [
@@ -65,6 +66,7 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['subject'],
+        chunks: {},
         }},
       ],
       fields: [
@@ -134,6 +136,7 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['title'],
+        chunks: {},
         }},
       ],
       fields: [

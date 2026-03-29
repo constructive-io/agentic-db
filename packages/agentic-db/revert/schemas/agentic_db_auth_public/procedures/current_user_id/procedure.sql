@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION "agentic_db_auth_public".current_user_id;
+DROP FUNCTION agentic_db_auth_public.current_user_id;
 
 
 

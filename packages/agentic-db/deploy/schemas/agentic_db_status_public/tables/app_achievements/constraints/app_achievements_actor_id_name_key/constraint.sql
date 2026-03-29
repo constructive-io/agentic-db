@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_status_public/tables/app_achievements/table
 
 
-ALTER TABLE "agentic_db_status_public".app_achievements 
+ALTER TABLE agentic_db_status_public.app_achievements 
   ADD CONSTRAINT app_achievements_actor_id_name_key 
     UNIQUE (actor_id, name);
 

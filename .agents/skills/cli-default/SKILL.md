@@ -1,13 +1,13 @@
 ---
 name: cli-default
-description: CLI tool (agentic-db) for the default API — provides CRUD commands for 90 tables and 0 custom operations
+description: CLI tool (agentic-db) for the default API — provides CRUD commands for 88 tables and 0 custom operations
 ---
 
 # cli-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-CLI tool (agentic-db) for the default API — provides CRUD commands for 90 tables and 0 custom operations
+CLI tool (agentic-db) for the default API — provides CRUD commands for 88 tables and 0 custom operations
 
 ## Usage
 
@@ -87,7 +87,6 @@ See the `references/` directory for detailed per-entity API documentation:
 - [company-memory](references/company-memory.md)
 - [company-note](references/company-note.md)
 - [contact-company](references/contact-company.md)
-- [email](references/email.md)
 - [email-thread](references/email-thread.md)
 - [contact-event](references/contact-event.md)
 - [expense](references/expense.md)
@@ -102,8 +101,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [deal-contact](references/deal-contact.md)
 - [deal-note](references/deal-note.md)
 - [email-attachment](references/email-attachment.md)
-- [email-note](references/email-note.md)
-- [email-recipient](references/email-recipient.md)
+- [email](references/email.md)
 - [event-image](references/event-image.md)
 - [event-link](references/event-link.md)
 - [event-note](references/event-note.md)

@@ -57,7 +57,6 @@ agentic-db auth set-token <your-token>
 | `company-memory` | companyMemory CRUD operations |
 | `company-note` | companyNote CRUD operations |
 | `contact-company` | contactCompany CRUD operations |
-| `email` | email CRUD operations |
 | `email-thread` | emailThread CRUD operations |
 | `contact-event` | contactEvent CRUD operations |
 | `expense` | expense CRUD operations |
@@ -72,8 +71,7 @@ agentic-db auth set-token <your-token>
 | `deal-contact` | dealContact CRUD operations |
 | `deal-note` | dealNote CRUD operations |
 | `email-attachment` | emailAttachment CRUD operations |
-| `email-note` | emailNote CRUD operations |
-| `email-recipient` | emailRecipient CRUD operations |
+| `email` | email CRUD operations |
 | `event-image` | eventImage CRUD operations |
 | `event-link` | eventLink CRUD operations |
 | `event-note` | eventNote CRUD operations |
@@ -1261,45 +1259,6 @@ CRUD operations for ContactCompany records.
 
 **Required create fields:** `contactId`, `companyId`
 
-### `email`
-
-CRUD operations for Email records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all email records |
-| `get` | Get a email by id |
-| `create` | Create a new email |
-| `update` | Update an existing email |
-| `delete` | Delete a email |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `entityId` | UUID |
-| `providerMessageId` | String |
-| `fromContactId` | UUID |
-| `to` | JSON |
-| `cc` | JSON |
-| `bcc` | JSON |
-| `subject` | String |
-| `bodyText` | String |
-| `bodyHtml` | String |
-| `sentAt` | Datetime |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `searchTsv` | FullText |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `emailThreadId` | UUID |
-
-**Required create fields:** `entityId`, `emailThreadId`
-**Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-
 ### `email-thread`
 
 CRUD operations for EmailThread records.
@@ -1719,51 +1678,44 @@ CRUD operations for EmailAttachment records.
 **Required create fields:** `entityId`, `filename`, `emailId`
 **Optional create fields (backend defaults):** `contentType`, `sizeBytes`, `storageUrl`, `providerAttachmentId`
 
-### `email-note`
+### `email`
 
-CRUD operations for EmailNote records.
+CRUD operations for Email records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all emailNote records |
-| `get` | Get a emailNote by id |
-| `create` | Create a new emailNote |
-| `update` | Update an existing emailNote |
-| `delete` | Delete a emailNote |
+| `list` | List all email records |
+| `get` | Get a email by id |
+| `create` | Create a new email |
+| `update` | Update an existing email |
+| `delete` | Delete a email |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
-| `emailId` | UUID |
-| `noteId` | UUID |
 | `id` | UUID |
 | `entityId` | UUID |
+| `providerMessageId` | String |
+| `fromContactId` | UUID |
+| `to` | JSON |
+| `cc` | JSON |
+| `bcc` | JSON |
+| `subject` | String |
+| `bodyText` | String |
+| `bodyHtml` | String |
+| `sentAt` | Datetime |
+| `tags` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingText` | String |
+| `searchTsv` | FullText |
+| `embedding` | Vector |
+| `embeddingStale` | Boolean |
+| `emailThreadId` | UUID |
 
-**Required create fields:** `emailId`, `noteId`, `entityId`
-
-### `email-recipient`
-
-CRUD operations for EmailRecipient records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all emailRecipient records |
-| `get` | Get a emailRecipient by id |
-| `create` | Create a new emailRecipient |
-| `update` | Update an existing emailRecipient |
-| `delete` | Delete a emailRecipient |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `emailId` | UUID |
-| `contactId` | UUID |
-| `id` | UUID |
-| `entityId` | UUID |
-
-**Required create fields:** `emailId`, `contactId`, `entityId`
+**Required create fields:** `entityId`, `emailThreadId`
+**Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
 
 ### `event-image`
 

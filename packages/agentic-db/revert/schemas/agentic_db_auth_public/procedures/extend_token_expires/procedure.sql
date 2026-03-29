@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION "agentic_db_auth_public".extend_token_expires;
+DROP FUNCTION agentic_db_auth_public.extend_token_expires;
 
 
 

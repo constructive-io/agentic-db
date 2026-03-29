@@ -25,6 +25,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['title', 'description'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -66,6 +67,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['activity_type', 'notes'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -93,6 +95,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['title', 'content', 'location'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
         { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
@@ -118,6 +121,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['name', 'description', 'destination'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
         { $type: 'DataPostGIS', data: { field_name: 'destination_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
@@ -143,6 +147,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['name', 'description', 'location'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
         { $type: 'DataPostGIS', data: { field_name: 'trailhead_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
@@ -170,6 +175,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['name', 'description', 'address'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
         { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],

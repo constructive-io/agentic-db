@@ -5,7 +5,7 @@
 ## Stack
 
 - Prisma-like ORM client for a GraphQL API (TypeScript)
-- 90 models
+- 88 models
 - All methods return a query builder; call `.execute()` to run
 
 ## Quick Start
@@ -21,7 +21,7 @@ const db = createClient({
 
 ## Resources
 
-- **Full API reference:** [README.md](./README.md) — model docs for all 90 tables
+- **Full API reference:** [README.md](./README.md) — model docs for all 88 tables
 - **Schema types:** [types.ts](./types.ts)
 - **ORM client:** [orm.ts](./orm.ts)
 

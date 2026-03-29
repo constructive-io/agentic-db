@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/expense_contacts/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agentic_db_app_public".agent_prompts 
+ALTER TABLE agentic_db_app_public.agent_prompts 
   ADD CONSTRAINT agent_prompts_agent_id_fkey 
     FOREIGN KEY(agent_id) 
-    REFERENCES "agentic_db_app_public".agents (id) 
+    REFERENCES agentic_db_app_public.agents (id) 
     ON DELETE CASCADE;
 

@@ -772,21 +772,6 @@ enum EmailAttachmentOrderBy {
   EMAIL_ID_DESC
 }
 
-"Methods to use when ordering `EmailNote`."
-enum EmailNoteOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  EMAIL_ID_ASC
-  EMAIL_ID_DESC
-  NOTE_ID_ASC
-  NOTE_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
-}
-
 "Methods to use when ordering `Email`."
 enum EmailOrderBy {
   NATURAL
@@ -798,8 +783,6 @@ enum EmailOrderBy {
   ENTITY_ID_DESC
   PROVIDER_MESSAGE_ID_ASC
   PROVIDER_MESSAGE_ID_DESC
-  FROM_CONTACT_ID_ASC
-  FROM_CONTACT_ID_DESC
   SENT_AT_ASC
   SENT_AT_DESC
   EMBEDDING_TEXT_ASC
@@ -808,21 +791,6 @@ enum EmailOrderBy {
   EMBEDDING_DESC
   EMAIL_THREAD_ID_ASC
   EMAIL_THREAD_ID_DESC
-}
-
-"Methods to use when ordering `EmailRecipient`."
-enum EmailRecipientOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  EMAIL_ID_ASC
-  EMAIL_ID_DESC
-  CONTACT_ID_ASC
-  CONTACT_ID_DESC
-  ID_ASC
-  ID_DESC
-  ENTITY_ID_ASC
-  ENTITY_ID_DESC
 }
 
 "Methods to use when ordering `EmailThread`."
@@ -4243,7 +4211,7 @@ type Contact {
     orderBy: [MemoryOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactMemoriesManyToManyConnection!
   "Reads and enables pagination through a set of `EmailThread`."
-  emailThreadsByThreadParticipantContactIdAndEmailThreadId(
+  emailThreads(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -4261,27 +4229,7 @@ type Contact {
     where: EmailThreadFilter
     "The method to use when ordering `EmailThread`."
     orderBy: [EmailThreadOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyConnection!
-  "Reads and enables pagination through a set of `Email`."
-  emails(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailFilter
-    "The method to use when ordering `Email`."
-    orderBy: [EmailOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ContactEmailsManyToManyConnection!
+  ): ContactEmailThreadsManyToManyConnection!
   "Reads a single `Image` that is related to this `Contact`."
   mainImage: Image
   "Reads and enables pagination through a set of `Interaction`."
@@ -4444,26 +4392,6 @@ type Contact {
     "The method to use when ordering `ContactRelationship`."
     orderBy: [ContactRelationshipOrderBy!] = [NATURAL]
   ): ContactRelationshipConnection!
-  "Reads and enables pagination through a set of `Email`."
-  emailsByFromContactId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailFilter
-    "The method to use when ordering `Email`."
-    orderBy: [EmailOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailConnection!
   "Reads and enables pagination through a set of `CalendarEvent`."
   calendarEventsByOrganizerContactId(
     "Only read the first `n` values of the set."
@@ -4644,26 +4572,6 @@ type Contact {
     "The method to use when ordering `ThreadParticipant`."
     orderBy: [ThreadParticipantOrderBy!] = [PRIMARY_KEY_ASC]
   ): ThreadParticipantConnection!
-  "Reads and enables pagination through a set of `EmailRecipient`."
-  emailRecipients(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailRecipientFilter
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailRecipientConnection!
   "TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active."
   searchTsvRank: Float
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
@@ -4873,52 +4781,12 @@ type ContactEdge {
   node: Contact
 }
 
-"A connection to a list of `Email` values, with data from `EmailRecipient`."
-type ContactEmailsManyToManyConnection {
-  "A list of `Email` objects."
-  nodes: [Email]!
-  "A list of edges which contains the `Email`, info from the `EmailRecipient`, and the cursor to aid in pagination."
-  edges: [ContactEmailsManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Email` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Email` edge in the connection, with data from `EmailRecipient`."
-type ContactEmailsManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Email` at the end of the edge."
-  node: Email
-  "Reads and enables pagination through a set of `EmailRecipient`."
-  emailRecipientsByEmailId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailRecipientFilter
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailRecipientConnection!
-}
-
 "A connection to a list of `EmailThread` values, with data from `ThreadParticipant`."
-type ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyConnection {
+type ContactEmailThreadsManyToManyConnection {
   "A list of `EmailThread` objects."
   nodes: [EmailThread]!
   "A list of edges which contains the `EmailThread`, info from the `ThreadParticipant`, and the cursor to aid in pagination."
-  edges: [ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyEdge!]!
+  edges: [ContactEmailThreadsManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `EmailThread` you could get from the connection."
@@ -4926,7 +4794,7 @@ type ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyCo
 }
 
 "A `EmailThread` edge in the connection, with data from `ThreadParticipant`."
-type ContactEmailThreadsByThreadParticipantContactIdAndEmailThreadIdManyToManyEdge {
+type ContactEmailThreadsManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `EmailThread` at the end of the edge."
@@ -6077,24 +5945,6 @@ type CreateEmailAttachmentPayload {
   ): EmailAttachmentEdge
 }
 
-"The output of our create `EmailNote` mutation."
-type CreateEmailNotePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailNote` that was created by this mutation."
-  emailNote: EmailNote
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailNote`. May be used by Relay 1."
-  emailNoteEdge(
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailNoteEdge
-}
-
 "The output of our create `Email` mutation."
 type CreateEmailPayload {
   """
@@ -6111,24 +5961,6 @@ type CreateEmailPayload {
     "The method to use when ordering `Email`."
     orderBy: [EmailOrderBy!]! = [PRIMARY_KEY_ASC]
   ): EmailEdge
-}
-
-"The output of our create `EmailRecipient` mutation."
-type CreateEmailRecipientPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailRecipient` that was created by this mutation."
-  emailRecipient: EmailRecipient
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailRecipient`. May be used by Relay 1."
-  emailRecipientEdge(
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailRecipientEdge
 }
 
 "The output of our create `EmailThread` mutation."
@@ -7882,24 +7714,6 @@ type DeleteEmailAttachmentPayload {
   ): EmailAttachmentEdge
 }
 
-"The output of our delete `EmailNote` mutation."
-type DeleteEmailNotePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailNote` that was deleted by this mutation."
-  emailNote: EmailNote
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailNote`. May be used by Relay 1."
-  emailNoteEdge(
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailNoteEdge
-}
-
 "The output of our delete `Email` mutation."
 type DeleteEmailPayload {
   """
@@ -7916,24 +7730,6 @@ type DeleteEmailPayload {
     "The method to use when ordering `Email`."
     orderBy: [EmailOrderBy!]! = [PRIMARY_KEY_ASC]
   ): EmailEdge
-}
-
-"The output of our delete `EmailRecipient` mutation."
-type DeleteEmailRecipientPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailRecipient` that was deleted by this mutation."
-  emailRecipient: EmailRecipient
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailRecipient`. May be used by Relay 1."
-  emailRecipientEdge(
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailRecipientEdge
 }
 
 "The output of our delete `EmailThread` mutation."
@@ -8803,50 +8599,8 @@ type Email {
   embedding: Vector
   embeddingStale: Boolean!
   emailThreadId: UUID!
-  "Reads and enables pagination through a set of `Contact`."
-  contactsByEmailRecipientEmailIdAndContactId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: ContactFilter
-    "The method to use when ordering `Contact`."
-    orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailContactsByEmailRecipientEmailIdAndContactIdManyToManyConnection!
-  "Reads and enables pagination through a set of `Note`."
-  notes(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: NoteFilter
-    "The method to use when ordering `Note`."
-    orderBy: [NoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNotesManyToManyConnection!
   "Reads a single `EmailThread` that is related to this `Email`."
   emailThread: EmailThread
-  "Reads a single `Contact` that is related to this `Email`."
-  fromContact: Contact
   "Reads and enables pagination through a set of `EmailAttachment`."
   emailAttachments(
     "Only read the first `n` values of the set."
@@ -8867,46 +8621,6 @@ type Email {
     "The method to use when ordering `EmailAttachment`."
     orderBy: [EmailAttachmentOrderBy!] = [PRIMARY_KEY_ASC]
   ): EmailAttachmentConnection!
-  "Reads and enables pagination through a set of `EmailRecipient`."
-  emailRecipients(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailRecipientFilter
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailRecipientConnection!
-  "Reads and enables pagination through a set of `EmailNote`."
-  emailNotes(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailNoteFilter
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNoteConnection!
 }
 
 type EmailAttachment {
@@ -8956,154 +8670,12 @@ type EmailConnection {
   totalCount: Int!
 }
 
-"A connection to a list of `Contact` values, with data from `EmailRecipient`."
-type EmailContactsByEmailRecipientEmailIdAndContactIdManyToManyConnection {
-  "A list of `Contact` objects."
-  nodes: [Contact]!
-  "A list of edges which contains the `Contact`, info from the `EmailRecipient`, and the cursor to aid in pagination."
-  edges: [EmailContactsByEmailRecipientEmailIdAndContactIdManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Contact` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Contact` edge in the connection, with data from `EmailRecipient`."
-type EmailContactsByEmailRecipientEmailIdAndContactIdManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Contact` at the end of the edge."
-  node: Contact
-  "Reads and enables pagination through a set of `EmailRecipient`."
-  emailRecipientsByContactId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailRecipientFilter
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailRecipientConnection!
-}
-
 "A `Email` edge in the connection."
 type EmailEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Email` at the end of the edge."
   node: Email
-}
-
-type EmailNote {
-  emailId: UUID!
-  noteId: UUID!
-  id: UUID!
-  entityId: UUID!
-  "Reads a single `Email` that is related to this `EmailNote`."
-  email: Email
-  "Reads a single `Note` that is related to this `EmailNote`."
-  note: Note
-}
-
-"A connection to a list of `EmailNote` values."
-type EmailNoteConnection {
-  "A list of `EmailNote` objects."
-  nodes: [EmailNote]!
-  "A list of edges which contains the `EmailNote` and cursor to aid in pagination."
-  edges: [EmailNoteEdge]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `EmailNote` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `EmailNote` edge in the connection."
-type EmailNoteEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `EmailNote` at the end of the edge."
-  node: EmailNote
-}
-
-"A connection to a list of `Note` values, with data from `EmailNote`."
-type EmailNotesManyToManyConnection {
-  "A list of `Note` objects."
-  nodes: [Note]!
-  "A list of edges which contains the `Note`, info from the `EmailNote`, and the cursor to aid in pagination."
-  edges: [EmailNotesManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Note` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Note` edge in the connection, with data from `EmailNote`."
-type EmailNotesManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Note` at the end of the edge."
-  node: Note
-  "Reads and enables pagination through a set of `EmailNote`."
-  emailNotesByNoteId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailNoteFilter
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNoteConnection!
-}
-
-type EmailRecipient {
-  emailId: UUID!
-  contactId: UUID!
-  id: UUID!
-  entityId: UUID!
-  "Reads a single `Contact` that is related to this `EmailRecipient`."
-  contact: Contact
-  "Reads a single `Email` that is related to this `EmailRecipient`."
-  email: Email
-}
-
-"A connection to a list of `EmailRecipient` values."
-type EmailRecipientConnection {
-  "A list of `EmailRecipient` objects."
-  nodes: [EmailRecipient]!
-  "A list of edges which contains the `EmailRecipient` and cursor to aid in pagination."
-  edges: [EmailRecipientEdge]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `EmailRecipient` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `EmailRecipient` edge in the connection."
-type EmailRecipientEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `EmailRecipient` at the end of the edge."
-  node: EmailRecipient
 }
 
 "@@trgmSearch subject\n@@searchConfig {\"weights\": {\"tsv\": 1.0, \"bm25\": 1.0}, \"fts_field\": \"search_tsv\", \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\", \"fts_source_fields\": [{\"field\": \"subject\", \"weight\": \"A\"}, {\"field\": \"summary\", \"weight\": \"B\"}]}"
@@ -9123,7 +8695,7 @@ type EmailThread {
   embedding: Vector
   embeddingStale: Boolean!
   "Reads and enables pagination through a set of `Contact`."
-  contactsByThreadParticipantEmailThreadIdAndContactId(
+  contacts(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -9141,7 +8713,7 @@ type EmailThread {
     where: ContactFilter
     "The method to use when ordering `Contact`."
     orderBy: [ContactOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailThreadContactsByThreadParticipantEmailThreadIdAndContactIdManyToManyConnection!
+  ): EmailThreadContactsManyToManyConnection!
   "Reads and enables pagination through a set of `Email`."
   emails(
     "Only read the first `n` values of the set."
@@ -9215,11 +8787,11 @@ type EmailThreadConnection {
 }
 
 "A connection to a list of `Contact` values, with data from `ThreadParticipant`."
-type EmailThreadContactsByThreadParticipantEmailThreadIdAndContactIdManyToManyConnection {
+type EmailThreadContactsManyToManyConnection {
   "A list of `Contact` objects."
   nodes: [Contact]!
   "A list of edges which contains the `Contact`, info from the `ThreadParticipant`, and the cursor to aid in pagination."
-  edges: [EmailThreadContactsByThreadParticipantEmailThreadIdAndContactIdManyToManyEdge!]!
+  edges: [EmailThreadContactsManyToManyEdge!]!
   "Information to aid in pagination."
   pageInfo: PageInfo!
   "The count of *all* `Contact` you could get from the connection."
@@ -9227,7 +8799,7 @@ type EmailThreadContactsByThreadParticipantEmailThreadIdAndContactIdManyToManyCo
 }
 
 "A `Contact` edge in the connection, with data from `ThreadParticipant`."
-type EmailThreadContactsByThreadParticipantEmailThreadIdAndContactIdManyToManyEdge {
+type EmailThreadContactsManyToManyEdge {
   "A cursor for use in pagination."
   cursor: Cursor
   "The `Contact` at the end of the edge."
@@ -11552,16 +11124,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateDealNoteInput!
   ): CreateDealNotePayload
-  "Creates a single `EmailNote`."
-  createEmailNote(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateEmailNoteInput!
-  ): CreateEmailNotePayload
-  "Creates a single `EmailRecipient`."
-  createEmailRecipient(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateEmailRecipientInput!
-  ): CreateEmailRecipientPayload
   "Creates a single `EventNote`."
   createEventNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -11927,16 +11489,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateDealNoteInput!
   ): UpdateDealNotePayload
-  "Updates a single `EmailNote` using a unique key and a patch."
-  updateEmailNote(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateEmailNoteInput!
-  ): UpdateEmailNotePayload
-  "Updates a single `EmailRecipient` using a unique key and a patch."
-  updateEmailRecipient(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateEmailRecipientInput!
-  ): UpdateEmailRecipientPayload
   "Updates a single `EventNote` using a unique key and a patch."
   updateEventNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12302,16 +11854,6 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteDealNoteInput!
   ): DeleteDealNotePayload
-  "Deletes a single `EmailNote` using a unique key."
-  deleteEmailNote(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteEmailNoteInput!
-  ): DeleteEmailNotePayload
-  "Deletes a single `EmailRecipient` using a unique key."
-  deleteEmailRecipient(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteEmailRecipientInput!
-  ): DeleteEmailRecipientPayload
   "Deletes a single `EventNote` using a unique key."
   deleteEventNote(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -12749,26 +12291,6 @@ type Note {
     "The method to use when ordering `Task`."
     orderBy: [TaskOrderBy!] = [PRIMARY_KEY_ASC]
   ): NoteTasksManyToManyConnection!
-  "Reads and enables pagination through a set of `Email`."
-  emails(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailFilter
-    "The method to use when ordering `Email`."
-    orderBy: [EmailOrderBy!] = [PRIMARY_KEY_ASC]
-  ): NoteEmailsManyToManyConnection!
   "Reads and enables pagination through a set of `CalendarEvent`."
   calendarEvents(
     "Only read the first `n` values of the set."
@@ -12889,26 +12411,6 @@ type Note {
     "The method to use when ordering `TaskNote`."
     orderBy: [TaskNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): TaskNoteConnection!
-  "Reads and enables pagination through a set of `EmailNote`."
-  emailNotes(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailNoteFilter
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNoteConnection!
   "Reads and enables pagination through a set of `CalendarEventNote`."
   calendarEventNotes(
     "Only read the first `n` values of the set."
@@ -13125,46 +12627,6 @@ type NoteEdge {
   cursor: Cursor
   "The `Note` at the end of the edge."
   node: Note
-}
-
-"A connection to a list of `Email` values, with data from `EmailNote`."
-type NoteEmailsManyToManyConnection {
-  "A list of `Email` objects."
-  nodes: [Email]!
-  "A list of edges which contains the `Email`, info from the `EmailNote`, and the cursor to aid in pagination."
-  edges: [NoteEmailsManyToManyEdge!]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-  "The count of *all* `Email` you could get from the connection."
-  totalCount: Int!
-}
-
-"A `Email` edge in the connection, with data from `EmailNote`."
-type NoteEmailsManyToManyEdge {
-  "A cursor for use in pagination."
-  cursor: Cursor
-  "The `Email` at the end of the edge."
-  node: Email
-  "Reads and enables pagination through a set of `EmailNote`."
-  emailNotesByEmailId(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailNoteFilter
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNoteConnection!
 }
 
 "A connection to a list of `Event` values, with data from `EventNote`."
@@ -14286,46 +13748,6 @@ type Query {
     "The method to use when ordering `DealNote`."
     orderBy: [DealNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): DealNoteConnection
-  "Reads and enables pagination through a set of `EmailNote`."
-  emailNotes(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailNoteFilter
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailNoteConnection
-  "Reads and enables pagination through a set of `EmailRecipient`."
-  emailRecipients(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: EmailRecipientFilter
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!] = [PRIMARY_KEY_ASC]
-  ): EmailRecipientConnection
   "Reads and enables pagination through a set of `EventNote`."
   eventNotes(
     "Only read the first `n` values of the set."
@@ -17739,24 +17161,6 @@ type UpdateEmailAttachmentPayload {
   ): EmailAttachmentEdge
 }
 
-"The output of our update `EmailNote` mutation."
-type UpdateEmailNotePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailNote` that was updated by this mutation."
-  emailNote: EmailNote
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailNote`. May be used by Relay 1."
-  emailNoteEdge(
-    "The method to use when ordering `EmailNote`."
-    orderBy: [EmailNoteOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailNoteEdge
-}
-
 "The output of our update `Email` mutation."
 type UpdateEmailPayload {
   """
@@ -17773,24 +17177,6 @@ type UpdateEmailPayload {
     "The method to use when ordering `Email`."
     orderBy: [EmailOrderBy!]! = [PRIMARY_KEY_ASC]
   ): EmailEdge
-}
-
-"The output of our update `EmailRecipient` mutation."
-type UpdateEmailRecipientPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  "The `EmailRecipient` that was updated by this mutation."
-  emailRecipient: EmailRecipient
-  "Our root query field type. Allows us to run any query from our mutation payload."
-  query: Query
-  "An edge for our `EmailRecipient`. May be used by Relay 1."
-  emailRecipientEdge(
-    "The method to use when ordering `EmailRecipient`."
-    orderBy: [EmailRecipientOrderBy!]! = [PRIMARY_KEY_ASC]
-  ): EmailRecipientEdge
 }
 
 "The output of our update `EmailThread` mutation."
@@ -20812,10 +20198,6 @@ input ContactFilter {
   contactRelationships: ContactToManyContactRelationshipFilter
   "`contactRelationships` exist."
   contactRelationshipsExist: Boolean
-  "Filter by the object’s `emailsByFromContactId` relation."
-  emailsByFromContactId: ContactToManyEmailFilter
-  "`emailsByFromContactId` exist."
-  emailsByFromContactIdExist: Boolean
   "Filter by the object’s `calendarEventsByOrganizerContactId` relation."
   calendarEventsByOrganizerContactId: ContactToManyCalendarEventFilter
   "`calendarEventsByOrganizerContactId` exist."
@@ -20852,10 +20234,6 @@ input ContactFilter {
   threadParticipants: ContactToManyThreadParticipantFilter
   "`threadParticipants` exist."
   threadParticipantsExist: Boolean
-  "Filter by the object’s `emailRecipients` relation."
-  emailRecipients: ContactToManyEmailRecipientFilter
-  "`emailRecipients` exist."
-  emailRecipientsExist: Boolean
   "TSV search on the `search_tsv` column."
   tsvSearchTsv: String
   "BM25 search on the `embedding_text` column."
@@ -21242,26 +20620,6 @@ input ContactToManyDealContactFilter {
   every: DealContactFilter
   "Filters to entities where no related entity matches."
   none: DealContactFilter
-}
-
-"A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’"
-input ContactToManyEmailFilter {
-  "Filters to entities where at least one related entity matches."
-  some: EmailFilter
-  "Filters to entities where every related entity matches."
-  every: EmailFilter
-  "Filters to entities where no related entity matches."
-  none: EmailFilter
-}
-
-"A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’"
-input ContactToManyEmailRecipientFilter {
-  "Filters to entities where at least one related entity matches."
-  some: EmailRecipientFilter
-  "Filters to entities where every related entity matches."
-  every: EmailRecipientFilter
-  "Filters to entities where no related entity matches."
-  none: EmailRecipientFilter
 }
 
 "A filter to be used against many `ExpenseContact` object types. All fields are combined with a logical ‘and.’"
@@ -21822,28 +21180,6 @@ input CreateEmailInput {
   clientMutationId: String
   "The `Email` to be created by this mutation."
   email: EmailInput!
-}
-
-"All input for the create `EmailNote` mutation."
-input CreateEmailNoteInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  "The `EmailNote` to be created by this mutation."
-  emailNote: EmailNoteInput!
-}
-
-"All input for the create `EmailRecipient` mutation."
-input CreateEmailRecipientInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  "The `EmailRecipient` to be created by this mutation."
-  emailRecipient: EmailRecipientInput!
 }
 
 "All input for the create `EmailThread` mutation."
@@ -22956,26 +22292,6 @@ input DeleteEmailInput {
   id: UUID!
 }
 
-"All input for the `deleteEmailNote` mutation."
-input DeleteEmailNoteInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
-"All input for the `deleteEmailRecipient` mutation."
-input DeleteEmailRecipientInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-}
-
 "All input for the `deleteEmailThread` mutation."
 input DeleteEmailThreadInput {
   """
@@ -23554,22 +22870,10 @@ input EmailFilter {
   not: EmailFilter
   "Filter by the object’s `emailThread` relation."
   emailThread: EmailThreadFilter
-  "Filter by the object’s `fromContact` relation."
-  fromContact: ContactFilter
-  "A related `fromContact` exists."
-  fromContactExists: Boolean
   "Filter by the object’s `emailAttachments` relation."
   emailAttachments: EmailToManyEmailAttachmentFilter
   "`emailAttachments` exist."
   emailAttachmentsExist: Boolean
-  "Filter by the object’s `emailRecipients` relation."
-  emailRecipients: EmailToManyEmailRecipientFilter
-  "`emailRecipients` exist."
-  emailRecipientsExist: Boolean
-  "Filter by the object’s `emailNotes` relation."
-  emailNotes: EmailToManyEmailNoteFilter
-  "`emailNotes` exist."
-  emailNotesExist: Boolean
 }
 
 "An input for mutations affecting `Email`"
@@ -23594,44 +22898,6 @@ input EmailInput {
   emailThreadId: UUID!
 }
 
-"A filter to be used against `EmailNote` object types. All fields are combined with a logical ‘and.’"
-input EmailNoteFilter {
-  "Filter by the object’s `emailId` field."
-  emailId: UUIDFilter
-  "Filter by the object’s `noteId` field."
-  noteId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
-  "Checks for all expressions in this list."
-  and: [EmailNoteFilter!]
-  "Checks for any expressions in this list."
-  or: [EmailNoteFilter!]
-  "Negates the expression."
-  not: EmailNoteFilter
-  "Filter by the object’s `email` relation."
-  email: EmailFilter
-  "Filter by the object’s `note` relation."
-  note: NoteFilter
-}
-
-"An input for mutations affecting `EmailNote`"
-input EmailNoteInput {
-  emailId: UUID!
-  noteId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `EmailNote`. Fields that are set will be updated."
-input EmailNotePatch {
-  emailId: UUID
-  noteId: UUID
-  id: UUID
-  entityId: UUID
-}
-
 "Represents an update to a `Email`. Fields that are set will be updated."
 input EmailPatch {
   id: UUID
@@ -23652,44 +22918,6 @@ input EmailPatch {
   embedding: Vector
   embeddingStale: Boolean
   emailThreadId: UUID
-}
-
-"A filter to be used against `EmailRecipient` object types. All fields are combined with a logical ‘and.’"
-input EmailRecipientFilter {
-  "Filter by the object’s `emailId` field."
-  emailId: UUIDFilter
-  "Filter by the object’s `contactId` field."
-  contactId: UUIDFilter
-  "Filter by the object’s `id` field."
-  id: UUIDFilter
-  "Filter by the object’s `entityId` field."
-  entityId: UUIDFilter
-  "Checks for all expressions in this list."
-  and: [EmailRecipientFilter!]
-  "Checks for any expressions in this list."
-  or: [EmailRecipientFilter!]
-  "Negates the expression."
-  not: EmailRecipientFilter
-  "Filter by the object’s `contact` relation."
-  contact: ContactFilter
-  "Filter by the object’s `email` relation."
-  email: EmailFilter
-}
-
-"An input for mutations affecting `EmailRecipient`"
-input EmailRecipientInput {
-  emailId: UUID!
-  contactId: UUID!
-  id: UUID
-  entityId: UUID!
-}
-
-"Represents an update to a `EmailRecipient`. Fields that are set will be updated."
-input EmailRecipientPatch {
-  emailId: UUID
-  contactId: UUID
-  id: UUID
-  entityId: UUID
 }
 
 "A filter to be used against `EmailThread` object types. All fields are combined with a logical ‘and.’"
@@ -23823,26 +23051,6 @@ input EmailToManyEmailAttachmentFilter {
   every: EmailAttachmentFilter
   "Filters to entities where no related entity matches."
   none: EmailAttachmentFilter
-}
-
-"A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’"
-input EmailToManyEmailNoteFilter {
-  "Filters to entities where at least one related entity matches."
-  some: EmailNoteFilter
-  "Filters to entities where every related entity matches."
-  every: EmailNoteFilter
-  "Filters to entities where no related entity matches."
-  none: EmailNoteFilter
-}
-
-"A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’"
-input EmailToManyEmailRecipientFilter {
-  "Filters to entities where at least one related entity matches."
-  some: EmailRecipientFilter
-  "Filters to entities where every related entity matches."
-  every: EmailRecipientFilter
-  "Filters to entities where no related entity matches."
-  none: EmailRecipientFilter
 }
 
 "A filter to be used against `Event` object types. All fields are combined with a logical ‘and.’"
@@ -25354,10 +24562,6 @@ input NoteFilter {
   taskNotes: NoteToManyTaskNoteFilter
   "`taskNotes` exist."
   taskNotesExist: Boolean
-  "Filter by the object’s `emailNotes` relation."
-  emailNotes: NoteToManyEmailNoteFilter
-  "`emailNotes` exist."
-  emailNotesExist: Boolean
   "Filter by the object’s `calendarEventNotes` relation."
   calendarEventNotes: NoteToManyCalendarEventNoteFilter
   "`calendarEventNotes` exist."
@@ -25457,16 +24661,6 @@ input NoteToManyDealNoteFilter {
   every: DealNoteFilter
   "Filters to entities where no related entity matches."
   none: DealNoteFilter
-}
-
-"A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’"
-input NoteToManyEmailNoteFilter {
-  "Filters to entities where at least one related entity matches."
-  some: EmailNoteFilter
-  "Filters to entities where every related entity matches."
-  every: EmailNoteFilter
-  "Filters to entities where no related entity matches."
-  none: EmailNoteFilter
 }
 
 "A filter to be used against many `EventNote` object types. All fields are combined with a logical ‘and.’"
@@ -28353,30 +27547,6 @@ input UpdateEmailInput {
   id: UUID!
   "An object where the defined keys will be set on the `Email` being updated."
   emailPatch: EmailPatch!
-}
-
-"All input for the `updateEmailNote` mutation."
-input UpdateEmailNoteInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `EmailNote` being updated."
-  emailNotePatch: EmailNotePatch!
-}
-
-"All input for the `updateEmailRecipient` mutation."
-input UpdateEmailRecipientInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: UUID!
-  "An object where the defined keys will be set on the `EmailRecipient` being updated."
-  emailRecipientPatch: EmailRecipientPatch!
 }
 
 "All input for the `updateEmailThread` mutation."

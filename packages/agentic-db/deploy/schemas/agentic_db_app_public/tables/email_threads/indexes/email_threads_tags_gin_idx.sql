@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-CREATE INDEX email_threads_tags_gin_idx ON "agentic_db_app_public".email_threads USING GIN ( tags );
+CREATE INDEX email_threads_tags_gin_idx ON agentic_db_app_public.email_threads USING GIN ( tags );
 

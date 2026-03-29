@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_profiles_public/tables/org_profiles/columns/created_at/column
 
 
-CREATE INDEX org_profiles_created_at_idx ON "agentic_db_profiles_public".org_profiles ( created_at );
+CREATE INDEX org_profiles_created_at_idx ON agentic_db_profiles_public.org_profiles ( created_at );
 

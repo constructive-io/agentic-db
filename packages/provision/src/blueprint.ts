@@ -42,6 +42,21 @@ export type {
   BlueprintFullTextSearch,
 };
 
+// Extend types for server-side features not yet in node-type-registry.
+// DataSearch accepts chunks config; policies need $type for the server.
+declare module 'node-type-registry' {
+  interface DataSearchParams {
+    chunks?: {
+      chunk_size?: number;
+      chunk_overlap?: number;
+      strategy?: string;
+    };
+  }
+  interface BlueprintPolicy {
+    $type?: string;
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Shared constants — standard org-scoped table defaults
 // ---------------------------------------------------------------------------
@@ -54,6 +69,7 @@ export const ORG_NODES: BlueprintTable['nodes'] = [
 
 /** Standard entity membership policy */
 export const ORG_POLICY: BlueprintPolicy = {
+  $type: 'AuthzEntityMembership',
   policy_type: 'AuthzEntityMembership',
   privileges: ['select', 'insert', 'update', 'delete'],
   permissive: true,

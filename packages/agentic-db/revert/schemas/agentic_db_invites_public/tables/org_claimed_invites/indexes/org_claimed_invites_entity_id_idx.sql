@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_invites_public/tables/org_claimed_invites/indexes/org_claimed_invites_entity_id_idx
 
 
-DROP INDEX "agentic_db_invites_public".org_claimed_invites_entity_id_idx;
+DROP INDEX agentic_db_invites_public.org_claimed_invites_entity_id_idx;
 
 

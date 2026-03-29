@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_membership_defaults/columns/updated_by/column
 
 
-CREATE INDEX org_membership_defaults_updated_by_idx ON "agentic_db_memberships_public".org_membership_defaults ( updated_by );
+CREATE INDEX org_membership_defaults_updated_by_idx ON agentic_db_memberships_public.org_membership_defaults ( updated_by );
 

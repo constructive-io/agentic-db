@@ -23,6 +23,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['title', 'content'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [

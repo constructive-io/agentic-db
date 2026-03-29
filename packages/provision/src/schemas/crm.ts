@@ -56,6 +56,7 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['first_name', 'last_name'],
+        chunks: {},
         }},
         { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
@@ -101,6 +102,7 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['name'],
+        chunks: {},
         }},
       ],
       fields: [
@@ -125,6 +127,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['name', 'notes_text'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -159,6 +162,7 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['name'],
+        chunks: {},
         }},
         { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
@@ -196,6 +200,7 @@ const definition: BlueprintDefinition = {
             ],
           },
           trgm_fields: ['name'],
+        chunks: {},
         }},
         { $type: 'DataPostGIS', data: { field_name: 'location', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
@@ -228,6 +233,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['content', 'abstract'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -252,6 +258,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['summary'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -276,6 +283,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['subject', 'summary'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [

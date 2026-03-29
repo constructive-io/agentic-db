@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/emails/columns/provider_message_id/column
 
 
-CREATE INDEX emails_provider_message_id_idx ON "agentic_db_app_public".emails USING BTREE ( provider_message_id );
+CREATE INDEX emails_provider_message_id_idx ON agentic_db_app_public.emails USING BTREE ( provider_message_id );
 

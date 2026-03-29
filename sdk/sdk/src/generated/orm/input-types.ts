@@ -878,27 +878,6 @@ export interface ContactCompany {
   contactId?: string | null;
   companyId?: string | null;
 }
-export interface Email {
-  id: string;
-  entityId?: string | null;
-  providerMessageId?: string | null;
-  fromContactId?: string | null;
-  to?: Record<string, unknown> | null;
-  cc?: Record<string, unknown> | null;
-  bcc?: Record<string, unknown> | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  bodyHtml?: string | null;
-  sentAt?: string | null;
-  tags?: string[] | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  embeddingText?: string | null;
-  searchTsv?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  emailThreadId?: string | null;
-}
 export interface EmailThread {
   id: string;
   entityId?: string | null;
@@ -1093,17 +1072,26 @@ export interface EmailAttachment {
   updatedAt?: string | null;
   emailId?: string | null;
 }
-export interface EmailNote {
-  emailId?: string | null;
-  noteId?: string | null;
+export interface Email {
   id: string;
   entityId?: string | null;
-}
-export interface EmailRecipient {
-  emailId?: string | null;
-  contactId?: string | null;
-  id: string;
-  entityId?: string | null;
+  providerMessageId?: string | null;
+  fromContactId?: string | null;
+  to?: Record<string, unknown> | null;
+  cc?: Record<string, unknown> | null;
+  bcc?: Record<string, unknown> | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  bodyHtml?: string | null;
+  sentAt?: string | null;
+  tags?: string[] | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  embeddingText?: string | null;
+  searchTsv?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  emailThreadId?: string | null;
 }
 export interface EventImage {
   eventId?: string | null;
@@ -1878,7 +1866,7 @@ export interface ContactRelations {
   expenses?: ConnectionResult<Expense>;
   notes?: ConnectionResult<Note>;
   memories?: ConnectionResult<Memory>;
-  emails?: ConnectionResult<Email>;
+  emailThreads?: ConnectionResult<EmailThread>;
   interactions?: ConnectionResult<Interaction>;
   touchpoints?: ConnectionResult<Touchpoint>;
   contactLinks?: ConnectionResult<ContactLink>;
@@ -1887,7 +1875,6 @@ export interface ContactRelations {
   contactEvents?: ConnectionResult<ContactEvent>;
   dealContacts?: ConnectionResult<DealContact>;
   contactRelationships?: ConnectionResult<ContactRelationship>;
-  emailsByFromContactId?: ConnectionResult<Email>;
   calendarEventsByOrganizerContactId?: ConnectionResult<CalendarEvent>;
   calendarAttendees?: ConnectionResult<CalendarAttendee>;
   projectContacts?: ConnectionResult<ProjectContact>;
@@ -1897,13 +1884,11 @@ export interface ContactRelations {
   contactNotes?: ConnectionResult<ContactNote>;
   contactMemories?: ConnectionResult<ContactMemory>;
   threadParticipants?: ConnectionResult<ThreadParticipant>;
-  emailRecipients?: ConnectionResult<EmailRecipient>;
   imagesByContactImageContactIdAndImageId?: ConnectionResult<Image>;
   companiesByContactCompanyContactIdAndCompanyId?: ConnectionResult<Company>;
   eventsByContactEventContactIdAndEventId?: ConnectionResult<Event>;
   dealsByDealContactContactIdAndDealId?: ConnectionResult<Deal>;
   calendarEventsByCalendarEventContactContactIdAndCalendarEventId?: ConnectionResult<CalendarEvent>;
-  emailThreadsByThreadParticipantContactIdAndEmailThreadId?: ConnectionResult<EmailThread>;
 }
 export interface CalendarEventNoteRelations {
   calendarEvent?: CalendarEvent | null;
@@ -1915,14 +1900,12 @@ export interface NoteRelations {
   deals?: ConnectionResult<Deal>;
   events?: ConnectionResult<Event>;
   tasks?: ConnectionResult<Task>;
-  emails?: ConnectionResult<Email>;
   calendarEvents?: ConnectionResult<CalendarEvent>;
   contactNotes?: ConnectionResult<ContactNote>;
   companyNotes?: ConnectionResult<CompanyNote>;
   dealNotes?: ConnectionResult<DealNote>;
   eventNotes?: ConnectionResult<EventNote>;
   taskNotes?: ConnectionResult<TaskNote>;
-  emailNotes?: ConnectionResult<EmailNote>;
   calendarEventNotes?: ConnectionResult<CalendarEventNote>;
 }
 export interface CalendarEventTaskRelations {
@@ -2035,19 +2018,10 @@ export interface ContactCompanyRelations {
   company?: Company | null;
   contact?: Contact | null;
 }
-export interface EmailRelations {
-  emailThread?: EmailThread | null;
-  fromContact?: Contact | null;
-  notes?: ConnectionResult<Note>;
-  emailAttachments?: ConnectionResult<EmailAttachment>;
-  emailRecipients?: ConnectionResult<EmailRecipient>;
-  emailNotes?: ConnectionResult<EmailNote>;
-  contactsByEmailRecipientEmailIdAndContactId?: ConnectionResult<Contact>;
-}
 export interface EmailThreadRelations {
+  contacts?: ConnectionResult<Contact>;
   emails?: ConnectionResult<Email>;
   threadParticipants?: ConnectionResult<ThreadParticipant>;
-  contactsByThreadParticipantEmailThreadIdAndContactId?: ConnectionResult<Contact>;
 }
 export interface ContactEventRelations {
   contact?: Contact | null;
@@ -2102,13 +2076,9 @@ export interface DealNoteRelations {
 export interface EmailAttachmentRelations {
   email?: Email | null;
 }
-export interface EmailNoteRelations {
-  email?: Email | null;
-  note?: Note | null;
-}
-export interface EmailRecipientRelations {
-  contact?: Contact | null;
-  email?: Email | null;
+export interface EmailRelations {
+  emailThread?: EmailThread | null;
+  emailAttachments?: ConnectionResult<EmailAttachment>;
 }
 export interface EventImageRelations {
   event?: Event | null;
@@ -2290,7 +2260,6 @@ export type MemoryWithRelations = Memory & MemoryRelations;
 export type CompanyMemoryWithRelations = CompanyMemory & CompanyMemoryRelations;
 export type CompanyNoteWithRelations = CompanyNote & CompanyNoteRelations;
 export type ContactCompanyWithRelations = ContactCompany & ContactCompanyRelations;
-export type EmailWithRelations = Email & EmailRelations;
 export type EmailThreadWithRelations = EmailThread & EmailThreadRelations;
 export type ContactEventWithRelations = ContactEvent & ContactEventRelations;
 export type ExpenseWithRelations = Expense & ExpenseRelations;
@@ -2305,8 +2274,7 @@ export type DealCompanyWithRelations = DealCompany & DealCompanyRelations;
 export type DealContactWithRelations = DealContact & DealContactRelations;
 export type DealNoteWithRelations = DealNote & DealNoteRelations;
 export type EmailAttachmentWithRelations = EmailAttachment & EmailAttachmentRelations;
-export type EmailNoteWithRelations = EmailNote & EmailNoteRelations;
-export type EmailRecipientWithRelations = EmailRecipient & EmailRecipientRelations;
+export type EmailWithRelations = Email & EmailRelations;
 export type EventImageWithRelations = EventImage & EventImageRelations;
 export type EventLinkWithRelations = EventLink & EventLinkRelations;
 export type EventNoteWithRelations = EventNote & EventNoteRelations;
@@ -2766,11 +2734,11 @@ export type ContactSelect = {
     filter?: MemoryFilter;
     orderBy?: MemoryOrderBy[];
   };
-  emails?: {
-    select: EmailSelect;
+  emailThreads?: {
+    select: EmailThreadSelect;
     first?: number;
-    filter?: EmailFilter;
-    orderBy?: EmailOrderBy[];
+    filter?: EmailThreadFilter;
+    orderBy?: EmailThreadOrderBy[];
   };
   interactions?: {
     select: InteractionSelect;
@@ -2819,12 +2787,6 @@ export type ContactSelect = {
     first?: number;
     filter?: ContactRelationshipFilter;
     orderBy?: ContactRelationshipOrderBy[];
-  };
-  emailsByFromContactId?: {
-    select: EmailSelect;
-    first?: number;
-    filter?: EmailFilter;
-    orderBy?: EmailOrderBy[];
   };
   calendarEventsByOrganizerContactId?: {
     select: CalendarEventSelect;
@@ -2880,12 +2842,6 @@ export type ContactSelect = {
     filter?: ThreadParticipantFilter;
     orderBy?: ThreadParticipantOrderBy[];
   };
-  emailRecipients?: {
-    select: EmailRecipientSelect;
-    first?: number;
-    filter?: EmailRecipientFilter;
-    orderBy?: EmailRecipientOrderBy[];
-  };
   imagesByContactImageContactIdAndImageId?: {
     select: ImageSelect;
     first?: number;
@@ -2915,12 +2871,6 @@ export type ContactSelect = {
     first?: number;
     filter?: CalendarEventFilter;
     orderBy?: CalendarEventOrderBy[];
-  };
-  emailThreadsByThreadParticipantContactIdAndEmailThreadId?: {
-    select: EmailThreadSelect;
-    first?: number;
-    filter?: EmailThreadFilter;
-    orderBy?: EmailThreadOrderBy[];
   };
 };
 export type CalendarEventNoteSelect = {
@@ -2987,12 +2937,6 @@ export type NoteSelect = {
     filter?: TaskFilter;
     orderBy?: TaskOrderBy[];
   };
-  emails?: {
-    select: EmailSelect;
-    first?: number;
-    filter?: EmailFilter;
-    orderBy?: EmailOrderBy[];
-  };
   calendarEvents?: {
     select: CalendarEventSelect;
     first?: number;
@@ -3028,12 +2972,6 @@ export type NoteSelect = {
     first?: number;
     filter?: TaskNoteFilter;
     orderBy?: TaskNoteOrderBy[];
-  };
-  emailNotes?: {
-    select: EmailNoteSelect;
-    first?: number;
-    filter?: EmailNoteFilter;
-    orderBy?: EmailNoteOrderBy[];
   };
   calendarEventNotes?: {
     select: CalendarEventNoteSelect;
@@ -3697,63 +3635,6 @@ export type ContactCompanySelect = {
     select: ContactSelect;
   };
 };
-export type EmailSelect = {
-  id?: boolean;
-  entityId?: boolean;
-  providerMessageId?: boolean;
-  fromContactId?: boolean;
-  to?: boolean;
-  cc?: boolean;
-  bcc?: boolean;
-  subject?: boolean;
-  bodyText?: boolean;
-  bodyHtml?: boolean;
-  sentAt?: boolean;
-  tags?: boolean;
-  createdAt?: boolean;
-  updatedAt?: boolean;
-  embeddingText?: boolean;
-  searchTsv?: boolean;
-  embedding?: boolean;
-  embeddingStale?: boolean;
-  emailThreadId?: boolean;
-  emailThread?: {
-    select: EmailThreadSelect;
-  };
-  fromContact?: {
-    select: ContactSelect;
-  };
-  notes?: {
-    select: NoteSelect;
-    first?: number;
-    filter?: NoteFilter;
-    orderBy?: NoteOrderBy[];
-  };
-  emailAttachments?: {
-    select: EmailAttachmentSelect;
-    first?: number;
-    filter?: EmailAttachmentFilter;
-    orderBy?: EmailAttachmentOrderBy[];
-  };
-  emailRecipients?: {
-    select: EmailRecipientSelect;
-    first?: number;
-    filter?: EmailRecipientFilter;
-    orderBy?: EmailRecipientOrderBy[];
-  };
-  emailNotes?: {
-    select: EmailNoteSelect;
-    first?: number;
-    filter?: EmailNoteFilter;
-    orderBy?: EmailNoteOrderBy[];
-  };
-  contactsByEmailRecipientEmailIdAndContactId?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
-  };
-};
 export type EmailThreadSelect = {
   id?: boolean;
   entityId?: boolean;
@@ -3778,6 +3659,12 @@ export type EmailThreadSelect = {
   statusTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
+  contacts?: {
+    select: ContactSelect;
+    first?: number;
+    filter?: ContactFilter;
+    orderBy?: ContactOrderBy[];
+  };
   emails?: {
     select: EmailSelect;
     first?: number;
@@ -3789,12 +3676,6 @@ export type EmailThreadSelect = {
     first?: number;
     filter?: ThreadParticipantFilter;
     orderBy?: ThreadParticipantOrderBy[];
-  };
-  contactsByThreadParticipantEmailThreadIdAndContactId?: {
-    select: ContactSelect;
-    first?: number;
-    filter?: ContactFilter;
-    orderBy?: ContactOrderBy[];
   };
 };
 export type ContactEventSelect = {
@@ -4040,28 +3921,34 @@ export type EmailAttachmentSelect = {
     select: EmailSelect;
   };
 };
-export type EmailNoteSelect = {
-  emailId?: boolean;
-  noteId?: boolean;
+export type EmailSelect = {
   id?: boolean;
   entityId?: boolean;
-  email?: {
-    select: EmailSelect;
+  providerMessageId?: boolean;
+  fromContactId?: boolean;
+  to?: boolean;
+  cc?: boolean;
+  bcc?: boolean;
+  subject?: boolean;
+  bodyText?: boolean;
+  bodyHtml?: boolean;
+  sentAt?: boolean;
+  tags?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  embeddingText?: boolean;
+  searchTsv?: boolean;
+  embedding?: boolean;
+  embeddingStale?: boolean;
+  emailThreadId?: boolean;
+  emailThread?: {
+    select: EmailThreadSelect;
   };
-  note?: {
-    select: NoteSelect;
-  };
-};
-export type EmailRecipientSelect = {
-  emailId?: boolean;
-  contactId?: boolean;
-  id?: boolean;
-  entityId?: boolean;
-  contact?: {
-    select: ContactSelect;
-  };
-  email?: {
-    select: EmailSelect;
+  emailAttachments?: {
+    select: EmailAttachmentSelect;
+    first?: number;
+    filter?: EmailAttachmentFilter;
+    orderBy?: EmailAttachmentOrderBy[];
   };
 };
 export type EventImageSelect = {
@@ -5570,10 +5457,6 @@ export interface ContactFilter {
   contactRelationships?: ContactToManyContactRelationshipFilter;
   /** `contactRelationships` exist. */
   contactRelationshipsExist?: boolean;
-  /** Filter by the object’s `emailsByFromContactId` relation. */
-  emailsByFromContactId?: ContactToManyEmailFilter;
-  /** `emailsByFromContactId` exist. */
-  emailsByFromContactIdExist?: boolean;
   /** Filter by the object’s `calendarEventsByOrganizerContactId` relation. */
   calendarEventsByOrganizerContactId?: ContactToManyCalendarEventFilter;
   /** `calendarEventsByOrganizerContactId` exist. */
@@ -5610,10 +5493,6 @@ export interface ContactFilter {
   threadParticipants?: ContactToManyThreadParticipantFilter;
   /** `threadParticipants` exist. */
   threadParticipantsExist?: boolean;
-  /** Filter by the object’s `emailRecipients` relation. */
-  emailRecipients?: ContactToManyEmailRecipientFilter;
-  /** `emailRecipients` exist. */
-  emailRecipientsExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
   /** BM25 search on the `embedding_text` column. */
@@ -5731,10 +5610,6 @@ export interface NoteFilter {
   taskNotes?: NoteToManyTaskNoteFilter;
   /** `taskNotes` exist. */
   taskNotesExist?: boolean;
-  /** Filter by the object’s `emailNotes` relation. */
-  emailNotes?: NoteToManyEmailNoteFilter;
-  /** `emailNotes` exist. */
-  emailNotesExist?: boolean;
   /** Filter by the object’s `calendarEventNotes` relation. */
   calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
   /** `calendarEventNotes` exist. */
@@ -6530,70 +6405,6 @@ export interface ContactCompanyFilter {
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
 }
-export interface EmailFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringFilter;
-  /** Filter by the object’s `fromContactId` field. */
-  fromContactId?: UUIDFilter;
-  /** Filter by the object’s `to` field. */
-  to?: JSONFilter;
-  /** Filter by the object’s `cc` field. */
-  cc?: JSONFilter;
-  /** Filter by the object’s `bcc` field. */
-  bcc?: JSONFilter;
-  /** Filter by the object’s `subject` field. */
-  subject?: StringFilter;
-  /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringFilter;
-  /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringFilter;
-  /** Filter by the object’s `sentAt` field. */
-  sentAt?: DatetimeFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `emailThreadId` field. */
-  emailThreadId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailFilter[];
-  /** Negates the expression. */
-  not?: EmailFilter;
-  /** Filter by the object’s `emailThread` relation. */
-  emailThread?: EmailThreadFilter;
-  /** Filter by the object’s `fromContact` relation. */
-  fromContact?: ContactFilter;
-  /** A related `fromContact` exists. */
-  fromContactExists?: boolean;
-  /** Filter by the object’s `emailAttachments` relation. */
-  emailAttachments?: EmailToManyEmailAttachmentFilter;
-  /** `emailAttachments` exist. */
-  emailAttachmentsExist?: boolean;
-  /** Filter by the object’s `emailRecipients` relation. */
-  emailRecipients?: EmailToManyEmailRecipientFilter;
-  /** `emailRecipients` exist. */
-  emailRecipientsExist?: boolean;
-  /** Filter by the object’s `emailNotes` relation. */
-  emailNotes?: EmailToManyEmailNoteFilter;
-  /** `emailNotes` exist. */
-  emailNotesExist?: boolean;
-}
 export interface EmailThreadFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
@@ -7054,45 +6865,57 @@ export interface EmailAttachmentFilter {
   /** Filter by the object’s `email` relation. */
   email?: EmailFilter;
 }
-export interface EmailNoteFilter {
-  /** Filter by the object’s `emailId` field. */
-  emailId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
+export interface EmailFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
+  /** Filter by the object’s `providerMessageId` field. */
+  providerMessageId?: StringFilter;
+  /** Filter by the object’s `fromContactId` field. */
+  fromContactId?: UUIDFilter;
+  /** Filter by the object’s `to` field. */
+  to?: JSONFilter;
+  /** Filter by the object’s `cc` field. */
+  cc?: JSONFilter;
+  /** Filter by the object’s `bcc` field. */
+  bcc?: JSONFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringFilter;
+  /** Filter by the object’s `bodyText` field. */
+  bodyText?: StringFilter;
+  /** Filter by the object’s `bodyHtml` field. */
+  bodyHtml?: StringFilter;
+  /** Filter by the object’s `sentAt` field. */
+  sentAt?: DatetimeFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `emailThreadId` field. */
+  emailThreadId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: EmailNoteFilter[];
+  and?: EmailFilter[];
   /** Checks for any expressions in this list. */
-  or?: EmailNoteFilter[];
+  or?: EmailFilter[];
   /** Negates the expression. */
-  not?: EmailNoteFilter;
-  /** Filter by the object’s `email` relation. */
-  email?: EmailFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
-}
-export interface EmailRecipientFilter {
-  /** Filter by the object’s `emailId` field. */
-  emailId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailRecipientFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailRecipientFilter[];
-  /** Negates the expression. */
-  not?: EmailRecipientFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `email` relation. */
-  email?: EmailFilter;
+  not?: EmailFilter;
+  /** Filter by the object’s `emailThread` relation. */
+  emailThread?: EmailThreadFilter;
+  /** Filter by the object’s `emailAttachments` relation. */
+  emailAttachments?: EmailToManyEmailAttachmentFilter;
+  /** `emailAttachments` exist. */
+  emailAttachmentsExist?: boolean;
 }
 export interface EventImageFilter {
   /** Filter by the object’s `eventId` field. */
@@ -9366,26 +9189,6 @@ export type ContactCompanyOrderBy =
   | 'CONTACT_ID_DESC'
   | 'COMPANY_ID_ASC'
   | 'COMPANY_ID_DESC';
-export type EmailOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC'
-  | 'PROVIDER_MESSAGE_ID_ASC'
-  | 'PROVIDER_MESSAGE_ID_DESC'
-  | 'FROM_CONTACT_ID_ASC'
-  | 'FROM_CONTACT_ID_DESC'
-  | 'SENT_AT_ASC'
-  | 'SENT_AT_DESC'
-  | 'EMBEDDING_TEXT_ASC'
-  | 'EMBEDDING_TEXT_DESC'
-  | 'EMBEDDING_ASC'
-  | 'EMBEDDING_DESC'
-  | 'EMAIL_THREAD_ID_ASC'
-  | 'EMAIL_THREAD_ID_DESC';
 export type EmailThreadOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -9607,30 +9410,24 @@ export type EmailAttachmentOrderBy =
   | 'ENTITY_ID_DESC'
   | 'EMAIL_ID_ASC'
   | 'EMAIL_ID_DESC';
-export type EmailNoteOrderBy =
+export type EmailOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC'
-  | 'EMAIL_ID_ASC'
-  | 'EMAIL_ID_DESC'
-  | 'NOTE_ID_ASC'
-  | 'NOTE_ID_DESC'
   | 'ID_ASC'
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC';
-export type EmailRecipientOrderBy =
-  | 'NATURAL'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC'
-  | 'EMAIL_ID_ASC'
-  | 'EMAIL_ID_DESC'
-  | 'CONTACT_ID_ASC'
-  | 'CONTACT_ID_DESC'
-  | 'ID_ASC'
-  | 'ID_DESC'
-  | 'ENTITY_ID_ASC'
-  | 'ENTITY_ID_DESC';
+  | 'ENTITY_ID_DESC'
+  | 'PROVIDER_MESSAGE_ID_ASC'
+  | 'PROVIDER_MESSAGE_ID_DESC'
+  | 'SENT_AT_ASC'
+  | 'SENT_AT_DESC'
+  | 'EMBEDDING_TEXT_ASC'
+  | 'EMBEDDING_TEXT_DESC'
+  | 'EMBEDDING_ASC'
+  | 'EMBEDDING_DESC'
+  | 'EMAIL_THREAD_ID_ASC'
+  | 'EMAIL_THREAD_ID_DESC';
 export type EventImageOrderBy =
   | 'NATURAL'
   | 'EVENT_ID_ASC'
@@ -11384,52 +11181,6 @@ export interface DeleteContactCompanyInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateEmailInput {
-  clientMutationId?: string;
-  email: {
-    entityId: string;
-    providerMessageId?: string;
-    fromContactId?: string;
-    to?: Record<string, unknown>;
-    cc?: Record<string, unknown>;
-    bcc?: Record<string, unknown>;
-    subject?: string;
-    bodyText?: string;
-    bodyHtml?: string;
-    sentAt?: string;
-    tags?: string[];
-    embeddingText?: string;
-    embedding?: number[];
-    embeddingStale?: boolean;
-    emailThreadId: string;
-  };
-}
-export interface EmailPatch {
-  entityId?: string | null;
-  providerMessageId?: string | null;
-  fromContactId?: string | null;
-  to?: Record<string, unknown> | null;
-  cc?: Record<string, unknown> | null;
-  bcc?: Record<string, unknown> | null;
-  subject?: string | null;
-  bodyText?: string | null;
-  bodyHtml?: string | null;
-  sentAt?: string | null;
-  tags?: string[] | null;
-  embeddingText?: string | null;
-  embedding?: number[] | null;
-  embeddingStale?: boolean | null;
-  emailThreadId?: string | null;
-}
-export interface UpdateEmailInput {
-  clientMutationId?: string;
-  id: string;
-  emailPatch: EmailPatch;
-}
-export interface DeleteEmailInput {
-  clientMutationId?: string;
-  id: string;
-}
 export interface CreateEmailThreadInput {
   clientMutationId?: string;
   emailThread: {
@@ -11806,47 +11557,49 @@ export interface DeleteEmailAttachmentInput {
   clientMutationId?: string;
   id: string;
 }
-export interface CreateEmailNoteInput {
+export interface CreateEmailInput {
   clientMutationId?: string;
-  emailNote: {
-    emailId: string;
-    noteId: string;
+  email: {
     entityId: string;
+    providerMessageId?: string;
+    fromContactId?: string;
+    to?: Record<string, unknown>;
+    cc?: Record<string, unknown>;
+    bcc?: Record<string, unknown>;
+    subject?: string;
+    bodyText?: string;
+    bodyHtml?: string;
+    sentAt?: string;
+    tags?: string[];
+    embeddingText?: string;
+    embedding?: number[];
+    embeddingStale?: boolean;
+    emailThreadId: string;
   };
 }
-export interface EmailNotePatch {
-  emailId?: string | null;
-  noteId?: string | null;
+export interface EmailPatch {
   entityId?: string | null;
+  providerMessageId?: string | null;
+  fromContactId?: string | null;
+  to?: Record<string, unknown> | null;
+  cc?: Record<string, unknown> | null;
+  bcc?: Record<string, unknown> | null;
+  subject?: string | null;
+  bodyText?: string | null;
+  bodyHtml?: string | null;
+  sentAt?: string | null;
+  tags?: string[] | null;
+  embeddingText?: string | null;
+  embedding?: number[] | null;
+  embeddingStale?: boolean | null;
+  emailThreadId?: string | null;
 }
-export interface UpdateEmailNoteInput {
+export interface UpdateEmailInput {
   clientMutationId?: string;
   id: string;
-  emailNotePatch: EmailNotePatch;
+  emailPatch: EmailPatch;
 }
-export interface DeleteEmailNoteInput {
-  clientMutationId?: string;
-  id: string;
-}
-export interface CreateEmailRecipientInput {
-  clientMutationId?: string;
-  emailRecipient: {
-    emailId: string;
-    contactId: string;
-    entityId: string;
-  };
-}
-export interface EmailRecipientPatch {
-  emailId?: string | null;
-  contactId?: string | null;
-  entityId?: string | null;
-}
-export interface UpdateEmailRecipientInput {
-  clientMutationId?: string;
-  id: string;
-  emailRecipientPatch: EmailRecipientPatch;
-}
-export interface DeleteEmailRecipientInput {
+export interface DeleteEmailInput {
   clientMutationId?: string;
   id: string;
 }
@@ -13153,7 +12906,7 @@ export const connectionFieldsMap = {
     expenses: 'Expense',
     notes: 'Note',
     memories: 'Memory',
-    emails: 'Email',
+    emailThreads: 'EmailThread',
     interactions: 'Interaction',
     touchpoints: 'Touchpoint',
     contactLinks: 'ContactLink',
@@ -13162,7 +12915,6 @@ export const connectionFieldsMap = {
     contactEvents: 'ContactEvent',
     dealContacts: 'DealContact',
     contactRelationships: 'ContactRelationship',
-    emailsByFromContactId: 'Email',
     calendarEventsByOrganizerContactId: 'CalendarEvent',
     calendarAttendees: 'CalendarAttendee',
     projectContacts: 'ProjectContact',
@@ -13172,13 +12924,11 @@ export const connectionFieldsMap = {
     contactNotes: 'ContactNote',
     contactMemories: 'ContactMemory',
     threadParticipants: 'ThreadParticipant',
-    emailRecipients: 'EmailRecipient',
     imagesByContactImageContactIdAndImageId: 'Image',
     companiesByContactCompanyContactIdAndCompanyId: 'Company',
     eventsByContactEventContactIdAndEventId: 'Event',
     dealsByDealContactContactIdAndDealId: 'Deal',
     calendarEventsByCalendarEventContactContactIdAndCalendarEventId: 'CalendarEvent',
-    emailThreadsByThreadParticipantContactIdAndEmailThreadId: 'EmailThread',
   },
   Note: {
     contacts: 'Contact',
@@ -13186,14 +12936,12 @@ export const connectionFieldsMap = {
     deals: 'Deal',
     events: 'Event',
     tasks: 'Task',
-    emails: 'Email',
     calendarEvents: 'CalendarEvent',
     contactNotes: 'ContactNote',
     companyNotes: 'CompanyNote',
     dealNotes: 'DealNote',
     eventNotes: 'EventNote',
     taskNotes: 'TaskNote',
-    emailNotes: 'EmailNote',
     calendarEventNotes: 'CalendarEventNote',
   },
   Task: {
@@ -13269,17 +13017,10 @@ export const connectionFieldsMap = {
     contactMemories: 'ContactMemory',
     companyMemories: 'CompanyMemory',
   },
-  Email: {
-    notes: 'Note',
-    emailAttachments: 'EmailAttachment',
-    emailRecipients: 'EmailRecipient',
-    emailNotes: 'EmailNote',
-    contactsByEmailRecipientEmailIdAndContactId: 'Contact',
-  },
   EmailThread: {
+    contacts: 'Contact',
     emails: 'Email',
     threadParticipants: 'ThreadParticipant',
-    contactsByThreadParticipantEmailThreadIdAndContactId: 'Contact',
   },
   Expense: {
     contacts: 'Contact',
@@ -13295,6 +13036,9 @@ export const connectionFieldsMap = {
   },
   Conversation: {
     messages: 'Message',
+  },
+  Email: {
+    emailAttachments: 'EmailAttachment',
   },
   Venue: {
     events: 'Event',
@@ -13643,15 +13387,6 @@ export interface ContactToManyContactRelationshipFilter {
   /** Filters to entities where no related entity matches. */
   none?: ContactRelationshipFilter;
 }
-/** A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyEmailFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: EmailFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: EmailFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: EmailFilter;
-}
 /** A filter to be used against many `CalendarEvent` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyCalendarEventFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13733,15 +13468,6 @@ export interface ContactToManyThreadParticipantFilter {
   /** Filters to entities where no related entity matches. */
   none?: ThreadParticipantFilter;
 }
-/** A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
-export interface ContactToManyEmailRecipientFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: EmailRecipientFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: EmailRecipientFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: EmailRecipientFilter;
-}
 /** A filter to be used against many `ContactNote` object types. All fields are combined with a logical ‘and.’ */
 export interface NoteToManyContactNoteFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -13786,15 +13512,6 @@ export interface NoteToManyTaskNoteFilter {
   every?: TaskNoteFilter;
   /** Filters to entities where no related entity matches. */
   none?: TaskNoteFilter;
-}
-/** A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’ */
-export interface NoteToManyEmailNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: EmailNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: EmailNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: EmailNoteFilter;
 }
 /** A filter to be used against many `CalendarEventNote` object types. All fields are combined with a logical ‘and.’ */
 export interface NoteToManyCalendarEventNoteFilter {
@@ -14120,33 +13837,6 @@ export interface MemoryToManyCompanyMemoryFilter {
   /** Filters to entities where no related entity matches. */
   none?: CompanyMemoryFilter;
 }
-/** A filter to be used against many `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailToManyEmailAttachmentFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: EmailAttachmentFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: EmailAttachmentFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: EmailAttachmentFilter;
-}
-/** A filter to be used against many `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailToManyEmailRecipientFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: EmailRecipientFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: EmailRecipientFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: EmailRecipientFilter;
-}
-/** A filter to be used against many `EmailNote` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailToManyEmailNoteFilter {
-  /** Filters to entities where at least one related entity matches. */
-  some?: EmailNoteFilter;
-  /** Filters to entities where every related entity matches. */
-  every?: EmailNoteFilter;
-  /** Filters to entities where no related entity matches. */
-  none?: EmailNoteFilter;
-}
 /** A filter to be used against many `Email` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailThreadToManyEmailFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -14209,6 +13899,15 @@ export interface ConversationToManyMessageFilter {
   every?: MessageFilter;
   /** Filters to entities where no related entity matches. */
   none?: MessageFilter;
+}
+/** A filter to be used against many `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailToManyEmailAttachmentFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: EmailAttachmentFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: EmailAttachmentFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: EmailAttachmentFilter;
 }
 /** A filter to be used against many `VenueLink` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueToManyVenueLinkFilter {
@@ -15209,71 +14908,6 @@ export interface ContactRelationshipFilter {
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
 }
-/** A filter to be used against `Email` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringFilter;
-  /** Filter by the object’s `fromContactId` field. */
-  fromContactId?: UUIDFilter;
-  /** Filter by the object’s `to` field. */
-  to?: JSONFilter;
-  /** Filter by the object’s `cc` field. */
-  cc?: JSONFilter;
-  /** Filter by the object’s `bcc` field. */
-  bcc?: JSONFilter;
-  /** Filter by the object’s `subject` field. */
-  subject?: StringFilter;
-  /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringFilter;
-  /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringFilter;
-  /** Filter by the object’s `sentAt` field. */
-  sentAt?: DatetimeFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `emailThreadId` field. */
-  emailThreadId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailFilter[];
-  /** Negates the expression. */
-  not?: EmailFilter;
-  /** Filter by the object’s `emailThread` relation. */
-  emailThread?: EmailThreadFilter;
-  /** Filter by the object’s `fromContact` relation. */
-  fromContact?: ContactFilter;
-  /** A related `fromContact` exists. */
-  fromContactExists?: boolean;
-  /** Filter by the object’s `emailAttachments` relation. */
-  emailAttachments?: EmailToManyEmailAttachmentFilter;
-  /** `emailAttachments` exist. */
-  emailAttachmentsExist?: boolean;
-  /** Filter by the object’s `emailRecipients` relation. */
-  emailRecipients?: EmailToManyEmailRecipientFilter;
-  /** `emailRecipients` exist. */
-  emailRecipientsExist?: boolean;
-  /** Filter by the object’s `emailNotes` relation. */
-  emailNotes?: EmailToManyEmailNoteFilter;
-  /** `emailNotes` exist. */
-  emailNotesExist?: boolean;
-}
 /** A filter to be used against `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectContactFilter {
   /** Filter by the object’s `projectId` field. */
@@ -15400,27 +15034,6 @@ export interface ThreadParticipantFilter {
   /** Filter by the object’s `emailThread` relation. */
   emailThread?: EmailThreadFilter;
 }
-/** A filter to be used against `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailRecipientFilter {
-  /** Filter by the object’s `emailId` field. */
-  emailId?: UUIDFilter;
-  /** Filter by the object’s `contactId` field. */
-  contactId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailRecipientFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailRecipientFilter[];
-  /** Negates the expression. */
-  not?: EmailRecipientFilter;
-  /** Filter by the object’s `contact` relation. */
-  contact?: ContactFilter;
-  /** Filter by the object’s `email` relation. */
-  email?: EmailFilter;
-}
 /** A filter to be used against `CompanyNote` object types. All fields are combined with a logical ‘and.’ */
 export interface CompanyNoteFilter {
   /** Filter by the object’s `companyId` field. */
@@ -15504,27 +15117,6 @@ export interface TaskNoteFilter {
   note?: NoteFilter;
   /** Filter by the object’s `task` relation. */
   task?: TaskFilter;
-}
-/** A filter to be used against `EmailNote` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailNoteFilter {
-  /** Filter by the object’s `emailId` field. */
-  emailId?: UUIDFilter;
-  /** Filter by the object’s `noteId` field. */
-  noteId?: UUIDFilter;
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailNoteFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailNoteFilter[];
-  /** Negates the expression. */
-  not?: EmailNoteFilter;
-  /** Filter by the object’s `email` relation. */
-  email?: EmailFilter;
-  /** Filter by the object’s `note` relation. */
-  note?: NoteFilter;
 }
 /** A filter to be used against `TaskProject` object types. All fields are combined with a logical ‘and.’ */
 export interface TaskProjectFilter {
@@ -15890,10 +15482,6 @@ export interface ContactFilter {
   contactRelationships?: ContactToManyContactRelationshipFilter;
   /** `contactRelationships` exist. */
   contactRelationshipsExist?: boolean;
-  /** Filter by the object’s `emailsByFromContactId` relation. */
-  emailsByFromContactId?: ContactToManyEmailFilter;
-  /** `emailsByFromContactId` exist. */
-  emailsByFromContactIdExist?: boolean;
   /** Filter by the object’s `calendarEventsByOrganizerContactId` relation. */
   calendarEventsByOrganizerContactId?: ContactToManyCalendarEventFilter;
   /** `calendarEventsByOrganizerContactId` exist. */
@@ -15930,10 +15518,6 @@ export interface ContactFilter {
   threadParticipants?: ContactToManyThreadParticipantFilter;
   /** `threadParticipants` exist. */
   threadParticipantsExist?: boolean;
-  /** Filter by the object’s `emailRecipients` relation. */
-  emailRecipients?: ContactToManyEmailRecipientFilter;
-  /** `emailRecipients` exist. */
-  emailRecipientsExist?: boolean;
   /** TSV search on the `search_tsv` column. */
   tsvSearchTsv?: string;
   /** BM25 search on the `embedding_text` column. */
@@ -16291,36 +15875,58 @@ export interface VenueImageFilter {
   /** Filter by the object’s `venue` relation. */
   venue?: VenueFilter;
 }
-/** A filter to be used against `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailAttachmentFilter {
+/** A filter to be used against `Email` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
-  /** Filter by the object’s `filename` field. */
-  filename?: StringFilter;
-  /** Filter by the object’s `contentType` field. */
-  contentType?: StringFilter;
-  /** Filter by the object’s `sizeBytes` field. */
-  sizeBytes?: IntFilter;
-  /** Filter by the object’s `storageUrl` field. */
-  storageUrl?: StringFilter;
-  /** Filter by the object’s `providerAttachmentId` field. */
-  providerAttachmentId?: StringFilter;
+  /** Filter by the object’s `providerMessageId` field. */
+  providerMessageId?: StringFilter;
+  /** Filter by the object’s `fromContactId` field. */
+  fromContactId?: UUIDFilter;
+  /** Filter by the object’s `to` field. */
+  to?: JSONFilter;
+  /** Filter by the object’s `cc` field. */
+  cc?: JSONFilter;
+  /** Filter by the object’s `bcc` field. */
+  bcc?: JSONFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringFilter;
+  /** Filter by the object’s `bodyText` field. */
+  bodyText?: StringFilter;
+  /** Filter by the object’s `bodyHtml` field. */
+  bodyHtml?: StringFilter;
+  /** Filter by the object’s `sentAt` field. */
+  sentAt?: DatetimeFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
   /** Filter by the object’s `createdAt` field. */
   createdAt?: DatetimeFilter;
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `emailId` field. */
-  emailId?: UUIDFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `emailThreadId` field. */
+  emailThreadId?: UUIDFilter;
   /** Checks for all expressions in this list. */
-  and?: EmailAttachmentFilter[];
+  and?: EmailFilter[];
   /** Checks for any expressions in this list. */
-  or?: EmailAttachmentFilter[];
+  or?: EmailFilter[];
   /** Negates the expression. */
-  not?: EmailAttachmentFilter;
-  /** Filter by the object’s `email` relation. */
-  email?: EmailFilter;
+  not?: EmailFilter;
+  /** Filter by the object’s `emailThread` relation. */
+  emailThread?: EmailThreadFilter;
+  /** Filter by the object’s `emailAttachments` relation. */
+  emailAttachments?: EmailToManyEmailAttachmentFilter;
+  /** `emailAttachments` exist. */
+  emailAttachmentsExist?: boolean;
 }
 /** A filter to be used against `GoalProject` object types. All fields are combined with a logical ‘and.’ */
 export interface GoalProjectFilter {
@@ -16398,6 +16004,37 @@ export interface MessageFilter {
    * fields are populated.
    */
   fullTextSearch?: string;
+}
+/** A filter to be used against `EmailAttachment` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailAttachmentFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `filename` field. */
+  filename?: StringFilter;
+  /** Filter by the object’s `contentType` field. */
+  contentType?: StringFilter;
+  /** Filter by the object’s `sizeBytes` field. */
+  sizeBytes?: IntFilter;
+  /** Filter by the object’s `storageUrl` field. */
+  storageUrl?: StringFilter;
+  /** Filter by the object’s `providerAttachmentId` field. */
+  providerAttachmentId?: StringFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `emailId` field. */
+  emailId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailAttachmentFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailAttachmentFilter[];
+  /** Negates the expression. */
+  not?: EmailAttachmentFilter;
+  /** Filter by the object’s `email` relation. */
+  email?: EmailFilter;
 }
 /** A filter to be used against `VenueLink` object types. All fields are combined with a logical ‘and.’ */
 export interface VenueLinkFilter {
@@ -17447,10 +17084,6 @@ export interface NoteFilter {
   taskNotes?: NoteToManyTaskNoteFilter;
   /** `taskNotes` exist. */
   taskNotesExist?: boolean;
-  /** Filter by the object’s `emailNotes` relation. */
-  emailNotes?: NoteToManyEmailNoteFilter;
-  /** `emailNotes` exist. */
-  emailNotesExist?: boolean;
   /** Filter by the object’s `calendarEventNotes` relation. */
   calendarEventNotes?: NoteToManyCalendarEventNoteFilter;
   /** `calendarEventNotes` exist. */
@@ -17614,74 +17247,6 @@ export interface ImageFilter {
   /** VECTOR search on the `embedding` column. */
   vectorEmbedding?: VectorNearbyInput;
 }
-/** A filter to be used against `EmailThread` object types. All fields are combined with a logical ‘and.’ */
-export interface EmailThreadFilter {
-  /** Filter by the object’s `id` field. */
-  id?: UUIDFilter;
-  /** Filter by the object’s `entityId` field. */
-  entityId?: UUIDFilter;
-  /** Filter by the object’s `providerThreadId` field. */
-  providerThreadId?: StringTrgmFilter;
-  /** Filter by the object’s `subject` field. */
-  subject?: StringTrgmFilter;
-  /** Filter by the object’s `lastMessageAt` field. */
-  lastMessageAt?: DatetimeFilter;
-  /** Filter by the object’s `summary` field. */
-  summary?: StringTrgmFilter;
-  /** Filter by the object’s `status` field. */
-  status?: StringTrgmFilter;
-  /** Filter by the object’s `tags` field. */
-  tags?: StringListFilter;
-  /** Filter by the object’s `createdAt` field. */
-  createdAt?: DatetimeFilter;
-  /** Filter by the object’s `updatedAt` field. */
-  updatedAt?: DatetimeFilter;
-  /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
-  /** Filter by the object’s `searchTsv` field. */
-  searchTsv?: FullTextFilter;
-  /** Filter by the object’s `embedding` field. */
-  embedding?: VectorFilter;
-  /** Filter by the object’s `embeddingStale` field. */
-  embeddingStale?: BooleanFilter;
-  /** Checks for all expressions in this list. */
-  and?: EmailThreadFilter[];
-  /** Checks for any expressions in this list. */
-  or?: EmailThreadFilter[];
-  /** Negates the expression. */
-  not?: EmailThreadFilter;
-  /** Filter by the object’s `emails` relation. */
-  emails?: EmailThreadToManyEmailFilter;
-  /** `emails` exist. */
-  emailsExist?: boolean;
-  /** Filter by the object’s `threadParticipants` relation. */
-  threadParticipants?: EmailThreadToManyThreadParticipantFilter;
-  /** `threadParticipants` exist. */
-  threadParticipantsExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_thread_id` column. */
-  trgmProviderThreadId?: TrgmSearchInput;
-  /** TRGM search on the `subject` column. */
-  trgmSubject?: TrgmSearchInput;
-  /** TRGM search on the `summary` column. */
-  trgmSummary?: TrgmSearchInput;
-  /** TRGM search on the `status` column. */
-  trgmStatus?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
-}
 /** A filter to be used against `Project` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectFilter {
   /** Filter by the object’s `id` field. */
@@ -17748,6 +17313,74 @@ export interface ProjectFilter {
   trgmStatus?: TrgmSearchInput;
   /** TRGM search on the `project_type` column. */
   trgmProjectType?: TrgmSearchInput;
+  /** TRGM search on the `embedding_text` column. */
+  trgmEmbeddingText?: TrgmSearchInput;
+  /**
+   * Composite full-text search. Provide a search string and it will be dispatched
+   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
+   * simultaneously. Rows matching ANY algorithm are returned. All matching score
+   * fields are populated.
+   */
+  fullTextSearch?: string;
+}
+/** A filter to be used against `EmailThread` object types. All fields are combined with a logical ‘and.’ */
+export interface EmailThreadFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `providerThreadId` field. */
+  providerThreadId?: StringTrgmFilter;
+  /** Filter by the object’s `subject` field. */
+  subject?: StringTrgmFilter;
+  /** Filter by the object’s `lastMessageAt` field. */
+  lastMessageAt?: DatetimeFilter;
+  /** Filter by the object’s `summary` field. */
+  summary?: StringTrgmFilter;
+  /** Filter by the object’s `status` field. */
+  status?: StringTrgmFilter;
+  /** Filter by the object’s `tags` field. */
+  tags?: StringListFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `embeddingText` field. */
+  embeddingText?: StringTrgmFilter;
+  /** Filter by the object’s `searchTsv` field. */
+  searchTsv?: FullTextFilter;
+  /** Filter by the object’s `embedding` field. */
+  embedding?: VectorFilter;
+  /** Filter by the object’s `embeddingStale` field. */
+  embeddingStale?: BooleanFilter;
+  /** Checks for all expressions in this list. */
+  and?: EmailThreadFilter[];
+  /** Checks for any expressions in this list. */
+  or?: EmailThreadFilter[];
+  /** Negates the expression. */
+  not?: EmailThreadFilter;
+  /** Filter by the object’s `emails` relation. */
+  emails?: EmailThreadToManyEmailFilter;
+  /** `emails` exist. */
+  emailsExist?: boolean;
+  /** Filter by the object’s `threadParticipants` relation. */
+  threadParticipants?: EmailThreadToManyThreadParticipantFilter;
+  /** `threadParticipants` exist. */
+  threadParticipantsExist?: boolean;
+  /** TSV search on the `search_tsv` column. */
+  tsvSearchTsv?: string;
+  /** BM25 search on the `embedding_text` column. */
+  bm25EmbeddingText?: Bm25SearchInput;
+  /** VECTOR search on the `embedding` column. */
+  vectorEmbedding?: VectorNearbyInput;
+  /** TRGM search on the `provider_thread_id` column. */
+  trgmProviderThreadId?: TrgmSearchInput;
+  /** TRGM search on the `subject` column. */
+  trgmSubject?: TrgmSearchInput;
+  /** TRGM search on the `summary` column. */
+  trgmSummary?: TrgmSearchInput;
+  /** TRGM search on the `status` column. */
+  trgmStatus?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
@@ -19470,51 +19103,6 @@ export type CreateContactCompanyPayloadSelect = {
     select: ContactCompanySelect;
   };
 };
-export interface CreateEmailPayload {
-  clientMutationId?: string | null;
-  /** The `Email` that was created by this mutation. */
-  email?: Email | null;
-  emailEdge?: EmailEdge | null;
-}
-export type CreateEmailPayloadSelect = {
-  clientMutationId?: boolean;
-  email?: {
-    select: EmailSelect;
-  };
-  emailEdge?: {
-    select: EmailEdgeSelect;
-  };
-};
-export interface UpdateEmailPayload {
-  clientMutationId?: string | null;
-  /** The `Email` that was updated by this mutation. */
-  email?: Email | null;
-  emailEdge?: EmailEdge | null;
-}
-export type UpdateEmailPayloadSelect = {
-  clientMutationId?: boolean;
-  email?: {
-    select: EmailSelect;
-  };
-  emailEdge?: {
-    select: EmailEdgeSelect;
-  };
-};
-export interface DeleteEmailPayload {
-  clientMutationId?: string | null;
-  /** The `Email` that was deleted by this mutation. */
-  email?: Email | null;
-  emailEdge?: EmailEdge | null;
-}
-export type DeleteEmailPayloadSelect = {
-  clientMutationId?: boolean;
-  email?: {
-    select: EmailSelect;
-  };
-  emailEdge?: {
-    select: EmailEdgeSelect;
-  };
-};
 export interface CreateEmailThreadPayload {
   clientMutationId?: string | null;
   /** The `EmailThread` that was created by this mutation. */
@@ -19975,94 +19563,49 @@ export type DeleteEmailAttachmentPayloadSelect = {
     select: EmailAttachmentEdgeSelect;
   };
 };
-export interface CreateEmailNotePayload {
+export interface CreateEmailPayload {
   clientMutationId?: string | null;
-  /** The `EmailNote` that was created by this mutation. */
-  emailNote?: EmailNote | null;
-  emailNoteEdge?: EmailNoteEdge | null;
+  /** The `Email` that was created by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
 }
-export type CreateEmailNotePayloadSelect = {
+export type CreateEmailPayloadSelect = {
   clientMutationId?: boolean;
-  emailNote?: {
-    select: EmailNoteSelect;
+  email?: {
+    select: EmailSelect;
   };
-  emailNoteEdge?: {
-    select: EmailNoteEdgeSelect;
+  emailEdge?: {
+    select: EmailEdgeSelect;
   };
 };
-export interface UpdateEmailNotePayload {
+export interface UpdateEmailPayload {
   clientMutationId?: string | null;
-  /** The `EmailNote` that was updated by this mutation. */
-  emailNote?: EmailNote | null;
-  emailNoteEdge?: EmailNoteEdge | null;
+  /** The `Email` that was updated by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
 }
-export type UpdateEmailNotePayloadSelect = {
+export type UpdateEmailPayloadSelect = {
   clientMutationId?: boolean;
-  emailNote?: {
-    select: EmailNoteSelect;
+  email?: {
+    select: EmailSelect;
   };
-  emailNoteEdge?: {
-    select: EmailNoteEdgeSelect;
+  emailEdge?: {
+    select: EmailEdgeSelect;
   };
 };
-export interface DeleteEmailNotePayload {
+export interface DeleteEmailPayload {
   clientMutationId?: string | null;
-  /** The `EmailNote` that was deleted by this mutation. */
-  emailNote?: EmailNote | null;
-  emailNoteEdge?: EmailNoteEdge | null;
+  /** The `Email` that was deleted by this mutation. */
+  email?: Email | null;
+  emailEdge?: EmailEdge | null;
 }
-export type DeleteEmailNotePayloadSelect = {
+export type DeleteEmailPayloadSelect = {
   clientMutationId?: boolean;
-  emailNote?: {
-    select: EmailNoteSelect;
+  email?: {
+    select: EmailSelect;
   };
-  emailNoteEdge?: {
-    select: EmailNoteEdgeSelect;
-  };
-};
-export interface CreateEmailRecipientPayload {
-  clientMutationId?: string | null;
-  /** The `EmailRecipient` that was created by this mutation. */
-  emailRecipient?: EmailRecipient | null;
-  emailRecipientEdge?: EmailRecipientEdge | null;
-}
-export type CreateEmailRecipientPayloadSelect = {
-  clientMutationId?: boolean;
-  emailRecipient?: {
-    select: EmailRecipientSelect;
-  };
-  emailRecipientEdge?: {
-    select: EmailRecipientEdgeSelect;
-  };
-};
-export interface UpdateEmailRecipientPayload {
-  clientMutationId?: string | null;
-  /** The `EmailRecipient` that was updated by this mutation. */
-  emailRecipient?: EmailRecipient | null;
-  emailRecipientEdge?: EmailRecipientEdge | null;
-}
-export type UpdateEmailRecipientPayloadSelect = {
-  clientMutationId?: boolean;
-  emailRecipient?: {
-    select: EmailRecipientSelect;
-  };
-  emailRecipientEdge?: {
-    select: EmailRecipientEdgeSelect;
-  };
-};
-export interface DeleteEmailRecipientPayload {
-  clientMutationId?: string | null;
-  /** The `EmailRecipient` that was deleted by this mutation. */
-  emailRecipient?: EmailRecipient | null;
-  emailRecipientEdge?: EmailRecipientEdge | null;
-}
-export type DeleteEmailRecipientPayloadSelect = {
-  clientMutationId?: boolean;
-  emailRecipient?: {
-    select: EmailRecipientSelect;
-  };
-  emailRecipientEdge?: {
-    select: EmailRecipientEdgeSelect;
+  emailEdge?: {
+    select: EmailEdgeSelect;
   };
 };
 export interface CreateEventImagePayload {
@@ -22119,18 +21662,6 @@ export type CompanyNoteEdgeSelect = {
     select: CompanyNoteSelect;
   };
 };
-/** A `Email` edge in the connection. */
-export interface EmailEdge {
-  cursor?: string | null;
-  /** The `Email` at the end of the edge. */
-  node?: Email | null;
-}
-export type EmailEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: EmailSelect;
-  };
-};
 /** A `EmailThread` edge in the connection. */
 export interface EmailThreadEdge {
   cursor?: string | null;
@@ -22239,28 +21770,16 @@ export type EmailAttachmentEdgeSelect = {
     select: EmailAttachmentSelect;
   };
 };
-/** A `EmailNote` edge in the connection. */
-export interface EmailNoteEdge {
+/** A `Email` edge in the connection. */
+export interface EmailEdge {
   cursor?: string | null;
-  /** The `EmailNote` at the end of the edge. */
-  node?: EmailNote | null;
+  /** The `Email` at the end of the edge. */
+  node?: Email | null;
 }
-export type EmailNoteEdgeSelect = {
+export type EmailEdgeSelect = {
   cursor?: boolean;
   node?: {
-    select: EmailNoteSelect;
-  };
-};
-/** A `EmailRecipient` edge in the connection. */
-export interface EmailRecipientEdge {
-  cursor?: string | null;
-  /** The `EmailRecipient` at the end of the edge. */
-  node?: EmailRecipient | null;
-}
-export type EmailRecipientEdgeSelect = {
-  cursor?: boolean;
-  node?: {
-    select: EmailRecipientSelect;
+    select: EmailSelect;
   };
 };
 /** A `EventLink` edge in the connection. */

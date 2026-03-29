@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_profiles_public/tables/org_profile_grants/columns/entity_id/column
 
 
-CREATE INDEX org_profile_grants_entity_id_idx ON "agentic_db_profiles_public".org_profile_grants USING BTREE ( entity_id );
+CREATE INDEX org_profile_grants_entity_id_idx ON agentic_db_profiles_public.org_profile_grants USING BTREE ( entity_id );
 

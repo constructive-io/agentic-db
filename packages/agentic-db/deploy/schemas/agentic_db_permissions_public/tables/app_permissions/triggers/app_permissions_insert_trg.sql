@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER app_permissions_insert_trg
-BEFORE INSERT ON "agentic_db_permissions_public".app_permissions
+BEFORE INSERT ON agentic_db_permissions_public.app_permissions
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_permissions_private".app_permissions_bitnum_tg ( );
+EXECUTE PROCEDURE agentic_db_permissions_private.app_permissions_bitnum_tg ( );
 

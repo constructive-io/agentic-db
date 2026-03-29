@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/autonomy_records/indexes/autonomy_records_source_idx
 
 
-GRANT DELETE ON "agentic_db_app_public".project_contacts TO authenticated;
+GRANT DELETE ON agentic_db_app_public.project_contacts TO authenticated;
 

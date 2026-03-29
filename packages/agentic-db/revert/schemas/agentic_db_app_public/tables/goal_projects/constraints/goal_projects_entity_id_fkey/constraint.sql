@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/goal_projects/constraints/goal_projects_entity_id_fkey/constraint
 
 
-ALTER TABLE "agentic_db_app_public".goal_projects 
+ALTER TABLE agentic_db_app_public.goal_projects 
   DROP CONSTRAINT goal_projects_entity_id_fkey;
 
 

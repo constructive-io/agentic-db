@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_memories/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX company_memories_company_id_idx ON "agentic_db_app_public".company_memories USING BTREE ( company_id );
+CREATE INDEX company_memories_company_id_idx ON agentic_db_app_public.company_memories USING BTREE ( company_id );
 

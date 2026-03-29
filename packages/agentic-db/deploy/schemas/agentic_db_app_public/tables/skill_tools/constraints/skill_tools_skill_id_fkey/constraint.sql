@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/company_memories/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE "agentic_db_app_public".skill_tools 
+ALTER TABLE agentic_db_app_public.skill_tools 
   ADD CONSTRAINT skill_tools_skill_id_fkey 
     FOREIGN KEY(skill_id) 
-    REFERENCES "agentic_db_app_public".skills (id) 
+    REFERENCES agentic_db_app_public.skills (id) 
     ON DELETE CASCADE;
 

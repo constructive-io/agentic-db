@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_trip_id_idx
 
 
-ALTER TABLE "agentic_db_app_public".activity_logs 
+ALTER TABLE agentic_db_app_public.activity_logs 
   ADD COLUMN habit_id uuid;
 

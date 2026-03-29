@@ -24,6 +24,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['name', 'state_type'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -49,6 +50,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['message'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -159,6 +161,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['title'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -180,6 +183,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['content'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [

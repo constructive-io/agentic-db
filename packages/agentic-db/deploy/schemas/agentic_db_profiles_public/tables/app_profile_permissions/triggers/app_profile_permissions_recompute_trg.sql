@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER app_profile_permissions_recompute_trg
-AFTER INSERT OR DELETE OR UPDATE ON "agentic_db_profiles_public".app_profile_permissions
+AFTER INSERT OR DELETE OR UPDATE ON agentic_db_profiles_public.app_profile_permissions
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_profiles_private".app_profile_permissions_recompute_tg ( );
+EXECUTE PROCEDURE agentic_db_profiles_private.app_profile_permissions_recompute_tg ( );
 

@@ -25,6 +25,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['name', 'description', 'system_prompt'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -51,6 +52,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['title', 'description', 'result'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -78,6 +80,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['message'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -101,6 +104,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['name', 'description', 'trigger_concept'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
         { $type: 'DataEmbedding', data: { field_name: 'trigger_concept_embedding', source_fields: ['trigger_concept'], enqueue_job: false } },
       ],
@@ -129,6 +133,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['name', 'description', 'intent_trigger'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
         { $type: 'DataEmbedding', data: { field_name: 'intent_trigger_embedding', source_fields: ['intent_trigger'], enqueue_job: false } },
       ],
@@ -155,6 +160,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['name', 'description'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -179,6 +185,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['name', 'content'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [
@@ -203,6 +210,7 @@ const definition: BlueprintDefinition = {
         { $type: 'DataSearch', data: {
           embedding: { source_fields: ['description', 'notes'] },
           bm25: { field_name: 'embedding_text' },
+        chunks: {},
         }},
       ],
       fields: [

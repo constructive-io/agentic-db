@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".calendars 
+ALTER TABLE agentic_db_app_public.calendars 
   ADD COLUMN created_at timestamptz;
 

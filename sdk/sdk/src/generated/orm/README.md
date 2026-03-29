@@ -52,7 +52,6 @@ const db = createClient({
 | `companyMemory` | findMany, findOne, create, update, delete |
 | `companyNote` | findMany, findOne, create, update, delete |
 | `contactCompany` | findMany, findOne, create, update, delete |
-| `email` | findMany, findOne, create, update, delete |
 | `emailThread` | findMany, findOne, create, update, delete |
 | `contactEvent` | findMany, findOne, create, update, delete |
 | `expense` | findMany, findOne, create, update, delete |
@@ -67,8 +66,7 @@ const db = createClient({
 | `dealContact` | findMany, findOne, create, update, delete |
 | `dealNote` | findMany, findOne, create, update, delete |
 | `emailAttachment` | findMany, findOne, create, update, delete |
-| `emailNote` | findMany, findOne, create, update, delete |
-| `emailRecipient` | findMany, findOne, create, update, delete |
+| `email` | findMany, findOne, create, update, delete |
 | `eventImage` | findMany, findOne, create, update, delete |
 | `eventLink` | findMany, findOne, create, update, delete |
 | `eventNote` | findMany, findOne, create, update, delete |
@@ -1426,53 +1424,6 @@ const updated = await db.contactCompany.update({ where: { id: '<UUID>' }, data: 
 const deleted = await db.contactCompany.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.email`
-
-CRUD operations for Email records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `providerMessageId` | String | Yes |
-| `fromContactId` | UUID | Yes |
-| `to` | JSON | Yes |
-| `cc` | JSON | Yes |
-| `bcc` | JSON | Yes |
-| `subject` | String | Yes |
-| `bodyText` | String | Yes |
-| `bodyHtml` | String | Yes |
-| `sentAt` | Datetime | Yes |
-| `tags` | String | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingText` | String | Yes |
-| `searchTsv` | FullText | Yes |
-| `embedding` | Vector | Yes |
-| `embeddingStale` | Boolean | Yes |
-| `emailThreadId` | UUID | Yes |
-
-**Operations:**
-
-```typescript
-// List all email records
-const items = await db.email.findMany({ select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true } }).execute();
-
-// Get one by id
-const item = await db.email.findOne({ id: '<UUID>', select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true } }).execute();
-
-// Create
-const created = await db.email.create({ data: { entityId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', to: '<JSON>', cc: '<JSON>', bcc: '<JSON>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.email.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.email.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.emailThread`
 
 CRUD operations for EmailThread records.
@@ -1997,68 +1948,51 @@ const updated = await db.emailAttachment.update({ where: { id: '<UUID>' }, data:
 const deleted = await db.emailAttachment.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.emailNote`
+### `db.email`
 
-CRUD operations for EmailNote records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `emailId` | UUID | Yes |
-| `noteId` | UUID | Yes |
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-
-**Operations:**
-
-```typescript
-// List all emailNote records
-const items = await db.emailNote.findMany({ select: { emailId: true, noteId: true, id: true, entityId: true } }).execute();
-
-// Get one by id
-const item = await db.emailNote.findOne({ id: '<UUID>', select: { emailId: true, noteId: true, id: true, entityId: true } }).execute();
-
-// Create
-const created = await db.emailNote.create({ data: { emailId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.emailNote.update({ where: { id: '<UUID>' }, data: { emailId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.emailNote.delete({ where: { id: '<UUID>' } }).execute();
-```
-
-### `db.emailRecipient`
-
-CRUD operations for EmailRecipient records.
+CRUD operations for Email records.
 
 **Fields:**
 
 | Field | Type | Editable |
 |-------|------|----------|
-| `emailId` | UUID | Yes |
-| `contactId` | UUID | Yes |
 | `id` | UUID | No |
 | `entityId` | UUID | Yes |
+| `providerMessageId` | String | Yes |
+| `fromContactId` | UUID | Yes |
+| `to` | JSON | Yes |
+| `cc` | JSON | Yes |
+| `bcc` | JSON | Yes |
+| `subject` | String | Yes |
+| `bodyText` | String | Yes |
+| `bodyHtml` | String | Yes |
+| `sentAt` | Datetime | Yes |
+| `tags` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `searchTsv` | FullText | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `emailThreadId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
-// List all emailRecipient records
-const items = await db.emailRecipient.findMany({ select: { emailId: true, contactId: true, id: true, entityId: true } }).execute();
+// List all email records
+const items = await db.email.findMany({ select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true } }).execute();
 
 // Get one by id
-const item = await db.emailRecipient.findOne({ id: '<UUID>', select: { emailId: true, contactId: true, id: true, entityId: true } }).execute();
+const item = await db.email.findOne({ id: '<UUID>', select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true } }).execute();
 
 // Create
-const created = await db.emailRecipient.create({ data: { emailId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.email.create({ data: { entityId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', to: '<JSON>', cc: '<JSON>', bcc: '<JSON>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
-const updated = await db.emailRecipient.update({ where: { id: '<UUID>' }, data: { emailId: '<UUID>' }, select: { id: true } }).execute();
+const updated = await db.email.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
-const deleted = await db.emailRecipient.delete({ where: { id: '<UUID>' } }).execute();
+const deleted = await db.email.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.eventImage`

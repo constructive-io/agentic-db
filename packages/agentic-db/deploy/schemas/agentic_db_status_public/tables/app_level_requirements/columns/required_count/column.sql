@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_status_public/tables/app_level_requirements/table
 
 
-ALTER TABLE "agentic_db_status_public".app_level_requirements 
+ALTER TABLE agentic_db_status_public.app_level_requirements 
   ADD COLUMN required_count int;
 

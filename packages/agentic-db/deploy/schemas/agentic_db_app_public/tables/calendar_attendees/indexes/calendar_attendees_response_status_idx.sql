@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/calendar_attendees/columns/response_status/column
 
 
-CREATE INDEX calendar_attendees_response_status_idx ON "agentic_db_app_public".calendar_attendees USING BTREE ( response_status );
+CREATE INDEX calendar_attendees_response_status_idx ON agentic_db_app_public.calendar_attendees USING BTREE ( response_status );
 

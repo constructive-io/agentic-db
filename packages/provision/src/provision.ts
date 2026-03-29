@@ -88,12 +88,24 @@ async function main() {
   if (pgAvailable) {
     console.log('\n\ud83d\udd11 Enabling app membership defaults...');
     const defaultsPool = new Pool({ database: process.env.PGDATABASE || 'constructive' });
-    await defaultsPool.query(
-      `UPDATE agentic_db_memberships_public.app_membership_defaults
-       SET is_approved = TRUE, is_verified = TRUE`
+    // Find the actual memberships schema name (varies by database naming convention)
+    const schemaResult = await defaultsPool.query(
+      `SELECT schema_name FROM information_schema.schemata
+       WHERE schema_name LIKE '%memberships_public' AND schema_name LIKE '%agentic%'
+       ORDER BY schema_name DESC LIMIT 1`
     );
+    if (schemaResult.rows.length > 0) {
+      const membershipsSchema = schemaResult.rows[0].schema_name;
+      await defaultsPool.query(
+        `UPDATE "${membershipsSchema}".app_membership_defaults
+         SET is_approved = TRUE, is_verified = TRUE`
+      );
+      console.log(`   schema: ${membershipsSchema}`);
+      console.log('   is_approved = TRUE, is_verified = TRUE');
+    } else {
+      console.log('   No memberships schema found - skipping defaults');
+    }
     await defaultsPool.end();
-    console.log('   is_approved = TRUE, is_verified = TRUE');
   }
 
   // Reset provision-only settings so normal operation uses random UUIDs.

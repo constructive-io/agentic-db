@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_trip_id_idx
 
 
-CREATE INDEX activity_logs_habit_id_idx ON "agentic_db_app_public".activity_logs USING BTREE ( habit_id );
+CREATE INDEX activity_logs_habit_id_idx ON agentic_db_app_public.activity_logs USING BTREE ( habit_id );
 

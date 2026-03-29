@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER code_chunks_embedding_stale_update_tg
-BEFORE UPDATE ON "agentic_db_app_public".code_chunks
+BEFORE UPDATE ON agentic_db_app_public.code_chunks
 FOR EACH ROW
 WHEN (OLD.content IS DISTINCT FROM NEW.content OR OLD.file_path IS DISTINCT FROM NEW.file_path OR OLD.symbol_name IS DISTINCT FROM NEW.symbol_name)
-EXECUTE PROCEDURE "agentic_db_private".code_chunks_embedding_stale ( );
+EXECUTE PROCEDURE agentic_db_private.code_chunks_embedding_stale ( );
 
