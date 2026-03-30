@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_invites_public/tables/invites/table
 
 
-GRANT DELETE ON agentic_db_invites_public.invites TO authenticated;
+GRANT DELETE ON "agentic_db_invites_public".invites TO authenticated;
 

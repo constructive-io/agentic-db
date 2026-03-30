@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/runtime_logs/grants/authenticated/insert/grant
 
 
-REVOKE INSERT ON agentic_db_app_public.runtime_logs FROM authenticated;
+REVOKE INSERT ON "agentic_db_app_public".runtime_logs FROM authenticated;
 
 

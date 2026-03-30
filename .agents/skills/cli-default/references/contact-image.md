@@ -9,8 +9,8 @@ CRUD operations for ContactImage records via agentic-db CLI
 ```bash
 agentic-db contact-image list
 agentic-db contact-image get --id <UUID>
-agentic-db contact-image create --contactId <UUID> --imageId <UUID>
-agentic-db contact-image update --id <UUID> [--contactId <UUID>] [--imageId <UUID>]
+agentic-db contact-image create --contactId <UUID> --imageId <UUID> --entityId <UUID>
+agentic-db contact-image update --id <UUID> [--contactId <UUID>] [--imageId <UUID>] [--entityId <UUID>]
 agentic-db contact-image delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db contact-image list
 ### Create a contactImage
 
 ```bash
-agentic-db contact-image create --contactId <UUID> --imageId <UUID>
+agentic-db contact-image create --contactId <UUID> --imageId <UUID> --entityId <UUID>
 ```
 
 ### Get a contactImage by id

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/app_memberships/columns/created_at/column
 
 
-CREATE INDEX app_memberships_created_at_idx ON agentic_db_memberships_public.app_memberships ( created_at );
+CREATE INDEX app_memberships_created_at_idx ON "agentic_db_memberships_public".app_memberships ( created_at );
 

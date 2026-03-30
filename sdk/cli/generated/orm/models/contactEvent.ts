@@ -97,6 +97,46 @@ export class ContactEventModel {
       variables,
     });
   }
+  findOne<S extends ContactEventSelect>(
+    args: {
+      id: string;
+      select: S;
+    } & StrictSelect<S, ContactEventSelect>
+  ): QueryBuilder<{
+    contactEvent: InferSelectResult<ContactEventWithRelations, S> | null;
+  }> {
+    const { document, variables } = buildFindManyDocument(
+      'ContactEvent',
+      'contactEvents',
+      args.select,
+      {
+        where: {
+          id: {
+            equalTo: args.id,
+          },
+        },
+        first: 1,
+      },
+      'ContactEventFilter',
+      'ContactEventOrderBy',
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'query',
+      operationName: 'ContactEvent',
+      fieldName: 'contactEvent',
+      document,
+      variables,
+      transform: (data: {
+        contactEvents?: {
+          nodes?: InferSelectResult<ContactEventWithRelations, S>[];
+        };
+      }) => ({
+        contactEvent: data.contactEvents?.nodes?.[0] ?? null,
+      }),
+    });
+  }
   create<S extends ContactEventSelect>(
     args: CreateArgs<S, CreateContactEventInput['contactEvent']> & {
       select: S;
@@ -120,6 +160,76 @@ export class ContactEventModel {
       operation: 'mutation',
       operationName: 'ContactEvent',
       fieldName: 'createContactEvent',
+      document,
+      variables,
+    });
+  }
+  update<S extends ContactEventSelect>(
+    args: UpdateArgs<
+      S,
+      {
+        id: string;
+      },
+      ContactEventPatch
+    > & {
+      select: S;
+    } & StrictSelect<S, ContactEventSelect>
+  ): QueryBuilder<{
+    updateContactEvent: {
+      contactEvent: InferSelectResult<ContactEventWithRelations, S>;
+    };
+  }> {
+    const { document, variables } = buildUpdateByPkDocument(
+      'ContactEvent',
+      'updateContactEvent',
+      'contactEvent',
+      args.select,
+      args.where.id,
+      args.data,
+      'UpdateContactEventInput',
+      'id',
+      'contactEventPatch',
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'mutation',
+      operationName: 'ContactEvent',
+      fieldName: 'updateContactEvent',
+      document,
+      variables,
+    });
+  }
+  delete<S extends ContactEventSelect>(
+    args: DeleteArgs<
+      {
+        id: string;
+      },
+      S
+    > & {
+      select: S;
+    } & StrictSelect<S, ContactEventSelect>
+  ): QueryBuilder<{
+    deleteContactEvent: {
+      contactEvent: InferSelectResult<ContactEventWithRelations, S>;
+    };
+  }> {
+    const { document, variables } = buildDeleteByPkDocument(
+      'ContactEvent',
+      'deleteContactEvent',
+      'contactEvent',
+      {
+        id: args.where.id,
+      },
+      'DeleteContactEventInput',
+      args.select,
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'mutation',
+      operationName: 'ContactEvent',
+      fieldName: 'deleteContactEvent',
       document,
       variables,
     });

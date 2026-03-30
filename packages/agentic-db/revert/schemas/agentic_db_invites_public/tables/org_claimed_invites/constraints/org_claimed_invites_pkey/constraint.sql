@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_invites_public/tables/org_claimed_invites/constraints/org_claimed_invites_pkey/constraint
 
 
-ALTER TABLE agentic_db_invites_public.org_claimed_invites 
+ALTER TABLE "agentic_db_invites_public".org_claimed_invites 
   DROP CONSTRAINT org_claimed_invites_pkey;
 
 

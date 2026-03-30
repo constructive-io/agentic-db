@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _00030_app_memberships_sprt_to_org_memberships_sprt
-AFTER INSERT OR DELETE ON agentic_db_memberships_private.app_memberships_sprt
+AFTER INSERT OR DELETE ON "agentic_db_memberships_private".app_memberships_sprt
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_memberships_private.app_memberships_sprt_to_org_memberships_sprt_tg ( );
+EXECUTE PROCEDURE "agentic_db_memberships_private".app_memberships_sprt_to_org_memberships_sprt_tg ( );
 

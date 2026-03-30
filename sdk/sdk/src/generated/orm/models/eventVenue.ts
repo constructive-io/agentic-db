@@ -97,6 +97,46 @@ export class EventVenueModel {
       variables,
     });
   }
+  findOne<S extends EventVenueSelect>(
+    args: {
+      id: string;
+      select: S;
+    } & StrictSelect<S, EventVenueSelect>
+  ): QueryBuilder<{
+    eventVenue: InferSelectResult<EventVenueWithRelations, S> | null;
+  }> {
+    const { document, variables } = buildFindManyDocument(
+      'EventVenue',
+      'eventVenues',
+      args.select,
+      {
+        where: {
+          id: {
+            equalTo: args.id,
+          },
+        },
+        first: 1,
+      },
+      'EventVenueFilter',
+      'EventVenueOrderBy',
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'query',
+      operationName: 'EventVenue',
+      fieldName: 'eventVenue',
+      document,
+      variables,
+      transform: (data: {
+        eventVenues?: {
+          nodes?: InferSelectResult<EventVenueWithRelations, S>[];
+        };
+      }) => ({
+        eventVenue: data.eventVenues?.nodes?.[0] ?? null,
+      }),
+    });
+  }
   create<S extends EventVenueSelect>(
     args: CreateArgs<S, CreateEventVenueInput['eventVenue']> & {
       select: S;
@@ -120,6 +160,76 @@ export class EventVenueModel {
       operation: 'mutation',
       operationName: 'EventVenue',
       fieldName: 'createEventVenue',
+      document,
+      variables,
+    });
+  }
+  update<S extends EventVenueSelect>(
+    args: UpdateArgs<
+      S,
+      {
+        id: string;
+      },
+      EventVenuePatch
+    > & {
+      select: S;
+    } & StrictSelect<S, EventVenueSelect>
+  ): QueryBuilder<{
+    updateEventVenue: {
+      eventVenue: InferSelectResult<EventVenueWithRelations, S>;
+    };
+  }> {
+    const { document, variables } = buildUpdateByPkDocument(
+      'EventVenue',
+      'updateEventVenue',
+      'eventVenue',
+      args.select,
+      args.where.id,
+      args.data,
+      'UpdateEventVenueInput',
+      'id',
+      'eventVenuePatch',
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'mutation',
+      operationName: 'EventVenue',
+      fieldName: 'updateEventVenue',
+      document,
+      variables,
+    });
+  }
+  delete<S extends EventVenueSelect>(
+    args: DeleteArgs<
+      {
+        id: string;
+      },
+      S
+    > & {
+      select: S;
+    } & StrictSelect<S, EventVenueSelect>
+  ): QueryBuilder<{
+    deleteEventVenue: {
+      eventVenue: InferSelectResult<EventVenueWithRelations, S>;
+    };
+  }> {
+    const { document, variables } = buildDeleteByPkDocument(
+      'EventVenue',
+      'deleteEventVenue',
+      'eventVenue',
+      {
+        id: args.where.id,
+      },
+      'DeleteEventVenueInput',
+      args.select,
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'mutation',
+      operationName: 'EventVenue',
+      fieldName: 'deleteEventVenue',
       document,
       variables,
     });

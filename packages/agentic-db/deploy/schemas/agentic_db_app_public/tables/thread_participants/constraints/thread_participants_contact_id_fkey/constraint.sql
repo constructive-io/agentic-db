@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/skill_tools/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.thread_participants 
+ALTER TABLE "agentic_db_app_public".thread_participants 
   ADD CONSTRAINT thread_participants_contact_id_fkey 
     FOREIGN KEY(contact_id) 
-    REFERENCES agentic_db_app_public.contacts (id) 
+    REFERENCES "agentic_db_app_public".contacts (id) 
     ON DELETE CASCADE;
 

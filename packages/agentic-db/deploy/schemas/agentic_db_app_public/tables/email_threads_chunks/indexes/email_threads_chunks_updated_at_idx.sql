@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/email_threads_chunks/columns/updated_at/column
 
 
-CREATE INDEX email_threads_chunks_updated_at_idx ON agentic_db_app_public.email_threads_chunks ( updated_at );
+CREATE INDEX email_threads_chunks_updated_at_idx ON "agentic_db_app_public".email_threads_chunks ( updated_at );
 

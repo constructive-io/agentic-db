@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-ALTER TABLE agentic_db_app_public.emails_chunks 
+ALTER TABLE "agentic_db_app_public".emails_chunks 
   ADD CONSTRAINT emails_chunks_pkey PRIMARY KEY (id);
 

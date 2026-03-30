@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER runtime_states_enqueue_chunking_insert_tg
-AFTER INSERT ON agentic_db_app_public.runtime_states
+AFTER INSERT ON "agentic_db_app_public".runtime_states
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.runtime_states_enqueue_chunking ( );
+EXECUTE PROCEDURE "agentic_db_private".runtime_states_enqueue_chunking ( );
 

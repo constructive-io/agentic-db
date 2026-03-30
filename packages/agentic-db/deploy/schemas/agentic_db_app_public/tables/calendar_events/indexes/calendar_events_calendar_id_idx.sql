@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/calendar_events/columns/calendar_id/column
 
 
-CREATE INDEX calendar_events_calendar_id_idx ON agentic_db_app_public.calendar_events USING BTREE ( calendar_id );
+CREATE INDEX calendar_events_calendar_id_idx ON "agentic_db_app_public".calendar_events USING BTREE ( calendar_id );
 

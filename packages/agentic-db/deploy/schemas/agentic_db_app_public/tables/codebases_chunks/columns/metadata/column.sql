@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
-ALTER TABLE agentic_db_app_public.codebases_chunks 
+ALTER TABLE "agentic_db_app_public".codebases_chunks 
   ADD COLUMN metadata jsonb;
 

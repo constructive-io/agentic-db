@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_notes/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.company_notes 
+ALTER TABLE "agentic_db_app_public".company_notes 
   ADD CONSTRAINT company_notes_company_id_fkey 
     FOREIGN KEY(company_id) 
-    REFERENCES agentic_db_app_public.companies (id) 
+    REFERENCES "agentic_db_app_public".companies (id) 
     ON DELETE CASCADE;
 

@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/emails/table
 
 
-ALTER TABLE agentic_db_user_identifiers_public.emails 
+ALTER TABLE "agentic_db_user_identifiers_public".emails 
   ADD CONSTRAINT emails_owner_id_fkey 
     FOREIGN KEY(owner_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

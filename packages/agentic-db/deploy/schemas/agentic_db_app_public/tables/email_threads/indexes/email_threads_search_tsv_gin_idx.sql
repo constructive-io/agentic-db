@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/email_threads/columns/search_tsv/column
 
 
-CREATE INDEX email_threads_search_tsv_gin_idx ON agentic_db_app_public.email_threads USING GIN ( search_tsv );
+CREATE INDEX email_threads_search_tsv_gin_idx ON "agentic_db_app_public".email_threads USING GIN ( search_tsv );
 

@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER calendar_events_embedding_stale_insert_tg
-BEFORE INSERT ON agentic_db_app_public.calendar_events
+BEFORE INSERT ON "agentic_db_app_public".calendar_events
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.calendar_events_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".calendar_events_embedding_stale ( );
 

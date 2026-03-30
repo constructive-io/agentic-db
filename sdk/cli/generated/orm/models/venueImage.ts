@@ -97,6 +97,46 @@ export class VenueImageModel {
       variables,
     });
   }
+  findOne<S extends VenueImageSelect>(
+    args: {
+      id: string;
+      select: S;
+    } & StrictSelect<S, VenueImageSelect>
+  ): QueryBuilder<{
+    venueImage: InferSelectResult<VenueImageWithRelations, S> | null;
+  }> {
+    const { document, variables } = buildFindManyDocument(
+      'VenueImage',
+      'venueImages',
+      args.select,
+      {
+        where: {
+          id: {
+            equalTo: args.id,
+          },
+        },
+        first: 1,
+      },
+      'VenueImageFilter',
+      'VenueImageOrderBy',
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'query',
+      operationName: 'VenueImage',
+      fieldName: 'venueImage',
+      document,
+      variables,
+      transform: (data: {
+        venueImages?: {
+          nodes?: InferSelectResult<VenueImageWithRelations, S>[];
+        };
+      }) => ({
+        venueImage: data.venueImages?.nodes?.[0] ?? null,
+      }),
+    });
+  }
   create<S extends VenueImageSelect>(
     args: CreateArgs<S, CreateVenueImageInput['venueImage']> & {
       select: S;
@@ -120,6 +160,76 @@ export class VenueImageModel {
       operation: 'mutation',
       operationName: 'VenueImage',
       fieldName: 'createVenueImage',
+      document,
+      variables,
+    });
+  }
+  update<S extends VenueImageSelect>(
+    args: UpdateArgs<
+      S,
+      {
+        id: string;
+      },
+      VenueImagePatch
+    > & {
+      select: S;
+    } & StrictSelect<S, VenueImageSelect>
+  ): QueryBuilder<{
+    updateVenueImage: {
+      venueImage: InferSelectResult<VenueImageWithRelations, S>;
+    };
+  }> {
+    const { document, variables } = buildUpdateByPkDocument(
+      'VenueImage',
+      'updateVenueImage',
+      'venueImage',
+      args.select,
+      args.where.id,
+      args.data,
+      'UpdateVenueImageInput',
+      'id',
+      'venueImagePatch',
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'mutation',
+      operationName: 'VenueImage',
+      fieldName: 'updateVenueImage',
+      document,
+      variables,
+    });
+  }
+  delete<S extends VenueImageSelect>(
+    args: DeleteArgs<
+      {
+        id: string;
+      },
+      S
+    > & {
+      select: S;
+    } & StrictSelect<S, VenueImageSelect>
+  ): QueryBuilder<{
+    deleteVenueImage: {
+      venueImage: InferSelectResult<VenueImageWithRelations, S>;
+    };
+  }> {
+    const { document, variables } = buildDeleteByPkDocument(
+      'VenueImage',
+      'deleteVenueImage',
+      'venueImage',
+      {
+        id: args.where.id,
+      },
+      'DeleteVenueImageInput',
+      args.select,
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'mutation',
+      operationName: 'VenueImage',
+      fieldName: 'deleteVenueImage',
       document,
       variables,
     });

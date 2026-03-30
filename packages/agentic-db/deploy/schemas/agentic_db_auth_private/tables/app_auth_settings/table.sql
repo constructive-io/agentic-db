@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_auth_private/schema
 
 
-CREATE TABLE agentic_db_auth_private.app_auth_settings ();
+CREATE TABLE "agentic_db_auth_private".app_auth_settings ();
 

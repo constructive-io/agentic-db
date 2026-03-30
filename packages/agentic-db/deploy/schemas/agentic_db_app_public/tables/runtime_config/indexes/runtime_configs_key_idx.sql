@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
-CREATE INDEX runtime_configs_key_idx ON agentic_db_app_public.runtime_config USING BTREE ( key );
+CREATE INDEX runtime_configs_key_idx ON "agentic_db_app_public".runtime_config USING BTREE ( key );
 

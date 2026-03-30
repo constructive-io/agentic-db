@@ -31,7 +31,7 @@ INSERT INTO services_public.apps (
   app_id_prefix,
   play_store_link
 ) VALUES
-  ('b743e161-befa-db66-19ad-a4034e1d25d5', '2ef50f93-192b-b168-969d-304c8e675e1d', '67e4cf0b-b713-e767-f833-0f82c71b76d7', 'Agentic Db 1774818387123', '{"url":"https://constructive.io/brand/constructive.svg","mime":"image/svg+xml"}', NULL, NULL, NULL, NULL);
+  ('019d3d14-e6de-70f4-914e-a51982fbaed9', '019d3d14-e4d9-7da9-8899-3e3a337a3080', '019d3d14-e6da-7fee-9ffb-8db8c014ab41', 'Agentic_Db', '{"url":"https://constructive.io/brand/constructive.svg","mime":"image/svg+xml"}', NULL, NULL, NULL, NULL);
 
 
 SET session_replication_role TO DEFAULT;

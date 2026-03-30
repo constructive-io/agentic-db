@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION agentic_db_auth_public.verify_totp;
+DROP FUNCTION "agentic_db_auth_public".verify_totp;
 
 
 

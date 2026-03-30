@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-GRANT UPDATE ON agentic_db_app_public.activity_logs TO authenticated;
+GRANT UPDATE ON "agentic_db_app_public".activity_logs TO authenticated;
 

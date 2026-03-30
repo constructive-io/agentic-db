@@ -1,13 +1,13 @@
 ---
 name: orm-default
-description: ORM client for the default API — provides typed CRUD operations for 120 tables and 0 custom operations
+description: ORM client for the default API — provides typed CRUD operations for 122 tables and 0 custom operations
 ---
 
 # orm-default
 
 <!-- @constructive-io/graphql-codegen - DO NOT EDIT -->
 
-ORM client for the default API — provides typed CRUD operations for 120 tables and 0 custom operations
+ORM client for the default API — provides typed CRUD operations for 122 tables and 0 custom operations
 
 ## Usage
 
@@ -15,7 +15,7 @@ ORM client for the default API — provides typed CRUD operations for 120 tables
 // Import the ORM client
 import { db } from './orm';
 
-// Available models: activityLog, activityLogsChunk, agentCollaborator, agent, agentLog, agentLogsChunk, agentPrompt, prompt, ...
+// Available models: activityLog, activityLogsChunk, agent, agentCollaborator, agentLog, agentLogsChunk, agentPrompt, prompt, ...
 db.<model>.findMany({ select: { id: true } }).execute()
 db.<model>.findOne({ id: '<UUID>', select: { id: true } }).execute()
 db.<model>.create({ data: { ... }, select: { id: true } }).execute()
@@ -39,8 +39,8 @@ See the `references/` directory for detailed per-entity API documentation:
 
 - [activity-log](references/activity-log.md)
 - [activity-logs-chunk](references/activity-logs-chunk.md)
-- [agent-collaborator](references/agent-collaborator.md)
 - [agent](references/agent.md)
+- [agent-collaborator](references/agent-collaborator.md)
 - [agent-log](references/agent-log.md)
 - [agent-logs-chunk](references/agent-logs-chunk.md)
 - [agent-prompt](references/agent-prompt.md)
@@ -59,9 +59,9 @@ See the `references/` directory for detailed per-entity API documentation:
 - [calendar-events-chunk](references/calendar-events-chunk.md)
 - [calendar-event-task](references/calendar-event-task.md)
 - [task](references/task.md)
+- [codebase](references/codebase.md)
 - [codebase-dependency](references/codebase-dependency.md)
 - [codebases-chunk](references/codebases-chunk.md)
-- [codebasis](references/codebasis.md)
 - [code-chunk](references/code-chunk.md)
 - [companies-chunk](references/companies-chunk.md)
 - [company](references/company.md)
@@ -75,6 +75,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [company-memory](references/company-memory.md)
 - [company-note](references/company-note.md)
 - [contact-company](references/contact-company.md)
+- [email](references/email.md)
 - [email-thread](references/email-thread.md)
 - [contact-event](references/contact-event.md)
 - [expense](references/expense.md)
@@ -92,7 +93,8 @@ See the `references/` directory for detailed per-entity API documentation:
 - [deal-note](references/deal-note.md)
 - [deals-chunk](references/deals-chunk.md)
 - [email-attachment](references/email-attachment.md)
-- [email](references/email.md)
+- [email-note](references/email-note.md)
+- [email-recipient](references/email-recipient.md)
 - [emails-chunk](references/emails-chunk.md)
 - [email-threads-chunk](references/email-threads-chunk.md)
 - [event-image](references/event-image.md)

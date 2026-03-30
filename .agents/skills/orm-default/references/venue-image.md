@@ -9,7 +9,7 @@ ORM operations for VenueImage records
 ```typescript
 db.venueImage.findMany({ select: { id: true } }).execute()
 db.venueImage.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.venueImage.create({ data: { venueId: '<UUID>', imageId: '<UUID>' }, select: { id: true } }).execute()
+db.venueImage.create({ data: { venueId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
 db.venueImage.update({ where: { id: '<UUID>' }, data: { venueId: '<UUID>' }, select: { id: true } }).execute()
 db.venueImage.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.venueImage.findMany({
 
 ```typescript
 const item = await db.venueImage.create({
-  data: { venueId: '<UUID>', imageId: '<UUID>' },
+  data: { venueId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION agentic_db_encrypted.encrypted_secrets_hash;
+DROP FUNCTION "agentic_db_encrypted".encrypted_secrets_hash;
 
 
