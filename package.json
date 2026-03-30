@@ -46,7 +46,7 @@
     }
   },
   "devDependencies": {
-    "@constructive-io/graphql-codegen": "4.27.0",
+    "@constructive-io/graphql-codegen": "4.27.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.3",
     "@typescript-eslint/eslint-plugin": "^8.50.1",
@@ -55,11 +55,11 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^4.3.0",
+    "graphile-test": "^4.7.4",
+    "graphql": "16.13.0",
     "jest": "^30.2.0",
     "lerna": "^9.0.3",
     "makage": "0.1.12",
-    "graphile-test": "^4.7.4",
-    "graphql": "16.13.0",
     "pgsql-test": "^4.7.4",
     "prettier": "^3.7.4",
     "ts-jest": "^29.4.6",
