@@ -58,10 +58,14 @@ DECLARE
     v_delete_action text;
     v_is_required boolean;
     v_junction_table_name text;
-    v_rel_data jsonb;
+    v_rel_source_field_name text;
+    v_rel_target_field_name text;
     v_rel_node_type text;
+    v_rel_node_data jsonb;
     v_rel_policy_type text;
     v_rel_policy_data jsonb;
+    v_rel_policy_permissive boolean;
+    v_rel_grant_roles text[];
     v_rel_grant_privileges jsonb;
     v_rel_grant_array jsonb[];
 
@@ -326,7 +330,7 @@ BEGIN
         -- For each relation in definition.relations:
         --   - $type specifies the relation type (e.g. "RelationBelongsTo")
         --   - Resolve source_ref and target_ref to table_ids via ref_map
-        --   - Junction table config lives in data: {node_type, policy_type, ...}
+        --   - Junction table config is top-level: node_type, policy_type, etc.
         --   - INSERT into relation_provision
         -- =====================================================================
 
@@ -355,12 +359,29 @@ BEGIN
                 v_is_required := COALESCE((v_relation_entry->>'is_required')::boolean, true);
                 v_junction_table_name := v_relation_entry->>'junction_table_name';
 
-                -- Junction table config lives in data
-                v_rel_data := COALESCE(v_relation_entry->'data', '{}'::jsonb);
-                v_rel_node_type := v_rel_data->>'node_type';
-                v_rel_policy_type := v_rel_data->>'policy_type';
-                v_rel_policy_data := COALESCE(v_rel_data->'policy_data', '{}'::jsonb);
-                v_rel_grant_privileges := COALESCE(v_rel_data->'grant_privileges', '[]'::jsonb);
+                -- Junction table config (top-level fields, pass-through to relation_provision)
+                v_rel_source_field_name := v_relation_entry->>'source_field_name';
+                v_rel_target_field_name := v_relation_entry->>'target_field_name';
+                v_rel_node_type := v_relation_entry->>'node_type';
+                v_rel_node_data := COALESCE(v_relation_entry->'node_data', '{}'::jsonb);
+                v_rel_policy_type := v_relation_entry->>'policy_type';
+                v_rel_policy_data := COALESCE(v_relation_entry->'policy_data', '{}'::jsonb);
+                v_rel_policy_permissive := COALESCE((v_relation_entry->>'policy_permissive')::boolean, true);
+                -- Resolve grant_privileges (default to select/insert/delete matching relation_provision table default)
+                IF v_relation_entry ? 'grant_privileges' THEN
+                    v_rel_grant_privileges := v_relation_entry->'grant_privileges';
+                ELSE
+                    v_rel_grant_privileges := '[["select","*"],["insert","*"],["delete","*"]]'::jsonb;
+                END IF;
+
+                -- Resolve grant_roles from JSON array to text[] (default to authenticated)
+                IF v_relation_entry ? 'grant_roles' THEN
+                    v_rel_grant_roles := ARRAY(
+                        SELECT jsonb_array_elements_text(v_relation_entry->'grant_roles')
+                    );
+                ELSE
+                    v_rel_grant_roles := ARRAY['authenticated'];
+                END IF;
 
                 -- Convert relation grant_privileges from jsonb to jsonb[]
                 v_rel_grant_array := '{}';
@@ -379,10 +400,15 @@ BEGIN
                     delete_action,
                     is_required,
                     junction_table_name,
+                    source_field_name,
+                    target_field_name,
                     node_type,
+                    node_data,
+                    grant_roles,
+                    grant_privileges,
                     policy_type,
-                    policy_data,
-                    grant_privileges
+                    policy_permissive,
+                    policy_data
                 ) VALUES (
                     v_blueprint.database_id,
                     v_relation_type,
@@ -392,10 +418,15 @@ BEGIN
                     v_delete_action,
                     v_is_required,
                     v_junction_table_name,
+                    v_rel_source_field_name,
+                    v_rel_target_field_name,
                     v_rel_node_type,
+                    v_rel_node_data,
+                    v_rel_grant_roles,
+                    v_rel_grant_array,
                     v_rel_policy_type,
-                    v_rel_policy_data,
-                    v_rel_grant_array
+                    v_rel_policy_permissive,
+                    v_rel_policy_data
                 );
 
             END LOOP;
@@ -606,6 +637,6 @@ $$
 LANGUAGE 'plpgsql' VOLATILE;
 
 COMMENT ON FUNCTION metaschema_modules_public.construct_blueprint IS
-    'Executes a draft blueprint definition. Four phases: (1) create tables with nodes[], fields, and policies[], (2) create relations between tables, (3) create indexes on table fields (supports BTREE, HNSW, GIN, GIST, BM25, etc.), (4) create full-text search configurations with weighted multi-field TSVector support. nodes[] entries can be strings or {$type, data} objects. Relations use $type for relation_type with junction config in data. Indexes reference table_ref + column name(s) and are resolved to field_ids. Full-text searches reference table_ref + tsvector field + source fields with weights/langs. Builds a ref_map of local ref names to created table UUIDs. Updates blueprint status to constructed (or failed with error_details). Returns the ref_map.';
+    'Executes a draft blueprint definition. Four phases: (1) create tables with nodes[], fields, and policies[], (2) create relations between tables, (3) create indexes on table fields (supports BTREE, HNSW, GIN, GIST, BM25, etc.), (4) create full-text search configurations with weighted multi-field TSVector support. nodes[] entries can be strings or {$type, data} objects. Relations use $type for relation_type with junction config as top-level fields (node_type, policy_type, grant_roles, grant_privileges, policy_data, policy_permissive, source_field_name, target_field_name, node_data). Indexes reference table_ref + column name(s) and are resolved to field_ids. Full-text searches reference table_ref + tsvector field + source fields with weights/langs. Builds a ref_map of local ref names to created table UUIDs. Updates blueprint status to constructed (or failed with error_details). Returns the ref_map.';
 
 COMMIT;
