@@ -759,7 +759,6 @@ export interface CodeChunk {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  codebasisId?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -2478,11 +2477,11 @@ export interface TaskRelations {
 }
 export interface CodebaseRelations {
   codebasesChunksByCodebasesId?: ConnectionResult<CodebasesChunk>;
-  codeChunksByCodebasisId?: ConnectionResult<CodeChunk>;
+  codeChunks?: ConnectionResult<CodeChunk>;
   codebaseDependencies?: ConnectionResult<CodebaseDependency>;
   codebaseDependenciesByDependencyId?: ConnectionResult<CodebaseDependency>;
-  codebasesByCodebaseDependencyCodebaseIdAndDependencyId?: ConnectionResult<Codebasis>;
-  codebasesByCodebaseDependencyDependencyIdAndCodebaseId?: ConnectionResult<Codebasis>;
+  codebasesByCodebaseDependencyCodebaseIdAndDependencyId?: ConnectionResult<Codebase>;
+  codebasesByCodebaseDependencyDependencyIdAndCodebaseId?: ConnectionResult<Codebase>;
 }
 export interface CodebaseDependencyRelations {
   codebase?: Codebase | null;
@@ -2492,7 +2491,7 @@ export interface CodebasesChunkRelations {
   codebases?: Codebase | null;
 }
 export interface CodeChunkRelations {
-  codebasis?: Codebase | null;
+  codebase?: Codebase | null;
 }
 export interface CompaniesChunkRelations {
   companies?: Company | null;
@@ -4044,7 +4043,7 @@ export type CodebaseSelect = {
     filter?: CodebasesChunkFilter;
     orderBy?: CodebasesChunkOrderBy[];
   };
-  codeChunksByCodebasisId?: {
+  codeChunks?: {
     select: CodeChunkSelect;
     first?: number;
     filter?: CodeChunkFilter;
@@ -4063,16 +4062,16 @@ export type CodebaseSelect = {
     orderBy?: CodebaseDependencyOrderBy[];
   };
   codebasesByCodebaseDependencyCodebaseIdAndDependencyId?: {
-    select: CodebasisSelect;
+    select: CodebaseSelect;
     first?: number;
-    filter?: CodebasisFilter;
-    orderBy?: CodebasesOrderBy[];
+    filter?: CodebaseFilter;
+    orderBy?: CodebaseOrderBy[];
   };
   codebasesByCodebaseDependencyDependencyIdAndCodebaseId?: {
-    select: CodebasisSelect;
+    select: CodebaseSelect;
     first?: number;
-    filter?: CodebasisFilter;
-    orderBy?: CodebasesOrderBy[];
+    filter?: CodebaseFilter;
+    orderBy?: CodebaseOrderBy[];
   };
 };
 export type CodebaseDependencySelect = {
@@ -4119,7 +4118,6 @@ export type CodeChunkSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
-  codebasisId?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   filePathTrgmSimilarity?: boolean;
@@ -4129,7 +4127,7 @@ export type CodeChunkSelect = {
   symbolTypeTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
-  codebasis?: {
+  codebase?: {
     select: CodebaseSelect;
   };
 };
@@ -7615,10 +7613,10 @@ export interface CodebaseFilter {
   codebasesChunksByCodebasesId?: CodebaseToManyCodebasesChunkFilter;
   /** `codebasesChunksByCodebasesId` exist. */
   codebasesChunksByCodebasesIdExist?: boolean;
-  /** Filter by the object’s `codeChunksByCodebasisId` relation. */
-  codeChunksByCodebasisId?: CodebaseToManyCodeChunkFilter;
-  /** `codeChunksByCodebasisId` exist. */
-  codeChunksByCodebasisIdExist?: boolean;
+  /** Filter by the object’s `codeChunks` relation. */
+  codeChunks?: CodebaseToManyCodeChunkFilter;
+  /** `codeChunks` exist. */
+  codeChunksExist?: boolean;
   /** Filter by the object’s `codebaseDependencies` relation. */
   codebaseDependencies?: CodebaseToManyCodebaseDependencyFilter;
   /** `codebaseDependencies` exist. */
@@ -7734,16 +7732,14 @@ export interface CodeChunkFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `codebasisId` field. */
-  codebasisId?: UUIDFilter;
   /** Checks for all expressions in this list. */
   and?: CodeChunkFilter[];
   /** Checks for any expressions in this list. */
   or?: CodeChunkFilter[];
   /** Negates the expression. */
   not?: CodeChunkFilter;
-  /** Filter by the object’s `codebasis` relation. */
-  codebasis?: CodebaseFilter;
+  /** Filter by the object’s `codebase` relation. */
+  codebase?: CodebaseFilter;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -11915,6 +11911,8 @@ export type CodeChunkOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC'
+  | 'CODEBASE_ID_ASC'
+  | 'CODEBASE_ID_DESC'
   | 'FILE_PATH_ASC'
   | 'FILE_PATH_DESC'
   | 'LANGUAGE_ASC'
@@ -11925,8 +11923,6 @@ export type CodeChunkOrderBy =
   | 'EMBEDDING_TEXT_DESC'
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
-  | 'CODEBASIS_ID_ASC'
-  | 'CODEBASIS_ID_DESC'
   | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
   | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
   | 'EMBEDDING_VECTOR_DISTANCE_ASC'
@@ -14564,7 +14560,6 @@ export interface CreateCodeChunkInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
-    codebasisId: string;
   };
 }
 export interface CodeChunkPatch {
@@ -14581,7 +14576,6 @@ export interface CodeChunkPatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
-  codebasisId?: string | null;
 }
 export interface UpdateCodeChunkInput {
   clientMutationId?: string;
@@ -17458,11 +17452,11 @@ export const connectionFieldsMap = {
   },
   Codebase: {
     codebasesChunksByCodebasesId: 'CodebasesChunk',
-    codeChunksByCodebasisId: 'CodeChunk',
+    codeChunks: 'CodeChunk',
     codebaseDependencies: 'CodebaseDependency',
     codebaseDependenciesByDependencyId: 'CodebaseDependency',
-    codebasesByCodebaseDependencyCodebaseIdAndDependencyId: 'Codebasis',
-    codebasesByCodebaseDependencyDependencyIdAndCodebaseId: 'Codebasis',
+    codebasesByCodebaseDependencyCodebaseIdAndDependencyId: 'Codebase',
+    codebasesByCodebaseDependencyDependencyIdAndCodebaseId: 'Codebase',
   },
   Company: {
     notes: 'Note',
@@ -20551,16 +20545,14 @@ export interface CodeChunkFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
-  /** Filter by the object’s `codebasisId` field. */
-  codebasisId?: UUIDFilter;
   /** Checks for all expressions in this list. */
   and?: CodeChunkFilter[];
   /** Checks for any expressions in this list. */
   or?: CodeChunkFilter[];
   /** Negates the expression. */
   not?: CodeChunkFilter;
-  /** Filter by the object’s `codebasis` relation. */
-  codebasis?: CodebaseFilter;
+  /** Filter by the object’s `codebase` relation. */
+  codebase?: CodebaseFilter;
   /** BM25 search on the `embedding_text` column. */
   bm25EmbeddingText?: Bm25SearchInput;
   /** VECTOR search on the `embedding` column. */
@@ -23522,10 +23514,10 @@ export interface CodebaseFilter {
   codebasesChunksByCodebasesId?: CodebaseToManyCodebasesChunkFilter;
   /** `codebasesChunksByCodebasesId` exist. */
   codebasesChunksByCodebasesIdExist?: boolean;
-  /** Filter by the object’s `codeChunksByCodebasisId` relation. */
-  codeChunksByCodebasisId?: CodebaseToManyCodeChunkFilter;
-  /** `codeChunksByCodebasisId` exist. */
-  codeChunksByCodebasisIdExist?: boolean;
+  /** Filter by the object’s `codeChunks` relation. */
+  codeChunks?: CodebaseToManyCodeChunkFilter;
+  /** `codeChunks` exist. */
+  codeChunksExist?: boolean;
   /** Filter by the object’s `codebaseDependencies` relation. */
   codebaseDependencies?: CodebaseToManyCodebaseDependencyFilter;
   /** `codebaseDependencies` exist. */

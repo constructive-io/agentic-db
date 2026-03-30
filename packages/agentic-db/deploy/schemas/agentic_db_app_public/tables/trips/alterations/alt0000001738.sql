@@ -6,6 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-ALTER TABLE "agentic_db_app_public".trips 
-  DISABLE ROW LEVEL SECURITY;
+COMMENT ON TABLE "agentic_db_app_public".trips IS E'@@hasChunks {"chunks_table": "trips_chunks", "embedding_field": "embedding"}\\n@@searchConfig {"weights": {"bm25": 1.0}, "bm25_field": "embedding_text", "bm25_text_config": "english"}';
 

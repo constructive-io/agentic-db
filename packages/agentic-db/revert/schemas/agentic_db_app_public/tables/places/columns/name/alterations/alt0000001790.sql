@@ -1,7 +1,0 @@
--- Revert: schemas/agentic_db_app_public/tables/places/columns/name/alterations/alt0000001790
-
-
-ALTER TABLE "agentic_db_app_public".places 
-  ALTER COLUMN name DROP NOT NULL;
-
-

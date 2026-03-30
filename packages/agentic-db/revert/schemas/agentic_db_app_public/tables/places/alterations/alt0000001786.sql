@@ -1,7 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/places/alterations/alt0000001786
 
 
-ALTER TABLE "agentic_db_app_public".places 
-  ENABLE ROW LEVEL SECURITY;
+COMMENT ON TABLE "agentic_db_app_public".places IS NULL;
 
 

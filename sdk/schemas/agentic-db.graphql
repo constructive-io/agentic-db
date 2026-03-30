@@ -526,6 +526,8 @@ enum CodeChunkOrderBy {
   ID_DESC
   ENTITY_ID_ASC
   ENTITY_ID_DESC
+  CODEBASE_ID_ASC
+  CODEBASE_ID_DESC
   FILE_PATH_ASC
   FILE_PATH_DESC
   LANGUAGE_ASC
@@ -536,8 +538,6 @@ enum CodeChunkOrderBy {
   EMBEDDING_TEXT_DESC
   EMBEDDING_ASC
   EMBEDDING_DESC
-  CODEBASIS_ID_ASC
-  CODEBASIS_ID_DESC
   EMBEDDING_TEXT_BM25_SCORE_ASC
   EMBEDDING_TEXT_BM25_SCORE_DESC
   EMBEDDING_VECTOR_DISTANCE_ASC
@@ -4541,7 +4541,7 @@ type Codebase {
     orderBy: [CodebasesChunkOrderBy!] = [PRIMARY_KEY_ASC]
   ): CodebasesChunkConnection!
   "Reads and enables pagination through a set of `CodeChunk`."
-  codeChunksByCodebasisId(
+  codeChunks(
     "Only read the first `n` values of the set."
     first: Int
     "Only read the last `n` values of the set."
@@ -4809,9 +4809,8 @@ type CodeChunk {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
-  codebasisId: UUID!
   "Reads a single `Codebase` that is related to this `CodeChunk`."
-  codebasis: Codebase
+  codebase: Codebase
   "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
   embeddingTextBm25Score: Float
   "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
@@ -27502,10 +27501,10 @@ input CodebaseFilter {
   codebasesChunksByCodebasesId: CodebaseToManyCodebasesChunkFilter
   "`codebasesChunksByCodebasesId` exist."
   codebasesChunksByCodebasesIdExist: Boolean
-  "Filter by the object’s `codeChunksByCodebasisId` relation."
-  codeChunksByCodebasisId: CodebaseToManyCodeChunkFilter
-  "`codeChunksByCodebasisId` exist."
-  codeChunksByCodebasisIdExist: Boolean
+  "Filter by the object’s `codeChunks` relation."
+  codeChunks: CodebaseToManyCodeChunkFilter
+  "`codeChunks` exist."
+  codeChunksExist: Boolean
   "Filter by the object’s `codebaseDependencies` relation."
   codebaseDependencies: CodebaseToManyCodebaseDependencyFilter
   "`codebaseDependencies` exist."
@@ -27699,16 +27698,14 @@ input CodeChunkFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
-  "Filter by the object’s `codebasisId` field."
-  codebasisId: UUIDFilter
   "Checks for all expressions in this list."
   and: [CodeChunkFilter!]
   "Checks for any expressions in this list."
   or: [CodeChunkFilter!]
   "Negates the expression."
   not: CodeChunkFilter
-  "Filter by the object’s `codebasis` relation."
-  codebasis: CodebaseFilter
+  "Filter by the object’s `codebase` relation."
+  codebase: CodebaseFilter
   "BM25 search on the `embedding_text` column."
   bm25EmbeddingText: Bm25SearchInput
   "VECTOR search on the `embedding` column."
@@ -27752,7 +27749,6 @@ input CodeChunkInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
-  codebasisId: UUID!
 }
 
 "Represents an update to a `CodeChunk`. Fields that are set will be updated."
@@ -27773,7 +27769,6 @@ input CodeChunkPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
-  codebasisId: UUID
 }
 
 "A filter to be used against `CompaniesChunk` object types. All fields are combined with a logical ‘and.’"

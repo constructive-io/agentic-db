@@ -28,11 +28,11 @@ INSERT INTO services_public.apis (
   role_name,
   anon_role
 ) VALUES
-  ('019d3d14-e6cf-792d-840d-e599d57dedef', '019d3d14-e4d9-7da9-8899-3e3a337a3080', 'public', true, 'authenticated', 'anonymous'),
-  ('019d3d14-e6d1-7baf-8f49-c00be47ccd9d', '019d3d14-e4d9-7da9-8899-3e3a337a3080', 'admin', true, 'authenticated', 'anonymous'),
-  ('019d3d14-e6d2-7270-97ea-e623e7518fe6', '019d3d14-e4d9-7da9-8899-3e3a337a3080', 'private', false, 'administrator', 'administrator'),
-  ('019d3d14-e6d2-7565-ab29-43fe02abb602', '019d3d14-e4d9-7da9-8899-3e3a337a3080', 'auth', true, 'authenticated', 'anonymous'),
-  ('019d3d14-e6d2-7cc4-b944-e70113c8d4fc', '019d3d14-e4d9-7da9-8899-3e3a337a3080', 'app', true, 'authenticated', 'anonymous');
+  ('019d3dab-001d-757e-9b9d-48c6a3955e2d', '019d3daa-fe1f-718c-ac17-5692dc771810', 'public', true, 'authenticated', 'anonymous'),
+  ('019d3dab-001e-7cc8-bc88-8097db9825f7', '019d3daa-fe1f-718c-ac17-5692dc771810', 'admin', true, 'authenticated', 'anonymous'),
+  ('019d3dab-001f-7466-8073-6937cff1218f', '019d3daa-fe1f-718c-ac17-5692dc771810', 'private', false, 'administrator', 'administrator'),
+  ('019d3dab-001f-7799-bc3b-477331d9ae95', '019d3daa-fe1f-718c-ac17-5692dc771810', 'auth', true, 'authenticated', 'anonymous'),
+  ('019d3dab-001f-7f21-80b0-136b869971e2', '019d3daa-fe1f-718c-ac17-5692dc771810', 'app', true, 'authenticated', 'anonymous');
 
 
 SET session_replication_role TO DEFAULT;

@@ -1119,7 +1119,6 @@ CRUD operations for CodeChunk records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
-| `codebasisId` | UUID |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `filePathTrgmSimilarity` | Float |
@@ -1130,7 +1129,7 @@ CRUD operations for CodeChunk records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `codebaseId`, `filePath`, `content`, `codebasisId`
+**Required create fields:** `entityId`, `codebaseId`, `filePath`, `content`
 **Optional create fields (backend defaults):** `chunkIndex`, `language`, `startLine`, `endLine`, `symbolName`, `symbolType`, `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `filePathTrgmSimilarity`, `contentTrgmSimilarity`, `languageTrgmSimilarity`, `symbolNameTrgmSimilarity`, `symbolTypeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.

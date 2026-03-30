@@ -1226,7 +1226,6 @@ CRUD operations for CodeChunk records.
 | `embeddingText` | String | Yes |
 | `embedding` | Vector | Yes |
 | `embeddingStale` | Boolean | Yes |
-| `codebasisId` | UUID | Yes |
 | `embeddingTextBm25Score` | Float | Yes |
 | `embeddingVectorDistance` | Float | Yes |
 | `filePathTrgmSimilarity` | Float | Yes |
@@ -1241,13 +1240,13 @@ CRUD operations for CodeChunk records.
 
 ```typescript
 // List all codeChunk records
-const items = await db.codeChunk.findMany({ select: { id: true, entityId: true, codebaseId: true, filePath: true, chunkIndex: true, content: true, language: true, startLine: true, endLine: true, symbolName: true, symbolType: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, codebasisId: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, filePathTrgmSimilarity: true, contentTrgmSimilarity: true, languageTrgmSimilarity: true, symbolNameTrgmSimilarity: true, symbolTypeTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const items = await db.codeChunk.findMany({ select: { id: true, entityId: true, codebaseId: true, filePath: true, chunkIndex: true, content: true, language: true, startLine: true, endLine: true, symbolName: true, symbolType: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, filePathTrgmSimilarity: true, contentTrgmSimilarity: true, languageTrgmSimilarity: true, symbolNameTrgmSimilarity: true, symbolTypeTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Get one by id
-const item = await db.codeChunk.findOne({ id: '<UUID>', select: { id: true, entityId: true, codebaseId: true, filePath: true, chunkIndex: true, content: true, language: true, startLine: true, endLine: true, symbolName: true, symbolType: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, codebasisId: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, filePathTrgmSimilarity: true, contentTrgmSimilarity: true, languageTrgmSimilarity: true, symbolNameTrgmSimilarity: true, symbolTypeTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const item = await db.codeChunk.findOne({ id: '<UUID>', select: { id: true, entityId: true, codebaseId: true, filePath: true, chunkIndex: true, content: true, language: true, startLine: true, endLine: true, symbolName: true, symbolType: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, filePathTrgmSimilarity: true, contentTrgmSimilarity: true, languageTrgmSimilarity: true, symbolNameTrgmSimilarity: true, symbolTypeTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Create
-const created = await db.codeChunk.create({ data: { entityId: '<UUID>', codebaseId: '<UUID>', filePath: '<String>', chunkIndex: '<Int>', content: '<String>', language: '<String>', startLine: '<Int>', endLine: '<Int>', symbolName: '<String>', symbolType: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', codebasisId: '<UUID>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', filePathTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', languageTrgmSimilarity: '<Float>', symbolNameTrgmSimilarity: '<Float>', symbolTypeTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+const created = await db.codeChunk.create({ data: { entityId: '<UUID>', codebaseId: '<UUID>', filePath: '<String>', chunkIndex: '<Int>', content: '<String>', language: '<String>', startLine: '<Int>', endLine: '<Int>', symbolName: '<String>', symbolType: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', filePathTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', languageTrgmSimilarity: '<Float>', symbolNameTrgmSimilarity: '<Float>', symbolTypeTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.codeChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
