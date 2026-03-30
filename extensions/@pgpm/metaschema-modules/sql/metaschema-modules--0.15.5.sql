@@ -1093,7 +1093,7 @@ CREATE TABLE metaschema_modules_public.relation_provision (
   node_type text DEFAULT NULL,
   node_data jsonb NOT NULL DEFAULT '{}',
   grant_roles text[] NOT NULL DEFAULT ARRAY['authenticated'],
-  grant_privileges jsonb[] NOT NULL DEFAULT ARRAY['["select","*"]'::jsonb, '["insert","*"]'::jsonb, '["delete","*"]'::jsonb],
+  grant_privileges jsonb[] NOT NULL DEFAULT '{}',
   policy_type text DEFAULT NULL,
   policy_privileges text[] DEFAULT NULL,
   policy_role text DEFAULT NULL,
@@ -1219,7 +1219,7 @@ COMMENT ON COLUMN metaschema_modules_public.relation_provision.node_data IS 'For
 
 COMMENT ON COLUMN metaschema_modules_public.relation_provision.grant_roles IS 'For RelationManyToMany: database roles to grant privileges to on the junction table. Forwarded to secure_table_provision as-is. Supports multiple roles, e.g. ARRAY[''authenticated'', ''admin'']. Each role receives all privileges defined in grant_privileges. Defaults to ARRAY[''authenticated'']. Ignored for RelationBelongsTo/RelationHasOne.';
 
-COMMENT ON COLUMN metaschema_modules_public.relation_provision.grant_privileges IS 'For RelationManyToMany: privilege grants for the junction table. Forwarded to secure_table_provision as-is. Format: PostgreSQL array of jsonb [privilege, columns] tuples. Examples: ARRAY[''["select","*"]''::jsonb, ''["insert","*"]''::jsonb] for full access, or ARRAY[''["update",["name","bio"]]''::jsonb] for column-level grants. "*" means all columns. Defaults to select/insert/delete for all columns. Ignored for RelationBelongsTo/RelationHasOne.';
+COMMENT ON COLUMN metaschema_modules_public.relation_provision.grant_privileges IS 'For RelationManyToMany: privilege grants for the junction table. Forwarded to secure_table_provision as-is. Format: PostgreSQL array of jsonb [privilege, columns] tuples. Examples: ARRAY[''["select","*"]''::jsonb, ''["insert","*"]''::jsonb] for full access, or ARRAY[''["update",["name","bio"]]''::jsonb] for column-level grants. "*" means all columns. Defaults to ''{}'' (no grants — callers must explicitly specify privileges). Ignored for RelationBelongsTo/RelationHasOne.';
 
 COMMENT ON COLUMN metaschema_modules_public.relation_provision.policy_type IS 'For RelationManyToMany: RLS policy type for the junction table. Forwarded to secure_table_provision as-is. The trigger does not interpret or validate this value.
      Examples: AuthzEntityMembership, AuthzMembership, AuthzAllowAll, AuthzDirectOwner, AuthzOrgHierarchy.
