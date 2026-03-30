@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_profiles_public/schema
 
 
-CREATE TABLE agentic_db_profiles_public.org_profiles ();
+CREATE TABLE "agentic_db_profiles_public".org_profiles ();
 

@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_limits_public/tables/org_limits/columns/actor_id/column
 
 
-CREATE INDEX org_limits_actor_id_idx ON agentic_db_limits_public.org_limits USING BTREE ( actor_id );
+CREATE INDEX org_limits_actor_id_idx ON "agentic_db_limits_public".org_limits USING BTREE ( actor_id );
 

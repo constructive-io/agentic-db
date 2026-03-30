@@ -5,16 +5,16 @@
 
 
 
-CREATE FUNCTION agentic_db_memberships_private.org_memberships_itg ()
+CREATE FUNCTION "agentic_db_memberships_private".org_memberships_itg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
     bitlen int = bit_length(NEW.permissions);
     defaults bit varying;
-    memdefs agentic_db_memberships_public.org_membership_defaults;
+    memdefs "agentic_db_memberships_public".org_membership_defaults;
 BEGIN
     SELECT * FROM
-        agentic_db_memberships_public.org_membership_defaults t 
+        "agentic_db_memberships_public".org_membership_defaults t 
         WHERE t.entity_id = NEW.entity_id
     INTO memdefs;
     IF (FOUND) THEN 
@@ -34,7 +34,7 @@ BEGIN
         NEW.is_banned IS FALSE 
     ) INTO NEW.is_active;
     SELECT permissions FROM
-        agentic_db_permissions_public.org_permission_defaults t 
+        "agentic_db_permissions_public".org_permission_defaults t 
         WHERE t.entity_id = NEW.entity_id
     INTO defaults;
     IF (NOT FOUND) THEN 

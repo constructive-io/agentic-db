@@ -23,8 +23,8 @@ const db = createClient({
 |-------|------------|
 | `activityLog` | findMany, findOne, create, update, delete |
 | `activityLogsChunk` | findMany, findOne, create, update, delete |
-| `agentCollaborator` | findMany, findOne, create, update, delete |
 | `agent` | findMany, findOne, create, update, delete |
+| `agentCollaborator` | findMany, findOne, create, update, delete |
 | `agentLog` | findMany, findOne, create, update, delete |
 | `agentLogsChunk` | findMany, findOne, create, update, delete |
 | `agentPrompt` | findMany, findOne, create, update, delete |
@@ -43,9 +43,9 @@ const db = createClient({
 | `calendarEventsChunk` | findMany, findOne, create, update, delete |
 | `calendarEventTask` | findMany, findOne, create, update, delete |
 | `task` | findMany, findOne, create, update, delete |
+| `codebase` | findMany, findOne, create, update, delete |
 | `codebaseDependency` | findMany, findOne, create, update, delete |
 | `codebasesChunk` | findMany, findOne, create, update, delete |
-| `codebasis` | findMany, findOne, create, update, delete |
 | `codeChunk` | findMany, findOne, create, update, delete |
 | `companiesChunk` | findMany, findOne, create, update, delete |
 | `company` | findMany, findOne, create, update, delete |
@@ -59,6 +59,7 @@ const db = createClient({
 | `companyMemory` | findMany, findOne, create, update, delete |
 | `companyNote` | findMany, findOne, create, update, delete |
 | `contactCompany` | findMany, findOne, create, update, delete |
+| `email` | findMany, findOne, create, update, delete |
 | `emailThread` | findMany, findOne, create, update, delete |
 | `contactEvent` | findMany, findOne, create, update, delete |
 | `expense` | findMany, findOne, create, update, delete |
@@ -76,7 +77,8 @@ const db = createClient({
 | `dealNote` | findMany, findOne, create, update, delete |
 | `dealsChunk` | findMany, findOne, create, update, delete |
 | `emailAttachment` | findMany, findOne, create, update, delete |
-| `email` | findMany, findOne, create, update, delete |
+| `emailNote` | findMany, findOne, create, update, delete |
+| `emailRecipient` | findMany, findOne, create, update, delete |
 | `emailsChunk` | findMany, findOne, create, update, delete |
 | `emailThreadsChunk` | findMany, findOne, create, update, delete |
 | `eventImage` | findMany, findOne, create, update, delete |
@@ -235,35 +237,6 @@ const updated = await db.activityLogsChunk.update({ where: { id: '<UUID>' }, dat
 const deleted = await db.activityLogsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.agentCollaborator`
-
-CRUD operations for AgentCollaborator records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `agentId` | UUID | Yes |
-
-**Operations:**
-
-```typescript
-// List all agentCollaborator records
-const items = await db.agentCollaborator.findMany({ select: { agentId: true } }).execute();
-
-// Get one by id
-const item = await db.agentCollaborator.findOne({ id: '<UUID>', select: { agentId: true } }).execute();
-
-// Create
-const created = await db.agentCollaborator.create({ data: { agentId: '<UUID>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.agentCollaborator.update({ where: { id: '<UUID>' }, data: { agentId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.agentCollaborator.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.agent`
 
 CRUD operations for Agent records.
@@ -314,6 +287,38 @@ const updated = await db.agent.update({ where: { id: '<UUID>' }, data: { entityI
 
 // Delete
 const deleted = await db.agent.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.agentCollaborator`
+
+CRUD operations for AgentCollaborator records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `agentId` | UUID | Yes |
+| `collaboratorId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all agentCollaborator records
+const items = await db.agentCollaborator.findMany({ select: { agentId: true, collaboratorId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.agentCollaborator.findOne({ id: '<UUID>', select: { agentId: true, collaboratorId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.agentCollaborator.create({ data: { agentId: '<UUID>', collaboratorId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.agentCollaborator.update({ where: { id: '<UUID>' }, data: { agentId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.agentCollaborator.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.agentLog`
@@ -578,22 +583,25 @@ CRUD operations for AutonomyRecordLink records.
 
 | Field | Type | Editable |
 |-------|------|----------|
-| `autonomyRecordId` | UUID | Yes |
+| `sourceRecordId` | UUID | Yes |
+| `targetRecordId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all autonomyRecordLink records
-const items = await db.autonomyRecordLink.findMany({ select: { autonomyRecordId: true } }).execute();
+const items = await db.autonomyRecordLink.findMany({ select: { sourceRecordId: true, targetRecordId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.autonomyRecordLink.findOne({ id: '<UUID>', select: { autonomyRecordId: true } }).execute();
+const item = await db.autonomyRecordLink.findOne({ id: '<UUID>', select: { sourceRecordId: true, targetRecordId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.autonomyRecordLink.create({ data: { autonomyRecordId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.autonomyRecordLink.create({ data: { sourceRecordId: '<UUID>', targetRecordId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
-const updated = await db.autonomyRecordLink.update({ where: { id: '<UUID>' }, data: { autonomyRecordId: '<UUID>' }, select: { id: true } }).execute();
+const updated = await db.autonomyRecordLink.update({ where: { id: '<UUID>' }, data: { sourceRecordId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.autonomyRecordLink.delete({ where: { id: '<UUID>' } }).execute();
@@ -1070,6 +1078,60 @@ const updated = await db.task.update({ where: { id: '<UUID>' }, data: { entityId
 const deleted = await db.task.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+### `db.codebase`
+
+CRUD operations for Codebase records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `name` | String | Yes |
+| `description` | String | Yes |
+| `repositoryUrl` | String | Yes |
+| `defaultBranch` | String | Yes |
+| `language` | String | Yes |
+| `framework` | String | Yes |
+| `lastSyncedAt` | Datetime | Yes |
+| `config` | JSON | Yes |
+| `tags` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `nameTrgmSimilarity` | Float | Yes |
+| `descriptionTrgmSimilarity` | Float | Yes |
+| `repositoryUrlTrgmSimilarity` | Float | Yes |
+| `defaultBranchTrgmSimilarity` | Float | Yes |
+| `languageTrgmSimilarity` | Float | Yes |
+| `frameworkTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all codebase records
+const items = await db.codebase.findMany({ select: { id: true, entityId: true, name: true, description: true, repositoryUrl: true, defaultBranch: true, language: true, framework: true, lastSyncedAt: true, config: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, nameTrgmSimilarity: true, descriptionTrgmSimilarity: true, repositoryUrlTrgmSimilarity: true, defaultBranchTrgmSimilarity: true, languageTrgmSimilarity: true, frameworkTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.codebase.findOne({ id: '<UUID>', select: { id: true, entityId: true, name: true, description: true, repositoryUrl: true, defaultBranch: true, language: true, framework: true, lastSyncedAt: true, config: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, nameTrgmSimilarity: true, descriptionTrgmSimilarity: true, repositoryUrlTrgmSimilarity: true, defaultBranchTrgmSimilarity: true, languageTrgmSimilarity: true, frameworkTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.codebase.create({ data: { entityId: '<UUID>', name: '<String>', description: '<String>', repositoryUrl: '<String>', defaultBranch: '<String>', language: '<String>', framework: '<String>', lastSyncedAt: '<Datetime>', config: '<JSON>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', nameTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', repositoryUrlTrgmSimilarity: '<Float>', defaultBranchTrgmSimilarity: '<Float>', languageTrgmSimilarity: '<Float>', frameworkTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.codebase.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.codebase.delete({ where: { id: '<UUID>' } }).execute();
+```
+
 ### `db.codebaseDependency`
 
 CRUD operations for CodebaseDependency records.
@@ -1078,22 +1140,25 @@ CRUD operations for CodebaseDependency records.
 
 | Field | Type | Editable |
 |-------|------|----------|
-| `codebasisId` | UUID | Yes |
+| `codebaseId` | UUID | Yes |
+| `dependencyId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all codebaseDependency records
-const items = await db.codebaseDependency.findMany({ select: { codebasisId: true } }).execute();
+const items = await db.codebaseDependency.findMany({ select: { codebaseId: true, dependencyId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.codebaseDependency.findOne({ id: '<UUID>', select: { codebasisId: true } }).execute();
+const item = await db.codebaseDependency.findOne({ id: '<UUID>', select: { codebaseId: true, dependencyId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.codebaseDependency.create({ data: { codebasisId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.codebaseDependency.create({ data: { codebaseId: '<UUID>', dependencyId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
-const updated = await db.codebaseDependency.update({ where: { id: '<UUID>' }, data: { codebasisId: '<UUID>' }, select: { id: true } }).execute();
+const updated = await db.codebaseDependency.update({ where: { id: '<UUID>' }, data: { codebaseId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.codebaseDependency.delete({ where: { id: '<UUID>' } }).execute();
@@ -1137,60 +1202,6 @@ const updated = await db.codebasesChunk.update({ where: { id: '<UUID>' }, data: 
 const deleted = await db.codebasesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.codebasis`
-
-CRUD operations for Codebasis records.
-
-**Fields:**
-
-| Field | Type | Editable |
-|-------|------|----------|
-| `id` | UUID | No |
-| `entityId` | UUID | Yes |
-| `name` | String | Yes |
-| `description` | String | Yes |
-| `repositoryUrl` | String | Yes |
-| `defaultBranch` | String | Yes |
-| `language` | String | Yes |
-| `framework` | String | Yes |
-| `lastSyncedAt` | Datetime | Yes |
-| `config` | JSON | Yes |
-| `tags` | String | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingText` | String | Yes |
-| `embedding` | Vector | Yes |
-| `embeddingStale` | Boolean | Yes |
-| `embeddingTextBm25Score` | Float | Yes |
-| `embeddingVectorDistance` | Float | Yes |
-| `nameTrgmSimilarity` | Float | Yes |
-| `descriptionTrgmSimilarity` | Float | Yes |
-| `repositoryUrlTrgmSimilarity` | Float | Yes |
-| `defaultBranchTrgmSimilarity` | Float | Yes |
-| `languageTrgmSimilarity` | Float | Yes |
-| `frameworkTrgmSimilarity` | Float | Yes |
-| `embeddingTextTrgmSimilarity` | Float | Yes |
-| `searchScore` | Float | Yes |
-
-**Operations:**
-
-```typescript
-// List all codebasis records
-const items = await db.codebasis.findMany({ select: { id: true, entityId: true, name: true, description: true, repositoryUrl: true, defaultBranch: true, language: true, framework: true, lastSyncedAt: true, config: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, nameTrgmSimilarity: true, descriptionTrgmSimilarity: true, repositoryUrlTrgmSimilarity: true, defaultBranchTrgmSimilarity: true, languageTrgmSimilarity: true, frameworkTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Get one by id
-const item = await db.codebasis.findOne({ id: '<UUID>', select: { id: true, entityId: true, name: true, description: true, repositoryUrl: true, defaultBranch: true, language: true, framework: true, lastSyncedAt: true, config: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, nameTrgmSimilarity: true, descriptionTrgmSimilarity: true, repositoryUrlTrgmSimilarity: true, defaultBranchTrgmSimilarity: true, languageTrgmSimilarity: true, frameworkTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
-
-// Create
-const created = await db.codebasis.create({ data: { entityId: '<UUID>', name: '<String>', description: '<String>', repositoryUrl: '<String>', defaultBranch: '<String>', language: '<String>', framework: '<String>', lastSyncedAt: '<Datetime>', config: '<JSON>', tags: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', nameTrgmSimilarity: '<Float>', descriptionTrgmSimilarity: '<Float>', repositoryUrlTrgmSimilarity: '<Float>', defaultBranchTrgmSimilarity: '<Float>', languageTrgmSimilarity: '<Float>', frameworkTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
-
-// Update
-const updated = await db.codebasis.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
-
-// Delete
-const deleted = await db.codebasis.delete({ where: { id: '<UUID>' } }).execute();
-```
-
 ### `db.codeChunk`
 
 CRUD operations for CodeChunk records.
@@ -1215,7 +1226,6 @@ CRUD operations for CodeChunk records.
 | `embeddingText` | String | Yes |
 | `embedding` | Vector | Yes |
 | `embeddingStale` | Boolean | Yes |
-| `codebasisId` | UUID | Yes |
 | `embeddingTextBm25Score` | Float | Yes |
 | `embeddingVectorDistance` | Float | Yes |
 | `filePathTrgmSimilarity` | Float | Yes |
@@ -1230,13 +1240,13 @@ CRUD operations for CodeChunk records.
 
 ```typescript
 // List all codeChunk records
-const items = await db.codeChunk.findMany({ select: { id: true, entityId: true, codebaseId: true, filePath: true, chunkIndex: true, content: true, language: true, startLine: true, endLine: true, symbolName: true, symbolType: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, codebasisId: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, filePathTrgmSimilarity: true, contentTrgmSimilarity: true, languageTrgmSimilarity: true, symbolNameTrgmSimilarity: true, symbolTypeTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const items = await db.codeChunk.findMany({ select: { id: true, entityId: true, codebaseId: true, filePath: true, chunkIndex: true, content: true, language: true, startLine: true, endLine: true, symbolName: true, symbolType: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, filePathTrgmSimilarity: true, contentTrgmSimilarity: true, languageTrgmSimilarity: true, symbolNameTrgmSimilarity: true, symbolTypeTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Get one by id
-const item = await db.codeChunk.findOne({ id: '<UUID>', select: { id: true, entityId: true, codebaseId: true, filePath: true, chunkIndex: true, content: true, language: true, startLine: true, endLine: true, symbolName: true, symbolType: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, codebasisId: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, filePathTrgmSimilarity: true, contentTrgmSimilarity: true, languageTrgmSimilarity: true, symbolNameTrgmSimilarity: true, symbolTypeTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const item = await db.codeChunk.findOne({ id: '<UUID>', select: { id: true, entityId: true, codebaseId: true, filePath: true, chunkIndex: true, content: true, language: true, startLine: true, endLine: true, symbolName: true, symbolType: true, createdAt: true, updatedAt: true, embeddingText: true, embedding: true, embeddingStale: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, filePathTrgmSimilarity: true, contentTrgmSimilarity: true, languageTrgmSimilarity: true, symbolNameTrgmSimilarity: true, symbolTypeTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Create
-const created = await db.codeChunk.create({ data: { entityId: '<UUID>', codebaseId: '<UUID>', filePath: '<String>', chunkIndex: '<Int>', content: '<String>', language: '<String>', startLine: '<Int>', endLine: '<Int>', symbolName: '<String>', symbolType: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', codebasisId: '<UUID>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', filePathTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', languageTrgmSimilarity: '<Float>', symbolNameTrgmSimilarity: '<Float>', symbolTypeTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+const created = await db.codeChunk.create({ data: { entityId: '<UUID>', codebaseId: '<UUID>', filePath: '<String>', chunkIndex: '<Int>', content: '<String>', language: '<String>', startLine: '<Int>', endLine: '<Int>', symbolName: '<String>', symbolType: '<String>', embeddingText: '<String>', embedding: '<Vector>', embeddingStale: '<Boolean>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', filePathTrgmSimilarity: '<Float>', contentTrgmSimilarity: '<Float>', languageTrgmSimilarity: '<Float>', symbolNameTrgmSimilarity: '<Float>', symbolTypeTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.codeChunk.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
@@ -1394,18 +1404,20 @@ CRUD operations for CompanyEvent records.
 |-------|------|----------|
 | `companyId` | UUID | Yes |
 | `eventId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all companyEvent records
-const items = await db.companyEvent.findMany({ select: { companyId: true, eventId: true } }).execute();
+const items = await db.companyEvent.findMany({ select: { companyId: true, eventId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.companyEvent.findOne({ id: '<UUID>', select: { companyId: true, eventId: true } }).execute();
+const item = await db.companyEvent.findOne({ id: '<UUID>', select: { companyId: true, eventId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.companyEvent.create({ data: { companyId: '<UUID>', eventId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.companyEvent.create({ data: { companyId: '<UUID>', eventId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.companyEvent.update({ where: { id: '<UUID>' }, data: { companyId: '<UUID>' }, select: { id: true } }).execute();
@@ -1479,18 +1491,20 @@ CRUD operations for CompanyImage records.
 |-------|------|----------|
 | `companyId` | UUID | Yes |
 | `imageId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all companyImage records
-const items = await db.companyImage.findMany({ select: { companyId: true, imageId: true } }).execute();
+const items = await db.companyImage.findMany({ select: { companyId: true, imageId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.companyImage.findOne({ id: '<UUID>', select: { companyId: true, imageId: true } }).execute();
+const item = await db.companyImage.findOne({ id: '<UUID>', select: { companyId: true, imageId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.companyImage.create({ data: { companyId: '<UUID>', imageId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.companyImage.create({ data: { companyId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.companyImage.update({ where: { id: '<UUID>' }, data: { companyId: '<UUID>' }, select: { id: true } }).execute();
@@ -1702,24 +1716,82 @@ CRUD operations for ContactCompany records.
 |-------|------|----------|
 | `contactId` | UUID | Yes |
 | `companyId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all contactCompany records
-const items = await db.contactCompany.findMany({ select: { contactId: true, companyId: true } }).execute();
+const items = await db.contactCompany.findMany({ select: { contactId: true, companyId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.contactCompany.findOne({ id: '<UUID>', select: { contactId: true, companyId: true } }).execute();
+const item = await db.contactCompany.findOne({ id: '<UUID>', select: { contactId: true, companyId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.contactCompany.create({ data: { contactId: '<UUID>', companyId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.contactCompany.create({ data: { contactId: '<UUID>', companyId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contactCompany.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.contactCompany.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.email`
+
+CRUD operations for Email records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `providerMessageId` | String | Yes |
+| `fromContactId` | UUID | Yes |
+| `to` | JSON | Yes |
+| `cc` | JSON | Yes |
+| `bcc` | JSON | Yes |
+| `subject` | String | Yes |
+| `bodyText` | String | Yes |
+| `bodyHtml` | String | Yes |
+| `sentAt` | Datetime | Yes |
+| `tags` | String | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `embeddingText` | String | Yes |
+| `searchTsv` | FullText | Yes |
+| `embedding` | Vector | Yes |
+| `embeddingStale` | Boolean | Yes |
+| `emailThreadId` | UUID | Yes |
+| `searchTsvRank` | Float | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `providerMessageIdTrgmSimilarity` | Float | Yes |
+| `subjectTrgmSimilarity` | Float | Yes |
+| `bodyTextTrgmSimilarity` | Float | Yes |
+| `bodyHtmlTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
+
+**Operations:**
+
+```typescript
+// List all email records
+const items = await db.email.findMany({ select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerMessageIdTrgmSimilarity: true, subjectTrgmSimilarity: true, bodyTextTrgmSimilarity: true, bodyHtmlTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Get one by id
+const item = await db.email.findOne({ id: '<UUID>', select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerMessageIdTrgmSimilarity: true, subjectTrgmSimilarity: true, bodyTextTrgmSimilarity: true, bodyHtmlTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+
+// Create
+const created = await db.email.create({ data: { entityId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', to: '<JSON>', cc: '<JSON>', bcc: '<JSON>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', providerMessageIdTrgmSimilarity: '<Float>', subjectTrgmSimilarity: '<Float>', bodyTextTrgmSimilarity: '<Float>', bodyHtmlTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.email.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.email.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.emailThread`
@@ -1783,18 +1855,20 @@ CRUD operations for ContactEvent records.
 |-------|------|----------|
 | `contactId` | UUID | Yes |
 | `eventId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all contactEvent records
-const items = await db.contactEvent.findMany({ select: { contactId: true, eventId: true } }).execute();
+const items = await db.contactEvent.findMany({ select: { contactId: true, eventId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.contactEvent.findOne({ id: '<UUID>', select: { contactId: true, eventId: true } }).execute();
+const item = await db.contactEvent.findOne({ id: '<UUID>', select: { contactId: true, eventId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.contactEvent.create({ data: { contactId: '<UUID>', eventId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.contactEvent.create({ data: { contactId: '<UUID>', eventId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contactEvent.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute();
@@ -1866,18 +1940,20 @@ CRUD operations for ContactImage records.
 |-------|------|----------|
 | `contactId` | UUID | Yes |
 | `imageId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all contactImage records
-const items = await db.contactImage.findMany({ select: { contactId: true, imageId: true } }).execute();
+const items = await db.contactImage.findMany({ select: { contactId: true, imageId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.contactImage.findOne({ id: '<UUID>', select: { contactId: true, imageId: true } }).execute();
+const item = await db.contactImage.findOne({ id: '<UUID>', select: { contactId: true, imageId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.contactImage.create({ data: { contactId: '<UUID>', imageId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.contactImage.create({ data: { contactId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contactImage.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute();
@@ -2051,18 +2127,21 @@ CRUD operations for ContactRelationship records.
 | Field | Type | Editable |
 |-------|------|----------|
 | `contactId` | UUID | Yes |
+| `relatedContactId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all contactRelationship records
-const items = await db.contactRelationship.findMany({ select: { contactId: true } }).execute();
+const items = await db.contactRelationship.findMany({ select: { contactId: true, relatedContactId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.contactRelationship.findOne({ id: '<UUID>', select: { contactId: true } }).execute();
+const item = await db.contactRelationship.findOne({ id: '<UUID>', select: { contactId: true, relatedContactId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.contactRelationship.create({ data: { contactId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.contactRelationship.create({ data: { contactId: '<UUID>', relatedContactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contactRelationship.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute();
@@ -2202,18 +2281,20 @@ CRUD operations for DealCompany records.
 |-------|------|----------|
 | `dealId` | UUID | Yes |
 | `companyId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all dealCompany records
-const items = await db.dealCompany.findMany({ select: { dealId: true, companyId: true } }).execute();
+const items = await db.dealCompany.findMany({ select: { dealId: true, companyId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.dealCompany.findOne({ id: '<UUID>', select: { dealId: true, companyId: true } }).execute();
+const item = await db.dealCompany.findOne({ id: '<UUID>', select: { dealId: true, companyId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.dealCompany.create({ data: { dealId: '<UUID>', companyId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.dealCompany.create({ data: { dealId: '<UUID>', companyId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.dealCompany.update({ where: { id: '<UUID>' }, data: { dealId: '<UUID>' }, select: { id: true } }).execute();
@@ -2232,18 +2313,20 @@ CRUD operations for DealContact records.
 |-------|------|----------|
 | `dealId` | UUID | Yes |
 | `contactId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all dealContact records
-const items = await db.dealContact.findMany({ select: { dealId: true, contactId: true } }).execute();
+const items = await db.dealContact.findMany({ select: { dealId: true, contactId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.dealContact.findOne({ id: '<UUID>', select: { dealId: true, contactId: true } }).execute();
+const item = await db.dealContact.findOne({ id: '<UUID>', select: { dealId: true, contactId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.dealContact.create({ data: { dealId: '<UUID>', contactId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.dealContact.create({ data: { dealId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.dealContact.update({ where: { id: '<UUID>' }, data: { dealId: '<UUID>' }, select: { id: true } }).execute();
@@ -2360,51 +2443,68 @@ const updated = await db.emailAttachment.update({ where: { id: '<UUID>' }, data:
 const deleted = await db.emailAttachment.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
-### `db.email`
+### `db.emailNote`
 
-CRUD operations for Email records.
+CRUD operations for EmailNote records.
 
 **Fields:**
 
 | Field | Type | Editable |
 |-------|------|----------|
+| `emailId` | UUID | Yes |
+| `noteId` | UUID | Yes |
 | `id` | UUID | No |
 | `entityId` | UUID | Yes |
-| `providerMessageId` | String | Yes |
-| `fromContactId` | UUID | Yes |
-| `to` | JSON | Yes |
-| `cc` | JSON | Yes |
-| `bcc` | JSON | Yes |
-| `subject` | String | Yes |
-| `bodyText` | String | Yes |
-| `bodyHtml` | String | Yes |
-| `sentAt` | Datetime | Yes |
-| `tags` | String | Yes |
-| `createdAt` | Datetime | No |
-| `updatedAt` | Datetime | No |
-| `embeddingText` | String | Yes |
-| `searchTsv` | FullText | Yes |
-| `embedding` | Vector | Yes |
-| `embeddingStale` | Boolean | Yes |
-| `emailThreadId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
-// List all email records
-const items = await db.email.findMany({ select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true } }).execute();
+// List all emailNote records
+const items = await db.emailNote.findMany({ select: { emailId: true, noteId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.email.findOne({ id: '<UUID>', select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true } }).execute();
+const item = await db.emailNote.findOne({ id: '<UUID>', select: { emailId: true, noteId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.email.create({ data: { entityId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', to: '<JSON>', cc: '<JSON>', bcc: '<JSON>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.emailNote.create({ data: { emailId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
-const updated = await db.email.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+const updated = await db.emailNote.update({ where: { id: '<UUID>' }, data: { emailId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
-const deleted = await db.email.delete({ where: { id: '<UUID>' } }).execute();
+const deleted = await db.emailNote.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.emailRecipient`
+
+CRUD operations for EmailRecipient records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `emailId` | UUID | Yes |
+| `contactId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all emailRecipient records
+const items = await db.emailRecipient.findMany({ select: { emailId: true, contactId: true, id: true, entityId: true } }).execute();
+
+// Get one by id
+const item = await db.emailRecipient.findOne({ id: '<UUID>', select: { emailId: true, contactId: true, id: true, entityId: true } }).execute();
+
+// Create
+const created = await db.emailRecipient.create({ data: { emailId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.emailRecipient.update({ where: { id: '<UUID>' }, data: { emailId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.emailRecipient.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.emailsChunk`
@@ -2493,18 +2593,20 @@ CRUD operations for EventImage records.
 |-------|------|----------|
 | `eventId` | UUID | Yes |
 | `imageId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all eventImage records
-const items = await db.eventImage.findMany({ select: { eventId: true, imageId: true } }).execute();
+const items = await db.eventImage.findMany({ select: { eventId: true, imageId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.eventImage.findOne({ id: '<UUID>', select: { eventId: true, imageId: true } }).execute();
+const item = await db.eventImage.findOne({ id: '<UUID>', select: { eventId: true, imageId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.eventImage.create({ data: { eventId: '<UUID>', imageId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.eventImage.create({ data: { eventId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.eventImage.update({ where: { id: '<UUID>' }, data: { eventId: '<UUID>' }, select: { id: true } }).execute();
@@ -2632,18 +2734,20 @@ CRUD operations for EventVenue records.
 |-------|------|----------|
 | `eventId` | UUID | Yes |
 | `venueId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all eventVenue records
-const items = await db.eventVenue.findMany({ select: { eventId: true, venueId: true } }).execute();
+const items = await db.eventVenue.findMany({ select: { eventId: true, venueId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.eventVenue.findOne({ id: '<UUID>', select: { eventId: true, venueId: true } }).execute();
+const item = await db.eventVenue.findOne({ id: '<UUID>', select: { eventId: true, venueId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.eventVenue.create({ data: { eventId: '<UUID>', venueId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.eventVenue.create({ data: { eventId: '<UUID>', venueId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.eventVenue.update({ where: { id: '<UUID>' }, data: { eventId: '<UUID>' }, select: { id: true } }).execute();
@@ -4122,22 +4226,25 @@ CRUD operations for RuntimeStateDependency records.
 
 | Field | Type | Editable |
 |-------|------|----------|
-| `runtimeStateId` | UUID | Yes |
+| `stateId` | UUID | Yes |
+| `dependencyId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all runtimeStateDependency records
-const items = await db.runtimeStateDependency.findMany({ select: { runtimeStateId: true } }).execute();
+const items = await db.runtimeStateDependency.findMany({ select: { stateId: true, dependencyId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.runtimeStateDependency.findOne({ id: '<UUID>', select: { runtimeStateId: true } }).execute();
+const item = await db.runtimeStateDependency.findOne({ id: '<UUID>', select: { stateId: true, dependencyId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.runtimeStateDependency.create({ data: { runtimeStateId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.runtimeStateDependency.create({ data: { stateId: '<UUID>', dependencyId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
-const updated = await db.runtimeStateDependency.update({ where: { id: '<UUID>' }, data: { runtimeStateId: '<UUID>' }, select: { id: true } }).execute();
+const updated = await db.runtimeStateDependency.update({ where: { id: '<UUID>' }, data: { stateId: '<UUID>' }, select: { id: true } }).execute();
 
 // Delete
 const deleted = await db.runtimeStateDependency.delete({ where: { id: '<UUID>' } }).execute();
@@ -4825,18 +4932,20 @@ CRUD operations for VenueImage records.
 |-------|------|----------|
 | `venueId` | UUID | Yes |
 | `imageId` | UUID | Yes |
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
 
 **Operations:**
 
 ```typescript
 // List all venueImage records
-const items = await db.venueImage.findMany({ select: { venueId: true, imageId: true } }).execute();
+const items = await db.venueImage.findMany({ select: { venueId: true, imageId: true, id: true, entityId: true } }).execute();
 
 // Get one by id
-const item = await db.venueImage.findOne({ id: '<UUID>', select: { venueId: true, imageId: true } }).execute();
+const item = await db.venueImage.findOne({ id: '<UUID>', select: { venueId: true, imageId: true, id: true, entityId: true } }).execute();
 
 // Create
-const created = await db.venueImage.create({ data: { venueId: '<UUID>', imageId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.venueImage.create({ data: { venueId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.venueImage.update({ where: { id: '<UUID>' }, data: { venueId: '<UUID>' }, select: { id: true } }).execute();

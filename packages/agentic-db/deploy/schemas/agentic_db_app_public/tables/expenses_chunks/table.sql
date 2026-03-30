@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-CREATE TABLE agentic_db_app_public.expenses_chunks ();
+CREATE TABLE "agentic_db_app_public".expenses_chunks ();
 

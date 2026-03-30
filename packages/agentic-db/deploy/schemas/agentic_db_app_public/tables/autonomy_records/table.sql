@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/raw_contact_urls/indexes/raw_contact_urls_url_idx
 
 
-CREATE TABLE agentic_db_app_public.autonomy_records ();
+CREATE TABLE "agentic_db_app_public".autonomy_records ();
 

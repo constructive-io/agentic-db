@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER emails_search_tsv_tsv_insert_tg
-BEFORE INSERT ON agentic_db_app_public.emails
+BEFORE INSERT ON "agentic_db_app_public".emails
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.emails_search_tsv_tsv ( );
+EXECUTE PROCEDURE "agentic_db_private".emails_search_tsv_tsv ( );
 

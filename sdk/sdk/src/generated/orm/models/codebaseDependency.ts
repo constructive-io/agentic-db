@@ -97,6 +97,46 @@ export class CodebaseDependencyModel {
       variables,
     });
   }
+  findOne<S extends CodebaseDependencySelect>(
+    args: {
+      id: string;
+      select: S;
+    } & StrictSelect<S, CodebaseDependencySelect>
+  ): QueryBuilder<{
+    codebaseDependency: InferSelectResult<CodebaseDependencyWithRelations, S> | null;
+  }> {
+    const { document, variables } = buildFindManyDocument(
+      'CodebaseDependency',
+      'codebaseDependencies',
+      args.select,
+      {
+        where: {
+          id: {
+            equalTo: args.id,
+          },
+        },
+        first: 1,
+      },
+      'CodebaseDependencyFilter',
+      'CodebaseDependencyOrderBy',
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'query',
+      operationName: 'CodebaseDependency',
+      fieldName: 'codebaseDependency',
+      document,
+      variables,
+      transform: (data: {
+        codebaseDependencies?: {
+          nodes?: InferSelectResult<CodebaseDependencyWithRelations, S>[];
+        };
+      }) => ({
+        codebaseDependency: data.codebaseDependencies?.nodes?.[0] ?? null,
+      }),
+    });
+  }
   create<S extends CodebaseDependencySelect>(
     args: CreateArgs<S, CreateCodebaseDependencyInput['codebaseDependency']> & {
       select: S;
@@ -120,6 +160,76 @@ export class CodebaseDependencyModel {
       operation: 'mutation',
       operationName: 'CodebaseDependency',
       fieldName: 'createCodebaseDependency',
+      document,
+      variables,
+    });
+  }
+  update<S extends CodebaseDependencySelect>(
+    args: UpdateArgs<
+      S,
+      {
+        id: string;
+      },
+      CodebaseDependencyPatch
+    > & {
+      select: S;
+    } & StrictSelect<S, CodebaseDependencySelect>
+  ): QueryBuilder<{
+    updateCodebaseDependency: {
+      codebaseDependency: InferSelectResult<CodebaseDependencyWithRelations, S>;
+    };
+  }> {
+    const { document, variables } = buildUpdateByPkDocument(
+      'CodebaseDependency',
+      'updateCodebaseDependency',
+      'codebaseDependency',
+      args.select,
+      args.where.id,
+      args.data,
+      'UpdateCodebaseDependencyInput',
+      'id',
+      'codebaseDependencyPatch',
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'mutation',
+      operationName: 'CodebaseDependency',
+      fieldName: 'updateCodebaseDependency',
+      document,
+      variables,
+    });
+  }
+  delete<S extends CodebaseDependencySelect>(
+    args: DeleteArgs<
+      {
+        id: string;
+      },
+      S
+    > & {
+      select: S;
+    } & StrictSelect<S, CodebaseDependencySelect>
+  ): QueryBuilder<{
+    deleteCodebaseDependency: {
+      codebaseDependency: InferSelectResult<CodebaseDependencyWithRelations, S>;
+    };
+  }> {
+    const { document, variables } = buildDeleteByPkDocument(
+      'CodebaseDependency',
+      'deleteCodebaseDependency',
+      'codebaseDependency',
+      {
+        id: args.where.id,
+      },
+      'DeleteCodebaseDependencyInput',
+      args.select,
+      connectionFieldsMap
+    );
+    return new QueryBuilder({
+      client: this.client,
+      operation: 'mutation',
+      operationName: 'CodebaseDependency',
+      fieldName: 'deleteCodebaseDependency',
       document,
       variables,
     });

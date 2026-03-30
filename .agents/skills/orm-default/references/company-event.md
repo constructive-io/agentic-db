@@ -9,7 +9,7 @@ ORM operations for CompanyEvent records
 ```typescript
 db.companyEvent.findMany({ select: { id: true } }).execute()
 db.companyEvent.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.companyEvent.create({ data: { companyId: '<UUID>', eventId: '<UUID>' }, select: { id: true } }).execute()
+db.companyEvent.create({ data: { companyId: '<UUID>', eventId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
 db.companyEvent.update({ where: { id: '<UUID>' }, data: { companyId: '<UUID>' }, select: { id: true } }).execute()
 db.companyEvent.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.companyEvent.findMany({
 
 ```typescript
 const item = await db.companyEvent.create({
-  data: { companyId: '<UUID>', eventId: '<UUID>' },
+  data: { companyId: '<UUID>', eventId: '<UUID>', entityId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/calendar_event_tasks/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.memories 
+ALTER TABLE "agentic_db_app_public".memories 
   ADD COLUMN agent_id uuid;
 

@@ -9,7 +9,7 @@ ORM operations for EventVenue records
 ```typescript
 db.eventVenue.findMany({ select: { id: true } }).execute()
 db.eventVenue.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.eventVenue.create({ data: { eventId: '<UUID>', venueId: '<UUID>' }, select: { id: true } }).execute()
+db.eventVenue.create({ data: { eventId: '<UUID>', venueId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
 db.eventVenue.update({ where: { id: '<UUID>' }, data: { eventId: '<UUID>' }, select: { id: true } }).execute()
 db.eventVenue.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.eventVenue.findMany({
 
 ```typescript
 const item = await db.eventVenue.create({
-  data: { eventId: '<UUID>', venueId: '<UUID>' },
+  data: { eventId: '<UUID>', venueId: '<UUID>', entityId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

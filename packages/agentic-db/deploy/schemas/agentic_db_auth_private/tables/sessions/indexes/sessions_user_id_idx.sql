@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_auth_private/tables/sessions/columns/user_id/column
 
 
-CREATE INDEX sessions_user_id_idx ON agentic_db_auth_private.sessions USING BTREE ( user_id );
+CREATE INDEX sessions_user_id_idx ON "agentic_db_auth_private".sessions USING BTREE ( user_id );
 

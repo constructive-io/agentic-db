@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/raw_contact_urls/indexes/raw_contact_urls_url_idx
 
 
-ALTER TABLE agentic_db_app_public.autonomy_records 
+ALTER TABLE "agentic_db_app_public".autonomy_records 
   ADD COLUMN status text;
 

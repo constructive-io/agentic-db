@@ -4,5 +4,5 @@
 
 
 
-CREATE SCHEMA agentic_db_profiles_private;
+CREATE SCHEMA "agentic_db_profiles_private";
 

@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_owner_grants/table
 
 
-ALTER TABLE agentic_db_memberships_public.org_owner_grants 
+ALTER TABLE "agentic_db_memberships_public".org_owner_grants 
   ADD COLUMN entity_id uuid;
 

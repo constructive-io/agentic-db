@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/goal_projects/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.calendar_event_contacts 
+ALTER TABLE "agentic_db_app_public".calendar_event_contacts 
   ADD CONSTRAINT calendar_event_contacts_calendar_event_id_fkey 
     FOREIGN KEY(calendar_event_id) 
-    REFERENCES agentic_db_app_public.calendar_events (id) 
+    REFERENCES "agentic_db_app_public".calendar_events (id) 
     ON DELETE CASCADE;
 

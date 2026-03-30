@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db code-chunk list
 agentic-db code-chunk get --id <UUID>
-agentic-db code-chunk create --entityId <UUID> --codebaseId <UUID> --filePath <String> --content <String> --codebasisId <UUID> [--chunkIndex <Int>] [--language <String>] [--startLine <Int>] [--endLine <Int>] [--symbolName <String>] [--symbolType <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db code-chunk update --id <UUID> [--entityId <UUID>] [--codebaseId <UUID>] [--filePath <String>] [--chunkIndex <Int>] [--content <String>] [--language <String>] [--startLine <Int>] [--endLine <Int>] [--symbolName <String>] [--symbolType <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--codebasisId <UUID>]
+agentic-db code-chunk create --entityId <UUID> --codebaseId <UUID> --filePath <String> --content <String> [--chunkIndex <Int>] [--language <String>] [--startLine <Int>] [--endLine <Int>] [--symbolName <String>] [--symbolType <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db code-chunk update --id <UUID> [--entityId <UUID>] [--codebaseId <UUID>] [--filePath <String>] [--chunkIndex <Int>] [--content <String>] [--language <String>] [--startLine <Int>] [--endLine <Int>] [--symbolName <String>] [--symbolType <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db code-chunk delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db code-chunk list
 ### Create a codeChunk
 
 ```bash
-agentic-db code-chunk create --entityId <UUID> --codebaseId <UUID> --filePath <String> --content <String> --codebasisId <UUID> [--chunkIndex <Int>] [--language <String>] [--startLine <Int>] [--endLine <Int>] [--symbolName <String>] [--symbolType <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db code-chunk create --entityId <UUID> --codebaseId <UUID> --filePath <String> --content <String> [--chunkIndex <Int>] [--language <String>] [--startLine <Int>] [--endLine <Int>] [--symbolName <String>] [--symbolType <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a codeChunk by id

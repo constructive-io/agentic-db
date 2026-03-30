@@ -11,9 +11,11 @@ import type { CreateCompanyEventInput, CompanyEventPatch } from '../../orm/input
 const fieldSchema: FieldSchema = {
   companyId: 'uuid',
   eventId: 'uuid',
+  id: 'uuid',
+  entityId: 'uuid',
 };
 const usage =
-  '\ncompany-event <command>\n\nCommands:\n  list                  List all companyEvent records\n  create                Create a new companyEvent\n\n  --help, -h            Show this help message\n';
+  '\ncompany-event <command>\n\nCommands:\n  list                  List all companyEvent records\n  get                   Get a companyEvent by ID\n  create                Create a new companyEvent\n  update                Update an existing companyEvent\n  delete                Delete a companyEvent\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -30,7 +32,7 @@ export default async (
         type: 'autocomplete',
         name: 'subcommand',
         message: 'What do you want to do?',
-        options: ['list', 'create'],
+        options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
     return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
@@ -45,8 +47,14 @@ async function handleTableSubcommand(
   switch (subcommand) {
     case 'list':
       return handleList(argv, prompter);
+    case 'get':
+      return handleGet(argv, prompter);
     case 'create':
       return handleCreate(argv, prompter);
+    case 'update':
+      return handleUpdate(argv, prompter);
+    case 'delete':
+      return handleDelete(argv, prompter);
     default:
       console.log(usage);
       process.exit(1);
@@ -60,12 +68,45 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
         select: {
           companyId: true,
           eventId: true,
+          id: true,
+          entityId: true,
         },
       })
       .execute();
     console.log(JSON.stringify(result, null, 2));
   } catch (error) {
     console.error('Failed to list records.');
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    process.exit(1);
+  }
+}
+async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
+  try {
+    const answers = await prompter.prompt(argv, [
+      {
+        type: 'text',
+        name: 'id',
+        message: 'id',
+        required: true,
+      },
+    ]);
+    const client = getClient();
+    const result = await client.companyEvent
+      .findOne({
+        id: answers.id as string,
+        select: {
+          companyId: true,
+          eventId: true,
+          id: true,
+          entityId: true,
+        },
+      })
+      .execute();
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error('Record not found.');
     if (error instanceof Error) {
       console.error(error.message);
     }
@@ -87,6 +128,12 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         message: 'eventId',
         required: true,
       },
+      {
+        type: 'text',
+        name: 'entityId',
+        message: 'entityId',
+        required: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(
@@ -99,16 +146,108 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         data: {
           companyId: cleanedData.companyId,
           eventId: cleanedData.eventId,
+          entityId: cleanedData.entityId,
         },
         select: {
           companyId: true,
           eventId: true,
+          id: true,
+          entityId: true,
         },
       })
       .execute();
     console.log(JSON.stringify(result, null, 2));
   } catch (error) {
     console.error('Failed to create record.');
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    process.exit(1);
+  }
+}
+async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
+  try {
+    const rawAnswers = await prompter.prompt(argv, [
+      {
+        type: 'text',
+        name: 'id',
+        message: 'id',
+        required: true,
+      },
+      {
+        type: 'text',
+        name: 'companyId',
+        message: 'companyId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'eventId',
+        message: 'eventId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'entityId',
+        message: 'entityId',
+        required: false,
+      },
+    ]);
+    const answers = coerceAnswers(rawAnswers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as CompanyEventPatch;
+    const client = getClient();
+    const result = await client.companyEvent
+      .update({
+        where: {
+          id: answers.id as string,
+        },
+        data: {
+          companyId: cleanedData.companyId,
+          eventId: cleanedData.eventId,
+          entityId: cleanedData.entityId,
+        },
+        select: {
+          companyId: true,
+          eventId: true,
+          id: true,
+          entityId: true,
+        },
+      })
+      .execute();
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error('Failed to update record.');
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    process.exit(1);
+  }
+}
+async function handleDelete(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
+  try {
+    const rawAnswers = await prompter.prompt(argv, [
+      {
+        type: 'text',
+        name: 'id',
+        message: 'id',
+        required: true,
+      },
+    ]);
+    const answers = coerceAnswers(rawAnswers, fieldSchema);
+    const client = getClient();
+    const result = await client.companyEvent
+      .delete({
+        where: {
+          id: answers.id as string,
+        },
+        select: {
+          id: true,
+        },
+      })
+      .execute();
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error('Failed to delete record.');
     if (error instanceof Error) {
       console.error(error.message);
     }

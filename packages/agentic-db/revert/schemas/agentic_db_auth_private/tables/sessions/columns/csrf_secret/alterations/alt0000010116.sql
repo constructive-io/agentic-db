@@ -1,6 +1,0 @@
--- Revert: schemas/agentic_db_auth_private/tables/sessions/columns/csrf_secret/alterations/alt0000010116
-
-
-COMMENT ON COLUMN agentic_db_auth_private.sessions.csrf_secret IS NULL;
-
-

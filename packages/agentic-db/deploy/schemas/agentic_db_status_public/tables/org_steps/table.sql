@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_status_public/schema
 
 
-CREATE TABLE agentic_db_status_public.org_steps ();
+CREATE TABLE "agentic_db_status_public".org_steps ();
 

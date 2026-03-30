@@ -9,8 +9,8 @@ CRUD operations for RuntimeStateDependency records via agentic-db CLI
 ```bash
 agentic-db runtime-state-dependency list
 agentic-db runtime-state-dependency get --id <UUID>
-agentic-db runtime-state-dependency create --runtimeStateId <UUID>
-agentic-db runtime-state-dependency update --id <UUID> [--runtimeStateId <UUID>]
+agentic-db runtime-state-dependency create --stateId <UUID> --dependencyId <UUID> --entityId <UUID>
+agentic-db runtime-state-dependency update --id <UUID> [--stateId <UUID>] [--dependencyId <UUID>] [--entityId <UUID>]
 agentic-db runtime-state-dependency delete --id <UUID>
 ```
 
@@ -25,7 +25,7 @@ agentic-db runtime-state-dependency list
 ### Create a runtimeStateDependency
 
 ```bash
-agentic-db runtime-state-dependency create --runtimeStateId <UUID>
+agentic-db runtime-state-dependency create --stateId <UUID> --dependencyId <UUID> --entityId <UUID>
 ```
 
 ### Get a runtimeStateDependency by id

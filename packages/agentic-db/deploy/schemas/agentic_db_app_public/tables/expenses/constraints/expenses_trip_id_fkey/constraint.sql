@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_tool_definition_id_idx
 
 
-ALTER TABLE agentic_db_app_public.expenses 
+ALTER TABLE "agentic_db_app_public".expenses 
   ADD CONSTRAINT expenses_trip_id_fkey 
     FOREIGN KEY(trip_id) 
-    REFERENCES agentic_db_app_public.trips (id) 
+    REFERENCES "agentic_db_app_public".trips (id) 
     ON DELETE SET NULL;
 

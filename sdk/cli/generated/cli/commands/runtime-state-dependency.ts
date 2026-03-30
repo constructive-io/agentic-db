@@ -12,10 +12,13 @@ import type {
   RuntimeStateDependencyPatch,
 } from '../../orm/input-types';
 const fieldSchema: FieldSchema = {
-  runtimeStateId: 'uuid',
+  stateId: 'uuid',
+  dependencyId: 'uuid',
+  id: 'uuid',
+  entityId: 'uuid',
 };
 const usage =
-  '\nruntime-state-dependency <command>\n\nCommands:\n  list                  List all runtimeStateDependency records\n  create                Create a new runtimeStateDependency\n\n  --help, -h            Show this help message\n';
+  '\nruntime-state-dependency <command>\n\nCommands:\n  list                  List all runtimeStateDependency records\n  get                   Get a runtimeStateDependency by ID\n  create                Create a new runtimeStateDependency\n  update                Update an existing runtimeStateDependency\n  delete                Delete a runtimeStateDependency\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -32,7 +35,7 @@ export default async (
         type: 'autocomplete',
         name: 'subcommand',
         message: 'What do you want to do?',
-        options: ['list', 'create'],
+        options: ['list', 'get', 'create', 'update', 'delete'],
       },
     ]);
     return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
@@ -47,8 +50,14 @@ async function handleTableSubcommand(
   switch (subcommand) {
     case 'list':
       return handleList(argv, prompter);
+    case 'get':
+      return handleGet(argv, prompter);
     case 'create':
       return handleCreate(argv, prompter);
+    case 'update':
+      return handleUpdate(argv, prompter);
+    case 'delete':
+      return handleDelete(argv, prompter);
     default:
       console.log(usage);
       process.exit(1);
@@ -60,7 +69,10 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
     const result = await client.runtimeStateDependency
       .findMany({
         select: {
-          runtimeStateId: true,
+          stateId: true,
+          dependencyId: true,
+          id: true,
+          entityId: true,
         },
       })
       .execute();
@@ -73,13 +85,56 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
     process.exit(1);
   }
 }
+async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
+  try {
+    const answers = await prompter.prompt(argv, [
+      {
+        type: 'text',
+        name: 'id',
+        message: 'id',
+        required: true,
+      },
+    ]);
+    const client = getClient();
+    const result = await client.runtimeStateDependency
+      .findOne({
+        id: answers.id as string,
+        select: {
+          stateId: true,
+          dependencyId: true,
+          id: true,
+          entityId: true,
+        },
+      })
+      .execute();
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error('Record not found.');
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    process.exit(1);
+  }
+}
 async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
   try {
     const rawAnswers = await prompter.prompt(argv, [
       {
         type: 'text',
-        name: 'runtimeStateId',
-        message: 'runtimeStateId',
+        name: 'stateId',
+        message: 'stateId',
+        required: true,
+      },
+      {
+        type: 'text',
+        name: 'dependencyId',
+        message: 'dependencyId',
+        required: true,
+      },
+      {
+        type: 'text',
+        name: 'entityId',
+        message: 'entityId',
         required: true,
       },
     ]);
@@ -92,16 +147,110 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.runtimeStateDependency
       .create({
         data: {
-          runtimeStateId: cleanedData.runtimeStateId,
+          stateId: cleanedData.stateId,
+          dependencyId: cleanedData.dependencyId,
+          entityId: cleanedData.entityId,
         },
         select: {
-          runtimeStateId: true,
+          stateId: true,
+          dependencyId: true,
+          id: true,
+          entityId: true,
         },
       })
       .execute();
     console.log(JSON.stringify(result, null, 2));
   } catch (error) {
     console.error('Failed to create record.');
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    process.exit(1);
+  }
+}
+async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
+  try {
+    const rawAnswers = await prompter.prompt(argv, [
+      {
+        type: 'text',
+        name: 'id',
+        message: 'id',
+        required: true,
+      },
+      {
+        type: 'text',
+        name: 'stateId',
+        message: 'stateId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'dependencyId',
+        message: 'dependencyId',
+        required: false,
+      },
+      {
+        type: 'text',
+        name: 'entityId',
+        message: 'entityId',
+        required: false,
+      },
+    ]);
+    const answers = coerceAnswers(rawAnswers, fieldSchema);
+    const cleanedData = stripUndefined(answers, fieldSchema) as RuntimeStateDependencyPatch;
+    const client = getClient();
+    const result = await client.runtimeStateDependency
+      .update({
+        where: {
+          id: answers.id as string,
+        },
+        data: {
+          stateId: cleanedData.stateId,
+          dependencyId: cleanedData.dependencyId,
+          entityId: cleanedData.entityId,
+        },
+        select: {
+          stateId: true,
+          dependencyId: true,
+          id: true,
+          entityId: true,
+        },
+      })
+      .execute();
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error('Failed to update record.');
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    process.exit(1);
+  }
+}
+async function handleDelete(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
+  try {
+    const rawAnswers = await prompter.prompt(argv, [
+      {
+        type: 'text',
+        name: 'id',
+        message: 'id',
+        required: true,
+      },
+    ]);
+    const answers = coerceAnswers(rawAnswers, fieldSchema);
+    const client = getClient();
+    const result = await client.runtimeStateDependency
+      .delete({
+        where: {
+          id: answers.id as string,
+        },
+        select: {
+          id: true,
+        },
+      })
+      .execute();
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error('Failed to delete record.');
     if (error instanceof Error) {
       console.error(error.message);
     }

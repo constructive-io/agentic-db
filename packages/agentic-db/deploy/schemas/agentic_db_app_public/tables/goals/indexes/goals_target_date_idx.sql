@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE INDEX goals_target_date_idx ON agentic_db_app_public.goals USING BTREE ( target_date );
+CREATE INDEX goals_target_date_idx ON "agentic_db_app_public".goals USING BTREE ( target_date );
 

@@ -7,8 +7,8 @@ import { OrmClient } from './client';
 import type { OrmClientConfig } from './client';
 import { ActivityLogModel } from './models/activityLog';
 import { ActivityLogsChunkModel } from './models/activityLogsChunk';
-import { AgentCollaboratorModel } from './models/agentCollaborator';
 import { AgentModel } from './models/agent';
+import { AgentCollaboratorModel } from './models/agentCollaborator';
 import { AgentLogModel } from './models/agentLog';
 import { AgentLogsChunkModel } from './models/agentLogsChunk';
 import { AgentPromptModel } from './models/agentPrompt';
@@ -27,9 +27,9 @@ import { NoteModel } from './models/note';
 import { CalendarEventsChunkModel } from './models/calendarEventsChunk';
 import { CalendarEventTaskModel } from './models/calendarEventTask';
 import { TaskModel } from './models/task';
+import { CodebaseModel } from './models/codebase';
 import { CodebaseDependencyModel } from './models/codebaseDependency';
 import { CodebasesChunkModel } from './models/codebasesChunk';
-import { CodebasisModel } from './models/codebasis';
 import { CodeChunkModel } from './models/codeChunk';
 import { CompaniesChunkModel } from './models/companiesChunk';
 import { CompanyModel } from './models/company';
@@ -43,6 +43,7 @@ import { MemoryModel } from './models/memory';
 import { CompanyMemoryModel } from './models/companyMemory';
 import { CompanyNoteModel } from './models/companyNote';
 import { ContactCompanyModel } from './models/contactCompany';
+import { EmailModel } from './models/email';
 import { EmailThreadModel } from './models/emailThread';
 import { ContactEventModel } from './models/contactEvent';
 import { ExpenseModel } from './models/expense';
@@ -60,7 +61,8 @@ import { DealContactModel } from './models/dealContact';
 import { DealNoteModel } from './models/dealNote';
 import { DealsChunkModel } from './models/dealsChunk';
 import { EmailAttachmentModel } from './models/emailAttachment';
-import { EmailModel } from './models/email';
+import { EmailNoteModel } from './models/emailNote';
+import { EmailRecipientModel } from './models/emailRecipient';
 import { EmailsChunkModel } from './models/emailsChunk';
 import { EmailThreadsChunkModel } from './models/emailThreadsChunk';
 import { EventImageModel } from './models/eventImage';
@@ -159,8 +161,8 @@ export function createClient(config: OrmClientConfig) {
   return {
     activityLog: new ActivityLogModel(client),
     activityLogsChunk: new ActivityLogsChunkModel(client),
-    agentCollaborator: new AgentCollaboratorModel(client),
     agent: new AgentModel(client),
+    agentCollaborator: new AgentCollaboratorModel(client),
     agentLog: new AgentLogModel(client),
     agentLogsChunk: new AgentLogsChunkModel(client),
     agentPrompt: new AgentPromptModel(client),
@@ -179,9 +181,9 @@ export function createClient(config: OrmClientConfig) {
     calendarEventsChunk: new CalendarEventsChunkModel(client),
     calendarEventTask: new CalendarEventTaskModel(client),
     task: new TaskModel(client),
+    codebase: new CodebaseModel(client),
     codebaseDependency: new CodebaseDependencyModel(client),
     codebasesChunk: new CodebasesChunkModel(client),
-    codebasis: new CodebasisModel(client),
     codeChunk: new CodeChunkModel(client),
     companiesChunk: new CompaniesChunkModel(client),
     company: new CompanyModel(client),
@@ -195,6 +197,7 @@ export function createClient(config: OrmClientConfig) {
     companyMemory: new CompanyMemoryModel(client),
     companyNote: new CompanyNoteModel(client),
     contactCompany: new ContactCompanyModel(client),
+    email: new EmailModel(client),
     emailThread: new EmailThreadModel(client),
     contactEvent: new ContactEventModel(client),
     expense: new ExpenseModel(client),
@@ -212,7 +215,8 @@ export function createClient(config: OrmClientConfig) {
     dealNote: new DealNoteModel(client),
     dealsChunk: new DealsChunkModel(client),
     emailAttachment: new EmailAttachmentModel(client),
-    email: new EmailModel(client),
+    emailNote: new EmailNoteModel(client),
+    emailRecipient: new EmailRecipientModel(client),
     emailsChunk: new EmailsChunkModel(client),
     emailThreadsChunk: new EmailThreadsChunkModel(client),
     eventImage: new EventImageModel(client),

@@ -9,7 +9,7 @@ ORM operations for CompanyImage records
 ```typescript
 db.companyImage.findMany({ select: { id: true } }).execute()
 db.companyImage.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.companyImage.create({ data: { companyId: '<UUID>', imageId: '<UUID>' }, select: { id: true } }).execute()
+db.companyImage.create({ data: { companyId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
 db.companyImage.update({ where: { id: '<UUID>' }, data: { companyId: '<UUID>' }, select: { id: true } }).execute()
 db.companyImage.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.companyImage.findMany({
 
 ```typescript
 const item = await db.companyImage.create({
-  data: { companyId: '<UUID>', imageId: '<UUID>' },
+  data: { companyId: '<UUID>', imageId: '<UUID>', entityId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

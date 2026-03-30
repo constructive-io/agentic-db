@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_status_public/tables/app_levels/table
 
 
-ALTER TABLE agentic_db_status_public.app_levels 
+ALTER TABLE "agentic_db_status_public".app_levels 
   ADD COLUMN description text;
 

@@ -28,8 +28,8 @@ agentic-db auth set-token <your-token>
 | `config` | Manage config key-value store (per-context) |
 | `activity-log` | activityLog CRUD operations |
 | `activity-logs-chunk` | activityLogsChunk CRUD operations |
-| `agent-collaborator` | agentCollaborator CRUD operations |
 | `agent` | agent CRUD operations |
+| `agent-collaborator` | agentCollaborator CRUD operations |
 | `agent-log` | agentLog CRUD operations |
 | `agent-logs-chunk` | agentLogsChunk CRUD operations |
 | `agent-prompt` | agentPrompt CRUD operations |
@@ -48,9 +48,9 @@ agentic-db auth set-token <your-token>
 | `calendar-events-chunk` | calendarEventsChunk CRUD operations |
 | `calendar-event-task` | calendarEventTask CRUD operations |
 | `task` | task CRUD operations |
+| `codebase` | codebase CRUD operations |
 | `codebase-dependency` | codebaseDependency CRUD operations |
 | `codebases-chunk` | codebasesChunk CRUD operations |
-| `codebasis` | codebasis CRUD operations |
 | `code-chunk` | codeChunk CRUD operations |
 | `companies-chunk` | companiesChunk CRUD operations |
 | `company` | company CRUD operations |
@@ -64,6 +64,7 @@ agentic-db auth set-token <your-token>
 | `company-memory` | companyMemory CRUD operations |
 | `company-note` | companyNote CRUD operations |
 | `contact-company` | contactCompany CRUD operations |
+| `email` | email CRUD operations |
 | `email-thread` | emailThread CRUD operations |
 | `contact-event` | contactEvent CRUD operations |
 | `expense` | expense CRUD operations |
@@ -81,7 +82,8 @@ agentic-db auth set-token <your-token>
 | `deal-note` | dealNote CRUD operations |
 | `deals-chunk` | dealsChunk CRUD operations |
 | `email-attachment` | emailAttachment CRUD operations |
-| `email` | email CRUD operations |
+| `email-note` | emailNote CRUD operations |
+| `email-recipient` | emailRecipient CRUD operations |
 | `emails-chunk` | emailsChunk CRUD operations |
 | `email-threads-chunk` | emailThreadsChunk CRUD operations |
 | `event-image` | eventImage CRUD operations |
@@ -269,26 +271,6 @@ CRUD operations for ActivityLogsChunk records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `agent-collaborator`
-
-CRUD operations for AgentCollaborator records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all agentCollaborator records |
-| `get` | Get a agentCollaborator by id |
-| `create` | Create a new agentCollaborator |
-| `update` | Update an existing agentCollaborator |
-| `delete` | Delete a agentCollaborator |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `agentId` | UUID |
-
-**Required create fields:** `agentId`
-
 ### `agent`
 
 CRUD operations for Agent records.
@@ -335,6 +317,29 @@ CRUD operations for Agent records.
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `descriptionTrgmSimilarity`, `systemPromptTrgmSimilarity`, `modelTrgmSimilarity`, `statusTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
+
+### `agent-collaborator`
+
+CRUD operations for AgentCollaborator records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all agentCollaborator records |
+| `get` | Get a agentCollaborator by id |
+| `create` | Create a new agentCollaborator |
+| `update` | Update an existing agentCollaborator |
+| `delete` | Delete a agentCollaborator |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `agentId` | UUID |
+| `collaboratorId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `agentId`, `collaboratorId`, `entityId`
 
 ### `agent-log`
 
@@ -572,9 +577,12 @@ CRUD operations for AutonomyRecordLink records.
 
 | Field | Type |
 |-------|------|
-| `autonomyRecordId` | UUID |
+| `sourceRecordId` | UUID |
+| `targetRecordId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `autonomyRecordId`
+**Required create fields:** `sourceRecordId`, `targetRecordId`, `entityId`
 
 ### `autonomy-records-chunk`
 
@@ -974,70 +982,17 @@ CRUD operations for Task records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
-### `codebase-dependency`
+### `codebase`
 
-CRUD operations for CodebaseDependency records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all codebaseDependency records |
-| `get` | Get a codebaseDependency by id |
-| `create` | Create a new codebaseDependency |
-| `update` | Update an existing codebaseDependency |
-| `delete` | Delete a codebaseDependency |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `codebasisId` | UUID |
-
-**Required create fields:** `codebasisId`
-
-### `codebases-chunk`
-
-CRUD operations for CodebasesChunk records.
+CRUD operations for Codebase records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all codebasesChunk records |
-| `get` | Get a codebasesChunk by id |
-| `create` | Create a new codebasesChunk |
-| `update` | Update an existing codebasesChunk |
-| `delete` | Delete a codebasesChunk |
-
-**Fields:**
-
-| Field | Type |
-|-------|------|
-| `id` | UUID |
-| `codebasesId` | UUID |
-| `content` | String |
-| `chunkIndex` | Int |
-| `embedding` | Vector |
-| `metadata` | JSON |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingVectorDistance` | Float |
-| `searchScore` | Float |
-
-**Required create fields:** `codebasesId`, `content`
-**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
-> **Unified Search API fields:** `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
-
-### `codebasis`
-
-CRUD operations for Codebasis records.
-
-| Subcommand | Description |
-|------------|-------------|
-| `list` | List all codebasis records |
-| `get` | Get a codebasis by id |
-| `create` | Create a new codebasis |
-| `update` | Update an existing codebasis |
-| `delete` | Delete a codebasis |
+| `list` | List all codebase records |
+| `get` | Get a codebase by id |
+| `create` | Create a new codebase |
+| `update` | Update an existing codebase |
+| `delete` | Delete a codebase |
 
 **Fields:**
 
@@ -1076,6 +1031,62 @@ CRUD operations for Codebasis records.
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
+### `codebase-dependency`
+
+CRUD operations for CodebaseDependency records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all codebaseDependency records |
+| `get` | Get a codebaseDependency by id |
+| `create` | Create a new codebaseDependency |
+| `update` | Update an existing codebaseDependency |
+| `delete` | Delete a codebaseDependency |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `codebaseId` | UUID |
+| `dependencyId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `codebaseId`, `dependencyId`, `entityId`
+
+### `codebases-chunk`
+
+CRUD operations for CodebasesChunk records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all codebasesChunk records |
+| `get` | Get a codebasesChunk by id |
+| `create` | Create a new codebasesChunk |
+| `update` | Update an existing codebasesChunk |
+| `delete` | Delete a codebasesChunk |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `codebasesId` | UUID |
+| `content` | String |
+| `chunkIndex` | Int |
+| `embedding` | Vector |
+| `metadata` | JSON |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingVectorDistance` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `codebasesId`, `content`
+**Optional create fields (backend defaults):** `chunkIndex`, `embedding`, `metadata`
+> **Unified Search API fields:** `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
+
 ### `code-chunk`
 
 CRUD operations for CodeChunk records.
@@ -1108,7 +1119,6 @@ CRUD operations for CodeChunk records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
-| `codebasisId` | UUID |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `filePathTrgmSimilarity` | Float |
@@ -1119,7 +1129,7 @@ CRUD operations for CodeChunk records.
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
-**Required create fields:** `entityId`, `codebaseId`, `filePath`, `content`, `codebasisId`
+**Required create fields:** `entityId`, `codebaseId`, `filePath`, `content`
 **Optional create fields (backend defaults):** `chunkIndex`, `language`, `startLine`, `endLine`, `symbolName`, `symbolType`, `embeddingText`, `embedding`, `embeddingStale`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `filePathTrgmSimilarity`, `contentTrgmSimilarity`, `languageTrgmSimilarity`, `symbolNameTrgmSimilarity`, `symbolTypeTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
@@ -1267,8 +1277,10 @@ CRUD operations for CompanyEvent records.
 |-------|------|
 | `companyId` | UUID |
 | `eventId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `companyId`, `eventId`
+**Required create fields:** `companyId`, `eventId`, `entityId`
 
 ### `event`
 
@@ -1338,8 +1350,10 @@ CRUD operations for CompanyImage records.
 |-------|------|
 | `companyId` | UUID |
 | `imageId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `companyId`, `imageId`
+**Required create fields:** `companyId`, `imageId`, `entityId`
 
 ### `image`
 
@@ -1519,8 +1533,61 @@ CRUD operations for ContactCompany records.
 |-------|------|
 | `contactId` | UUID |
 | `companyId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `companyId`
+**Required create fields:** `contactId`, `companyId`, `entityId`
+
+### `email`
+
+CRUD operations for Email records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all email records |
+| `get` | Get a email by id |
+| `create` | Create a new email |
+| `update` | Update an existing email |
+| `delete` | Delete a email |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `providerMessageId` | String |
+| `fromContactId` | UUID |
+| `to` | JSON |
+| `cc` | JSON |
+| `bcc` | JSON |
+| `subject` | String |
+| `bodyText` | String |
+| `bodyHtml` | String |
+| `sentAt` | Datetime |
+| `tags` | String |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `embeddingText` | String |
+| `searchTsv` | FullText |
+| `embedding` | Vector |
+| `embeddingStale` | Boolean |
+| `emailThreadId` | UUID |
+| `searchTsvRank` | Float |
+| `embeddingTextBm25Score` | Float |
+| `embeddingVectorDistance` | Float |
+| `providerMessageIdTrgmSimilarity` | Float |
+| `subjectTrgmSimilarity` | Float |
+| `bodyTextTrgmSimilarity` | Float |
+| `bodyHtmlTrgmSimilarity` | Float |
+| `embeddingTextTrgmSimilarity` | Float |
+| `searchScore` | Float |
+
+**Required create fields:** `entityId`, `emailThreadId`
+**Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `providerMessageIdTrgmSimilarity`, `subjectTrgmSimilarity`, `bodyTextTrgmSimilarity`, `bodyHtmlTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
 
 ### `email-thread`
 
@@ -1586,8 +1653,10 @@ CRUD operations for ContactEvent records.
 |-------|------|
 | `contactId` | UUID |
 | `eventId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `eventId`
+**Required create fields:** `contactId`, `eventId`, `entityId`
 
 ### `expense`
 
@@ -1655,8 +1724,10 @@ CRUD operations for ContactImage records.
 |-------|------|
 | `contactId` | UUID |
 | `imageId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `contactId`, `imageId`
+**Required create fields:** `contactId`, `imageId`, `entityId`
 
 ### `contact-link`
 
@@ -1803,8 +1874,11 @@ CRUD operations for ContactRelationship records.
 | Field | Type |
 |-------|------|
 | `contactId` | UUID |
+| `relatedContactId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `contactId`
+**Required create fields:** `contactId`, `relatedContactId`, `entityId`
 
 ### `contacts-chunk`
 
@@ -1930,8 +2004,10 @@ CRUD operations for DealCompany records.
 |-------|------|
 | `dealId` | UUID |
 | `companyId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `dealId`, `companyId`
+**Required create fields:** `dealId`, `companyId`, `entityId`
 
 ### `deal-contact`
 
@@ -1951,8 +2027,10 @@ CRUD operations for DealContact records.
 |-------|------|
 | `dealId` | UUID |
 | `contactId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `dealId`, `contactId`
+**Required create fields:** `dealId`, `contactId`, `entityId`
 
 ### `deal-note`
 
@@ -2040,44 +2118,51 @@ CRUD operations for EmailAttachment records.
 **Required create fields:** `entityId`, `filename`, `emailId`
 **Optional create fields (backend defaults):** `contentType`, `sizeBytes`, `storageUrl`, `providerAttachmentId`
 
-### `email`
+### `email-note`
 
-CRUD operations for Email records.
+CRUD operations for EmailNote records.
 
 | Subcommand | Description |
 |------------|-------------|
-| `list` | List all email records |
-| `get` | Get a email by id |
-| `create` | Create a new email |
-| `update` | Update an existing email |
-| `delete` | Delete a email |
+| `list` | List all emailNote records |
+| `get` | Get a emailNote by id |
+| `create` | Create a new emailNote |
+| `update` | Update an existing emailNote |
+| `delete` | Delete a emailNote |
 
 **Fields:**
 
 | Field | Type |
 |-------|------|
+| `emailId` | UUID |
+| `noteId` | UUID |
 | `id` | UUID |
 | `entityId` | UUID |
-| `providerMessageId` | String |
-| `fromContactId` | UUID |
-| `to` | JSON |
-| `cc` | JSON |
-| `bcc` | JSON |
-| `subject` | String |
-| `bodyText` | String |
-| `bodyHtml` | String |
-| `sentAt` | Datetime |
-| `tags` | String |
-| `createdAt` | Datetime |
-| `updatedAt` | Datetime |
-| `embeddingText` | String |
-| `searchTsv` | FullText |
-| `embedding` | Vector |
-| `embeddingStale` | Boolean |
-| `emailThreadId` | UUID |
 
-**Required create fields:** `entityId`, `emailThreadId`
-**Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Required create fields:** `emailId`, `noteId`, `entityId`
+
+### `email-recipient`
+
+CRUD operations for EmailRecipient records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all emailRecipient records |
+| `get` | Get a emailRecipient by id |
+| `create` | Create a new emailRecipient |
+| `update` | Update an existing emailRecipient |
+| `delete` | Delete a emailRecipient |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `emailId` | UUID |
+| `contactId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
+
+**Required create fields:** `emailId`, `contactId`, `entityId`
 
 ### `emails-chunk`
 
@@ -2163,8 +2248,10 @@ CRUD operations for EventImage records.
 |-------|------|
 | `eventId` | UUID |
 | `imageId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `eventId`, `imageId`
+**Required create fields:** `eventId`, `imageId`, `entityId`
 
 ### `event-link`
 
@@ -2274,8 +2361,10 @@ CRUD operations for EventVenue records.
 |-------|------|
 | `eventId` | UUID |
 | `venueId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `eventId`, `venueId`
+**Required create fields:** `eventId`, `venueId`, `entityId`
 
 ### `venue`
 
@@ -3526,9 +3615,12 @@ CRUD operations for RuntimeStateDependency records.
 
 | Field | Type |
 |-------|------|
-| `runtimeStateId` | UUID |
+| `stateId` | UUID |
+| `dependencyId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `runtimeStateId`
+**Required create fields:** `stateId`, `dependencyId`, `entityId`
 
 ### `runtime-states-chunk`
 
@@ -4109,8 +4201,10 @@ CRUD operations for VenueImage records.
 |-------|------|
 | `venueId` | UUID |
 | `imageId` | UUID |
+| `id` | UUID |
+| `entityId` | UUID |
 
-**Required create fields:** `venueId`, `imageId`
+**Required create fields:** `venueId`, `imageId`, `entityId`
 
 ### `venue-link`
 

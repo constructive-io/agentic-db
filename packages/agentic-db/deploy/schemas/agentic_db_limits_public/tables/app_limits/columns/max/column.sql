@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_limits_public/tables/app_limits/table
 
 
-ALTER TABLE agentic_db_limits_public.app_limits 
+ALTER TABLE "agentic_db_limits_public".app_limits 
   ADD COLUMN max int;
 
