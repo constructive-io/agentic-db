@@ -19,6 +19,9 @@ scalar Datetime
 "A full-text search tsvector value represented as a string."
 scalar FullText
 
+"The `GeoJSON` scalar type represents GeoJSON values as specified by [RFC 7946](https://tools.ietf.org/html/rfc7946)."
+scalar GeoJSON
+
 "Represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
 
@@ -802,10 +805,6 @@ enum ContactOrderBy {
   EMAIL_DESC
   RELATIONSHIP_TYPE_ASC
   RELATIONSHIP_TYPE_DESC
-  TWITTER_HANDLE_ASC
-  TWITTER_HANDLE_DESC
-  GITHUB_USERNAME_ASC
-  GITHUB_USERNAME_DESC
   MAIN_IMAGE_ID_ASC
   MAIN_IMAGE_ID_DESC
   EMBEDDING_TEXT_ASC
@@ -838,16 +837,6 @@ enum ContactOrderBy {
   RELATIONSHIP_TYPE_TRGM_SIMILARITY_DESC
   HOW_WE_MET_TRGM_SIMILARITY_ASC
   HOW_WE_MET_TRGM_SIMILARITY_DESC
-  TWITTER_HANDLE_TRGM_SIMILARITY_ASC
-  TWITTER_HANDLE_TRGM_SIMILARITY_DESC
-  LINKEDIN_URL_TRGM_SIMILARITY_ASC
-  LINKEDIN_URL_TRGM_SIMILARITY_DESC
-  GITHUB_USERNAME_TRGM_SIMILARITY_ASC
-  GITHUB_USERNAME_TRGM_SIMILARITY_DESC
-  INSTAGRAM_HANDLE_TRGM_SIMILARITY_ASC
-  INSTAGRAM_HANDLE_TRGM_SIMILARITY_DESC
-  WEBSITE_TRGM_SIMILARITY_ASC
-  WEBSITE_TRGM_SIMILARITY_DESC
   EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
   EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
   SEARCH_SCORE_ASC
@@ -1092,24 +1081,6 @@ enum EmailOrderBy {
   EMBEDDING_DESC
   EMAIL_THREAD_ID_ASC
   EMAIL_THREAD_ID_DESC
-  SEARCH_TSV_RANK_ASC
-  SEARCH_TSV_RANK_DESC
-  EMBEDDING_TEXT_BM25_SCORE_ASC
-  EMBEDDING_TEXT_BM25_SCORE_DESC
-  EMBEDDING_VECTOR_DISTANCE_ASC
-  EMBEDDING_VECTOR_DISTANCE_DESC
-  PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_ASC
-  PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_DESC
-  SUBJECT_TRGM_SIMILARITY_ASC
-  SUBJECT_TRGM_SIMILARITY_DESC
-  BODY_TEXT_TRGM_SIMILARITY_ASC
-  BODY_TEXT_TRGM_SIMILARITY_DESC
-  BODY_HTML_TRGM_SIMILARITY_ASC
-  BODY_HTML_TRGM_SIMILARITY_DESC
-  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
-  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
-  SEARCH_SCORE_ASC
-  SEARCH_SCORE_DESC
 }
 
 "Methods to use when ordering `EmailRecipient`."
@@ -2852,6 +2823,46 @@ enum VenuesChunkOrderBy {
   EMBEDDING_VECTOR_DISTANCE_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
+}
+
+"All geography XY types implement this interface"
+interface GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+}
+
+"All geography XYM types implement this interface"
+interface GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+}
+
+"All geography XYZ types implement this interface"
+interface GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+}
+
+"All geography XYZM types implement this interface"
+interface GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+}
+
+"All geography types implement this interface"
+interface GeographyInterface {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
 }
 
 "@@hasChunks {\"chunks_table\": \"activity_logs_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
@@ -5663,11 +5674,6 @@ type Contact {
   birthday: Date
   relationshipType: String
   howWeMet: String
-  twitterHandle: String
-  linkedinUrl: String
-  githubUsername: String
-  instagramHandle: String
-  website: String
   tags: [String]
   mainImageId: UUID
   createdAt: Datetime!
@@ -5676,6 +5682,7 @@ type Contact {
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
+  locationGeo: GeographyInterface
   "Reads and enables pagination through a set of `Image`."
   imagesByContactImageContactIdAndImageId(
     "Only read the first `n` values of the set."
@@ -6402,16 +6409,6 @@ type Contact {
   relationshipTypeTrgmSimilarity: Float
   "TRGM similarity when searching `howWeMet`. Returns null when no trgm search filter is active."
   howWeMetTrgmSimilarity: Float
-  "TRGM similarity when searching `twitterHandle`. Returns null when no trgm search filter is active."
-  twitterHandleTrgmSimilarity: Float
-  "TRGM similarity when searching `linkedinUrl`. Returns null when no trgm search filter is active."
-  linkedinUrlTrgmSimilarity: Float
-  "TRGM similarity when searching `githubUsername`. Returns null when no trgm search filter is active."
-  githubUsernameTrgmSimilarity: Float
-  "TRGM similarity when searching `instagramHandle`. Returns null when no trgm search filter is active."
-  instagramHandleTrgmSimilarity: Float
-  "TRGM similarity when searching `website`. Returns null when no trgm search filter is active."
-  websiteTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
   "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
@@ -12387,24 +12384,6 @@ type Email {
     "The method to use when ordering `EmailNote`."
     orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): EmailNoteConnection!
-  "TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active."
-  searchTsvRank: Float
-  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
-  embeddingTextBm25Score: Float
-  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
-  embeddingVectorDistance: Float
-  "TRGM similarity when searching `providerMessageId`. Returns null when no trgm search filter is active."
-  providerMessageIdTrgmSimilarity: Float
-  "TRGM similarity when searching `subject`. Returns null when no trgm search filter is active."
-  subjectTrgmSimilarity: Float
-  "TRGM similarity when searching `bodyText`. Returns null when no trgm search filter is active."
-  bodyTextTrgmSimilarity: Float
-  "TRGM similarity when searching `bodyHtml`. Returns null when no trgm search filter is active."
-  bodyHtmlTrgmSimilarity: Float
-  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
-  embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
-  searchScore: Float
 }
 
 type EmailAttachment {
@@ -12875,6 +12854,7 @@ type Event {
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
+  locationGeo: GeographyInterface
   "Reads and enables pagination through a set of `Image`."
   imagesByEventImageEventIdAndImageId(
     "Only read the first `n` values of the set."
@@ -13777,6 +13757,484 @@ type ExpensesChunkEdge {
   node: ExpensesChunk
 }
 
+"A PostGIS geography GeometryCollection type"
+type GeographyGeometryCollection implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  geometries: [GeographyGeometry]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography GeometryCollectionM type"
+type GeographyGeometryCollectionM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  geometries: [GeographyGeometryM]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography GeometryCollectionZ type"
+type GeographyGeometryCollectionZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  geometries: [GeographyGeometryZ]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography GeometryCollectionZM type"
+type GeographyGeometryCollectionZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  geometries: [GeographyGeometryZM]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography LineString type"
+type GeographyLineString implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPoint]
+  "Approximate length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography LineStringM type"
+type GeographyLineStringM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointM]
+  "Approximate length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography LineStringZ type"
+type GeographyLineStringZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointZ]
+  "Approximate length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography LineStringZM type"
+type GeographyLineStringZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointZM]
+  "Approximate length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiLineString type"
+type GeographyMultiLineString implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  lines: [GeographyLineString]
+  "Approximate total length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiLineStringM type"
+type GeographyMultiLineStringM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  lines: [GeographyLineStringM]
+  "Approximate total length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiLineStringZ type"
+type GeographyMultiLineStringZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  lines: [GeographyLineStringZ]
+  "Approximate total length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiLineStringZM type"
+type GeographyMultiLineStringZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  lines: [GeographyLineStringZM]
+  "Approximate total length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPoint type"
+type GeographyMultiPoint implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPoint]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPointM type"
+type GeographyMultiPointM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointM]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPointZ type"
+type GeographyMultiPointZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointZ]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPointZM type"
+type GeographyMultiPointZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointZM]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPolygon type"
+type GeographyMultiPolygon implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  polygons: [GeographyPolygon]
+  "Approximate total area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate total perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPolygonM type"
+type GeographyMultiPolygonM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  polygons: [GeographyPolygonM]
+  "Approximate total area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate total perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPolygonZ type"
+type GeographyMultiPolygonZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  polygons: [GeographyPolygonZ]
+  "Approximate total area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate total perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPolygonZM type"
+type GeographyMultiPolygonZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  polygons: [GeographyPolygonZM]
+  "Approximate total area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate total perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography Point type"
+type GeographyPoint implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PointM type"
+type GeographyPointM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PointZ type"
+type GeographyPointZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+  height: Float!
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PointZM type"
+type GeographyPointZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+  height: Float!
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography Polygon type"
+type GeographyPolygon implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  exterior: GeographyLineString
+  interiors: [GeographyLineString]
+  "Approximate area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PolygonM type"
+type GeographyPolygonM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  exterior: GeographyLineStringM
+  interiors: [GeographyLineStringM]
+  "Approximate area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PolygonZ type"
+type GeographyPolygonZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  exterior: GeographyLineStringZ
+  interiors: [GeographyLineStringZ]
+  "Approximate area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PolygonZM type"
+type GeographyPolygonZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  exterior: GeographyLineStringZM
+  interiors: [GeographyLineStringZM]
+  "Approximate area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
 "@@hasChunks {\"chunks_table\": \"goals_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Goal {
   id: UUID!
@@ -14257,6 +14715,7 @@ type HikingTrail {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
+  trailheadGeo: GeographyInterface
   "Reads and enables pagination through a set of `HikingTrailsChunk`."
   hikingTrailsChunksByHikingTrailsId(
     "Only read the first `n` values of the set."
@@ -14954,6 +15413,7 @@ type Memory {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
+  locationGeo: GeographyInterface
   agentId: UUID
   "Reads and enables pagination through a set of `Contact`."
   contacts(
@@ -17966,6 +18426,7 @@ type Place {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
+  locationGeo: GeographyInterface
   "Reads and enables pagination through a set of `PlacesChunk`."
   placesChunksByPlacesId(
     "Only read the first `n` values of the set."
@@ -23290,6 +23751,7 @@ type Trip {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
+  destinationGeo: GeographyInterface
   "Reads and enables pagination through a set of `Expense`."
   expenses(
     "Only read the first `n` values of the set."
@@ -25623,6 +26085,7 @@ type Venue {
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
+  location: GeographyInterface
   "Reads and enables pagination through a set of `Image`."
   imagesByVenueImageVenueIdAndImageId(
     "Only read the first `n` values of the set."
@@ -28362,16 +28825,6 @@ input ContactFilter {
   relationshipType: StringTrgmFilter
   "Filter by the object’s `howWeMet` field."
   howWeMet: StringTrgmFilter
-  "Filter by the object’s `twitterHandle` field."
-  twitterHandle: StringTrgmFilter
-  "Filter by the object’s `linkedinUrl` field."
-  linkedinUrl: StringTrgmFilter
-  "Filter by the object’s `githubUsername` field."
-  githubUsername: StringTrgmFilter
-  "Filter by the object’s `instagramHandle` field."
-  instagramHandle: StringTrgmFilter
-  "Filter by the object’s `website` field."
-  website: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
   "Filter by the object’s `mainImageId` field."
@@ -28388,6 +28841,8 @@ input ContactFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `locationGeo` field."
+  locationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [ContactFilter!]
   "Checks for any expressions in this list."
@@ -28506,16 +28961,6 @@ input ContactFilter {
   trgmRelationshipType: TrgmSearchInput
   "TRGM search on the `how_we_met` column."
   trgmHowWeMet: TrgmSearchInput
-  "TRGM search on the `twitter_handle` column."
-  trgmTwitterHandle: TrgmSearchInput
-  "TRGM search on the `linkedin_url` column."
-  trgmLinkedinUrl: TrgmSearchInput
-  "TRGM search on the `github_username` column."
-  trgmGithubUsername: TrgmSearchInput
-  "TRGM search on the `instagram_handle` column."
-  trgmInstagramHandle: TrgmSearchInput
-  "TRGM search on the `website` column."
-  trgmWebsite: TrgmSearchInput
   "TRGM search on the `embedding_text` column."
   trgmEmbeddingText: TrgmSearchInput
   """
@@ -28579,11 +29024,6 @@ input ContactInput {
   birthday: Date
   relationshipType: String
   howWeMet: String
-  twitterHandle: String
-  linkedinUrl: String
-  githubUsername: String
-  instagramHandle: String
-  website: String
   tags: [String]
   mainImageId: UUID
   createdAt: Datetime
@@ -28591,6 +29031,7 @@ input ContactInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "A filter to be used against `ContactLink` object types. All fields are combined with a logical ‘and.’"
@@ -28741,11 +29182,6 @@ input ContactPatch {
   birthday: Date
   relationshipType: String
   howWeMet: String
-  twitterHandle: String
-  linkedinUrl: String
-  githubUsername: String
-  instagramHandle: String
-  website: String
   tags: [String]
   mainImageId: UUID
   createdAt: Datetime
@@ -28753,6 +29189,7 @@ input ContactPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "A filter to be used against `ContactRelationship` object types. All fields are combined with a logical ‘and.’"
@@ -32222,7 +32659,7 @@ input EmailFilter {
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
   "Filter by the object’s `providerMessageId` field."
-  providerMessageId: StringTrgmFilter
+  providerMessageId: StringFilter
   "Filter by the object’s `fromContactId` field."
   fromContactId: UUIDFilter
   "Filter by the object’s `to` field."
@@ -32232,11 +32669,11 @@ input EmailFilter {
   "Filter by the object’s `bcc` field."
   bcc: JSONFilter
   "Filter by the object’s `subject` field."
-  subject: StringTrgmFilter
+  subject: StringFilter
   "Filter by the object’s `bodyText` field."
-  bodyText: StringTrgmFilter
+  bodyText: StringFilter
   "Filter by the object’s `bodyHtml` field."
-  bodyHtml: StringTrgmFilter
+  bodyHtml: StringFilter
   "Filter by the object’s `sentAt` field."
   sentAt: DatetimeFilter
   "Filter by the object’s `tags` field."
@@ -32246,7 +32683,7 @@ input EmailFilter {
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
   "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
+  embeddingText: StringFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -32283,29 +32720,6 @@ input EmailFilter {
   emailNotes: EmailToManyEmailNoteFilter
   "`emailNotes` exist."
   emailNotesExist: Boolean
-  "TSV search on the `search_tsv` column."
-  tsvSearchTsv: String
-  "BM25 search on the `embedding_text` column."
-  bm25EmbeddingText: Bm25SearchInput
-  "VECTOR search on the `embedding` column."
-  vectorEmbedding: VectorNearbyInput
-  "TRGM search on the `provider_message_id` column."
-  trgmProviderMessageId: TrgmSearchInput
-  "TRGM search on the `subject` column."
-  trgmSubject: TrgmSearchInput
-  "TRGM search on the `body_text` column."
-  trgmBodyText: TrgmSearchInput
-  "TRGM search on the `body_html` column."
-  trgmBodyHtml: TrgmSearchInput
-  "TRGM search on the `embedding_text` column."
-  trgmEmbeddingText: TrgmSearchInput
-  """
-  Composite full-text search. Provide a search string and it will be dispatched
-  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
-  fields are populated.
-  """
-  fullTextSearch: String
 }
 
 "An input for mutations affecting `Email`"
@@ -32749,6 +33163,8 @@ input EventFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `locationGeo` field."
+  locationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [EventFilter!]
   "Checks for any expressions in this list."
@@ -32874,6 +33290,7 @@ input EventInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "A filter to be used against `EventLink` object types. All fields are combined with a logical ‘and.’"
@@ -32990,6 +33407,7 @@ input EventPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "A filter to be used against `EventsChunk` object types. All fields are combined with a logical ‘and.’"
@@ -33413,6 +33831,34 @@ input FullTextFilter {
   matches: String
 }
 
+"A filter to be used against GeographyInterface fields. All fields are combined with a logical ‘and.’"
+input GeographyInterfaceFilter {
+  "Is null (if `true` is specified) or is not null (if `false` is specified)."
+  isNull: Boolean
+  "Equal to the specified value."
+  equalTo: GeoJSON
+  "Not equal to the specified value."
+  notEqualTo: GeoJSON
+  "Not equal to the specified value, treating null like an ordinary value."
+  distinctFrom: GeoJSON
+  "Equal to the specified value, treating null like an ordinary value."
+  notDistinctFrom: GeoJSON
+  "Included in the specified list."
+  in: [GeoJSON!]
+  "Not included in the specified list."
+  notIn: [GeoJSON!]
+  "2D bounding box intersects the specified geometry's 2D bounding box."
+  bboxIntersects2D: GeoJSON
+  "No point is outside the specified geometry."
+  coveredBy: GeoJSON
+  "No point in the specified geometry is outside."
+  covers: GeoJSON
+  "Coordinates and coordinate order are the same as specified geometry."
+  exactlyEquals: GeoJSON
+  "They share any portion of space in 2D."
+  intersects: GeoJSON
+}
+
 "A filter to be used against `Goal` object types. All fields are combined with a logical ‘and.’"
 input GoalFilter {
   "Filter by the object’s `id` field."
@@ -33788,6 +34234,8 @@ input HikingTrailFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `trailheadGeo` field."
+  trailheadGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [HikingTrailFilter!]
   "Checks for any expressions in this list."
@@ -33838,6 +34286,7 @@ input HikingTrailInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  trailheadGeo: GeoJSON
 }
 
 "Represents an update to a `HikingTrail`. Fields that are set will be updated."
@@ -33857,6 +34306,7 @@ input HikingTrailPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  trailheadGeo: GeoJSON
 }
 
 "A filter to be used against `HikingTrailsChunk` object types. All fields are combined with a logical ‘and.’"
@@ -34398,6 +34848,8 @@ input MemoryFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `locationGeo` field."
+  locationGeo: GeographyInterfaceFilter
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
   "Checks for all expressions in this list."
@@ -34460,6 +34912,7 @@ input MemoryInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
   agentId: UUID
 }
 
@@ -34478,6 +34931,7 @@ input MemoryPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
   agentId: UUID
 }
 
@@ -34957,6 +35411,8 @@ input PlaceFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `locationGeo` field."
+  locationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [PlaceFilter!]
   "Checks for any expressions in this list."
@@ -35005,6 +35461,7 @@ input PlaceInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "Represents an update to a `Place`. Fields that are set will be updated."
@@ -35022,6 +35479,7 @@ input PlacePatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "A filter to be used against `PlacesChunk` object types. All fields are combined with a logical ‘and.’"
@@ -38111,6 +38569,8 @@ input TripFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `destinationGeo` field."
+  destinationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [TripFilter!]
   "Checks for any expressions in this list."
@@ -38161,6 +38621,7 @@ input TripInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  destinationGeo: GeoJSON
 }
 
 "Represents an update to a `Trip`. Fields that are set will be updated."
@@ -38178,6 +38639,7 @@ input TripPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  destinationGeo: GeoJSON
 }
 
 "A filter to be used against `TripsChunk` object types. All fields are combined with a logical ‘and.’"
@@ -39818,6 +40280,8 @@ input VenueFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `location` field."
+  location: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [VenueFilter!]
   "Checks for any expressions in this list."
@@ -39939,6 +40403,7 @@ input VenueInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  location: GeoJSON
 }
 
 "A filter to be used against `VenueLink` object types. All fields are combined with a logical ‘and.’"
@@ -40021,6 +40486,7 @@ input VenuePatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  location: GeoJSON
 }
 
 "A filter to be used against `VenuesChunk` object types. All fields are combined with a logical ‘and.’"

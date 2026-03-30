@@ -22,6 +22,7 @@ const fieldSchema: FieldSchema = {
   embeddingText: 'string',
   embedding: 'string',
   embeddingStale: 'boolean',
+  locationGeo: 'string',
   agentId: 'uuid',
   embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
@@ -97,6 +98,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          locationGeo: true,
           agentId: true,
         },
       })
@@ -138,6 +140,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          locationGeo: true,
           agentId: true,
         },
       })
@@ -224,6 +227,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'locationGeo',
+        message: 'locationGeo',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'agentId',
         message: 'agentId',
         required: false,
@@ -246,6 +256,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
           embeddingStale: cleanedData.embeddingStale,
+          locationGeo: cleanedData.locationGeo,
           agentId: cleanedData.agentId,
         },
         select: {
@@ -262,6 +273,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          locationGeo: true,
           agentId: true,
         },
       })
@@ -354,6 +366,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
       },
       {
         type: 'text',
+        name: 'locationGeo',
+        message: 'locationGeo',
+        required: false,
+        skipPrompt: true,
+      },
+      {
+        type: 'text',
         name: 'agentId',
         message: 'agentId',
         required: false,
@@ -379,6 +398,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
           embeddingStale: cleanedData.embeddingStale,
+          locationGeo: cleanedData.locationGeo,
           agentId: cleanedData.agentId,
         },
         select: {
@@ -395,6 +415,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          locationGeo: true,
           agentId: true,
         },
       })

@@ -28,15 +28,6 @@ const fieldSchema: FieldSchema = {
   embedding: 'string',
   embeddingStale: 'boolean',
   emailThreadId: 'uuid',
-  searchTsvRank: 'float',
-  embeddingTextBm25Score: 'float',
-  embeddingVectorDistance: 'float',
-  providerMessageIdTrgmSimilarity: 'float',
-  subjectTrgmSimilarity: 'float',
-  bodyTextTrgmSimilarity: 'float',
-  bodyHtmlTrgmSimilarity: 'float',
-  embeddingTextTrgmSimilarity: 'float',
-  searchScore: 'float',
 };
 const usage =
   '\nemail <command>\n\nCommands:\n  list                  List all email records\n  get                   Get a email by ID\n  create                Create a new email\n  update                Update an existing email\n  delete                Delete a email\n\n  --help, -h            Show this help message\n';

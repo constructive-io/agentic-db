@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db hiking-trail list
 agentic-db hiking-trail get --id <UUID>
-agentic-db hiking-trail create --entityId <UUID> --name <String> [--location <String>] [--description <String>] [--difficulty <String>] [--distanceKm <BigFloat>] [--elevationGainm <BigFloat>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db hiking-trail update --id <UUID> [--entityId <UUID>] [--name <String>] [--location <String>] [--description <String>] [--difficulty <String>] [--distanceKm <BigFloat>] [--elevationGainm <BigFloat>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db hiking-trail create --entityId <UUID> --name <String> [--location <String>] [--description <String>] [--difficulty <String>] [--distanceKm <BigFloat>] [--elevationGainm <BigFloat>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--trailheadGeo <GeographyInterface>]
+agentic-db hiking-trail update --id <UUID> [--entityId <UUID>] [--name <String>] [--location <String>] [--description <String>] [--difficulty <String>] [--distanceKm <BigFloat>] [--elevationGainm <BigFloat>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--trailheadGeo <GeographyInterface>]
 agentic-db hiking-trail delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db hiking-trail list
 ### Create a hikingTrail
 
 ```bash
-agentic-db hiking-trail create --entityId <UUID> --name <String> [--location <String>] [--description <String>] [--difficulty <String>] [--distanceKm <BigFloat>] [--elevationGainm <BigFloat>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db hiking-trail create --entityId <UUID> --name <String> [--location <String>] [--description <String>] [--difficulty <String>] [--distanceKm <BigFloat>] [--elevationGainm <BigFloat>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--trailheadGeo <GeographyInterface>]
 ```
 
 ### Get a hikingTrail by id

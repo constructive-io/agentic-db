@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db trip list
 agentic-db trip get --id <UUID>
-agentic-db trip create --entityId <UUID> --name <String> [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db trip update --id <UUID> [--entityId <UUID>] [--name <String>] [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db trip create --entityId <UUID> --name <String> [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--destinationGeo <GeographyInterface>]
+agentic-db trip update --id <UUID> [--entityId <UUID>] [--name <String>] [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--destinationGeo <GeographyInterface>]
 agentic-db trip delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db trip list
 ### Create a trip
 
 ```bash
-agentic-db trip create --entityId <UUID> --name <String> [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db trip create --entityId <UUID> --name <String> [--destination <String>] [--description <String>] [--startDate <Datetime>] [--endDate <Datetime>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--destinationGeo <GeographyInterface>]
 ```
 
 ### Get a trip by id

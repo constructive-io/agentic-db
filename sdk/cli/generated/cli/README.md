@@ -773,11 +773,6 @@ CRUD operations for Contact records.
 | `birthday` | Date |
 | `relationshipType` | String |
 | `howWeMet` | String |
-| `twitterHandle` | String |
-| `linkedinUrl` | String |
-| `githubUsername` | String |
-| `instagramHandle` | String |
-| `website` | String |
 | `tags` | String |
 | `mainImageId` | UUID |
 | `createdAt` | Datetime |
@@ -786,6 +781,7 @@ CRUD operations for Contact records.
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `locationGeo` | GeographyInterface |
 | `searchTsvRank` | Float |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -798,17 +794,12 @@ CRUD operations for Contact records.
 | `locationTrgmSimilarity` | Float |
 | `relationshipTypeTrgmSimilarity` | Float |
 | `howWeMetTrgmSimilarity` | Float |
-| `twitterHandleTrgmSimilarity` | Float |
-| `linkedinUrlTrgmSimilarity` | Float |
-| `githubUsernameTrgmSimilarity` | Float |
-| `instagramHandleTrgmSimilarity` | Float |
-| `websiteTrgmSimilarity` | Float |
 | `embeddingTextTrgmSimilarity` | Float |
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `firstName`
-**Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipType`, `howWeMet`, `twitterHandle`, `linkedinUrl`, `githubUsername`, `instagramHandle`, `website`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `firstNameTrgmSimilarity`, `lastNameTrgmSimilarity`, `emailTrgmSimilarity`, `phoneTrgmSimilarity`, `headlineTrgmSimilarity`, `bioTrgmSimilarity`, `locationTrgmSimilarity`, `relationshipTypeTrgmSimilarity`, `howWeMetTrgmSimilarity`, `twitterHandleTrgmSimilarity`, `linkedinUrlTrgmSimilarity`, `githubUsernameTrgmSimilarity`, `instagramHandleTrgmSimilarity`, `websiteTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
+**Optional create fields (backend defaults):** `lastName`, `email`, `phone`, `headline`, `bio`, `location`, `birthday`, `relationshipType`, `howWeMet`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`
+> **Unified Search API fields:** `embeddingTextBm25Score`, `firstNameTrgmSimilarity`, `lastNameTrgmSimilarity`, `emailTrgmSimilarity`, `phoneTrgmSimilarity`, `headlineTrgmSimilarity`, `bioTrgmSimilarity`, `locationTrgmSimilarity`, `relationshipTypeTrgmSimilarity`, `howWeMetTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 
@@ -1315,6 +1306,7 @@ CRUD operations for Event records.
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `locationGeo` | GeographyInterface |
 | `searchTsvRank` | Float |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -1327,7 +1319,7 @@ CRUD operations for Event records.
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notesText`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `eventType`, `location`, `city`, `startedAt`, `endedAt`, `notesText`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `eventTypeTrgmSimilarity`, `locationTrgmSimilarity`, `cityTrgmSimilarity`, `notesTextTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
@@ -1453,6 +1445,7 @@ CRUD operations for Memory records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `locationGeo` | GeographyInterface |
 | `agentId` | UUID |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -1464,7 +1457,7 @@ CRUD operations for Memory records.
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `title`
-**Optional create fields (backend defaults):** `content`, `location`, `occurredAt`, `mood`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `agentId`
+**Optional create fields (backend defaults):** `content`, `location`, `occurredAt`, `mood`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`, `agentId`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `titleTrgmSimilarity`, `contentTrgmSimilarity`, `locationTrgmSimilarity`, `moodTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
@@ -1573,21 +1566,9 @@ CRUD operations for Email records.
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
 | `emailThreadId` | UUID |
-| `searchTsvRank` | Float |
-| `embeddingTextBm25Score` | Float |
-| `embeddingVectorDistance` | Float |
-| `providerMessageIdTrgmSimilarity` | Float |
-| `subjectTrgmSimilarity` | Float |
-| `bodyTextTrgmSimilarity` | Float |
-| `bodyHtmlTrgmSimilarity` | Float |
-| `embeddingTextTrgmSimilarity` | Float |
-| `searchScore` | Float |
 
 **Required create fields:** `entityId`, `emailThreadId`
 **Optional create fields (backend defaults):** `providerMessageId`, `fromContactId`, `to`, `cc`, `bcc`, `subject`, `bodyText`, `bodyHtml`, `sentAt`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
-> **Unified Search API fields:** `embeddingTextBm25Score`, `providerMessageIdTrgmSimilarity`, `subjectTrgmSimilarity`, `bodyTextTrgmSimilarity`, `bodyHtmlTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
-> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
-
 
 ### `email-thread`
 
@@ -2403,6 +2384,7 @@ CRUD operations for Venue records.
 | `searchTsv` | FullText |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `location` | GeographyInterface |
 | `searchTsvRank` | Float |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
@@ -2419,7 +2401,7 @@ CRUD operations for Venue records.
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `address`, `neighborhood`, `city`, `category`, `status`, `googlePlaceId`, `rating`, `priceLevel`, `isFavorite`, `notes`, `tags`, `mainImageId`, `embeddingText`, `embedding`, `embeddingStale`, `location`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `addressTrgmSimilarity`, `neighborhoodTrgmSimilarity`, `cityTrgmSimilarity`, `categoryTrgmSimilarity`, `statusTrgmSimilarity`, `googlePlaceIdTrgmSimilarity`, `priceLevelTrgmSimilarity`, `notesTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
@@ -2662,6 +2644,7 @@ CRUD operations for HikingTrail records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `trailheadGeo` | GeographyInterface |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
@@ -2672,7 +2655,7 @@ CRUD operations for HikingTrail records.
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `location`, `description`, `difficulty`, `distanceKm`, `elevationGainm`, `rating`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `location`, `description`, `difficulty`, `distanceKm`, `elevationGainm`, `rating`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `trailheadGeo`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `locationTrgmSimilarity`, `descriptionTrgmSimilarity`, `difficultyTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
@@ -2957,6 +2940,7 @@ CRUD operations for Place records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `locationGeo` | GeographyInterface |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
@@ -2967,7 +2951,7 @@ CRUD operations for Place records.
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `address`, `description`, `category`, `rating`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `address`, `description`, `category`, `rating`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `locationGeo`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `addressTrgmSimilarity`, `descriptionTrgmSimilarity`, `categoryTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
@@ -4136,6 +4120,7 @@ CRUD operations for Trip records.
 | `embeddingText` | String |
 | `embedding` | Vector |
 | `embeddingStale` | Boolean |
+| `destinationGeo` | GeographyInterface |
 | `embeddingTextBm25Score` | Float |
 | `embeddingVectorDistance` | Float |
 | `nameTrgmSimilarity` | Float |
@@ -4145,7 +4130,7 @@ CRUD operations for Trip records.
 | `searchScore` | Float |
 
 **Required create fields:** `entityId`, `name`
-**Optional create fields (backend defaults):** `destination`, `description`, `startDate`, `endDate`, `tags`, `embeddingText`, `embedding`, `embeddingStale`
+**Optional create fields (backend defaults):** `destination`, `description`, `startDate`, `endDate`, `tags`, `embeddingText`, `embedding`, `embeddingStale`, `destinationGeo`
 > **Unified Search API fields:** `embeddingTextBm25Score`, `nameTrgmSimilarity`, `destinationTrgmSimilarity`, `descriptionTrgmSimilarity`, `embeddingTextTrgmSimilarity`, `searchScore`
 > Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 

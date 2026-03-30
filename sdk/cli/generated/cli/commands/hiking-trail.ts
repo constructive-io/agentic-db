@@ -24,6 +24,7 @@ const fieldSchema: FieldSchema = {
   embeddingText: 'string',
   embedding: 'string',
   embeddingStale: 'boolean',
+  trailheadGeo: 'string',
   embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
   nameTrgmSimilarity: 'float',
@@ -100,6 +101,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          trailheadGeo: true,
         },
       })
       .execute();
@@ -142,6 +144,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          trailheadGeo: true,
         },
       })
       .execute();
@@ -239,6 +242,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'trailheadGeo',
+        message: 'trailheadGeo',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(
@@ -261,6 +271,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
           embeddingStale: cleanedData.embeddingStale,
+          trailheadGeo: cleanedData.trailheadGeo,
         },
         select: {
           id: true,
@@ -278,6 +289,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          trailheadGeo: true,
         },
       })
       .execute();
@@ -381,6 +393,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'trailheadGeo',
+        message: 'trailheadGeo',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as HikingTrailPatch;
@@ -403,6 +422,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
           embeddingStale: cleanedData.embeddingStale,
+          trailheadGeo: cleanedData.trailheadGeo,
         },
         select: {
           id: true,
@@ -420,6 +440,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          trailheadGeo: true,
         },
       })
       .execute();

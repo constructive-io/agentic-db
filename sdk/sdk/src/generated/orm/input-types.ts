@@ -230,6 +230,8 @@ export interface UUIDListFilter {
   anyGreaterThan?: string;
   anyGreaterThanOrEqualTo?: string;
 }
+// ============ Custom Scalar Types ============
+export type GeographyInterface = unknown;
 // ============ Entity Types ============
 export interface ActivityLog {
   id: string;
@@ -541,11 +543,6 @@ export interface Contact {
   birthday?: string | null;
   relationshipType?: string | null;
   howWeMet?: string | null;
-  twitterHandle?: string | null;
-  linkedinUrl?: string | null;
-  githubUsername?: string | null;
-  instagramHandle?: string | null;
-  website?: string | null;
   tags?: string[] | null;
   mainImageId?: string | null;
   createdAt?: string | null;
@@ -554,6 +551,7 @@ export interface Contact {
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: GeographyInterface | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -578,16 +576,6 @@ export interface Contact {
   relationshipTypeTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `howWeMet`. Returns null when no trgm search filter is active. */
   howWeMetTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `twitterHandle`. Returns null when no trgm search filter is active. */
-  twitterHandleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `linkedinUrl`. Returns null when no trgm search filter is active. */
-  linkedinUrlTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `githubUsername`. Returns null when no trgm search filter is active. */
-  githubUsernameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `instagramHandle`. Returns null when no trgm search filter is active. */
-  instagramHandleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `website`. Returns null when no trgm search filter is active. */
-  websiteTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
@@ -882,6 +870,7 @@ export interface Event {
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: GeographyInterface | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -954,6 +943,7 @@ export interface Memory {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: GeographyInterface | null;
   agentId?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
@@ -1010,24 +1000,6 @@ export interface Email {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   emailThreadId?: string | null;
-  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
-  searchTsvRank?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `providerMessageId`. Returns null when no trgm search filter is active. */
-  providerMessageIdTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `subject`. Returns null when no trgm search filter is active. */
-  subjectTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `bodyText`. Returns null when no trgm search filter is active. */
-  bodyTextTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `bodyHtml`. Returns null when no trgm search filter is active. */
-  bodyHtmlTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
 }
 export interface EmailThread {
   id: string;
@@ -1385,6 +1357,7 @@ export interface Venue {
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  location?: GeographyInterface | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1516,6 +1489,7 @@ export interface HikingTrail {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  trailheadGeo?: GeographyInterface | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1674,6 +1648,7 @@ export interface Place {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: GeographyInterface | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -2239,6 +2214,7 @@ export interface Trip {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  destinationGeo?: GeographyInterface | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -3529,11 +3505,6 @@ export type ContactSelect = {
   birthday?: boolean;
   relationshipType?: boolean;
   howWeMet?: boolean;
-  twitterHandle?: boolean;
-  linkedinUrl?: boolean;
-  githubUsername?: boolean;
-  instagramHandle?: boolean;
-  website?: boolean;
   tags?: boolean;
   mainImageId?: boolean;
   createdAt?: boolean;
@@ -3542,6 +3513,7 @@ export type ContactSelect = {
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  locationGeo?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -3554,11 +3526,6 @@ export type ContactSelect = {
   locationTrgmSimilarity?: boolean;
   relationshipTypeTrgmSimilarity?: boolean;
   howWeMetTrgmSimilarity?: boolean;
-  twitterHandleTrgmSimilarity?: boolean;
-  linkedinUrlTrgmSimilarity?: boolean;
-  githubUsernameTrgmSimilarity?: boolean;
-  instagramHandleTrgmSimilarity?: boolean;
-  websiteTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   mainImage?: {
@@ -4366,6 +4333,7 @@ export type EventSelect = {
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  locationGeo?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -4586,6 +4554,7 @@ export type MemorySelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  locationGeo?: boolean;
   agentId?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -4685,15 +4654,6 @@ export type EmailSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   emailThreadId?: boolean;
-  searchTsvRank?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  providerMessageIdTrgmSimilarity?: boolean;
-  subjectTrgmSimilarity?: boolean;
-  bodyTextTrgmSimilarity?: boolean;
-  bodyHtmlTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
   emailThread?: {
     select: EmailThreadSelect;
   };
@@ -5249,6 +5209,7 @@ export type VenueSelect = {
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  location?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -5466,6 +5427,7 @@ export type HikingTrailSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  trailheadGeo?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -5632,6 +5594,7 @@ export type PlaceSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  locationGeo?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -6362,6 +6325,7 @@ export type TripSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  destinationGeo?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -7166,16 +7130,6 @@ export interface ContactFilter {
   relationshipType?: StringTrgmFilter;
   /** Filter by the object’s `howWeMet` field. */
   howWeMet?: StringTrgmFilter;
-  /** Filter by the object’s `twitterHandle` field. */
-  twitterHandle?: StringTrgmFilter;
-  /** Filter by the object’s `linkedinUrl` field. */
-  linkedinUrl?: StringTrgmFilter;
-  /** Filter by the object’s `githubUsername` field. */
-  githubUsername?: StringTrgmFilter;
-  /** Filter by the object’s `instagramHandle` field. */
-  instagramHandle?: StringTrgmFilter;
-  /** Filter by the object’s `website` field. */
-  website?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
   /** Filter by the object’s `mainImageId` field. */
@@ -7192,6 +7146,8 @@ export interface ContactFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: ContactFilter[];
   /** Checks for any expressions in this list. */
@@ -7310,16 +7266,6 @@ export interface ContactFilter {
   trgmRelationshipType?: TrgmSearchInput;
   /** TRGM search on the `how_we_met` column. */
   trgmHowWeMet?: TrgmSearchInput;
-  /** TRGM search on the `twitter_handle` column. */
-  trgmTwitterHandle?: TrgmSearchInput;
-  /** TRGM search on the `linkedin_url` column. */
-  trgmLinkedinUrl?: TrgmSearchInput;
-  /** TRGM search on the `github_username` column. */
-  trgmGithubUsername?: TrgmSearchInput;
-  /** TRGM search on the `instagram_handle` column. */
-  trgmInstagramHandle?: TrgmSearchInput;
-  /** TRGM search on the `website` column. */
-  trgmWebsite?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
@@ -8023,6 +7969,8 @@ export interface EventFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: EventFilter[];
   /** Checks for any expressions in this list. */
@@ -8230,6 +8178,8 @@ export interface MemoryFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -8342,7 +8292,7 @@ export interface EmailFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringTrgmFilter;
+  providerMessageId?: StringFilter;
   /** Filter by the object’s `fromContactId` field. */
   fromContactId?: UUIDFilter;
   /** Filter by the object’s `to` field. */
@@ -8352,11 +8302,11 @@ export interface EmailFilter {
   /** Filter by the object’s `bcc` field. */
   bcc?: JSONFilter;
   /** Filter by the object’s `subject` field. */
-  subject?: StringTrgmFilter;
+  subject?: StringFilter;
   /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringTrgmFilter;
+  bodyText?: StringFilter;
   /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringTrgmFilter;
+  bodyHtml?: StringFilter;
   /** Filter by the object’s `sentAt` field. */
   sentAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
@@ -8366,7 +8316,7 @@ export interface EmailFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -8403,29 +8353,6 @@ export interface EmailFilter {
   emailNotes?: EmailToManyEmailNoteFilter;
   /** `emailNotes` exist. */
   emailNotesExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_message_id` column. */
-  trgmProviderMessageId?: TrgmSearchInput;
-  /** TRGM search on the `subject` column. */
-  trgmSubject?: TrgmSearchInput;
-  /** TRGM search on the `body_text` column. */
-  trgmBodyText?: TrgmSearchInput;
-  /** TRGM search on the `body_html` column. */
-  trgmBodyHtml?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface EmailThreadFilter {
   /** Filter by the object’s `id` field. */
@@ -9268,6 +9195,8 @@ export interface VenueFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `location` field. */
+  location?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: VenueFilter[];
   /** Checks for any expressions in this list. */
@@ -9574,6 +9503,8 @@ export interface HikingTrailFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `trailheadGeo` field. */
+  trailheadGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: HikingTrailFilter[];
   /** Checks for any expressions in this list. */
@@ -9891,6 +9822,8 @@ export interface PlaceFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: PlaceFilter[];
   /** Checks for any expressions in this list. */
@@ -11176,6 +11109,8 @@ export interface TripFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `destinationGeo` field. */
+  destinationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: TripFilter[];
   /** Checks for any expressions in this list. */
@@ -11677,10 +11612,6 @@ export type ContactOrderBy =
   | 'EMAIL_DESC'
   | 'RELATIONSHIP_TYPE_ASC'
   | 'RELATIONSHIP_TYPE_DESC'
-  | 'TWITTER_HANDLE_ASC'
-  | 'TWITTER_HANDLE_DESC'
-  | 'GITHUB_USERNAME_ASC'
-  | 'GITHUB_USERNAME_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
   | 'EMBEDDING_TEXT_ASC'
@@ -11713,16 +11644,6 @@ export type ContactOrderBy =
   | 'RELATIONSHIP_TYPE_TRGM_SIMILARITY_DESC'
   | 'HOW_WE_MET_TRGM_SIMILARITY_ASC'
   | 'HOW_WE_MET_TRGM_SIMILARITY_DESC'
-  | 'TWITTER_HANDLE_TRGM_SIMILARITY_ASC'
-  | 'TWITTER_HANDLE_TRGM_SIMILARITY_DESC'
-  | 'LINKEDIN_URL_TRGM_SIMILARITY_ASC'
-  | 'LINKEDIN_URL_TRGM_SIMILARITY_DESC'
-  | 'GITHUB_USERNAME_TRGM_SIMILARITY_ASC'
-  | 'GITHUB_USERNAME_TRGM_SIMILARITY_DESC'
-  | 'INSTAGRAM_HANDLE_TRGM_SIMILARITY_ASC'
-  | 'INSTAGRAM_HANDLE_TRGM_SIMILARITY_DESC'
-  | 'WEBSITE_TRGM_SIMILARITY_ASC'
-  | 'WEBSITE_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
@@ -12208,25 +12129,7 @@ export type EmailOrderBy =
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'EMAIL_THREAD_ID_ASC'
-  | 'EMAIL_THREAD_ID_DESC'
-  | 'SEARCH_TSV_RANK_ASC'
-  | 'SEARCH_TSV_RANK_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_ASC'
-  | 'PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_DESC'
-  | 'SUBJECT_TRGM_SIMILARITY_ASC'
-  | 'SUBJECT_TRGM_SIMILARITY_DESC'
-  | 'BODY_TEXT_TRGM_SIMILARITY_ASC'
-  | 'BODY_TEXT_TRGM_SIMILARITY_DESC'
-  | 'BODY_HTML_TRGM_SIMILARITY_ASC'
-  | 'BODY_HTML_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
+  | 'EMAIL_THREAD_ID_DESC';
 export type EmailThreadOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -14262,16 +14165,12 @@ export interface CreateContactInput {
     birthday?: string;
     relationshipType?: string;
     howWeMet?: string;
-    twitterHandle?: string;
-    linkedinUrl?: string;
-    githubUsername?: string;
-    instagramHandle?: string;
-    website?: string;
     tags?: string[];
     mainImageId?: string;
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    locationGeo?: unknown;
   };
 }
 export interface ContactPatch {
@@ -14286,16 +14185,12 @@ export interface ContactPatch {
   birthday?: string | null;
   relationshipType?: string | null;
   howWeMet?: string | null;
-  twitterHandle?: string | null;
-  linkedinUrl?: string | null;
-  githubUsername?: string | null;
-  instagramHandle?: string | null;
-  website?: string | null;
   tags?: string[] | null;
   mainImageId?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
 }
 export interface UpdateContactInput {
   clientMutationId?: string;
@@ -14724,6 +14619,7 @@ export interface CreateEventInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    locationGeo?: unknown;
   };
 }
 export interface EventPatch {
@@ -14740,6 +14636,7 @@ export interface EventPatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
 }
 export interface UpdateEventInput {
   clientMutationId?: string;
@@ -14843,6 +14740,7 @@ export interface CreateMemoryInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    locationGeo?: unknown;
     agentId?: string;
   };
 }
@@ -14857,6 +14755,7 @@ export interface MemoryPatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
   agentId?: string | null;
 }
 export interface UpdateMemoryInput {
@@ -15682,6 +15581,7 @@ export interface CreateVenueInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    location?: unknown;
   };
 }
 export interface VenuePatch {
@@ -15702,6 +15602,7 @@ export interface VenuePatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  location?: unknown | null;
 }
 export interface UpdateVenueInput {
   clientMutationId?: string;
@@ -15909,6 +15810,7 @@ export interface CreateHikingTrailInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    trailheadGeo?: unknown;
   };
 }
 export interface HikingTrailPatch {
@@ -15924,6 +15826,7 @@ export interface HikingTrailPatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  trailheadGeo?: unknown | null;
 }
 export interface UpdateHikingTrailInput {
   clientMutationId?: string;
@@ -16151,6 +16054,7 @@ export interface CreatePlaceInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    locationGeo?: unknown;
   };
 }
 export interface PlacePatch {
@@ -16164,6 +16068,7 @@ export interface PlacePatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
 }
 export interface UpdatePlaceInput {
   clientMutationId?: string;
@@ -17213,6 +17118,7 @@ export interface CreateTripInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    destinationGeo?: unknown;
   };
 }
 export interface TripPatch {
@@ -17226,6 +17132,7 @@ export interface TripPatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  destinationGeo?: unknown | null;
 }
 export interface UpdateTripInput {
   clientMutationId?: string;
@@ -17911,6 +17818,33 @@ export interface CalendarEventToManyCalendarEventTaskFilter {
   every?: CalendarEventTaskFilter;
   /** Filters to entities where no related entity matches. */
   none?: CalendarEventTaskFilter;
+}
+/** A filter to be used against GeographyInterface fields. All fields are combined with a logical ‘and.’ */
+export interface GeographyInterfaceFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: unknown;
+  /** Not equal to the specified value. */
+  notEqualTo?: unknown;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: unknown;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: unknown;
+  /** Included in the specified list. */
+  in?: unknown[];
+  /** Not included in the specified list. */
+  notIn?: unknown[];
+  /** 2D bounding box intersects the specified geometry's 2D bounding box. */
+  bboxIntersects2D?: unknown;
+  /** No point is outside the specified geometry. */
+  coveredBy?: unknown;
+  /** No point in the specified geometry is outside. */
+  covers?: unknown;
+  /** Coordinates and coordinate order are the same as specified geometry. */
+  exactlyEquals?: unknown;
+  /** They share any portion of space in 2D. */
+  intersects?: unknown;
 }
 /** A filter to be used against many `ContactsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyContactsChunkFilter {
@@ -19352,6 +19286,8 @@ export interface MemoryFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -20066,7 +20002,7 @@ export interface EmailFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringTrgmFilter;
+  providerMessageId?: StringFilter;
   /** Filter by the object’s `fromContactId` field. */
   fromContactId?: UUIDFilter;
   /** Filter by the object’s `to` field. */
@@ -20076,11 +20012,11 @@ export interface EmailFilter {
   /** Filter by the object’s `bcc` field. */
   bcc?: JSONFilter;
   /** Filter by the object’s `subject` field. */
-  subject?: StringTrgmFilter;
+  subject?: StringFilter;
   /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringTrgmFilter;
+  bodyText?: StringFilter;
   /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringTrgmFilter;
+  bodyHtml?: StringFilter;
   /** Filter by the object’s `sentAt` field. */
   sentAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
@@ -20090,7 +20026,7 @@ export interface EmailFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -20127,29 +20063,6 @@ export interface EmailFilter {
   emailNotes?: EmailToManyEmailNoteFilter;
   /** `emailNotes` exist. */
   emailNotesExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_message_id` column. */
-  trgmProviderMessageId?: TrgmSearchInput;
-  /** TRGM search on the `subject` column. */
-  trgmSubject?: TrgmSearchInput;
-  /** TRGM search on the `body_text` column. */
-  trgmBodyText?: TrgmSearchInput;
-  /** TRGM search on the `body_html` column. */
-  trgmBodyHtml?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectContactFilter {
@@ -20899,16 +20812,6 @@ export interface ContactFilter {
   relationshipType?: StringTrgmFilter;
   /** Filter by the object’s `howWeMet` field. */
   howWeMet?: StringTrgmFilter;
-  /** Filter by the object’s `twitterHandle` field. */
-  twitterHandle?: StringTrgmFilter;
-  /** Filter by the object’s `linkedinUrl` field. */
-  linkedinUrl?: StringTrgmFilter;
-  /** Filter by the object’s `githubUsername` field. */
-  githubUsername?: StringTrgmFilter;
-  /** Filter by the object’s `instagramHandle` field. */
-  instagramHandle?: StringTrgmFilter;
-  /** Filter by the object’s `website` field. */
-  website?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
   /** Filter by the object’s `mainImageId` field. */
@@ -20925,6 +20828,8 @@ export interface ContactFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: ContactFilter[];
   /** Checks for any expressions in this list. */
@@ -21043,16 +20948,6 @@ export interface ContactFilter {
   trgmRelationshipType?: TrgmSearchInput;
   /** TRGM search on the `how_we_met` column. */
   trgmHowWeMet?: TrgmSearchInput;
-  /** TRGM search on the `twitter_handle` column. */
-  trgmTwitterHandle?: TrgmSearchInput;
-  /** TRGM search on the `linkedin_url` column. */
-  trgmLinkedinUrl?: TrgmSearchInput;
-  /** TRGM search on the `github_username` column. */
-  trgmGithubUsername?: TrgmSearchInput;
-  /** TRGM search on the `instagram_handle` column. */
-  trgmInstagramHandle?: TrgmSearchInput;
-  /** TRGM search on the `website` column. */
-  trgmWebsite?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
@@ -21199,6 +21094,8 @@ export interface EventFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: EventFilter[];
   /** Checks for any expressions in this list. */
@@ -21311,6 +21208,8 @@ export interface VenueFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `location` field. */
+  location?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: VenueFilter[];
   /** Checks for any expressions in this list. */
@@ -23791,6 +23690,8 @@ export interface HikingTrailFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `trailheadGeo` field. */
+  trailheadGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: HikingTrailFilter[];
   /** Checks for any expressions in this list. */
@@ -23851,6 +23752,8 @@ export interface PlaceFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: PlaceFilter[];
   /** Checks for any expressions in this list. */
@@ -24112,6 +24015,8 @@ export interface TripFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `destinationGeo` field. */
+  destinationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: TripFilter[];
   /** Checks for any expressions in this list. */
