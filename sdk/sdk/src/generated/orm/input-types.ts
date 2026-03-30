@@ -2481,8 +2481,8 @@ export interface CodebaseRelations {
   codeChunksByCodebasisId?: ConnectionResult<CodeChunk>;
   codebaseDependencies?: ConnectionResult<CodebaseDependency>;
   codebaseDependenciesByDependencyId?: ConnectionResult<CodebaseDependency>;
-  codebasesByCodebaseDependencyCodebaseIdAndDependencyId?: ConnectionResult<Codebasis>;
-  codebasesByCodebaseDependencyDependencyIdAndCodebaseId?: ConnectionResult<Codebasis>;
+  codebasesByCodebaseDependencyCodebaseIdAndDependencyId?: ConnectionResult<Codebase>;
+  codebasesByCodebaseDependencyDependencyIdAndCodebaseId?: ConnectionResult<Codebase>;
 }
 export interface CodebaseDependencyRelations {
   codebase?: Codebase | null;
@@ -4063,16 +4063,16 @@ export type CodebaseSelect = {
     orderBy?: CodebaseDependencyOrderBy[];
   };
   codebasesByCodebaseDependencyCodebaseIdAndDependencyId?: {
-    select: CodebasisSelect;
+    select: CodebaseSelect;
     first?: number;
-    filter?: CodebasisFilter;
-    orderBy?: CodebasesOrderBy[];
+    filter?: CodebaseFilter;
+    orderBy?: CodebaseOrderBy[];
   };
   codebasesByCodebaseDependencyDependencyIdAndCodebaseId?: {
-    select: CodebasisSelect;
+    select: CodebaseSelect;
     first?: number;
-    filter?: CodebasisFilter;
-    orderBy?: CodebasesOrderBy[];
+    filter?: CodebaseFilter;
+    orderBy?: CodebaseOrderBy[];
   };
 };
 export type CodebaseDependencySelect = {
@@ -17461,8 +17461,8 @@ export const connectionFieldsMap = {
     codeChunksByCodebasisId: 'CodeChunk',
     codebaseDependencies: 'CodebaseDependency',
     codebaseDependenciesByDependencyId: 'CodebaseDependency',
-    codebasesByCodebaseDependencyCodebaseIdAndDependencyId: 'Codebasis',
-    codebasesByCodebaseDependencyDependencyIdAndCodebaseId: 'Codebasis',
+    codebasesByCodebaseDependencyCodebaseIdAndDependencyId: 'Codebase',
+    codebasesByCodebaseDependencyDependencyIdAndCodebaseId: 'Codebase',
   },
   Company: {
     notes: 'Note',
