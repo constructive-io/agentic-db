@@ -25,7 +25,7 @@ CREATE TABLE metaschema_modules_public.secure_table_provision (
 
     grant_roles text[] NOT NULL DEFAULT ARRAY['authenticated'],
 
-    grant_privileges jsonb[] NOT NULL DEFAULT '{}',
+    grant_privileges jsonb[] NOT NULL DEFAULT ARRAY['["select","*"]'::jsonb, '["insert","*"]'::jsonb, '["update","*"]'::jsonb, '["delete","*"]'::jsonb],
 
     policy_type text DEFAULT NULL,
 
@@ -80,7 +80,7 @@ COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.grant_roles I
     'Database roles to grant privileges to. Supports multiple roles, e.g. ARRAY[''authenticated'', ''admin'']. Each role receives all privileges defined in grant_privileges. Defaults to ARRAY[''authenticated''].';
 
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.grant_privileges IS
-    'PostgreSQL array of jsonb [privilege, columns] tuples defining table grants. Examples: ARRAY[''["select","*"]''::jsonb, ''["insert","*"]''::jsonb] for full access, or ARRAY[''["update",["name","bio"]]''::jsonb] for column-level grants. "*" means all columns; an array means column-level grant. Defaults to ''{}'' (no grants). Type safety is enforced by PostgreSQL at INSERT time.';
+    'PostgreSQL array of jsonb [privilege, columns] tuples defining table grants. Examples: ARRAY[''["select","*"]''::jsonb, ''["insert","*"]''::jsonb] for full access, or ARRAY[''["update",["name","bio"]]''::jsonb] for column-level grants. "*" means all columns; an array means column-level grant. Defaults to select/insert/update/delete for all columns (full CRUD). Type safety is enforced by PostgreSQL at INSERT time.';
 
 COMMENT ON COLUMN metaschema_modules_public.secure_table_provision.policy_type IS
     'Policy generator type, e.g. ''AuthzEntityMembership'', ''AuthzMembership'', ''AuthzAllowAll''. NULL means no policy is created. When set, the trigger automatically enables RLS on the target table.';

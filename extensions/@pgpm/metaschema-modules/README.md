@@ -108,7 +108,6 @@ The package provides metadata tables for the following modules:
 - **invites_module**: Invitation system configuration
 
 ### Other Modules
-- **field_module**: Custom field configurations
 - **default_ids_module**: Default ID generation settings
 - **limits_module**: Rate limiting and quota configurations
 - **rls_module**: Row-level security configurations
