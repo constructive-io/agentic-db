@@ -19,3 +19,5 @@ __generated__/
 
 # K8s secrets (use secrets.yaml.example as template)
 deploy/k8s/base/secrets.yaml
+
+.agent-tests
