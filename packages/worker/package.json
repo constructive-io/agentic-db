@@ -22,13 +22,13 @@
   "dependencies": {
     "@agentic-db/sdk": "workspace:*",
     "@agentic-kit/ollama": "^1.0.3",
-    "@constructive-io/node": "^0.8.8",
+    "@constructive-io/node": "^0.8.15",
     "agentic-kit": "^1.0.3",
     "dotenv": "^17.3.1",
     "graphile-worker": "^0.16.6"
   },
   "devDependencies": {
-    "makage": "^0.1.12",
+    "makage": "^0.3.0",
     "tsx": "^4.21.0"
   }
 }

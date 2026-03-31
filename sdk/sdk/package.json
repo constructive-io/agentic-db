@@ -19,16 +19,16 @@
   },
   "dependencies": {
     "@0no-co/graphql.web": "^1.2.0",
-    "@constructive-io/graphql-types": "3.3.4",
-    "gql-ast": "^3.1.1",
-    "graphql": "^16.13.1"
+    "@constructive-io/graphql-types": "3.4.3",
+    "gql-ast": "^3.4.2",
+    "graphql": "16.13.0"
   },
   "devDependencies": {
     "@agentic-db/schemas": "workspace:*",
-    "@constructive-io/graphql-codegen": "^4.22.1",
+    "@constructive-io/graphql-codegen": "^4.28.0",
     "@types/node": "^22.0.0",
     "dotenv": "^16.4.5",
-    "makage": "0.1.12",
+    "makage": "0.3.0",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0"
   }

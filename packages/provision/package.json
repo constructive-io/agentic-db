@@ -14,15 +14,15 @@
     "enable-membership-defaults": "tsx src/enable-membership-defaults.ts"
   },
   "dependencies": {
-    "@constructive-io/node": "^0.8.8",
+    "@constructive-io/node": "^0.8.15",
     "dotenv": "^16.4.5",
-    "node-type-registry": "^0.6.1",
+    "node-type-registry": "^0.7.1",
     "pg": "^8.20.0"
   },
   "devDependencies": {
     "@types/node": "^22.19.11",
     "@types/pg": "^8.18.0",
-    "makage": "0.1.12",
+    "makage": "0.3.0",
     "tsx": "^4.7.1",
     "typescript": "^5.1.6"
   }

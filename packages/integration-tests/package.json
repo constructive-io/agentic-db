@@ -13,17 +13,17 @@
     "test:rag": "jest --forceExit --detectOpenHandles __tests__/rag.test.ts"
   },
   "devDependencies": {
-    "@agentic-kit/ollama": "^1.0.3",
     "@0no-co/graphql.web": "^1.2.0",
-    "@constructive-io/graphql-codegen": "4.27.2",
-    "@constructive-io/graphql-query": "3.12.8",
-    "@constructive-io/graphql-types": "3.4.2",
+    "@agentic-kit/ollama": "^1.0.3",
+    "@constructive-io/graphql-codegen": "4.28.0",
+    "@constructive-io/graphql-query": "3.12.11",
+    "@constructive-io/graphql-types": "3.4.3",
     "@types/pg": "^8.16.0",
-    "gql-ast": "3.3.3",
-    "graphile-settings": "4.18.3",
-    "graphile-test": "^4.7.4",
+    "gql-ast": "3.4.2",
+    "graphile-settings": "4.18.5",
+    "graphile-test": "^4.7.6",
     "graphql": "16.13.0",
-    "pgsql-test": "^4.7.4",
+    "pgsql-test": "^4.7.6",
     "typescript": "^5.9.3"
   }
 }
