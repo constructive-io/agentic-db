@@ -80,7 +80,7 @@ const definition: BlueprintDefinition = {
         // Denormalized primary location (see contact_addresses for structured addresses)
         { name: 'location', type: 'text' },
         { name: 'birthday', type: 'date' },
-        { name: 'relationship_type', type: 'text' },
+        { name: 'relationship_types', type: 'citext[]' },
         { name: 'how_we_met', type: 'text' },
         { name: 'tags', type: 'citext[]' },
         { name: 'main_image_id', type: 'uuid' },
@@ -465,7 +465,7 @@ const definition: BlueprintDefinition = {
     { table_ref: 'interactions', column: 'tags', access_method: 'gin' },
 
     { table_ref: 'contacts', column: 'email', access_method: 'btree' },
-    { table_ref: 'contacts', column: 'relationship_type', access_method: 'btree' },
+    { table_ref: 'contacts', column: 'relationship_types', access_method: 'gin' },
     { table_ref: 'companies', column: 'domain', access_method: 'btree' },
     { table_ref: 'deals', column: 'stage', access_method: 'btree' },
     { table_ref: 'deals', column: 'expected_close_date', access_method: 'btree' },
