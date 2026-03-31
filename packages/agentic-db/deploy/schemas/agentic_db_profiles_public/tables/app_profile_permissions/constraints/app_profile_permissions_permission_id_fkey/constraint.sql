@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_profiles_public/tables/app_profile_permissions/table
 
 
-ALTER TABLE agentic_db_profiles_public.app_profile_permissions 
+ALTER TABLE "agentic_db_profiles_public".app_profile_permissions 
   ADD CONSTRAINT app_profile_permissions_permission_id_fkey 
     FOREIGN KEY(permission_id) 
-    REFERENCES agentic_db_permissions_public.app_permissions (id) 
+    REFERENCES "agentic_db_permissions_public".app_permissions (id) 
     ON DELETE CASCADE;
 

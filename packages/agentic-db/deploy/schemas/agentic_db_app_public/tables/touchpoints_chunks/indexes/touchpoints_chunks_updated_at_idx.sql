@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX touchpoints_chunks_updated_at_idx ON agentic_db_app_public.touchpoints_chunks ( updated_at );
+CREATE INDEX touchpoints_chunks_updated_at_idx ON "agentic_db_app_public".touchpoints_chunks ( updated_at );
 

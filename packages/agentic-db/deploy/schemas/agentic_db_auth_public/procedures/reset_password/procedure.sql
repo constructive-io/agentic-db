@@ -10,11 +10,11 @@
 
 
 
-CREATE FUNCTION agentic_db_auth_public.reset_password (role_id uuid, reset_token text, new_password text)
+CREATE FUNCTION "agentic_db_auth_public".reset_password (role_id uuid, reset_token text, new_password text)
     RETURNS boolean
 AS $$
 DECLARE
-    v_user agentic_db_users_public.users;
+    v_user "agentic_db_users_public".users;
     
     v_reset_max_interval interval = interval '3 days';
     v_reset_max_attempts int = 10;
@@ -29,7 +29,7 @@ BEGIN
     SELECT
         u.* INTO v_user
     FROM
-        agentic_db_users_public.users as u
+        "agentic_db_users_public".users as u
     WHERE
         id = role_id;
     IF (NOT FOUND) THEN
@@ -38,7 +38,7 @@ BEGIN
     SELECT  
         is_disabled,
         is_banned
-        FROM agentic_db_memberships_public.app_memberships
+        FROM "agentic_db_memberships_public".app_memberships
         WHERE actor_id = role_id
     INTO 
         v_user_is_disabled,
@@ -46,18 +46,18 @@ BEGIN
     IF (v_user_is_disabled IS TRUE OR v_user_is_banned IS TRUE) THEN 
         RAISE EXCEPTION 'ACCOUNT_DISABLED';
     END IF;
-    reset_password_attempts = agentic_db_simple_secrets.get(v_user.id, 'reset_password_attempts', '0');
-    first_failed_reset_password_attempt = agentic_db_simple_secrets.get(v_user.id, 'first_failed_reset_password_attempt');
+    reset_password_attempts = "agentic_db_simple_secrets".get(v_user.id, 'reset_password_attempts', '0');
+    first_failed_reset_password_attempt = "agentic_db_simple_secrets".get(v_user.id, 'first_failed_reset_password_attempt');
     IF (first_failed_reset_password_attempt IS NOT NULL
       AND NOW() < first_failed_reset_password_attempt + v_reset_max_interval
       AND reset_password_attempts >= v_reset_max_attempts) THEN
         RAISE
         EXCEPTION 'PASSWORD_RESET_LOCKED_EXCEED_ATTEMPTS';
     END IF;
-    IF (agentic_db_encrypted.verify(v_user.id, 'reset_password_token', reset_token)) THEN
-        PERFORM agentic_db_encrypted.set
+    IF ("agentic_db_encrypted".verify(v_user.id, 'reset_password_token', reset_token)) THEN
+        PERFORM "agentic_db_encrypted".set
             (v_user.id, 'password_hash', new_password, 'crypt');
-        PERFORM agentic_db_simple_secrets.del(
+        PERFORM "agentic_db_simple_secrets".del(
             v_user.id,
             ARRAY[
                 'password_attempts',
@@ -67,11 +67,11 @@ BEGIN
                 'first_failed_reset_password_attempt'                
             ]
         );
-        PERFORM agentic_db_encrypted.del(
+        PERFORM "agentic_db_encrypted".del(
             v_user.id,
             'reset_password_token'
         );
-        INSERT INTO agentic_db_logging_public.audit_logs 
+        INSERT INTO "agentic_db_logging_public".audit_logs 
             (actor_id, event, success)
         VALUES (
             v_user.id,
@@ -80,7 +80,7 @@ BEGIN
         );
         RETURN TRUE;
     ELSE
-        INSERT INTO agentic_db_logging_public.audit_logs 
+        INSERT INTO "agentic_db_logging_public".audit_logs 
             (actor_id, event, success)
         VALUES (
             v_user.id,
@@ -96,14 +96,14 @@ BEGIN
         ELSE 
             reset_password_attempts = reset_password_attempts + 1;
         END IF;
-        PERFORM agentic_db_simple_secrets.set(v_user.id, 'reset_password_attempts', reset_password_attempts);
-        PERFORM agentic_db_simple_secrets.set(v_user.id, 'first_failed_reset_password_attempt', first_failed_reset_password_attempt);
+        PERFORM "agentic_db_simple_secrets".set(v_user.id, 'reset_password_attempts', reset_password_attempts);
+        PERFORM "agentic_db_simple_secrets".set(v_user.id, 'first_failed_reset_password_attempt', first_failed_reset_password_attempt);
     END IF;
     RETURN FALSE;
 END;
 $$
 LANGUAGE 'plpgsql' VOLATILE
 SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION agentic_db_auth_public.reset_password to anonymous;
-REVOKE EXECUTE ON FUNCTION agentic_db_auth_public.reset_password from authenticated;
+GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".reset_password to anonymous;
+REVOKE EXECUTE ON FUNCTION "agentic_db_auth_public".reset_password from authenticated;
 

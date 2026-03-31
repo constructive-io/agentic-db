@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_tool_definition_id_idx
 
 
-CREATE INDEX expenses_trip_id_idx ON agentic_db_app_public.expenses USING BTREE ( trip_id );
+CREATE INDEX expenses_trip_id_idx ON "agentic_db_app_public".expenses USING BTREE ( trip_id );
 

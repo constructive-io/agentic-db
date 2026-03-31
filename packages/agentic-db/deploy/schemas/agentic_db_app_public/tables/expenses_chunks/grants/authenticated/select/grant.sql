@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-GRANT SELECT ON agentic_db_app_public.expenses_chunks TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".expenses_chunks TO authenticated;
 

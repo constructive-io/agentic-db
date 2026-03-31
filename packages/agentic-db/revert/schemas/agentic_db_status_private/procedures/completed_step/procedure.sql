@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION agentic_db_status_private.completed_step;
+DROP FUNCTION "agentic_db_status_private".completed_step;
 
 

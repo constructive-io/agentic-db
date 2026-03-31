@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_admin_grants/columns/actor_id/column
 
 
-CREATE INDEX org_admin_grants_actor_id_idx ON agentic_db_memberships_public.org_admin_grants USING BTREE ( actor_id );
+CREATE INDEX org_admin_grants_actor_id_idx ON "agentic_db_memberships_public".org_admin_grants USING BTREE ( actor_id );
 

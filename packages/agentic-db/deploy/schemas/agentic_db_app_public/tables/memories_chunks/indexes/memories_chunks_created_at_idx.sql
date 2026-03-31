@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE INDEX memories_chunks_created_at_idx ON agentic_db_app_public.memories_chunks ( created_at );
+CREATE INDEX memories_chunks_created_at_idx ON "agentic_db_app_public".memories_chunks ( created_at );
 

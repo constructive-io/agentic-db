@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/tool_definitions/constraints/tool_definitions_pkey/constraint
 
 
-ALTER TABLE agentic_db_app_public.tool_definitions 
+ALTER TABLE "agentic_db_app_public".tool_definitions 
   DROP CONSTRAINT tool_definitions_pkey;
 
 

@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_logging_public/tables/audit_logs/columns/event/column
 
 
-ALTER TABLE agentic_db_logging_public.audit_logs 
+ALTER TABLE "agentic_db_logging_public".audit_logs 
   DROP COLUMN event RESTRICT;
 
 

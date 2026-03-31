@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/contact_memories/policies/auth_del_entity_membership/policy
 
 
-CREATE TABLE agentic_db_app_public.company_memories ();
+CREATE TABLE "agentic_db_app_public".company_memories ();
 

@@ -6,12 +6,12 @@
 -- requires: schemas/agentic_db_app_public/tables/provider_sync_states/indexes/provider_sync_states_status_idx
 
 
-CREATE POLICY auth_ins_entity_membership ON agentic_db_app_public.raw_contact_urls
+CREATE POLICY auth_ins_entity_membership ON "agentic_db_app_public".raw_contact_urls
 FOR INSERT
 TO authenticated
 WITH CHECK (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM agentic_db_memberships_private.org_memberships_sprt AS org_sprt
+  FROM "agentic_db_memberships_private".org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

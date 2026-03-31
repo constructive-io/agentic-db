@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-ALTER TABLE agentic_db_app_public.emails 
+ALTER TABLE "agentic_db_app_public".emails 
   ADD COLUMN embedding_stale boolean;
 

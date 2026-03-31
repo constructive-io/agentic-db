@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER interactions_enqueue_chunking_insert_tg
-AFTER INSERT ON agentic_db_app_public.interactions
+AFTER INSERT ON "agentic_db_app_public".interactions
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.interactions_enqueue_chunking ( );
+EXECUTE PROCEDURE "agentic_db_private".interactions_enqueue_chunking ( );
 

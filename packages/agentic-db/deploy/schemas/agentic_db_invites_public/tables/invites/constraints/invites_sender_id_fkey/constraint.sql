@@ -6,9 +6,9 @@
 -- requires: schemas/agentic_db_invites_public/tables/invites/table
 
 
-ALTER TABLE agentic_db_invites_public.invites 
+ALTER TABLE "agentic_db_invites_public".invites 
   ADD CONSTRAINT invites_sender_id_fkey 
     FOREIGN KEY(sender_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

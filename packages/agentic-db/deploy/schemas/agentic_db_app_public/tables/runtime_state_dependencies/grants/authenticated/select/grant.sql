@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
-GRANT SELECT ON agentic_db_app_public.runtime_state_dependencies TO authenticated;
+GRANT SELECT ON "agentic_db_app_public".runtime_state_dependencies TO authenticated;
 

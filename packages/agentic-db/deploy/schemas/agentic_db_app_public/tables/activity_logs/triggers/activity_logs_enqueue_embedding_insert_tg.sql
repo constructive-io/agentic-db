@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER activity_logs_enqueue_embedding_insert_tg
-AFTER INSERT ON agentic_db_app_public.activity_logs
+AFTER INSERT ON "agentic_db_app_public".activity_logs
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE agentic_db_private.activity_logs_enqueue_embedding ( );
+EXECUTE PROCEDURE "agentic_db_private".activity_logs_enqueue_embedding ( );
 

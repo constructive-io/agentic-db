@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE INDEX hiking_trails_trailhead_geo_gist_idx ON agentic_db_app_public.hiking_trails USING GIST ( trailhead_geo );
+CREATE INDEX hiking_trails_trailhead_geo_gist_idx ON "agentic_db_app_public".hiking_trails USING GIST ( trailhead_geo );
 

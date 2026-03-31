@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/event_notes/policies/auth_del_entity_membership/policy
 
 
-CREATE INDEX task_notes_entity_id_idx ON agentic_db_app_public.task_notes USING BTREE ( entity_id );
+CREATE INDEX task_notes_entity_id_idx ON "agentic_db_app_public".task_notes USING BTREE ( entity_id );
 

@@ -1,0 +1,12 @@
+-- Deploy: schemas/agentic_db_app_public/tables/rules_chunks/columns/rules_id/alterations/alt0000001313
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_app_public/schema
+-- requires: schemas/agentic_db_app_public/tables/rules_chunks/table
+-- requires: schemas/agentic_db_app_public/tables/rules_chunks/columns/rules_id/column
+-- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
+
+
+ALTER TABLE "agentic_db_app_public".rules_chunks 
+  ALTER COLUMN rules_id SET NOT NULL;
+

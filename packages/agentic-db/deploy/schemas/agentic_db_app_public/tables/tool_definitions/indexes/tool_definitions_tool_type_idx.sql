@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-CREATE INDEX tool_definitions_tool_type_idx ON agentic_db_app_public.tool_definitions USING BTREE ( tool_type );
+CREATE INDEX tool_definitions_tool_type_idx ON "agentic_db_app_public".tool_definitions USING BTREE ( tool_type );
 

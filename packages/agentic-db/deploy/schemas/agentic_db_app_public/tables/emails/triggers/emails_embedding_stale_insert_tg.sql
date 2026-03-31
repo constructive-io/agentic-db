@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER emails_embedding_stale_insert_tg
-BEFORE INSERT ON agentic_db_app_public.emails
+BEFORE INSERT ON "agentic_db_app_public".emails
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.emails_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".emails_embedding_stale ( );
 

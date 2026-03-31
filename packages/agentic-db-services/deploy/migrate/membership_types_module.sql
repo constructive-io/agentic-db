@@ -27,7 +27,7 @@ INSERT INTO metaschema_modules_public.membership_types_module (
   table_id,
   table_name
 ) VALUES
-  ('019d416f-3c9b-7b3a-ac74-bb5afa0fbfc2', '019d416f-3253-7543-a058-30ea5a6b7e37', '019d416f-3c9c-7189-bb0c-e43871321173', '019d416f-3d39-7b29-b2b9-1ef56f69b0eb', 'membership_types');
+  ('019d42ff-ce02-799a-869f-996940347750', '019d42ff-c75a-7c43-be39-ef7a74b280f4', '019d42ff-ce03-722d-82bd-39b558050ea6', '019d42ff-ce8f-7cf3-bc2c-e9e5d0023b80', 'membership_types');
 
 
 SET session_replication_role TO DEFAULT;
