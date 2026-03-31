@@ -19,6 +19,9 @@ scalar Datetime
 "A full-text search tsvector value represented as a string."
 scalar FullText
 
+"The `GeoJSON` scalar type represents GeoJSON values as specified by [RFC 7946](https://tools.ietf.org/html/rfc7946)."
+scalar GeoJSON
+
 "Represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
 
@@ -695,6 +698,25 @@ enum CompanyOrderBy {
   SEARCH_SCORE_DESC
 }
 
+"Methods to use when ordering `ContactAddress`."
+enum ContactAddressOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  CITY_ASC
+  CITY_DESC
+  COUNTRY_ASC
+  COUNTRY_DESC
+  ADDRESS_TYPE_ASC
+  ADDRESS_TYPE_DESC
+  CONTACT_ID_ASC
+  CONTACT_ID_DESC
+}
+
 "Methods to use when ordering `ContactCompany`."
 enum ContactCompanyOrderBy {
   NATURAL
@@ -708,6 +730,23 @@ enum ContactCompanyOrderBy {
   ID_DESC
   ENTITY_ID_ASC
   ENTITY_ID_DESC
+}
+
+"Methods to use when ordering `ContactEmail`."
+enum ContactEmailOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  EMAIL_TYPE_ASC
+  EMAIL_TYPE_DESC
+  CONTACT_ID_ASC
+  CONTACT_ID_DESC
 }
 
 "Methods to use when ordering `ContactEvent`."
@@ -802,10 +841,6 @@ enum ContactOrderBy {
   EMAIL_DESC
   RELATIONSHIP_TYPE_ASC
   RELATIONSHIP_TYPE_DESC
-  TWITTER_HANDLE_ASC
-  TWITTER_HANDLE_DESC
-  GITHUB_USERNAME_ASC
-  GITHUB_USERNAME_DESC
   MAIN_IMAGE_ID_ASC
   MAIN_IMAGE_ID_DESC
   EMBEDDING_TEXT_ASC
@@ -838,20 +873,27 @@ enum ContactOrderBy {
   RELATIONSHIP_TYPE_TRGM_SIMILARITY_DESC
   HOW_WE_MET_TRGM_SIMILARITY_ASC
   HOW_WE_MET_TRGM_SIMILARITY_DESC
-  TWITTER_HANDLE_TRGM_SIMILARITY_ASC
-  TWITTER_HANDLE_TRGM_SIMILARITY_DESC
-  LINKEDIN_URL_TRGM_SIMILARITY_ASC
-  LINKEDIN_URL_TRGM_SIMILARITY_DESC
-  GITHUB_USERNAME_TRGM_SIMILARITY_ASC
-  GITHUB_USERNAME_TRGM_SIMILARITY_DESC
-  INSTAGRAM_HANDLE_TRGM_SIMILARITY_ASC
-  INSTAGRAM_HANDLE_TRGM_SIMILARITY_DESC
-  WEBSITE_TRGM_SIMILARITY_ASC
-  WEBSITE_TRGM_SIMILARITY_DESC
   EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
   EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
+}
+
+"Methods to use when ordering `ContactPhone`."
+enum ContactPhoneOrderBy {
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  ID_ASC
+  ID_DESC
+  ENTITY_ID_ASC
+  ENTITY_ID_DESC
+  PHONE_ASC
+  PHONE_DESC
+  PHONE_TYPE_ASC
+  PHONE_TYPE_DESC
+  CONTACT_ID_ASC
+  CONTACT_ID_DESC
 }
 
 "Methods to use when ordering `ContactRelationship`."
@@ -1092,24 +1134,6 @@ enum EmailOrderBy {
   EMBEDDING_DESC
   EMAIL_THREAD_ID_ASC
   EMAIL_THREAD_ID_DESC
-  SEARCH_TSV_RANK_ASC
-  SEARCH_TSV_RANK_DESC
-  EMBEDDING_TEXT_BM25_SCORE_ASC
-  EMBEDDING_TEXT_BM25_SCORE_DESC
-  EMBEDDING_VECTOR_DISTANCE_ASC
-  EMBEDDING_VECTOR_DISTANCE_DESC
-  PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_ASC
-  PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_DESC
-  SUBJECT_TRGM_SIMILARITY_ASC
-  SUBJECT_TRGM_SIMILARITY_DESC
-  BODY_TEXT_TRGM_SIMILARITY_ASC
-  BODY_TEXT_TRGM_SIMILARITY_DESC
-  BODY_HTML_TRGM_SIMILARITY_ASC
-  BODY_HTML_TRGM_SIMILARITY_DESC
-  EMBEDDING_TEXT_TRGM_SIMILARITY_ASC
-  EMBEDDING_TEXT_TRGM_SIMILARITY_DESC
-  SEARCH_SCORE_ASC
-  SEARCH_SCORE_DESC
 }
 
 "Methods to use when ordering `EmailRecipient`."
@@ -2852,6 +2876,46 @@ enum VenuesChunkOrderBy {
   EMBEDDING_VECTOR_DISTANCE_DESC
   SEARCH_SCORE_ASC
   SEARCH_SCORE_DESC
+}
+
+"All geography XY types implement this interface"
+interface GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+}
+
+"All geography XYM types implement this interface"
+interface GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+}
+
+"All geography XYZ types implement this interface"
+interface GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+}
+
+"All geography XYZM types implement this interface"
+interface GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+}
+
+"All geography types implement this interface"
+interface GeographyInterface {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
 }
 
 "@@hasChunks {\"chunks_table\": \"activity_logs_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
@@ -5663,11 +5727,6 @@ type Contact {
   birthday: Date
   relationshipType: String
   howWeMet: String
-  twitterHandle: String
-  linkedinUrl: String
-  githubUsername: String
-  instagramHandle: String
-  website: String
   tags: [String]
   mainImageId: UUID
   createdAt: Datetime!
@@ -5676,6 +5735,7 @@ type Contact {
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
+  locationGeo: GeographyInterface
   "Reads and enables pagination through a set of `Image`."
   imagesByContactImageContactIdAndImageId(
     "Only read the first `n` values of the set."
@@ -6018,6 +6078,66 @@ type Contact {
     "The method to use when ordering `Touchpoint`."
     orderBy: [TouchpointOrderBy!] = [PRIMARY_KEY_ASC]
   ): TouchpointConnection!
+  "Reads and enables pagination through a set of `ContactEmail`."
+  contactEmails(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactEmailFilter
+    "The method to use when ordering `ContactEmail`."
+    orderBy: [ContactEmailOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactEmailConnection!
+  "Reads and enables pagination through a set of `ContactPhone`."
+  contactPhones(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactPhoneFilter
+    "The method to use when ordering `ContactPhone`."
+    orderBy: [ContactPhoneOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactPhoneConnection!
+  "Reads and enables pagination through a set of `ContactAddress`."
+  contactAddresses(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactAddressFilter
+    "The method to use when ordering `ContactAddress`."
+    orderBy: [ContactAddressOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactAddressConnection!
   "Reads and enables pagination through a set of `ContactLink`."
   contactLinks(
     "Only read the first `n` values of the set."
@@ -6402,20 +6522,47 @@ type Contact {
   relationshipTypeTrgmSimilarity: Float
   "TRGM similarity when searching `howWeMet`. Returns null when no trgm search filter is active."
   howWeMetTrgmSimilarity: Float
-  "TRGM similarity when searching `twitterHandle`. Returns null when no trgm search filter is active."
-  twitterHandleTrgmSimilarity: Float
-  "TRGM similarity when searching `linkedinUrl`. Returns null when no trgm search filter is active."
-  linkedinUrlTrgmSimilarity: Float
-  "TRGM similarity when searching `githubUsername`. Returns null when no trgm search filter is active."
-  githubUsernameTrgmSimilarity: Float
-  "TRGM similarity when searching `instagramHandle`. Returns null when no trgm search filter is active."
-  instagramHandleTrgmSimilarity: Float
-  "TRGM similarity when searching `website`. Returns null when no trgm search filter is active."
-  websiteTrgmSimilarity: Float
   "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
   embeddingTextTrgmSimilarity: Float
   "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
   searchScore: Float
+}
+
+type ContactAddress {
+  id: UUID!
+  entityId: UUID!
+  street: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+  addressType: String
+  isPrimary: Boolean
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  contactId: UUID!
+  "Reads a single `Contact` that is related to this `ContactAddress`."
+  contact: Contact
+}
+
+"A connection to a list of `ContactAddress` values."
+type ContactAddressConnection {
+  "A list of `ContactAddress` objects."
+  nodes: [ContactAddress]!
+  "A list of edges which contains the `ContactAddress` and cursor to aid in pagination."
+  edges: [ContactAddressEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `ContactAddress` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `ContactAddress` edge in the connection."
+type ContactAddressEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `ContactAddress` at the end of the edge."
+  node: ContactAddress
 }
 
 "A connection to a list of `CalendarEvent` values, with data from `CalendarEventContact`."
@@ -6667,6 +6814,39 @@ type ContactEdge {
   cursor: Cursor
   "The `Contact` at the end of the edge."
   node: Contact
+}
+
+type ContactEmail {
+  id: UUID!
+  entityId: UUID!
+  email: String!
+  emailType: String
+  isPrimary: Boolean
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  contactId: UUID!
+  "Reads a single `Contact` that is related to this `ContactEmail`."
+  contact: Contact
+}
+
+"A connection to a list of `ContactEmail` values."
+type ContactEmailConnection {
+  "A list of `ContactEmail` objects."
+  nodes: [ContactEmail]!
+  "A list of edges which contains the `ContactEmail` and cursor to aid in pagination."
+  edges: [ContactEmailEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `ContactEmail` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `ContactEmail` edge in the connection."
+type ContactEmailEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `ContactEmail` at the end of the edge."
+  node: ContactEmail
 }
 
 "A connection to a list of `Email` values, with data from `EmailRecipient`."
@@ -7109,6 +7289,39 @@ type ContactNotesManyToManyEdge {
     "The method to use when ordering `ContactNote`."
     orderBy: [ContactNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): ContactNoteConnection!
+}
+
+type ContactPhone {
+  id: UUID!
+  entityId: UUID!
+  phone: String!
+  phoneType: String
+  isPrimary: Boolean
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  contactId: UUID!
+  "Reads a single `Contact` that is related to this `ContactPhone`."
+  contact: Contact
+}
+
+"A connection to a list of `ContactPhone` values."
+type ContactPhoneConnection {
+  "A list of `ContactPhone` objects."
+  nodes: [ContactPhone]!
+  "A list of edges which contains the `ContactPhone` and cursor to aid in pagination."
+  edges: [ContactPhoneEdge]!
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "The count of *all* `ContactPhone` you could get from the connection."
+  totalCount: Int!
+}
+
+"A `ContactPhone` edge in the connection."
+type ContactPhoneEdge {
+  "A cursor for use in pagination."
+  cursor: Cursor
+  "The `ContactPhone` at the end of the edge."
+  node: ContactPhone
 }
 
 "A connection to a list of `Project` values, with data from `ProjectContact`."
@@ -7907,6 +8120,24 @@ type CreateCompanyPayload {
   ): CompanyEdge
 }
 
+"The output of our create `ContactAddress` mutation."
+type CreateContactAddressPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactAddress` that was created by this mutation."
+  contactAddress: ContactAddress
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactAddress`. May be used by Relay 1."
+  contactAddressEdge(
+    "The method to use when ordering `ContactAddress`."
+    orderBy: [ContactAddressOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactAddressEdge
+}
+
 "The output of our create `ContactCompany` mutation."
 type CreateContactCompanyPayload {
   """
@@ -7923,6 +8154,24 @@ type CreateContactCompanyPayload {
     "The method to use when ordering `ContactCompany`."
     orderBy: [ContactCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ContactCompanyEdge
+}
+
+"The output of our create `ContactEmail` mutation."
+type CreateContactEmailPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactEmail` that was created by this mutation."
+  contactEmail: ContactEmail
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactEmail`. May be used by Relay 1."
+  contactEmailEdge(
+    "The method to use when ordering `ContactEmail`."
+    orderBy: [ContactEmailOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactEmailEdge
 }
 
 "The output of our create `ContactEvent` mutation."
@@ -8031,6 +8280,24 @@ type CreateContactPayload {
     "The method to use when ordering `Contact`."
     orderBy: [ContactOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ContactEdge
+}
+
+"The output of our create `ContactPhone` mutation."
+type CreateContactPhonePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactPhone` that was created by this mutation."
+  contactPhone: ContactPhone
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactPhone`. May be used by Relay 1."
+  contactPhoneEdge(
+    "The method to use when ordering `ContactPhone`."
+    orderBy: [ContactPhoneOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactPhoneEdge
 }
 
 "The output of our create `ContactRelationship` mutation."
@@ -10568,6 +10835,24 @@ type DeleteCompanyPayload {
   ): CompanyEdge
 }
 
+"The output of our delete `ContactAddress` mutation."
+type DeleteContactAddressPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactAddress` that was deleted by this mutation."
+  contactAddress: ContactAddress
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactAddress`. May be used by Relay 1."
+  contactAddressEdge(
+    "The method to use when ordering `ContactAddress`."
+    orderBy: [ContactAddressOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactAddressEdge
+}
+
 "The output of our delete `ContactCompany` mutation."
 type DeleteContactCompanyPayload {
   """
@@ -10584,6 +10869,24 @@ type DeleteContactCompanyPayload {
     "The method to use when ordering `ContactCompany`."
     orderBy: [ContactCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ContactCompanyEdge
+}
+
+"The output of our delete `ContactEmail` mutation."
+type DeleteContactEmailPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactEmail` that was deleted by this mutation."
+  contactEmail: ContactEmail
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactEmail`. May be used by Relay 1."
+  contactEmailEdge(
+    "The method to use when ordering `ContactEmail`."
+    orderBy: [ContactEmailOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactEmailEdge
 }
 
 "The output of our delete `ContactEvent` mutation."
@@ -10692,6 +10995,24 @@ type DeleteContactPayload {
     "The method to use when ordering `Contact`."
     orderBy: [ContactOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ContactEdge
+}
+
+"The output of our delete `ContactPhone` mutation."
+type DeleteContactPhonePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactPhone` that was deleted by this mutation."
+  contactPhone: ContactPhone
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactPhone`. May be used by Relay 1."
+  contactPhoneEdge(
+    "The method to use when ordering `ContactPhone`."
+    orderBy: [ContactPhoneOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactPhoneEdge
 }
 
 "The output of our delete `ContactRelationship` mutation."
@@ -12387,24 +12708,6 @@ type Email {
     "The method to use when ordering `EmailNote`."
     orderBy: [EmailNoteOrderBy!] = [PRIMARY_KEY_ASC]
   ): EmailNoteConnection!
-  "TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active."
-  searchTsvRank: Float
-  "BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active."
-  embeddingTextBm25Score: Float
-  "VECTOR distance when searching `embedding`. Returns null when no vector search filter is active."
-  embeddingVectorDistance: Float
-  "TRGM similarity when searching `providerMessageId`. Returns null when no trgm search filter is active."
-  providerMessageIdTrgmSimilarity: Float
-  "TRGM similarity when searching `subject`. Returns null when no trgm search filter is active."
-  subjectTrgmSimilarity: Float
-  "TRGM similarity when searching `bodyText`. Returns null when no trgm search filter is active."
-  bodyTextTrgmSimilarity: Float
-  "TRGM similarity when searching `bodyHtml`. Returns null when no trgm search filter is active."
-  bodyHtmlTrgmSimilarity: Float
-  "TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active."
-  embeddingTextTrgmSimilarity: Float
-  "Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active."
-  searchScore: Float
 }
 
 type EmailAttachment {
@@ -12875,6 +13178,7 @@ type Event {
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
+  locationGeo: GeographyInterface
   "Reads and enables pagination through a set of `Image`."
   imagesByEventImageEventIdAndImageId(
     "Only read the first `n` values of the set."
@@ -13777,6 +14081,484 @@ type ExpensesChunkEdge {
   node: ExpensesChunk
 }
 
+"A PostGIS geography GeometryCollection type"
+type GeographyGeometryCollection implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  geometries: [GeographyGeometry]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography GeometryCollectionM type"
+type GeographyGeometryCollectionM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  geometries: [GeographyGeometryM]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography GeometryCollectionZ type"
+type GeographyGeometryCollectionZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  geometries: [GeographyGeometryZ]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography GeometryCollectionZM type"
+type GeographyGeometryCollectionZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  geometries: [GeographyGeometryZM]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography LineString type"
+type GeographyLineString implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPoint]
+  "Approximate length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography LineStringM type"
+type GeographyLineStringM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointM]
+  "Approximate length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography LineStringZ type"
+type GeographyLineStringZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointZ]
+  "Approximate length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography LineStringZM type"
+type GeographyLineStringZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointZM]
+  "Approximate length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiLineString type"
+type GeographyMultiLineString implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  lines: [GeographyLineString]
+  "Approximate total length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiLineStringM type"
+type GeographyMultiLineStringM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  lines: [GeographyLineStringM]
+  "Approximate total length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiLineStringZ type"
+type GeographyMultiLineStringZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  lines: [GeographyLineStringZ]
+  "Approximate total length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiLineStringZM type"
+type GeographyMultiLineStringZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  lines: [GeographyLineStringZM]
+  "Approximate total length in meters (geodesic calculation from coordinates)."
+  length: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPoint type"
+type GeographyMultiPoint implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPoint]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPointM type"
+type GeographyMultiPointM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointM]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPointZ type"
+type GeographyMultiPointZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointZ]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPointZM type"
+type GeographyMultiPointZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  points: [GeographyPointZM]
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPolygon type"
+type GeographyMultiPolygon implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  polygons: [GeographyPolygon]
+  "Approximate total area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate total perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPolygonM type"
+type GeographyMultiPolygonM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  polygons: [GeographyPolygonM]
+  "Approximate total area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate total perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPolygonZ type"
+type GeographyMultiPolygonZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  polygons: [GeographyPolygonZ]
+  "Approximate total area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate total perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography MultiPolygonZM type"
+type GeographyMultiPolygonZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  polygons: [GeographyPolygonZM]
+  "Approximate total area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate total perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography Point type"
+type GeographyPoint implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PointM type"
+type GeographyPointM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PointZ type"
+type GeographyPointZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+  height: Float!
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PointZM type"
+type GeographyPointZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+  height: Float!
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography Polygon type"
+type GeographyPolygon implements GeographyInterface & GeographyGeometry {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  exterior: GeographyLineString
+  interiors: [GeographyLineString]
+  "Approximate area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PolygonM type"
+type GeographyPolygonM implements GeographyInterface & GeographyGeometryM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  exterior: GeographyLineStringM
+  interiors: [GeographyLineStringM]
+  "Approximate area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PolygonZ type"
+type GeographyPolygonZ implements GeographyInterface & GeographyGeometryZ {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  exterior: GeographyLineStringZ
+  interiors: [GeographyLineStringZ]
+  "Approximate area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
+"A PostGIS geography PolygonZM type"
+type GeographyPolygonZM implements GeographyInterface & GeographyGeometryZM {
+  "Converts the object to GeoJSON"
+  geojson: GeoJSON
+  "Spatial reference identifier (SRID)"
+  srid: Int!
+  exterior: GeographyLineStringZM
+  interiors: [GeographyLineStringZM]
+  "Approximate area in square meters (geodesic calculation from coordinates)."
+  area: Float
+  "Approximate perimeter in meters (geodesic calculation from coordinates)."
+  perimeter: Float
+  "Bounding box as [minX, minY, maxX, maxY]. Computed from GeoJSON coordinates."
+  bbox: [Float!]
+  "Centroid as [x, y] (arithmetic mean of all coordinate points). This is a simple centroid, not a weighted geographic centroid."
+  centroid: [Float!]
+  "Total number of coordinate points in the geometry."
+  numPoints: Int!
+}
+
 "@@hasChunks {\"chunks_table\": \"goals_chunks\", \"embedding_field\": \"embedding\"}\n@@searchConfig {\"weights\": {\"bm25\": 1.0}, \"bm25_field\": \"embedding_text\", \"bm25_text_config\": \"english\"}"
 type Goal {
   id: UUID!
@@ -14257,6 +15039,7 @@ type HikingTrail {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
+  trailheadGeo: GeographyInterface
   "Reads and enables pagination through a set of `HikingTrailsChunk`."
   hikingTrailsChunksByHikingTrailsId(
     "Only read the first `n` values of the set."
@@ -14954,6 +15737,7 @@ type Memory {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
+  locationGeo: GeographyInterface
   agentId: UUID
   "Reads and enables pagination through a set of `Contact`."
   contacts(
@@ -15646,21 +16430,36 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeEventInput!
   ): CreateRuntimeEventPayload
-  "Creates a single `RawContactUrl`."
-  createRawContactUrl(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: CreateRawContactUrlInput!
-  ): CreateRawContactUrlPayload
   "Creates a single `RuntimeConfig`."
   createRuntimeConfig(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateRuntimeConfigInput!
   ): CreateRuntimeConfigPayload
+  "Creates a single `RawContactUrl`."
+  createRawContactUrl(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateRawContactUrlInput!
+  ): CreateRawContactUrlPayload
   "Creates a single `ToolExecution`."
   createToolExecution(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: CreateToolExecutionInput!
   ): CreateToolExecutionPayload
+  "Creates a single `ContactEmail`."
+  createContactEmail(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateContactEmailInput!
+  ): CreateContactEmailPayload
+  "Creates a single `ContactPhone`."
+  createContactPhone(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateContactPhoneInput!
+  ): CreateContactPhonePayload
+  "Creates a single `ContactAddress`."
+  createContactAddress(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: CreateContactAddressInput!
+  ): CreateContactAddressPayload
   "Creates a single `RuntimeMetric`."
   createRuntimeMetric(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16256,21 +17055,36 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeEventInput!
   ): UpdateRuntimeEventPayload
-  "Updates a single `RawContactUrl` using a unique key and a patch."
-  updateRawContactUrl(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: UpdateRawContactUrlInput!
-  ): UpdateRawContactUrlPayload
   "Updates a single `RuntimeConfig` using a unique key and a patch."
   updateRuntimeConfig(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateRuntimeConfigInput!
   ): UpdateRuntimeConfigPayload
+  "Updates a single `RawContactUrl` using a unique key and a patch."
+  updateRawContactUrl(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateRawContactUrlInput!
+  ): UpdateRawContactUrlPayload
   "Updates a single `ToolExecution` using a unique key and a patch."
   updateToolExecution(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: UpdateToolExecutionInput!
   ): UpdateToolExecutionPayload
+  "Updates a single `ContactEmail` using a unique key and a patch."
+  updateContactEmail(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateContactEmailInput!
+  ): UpdateContactEmailPayload
+  "Updates a single `ContactPhone` using a unique key and a patch."
+  updateContactPhone(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateContactPhoneInput!
+  ): UpdateContactPhonePayload
+  "Updates a single `ContactAddress` using a unique key and a patch."
+  updateContactAddress(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: UpdateContactAddressInput!
+  ): UpdateContactAddressPayload
   "Updates a single `RuntimeMetric` using a unique key and a patch."
   updateRuntimeMetric(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -16866,21 +17680,36 @@ type Mutation {
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeEventInput!
   ): DeleteRuntimeEventPayload
-  "Deletes a single `RawContactUrl` using a unique key."
-  deleteRawContactUrl(
-    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
-    input: DeleteRawContactUrlInput!
-  ): DeleteRawContactUrlPayload
   "Deletes a single `RuntimeConfig` using a unique key."
   deleteRuntimeConfig(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteRuntimeConfigInput!
   ): DeleteRuntimeConfigPayload
+  "Deletes a single `RawContactUrl` using a unique key."
+  deleteRawContactUrl(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteRawContactUrlInput!
+  ): DeleteRawContactUrlPayload
   "Deletes a single `ToolExecution` using a unique key."
   deleteToolExecution(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
     input: DeleteToolExecutionInput!
   ): DeleteToolExecutionPayload
+  "Deletes a single `ContactEmail` using a unique key."
+  deleteContactEmail(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteContactEmailInput!
+  ): DeleteContactEmailPayload
+  "Deletes a single `ContactPhone` using a unique key."
+  deleteContactPhone(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteContactPhoneInput!
+  ): DeleteContactPhonePayload
+  "Deletes a single `ContactAddress` using a unique key."
+  deleteContactAddress(
+    "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+    input: DeleteContactAddressInput!
+  ): DeleteContactAddressPayload
   "Deletes a single `RuntimeMetric` using a unique key."
   deleteRuntimeMetric(
     "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
@@ -17966,6 +18795,7 @@ type Place {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
+  locationGeo: GeographyInterface
   "Reads and enables pagination through a set of `PlacesChunk`."
   placesChunksByPlacesId(
     "Only read the first `n` values of the set."
@@ -19512,26 +20342,6 @@ type Query {
     "The method to use when ordering `RuntimeEvent`."
     orderBy: [RuntimeEventOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeEventConnection
-  "Reads and enables pagination through a set of `RawContactUrl`."
-  rawContactUrls(
-    "Only read the first `n` values of the set."
-    first: Int
-    "Only read the last `n` values of the set."
-    last: Int
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-    "Read all values in the set before (above) this cursor."
-    before: Cursor
-    "Read all values in the set after (below) this cursor."
-    after: Cursor
-    "A filter to be used in determining which values should be returned by the collection."
-    where: RawContactUrlFilter
-    "The method to use when ordering `RawContactUrl`."
-    orderBy: [RawContactUrlOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RawContactUrlConnection
   "Reads and enables pagination through a set of `RuntimeConfig`."
   runtimeConfigs(
     "Only read the first `n` values of the set."
@@ -19552,6 +20362,26 @@ type Query {
     "The method to use when ordering `RuntimeConfig`."
     orderBy: [RuntimeConfigOrderBy!] = [PRIMARY_KEY_ASC]
   ): RuntimeConfigConnection
+  "Reads and enables pagination through a set of `RawContactUrl`."
+  rawContactUrls(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: RawContactUrlFilter
+    "The method to use when ordering `RawContactUrl`."
+    orderBy: [RawContactUrlOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RawContactUrlConnection
   "Reads and enables pagination through a set of `ToolExecution`."
   toolExecutions(
     "Only read the first `n` values of the set."
@@ -19572,6 +20402,66 @@ type Query {
     "The method to use when ordering `ToolExecution`."
     orderBy: [ToolExecutionOrderBy!] = [PRIMARY_KEY_ASC]
   ): ToolExecutionConnection
+  "Reads and enables pagination through a set of `ContactEmail`."
+  contactEmails(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactEmailFilter
+    "The method to use when ordering `ContactEmail`."
+    orderBy: [ContactEmailOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactEmailConnection
+  "Reads and enables pagination through a set of `ContactPhone`."
+  contactPhones(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactPhoneFilter
+    "The method to use when ordering `ContactPhone`."
+    orderBy: [ContactPhoneOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactPhoneConnection
+  "Reads and enables pagination through a set of `ContactAddress`."
+  contactAddresses(
+    "Only read the first `n` values of the set."
+    first: Int
+    "Only read the last `n` values of the set."
+    last: Int
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    "Read all values in the set before (above) this cursor."
+    before: Cursor
+    "Read all values in the set after (below) this cursor."
+    after: Cursor
+    "A filter to be used in determining which values should be returned by the collection."
+    where: ContactAddressFilter
+    "The method to use when ordering `ContactAddress`."
+    orderBy: [ContactAddressOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ContactAddressConnection
   "Reads and enables pagination through a set of `RuntimeMetric`."
   runtimeMetrics(
     "Only read the first `n` values of the set."
@@ -23290,6 +24180,7 @@ type Trip {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean!
+  destinationGeo: GeographyInterface
   "Reads and enables pagination through a set of `Expense`."
   expenses(
     "Only read the first `n` values of the set."
@@ -23926,6 +24817,24 @@ type UpdateCompanyPayload {
   ): CompanyEdge
 }
 
+"The output of our update `ContactAddress` mutation."
+type UpdateContactAddressPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactAddress` that was updated by this mutation."
+  contactAddress: ContactAddress
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactAddress`. May be used by Relay 1."
+  contactAddressEdge(
+    "The method to use when ordering `ContactAddress`."
+    orderBy: [ContactAddressOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactAddressEdge
+}
+
 "The output of our update `ContactCompany` mutation."
 type UpdateContactCompanyPayload {
   """
@@ -23942,6 +24851,24 @@ type UpdateContactCompanyPayload {
     "The method to use when ordering `ContactCompany`."
     orderBy: [ContactCompanyOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ContactCompanyEdge
+}
+
+"The output of our update `ContactEmail` mutation."
+type UpdateContactEmailPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactEmail` that was updated by this mutation."
+  contactEmail: ContactEmail
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactEmail`. May be used by Relay 1."
+  contactEmailEdge(
+    "The method to use when ordering `ContactEmail`."
+    orderBy: [ContactEmailOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactEmailEdge
 }
 
 "The output of our update `ContactEvent` mutation."
@@ -24050,6 +24977,24 @@ type UpdateContactPayload {
     "The method to use when ordering `Contact`."
     orderBy: [ContactOrderBy!]! = [PRIMARY_KEY_ASC]
   ): ContactEdge
+}
+
+"The output of our update `ContactPhone` mutation."
+type UpdateContactPhonePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  "The `ContactPhone` that was updated by this mutation."
+  contactPhone: ContactPhone
+  "Our root query field type. Allows us to run any query from our mutation payload."
+  query: Query
+  "An edge for our `ContactPhone`. May be used by Relay 1."
+  contactPhoneEdge(
+    "The method to use when ordering `ContactPhone`."
+    orderBy: [ContactPhoneOrderBy!]! = [PRIMARY_KEY_ASC]
+  ): ContactPhoneEdge
 }
 
 "The output of our update `ContactRelationship` mutation."
@@ -25623,6 +26568,7 @@ type Venue {
   searchTsv: FullText
   embedding: Vector
   embeddingStale: Boolean!
+  location: GeographyInterface
   "Reads and enables pagination through a set of `Image`."
   imagesByVenueImageVenueIdAndImageId(
     "Only read the first `n` values of the set."
@@ -28260,6 +29206,74 @@ input CompanyToManyTouchpointFilter {
   none: TouchpointFilter
 }
 
+"A filter to be used against `ContactAddress` object types. All fields are combined with a logical ‘and.’"
+input ContactAddressFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `street` field."
+  street: StringFilter
+  "Filter by the object’s `city` field."
+  city: StringFilter
+  "Filter by the object’s `state` field."
+  state: StringFilter
+  "Filter by the object’s `postalCode` field."
+  postalCode: StringFilter
+  "Filter by the object’s `country` field."
+  country: StringFilter
+  "Filter by the object’s `addressType` field."
+  addressType: StringFilter
+  "Filter by the object’s `isPrimary` field."
+  isPrimary: BooleanFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `contactId` field."
+  contactId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [ContactAddressFilter!]
+  "Checks for any expressions in this list."
+  or: [ContactAddressFilter!]
+  "Negates the expression."
+  not: ContactAddressFilter
+  "Filter by the object’s `contact` relation."
+  contact: ContactFilter
+}
+
+"An input for mutations affecting `ContactAddress`"
+input ContactAddressInput {
+  id: UUID
+  entityId: UUID!
+  street: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+  addressType: String
+  isPrimary: Boolean
+  createdAt: Datetime
+  updatedAt: Datetime
+  contactId: UUID!
+}
+
+"Represents an update to a `ContactAddress`. Fields that are set will be updated."
+input ContactAddressPatch {
+  id: UUID
+  entityId: UUID
+  street: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+  addressType: String
+  isPrimary: Boolean
+  createdAt: Datetime
+  updatedAt: Datetime
+  contactId: UUID
+}
+
 "A filter to be used against `ContactCompany` object types. All fields are combined with a logical ‘and.’"
 input ContactCompanyFilter {
   "Filter by the object’s `contactId` field."
@@ -28296,6 +29310,58 @@ input ContactCompanyPatch {
   companyId: UUID
   id: UUID
   entityId: UUID
+}
+
+"A filter to be used against `ContactEmail` object types. All fields are combined with a logical ‘and.’"
+input ContactEmailFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `email` field."
+  email: StringFilter
+  "Filter by the object’s `emailType` field."
+  emailType: StringFilter
+  "Filter by the object’s `isPrimary` field."
+  isPrimary: BooleanFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `contactId` field."
+  contactId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [ContactEmailFilter!]
+  "Checks for any expressions in this list."
+  or: [ContactEmailFilter!]
+  "Negates the expression."
+  not: ContactEmailFilter
+  "Filter by the object’s `contact` relation."
+  contact: ContactFilter
+}
+
+"An input for mutations affecting `ContactEmail`"
+input ContactEmailInput {
+  id: UUID
+  entityId: UUID!
+  email: String!
+  emailType: String
+  isPrimary: Boolean
+  createdAt: Datetime
+  updatedAt: Datetime
+  contactId: UUID!
+}
+
+"Represents an update to a `ContactEmail`. Fields that are set will be updated."
+input ContactEmailPatch {
+  id: UUID
+  entityId: UUID
+  email: String
+  emailType: String
+  isPrimary: Boolean
+  createdAt: Datetime
+  updatedAt: Datetime
+  contactId: UUID
 }
 
 "A filter to be used against `ContactEvent` object types. All fields are combined with a logical ‘and.’"
@@ -28362,16 +29428,6 @@ input ContactFilter {
   relationshipType: StringTrgmFilter
   "Filter by the object’s `howWeMet` field."
   howWeMet: StringTrgmFilter
-  "Filter by the object’s `twitterHandle` field."
-  twitterHandle: StringTrgmFilter
-  "Filter by the object’s `linkedinUrl` field."
-  linkedinUrl: StringTrgmFilter
-  "Filter by the object’s `githubUsername` field."
-  githubUsername: StringTrgmFilter
-  "Filter by the object’s `instagramHandle` field."
-  instagramHandle: StringTrgmFilter
-  "Filter by the object’s `website` field."
-  website: StringTrgmFilter
   "Filter by the object’s `tags` field."
   tags: StringListFilter
   "Filter by the object’s `mainImageId` field."
@@ -28388,6 +29444,8 @@ input ContactFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `locationGeo` field."
+  locationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [ContactFilter!]
   "Checks for any expressions in this list."
@@ -28410,6 +29468,18 @@ input ContactFilter {
   touchpoints: ContactToManyTouchpointFilter
   "`touchpoints` exist."
   touchpointsExist: Boolean
+  "Filter by the object’s `contactEmails` relation."
+  contactEmails: ContactToManyContactEmailFilter
+  "`contactEmails` exist."
+  contactEmailsExist: Boolean
+  "Filter by the object’s `contactPhones` relation."
+  contactPhones: ContactToManyContactPhoneFilter
+  "`contactPhones` exist."
+  contactPhonesExist: Boolean
+  "Filter by the object’s `contactAddresses` relation."
+  contactAddresses: ContactToManyContactAddressFilter
+  "`contactAddresses` exist."
+  contactAddressesExist: Boolean
   "Filter by the object’s `contactLinks` relation."
   contactLinks: ContactToManyContactLinkFilter
   "`contactLinks` exist."
@@ -28506,16 +29576,6 @@ input ContactFilter {
   trgmRelationshipType: TrgmSearchInput
   "TRGM search on the `how_we_met` column."
   trgmHowWeMet: TrgmSearchInput
-  "TRGM search on the `twitter_handle` column."
-  trgmTwitterHandle: TrgmSearchInput
-  "TRGM search on the `linkedin_url` column."
-  trgmLinkedinUrl: TrgmSearchInput
-  "TRGM search on the `github_username` column."
-  trgmGithubUsername: TrgmSearchInput
-  "TRGM search on the `instagram_handle` column."
-  trgmInstagramHandle: TrgmSearchInput
-  "TRGM search on the `website` column."
-  trgmWebsite: TrgmSearchInput
   "TRGM search on the `embedding_text` column."
   trgmEmbeddingText: TrgmSearchInput
   """
@@ -28579,11 +29639,6 @@ input ContactInput {
   birthday: Date
   relationshipType: String
   howWeMet: String
-  twitterHandle: String
-  linkedinUrl: String
-  githubUsername: String
-  instagramHandle: String
-  website: String
   tags: [String]
   mainImageId: UUID
   createdAt: Datetime
@@ -28591,6 +29646,7 @@ input ContactInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "A filter to be used against `ContactLink` object types. All fields are combined with a logical ‘and.’"
@@ -28741,11 +29797,6 @@ input ContactPatch {
   birthday: Date
   relationshipType: String
   howWeMet: String
-  twitterHandle: String
-  linkedinUrl: String
-  githubUsername: String
-  instagramHandle: String
-  website: String
   tags: [String]
   mainImageId: UUID
   createdAt: Datetime
@@ -28753,6 +29804,59 @@ input ContactPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
+}
+
+"A filter to be used against `ContactPhone` object types. All fields are combined with a logical ‘and.’"
+input ContactPhoneFilter {
+  "Filter by the object’s `id` field."
+  id: UUIDFilter
+  "Filter by the object’s `entityId` field."
+  entityId: UUIDFilter
+  "Filter by the object’s `phone` field."
+  phone: StringFilter
+  "Filter by the object’s `phoneType` field."
+  phoneType: StringFilter
+  "Filter by the object’s `isPrimary` field."
+  isPrimary: BooleanFilter
+  "Filter by the object’s `createdAt` field."
+  createdAt: DatetimeFilter
+  "Filter by the object’s `updatedAt` field."
+  updatedAt: DatetimeFilter
+  "Filter by the object’s `contactId` field."
+  contactId: UUIDFilter
+  "Checks for all expressions in this list."
+  and: [ContactPhoneFilter!]
+  "Checks for any expressions in this list."
+  or: [ContactPhoneFilter!]
+  "Negates the expression."
+  not: ContactPhoneFilter
+  "Filter by the object’s `contact` relation."
+  contact: ContactFilter
+}
+
+"An input for mutations affecting `ContactPhone`"
+input ContactPhoneInput {
+  id: UUID
+  entityId: UUID!
+  phone: String!
+  phoneType: String
+  isPrimary: Boolean
+  createdAt: Datetime
+  updatedAt: Datetime
+  contactId: UUID!
+}
+
+"Represents an update to a `ContactPhone`. Fields that are set will be updated."
+input ContactPhonePatch {
+  id: UUID
+  entityId: UUID
+  phone: String
+  phoneType: String
+  isPrimary: Boolean
+  createdAt: Datetime
+  updatedAt: Datetime
+  contactId: UUID
 }
 
 "A filter to be used against `ContactRelationship` object types. All fields are combined with a logical ‘and.’"
@@ -28877,6 +29981,16 @@ input ContactToManyCalendarEventFilter {
   none: CalendarEventFilter
 }
 
+"A filter to be used against many `ContactAddress` object types. All fields are combined with a logical ‘and.’"
+input ContactToManyContactAddressFilter {
+  "Filters to entities where at least one related entity matches."
+  some: ContactAddressFilter
+  "Filters to entities where every related entity matches."
+  every: ContactAddressFilter
+  "Filters to entities where no related entity matches."
+  none: ContactAddressFilter
+}
+
 "A filter to be used against many `ContactCompany` object types. All fields are combined with a logical ‘and.’"
 input ContactToManyContactCompanyFilter {
   "Filters to entities where at least one related entity matches."
@@ -28885,6 +29999,16 @@ input ContactToManyContactCompanyFilter {
   every: ContactCompanyFilter
   "Filters to entities where no related entity matches."
   none: ContactCompanyFilter
+}
+
+"A filter to be used against many `ContactEmail` object types. All fields are combined with a logical ‘and.’"
+input ContactToManyContactEmailFilter {
+  "Filters to entities where at least one related entity matches."
+  some: ContactEmailFilter
+  "Filters to entities where every related entity matches."
+  every: ContactEmailFilter
+  "Filters to entities where no related entity matches."
+  none: ContactEmailFilter
 }
 
 "A filter to be used against many `ContactEvent` object types. All fields are combined with a logical ‘and.’"
@@ -28935,6 +30059,16 @@ input ContactToManyContactNoteFilter {
   every: ContactNoteFilter
   "Filters to entities where no related entity matches."
   none: ContactNoteFilter
+}
+
+"A filter to be used against many `ContactPhone` object types. All fields are combined with a logical ‘and.’"
+input ContactToManyContactPhoneFilter {
+  "Filters to entities where at least one related entity matches."
+  some: ContactPhoneFilter
+  "Filters to entities where every related entity matches."
+  every: ContactPhoneFilter
+  "Filters to entities where no related entity matches."
+  none: ContactPhoneFilter
 }
 
 "A filter to be used against many `ContactRelationship` object types. All fields are combined with a logical ‘and.’"
@@ -29527,6 +30661,17 @@ input CreateCompanyNoteInput {
   companyNote: CompanyNoteInput!
 }
 
+"All input for the create `ContactAddress` mutation."
+input CreateContactAddressInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `ContactAddress` to be created by this mutation."
+  contactAddress: ContactAddressInput!
+}
+
 "All input for the create `ContactCompany` mutation."
 input CreateContactCompanyInput {
   """
@@ -29536,6 +30681,17 @@ input CreateContactCompanyInput {
   clientMutationId: String
   "The `ContactCompany` to be created by this mutation."
   contactCompany: ContactCompanyInput!
+}
+
+"All input for the create `ContactEmail` mutation."
+input CreateContactEmailInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `ContactEmail` to be created by this mutation."
+  contactEmail: ContactEmailInput!
 }
 
 "All input for the create `ContactEvent` mutation."
@@ -29602,6 +30758,17 @@ input CreateContactNoteInput {
   clientMutationId: String
   "The `ContactNote` to be created by this mutation."
   contactNote: ContactNoteInput!
+}
+
+"All input for the create `ContactPhone` mutation."
+input CreateContactPhoneInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  "The `ContactPhone` to be created by this mutation."
+  contactPhone: ContactPhoneInput!
 }
 
 "All input for the create `ContactRelationship` mutation."
@@ -31225,8 +32392,28 @@ input DeleteCompanyNoteInput {
   id: UUID!
 }
 
+"All input for the `deleteContactAddress` mutation."
+input DeleteContactAddressInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
 "All input for the `deleteContactCompany` mutation."
 input DeleteContactCompanyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteContactEmail` mutation."
+input DeleteContactEmailInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -31287,6 +32474,16 @@ input DeleteContactMemoryInput {
 
 "All input for the `deleteContactNote` mutation."
 input DeleteContactNoteInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"All input for the `deleteContactPhone` mutation."
+input DeleteContactPhoneInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -32222,7 +33419,7 @@ input EmailFilter {
   "Filter by the object’s `entityId` field."
   entityId: UUIDFilter
   "Filter by the object’s `providerMessageId` field."
-  providerMessageId: StringTrgmFilter
+  providerMessageId: StringFilter
   "Filter by the object’s `fromContactId` field."
   fromContactId: UUIDFilter
   "Filter by the object’s `to` field."
@@ -32232,11 +33429,11 @@ input EmailFilter {
   "Filter by the object’s `bcc` field."
   bcc: JSONFilter
   "Filter by the object’s `subject` field."
-  subject: StringTrgmFilter
+  subject: StringFilter
   "Filter by the object’s `bodyText` field."
-  bodyText: StringTrgmFilter
+  bodyText: StringFilter
   "Filter by the object’s `bodyHtml` field."
-  bodyHtml: StringTrgmFilter
+  bodyHtml: StringFilter
   "Filter by the object’s `sentAt` field."
   sentAt: DatetimeFilter
   "Filter by the object’s `tags` field."
@@ -32246,7 +33443,7 @@ input EmailFilter {
   "Filter by the object’s `updatedAt` field."
   updatedAt: DatetimeFilter
   "Filter by the object’s `embeddingText` field."
-  embeddingText: StringTrgmFilter
+  embeddingText: StringFilter
   "Filter by the object’s `searchTsv` field."
   searchTsv: FullTextFilter
   "Filter by the object’s `embedding` field."
@@ -32283,29 +33480,6 @@ input EmailFilter {
   emailNotes: EmailToManyEmailNoteFilter
   "`emailNotes` exist."
   emailNotesExist: Boolean
-  "TSV search on the `search_tsv` column."
-  tsvSearchTsv: String
-  "BM25 search on the `embedding_text` column."
-  bm25EmbeddingText: Bm25SearchInput
-  "VECTOR search on the `embedding` column."
-  vectorEmbedding: VectorNearbyInput
-  "TRGM search on the `provider_message_id` column."
-  trgmProviderMessageId: TrgmSearchInput
-  "TRGM search on the `subject` column."
-  trgmSubject: TrgmSearchInput
-  "TRGM search on the `body_text` column."
-  trgmBodyText: TrgmSearchInput
-  "TRGM search on the `body_html` column."
-  trgmBodyHtml: TrgmSearchInput
-  "TRGM search on the `embedding_text` column."
-  trgmEmbeddingText: TrgmSearchInput
-  """
-  Composite full-text search. Provide a search string and it will be dispatched
-  to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-  simultaneously. Rows matching ANY algorithm are returned. All matching score
-  fields are populated.
-  """
-  fullTextSearch: String
 }
 
 "An input for mutations affecting `Email`"
@@ -32392,7 +33566,7 @@ input EmailPatch {
 
 "A filter to be used against `EmailRecipient` object types. All fields are combined with a logical ‘and.’"
 input EmailRecipientFilter {
-  "Filter by the object’s `emailId` field."
+  "Filter by the object��s `emailId` field."
   emailId: UUIDFilter
   "Filter by the object’s `contactId` field."
   contactId: UUIDFilter
@@ -32749,6 +33923,8 @@ input EventFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `locationGeo` field."
+  locationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [EventFilter!]
   "Checks for any expressions in this list."
@@ -32874,6 +34050,7 @@ input EventInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "A filter to be used against `EventLink` object types. All fields are combined with a logical ‘and.’"
@@ -32990,6 +34167,7 @@ input EventPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "A filter to be used against `EventsChunk` object types. All fields are combined with a logical ‘and.’"
@@ -33413,6 +34591,34 @@ input FullTextFilter {
   matches: String
 }
 
+"A filter to be used against GeographyInterface fields. All fields are combined with a logical ‘and.’"
+input GeographyInterfaceFilter {
+  "Is null (if `true` is specified) or is not null (if `false` is specified)."
+  isNull: Boolean
+  "Equal to the specified value."
+  equalTo: GeoJSON
+  "Not equal to the specified value."
+  notEqualTo: GeoJSON
+  "Not equal to the specified value, treating null like an ordinary value."
+  distinctFrom: GeoJSON
+  "Equal to the specified value, treating null like an ordinary value."
+  notDistinctFrom: GeoJSON
+  "Included in the specified list."
+  in: [GeoJSON!]
+  "Not included in the specified list."
+  notIn: [GeoJSON!]
+  "2D bounding box intersects the specified geometry's 2D bounding box."
+  bboxIntersects2D: GeoJSON
+  "No point is outside the specified geometry."
+  coveredBy: GeoJSON
+  "No point in the specified geometry is outside."
+  covers: GeoJSON
+  "Coordinates and coordinate order are the same as specified geometry."
+  exactlyEquals: GeoJSON
+  "They share any portion of space in 2D."
+  intersects: GeoJSON
+}
+
 "A filter to be used against `Goal` object types. All fields are combined with a logical ‘and.’"
 input GoalFilter {
   "Filter by the object’s `id` field."
@@ -33788,6 +34994,8 @@ input HikingTrailFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `trailheadGeo` field."
+  trailheadGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [HikingTrailFilter!]
   "Checks for any expressions in this list."
@@ -33838,6 +35046,7 @@ input HikingTrailInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  trailheadGeo: GeoJSON
 }
 
 "Represents an update to a `HikingTrail`. Fields that are set will be updated."
@@ -33857,6 +35066,7 @@ input HikingTrailPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  trailheadGeo: GeoJSON
 }
 
 "A filter to be used against `HikingTrailsChunk` object types. All fields are combined with a logical ‘and.’"
@@ -34025,7 +35235,7 @@ input ImageToManyCompanyFilter {
   none: CompanyFilter
 }
 
-"A filter to be used against many `CompanyImage` object types. All fields are combined with a logical ‘and.’"
+"A filter to be used against many `CompanyImage` object types. All fields are combined with a logical ���and.’"
 input ImageToManyCompanyImageFilter {
   "Filters to entities where at least one related entity matches."
   some: CompanyImageFilter
@@ -34398,6 +35608,8 @@ input MemoryFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `locationGeo` field."
+  locationGeo: GeographyInterfaceFilter
   "Filter by the object’s `agentId` field."
   agentId: UUIDFilter
   "Checks for all expressions in this list."
@@ -34460,6 +35672,7 @@ input MemoryInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
   agentId: UUID
 }
 
@@ -34478,6 +35691,7 @@ input MemoryPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
   agentId: UUID
 }
 
@@ -34957,6 +36171,8 @@ input PlaceFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `locationGeo` field."
+  locationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [PlaceFilter!]
   "Checks for any expressions in this list."
@@ -35005,6 +36221,7 @@ input PlaceInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "Represents an update to a `Place`. Fields that are set will be updated."
@@ -35022,6 +36239,7 @@ input PlacePatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  locationGeo: GeoJSON
 }
 
 "A filter to be used against `PlacesChunk` object types. All fields are combined with a logical ‘and.’"
@@ -38111,6 +39329,8 @@ input TripFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `destinationGeo` field."
+  destinationGeo: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [TripFilter!]
   "Checks for any expressions in this list."
@@ -38161,6 +39381,7 @@ input TripInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  destinationGeo: GeoJSON
 }
 
 "Represents an update to a `Trip`. Fields that are set will be updated."
@@ -38178,6 +39399,7 @@ input TripPatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  destinationGeo: GeoJSON
 }
 
 "A filter to be used against `TripsChunk` object types. All fields are combined with a logical ‘and.’"
@@ -38602,6 +39824,18 @@ input UpdateCompanyNoteInput {
   companyNotePatch: CompanyNotePatch!
 }
 
+"All input for the `updateContactAddress` mutation."
+input UpdateContactAddressInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `ContactAddress` being updated."
+  contactAddressPatch: ContactAddressPatch!
+}
+
 "All input for the `updateContactCompany` mutation."
 input UpdateContactCompanyInput {
   """
@@ -38612,6 +39846,18 @@ input UpdateContactCompanyInput {
   id: UUID!
   "An object where the defined keys will be set on the `ContactCompany` being updated."
   contactCompanyPatch: ContactCompanyPatch!
+}
+
+"All input for the `updateContactEmail` mutation."
+input UpdateContactEmailInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `ContactEmail` being updated."
+  contactEmailPatch: ContactEmailPatch!
 }
 
 "All input for the `updateContactEvent` mutation."
@@ -38684,6 +39930,18 @@ input UpdateContactNoteInput {
   id: UUID!
   "An object where the defined keys will be set on the `ContactNote` being updated."
   contactNotePatch: ContactNotePatch!
+}
+
+"All input for the `updateContactPhone` mutation."
+input UpdateContactPhoneInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+  "An object where the defined keys will be set on the `ContactPhone` being updated."
+  contactPhonePatch: ContactPhonePatch!
 }
 
 "All input for the `updateContactRelationship` mutation."
@@ -39818,6 +41076,8 @@ input VenueFilter {
   embedding: VectorFilter
   "Filter by the object’s `embeddingStale` field."
   embeddingStale: BooleanFilter
+  "Filter by the object’s `location` field."
+  location: GeographyInterfaceFilter
   "Checks for all expressions in this list."
   and: [VenueFilter!]
   "Checks for any expressions in this list."
@@ -39939,6 +41199,7 @@ input VenueInput {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  location: GeoJSON
 }
 
 "A filter to be used against `VenueLink` object types. All fields are combined with a logical ‘and.’"
@@ -40021,6 +41282,7 @@ input VenuePatch {
   embeddingText: String
   embedding: Vector
   embeddingStale: Boolean
+  location: GeoJSON
 }
 
 "A filter to be used against `VenuesChunk` object types. All fields are combined with a logical ‘and.’"

@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_memberships_public/tables/app_memberships/table
 
 
-ALTER TABLE "agentic_db_memberships_public".app_memberships 
+ALTER TABLE agentic_db_memberships_public.app_memberships 
   ADD CONSTRAINT app_memberships_pkey PRIMARY KEY (id);
 

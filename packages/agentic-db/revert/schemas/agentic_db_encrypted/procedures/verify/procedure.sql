@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agentic_db_encrypted".verify;
+DROP FUNCTION agentic_db_encrypted.verify;
 
 

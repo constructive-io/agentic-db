@@ -6,12 +6,12 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE POLICY auth_sel_entity_membership ON "agentic_db_app_public".habits
+CREATE POLICY auth_sel_entity_membership ON agentic_db_app_public.habits
 FOR SELECT
 TO authenticated
 USING (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM "agentic_db_memberships_private".org_memberships_sprt AS org_sprt
+  FROM agentic_db_memberships_private.org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

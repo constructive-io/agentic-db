@@ -16,12 +16,19 @@ export interface SearchResult {
 type SDKClient = ReturnType<typeof createAuthenticatedClient>;
 
 /**
- * Build a vector similarity condition for ORM findMany queries.
- * The ORM's VectorNearbyInput transparently includes chunk table results
- * via the @hasChunks smart tag — no manual chunk querying needed.
+ * Build a hybrid search condition for ORM findMany queries.
+ *
+ * Combines vector similarity (cosine distance on embeddings) with
+ * fullTextSearch — a composite filter that dispatches the raw query
+ * string to tsvector, BM25, and pg_trgm simultaneously.  Rows matching
+ * ANY algorithm are returned and searchScore reflects a true blended
+ * rank across all active signals.
  */
-const VECTOR_CONDITION = (queryEmbedding: number[]) => ({
-  vectorEmbedding: { vector: queryEmbedding, metric: 'COSINE' as const, distance: 2.0 },
+const HYBRID_CONDITION = (query: string, queryEmbedding: number[]) => ({
+  or: [
+    { vectorEmbedding: { vector: queryEmbedding, metric: 'COSINE' as const, distance: 2.0 } },
+    { fullTextSearch: query },
+  ],
 });
 
 function toResult(table: TableName, node: Record<string, unknown>, nameFn: (n: Record<string, unknown>) => string): SearchResult {
@@ -37,80 +44,79 @@ function toResult(table: TableName, node: Record<string, unknown>, nameFn: (n: R
 // ---------------------------------------------------------------------------
 // Per-table search functions
 //
-// Each uses the ORM's vectorEmbedding condition which transparently searches
-// through chunk tables (via @hasChunks + includeChunks) and returns searchScore
-// — a composite relevance score (0..1) that blends vector distance, BM25,
-// tsvector, and trgm signals.
+// Each uses HYBRID_CONDITION which combines vector similarity with
+// fullTextSearch (tsvector + BM25 + pg_trgm).  searchScore is a true
+// composite relevance score (0..1) that blends all active signals.
 // ---------------------------------------------------------------------------
 
-async function searchContacts(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+async function searchContacts(client: SDKClient, query: string, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.contact.findMany({
-    where: VECTOR_CONDITION(qe), first: limit,
+    where: HYBRID_CONDITION(query, qe), first: limit,
     select: { id: true, firstName: true, lastName: true, headline: true, bio: true, searchScore: true },
   }).execute();
   return ((res.data as Record<string, any>)?.contacts?.nodes || []).map((n: any) =>
     toResult('contacts', n, (x) => `${x.firstName || ''} ${x.lastName || ''}`.trim()));
 }
 
-async function searchCompanies(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+async function searchCompanies(client: SDKClient, query: string, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.company.findMany({
-    where: VECTOR_CONDITION(qe), first: limit,
+    where: HYBRID_CONDITION(query, qe), first: limit,
     select: { id: true, name: true, description: true, searchScore: true },
   }).execute();
   return ((res.data as Record<string, any>)?.companies?.nodes || []).map((n: any) => toResult('companies', n, (x) => (x.name as string) || 'Untitled'));
 }
 
-async function searchEvents(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+async function searchEvents(client: SDKClient, query: string, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.event.findMany({
-    where: VECTOR_CONDITION(qe), first: limit,
+    where: HYBRID_CONDITION(query, qe), first: limit,
     select: { id: true, name: true, notesText: true, searchScore: true },
   }).execute();
   return ((res.data as Record<string, any>)?.events?.nodes || []).map((n: any) => toResult('events', n, (x) => (x.name as string) || 'Untitled'));
 }
 
-async function searchVenues(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+async function searchVenues(client: SDKClient, query: string, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.venue.findMany({
-    where: VECTOR_CONDITION(qe), first: limit,
+    where: HYBRID_CONDITION(query, qe), first: limit,
     select: { id: true, name: true, searchScore: true },
   }).execute();
   return ((res.data as Record<string, any>)?.venues?.nodes || []).map((n: any) => toResult('venues', n, (x) => (x.name as string) || 'Untitled'));
 }
 
-async function searchNotes(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+async function searchNotes(client: SDKClient, query: string, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.note.findMany({
-    where: VECTOR_CONDITION(qe), first: limit,
+    where: HYBRID_CONDITION(query, qe), first: limit,
     select: { id: true, content: true, searchScore: true },
   }).execute();
   return ((res.data as Record<string, any>)?.notes?.nodes || []).map((n: any) => toResult('notes', n, (x) => ((x.content as string) || '').slice(0, 80) || 'Untitled'));
 }
 
-async function searchTasks(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+async function searchTasks(client: SDKClient, query: string, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.task.findMany({
-    where: VECTOR_CONDITION(qe), first: limit,
+    where: HYBRID_CONDITION(query, qe), first: limit,
     select: { id: true, title: true, searchScore: true },
   }).execute();
   return ((res.data as Record<string, any>)?.tasks?.nodes || []).map((n: any) => toResult('tasks', n, (x) => (x.title as string) || 'Untitled'));
 }
 
-async function searchMemories(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+async function searchMemories(client: SDKClient, query: string, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.memory.findMany({
-    where: VECTOR_CONDITION(qe), first: limit,
+    where: HYBRID_CONDITION(query, qe), first: limit,
     select: { id: true, content: true, searchScore: true },
   }).execute();
   return ((res.data as Record<string, any>)?.memories?.nodes || []).map((n: any) => toResult('memories', n, (x) => ((x.content as string) || '').slice(0, 80) || 'Untitled'));
 }
 
-async function searchSkills(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+async function searchSkills(client: SDKClient, query: string, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.skill.findMany({
-    where: VECTOR_CONDITION(qe), first: limit,
+    where: HYBRID_CONDITION(query, qe), first: limit,
     select: { id: true, name: true, searchScore: true },
   }).execute();
   return ((res.data as Record<string, any>)?.skills?.nodes || []).map((n: any) => toResult('skills', n, (x) => (x.name as string) || 'Untitled'));
 }
 
-async function searchRules(client: SDKClient, qe: number[], limit: number): Promise<SearchResult[]> {
+async function searchRules(client: SDKClient, query: string, qe: number[], limit: number): Promise<SearchResult[]> {
   const res = await client.rule.findMany({
-    where: VECTOR_CONDITION(qe), first: limit,
+    where: HYBRID_CONDITION(query, qe), first: limit,
     select: { id: true, name: true, searchScore: true },
   }).execute();
   return ((res.data as Record<string, any>)?.rules?.nodes || []).map((n: any) => toResult('rules', n, (x) => (x.name as string) || 'Untitled'));
@@ -120,7 +126,7 @@ async function searchRules(client: SDKClient, qe: number[], limit: number): Prom
 // Exports
 // ---------------------------------------------------------------------------
 
-export const TABLE_SEARCH: Record<TableName, (client: SDKClient, qe: number[], limit: number) => Promise<SearchResult[]>> = {
+export const TABLE_SEARCH: Record<TableName, (client: SDKClient, query: string, qe: number[], limit: number) => Promise<SearchResult[]>> = {
   contacts: searchContacts, companies: searchCompanies, events: searchEvents,
   venues: searchVenues, notes: searchNotes,
   tasks: searchTasks, memories: searchMemories, skills: searchSkills, rules: searchRules,
@@ -142,7 +148,7 @@ export async function search(query: string, tables?: TableName[]) {
     const searchFn = TABLE_SEARCH[table];
     if (searchFn) {
       try {
-        const tableResults = await searchFn(client, queryEmbedding, 3);
+        const tableResults = await searchFn(client, query, queryEmbedding, 3);
         results.push(...tableResults);
       } catch {
         // Model may not be available in the SDK yet; skip gracefully

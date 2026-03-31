@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_profiles_public/tables/app_profiles/table
 
 
-GRANT UPDATE ON "agentic_db_profiles_public".app_profiles TO authenticated;
+GRANT UPDATE ON agentic_db_profiles_public.app_profiles TO authenticated;
 

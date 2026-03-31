@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_memberships_private/tables/app_memberships_sprt/table
 
 
-ALTER TABLE "agentic_db_memberships_private".app_memberships_sprt 
+ALTER TABLE agentic_db_memberships_private.app_memberships_sprt 
   ADD COLUMN permissions bit(24);
 

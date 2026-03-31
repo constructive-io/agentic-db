@@ -26,6 +26,7 @@ const fieldSchema: FieldSchema = {
   searchTsv: 'string',
   embedding: 'string',
   embeddingStale: 'boolean',
+  locationGeo: 'string',
   searchTsvRank: 'float',
   embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
@@ -105,6 +106,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          locationGeo: true,
         },
       })
       .execute();
@@ -148,6 +150,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          locationGeo: true,
         },
       })
       .execute();
@@ -252,6 +255,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'locationGeo',
+        message: 'locationGeo',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CreateEventInput['event'];
@@ -272,6 +282,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
           embeddingStale: cleanedData.embeddingStale,
+          locationGeo: cleanedData.locationGeo,
         },
         select: {
           id: true,
@@ -290,6 +301,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          locationGeo: true,
         },
       })
       .execute();
@@ -400,6 +412,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'locationGeo',
+        message: 'locationGeo',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as EventPatch;
@@ -423,6 +442,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
           embeddingStale: cleanedData.embeddingStale,
+          locationGeo: cleanedData.locationGeo,
         },
         select: {
           id: true,
@@ -441,6 +461,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          locationGeo: true,
         },
       })
       .execute();

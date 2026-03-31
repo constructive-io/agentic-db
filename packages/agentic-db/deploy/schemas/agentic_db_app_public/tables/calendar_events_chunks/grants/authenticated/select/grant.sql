@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-GRANT SELECT ON "agentic_db_app_public".calendar_events_chunks TO authenticated;
+GRANT SELECT ON agentic_db_app_public.calendar_events_chunks TO authenticated;
 

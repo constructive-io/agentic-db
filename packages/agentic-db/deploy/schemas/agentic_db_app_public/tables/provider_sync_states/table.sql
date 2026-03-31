@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-CREATE TABLE "agentic_db_app_public".provider_sync_states ();
+CREATE TABLE agentic_db_app_public.provider_sync_states ();
 

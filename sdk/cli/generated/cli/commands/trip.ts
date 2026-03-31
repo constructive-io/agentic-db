@@ -22,6 +22,7 @@ const fieldSchema: FieldSchema = {
   embeddingText: 'string',
   embedding: 'string',
   embeddingStale: 'boolean',
+  destinationGeo: 'string',
   embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
   nameTrgmSimilarity: 'float',
@@ -95,6 +96,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          destinationGeo: true,
         },
       })
       .execute();
@@ -135,6 +137,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          destinationGeo: true,
         },
       })
       .execute();
@@ -218,6 +221,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'destinationGeo',
+        message: 'destinationGeo',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CreateTripInput['trip'];
@@ -235,6 +245,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
           embeddingStale: cleanedData.embeddingStale,
+          destinationGeo: cleanedData.destinationGeo,
         },
         select: {
           id: true,
@@ -250,6 +261,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          destinationGeo: true,
         },
       })
       .execute();
@@ -339,6 +351,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'destinationGeo',
+        message: 'destinationGeo',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as TripPatch;
@@ -359,6 +378,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
           embeddingStale: cleanedData.embeddingStale,
+          destinationGeo: cleanedData.destinationGeo,
         },
         select: {
           id: true,
@@ -374,6 +394,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          destinationGeo: true,
         },
       })
       .execute();

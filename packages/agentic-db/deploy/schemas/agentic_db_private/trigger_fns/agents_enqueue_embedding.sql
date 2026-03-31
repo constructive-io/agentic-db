@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-CREATE FUNCTION "agentic_db_private".agents_enqueue_embedding() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_private.agents_enqueue_embedding() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
   PERFORM app_jobs.add_job(jwt_private.current_database_id(), 'generate_embedding', jsonb_build_object('table', 'agents', 'schema', 'agentic_db_app_public', 'id', NEW.id::text, 'field', 'embedding'));
   RETURN NEW;

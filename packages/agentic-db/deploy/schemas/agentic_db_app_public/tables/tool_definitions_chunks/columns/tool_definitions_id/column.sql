@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-ALTER TABLE "agentic_db_app_public".tool_definitions_chunks 
+ALTER TABLE agentic_db_app_public.tool_definitions_chunks 
   ADD COLUMN tool_definitions_id uuid;
 

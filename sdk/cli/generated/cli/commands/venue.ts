@@ -30,6 +30,7 @@ const fieldSchema: FieldSchema = {
   searchTsv: 'string',
   embedding: 'string',
   embeddingStale: 'boolean',
+  location: 'string',
   searchTsvRank: 'float',
   embeddingTextBm25Score: 'float',
   embeddingVectorDistance: 'float',
@@ -117,6 +118,7 @@ async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          location: true,
         },
       })
       .execute();
@@ -164,6 +166,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          location: true,
         },
       })
       .execute();
@@ -296,6 +299,13 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'location',
+        message: 'location',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CreateVenueInput['venue'];
@@ -320,6 +330,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
           embeddingStale: cleanedData.embeddingStale,
+          location: cleanedData.location,
         },
         select: {
           id: true,
@@ -342,6 +353,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          location: true,
         },
       })
       .execute();
@@ -480,6 +492,13 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         required: false,
         skipPrompt: true,
       },
+      {
+        type: 'text',
+        name: 'location',
+        message: 'location',
+        required: false,
+        skipPrompt: true,
+      },
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as VenuePatch;
@@ -507,6 +526,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: cleanedData.embeddingText,
           embedding: cleanedData.embedding,
           embeddingStale: cleanedData.embeddingStale,
+          location: cleanedData.location,
         },
         select: {
           id: true,
@@ -529,6 +549,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingText: true,
           embedding: true,
           embeddingStale: true,
+          location: true,
         },
       })
       .execute();

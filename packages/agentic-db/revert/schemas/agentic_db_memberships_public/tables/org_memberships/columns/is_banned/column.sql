@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_memberships_public/tables/org_memberships/columns/is_banned/column
 
 
-ALTER TABLE "agentic_db_memberships_public".org_memberships 
+ALTER TABLE agentic_db_memberships_public.org_memberships 
   DROP COLUMN is_banned RESTRICT;
 
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-CREATE INDEX agents_status_idx ON "agentic_db_app_public".agents USING BTREE ( status );
+CREATE INDEX agents_status_idx ON agentic_db_app_public.agents USING BTREE ( status );
 

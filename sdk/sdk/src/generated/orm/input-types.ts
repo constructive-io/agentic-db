@@ -230,6 +230,8 @@ export interface UUIDListFilter {
   anyGreaterThan?: string;
   anyGreaterThanOrEqualTo?: string;
 }
+// ============ Custom Scalar Types ============
+export type GeographyInterface = unknown;
 // ============ Entity Types ============
 export interface ActivityLog {
   id: string;
@@ -541,11 +543,6 @@ export interface Contact {
   birthday?: string | null;
   relationshipType?: string | null;
   howWeMet?: string | null;
-  twitterHandle?: string | null;
-  linkedinUrl?: string | null;
-  githubUsername?: string | null;
-  instagramHandle?: string | null;
-  website?: string | null;
   tags?: string[] | null;
   mainImageId?: string | null;
   createdAt?: string | null;
@@ -554,6 +551,7 @@ export interface Contact {
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: GeographyInterface | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -578,16 +576,6 @@ export interface Contact {
   relationshipTypeTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `howWeMet`. Returns null when no trgm search filter is active. */
   howWeMetTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `twitterHandle`. Returns null when no trgm search filter is active. */
-  twitterHandleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `linkedinUrl`. Returns null when no trgm search filter is active. */
-  linkedinUrlTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `githubUsername`. Returns null when no trgm search filter is active. */
-  githubUsernameTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `instagramHandle`. Returns null when no trgm search filter is active. */
-  instagramHandleTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `website`. Returns null when no trgm search filter is active. */
-  websiteTrgmSimilarity?: number | null;
   /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
   embeddingTextTrgmSimilarity?: number | null;
   /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
@@ -882,6 +870,7 @@ export interface Event {
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: GeographyInterface | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -954,6 +943,7 @@ export interface Memory {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: GeographyInterface | null;
   agentId?: string | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
@@ -984,11 +974,35 @@ export interface CompanyNote {
   id: string;
   entityId?: string | null;
 }
+export interface ContactAddress {
+  id: string;
+  entityId?: string | null;
+  street?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postalCode?: string | null;
+  country?: string | null;
+  addressType?: string | null;
+  isPrimary?: boolean | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
+}
 export interface ContactCompany {
   contactId?: string | null;
   companyId?: string | null;
   id: string;
   entityId?: string | null;
+}
+export interface ContactEmail {
+  id: string;
+  entityId?: string | null;
+  email?: string | null;
+  emailType?: string | null;
+  isPrimary?: boolean | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
 }
 export interface Email {
   id: string;
@@ -1010,24 +1024,6 @@ export interface Email {
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
   emailThreadId?: string | null;
-  /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
-  searchTsvRank?: number | null;
-  /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
-  embeddingTextBm25Score?: number | null;
-  /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
-  embeddingVectorDistance?: number | null;
-  /** TRGM similarity when searching `providerMessageId`. Returns null when no trgm search filter is active. */
-  providerMessageIdTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `subject`. Returns null when no trgm search filter is active. */
-  subjectTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `bodyText`. Returns null when no trgm search filter is active. */
-  bodyTextTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `bodyHtml`. Returns null when no trgm search filter is active. */
-  bodyHtmlTrgmSimilarity?: number | null;
-  /** TRGM similarity when searching `embeddingText`. Returns null when no trgm search filter is active. */
-  embeddingTextTrgmSimilarity?: number | null;
-  /** Composite search relevance score (0..1, higher = more relevant). Computed by normalizing and averaging all active search signals. Supports per-table weight customization via @searchConfig smart tag. Returns null when no search filters are active. */
-  searchScore?: number | null;
 }
 export interface EmailThread {
   id: string;
@@ -1137,6 +1133,16 @@ export interface ContactNote {
   noteId?: string | null;
   id: string;
   entityId?: string | null;
+}
+export interface ContactPhone {
+  id: string;
+  entityId?: string | null;
+  phone?: string | null;
+  phoneType?: string | null;
+  isPrimary?: boolean | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
 }
 export interface Project {
   id: string;
@@ -1385,6 +1391,7 @@ export interface Venue {
   searchTsv?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  location?: GeographyInterface | null;
   /** TSV rank when searching `searchTsv`. Returns null when no tsv search filter is active. */
   searchTsvRank?: number | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
@@ -1516,6 +1523,7 @@ export interface HikingTrail {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  trailheadGeo?: GeographyInterface | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -1674,6 +1682,7 @@ export interface Place {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: GeographyInterface | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -2239,6 +2248,7 @@ export interface Trip {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  destinationGeo?: GeographyInterface | null;
   /** BM25 score when searching `embeddingText`. Returns null when no bm25 search filter is active. */
   embeddingTextBm25Score?: number | null;
   /** VECTOR distance when searching `embedding`. Returns null when no vector search filter is active. */
@@ -2408,6 +2418,9 @@ export interface ContactRelations {
   contactsChunksByContactsId?: ConnectionResult<ContactsChunk>;
   interactions?: ConnectionResult<Interaction>;
   touchpoints?: ConnectionResult<Touchpoint>;
+  contactEmails?: ConnectionResult<ContactEmail>;
+  contactPhones?: ConnectionResult<ContactPhone>;
+  contactAddresses?: ConnectionResult<ContactAddress>;
   contactLinks?: ConnectionResult<ContactLink>;
   contactImages?: ConnectionResult<ContactImage>;
   contactCompanies?: ConnectionResult<ContactCompany>;
@@ -2581,8 +2594,14 @@ export interface CompanyNoteRelations {
   company?: Company | null;
   note?: Note | null;
 }
+export interface ContactAddressRelations {
+  contact?: Contact | null;
+}
 export interface ContactCompanyRelations {
   company?: Company | null;
+  contact?: Contact | null;
+}
+export interface ContactEmailRelations {
   contact?: Contact | null;
 }
 export interface EmailRelations {
@@ -2625,6 +2644,9 @@ export interface ContactMemoryRelations {
 export interface ContactNoteRelations {
   contact?: Contact | null;
   note?: Note | null;
+}
+export interface ContactPhoneRelations {
+  contact?: Contact | null;
 }
 export interface ProjectRelations {
   contacts?: ConnectionResult<Contact>;
@@ -2947,7 +2969,9 @@ export type CompanyLinkWithRelations = CompanyLink & CompanyLinkRelations;
 export type MemoryWithRelations = Memory & MemoryRelations;
 export type CompanyMemoryWithRelations = CompanyMemory & CompanyMemoryRelations;
 export type CompanyNoteWithRelations = CompanyNote & CompanyNoteRelations;
+export type ContactAddressWithRelations = ContactAddress & ContactAddressRelations;
 export type ContactCompanyWithRelations = ContactCompany & ContactCompanyRelations;
+export type ContactEmailWithRelations = ContactEmail & ContactEmailRelations;
 export type EmailWithRelations = Email & EmailRelations;
 export type EmailThreadWithRelations = EmailThread & EmailThreadRelations;
 export type ContactEventWithRelations = ContactEvent & ContactEventRelations;
@@ -2956,6 +2980,7 @@ export type ContactImageWithRelations = ContactImage & ContactImageRelations;
 export type ContactLinkWithRelations = ContactLink & ContactLinkRelations;
 export type ContactMemoryWithRelations = ContactMemory & ContactMemoryRelations;
 export type ContactNoteWithRelations = ContactNote & ContactNoteRelations;
+export type ContactPhoneWithRelations = ContactPhone & ContactPhoneRelations;
 export type ProjectWithRelations = Project & ProjectRelations;
 export type ContactRelationshipWithRelations = ContactRelationship & ContactRelationshipRelations;
 export type ContactsChunkWithRelations = ContactsChunk & ContactsChunkRelations;
@@ -3529,11 +3554,6 @@ export type ContactSelect = {
   birthday?: boolean;
   relationshipType?: boolean;
   howWeMet?: boolean;
-  twitterHandle?: boolean;
-  linkedinUrl?: boolean;
-  githubUsername?: boolean;
-  instagramHandle?: boolean;
-  website?: boolean;
   tags?: boolean;
   mainImageId?: boolean;
   createdAt?: boolean;
@@ -3542,6 +3562,7 @@ export type ContactSelect = {
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  locationGeo?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -3554,11 +3575,6 @@ export type ContactSelect = {
   locationTrgmSimilarity?: boolean;
   relationshipTypeTrgmSimilarity?: boolean;
   howWeMetTrgmSimilarity?: boolean;
-  twitterHandleTrgmSimilarity?: boolean;
-  linkedinUrlTrgmSimilarity?: boolean;
-  githubUsernameTrgmSimilarity?: boolean;
-  instagramHandleTrgmSimilarity?: boolean;
-  websiteTrgmSimilarity?: boolean;
   embeddingTextTrgmSimilarity?: boolean;
   searchScore?: boolean;
   mainImage?: {
@@ -3617,6 +3633,24 @@ export type ContactSelect = {
     first?: number;
     filter?: TouchpointFilter;
     orderBy?: TouchpointOrderBy[];
+  };
+  contactEmails?: {
+    select: ContactEmailSelect;
+    first?: number;
+    filter?: ContactEmailFilter;
+    orderBy?: ContactEmailOrderBy[];
+  };
+  contactPhones?: {
+    select: ContactPhoneSelect;
+    first?: number;
+    filter?: ContactPhoneFilter;
+    orderBy?: ContactPhoneOrderBy[];
+  };
+  contactAddresses?: {
+    select: ContactAddressSelect;
+    first?: number;
+    filter?: ContactAddressFilter;
+    orderBy?: ContactAddressOrderBy[];
   };
   contactLinks?: {
     select: ContactLinkSelect;
@@ -4366,6 +4400,7 @@ export type EventSelect = {
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  locationGeo?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -4586,6 +4621,7 @@ export type MemorySelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  locationGeo?: boolean;
   agentId?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -4653,6 +4689,23 @@ export type CompanyNoteSelect = {
     select: NoteSelect;
   };
 };
+export type ContactAddressSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  street?: boolean;
+  city?: boolean;
+  state?: boolean;
+  postalCode?: boolean;
+  country?: boolean;
+  addressType?: boolean;
+  isPrimary?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+};
 export type ContactCompanySelect = {
   contactId?: boolean;
   companyId?: boolean;
@@ -4661,6 +4714,19 @@ export type ContactCompanySelect = {
   company?: {
     select: CompanySelect;
   };
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type ContactEmailSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  email?: boolean;
+  emailType?: boolean;
+  isPrimary?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
   contact?: {
     select: ContactSelect;
   };
@@ -4685,15 +4751,6 @@ export type EmailSelect = {
   embedding?: boolean;
   embeddingStale?: boolean;
   emailThreadId?: boolean;
-  searchTsvRank?: boolean;
-  embeddingTextBm25Score?: boolean;
-  embeddingVectorDistance?: boolean;
-  providerMessageIdTrgmSimilarity?: boolean;
-  subjectTrgmSimilarity?: boolean;
-  bodyTextTrgmSimilarity?: boolean;
-  bodyHtmlTrgmSimilarity?: boolean;
-  embeddingTextTrgmSimilarity?: boolean;
-  searchScore?: boolean;
   emailThread?: {
     select: EmailThreadSelect;
   };
@@ -4896,6 +4953,19 @@ export type ContactNoteSelect = {
   };
   note?: {
     select: NoteSelect;
+  };
+};
+export type ContactPhoneSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  phone?: boolean;
+  phoneType?: boolean;
+  isPrimary?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
   };
 };
 export type ProjectSelect = {
@@ -5249,6 +5319,7 @@ export type VenueSelect = {
   searchTsv?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  location?: boolean;
   searchTsvRank?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
@@ -5466,6 +5537,7 @@ export type HikingTrailSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  trailheadGeo?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -5632,6 +5704,7 @@ export type PlaceSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  locationGeo?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -6362,6 +6435,7 @@ export type TripSelect = {
   embeddingText?: boolean;
   embedding?: boolean;
   embeddingStale?: boolean;
+  destinationGeo?: boolean;
   embeddingTextBm25Score?: boolean;
   embeddingVectorDistance?: boolean;
   nameTrgmSimilarity?: boolean;
@@ -7166,16 +7240,6 @@ export interface ContactFilter {
   relationshipType?: StringTrgmFilter;
   /** Filter by the object’s `howWeMet` field. */
   howWeMet?: StringTrgmFilter;
-  /** Filter by the object’s `twitterHandle` field. */
-  twitterHandle?: StringTrgmFilter;
-  /** Filter by the object’s `linkedinUrl` field. */
-  linkedinUrl?: StringTrgmFilter;
-  /** Filter by the object’s `githubUsername` field. */
-  githubUsername?: StringTrgmFilter;
-  /** Filter by the object’s `instagramHandle` field. */
-  instagramHandle?: StringTrgmFilter;
-  /** Filter by the object’s `website` field. */
-  website?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
   /** Filter by the object’s `mainImageId` field. */
@@ -7192,6 +7256,8 @@ export interface ContactFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: ContactFilter[];
   /** Checks for any expressions in this list. */
@@ -7214,6 +7280,18 @@ export interface ContactFilter {
   touchpoints?: ContactToManyTouchpointFilter;
   /** `touchpoints` exist. */
   touchpointsExist?: boolean;
+  /** Filter by the object’s `contactEmails` relation. */
+  contactEmails?: ContactToManyContactEmailFilter;
+  /** `contactEmails` exist. */
+  contactEmailsExist?: boolean;
+  /** Filter by the object’s `contactPhones` relation. */
+  contactPhones?: ContactToManyContactPhoneFilter;
+  /** `contactPhones` exist. */
+  contactPhonesExist?: boolean;
+  /** Filter by the object’s `contactAddresses` relation. */
+  contactAddresses?: ContactToManyContactAddressFilter;
+  /** `contactAddresses` exist. */
+  contactAddressesExist?: boolean;
   /** Filter by the object’s `contactLinks` relation. */
   contactLinks?: ContactToManyContactLinkFilter;
   /** `contactLinks` exist. */
@@ -7310,16 +7388,6 @@ export interface ContactFilter {
   trgmRelationshipType?: TrgmSearchInput;
   /** TRGM search on the `how_we_met` column. */
   trgmHowWeMet?: TrgmSearchInput;
-  /** TRGM search on the `twitter_handle` column. */
-  trgmTwitterHandle?: TrgmSearchInput;
-  /** TRGM search on the `linkedin_url` column. */
-  trgmLinkedinUrl?: TrgmSearchInput;
-  /** TRGM search on the `github_username` column. */
-  trgmGithubUsername?: TrgmSearchInput;
-  /** TRGM search on the `instagram_handle` column. */
-  trgmInstagramHandle?: TrgmSearchInput;
-  /** TRGM search on the `website` column. */
-  trgmWebsite?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
@@ -8023,6 +8091,8 @@ export interface EventFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: EventFilter[];
   /** Checks for any expressions in this list. */
@@ -8230,6 +8300,8 @@ export interface MemoryFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -8316,6 +8388,40 @@ export interface CompanyNoteFilter {
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
 }
+export interface ContactAddressFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `street` field. */
+  street?: StringFilter;
+  /** Filter by the object’s `city` field. */
+  city?: StringFilter;
+  /** Filter by the object’s `state` field. */
+  state?: StringFilter;
+  /** Filter by the object’s `postalCode` field. */
+  postalCode?: StringFilter;
+  /** Filter by the object’s `country` field. */
+  country?: StringFilter;
+  /** Filter by the object’s `addressType` field. */
+  addressType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactAddressFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactAddressFilter[];
+  /** Negates the expression. */
+  not?: ContactAddressFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
 export interface ContactCompanyFilter {
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
@@ -8336,13 +8442,39 @@ export interface ContactCompanyFilter {
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
 }
+export interface ContactEmailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `email` field. */
+  email?: StringFilter;
+  /** Filter by the object’s `emailType` field. */
+  emailType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactEmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactEmailFilter[];
+  /** Negates the expression. */
+  not?: ContactEmailFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
 export interface EmailFilter {
   /** Filter by the object’s `id` field. */
   id?: UUIDFilter;
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringTrgmFilter;
+  providerMessageId?: StringFilter;
   /** Filter by the object’s `fromContactId` field. */
   fromContactId?: UUIDFilter;
   /** Filter by the object’s `to` field. */
@@ -8352,11 +8484,11 @@ export interface EmailFilter {
   /** Filter by the object’s `bcc` field. */
   bcc?: JSONFilter;
   /** Filter by the object’s `subject` field. */
-  subject?: StringTrgmFilter;
+  subject?: StringFilter;
   /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringTrgmFilter;
+  bodyText?: StringFilter;
   /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringTrgmFilter;
+  bodyHtml?: StringFilter;
   /** Filter by the object’s `sentAt` field. */
   sentAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
@@ -8366,7 +8498,7 @@ export interface EmailFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -8403,29 +8535,6 @@ export interface EmailFilter {
   emailNotes?: EmailToManyEmailNoteFilter;
   /** `emailNotes` exist. */
   emailNotesExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_message_id` column. */
-  trgmProviderMessageId?: TrgmSearchInput;
-  /** TRGM search on the `subject` column. */
-  trgmSubject?: TrgmSearchInput;
-  /** TRGM search on the `body_text` column. */
-  trgmBodyText?: TrgmSearchInput;
-  /** TRGM search on the `body_html` column. */
-  trgmBodyHtml?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 export interface EmailThreadFilter {
   /** Filter by the object’s `id` field. */
@@ -8682,6 +8791,32 @@ export interface ContactNoteFilter {
   contact?: ContactFilter;
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
+}
+export interface ContactPhoneFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `phone` field. */
+  phone?: StringFilter;
+  /** Filter by the object’s `phoneType` field. */
+  phoneType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactPhoneFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactPhoneFilter[];
+  /** Negates the expression. */
+  not?: ContactPhoneFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
 }
 export interface ProjectFilter {
   /** Filter by the object’s `id` field. */
@@ -9032,7 +9167,7 @@ export interface EmailNoteFilter {
   note?: NoteFilter;
 }
 export interface EmailRecipientFilter {
-  /** Filter by the object’s `emailId` field. */
+  /** Filter by the object��s `emailId` field. */
   emailId?: UUIDFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
@@ -9268,6 +9403,8 @@ export interface VenueFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `location` field. */
+  location?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: VenueFilter[];
   /** Checks for any expressions in this list. */
@@ -9574,6 +9711,8 @@ export interface HikingTrailFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `trailheadGeo` field. */
+  trailheadGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: HikingTrailFilter[];
   /** Checks for any expressions in this list. */
@@ -9891,6 +10030,8 @@ export interface PlaceFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: PlaceFilter[];
   /** Checks for any expressions in this list. */
@@ -11176,6 +11317,8 @@ export interface TripFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `destinationGeo` field. */
+  destinationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: TripFilter[];
   /** Checks for any expressions in this list. */
@@ -11677,10 +11820,6 @@ export type ContactOrderBy =
   | 'EMAIL_DESC'
   | 'RELATIONSHIP_TYPE_ASC'
   | 'RELATIONSHIP_TYPE_DESC'
-  | 'TWITTER_HANDLE_ASC'
-  | 'TWITTER_HANDLE_DESC'
-  | 'GITHUB_USERNAME_ASC'
-  | 'GITHUB_USERNAME_DESC'
   | 'MAIN_IMAGE_ID_ASC'
   | 'MAIN_IMAGE_ID_DESC'
   | 'EMBEDDING_TEXT_ASC'
@@ -11713,16 +11852,6 @@ export type ContactOrderBy =
   | 'RELATIONSHIP_TYPE_TRGM_SIMILARITY_DESC'
   | 'HOW_WE_MET_TRGM_SIMILARITY_ASC'
   | 'HOW_WE_MET_TRGM_SIMILARITY_DESC'
-  | 'TWITTER_HANDLE_TRGM_SIMILARITY_ASC'
-  | 'TWITTER_HANDLE_TRGM_SIMILARITY_DESC'
-  | 'LINKEDIN_URL_TRGM_SIMILARITY_ASC'
-  | 'LINKEDIN_URL_TRGM_SIMILARITY_DESC'
-  | 'GITHUB_USERNAME_TRGM_SIMILARITY_ASC'
-  | 'GITHUB_USERNAME_TRGM_SIMILARITY_DESC'
-  | 'INSTAGRAM_HANDLE_TRGM_SIMILARITY_ASC'
-  | 'INSTAGRAM_HANDLE_TRGM_SIMILARITY_DESC'
-  | 'WEBSITE_TRGM_SIMILARITY_ASC'
-  | 'WEBSITE_TRGM_SIMILARITY_DESC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
   | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
   | 'SEARCH_SCORE_ASC'
@@ -12177,6 +12306,22 @@ export type CompanyNoteOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type ContactAddressOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CITY_ASC'
+  | 'CITY_DESC'
+  | 'COUNTRY_ASC'
+  | 'COUNTRY_DESC'
+  | 'ADDRESS_TYPE_ASC'
+  | 'ADDRESS_TYPE_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
 export type ContactCompanyOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -12189,6 +12334,20 @@ export type ContactCompanyOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type ContactEmailOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EMAIL_ASC'
+  | 'EMAIL_DESC'
+  | 'EMAIL_TYPE_ASC'
+  | 'EMAIL_TYPE_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
 export type EmailOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -12208,25 +12367,7 @@ export type EmailOrderBy =
   | 'EMBEDDING_ASC'
   | 'EMBEDDING_DESC'
   | 'EMAIL_THREAD_ID_ASC'
-  | 'EMAIL_THREAD_ID_DESC'
-  | 'SEARCH_TSV_RANK_ASC'
-  | 'SEARCH_TSV_RANK_DESC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_ASC'
-  | 'EMBEDDING_TEXT_BM25_SCORE_DESC'
-  | 'EMBEDDING_VECTOR_DISTANCE_ASC'
-  | 'EMBEDDING_VECTOR_DISTANCE_DESC'
-  | 'PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_ASC'
-  | 'PROVIDER_MESSAGE_ID_TRGM_SIMILARITY_DESC'
-  | 'SUBJECT_TRGM_SIMILARITY_ASC'
-  | 'SUBJECT_TRGM_SIMILARITY_DESC'
-  | 'BODY_TEXT_TRGM_SIMILARITY_ASC'
-  | 'BODY_TEXT_TRGM_SIMILARITY_DESC'
-  | 'BODY_HTML_TRGM_SIMILARITY_ASC'
-  | 'BODY_HTML_TRGM_SIMILARITY_DESC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_ASC'
-  | 'EMBEDDING_TEXT_TRGM_SIMILARITY_DESC'
-  | 'SEARCH_SCORE_ASC'
-  | 'SEARCH_SCORE_DESC';
+  | 'EMAIL_THREAD_ID_DESC';
 export type EmailThreadOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -12363,6 +12504,20 @@ export type ContactNoteOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type ContactPhoneOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'PHONE_ASC'
+  | 'PHONE_DESC'
+  | 'PHONE_TYPE_ASC'
+  | 'PHONE_TYPE_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
 export type ProjectOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -14262,16 +14417,12 @@ export interface CreateContactInput {
     birthday?: string;
     relationshipType?: string;
     howWeMet?: string;
-    twitterHandle?: string;
-    linkedinUrl?: string;
-    githubUsername?: string;
-    instagramHandle?: string;
-    website?: string;
     tags?: string[];
     mainImageId?: string;
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    locationGeo?: unknown;
   };
 }
 export interface ContactPatch {
@@ -14286,16 +14437,12 @@ export interface ContactPatch {
   birthday?: string | null;
   relationshipType?: string | null;
   howWeMet?: string | null;
-  twitterHandle?: string | null;
-  linkedinUrl?: string | null;
-  githubUsername?: string | null;
-  instagramHandle?: string | null;
-  website?: string | null;
   tags?: string[] | null;
   mainImageId?: string | null;
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
 }
 export interface UpdateContactInput {
   clientMutationId?: string;
@@ -14724,6 +14871,7 @@ export interface CreateEventInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    locationGeo?: unknown;
   };
 }
 export interface EventPatch {
@@ -14740,6 +14888,7 @@ export interface EventPatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
 }
 export interface UpdateEventInput {
   clientMutationId?: string;
@@ -14843,6 +14992,7 @@ export interface CreateMemoryInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    locationGeo?: unknown;
     agentId?: string;
   };
 }
@@ -14857,6 +15007,7 @@ export interface MemoryPatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
   agentId?: string | null;
 }
 export interface UpdateMemoryInput {
@@ -14912,6 +15063,40 @@ export interface DeleteCompanyNoteInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateContactAddressInput {
+  clientMutationId?: string;
+  contactAddress: {
+    entityId: string;
+    street?: string;
+    city?: string;
+    state?: string;
+    postalCode?: string;
+    country?: string;
+    addressType?: string;
+    isPrimary?: boolean;
+    contactId: string;
+  };
+}
+export interface ContactAddressPatch {
+  entityId?: string | null;
+  street?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postalCode?: string | null;
+  country?: string | null;
+  addressType?: string | null;
+  isPrimary?: boolean | null;
+  contactId?: string | null;
+}
+export interface UpdateContactAddressInput {
+  clientMutationId?: string;
+  id: string;
+  contactAddressPatch: ContactAddressPatch;
+}
+export interface DeleteContactAddressInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateContactCompanyInput {
   clientMutationId?: string;
   contactCompany: {
@@ -14931,6 +15116,32 @@ export interface UpdateContactCompanyInput {
   contactCompanyPatch: ContactCompanyPatch;
 }
 export interface DeleteContactCompanyInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactEmailInput {
+  clientMutationId?: string;
+  contactEmail: {
+    entityId: string;
+    email: string;
+    emailType?: string;
+    isPrimary?: boolean;
+    contactId: string;
+  };
+}
+export interface ContactEmailPatch {
+  entityId?: string | null;
+  email?: string | null;
+  emailType?: string | null;
+  isPrimary?: boolean | null;
+  contactId?: string | null;
+}
+export interface UpdateContactEmailInput {
+  clientMutationId?: string;
+  id: string;
+  contactEmailPatch: ContactEmailPatch;
+}
+export interface DeleteContactEmailInput {
   clientMutationId?: string;
   id: string;
 }
@@ -15171,6 +15382,32 @@ export interface UpdateContactNoteInput {
   contactNotePatch: ContactNotePatch;
 }
 export interface DeleteContactNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactPhoneInput {
+  clientMutationId?: string;
+  contactPhone: {
+    entityId: string;
+    phone: string;
+    phoneType?: string;
+    isPrimary?: boolean;
+    contactId: string;
+  };
+}
+export interface ContactPhonePatch {
+  entityId?: string | null;
+  phone?: string | null;
+  phoneType?: string | null;
+  isPrimary?: boolean | null;
+  contactId?: string | null;
+}
+export interface UpdateContactPhoneInput {
+  clientMutationId?: string;
+  id: string;
+  contactPhonePatch: ContactPhonePatch;
+}
+export interface DeleteContactPhoneInput {
   clientMutationId?: string;
   id: string;
 }
@@ -15682,6 +15919,7 @@ export interface CreateVenueInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    location?: unknown;
   };
 }
 export interface VenuePatch {
@@ -15702,6 +15940,7 @@ export interface VenuePatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  location?: unknown | null;
 }
 export interface UpdateVenueInput {
   clientMutationId?: string;
@@ -15909,6 +16148,7 @@ export interface CreateHikingTrailInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    trailheadGeo?: unknown;
   };
 }
 export interface HikingTrailPatch {
@@ -15924,6 +16164,7 @@ export interface HikingTrailPatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  trailheadGeo?: unknown | null;
 }
 export interface UpdateHikingTrailInput {
   clientMutationId?: string;
@@ -16151,6 +16392,7 @@ export interface CreatePlaceInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    locationGeo?: unknown;
   };
 }
 export interface PlacePatch {
@@ -16164,6 +16406,7 @@ export interface PlacePatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  locationGeo?: unknown | null;
 }
 export interface UpdatePlaceInput {
   clientMutationId?: string;
@@ -17213,6 +17456,7 @@ export interface CreateTripInput {
     embeddingText?: string;
     embedding?: number[];
     embeddingStale?: boolean;
+    destinationGeo?: unknown;
   };
 }
 export interface TripPatch {
@@ -17226,6 +17470,7 @@ export interface TripPatch {
   embeddingText?: string | null;
   embedding?: number[] | null;
   embeddingStale?: boolean | null;
+  destinationGeo?: unknown | null;
 }
 export interface UpdateTripInput {
   clientMutationId?: string;
@@ -17395,6 +17640,9 @@ export const connectionFieldsMap = {
     contactsChunksByContactsId: 'ContactsChunk',
     interactions: 'Interaction',
     touchpoints: 'Touchpoint',
+    contactEmails: 'ContactEmail',
+    contactPhones: 'ContactPhone',
+    contactAddresses: 'ContactAddress',
     contactLinks: 'ContactLink',
     contactImages: 'ContactImage',
     contactCompanies: 'ContactCompany',
@@ -17912,6 +18160,33 @@ export interface CalendarEventToManyCalendarEventTaskFilter {
   /** Filters to entities where no related entity matches. */
   none?: CalendarEventTaskFilter;
 }
+/** A filter to be used against GeographyInterface fields. All fields are combined with a logical ‘and.’ */
+export interface GeographyInterfaceFilter {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: boolean;
+  /** Equal to the specified value. */
+  equalTo?: unknown;
+  /** Not equal to the specified value. */
+  notEqualTo?: unknown;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: unknown;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: unknown;
+  /** Included in the specified list. */
+  in?: unknown[];
+  /** Not included in the specified list. */
+  notIn?: unknown[];
+  /** 2D bounding box intersects the specified geometry's 2D bounding box. */
+  bboxIntersects2D?: unknown;
+  /** No point is outside the specified geometry. */
+  coveredBy?: unknown;
+  /** No point in the specified geometry is outside. */
+  covers?: unknown;
+  /** Coordinates and coordinate order are the same as specified geometry. */
+  exactlyEquals?: unknown;
+  /** They share any portion of space in 2D. */
+  intersects?: unknown;
+}
 /** A filter to be used against many `ContactsChunk` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyContactsChunkFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -17938,6 +18213,33 @@ export interface ContactToManyTouchpointFilter {
   every?: TouchpointFilter;
   /** Filters to entities where no related entity matches. */
   none?: TouchpointFilter;
+}
+/** A filter to be used against many `ContactEmail` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactEmailFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactEmailFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactEmailFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactEmailFilter;
+}
+/** A filter to be used against many `ContactPhone` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactPhoneFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactPhoneFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactPhoneFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactPhoneFilter;
+}
+/** A filter to be used against many `ContactAddress` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactAddressFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactAddressFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactAddressFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactAddressFilter;
 }
 /** A filter to be used against many `ContactLink` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyContactLinkFilter {
@@ -18479,7 +18781,7 @@ export interface ImageToManyContactImageFilter {
   /** Filters to entities where no related entity matches. */
   none?: ContactImageFilter;
 }
-/** A filter to be used against many `CompanyImage` object types. All fields are combined with a logical ‘and.’ */
+/** A filter to be used against many `CompanyImage` object types. All fields are combined with a logical ���and.’ */
 export interface ImageToManyCompanyImageFilter {
   /** Filters to entities where at least one related entity matches. */
   some?: CompanyImageFilter;
@@ -19352,6 +19654,8 @@ export interface MemoryFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Filter by the object’s `agentId` field. */
   agentId?: UUIDFilter;
   /** Checks for all expressions in this list. */
@@ -19923,6 +20227,95 @@ export interface TouchpointFilter {
    */
   fullTextSearch?: string;
 }
+/** A filter to be used against `ContactEmail` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactEmailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `email` field. */
+  email?: StringFilter;
+  /** Filter by the object’s `emailType` field. */
+  emailType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactEmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactEmailFilter[];
+  /** Negates the expression. */
+  not?: ContactEmailFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+/** A filter to be used against `ContactPhone` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactPhoneFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `phone` field. */
+  phone?: StringFilter;
+  /** Filter by the object’s `phoneType` field. */
+  phoneType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactPhoneFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactPhoneFilter[];
+  /** Negates the expression. */
+  not?: ContactPhoneFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+/** A filter to be used against `ContactAddress` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactAddressFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `street` field. */
+  street?: StringFilter;
+  /** Filter by the object’s `city` field. */
+  city?: StringFilter;
+  /** Filter by the object’s `state` field. */
+  state?: StringFilter;
+  /** Filter by the object’s `postalCode` field. */
+  postalCode?: StringFilter;
+  /** Filter by the object’s `country` field. */
+  country?: StringFilter;
+  /** Filter by the object’s `addressType` field. */
+  addressType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactAddressFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactAddressFilter[];
+  /** Negates the expression. */
+  not?: ContactAddressFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
 /** A filter to be used against `ContactLink` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactLinkFilter {
   /** Filter by the object’s `id` field. */
@@ -20066,7 +20459,7 @@ export interface EmailFilter {
   /** Filter by the object’s `entityId` field. */
   entityId?: UUIDFilter;
   /** Filter by the object’s `providerMessageId` field. */
-  providerMessageId?: StringTrgmFilter;
+  providerMessageId?: StringFilter;
   /** Filter by the object’s `fromContactId` field. */
   fromContactId?: UUIDFilter;
   /** Filter by the object’s `to` field. */
@@ -20076,11 +20469,11 @@ export interface EmailFilter {
   /** Filter by the object’s `bcc` field. */
   bcc?: JSONFilter;
   /** Filter by the object’s `subject` field. */
-  subject?: StringTrgmFilter;
+  subject?: StringFilter;
   /** Filter by the object’s `bodyText` field. */
-  bodyText?: StringTrgmFilter;
+  bodyText?: StringFilter;
   /** Filter by the object’s `bodyHtml` field. */
-  bodyHtml?: StringTrgmFilter;
+  bodyHtml?: StringFilter;
   /** Filter by the object’s `sentAt` field. */
   sentAt?: DatetimeFilter;
   /** Filter by the object’s `tags` field. */
@@ -20090,7 +20483,7 @@ export interface EmailFilter {
   /** Filter by the object’s `updatedAt` field. */
   updatedAt?: DatetimeFilter;
   /** Filter by the object’s `embeddingText` field. */
-  embeddingText?: StringTrgmFilter;
+  embeddingText?: StringFilter;
   /** Filter by the object’s `searchTsv` field. */
   searchTsv?: FullTextFilter;
   /** Filter by the object’s `embedding` field. */
@@ -20127,29 +20520,6 @@ export interface EmailFilter {
   emailNotes?: EmailToManyEmailNoteFilter;
   /** `emailNotes` exist. */
   emailNotesExist?: boolean;
-  /** TSV search on the `search_tsv` column. */
-  tsvSearchTsv?: string;
-  /** BM25 search on the `embedding_text` column. */
-  bm25EmbeddingText?: Bm25SearchInput;
-  /** VECTOR search on the `embedding` column. */
-  vectorEmbedding?: VectorNearbyInput;
-  /** TRGM search on the `provider_message_id` column. */
-  trgmProviderMessageId?: TrgmSearchInput;
-  /** TRGM search on the `subject` column. */
-  trgmSubject?: TrgmSearchInput;
-  /** TRGM search on the `body_text` column. */
-  trgmBodyText?: TrgmSearchInput;
-  /** TRGM search on the `body_html` column. */
-  trgmBodyHtml?: TrgmSearchInput;
-  /** TRGM search on the `embedding_text` column. */
-  trgmEmbeddingText?: TrgmSearchInput;
-  /**
-   * Composite full-text search. Provide a search string and it will be dispatched
-   * to all text-compatible search algorithms (tsvector, BM25, pg_trgm)
-   * simultaneously. Rows matching ANY algorithm are returned. All matching score
-   * fields are populated.
-   */
-  fullTextSearch?: string;
 }
 /** A filter to be used against `ProjectContact` object types. All fields are combined with a logical ‘and.’ */
 export interface ProjectContactFilter {
@@ -20279,7 +20649,7 @@ export interface ThreadParticipantFilter {
 }
 /** A filter to be used against `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailRecipientFilter {
-  /** Filter by the object’s `emailId` field. */
+  /** Filter by the object��s `emailId` field. */
   emailId?: UUIDFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
@@ -20899,16 +21269,6 @@ export interface ContactFilter {
   relationshipType?: StringTrgmFilter;
   /** Filter by the object’s `howWeMet` field. */
   howWeMet?: StringTrgmFilter;
-  /** Filter by the object’s `twitterHandle` field. */
-  twitterHandle?: StringTrgmFilter;
-  /** Filter by the object’s `linkedinUrl` field. */
-  linkedinUrl?: StringTrgmFilter;
-  /** Filter by the object’s `githubUsername` field. */
-  githubUsername?: StringTrgmFilter;
-  /** Filter by the object’s `instagramHandle` field. */
-  instagramHandle?: StringTrgmFilter;
-  /** Filter by the object’s `website` field. */
-  website?: StringTrgmFilter;
   /** Filter by the object’s `tags` field. */
   tags?: StringListFilter;
   /** Filter by the object’s `mainImageId` field. */
@@ -20925,6 +21285,8 @@ export interface ContactFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: ContactFilter[];
   /** Checks for any expressions in this list. */
@@ -20947,6 +21309,18 @@ export interface ContactFilter {
   touchpoints?: ContactToManyTouchpointFilter;
   /** `touchpoints` exist. */
   touchpointsExist?: boolean;
+  /** Filter by the object’s `contactEmails` relation. */
+  contactEmails?: ContactToManyContactEmailFilter;
+  /** `contactEmails` exist. */
+  contactEmailsExist?: boolean;
+  /** Filter by the object’s `contactPhones` relation. */
+  contactPhones?: ContactToManyContactPhoneFilter;
+  /** `contactPhones` exist. */
+  contactPhonesExist?: boolean;
+  /** Filter by the object’s `contactAddresses` relation. */
+  contactAddresses?: ContactToManyContactAddressFilter;
+  /** `contactAddresses` exist. */
+  contactAddressesExist?: boolean;
   /** Filter by the object’s `contactLinks` relation. */
   contactLinks?: ContactToManyContactLinkFilter;
   /** `contactLinks` exist. */
@@ -21043,16 +21417,6 @@ export interface ContactFilter {
   trgmRelationshipType?: TrgmSearchInput;
   /** TRGM search on the `how_we_met` column. */
   trgmHowWeMet?: TrgmSearchInput;
-  /** TRGM search on the `twitter_handle` column. */
-  trgmTwitterHandle?: TrgmSearchInput;
-  /** TRGM search on the `linkedin_url` column. */
-  trgmLinkedinUrl?: TrgmSearchInput;
-  /** TRGM search on the `github_username` column. */
-  trgmGithubUsername?: TrgmSearchInput;
-  /** TRGM search on the `instagram_handle` column. */
-  trgmInstagramHandle?: TrgmSearchInput;
-  /** TRGM search on the `website` column. */
-  trgmWebsite?: TrgmSearchInput;
   /** TRGM search on the `embedding_text` column. */
   trgmEmbeddingText?: TrgmSearchInput;
   /**
@@ -21199,6 +21563,8 @@ export interface EventFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: EventFilter[];
   /** Checks for any expressions in this list. */
@@ -21311,6 +21677,8 @@ export interface VenueFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `location` field. */
+  location?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: VenueFilter[];
   /** Checks for any expressions in this list. */
@@ -23791,6 +24159,8 @@ export interface HikingTrailFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `trailheadGeo` field. */
+  trailheadGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: HikingTrailFilter[];
   /** Checks for any expressions in this list. */
@@ -23851,6 +24221,8 @@ export interface PlaceFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `locationGeo` field. */
+  locationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: PlaceFilter[];
   /** Checks for any expressions in this list. */
@@ -24112,6 +24484,8 @@ export interface TripFilter {
   embedding?: VectorFilter;
   /** Filter by the object’s `embeddingStale` field. */
   embeddingStale?: BooleanFilter;
+  /** Filter by the object’s `destinationGeo` field. */
+  destinationGeo?: GeographyInterfaceFilter;
   /** Checks for all expressions in this list. */
   and?: TripFilter[];
   /** Checks for any expressions in this list. */
@@ -25812,6 +26186,51 @@ export type DeleteCompanyNotePayloadSelect = {
     select: CompanyNoteEdgeSelect;
   };
 };
+export interface CreateContactAddressPayload {
+  clientMutationId?: string | null;
+  /** The `ContactAddress` that was created by this mutation. */
+  contactAddress?: ContactAddress | null;
+  contactAddressEdge?: ContactAddressEdge | null;
+}
+export type CreateContactAddressPayloadSelect = {
+  clientMutationId?: boolean;
+  contactAddress?: {
+    select: ContactAddressSelect;
+  };
+  contactAddressEdge?: {
+    select: ContactAddressEdgeSelect;
+  };
+};
+export interface UpdateContactAddressPayload {
+  clientMutationId?: string | null;
+  /** The `ContactAddress` that was updated by this mutation. */
+  contactAddress?: ContactAddress | null;
+  contactAddressEdge?: ContactAddressEdge | null;
+}
+export type UpdateContactAddressPayloadSelect = {
+  clientMutationId?: boolean;
+  contactAddress?: {
+    select: ContactAddressSelect;
+  };
+  contactAddressEdge?: {
+    select: ContactAddressEdgeSelect;
+  };
+};
+export interface DeleteContactAddressPayload {
+  clientMutationId?: string | null;
+  /** The `ContactAddress` that was deleted by this mutation. */
+  contactAddress?: ContactAddress | null;
+  contactAddressEdge?: ContactAddressEdge | null;
+}
+export type DeleteContactAddressPayloadSelect = {
+  clientMutationId?: boolean;
+  contactAddress?: {
+    select: ContactAddressSelect;
+  };
+  contactAddressEdge?: {
+    select: ContactAddressEdgeSelect;
+  };
+};
 export interface CreateContactCompanyPayload {
   clientMutationId?: string | null;
   /** The `ContactCompany` that was created by this mutation. */
@@ -25855,6 +26274,51 @@ export type DeleteContactCompanyPayloadSelect = {
   };
   contactCompanyEdge?: {
     select: ContactCompanyEdgeSelect;
+  };
+};
+export interface CreateContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `ContactEmail` that was created by this mutation. */
+  contactEmail?: ContactEmail | null;
+  contactEmailEdge?: ContactEmailEdge | null;
+}
+export type CreateContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  contactEmail?: {
+    select: ContactEmailSelect;
+  };
+  contactEmailEdge?: {
+    select: ContactEmailEdgeSelect;
+  };
+};
+export interface UpdateContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `ContactEmail` that was updated by this mutation. */
+  contactEmail?: ContactEmail | null;
+  contactEmailEdge?: ContactEmailEdge | null;
+}
+export type UpdateContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  contactEmail?: {
+    select: ContactEmailSelect;
+  };
+  contactEmailEdge?: {
+    select: ContactEmailEdgeSelect;
+  };
+};
+export interface DeleteContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `ContactEmail` that was deleted by this mutation. */
+  contactEmail?: ContactEmail | null;
+  contactEmailEdge?: ContactEmailEdge | null;
+}
+export type DeleteContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  contactEmail?: {
+    select: ContactEmailSelect;
+  };
+  contactEmailEdge?: {
+    select: ContactEmailEdgeSelect;
   };
 };
 export interface CreateEmailPayload {
@@ -26215,6 +26679,51 @@ export type DeleteContactNotePayloadSelect = {
   };
   contactNoteEdge?: {
     select: ContactNoteEdgeSelect;
+  };
+};
+export interface CreateContactPhonePayload {
+  clientMutationId?: string | null;
+  /** The `ContactPhone` that was created by this mutation. */
+  contactPhone?: ContactPhone | null;
+  contactPhoneEdge?: ContactPhoneEdge | null;
+}
+export type CreateContactPhonePayloadSelect = {
+  clientMutationId?: boolean;
+  contactPhone?: {
+    select: ContactPhoneSelect;
+  };
+  contactPhoneEdge?: {
+    select: ContactPhoneEdgeSelect;
+  };
+};
+export interface UpdateContactPhonePayload {
+  clientMutationId?: string | null;
+  /** The `ContactPhone` that was updated by this mutation. */
+  contactPhone?: ContactPhone | null;
+  contactPhoneEdge?: ContactPhoneEdge | null;
+}
+export type UpdateContactPhonePayloadSelect = {
+  clientMutationId?: boolean;
+  contactPhone?: {
+    select: ContactPhoneSelect;
+  };
+  contactPhoneEdge?: {
+    select: ContactPhoneEdgeSelect;
+  };
+};
+export interface DeleteContactPhonePayload {
+  clientMutationId?: string | null;
+  /** The `ContactPhone` that was deleted by this mutation. */
+  contactPhone?: ContactPhone | null;
+  contactPhoneEdge?: ContactPhoneEdge | null;
+}
+export type DeleteContactPhonePayloadSelect = {
+  clientMutationId?: boolean;
+  contactPhone?: {
+    select: ContactPhoneSelect;
+  };
+  contactPhoneEdge?: {
+    select: ContactPhoneEdgeSelect;
   };
 };
 export interface CreateProjectPayload {
@@ -30081,6 +30590,18 @@ export type CompanyNoteEdgeSelect = {
     select: CompanyNoteSelect;
   };
 };
+/** A `ContactAddress` edge in the connection. */
+export interface ContactAddressEdge {
+  cursor?: string | null;
+  /** The `ContactAddress` at the end of the edge. */
+  node?: ContactAddress | null;
+}
+export type ContactAddressEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactAddressSelect;
+  };
+};
 /** A `ContactCompany` edge in the connection. */
 export interface ContactCompanyEdge {
   cursor?: string | null;
@@ -30091,6 +30612,18 @@ export type ContactCompanyEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ContactCompanySelect;
+  };
+};
+/** A `ContactEmail` edge in the connection. */
+export interface ContactEmailEdge {
+  cursor?: string | null;
+  /** The `ContactEmail` at the end of the edge. */
+  node?: ContactEmail | null;
+}
+export type ContactEmailEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactEmailSelect;
   };
 };
 /** A `Email` edge in the connection. */
@@ -30187,6 +30720,18 @@ export type ContactNoteEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ContactNoteSelect;
+  };
+};
+/** A `ContactPhone` edge in the connection. */
+export interface ContactPhoneEdge {
+  cursor?: string | null;
+  /** The `ContactPhone` at the end of the edge. */
+  node?: ContactPhone | null;
+}
+export type ContactPhoneEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactPhoneSelect;
   };
 };
 /** A `Project` edge in the connection. */

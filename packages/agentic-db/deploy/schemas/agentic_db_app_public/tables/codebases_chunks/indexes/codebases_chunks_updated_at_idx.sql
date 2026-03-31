@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/codebases_chunks/columns/updated_at/column
 
 
-CREATE INDEX codebases_chunks_updated_at_idx ON "agentic_db_app_public".codebases_chunks ( updated_at );
+CREATE INDEX codebases_chunks_updated_at_idx ON agentic_db_app_public.codebases_chunks ( updated_at );
 

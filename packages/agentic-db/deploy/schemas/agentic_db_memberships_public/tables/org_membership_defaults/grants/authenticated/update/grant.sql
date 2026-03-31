@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_membership_defaults/table
 
 
-GRANT UPDATE ON "agentic_db_memberships_public".org_membership_defaults TO authenticated;
+GRANT UPDATE ON agentic_db_memberships_public.org_membership_defaults TO authenticated;
 

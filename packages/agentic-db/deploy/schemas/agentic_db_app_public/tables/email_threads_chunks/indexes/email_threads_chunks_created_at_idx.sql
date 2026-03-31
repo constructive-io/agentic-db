@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/email_threads_chunks/columns/created_at/column
 
 
-CREATE INDEX email_threads_chunks_created_at_idx ON "agentic_db_app_public".email_threads_chunks ( created_at );
+CREATE INDEX email_threads_chunks_created_at_idx ON agentic_db_app_public.email_threads_chunks ( created_at );
 

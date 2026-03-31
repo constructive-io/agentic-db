@@ -6,12 +6,12 @@
 -- requires: schemas/agentic_db_app_public/tables/raw_contact_urls/indexes/raw_contact_urls_url_idx
 
 
-CREATE POLICY auth_sel_entity_membership ON "agentic_db_app_public".autonomy_record_links
+CREATE POLICY auth_sel_entity_membership ON agentic_db_app_public.autonomy_record_links
 FOR SELECT
 TO authenticated
 USING (
   entity_id IN (SELECT org_sprt.entity_id
-  FROM "agentic_db_memberships_private".org_memberships_sprt AS org_sprt
+  FROM agentic_db_memberships_private.org_memberships_sprt AS org_sprt
   WHERE
       org_sprt.actor_id = jwt_public.current_user_id())
 );

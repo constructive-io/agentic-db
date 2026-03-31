@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/goal_projects/policies/auth_del_entity_membership/policy
 
 
-CREATE TABLE "agentic_db_app_public".calendar_event_contacts ();
+CREATE TABLE agentic_db_app_public.calendar_event_contacts ();
 

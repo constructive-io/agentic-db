@@ -12,8 +12,8 @@ Fields provided by the Unified Search plugin. Includes full-text search (tsvecto
 ```bash
 agentic-db event list
 agentic-db event get --id <UUID>
-agentic-db event create --entityId <UUID> --name <String> [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db event update --id <UUID> [--entityId <UUID>] [--name <String>] [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db event create --entityId <UUID> --name <String> [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
+agentic-db event update --id <UUID> [--entityId <UUID>] [--name <String>] [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
 agentic-db event delete --id <UUID>
 ```
 
@@ -28,7 +28,7 @@ agentic-db event list
 ### Create a event
 
 ```bash
-agentic-db event create --entityId <UUID> --name <String> [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db event create --entityId <UUID> --name <String> [--eventType <String>] [--location <String>] [--city <String>] [--startedAt <Datetime>] [--endedAt <Datetime>] [--notesText <String>] [--tags <String>] [--mainImageId <UUID>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
 ```
 
 ### Get a event by id

@@ -1,8 +1,9 @@
 /**
  * CLI command: agentic-db search "<query>" [--tables contacts,notes,...]
  *
- * Performs vector similarity search across agentic-db tables using the
- * generated SDK's VectorNearbyInput condition.
+ * Performs hybrid search (vector + fullTextSearch) across agentic-db tables.
+ * fullTextSearch dispatches to tsvector, BM25, and pg_trgm simultaneously;
+ * combined with vector similarity, searchScore reflects a true blended rank.
  */
 import { CLIOptions, Inquirerer } from 'inquirerer';
 import { getClient } from '../../generated/cli/executor';
@@ -33,12 +34,28 @@ interface SearchResult {
 
 type SDKClient = ReturnType<typeof getClient>;
 
-const VECTOR_CONDITION = (queryEmbedding: number[]) => ({
-  vectorEmbedding: {
-    vector: queryEmbedding,
-    metric: 'COSINE' as const,
-    distance: 2.0,
-  },
+/**
+ * Build a hybrid search condition for ORM findMany queries.
+ *
+ * Combines vector similarity (cosine distance on embeddings) with
+ * fullTextSearch — a composite filter that dispatches the raw query
+ * string to tsvector, BM25, and pg_trgm simultaneously.  Rows matching
+ * ANY text algorithm are returned and searchScore reflects a true blended
+ * rank across all active signals.
+ */
+const HYBRID_CONDITION = (query: string, queryEmbedding: number[]) => ({
+  or: [
+    {
+      vectorEmbedding: {
+        vector: queryEmbedding,
+        metric: 'COSINE' as const,
+        distance: 2.0,
+      },
+    },
+    {
+      fullTextSearch: query,
+    },
+  ],
 });
 
 function toResult(
@@ -57,12 +74,12 @@ function toResult(
 
 const TABLE_SEARCH: Record<
   TableName,
-  (client: SDKClient, qe: number[], limit: number) => Promise<SearchResult[]>
+  (client: SDKClient, query: string, qe: number[], limit: number) => Promise<SearchResult[]>
 > = {
-  contacts: async (client, qe, limit) => {
+  contacts: async (client, query, qe, limit) => {
     const res = await client.contact
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: {
           id: true,
@@ -88,10 +105,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  companies: async (client, qe, limit) => {
+  companies: async (client, query, qe, limit) => {
     const res = await client.company
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, name: true, description: true, searchScore: true },
       })
@@ -104,10 +121,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  events: async (client, qe, limit) => {
+  events: async (client, query, qe, limit) => {
     const res = await client.event
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, name: true, notesText: true, searchScore: true },
       })
@@ -120,10 +137,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  venues: async (client, qe, limit) => {
+  venues: async (client, query, qe, limit) => {
     const res = await client.venue
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, name: true, searchScore: true },
       })
@@ -136,10 +153,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  notes: async (client, qe, limit) => {
+  notes: async (client, query, qe, limit) => {
     const res = await client.note
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, content: true, searchScore: true },
       })
@@ -158,10 +175,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  agentTasks: async (client, qe, limit) => {
+  agentTasks: async (client, query, qe, limit) => {
     const res = await client.agentTask
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, title: true, description: true, searchScore: true },
       })
@@ -174,10 +191,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  memories: async (client, qe, limit) => {
+  memories: async (client, query, qe, limit) => {
     const res = await client.memory
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, content: true, searchScore: true },
       })
@@ -196,10 +213,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  skills: async (client, qe, limit) => {
+  skills: async (client, query, qe, limit) => {
     const res = await client.skill
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, name: true, searchScore: true },
       })
@@ -212,10 +229,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  rules: async (client, qe, limit) => {
+  rules: async (client, query, qe, limit) => {
     const res = await client.rule
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, name: true, searchScore: true },
       })
@@ -228,10 +245,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  deals: async (client, qe, limit) => {
+  deals: async (client, query, qe, limit) => {
     const res = await client.deal
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, name: true, searchScore: true },
       })
@@ -244,10 +261,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  projects: async (client, qe, limit) => {
+  projects: async (client, query, qe, limit) => {
     const res = await client.project
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, name: true, description: true, searchScore: true },
       })
@@ -260,10 +277,10 @@ const TABLE_SEARCH: Record<
       : [];
   },
 
-  conversations: async (client, qe, limit) => {
+  conversations: async (client, query, qe, limit) => {
     const res = await client.conversation
       .findMany({
-        where: VECTOR_CONDITION(qe),
+        where: HYBRID_CONDITION(query, qe),
         first: limit,
         select: { id: true, title: true, searchScore: true },
       })
@@ -294,7 +311,7 @@ export async function searchAll(
     const searchFn = TABLE_SEARCH[table];
     if (searchFn) {
       try {
-        const results = await searchFn(client, queryEmbedding, limit);
+        const results = await searchFn(client, query, queryEmbedding, limit);
         return results;
       } catch {
         // Table might not have embeddings, skip silently
@@ -317,7 +334,7 @@ const ALL_TABLES = Object.keys(TABLE_SEARCH) as TableName[];
 const usage = `
 search <query> [options]
 
-  Semantic search across agentic-db tables using vector embeddings.
+  Hybrid search across agentic-db tables using vector embeddings + full-text search.
 
 Options:
   --tables <list>    Comma-separated tables to search (default: all)

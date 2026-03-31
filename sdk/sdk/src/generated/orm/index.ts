@@ -42,7 +42,9 @@ import { CompanyLinkModel } from './models/companyLink';
 import { MemoryModel } from './models/memory';
 import { CompanyMemoryModel } from './models/companyMemory';
 import { CompanyNoteModel } from './models/companyNote';
+import { ContactAddressModel } from './models/contactAddress';
 import { ContactCompanyModel } from './models/contactCompany';
+import { ContactEmailModel } from './models/contactEmail';
 import { EmailModel } from './models/email';
 import { EmailThreadModel } from './models/emailThread';
 import { ContactEventModel } from './models/contactEvent';
@@ -51,6 +53,7 @@ import { ContactImageModel } from './models/contactImage';
 import { ContactLinkModel } from './models/contactLink';
 import { ContactMemoryModel } from './models/contactMemory';
 import { ContactNoteModel } from './models/contactNote';
+import { ContactPhoneModel } from './models/contactPhone';
 import { ProjectModel } from './models/project';
 import { ContactRelationshipModel } from './models/contactRelationship';
 import { ContactsChunkModel } from './models/contactsChunk';
@@ -196,7 +199,9 @@ export function createClient(config: OrmClientConfig) {
     memory: new MemoryModel(client),
     companyMemory: new CompanyMemoryModel(client),
     companyNote: new CompanyNoteModel(client),
+    contactAddress: new ContactAddressModel(client),
     contactCompany: new ContactCompanyModel(client),
+    contactEmail: new ContactEmailModel(client),
     email: new EmailModel(client),
     emailThread: new EmailThreadModel(client),
     contactEvent: new ContactEventModel(client),
@@ -205,6 +210,7 @@ export function createClient(config: OrmClientConfig) {
     contactLink: new ContactLinkModel(client),
     contactMemory: new ContactMemoryModel(client),
     contactNote: new ContactNoteModel(client),
+    contactPhone: new ContactPhoneModel(client),
     project: new ProjectModel(client),
     contactRelationship: new ContactRelationshipModel(client),
     contactsChunk: new ContactsChunkModel(client),

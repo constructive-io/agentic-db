@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX deal_companies_deal_id_idx ON "agentic_db_app_public".deal_companies USING BTREE ( deal_id );
+CREATE INDEX deal_companies_deal_id_idx ON agentic_db_app_public.deal_companies USING BTREE ( deal_id );
 

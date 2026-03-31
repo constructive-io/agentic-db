@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/email_threads/columns/embedding_text/column
 
 
-CREATE INDEX email_threads_embedding_text_bm25_idx ON "agentic_db_app_public".email_threads USING bm25 ( embedding_text ) WITH ( text_config = english );
+CREATE INDEX email_threads_embedding_text_bm25_idx ON agentic_db_app_public.email_threads USING bm25 ( embedding_text ) WITH ( text_config = english );
 

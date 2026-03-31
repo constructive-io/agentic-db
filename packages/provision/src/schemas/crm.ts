@@ -3,8 +3,18 @@
  *
  * Tables: images, contacts, companies, deals, events, venues, notes,
  *         interactions, touchpoints, tags, contact_links, company_links,
- *         event_links, venue_links
+ *         event_links, venue_links, contact_emails, contact_phones,
+ *         contact_addresses
  * Data* nodes: DataSearch, DataPostGIS, DataEmbedding
+ *
+ * Field conventions for contacts:
+ *   - contacts.email / contacts.phone / contacts.location are denormalized
+ *     "primary" values kept directly on the record for fast display, search
+ *     (FTS / trgm), and simple queries.
+ *   - contact_emails / contact_phones / contact_addresses are the normalized
+ *     child tables that hold the full set of values (multiple emails, phones,
+ *     and structured addresses per contact).
+ *   - contact_links holds arbitrary URLs (socials, websites, portfolios).
  */
 
 import {
@@ -62,19 +72,16 @@ const definition: BlueprintDefinition = {
       fields: [
         { name: 'first_name', type: 'text', is_required: true },
         { name: 'last_name', type: 'text' },
+        // Denormalized primary values (see contact_emails / contact_phones for full lists)
         { name: 'email', type: 'text' },
         { name: 'phone', type: 'text' },
         { name: 'headline', type: 'text' },
         { name: 'bio', type: 'text' },
+        // Denormalized primary location (see contact_addresses for structured addresses)
         { name: 'location', type: 'text' },
         { name: 'birthday', type: 'date' },
         { name: 'relationship_type', type: 'text' },
         { name: 'how_we_met', type: 'text' },
-        { name: 'twitter_handle', type: 'text' },
-        { name: 'linkedin_url', type: 'text' },
-        { name: 'github_username', type: 'text' },
-        { name: 'instagram_handle', type: 'text' },
-        { name: 'website', type: 'text' },
         { name: 'tags', type: 'citext[]' },
         { name: 'main_image_id', type: 'uuid' },
       ],
@@ -314,6 +321,55 @@ const definition: BlueprintDefinition = {
       policies: [ORG_POLICY],
     },
 
+    // -- Contact detail tables (normalized, no embeddings) ------------------
+    //
+    // These child tables hold the full set of emails, phones, and addresses
+    // for each contact. The denormalized contacts.email / contacts.phone /
+    // contacts.location fields cache the primary value for convenience.
+    {
+      ref: 'contact_emails',
+      table_name: 'contact_emails',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'email', type: 'text', is_required: true },
+        { name: 'email_type', type: 'text' },
+        { name: 'is_primary', type: 'bool', default_value: 'false' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+    {
+      ref: 'contact_phones',
+      table_name: 'contact_phones',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'phone', type: 'text', is_required: true },
+        { name: 'phone_type', type: 'text' },
+        { name: 'is_primary', type: 'bool', default_value: 'false' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+    {
+      ref: 'contact_addresses',
+      table_name: 'contact_addresses',
+      nodes: [...ORG_NODES],
+      fields: [
+        { name: 'street', type: 'text' },
+        { name: 'city', type: 'text' },
+        { name: 'state', type: 'text' },
+        { name: 'postal_code', type: 'text' },
+        { name: 'country', type: 'text' },
+        { name: 'address_type', type: 'text' },
+        { name: 'is_primary', type: 'bool', default_value: 'false' },
+      ],
+      grant_roles: ['authenticated'],
+      grants: CRUD_GRANTS,
+      policies: [ORG_POLICY],
+    },
+
     // -- Link tables (standalone embedding) ---------------------------------
     {
       ref: 'contact_links',
@@ -368,8 +424,11 @@ const definition: BlueprintDefinition = {
     { $type: 'RelationManyToMany', source_ref: 'venues',    target_ref: 'images', junction_table_name: 'venue_images',   source_field_name: 'venue_id',   target_field_name: 'image_id', ...M2M_JUNCTION_OPTS },
 
     // HasMany: children
-    { $type: 'RelationHasMany', source_ref: 'contacts',  target_ref: 'interactions',  delete_action: 'c' },
-    { $type: 'RelationHasMany', source_ref: 'contacts',  target_ref: 'contact_links', delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'contacts',  target_ref: 'interactions',     delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'contacts',  target_ref: 'contact_links',    delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'contacts',  target_ref: 'contact_emails',   delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'contacts',  target_ref: 'contact_phones',   delete_action: 'c' },
+    { $type: 'RelationHasMany', source_ref: 'contacts',  target_ref: 'contact_addresses', delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'companies', target_ref: 'company_links', delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'events',    target_ref: 'event_links',   delete_action: 'c' },
     { $type: 'RelationHasMany', source_ref: 'venues',    target_ref: 'venue_links',   delete_action: 'c' },
@@ -407,8 +466,6 @@ const definition: BlueprintDefinition = {
 
     { table_ref: 'contacts', column: 'email', access_method: 'btree' },
     { table_ref: 'contacts', column: 'relationship_type', access_method: 'btree' },
-    { table_ref: 'contacts', column: 'twitter_handle', access_method: 'btree' },
-    { table_ref: 'contacts', column: 'github_username', access_method: 'btree' },
     { table_ref: 'companies', column: 'domain', access_method: 'btree' },
     { table_ref: 'deals', column: 'stage', access_method: 'btree' },
     { table_ref: 'deals', column: 'expected_close_date', access_method: 'btree' },
@@ -424,6 +481,15 @@ const definition: BlueprintDefinition = {
     { table_ref: 'notes', column: 'last_accessed_at', access_method: 'btree' },
     { table_ref: 'tags', column: 'name', access_method: 'btree' },
     { table_ref: 'tags', column: 'category', access_method: 'btree' },
+
+    // contact details
+    { table_ref: 'contact_emails', column: 'email', access_method: 'btree' },
+    { table_ref: 'contact_emails', column: 'email_type', access_method: 'btree' },
+    { table_ref: 'contact_phones', column: 'phone', access_method: 'btree' },
+    { table_ref: 'contact_phones', column: 'phone_type', access_method: 'btree' },
+    { table_ref: 'contact_addresses', column: 'city', access_method: 'btree' },
+    { table_ref: 'contact_addresses', column: 'country', access_method: 'btree' },
+    { table_ref: 'contact_addresses', column: 'address_type', access_method: 'btree' },
 
     // touchpoints
     { table_ref: 'touchpoints', column: 'tags', access_method: 'gin' },

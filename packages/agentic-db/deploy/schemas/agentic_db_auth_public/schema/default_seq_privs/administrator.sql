@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_auth_public/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA "agentic_db_auth_public" GRANT USAGE ON SEQUENCES TO administrator;
+ALTER DEFAULT PRIVILEGES IN SCHEMA agentic_db_auth_public GRANT USAGE ON SEQUENCES TO administrator;
 
