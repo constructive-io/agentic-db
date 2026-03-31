@@ -857,7 +857,7 @@ CRUD operations for Contact records.
 | `bio` | String | Yes |
 | `location` | String | Yes |
 | `birthday` | Date | Yes |
-| `relationshipType` | String | Yes |
+| `relationshipTypes` | String | Yes |
 | `howWeMet` | String | Yes |
 | `tags` | String | Yes |
 | `mainImageId` | UUID | Yes |
@@ -878,7 +878,6 @@ CRUD operations for Contact records.
 | `headlineTrgmSimilarity` | Float | Yes |
 | `bioTrgmSimilarity` | Float | Yes |
 | `locationTrgmSimilarity` | Float | Yes |
-| `relationshipTypeTrgmSimilarity` | Float | Yes |
 | `howWeMetTrgmSimilarity` | Float | Yes |
 | `embeddingTextTrgmSimilarity` | Float | Yes |
 | `searchScore` | Float | Yes |
@@ -887,13 +886,13 @@ CRUD operations for Contact records.
 
 ```typescript
 // List all contact records
-const items = await db.contact.findMany({ select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipType: true, howWeMet: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, locationGeo: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, relationshipTypeTrgmSimilarity: true, howWeMetTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const items = await db.contact.findMany({ select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipTypes: true, howWeMet: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, locationGeo: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, howWeMetTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Get one by id
-const item = await db.contact.findOne({ id: '<UUID>', select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipType: true, howWeMet: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, locationGeo: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, relationshipTypeTrgmSimilarity: true, howWeMetTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const item = await db.contact.findOne({ id: '<UUID>', select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipTypes: true, howWeMet: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, locationGeo: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, howWeMetTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Create
-const created = await db.contact.create({ data: { entityId: '<UUID>', firstName: '<String>', lastName: '<String>', email: '<String>', phone: '<String>', headline: '<String>', bio: '<String>', location: '<String>', birthday: '<Date>', relationshipType: '<String>', howWeMet: '<String>', tags: '<String>', mainImageId: '<UUID>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', locationGeo: '<GeographyInterface>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', firstNameTrgmSimilarity: '<Float>', lastNameTrgmSimilarity: '<Float>', emailTrgmSimilarity: '<Float>', phoneTrgmSimilarity: '<Float>', headlineTrgmSimilarity: '<Float>', bioTrgmSimilarity: '<Float>', locationTrgmSimilarity: '<Float>', relationshipTypeTrgmSimilarity: '<Float>', howWeMetTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+const created = await db.contact.create({ data: { entityId: '<UUID>', firstName: '<String>', lastName: '<String>', email: '<String>', phone: '<String>', headline: '<String>', bio: '<String>', location: '<String>', birthday: '<Date>', relationshipTypes: '<String>', howWeMet: '<String>', tags: '<String>', mainImageId: '<UUID>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', locationGeo: '<GeographyInterface>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', firstNameTrgmSimilarity: '<Float>', lastNameTrgmSimilarity: '<Float>', emailTrgmSimilarity: '<Float>', phoneTrgmSimilarity: '<Float>', headlineTrgmSimilarity: '<Float>', bioTrgmSimilarity: '<Float>', locationTrgmSimilarity: '<Float>', howWeMetTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contact.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
@@ -1921,18 +1920,27 @@ CRUD operations for Email records.
 | `embedding` | Vector | Yes |
 | `embeddingStale` | Boolean | Yes |
 | `emailThreadId` | UUID | Yes |
+| `searchTsvRank` | Float | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `providerMessageIdTrgmSimilarity` | Float | Yes |
+| `subjectTrgmSimilarity` | Float | Yes |
+| `bodyTextTrgmSimilarity` | Float | Yes |
+| `bodyHtmlTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
 
 **Operations:**
 
 ```typescript
 // List all email records
-const items = await db.email.findMany({ select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true } }).execute();
+const items = await db.email.findMany({ select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerMessageIdTrgmSimilarity: true, subjectTrgmSimilarity: true, bodyTextTrgmSimilarity: true, bodyHtmlTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Get one by id
-const item = await db.email.findOne({ id: '<UUID>', select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true } }).execute();
+const item = await db.email.findOne({ id: '<UUID>', select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerMessageIdTrgmSimilarity: true, subjectTrgmSimilarity: true, bodyTextTrgmSimilarity: true, bodyHtmlTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Create
-const created = await db.email.create({ data: { entityId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', to: '<JSON>', cc: '<JSON>', bcc: '<JSON>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.email.create({ data: { entityId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', to: '<JSON>', cc: '<JSON>', bcc: '<JSON>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', providerMessageIdTrgmSimilarity: '<Float>', subjectTrgmSimilarity: '<Float>', bodyTextTrgmSimilarity: '<Float>', bodyHtmlTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.email.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();

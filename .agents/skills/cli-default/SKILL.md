@@ -56,6 +56,7 @@ See the `references/` directory for detailed per-entity API documentation:
 - [context](references/context.md)
 - [auth](references/auth.md)
 - [config](references/config.md)
+- [embedder](references/embedder.md)
 - [activity-log](references/activity-log.md)
 - [activity-logs-chunk](references/activity-logs-chunk.md)
 - [agent](references/agent.md)

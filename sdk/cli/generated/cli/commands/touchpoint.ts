@@ -5,9 +5,16 @@
  */
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
-import { coerceAnswers, stripUndefined } from '../utils';
+import { coerceAnswers, parseFindFirstArgs, parseFindManyArgs, stripUndefined } from '../utils';
 import type { FieldSchema } from '../utils';
-import type { CreateTouchpointInput, TouchpointPatch } from '../../orm/input-types';
+import type {
+  CreateTouchpointInput,
+  TouchpointPatch,
+  TouchpointSelect,
+  TouchpointFilter,
+  TouchpointOrderBy,
+} from '../../orm/input-types';
+import type { FindManyArgs, FindFirstArgs } from '../../orm/select-types';
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
@@ -40,8 +47,9 @@ const fieldSchema: FieldSchema = {
   embeddingTextTrgmSimilarity: 'float',
   searchScore: 'float',
 };
+import { resolveEmbedder, autoEmbedWhere, autoEmbedInput } from '../embedder';
 const usage =
-  '\ntouchpoint <command>\n\nCommands:\n  list                  List all touchpoint records\n  get                   Get a touchpoint by ID\n  create                Create a new touchpoint\n  update                Update an existing touchpoint\n  delete                Delete a touchpoint\n\n  --help, -h            Show this help message\n';
+  '\ntouchpoint <command>\n\nCommands:\n  list                  List touchpoint records\n  find-first            Find first matching touchpoint record\n  search <query>        Search touchpoint records\n  get                   Get a touchpoint by ID\n  create                Create a new touchpoint\n  update                Update an existing touchpoint\n\nCreate/Update Options:\n  --auto-embed          Convert text values in vector fields to embeddings before saving\n  delete                Delete a touchpoint\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n\nSearch Options:\n  <query>               Search query string (required)\n  --limit <n>           Max number of records to return\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --orderBy <values>    Comma-separated list of ordering values\n  --auto-embed          Convert text queries to vectors via configured embedder\n\nEmbedding Options (for --auto-embed):\n  Set EMBEDDER_PROVIDER=ollama to enable text-to-vector embedding.\n  Optional: EMBEDDER_MODEL (default: nomic-embed-text)\n  Optional: EMBEDDER_BASE_URL (default: http://localhost:11434)\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -58,7 +66,7 @@ export default async (
         type: 'autocomplete',
         name: 'subcommand',
         message: 'What do you want to do?',
-        options: ['list', 'get', 'create', 'update', 'delete'],
+        options: ['list', 'find-first', 'search', 'get', 'create', 'update', 'delete'],
       },
     ]);
     return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
@@ -73,6 +81,10 @@ async function handleTableSubcommand(
   switch (subcommand) {
     case 'list':
       return handleList(argv, prompter);
+    case 'find-first':
+      return handleFindFirst(argv, prompter);
+    case 'search':
+      return handleSearch(argv, prompter);
     case 'get':
       return handleGet(argv, prompter);
     case 'create':
@@ -86,38 +98,181 @@ async function handleTableSubcommand(
       process.exit(1);
   }
 }
-async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
+async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
+    const defaultSelect = {
+      id: true,
+      entityId: true,
+      contactId: true,
+      touchpointType: true,
+      occurredAt: true,
+      subject: true,
+      summary: true,
+      sentiment: true,
+      direction: true,
+      channel: true,
+      dealId: true,
+      companyId: true,
+      eventId: true,
+      meta: true,
+      tags: true,
+      createdAt: true,
+      updatedAt: true,
+      embeddingText: true,
+      embedding: true,
+      embeddingStale: true,
+    };
+    const findManyArgs = parseFindManyArgs<
+      FindManyArgs<TouchpointSelect, TouchpointFilter, never, TouchpointOrderBy> & {
+        select: TouchpointSelect;
+      }
+    >(argv, defaultSelect);
+    if (argv['auto-embed']) {
+      const embedder = resolveEmbedder();
+      if (!embedder) {
+        console.error(
+          '--auto-embed requires an embedder. Set EMBEDDER_PROVIDER=ollama (and optionally EMBEDDER_MODEL, EMBEDDER_BASE_URL).'
+        );
+        process.exit(1);
+      }
+      findManyArgs.where = await autoEmbedWhere(findManyArgs.where ?? {}, ['embedding'], embedder);
+    }
     const client = getClient();
-    const result = await client.touchpoint
-      .findMany({
-        select: {
-          id: true,
-          entityId: true,
-          contactId: true,
-          touchpointType: true,
-          occurredAt: true,
-          subject: true,
-          summary: true,
-          sentiment: true,
-          direction: true,
-          channel: true,
-          dealId: true,
-          companyId: true,
-          eventId: true,
-          meta: true,
-          tags: true,
-          createdAt: true,
-          updatedAt: true,
-          embeddingText: true,
-          embedding: true,
-          embeddingStale: true,
-        },
-      })
-      .execute();
+    const result = await client.touchpoint.findMany(findManyArgs).execute();
     console.log(JSON.stringify(result, null, 2));
   } catch (error) {
     console.error('Failed to list records.');
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    process.exit(1);
+  }
+}
+async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
+  try {
+    const defaultSelect = {
+      id: true,
+      entityId: true,
+      contactId: true,
+      touchpointType: true,
+      occurredAt: true,
+      subject: true,
+      summary: true,
+      sentiment: true,
+      direction: true,
+      channel: true,
+      dealId: true,
+      companyId: true,
+      eventId: true,
+      meta: true,
+      tags: true,
+      createdAt: true,
+      updatedAt: true,
+      embeddingText: true,
+      embedding: true,
+      embeddingStale: true,
+    };
+    const findFirstArgs = parseFindFirstArgs<
+      FindFirstArgs<TouchpointSelect, TouchpointFilter, never> & {
+        select: TouchpointSelect;
+      }
+    >(argv, defaultSelect);
+    const client = getClient();
+    const result = await client.touchpoint.findFirst(findFirstArgs).execute();
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error('Failed to find record.');
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    process.exit(1);
+  }
+}
+async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
+  try {
+    const query = Array.isArray(argv._) && argv._.length > 0 ? String(argv._[0]) : undefined;
+    if (!query) {
+      console.error('Error: search requires a <query> argument');
+      process.exit(1);
+    }
+    const searchWhere = {
+      embedding: {
+        vector: query,
+      },
+      bm25EmbeddingText: {
+        query,
+      },
+      trgmTouchpointType: {
+        value: query,
+        threshold: 0.3,
+      },
+      trgmSubject: {
+        value: query,
+        threshold: 0.3,
+      },
+      trgmSummary: {
+        value: query,
+        threshold: 0.3,
+      },
+      trgmSentiment: {
+        value: query,
+        threshold: 0.3,
+      },
+      trgmDirection: {
+        value: query,
+        threshold: 0.3,
+      },
+      trgmChannel: {
+        value: query,
+        threshold: 0.3,
+      },
+      trgmEmbeddingText: {
+        value: query,
+        threshold: 0.3,
+      },
+    };
+    if (argv['auto-embed']) {
+      const embedder = resolveEmbedder();
+      if (!embedder) {
+        console.error(
+          '--auto-embed requires an embedder. Set EMBEDDER_PROVIDER=ollama (and optionally EMBEDDER_MODEL, EMBEDDER_BASE_URL).'
+        );
+        process.exit(1);
+      }
+      await autoEmbedWhere(searchWhere ?? {}, ['embedding'], embedder);
+    }
+    const defaultSelect = {
+      id: true,
+      entityId: true,
+      contactId: true,
+      touchpointType: true,
+      occurredAt: true,
+      subject: true,
+      summary: true,
+      sentiment: true,
+      direction: true,
+      channel: true,
+      dealId: true,
+      companyId: true,
+      eventId: true,
+      meta: true,
+      tags: true,
+      createdAt: true,
+      updatedAt: true,
+      embeddingText: true,
+      embedding: true,
+      embeddingStale: true,
+    };
+    const findManyArgs = parseFindManyArgs<
+      FindManyArgs<TouchpointSelect, TouchpointFilter, never, TouchpointOrderBy> & {
+        select: TouchpointSelect;
+      }
+    >(argv, defaultSelect, searchWhere);
+    const client = getClient();
+    const result = await client.touchpoint.findMany(findManyArgs).execute();
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error('Failed to search records.');
     if (error instanceof Error) {
       console.error(error.message);
     }
@@ -292,6 +447,16 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as CreateTouchpointInput['touchpoint'];
+    if (argv['auto-embed']) {
+      const embedder = resolveEmbedder();
+      if (!embedder) {
+        console.error(
+          '--auto-embed requires an embedder. Set EMBEDDER_PROVIDER=ollama (and optionally EMBEDDER_MODEL, EMBEDDER_BASE_URL).'
+        );
+        process.exit(1);
+      }
+      await autoEmbedInput(cleanedData, ['embedding'], embedder);
+    }
     const client = getClient();
     const result = await client.touchpoint
       .create({
@@ -474,6 +639,16 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
     ]);
     const answers = coerceAnswers(rawAnswers, fieldSchema);
     const cleanedData = stripUndefined(answers, fieldSchema) as TouchpointPatch;
+    if (argv['auto-embed']) {
+      const embedder = resolveEmbedder();
+      if (!embedder) {
+        console.error(
+          '--auto-embed requires an embedder. Set EMBEDDER_PROVIDER=ollama (and optionally EMBEDDER_MODEL, EMBEDDER_BASE_URL).'
+        );
+        process.exit(1);
+      }
+      await autoEmbedInput(cleanedData, ['embedding'], embedder);
+    }
     const client = getClient();
     const result = await client.touchpoint
       .update({
