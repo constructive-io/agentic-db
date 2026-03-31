@@ -5,9 +5,16 @@
  */
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
-import { coerceAnswers, stripUndefined } from '../utils';
+import { coerceAnswers, parseFindFirstArgs, parseFindManyArgs, stripUndefined } from '../utils';
 import type { FieldSchema } from '../utils';
-import type { CreateRawContactInput, RawContactPatch } from '../../orm/input-types';
+import type {
+  CreateRawContactInput,
+  RawContactPatch,
+  RawContactSelect,
+  RawContactFilter,
+  RawContactOrderBy,
+} from '../../orm/input-types';
+import type { FindManyArgs, FindFirstArgs } from '../../orm/select-types';
 const fieldSchema: FieldSchema = {
   id: 'uuid',
   entityId: 'uuid',
@@ -28,7 +35,7 @@ const fieldSchema: FieldSchema = {
   updatedAt: 'string',
 };
 const usage =
-  '\nraw-contact <command>\n\nCommands:\n  list                  List all rawContact records\n  get                   Get a rawContact by ID\n  create                Create a new rawContact\n  update                Update an existing rawContact\n  delete                Delete a rawContact\n\n  --help, -h            Show this help message\n';
+  '\nraw-contact <command>\n\nCommands:\n  list                  List rawContact records\n  find-first            Find first matching rawContact record\n  get                   Get a rawContact by ID\n  create                Create a new rawContact\n  update                Update an existing rawContact\n  delete                Delete a rawContact\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -45,7 +52,7 @@ export default async (
         type: 'autocomplete',
         name: 'subcommand',
         message: 'What do you want to do?',
-        options: ['list', 'get', 'create', 'update', 'delete'],
+        options: ['list', 'find-first', 'get', 'create', 'update', 'delete'],
       },
     ]);
     return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
@@ -60,6 +67,8 @@ async function handleTableSubcommand(
   switch (subcommand) {
     case 'list':
       return handleList(argv, prompter);
+    case 'find-first':
+      return handleFindFirst(argv, prompter);
     case 'get':
       return handleGet(argv, prompter);
     case 'create':
@@ -73,35 +82,74 @@ async function handleTableSubcommand(
       process.exit(1);
   }
 }
-async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
+async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
+    const defaultSelect = {
+      id: true,
+      entityId: true,
+      externalId: true,
+      source: true,
+      firstName: true,
+      lastName: true,
+      fullName: true,
+      headline: true,
+      bio: true,
+      location: true,
+      company: true,
+      jobTitle: true,
+      rawData: true,
+      confidence: true,
+      ingestedAt: true,
+      createdAt: true,
+      updatedAt: true,
+    };
+    const findManyArgs = parseFindManyArgs<
+      FindManyArgs<RawContactSelect, RawContactFilter, never, RawContactOrderBy> & {
+        select: RawContactSelect;
+      }
+    >(argv, defaultSelect);
     const client = getClient();
-    const result = await client.rawContact
-      .findMany({
-        select: {
-          id: true,
-          entityId: true,
-          externalId: true,
-          source: true,
-          firstName: true,
-          lastName: true,
-          fullName: true,
-          headline: true,
-          bio: true,
-          location: true,
-          company: true,
-          jobTitle: true,
-          rawData: true,
-          confidence: true,
-          ingestedAt: true,
-          createdAt: true,
-          updatedAt: true,
-        },
-      })
-      .execute();
+    const result = await client.rawContact.findMany(findManyArgs).execute();
     console.log(JSON.stringify(result, null, 2));
   } catch (error) {
     console.error('Failed to list records.');
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    process.exit(1);
+  }
+}
+async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
+  try {
+    const defaultSelect = {
+      id: true,
+      entityId: true,
+      externalId: true,
+      source: true,
+      firstName: true,
+      lastName: true,
+      fullName: true,
+      headline: true,
+      bio: true,
+      location: true,
+      company: true,
+      jobTitle: true,
+      rawData: true,
+      confidence: true,
+      ingestedAt: true,
+      createdAt: true,
+      updatedAt: true,
+    };
+    const findFirstArgs = parseFindFirstArgs<
+      FindFirstArgs<RawContactSelect, RawContactFilter, never> & {
+        select: RawContactSelect;
+      }
+    >(argv, defaultSelect);
+    const client = getClient();
+    const result = await client.rawContact.findFirst(findFirstArgs).execute();
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error('Failed to find record.');
     if (error instanceof Error) {
       console.error(error.message);
     }

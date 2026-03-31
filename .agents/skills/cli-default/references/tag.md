@@ -8,6 +8,9 @@ CRUD operations for Tag records via agentic-db CLI
 
 ```bash
 agentic-db tag list
+agentic-db tag list --where.<field>.<op> <value> --orderBy <values>
+agentic-db tag list --limit 10 --after <cursor>
+agentic-db tag find-first --where.<field>.<op> <value>
 agentic-db tag get --id <UUID>
 agentic-db tag create --entityId <UUID> --name <String> [--color <String>] [--category <String>] [--usageCount <Int>]
 agentic-db tag update --id <UUID> [--entityId <UUID>] [--name <String>] [--color <String>] [--category <String>] [--usageCount <Int>]
@@ -16,10 +19,40 @@ agentic-db tag delete --id <UUID>
 
 ## Examples
 
-### List all tag records
+### List tag records
 
 ```bash
 agentic-db tag list
+```
+
+### List tag records with pagination
+
+```bash
+agentic-db tag list --limit 10 --offset 0
+```
+
+### List tag records with cursor pagination
+
+```bash
+agentic-db tag list --limit 10 --after <cursor>
+```
+
+### Find first matching tag
+
+```bash
+agentic-db tag find-first --where.id.equalTo <value>
+```
+
+### List tag records with field selection
+
+```bash
+agentic-db tag list --select id,id
+```
+
+### List tag records with filtering and ordering
+
+```bash
+agentic-db tag list --where.id.equalTo <value> --orderBy ID_ASC
 ```
 
 ### Create a tag

@@ -4,6 +4,9 @@
 
 ORM operations for HikingTrailsChunk records
 
+**pgvector embedding fields:** `embedding`
+High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ## Usage
 
 ```typescript

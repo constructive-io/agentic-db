@@ -5,9 +5,16 @@
  */
 import { CLIOptions, Inquirerer, extractFirst } from 'inquirerer';
 import { getClient } from '../executor';
-import { coerceAnswers, stripUndefined } from '../utils';
+import { coerceAnswers, parseFindFirstArgs, parseFindManyArgs, stripUndefined } from '../utils';
 import type { FieldSchema } from '../utils';
-import type { CreateTaskContactInput, TaskContactPatch } from '../../orm/input-types';
+import type {
+  CreateTaskContactInput,
+  TaskContactPatch,
+  TaskContactSelect,
+  TaskContactFilter,
+  TaskContactOrderBy,
+} from '../../orm/input-types';
+import type { FindManyArgs, FindFirstArgs } from '../../orm/select-types';
 const fieldSchema: FieldSchema = {
   taskId: 'uuid',
   contactId: 'uuid',
@@ -15,7 +22,7 @@ const fieldSchema: FieldSchema = {
   entityId: 'uuid',
 };
 const usage =
-  '\ntask-contact <command>\n\nCommands:\n  list                  List all taskContact records\n  get                   Get a taskContact by ID\n  create                Create a new taskContact\n  update                Update an existing taskContact\n  delete                Delete a taskContact\n\n  --help, -h            Show this help message\n';
+  '\ntask-contact <command>\n\nCommands:\n  list                  List taskContact records\n  find-first            Find first matching taskContact record\n  get                   Get a taskContact by ID\n  create                Create a new taskContact\n  update                Update an existing taskContact\n  delete                Delete a taskContact\n\nList Options:\n  --limit <n>           Max number of records to return (forward pagination)\n  --last <n>            Number of records from the end (backward pagination)\n  --after <cursor>      Cursor for forward pagination\n  --before <cursor>     Cursor for backward pagination\n  --offset <n>          Number of records to skip\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.name.equalTo foo)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n  --orderBy <values>    Comma-separated ordering values (e.g. NAME_ASC,CREATED_AT_DESC)\n\nFind-First Options:\n  --select <fields>     Comma-separated list of fields to return\n  --where.<field>.<op>  Filter (dot-notation, e.g. --where.status.equalTo active)\n  --condition.<f>.<op>  Condition filter (dot-notation)\n\n  --help, -h            Show this help message\n';
 export default async (
   argv: Partial<Record<string, unknown>>,
   prompter: Inquirerer,
@@ -32,7 +39,7 @@ export default async (
         type: 'autocomplete',
         name: 'subcommand',
         message: 'What do you want to do?',
-        options: ['list', 'get', 'create', 'update', 'delete'],
+        options: ['list', 'find-first', 'get', 'create', 'update', 'delete'],
       },
     ]);
     return handleTableSubcommand(answer.subcommand as string, newArgv, prompter);
@@ -47,6 +54,8 @@ async function handleTableSubcommand(
   switch (subcommand) {
     case 'list':
       return handleList(argv, prompter);
+    case 'find-first':
+      return handleFindFirst(argv, prompter);
     case 'get':
       return handleGet(argv, prompter);
     case 'create':
@@ -60,22 +69,48 @@ async function handleTableSubcommand(
       process.exit(1);
   }
 }
-async function handleList(_argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
+async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
+    const defaultSelect = {
+      taskId: true,
+      contactId: true,
+      id: true,
+      entityId: true,
+    };
+    const findManyArgs = parseFindManyArgs<
+      FindManyArgs<TaskContactSelect, TaskContactFilter, never, TaskContactOrderBy> & {
+        select: TaskContactSelect;
+      }
+    >(argv, defaultSelect);
     const client = getClient();
-    const result = await client.taskContact
-      .findMany({
-        select: {
-          taskId: true,
-          contactId: true,
-          id: true,
-          entityId: true,
-        },
-      })
-      .execute();
+    const result = await client.taskContact.findMany(findManyArgs).execute();
     console.log(JSON.stringify(result, null, 2));
   } catch (error) {
     console.error('Failed to list records.');
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    process.exit(1);
+  }
+}
+async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
+  try {
+    const defaultSelect = {
+      taskId: true,
+      contactId: true,
+      id: true,
+      entityId: true,
+    };
+    const findFirstArgs = parseFindFirstArgs<
+      FindFirstArgs<TaskContactSelect, TaskContactFilter, never> & {
+        select: TaskContactSelect;
+      }
+    >(argv, defaultSelect);
+    const client = getClient();
+    const result = await client.taskContact.findFirst(findFirstArgs).execute();
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error('Failed to find record.');
     if (error instanceof Error) {
       console.error(error.message);
     }

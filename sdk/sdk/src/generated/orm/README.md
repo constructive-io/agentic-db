@@ -202,6 +202,9 @@ const updated = await db.activityLog.update({ where: { id: '<UUID>' }, data: { e
 const deleted = await db.activityLog.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.activityLogsChunk`
 
 CRUD operations for ActivityLogsChunk records.
@@ -239,6 +242,9 @@ const updated = await db.activityLogsChunk.update({ where: { id: '<UUID>' }, dat
 // Delete
 const deleted = await db.activityLogsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.agent`
 
@@ -291,6 +297,9 @@ const updated = await db.agent.update({ where: { id: '<UUID>' }, data: { entityI
 // Delete
 const deleted = await db.agent.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.agentCollaborator`
 
@@ -370,6 +379,9 @@ const updated = await db.agentLog.update({ where: { id: '<UUID>' }, data: { enti
 const deleted = await db.agentLog.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.agentLogsChunk`
 
 CRUD operations for AgentLogsChunk records.
@@ -407,6 +419,9 @@ const updated = await db.agentLogsChunk.update({ where: { id: '<UUID>' }, data: 
 // Delete
 const deleted = await db.agentLogsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.agentPrompt`
 
@@ -488,6 +503,9 @@ const updated = await db.prompt.update({ where: { id: '<UUID>' }, data: { entity
 const deleted = await db.prompt.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.agentsChunk`
 
 CRUD operations for AgentsChunk records.
@@ -525,6 +543,9 @@ const updated = await db.agentsChunk.update({ where: { id: '<UUID>' }, data: { a
 // Delete
 const deleted = await db.agentsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.autonomyRecord`
 
@@ -577,6 +598,9 @@ const updated = await db.autonomyRecord.update({ where: { id: '<UUID>' }, data: 
 // Delete
 const deleted = await db.autonomyRecord.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.autonomyRecordLink`
 
@@ -647,6 +671,9 @@ const updated = await db.autonomyRecordsChunk.update({ where: { id: '<UUID>' }, 
 // Delete
 const deleted = await db.autonomyRecordsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.calendarAttendee`
 
@@ -774,6 +801,12 @@ const updated = await db.calendarEvent.update({ where: { id: '<UUID>' }, data: {
 const deleted = await db.calendarEvent.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
+> **Unified Search API fields:** `searchTsv`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
 ### `db.calendarEventContact`
 
 CRUD operations for CalendarEventContact records.
@@ -824,7 +857,7 @@ CRUD operations for Contact records.
 | `bio` | String | Yes |
 | `location` | String | Yes |
 | `birthday` | Date | Yes |
-| `relationshipType` | String | Yes |
+| `relationshipTypes` | String | Yes |
 | `howWeMet` | String | Yes |
 | `tags` | String | Yes |
 | `mainImageId` | UUID | Yes |
@@ -845,7 +878,6 @@ CRUD operations for Contact records.
 | `headlineTrgmSimilarity` | Float | Yes |
 | `bioTrgmSimilarity` | Float | Yes |
 | `locationTrgmSimilarity` | Float | Yes |
-| `relationshipTypeTrgmSimilarity` | Float | Yes |
 | `howWeMetTrgmSimilarity` | Float | Yes |
 | `embeddingTextTrgmSimilarity` | Float | Yes |
 | `searchScore` | Float | Yes |
@@ -854,13 +886,13 @@ CRUD operations for Contact records.
 
 ```typescript
 // List all contact records
-const items = await db.contact.findMany({ select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipType: true, howWeMet: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, locationGeo: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, relationshipTypeTrgmSimilarity: true, howWeMetTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const items = await db.contact.findMany({ select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipTypes: true, howWeMet: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, locationGeo: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, howWeMetTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Get one by id
-const item = await db.contact.findOne({ id: '<UUID>', select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipType: true, howWeMet: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, locationGeo: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, relationshipTypeTrgmSimilarity: true, howWeMetTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
+const item = await db.contact.findOne({ id: '<UUID>', select: { id: true, entityId: true, firstName: true, lastName: true, email: true, phone: true, headline: true, bio: true, location: true, birthday: true, relationshipTypes: true, howWeMet: true, tags: true, mainImageId: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, locationGeo: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, firstNameTrgmSimilarity: true, lastNameTrgmSimilarity: true, emailTrgmSimilarity: true, phoneTrgmSimilarity: true, headlineTrgmSimilarity: true, bioTrgmSimilarity: true, locationTrgmSimilarity: true, howWeMetTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Create
-const created = await db.contact.create({ data: { entityId: '<UUID>', firstName: '<String>', lastName: '<String>', email: '<String>', phone: '<String>', headline: '<String>', bio: '<String>', location: '<String>', birthday: '<Date>', relationshipType: '<String>', howWeMet: '<String>', tags: '<String>', mainImageId: '<UUID>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', locationGeo: '<GeographyInterface>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', firstNameTrgmSimilarity: '<Float>', lastNameTrgmSimilarity: '<Float>', emailTrgmSimilarity: '<Float>', phoneTrgmSimilarity: '<Float>', headlineTrgmSimilarity: '<Float>', bioTrgmSimilarity: '<Float>', locationTrgmSimilarity: '<Float>', relationshipTypeTrgmSimilarity: '<Float>', howWeMetTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
+const created = await db.contact.create({ data: { entityId: '<UUID>', firstName: '<String>', lastName: '<String>', email: '<String>', phone: '<String>', headline: '<String>', bio: '<String>', location: '<String>', birthday: '<Date>', relationshipTypes: '<String>', howWeMet: '<String>', tags: '<String>', mainImageId: '<UUID>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', locationGeo: '<GeographyInterface>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', firstNameTrgmSimilarity: '<Float>', lastNameTrgmSimilarity: '<Float>', emailTrgmSimilarity: '<Float>', phoneTrgmSimilarity: '<Float>', headlineTrgmSimilarity: '<Float>', bioTrgmSimilarity: '<Float>', locationTrgmSimilarity: '<Float>', howWeMetTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.contact.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
@@ -868,6 +900,12 @@ const updated = await db.contact.update({ where: { id: '<UUID>' }, data: { entit
 // Delete
 const deleted = await db.contact.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
+> **Unified Search API fields:** `searchTsv`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 ### `db.calendarEventNote`
 
@@ -950,6 +988,9 @@ const updated = await db.note.update({ where: { id: '<UUID>' }, data: { entityId
 const deleted = await db.note.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.calendarEventsChunk`
 
 CRUD operations for CalendarEventsChunk records.
@@ -987,6 +1028,9 @@ const updated = await db.calendarEventsChunk.update({ where: { id: '<UUID>' }, d
 // Delete
 const deleted = await db.calendarEventsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.calendarEventTask`
 
@@ -1072,6 +1116,9 @@ const updated = await db.task.update({ where: { id: '<UUID>' }, data: { entityId
 const deleted = await db.task.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.codebase`
 
 CRUD operations for Codebase records.
@@ -1125,6 +1172,9 @@ const updated = await db.codebase.update({ where: { id: '<UUID>' }, data: { enti
 // Delete
 const deleted = await db.codebase.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.codebaseDependency`
 
@@ -1196,6 +1246,9 @@ const updated = await db.codebasesChunk.update({ where: { id: '<UUID>' }, data: 
 const deleted = await db.codebasesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.codeChunk`
 
 CRUD operations for CodeChunk records.
@@ -1249,6 +1302,9 @@ const updated = await db.codeChunk.update({ where: { id: '<UUID>' }, data: { ent
 const deleted = await db.codeChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.companiesChunk`
 
 CRUD operations for CompaniesChunk records.
@@ -1286,6 +1342,9 @@ const updated = await db.companiesChunk.update({ where: { id: '<UUID>' }, data: 
 // Delete
 const deleted = await db.companiesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.company`
 
@@ -1338,6 +1397,12 @@ const updated = await db.company.update({ where: { id: '<UUID>' }, data: { entit
 const deleted = await db.company.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
+> **Unified Search API fields:** `searchTsv`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
 ### `db.deal`
 
 CRUD operations for Deal records.
@@ -1387,6 +1452,9 @@ const updated = await db.deal.update({ where: { id: '<UUID>' }, data: { entityId
 // Delete
 const deleted = await db.deal.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.companyEvent`
 
@@ -1476,6 +1544,12 @@ const updated = await db.event.update({ where: { id: '<UUID>' }, data: { entityI
 const deleted = await db.event.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
+> **Unified Search API fields:** `searchTsv`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
 ### `db.companyImage`
 
 CRUD operations for CompanyImage records.
@@ -1548,6 +1622,9 @@ const updated = await db.image.update({ where: { id: '<UUID>' }, data: { entityI
 const deleted = await db.image.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.companyLink`
 
 CRUD operations for CompanyLink records.
@@ -1586,6 +1663,9 @@ const updated = await db.companyLink.update({ where: { id: '<UUID>' }, data: { e
 // Delete
 const deleted = await db.companyLink.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.memory`
 
@@ -1637,6 +1717,9 @@ const updated = await db.memory.update({ where: { id: '<UUID>' }, data: { entity
 // Delete
 const deleted = await db.memory.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.companyMemory`
 
@@ -1837,18 +1920,27 @@ CRUD operations for Email records.
 | `embedding` | Vector | Yes |
 | `embeddingStale` | Boolean | Yes |
 | `emailThreadId` | UUID | Yes |
+| `searchTsvRank` | Float | Yes |
+| `embeddingTextBm25Score` | Float | Yes |
+| `embeddingVectorDistance` | Float | Yes |
+| `providerMessageIdTrgmSimilarity` | Float | Yes |
+| `subjectTrgmSimilarity` | Float | Yes |
+| `bodyTextTrgmSimilarity` | Float | Yes |
+| `bodyHtmlTrgmSimilarity` | Float | Yes |
+| `embeddingTextTrgmSimilarity` | Float | Yes |
+| `searchScore` | Float | Yes |
 
 **Operations:**
 
 ```typescript
 // List all email records
-const items = await db.email.findMany({ select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true } }).execute();
+const items = await db.email.findMany({ select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerMessageIdTrgmSimilarity: true, subjectTrgmSimilarity: true, bodyTextTrgmSimilarity: true, bodyHtmlTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Get one by id
-const item = await db.email.findOne({ id: '<UUID>', select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true } }).execute();
+const item = await db.email.findOne({ id: '<UUID>', select: { id: true, entityId: true, providerMessageId: true, fromContactId: true, to: true, cc: true, bcc: true, subject: true, bodyText: true, bodyHtml: true, sentAt: true, tags: true, createdAt: true, updatedAt: true, embeddingText: true, searchTsv: true, embedding: true, embeddingStale: true, emailThreadId: true, searchTsvRank: true, embeddingTextBm25Score: true, embeddingVectorDistance: true, providerMessageIdTrgmSimilarity: true, subjectTrgmSimilarity: true, bodyTextTrgmSimilarity: true, bodyHtmlTrgmSimilarity: true, embeddingTextTrgmSimilarity: true, searchScore: true } }).execute();
 
 // Create
-const created = await db.email.create({ data: { entityId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', to: '<JSON>', cc: '<JSON>', bcc: '<JSON>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>' }, select: { id: true } }).execute();
+const created = await db.email.create({ data: { entityId: '<UUID>', providerMessageId: '<String>', fromContactId: '<UUID>', to: '<JSON>', cc: '<JSON>', bcc: '<JSON>', subject: '<String>', bodyText: '<String>', bodyHtml: '<String>', sentAt: '<Datetime>', tags: '<String>', embeddingText: '<String>', searchTsv: '<FullText>', embedding: '<Vector>', embeddingStale: '<Boolean>', emailThreadId: '<UUID>', searchTsvRank: '<Float>', embeddingTextBm25Score: '<Float>', embeddingVectorDistance: '<Float>', providerMessageIdTrgmSimilarity: '<Float>', subjectTrgmSimilarity: '<Float>', bodyTextTrgmSimilarity: '<Float>', bodyHtmlTrgmSimilarity: '<Float>', embeddingTextTrgmSimilarity: '<Float>', searchScore: '<Float>' }, select: { id: true } }).execute();
 
 // Update
 const updated = await db.email.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
@@ -1856,6 +1948,12 @@ const updated = await db.email.update({ where: { id: '<UUID>' }, data: { entityI
 // Delete
 const deleted = await db.email.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
+> **Unified Search API fields:** `searchTsv`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 ### `db.emailThread`
 
@@ -1907,6 +2005,12 @@ const updated = await db.emailThread.update({ where: { id: '<UUID>' }, data: { e
 // Delete
 const deleted = await db.emailThread.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
+> **Unified Search API fields:** `searchTsv`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
 
 ### `db.contactEvent`
 
@@ -1993,6 +2097,9 @@ const updated = await db.expense.update({ where: { id: '<UUID>' }, data: { entit
 const deleted = await db.expense.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.contactImage`
 
 CRUD operations for ContactImage records.
@@ -2063,6 +2170,9 @@ const updated = await db.contactLink.update({ where: { id: '<UUID>' }, data: { e
 // Delete
 const deleted = await db.contactLink.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.contactMemory`
 
@@ -2217,6 +2327,9 @@ const updated = await db.project.update({ where: { id: '<UUID>' }, data: { entit
 const deleted = await db.project.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.contactRelationship`
 
 CRUD operations for ContactRelationship records.
@@ -2287,6 +2400,9 @@ const updated = await db.contactsChunk.update({ where: { id: '<UUID>' }, data: {
 const deleted = await db.contactsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.conversation`
 
 CRUD operations for Conversation records.
@@ -2332,6 +2448,9 @@ const updated = await db.conversation.update({ where: { id: '<UUID>' }, data: { 
 const deleted = await db.conversation.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.conversationsChunk`
 
 CRUD operations for ConversationsChunk records.
@@ -2369,6 +2488,9 @@ const updated = await db.conversationsChunk.update({ where: { id: '<UUID>' }, da
 // Delete
 const deleted = await db.conversationsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.dealCompany`
 
@@ -2503,6 +2625,9 @@ const updated = await db.dealsChunk.update({ where: { id: '<UUID>' }, data: { de
 // Delete
 const deleted = await db.dealsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.emailAttachment`
 
@@ -2644,6 +2769,9 @@ const updated = await db.emailsChunk.update({ where: { id: '<UUID>' }, data: { e
 const deleted = await db.emailsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.emailThreadsChunk`
 
 CRUD operations for EmailThreadsChunk records.
@@ -2681,6 +2809,9 @@ const updated = await db.emailThreadsChunk.update({ where: { id: '<UUID>' }, dat
 // Delete
 const deleted = await db.emailThreadsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.eventImage`
 
@@ -2753,6 +2884,9 @@ const updated = await db.eventLink.update({ where: { id: '<UUID>' }, data: { ent
 const deleted = await db.eventLink.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.eventNote`
 
 CRUD operations for EventNote records.
@@ -2822,6 +2956,9 @@ const updated = await db.eventsChunk.update({ where: { id: '<UUID>' }, data: { e
 // Delete
 const deleted = await db.eventsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.eventVenue`
 
@@ -2919,6 +3056,12 @@ const updated = await db.venue.update({ where: { id: '<UUID>' }, data: { entityI
 const deleted = await db.venue.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
+> **Unified Search API fields:** `searchTsv`
+> Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
 ### `db.expenseContact`
 
 CRUD operations for ExpenseContact records.
@@ -2989,6 +3132,9 @@ const updated = await db.expensesChunk.update({ where: { id: '<UUID>' }, data: {
 const deleted = await db.expensesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.goal`
 
 CRUD operations for Goal records.
@@ -3036,6 +3182,9 @@ const updated = await db.goal.update({ where: { id: '<UUID>' }, data: { entityId
 // Delete
 const deleted = await db.goal.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.goalHabit`
 
@@ -3176,6 +3325,9 @@ const updated = await db.goalsChunk.update({ where: { id: '<UUID>' }, data: { go
 const deleted = await db.goalsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.hikingTrail`
 
 CRUD operations for HikingTrail records.
@@ -3228,6 +3380,9 @@ const updated = await db.hikingTrail.update({ where: { id: '<UUID>' }, data: { e
 const deleted = await db.hikingTrail.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.hikingTrailsChunk`
 
 CRUD operations for HikingTrailsChunk records.
@@ -3265,6 +3420,9 @@ const updated = await db.hikingTrailsChunk.update({ where: { id: '<UUID>' }, dat
 // Delete
 const deleted = await db.hikingTrailsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.interaction`
 
@@ -3314,6 +3472,9 @@ const updated = await db.interaction.update({ where: { id: '<UUID>' }, data: { e
 const deleted = await db.interaction.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.interactionsChunk`
 
 CRUD operations for InteractionsChunk records.
@@ -3352,6 +3513,9 @@ const updated = await db.interactionsChunk.update({ where: { id: '<UUID>' }, dat
 const deleted = await db.interactionsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.memoriesChunk`
 
 CRUD operations for MemoriesChunk records.
@@ -3389,6 +3553,9 @@ const updated = await db.memoriesChunk.update({ where: { id: '<UUID>' }, data: {
 // Delete
 const deleted = await db.memoriesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.message`
 
@@ -3438,6 +3605,9 @@ const updated = await db.message.update({ where: { id: '<UUID>' }, data: { entit
 const deleted = await db.message.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.messagesChunk`
 
 CRUD operations for MessagesChunk records.
@@ -3476,6 +3646,9 @@ const updated = await db.messagesChunk.update({ where: { id: '<UUID>' }, data: {
 const deleted = await db.messagesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.notesChunk`
 
 CRUD operations for NotesChunk records.
@@ -3513,6 +3686,9 @@ const updated = await db.notesChunk.update({ where: { id: '<UUID>' }, data: { no
 // Delete
 const deleted = await db.notesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.place`
 
@@ -3564,6 +3740,9 @@ const updated = await db.place.update({ where: { id: '<UUID>' }, data: { entityI
 const deleted = await db.place.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.placesChunk`
 
 CRUD operations for PlacesChunk records.
@@ -3601,6 +3780,9 @@ const updated = await db.placesChunk.update({ where: { id: '<UUID>' }, data: { p
 // Delete
 const deleted = await db.placesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.projectContact`
 
@@ -3672,6 +3854,9 @@ const updated = await db.projectsChunk.update({ where: { id: '<UUID>' }, data: {
 const deleted = await db.projectsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.promptsChunk`
 
 CRUD operations for PromptsChunk records.
@@ -3709,6 +3894,9 @@ const updated = await db.promptsChunk.update({ where: { id: '<UUID>' }, data: { 
 // Delete
 const deleted = await db.promptsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.providerSyncState`
 
@@ -3962,6 +4150,9 @@ const updated = await db.rule.update({ where: { id: '<UUID>' }, data: { entityId
 const deleted = await db.rule.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`, `triggerConceptEmbedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.rulesChunk`
 
 CRUD operations for RulesChunk records.
@@ -3999,6 +4190,9 @@ const updated = await db.rulesChunk.update({ where: { id: '<UUID>' }, data: { ru
 // Delete
 const deleted = await db.rulesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.runtimeArtifact`
 
@@ -4157,6 +4351,9 @@ const updated = await db.runtimeLog.update({ where: { id: '<UUID>' }, data: { en
 const deleted = await db.runtimeLog.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.runtimeLogsChunk`
 
 CRUD operations for RuntimeLogsChunk records.
@@ -4194,6 +4391,9 @@ const updated = await db.runtimeLogsChunk.update({ where: { id: '<UUID>' }, data
 // Delete
 const deleted = await db.runtimeLogsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.runtimeMetric`
 
@@ -4320,6 +4520,9 @@ const updated = await db.runtimeState.update({ where: { id: '<UUID>' }, data: { 
 const deleted = await db.runtimeState.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.runtimeStateDependency`
 
 CRUD operations for RuntimeStateDependency records.
@@ -4390,6 +4593,9 @@ const updated = await db.runtimeStatesChunk.update({ where: { id: '<UUID>' }, da
 const deleted = await db.runtimeStatesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.skill`
 
 CRUD operations for Skill records.
@@ -4444,6 +4650,9 @@ const updated = await db.skill.update({ where: { id: '<UUID>' }, data: { entityI
 const deleted = await db.skill.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`, `intentTriggerEmbedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.skillsChunk`
 
 CRUD operations for SkillsChunk records.
@@ -4481,6 +4690,9 @@ const updated = await db.skillsChunk.update({ where: { id: '<UUID>' }, data: { s
 // Delete
 const deleted = await db.skillsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.skillTool`
 
@@ -4561,6 +4773,9 @@ const updated = await db.toolDefinition.update({ where: { id: '<UUID>' }, data: 
 // Delete
 const deleted = await db.toolDefinition.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.tag`
 
@@ -4732,6 +4947,9 @@ const updated = await db.tasksChunk.update({ where: { id: '<UUID>' }, data: { ta
 const deleted = await db.tasksChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.threadParticipant`
 
 CRUD operations for ThreadParticipant records.
@@ -4801,6 +5019,9 @@ const updated = await db.toolDefinitionsChunk.update({ where: { id: '<UUID>' }, 
 // Delete
 const deleted = await db.toolDefinitionsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.toolExecution`
 
@@ -4900,6 +5121,9 @@ const updated = await db.touchpoint.update({ where: { id: '<UUID>' }, data: { en
 const deleted = await db.touchpoint.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.touchpointsChunk`
 
 CRUD operations for TouchpointsChunk records.
@@ -4937,6 +5161,9 @@ const updated = await db.touchpointsChunk.update({ where: { id: '<UUID>' }, data
 // Delete
 const deleted = await db.touchpointsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.trip`
 
@@ -4987,6 +5214,9 @@ const updated = await db.trip.update({ where: { id: '<UUID>' }, data: { entityId
 const deleted = await db.trip.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.tripsChunk`
 
 CRUD operations for TripsChunk records.
@@ -5024,6 +5254,9 @@ const updated = await db.tripsChunk.update({ where: { id: '<UUID>' }, data: { tr
 // Delete
 const deleted = await db.tripsChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ### `db.venueImage`
 
@@ -5096,6 +5329,9 @@ const updated = await db.venueLink.update({ where: { id: '<UUID>' }, data: { ent
 const deleted = await db.venueLink.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
 ### `db.venuesChunk`
 
 CRUD operations for VenuesChunk records.
@@ -5133,6 +5369,9 @@ const updated = await db.venuesChunk.update({ where: { id: '<UUID>' }, data: { v
 // Delete
 const deleted = await db.venuesChunk.delete({ where: { id: '<UUID>' } }).execute();
 ```
+
+> **pgvector embedding fields:** `embedding`
+> High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
 
 ---
 
