@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_memberships/table
 
 
-GRANT UPDATE (is_banned, is_approved, is_disabled, granted) ON "agentic_db_memberships_public".org_memberships TO authenticated;
+GRANT UPDATE (is_banned, is_approved, is_disabled, granted) ON agentic_db_memberships_public.org_memberships TO authenticated;
 

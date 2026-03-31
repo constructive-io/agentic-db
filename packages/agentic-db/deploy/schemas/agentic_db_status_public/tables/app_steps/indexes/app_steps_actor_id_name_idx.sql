@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_status_public/tables/app_steps/columns/actor_id/column
 
 
-CREATE INDEX app_steps_actor_id_name_idx ON "agentic_db_status_public".app_steps USING BTREE ( actor_id, name );
+CREATE INDEX app_steps_actor_id_name_idx ON agentic_db_status_public.app_steps USING BTREE ( actor_id, name );
 

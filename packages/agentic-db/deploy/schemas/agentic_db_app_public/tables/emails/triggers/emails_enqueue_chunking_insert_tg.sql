@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER emails_enqueue_chunking_insert_tg
-AFTER INSERT ON "agentic_db_app_public".emails
+AFTER INSERT ON agentic_db_app_public.emails
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".emails_enqueue_chunking ( );
+EXECUTE PROCEDURE agentic_db_private.emails_enqueue_chunking ( );
 

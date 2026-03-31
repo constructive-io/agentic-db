@@ -58,7 +58,9 @@ const db = createClient({
 | `memory` | findMany, findOne, create, update, delete |
 | `companyMemory` | findMany, findOne, create, update, delete |
 | `companyNote` | findMany, findOne, create, update, delete |
+| `contactAddress` | findMany, findOne, create, update, delete |
 | `contactCompany` | findMany, findOne, create, update, delete |
+| `contactEmail` | findMany, findOne, create, update, delete |
 | `email` | findMany, findOne, create, update, delete |
 | `emailThread` | findMany, findOne, create, update, delete |
 | `contactEvent` | findMany, findOne, create, update, delete |
@@ -67,6 +69,7 @@ const db = createClient({
 | `contactLink` | findMany, findOne, create, update, delete |
 | `contactMemory` | findMany, findOne, create, update, delete |
 | `contactNote` | findMany, findOne, create, update, delete |
+| `contactPhone` | findMany, findOne, create, update, delete |
 | `project` | findMany, findOne, create, update, delete |
 | `contactRelationship` | findMany, findOne, create, update, delete |
 | `contactsChunk` | findMany, findOne, create, update, delete |
@@ -1699,6 +1702,46 @@ const updated = await db.companyNote.update({ where: { id: '<UUID>' }, data: { c
 const deleted = await db.companyNote.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
+### `db.contactAddress`
+
+CRUD operations for ContactAddress records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `street` | String | Yes |
+| `city` | String | Yes |
+| `state` | String | Yes |
+| `postalCode` | String | Yes |
+| `country` | String | Yes |
+| `addressType` | String | Yes |
+| `isPrimary` | Boolean | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `contactId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all contactAddress records
+const items = await db.contactAddress.findMany({ select: { id: true, entityId: true, street: true, city: true, state: true, postalCode: true, country: true, addressType: true, isPrimary: true, createdAt: true, updatedAt: true, contactId: true } }).execute();
+
+// Get one by id
+const item = await db.contactAddress.findOne({ id: '<UUID>', select: { id: true, entityId: true, street: true, city: true, state: true, postalCode: true, country: true, addressType: true, isPrimary: true, createdAt: true, updatedAt: true, contactId: true } }).execute();
+
+// Create
+const created = await db.contactAddress.create({ data: { entityId: '<UUID>', street: '<String>', city: '<String>', state: '<String>', postalCode: '<String>', country: '<String>', addressType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.contactAddress.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.contactAddress.delete({ where: { id: '<UUID>' } }).execute();
+```
+
 ### `db.contactCompany`
 
 CRUD operations for ContactCompany records.
@@ -1729,6 +1772,42 @@ const updated = await db.contactCompany.update({ where: { id: '<UUID>' }, data: 
 
 // Delete
 const deleted = await db.contactCompany.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.contactEmail`
+
+CRUD operations for ContactEmail records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `email` | String | Yes |
+| `emailType` | String | Yes |
+| `isPrimary` | Boolean | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `contactId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all contactEmail records
+const items = await db.contactEmail.findMany({ select: { id: true, entityId: true, email: true, emailType: true, isPrimary: true, createdAt: true, updatedAt: true, contactId: true } }).execute();
+
+// Get one by id
+const item = await db.contactEmail.findOne({ id: '<UUID>', select: { id: true, entityId: true, email: true, emailType: true, isPrimary: true, createdAt: true, updatedAt: true, contactId: true } }).execute();
+
+// Create
+const created = await db.contactEmail.create({ data: { entityId: '<UUID>', email: '<String>', emailType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.contactEmail.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.contactEmail.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.email`
@@ -2047,6 +2126,42 @@ const updated = await db.contactNote.update({ where: { id: '<UUID>' }, data: { c
 
 // Delete
 const deleted = await db.contactNote.delete({ where: { id: '<UUID>' } }).execute();
+```
+
+### `db.contactPhone`
+
+CRUD operations for ContactPhone records.
+
+**Fields:**
+
+| Field | Type | Editable |
+|-------|------|----------|
+| `id` | UUID | No |
+| `entityId` | UUID | Yes |
+| `phone` | String | Yes |
+| `phoneType` | String | Yes |
+| `isPrimary` | Boolean | Yes |
+| `createdAt` | Datetime | No |
+| `updatedAt` | Datetime | No |
+| `contactId` | UUID | Yes |
+
+**Operations:**
+
+```typescript
+// List all contactPhone records
+const items = await db.contactPhone.findMany({ select: { id: true, entityId: true, phone: true, phoneType: true, isPrimary: true, createdAt: true, updatedAt: true, contactId: true } }).execute();
+
+// Get one by id
+const item = await db.contactPhone.findOne({ id: '<UUID>', select: { id: true, entityId: true, phone: true, phoneType: true, isPrimary: true, createdAt: true, updatedAt: true, contactId: true } }).execute();
+
+// Create
+const created = await db.contactPhone.create({ data: { entityId: '<UUID>', phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' }, select: { id: true } }).execute();
+
+// Update
+const updated = await db.contactPhone.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute();
+
+// Delete
+const deleted = await db.contactPhone.delete({ where: { id: '<UUID>' } }).execute();
 ```
 
 ### `db.project`

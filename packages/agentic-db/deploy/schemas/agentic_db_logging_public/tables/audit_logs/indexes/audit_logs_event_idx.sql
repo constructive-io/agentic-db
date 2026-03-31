@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_logging_public/tables/audit_logs/columns/event/column
 
 
-CREATE INDEX audit_logs_event_idx ON "agentic_db_logging_public".audit_logs USING BTREE ( event );
+CREATE INDEX audit_logs_event_idx ON agentic_db_logging_public.audit_logs USING BTREE ( event );
 

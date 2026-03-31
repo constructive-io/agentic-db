@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-CREATE INDEX calendars_entity_id_idx ON "agentic_db_app_public".calendars USING BTREE ( entity_id );
+CREATE INDEX calendars_entity_id_idx ON agentic_db_app_public.calendars USING BTREE ( entity_id );
 

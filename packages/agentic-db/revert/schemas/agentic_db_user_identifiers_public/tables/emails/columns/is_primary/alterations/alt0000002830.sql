@@ -1,0 +1,6 @@
+-- Revert: schemas/agentic_db_user_identifiers_public/tables/emails/columns/is_primary/alterations/alt0000002830
+
+
+COMMENT ON COLUMN agentic_db_user_identifiers_public.emails.is_primary IS NULL;
+
+

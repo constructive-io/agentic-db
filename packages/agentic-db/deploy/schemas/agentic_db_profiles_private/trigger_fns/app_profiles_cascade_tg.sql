@@ -5,12 +5,12 @@
 
 
 
-CREATE FUNCTION "agentic_db_profiles_private".app_profiles_cascade_tg ()
+CREATE FUNCTION agentic_db_profiles_private.app_profiles_cascade_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 BEGIN
     IF (OLD.permissions IS DISTINCT FROM NEW.permissions) THEN
-        UPDATE "agentic_db_memberships_public".app_memberships
+        UPDATE agentic_db_memberships_public.app_memberships
             SET profile_id = profile_id
         WHERE profile_id = NEW.id;
     END IF;

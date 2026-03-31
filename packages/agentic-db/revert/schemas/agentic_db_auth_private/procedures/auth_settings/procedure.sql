@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION "agentic_db_auth_private".auth_settings;
+DROP FUNCTION agentic_db_auth_private.auth_settings;
 
 

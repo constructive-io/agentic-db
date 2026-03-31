@@ -6,7 +6,7 @@
 
 
 
-CREATE FUNCTION "agentic_db_memberships_private".app_memberships_update_sprt_tg ()
+CREATE FUNCTION agentic_db_memberships_private.app_memberships_update_sprt_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 DECLARE
@@ -29,10 +29,10 @@ BEGIN
         NEW.is_banned IS FALSE 
     ) INTO NEW.is_active;
     IF ( NEW.is_active IS FALSE ) THEN 
-        DELETE FROM "agentic_db_memberships_private".app_memberships_sprt 
+        DELETE FROM agentic_db_memberships_private.app_memberships_sprt 
             WHERE actor_id = NEW.actor_id;
     ELSE 
-        INSERT INTO "agentic_db_memberships_private".app_memberships_sprt 
+        INSERT INTO agentic_db_memberships_private.app_memberships_sprt 
             (is_owner, is_admin, permissions, actor_id)
         VALUES 
             (NEW.is_owner, NEW.is_admin, NEW.permissions, NEW.actor_id)

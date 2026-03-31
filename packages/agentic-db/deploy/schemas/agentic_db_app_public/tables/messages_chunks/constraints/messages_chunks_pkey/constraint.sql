@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
-ALTER TABLE "agentic_db_app_public".messages_chunks 
+ALTER TABLE agentic_db_app_public.messages_chunks 
   ADD CONSTRAINT messages_chunks_pkey PRIMARY KEY (id);
 

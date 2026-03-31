@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-CREATE INDEX prompts_entity_id_idx ON "agentic_db_app_public".prompts USING BTREE ( entity_id );
+CREATE INDEX prompts_entity_id_idx ON agentic_db_app_public.prompts USING BTREE ( entity_id );
 

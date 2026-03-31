@@ -63,7 +63,9 @@ agentic-db auth set-token <your-token>
 | `memory` | memory CRUD operations |
 | `company-memory` | companyMemory CRUD operations |
 | `company-note` | companyNote CRUD operations |
+| `contact-address` | contactAddress CRUD operations |
 | `contact-company` | contactCompany CRUD operations |
+| `contact-email` | contactEmail CRUD operations |
 | `email` | email CRUD operations |
 | `email-thread` | emailThread CRUD operations |
 | `contact-event` | contactEvent CRUD operations |
@@ -72,6 +74,7 @@ agentic-db auth set-token <your-token>
 | `contact-link` | contactLink CRUD operations |
 | `contact-memory` | contactMemory CRUD operations |
 | `contact-note` | contactNote CRUD operations |
+| `contact-phone` | contactPhone CRUD operations |
 | `project` | project CRUD operations |
 | `contact-relationship` | contactRelationship CRUD operations |
 | `contacts-chunk` | contactsChunk CRUD operations |
@@ -1508,6 +1511,38 @@ CRUD operations for CompanyNote records.
 
 **Required create fields:** `companyId`, `noteId`, `entityId`
 
+### `contact-address`
+
+CRUD operations for ContactAddress records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all contactAddress records |
+| `get` | Get a contactAddress by id |
+| `create` | Create a new contactAddress |
+| `update` | Update an existing contactAddress |
+| `delete` | Delete a contactAddress |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `street` | String |
+| `city` | String |
+| `state` | String |
+| `postalCode` | String |
+| `country` | String |
+| `addressType` | String |
+| `isPrimary` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `contactId` | UUID |
+
+**Required create fields:** `entityId`, `contactId`
+**Optional create fields (backend defaults):** `street`, `city`, `state`, `postalCode`, `country`, `addressType`, `isPrimary`
+
 ### `contact-company`
 
 CRUD operations for ContactCompany records.
@@ -1530,6 +1565,34 @@ CRUD operations for ContactCompany records.
 | `entityId` | UUID |
 
 **Required create fields:** `contactId`, `companyId`, `entityId`
+
+### `contact-email`
+
+CRUD operations for ContactEmail records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all contactEmail records |
+| `get` | Get a contactEmail by id |
+| `create` | Create a new contactEmail |
+| `update` | Update an existing contactEmail |
+| `delete` | Delete a contactEmail |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `email` | String |
+| `emailType` | String |
+| `isPrimary` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `contactId` | UUID |
+
+**Required create fields:** `entityId`, `email`, `contactId`
+**Optional create fields (backend defaults):** `emailType`, `isPrimary`
 
 ### `email`
 
@@ -1789,6 +1852,34 @@ CRUD operations for ContactNote records.
 | `entityId` | UUID |
 
 **Required create fields:** `contactId`, `noteId`, `entityId`
+
+### `contact-phone`
+
+CRUD operations for ContactPhone records.
+
+| Subcommand | Description |
+|------------|-------------|
+| `list` | List all contactPhone records |
+| `get` | Get a contactPhone by id |
+| `create` | Create a new contactPhone |
+| `update` | Update an existing contactPhone |
+| `delete` | Delete a contactPhone |
+
+**Fields:**
+
+| Field | Type |
+|-------|------|
+| `id` | UUID |
+| `entityId` | UUID |
+| `phone` | String |
+| `phoneType` | String |
+| `isPrimary` | Boolean |
+| `createdAt` | Datetime |
+| `updatedAt` | Datetime |
+| `contactId` | UUID |
+
+**Required create fields:** `entityId`, `phone`, `contactId`
+**Optional create fields (backend defaults):** `phoneType`, `isPrimary`
 
 ### `project`
 

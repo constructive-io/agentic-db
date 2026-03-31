@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_auth_private/tables/app_auth_settings/table
 
 
-ALTER TABLE "agentic_db_auth_private".app_auth_settings 
+ALTER TABLE agentic_db_auth_private.app_auth_settings 
   ADD COLUMN require_csrf_for_auth boolean;
 

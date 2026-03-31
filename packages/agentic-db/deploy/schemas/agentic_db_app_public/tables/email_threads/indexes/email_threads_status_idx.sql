@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/email_threads/columns/status/column
 
 
-CREATE INDEX email_threads_status_idx ON "agentic_db_app_public".email_threads USING BTREE ( status );
+CREATE INDEX email_threads_status_idx ON agentic_db_app_public.email_threads USING BTREE ( status );
 

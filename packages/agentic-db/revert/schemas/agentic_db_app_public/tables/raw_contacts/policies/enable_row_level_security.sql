@@ -1,7 +1,7 @@
 -- Revert: schemas/agentic_db_app_public/tables/raw_contacts/policies/enable_row_level_security
 
 
-ALTER TABLE "agentic_db_app_public".raw_contacts 
+ALTER TABLE agentic_db_app_public.raw_contacts 
   DISABLE ROW LEVEL SECURITY;
 
 

@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER autonomy_records_enqueue_chunking_update_tg
-AFTER UPDATE ON "agentic_db_app_public".autonomy_records
+AFTER UPDATE ON agentic_db_app_public.autonomy_records
 FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_private".autonomy_records_enqueue_chunking ( );
+EXECUTE PROCEDURE agentic_db_private.autonomy_records_enqueue_chunking ( );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-CREATE INDEX tasks_chunks_tasks_id_idx ON "agentic_db_app_public".tasks_chunks USING BTREE ( tasks_id );
+CREATE INDEX tasks_chunks_tasks_id_idx ON agentic_db_app_public.tasks_chunks USING BTREE ( tasks_id );
 

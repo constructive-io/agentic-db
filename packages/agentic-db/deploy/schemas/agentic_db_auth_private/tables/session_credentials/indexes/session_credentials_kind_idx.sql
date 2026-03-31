@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_auth_private/tables/session_credentials/columns/kind/column
 
 
-CREATE INDEX session_credentials_kind_idx ON "agentic_db_auth_private".session_credentials USING BTREE ( kind );
+CREATE INDEX session_credentials_kind_idx ON agentic_db_auth_private.session_credentials USING BTREE ( kind );
 

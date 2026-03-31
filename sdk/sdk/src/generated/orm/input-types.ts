@@ -974,11 +974,35 @@ export interface CompanyNote {
   id: string;
   entityId?: string | null;
 }
+export interface ContactAddress {
+  id: string;
+  entityId?: string | null;
+  street?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postalCode?: string | null;
+  country?: string | null;
+  addressType?: string | null;
+  isPrimary?: boolean | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
+}
 export interface ContactCompany {
   contactId?: string | null;
   companyId?: string | null;
   id: string;
   entityId?: string | null;
+}
+export interface ContactEmail {
+  id: string;
+  entityId?: string | null;
+  email?: string | null;
+  emailType?: string | null;
+  isPrimary?: boolean | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
 }
 export interface Email {
   id: string;
@@ -1109,6 +1133,16 @@ export interface ContactNote {
   noteId?: string | null;
   id: string;
   entityId?: string | null;
+}
+export interface ContactPhone {
+  id: string;
+  entityId?: string | null;
+  phone?: string | null;
+  phoneType?: string | null;
+  isPrimary?: boolean | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  contactId?: string | null;
 }
 export interface Project {
   id: string;
@@ -2384,6 +2418,9 @@ export interface ContactRelations {
   contactsChunksByContactsId?: ConnectionResult<ContactsChunk>;
   interactions?: ConnectionResult<Interaction>;
   touchpoints?: ConnectionResult<Touchpoint>;
+  contactEmails?: ConnectionResult<ContactEmail>;
+  contactPhones?: ConnectionResult<ContactPhone>;
+  contactAddresses?: ConnectionResult<ContactAddress>;
   contactLinks?: ConnectionResult<ContactLink>;
   contactImages?: ConnectionResult<ContactImage>;
   contactCompanies?: ConnectionResult<ContactCompany>;
@@ -2557,8 +2594,14 @@ export interface CompanyNoteRelations {
   company?: Company | null;
   note?: Note | null;
 }
+export interface ContactAddressRelations {
+  contact?: Contact | null;
+}
 export interface ContactCompanyRelations {
   company?: Company | null;
+  contact?: Contact | null;
+}
+export interface ContactEmailRelations {
   contact?: Contact | null;
 }
 export interface EmailRelations {
@@ -2601,6 +2644,9 @@ export interface ContactMemoryRelations {
 export interface ContactNoteRelations {
   contact?: Contact | null;
   note?: Note | null;
+}
+export interface ContactPhoneRelations {
+  contact?: Contact | null;
 }
 export interface ProjectRelations {
   contacts?: ConnectionResult<Contact>;
@@ -2923,7 +2969,9 @@ export type CompanyLinkWithRelations = CompanyLink & CompanyLinkRelations;
 export type MemoryWithRelations = Memory & MemoryRelations;
 export type CompanyMemoryWithRelations = CompanyMemory & CompanyMemoryRelations;
 export type CompanyNoteWithRelations = CompanyNote & CompanyNoteRelations;
+export type ContactAddressWithRelations = ContactAddress & ContactAddressRelations;
 export type ContactCompanyWithRelations = ContactCompany & ContactCompanyRelations;
+export type ContactEmailWithRelations = ContactEmail & ContactEmailRelations;
 export type EmailWithRelations = Email & EmailRelations;
 export type EmailThreadWithRelations = EmailThread & EmailThreadRelations;
 export type ContactEventWithRelations = ContactEvent & ContactEventRelations;
@@ -2932,6 +2980,7 @@ export type ContactImageWithRelations = ContactImage & ContactImageRelations;
 export type ContactLinkWithRelations = ContactLink & ContactLinkRelations;
 export type ContactMemoryWithRelations = ContactMemory & ContactMemoryRelations;
 export type ContactNoteWithRelations = ContactNote & ContactNoteRelations;
+export type ContactPhoneWithRelations = ContactPhone & ContactPhoneRelations;
 export type ProjectWithRelations = Project & ProjectRelations;
 export type ContactRelationshipWithRelations = ContactRelationship & ContactRelationshipRelations;
 export type ContactsChunkWithRelations = ContactsChunk & ContactsChunkRelations;
@@ -3584,6 +3633,24 @@ export type ContactSelect = {
     first?: number;
     filter?: TouchpointFilter;
     orderBy?: TouchpointOrderBy[];
+  };
+  contactEmails?: {
+    select: ContactEmailSelect;
+    first?: number;
+    filter?: ContactEmailFilter;
+    orderBy?: ContactEmailOrderBy[];
+  };
+  contactPhones?: {
+    select: ContactPhoneSelect;
+    first?: number;
+    filter?: ContactPhoneFilter;
+    orderBy?: ContactPhoneOrderBy[];
+  };
+  contactAddresses?: {
+    select: ContactAddressSelect;
+    first?: number;
+    filter?: ContactAddressFilter;
+    orderBy?: ContactAddressOrderBy[];
   };
   contactLinks?: {
     select: ContactLinkSelect;
@@ -4622,6 +4689,23 @@ export type CompanyNoteSelect = {
     select: NoteSelect;
   };
 };
+export type ContactAddressSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  street?: boolean;
+  city?: boolean;
+  state?: boolean;
+  postalCode?: boolean;
+  country?: boolean;
+  addressType?: boolean;
+  isPrimary?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
+  };
+};
 export type ContactCompanySelect = {
   contactId?: boolean;
   companyId?: boolean;
@@ -4630,6 +4714,19 @@ export type ContactCompanySelect = {
   company?: {
     select: CompanySelect;
   };
+  contact?: {
+    select: ContactSelect;
+  };
+};
+export type ContactEmailSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  email?: boolean;
+  emailType?: boolean;
+  isPrimary?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
   contact?: {
     select: ContactSelect;
   };
@@ -4856,6 +4953,19 @@ export type ContactNoteSelect = {
   };
   note?: {
     select: NoteSelect;
+  };
+};
+export type ContactPhoneSelect = {
+  id?: boolean;
+  entityId?: boolean;
+  phone?: boolean;
+  phoneType?: boolean;
+  isPrimary?: boolean;
+  createdAt?: boolean;
+  updatedAt?: boolean;
+  contactId?: boolean;
+  contact?: {
+    select: ContactSelect;
   };
 };
 export type ProjectSelect = {
@@ -7170,6 +7280,18 @@ export interface ContactFilter {
   touchpoints?: ContactToManyTouchpointFilter;
   /** `touchpoints` exist. */
   touchpointsExist?: boolean;
+  /** Filter by the object’s `contactEmails` relation. */
+  contactEmails?: ContactToManyContactEmailFilter;
+  /** `contactEmails` exist. */
+  contactEmailsExist?: boolean;
+  /** Filter by the object’s `contactPhones` relation. */
+  contactPhones?: ContactToManyContactPhoneFilter;
+  /** `contactPhones` exist. */
+  contactPhonesExist?: boolean;
+  /** Filter by the object’s `contactAddresses` relation. */
+  contactAddresses?: ContactToManyContactAddressFilter;
+  /** `contactAddresses` exist. */
+  contactAddressesExist?: boolean;
   /** Filter by the object’s `contactLinks` relation. */
   contactLinks?: ContactToManyContactLinkFilter;
   /** `contactLinks` exist. */
@@ -8266,6 +8388,40 @@ export interface CompanyNoteFilter {
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
 }
+export interface ContactAddressFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `street` field. */
+  street?: StringFilter;
+  /** Filter by the object’s `city` field. */
+  city?: StringFilter;
+  /** Filter by the object’s `state` field. */
+  state?: StringFilter;
+  /** Filter by the object’s `postalCode` field. */
+  postalCode?: StringFilter;
+  /** Filter by the object’s `country` field. */
+  country?: StringFilter;
+  /** Filter by the object’s `addressType` field. */
+  addressType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactAddressFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactAddressFilter[];
+  /** Negates the expression. */
+  not?: ContactAddressFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
 export interface ContactCompanyFilter {
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
@@ -8283,6 +8439,32 @@ export interface ContactCompanyFilter {
   not?: ContactCompanyFilter;
   /** Filter by the object’s `company` relation. */
   company?: CompanyFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+export interface ContactEmailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `email` field. */
+  email?: StringFilter;
+  /** Filter by the object’s `emailType` field. */
+  emailType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactEmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactEmailFilter[];
+  /** Negates the expression. */
+  not?: ContactEmailFilter;
   /** Filter by the object’s `contact` relation. */
   contact?: ContactFilter;
 }
@@ -8609,6 +8791,32 @@ export interface ContactNoteFilter {
   contact?: ContactFilter;
   /** Filter by the object’s `note` relation. */
   note?: NoteFilter;
+}
+export interface ContactPhoneFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `phone` field. */
+  phone?: StringFilter;
+  /** Filter by the object’s `phoneType` field. */
+  phoneType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactPhoneFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactPhoneFilter[];
+  /** Negates the expression. */
+  not?: ContactPhoneFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
 }
 export interface ProjectFilter {
   /** Filter by the object’s `id` field. */
@@ -8959,7 +9167,7 @@ export interface EmailNoteFilter {
   note?: NoteFilter;
 }
 export interface EmailRecipientFilter {
-  /** Filter by the object’s `emailId` field. */
+  /** Filter by the object��s `emailId` field. */
   emailId?: UUIDFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
@@ -12098,6 +12306,22 @@ export type CompanyNoteOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type ContactAddressOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'CITY_ASC'
+  | 'CITY_DESC'
+  | 'COUNTRY_ASC'
+  | 'COUNTRY_DESC'
+  | 'ADDRESS_TYPE_ASC'
+  | 'ADDRESS_TYPE_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
 export type ContactCompanyOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -12110,6 +12334,20 @@ export type ContactCompanyOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type ContactEmailOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'EMAIL_ASC'
+  | 'EMAIL_DESC'
+  | 'EMAIL_TYPE_ASC'
+  | 'EMAIL_TYPE_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
 export type EmailOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -12266,6 +12504,20 @@ export type ContactNoteOrderBy =
   | 'ID_DESC'
   | 'ENTITY_ID_ASC'
   | 'ENTITY_ID_DESC';
+export type ContactPhoneOrderBy =
+  | 'NATURAL'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'ENTITY_ID_ASC'
+  | 'ENTITY_ID_DESC'
+  | 'PHONE_ASC'
+  | 'PHONE_DESC'
+  | 'PHONE_TYPE_ASC'
+  | 'PHONE_TYPE_DESC'
+  | 'CONTACT_ID_ASC'
+  | 'CONTACT_ID_DESC';
 export type ProjectOrderBy =
   | 'NATURAL'
   | 'PRIMARY_KEY_ASC'
@@ -14811,6 +15063,40 @@ export interface DeleteCompanyNoteInput {
   clientMutationId?: string;
   id: string;
 }
+export interface CreateContactAddressInput {
+  clientMutationId?: string;
+  contactAddress: {
+    entityId: string;
+    street?: string;
+    city?: string;
+    state?: string;
+    postalCode?: string;
+    country?: string;
+    addressType?: string;
+    isPrimary?: boolean;
+    contactId: string;
+  };
+}
+export interface ContactAddressPatch {
+  entityId?: string | null;
+  street?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postalCode?: string | null;
+  country?: string | null;
+  addressType?: string | null;
+  isPrimary?: boolean | null;
+  contactId?: string | null;
+}
+export interface UpdateContactAddressInput {
+  clientMutationId?: string;
+  id: string;
+  contactAddressPatch: ContactAddressPatch;
+}
+export interface DeleteContactAddressInput {
+  clientMutationId?: string;
+  id: string;
+}
 export interface CreateContactCompanyInput {
   clientMutationId?: string;
   contactCompany: {
@@ -14830,6 +15116,32 @@ export interface UpdateContactCompanyInput {
   contactCompanyPatch: ContactCompanyPatch;
 }
 export interface DeleteContactCompanyInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactEmailInput {
+  clientMutationId?: string;
+  contactEmail: {
+    entityId: string;
+    email: string;
+    emailType?: string;
+    isPrimary?: boolean;
+    contactId: string;
+  };
+}
+export interface ContactEmailPatch {
+  entityId?: string | null;
+  email?: string | null;
+  emailType?: string | null;
+  isPrimary?: boolean | null;
+  contactId?: string | null;
+}
+export interface UpdateContactEmailInput {
+  clientMutationId?: string;
+  id: string;
+  contactEmailPatch: ContactEmailPatch;
+}
+export interface DeleteContactEmailInput {
   clientMutationId?: string;
   id: string;
 }
@@ -15070,6 +15382,32 @@ export interface UpdateContactNoteInput {
   contactNotePatch: ContactNotePatch;
 }
 export interface DeleteContactNoteInput {
+  clientMutationId?: string;
+  id: string;
+}
+export interface CreateContactPhoneInput {
+  clientMutationId?: string;
+  contactPhone: {
+    entityId: string;
+    phone: string;
+    phoneType?: string;
+    isPrimary?: boolean;
+    contactId: string;
+  };
+}
+export interface ContactPhonePatch {
+  entityId?: string | null;
+  phone?: string | null;
+  phoneType?: string | null;
+  isPrimary?: boolean | null;
+  contactId?: string | null;
+}
+export interface UpdateContactPhoneInput {
+  clientMutationId?: string;
+  id: string;
+  contactPhonePatch: ContactPhonePatch;
+}
+export interface DeleteContactPhoneInput {
   clientMutationId?: string;
   id: string;
 }
@@ -17302,6 +17640,9 @@ export const connectionFieldsMap = {
     contactsChunksByContactsId: 'ContactsChunk',
     interactions: 'Interaction',
     touchpoints: 'Touchpoint',
+    contactEmails: 'ContactEmail',
+    contactPhones: 'ContactPhone',
+    contactAddresses: 'ContactAddress',
     contactLinks: 'ContactLink',
     contactImages: 'ContactImage',
     contactCompanies: 'ContactCompany',
@@ -17873,6 +18214,33 @@ export interface ContactToManyTouchpointFilter {
   /** Filters to entities where no related entity matches. */
   none?: TouchpointFilter;
 }
+/** A filter to be used against many `ContactEmail` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactEmailFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactEmailFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactEmailFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactEmailFilter;
+}
+/** A filter to be used against many `ContactPhone` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactPhoneFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactPhoneFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactPhoneFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactPhoneFilter;
+}
+/** A filter to be used against many `ContactAddress` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactToManyContactAddressFilter {
+  /** Filters to entities where at least one related entity matches. */
+  some?: ContactAddressFilter;
+  /** Filters to entities where every related entity matches. */
+  every?: ContactAddressFilter;
+  /** Filters to entities where no related entity matches. */
+  none?: ContactAddressFilter;
+}
 /** A filter to be used against many `ContactLink` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactToManyContactLinkFilter {
   /** Filters to entities where at least one related entity matches. */
@@ -18413,7 +18781,7 @@ export interface ImageToManyContactImageFilter {
   /** Filters to entities where no related entity matches. */
   none?: ContactImageFilter;
 }
-/** A filter to be used against many `CompanyImage` object types. All fields are combined with a logical ‘and.’ */
+/** A filter to be used against many `CompanyImage` object types. All fields are combined with a logical ���and.’ */
 export interface ImageToManyCompanyImageFilter {
   /** Filters to entities where at least one related entity matches. */
   some?: CompanyImageFilter;
@@ -19859,6 +20227,95 @@ export interface TouchpointFilter {
    */
   fullTextSearch?: string;
 }
+/** A filter to be used against `ContactEmail` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactEmailFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `email` field. */
+  email?: StringFilter;
+  /** Filter by the object’s `emailType` field. */
+  emailType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactEmailFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactEmailFilter[];
+  /** Negates the expression. */
+  not?: ContactEmailFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+/** A filter to be used against `ContactPhone` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactPhoneFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `phone` field. */
+  phone?: StringFilter;
+  /** Filter by the object’s `phoneType` field. */
+  phoneType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactPhoneFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactPhoneFilter[];
+  /** Negates the expression. */
+  not?: ContactPhoneFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
+/** A filter to be used against `ContactAddress` object types. All fields are combined with a logical ‘and.’ */
+export interface ContactAddressFilter {
+  /** Filter by the object’s `id` field. */
+  id?: UUIDFilter;
+  /** Filter by the object’s `entityId` field. */
+  entityId?: UUIDFilter;
+  /** Filter by the object’s `street` field. */
+  street?: StringFilter;
+  /** Filter by the object’s `city` field. */
+  city?: StringFilter;
+  /** Filter by the object’s `state` field. */
+  state?: StringFilter;
+  /** Filter by the object’s `postalCode` field. */
+  postalCode?: StringFilter;
+  /** Filter by the object’s `country` field. */
+  country?: StringFilter;
+  /** Filter by the object’s `addressType` field. */
+  addressType?: StringFilter;
+  /** Filter by the object’s `isPrimary` field. */
+  isPrimary?: BooleanFilter;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: DatetimeFilter;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: DatetimeFilter;
+  /** Filter by the object’s `contactId` field. */
+  contactId?: UUIDFilter;
+  /** Checks for all expressions in this list. */
+  and?: ContactAddressFilter[];
+  /** Checks for any expressions in this list. */
+  or?: ContactAddressFilter[];
+  /** Negates the expression. */
+  not?: ContactAddressFilter;
+  /** Filter by the object’s `contact` relation. */
+  contact?: ContactFilter;
+}
 /** A filter to be used against `ContactLink` object types. All fields are combined with a logical ‘and.’ */
 export interface ContactLinkFilter {
   /** Filter by the object’s `id` field. */
@@ -20192,7 +20649,7 @@ export interface ThreadParticipantFilter {
 }
 /** A filter to be used against `EmailRecipient` object types. All fields are combined with a logical ‘and.’ */
 export interface EmailRecipientFilter {
-  /** Filter by the object’s `emailId` field. */
+  /** Filter by the object��s `emailId` field. */
   emailId?: UUIDFilter;
   /** Filter by the object’s `contactId` field. */
   contactId?: UUIDFilter;
@@ -20852,6 +21309,18 @@ export interface ContactFilter {
   touchpoints?: ContactToManyTouchpointFilter;
   /** `touchpoints` exist. */
   touchpointsExist?: boolean;
+  /** Filter by the object’s `contactEmails` relation. */
+  contactEmails?: ContactToManyContactEmailFilter;
+  /** `contactEmails` exist. */
+  contactEmailsExist?: boolean;
+  /** Filter by the object’s `contactPhones` relation. */
+  contactPhones?: ContactToManyContactPhoneFilter;
+  /** `contactPhones` exist. */
+  contactPhonesExist?: boolean;
+  /** Filter by the object’s `contactAddresses` relation. */
+  contactAddresses?: ContactToManyContactAddressFilter;
+  /** `contactAddresses` exist. */
+  contactAddressesExist?: boolean;
   /** Filter by the object’s `contactLinks` relation. */
   contactLinks?: ContactToManyContactLinkFilter;
   /** `contactLinks` exist. */
@@ -25717,6 +26186,51 @@ export type DeleteCompanyNotePayloadSelect = {
     select: CompanyNoteEdgeSelect;
   };
 };
+export interface CreateContactAddressPayload {
+  clientMutationId?: string | null;
+  /** The `ContactAddress` that was created by this mutation. */
+  contactAddress?: ContactAddress | null;
+  contactAddressEdge?: ContactAddressEdge | null;
+}
+export type CreateContactAddressPayloadSelect = {
+  clientMutationId?: boolean;
+  contactAddress?: {
+    select: ContactAddressSelect;
+  };
+  contactAddressEdge?: {
+    select: ContactAddressEdgeSelect;
+  };
+};
+export interface UpdateContactAddressPayload {
+  clientMutationId?: string | null;
+  /** The `ContactAddress` that was updated by this mutation. */
+  contactAddress?: ContactAddress | null;
+  contactAddressEdge?: ContactAddressEdge | null;
+}
+export type UpdateContactAddressPayloadSelect = {
+  clientMutationId?: boolean;
+  contactAddress?: {
+    select: ContactAddressSelect;
+  };
+  contactAddressEdge?: {
+    select: ContactAddressEdgeSelect;
+  };
+};
+export interface DeleteContactAddressPayload {
+  clientMutationId?: string | null;
+  /** The `ContactAddress` that was deleted by this mutation. */
+  contactAddress?: ContactAddress | null;
+  contactAddressEdge?: ContactAddressEdge | null;
+}
+export type DeleteContactAddressPayloadSelect = {
+  clientMutationId?: boolean;
+  contactAddress?: {
+    select: ContactAddressSelect;
+  };
+  contactAddressEdge?: {
+    select: ContactAddressEdgeSelect;
+  };
+};
 export interface CreateContactCompanyPayload {
   clientMutationId?: string | null;
   /** The `ContactCompany` that was created by this mutation. */
@@ -25760,6 +26274,51 @@ export type DeleteContactCompanyPayloadSelect = {
   };
   contactCompanyEdge?: {
     select: ContactCompanyEdgeSelect;
+  };
+};
+export interface CreateContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `ContactEmail` that was created by this mutation. */
+  contactEmail?: ContactEmail | null;
+  contactEmailEdge?: ContactEmailEdge | null;
+}
+export type CreateContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  contactEmail?: {
+    select: ContactEmailSelect;
+  };
+  contactEmailEdge?: {
+    select: ContactEmailEdgeSelect;
+  };
+};
+export interface UpdateContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `ContactEmail` that was updated by this mutation. */
+  contactEmail?: ContactEmail | null;
+  contactEmailEdge?: ContactEmailEdge | null;
+}
+export type UpdateContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  contactEmail?: {
+    select: ContactEmailSelect;
+  };
+  contactEmailEdge?: {
+    select: ContactEmailEdgeSelect;
+  };
+};
+export interface DeleteContactEmailPayload {
+  clientMutationId?: string | null;
+  /** The `ContactEmail` that was deleted by this mutation. */
+  contactEmail?: ContactEmail | null;
+  contactEmailEdge?: ContactEmailEdge | null;
+}
+export type DeleteContactEmailPayloadSelect = {
+  clientMutationId?: boolean;
+  contactEmail?: {
+    select: ContactEmailSelect;
+  };
+  contactEmailEdge?: {
+    select: ContactEmailEdgeSelect;
   };
 };
 export interface CreateEmailPayload {
@@ -26120,6 +26679,51 @@ export type DeleteContactNotePayloadSelect = {
   };
   contactNoteEdge?: {
     select: ContactNoteEdgeSelect;
+  };
+};
+export interface CreateContactPhonePayload {
+  clientMutationId?: string | null;
+  /** The `ContactPhone` that was created by this mutation. */
+  contactPhone?: ContactPhone | null;
+  contactPhoneEdge?: ContactPhoneEdge | null;
+}
+export type CreateContactPhonePayloadSelect = {
+  clientMutationId?: boolean;
+  contactPhone?: {
+    select: ContactPhoneSelect;
+  };
+  contactPhoneEdge?: {
+    select: ContactPhoneEdgeSelect;
+  };
+};
+export interface UpdateContactPhonePayload {
+  clientMutationId?: string | null;
+  /** The `ContactPhone` that was updated by this mutation. */
+  contactPhone?: ContactPhone | null;
+  contactPhoneEdge?: ContactPhoneEdge | null;
+}
+export type UpdateContactPhonePayloadSelect = {
+  clientMutationId?: boolean;
+  contactPhone?: {
+    select: ContactPhoneSelect;
+  };
+  contactPhoneEdge?: {
+    select: ContactPhoneEdgeSelect;
+  };
+};
+export interface DeleteContactPhonePayload {
+  clientMutationId?: string | null;
+  /** The `ContactPhone` that was deleted by this mutation. */
+  contactPhone?: ContactPhone | null;
+  contactPhoneEdge?: ContactPhoneEdge | null;
+}
+export type DeleteContactPhonePayloadSelect = {
+  clientMutationId?: boolean;
+  contactPhone?: {
+    select: ContactPhoneSelect;
+  };
+  contactPhoneEdge?: {
+    select: ContactPhoneEdgeSelect;
   };
 };
 export interface CreateProjectPayload {
@@ -29986,6 +30590,18 @@ export type CompanyNoteEdgeSelect = {
     select: CompanyNoteSelect;
   };
 };
+/** A `ContactAddress` edge in the connection. */
+export interface ContactAddressEdge {
+  cursor?: string | null;
+  /** The `ContactAddress` at the end of the edge. */
+  node?: ContactAddress | null;
+}
+export type ContactAddressEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactAddressSelect;
+  };
+};
 /** A `ContactCompany` edge in the connection. */
 export interface ContactCompanyEdge {
   cursor?: string | null;
@@ -29996,6 +30612,18 @@ export type ContactCompanyEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ContactCompanySelect;
+  };
+};
+/** A `ContactEmail` edge in the connection. */
+export interface ContactEmailEdge {
+  cursor?: string | null;
+  /** The `ContactEmail` at the end of the edge. */
+  node?: ContactEmail | null;
+}
+export type ContactEmailEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactEmailSelect;
   };
 };
 /** A `Email` edge in the connection. */
@@ -30092,6 +30720,18 @@ export type ContactNoteEdgeSelect = {
   cursor?: boolean;
   node?: {
     select: ContactNoteSelect;
+  };
+};
+/** A `ContactPhone` edge in the connection. */
+export interface ContactPhoneEdge {
+  cursor?: string | null;
+  /** The `ContactPhone` at the end of the edge. */
+  node?: ContactPhone | null;
+}
+export type ContactPhoneEdgeSelect = {
+  cursor?: boolean;
+  node?: {
+    select: ContactPhoneSelect;
   };
 };
 /** A `Project` edge in the connection. */
