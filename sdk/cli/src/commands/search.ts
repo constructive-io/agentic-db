@@ -44,12 +44,18 @@ type SDKClient = ReturnType<typeof getClient>;
  * rank across all active signals.
  */
 const HYBRID_CONDITION = (query: string, queryEmbedding: number[]) => ({
-  vectorEmbedding: {
-    vector: queryEmbedding,
-    metric: 'COSINE' as const,
-    distance: 2.0,
-  },
-  fullTextSearch: query,
+  or: [
+    {
+      vectorEmbedding: {
+        vector: queryEmbedding,
+        metric: 'COSINE' as const,
+        distance: 2.0,
+      },
+    },
+    {
+      fullTextSearch: query,
+    },
+  ],
 });
 
 function toResult(
