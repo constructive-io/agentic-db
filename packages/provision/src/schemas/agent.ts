@@ -206,8 +206,8 @@ const definition: BlueprintDefinition = {
         }},
       ],
       fields: [
-        { name: 'description', type: 'text', is_required: true },
-        { name: 'amount', type: 'numeric', is_required: true },
+        { name: 'description', type: 'text' },
+        { name: 'amount', type: 'numeric' },
         { name: 'currency', type: 'text', default_value: "'USD'" },
         { name: 'category', type: 'text' },
         { name: 'occurred_at', type: 'timestamptz' },
