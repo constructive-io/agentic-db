@@ -48,7 +48,7 @@ INSERT INTO metaschema_modules_public.user_auth_module (
   verify_password_function,
   check_password_function
 ) VALUES
-  ('019d4170-0de0-7e1e-8c9c-1d087c9b5f57', '019d416f-3253-7543-a058-30ea5a6b7e37', '019d416f-e428-7c91-84b3-441173f7e68c', '019d416f-e749-726e-9c23-08883823a1a4', '019d416f-384a-79e2-9379-99ca3460e274', '019d416f-ccf3-7839-acc6-587351bf7c12', '019d416f-e0eb-79b5-a9d3-5fceb20ad939', '019d416f-d087-7421-8a37-5d5b259a5873', '019d416f-d53c-7113-84bd-f5b7712f8a62', '019d4170-0ed4-755a-9e6a-2fa49574b3e0', 'audit_logs', 'sign_in', 'sign_up', 'sign_out', 'sign_in_one_time_token', 'one_time_token', 'extend_token_expires', 'send_account_deletion_email', 'confirm_delete_account', 'set_password', 'reset_password', 'forgot_password', 'send_verification_email', 'verify_email', 'verify_password', 'check_password');
+  ('019d4300-9354-7476-bc60-7472d2a8ec4f', '019d42ff-c75a-7c43-be39-ef7a74b280f4', '019d4300-6b30-7a8d-86cc-21bfca0a8064', '019d4300-6e5f-7970-86cd-e5e4637e320d', '019d42ff-ca62-77a0-ab97-b8d784c420dc', '019d4300-5444-78d6-86fe-90e23e663ef4', '019d4300-67f9-7c9f-b2e5-c1f113a807be', '019d4300-579d-7121-85be-36b04e2499f2', '019d4300-5c1d-7e64-b841-b65b14c0cde0', '019d4300-94b6-7cf0-bf79-6c8e46cf35d8', 'audit_logs', 'sign_in', 'sign_up', 'sign_out', 'sign_in_one_time_token', 'one_time_token', 'extend_token_expires', 'send_account_deletion_email', 'confirm_delete_account', 'set_password', 'reset_password', 'forgot_password', 'send_verification_email', 'verify_email', 'verify_password', 'check_password');
 
 
 SET session_replication_role TO DEFAULT;

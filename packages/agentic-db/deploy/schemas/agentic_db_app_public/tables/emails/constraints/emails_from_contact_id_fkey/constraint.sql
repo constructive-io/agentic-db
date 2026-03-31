@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_logs/indexes/activity_logs_habit_id_idx
 
 
-ALTER TABLE agentic_db_app_public.emails 
+ALTER TABLE "agentic_db_app_public".emails 
   ADD CONSTRAINT emails_from_contact_id_fkey 
     FOREIGN KEY(from_contact_id) 
-    REFERENCES agentic_db_app_public.contacts (id) 
+    REFERENCES "agentic_db_app_public".contacts (id) 
     ON DELETE SET NULL;
 

@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION agentic_db_auth_public.one_time_token;
+DROP FUNCTION "agentic_db_auth_public".one_time_token;
 
 
 

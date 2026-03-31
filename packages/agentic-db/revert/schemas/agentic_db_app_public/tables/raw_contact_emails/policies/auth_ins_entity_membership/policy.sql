@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/raw_contact_emails/policies/auth_ins_entity_membership/policy
 
 
-DROP POLICY auth_ins_entity_membership ON agentic_db_app_public.raw_contact_emails;
+DROP POLICY auth_ins_entity_membership ON "agentic_db_app_public".raw_contact_emails;
 
 

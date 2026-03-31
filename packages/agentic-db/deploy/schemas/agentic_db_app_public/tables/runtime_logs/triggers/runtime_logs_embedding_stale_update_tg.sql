@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER runtime_logs_embedding_stale_update_tg
-BEFORE UPDATE ON agentic_db_app_public.runtime_logs
+BEFORE UPDATE ON "agentic_db_app_public".runtime_logs
 FOR EACH ROW
 WHEN (OLD.message IS DISTINCT FROM NEW.message)
-EXECUTE PROCEDURE agentic_db_private.runtime_logs_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".runtime_logs_embedding_stale ( );
 

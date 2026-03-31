@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-GRANT INSERT ON agentic_db_app_public.email_attachments TO authenticated;
+GRANT INSERT ON "agentic_db_app_public".email_attachments TO authenticated;
 

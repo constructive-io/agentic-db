@@ -3,6 +3,6 @@
 
 
 
-DROP FUNCTION agentic_db_memberships_private.app_mbr_create;
+DROP FUNCTION "agentic_db_memberships_private".app_mbr_create;
 
 

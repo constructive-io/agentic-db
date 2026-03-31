@@ -9,7 +9,7 @@
 
 
 CREATE TRIGGER hiking_trails_enqueue_chunking_insert_tg
-AFTER INSERT ON agentic_db_app_public.hiking_trails
+AFTER INSERT ON "agentic_db_app_public".hiking_trails
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.hiking_trails_enqueue_chunking ( );
+EXECUTE PROCEDURE "agentic_db_private".hiking_trails_enqueue_chunking ( );
 

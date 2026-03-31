@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_memberships_public/tables/app_memberships/triggers/_00015_app_memberships_profile_sync_itrg
 
 
-DROP TRIGGER _00015_app_memberships_profile_sync_itrg ON agentic_db_memberships_public.app_memberships;
+DROP TRIGGER _00015_app_memberships_profile_sync_itrg ON "agentic_db_memberships_public".app_memberships;
 
 

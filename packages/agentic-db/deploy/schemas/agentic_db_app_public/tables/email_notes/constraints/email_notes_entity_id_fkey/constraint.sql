@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/email_recipients/policies/auth_del_entity_membership/policy
 
 
-ALTER TABLE agentic_db_app_public.email_notes 
+ALTER TABLE "agentic_db_app_public".email_notes 
   ADD CONSTRAINT email_notes_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

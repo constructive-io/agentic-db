@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/provider_sync_states/indexes/provider_sync_states_status_idx
 
 
-ALTER TABLE agentic_db_app_public.raw_contact_phones 
+ALTER TABLE "agentic_db_app_public".raw_contact_phones 
   ADD COLUMN created_at timestamptz;
 

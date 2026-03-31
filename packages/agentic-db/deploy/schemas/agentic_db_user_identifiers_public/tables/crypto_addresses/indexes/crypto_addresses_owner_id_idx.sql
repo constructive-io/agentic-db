@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_user_identifiers_public/tables/crypto_addresses/columns/owner_id/column
 
 
-CREATE INDEX crypto_addresses_owner_id_idx ON agentic_db_user_identifiers_public.crypto_addresses USING BTREE ( owner_id );
+CREATE INDEX crypto_addresses_owner_id_idx ON "agentic_db_user_identifiers_public".crypto_addresses USING BTREE ( owner_id );
 

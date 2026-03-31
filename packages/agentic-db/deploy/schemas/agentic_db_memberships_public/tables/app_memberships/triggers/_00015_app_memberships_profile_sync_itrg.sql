@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER _00015_app_memberships_profile_sync_itrg
-BEFORE INSERT ON agentic_db_memberships_public.app_memberships
+BEFORE INSERT ON "agentic_db_memberships_public".app_memberships
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_profiles_private.app_memberships_profile_sync_tg ( );
+EXECUTE PROCEDURE "agentic_db_profiles_private".app_memberships_profile_sync_tg ( );
 

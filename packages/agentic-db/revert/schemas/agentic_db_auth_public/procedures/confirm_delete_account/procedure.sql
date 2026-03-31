@@ -3,7 +3,7 @@
 
 
 
-DROP FUNCTION agentic_db_auth_public.confirm_delete_account;
+DROP FUNCTION "agentic_db_auth_public".confirm_delete_account;
 
 
 

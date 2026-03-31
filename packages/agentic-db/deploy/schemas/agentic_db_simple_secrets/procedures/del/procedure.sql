@@ -6,32 +6,32 @@
 
 
 
-CREATE FUNCTION agentic_db_simple_secrets.del (
+CREATE FUNCTION "agentic_db_simple_secrets".del (
   owner_id uuid,
   secret_name text
 )
   RETURNS void
   AS $$
-    DELETE FROM agentic_db_simple_secrets.secrets s 
+    DELETE FROM "agentic_db_simple_secrets".secrets s 
         WHERE
         s.owner_id = del.owner_id
         AND s.name = secret_name;
 $$
 LANGUAGE 'sql'
 VOLATILE;
-CREATE FUNCTION agentic_db_simple_secrets.del (
+CREATE FUNCTION "agentic_db_simple_secrets".del (
   owner_id uuid,
   secret_names text[]
 )
   RETURNS void
   AS $$
-    DELETE FROM agentic_db_simple_secrets.secrets s 
+    DELETE FROM "agentic_db_simple_secrets".secrets s 
         WHERE
         s.owner_id = del.owner_id
         AND s.name = ANY (secret_names);
 $$
 LANGUAGE 'sql'
 VOLATILE;
-GRANT EXECUTE ON FUNCTION agentic_db_simple_secrets.del(uuid,text) TO authenticated;
-GRANT EXECUTE ON FUNCTION agentic_db_simple_secrets.del(uuid,text[]) TO authenticated;
+GRANT EXECUTE ON FUNCTION "agentic_db_simple_secrets".del(uuid,text) TO authenticated;
+GRANT EXECUTE ON FUNCTION "agentic_db_simple_secrets".del(uuid,text[]) TO authenticated;
 

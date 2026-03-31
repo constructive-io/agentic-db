@@ -1,6 +1,6 @@
 -- Revert: schemas/agentic_db_app_public/tables/companies/triggers/companies_enqueue_embedding_update_tg
 
 
-DROP TRIGGER companies_enqueue_embedding_update_tg ON agentic_db_app_public.companies;
+DROP TRIGGER companies_enqueue_embedding_update_tg ON "agentic_db_app_public".companies;
 
 

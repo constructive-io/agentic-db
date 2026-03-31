@@ -8,8 +8,8 @@
 
 
 CREATE TRIGGER app_profiles_cascade_trg
-AFTER UPDATE ON agentic_db_profiles_public.app_profiles
+AFTER UPDATE ON "agentic_db_profiles_public".app_profiles
 FOR EACH ROW
 WHEN (OLD.permissions IS DISTINCT FROM NEW.permissions)
-EXECUTE PROCEDURE agentic_db_profiles_private.app_profiles_cascade_tg ( );
+EXECUTE PROCEDURE "agentic_db_profiles_private".app_profiles_cascade_tg ( );
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_state_dependencies/columns/dependency_id/column
 
 
-CREATE INDEX runtime_state_dependencies_dependency_id_idx ON agentic_db_app_public.runtime_state_dependencies USING BTREE ( dependency_id );
+CREATE INDEX runtime_state_dependencies_dependency_id_idx ON "agentic_db_app_public".runtime_state_dependencies USING BTREE ( dependency_id );
 

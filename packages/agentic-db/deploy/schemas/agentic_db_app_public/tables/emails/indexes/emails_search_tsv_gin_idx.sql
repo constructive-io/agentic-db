@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-CREATE INDEX emails_search_tsv_gin_idx ON agentic_db_app_public.emails USING GIN ( search_tsv );
+CREATE INDEX emails_search_tsv_gin_idx ON "agentic_db_app_public".emails USING GIN ( search_tsv );
 

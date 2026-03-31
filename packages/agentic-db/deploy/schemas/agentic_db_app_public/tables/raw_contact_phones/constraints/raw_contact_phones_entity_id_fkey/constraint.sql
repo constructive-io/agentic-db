@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/provider_sync_states/indexes/provider_sync_states_status_idx
 
 
-ALTER TABLE agentic_db_app_public.raw_contact_phones 
+ALTER TABLE "agentic_db_app_public".raw_contact_phones 
   ADD CONSTRAINT raw_contact_phones_entity_id_fkey 
     FOREIGN KEY(entity_id) 
-    REFERENCES agentic_db_users_public.users (id) 
+    REFERENCES "agentic_db_users_public".users (id) 
     ON DELETE CASCADE;
 

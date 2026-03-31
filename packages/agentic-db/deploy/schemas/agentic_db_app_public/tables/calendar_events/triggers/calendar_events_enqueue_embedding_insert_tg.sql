@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER calendar_events_enqueue_embedding_insert_tg
-AFTER INSERT ON agentic_db_app_public.calendar_events
+AFTER INSERT ON "agentic_db_app_public".calendar_events
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE agentic_db_private.calendar_events_enqueue_embedding ( );
+EXECUTE PROCEDURE "agentic_db_private".calendar_events_enqueue_embedding ( );
 

@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-ALTER TABLE agentic_db_app_public.expenses_chunks 
+ALTER TABLE "agentic_db_app_public".expenses_chunks 
   ADD CONSTRAINT expenses_chunks_expenses_id_fkey 
     FOREIGN KEY(expenses_id) 
-    REFERENCES agentic_db_app_public.expenses (id) 
+    REFERENCES "agentic_db_app_public".expenses (id) 
     ON DELETE CASCADE;
 

@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/provider_sync_states/columns/provider/column
 
 
-CREATE INDEX provider_sync_states_provider_idx ON agentic_db_app_public.provider_sync_states USING BTREE ( provider );
+CREATE INDEX provider_sync_states_provider_idx ON "agentic_db_app_public".provider_sync_states USING BTREE ( provider );
 

@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-ALTER TABLE agentic_db_app_public.tool_definitions_chunks 
+ALTER TABLE "agentic_db_app_public".tool_definitions_chunks 
   ADD CONSTRAINT tool_definitions_chunks_tool_definitions_id_fkey 
     FOREIGN KEY(tool_definitions_id) 
-    REFERENCES agentic_db_app_public.tool_definitions (id) 
+    REFERENCES "agentic_db_app_public".tool_definitions (id) 
     ON DELETE CASCADE;
 

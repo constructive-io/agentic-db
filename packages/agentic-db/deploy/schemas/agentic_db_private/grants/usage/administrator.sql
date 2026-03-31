@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_private/schema
 
 
-GRANT USAGE ON SCHEMA agentic_db_private TO administrator;
+GRANT USAGE ON SCHEMA "agentic_db_private" TO administrator;
 

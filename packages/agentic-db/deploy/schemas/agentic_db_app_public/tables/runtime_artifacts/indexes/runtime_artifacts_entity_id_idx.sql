@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/runtime_artifacts/columns/entity_id/column
 
 
-CREATE INDEX runtime_artifacts_entity_id_idx ON agentic_db_app_public.runtime_artifacts USING BTREE ( entity_id );
+CREATE INDEX runtime_artifacts_entity_id_idx ON "agentic_db_app_public".runtime_artifacts USING BTREE ( entity_id );
 

@@ -8,7 +8,7 @@
 
 
 CREATE TRIGGER app_profile_definition_grants_apply_trg
-AFTER INSERT ON agentic_db_profiles_public.app_profile_definition_grants
+AFTER INSERT ON "agentic_db_profiles_public".app_profile_definition_grants
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_profiles_private.app_profile_definition_grants_apply_tg ( );
+EXECUTE PROCEDURE "agentic_db_profiles_private".app_profile_definition_grants_apply_tg ( );
 

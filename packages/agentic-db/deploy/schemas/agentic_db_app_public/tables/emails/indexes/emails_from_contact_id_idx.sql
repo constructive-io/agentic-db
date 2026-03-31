@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_app_public/tables/activity_logs/indexes/activity_logs_habit_id_idx
 
 
-CREATE INDEX emails_from_contact_id_idx ON agentic_db_app_public.emails USING BTREE ( from_contact_id );
+CREATE INDEX emails_from_contact_id_idx ON "agentic_db_app_public".emails USING BTREE ( from_contact_id );
 

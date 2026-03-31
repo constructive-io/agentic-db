@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_limits_public/tables/org_limits/table
 
 
-GRANT INSERT ON agentic_db_limits_public.org_limits TO authenticated;
+GRANT INSERT ON "agentic_db_limits_public".org_limits TO authenticated;
 

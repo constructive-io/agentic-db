@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_profiles_public/tables/app_profile_grants/table
 
 
-GRANT INSERT ON agentic_db_profiles_public.app_profile_grants TO authenticated;
+GRANT INSERT ON "agentic_db_profiles_public".app_profile_grants TO authenticated;
 

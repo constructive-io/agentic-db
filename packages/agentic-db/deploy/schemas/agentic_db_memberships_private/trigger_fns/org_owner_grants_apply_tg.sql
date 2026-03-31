@@ -5,22 +5,22 @@
 
 
 
-CREATE FUNCTION agentic_db_memberships_private.org_owner_grants_apply_tg ()
+CREATE FUNCTION "agentic_db_memberships_private".org_owner_grants_apply_tg ()
   RETURNS TRIGGER
 AS $CODEZ$
 BEGIN
     IF (NEW.is_grant IS TRUE) THEN 
-        UPDATE agentic_db_memberships_public.org_memberships 
+        UPDATE "agentic_db_memberships_public".org_memberships 
             SET is_owner = TRUE
         WHERE actor_id = NEW.actor_id
         AND entity_id = NEW.entity_id; 
     ELSE 
-        UPDATE agentic_db_memberships_public.org_memberships 
+        UPDATE "agentic_db_memberships_public".org_memberships 
             SET is_owner = FALSE
         WHERE actor_id = NEW.actor_id
         AND entity_id = NEW.entity_id; 
         IF (
-            SELECT count(*) < 1 FROM agentic_db_memberships_public.org_memberships 
+            SELECT count(*) < 1 FROM "agentic_db_memberships_public".org_memberships 
             WHERE is_owner = TRUE
             AND entity_id = NEW.entity_id
         ) THEN 
