@@ -4,6 +4,12 @@
 
 ORM operations for Venue records
 
+**pgvector embedding fields:** `embedding`
+High-dimensional vector columns for semantic similarity search. Query via the Unified Search API pgvector adapter using cosine, L2, or inner-product distance.
+
+**Unified Search API fields:** `searchTsv`
+Fields provided by the Unified Search plugin. Includes full-text search (tsvector/BM25), trigram similarity scores, and the combined searchScore. Computed fields are read-only and cannot be set in create/update operations.
+
 ## Usage
 
 ```typescript
