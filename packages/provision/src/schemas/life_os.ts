@@ -9,7 +9,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
   CRUD_GRANTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -37,7 +36,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Habits -------------------------------------------------------------
@@ -54,7 +52,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Activity Logs ------------------------------------------------------
@@ -81,7 +78,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Memories -----------------------------------------------------------
@@ -106,7 +102,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Trips --------------------------------------------------------------
@@ -131,7 +126,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Hiking Trails ------------------------------------------------------
@@ -158,7 +152,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Places -------------------------------------------------------------
@@ -183,7 +176,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
   ],

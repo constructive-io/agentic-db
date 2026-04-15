@@ -1,6 +1,0 @@
--- Verify: schemas/agentic_db_memberships_private/tables/app_memberships_sprt/triggers/_00030_app_memberships_sprt_to_org_memberships_sprt
-
-
-SELECT verify_trigger('agentic_db_memberships_private._00030_app_memberships_sprt_to_org_memberships_sprt');
-
-

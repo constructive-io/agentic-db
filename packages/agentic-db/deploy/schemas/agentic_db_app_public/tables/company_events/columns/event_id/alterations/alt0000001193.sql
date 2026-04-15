@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/company_events/table
 -- requires: schemas/agentic_db_app_public/tables/company_events/columns/event_id/column
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
 ALTER TABLE "agentic_db_app_public".company_events 

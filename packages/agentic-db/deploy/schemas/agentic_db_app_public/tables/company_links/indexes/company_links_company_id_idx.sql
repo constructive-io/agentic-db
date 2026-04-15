@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/company_links/table
 -- requires: schemas/agentic_db_app_public/tables/company_links/columns/company_id/column
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
 CREATE INDEX company_links_company_id_idx ON "agentic_db_app_public".company_links USING BTREE ( company_id );

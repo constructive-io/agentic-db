@@ -7,7 +7,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
   CRUD_GRANTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -38,7 +37,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
   ],

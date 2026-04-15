@@ -8,7 +8,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
   CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
@@ -39,7 +38,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Tasks --------------------------------------------------------------
@@ -66,7 +64,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Agent Logs ---------------------------------------------------------
@@ -89,7 +86,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Rules --------------------------------------------------------------
@@ -117,7 +113,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Skills -------------------------------------------------------------
@@ -143,7 +138,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Tool Definitions ---------------------------------------------------
@@ -167,7 +161,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Prompts ------------------------------------------------------------
@@ -191,7 +184,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Expenses -----------------------------------------------------------
@@ -217,7 +209,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
   ],

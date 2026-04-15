@@ -4,7 +4,6 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/touchpoints_chunks/table
 -- requires: schemas/agentic_db_app_public/tables/touchpoints_chunks/columns/updated_at/column
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
 CREATE INDEX touchpoints_chunks_updated_at_idx ON "agentic_db_app_public".touchpoints_chunks ( updated_at );

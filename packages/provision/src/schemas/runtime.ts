@@ -7,7 +7,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
   CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
@@ -37,7 +36,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Runtime Logs -------------------------------------------------------
@@ -60,7 +58,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Runtime Artifacts ---------------------------------------------------
@@ -78,7 +75,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Runtime Metrics ----------------------------------------------------
@@ -95,7 +91,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Runtime Schedules --------------------------------------------------
@@ -114,7 +109,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Runtime Events -----------------------------------------------------
@@ -131,7 +125,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Runtime Config -----------------------------------------------------
@@ -147,7 +140,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Conversations & Messages -------------------------------------------
@@ -169,7 +161,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     {
@@ -193,7 +184,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Tool Executions (tool_definitions lives in agent.ts) ----------------
@@ -213,7 +203,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
   ],

@@ -1,10 +1,8 @@
 -- Deploy: schemas/agentic_db_app_public/tables/projects/triggers/projects_enqueue_chunking_insert_tg
 -- made with <3 @ constructive.io
 
--- requires: schemas/agentic_db_private/schema
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/projects/table
--- requires: schemas/agentic_db_private/trigger_fns/projects_enqueue_chunking
 -- requires: schemas/agentic_db_app_public/tables/tool_executions/indexes/tool_executions_status_idx
 
 

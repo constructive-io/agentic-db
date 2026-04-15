@@ -1,10 +1,8 @@
 -- Deploy: schemas/agentic_db_app_public/tables/runtime_logs/triggers/runtime_logs_enqueue_chunking_update_tg
 -- made with <3 @ constructive.io
 
--- requires: schemas/agentic_db_private/schema
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/runtime_logs/table
--- requires: schemas/agentic_db_private/trigger_fns/runtime_logs_enqueue_chunking
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 

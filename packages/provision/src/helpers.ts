@@ -40,13 +40,6 @@ export const entityGrants: [string, string][] = [
   ['delete', '*'],
 ];
 
-/**
- * Standard policy data for org-scoped tables (AuthzEntityMembership)
- */
-export const entityPolicyData = {
-  entity_field: 'entity_id',
-  membership_type: 2, // Org
-};
 
 /**
  * Read-only grants (for lookup/shared tables)

@@ -20,7 +20,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
   CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
@@ -44,7 +43,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Contacts -----------------------------------------------------------
@@ -87,7 +85,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Companies ----------------------------------------------------------
@@ -120,7 +117,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Deals --------------------------------------------------------------
@@ -145,7 +141,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Events -------------------------------------------------------------
@@ -182,7 +177,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Venues -------------------------------------------------------------
@@ -223,7 +217,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Notes --------------------------------------------------------------
@@ -247,7 +240,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Interactions -------------------------------------------------------
@@ -271,7 +263,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Touchpoints (cross-entity interaction timeline) --------------------
@@ -302,7 +293,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Tags (no embeddings) -----------------------------------------------
@@ -318,7 +308,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Contact detail tables (normalized, no embeddings) ------------------
@@ -337,7 +326,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
     {
       ref: 'contact_phones',
@@ -350,7 +338,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
     {
       ref: 'contact_addresses',
@@ -367,7 +354,6 @@ const definition: BlueprintDefinition = {
       ],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Link tables (standalone embedding) ---------------------------------
@@ -378,7 +364,6 @@ const definition: BlueprintDefinition = {
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
     {
       ref: 'company_links',
@@ -387,7 +372,6 @@ const definition: BlueprintDefinition = {
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
     {
       ref: 'event_links',
@@ -396,7 +380,6 @@ const definition: BlueprintDefinition = {
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
     {
       ref: 'venue_links',
@@ -405,7 +388,6 @@ const definition: BlueprintDefinition = {
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
       grant_roles: ['authenticated'],
       grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
   ],

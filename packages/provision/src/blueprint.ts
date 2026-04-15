@@ -18,7 +18,6 @@ import type {
   BlueprintNode,
   BlueprintRelation,
   BlueprintField,
-  BlueprintPolicy,
   BlueprintIndex,
   BlueprintFullTextSearch,
 } from 'node-type-registry';
@@ -37,39 +36,20 @@ export type {
   BlueprintNode,
   BlueprintRelation,
   BlueprintField,
-  BlueprintPolicy,
   BlueprintIndex,
   BlueprintFullTextSearch,
 };
-
-// Extend types for server-side features not yet in node-type-registry.
-// Policies need $type for the server (policy_type alone isn't sufficient).
-declare module 'node-type-registry' {
-  interface BlueprintPolicy {
-    $type?: string;
-  }
-}
 
 // ---------------------------------------------------------------------------
 // Shared constants — standard org-scoped table defaults
 // ---------------------------------------------------------------------------
 
-/** Standard entity membership nodes (DataEntityMembership + DataTimestamps) */
+/** Standard table nodes (DataTimestamps only — no entity membership) */
 export const ORG_NODES: BlueprintTable['nodes'] = [
-  'DataEntityMembership',
   { $type: 'DataTimestamps', data: { include_id: false } },
 ];
 
-/** Standard entity membership policy */
-export const ORG_POLICY: BlueprintPolicy = {
-  $type: 'AuthzEntityMembership',
-  privileges: ['select', 'insert', 'update', 'delete'],
-  permissive: true,
-  data: {
-    entity_field: 'entity_id',
-    membership_type: 2,
-  },
-};
+// No RLS policies — tables are open access
 
 /** Full CRUD grants */
 export const CRUD_GRANTS: [string, string][] = [
@@ -79,12 +59,8 @@ export const CRUD_GRANTS: [string, string][] = [
   ['delete', '*'],
 ];
 
-/** Standard M:N junction table options (entity membership + CRUD) */
+/** Standard M:N junction table options (timestamps + CRUD, no entity membership) */
 export const M2M_JUNCTION_OPTS = {
-  node_type: 'DataEntityMembership',
-  policy_type: 'AuthzEntityMembership',
-  policy_permissive: true,
-  policy_data: { entity_field: 'entity_id', membership_type: 2 },
   grant_roles: ['authenticated'],
   grant_privileges: [['select', '*'], ['insert', '*'], ['delete', '*']],
 };
@@ -132,7 +108,6 @@ export async function provisionBlueprint(
       fields: t.fields,
       grant_roles: t.grant_roles,
       grants: t.grants,
-      policies: t.policies,
     })),
     relations: definition.relations,
     indexes: definition.indexes ?? [],
