@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venues/table
 -- requires: schemas/agentic_db_private/trigger_fns/venues_search_tsv_tsv
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
 CREATE TRIGGER venues_search_tsv_tsv_update_tg

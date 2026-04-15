@@ -1,0 +1,7 @@
+-- Revert: schemas/agentic_db_app_public/tables/calendar_event_notes/columns/calendar_event_id/alterations/alt0000015930
+
+
+ALTER TABLE agentic_db_app_public.calendar_event_notes 
+  ALTER COLUMN calendar_event_id DROP NOT NULL;
+
+

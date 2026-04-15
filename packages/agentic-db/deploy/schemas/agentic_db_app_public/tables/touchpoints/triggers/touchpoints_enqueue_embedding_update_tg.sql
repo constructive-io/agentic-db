@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/table
 -- requires: schemas/agentic_db_private/trigger_fns/touchpoints_enqueue_embedding
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
 CREATE TRIGGER touchpoints_enqueue_embedding_update_tg

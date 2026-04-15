@@ -2,7 +2,7 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_private/schema
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
 CREATE FUNCTION agentic_db_private.deals_embedding_stale() RETURNS TRIGGER AS $_PGFN_$

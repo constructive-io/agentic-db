@@ -189,6 +189,36 @@ async function main() {
       }
     }
 
+    // -- Disable RLS on all junction tables --
+    // provision_relation enables RLS by default on M:N junctions.
+    // We explicitly disable it since we're running without security.
+    console.log('');
+    for (const rel of M2N_RELATIONS) {
+      try {
+        const tableId = await resolveTableId(rel.junctionTableName);
+        // Get physical schema + table name
+        const { rows: tableRows } = await pool.query(
+          `SELECT s.schema_name, t.table_name
+           FROM metaschema_public."table" t
+           JOIN metaschema_public.schema s ON s.id = t.schema_id
+           WHERE t.id = $1`,
+          [tableId]
+        );
+        if (tableRows[0]) {
+          const { schema_name, table_name } = tableRows[0];
+          await pool.query(`ALTER TABLE "${schema_name}"."${table_name}" DISABLE ROW LEVEL SECURITY`);
+          // Also update the metaschema record
+          await pool.query(
+            `UPDATE metaschema_public."table" SET use_rls = false WHERE id = $1`,
+            [tableId]
+          );
+        }
+      } catch {
+        // Junction table may not exist if creation was skipped
+      }
+    }
+    console.log('   ✓ RLS disabled on all junction tables');
+
     console.log(`\n✅ Cross-relations complete!\n`);
   } finally {
     await pool.end();
