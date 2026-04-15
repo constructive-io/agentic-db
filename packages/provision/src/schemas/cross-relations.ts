@@ -28,7 +28,6 @@ import {
   createPlatformClient,
   requireDatabaseId,
   withRetry,
-  entityPolicyData,
 } from '../helpers';
 
 const databaseId = requireDatabaseId();
@@ -62,10 +61,6 @@ async function fetchAllTables(): Promise<Map<string, string>> {
 // ---------------------------------------------------------------------------
 
 const m2mOpts = {
-  nodeType: 'DataEntityMembership',
-  policyType: 'AuthzEntityMembership',
-  policyPermissive: true,
-  policyData: entityPolicyData,
   grantRoles: ['authenticated'],
   grantPrivileges: [
     ['select', '*'],

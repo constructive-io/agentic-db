@@ -80,34 +80,6 @@ async function main() {
     await run(label, mod);
   }
 
-  // Enable app membership defaults: set is_approved and is_verified to TRUE.
-  // The memberships_module generator seeds both as FALSE (secure by default),
-  // but for agentic-db we want users to be immediately active on sign-up.
-  // This follows the same pattern as constructive-db's enableAppMembershipDefaults().
-  // Can also be run standalone: pnpm run enable-membership-defaults
-  if (pgAvailable) {
-    console.log('\n\ud83d\udd11 Enabling app membership defaults...');
-    const defaultsPool = new Pool({ database: process.env.PGDATABASE || 'constructive' });
-    // Find the actual memberships schema name (varies by database naming convention)
-    const schemaResult = await defaultsPool.query(
-      `SELECT schema_name FROM information_schema.schemata
-       WHERE schema_name LIKE '%memberships_public' AND schema_name LIKE '%agentic%'
-       ORDER BY schema_name DESC LIMIT 1`
-    );
-    if (schemaResult.rows.length > 0) {
-      const membershipsSchema = schemaResult.rows[0].schema_name;
-      await defaultsPool.query(
-        `UPDATE "${membershipsSchema}".app_membership_defaults
-         SET is_approved = TRUE, is_verified = TRUE`
-      );
-      console.log(`   schema: ${membershipsSchema}`);
-      console.log('   is_approved = TRUE, is_verified = TRUE');
-    } else {
-      console.log('   No memberships schema found - skipping defaults');
-    }
-    await defaultsPool.end();
-  }
-
   // Reset provision-only settings so normal operation uses random UUIDs.
   // Keep schema naming vars — they're needed at runtime too.
   if (pgAvailable) {

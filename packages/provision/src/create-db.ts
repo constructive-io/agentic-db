@@ -47,43 +47,39 @@ async function main() {
   }
   console.log(`   ✅ Signed up (ID: ${userId})`);
 
-  // --- Step 2: Provision database ---
+  // --- Step 2: Create bare database (no modules) ---
+  //
+  // We deliberately skip databaseProvisionModule (which installs users,
+  // memberships, permissions, RLS, etc.) and instead create just the
+  // database record.  The blueprint schemas in provision.ts will add
+  // the application tables without any security infrastructure.
 
-  console.log('\n   Provisioning database...');
+  console.log('\n   Creating bare database (no modules)...');
   const apiAdapter = new NodeHttpAdapter(config.apiEndpoint, {
     Authorization: `Bearer ${accessToken}`,
     'X-Meta-Schema': 'true',
   });
   const apiClient = public_.createClient({ adapter: apiAdapter });
 
-  const provData = await withRetry(() =>
-    apiClient.databaseProvisionModule
+  const dbData = await withRetry(() =>
+    apiClient.database
       .create({
         data: {
-          databaseName,
           ownerId: userId,
-          subdomain: databaseName,
-          domain: 'localhost',
-          modules: ['all'],
-          bootstrapUser: true,
-          options: {},
+          name: databaseName,
         },
-        select: { id: true, databaseId: true, errorMessage: true },
+        select: { id: true },
       })
       .unwrap()
   );
 
-  const dbProv =
-    provData?.createDatabaseProvisionModule?.databaseProvisionModule;
+  const databaseId = dbData?.createDatabase?.database?.id;
 
-  if (!dbProv || !dbProv.databaseId) {
-    console.error(
-      `❌ DB Provision failed: ${dbProv?.errorMessage || 'unknown'}`
-    );
+  if (!databaseId) {
+    console.error('❌ Database creation failed');
     process.exit(1);
   }
 
-  const databaseId = dbProv.databaseId;
   console.log(`   ✅ Database ready (ID: ${databaseId})`);
 
   // --- Step 3: Write .env ---
