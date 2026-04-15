@@ -4,28 +4,12 @@
 -- requires: schemas/agentic_db_auth_public/schema
 
 
-
-CREATE FUNCTION "agentic_db_auth_public".current_user_id ()
-  RETURNS uuid
-AS $$
-DECLARE
-  v_identifier_id uuid;
+CREATE FUNCTION agentic_db_auth_public.current_user_id() RETURNS uuid AS $_PGFN_$
 BEGIN
-  IF current_setting('jwt.claims.user_id', TRUE)
-    IS NOT NULL THEN
-    BEGIN
-      v_identifier_id = current_setting('jwt.claims.user_id', TRUE)::uuid;
-    EXCEPTION
-      WHEN OTHERS THEN
-      RAISE NOTICE 'Invalid UUID value';
+  RETURN jwt_public.current_user_id();
+EXCEPTION
+  WHEN OTHERS THEN
     RETURN NULL;
-    END;
-    RETURN v_identifier_id;
-  ELSE
-    RETURN NULL;
-  END IF;
 END;
-$$
-LANGUAGE 'plpgsql' STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".current_user_id TO authenticated;
+$_PGFN_$ LANGUAGE plpgsql STABLE;
 

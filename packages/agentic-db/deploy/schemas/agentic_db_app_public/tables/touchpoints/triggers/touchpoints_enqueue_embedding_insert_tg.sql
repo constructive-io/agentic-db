@@ -9,8 +9,8 @@
 
 
 CREATE TRIGGER touchpoints_enqueue_embedding_insert_tg
-AFTER INSERT ON "agentic_db_app_public".touchpoints
+AFTER INSERT ON agentic_db_app_public.touchpoints
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".touchpoints_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.touchpoints_enqueue_embedding ( );
 

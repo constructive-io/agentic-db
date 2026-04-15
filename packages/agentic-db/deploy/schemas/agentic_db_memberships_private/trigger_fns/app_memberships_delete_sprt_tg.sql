@@ -5,17 +5,14 @@
 -- requires: schemas/agentic_db_memberships_private/tables/app_memberships_sprt/table
 
 
-
-CREATE FUNCTION "agentic_db_memberships_private".app_memberships_delete_sprt_tg ()
-  RETURNS TRIGGER
-AS $CODEZ$
+CREATE FUNCTION agentic_db_memberships_private.app_memberships_delete_sprt_tg() RETURNS TRIGGER AS $_PGFN_$
 DECLARE
-    v_num_updated int;
+  v_num_updated int;
 BEGIN
-    DELETE FROM "agentic_db_memberships_private".app_memberships_sprt 
-        WHERE actor_id = OLD.actor_id;
-    RETURN OLD;
+  DELETE FROM agentic_db_memberships_private.app_memberships_sprt
+  WHERE
+    actor_id = OLD.actor_id;
+  RETURN OLD;
 END;
-$CODEZ$
-LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
+$_PGFN_$ LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
 

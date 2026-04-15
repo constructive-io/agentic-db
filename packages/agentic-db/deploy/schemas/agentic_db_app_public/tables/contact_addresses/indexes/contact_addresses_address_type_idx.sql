@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX contact_addresses_address_type_idx ON "agentic_db_app_public".contact_addresses USING BTREE ( address_type );
+CREATE INDEX contact_addresses_address_type_idx ON agentic_db_app_public.contact_addresses USING BTREE ( address_type );
 

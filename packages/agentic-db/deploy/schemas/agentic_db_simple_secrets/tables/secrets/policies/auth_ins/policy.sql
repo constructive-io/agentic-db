@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_simple_secrets/tables/secrets/table
 
 
-CREATE POLICY auth_ins ON "agentic_db_simple_secrets".secrets
+CREATE POLICY auth_ins ON agentic_db_simple_secrets.secrets
 FOR INSERT
 TO authenticated
 WITH CHECK (

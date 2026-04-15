@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_trip_id_idx
 
 
-ALTER TABLE "agentic_db_app_public".activity_logs 
+ALTER TABLE agentic_db_app_public.activity_logs 
   ADD CONSTRAINT activity_logs_habit_id_fkey 
     FOREIGN KEY(habit_id) 
-    REFERENCES "agentic_db_app_public".habits (id) 
+    REFERENCES agentic_db_app_public.habits (id) 
     ON DELETE SET NULL;
 

@@ -1,0 +1,7 @@
+-- Revert: schemas/agentic_db_app_public/tables/expense_contacts/columns/expense_id/alterations/alt0000013625
+
+
+ALTER TABLE agentic_db_app_public.expense_contacts 
+  ALTER COLUMN expense_id DROP NOT NULL;
+
+

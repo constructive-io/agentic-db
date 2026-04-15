@@ -1,0 +1,14 @@
+-- Deploy: schemas/agentic_db_storage_public/tables/upload_requests/constraints/upload_requests_owner_id_fkey/constraint
+-- made with <3 @ constructive.io
+
+-- requires: schemas/agentic_db_storage_public/schema
+-- requires: schemas/agentic_db_users_public/tables/users/table
+-- requires: schemas/agentic_db_storage_public/tables/upload_requests/table
+
+
+ALTER TABLE agentic_db_storage_public.upload_requests 
+  ADD CONSTRAINT upload_requests_owner_id_fkey 
+    FOREIGN KEY(owner_id) 
+    REFERENCES agentic_db_users_public.users (id) 
+    ON DELETE CASCADE;
+

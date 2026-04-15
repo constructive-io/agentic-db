@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/calendar_event_tasks/table
 -- requires: schemas/agentic_db_app_public/tables/calendar_event_tasks/columns/calendar_event_id/column
--- requires: schemas/agentic_db_app_public/tables/calendar_event_notes/policies/auth_del_entity_membership/policy
+-- requires: schemas/agentic_db_app_public/tables/calendar_event_notes/indexes/calendar_event_notes_note_id_idx
 
 
-CREATE INDEX calendar_event_tasks_calendar_event_id_idx ON "agentic_db_app_public".calendar_event_tasks USING BTREE ( calendar_event_id );
+CREATE INDEX calendar_event_tasks_calendar_event_id_idx ON agentic_db_app_public.calendar_event_tasks USING BTREE ( calendar_event_id );
 

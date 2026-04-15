@@ -5,21 +5,19 @@
 -- requires: schemas/agentic_db_users_public/tables/users/table
 
 
-
-CREATE FUNCTION "agentic_db_auth_public"."current_user"()
-    RETURNS "agentic_db_users_public".users
-AS $$
+CREATE FUNCTION agentic_db_auth_public.current_user() RETURNS agentic_db_users_public.users AS $_PGFN_$
 DECLARE
-  v_user "agentic_db_users_public".users;
+  v_user agentic_db_users_public.users;
 BEGIN
-  IF "agentic_db_auth_public".current_user_id() IS NOT NULL THEN
-     SELECT * FROM "agentic_db_users_public".users WHERE id = "agentic_db_auth_public".current_user_id() INTO v_user;
-     RETURN v_user;
+  IF agentic_db_auth_public.current_user_id() IS NOT NULL THEN
+    SELECT *
+    FROM ONLY agentic_db_users_public.users
+    WHERE
+      id = agentic_db_auth_public.current_user_id() INTO v_user;
+    RETURN v_user;
   ELSE
-     RETURN NULL;
+    RETURN NULL;
   END IF;
 END;
-$$
-LANGUAGE 'plpgsql' STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_auth_public"."current_user" TO authenticated;
+$_PGFN_$ LANGUAGE plpgsql STABLE;
 

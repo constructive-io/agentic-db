@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_profiles_public/tables/app_profiles/table
 
 
-CREATE POLICY auth_ins ON "agentic_db_profiles_public".app_profiles
+CREATE POLICY auth_ins ON agentic_db_profiles_public.app_profiles
 FOR INSERT
 TO authenticated
 WITH CHECK (
   EXISTS (SELECT 1
-  FROM "agentic_db_memberships_private".app_memberships_sprt AS app_sprt
+  FROM agentic_db_memberships_private.app_memberships_sprt AS app_sprt
   WHERE
       app_sprt.actor_id = jwt_public.current_user_id() AND (app_sprt.permissions & '000000000000000001000000') = '000000000000000001000000')
 );

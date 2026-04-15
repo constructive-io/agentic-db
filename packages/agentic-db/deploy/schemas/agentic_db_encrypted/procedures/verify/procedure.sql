@@ -3,43 +3,28 @@
 
 -- requires: schemas/agentic_db_encrypted/schema
 -- requires: schemas/agentic_db_encrypted/tables/encrypted_secrets/table
--- requires: schemas/agentic_db_encrypted/tables/encrypted_secrets/columns/algo/column
--- requires: schemas/agentic_db_encrypted/tables/encrypted_secrets/columns/owner_id/column
 
 
-
-CREATE FUNCTION "agentic_db_encrypted".verify (
-  owner_id uuid,
-  secret_name text,
-  value text
-)
-  RETURNS boolean
-  AS $$
+CREATE FUNCTION agentic_db_encrypted.verify(
+  IN owner_id uuid,
+  IN secret_name text,
+  IN value text
+) RETURNS boolean AS $_PGFN_$
 DECLARE
   v_secret_text text;
-  v_secret "agentic_db_encrypted".encrypted_secrets;
+  v_secret agentic_db_encrypted.encrypted_secrets;
 BEGIN
-  SELECT
-    *
-  FROM
-    "agentic_db_encrypted".get (verify.owner_id, verify.secret_name)
-  INTO v_secret_text;
-  SELECT
-    *
-  FROM
-    "agentic_db_encrypted".encrypted_secrets s
+  SELECT agentic_db_encrypted.get(verify.owner_id, verify.secret_name) INTO v_secret_text;
+  SELECT *
+  FROM agentic_db_encrypted.encrypted_secrets AS s
   WHERE
-    s.name = verify.secret_name
-    AND s.owner_id = verify.owner_id INTO v_secret;
-  IF (v_secret.algo = 'crypt') THEN
-    RETURN v_secret_text = crypt(verify.value::bytea::text, v_secret_text);
-  ELSIF (v_secret.algo = 'pgp') THEN
+    s.name = verify.secret_name AND s.owner_id = verify.owner_id INTO v_secret;
+  IF v_secret.algo = 'crypt' THEN
+    RETURN v_secret_text = public.crypt(verify.value::bytea::text, v_secret_text);
+  ELSIF v_secret.algo = 'pgp' THEN
     RETURN verify.value = v_secret_text;
   END IF;
   RETURN verify.value = v_secret_text;
-END
-$$
-LANGUAGE 'plpgsql'
-STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_encrypted".verify TO authenticated;
+END;
+$_PGFN_$ LANGUAGE plpgsql STABLE;
 

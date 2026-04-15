@@ -1,6 +1,6 @@
 -- Verify: schemas/agentic_db_auth_public/procedures/sign_out/procedure
 
 
-
+SELECT verify_function('agentic_db_auth_public.sign_out');
 
 

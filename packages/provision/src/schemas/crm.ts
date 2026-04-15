@@ -5,7 +5,7 @@
  *         interactions, touchpoints, tags, contact_links, company_links,
  *         event_links, venue_links, contact_emails, contact_phones,
  *         contact_addresses
- * Data* nodes: DataSearch, DataPostGIS, DataEmbedding
+ * Data* nodes: SearchUnified, SearchSpatial, SearchVector
  *
  * Field conventions for contacts:
  *   - contacts.email / contacts.phone / contacts.location are denormalized
@@ -32,7 +32,7 @@ const definition: BlueprintDefinition = {
       table_name: 'images',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } },
+        { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } },
       ],
       fields: [
         { name: 'url', type: 'text', is_required: true },
@@ -48,8 +48,8 @@ const definition: BlueprintDefinition = {
       table_name: 'contacts',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -62,7 +62,7 @@ const definition: BlueprintDefinition = {
           },
           trgm_fields: ['first_name', 'last_name'],
         }},
-        { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+        { $type: 'SearchSpatial', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
         { name: 'first_name', type: 'text', is_required: true },
@@ -88,8 +88,8 @@ const definition: BlueprintDefinition = {
       table_name: 'companies',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'industry'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description', 'industry'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -118,8 +118,8 @@ const definition: BlueprintDefinition = {
       table_name: 'deals',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes_text'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'notes_text'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -140,8 +140,8 @@ const definition: BlueprintDefinition = {
       table_name: 'events',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes_text', 'location'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'notes_text', 'location'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -153,7 +153,7 @@ const definition: BlueprintDefinition = {
           },
           trgm_fields: ['name'],
         }},
-        { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+        { $type: 'SearchSpatial', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
         { name: 'name', type: 'text', is_required: true },
@@ -174,8 +174,8 @@ const definition: BlueprintDefinition = {
       table_name: 'venues',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes', 'neighborhood'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'notes', 'neighborhood'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -187,7 +187,7 @@ const definition: BlueprintDefinition = {
           },
           trgm_fields: ['name'],
         }},
-        { $type: 'DataPostGIS', data: { field_name: 'location', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+        { $type: 'SearchSpatial', data: { field_name: 'location', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
         { name: 'name', type: 'text', is_required: true },
@@ -212,8 +212,8 @@ const definition: BlueprintDefinition = {
       table_name: 'notes',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['content', 'abstract'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['content', 'abstract'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -233,8 +233,8 @@ const definition: BlueprintDefinition = {
       table_name: 'interactions',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['summary'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['summary'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -254,8 +254,8 @@ const definition: BlueprintDefinition = {
       table_name: 'touchpoints',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['subject', 'summary'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['subject', 'summary'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -333,25 +333,25 @@ const definition: BlueprintDefinition = {
     {
       ref: 'contact_links',
       table_name: 'contact_links',
-      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: [...ORG_NODES, { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
     },
     {
       ref: 'company_links',
       table_name: 'company_links',
-      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: [...ORG_NODES, { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
     },
     {
       ref: 'event_links',
       table_name: 'event_links',
-      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: [...ORG_NODES, { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
     },
     {
       ref: 'venue_links',
       table_name: 'venue_links',
-      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: [...ORG_NODES, { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
     },
 

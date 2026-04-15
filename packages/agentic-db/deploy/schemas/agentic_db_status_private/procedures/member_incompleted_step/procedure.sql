@@ -6,22 +6,18 @@
 -- requires: schemas/agentic_db_status_public/tables/org_achievements/table
 
 
-
-CREATE FUNCTION "agentic_db_status_private".member_incompleted_step (
-  step text,
-  entity_id uuid,
-  actor_id uuid DEFAULT jwt_public.current_user_id()
-) RETURNS void AS $EOFCODE$
+CREATE FUNCTION agentic_db_status_private.member_incompleted_step(
+  IN step text,
+  IN entity_id uuid,
+  IN actor_id uuid DEFAULT jwt_public.current_user_id()
+) RETURNS void AS $_PGFN_$
 BEGIN
-  DELETE FROM "agentic_db_status_public".org_steps s
-    WHERE s.actor_id = member_incompleted_step.actor_id
-    AND s.entity_id = member_incompleted_step.entity_id
-    AND s.name = step;
-  DELETE FROM "agentic_db_status_public".org_achievements a
-    WHERE a.actor_id = member_incompleted_step.actor_id
-    AND a.entity_id = member_incompleted_step.entity_id
-    AND a.name = step;
+  DELETE FROM agentic_db_status_public.org_steps AS s
+  WHERE
+    (s.actor_id = member_incompleted_step.actor_id AND s.entity_id = member_incompleted_step.entity_id) AND s.name = member_incompleted_step.step;
+  DELETE FROM agentic_db_status_public.org_achievements AS a
+  WHERE
+    (a.actor_id = member_incompleted_step.actor_id AND a.entity_id = member_incompleted_step.entity_id) AND a.name = member_incompleted_step.step;
 END;
-$EOFCODE$ LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION "agentic_db_status_private".member_incompleted_step TO authenticated;
+$_PGFN_$ LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
 

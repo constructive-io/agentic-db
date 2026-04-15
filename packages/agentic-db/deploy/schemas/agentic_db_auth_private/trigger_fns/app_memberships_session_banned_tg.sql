@@ -2,21 +2,16 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_auth_private/schema
+-- requires: schemas/agentic_db_auth_private/tables/sessions/table
 
 
-
-CREATE FUNCTION "agentic_db_auth_private".app_memberships_session_banned_tg ()
-  RETURNS TRIGGER
-AS $CODEZ$
-DECLARE
+CREATE FUNCTION agentic_db_auth_private.app_memberships_session_banned_tg() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
-    -- Revoke all sessions for the user when banned/disabled
-    UPDATE "agentic_db_auth_private".sessions 
-        SET revoked_at = NOW()
-        WHERE user_id = NEW.actor_id
-        AND revoked_at IS NULL;
-    RETURN NEW;
+  UPDATE agentic_db_auth_private.sessions SET
+  revoked_at = now()
+  WHERE
+    user_id = NEW.actor_id AND revoked_at IS NULL;
+  RETURN NEW;
 END;
-$CODEZ$
-LANGUAGE plpgsql VOLATILE;
+$_PGFN_$ LANGUAGE plpgsql;
 

@@ -6,21 +6,19 @@
 -- requires: schemas/agentic_db_status_public/tables/app_achievements/table
 
 
-
-CREATE FUNCTION "agentic_db_status_private".incompleted_step (
-  step text,
-  actor_id uuid DEFAULT jwt_public.current_user_id()
-) RETURNS void AS $EOFCODE$
+CREATE FUNCTION agentic_db_status_private.incompleted_step(
+  IN step text,
+  IN actor_id uuid DEFAULT jwt_public.current_user_id()
+) RETURNS void AS $_PGFN_$
 BEGIN
-  IF (incompleted_step.actor_id IS NOT NULL) THEN 
-    DELETE FROM "agentic_db_status_public".app_steps s
-      WHERE s.actor_id = incompleted_step.actor_id
-      AND s.name = step;
-    DELETE FROM "agentic_db_status_public".app_achievements a
-      WHERE a.actor_id = incompleted_step.actor_id
-      AND a.name = step;
+  IF incompleted_step.actor_id IS NOT NULL THEN
+    DELETE FROM agentic_db_status_public.app_steps AS s
+    WHERE
+      s.actor_id = incompleted_step.actor_id AND s.name = incompleted_step.step;
+    DELETE FROM agentic_db_status_public.app_achievements AS a
+    WHERE
+      a.actor_id = incompleted_step.actor_id AND a.name = incompleted_step.step;
   END IF;
 END;
-$EOFCODE$ LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
-GRANT EXECUTE ON FUNCTION "agentic_db_status_private".incompleted_step TO authenticated;
+$_PGFN_$ LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
 

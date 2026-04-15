@@ -5,19 +5,14 @@
 -- requires: schemas/agentic_db_memberships_public/tables/app_memberships/table
 
 
-
-CREATE FUNCTION "agentic_db_memberships_private".app_mbr_create ()
-  RETURNS TRIGGER
-AS $CODEZ$
-DECLARE
+CREATE FUNCTION agentic_db_memberships_private.app_mbr_create() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
-    INSERT INTO
-    "agentic_db_memberships_public".app_memberships
-      (actor_id)
-    VALUES
-      (NEW.id);
-    RETURN NEW;
+  INSERT INTO agentic_db_memberships_public.app_memberships (
+    actor_id
+  )
+  VALUES
+    (NEW.id);
+  RETURN NEW;
 END;
-$CODEZ$
-LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
+$_PGFN_$ LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
 

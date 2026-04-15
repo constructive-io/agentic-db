@@ -5,6 +5,6 @@
 -- requires: schemas/agentic_db_auth_private/tables/session_credentials/table
 
 
-ALTER TABLE "agentic_db_auth_private".session_credentials 
+ALTER TABLE agentic_db_auth_private.session_credentials 
   ADD COLUMN revoked_at timestamptz;
 

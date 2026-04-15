@@ -4,21 +4,18 @@
 -- requires: schemas/agentic_db_encrypted/schema
 
 
-
-CREATE FUNCTION "agentic_db_encrypted".encrypted_secrets_hash ()
-RETURNS TRIGGER
-AS $CODEZ$
+CREATE FUNCTION agentic_db_encrypted.encrypted_secrets_hash() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
-   
-IF (NEW.algo = 'crypt') THEN
-    NEW.value = crypt(NEW.value::text, gen_salt('bf'));
-ELSIF (NEW.algo = 'pgp') THEN
-    NEW.value = pgp_sym_encrypt(encode(NEW.value::bytea, 'hex'), NEW.owner_id::text, 'compress-algo=1, cipher-algo=aes256');
-ELSE
-    NEW.algo = 'none';
-END IF;
-RETURN NEW;
+  IF NEW.algo = 'crypt' THEN
+    SELECT public.crypt(NEW.value::text, public.gen_salt('bf')) INTO NEW.value;
+  ELSE
+    IF NEW.algo = 'pgp' THEN
+      SELECT public.pgp_sym_encrypt(pg_catalog.encode(NEW.value::bytea, 'hex'), NEW.owner_id::text, 'compress-algo=1, cipher-algo=aes256') INTO NEW.value;
+    ELSE
+      SELECT 'none' INTO NEW.algo;
+    END IF;
+  END IF;
+  RETURN NEW;
 END;
-$CODEZ$
-LANGUAGE plpgsql VOLATILE;
+$_PGFN_$ LANGUAGE plpgsql VOLATILE;
 

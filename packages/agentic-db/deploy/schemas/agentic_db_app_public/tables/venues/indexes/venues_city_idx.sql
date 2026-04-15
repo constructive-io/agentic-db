@@ -7,5 +7,5 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX venues_city_idx ON "agentic_db_app_public".venues USING BTREE ( city );
+CREATE INDEX venues_city_idx ON agentic_db_app_public.venues USING BTREE ( city );
 

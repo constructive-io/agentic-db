@@ -4,5 +4,5 @@
 -- requires: schemas/agentic_db_memberships_public/schema
 
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA "agentic_db_memberships_public" GRANT ALL ON TABLES TO administrator;
+ALTER DEFAULT PRIVILEGES IN SCHEMA agentic_db_memberships_public GRANT ALL ON TABLES TO administrator;
 

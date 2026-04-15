@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_chart_edges/table
 
 
-GRANT UPDATE ON "agentic_db_memberships_public".org_chart_edges TO authenticated;
+GRANT UPDATE ON agentic_db_memberships_public.org_chart_edges TO authenticated;
 

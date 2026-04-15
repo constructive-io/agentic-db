@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/email_notes/table
 -- requires: schemas/agentic_db_app_public/tables/email_notes/columns/email_id/column
--- requires: schemas/agentic_db_app_public/tables/email_recipients/policies/auth_del_entity_membership/policy
+-- requires: schemas/agentic_db_app_public/tables/email_recipients/indexes/email_recipients_contact_id_idx
 
 
-CREATE INDEX email_notes_email_id_idx ON "agentic_db_app_public".email_notes USING BTREE ( email_id );
+CREATE INDEX email_notes_email_id_idx ON agentic_db_app_public.email_notes USING BTREE ( email_id );
 

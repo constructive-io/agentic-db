@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_members/table
 
 
-GRANT SELECT ON "agentic_db_memberships_public".org_members TO authenticated;
+GRANT SELECT ON agentic_db_memberships_public.org_members TO authenticated;
 

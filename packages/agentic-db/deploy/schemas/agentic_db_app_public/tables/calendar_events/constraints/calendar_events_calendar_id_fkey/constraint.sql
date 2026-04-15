@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".calendar_events 
+ALTER TABLE agentic_db_app_public.calendar_events 
   ADD CONSTRAINT calendar_events_calendar_id_fkey 
     FOREIGN KEY(calendar_id) 
-    REFERENCES "agentic_db_app_public".calendars (id) 
+    REFERENCES agentic_db_app_public.calendars (id) 
     ON DELETE CASCADE;
 

@@ -1,9 +1,6 @@
 -- Revert: schemas/agentic_db_auth_public/procedures/sign_out/procedure
 
 
-
-
-DROP FUNCTION "agentic_db_auth_public".sign_out;
-
+DROP FUNCTION agentic_db_auth_public.sign_out;
 
 

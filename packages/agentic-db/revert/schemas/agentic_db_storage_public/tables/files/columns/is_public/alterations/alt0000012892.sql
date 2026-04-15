@@ -1,0 +1,6 @@
+-- Revert: schemas/agentic_db_storage_public/tables/files/columns/is_public/alterations/alt0000012892
+
+
+COMMENT ON COLUMN agentic_db_storage_public.files.is_public IS NULL;
+
+

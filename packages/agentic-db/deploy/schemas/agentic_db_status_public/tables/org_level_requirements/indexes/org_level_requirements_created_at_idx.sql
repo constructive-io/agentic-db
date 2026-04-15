@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_status_public/tables/org_level_requirements/columns/created_at/column
 
 
-CREATE INDEX org_level_requirements_created_at_idx ON "agentic_db_status_public".org_level_requirements ( created_at );
+CREATE INDEX org_level_requirements_created_at_idx ON agentic_db_status_public.org_level_requirements ( created_at );
 

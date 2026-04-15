@@ -1,0 +1,10 @@
+-- Revert: schemas/agentic_db_limits_public/tables/org_limits/columns/id/alterations/alt0000012302
+
+
+
+
+ALTER TABLE agentic_db_limits_public.org_limits 
+    ALTER COLUMN id DROP DEFAULT;
+
+
+

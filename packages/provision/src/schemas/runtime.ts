@@ -1,7 +1,7 @@
 /**
  * runtime.ts - Runtime schema (blueprint definition)
  *
- * Data* nodes: DataSearch
+ * Data* nodes: SearchUnified
  */
 
 import {
@@ -19,8 +19,8 @@ const definition: BlueprintDefinition = {
       table_name: 'runtime_states',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'state_type'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'state_type'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -41,8 +41,8 @@ const definition: BlueprintDefinition = {
       table_name: 'runtime_logs',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['message'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['message'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -133,8 +133,8 @@ const definition: BlueprintDefinition = {
       table_name: 'conversations',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['title'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -151,8 +151,8 @@ const definition: BlueprintDefinition = {
       table_name: 'messages',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['content'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['content'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],

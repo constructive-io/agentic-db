@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_logging_public/tables/audit_logs/table
 
 
-CREATE POLICY auth_sel ON "agentic_db_logging_public".audit_logs
+CREATE POLICY auth_sel ON agentic_db_logging_public.audit_logs
 FOR SELECT
 TO authenticated
 USING (

@@ -5,37 +5,27 @@
 -- requires: schemas/agentic_db_memberships_private/tables/app_memberships_sprt/table
 
 
-
-CREATE FUNCTION "agentic_db_memberships_private".app_memberships_insert_sprt_tg ()
-  RETURNS TRIGGER
-AS $CODEZ$
-DECLARE
+CREATE FUNCTION agentic_db_memberships_private.app_memberships_insert_sprt_tg() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
-    IF (NEW.is_owner IS TRUE) THEN 
-      NEW.is_admin = TRUE;
-      NEW.is_verified = TRUE;
-      NEW.is_approved = TRUE;
-      NEW.is_disabled = FALSE;
-      NEW.is_banned = FALSE;
-    END IF;
-    SELECT (
-        NEW.is_verified IS TRUE
-    AND
-        NEW.is_approved IS TRUE
-    AND
-        NEW.is_disabled IS FALSE
-    AND
-        NEW.is_banned IS FALSE 
-    ) INTO NEW.is_active;
-    IF (NEW.is_active IS TRUE) THEN 
-        INSERT INTO "agentic_db_memberships_private".app_memberships_sprt 
-            (is_owner, is_admin, permissions, actor_id)
-        VALUES 
-            (NEW.is_owner, NEW.is_admin, NEW.permissions, NEW.actor_id)
-        ;
-    END IF;
-    RETURN NEW;
+  IF NEW.is_owner IS true THEN
+    new.is_admin := true;
+    new.is_approved := true;
+    new.is_verified := true;
+    new.is_disabled := false;
+    new.is_banned := false;
+  END IF;
+  new.is_active := ((NEW.is_approved IS true AND NEW.is_verified IS true) AND NEW.is_disabled IS false) AND NEW.is_banned IS false;
+  IF NEW.is_active IS TRUE THEN
+    INSERT INTO agentic_db_memberships_private.app_memberships_sprt (
+      is_owner,
+      is_admin,
+      permissions,
+      actor_id
+    )
+    VALUES
+      (NEW.is_owner, NEW.is_admin, NEW.permissions, NEW.actor_id);
+  END IF;
+  RETURN NEW;
 END;
-$CODEZ$
-LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
+$_PGFN_$ LANGUAGE plpgsql VOLATILE SECURITY DEFINER;
 

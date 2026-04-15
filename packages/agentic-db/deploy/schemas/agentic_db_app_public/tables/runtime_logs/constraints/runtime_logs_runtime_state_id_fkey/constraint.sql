@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
-ALTER TABLE "agentic_db_app_public".runtime_logs 
+ALTER TABLE agentic_db_app_public.runtime_logs 
   ADD CONSTRAINT runtime_logs_runtime_state_id_fkey 
     FOREIGN KEY(runtime_state_id) 
-    REFERENCES "agentic_db_app_public".runtime_states (id) 
+    REFERENCES agentic_db_app_public.runtime_states (id) 
     ON DELETE CASCADE;
 

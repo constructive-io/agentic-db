@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
 
 
-CREATE TABLE "agentic_db_app_public".activity_logs ();
+CREATE TABLE agentic_db_app_public.activity_logs ();
 

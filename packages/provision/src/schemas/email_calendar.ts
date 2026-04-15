@@ -3,7 +3,7 @@
  *
  * Tables: email_threads, emails, email_attachments, calendars,
  *         calendar_events, calendar_attendees, provider_sync_states
- * Data* nodes: DataSearch
+ * Data* nodes: SearchUnified
  */
 
 import {
@@ -20,8 +20,8 @@ const definition: BlueprintDefinition = {
       table_name: 'email_threads',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['subject', 'summary'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['subject', 'summary'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -49,8 +49,8 @@ const definition: BlueprintDefinition = {
       table_name: 'emails',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['subject', 'body_text'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['subject', 'body_text'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -109,8 +109,8 @@ const definition: BlueprintDefinition = {
       table_name: 'calendar_events',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'description'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['title', 'description'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',

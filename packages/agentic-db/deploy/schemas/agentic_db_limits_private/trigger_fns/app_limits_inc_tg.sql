@@ -2,37 +2,29 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_limits_private/schema
+-- requires: schemas/agentic_db_limits_private/procedures/app_limits_inc/procedure
 
 
-
-CREATE FUNCTION "agentic_db_limits_private".app_limits_inc_tg ()
-  RETURNS TRIGGER
-AS $CODEZ$
+CREATE FUNCTION agentic_db_limits_private.app_limits_inc_tg() RETURNS TRIGGER AS $_PGFN_$
 DECLARE
-    limit_ok boolean;
-    actor_id uuid;
-    limitname citext;
+  limit_ok boolean;
+  actor_id uuid;
+  limitname citext;
 BEGIN
-    IF (TG_NARGS < 1) THEN 
-        RAISE EXCEPTION 'LIMIT_TRIGGER_ARGS (%)', TG_NAME;
-    ELSIF (TG_NARGS = 1) THEN 
-        limitname = TG_ARGV[0];        
-        limit_ok = "agentic_db_limits_private".app_limits_inc(
-            limitname
-        );
-    ELSIF (TG_NARGS = 2) THEN 
-        limitname = TG_ARGV[0];        
-        EXECUTE format('SELECT ($1).%s', TG_ARGV[1])
-        USING NEW INTO actor_id;
-        limit_ok = "agentic_db_limits_private".app_limits_inc(
-            limitname, actor_id
-        );
-    END IF;
-    IF (limit_ok IS FALSE) THEN 
-        RAISE EXCEPTION 'LIMIT_REACHED';
-    END IF;
-    RETURN NEW;
+  IF tg_nargs < 1 THEN
+    RAISE EXCEPTION 'LIMIT_TRIGGER_ARGS (%)', tg_name;
+  ELSIF tg_nargs = 1 THEN
+    limitname := (tg_argv)[0];
+    limit_ok := agentic_db_limits_private.app_limits_inc(limitname);
+  ELSIF tg_nargs = 2 THEN
+    limitname := (tg_argv)[0];
+    EXECUTE pg_catalog.format('SELECT ($1).%s', (tg_argv)[1]) INTO actor_id USING NEW;
+    limit_ok := agentic_db_limits_private.app_limits_inc(limitname, actor_id);
+  END IF;
+  IF limit_ok = false THEN
+    RAISE EXCEPTION 'LIMIT_REACHED';
+  END IF;
+  RETURN NEW;
 END;
-$CODEZ$
-LANGUAGE plpgsql VOLATILE;
+$_PGFN_$ LANGUAGE plpgsql VOLATILE;
 

@@ -2,41 +2,32 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_limits_private/schema
+-- requires: schemas/agentic_db_limits_private/procedures/org_limits_dec/procedure
+-- requires: schemas/agentic_db_limits_private/procedures/org_limits_inc/procedure
 
 
-
-CREATE FUNCTION "agentic_db_limits_private".org_limits_upd_tg ()
-  RETURNS TRIGGER
-AS $CODEZ$
+CREATE FUNCTION agentic_db_limits_private.org_limits_upd_tg() RETURNS TRIGGER AS $_PGFN_$
 DECLARE
-    limit_ok boolean;
-    old_actor_id uuid;
-    new_actor_id uuid;
-    limitname citext;
+  limit_ok boolean;
+  old_actor_id uuid;
+  new_actor_id uuid;
+  limitname citext;
 BEGIN
-    IF (TG_NARGS < 1) THEN 
-        RAISE EXCEPTION 'LIMIT_TRIGGER_ARGS (%)', TG_NAME;
-    ELSIF (TG_NARGS = 1) THEN 
-        RAISE EXCEPTION 'LIMIT_TRIGGER_ARGS (%)', TG_NAME;
-    ELSIF (TG_NARGS = 2) THEN 
-        limitname = TG_ARGV[0];        
-        EXECUTE format('SELECT ($1).%s', TG_ARGV[1])
-        USING NEW INTO new_actor_id;
-        EXECUTE format('SELECT ($1).%s', TG_ARGV[1])
-        USING OLD INTO old_actor_id;
-        PERFORM "agentic_db_limits_private".org_limits_dec(
-            limitname, old_actor_id
-        );
-        limit_ok = "agentic_db_limits_private".org_limits_inc(
-            limitname, new_actor_id
-        );
-        
-    END IF;
-    IF (limit_ok IS FALSE) THEN 
-        RAISE EXCEPTION 'LIMIT_REACHED';
-    END IF;
-    RETURN NEW;
+  IF tg_nargs < 1 THEN
+    RAISE EXCEPTION 'LIMIT_TRIGGER_ARGS (%)', tg_name;
+  ELSIF tg_nargs = 1 THEN
+    RAISE EXCEPTION 'LIMIT_TRIGGER_ARGS (%)', tg_name;
+  ELSIF tg_nargs = 2 THEN
+    limitname := (tg_argv)[0];
+    EXECUTE pg_catalog.format('SELECT ($1).%s', (tg_argv)[1]) INTO new_actor_id USING NEW;
+    EXECUTE pg_catalog.format('SELECT ($1).%s', (tg_argv)[1]) INTO old_actor_id USING OLD;
+    PERFORM agentic_db_limits_private.org_limits_dec(limitname, old_actor_id);
+    limit_ok := agentic_db_limits_private.org_limits_inc(limitname, new_actor_id);
+  END IF;
+  IF limit_ok = false THEN
+    RAISE EXCEPTION 'LIMIT_REACHED';
+  END IF;
+  RETURN NEW;
 END;
-$CODEZ$
-LANGUAGE plpgsql VOLATILE;
+$_PGFN_$ LANGUAGE plpgsql VOLATILE;
 

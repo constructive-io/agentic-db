@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
-ALTER TABLE "agentic_db_app_public".runtime_schedules 
+ALTER TABLE agentic_db_app_public.runtime_schedules 
   ADD COLUMN cron_expression text;
 

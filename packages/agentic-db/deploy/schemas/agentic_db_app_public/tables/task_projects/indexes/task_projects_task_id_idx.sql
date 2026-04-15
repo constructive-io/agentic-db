@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/task_projects/table
 -- requires: schemas/agentic_db_app_public/tables/task_projects/columns/task_id/column
--- requires: schemas/agentic_db_app_public/tables/task_contacts/policies/auth_del_entity_membership/policy
+-- requires: schemas/agentic_db_app_public/tables/task_contacts/indexes/task_contacts_contact_id_idx
 
 
-CREATE INDEX task_projects_task_id_idx ON "agentic_db_app_public".task_projects USING BTREE ( task_id );
+CREATE INDEX task_projects_task_id_idx ON agentic_db_app_public.task_projects USING BTREE ( task_id );
 

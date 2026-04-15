@@ -5,28 +5,22 @@
 -- requires: schemas/agentic_db_simple_secrets/tables/secrets/table
 
 
-
-CREATE FUNCTION "agentic_db_simple_secrets".get (
-  v_owner_id uuid,
-  v_secret_name text,
-  v_default_value text default null
-)
-  RETURNS text
-  AS $$
+CREATE FUNCTION agentic_db_simple_secrets.get(
+  IN owner_id uuid,
+  IN secret_name text,
+  IN default_value text DEFAULT NULL
+) RETURNS text AS $_PGFN_$
 DECLARE
-    val text;
+  val text;
 BEGIN
-    SELECT value FROM "agentic_db_simple_secrets".secrets t 
-        WHERE t.owner_id = get.v_owner_id
-        AND t.name = get.v_secret_name
-    INTO val;
-    IF (NOT FOUND OR val IS NULL) THEN
-        RETURN v_default_value;
-    END IF;
-    RETURN val;
+  SELECT value
+  FROM agentic_db_simple_secrets.secrets AS t
+  WHERE
+    t.owner_id = get.owner_id AND t.name = get.secret_name INTO val;
+  IF NOT (FOUND) OR val IS NULL THEN
+    RETURN default_value;
+  END IF;
+  RETURN val;
 END;
-$$
-LANGUAGE 'plpgsql'
-STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_simple_secrets".get TO authenticated;
+$_PGFN_$ LANGUAGE plpgsql STABLE;
 

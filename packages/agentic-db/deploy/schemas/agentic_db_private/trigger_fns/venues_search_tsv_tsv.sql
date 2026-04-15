@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE FUNCTION "agentic_db_private".venues_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_private.venues_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
 
 BEGIN
 NEW.search_tsv = (setweight(to_tsvector('english', COALESCE(NEW.neighborhood, '')), 'C') || (setweight(to_tsvector('english', COALESCE(NEW.notes, '')), 'B') || setweight(to_tsvector('english', COALESCE(NEW.name, '')), 'A')));

@@ -5,5 +5,5 @@
 -- requires: schemas/agentic_db_permissions_public/tables/org_permission_defaults/table
 
 
-GRANT SELECT ON "agentic_db_permissions_public".org_permission_defaults TO authenticated;
+GRANT SELECT ON agentic_db_permissions_public.org_permission_defaults TO authenticated;
 

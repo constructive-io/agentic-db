@@ -2,7 +2,7 @@
  * agent.ts - Agent Core schema (blueprint definition)
  *
  * Tables: agents, tasks, agent_logs, rules, skills, tool_definitions, prompts, expenses
- * Data* nodes: DataSearch (embedding + BM25 + chunks), DataEmbedding (secondary vectors)
+ * Data* nodes: SearchUnified (embedding + BM25 + chunks), SearchVector (secondary vectors)
  */
 
 import {
@@ -20,8 +20,8 @@ const definition: BlueprintDefinition = {
       table_name: 'agents',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'system_prompt'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description', 'system_prompt'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -43,8 +43,8 @@ const definition: BlueprintDefinition = {
       table_name: 'tasks',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'description', 'result'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['title', 'description', 'result'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -67,8 +67,8 @@ const definition: BlueprintDefinition = {
       table_name: 'agent_logs',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['message'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['message'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -87,11 +87,11 @@ const definition: BlueprintDefinition = {
       table_name: 'rules',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'trigger_concept'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description', 'trigger_concept'] },
           bm25: { field_name: 'embedding_text' },
         }},
-        { $type: 'DataEmbedding', data: { field_name: 'trigger_concept_embedding', source_fields: ['trigger_concept'], enqueue_job: false } },
+        { $type: 'SearchVector', data: { field_name: 'trigger_concept_embedding', source_fields: ['trigger_concept'], enqueue_job: false } },
       ],
       fields: [
         { name: 'name', type: 'text', is_required: true },
@@ -112,11 +112,11 @@ const definition: BlueprintDefinition = {
       table_name: 'skills',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'intent_trigger'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description', 'intent_trigger'] },
           bm25: { field_name: 'embedding_text' },
         }},
-        { $type: 'DataEmbedding', data: { field_name: 'intent_trigger_embedding', source_fields: ['intent_trigger'], enqueue_job: false } },
+        { $type: 'SearchVector', data: { field_name: 'intent_trigger_embedding', source_fields: ['intent_trigger'], enqueue_job: false } },
       ],
       fields: [
         { name: 'name', type: 'text', is_required: true },
@@ -135,8 +135,8 @@ const definition: BlueprintDefinition = {
       table_name: 'tool_definitions',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -156,8 +156,8 @@ const definition: BlueprintDefinition = {
       table_name: 'prompts',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'content'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'content'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -177,8 +177,8 @@ const definition: BlueprintDefinition = {
       table_name: 'expenses',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['description', 'notes'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['description', 'notes'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],

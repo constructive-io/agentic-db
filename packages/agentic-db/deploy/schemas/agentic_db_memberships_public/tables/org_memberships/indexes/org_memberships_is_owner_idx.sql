@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/org_memberships/columns/is_owner/column
 
 
-CREATE INDEX org_memberships_is_owner_idx ON "agentic_db_memberships_public".org_memberships USING BTREE ( is_owner );
+CREATE INDEX org_memberships_is_owner_idx ON agentic_db_memberships_public.org_memberships USING BTREE ( is_owner );
 

@@ -2,31 +2,21 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_user_identifiers_private/schema
+-- requires: schemas/agentic_db_user_identifiers_public/tables/phone_numbers/table
 
 
-
-CREATE FUNCTION "agentic_db_user_identifiers_private".phone_numbers_insert_tg ()
-RETURNS TRIGGER
-AS $CODEZ$
+CREATE FUNCTION agentic_db_user_identifiers_private.phone_numbers_insert_tg() RETURNS TRIGGER AS $_PGFN_$
 DECLARE
-    v_primary_field "agentic_db_user_identifiers_public".phone_numbers;
+  v_primary_field agentic_db_user_identifiers_public.phone_numbers;
 BEGIN
-    SELECT * INTO v_primary_field
-        FROM "agentic_db_user_identifiers_public".phone_numbers e
-        WHERE e.owner_id = NEW.owner_id
-        AND is_primary IS TRUE;
-    IF (NOT FOUND) THEN 
-        NEW.is_primary = TRUE;
-    END IF;
-    RETURN NEW;
+  SELECT *
+  FROM agentic_db_user_identifiers_public.phone_numbers AS e
+  WHERE
+    e.owner_id = NEW.owner_id AND is_primary IS TRUE INTO v_primary_field;
+  IF NOT (FOUND) THEN
+    new.is_primary := true;
+  END IF;
+  RETURN NEW;
 END;
-$CODEZ$
-LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trigger_name
-BEFORE INSERT
-    ON "agentic_db_user_identifiers_public".phone_numbers FOR EACH ROW
-EXECUTE PROCEDURE "agentic_db_user_identifiers_private".phone_numbers_insert_tg ();
-CREATE UNIQUE INDEX phone_numbers_is_primary_idx
-    ON "agentic_db_user_identifiers_public".phone_numbers (is_primary, owner_id)
-    WHERE (is_primary is true);
+$_PGFN_$ LANGUAGE plpgsql VOLATILE;
 

@@ -2,8 +2,8 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_app_public/schema
--- requires: schemas/agentic_db_app_public/tables/task_contacts/policies/auth_del_entity_membership/policy
+-- requires: schemas/agentic_db_app_public/tables/task_contacts/indexes/task_contacts_contact_id_idx
 
 
-CREATE TABLE "agentic_db_app_public".task_projects ();
+CREATE TABLE agentic_db_app_public.task_projects ();
 

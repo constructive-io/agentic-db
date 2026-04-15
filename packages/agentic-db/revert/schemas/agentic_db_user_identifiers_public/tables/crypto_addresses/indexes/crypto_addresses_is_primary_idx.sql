@@ -1,0 +1,6 @@
+-- Revert: schemas/agentic_db_user_identifiers_public/tables/crypto_addresses/indexes/crypto_addresses_is_primary_idx
+
+
+DROP INDEX agentic_db_user_identifiers_public.crypto_addresses_is_primary_idx;
+
+

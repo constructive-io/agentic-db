@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-ALTER TABLE "agentic_db_app_public".touchpoints 
+ALTER TABLE agentic_db_app_public.touchpoints 
   ADD COLUMN contact_id uuid;
 

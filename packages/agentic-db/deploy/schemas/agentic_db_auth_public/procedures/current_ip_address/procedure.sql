@@ -4,28 +4,12 @@
 -- requires: schemas/agentic_db_auth_public/schema
 
 
-
-CREATE FUNCTION "agentic_db_auth_public".current_ip_address ()
-  RETURNS inet
-AS $$
-DECLARE
-  v_ip_addr inet;
+CREATE FUNCTION agentic_db_auth_public.current_ip_address() RETURNS inet AS $_PGFN_$
 BEGIN
-  IF current_setting('jwt.claims.ip_address', TRUE)
-    IS NOT NULL THEN
-    BEGIN
-      v_ip_addr = current_setting('jwt.claims.ip_address', TRUE)::inet;
-    EXCEPTION
-      WHEN OTHERS THEN
-      RAISE NOTICE 'Invalid IP';
+  RETURN jwt_public.ip_address();
+EXCEPTION
+  WHEN OTHERS THEN
     RETURN NULL;
-    END;
-    RETURN v_ip_addr;
-  ELSE
-    RETURN NULL;
-  END IF;
 END;
-$$
-LANGUAGE 'plpgsql' STABLE;
-GRANT EXECUTE ON FUNCTION "agentic_db_auth_public".current_ip_address TO authenticated;
+$_PGFN_$ LANGUAGE plpgsql STABLE;
 

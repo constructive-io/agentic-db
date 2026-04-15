@@ -5,26 +5,19 @@
 -- requires: schemas/agentic_db_status_private/procedures/completed_step/procedure
 
 
-
-CREATE FUNCTION "agentic_db_status_private".tg_achv_bool ()
-  RETURNS TRIGGER
-  AS $$
+CREATE FUNCTION agentic_db_status_private.tg_achv_bool() RETURNS TRIGGER AS $_PGFN_$
 DECLARE
   is_true boolean;
   task_name text;
 BEGIN
-    IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
-        task_name = TG_ARGV[1]::text;
-        EXECUTE format('SELECT ($1).%s IS TRUE', TG_ARGV[0])
-        USING NEW INTO is_true;
-        IF (is_true IS TRUE) THEN
-            PERFORM "agentic_db_status_private".completed_step(task_name);
-        END IF;
-        RETURN NEW;
+  IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+    task_name := (tg_argv)[1]::text;
+    EXECUTE format('SELECT ($1).%s IS TRUE', (tg_argv)[0]) INTO is_true USING NEW;
+    IF is_true IS TRUE THEN
+      PERFORM agentic_db_status_private.completed_step(task_name);
     END IF;
+    RETURN NEW;
+  END IF;
 END;
-$$
-LANGUAGE 'plpgsql'
-VOLATILE;
-GRANT EXECUTE ON FUNCTION "agentic_db_status_private".tg_achv_bool TO authenticated;
+$_PGFN_$ LANGUAGE plpgsql VOLATILE;
 

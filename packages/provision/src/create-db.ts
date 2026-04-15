@@ -47,39 +47,48 @@ async function main() {
   }
   console.log(`   ✅ Signed up (ID: ${userId})`);
 
-  // --- Step 2: Create bare database (no modules) ---
+  // --- Step 2: Provision database ---
   //
-  // We deliberately skip databaseProvisionModule (which installs users,
-  // memberships, permissions, RLS, etc.) and instead create just the
-  // database record.  The blueprint schemas in provision.ts will add
-  // the application tables without any security infrastructure.
+  // We use databaseProvisionModule with modules: ['all'] so that
+  // node types (SearchVector, SearchUnified, SearchSpatial, etc.) are
+  // registered.  Security is stripped at the *blueprint* level
+  // (no DataEntityMembership, no AuthzEntityMembership, no grants/roles).
 
-  console.log('\n   Creating bare database (no modules)...');
+  console.log('\n   Provisioning database...');
   const apiAdapter = new NodeHttpAdapter(config.apiEndpoint, {
     Authorization: `Bearer ${accessToken}`,
     'X-Meta-Schema': 'true',
   });
   const apiClient = public_.createClient({ adapter: apiAdapter });
 
-  const dbData = await withRetry(() =>
-    apiClient.database
+  const provData = await withRetry(() =>
+    apiClient.databaseProvisionModule
       .create({
         data: {
+          databaseName,
           ownerId: userId,
-          name: databaseName,
+          subdomain: databaseName,
+          domain: 'localhost',
+          modules: ['all'],
+          bootstrapUser: true,
+          options: {},
         },
-        select: { id: true },
+        select: { id: true, databaseId: true, errorMessage: true },
       })
       .unwrap()
   );
 
-  const databaseId = dbData?.createDatabase?.database?.id;
+  const dbProv =
+    provData?.createDatabaseProvisionModule?.databaseProvisionModule;
 
-  if (!databaseId) {
-    console.error('❌ Database creation failed');
+  if (!dbProv || !dbProv.databaseId) {
+    console.error(
+      `❌ DB Provision failed: ${dbProv?.errorMessage || 'unknown'}`
+    );
     process.exit(1);
   }
 
+  const databaseId = dbProv.databaseId;
   console.log(`   ✅ Database ready (ID: ${databaseId})`);
 
   // --- Step 3: Write .env ---

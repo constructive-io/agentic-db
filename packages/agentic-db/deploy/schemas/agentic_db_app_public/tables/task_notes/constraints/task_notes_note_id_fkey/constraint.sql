@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/notes/table
 -- requires: schemas/agentic_db_app_public/tables/task_notes/table
--- requires: schemas/agentic_db_app_public/tables/event_notes/policies/auth_del_entity_membership/policy
+-- requires: schemas/agentic_db_app_public/tables/event_notes/indexes/event_notes_note_id_idx
 
 
-ALTER TABLE "agentic_db_app_public".task_notes 
+ALTER TABLE agentic_db_app_public.task_notes 
   ADD CONSTRAINT task_notes_note_id_fkey 
     FOREIGN KEY(note_id) 
-    REFERENCES "agentic_db_app_public".notes (id) 
+    REFERENCES agentic_db_app_public.notes (id) 
     ON DELETE CASCADE;
 

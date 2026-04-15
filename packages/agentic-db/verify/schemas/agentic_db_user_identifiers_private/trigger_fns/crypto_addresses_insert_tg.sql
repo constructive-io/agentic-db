@@ -1,6 +1,6 @@
 -- Verify: schemas/agentic_db_user_identifiers_private/trigger_fns/crypto_addresses_insert_tg
 
 
-
+SELECT verify_function('agentic_db_user_identifiers_private.crypto_addresses_insert_tg');
 
 

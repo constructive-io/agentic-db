@@ -6,7 +6,7 @@
 
 
 CREATE TRIGGER timestamps_tg
-BEFORE INSERT OR UPDATE ON "agentic_db_user_identifiers_public".phone_numbers
+BEFORE INSERT OR UPDATE ON agentic_db_user_identifiers_public.phone_numbers
 FOR EACH ROW
 EXECUTE PROCEDURE stamps.timestamps ( );
 

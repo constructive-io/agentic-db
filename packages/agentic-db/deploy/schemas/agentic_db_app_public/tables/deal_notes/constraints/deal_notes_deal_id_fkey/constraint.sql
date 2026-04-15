@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deals/table
 -- requires: schemas/agentic_db_app_public/tables/deal_notes/table
--- requires: schemas/agentic_db_app_public/tables/company_notes/policies/auth_del_entity_membership/policy
+-- requires: schemas/agentic_db_app_public/tables/company_notes/indexes/company_notes_note_id_idx
 
 
-ALTER TABLE "agentic_db_app_public".deal_notes 
+ALTER TABLE agentic_db_app_public.deal_notes 
   ADD CONSTRAINT deal_notes_deal_id_fkey 
     FOREIGN KEY(deal_id) 
-    REFERENCES "agentic_db_app_public".deals (id) 
+    REFERENCES agentic_db_app_public.deals (id) 
     ON DELETE CASCADE;
 

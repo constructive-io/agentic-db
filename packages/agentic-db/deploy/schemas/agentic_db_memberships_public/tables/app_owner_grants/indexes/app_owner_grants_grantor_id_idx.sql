@@ -6,5 +6,5 @@
 -- requires: schemas/agentic_db_memberships_public/tables/app_owner_grants/columns/grantor_id/column
 
 
-CREATE INDEX app_owner_grants_grantor_id_idx ON "agentic_db_memberships_public".app_owner_grants USING BTREE ( grantor_id );
+CREATE INDEX app_owner_grants_grantor_id_idx ON agentic_db_memberships_public.app_owner_grants USING BTREE ( grantor_id );
 

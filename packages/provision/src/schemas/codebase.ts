@@ -1,7 +1,7 @@
 /**
  * codebase.ts - Codebase schema (blueprint definition)
  *
- * Data* nodes: DataSearch
+ * Data* nodes: SearchUnified
  */
 
 import {
@@ -18,8 +18,8 @@ const definition: BlueprintDefinition = {
       table_name: 'codebases',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -41,7 +41,7 @@ const definition: BlueprintDefinition = {
       table_name: 'code_chunks',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
+        { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['content', 'file_path', 'symbol_name'] },
           bm25: { field_name: 'embedding_text' },
         }},
