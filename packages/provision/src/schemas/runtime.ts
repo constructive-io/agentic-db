@@ -7,7 +7,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -34,8 +33,6 @@ const definition: BlueprintDefinition = {
         { name: 'started_at', type: 'timestamptz' },
         { name: 'ended_at', type: 'timestamptz' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Runtime Logs -------------------------------------------------------
@@ -56,8 +53,6 @@ const definition: BlueprintDefinition = {
         { name: 'context', type: 'jsonb' },
         { name: 'step_index', type: 'int' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Runtime Artifacts ---------------------------------------------------
@@ -73,8 +68,6 @@ const definition: BlueprintDefinition = {
         { name: 'meta', type: 'jsonb' },
         { name: 'size_bytes', type: 'int' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Runtime Metrics ----------------------------------------------------
@@ -89,8 +82,6 @@ const definition: BlueprintDefinition = {
         { name: 'unit', type: 'text' },
         { name: 'meta', type: 'jsonb' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Runtime Schedules --------------------------------------------------
@@ -107,8 +98,6 @@ const definition: BlueprintDefinition = {
         { name: 'config', type: 'jsonb' },
         { name: 'timezone', type: 'text', default_value: "'UTC'" },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Runtime Events -----------------------------------------------------
@@ -123,8 +112,6 @@ const definition: BlueprintDefinition = {
         { name: 'processed_at', type: 'timestamptz' },
         { name: 'status', type: 'text', default_value: "'pending'" },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Runtime Config -----------------------------------------------------
@@ -138,8 +125,6 @@ const definition: BlueprintDefinition = {
         { name: 'description', type: 'text' },
         { name: 'is_secret', type: 'bool', default_value: 'false' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Conversations & Messages -------------------------------------------
@@ -159,8 +144,6 @@ const definition: BlueprintDefinition = {
         { name: 'status', type: 'text', default_value: "'active'" },
         { name: 'meta', type: 'jsonb' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     {
@@ -182,8 +165,6 @@ const definition: BlueprintDefinition = {
         { name: 'tool_calls', type: 'jsonb' },
         { name: 'tool_results', type: 'jsonb' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Tool Executions (tool_definitions lives in agent.ts) ----------------
@@ -201,8 +182,6 @@ const definition: BlueprintDefinition = {
         { name: 'completed_at', type: 'timestamptz' },
         { name: 'error', type: 'text' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
   ],

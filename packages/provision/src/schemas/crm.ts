@@ -20,7 +20,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -41,8 +40,6 @@ const definition: BlueprintDefinition = {
         { name: 'alt_text', type: 'text' },
         { name: 'caption', type: 'text' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Contacts -----------------------------------------------------------
@@ -83,8 +80,6 @@ const definition: BlueprintDefinition = {
         { name: 'tags', type: 'citext[]' },
         { name: 'main_image_id', type: 'uuid' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Companies ----------------------------------------------------------
@@ -115,8 +110,6 @@ const definition: BlueprintDefinition = {
         { name: 'tags', type: 'citext[]' },
         { name: 'main_image_id', type: 'uuid' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Deals --------------------------------------------------------------
@@ -139,8 +132,6 @@ const definition: BlueprintDefinition = {
         { name: 'notes_text', type: 'text' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Events -------------------------------------------------------------
@@ -175,8 +166,6 @@ const definition: BlueprintDefinition = {
         { name: 'tags', type: 'citext[]' },
         { name: 'main_image_id', type: 'uuid' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Venues -------------------------------------------------------------
@@ -215,8 +204,6 @@ const definition: BlueprintDefinition = {
         { name: 'tags', type: 'citext[]' },
         { name: 'main_image_id', type: 'uuid' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Notes --------------------------------------------------------------
@@ -238,8 +225,6 @@ const definition: BlueprintDefinition = {
         { name: 'last_accessed_at', type: 'timestamptz' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Interactions -------------------------------------------------------
@@ -261,8 +246,6 @@ const definition: BlueprintDefinition = {
         { name: 'sentiment', type: 'text' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Touchpoints (cross-entity interaction timeline) --------------------
@@ -291,8 +274,6 @@ const definition: BlueprintDefinition = {
         { name: 'meta', type: 'jsonb' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Tags (no embeddings) -----------------------------------------------
@@ -306,8 +287,6 @@ const definition: BlueprintDefinition = {
         { name: 'category', type: 'text' },
         { name: 'usage_count', type: 'int', default_value: '0' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Contact detail tables (normalized, no embeddings) ------------------
@@ -324,8 +303,6 @@ const definition: BlueprintDefinition = {
         { name: 'email_type', type: 'text' },
         { name: 'is_primary', type: 'bool', default_value: 'false' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
     {
       ref: 'contact_phones',
@@ -336,8 +313,6 @@ const definition: BlueprintDefinition = {
         { name: 'phone_type', type: 'text' },
         { name: 'is_primary', type: 'bool', default_value: 'false' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
     {
       ref: 'contact_addresses',
@@ -352,8 +327,6 @@ const definition: BlueprintDefinition = {
         { name: 'address_type', type: 'text' },
         { name: 'is_primary', type: 'bool', default_value: 'false' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Link tables (standalone embedding) ---------------------------------
@@ -362,32 +335,24 @@ const definition: BlueprintDefinition = {
       table_name: 'contact_links',
       nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
     {
       ref: 'company_links',
       table_name: 'company_links',
       nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
     {
       ref: 'event_links',
       table_name: 'event_links',
       nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
     {
       ref: 'venue_links',
       table_name: 'venue_links',
       nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
   ],

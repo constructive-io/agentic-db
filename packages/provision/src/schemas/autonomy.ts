@@ -7,7 +7,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -34,8 +33,6 @@ const definition: BlueprintDefinition = {
         { name: 'context', type: 'jsonb' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
   ],

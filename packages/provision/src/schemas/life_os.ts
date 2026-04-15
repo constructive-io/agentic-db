@@ -9,7 +9,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  CRUD_GRANTS,
   provisionBlueprint,
 } from '../blueprint';
 
@@ -34,8 +33,6 @@ const definition: BlueprintDefinition = {
         { name: 'progress', type: 'numeric', default_value: '0' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Habits -------------------------------------------------------------
@@ -50,8 +47,6 @@ const definition: BlueprintDefinition = {
         { name: 'last_completed_at', type: 'timestamptz' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Activity Logs ------------------------------------------------------
@@ -76,8 +71,6 @@ const definition: BlueprintDefinition = {
         { name: 'meta', type: 'jsonb' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Memories -----------------------------------------------------------
@@ -100,8 +93,6 @@ const definition: BlueprintDefinition = {
         { name: 'mood', type: 'text' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Trips --------------------------------------------------------------
@@ -124,8 +115,6 @@ const definition: BlueprintDefinition = {
         { name: 'end_date', type: 'timestamptz' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Hiking Trails ------------------------------------------------------
@@ -150,8 +139,6 @@ const definition: BlueprintDefinition = {
         { name: 'rating', type: 'numeric' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Places -------------------------------------------------------------
@@ -174,8 +161,6 @@ const definition: BlueprintDefinition = {
         { name: 'rating', type: 'numeric' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
   ],

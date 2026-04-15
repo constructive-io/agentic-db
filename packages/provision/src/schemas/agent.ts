@@ -8,7 +8,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -36,8 +35,6 @@ const definition: BlueprintDefinition = {
         { name: 'config', type: 'jsonb' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Tasks --------------------------------------------------------------
@@ -62,8 +59,6 @@ const definition: BlueprintDefinition = {
         { name: 'completed_at', type: 'timestamptz' },
         { name: 'meta', type: 'jsonb' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Agent Logs ---------------------------------------------------------
@@ -84,8 +79,6 @@ const definition: BlueprintDefinition = {
         { name: 'context', type: 'jsonb' },
         { name: 'task_id', type: 'uuid' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Rules --------------------------------------------------------------
@@ -111,8 +104,6 @@ const definition: BlueprintDefinition = {
         { name: 'priority', type: 'int', default_value: '0' },
         { name: 'trigger_concept', type: 'text' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Skills -------------------------------------------------------------
@@ -136,8 +127,6 @@ const definition: BlueprintDefinition = {
         { name: 'is_active', type: 'bool', default_value: 'true' },
         { name: 'intent_trigger', type: 'text' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Tool Definitions ---------------------------------------------------
@@ -159,8 +148,6 @@ const definition: BlueprintDefinition = {
         { name: 'config', type: 'jsonb' },
         { name: 'is_active', type: 'bool', default_value: 'true' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Prompts ------------------------------------------------------------
@@ -182,8 +169,6 @@ const definition: BlueprintDefinition = {
         { name: 'is_active', type: 'bool', default_value: 'true' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Expenses -----------------------------------------------------------
@@ -207,8 +192,6 @@ const definition: BlueprintDefinition = {
         { name: 'notes', type: 'text' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
   ],

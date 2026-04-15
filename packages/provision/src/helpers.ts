@@ -30,22 +30,6 @@ export async function withRetry<T>(
   throw new Error('unreachable');
 }
 
-/**
- * Standard grants for org-scoped tables (full CRUD for authenticated users)
- */
-export const entityGrants: [string, string][] = [
-  ['select', '*'],
-  ['insert', '*'],
-  ['update', '*'],
-  ['delete', '*'],
-];
-
-/**
- * Read-only grants (for lookup/shared tables)
- */
-export const readOnlyGrants: [string, string][] = [
-  ['select', '*'],
-];
 
 /**
  * Create a platform API client using @constructive-io/node.

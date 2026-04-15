@@ -49,19 +49,8 @@ export const ORG_NODES: BlueprintTable['nodes'] = [
   { $type: 'DataTimestamps', data: { include_id: false } },
 ];
 
-/** Full CRUD grants */
-export const CRUD_GRANTS: [string, string][] = [
-  ['select', '*'],
-  ['insert', '*'],
-  ['update', '*'],
-  ['delete', '*'],
-];
-
-/** Standard M:N junction table options (timestamps + CRUD, no entity membership) */
-export const M2M_JUNCTION_OPTS = {
-  grant_roles: ['authenticated'],
-  grant_privileges: [['select', '*'], ['insert', '*'], ['delete', '*']],
-};
+/** Standard M:N junction table options (timestamps only, no grants/roles) */
+export const M2M_JUNCTION_OPTS = {};
 
 // ---------------------------------------------------------------------------
 // Provision engine — server-side constructBlueprint via the SDK
@@ -104,8 +93,6 @@ export async function provisionBlueprint(
       table_name: t.table_name,
       nodes: t.nodes,
       fields: t.fields,
-      grant_roles: t.grant_roles,
-      grants: t.grants,
     })),
     relations: definition.relations,
     indexes: definition.indexes ?? [],

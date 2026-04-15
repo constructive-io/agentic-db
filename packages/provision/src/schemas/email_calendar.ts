@@ -9,7 +9,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  CRUD_GRANTS,
   provisionBlueprint,
 } from '../blueprint';
 
@@ -42,8 +41,6 @@ const definition: BlueprintDefinition = {
         { name: 'status', type: 'text', default_value: "'open'" },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Emails -------------------------------------------------------------
@@ -77,8 +74,6 @@ const definition: BlueprintDefinition = {
         { name: 'sent_at', type: 'timestamptz' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Email Attachments --------------------------------------------------
@@ -93,8 +88,6 @@ const definition: BlueprintDefinition = {
         { name: 'storage_url', type: 'text' },
         { name: 'provider_attachment_id', type: 'text' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Calendars ----------------------------------------------------------
@@ -108,8 +101,6 @@ const definition: BlueprintDefinition = {
         { name: 'name', type: 'text', is_required: true },
         { name: 'color', type: 'text' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Calendar Events ----------------------------------------------------
@@ -141,8 +132,6 @@ const definition: BlueprintDefinition = {
         { name: 'organizer_contact_id', type: 'uuid' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Calendar Attendees (junction) --------------------------------------
@@ -155,8 +144,6 @@ const definition: BlueprintDefinition = {
         { name: 'response_status', type: 'text', default_value: "'needs_action'" },
         { name: 'role', type: 'text', default_value: "'required'" },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Provider Sync States (infra) ---------------------------------------
@@ -172,8 +159,6 @@ const definition: BlueprintDefinition = {
         { name: 'last_sync_at', type: 'timestamptz' },
         { name: 'status', type: 'text', default_value: "'active'" },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
   ],

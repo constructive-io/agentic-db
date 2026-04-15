@@ -8,7 +8,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  CRUD_GRANTS,
   provisionBlueprint,
 } from '../blueprint';
 
@@ -34,8 +33,6 @@ const definition: BlueprintDefinition = {
         { name: 'confidence', type: 'numeric' },
         { name: 'ingested_at', type: 'timestamptz', default_value: 'now()' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Raw Contact Emails -------------------------------------------------
@@ -50,8 +47,6 @@ const definition: BlueprintDefinition = {
         { name: 'source', type: 'text' },
         { name: 'confidence', type: 'numeric' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Raw Contact Phones -------------------------------------------------
@@ -66,8 +61,6 @@ const definition: BlueprintDefinition = {
         { name: 'source', type: 'text' },
         { name: 'confidence', type: 'numeric' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
 
     // -- Raw Contact URLs ---------------------------------------------------
@@ -81,8 +74,6 @@ const definition: BlueprintDefinition = {
         { name: 'source', type: 'text' },
         { name: 'confidence', type: 'numeric' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
     },
   ],
 

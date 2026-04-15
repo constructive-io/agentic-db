@@ -60,14 +60,7 @@ async function fetchAllTables(): Promise<Map<string, string>> {
 // Declarative relation definitions
 // ---------------------------------------------------------------------------
 
-const m2mOpts = {
-  grantRoles: ['authenticated'],
-  grantPrivileges: [
-    ['select', '*'],
-    ['insert', '*'],
-    ['delete', '*'],
-  ] as unknown as Record<string, unknown>[],
-};
+const m2mOpts = {};
 
 interface M2NRelation {
   sourceTable: string;
