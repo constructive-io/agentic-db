@@ -12,21 +12,91 @@
   <a href="https://www.npmjs.com/package/agentic-db"><img height="20" src="https://img.shields.io/npm/v/agentic-db"/></a>
 </p>
 
-A personal CRM and knowledge base, built entirely in PostgreSQL using [pgpm](https://pgpm.io) and the [Constructive](https://constructive.io) platform. This is a pgpm-installable SQL module that provisions a complete schema with vector search, full-text search, BM25 ranking, trigram fuzzy matching, PostGIS spatial queries, and auto-embedding triggers -- all inside Postgres.
+> **The brain your coding agent forgot to ship with.**
+>
+> A pgpm-installable Postgres module that gives Claude Code / OpenClaude / Cursor / Devin persistent memory, chat history, a skill library, a tool registry, behavioral rules, a task queue, runtime observability, and a full CRM + life-OS knowledge graph — all in **one database** with vector + BM25 + full-text + trigram + PostGIS search baked in.
+
+## The pitch
+
+Most "agentic" stacks bolt memory onto a vector DB, pair that with a separate message store, glue in a tool registry, then fight consistency forever. **agentic-db collapses all of that into one Postgres database.**
+
+Conversations, messages, tool calls, long-term memories, rules, skills, prompts, tasks, runtime state, and a full personal CRM / life-OS live side-by-side. Every embeddable table is auto-indexed for **semantic + keyword + fuzzy + spatial** search. A background worker keeps embeddings fresh via Ollama (or your LLM of choice). Deploy it next to your agent, wire it up through the typed SDK/CLI or the included Agent Skills, and your agent instantly has a hippocampus.
+
+**Stop gluing four vendors together. Your brain is one database.**
 
 ## What's Inside
 
-| Domain | Tables | Highlights |
-|--------|--------|------------|
-| **CRM** | contacts, companies, deals, events, venues, notes, interactions, touchpoints, tags | Unified search (pgvector + BM25 + tsvector + trigram), PostGIS spatial, chunk embeddings on contacts & notes |
-| **Agent** | agents, tasks, skills, agent_tasks, agent_skills | AI agent task management with M:N relations |
-| **Life OS** | goals, habits, activity_logs, memories, trips, places | Personal life tracking with spatial search on places |
-| **Projects** | projects, expenses | Project and expense tracking |
-| **Email & Calendar** | email_accounts, email_messages, email_threads, calendars, calendar_events | Email and calendar integration |
-| **Runtime** | conversations, messages, tool_calls | LLM conversation history |
-| **Autonomy** | policies, audit_logs | Policy enforcement and audit trail |
+### 90+ tables, organized into domains
 
-Plus junction tables for M:N relations (contact_notes, contact_companies, contact_events, etc.), image galleries, and cross-domain linking.
+| Domain | Highlights |
+|--------|------------|
+| **🤖 Agent Core** | `agents` (multi-agent w/ `agent_collaborators`), `tasks` (priority queue), `rules` (semantic `trigger_concept`), `skills` (semantic `intent_trigger`), `tool_definitions` (JSON-schema tool specs), `prompts` (versioned), `agent_logs`, `expenses` |
+| **💬 Runtime / Chat** | `conversations`, `messages` (role, content, `token_count`, `tool_calls`, `tool_results`), `tool_executions` (input/output/status/timings linked to message), `runtime_states`, `runtime_logs`, `runtime_metrics`, `runtime_artifacts`, `runtime_schedules` (cron), `runtime_events` (event bus), `runtime_config` |
+| **🧠 Memory / Autonomy** | `memories` (episodic, spatial), `autonomy_records` (self-writing knowledge graph w/ `autonomy_record_links`), `notes` (chunked for long docs), `contact_memories` / `company_memories` cross-domain junctions |
+| **🧑‍🤝‍🧑 CRM** | `contacts`, `companies`, `deals`, `events`, `venues`, `notes`, `interactions`, `touchpoints`, `tags`, image galleries, `contact_emails` / `contact_phones` / `contact_addresses` normalized children |
+| **🌱 Life-OS** | `goals`, `habits`, `activity_logs`, `memories`, `trips`, `places` |
+| **📂 Projects** | `projects` with cross-relations to `tasks`, `contacts`, `goals` |
+| **✉️ Email & Calendar** | `email_threads`, `emails`, `email_attachments`, `calendars`, `calendar_events`, `calendar_attendees`, `provider_sync_states` (Gmail / Google Calendar-style sync) |
+| **🪣 Staging** | `raw_contacts`, `raw_contact_emails`, `raw_contact_phones`, `raw_contact_urls` for messy imports |
+| **🔗 Junctions** | ~25 cross-domain M:N junctions (`project_contacts`, `task_projects`, `calendar_event_contacts`, `email_notes`, `contact_memories`, `skill_tools`, …) |
+
+## Feature deep-dive
+
+### 🧠 Memory
+
+- **`memories`** — long-term episodic memory with title, content, location, timestamp, mood, tags. Unified search (vector + BM25) + PostGIS spatial so the agent can ask *"what happened near here last spring?"*.
+- **`autonomy_records`** — self-managed knowledge units the agent writes for itself (goals, notes-to-self, learned facts), with self-referential many-to-many links so the agent builds its own knowledge graph.
+- **`notes`** — long-form knowledge with **chunked embeddings**: a single note gets split into multiple vector rows automatically so retrieval works on long documents.
+- **Cross-domain memory junctions** — `contact_memories`, `company_memories` tie memories to the people/orgs they're about, so the agent can pull "everything I remember about Alice" in one query.
+- **Agent-attributed memories** — every memory can carry an `agent_id` FK so multi-agent setups get isolated or shared memory.
+- **Chunk-aware search** — `contacts_chunks` and `notes_chunks` let the agent retrieve the *relevant paragraph* of a long record, not the whole record.
+- **Tags as first-class citizens** — `citext[]` tag columns on every memory-ish table, GIN-indexed, so filtering by `['hackathon','kris-floyd']` is fast.
+
+### 💬 Chats / Conversations
+
+- **`conversations`** — titled, agent-scoped chat sessions with status + metadata. Indexed and semantically searchable (find that conversation from 3 weeks ago by vibe).
+- **`messages`** — role (`user` / `assistant` / `tool`), content, `token_count`, `tool_calls` jsonb, `tool_results` jsonb, full metadata. Unified search means you can semantically query across every message the agent has ever seen.
+- **`tool_executions`** — every tool invocation recorded: input, output, status, timings, errors, with FK back to the message that triggered it. Full audit trail of *what the agent actually did*.
+- **Thread-able** — FK relations let you reconstruct conversation trees; `conversations ↔ messages ↔ tool_executions` forms a replayable event log.
+- **Token accounting built in** — per-message `token_count` gives you real context-window budgeting and cost reporting.
+
+### 🛠️ Skills & Tools
+
+- **`skills`** — named capabilities with `intent_trigger` embedding so the agent can semantically pick the right skill for a user utterance (*"help me plan a trip"* → skill with closest `intent_trigger_embedding`).
+- **`tool_definitions`** — JSON-schema-validated tool specs (works great as an OpenAI / Anthropic tools payload source of truth).
+- **`skill_tools`** junction — skills compose from multiple tools.
+- **`prompts`** — versioned, tagged, semantically searchable prompt library. `agent_prompts` junction lets you bind prompts to agents.
+- **`rules`** — declarative trigger/action pairs (`trigger_type`, `trigger_config`, `action_type`, `action_config`) with priority + semantic `trigger_concept` matching. This is how you give the agent a behavioral policy layer.
+
+### 🤖 Agent Runtime
+
+- **`agents`** — named agents with `system_prompt`, `model`, `temperature`, `config`, tags. Multi-agent out of the box.
+- **`agent_collaborators`** — agents can reference other agents (delegation, sub-agents).
+- **`tasks`** — priority queue with status, result, started/completed timestamps, agent assignment. Doubles as a todo list the human can read.
+- **`runtime_states`** — hierarchical state machine rows (`parent_id`) for long-running workflows; attach logs, metrics, artifacts.
+- **`runtime_logs`** / **`runtime_metrics`** / **`runtime_artifacts`** — structured observability per run.
+- **`runtime_schedules`** — cron-style scheduled jobs inside the DB.
+- **`runtime_events`** — event bus table (type + payload + status) for async orchestration.
+- **`runtime_config`** — key/value config with `is_secret` flag.
+- **`agent_logs`** — free-form agent telemetry with context jsonb and optional task linkage.
+
+### 🔎 Retrieval (the "secret sauce")
+
+Every table with embeddings supports up to **five search strategies**, exposed through a single unified GraphQL API:
+
+| Strategy | Engine | Use Case |
+|----------|--------|----------|
+| **Vector** | pgvector (HNSW) | Semantic similarity search via embeddings |
+| **BM25** | pg_textsearch | Statistical relevance ranking |
+| **Full-text** | tsvector + GIN | Classic Postgres full-text search with weighted fields |
+| **Trigram** | pg_trgm | Fuzzy matching for typos and partial strings |
+| **Spatial** | PostGIS | Geographic proximity queries on contacts, events, venues, places |
+
+- **Unified Search API** per table: one query can combine vector similarity, BM25 ranking, weighted tsvector full-text, and trigram fuzzy — all exposed through the generated GraphQL SDK.
+- **Auto-embedding pipeline** — Postgres triggers enqueue jobs on insert/update; the [`@agentic-db/worker`](../worker) package processes them via Ollama (`nomic-embed-text`, 768-dim). Your agent never has to remember to embed anything.
+- **HNSW vector indexes** with cosine/L2/inner-product metrics.
+- **Weighted FTS** — `A` / `B` / `C` weights per field so `name > headline > bio` naturally.
+- **Chunked long-doc retrieval** — `contacts_chunks` and `notes_chunks` split long records into vector-searchable paragraphs.
 
 ## Quick Start
 
@@ -55,7 +125,7 @@ pgpm admin-users bootstrap --yes
 pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
-That's it. You now have a fully provisioned database with all tables, search indexes, and embedding triggers.
+That's it. You now have a fully provisioned brain with all tables, search indexes, and embedding triggers.
 
 `pgpm docker start` runs `constructiveio/postgres-plus:18` with 2 GB shared memory by default. Use `--image`, `--port`, `--shm-size` to customize.
 
@@ -113,20 +183,6 @@ agentic-db-services
   requires: plpgsql, metaschema-schema, metaschema-modules, services
 ```
 
-## Search Capabilities
-
-Every table with embeddings supports up to four search strategies, exposed through a unified GraphQL API:
-
-| Strategy | Engine | Use Case |
-|----------|--------|----------|
-| **Vector** | pgvector (HNSW) | Semantic similarity search via embeddings |
-| **BM25** | pg_textsearch | Statistical relevance ranking |
-| **Full-text** | tsvector + GIN | Classic Postgres full-text search with weighted fields |
-| **Trigram** | pg_trgm | Fuzzy matching for typos and partial strings |
-| **Spatial** | PostGIS | Geographic proximity queries on contacts, events, venues, places |
-
-Contacts and notes also have **chunk tables** (`contacts_chunks`, `notes_chunks`) for embedding long documents as multiple vectors with automatic chunking.
-
 ## Using the SDK
 
 Once deployed, query the database through the generated TypeScript SDK:
@@ -152,6 +208,45 @@ const results = await db.contact.findMany({
 const unified = await db.contact.findMany({
   condition: { searchScore: { score_gt: 0 } },
 });
+```
+
+### Giving an agent memory (end-to-end)
+
+```typescript
+// 1. Remember something
+await db.memory.create({
+  data: {
+    entityId: orgId,
+    title: 'Mistral Hackathon at Wefunder',
+    content: 'Dan attended with Kris Floyd on Feb 28-Mar 1 2026',
+    tags: ['hackathon', 'event', 'kris-floyd', 'wefunder'],
+    // embedding is auto-generated by the Postgres trigger → worker pipeline
+  },
+}).execute();
+
+// 2. Retrieve it later by meaning, not exact words
+const hits = await db.vectorSearchMemory({
+  query: await generateEmbedding('AI hackathon with Kris'),
+  limit: 5,
+}).execute();
+```
+
+### Logging a conversation turn
+
+```typescript
+const conv = await db.conversation.create({
+  data: { title: 'Refactoring pgpm deploy', agentId, status: 'active' },
+}).execute();
+
+await db.message.create({
+  data: {
+    conversationId: conv.id,
+    role: 'assistant',
+    content: 'I\'d suggest splitting the deploy step into a pre-flight check…',
+    tokenCount: 142,
+    toolCalls: [{ tool: 'read_file', args: { path: 'pgpm.plan' } }],
+  },
+}).execute();
 ```
 
 See [`@agentic-db/sdk`](../../sdk/sdk) for the full API reference, and [`@agentic-db/cli`](../../sdk/cli) for the CLI tool.
