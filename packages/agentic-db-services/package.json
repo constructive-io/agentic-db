@@ -6,8 +6,7 @@
   "homepage": "https://github.com/constructive-io/agentic-db",
   "license": "MIT",
   "publishConfig": {
-    "access": "public",
-    "directory": "dist"
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -23,7 +22,6 @@
   },
   "keywords": [],
   "devDependencies": {
-    "makage": "^0.3.0",
     "pgsql-test": "^4.7.6"
   }
 }
