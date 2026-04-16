@@ -8,9 +8,11 @@
   <a href="https://github.com/constructive-io/agentic-db/actions/workflows/integration-test.yml">
     <img height="20" src="https://github.com/constructive-io/agentic-db/actions/workflows/integration-test.yml/badge.svg" />
   </a>
+  <a href="https://github.com/constructive-io/agentic-db/blob/main/LICENSE"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
+  <a href="https://www.npmjs.com/package/agentic-db"><img height="20" src="https://img.shields.io/npm/v/agentic-db"/></a>
 </p>
 
-A personal CRM and knowledge base built on [pgpm](https://github.com/constructive-io/constructive) and the [Constructive](https://constructive.io) platform. Vector search, full-text search, BM25 ranking, trigram fuzzy matching, PostGIS spatial queries, row-level security, and auto-embedding triggers -- all inside PostgreSQL.
+A personal CRM and knowledge base built on [pgpm](https://pgpm.io) and the [Constructive](https://constructive.io) platform. Vector search, full-text search, BM25 ranking, trigram fuzzy matching, PostGIS spatial queries, and auto-embedding triggers -- all inside PostgreSQL.
 
 ## Quick Start
 
@@ -26,7 +28,7 @@ eval "$(pgpm env)"
 pgpm admin-users bootstrap --yes
 
 # Deploy the database
-pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
+pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
 See the [`agentic-db` package README](packages/agentic-db) for the full deployment guide, schema details, and search capabilities.
@@ -37,7 +39,7 @@ See the [`agentic-db` package README](packages/agentic-db) for the full deployme
 
 | Package | npm | Description |
 |---------|-----|-------------|
-| [`agentic-db`](packages/agentic-db) | `agentic-db` | pgpm SQL module -- the core database schema with 90+ tables, RLS, and search indexes |
+| [`agentic-db`](packages/agentic-db) | `agentic-db` | pgpm SQL module -- the core database schema with 90+ tables and search indexes |
 | [`@agentic-db/services`](packages/agentic-db-services) | `@agentic-db/services` | pgpm SQL module -- API endpoint and domain routing metadata |
 | [`@agentic-db/sdk`](sdk/sdk) | `@agentic-db/sdk` | Type-safe Prisma-like ORM client generated from the GraphQL schema |
 | [`@agentic-db/cli`](sdk/cli) | `@agentic-db/cli` | CLI tool for CRUD, search, and admin operations |
@@ -46,7 +48,7 @@ See the [`agentic-db` package README](packages/agentic-db) for the full deployme
 
 | Package | Description |
 |---------|-------------|
-| [`@agentic-db/provision`](packages/provision) | SDK-based blueprint provisioning (tables, relations, search, RLS) |
+| [`@agentic-db/provision`](packages/provision) | SDK-based blueprint provisioning (tables, relations, search) |
 | [`@agentic-db/export`](packages/export) | pgpm export wrapper (extracts provisioned schema as SQL modules) |
 | [`@agentic-db/rag`](packages/rag) | RAG CLI tools (hybrid search, batch embedding, multi-pass Q&A) |
 | [`@agentic-db/worker`](packages/worker) | Background worker for auto-generating embeddings via Ollama |
@@ -96,7 +98,7 @@ The schema is developed using the Constructive SDK provisioning pipeline:
 1. **Edit blueprints** in [`packages/provision/src/schemas/`](packages/provision/src/schemas) -- define tables, fields, relations, search nodes
 2. **Provision** -- `cd packages/provision && pnpm run provision` applies blueprints against the platform DB
 3. **Export** -- `cd packages/export && pnpm run export` extracts the schema as pgpm SQL modules
-4. **Deploy** -- `pgpm deploy --recursive --package agentic-db` installs into any Postgres database
+4. **Deploy** -- `pgpm deploy --package agentic-db` installs into any Postgres database
 5. **Regenerate codegen** -- `pnpm run generate:all` updates the SDK and CLI from the live schema
 
 ## Auto-Embedding Pipeline

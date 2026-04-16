@@ -8,10 +8,11 @@
   <a href="https://github.com/constructive-io/agentic-db/actions/workflows/integration-test.yml">
     <img height="20" src="https://github.com/constructive-io/agentic-db/actions/workflows/integration-test.yml/badge.svg" />
   </a>
+  <a href="https://github.com/constructive-io/agentic-db/blob/main/LICENSE"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
   <a href="https://www.npmjs.com/package/agentic-db"><img height="20" src="https://img.shields.io/npm/v/agentic-db"/></a>
 </p>
 
-A personal CRM and knowledge base, built entirely in PostgreSQL using [pgpm](https://github.com/constructive-io/constructive) and the [Constructive](https://constructive.io) platform. This is a pgpm-installable SQL module that provisions a complete schema with vector search, full-text search, BM25 ranking, trigram fuzzy matching, PostGIS spatial queries, row-level security, and auto-embedding triggers -- all inside Postgres.
+A personal CRM and knowledge base, built entirely in PostgreSQL using [pgpm](https://pgpm.io) and the [Constructive](https://constructive.io) platform. This is a pgpm-installable SQL module that provisions a complete schema with vector search, full-text search, BM25 ranking, trigram fuzzy matching, PostGIS spatial queries, and auto-embedding triggers -- all inside Postgres.
 
 ## What's Inside
 
@@ -32,7 +33,7 @@ Plus junction tables for M:N relations (contact_notes, contact_companies, contac
 ### Prerequisites
 
 - PostgreSQL 18+ (via [constructiveio/postgres-plus](https://hub.docker.com/r/constructiveio/postgres-plus))
-- [pgpm](https://github.com/constructive-io/constructive) (`npm install -g pgpm`)
+- [pgpm](https://pgpm.io) (`npm install -g pgpm`)
 - Node.js 20+, pnpm
 
 ### Install and Deploy
@@ -48,10 +49,10 @@ eval "$(pgpm env)"
 pgpm admin-users bootstrap --yes
 
 # 4. Deploy agentic-db into a fresh database
-pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
+pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
-That's it. You now have a fully provisioned database with all tables, RLS policies, search indexes, and embedding triggers.
+That's it. You now have a fully provisioned database with all tables, search indexes, and embedding triggers.
 
 `pgpm docker start` runs `constructiveio/postgres-plus:18` with 2 GB shared memory by default. Use `--image`, `--port`, `--shm-size` to customize.
 
@@ -82,12 +83,12 @@ docker compose --profile gpu up -d      # NVIDIA GPU
 pgpm docker start --recreate
 eval "$(pgpm env)"
 pgpm admin-users bootstrap --yes
-pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
+pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
 ## How pgpm Works
 
-[pgpm](https://github.com/constructive-io/constructive) (PostgreSQL Package Manager) treats SQL schemas like versioned packages -- similar to how npm manages JavaScript modules. Each module has:
+[pgpm](https://pgpm.io) (PostgreSQL Package Manager) treats SQL schemas like versioned packages -- similar to how npm manages JavaScript modules. Each module has:
 
 - A `.control` file declaring metadata and dependencies
 - A `pgpm.plan` file listing migrations in order
@@ -108,8 +109,6 @@ agentic-db
 agentic-db-services
   requires: plpgsql, metaschema-schema, metaschema-modules, services
 ```
-
-The `--recursive` flag on `pgpm deploy` automatically resolves and installs all dependencies from the workspace.
 
 ## Search Capabilities
 
