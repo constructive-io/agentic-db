@@ -17,7 +17,4 @@ sql-hacks/
 # ORM codegen output (generated at test time)
 __generated__/
 
-# K8s secrets (use secrets.yaml.example as template)
-deploy/k8s/base/secrets.yaml
-
 .agent-tests
