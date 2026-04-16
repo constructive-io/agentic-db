@@ -16,13 +16,11 @@
 >
 > A pgpm-installable Postgres module that gives Claude Code / OpenClaude / Cursor / Devin persistent memory, chat history, a skill library, a tool registry, behavioral rules, a task queue, runtime observability, and a full CRM + life-OS knowledge graph — all in **one database** with vector + BM25 + full-text + trigram + PostGIS search baked in.
 
-## The pitch
+## One database, not four
 
 Most "agentic" stacks bolt memory onto a vector DB, pair that with a separate message store, glue in a tool registry, then fight consistency forever. **agentic-db collapses all of that into one Postgres database.**
 
 Conversations, messages, tool calls, long-term memories, rules, skills, prompts, tasks, runtime state, and a full personal CRM / life-OS live side-by-side. Every embeddable table is auto-indexed for **semantic + keyword + fuzzy + spatial** search. A background worker keeps embeddings fresh via Ollama (or your LLM of choice). Deploy it next to your agent, wire it up through the typed SDK/CLI or the included Agent Skills, and your agent instantly has a hippocampus.
-
-**Stop gluing four vendors together. Your brain is one database.**
 
 ## What's Inside
 
