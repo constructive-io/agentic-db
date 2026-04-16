@@ -17,7 +17,6 @@ pnpm exec pgpm deploy \
   --createdb \
   --database agentic-db \
   --yes \
-  --recursive \
   --package agentic-db
 ```
 
@@ -28,7 +27,6 @@ pnpm exec pgpm deploy \
 | `--createdb` | Creates the database if it doesn't exist. **Fails if DB already exists** — drop it first for clean rebuilds. |
 | `--database agentic-db` | Explicit target database. Without this, pgpm guesses or prompts. |
 | `--yes` | Bypasses all confirmation prompts. |
-| `--recursive` | Deploys all dependent modules in the workspace (e.g., `agentic-db-services`). |
 | `--package agentic-db` | Selects the target package. Without this, the CLI prompts "Choose a package to deploy". |
 
 ## Clean Rebuild Workflow
@@ -39,7 +37,7 @@ PGPASSWORD=password psql -U postgres -h localhost -c 'DROP DATABASE IF EXISTS "a
 
 # 2. Deploy fresh
 PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=password \
-pnpm exec pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
+pnpm exec pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
 ## Seeding the Golden User (Post-Deploy)

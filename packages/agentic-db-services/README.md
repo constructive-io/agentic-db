@@ -13,7 +13,7 @@
 
 Services metadata extension for `agentic-db`. This pgpm module registers API endpoints, domains, and site configuration in the Constructive `services` schema so the GraphQL server knows how to route requests.
 
-This module is automatically deployed as a dependency when you deploy `agentic-db` with `--recursive`.
+This module is automatically deployed as a dependency when you deploy `agentic-db`.
 
 ## What It Does
 
@@ -28,7 +28,7 @@ This module is typically deployed alongside `agentic-db`:
 
 ```bash
 # Deploy both modules together (recommended)
-pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
+pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
 To deploy this module independently:
