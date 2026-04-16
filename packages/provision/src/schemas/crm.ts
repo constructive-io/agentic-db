@@ -49,7 +49,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'SearchUnified', data: {
-          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'] },
+          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -213,7 +213,7 @@ const definition: BlueprintDefinition = {
       nodes: [
         ...ORG_NODES,
         { $type: 'SearchUnified', data: {
-          embedding: { source_fields: ['content', 'abstract'] },
+          embedding: { source_fields: ['content', 'abstract'], chunks: {} },
           bm25: { field_name: 'embedding_text' },
         }},
       ],

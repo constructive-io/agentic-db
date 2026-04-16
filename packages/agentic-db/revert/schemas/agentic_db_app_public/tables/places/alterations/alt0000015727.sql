@@ -1,6 +1,0 @@
--- Revert: schemas/agentic_db_app_public/tables/places/alterations/alt0000015727
-
-
-COMMENT ON TABLE agentic_db_app_public.places IS NULL;
-
-

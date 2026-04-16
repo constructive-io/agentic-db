@@ -11,5 +11,5 @@
 CREATE TRIGGER messages_embedding_stale_insert_tg
 BEFORE INSERT ON agentic_db_app_public.messages
 FOR EACH ROW
-EXECUTE PROCEDURE agentic_db_private.messages_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".messages_embedding_stale ( );
 

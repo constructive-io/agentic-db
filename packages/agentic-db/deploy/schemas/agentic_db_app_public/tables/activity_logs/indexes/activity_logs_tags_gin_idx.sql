@@ -4,7 +4,7 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/activity_logs/table
 -- requires: schemas/agentic_db_app_public/tables/activity_logs/columns/tags/column
--- requires: schemas/agentic_db_app_public/tables/code_chunks/indexes/code_chunks_language_idx
+-- requires: schemas/agentic_db_app_public/tables/projects/indexes/projects_priority_idx
 
 
 CREATE INDEX activity_logs_tags_gin_idx ON agentic_db_app_public.activity_logs USING GIN ( tags );

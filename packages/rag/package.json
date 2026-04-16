@@ -12,11 +12,9 @@
   "scripts": {
     "clean": "makage clean",
     "build": "makage build",
-    "embed": "tsx src/embed.ts",
     "embed:all": "tsx src/embed-all.ts",
     "search": "tsx src/search.ts",
-    "ask": "tsx src/ask.ts",
-    "seed": "tsx src/seed-data.ts"
+    "ask": "tsx src/ask.ts"
   },
   "dependencies": {
     "@agentic-db/sdk": "workspace:*",

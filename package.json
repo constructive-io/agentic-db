@@ -26,9 +26,7 @@
     "export:all": "pnpm run export:pgpm && pnpm run generate:all",
     "search": "pnpm --filter @agentic-db/rag run search",
     "ask": "pnpm --filter @agentic-db/rag run ask",
-    "embed": "pnpm --filter @agentic-db/rag run embed",
-    "embed:all": "pnpm --filter @agentic-db/rag run embed:all",
-    "seed": "pnpm --filter @agentic-db/rag run seed"
+    "embed:all": "pnpm --filter @agentic-db/rag run embed:all"
   },
   "pnpm": {
     "overrides": {

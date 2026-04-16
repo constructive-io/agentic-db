@@ -12,5 +12,5 @@ CREATE TRIGGER rules_embedding_stale_update_tg
 BEFORE UPDATE ON agentic_db_app_public.rules
 FOR EACH ROW
 WHEN (OLD.name IS DISTINCT FROM NEW.name OR OLD.description IS DISTINCT FROM NEW.description OR OLD.trigger_concept IS DISTINCT FROM NEW.trigger_concept)
-EXECUTE PROCEDURE agentic_db_private.rules_embedding_stale ( );
+EXECUTE PROCEDURE "agentic_db_private".rules_embedding_stale ( );
 
