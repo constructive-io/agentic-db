@@ -1,6 +1,6 @@
 {
   "name": "@agentic-db/services",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "author": "Constructive <developers@constructive.io>",
   "description": "agentic-db services metadata extension for API/site configuration",
   "homepage": "https://github.com/constructive-io/agentic-db",
