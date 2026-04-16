@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "description": "GraphQL schema files for agentic-db database",
-  "author": "Dan Lynch <pyramation@gmail.com>",
+  "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
   "main": "index.js",
   "files": [

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "description": "pgpm export wrapper for agentic-db schema",
-  "author": "Dan Lynch <pyramation@gmail.com>",
+  "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
   "scripts": {
     "export": "tsx src/run-export.ts",

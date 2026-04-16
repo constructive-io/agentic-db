@@ -1,6 +1,8 @@
 {
   "name": "@agentic-db/rag",
   "version": "0.0.1",
+  "author": "Constructive <developers@constructive.io>",
+  "license": "MIT",
   "private": true,
   "main": "index.js",
   "module": "esm/index.js",
