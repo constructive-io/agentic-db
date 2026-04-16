@@ -130,6 +130,50 @@ cd packages/integration-tests && pnpm test  # ORM, embeddings, RAG, unified sear
 cd packages/cli-e2e-tests && pnpm test      # CLI end-to-end
 ```
 
+## AI Skills
+
+This repo ships with [Agent Skills](https://github.com/agent-skills/agent-skills) that teach AI coding assistants (Devin, Claude Code, Cursor, Copilot, etc.) how to work with the SDK, CLI, and pgpm.
+
+### Available Skills
+
+| Skill | Description |
+|-------|-------------|
+| `pgpm` | Install and deploy agentic-db using pgpm |
+| `cli-default` | CLI command reference for all 91 tables |
+| `orm-default` | Type-safe ORM client reference for all 91 tables |
+
+### Installing Skills from This Repo
+
+Skills are located at `.agents/skills/` and are auto-discovered when AI tools clone or index this repo. To use them in your own project, point your AI tool at this repository:
+
+**Devin** -- Connect the `constructive-io/agentic-db` repo to your Devin organization. Skills are indexed automatically and available in every session.
+
+**Claude Code** -- Clone and reference the skills directory:
+
+```bash
+# In your project's .claude/skills/ directory
+git clone https://github.com/constructive-io/agentic-db.git /tmp/agentic-db
+cp -r /tmp/agentic-db/.agents/skills/* .claude/skills/
+```
+
+**Cursor / Copilot / Windsurf** -- Copy the skills into the corresponding directory for your tool:
+
+```
+.cursor/skills/    # Cursor
+.github/skills/    # Copilot
+.windsurf/skills/  # Windsurf
+```
+
+Or reference them directly from the cloned repo -- all tools scan `.agents/skills/` automatically.
+
+### Using Skills
+
+Once installed, you can ask your AI assistant things like:
+
+- *"Deploy agentic-db to a new database"* -- triggers the `pgpm` skill
+- *"Query contacts using the ORM"* -- triggers the `orm-default` skill
+- *"Search for deals using the CLI"* -- triggers the `cli-default` skill
+
 ## Credits
 
 Built by the [Constructive](https://constructive.io) team -- creators of modular Postgres tooling for secure, composable backends. Contribute on [GitHub](https://github.com/constructive-io).
