@@ -2,7 +2,7 @@
   "name": "@agentic-db/cli",
   "version": "0.0.1",
   "description": "CLI for agentic-db database operations",
-  "author": "Dan Lynch <pyramation@gmail.com>",
+  "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
   "main": "index.js",
   "module": "esm/index.js",
@@ -15,6 +15,8 @@
     "directory": "dist"
   },
   "scripts": {
+    "clean": "makage clean",
+    "build": "makage build",
     "generate": "tsx src/generate.ts",
     "start": "tsx generated/cli/index.ts"
   },
@@ -26,6 +28,7 @@
     "@constructive-io/graphql-codegen": "^4.28.0",
     "@types/node": "^22.0.0",
     "dotenv": "^16.4.5",
+    "makage": "^0.3.0",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0"
   }

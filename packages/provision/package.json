@@ -1,5 +1,7 @@
 {
   "name": "@agentic-db/provision",
+  "author": "Constructive <developers@constructive.io>",
+  "license": "MIT",
   "private": true,
   "main": "index.js",
   "module": "esm/index.js",

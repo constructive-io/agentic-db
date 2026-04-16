@@ -14,7 +14,7 @@
     "build": "makage build",
     "test": "jest"
   },
-  "author": "Dan Lynch <pyramation@gmail.com>",
+  "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
   "dependencies": {
     "@agentic-db/sdk": "workspace:*",

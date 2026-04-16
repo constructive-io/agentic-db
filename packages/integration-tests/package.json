@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "description": "Integration tests for agentic-db: ORM and embeddings",
-  "author": "Dan Lynch <pyramation@gmail.com>",
+  "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
   "scripts": {
     "test": "jest --forceExit --detectOpenHandles",

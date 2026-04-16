@@ -2,7 +2,7 @@
   "name": "@agentic-db/sdk",
   "version": "0.0.1",
   "description": "Type-safe SDK for agentic-db database",
-  "author": "Dan Lynch <pyramation@gmail.com>",
+  "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
   "main": "index.js",
   "module": "esm/index.js",
