@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/pyramation-studio/agent-os"
+    "url": "https://github.com/constructive-io/agentic-db"
   },
   "license": "MIT",
   "publishConfig": {
