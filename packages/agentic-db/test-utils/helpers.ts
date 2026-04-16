@@ -8,20 +8,24 @@
  */
 
 /**
- * Create a no-op stub for app_jobs.add_job().
+ * Stub the job infrastructure so INSERT triggers don't fail.
  *
  * Several tables (contacts, notes, etc.) have AFTER INSERT triggers that
- * call app_jobs.add_job() to enqueue background embedding/chunking jobs.
- * In the test DB the jobs module isn't deployed, so we create a no-op stub
- * and grant roles access to the schema + function.
+ * call app_jobs.add_job(jwt_private.current_database_id(), ...).
+ * Without a JWT context current_database_id() returns NULL, which violates
+ * the NOT NULL constraint on app_jobs.jobs.database_id.
+ *
+ * We fix this by overriding jwt_private.current_database_id() to return a
+ * dummy UUID so the real add_job function can INSERT successfully.
  */
 export async function createAppJobsStub(pg: any): Promise<void> {
   await pg.query(`
-    CREATE OR REPLACE FUNCTION app_jobs.add_job(
-      _database_id uuid, _task text, _payload jsonb
-    ) RETURNS void AS $$ BEGIN END; $$ LANGUAGE plpgsql;
-    GRANT USAGE ON SCHEMA app_jobs TO anonymous;
-    GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app_jobs TO anonymous;
+    CREATE OR REPLACE FUNCTION jwt_private.current_database_id()
+    RETURNS uuid AS $$
+    BEGIN
+      RETURN '00000000-0000-0000-0000-000000000000'::uuid;
+    END;
+    $$ LANGUAGE plpgsql;
   `);
 }
 

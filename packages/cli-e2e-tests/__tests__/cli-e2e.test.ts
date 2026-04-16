@@ -262,18 +262,17 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
 
     // ---- Seed all test data once (superuser) ----
 
-    // 0. Create a stub for app_jobs.add_job so that INSERT triggers
-    //    (e.g. contacts_enqueue_chunking, notes_enqueue_chunking) don't fail.
-    //    The real function lives in graphile-worker which isn't deployed in the test DB.
+    // 0. Override jwt_private.current_database_id() so that INSERT triggers
+    //    (e.g. contacts_enqueue_embedding) which call
+    //    app_jobs.add_job(jwt_private.current_database_id(), ...) don't fail
+    //    with a NULL database_id constraint violation.
     await pg.query(`
-      CREATE SCHEMA IF NOT EXISTS app_jobs;
-      CREATE OR REPLACE FUNCTION app_jobs.add_job(
-        _database_id uuid,
-        _task text,
-        _payload jsonb DEFAULT '{}'::jsonb
-      ) RETURNS void AS $$ BEGIN /* no-op stub */ END; $$ LANGUAGE plpgsql;
-      GRANT USAGE ON SCHEMA app_jobs TO anonymous;
-      GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app_jobs TO anonymous;
+      CREATE OR REPLACE FUNCTION jwt_private.current_database_id()
+      RETURNS uuid AS $$
+      BEGIN
+        RETURN '00000000-0000-0000-0000-000000000000'::uuid;
+      END;
+      $$ LANGUAGE plpgsql;
     `);
 
     // 1. Insert contacts via direct SQL (superuser)
