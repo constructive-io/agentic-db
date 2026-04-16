@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/sdk@1.0.0...@agentic-db/sdk@1.1.0) (2026-04-16)
+
+**Note:** Version bump only for package @agentic-db/sdk
+
 # [1.0.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/sdk@0.4.0...@agentic-db/sdk@1.0.0) (2026-04-16)
 
 **Note:** Version bump only for package @agentic-db/sdk
