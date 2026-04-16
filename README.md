@@ -5,37 +5,68 @@
 </p>
 
 <p align="center" width="100%">
-  <a href="https://github.com/pyramation-studio/agentic-db/actions/workflows/ci.yml">
-    <img height="20" src="https://github.com/pyramation-studio/agentic-db/actions/workflows/ci.yml/badge.svg" />
+  <a href="https://github.com/constructive-io/agentic-db/actions/workflows/integration-test.yml">
+    <img height="20" src="https://github.com/constructive-io/agentic-db/actions/workflows/integration-test.yml/badge.svg" />
   </a>
 </p>
 
+A personal CRM and knowledge base built on [pgpm](https://github.com/constructive-io/constructive) and the [Constructive](https://constructive.io) platform. Vector search, full-text search, BM25 ranking, trigram fuzzy matching, PostGIS spatial queries, row-level security, and auto-embedding triggers -- all inside PostgreSQL.
 
-## Getting Started
+## Quick Start
 
-This workspace was generated with `pgpm init workspace`. For a complete guide on developing with pgpm workspaces, see [Workspaces: Organize Postgres](https://constructive.io/learn/modular-postgres/workspaces-organize-postgres).
+```bash
+# Install pgpm
+npm install -g pgpm
 
-### Quick Start
+# Start PostgreSQL
+pgpm docker start --image docker.io/constructiveio/postgres-plus:18
 
-```sh
-# Install dependencies
-pnpm install
-
-# Start PostgreSQL + Ollama (requires Docker)
-docker compose up -d
-
-# Load environment variables
+# Load env vars and bootstrap roles
 eval "$(pgpm env)"
+pgpm admin-users bootstrap --yes
 
-# Create a module
-pgpm init
-
-# Navigate to your module and run tests
-cd packages/your-module
-pnpm test:watch
+# Deploy the database
+pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
 ```
 
-### Prerequisites
+For local development with Ollama (embeddings):
+
+```bash
+git clone https://github.com/constructive-io/agentic-db.git
+cd agentic-db
+pnpm install
+docker compose up -d
+eval "$(pgpm env)"
+pgpm admin-users bootstrap --yes
+pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
+```
+
+See the [`agentic-db` package README](packages/agentic-db) for the full deployment guide, schema details, and search capabilities.
+
+## Packages
+
+### Published
+
+| Package | npm | Description |
+|---------|-----|-------------|
+| [`agentic-db`](packages/agentic-db) | `agentic-db` | pgpm SQL module -- the core database schema with 90+ tables, RLS, and search indexes |
+| [`@agentic-db/services`](packages/agentic-db-services) | `@agentic-db/services` | pgpm SQL module -- API endpoint and domain routing metadata |
+| [`@agentic-db/sdk`](sdk/sdk) | `@agentic-db/sdk` | Type-safe Prisma-like ORM client generated from the GraphQL schema |
+| [`@agentic-db/cli`](sdk/cli) | `@agentic-db/cli` | CLI tool for CRUD, search, and admin operations |
+
+### Private (development only)
+
+| Package | Description |
+|---------|-------------|
+| [`@agentic-db/provision`](packages/provision) | SDK-based blueprint provisioning (tables, relations, search, RLS) |
+| [`@agentic-db/export`](packages/export) | pgpm export wrapper (extracts provisioned schema as SQL modules) |
+| [`@agentic-db/rag`](packages/rag) | RAG CLI tools (hybrid search, batch embedding, multi-pass Q&A) |
+| [`@agentic-db/worker`](packages/worker) | Background worker for auto-generating embeddings via Ollama |
+| [`@agentic-db/schemas`](sdk/schemas) | GraphQL schema files (`.graphql`) used by codegen |
+| [`@agentic-db/integration-tests`](packages/integration-tests) | Integration test suite (ORM, embeddings, RAG, unified search) |
+| [`@agentic-db/cli-e2e-tests`](packages/cli-e2e-tests) | End-to-end CLI test suite |
+
+## Prerequisites
 
 - Node.js 20+
 - pnpm
@@ -43,104 +74,69 @@ pnpm test:watch
 - PostgreSQL client tools (`psql`)
 - pgpm (`npm install -g pgpm`)
 
-### Docker Setup
+## Docker Setup
 
-This repo includes a `docker-compose.yml` that starts PostgreSQL and Ollama with settings tuned for large vector workloads (embeddings, bulk restores, etc.):
+The `docker-compose.yml` starts PostgreSQL 18 and Ollama with settings tuned for vector workloads:
 
-```sh
+```bash
 # Start all services
 docker compose up -d
 
-# Stop all services (data is preserved in named volumes)
+# GPU-accelerated Ollama (NVIDIA)
+docker compose --profile gpu up -d
+
+# Stop (data preserved in volumes)
 docker compose down
 
 # Stop and delete all data
 docker compose down -v
 ```
 
-Key Postgres settings applied by the compose file:
-
 | Setting | Value | Purpose |
 |---------|-------|---------|
-| `shm_size` | 2GB | Prevents "No space left on device" during bulk COPY of vector data |
+| `shm_size` | 2GB | Prevents OOM during bulk COPY of vector data |
 | `shared_buffers` | 512MB | More RAM for caching table/index pages |
 | `work_mem` | 64MB | Per-sort/hash memory for vector operations |
 | `maintenance_work_mem` | 512MB | Used by pg_restore, VACUUM, CREATE INDEX |
 | `max_wal_size` | 2GB | Reduces checkpoint frequency during bulk loads |
 
-Data is persisted in named Docker volumes (`pgdata`, `ollama_data`) so it survives `docker compose down` / `docker compose up` cycles.
+## Schema Development Workflow
 
-> **Note:** You can still use `pgpm docker start` for a quick default container, but `docker compose up -d` is recommended for agentic-db development since it includes Ollama and tuned Postgres settings.
+The schema is developed using the Constructive SDK provisioning pipeline:
 
-See [Prerequisites](https://constructive.io/learn/quickstart/prerequisites) for detailed setup instructions.
+1. **Edit blueprints** in [`packages/provision/src/schemas/`](packages/provision/src/schemas) -- define tables, fields, relations, search nodes
+2. **Provision** -- `cd packages/provision && pnpm run provision` applies blueprints against the platform DB
+3. **Export** -- `cd packages/export && pnpm run export` extracts the schema as pgpm SQL modules
+4. **Deploy** -- `pgpm deploy --recursive --package agentic-db` installs into any Postgres database
+5. **Regenerate codegen** -- `pnpm run generate:all` updates the SDK and CLI from the live schema
 
-## Database Provisioning & Export Workflow
+## Auto-Embedding Pipeline
 
-Because `agentic-db` is built on the Constructive platform, the application schema must be provisioned via the SDK against the platform database (`constructive`), and then exported into `pgpm` modules for standalone installation.
-
-### 1. Point GraphQL Server at the Platform DB
-
-Before running any SDK provisioning commands, the Constructive GraphQL server must be running and connected to the main `constructive` platform database (where `api.localhost` and `auth.localhost` are exposed).
-
-```bash
-# Restart your GraphQL server with:
-PGDATABASE=constructive npm run dev
-```
-
-### 2. Scaffold and Provision the Database
-
-Run the provision scripts to scaffold a new `agentic-db-<timestamp>` database and apply all the tables, relations, search indexes, and RLS policies. The script will automatically enforce clean schema naming (`constructive.simple_schema_names`) via database-level settings.
+Postgres triggers automatically enqueue embedding jobs when records are created or updated. The background worker processes them via Ollama:
 
 ```bash
-cd packages/provision
-
-# 1. Sign up admin user and create the database via API
-pnpm run create-db
-
-# 2. Run the SDK definitions to build the schema
-pnpm run provision
+# Start the embedding worker
+cd packages/worker
+pnpm run start
 ```
 
-### 3. Export as a pgpm Module
+The worker generates embeddings for all tables with `SearchUnified` or `SearchVector` nodes. Contacts and notes also get chunked embeddings for long-document search.
 
-Now that the database is fully provisioned, you need to export the generated SQL schema and metadata into static `pgpm` packages (`agent-db` and `agent-db-services`). This is what enables you to track schema changes in git and deploy the database anywhere.
+## Testing
 
 ```bash
-cd ../export
+# Run all tests (from repo root)
+pnpm test
 
-# Export the generated migrations into the workspace
-pnpm run export
+# Run a specific test suite
+cd packages/agentic-db && pnpm test        # pgpm deploy + schema tests
+cd packages/integration-tests && pnpm test  # ORM, embeddings, RAG, unified search
+cd packages/cli-e2e-tests && pnpm test      # CLI end-to-end
 ```
-*This extracts everything from the provisioned database and writes the SQL migrations into your `packages/` directory.*
-
-## Data Migration & Auto-Embedding Pipeline
-
-This repository includes a background worker and Postgres triggers for auto-generating vector embeddings whenever records are created or updated.
-
-### Migration Workflow
-
-If you need to migrate data from an older schema (`agentdb`) into the newly provisioned format, follow these steps:
-
-1. **Backup Existing Data**
-   ```bash
-   pg_dump -U postgres -d agentdb --clean --if-exists > ~/DatabaseBackups/agentdb/agentdb_latest.sql
-   # Commit this file to the db-backups repository via Git LFS
-   ```
-
-2. **Run the Data Migration Script**
-   Map the old rows (e.g., floating notes/memories) into the new junction tables (`contact_notes`, `company_notes`, etc.).
-
-3. **Start the Auto-Embedding Worker**
-   Because of the Postgres triggers in `packages/agent-db-embeddings`, inserting data into the new schema automatically queues embedding jobs.
-   ```bash
-   cd packages/agent-db-worker
-   pnpm run start
-   ```
-   *The worker will instantly pick up the jobs and compute vector embeddings via Ollama or Claude for all migrated records!*
 
 ## Credits
 
-**🛠 Built by the [Constructive](https://constructive.io) team — creators of modular Postgres tooling for secure, composable backends. If you like our work, contribute on [GitHub](https://github.com/constructive-io).**
+Built by the [Constructive](https://constructive.io) team -- creators of modular Postgres tooling for secure, composable backends. Contribute on [GitHub](https://github.com/constructive-io).
 
 ## Disclaimer
 

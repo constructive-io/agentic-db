@@ -1,43 +1,42 @@
-# agentic-db-worker
+# @agentic-db/worker
 
-<p align="center" width="100%">
-  <img height="250" src="https://raw.githubusercontent.com/constructive-io/constructive/refs/heads/main/assets/outline-logo.svg" />
-</p>
+Background worker for auto-generating vector embeddings. Uses [graphile-worker](https://github.com/graphile/worker) to process embedding jobs triggered by Postgres INSERT/UPDATE triggers.
 
-<p align="center" width="100%">
-  <a href="https://github.com/pyramation-studio/agent-os/actions/workflows/ci.yml">
-    <img height="20" src="https://github.com/pyramation-studio/agent-os/actions/workflows/ci.yml/badge.svg" />
-  </a>
-   <a href="https://www.npmjs.com/package/agentic-db-worker"><img height="20" src="https://img.shields.io/github/package-json/v/pyramation-studio/agent-os?filename=packages%2Fworker%2Fpackage.json"/></a>
-</p>
+This is a **private** package -- not published to npm.
+
+## How It Works
+
+1. When a record is inserted or updated in any embedding-enabled table (contacts, notes, companies, etc.), a Postgres trigger enqueues an `embed_record` job via `graphile_worker.add_job()`
+2. The worker picks up the job, reads the record's source fields, and generates an embedding via Ollama (`nomic-embed-text`)
+3. The embedding vector is written back to the record's `embedding` column
+4. For tables with chunk support (contacts, notes), the worker also splits the text into chunks and embeds each chunk into the corresponding `*_chunks` table
+
+## Usage
+
+```bash
+# Start the worker (connects to the database and polls for jobs)
+pnpm run start
+```
+
+## Prerequisites
+
+- A deployed `agentic-db` database (see [agentic-db](../agentic-db))
+- Ollama running locally with the `nomic-embed-text` model pulled
+- Environment variables set (`eval "$(pgpm env)"`)
+
+## Configuration
+
+The worker reads table configurations from `src/tasks/embed_record.ts`, which defines:
+- Which tables to embed
+- Which fields to use as source text
+- The Ollama model and endpoint
 
 ## Developing
 
-This is a pnpm module within a pnpm workspace.
-
-```sh
-# Install dependencies
-pnpm install
-
+```bash
 # Run tests
 pnpm test
 
-# Run tests in watch mode
-pnpm test:watch
-
-# Build the module
+# Build
 pnpm build
-
-# Lint the code
-pnpm lint
 ```
-
-## Credits
-
-**Built by the [Constructive](https://constructive.io) team. If you like our work, contribute on [GitHub](https://github.com/constructive-io).**
-
-## Disclaimer
-
-AS DESCRIBED IN THE LICENSES, THE SOFTWARE IS PROVIDED "AS IS", AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY KIND.
-
-No developer or entity involved in creating this software will be liable for any claims or damages whatsoever associated with your use, inability to use, or your interaction with other users of the code, including any direct, indirect, incidental, special, exemplary, punitive or consequential damages, or loss of profits, cryptocurrencies, tokens, or anything else of value.
