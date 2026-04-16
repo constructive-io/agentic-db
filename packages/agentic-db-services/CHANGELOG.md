@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/services@0.2.0...@agentic-db/services@0.3.0) (2026-04-16)
+
+### Bug Fixes
+
+- add pgpm extension dependencies so pgpm install pulls them in ([5fc329b](https://github.com/constructive-io/agentic-db/commit/5fc329b1dc97b99c9a93fc7ea7a09449e2929486))
+
 # [0.2.0](https://github.com/constructive-io/agentic-db/compare/@agentic-db/services@0.1.0...@agentic-db/services@0.2.0) (2026-04-16)
 
 ### Bug Fixes

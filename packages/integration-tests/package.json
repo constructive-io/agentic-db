@@ -1,6 +1,6 @@
 {
   "name": "@agentic-db/integration-tests",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "Integration tests for agentic-db: ORM and embeddings",
   "author": "Constructive <developers@constructive.io>",
