@@ -45,7 +45,6 @@ cd my-app
 pgpm init
 cd packages/my-module
 pgpm install agentic-db
-pgpm install @agentic-db/services
 
 # 2. Start PostgreSQL
 pgpm docker start

@@ -31,7 +31,8 @@
     "@pgpm/totp": "^0.20.0",
     "@pgpm/types": "^0.20.0",
     "@pgpm/utils": "^0.20.0",
-    "@pgpm/uuid": "^0.20.0"
+    "@pgpm/uuid": "^0.20.0",
+    "@agentic-db/services": "workspace:*"
   },
   "devDependencies": {
     "@agentic-db/sdk": "workspace:*",

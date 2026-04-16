@@ -24,8 +24,7 @@
   "dependencies": {
     "@pgpm/metaschema-modules": "^0.20.2",
     "@pgpm/metaschema-schema": "^0.20.2",
-    "@pgpm/services": "^0.20.2",
-    "agentic-db": "workspace:*"
+    "@pgpm/services": "^0.20.2"
   },
   "devDependencies": {
     "pgsql-test": "^4.7.6"
