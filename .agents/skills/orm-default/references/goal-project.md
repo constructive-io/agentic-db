@@ -9,7 +9,7 @@ ORM operations for GoalProject records
 ```typescript
 db.goalProject.findMany({ select: { id: true } }).execute()
 db.goalProject.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.goalProject.create({ data: { goalId: '<UUID>', projectId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.goalProject.create({ data: { goalId: '<UUID>', projectId: '<UUID>' }, select: { id: true } }).execute()
 db.goalProject.update({ where: { id: '<UUID>' }, data: { goalId: '<UUID>' }, select: { id: true } }).execute()
 db.goalProject.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.goalProject.findMany({
 
 ```typescript
 const item = await db.goalProject.create({
-  data: { goalId: '<UUID>', projectId: '<UUID>', entityId: '<UUID>' },
+  data: { goalId: '<UUID>', projectId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

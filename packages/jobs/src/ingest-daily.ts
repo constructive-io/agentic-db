@@ -88,10 +88,8 @@ async function main() {
           }).execute();
         } else {
           // Create new event via ORM
-          const entityId = process.env.ENTITY_ID || '00000000-0000-0000-0000-000000000000';
           await orm.event.create({
             data: {
-              entityId,
               name: summary,
               startedAt: start,
               endedAt: end,

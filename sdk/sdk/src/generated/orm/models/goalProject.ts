@@ -97,46 +97,6 @@ export class GoalProjectModel {
       variables,
     });
   }
-  findOne<S extends GoalProjectSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, GoalProjectSelect>
-  ): QueryBuilder<{
-    goalProject: InferSelectResult<GoalProjectWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'GoalProject',
-      'goalProjects',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'GoalProjectFilter',
-      'GoalProjectOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'GoalProject',
-      fieldName: 'goalProject',
-      document,
-      variables,
-      transform: (data: {
-        goalProjects?: {
-          nodes?: InferSelectResult<GoalProjectWithRelations, S>[];
-        };
-      }) => ({
-        goalProject: data.goalProjects?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends GoalProjectSelect>(
     args: CreateArgs<S, CreateGoalProjectInput['goalProject']> & {
       select: S;
@@ -160,76 +120,6 @@ export class GoalProjectModel {
       operation: 'mutation',
       operationName: 'GoalProject',
       fieldName: 'createGoalProject',
-      document,
-      variables,
-    });
-  }
-  update<S extends GoalProjectSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      GoalProjectPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, GoalProjectSelect>
-  ): QueryBuilder<{
-    updateGoalProject: {
-      goalProject: InferSelectResult<GoalProjectWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'GoalProject',
-      'updateGoalProject',
-      'goalProject',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateGoalProjectInput',
-      'id',
-      'goalProjectPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'GoalProject',
-      fieldName: 'updateGoalProject',
-      document,
-      variables,
-    });
-  }
-  delete<S extends GoalProjectSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, GoalProjectSelect>
-  ): QueryBuilder<{
-    deleteGoalProject: {
-      goalProject: InferSelectResult<GoalProjectWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'GoalProject',
-      'deleteGoalProject',
-      'goalProject',
-      {
-        id: args.where.id,
-      },
-      'DeleteGoalProjectInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'GoalProject',
-      fieldName: 'deleteGoalProject',
       document,
       variables,
     });

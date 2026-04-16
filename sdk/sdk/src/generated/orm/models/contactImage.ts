@@ -97,46 +97,6 @@ export class ContactImageModel {
       variables,
     });
   }
-  findOne<S extends ContactImageSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, ContactImageSelect>
-  ): QueryBuilder<{
-    contactImage: InferSelectResult<ContactImageWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'ContactImage',
-      'contactImages',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'ContactImageFilter',
-      'ContactImageOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'ContactImage',
-      fieldName: 'contactImage',
-      document,
-      variables,
-      transform: (data: {
-        contactImages?: {
-          nodes?: InferSelectResult<ContactImageWithRelations, S>[];
-        };
-      }) => ({
-        contactImage: data.contactImages?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends ContactImageSelect>(
     args: CreateArgs<S, CreateContactImageInput['contactImage']> & {
       select: S;
@@ -160,76 +120,6 @@ export class ContactImageModel {
       operation: 'mutation',
       operationName: 'ContactImage',
       fieldName: 'createContactImage',
-      document,
-      variables,
-    });
-  }
-  update<S extends ContactImageSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      ContactImagePatch
-    > & {
-      select: S;
-    } & StrictSelect<S, ContactImageSelect>
-  ): QueryBuilder<{
-    updateContactImage: {
-      contactImage: InferSelectResult<ContactImageWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'ContactImage',
-      'updateContactImage',
-      'contactImage',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateContactImageInput',
-      'id',
-      'contactImagePatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ContactImage',
-      fieldName: 'updateContactImage',
-      document,
-      variables,
-    });
-  }
-  delete<S extends ContactImageSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, ContactImageSelect>
-  ): QueryBuilder<{
-    deleteContactImage: {
-      contactImage: InferSelectResult<ContactImageWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'ContactImage',
-      'deleteContactImage',
-      'contactImage',
-      {
-        id: args.where.id,
-      },
-      'DeleteContactImageInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ContactImage',
-      fieldName: 'deleteContactImage',
       document,
       variables,
     });

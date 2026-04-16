@@ -97,46 +97,6 @@ export class ContactMemoryModel {
       variables,
     });
   }
-  findOne<S extends ContactMemorySelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, ContactMemorySelect>
-  ): QueryBuilder<{
-    contactMemory: InferSelectResult<ContactMemoryWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'ContactMemory',
-      'contactMemories',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'ContactMemoryFilter',
-      'ContactMemoryOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'ContactMemory',
-      fieldName: 'contactMemory',
-      document,
-      variables,
-      transform: (data: {
-        contactMemories?: {
-          nodes?: InferSelectResult<ContactMemoryWithRelations, S>[];
-        };
-      }) => ({
-        contactMemory: data.contactMemories?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends ContactMemorySelect>(
     args: CreateArgs<S, CreateContactMemoryInput['contactMemory']> & {
       select: S;
@@ -160,76 +120,6 @@ export class ContactMemoryModel {
       operation: 'mutation',
       operationName: 'ContactMemory',
       fieldName: 'createContactMemory',
-      document,
-      variables,
-    });
-  }
-  update<S extends ContactMemorySelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      ContactMemoryPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, ContactMemorySelect>
-  ): QueryBuilder<{
-    updateContactMemory: {
-      contactMemory: InferSelectResult<ContactMemoryWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'ContactMemory',
-      'updateContactMemory',
-      'contactMemory',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateContactMemoryInput',
-      'id',
-      'contactMemoryPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ContactMemory',
-      fieldName: 'updateContactMemory',
-      document,
-      variables,
-    });
-  }
-  delete<S extends ContactMemorySelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, ContactMemorySelect>
-  ): QueryBuilder<{
-    deleteContactMemory: {
-      contactMemory: InferSelectResult<ContactMemoryWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'ContactMemory',
-      'deleteContactMemory',
-      'contactMemory',
-      {
-        id: args.where.id,
-      },
-      'DeleteContactMemoryInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ContactMemory',
-      fieldName: 'deleteContactMemory',
       document,
       variables,
     });

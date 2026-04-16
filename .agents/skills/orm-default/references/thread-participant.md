@@ -9,7 +9,7 @@ ORM operations for ThreadParticipant records
 ```typescript
 db.threadParticipant.findMany({ select: { id: true } }).execute()
 db.threadParticipant.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.threadParticipant.create({ data: { emailThreadId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.threadParticipant.create({ data: { emailThreadId: '<UUID>', contactId: '<UUID>' }, select: { id: true } }).execute()
 db.threadParticipant.update({ where: { id: '<UUID>' }, data: { emailThreadId: '<UUID>' }, select: { id: true } }).execute()
 db.threadParticipant.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.threadParticipant.findMany({
 
 ```typescript
 const item = await db.threadParticipant.create({
-  data: { emailThreadId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' },
+  data: { emailThreadId: '<UUID>', contactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

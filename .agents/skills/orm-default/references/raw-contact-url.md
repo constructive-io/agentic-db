@@ -9,8 +9,8 @@ ORM operations for RawContactUrl records
 ```typescript
 db.rawContactUrl.findMany({ select: { id: true } }).execute()
 db.rawContactUrl.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.rawContactUrl.create({ data: { entityId: '<UUID>', url: '<String>', urlType: '<String>', source: '<String>', confidence: '<BigFloat>', rawContactId: '<UUID>' }, select: { id: true } }).execute()
-db.rawContactUrl.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.rawContactUrl.create({ data: { url: '<String>', urlType: '<String>', source: '<String>', confidence: '<BigFloat>', rawContactId: '<UUID>' }, select: { id: true } }).execute()
+db.rawContactUrl.update({ where: { id: '<UUID>' }, data: { url: '<String>' }, select: { id: true } }).execute()
 db.rawContactUrl.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.rawContactUrl.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.rawContactUrl.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, url: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.rawContactUrl.findMany({
 
 ```typescript
 const item = await db.rawContactUrl.create({
-  data: { entityId: '<UUID>', url: '<String>', urlType: '<String>', source: '<String>', confidence: '<BigFloat>', rawContactId: '<UUID>' },
+  data: { url: '<String>', urlType: '<String>', source: '<String>', confidence: '<BigFloat>', rawContactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

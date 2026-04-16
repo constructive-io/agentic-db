@@ -9,7 +9,7 @@ ORM operations for TaskNote records
 ```typescript
 db.taskNote.findMany({ select: { id: true } }).execute()
 db.taskNote.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.taskNote.create({ data: { taskId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.taskNote.create({ data: { taskId: '<UUID>', noteId: '<UUID>' }, select: { id: true } }).execute()
 db.taskNote.update({ where: { id: '<UUID>' }, data: { taskId: '<UUID>' }, select: { id: true } }).execute()
 db.taskNote.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.taskNote.findMany({
 
 ```typescript
 const item = await db.taskNote.create({
-  data: { taskId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' },
+  data: { taskId: '<UUID>', noteId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

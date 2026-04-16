@@ -9,8 +9,8 @@ ORM operations for ContactPhone records
 ```typescript
 db.contactPhone.findMany({ select: { id: true } }).execute()
 db.contactPhone.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.contactPhone.create({ data: { entityId: '<UUID>', phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' }, select: { id: true } }).execute()
-db.contactPhone.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.contactPhone.create({ data: { phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' }, select: { id: true } }).execute()
+db.contactPhone.update({ where: { id: '<UUID>' }, data: { phone: '<String>' }, select: { id: true } }).execute()
 db.contactPhone.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.contactPhone.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.contactPhone.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, phone: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.contactPhone.findMany({
 
 ```typescript
 const item = await db.contactPhone.create({
-  data: { entityId: '<UUID>', phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' },
+  data: { phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

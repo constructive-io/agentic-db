@@ -9,8 +9,8 @@ ORM operations for Calendar records
 ```typescript
 db.calendar.findMany({ select: { id: true } }).execute()
 db.calendar.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.calendar.create({ data: { entityId: '<UUID>', providerAccountId: '<String>', providerCalendarId: '<String>', name: '<String>', color: '<String>' }, select: { id: true } }).execute()
-db.calendar.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.calendar.create({ data: { providerAccountId: '<String>', providerCalendarId: '<String>', name: '<String>', color: '<String>' }, select: { id: true } }).execute()
+db.calendar.update({ where: { id: '<UUID>' }, data: { providerAccountId: '<String>' }, select: { id: true } }).execute()
 db.calendar.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.calendar.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.calendar.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, providerAccountId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.calendar.findMany({
 
 ```typescript
 const item = await db.calendar.create({
-  data: { entityId: '<UUID>', providerAccountId: '<String>', providerCalendarId: '<String>', name: '<String>', color: '<String>' },
+  data: { providerAccountId: '<String>', providerCalendarId: '<String>', name: '<String>', color: '<String>' },
   select: { id: true }
 }).execute();
 ```

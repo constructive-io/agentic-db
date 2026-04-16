@@ -69,7 +69,6 @@ async function ingestAccount(orm: ReturnType<typeof createOrmClient>, account: s
   let skipped = 0;
   let failed = 0;
 
-  const entityId = process.env.ENTITY_ID || '00000000-0000-0000-0000-000000000000';
   // We need a conversation ID for the ORM; use a default or create per-thread
   const defaultConversationId = process.env.DEFAULT_CONVERSATION_ID || '00000000-0000-0000-0000-000000000001';
 
@@ -123,7 +122,6 @@ async function ingestAccount(orm: ReturnType<typeof createOrmClient>, account: s
       // Create message via ORM
       const result = await orm.message.create({
         data: {
-          entityId,
           conversationId: defaultConversationId,
           role,
           content,

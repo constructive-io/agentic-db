@@ -9,8 +9,8 @@ ORM operations for EmailAttachment records
 ```typescript
 db.emailAttachment.findMany({ select: { id: true } }).execute()
 db.emailAttachment.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.emailAttachment.create({ data: { entityId: '<UUID>', filename: '<String>', contentType: '<String>', sizeBytes: '<Int>', storageUrl: '<String>', providerAttachmentId: '<String>', emailId: '<UUID>' }, select: { id: true } }).execute()
-db.emailAttachment.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.emailAttachment.create({ data: { filename: '<String>', contentType: '<String>', sizeBytes: '<Int>', storageUrl: '<String>', providerAttachmentId: '<String>', emailId: '<UUID>' }, select: { id: true } }).execute()
+db.emailAttachment.update({ where: { id: '<UUID>' }, data: { filename: '<String>' }, select: { id: true } }).execute()
 db.emailAttachment.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.emailAttachment.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.emailAttachment.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, filename: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.emailAttachment.findMany({
 
 ```typescript
 const item = await db.emailAttachment.create({
-  data: { entityId: '<UUID>', filename: '<String>', contentType: '<String>', sizeBytes: '<Int>', storageUrl: '<String>', providerAttachmentId: '<String>', emailId: '<UUID>' },
+  data: { filename: '<String>', contentType: '<String>', sizeBytes: '<Int>', storageUrl: '<String>', providerAttachmentId: '<String>', emailId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

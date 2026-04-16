@@ -97,46 +97,6 @@ export class DealNoteModel {
       variables,
     });
   }
-  findOne<S extends DealNoteSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, DealNoteSelect>
-  ): QueryBuilder<{
-    dealNote: InferSelectResult<DealNoteWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'DealNote',
-      'dealNotes',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'DealNoteFilter',
-      'DealNoteOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'DealNote',
-      fieldName: 'dealNote',
-      document,
-      variables,
-      transform: (data: {
-        dealNotes?: {
-          nodes?: InferSelectResult<DealNoteWithRelations, S>[];
-        };
-      }) => ({
-        dealNote: data.dealNotes?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends DealNoteSelect>(
     args: CreateArgs<S, CreateDealNoteInput['dealNote']> & {
       select: S;
@@ -160,76 +120,6 @@ export class DealNoteModel {
       operation: 'mutation',
       operationName: 'DealNote',
       fieldName: 'createDealNote',
-      document,
-      variables,
-    });
-  }
-  update<S extends DealNoteSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      DealNotePatch
-    > & {
-      select: S;
-    } & StrictSelect<S, DealNoteSelect>
-  ): QueryBuilder<{
-    updateDealNote: {
-      dealNote: InferSelectResult<DealNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'DealNote',
-      'updateDealNote',
-      'dealNote',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateDealNoteInput',
-      'id',
-      'dealNotePatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'DealNote',
-      fieldName: 'updateDealNote',
-      document,
-      variables,
-    });
-  }
-  delete<S extends DealNoteSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, DealNoteSelect>
-  ): QueryBuilder<{
-    deleteDealNote: {
-      dealNote: InferSelectResult<DealNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'DealNote',
-      'deleteDealNote',
-      'dealNote',
-      {
-        id: args.where.id,
-      },
-      'DeleteDealNoteInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'DealNote',
-      fieldName: 'deleteDealNote',
       document,
       variables,
     });

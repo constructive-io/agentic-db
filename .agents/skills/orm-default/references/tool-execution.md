@@ -9,8 +9,8 @@ ORM operations for ToolExecution records
 ```typescript
 db.toolExecution.findMany({ select: { id: true } }).execute()
 db.toolExecution.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.toolExecution.create({ data: { entityId: '<UUID>', toolDefinitionId: '<UUID>', messageId: '<UUID>', input: '<JSON>', output: '<JSON>', status: '<String>', startedAt: '<Datetime>', completedAt: '<Datetime>', error: '<String>' }, select: { id: true } }).execute()
-db.toolExecution.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.toolExecution.create({ data: { toolDefinitionId: '<UUID>', messageId: '<UUID>', input: '<JSON>', output: '<JSON>', status: '<String>', startedAt: '<Datetime>', completedAt: '<Datetime>', error: '<String>' }, select: { id: true } }).execute()
+db.toolExecution.update({ where: { id: '<UUID>' }, data: { toolDefinitionId: '<UUID>' }, select: { id: true } }).execute()
 db.toolExecution.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.toolExecution.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.toolExecution.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, toolDefinitionId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.toolExecution.findMany({
 
 ```typescript
 const item = await db.toolExecution.create({
-  data: { entityId: '<UUID>', toolDefinitionId: '<UUID>', messageId: '<UUID>', input: '<JSON>', output: '<JSON>', status: '<String>', startedAt: '<Datetime>', completedAt: '<Datetime>', error: '<String>' },
+  data: { toolDefinitionId: '<UUID>', messageId: '<UUID>', input: '<JSON>', output: '<JSON>', status: '<String>', startedAt: '<Datetime>', completedAt: '<Datetime>', error: '<String>' },
   select: { id: true }
 }).execute();
 ```

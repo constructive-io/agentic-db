@@ -97,46 +97,6 @@ export class AgentPromptModel {
       variables,
     });
   }
-  findOne<S extends AgentPromptSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, AgentPromptSelect>
-  ): QueryBuilder<{
-    agentPrompt: InferSelectResult<AgentPromptWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'AgentPrompt',
-      'agentPrompts',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'AgentPromptFilter',
-      'AgentPromptOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'AgentPrompt',
-      fieldName: 'agentPrompt',
-      document,
-      variables,
-      transform: (data: {
-        agentPrompts?: {
-          nodes?: InferSelectResult<AgentPromptWithRelations, S>[];
-        };
-      }) => ({
-        agentPrompt: data.agentPrompts?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends AgentPromptSelect>(
     args: CreateArgs<S, CreateAgentPromptInput['agentPrompt']> & {
       select: S;
@@ -160,76 +120,6 @@ export class AgentPromptModel {
       operation: 'mutation',
       operationName: 'AgentPrompt',
       fieldName: 'createAgentPrompt',
-      document,
-      variables,
-    });
-  }
-  update<S extends AgentPromptSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      AgentPromptPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, AgentPromptSelect>
-  ): QueryBuilder<{
-    updateAgentPrompt: {
-      agentPrompt: InferSelectResult<AgentPromptWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'AgentPrompt',
-      'updateAgentPrompt',
-      'agentPrompt',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateAgentPromptInput',
-      'id',
-      'agentPromptPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'AgentPrompt',
-      fieldName: 'updateAgentPrompt',
-      document,
-      variables,
-    });
-  }
-  delete<S extends AgentPromptSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, AgentPromptSelect>
-  ): QueryBuilder<{
-    deleteAgentPrompt: {
-      agentPrompt: InferSelectResult<AgentPromptWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'AgentPrompt',
-      'deleteAgentPrompt',
-      'agentPrompt',
-      {
-        id: args.where.id,
-      },
-      'DeleteAgentPromptInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'AgentPrompt',
-      fieldName: 'deleteAgentPrompt',
       document,
       variables,
     });

@@ -9,8 +9,8 @@ ORM operations for RawContactPhone records
 ```typescript
 db.rawContactPhone.findMany({ select: { id: true } }).execute()
 db.rawContactPhone.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.rawContactPhone.create({ data: { entityId: '<UUID>', phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', source: '<String>', confidence: '<BigFloat>', rawContactId: '<UUID>' }, select: { id: true } }).execute()
-db.rawContactPhone.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.rawContactPhone.create({ data: { phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', source: '<String>', confidence: '<BigFloat>', rawContactId: '<UUID>' }, select: { id: true } }).execute()
+db.rawContactPhone.update({ where: { id: '<UUID>' }, data: { phone: '<String>' }, select: { id: true } }).execute()
 db.rawContactPhone.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.rawContactPhone.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.rawContactPhone.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, phone: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.rawContactPhone.findMany({
 
 ```typescript
 const item = await db.rawContactPhone.create({
-  data: { entityId: '<UUID>', phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', source: '<String>', confidence: '<BigFloat>', rawContactId: '<UUID>' },
+  data: { phone: '<String>', phoneType: '<String>', isPrimary: '<Boolean>', source: '<String>', confidence: '<BigFloat>', rawContactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

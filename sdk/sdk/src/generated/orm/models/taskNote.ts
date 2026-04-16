@@ -97,46 +97,6 @@ export class TaskNoteModel {
       variables,
     });
   }
-  findOne<S extends TaskNoteSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, TaskNoteSelect>
-  ): QueryBuilder<{
-    taskNote: InferSelectResult<TaskNoteWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'TaskNote',
-      'taskNotes',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'TaskNoteFilter',
-      'TaskNoteOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'TaskNote',
-      fieldName: 'taskNote',
-      document,
-      variables,
-      transform: (data: {
-        taskNotes?: {
-          nodes?: InferSelectResult<TaskNoteWithRelations, S>[];
-        };
-      }) => ({
-        taskNote: data.taskNotes?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends TaskNoteSelect>(
     args: CreateArgs<S, CreateTaskNoteInput['taskNote']> & {
       select: S;
@@ -160,76 +120,6 @@ export class TaskNoteModel {
       operation: 'mutation',
       operationName: 'TaskNote',
       fieldName: 'createTaskNote',
-      document,
-      variables,
-    });
-  }
-  update<S extends TaskNoteSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      TaskNotePatch
-    > & {
-      select: S;
-    } & StrictSelect<S, TaskNoteSelect>
-  ): QueryBuilder<{
-    updateTaskNote: {
-      taskNote: InferSelectResult<TaskNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'TaskNote',
-      'updateTaskNote',
-      'taskNote',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateTaskNoteInput',
-      'id',
-      'taskNotePatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'TaskNote',
-      fieldName: 'updateTaskNote',
-      document,
-      variables,
-    });
-  }
-  delete<S extends TaskNoteSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, TaskNoteSelect>
-  ): QueryBuilder<{
-    deleteTaskNote: {
-      taskNote: InferSelectResult<TaskNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'TaskNote',
-      'deleteTaskNote',
-      'taskNote',
-      {
-        id: args.where.id,
-      },
-      'DeleteTaskNoteInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'TaskNote',
-      fieldName: 'deleteTaskNote',
       document,
       variables,
     });

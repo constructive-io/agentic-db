@@ -9,7 +9,7 @@ ORM operations for CompanyNote records
 ```typescript
 db.companyNote.findMany({ select: { id: true } }).execute()
 db.companyNote.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.companyNote.create({ data: { companyId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.companyNote.create({ data: { companyId: '<UUID>', noteId: '<UUID>' }, select: { id: true } }).execute()
 db.companyNote.update({ where: { id: '<UUID>' }, data: { companyId: '<UUID>' }, select: { id: true } }).execute()
 db.companyNote.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.companyNote.findMany({
 
 ```typescript
 const item = await db.companyNote.create({
-  data: { companyId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' },
+  data: { companyId: '<UUID>', noteId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

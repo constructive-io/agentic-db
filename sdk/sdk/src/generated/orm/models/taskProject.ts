@@ -97,46 +97,6 @@ export class TaskProjectModel {
       variables,
     });
   }
-  findOne<S extends TaskProjectSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, TaskProjectSelect>
-  ): QueryBuilder<{
-    taskProject: InferSelectResult<TaskProjectWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'TaskProject',
-      'taskProjects',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'TaskProjectFilter',
-      'TaskProjectOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'TaskProject',
-      fieldName: 'taskProject',
-      document,
-      variables,
-      transform: (data: {
-        taskProjects?: {
-          nodes?: InferSelectResult<TaskProjectWithRelations, S>[];
-        };
-      }) => ({
-        taskProject: data.taskProjects?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends TaskProjectSelect>(
     args: CreateArgs<S, CreateTaskProjectInput['taskProject']> & {
       select: S;
@@ -160,76 +120,6 @@ export class TaskProjectModel {
       operation: 'mutation',
       operationName: 'TaskProject',
       fieldName: 'createTaskProject',
-      document,
-      variables,
-    });
-  }
-  update<S extends TaskProjectSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      TaskProjectPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, TaskProjectSelect>
-  ): QueryBuilder<{
-    updateTaskProject: {
-      taskProject: InferSelectResult<TaskProjectWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'TaskProject',
-      'updateTaskProject',
-      'taskProject',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateTaskProjectInput',
-      'id',
-      'taskProjectPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'TaskProject',
-      fieldName: 'updateTaskProject',
-      document,
-      variables,
-    });
-  }
-  delete<S extends TaskProjectSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, TaskProjectSelect>
-  ): QueryBuilder<{
-    deleteTaskProject: {
-      taskProject: InferSelectResult<TaskProjectWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'TaskProject',
-      'deleteTaskProject',
-      'taskProject',
-      {
-        id: args.where.id,
-      },
-      'DeleteTaskProjectInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'TaskProject',
-      fieldName: 'deleteTaskProject',
       document,
       variables,
     });

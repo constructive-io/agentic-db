@@ -9,8 +9,8 @@ ORM operations for RuntimeArtifact records
 ```typescript
 db.runtimeArtifact.findMany({ select: { id: true } }).execute()
 db.runtimeArtifact.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.runtimeArtifact.create({ data: { entityId: '<UUID>', runtimeStateId: '<UUID>', name: '<String>', artifactType: '<String>', content: '<String>', meta: '<JSON>', sizeBytes: '<Int>' }, select: { id: true } }).execute()
-db.runtimeArtifact.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.runtimeArtifact.create({ data: { runtimeStateId: '<UUID>', name: '<String>', artifactType: '<String>', content: '<String>', meta: '<JSON>', sizeBytes: '<Int>' }, select: { id: true } }).execute()
+db.runtimeArtifact.update({ where: { id: '<UUID>' }, data: { runtimeStateId: '<UUID>' }, select: { id: true } }).execute()
 db.runtimeArtifact.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.runtimeArtifact.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.runtimeArtifact.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, runtimeStateId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.runtimeArtifact.findMany({
 
 ```typescript
 const item = await db.runtimeArtifact.create({
-  data: { entityId: '<UUID>', runtimeStateId: '<UUID>', name: '<String>', artifactType: '<String>', content: '<String>', meta: '<JSON>', sizeBytes: '<Int>' },
+  data: { runtimeStateId: '<UUID>', name: '<String>', artifactType: '<String>', content: '<String>', meta: '<JSON>', sizeBytes: '<Int>' },
   select: { id: true }
 }).execute();
 ```

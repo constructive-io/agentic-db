@@ -9,8 +9,8 @@ ORM operations for RawContact records
 ```typescript
 db.rawContact.findMany({ select: { id: true } }).execute()
 db.rawContact.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.rawContact.create({ data: { entityId: '<UUID>', externalId: '<String>', source: '<String>', firstName: '<String>', lastName: '<String>', fullName: '<String>', headline: '<String>', bio: '<String>', location: '<String>', company: '<String>', jobTitle: '<String>', rawData: '<JSON>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' }, select: { id: true } }).execute()
-db.rawContact.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.rawContact.create({ data: { externalId: '<String>', source: '<String>', firstName: '<String>', lastName: '<String>', fullName: '<String>', headline: '<String>', bio: '<String>', location: '<String>', company: '<String>', jobTitle: '<String>', rawData: '<JSON>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' }, select: { id: true } }).execute()
+db.rawContact.update({ where: { id: '<UUID>' }, data: { externalId: '<String>' }, select: { id: true } }).execute()
 db.rawContact.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.rawContact.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.rawContact.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, externalId: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.rawContact.findMany({
 
 ```typescript
 const item = await db.rawContact.create({
-  data: { entityId: '<UUID>', externalId: '<String>', source: '<String>', firstName: '<String>', lastName: '<String>', fullName: '<String>', headline: '<String>', bio: '<String>', location: '<String>', company: '<String>', jobTitle: '<String>', rawData: '<JSON>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' },
+  data: { externalId: '<String>', source: '<String>', firstName: '<String>', lastName: '<String>', fullName: '<String>', headline: '<String>', bio: '<String>', location: '<String>', company: '<String>', jobTitle: '<String>', rawData: '<JSON>', confidence: '<BigFloat>', ingestedAt: '<Datetime>' },
   select: { id: true }
 }).execute();
 ```

@@ -9,7 +9,7 @@ ORM operations for CompanyMemory records
 ```typescript
 db.companyMemory.findMany({ select: { id: true } }).execute()
 db.companyMemory.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.companyMemory.create({ data: { companyId: '<UUID>', memoryId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.companyMemory.create({ data: { companyId: '<UUID>', memoryId: '<UUID>' }, select: { id: true } }).execute()
 db.companyMemory.update({ where: { id: '<UUID>' }, data: { companyId: '<UUID>' }, select: { id: true } }).execute()
 db.companyMemory.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.companyMemory.findMany({
 
 ```typescript
 const item = await db.companyMemory.create({
-  data: { companyId: '<UUID>', memoryId: '<UUID>', entityId: '<UUID>' },
+  data: { companyId: '<UUID>', memoryId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

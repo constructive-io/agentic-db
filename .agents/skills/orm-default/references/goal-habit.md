@@ -9,7 +9,7 @@ ORM operations for GoalHabit records
 ```typescript
 db.goalHabit.findMany({ select: { id: true } }).execute()
 db.goalHabit.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.goalHabit.create({ data: { goalId: '<UUID>', habitId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.goalHabit.create({ data: { goalId: '<UUID>', habitId: '<UUID>' }, select: { id: true } }).execute()
 db.goalHabit.update({ where: { id: '<UUID>' }, data: { goalId: '<UUID>' }, select: { id: true } }).execute()
 db.goalHabit.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.goalHabit.findMany({
 
 ```typescript
 const item = await db.goalHabit.create({
-  data: { goalId: '<UUID>', habitId: '<UUID>', entityId: '<UUID>' },
+  data: { goalId: '<UUID>', habitId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

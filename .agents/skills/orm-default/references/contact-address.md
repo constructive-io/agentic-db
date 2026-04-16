@@ -9,8 +9,8 @@ ORM operations for ContactAddress records
 ```typescript
 db.contactAddress.findMany({ select: { id: true } }).execute()
 db.contactAddress.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.contactAddress.create({ data: { entityId: '<UUID>', street: '<String>', city: '<String>', state: '<String>', postalCode: '<String>', country: '<String>', addressType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' }, select: { id: true } }).execute()
-db.contactAddress.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.contactAddress.create({ data: { street: '<String>', city: '<String>', state: '<String>', postalCode: '<String>', country: '<String>', addressType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' }, select: { id: true } }).execute()
+db.contactAddress.update({ where: { id: '<UUID>' }, data: { street: '<String>' }, select: { id: true } }).execute()
 db.contactAddress.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.contactAddress.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.contactAddress.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, street: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.contactAddress.findMany({
 
 ```typescript
 const item = await db.contactAddress.create({
-  data: { entityId: '<UUID>', street: '<String>', city: '<String>', state: '<String>', postalCode: '<String>', country: '<String>', addressType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' },
+  data: { street: '<String>', city: '<String>', state: '<String>', postalCode: '<String>', country: '<String>', addressType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

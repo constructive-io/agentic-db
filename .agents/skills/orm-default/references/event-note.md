@@ -9,7 +9,7 @@ ORM operations for EventNote records
 ```typescript
 db.eventNote.findMany({ select: { id: true } }).execute()
 db.eventNote.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.eventNote.create({ data: { eventId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.eventNote.create({ data: { eventId: '<UUID>', noteId: '<UUID>' }, select: { id: true } }).execute()
 db.eventNote.update({ where: { id: '<UUID>' }, data: { eventId: '<UUID>' }, select: { id: true } }).execute()
 db.eventNote.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.eventNote.findMany({
 
 ```typescript
 const item = await db.eventNote.create({
-  data: { eventId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' },
+  data: { eventId: '<UUID>', noteId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

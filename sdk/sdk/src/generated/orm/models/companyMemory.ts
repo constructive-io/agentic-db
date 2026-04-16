@@ -97,46 +97,6 @@ export class CompanyMemoryModel {
       variables,
     });
   }
-  findOne<S extends CompanyMemorySelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, CompanyMemorySelect>
-  ): QueryBuilder<{
-    companyMemory: InferSelectResult<CompanyMemoryWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'CompanyMemory',
-      'companyMemories',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'CompanyMemoryFilter',
-      'CompanyMemoryOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'CompanyMemory',
-      fieldName: 'companyMemory',
-      document,
-      variables,
-      transform: (data: {
-        companyMemories?: {
-          nodes?: InferSelectResult<CompanyMemoryWithRelations, S>[];
-        };
-      }) => ({
-        companyMemory: data.companyMemories?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends CompanyMemorySelect>(
     args: CreateArgs<S, CreateCompanyMemoryInput['companyMemory']> & {
       select: S;
@@ -160,76 +120,6 @@ export class CompanyMemoryModel {
       operation: 'mutation',
       operationName: 'CompanyMemory',
       fieldName: 'createCompanyMemory',
-      document,
-      variables,
-    });
-  }
-  update<S extends CompanyMemorySelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      CompanyMemoryPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, CompanyMemorySelect>
-  ): QueryBuilder<{
-    updateCompanyMemory: {
-      companyMemory: InferSelectResult<CompanyMemoryWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'CompanyMemory',
-      'updateCompanyMemory',
-      'companyMemory',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateCompanyMemoryInput',
-      'id',
-      'companyMemoryPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'CompanyMemory',
-      fieldName: 'updateCompanyMemory',
-      document,
-      variables,
-    });
-  }
-  delete<S extends CompanyMemorySelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, CompanyMemorySelect>
-  ): QueryBuilder<{
-    deleteCompanyMemory: {
-      companyMemory: InferSelectResult<CompanyMemoryWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'CompanyMemory',
-      'deleteCompanyMemory',
-      'companyMemory',
-      {
-        id: args.where.id,
-      },
-      'DeleteCompanyMemoryInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'CompanyMemory',
-      fieldName: 'deleteCompanyMemory',
       document,
       variables,
     });
