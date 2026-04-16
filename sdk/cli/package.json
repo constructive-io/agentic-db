@@ -4,8 +4,15 @@
   "description": "CLI for agentic-db database operations",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "license": "MIT",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
   "bin": {
     "agentic-db": "./generated/cli/index.js"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
   },
   "scripts": {
     "generate": "tsx src/generate.ts",

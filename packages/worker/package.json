@@ -2,15 +2,12 @@
   "name": "@agentic-db/worker",
   "version": "0.0.1",
   "description": "Background worker for auto-embeddings",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "module": "dist/index.mjs",
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
-    }
+  "private": true,
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "publishConfig": {
+    "directory": "dist"
   },
   "scripts": {
     "start": "tsx src/index.ts",
