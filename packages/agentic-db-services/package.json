@@ -28,5 +28,6 @@
   },
   "devDependencies": {
     "pgsql-test": "^4.7.6"
-  }
+  },
+  "gitHead": "6ee5d4d10a79a33b26fb3091bc60c51bac0ee78d"
 }

@@ -22,7 +22,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "@agentic-db/services": "workspace:*",
+    "@agentic-db/services": "0.4.0",
     "@pgpm/base32": "^0.20.0",
     "@pgpm/database-jobs": "^0.20.2",
     "@pgpm/inflection": "^0.20.1",
@@ -35,10 +35,11 @@
     "@pgpm/uuid": "^0.20.0"
   },
   "devDependencies": {
-    "@agentic-db/sdk": "workspace:*",
+    "@agentic-db/sdk": "0.4.0",
     "@agentic-kit/ollama": "^1.0.3",
     "@constructive-io/graphql-test": "^4.9.10",
     "graphile-settings": "4.18.5",
     "pgsql-test": "^4.7.6"
-  }
+  },
+  "gitHead": "6ee5d4d10a79a33b26fb3091bc60c51bac0ee78d"
 }

@@ -12,17 +12,28 @@
   <a href="https://www.npmjs.com/package/agentic-db"><img height="20" src="https://img.shields.io/npm/v/agentic-db"/></a>
 </p>
 
-> **The brain your coding agent forgot to ship with.**
+> **Give your coding agent a brain.**
 >
-> A pgpm-installable Postgres module that gives Claude Code / OpenClaude / Cursor / Devin persistent memory, chat history, a skill library, a tool registry, behavioral rules, a task queue, runtime observability, and a full CRM + life-OS knowledge graph — all in **one database** with vector + BM25 + full-text + trigram + PostGIS search baked in.
+> A pgpm-installable Postgres module that gives Claude, Claude Code, Cursor, and Devin persistent memory, chat history, a skill library, a tool registry, behavioral rules, a task queue, runtime observability, and a full CRM + life-OS knowledge graph — all in one database with vector + BM25 + full-text + trigram + PostGIS search baked in.
 
-## One database, not four
+## Talk to your database
 
-Most "agentic" stacks bolt memory onto a vector DB, pair that with a separate message store, glue in a tool registry, then fight consistency forever. **agentic-db collapses all of that into one Postgres database.**
+Once deployed, you can ask your agent questions in plain English and it translates them into semantic, keyword, fuzzy, and spatial queries against the schema:
 
-Conversations, messages, tool calls, long-term memories, rules, skills, prompts, tasks, runtime state, and a full personal CRM / life-OS live side-by-side. Every embeddable table is auto-indexed for **semantic + keyword + fuzzy + spatial** search. A background worker keeps embeddings fresh via Ollama (or your LLM of choice). Deploy it next to your agent, wire it up through the typed SDK/CLI or the included Agent Skills, and your agent instantly has a hippocampus.
+- *"What did Alice and I decide about the acquisition last month?"*
+- *"Pull up every conversation where we debugged the embedding worker."*
+- *"Which tasks are still open on the Mistral project?"*
+- *"Find memories from hackathons near San Francisco last spring."*
+- *"Remember who Kris Floyd and I met at Wefunder?"*
+- *"Show me notes where I wrote about RAG architecture."*
+- *"Who have I met with more than three times this quarter?"*
+- *"What's the latest status on deals tagged `enterprise`?"*
 
-## What's Inside
+The agent just reads and writes Postgres through the typed SDK, CLI, or GraphQL — no glue code, no separate vector DB, no RAG service to stand up.
+
+## What's inside
+
+Conversations, messages, tool calls, long-term memories, rules, skills, prompts, tasks, runtime state, and a full personal CRM / life-OS live side-by-side. Every embeddable table is auto-indexed for **semantic + keyword + fuzzy + spatial** search. A background worker keeps embeddings fresh via Ollama (or your LLM of choice). Deploy it next to your agent, wire it up through the typed SDK/CLI or the included Agent Skills, and your agent has persistent memory, chat history, a skill library, and structured knowledge of the user's world.
 
 ### 90+ tables, organized into domains
 
@@ -78,7 +89,7 @@ Conversations, messages, tool calls, long-term memories, rules, skills, prompts,
 - **`runtime_config`** — key/value config with `is_secret` flag.
 - **`agent_logs`** — free-form agent telemetry with context jsonb and optional task linkage.
 
-### 🔎 Retrieval (the "secret sauce")
+### 🔎 Retrieval
 
 Every table with embeddings supports up to **five search strategies**, exposed through a single unified GraphQL API:
 

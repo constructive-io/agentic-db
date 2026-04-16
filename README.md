@@ -13,13 +13,26 @@
 </p>
 
 > **Give your coding agent a brain.**
-> One `pgpm deploy` and Claude Code / OpenClaude / Cursor / Devin get persistent memory, chat history, a skill library, a tool registry, rules, tasks, runtime observability, and a full CRM/life-OS knowledge graph — all inside a single Postgres database.
+> One `pgpm deploy` and Claude, Claude Code, Cursor, or Devin get persistent memory, chat history, a skill library, a tool registry, rules, tasks, runtime observability, and a full CRM/life-OS knowledge graph — all inside a Postgres database.
 
-## One database, not four
+## Talk to your database
 
-Most "agentic" stacks bolt memory onto a vector DB, pair that with a separate message store, glue in a tool registry, then fight consistency forever. **agentic-db collapses all of that into one Postgres database.**
+Once deployed, you can ask your agent questions in plain English and it translates them into semantic, keyword, fuzzy, and spatial queries against the schema:
 
-Conversations, messages, tool calls, long-term memories, rules, skills, prompts, tasks, runtime state, and a full personal CRM/life-OS live side-by-side — every embeddable table is auto-indexed for **semantic + keyword + fuzzy + spatial** search, and a background worker keeps embeddings fresh via Ollama (or your LLM of choice). Deploy it next to your agent, wire it up through the typed SDK/CLI or the included Agent Skills, and your agent instantly has persistent memory, chat history, a skill library, and structured knowledge of the user's world.
+- *"What did Alice and I decide about the acquisition last month?"*
+- *"Pull up every conversation where we debugged the embedding worker."*
+- *"Which tasks are still open on the Mistral project?"*
+- *"Find memories from hackathons near San Francisco last spring."*
+- *"Remember who Kris Floyd and I met at Wefunder?"*
+- *"Show me notes where I wrote about RAG architecture."*
+- *"Who have I met with more than three times this quarter?"*
+- *"What's the latest status on deals tagged `enterprise`?"*
+
+No glue code, no separate vector DB, no RAG service to stand up — the agent just reads and writes Postgres through the typed SDK, CLI, or GraphQL.
+
+## What's in the box
+
+Conversations, messages, tool calls, long-term memories, rules, skills, prompts, tasks, runtime state, and a full personal CRM/life-OS live side-by-side. Every embeddable table is auto-indexed for **semantic + keyword + fuzzy + spatial** search, and a background worker keeps embeddings fresh via Ollama (or your LLM of choice). Deploy it next to your agent, wire it up through the typed SDK/CLI or the included Agent Skills, and your agent instantly has persistent memory, chat history, a skill library, and structured knowledge of the user's world.
 
 ## What an agent actually needs
 
@@ -37,14 +50,14 @@ Conversations, messages, tool calls, long-term memories, rules, skills, prompts,
 | Retrieval | Unified search: vector (pgvector HNSW) + BM25 + tsvector + trigram + PostGIS |
 | Auto-embed | Postgres triggers enqueue embedding jobs; Ollama worker processes them |
 
-Everything is **one Postgres database.** No separate vector DB, no separate message store, no separate tool registry, no separate RAG layer.
+It's all in one database, with vector + BM25 + full-text + trigram + PostGIS search baked in.
 
 ## Architecture in 30 seconds
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                  Your Agent (Claude Code /              │
-│                   OpenClaude / Cursor / Devin)          │
+│            Your Agent (Claude / Claude Code /           │
+│                    Cursor / Devin / …)                  │
 └───────────────┬─────────────────────────┬───────────────┘
                 │                         │
         writes / reads                  invokes
@@ -111,7 +124,7 @@ Everything is **one Postgres database.** No separate vector DB, no separate mess
 - **`runtime_config`** — key/value config with `is_secret` flag.
 - **`agent_logs`** — free-form agent telemetry with context jsonb and optional task linkage.
 
-### 🔎 Retrieval (the "secret sauce")
+### 🔎 Retrieval
 
 - **Unified Search API** per table: one query can combine vector similarity, BM25 ranking, weighted tsvector full-text, and trigram fuzzy — all exposed through the generated GraphQL SDK.
 - **Auto-embedding pipeline** — Postgres triggers enqueue jobs on insert/update; the [`@agentic-db/worker`](packages/worker) package processes them via Ollama (`nomic-embed-text`, 768-dim). Your agent never has to remember to embed anything.
@@ -138,7 +151,7 @@ Everything is **one Postgres database.** No separate vector DB, no separate mess
 - **[`@agentic-db/cli`](sdk/cli)** — CRUD + search + admin commands for every table.
 - **[`@agentic-db/rag`](packages/rag)** — hybrid search, batch embedding, multi-pass Q&A CLI tools.
 - **[`@agentic-db/worker`](packages/worker)** — background embedding worker.
-- **Agent Skills included** — ships with skill files (`skills/agent/memories.md`, `skills/agent/tasks.md`, `skills/rag-query.md`, etc.) that install into Claude Code / Cursor / Copilot / Windsurf / Codex / Devin via `npx skills add constructive-io/agentic-db`. The DB *teaches your agent how to use it*.
+- **Agent Skills included** — ships with skill files (`skills/agent/memories.md`, `skills/agent/tasks.md`, `skills/rag-query.md`, etc.) that install into Claude, Claude Code, Cursor, Copilot, Windsurf, Codex, or Devin via `npx skills add constructive-io/agentic-db`. The DB *teaches your agent how to use it*.
 - **Schema-as-code** — blueprints in [`packages/provision/src/schemas/*.ts`](packages/provision/src/schemas) define every table, so you fork, add a table, `pnpm run provision && pnpm run export`, and you have a new versioned pgpm module.
 - **Standalone or multi-tenant** — deploy clean into its own DB, or run inside the Constructive platform with RLS / Safegres policies.
 - **GraphQL API** auto-exposed via PostGraphile v5 with the Constructive search plugin (vector / BM25 / trigram / spatial unified).
@@ -262,7 +275,7 @@ cd packages/cli-e2e-tests && pnpm test      # CLI end-to-end
 
 ## AI Skills
 
-This repo ships with [Agent Skills](https://github.com/agent-skills/agent-skills) that teach AI coding assistants (Devin, Claude Code, Cursor, Copilot, etc.) how to work with the SDK, CLI, and pgpm.
+This repo ships with [Agent Skills](https://github.com/agent-skills/agent-skills) that teach AI assistants (Claude, Claude Code, Cursor, Devin, Copilot, etc.) how to work with the SDK, CLI, and pgpm.
 
 ### Available Skills
 
@@ -293,7 +306,7 @@ npx skills add constructive-io/agentic-db --skill pgpm
 npx skills add constructive-io/agentic-db --list
 ```
 
-This works with Claude Code, Cursor, Copilot, Windsurf, Codex, and [40+ other AI agents](https://github.com/vercel-labs/skills#available-agents). Skills are installed into the appropriate directory for your tool (`.claude/skills/`, `.cursor/skills/`, etc.).
+This works with Claude, Claude Code, Cursor, Copilot, Windsurf, Codex, and [40+ other AI agents](https://github.com/vercel-labs/skills#available-agents). Skills are installed into the appropriate directory for your tool (`.claude/skills/`, `.cursor/skills/`, etc.).
 
 **Devin** -- Connect the `constructive-io/agentic-db` repo to your Devin organization. Skills are indexed automatically and available in every session.
 

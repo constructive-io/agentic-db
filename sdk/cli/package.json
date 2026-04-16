@@ -24,12 +24,13 @@
     "inquirerer": "^4.7.0"
   },
   "devDependencies": {
-    "@agentic-db/schemas": "workspace:*",
+    "@agentic-db/schemas": "0.4.0",
     "@constructive-io/graphql-codegen": "^4.28.0",
     "@types/node": "^22.0.0",
     "dotenv": "^16.4.5",
     "makage": "^0.3.0",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0"
-  }
+  },
+  "gitHead": "6ee5d4d10a79a33b26fb3091bc60c51bac0ee78d"
 }
