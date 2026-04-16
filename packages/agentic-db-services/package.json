@@ -1,20 +1,20 @@
 {
-  "name": "agentic-db-services",
+  "name": "@agentic-db/services",
   "version": "0.0.1",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "description": "agentic-db services metadata extension for API/site configuration",
-  "homepage": "https://github.com/pyramation-studio/agent-os",
+  "homepage": "https://github.com/constructive-io/agentic-db",
   "license": "CLOSED",
   "publishConfig": {
-    "access": "restricted",
+    "access": "public",
     "directory": "dist"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pyramation-studio/agent-os"
+    "url": "https://github.com/constructive-io/agentic-db"
   },
   "bugs": {
-    "url": "https://github.com/pyramation-studio/agent-os/issues"
+    "url": "https://github.com/constructive-io/agentic-db/issues"
   },
   "scripts": {
     "lint": "eslint . --fix",

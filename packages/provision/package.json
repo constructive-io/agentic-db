@@ -1,5 +1,6 @@
 {
   "name": "@agentic-db/provision",
+  "private": true,
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
