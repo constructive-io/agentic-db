@@ -142,29 +142,24 @@ This repo ships with [Agent Skills](https://github.com/agent-skills/agent-skills
 | `cli-default` | CLI command reference for all 91 tables |
 | `orm-default` | Type-safe ORM client reference for all 91 tables |
 
-### Installing Skills from This Repo
+### Installing Skills
 
-Skills are located at `.agents/skills/` and are auto-discovered when AI tools clone or index this repo. To use them in your own project, point your AI tool at this repository:
-
-**Devin** -- Connect the `constructive-io/agentic-db` repo to your Devin organization. Skills are indexed automatically and available in every session.
-
-**Claude Code** -- Clone and reference the skills directory:
+Install skills into your project using [`npx skills`](https://github.com/vercel-labs/skills):
 
 ```bash
-# In your project's .claude/skills/ directory
-git clone https://github.com/constructive-io/agentic-db.git /tmp/agentic-db
-cp -r /tmp/agentic-db/.agents/skills/* .claude/skills/
+# Install all skills from this repo
+npx skills add constructive-io/agentic-db
+
+# Install a specific skill
+npx skills add constructive-io/agentic-db --skill pgpm
+
+# List available skills without installing
+npx skills add constructive-io/agentic-db --list
 ```
 
-**Cursor / Copilot / Windsurf** -- Copy the skills into the corresponding directory for your tool:
+This works with Claude Code, Cursor, Copilot, Windsurf, Codex, and [40+ other AI agents](https://github.com/vercel-labs/skills#available-agents). Skills are installed into the appropriate directory for your tool (`.claude/skills/`, `.cursor/skills/`, etc.).
 
-```
-.cursor/skills/    # Cursor
-.github/skills/    # Copilot
-.windsurf/skills/  # Windsurf
-```
-
-Or reference them directly from the cloned repo -- all tools scan `.agents/skills/` automatically.
+**Devin** -- Connect the `constructive-io/agentic-db` repo to your Devin organization. Skills are indexed automatically and available in every session.
 
 ### Using Skills
 
