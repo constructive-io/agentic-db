@@ -39,16 +39,19 @@ Plus junction tables for M:N relations (contact_notes, contact_companies, contac
 ### Install and Deploy
 
 ```bash
-# 1. Start PostgreSQL
+# 1. Create a workspace and install agentic-db
+pgpm init workspace
+cd my-app
+pgpm init
+cd packages/my-module
+pgpm install agentic-db
+
+# 2. Start PostgreSQL
 pgpm docker start
-
-# 2. Load connection env vars
 eval "$(pgpm env)"
-
-# 3. Bootstrap required roles (authenticated, administrator, etc.)
 pgpm admin-users bootstrap --yes
 
-# 4. Deploy agentic-db into a fresh database
+# 3. Deploy agentic-db into a fresh database
 pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 

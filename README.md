@@ -20,14 +20,19 @@ A personal CRM and knowledge base built on [pgpm](https://pgpm.io) and the [Cons
 # Install pgpm
 npm install -g pgpm
 
-# Start PostgreSQL (constructiveio/postgres-plus:18 with 2GB shm)
-pgpm docker start
+# Create a workspace and install agentic-db
+pgpm init workspace
+cd my-app
+pgpm init
+cd packages/my-module
+pgpm install agentic-db
 
-# Load env vars and bootstrap roles
+# Start PostgreSQL
+pgpm docker start
 eval "$(pgpm env)"
 pgpm admin-users bootstrap --yes
 
-# Deploy the database
+# Deploy
 pgpm deploy --createdb --database agentic-db --yes --package agentic-db
 ```
 
