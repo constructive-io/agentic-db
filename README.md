@@ -18,26 +18,14 @@ A personal CRM and knowledge base built on [pgpm](https://github.com/constructiv
 # Install pgpm
 npm install -g pgpm
 
-# Start PostgreSQL
-pgpm docker start --image docker.io/constructiveio/postgres-plus:18
+# Start PostgreSQL (constructiveio/postgres-plus:18 with 2GB shm)
+pgpm docker start
 
 # Load env vars and bootstrap roles
 eval "$(pgpm env)"
 pgpm admin-users bootstrap --yes
 
 # Deploy the database
-pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
-```
-
-For local development with Ollama (embeddings):
-
-```bash
-git clone https://github.com/constructive-io/agentic-db.git
-cd agentic-db
-pnpm install
-docker compose up -d
-eval "$(pgpm env)"
-pgpm admin-users bootstrap --yes
 pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
 ```
 
@@ -70,35 +58,28 @@ See the [`agentic-db` package README](packages/agentic-db) for the full deployme
 
 - Node.js 20+
 - pnpm
-- Docker (with Compose V2)
+- Docker
 - PostgreSQL client tools (`psql`)
 - pgpm (`npm install -g pgpm`)
 
 ## Docker Setup
 
-The `docker-compose.yml` starts PostgreSQL 18 and Ollama with settings tuned for vector workloads:
+`pgpm docker start` is the standard way to start PostgreSQL for development. It runs `constructiveio/postgres-plus:18` with 2 GB shared memory by default:
 
 ```bash
-# Start all services
-docker compose up -d
-
-# GPU-accelerated Ollama (NVIDIA)
-docker compose --profile gpu up -d
-
-# Stop (data preserved in volumes)
-docker compose down
-
-# Stop and delete all data
-docker compose down -v
+pgpm docker start              # Start PostgreSQL
+pgpm docker start --recreate   # Tear down and recreate
+pgpm docker stop               # Stop
+pgpm docker ls                 # List services and status
 ```
 
-| Setting | Value | Purpose |
-|---------|-------|---------|
-| `shm_size` | 2GB | Prevents OOM during bulk COPY of vector data |
-| `shared_buffers` | 512MB | More RAM for caching table/index pages |
-| `work_mem` | 64MB | Per-sort/hash memory for vector operations |
-| `maintenance_work_mem` | 512MB | Used by pg_restore, VACUUM, CREATE INDEX |
-| `max_wal_size` | 2GB | Reduces checkpoint frequency during bulk loads |
+The repo also includes a `docker-compose.yml` that adds **Ollama** for local embedding generation:
+
+```bash
+docker compose up -d                    # Postgres + Ollama (CPU)
+docker compose --profile gpu up -d      # Postgres + Ollama (NVIDIA GPU)
+docker compose down -v                  # Stop and delete all data
+```
 
 ## Schema Development Workflow
 

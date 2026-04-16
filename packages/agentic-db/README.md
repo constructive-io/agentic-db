@@ -38,8 +38,8 @@ Plus junction tables for M:N relations (contact_notes, contact_companies, contac
 ### Install and Deploy
 
 ```bash
-# 1. Start PostgreSQL (if not already running)
-pgpm docker start --image docker.io/constructiveio/postgres-plus:18
+# 1. Start PostgreSQL
+pgpm docker start
 
 # 2. Load connection env vars
 eval "$(pgpm env)"
@@ -53,22 +53,21 @@ pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic
 
 That's it. You now have a fully provisioned database with all tables, RLS policies, search indexes, and embedding triggers.
 
-### Deploy with Docker Compose
+`pgpm docker start` runs `constructiveio/postgres-plus:18` with 2 GB shared memory by default. Use `--image`, `--port`, `--shm-size` to customize.
 
-For local development with tuned Postgres settings and Ollama for embeddings:
+### With Ollama (for embeddings)
+
+If you want auto-embedding via Ollama, use the included Docker Compose file:
 
 ```bash
-# Clone the repo
 git clone https://github.com/constructive-io/agentic-db.git
 cd agentic-db
-
-# Start Postgres + Ollama
-docker compose up -d
-
-# Install workspace dependencies
 pnpm install
 
-# Load env vars and deploy
+# Start Postgres + Ollama
+docker compose up -d          # CPU
+docker compose --profile gpu up -d  # NVIDIA GPU
+
 eval "$(pgpm env)"
 pgpm admin-users bootstrap --yes
 pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
@@ -77,10 +76,9 @@ pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic
 ### Clean Rebuild
 
 ```bash
-# Drop and recreate
-PGPASSWORD=password psql -U postgres -h localhost -c \
-  'DROP DATABASE IF EXISTS "agentic-db" WITH (FORCE);'
-
+pgpm docker start --recreate
+eval "$(pgpm env)"
+pgpm admin-users bootstrap --yes
 pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
 ```
 
