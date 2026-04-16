@@ -12,8 +12,8 @@ agentic-db task-note list --where.<field>.<op> <value> --orderBy <values>
 agentic-db task-note list --limit 10 --after <cursor>
 agentic-db task-note find-first --where.<field>.<op> <value>
 agentic-db task-note get --id <UUID>
-agentic-db task-note create --taskId <UUID> --noteId <UUID> --entityId <UUID>
-agentic-db task-note update --id <UUID> [--taskId <UUID>] [--noteId <UUID>] [--entityId <UUID>]
+agentic-db task-note create --taskId <UUID> --noteId <UUID>
+agentic-db task-note update --id <UUID> [--taskId <UUID>] [--noteId <UUID>]
 agentic-db task-note delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db task-note list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a taskNote
 
 ```bash
-agentic-db task-note create --taskId <UUID> --noteId <UUID> --entityId <UUID>
+agentic-db task-note create --taskId <UUID> --noteId <UUID>
 ```
 
 ### Get a taskNote by id

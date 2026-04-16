@@ -19,8 +19,8 @@ agentic-db autonomy-record list --limit 10 --after <cursor>
 agentic-db autonomy-record find-first --where.<field>.<op> <value>
 agentic-db autonomy-record search <query>
 agentic-db autonomy-record get --id <UUID>
-agentic-db autonomy-record create --entityId <UUID> --title <String> [--recordType <String>] [--content <String>] [--status <String>] [--priority <Int>] [--source <String>] [--context <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db autonomy-record update --id <UUID> [--entityId <UUID>] [--title <String>] [--recordType <String>] [--content <String>] [--status <String>] [--priority <Int>] [--source <String>] [--context <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db autonomy-record create --title <String> [--recordType <String>] [--content <String>] [--status <String>] [--priority <Int>] [--source <String>] [--context <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db autonomy-record update --id <UUID> [--title <String>] [--recordType <String>] [--content <String>] [--status <String>] [--priority <Int>] [--source <String>] [--context <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db autonomy-record delete --id <UUID>
 ```
 
@@ -143,7 +143,7 @@ agentic-db autonomy-record search "query" --limit 10 --select id,title,searchSco
 ### Create a autonomyRecord
 
 ```bash
-agentic-db autonomy-record create --entityId <UUID> --title <String> [--recordType <String>] [--content <String>] [--status <String>] [--priority <Int>] [--source <String>] [--context <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db autonomy-record create --title <String> [--recordType <String>] [--content <String>] [--status <String>] [--priority <Int>] [--source <String>] [--context <JSON>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a autonomyRecord by id

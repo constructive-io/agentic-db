@@ -12,8 +12,8 @@ agentic-db runtime-config list --where.<field>.<op> <value> --orderBy <values>
 agentic-db runtime-config list --limit 10 --after <cursor>
 agentic-db runtime-config find-first --where.<field>.<op> <value>
 agentic-db runtime-config get --id <UUID>
-agentic-db runtime-config create --entityId <UUID> --key <String> [--value <JSON>] [--description <String>] [--isSecret <Boolean>]
-agentic-db runtime-config update --id <UUID> [--entityId <UUID>] [--key <String>] [--value <JSON>] [--description <String>] [--isSecret <Boolean>]
+agentic-db runtime-config create --key <String> [--value <JSON>] [--description <String>] [--isSecret <Boolean>]
+agentic-db runtime-config update --id <UUID> [--key <String>] [--value <JSON>] [--description <String>] [--isSecret <Boolean>]
 agentic-db runtime-config delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db runtime-config list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a runtimeConfig
 
 ```bash
-agentic-db runtime-config create --entityId <UUID> --key <String> [--value <JSON>] [--description <String>] [--isSecret <Boolean>]
+agentic-db runtime-config create --key <String> [--value <JSON>] [--description <String>] [--isSecret <Boolean>]
 ```
 
 ### Get a runtimeConfig by id

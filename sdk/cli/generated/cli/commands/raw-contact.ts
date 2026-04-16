@@ -16,8 +16,6 @@ import type {
 } from '../../orm/input-types';
 import type { FindManyArgs, FindFirstArgs } from '../../orm/select-types';
 const fieldSchema: FieldSchema = {
-  id: 'uuid',
-  entityId: 'uuid',
   externalId: 'string',
   source: 'string',
   firstName: 'string',
@@ -31,6 +29,7 @@ const fieldSchema: FieldSchema = {
   rawData: 'json',
   confidence: 'string',
   ingestedAt: 'string',
+  id: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
 };
@@ -85,8 +84,6 @@ async function handleTableSubcommand(
 async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       externalId: true,
       source: true,
       firstName: true,
@@ -100,6 +97,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       rawData: true,
       confidence: true,
       ingestedAt: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
     };
@@ -122,8 +120,6 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
 async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       externalId: true,
       source: true,
       firstName: true,
@@ -137,6 +133,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       rawData: true,
       confidence: true,
       ingestedAt: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
     };
@@ -171,8 +168,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
       .findOne({
         id: answers.id as string,
         select: {
-          id: true,
-          entityId: true,
           externalId: true,
           source: true,
           firstName: true,
@@ -186,6 +181,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           rawData: true,
           confidence: true,
           ingestedAt: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -203,12 +199,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
 async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
   try {
     const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: true,
-      },
       {
         type: 'text',
         name: 'externalId',
@@ -307,7 +297,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.rawContact
       .create({
         data: {
-          entityId: cleanedData.entityId,
           externalId: cleanedData.externalId,
           source: cleanedData.source,
           firstName: cleanedData.firstName,
@@ -323,8 +312,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           ingestedAt: cleanedData.ingestedAt,
         },
         select: {
-          id: true,
-          entityId: true,
           externalId: true,
           source: true,
           firstName: true,
@@ -338,6 +325,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           rawData: true,
           confidence: true,
           ingestedAt: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -360,12 +348,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'id',
         message: 'id',
         required: true,
-      },
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: false,
       },
       {
         type: 'text',
@@ -468,7 +450,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          entityId: cleanedData.entityId,
           externalId: cleanedData.externalId,
           source: cleanedData.source,
           firstName: cleanedData.firstName,
@@ -484,8 +465,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           ingestedAt: cleanedData.ingestedAt,
         },
         select: {
-          id: true,
-          entityId: true,
           externalId: true,
           source: true,
           firstName: true,
@@ -499,6 +478,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           rawData: true,
           confidence: true,
           ingestedAt: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
         },

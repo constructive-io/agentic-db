@@ -19,8 +19,8 @@ agentic-db place list --limit 10 --after <cursor>
 agentic-db place find-first --where.<field>.<op> <value>
 agentic-db place search <query>
 agentic-db place get --id <UUID>
-agentic-db place create --entityId <UUID> --name <String> [--address <String>] [--description <String>] [--category <String>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
-agentic-db place update --id <UUID> [--entityId <UUID>] [--name <String>] [--address <String>] [--description <String>] [--category <String>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
+agentic-db place create --name <String> [--address <String>] [--description <String>] [--category <String>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
+agentic-db place update --id <UUID> [--name <String>] [--address <String>] [--description <String>] [--category <String>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
 agentic-db place delete --id <UUID>
 ```
 
@@ -137,7 +137,7 @@ agentic-db place search "query" --limit 10 --select id,title,searchScore
 ### Create a place
 
 ```bash
-agentic-db place create --entityId <UUID> --name <String> [--address <String>] [--description <String>] [--category <String>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
+agentic-db place create --name <String> [--address <String>] [--description <String>] [--category <String>] [--rating <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--locationGeo <GeographyInterface>]
 ```
 
 ### Get a place by id

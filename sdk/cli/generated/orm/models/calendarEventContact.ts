@@ -99,46 +99,6 @@ export class CalendarEventContactModel {
       variables,
     });
   }
-  findOne<S extends CalendarEventContactSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, CalendarEventContactSelect>
-  ): QueryBuilder<{
-    calendarEventContact: InferSelectResult<CalendarEventContactWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'CalendarEventContact',
-      'calendarEventContacts',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'CalendarEventContactFilter',
-      'CalendarEventContactOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'CalendarEventContact',
-      fieldName: 'calendarEventContact',
-      document,
-      variables,
-      transform: (data: {
-        calendarEventContacts?: {
-          nodes?: InferSelectResult<CalendarEventContactWithRelations, S>[];
-        };
-      }) => ({
-        calendarEventContact: data.calendarEventContacts?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends CalendarEventContactSelect>(
     args: CreateArgs<S, CreateCalendarEventContactInput['calendarEventContact']> & {
       select: S;
@@ -162,76 +122,6 @@ export class CalendarEventContactModel {
       operation: 'mutation',
       operationName: 'CalendarEventContact',
       fieldName: 'createCalendarEventContact',
-      document,
-      variables,
-    });
-  }
-  update<S extends CalendarEventContactSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      CalendarEventContactPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, CalendarEventContactSelect>
-  ): QueryBuilder<{
-    updateCalendarEventContact: {
-      calendarEventContact: InferSelectResult<CalendarEventContactWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'CalendarEventContact',
-      'updateCalendarEventContact',
-      'calendarEventContact',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateCalendarEventContactInput',
-      'id',
-      'calendarEventContactPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'CalendarEventContact',
-      fieldName: 'updateCalendarEventContact',
-      document,
-      variables,
-    });
-  }
-  delete<S extends CalendarEventContactSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, CalendarEventContactSelect>
-  ): QueryBuilder<{
-    deleteCalendarEventContact: {
-      calendarEventContact: InferSelectResult<CalendarEventContactWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'CalendarEventContact',
-      'deleteCalendarEventContact',
-      'calendarEventContact',
-      {
-        id: args.where.id,
-      },
-      'DeleteCalendarEventContactInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'CalendarEventContact',
-      fieldName: 'deleteCalendarEventContact',
       document,
       variables,
     });

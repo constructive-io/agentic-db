@@ -12,8 +12,8 @@ agentic-db calendar-event-note list --where.<field>.<op> <value> --orderBy <valu
 agentic-db calendar-event-note list --limit 10 --after <cursor>
 agentic-db calendar-event-note find-first --where.<field>.<op> <value>
 agentic-db calendar-event-note get --id <UUID>
-agentic-db calendar-event-note create --calendarEventId <UUID> --noteId <UUID> --entityId <UUID>
-agentic-db calendar-event-note update --id <UUID> [--calendarEventId <UUID>] [--noteId <UUID>] [--entityId <UUID>]
+agentic-db calendar-event-note create --calendarEventId <UUID> --noteId <UUID>
+agentic-db calendar-event-note update --id <UUID> [--calendarEventId <UUID>] [--noteId <UUID>]
 agentic-db calendar-event-note delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db calendar-event-note list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a calendarEventNote
 
 ```bash
-agentic-db calendar-event-note create --calendarEventId <UUID> --noteId <UUID> --entityId <UUID>
+agentic-db calendar-event-note create --calendarEventId <UUID> --noteId <UUID>
 ```
 
 ### Get a calendarEventNote by id

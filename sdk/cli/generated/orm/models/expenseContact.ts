@@ -97,46 +97,6 @@ export class ExpenseContactModel {
       variables,
     });
   }
-  findOne<S extends ExpenseContactSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, ExpenseContactSelect>
-  ): QueryBuilder<{
-    expenseContact: InferSelectResult<ExpenseContactWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'ExpenseContact',
-      'expenseContacts',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'ExpenseContactFilter',
-      'ExpenseContactOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'ExpenseContact',
-      fieldName: 'expenseContact',
-      document,
-      variables,
-      transform: (data: {
-        expenseContacts?: {
-          nodes?: InferSelectResult<ExpenseContactWithRelations, S>[];
-        };
-      }) => ({
-        expenseContact: data.expenseContacts?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends ExpenseContactSelect>(
     args: CreateArgs<S, CreateExpenseContactInput['expenseContact']> & {
       select: S;
@@ -160,76 +120,6 @@ export class ExpenseContactModel {
       operation: 'mutation',
       operationName: 'ExpenseContact',
       fieldName: 'createExpenseContact',
-      document,
-      variables,
-    });
-  }
-  update<S extends ExpenseContactSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      ExpenseContactPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, ExpenseContactSelect>
-  ): QueryBuilder<{
-    updateExpenseContact: {
-      expenseContact: InferSelectResult<ExpenseContactWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'ExpenseContact',
-      'updateExpenseContact',
-      'expenseContact',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateExpenseContactInput',
-      'id',
-      'expenseContactPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ExpenseContact',
-      fieldName: 'updateExpenseContact',
-      document,
-      variables,
-    });
-  }
-  delete<S extends ExpenseContactSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, ExpenseContactSelect>
-  ): QueryBuilder<{
-    deleteExpenseContact: {
-      expenseContact: InferSelectResult<ExpenseContactWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'ExpenseContact',
-      'deleteExpenseContact',
-      'expenseContact',
-      {
-        id: args.where.id,
-      },
-      'DeleteExpenseContactInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ExpenseContact',
-      fieldName: 'deleteExpenseContact',
       document,
       variables,
     });

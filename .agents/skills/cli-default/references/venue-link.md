@@ -19,8 +19,8 @@ agentic-db venue-link list --limit 10 --after <cursor>
 agentic-db venue-link find-first --where.<field>.<op> <value>
 agentic-db venue-link search <query>
 agentic-db venue-link get --id <UUID>
-agentic-db venue-link create --entityId <UUID> --url <String> --venueId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db venue-link update --id <UUID> [--entityId <UUID>] [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--venueId <UUID>]
+agentic-db venue-link create --url <String> --venueId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db venue-link update --id <UUID> [--title <String>] [--url <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--venueId <UUID>]
 agentic-db venue-link delete --id <UUID>
 ```
 
@@ -95,7 +95,7 @@ agentic-db venue-link search "query" --limit 10 --select id,title,searchScore
 ### Create a venueLink
 
 ```bash
-agentic-db venue-link create --entityId <UUID> --url <String> --venueId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db venue-link create --url <String> --venueId <UUID> [--title <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a venueLink by id

@@ -12,8 +12,8 @@ agentic-db deal-note list --where.<field>.<op> <value> --orderBy <values>
 agentic-db deal-note list --limit 10 --after <cursor>
 agentic-db deal-note find-first --where.<field>.<op> <value>
 agentic-db deal-note get --id <UUID>
-agentic-db deal-note create --dealId <UUID> --noteId <UUID> --entityId <UUID>
-agentic-db deal-note update --id <UUID> [--dealId <UUID>] [--noteId <UUID>] [--entityId <UUID>]
+agentic-db deal-note create --dealId <UUID> --noteId <UUID>
+agentic-db deal-note update --id <UUID> [--dealId <UUID>] [--noteId <UUID>]
 agentic-db deal-note delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db deal-note list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a dealNote
 
 ```bash
-agentic-db deal-note create --dealId <UUID> --noteId <UUID> --entityId <UUID>
+agentic-db deal-note create --dealId <UUID> --noteId <UUID>
 ```
 
 ### Get a dealNote by id

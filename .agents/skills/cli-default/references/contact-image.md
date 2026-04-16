@@ -12,8 +12,8 @@ agentic-db contact-image list --where.<field>.<op> <value> --orderBy <values>
 agentic-db contact-image list --limit 10 --after <cursor>
 agentic-db contact-image find-first --where.<field>.<op> <value>
 agentic-db contact-image get --id <UUID>
-agentic-db contact-image create --contactId <UUID> --imageId <UUID> --entityId <UUID>
-agentic-db contact-image update --id <UUID> [--contactId <UUID>] [--imageId <UUID>] [--entityId <UUID>]
+agentic-db contact-image create --contactId <UUID> --imageId <UUID>
+agentic-db contact-image update --id <UUID> [--contactId <UUID>] [--imageId <UUID>]
 agentic-db contact-image delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db contact-image list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a contactImage
 
 ```bash
-agentic-db contact-image create --contactId <UUID> --imageId <UUID> --entityId <UUID>
+agentic-db contact-image create --contactId <UUID> --imageId <UUID>
 ```
 
 ### Get a contactImage by id

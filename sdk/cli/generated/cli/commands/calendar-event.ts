@@ -16,8 +16,6 @@ import type {
 } from '../../orm/input-types';
 import type { FindManyArgs, FindFirstArgs } from '../../orm/select-types';
 const fieldSchema: FieldSchema = {
-  id: 'uuid',
-  entityId: 'uuid',
   providerEventId: 'string',
   title: 'string',
   description: 'string',
@@ -26,6 +24,7 @@ const fieldSchema: FieldSchema = {
   meetingUrl: 'string',
   organizerContactId: 'uuid',
   tags: 'string',
+  id: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
   embeddingText: 'string',
@@ -97,8 +96,6 @@ async function handleTableSubcommand(
 async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       providerEventId: true,
       title: true,
       description: true,
@@ -107,6 +104,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       meetingUrl: true,
       organizerContactId: true,
       tags: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
       embeddingText: true,
@@ -143,8 +141,6 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
 async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       providerEventId: true,
       title: true,
       description: true,
@@ -153,6 +149,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       meetingUrl: true,
       organizerContactId: true,
       tags: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
       embeddingText: true,
@@ -225,8 +222,6 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       await autoEmbedWhere(searchWhere ?? {}, ['embedding'], embedder);
     }
     const defaultSelect = {
-      id: true,
-      entityId: true,
       providerEventId: true,
       title: true,
       description: true,
@@ -235,6 +230,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       meetingUrl: true,
       organizerContactId: true,
       tags: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
       embeddingText: true,
@@ -273,8 +269,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
       .findOne({
         id: answers.id as string,
         select: {
-          id: true,
-          entityId: true,
           providerEventId: true,
           title: true,
           description: true,
@@ -283,6 +277,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           meetingUrl: true,
           organizerContactId: true,
           tags: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
           embeddingText: true,
@@ -304,12 +299,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
 async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
   try {
     const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: true,
-      },
       {
         type: 'text',
         name: 'providerEventId',
@@ -412,7 +401,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.calendarEvent
       .create({
         data: {
-          entityId: cleanedData.entityId,
           providerEventId: cleanedData.providerEventId,
           title: cleanedData.title,
           description: cleanedData.description,
@@ -427,8 +415,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           calendarId: cleanedData.calendarId,
         },
         select: {
-          id: true,
-          entityId: true,
           providerEventId: true,
           title: true,
           description: true,
@@ -437,6 +423,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           meetingUrl: true,
           organizerContactId: true,
           tags: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
           embeddingText: true,
@@ -463,12 +450,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'id',
         message: 'id',
         required: true,
-      },
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: false,
       },
       {
         type: 'text',
@@ -572,7 +553,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          entityId: cleanedData.entityId,
           providerEventId: cleanedData.providerEventId,
           title: cleanedData.title,
           description: cleanedData.description,
@@ -587,8 +567,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           calendarId: cleanedData.calendarId,
         },
         select: {
-          id: true,
-          entityId: true,
           providerEventId: true,
           title: true,
           description: true,
@@ -597,6 +575,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           meetingUrl: true,
           organizerContactId: true,
           tags: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
           embeddingText: true,

@@ -12,8 +12,8 @@ agentic-db task-contact list --where.<field>.<op> <value> --orderBy <values>
 agentic-db task-contact list --limit 10 --after <cursor>
 agentic-db task-contact find-first --where.<field>.<op> <value>
 agentic-db task-contact get --id <UUID>
-agentic-db task-contact create --taskId <UUID> --contactId <UUID> --entityId <UUID>
-agentic-db task-contact update --id <UUID> [--taskId <UUID>] [--contactId <UUID>] [--entityId <UUID>]
+agentic-db task-contact create --taskId <UUID> --contactId <UUID>
+agentic-db task-contact update --id <UUID> [--taskId <UUID>] [--contactId <UUID>]
 agentic-db task-contact delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db task-contact list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a taskContact
 
 ```bash
-agentic-db task-contact create --taskId <UUID> --contactId <UUID> --entityId <UUID>
+agentic-db task-contact create --taskId <UUID> --contactId <UUID>
 ```
 
 ### Get a taskContact by id

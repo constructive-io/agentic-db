@@ -12,8 +12,8 @@ agentic-db raw-contact-email list --where.<field>.<op> <value> --orderBy <values
 agentic-db raw-contact-email list --limit 10 --after <cursor>
 agentic-db raw-contact-email find-first --where.<field>.<op> <value>
 agentic-db raw-contact-email get --id <UUID>
-agentic-db raw-contact-email create --entityId <UUID> --email <String> --rawContactId <UUID> [--emailType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>]
-agentic-db raw-contact-email update --id <UUID> [--entityId <UUID>] [--email <String>] [--emailType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>] [--rawContactId <UUID>]
+agentic-db raw-contact-email create --email <String> --rawContactId <UUID> [--emailType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>]
+agentic-db raw-contact-email update --id <UUID> [--email <String>] [--emailType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>] [--rawContactId <UUID>]
 agentic-db raw-contact-email delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db raw-contact-email list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a rawContactEmail
 
 ```bash
-agentic-db raw-contact-email create --entityId <UUID> --email <String> --rawContactId <UUID> [--emailType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>]
+agentic-db raw-contact-email create --email <String> --rawContactId <UUID> [--emailType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>]
 ```
 
 ### Get a rawContactEmail by id

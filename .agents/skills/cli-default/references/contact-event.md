@@ -12,8 +12,8 @@ agentic-db contact-event list --where.<field>.<op> <value> --orderBy <values>
 agentic-db contact-event list --limit 10 --after <cursor>
 agentic-db contact-event find-first --where.<field>.<op> <value>
 agentic-db contact-event get --id <UUID>
-agentic-db contact-event create --contactId <UUID> --eventId <UUID> --entityId <UUID>
-agentic-db contact-event update --id <UUID> [--contactId <UUID>] [--eventId <UUID>] [--entityId <UUID>]
+agentic-db contact-event create --contactId <UUID> --eventId <UUID>
+agentic-db contact-event update --id <UUID> [--contactId <UUID>] [--eventId <UUID>]
 agentic-db contact-event delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db contact-event list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a contactEvent
 
 ```bash
-agentic-db contact-event create --contactId <UUID> --eventId <UUID> --entityId <UUID>
+agentic-db contact-event create --contactId <UUID> --eventId <UUID>
 ```
 
 ### Get a contactEvent by id

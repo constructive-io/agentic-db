@@ -12,8 +12,8 @@ agentic-db deal-contact list --where.<field>.<op> <value> --orderBy <values>
 agentic-db deal-contact list --limit 10 --after <cursor>
 agentic-db deal-contact find-first --where.<field>.<op> <value>
 agentic-db deal-contact get --id <UUID>
-agentic-db deal-contact create --dealId <UUID> --contactId <UUID> --entityId <UUID>
-agentic-db deal-contact update --id <UUID> [--dealId <UUID>] [--contactId <UUID>] [--entityId <UUID>]
+agentic-db deal-contact create --dealId <UUID> --contactId <UUID>
+agentic-db deal-contact update --id <UUID> [--dealId <UUID>] [--contactId <UUID>]
 agentic-db deal-contact delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db deal-contact list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a dealContact
 
 ```bash
-agentic-db deal-contact create --dealId <UUID> --contactId <UUID> --entityId <UUID>
+agentic-db deal-contact create --dealId <UUID> --contactId <UUID>
 ```
 
 ### Get a dealContact by id

@@ -19,8 +19,8 @@ agentic-db image list --limit 10 --after <cursor>
 agentic-db image find-first --where.<field>.<op> <value>
 agentic-db image search <query>
 agentic-db image get --id <UUID>
-agentic-db image create --entityId <UUID> --url <String> [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db image update --id <UUID> [--entityId <UUID>] [--url <String>] [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db image create --url <String> [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db image update --id <UUID> [--url <String>] [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db image delete --id <UUID>
 ```
 
@@ -95,7 +95,7 @@ agentic-db image search "query" --limit 10 --select id,title,searchScore
 ### Create a image
 
 ```bash
-agentic-db image create --entityId <UUID> --url <String> [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db image create --url <String> [--meta <JSON>] [--altText <String>] [--caption <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a image by id

@@ -12,8 +12,8 @@ agentic-db calendar-attendee list --where.<field>.<op> <value> --orderBy <values
 agentic-db calendar-attendee list --limit 10 --after <cursor>
 agentic-db calendar-attendee find-first --where.<field>.<op> <value>
 agentic-db calendar-attendee get --id <UUID>
-agentic-db calendar-attendee create --entityId <UUID> --calendarEventId <UUID> [--contactId <UUID>] [--responseStatus <String>] [--role <String>]
-agentic-db calendar-attendee update --id <UUID> [--entityId <UUID>] [--contactId <UUID>] [--responseStatus <String>] [--role <String>] [--calendarEventId <UUID>]
+agentic-db calendar-attendee create --calendarEventId <UUID> [--contactId <UUID>] [--responseStatus <String>] [--role <String>]
+agentic-db calendar-attendee update --id <UUID> [--contactId <UUID>] [--responseStatus <String>] [--role <String>] [--calendarEventId <UUID>]
 agentic-db calendar-attendee delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db calendar-attendee list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a calendarAttendee
 
 ```bash
-agentic-db calendar-attendee create --entityId <UUID> --calendarEventId <UUID> [--contactId <UUID>] [--responseStatus <String>] [--role <String>]
+agentic-db calendar-attendee create --calendarEventId <UUID> [--contactId <UUID>] [--responseStatus <String>] [--role <String>]
 ```
 
 ### Get a calendarAttendee by id

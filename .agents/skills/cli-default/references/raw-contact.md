@@ -12,8 +12,8 @@ agentic-db raw-contact list --where.<field>.<op> <value> --orderBy <values>
 agentic-db raw-contact list --limit 10 --after <cursor>
 agentic-db raw-contact find-first --where.<field>.<op> <value>
 agentic-db raw-contact get --id <UUID>
-agentic-db raw-contact create --entityId <UUID> [--externalId <String>] [--source <String>] [--firstName <String>] [--lastName <String>] [--fullName <String>] [--headline <String>] [--bio <String>] [--location <String>] [--company <String>] [--jobTitle <String>] [--rawData <JSON>] [--confidence <BigFloat>] [--ingestedAt <Datetime>]
-agentic-db raw-contact update --id <UUID> [--entityId <UUID>] [--externalId <String>] [--source <String>] [--firstName <String>] [--lastName <String>] [--fullName <String>] [--headline <String>] [--bio <String>] [--location <String>] [--company <String>] [--jobTitle <String>] [--rawData <JSON>] [--confidence <BigFloat>] [--ingestedAt <Datetime>]
+agentic-db raw-contact create [--externalId <String>] [--source <String>] [--firstName <String>] [--lastName <String>] [--fullName <String>] [--headline <String>] [--bio <String>] [--location <String>] [--company <String>] [--jobTitle <String>] [--rawData <JSON>] [--confidence <BigFloat>] [--ingestedAt <Datetime>]
+agentic-db raw-contact update --id <UUID> [--externalId <String>] [--source <String>] [--firstName <String>] [--lastName <String>] [--fullName <String>] [--headline <String>] [--bio <String>] [--location <String>] [--company <String>] [--jobTitle <String>] [--rawData <JSON>] [--confidence <BigFloat>] [--ingestedAt <Datetime>]
 agentic-db raw-contact delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db raw-contact list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a rawContact
 
 ```bash
-agentic-db raw-contact create --entityId <UUID> [--externalId <String>] [--source <String>] [--firstName <String>] [--lastName <String>] [--fullName <String>] [--headline <String>] [--bio <String>] [--location <String>] [--company <String>] [--jobTitle <String>] [--rawData <JSON>] [--confidence <BigFloat>] [--ingestedAt <Datetime>]
+agentic-db raw-contact create [--externalId <String>] [--source <String>] [--firstName <String>] [--lastName <String>] [--fullName <String>] [--headline <String>] [--bio <String>] [--location <String>] [--company <String>] [--jobTitle <String>] [--rawData <JSON>] [--confidence <BigFloat>] [--ingestedAt <Datetime>]
 ```
 
 ### Get a rawContact by id

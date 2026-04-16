@@ -12,8 +12,8 @@ agentic-db calendar list --where.<field>.<op> <value> --orderBy <values>
 agentic-db calendar list --limit 10 --after <cursor>
 agentic-db calendar find-first --where.<field>.<op> <value>
 agentic-db calendar get --id <UUID>
-agentic-db calendar create --entityId <UUID> --name <String> [--providerAccountId <String>] [--providerCalendarId <String>] [--color <String>]
-agentic-db calendar update --id <UUID> [--entityId <UUID>] [--providerAccountId <String>] [--providerCalendarId <String>] [--name <String>] [--color <String>]
+agentic-db calendar create --name <String> [--providerAccountId <String>] [--providerCalendarId <String>] [--color <String>]
+agentic-db calendar update --id <UUID> [--providerAccountId <String>] [--providerCalendarId <String>] [--name <String>] [--color <String>]
 agentic-db calendar delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db calendar list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a calendar
 
 ```bash
-agentic-db calendar create --entityId <UUID> --name <String> [--providerAccountId <String>] [--providerCalendarId <String>] [--color <String>]
+agentic-db calendar create --name <String> [--providerAccountId <String>] [--providerCalendarId <String>] [--color <String>]
 ```
 
 ### Get a calendar by id

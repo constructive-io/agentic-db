@@ -97,46 +97,6 @@ export class ProjectContactModel {
       variables,
     });
   }
-  findOne<S extends ProjectContactSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, ProjectContactSelect>
-  ): QueryBuilder<{
-    projectContact: InferSelectResult<ProjectContactWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'ProjectContact',
-      'projectContacts',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'ProjectContactFilter',
-      'ProjectContactOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'ProjectContact',
-      fieldName: 'projectContact',
-      document,
-      variables,
-      transform: (data: {
-        projectContacts?: {
-          nodes?: InferSelectResult<ProjectContactWithRelations, S>[];
-        };
-      }) => ({
-        projectContact: data.projectContacts?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends ProjectContactSelect>(
     args: CreateArgs<S, CreateProjectContactInput['projectContact']> & {
       select: S;
@@ -160,76 +120,6 @@ export class ProjectContactModel {
       operation: 'mutation',
       operationName: 'ProjectContact',
       fieldName: 'createProjectContact',
-      document,
-      variables,
-    });
-  }
-  update<S extends ProjectContactSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      ProjectContactPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, ProjectContactSelect>
-  ): QueryBuilder<{
-    updateProjectContact: {
-      projectContact: InferSelectResult<ProjectContactWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'ProjectContact',
-      'updateProjectContact',
-      'projectContact',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateProjectContactInput',
-      'id',
-      'projectContactPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ProjectContact',
-      fieldName: 'updateProjectContact',
-      document,
-      variables,
-    });
-  }
-  delete<S extends ProjectContactSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, ProjectContactSelect>
-  ): QueryBuilder<{
-    deleteProjectContact: {
-      projectContact: InferSelectResult<ProjectContactWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'ProjectContact',
-      'deleteProjectContact',
-      'projectContact',
-      {
-        id: args.where.id,
-      },
-      'DeleteProjectContactInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'ProjectContact',
-      fieldName: 'deleteProjectContact',
       document,
       variables,
     });

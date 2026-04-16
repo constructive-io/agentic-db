@@ -97,46 +97,6 @@ export class GoalHabitModel {
       variables,
     });
   }
-  findOne<S extends GoalHabitSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, GoalHabitSelect>
-  ): QueryBuilder<{
-    goalHabit: InferSelectResult<GoalHabitWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'GoalHabit',
-      'goalHabits',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'GoalHabitFilter',
-      'GoalHabitOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'GoalHabit',
-      fieldName: 'goalHabit',
-      document,
-      variables,
-      transform: (data: {
-        goalHabits?: {
-          nodes?: InferSelectResult<GoalHabitWithRelations, S>[];
-        };
-      }) => ({
-        goalHabit: data.goalHabits?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends GoalHabitSelect>(
     args: CreateArgs<S, CreateGoalHabitInput['goalHabit']> & {
       select: S;
@@ -160,76 +120,6 @@ export class GoalHabitModel {
       operation: 'mutation',
       operationName: 'GoalHabit',
       fieldName: 'createGoalHabit',
-      document,
-      variables,
-    });
-  }
-  update<S extends GoalHabitSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      GoalHabitPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, GoalHabitSelect>
-  ): QueryBuilder<{
-    updateGoalHabit: {
-      goalHabit: InferSelectResult<GoalHabitWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'GoalHabit',
-      'updateGoalHabit',
-      'goalHabit',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateGoalHabitInput',
-      'id',
-      'goalHabitPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'GoalHabit',
-      fieldName: 'updateGoalHabit',
-      document,
-      variables,
-    });
-  }
-  delete<S extends GoalHabitSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, GoalHabitSelect>
-  ): QueryBuilder<{
-    deleteGoalHabit: {
-      goalHabit: InferSelectResult<GoalHabitWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'GoalHabit',
-      'deleteGoalHabit',
-      'goalHabit',
-      {
-        id: args.where.id,
-      },
-      'DeleteGoalHabitInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'GoalHabit',
-      fieldName: 'deleteGoalHabit',
       document,
       variables,
     });

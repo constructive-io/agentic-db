@@ -12,8 +12,8 @@ agentic-db deal-company list --where.<field>.<op> <value> --orderBy <values>
 agentic-db deal-company list --limit 10 --after <cursor>
 agentic-db deal-company find-first --where.<field>.<op> <value>
 agentic-db deal-company get --id <UUID>
-agentic-db deal-company create --dealId <UUID> --companyId <UUID> --entityId <UUID>
-agentic-db deal-company update --id <UUID> [--dealId <UUID>] [--companyId <UUID>] [--entityId <UUID>]
+agentic-db deal-company create --dealId <UUID> --companyId <UUID>
+agentic-db deal-company update --id <UUID> [--dealId <UUID>] [--companyId <UUID>]
 agentic-db deal-company delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db deal-company list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a dealCompany
 
 ```bash
-agentic-db deal-company create --dealId <UUID> --companyId <UUID> --entityId <UUID>
+agentic-db deal-company create --dealId <UUID> --companyId <UUID>
 ```
 
 ### Get a dealCompany by id

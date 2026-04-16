@@ -16,11 +16,10 @@ import type {
 } from '../../orm/input-types';
 import type { FindManyArgs, FindFirstArgs } from '../../orm/select-types';
 const fieldSchema: FieldSchema = {
-  id: 'uuid',
-  entityId: 'uuid',
   email: 'string',
   emailType: 'string',
   isPrimary: 'boolean',
+  id: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
   contactId: 'uuid',
@@ -76,11 +75,10 @@ async function handleTableSubcommand(
 async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       email: true,
       emailType: true,
       isPrimary: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
       contactId: true,
@@ -104,11 +102,10 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
 async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       email: true,
       emailType: true,
       isPrimary: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
       contactId: true,
@@ -144,11 +141,10 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
       .findOne({
         id: answers.id as string,
         select: {
-          id: true,
-          entityId: true,
           email: true,
           emailType: true,
           isPrimary: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
           contactId: true,
@@ -167,12 +163,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
 async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
   try {
     const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: true,
-      },
       {
         type: 'text',
         name: 'email',
@@ -209,18 +199,16 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.contactEmail
       .create({
         data: {
-          entityId: cleanedData.entityId,
           email: cleanedData.email,
           emailType: cleanedData.emailType,
           isPrimary: cleanedData.isPrimary,
           contactId: cleanedData.contactId,
         },
         select: {
-          id: true,
-          entityId: true,
           email: true,
           emailType: true,
           isPrimary: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
           contactId: true,
@@ -244,12 +232,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'id',
         message: 'id',
         required: true,
-      },
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: false,
       },
       {
         type: 'text',
@@ -287,18 +269,16 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          entityId: cleanedData.entityId,
           email: cleanedData.email,
           emailType: cleanedData.emailType,
           isPrimary: cleanedData.isPrimary,
           contactId: cleanedData.contactId,
         },
         select: {
-          id: true,
-          entityId: true,
           email: true,
           emailType: true,
           isPrimary: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
           contactId: true,

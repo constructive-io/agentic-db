@@ -12,8 +12,8 @@ agentic-db email-note list --where.<field>.<op> <value> --orderBy <values>
 agentic-db email-note list --limit 10 --after <cursor>
 agentic-db email-note find-first --where.<field>.<op> <value>
 agentic-db email-note get --id <UUID>
-agentic-db email-note create --emailId <UUID> --noteId <UUID> --entityId <UUID>
-agentic-db email-note update --id <UUID> [--emailId <UUID>] [--noteId <UUID>] [--entityId <UUID>]
+agentic-db email-note create --emailId <UUID> --noteId <UUID>
+agentic-db email-note update --id <UUID> [--emailId <UUID>] [--noteId <UUID>]
 agentic-db email-note delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db email-note list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a emailNote
 
 ```bash
-agentic-db email-note create --emailId <UUID> --noteId <UUID> --entityId <UUID>
+agentic-db email-note create --emailId <UUID> --noteId <UUID>
 ```
 
 ### Get a emailNote by id

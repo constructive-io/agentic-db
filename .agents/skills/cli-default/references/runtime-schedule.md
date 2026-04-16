@@ -12,8 +12,8 @@ agentic-db runtime-schedule list --where.<field>.<op> <value> --orderBy <values>
 agentic-db runtime-schedule list --limit 10 --after <cursor>
 agentic-db runtime-schedule find-first --where.<field>.<op> <value>
 agentic-db runtime-schedule get --id <UUID>
-agentic-db runtime-schedule create --entityId <UUID> --name <String> [--cronExpression <String>] [--nextRunAt <Datetime>] [--lastRunAt <Datetime>] [--isActive <Boolean>] [--config <JSON>] [--timezone <String>]
-agentic-db runtime-schedule update --id <UUID> [--entityId <UUID>] [--name <String>] [--cronExpression <String>] [--nextRunAt <Datetime>] [--lastRunAt <Datetime>] [--isActive <Boolean>] [--config <JSON>] [--timezone <String>]
+agentic-db runtime-schedule create --name <String> [--cronExpression <String>] [--nextRunAt <Datetime>] [--lastRunAt <Datetime>] [--isActive <Boolean>] [--config <JSON>] [--timezone <String>]
+agentic-db runtime-schedule update --id <UUID> [--name <String>] [--cronExpression <String>] [--nextRunAt <Datetime>] [--lastRunAt <Datetime>] [--isActive <Boolean>] [--config <JSON>] [--timezone <String>]
 agentic-db runtime-schedule delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db runtime-schedule list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a runtimeSchedule
 
 ```bash
-agentic-db runtime-schedule create --entityId <UUID> --name <String> [--cronExpression <String>] [--nextRunAt <Datetime>] [--lastRunAt <Datetime>] [--isActive <Boolean>] [--config <JSON>] [--timezone <String>]
+agentic-db runtime-schedule create --name <String> [--cronExpression <String>] [--nextRunAt <Datetime>] [--lastRunAt <Datetime>] [--isActive <Boolean>] [--config <JSON>] [--timezone <String>]
 ```
 
 ### Get a runtimeSchedule by id

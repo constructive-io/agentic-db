@@ -12,8 +12,8 @@ agentic-db skill-tool list --where.<field>.<op> <value> --orderBy <values>
 agentic-db skill-tool list --limit 10 --after <cursor>
 agentic-db skill-tool find-first --where.<field>.<op> <value>
 agentic-db skill-tool get --id <UUID>
-agentic-db skill-tool create --skillId <UUID> --toolDefinitionId <UUID> --entityId <UUID>
-agentic-db skill-tool update --id <UUID> [--skillId <UUID>] [--toolDefinitionId <UUID>] [--entityId <UUID>]
+agentic-db skill-tool create --skillId <UUID> --toolDefinitionId <UUID>
+agentic-db skill-tool update --id <UUID> [--skillId <UUID>] [--toolDefinitionId <UUID>]
 agentic-db skill-tool delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db skill-tool list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a skillTool
 
 ```bash
-agentic-db skill-tool create --skillId <UUID> --toolDefinitionId <UUID> --entityId <UUID>
+agentic-db skill-tool create --skillId <UUID> --toolDefinitionId <UUID>
 ```
 
 ### Get a skillTool by id

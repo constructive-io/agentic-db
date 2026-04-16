@@ -12,8 +12,8 @@ agentic-db raw-contact-phone list --where.<field>.<op> <value> --orderBy <values
 agentic-db raw-contact-phone list --limit 10 --after <cursor>
 agentic-db raw-contact-phone find-first --where.<field>.<op> <value>
 agentic-db raw-contact-phone get --id <UUID>
-agentic-db raw-contact-phone create --entityId <UUID> --phone <String> --rawContactId <UUID> [--phoneType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>]
-agentic-db raw-contact-phone update --id <UUID> [--entityId <UUID>] [--phone <String>] [--phoneType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>] [--rawContactId <UUID>]
+agentic-db raw-contact-phone create --phone <String> --rawContactId <UUID> [--phoneType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>]
+agentic-db raw-contact-phone update --id <UUID> [--phone <String>] [--phoneType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>] [--rawContactId <UUID>]
 agentic-db raw-contact-phone delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db raw-contact-phone list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a rawContactPhone
 
 ```bash
-agentic-db raw-contact-phone create --entityId <UUID> --phone <String> --rawContactId <UUID> [--phoneType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>]
+agentic-db raw-contact-phone create --phone <String> --rawContactId <UUID> [--phoneType <String>] [--isPrimary <Boolean>] [--source <String>] [--confidence <BigFloat>]
 ```
 
 ### Get a rawContactPhone by id

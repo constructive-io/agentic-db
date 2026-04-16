@@ -12,8 +12,8 @@ agentic-db runtime-artifact list --where.<field>.<op> <value> --orderBy <values>
 agentic-db runtime-artifact list --limit 10 --after <cursor>
 agentic-db runtime-artifact find-first --where.<field>.<op> <value>
 agentic-db runtime-artifact get --id <UUID>
-agentic-db runtime-artifact create --entityId <UUID> --runtimeStateId <UUID> --name <String> [--artifactType <String>] [--content <String>] [--meta <JSON>] [--sizeBytes <Int>]
-agentic-db runtime-artifact update --id <UUID> [--entityId <UUID>] [--runtimeStateId <UUID>] [--name <String>] [--artifactType <String>] [--content <String>] [--meta <JSON>] [--sizeBytes <Int>]
+agentic-db runtime-artifact create --runtimeStateId <UUID> --name <String> [--artifactType <String>] [--content <String>] [--meta <JSON>] [--sizeBytes <Int>]
+agentic-db runtime-artifact update --id <UUID> [--runtimeStateId <UUID>] [--name <String>] [--artifactType <String>] [--content <String>] [--meta <JSON>] [--sizeBytes <Int>]
 agentic-db runtime-artifact delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db runtime-artifact list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a runtimeArtifact
 
 ```bash
-agentic-db runtime-artifact create --entityId <UUID> --runtimeStateId <UUID> --name <String> [--artifactType <String>] [--content <String>] [--meta <JSON>] [--sizeBytes <Int>]
+agentic-db runtime-artifact create --runtimeStateId <UUID> --name <String> [--artifactType <String>] [--content <String>] [--meta <JSON>] [--sizeBytes <Int>]
 ```
 
 ### Get a runtimeArtifact by id

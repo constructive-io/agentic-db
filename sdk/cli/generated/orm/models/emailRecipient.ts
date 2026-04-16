@@ -97,46 +97,6 @@ export class EmailRecipientModel {
       variables,
     });
   }
-  findOne<S extends EmailRecipientSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, EmailRecipientSelect>
-  ): QueryBuilder<{
-    emailRecipient: InferSelectResult<EmailRecipientWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'EmailRecipient',
-      'emailRecipients',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'EmailRecipientFilter',
-      'EmailRecipientOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'EmailRecipient',
-      fieldName: 'emailRecipient',
-      document,
-      variables,
-      transform: (data: {
-        emailRecipients?: {
-          nodes?: InferSelectResult<EmailRecipientWithRelations, S>[];
-        };
-      }) => ({
-        emailRecipient: data.emailRecipients?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends EmailRecipientSelect>(
     args: CreateArgs<S, CreateEmailRecipientInput['emailRecipient']> & {
       select: S;
@@ -160,76 +120,6 @@ export class EmailRecipientModel {
       operation: 'mutation',
       operationName: 'EmailRecipient',
       fieldName: 'createEmailRecipient',
-      document,
-      variables,
-    });
-  }
-  update<S extends EmailRecipientSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      EmailRecipientPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, EmailRecipientSelect>
-  ): QueryBuilder<{
-    updateEmailRecipient: {
-      emailRecipient: InferSelectResult<EmailRecipientWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'EmailRecipient',
-      'updateEmailRecipient',
-      'emailRecipient',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateEmailRecipientInput',
-      'id',
-      'emailRecipientPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'EmailRecipient',
-      fieldName: 'updateEmailRecipient',
-      document,
-      variables,
-    });
-  }
-  delete<S extends EmailRecipientSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, EmailRecipientSelect>
-  ): QueryBuilder<{
-    deleteEmailRecipient: {
-      emailRecipient: InferSelectResult<EmailRecipientWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'EmailRecipient',
-      'deleteEmailRecipient',
-      'emailRecipient',
-      {
-        id: args.where.id,
-      },
-      'DeleteEmailRecipientInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'EmailRecipient',
-      fieldName: 'deleteEmailRecipient',
       document,
       variables,
     });

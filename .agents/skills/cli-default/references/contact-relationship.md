@@ -12,8 +12,8 @@ agentic-db contact-relationship list --where.<field>.<op> <value> --orderBy <val
 agentic-db contact-relationship list --limit 10 --after <cursor>
 agentic-db contact-relationship find-first --where.<field>.<op> <value>
 agentic-db contact-relationship get --id <UUID>
-agentic-db contact-relationship create --contactId <UUID> --relatedContactId <UUID> --entityId <UUID>
-agentic-db contact-relationship update --id <UUID> [--contactId <UUID>] [--relatedContactId <UUID>] [--entityId <UUID>]
+agentic-db contact-relationship create --contactId <UUID> --relatedContactId <UUID>
+agentic-db contact-relationship update --id <UUID> [--contactId <UUID>] [--relatedContactId <UUID>]
 agentic-db contact-relationship delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db contact-relationship list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a contactRelationship
 
 ```bash
-agentic-db contact-relationship create --contactId <UUID> --relatedContactId <UUID> --entityId <UUID>
+agentic-db contact-relationship create --contactId <UUID> --relatedContactId <UUID>
 ```
 
 ### Get a contactRelationship by id

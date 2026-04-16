@@ -12,8 +12,8 @@ agentic-db tag list --where.<field>.<op> <value> --orderBy <values>
 agentic-db tag list --limit 10 --after <cursor>
 agentic-db tag find-first --where.<field>.<op> <value>
 agentic-db tag get --id <UUID>
-agentic-db tag create --entityId <UUID> --name <String> [--color <String>] [--category <String>] [--usageCount <Int>]
-agentic-db tag update --id <UUID> [--entityId <UUID>] [--name <String>] [--color <String>] [--category <String>] [--usageCount <Int>]
+agentic-db tag create --name <String> [--color <String>] [--category <String>] [--usageCount <Int>]
+agentic-db tag update --id <UUID> [--name <String>] [--color <String>] [--category <String>] [--usageCount <Int>]
 agentic-db tag delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db tag list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a tag
 
 ```bash
-agentic-db tag create --entityId <UUID> --name <String> [--color <String>] [--category <String>] [--usageCount <Int>]
+agentic-db tag create --name <String> [--color <String>] [--category <String>] [--usageCount <Int>]
 ```
 
 ### Get a tag by id

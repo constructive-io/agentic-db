@@ -12,8 +12,8 @@ agentic-db calendar-event-task list --where.<field>.<op> <value> --orderBy <valu
 agentic-db calendar-event-task list --limit 10 --after <cursor>
 agentic-db calendar-event-task find-first --where.<field>.<op> <value>
 agentic-db calendar-event-task get --id <UUID>
-agentic-db calendar-event-task create --calendarEventId <UUID> --taskId <UUID> --entityId <UUID>
-agentic-db calendar-event-task update --id <UUID> [--calendarEventId <UUID>] [--taskId <UUID>] [--entityId <UUID>]
+agentic-db calendar-event-task create --calendarEventId <UUID> --taskId <UUID>
+agentic-db calendar-event-task update --id <UUID> [--calendarEventId <UUID>] [--taskId <UUID>]
 agentic-db calendar-event-task delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db calendar-event-task list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a calendarEventTask
 
 ```bash
-agentic-db calendar-event-task create --calendarEventId <UUID> --taskId <UUID> --entityId <UUID>
+agentic-db calendar-event-task create --calendarEventId <UUID> --taskId <UUID>
 ```
 
 ### Get a calendarEventTask by id

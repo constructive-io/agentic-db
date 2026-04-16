@@ -19,8 +19,8 @@ agentic-db calendar-event list --limit 10 --after <cursor>
 agentic-db calendar-event find-first --where.<field>.<op> <value>
 agentic-db calendar-event search <query>
 agentic-db calendar-event get --id <UUID>
-agentic-db calendar-event create --entityId <UUID> --title <String> --calendarId <UUID> [--providerEventId <String>] [--description <String>] [--startTime <Datetime>] [--endTime <Datetime>] [--meetingUrl <String>] [--organizerContactId <UUID>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db calendar-event update --id <UUID> [--entityId <UUID>] [--providerEventId <String>] [--title <String>] [--description <String>] [--startTime <Datetime>] [--endTime <Datetime>] [--meetingUrl <String>] [--organizerContactId <UUID>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--calendarId <UUID>]
+agentic-db calendar-event create --title <String> --calendarId <UUID> [--providerEventId <String>] [--description <String>] [--startTime <Datetime>] [--endTime <Datetime>] [--meetingUrl <String>] [--organizerContactId <UUID>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db calendar-event update --id <UUID> [--providerEventId <String>] [--title <String>] [--description <String>] [--startTime <Datetime>] [--endTime <Datetime>] [--meetingUrl <String>] [--organizerContactId <UUID>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>] [--calendarId <UUID>]
 agentic-db calendar-event delete --id <UUID>
 ```
 
@@ -143,7 +143,7 @@ agentic-db calendar-event search "query" --limit 10 --select id,title,searchScor
 ### Create a calendarEvent
 
 ```bash
-agentic-db calendar-event create --entityId <UUID> --title <String> --calendarId <UUID> [--providerEventId <String>] [--description <String>] [--startTime <Datetime>] [--endTime <Datetime>] [--meetingUrl <String>] [--organizerContactId <UUID>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db calendar-event create --title <String> --calendarId <UUID> [--providerEventId <String>] [--description <String>] [--startTime <Datetime>] [--endTime <Datetime>] [--meetingUrl <String>] [--organizerContactId <UUID>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a calendarEvent by id

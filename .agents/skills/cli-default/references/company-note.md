@@ -12,8 +12,8 @@ agentic-db company-note list --where.<field>.<op> <value> --orderBy <values>
 agentic-db company-note list --limit 10 --after <cursor>
 agentic-db company-note find-first --where.<field>.<op> <value>
 agentic-db company-note get --id <UUID>
-agentic-db company-note create --companyId <UUID> --noteId <UUID> --entityId <UUID>
-agentic-db company-note update --id <UUID> [--companyId <UUID>] [--noteId <UUID>] [--entityId <UUID>]
+agentic-db company-note create --companyId <UUID> --noteId <UUID>
+agentic-db company-note update --id <UUID> [--companyId <UUID>] [--noteId <UUID>]
 agentic-db company-note delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db company-note list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a companyNote
 
 ```bash
-agentic-db company-note create --companyId <UUID> --noteId <UUID> --entityId <UUID>
+agentic-db company-note create --companyId <UUID> --noteId <UUID>
 ```
 
 ### Get a companyNote by id

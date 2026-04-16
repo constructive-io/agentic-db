@@ -12,8 +12,8 @@ agentic-db contact-email list --where.<field>.<op> <value> --orderBy <values>
 agentic-db contact-email list --limit 10 --after <cursor>
 agentic-db contact-email find-first --where.<field>.<op> <value>
 agentic-db contact-email get --id <UUID>
-agentic-db contact-email create --entityId <UUID> --email <String> --contactId <UUID> [--emailType <String>] [--isPrimary <Boolean>]
-agentic-db contact-email update --id <UUID> [--entityId <UUID>] [--email <String>] [--emailType <String>] [--isPrimary <Boolean>] [--contactId <UUID>]
+agentic-db contact-email create --email <String> --contactId <UUID> [--emailType <String>] [--isPrimary <Boolean>]
+agentic-db contact-email update --id <UUID> [--email <String>] [--emailType <String>] [--isPrimary <Boolean>] [--contactId <UUID>]
 agentic-db contact-email delete --id <UUID>
 ```
 
@@ -58,7 +58,7 @@ agentic-db contact-email list --where.id.equalTo <value> --orderBy ID_ASC
 ### Create a contactEmail
 
 ```bash
-agentic-db contact-email create --entityId <UUID> --email <String> --contactId <UUID> [--emailType <String>] [--isPrimary <Boolean>]
+agentic-db contact-email create --email <String> --contactId <UUID> [--emailType <String>] [--isPrimary <Boolean>]
 ```
 
 ### Get a contactEmail by id

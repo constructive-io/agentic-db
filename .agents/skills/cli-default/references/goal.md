@@ -19,8 +19,8 @@ agentic-db goal list --limit 10 --after <cursor>
 agentic-db goal find-first --where.<field>.<op> <value>
 agentic-db goal search <query>
 agentic-db goal get --id <UUID>
-agentic-db goal create --entityId <UUID> --title <String> [--description <String>] [--status <String>] [--targetDate <Datetime>] [--progress <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
-agentic-db goal update --id <UUID> [--entityId <UUID>] [--title <String>] [--description <String>] [--status <String>] [--targetDate <Datetime>] [--progress <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db goal create --title <String> [--description <String>] [--status <String>] [--targetDate <Datetime>] [--progress <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db goal update --id <UUID> [--title <String>] [--description <String>] [--status <String>] [--targetDate <Datetime>] [--progress <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 agentic-db goal delete --id <UUID>
 ```
 
@@ -131,7 +131,7 @@ agentic-db goal search "query" --limit 10 --select id,title,searchScore
 ### Create a goal
 
 ```bash
-agentic-db goal create --entityId <UUID> --title <String> [--description <String>] [--status <String>] [--targetDate <Datetime>] [--progress <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
+agentic-db goal create --title <String> [--description <String>] [--status <String>] [--targetDate <Datetime>] [--progress <BigFloat>] [--tags <String>] [--embeddingText <String>] [--embedding <Vector>] [--embeddingStale <Boolean>]
 ```
 
 ### Get a goal by id

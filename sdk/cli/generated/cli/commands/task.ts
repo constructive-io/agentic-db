@@ -16,8 +16,6 @@ import type {
 } from '../../orm/input-types';
 import type { FindManyArgs, FindFirstArgs } from '../../orm/select-types';
 const fieldSchema: FieldSchema = {
-  id: 'uuid',
-  entityId: 'uuid',
   agentId: 'uuid',
   title: 'string',
   description: 'string',
@@ -27,6 +25,7 @@ const fieldSchema: FieldSchema = {
   startedAt: 'string',
   completedAt: 'string',
   meta: 'json',
+  id: 'uuid',
   createdAt: 'string',
   updatedAt: 'string',
   embeddingText: 'string',
@@ -95,8 +94,6 @@ async function handleTableSubcommand(
 async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       agentId: true,
       title: true,
       description: true,
@@ -106,6 +103,7 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
       startedAt: true,
       completedAt: true,
       meta: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
       embeddingText: true,
@@ -141,8 +139,6 @@ async function handleList(argv: Partial<Record<string, unknown>>, _prompter: Inq
 async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter: Inquirerer) {
   try {
     const defaultSelect = {
-      id: true,
-      entityId: true,
       agentId: true,
       title: true,
       description: true,
@@ -152,6 +148,7 @@ async function handleFindFirst(argv: Partial<Record<string, unknown>>, _prompter
       startedAt: true,
       completedAt: true,
       meta: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
       embeddingText: true,
@@ -220,8 +217,6 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       await autoEmbedWhere(searchWhere ?? {}, ['embedding'], embedder);
     }
     const defaultSelect = {
-      id: true,
-      entityId: true,
       agentId: true,
       title: true,
       description: true,
@@ -231,6 +226,7 @@ async function handleSearch(argv: Partial<Record<string, unknown>>, _prompter: I
       startedAt: true,
       completedAt: true,
       meta: true,
+      id: true,
       createdAt: true,
       updatedAt: true,
       embeddingText: true,
@@ -268,8 +264,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
       .findOne({
         id: answers.id as string,
         select: {
-          id: true,
-          entityId: true,
           agentId: true,
           title: true,
           description: true,
@@ -279,6 +273,7 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
           startedAt: true,
           completedAt: true,
           meta: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
           embeddingText: true,
@@ -299,12 +294,6 @@ async function handleGet(argv: Partial<Record<string, unknown>>, prompter: Inqui
 async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: Inquirerer) {
   try {
     const rawAnswers = await prompter.prompt(argv, [
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: true,
-      },
       {
         type: 'text',
         name: 'agentId',
@@ -405,7 +394,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
     const result = await client.task
       .create({
         data: {
-          entityId: cleanedData.entityId,
           agentId: cleanedData.agentId,
           title: cleanedData.title,
           description: cleanedData.description,
@@ -420,8 +408,6 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingStale: cleanedData.embeddingStale,
         },
         select: {
-          id: true,
-          entityId: true,
           agentId: true,
           title: true,
           description: true,
@@ -431,6 +417,7 @@ async function handleCreate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           completedAt: true,
           meta: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
           embeddingText: true,
@@ -456,12 +443,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
         name: 'id',
         message: 'id',
         required: true,
-      },
-      {
-        type: 'text',
-        name: 'entityId',
-        message: 'entityId',
-        required: false,
       },
       {
         type: 'text',
@@ -566,7 +547,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           id: answers.id as string,
         },
         data: {
-          entityId: cleanedData.entityId,
           agentId: cleanedData.agentId,
           title: cleanedData.title,
           description: cleanedData.description,
@@ -581,8 +561,6 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           embeddingStale: cleanedData.embeddingStale,
         },
         select: {
-          id: true,
-          entityId: true,
           agentId: true,
           title: true,
           description: true,
@@ -592,6 +570,7 @@ async function handleUpdate(argv: Partial<Record<string, unknown>>, prompter: In
           startedAt: true,
           completedAt: true,
           meta: true,
+          id: true,
           createdAt: true,
           updatedAt: true,
           embeddingText: true,
