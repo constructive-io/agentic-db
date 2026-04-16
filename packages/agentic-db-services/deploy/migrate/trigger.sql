@@ -161,9 +161,7 @@ INSERT INTO metaschema_public.trigger (
   ('f75063bd-f614-c0c8-d783-af68c8e17fac', '019d937b-b671-77da-9a1e-5b9b26705894', '6791117f-2437-e2dd-b400-291e23098edd', 'autonomy_records_enqueue_embedding_update_tg', NULL, NULL),
   ('f8cc88e0-1aa7-95bf-d02e-f97b1dfbd2e7', '019d937b-b671-77da-9a1e-5b9b26705894', '32f4868b-b0ee-e87c-b05f-eea4af1d2db7', 'interactions_enqueue_embedding_insert_tg', NULL, NULL),
   ('f98b2925-3a7c-a711-3e9d-3a066b0b27e2', '019d937b-b671-77da-9a1e-5b9b26705894', 'ac9d6402-0a58-f4b9-bad9-bf6dfd3bae4e', 'tool_definitions_embedding_stale_update_tg', NULL, NULL),
-  ('fa00ecb0-0561-1c8a-c517-dd3d13bdc792', '019d937b-b671-77da-9a1e-5b9b26705894', '1653854f-d35d-c8c8-925e-ee4b36afd7fd', 'memories_embedding_stale_update_tg', NULL, NULL),
-
-
+  ('fa00ecb0-0561-1c8a-c517-dd3d13bdc792', '019d937b-b671-77da-9a1e-5b9b26705894', '1653854f-d35d-c8c8-925e-ee4b36afd7fd', 'memories_embedding_stale_update_tg', NULL, NULL)
 SET session_replication_role TO DEFAULT;
 
 
