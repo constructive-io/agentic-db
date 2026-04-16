@@ -9,7 +9,7 @@ ORM operations for ExpenseContact records
 ```typescript
 db.expenseContact.findMany({ select: { id: true } }).execute()
 db.expenseContact.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.expenseContact.create({ data: { expenseId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.expenseContact.create({ data: { expenseId: '<UUID>', contactId: '<UUID>' }, select: { id: true } }).execute()
 db.expenseContact.update({ where: { id: '<UUID>' }, data: { expenseId: '<UUID>' }, select: { id: true } }).execute()
 db.expenseContact.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.expenseContact.findMany({
 
 ```typescript
 const item = await db.expenseContact.create({
-  data: { expenseId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' },
+  data: { expenseId: '<UUID>', contactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

@@ -5,7 +5,7 @@
  *         interactions, touchpoints, tags, contact_links, company_links,
  *         event_links, venue_links, contact_emails, contact_phones,
  *         contact_addresses
- * Data* nodes: DataSearch, DataPostGIS, DataEmbedding
+ * Data* nodes: SearchUnified, SearchSpatial, SearchVector
  *
  * Field conventions for contacts:
  *   - contacts.email / contacts.phone / contacts.location are denormalized
@@ -20,8 +20,6 @@
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
-  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -34,7 +32,7 @@ const definition: BlueprintDefinition = {
       table_name: 'images',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } },
+        { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } },
       ],
       fields: [
         { name: 'url', type: 'text', is_required: true },
@@ -42,9 +40,6 @@ const definition: BlueprintDefinition = {
         { name: 'alt_text', type: 'text' },
         { name: 'caption', type: 'text' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Contacts -----------------------------------------------------------
@@ -53,8 +48,8 @@ const definition: BlueprintDefinition = {
       table_name: 'contacts',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['first_name', 'last_name', 'headline', 'bio'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -67,7 +62,7 @@ const definition: BlueprintDefinition = {
           },
           trgm_fields: ['first_name', 'last_name'],
         }},
-        { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+        { $type: 'SearchSpatial', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
         { name: 'first_name', type: 'text', is_required: true },
@@ -85,9 +80,6 @@ const definition: BlueprintDefinition = {
         { name: 'tags', type: 'citext[]' },
         { name: 'main_image_id', type: 'uuid' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Companies ----------------------------------------------------------
@@ -96,8 +88,8 @@ const definition: BlueprintDefinition = {
       table_name: 'companies',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'industry'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description', 'industry'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -118,9 +110,6 @@ const definition: BlueprintDefinition = {
         { name: 'tags', type: 'citext[]' },
         { name: 'main_image_id', type: 'uuid' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Deals --------------------------------------------------------------
@@ -129,8 +118,8 @@ const definition: BlueprintDefinition = {
       table_name: 'deals',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes_text'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'notes_text'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -143,9 +132,6 @@ const definition: BlueprintDefinition = {
         { name: 'notes_text', type: 'text' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Events -------------------------------------------------------------
@@ -154,8 +140,8 @@ const definition: BlueprintDefinition = {
       table_name: 'events',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes_text', 'location'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'notes_text', 'location'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -167,7 +153,7 @@ const definition: BlueprintDefinition = {
           },
           trgm_fields: ['name'],
         }},
-        { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+        { $type: 'SearchSpatial', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
         { name: 'name', type: 'text', is_required: true },
@@ -180,9 +166,6 @@ const definition: BlueprintDefinition = {
         { name: 'tags', type: 'citext[]' },
         { name: 'main_image_id', type: 'uuid' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Venues -------------------------------------------------------------
@@ -191,8 +174,8 @@ const definition: BlueprintDefinition = {
       table_name: 'venues',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'notes', 'neighborhood'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'notes', 'neighborhood'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -204,7 +187,7 @@ const definition: BlueprintDefinition = {
           },
           trgm_fields: ['name'],
         }},
-        { $type: 'DataPostGIS', data: { field_name: 'location', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+        { $type: 'SearchSpatial', data: { field_name: 'location', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
         { name: 'name', type: 'text', is_required: true },
@@ -221,9 +204,6 @@ const definition: BlueprintDefinition = {
         { name: 'tags', type: 'citext[]' },
         { name: 'main_image_id', type: 'uuid' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Notes --------------------------------------------------------------
@@ -232,8 +212,8 @@ const definition: BlueprintDefinition = {
       table_name: 'notes',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['content', 'abstract'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['content', 'abstract'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -245,9 +225,6 @@ const definition: BlueprintDefinition = {
         { name: 'last_accessed_at', type: 'timestamptz' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Interactions -------------------------------------------------------
@@ -256,8 +233,8 @@ const definition: BlueprintDefinition = {
       table_name: 'interactions',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['summary'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['summary'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -269,9 +246,6 @@ const definition: BlueprintDefinition = {
         { name: 'sentiment', type: 'text' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Touchpoints (cross-entity interaction timeline) --------------------
@@ -280,8 +254,8 @@ const definition: BlueprintDefinition = {
       table_name: 'touchpoints',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['subject', 'summary'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['subject', 'summary'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -300,9 +274,6 @@ const definition: BlueprintDefinition = {
         { name: 'meta', type: 'jsonb' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Tags (no embeddings) -----------------------------------------------
@@ -316,9 +287,6 @@ const definition: BlueprintDefinition = {
         { name: 'category', type: 'text' },
         { name: 'usage_count', type: 'int', default_value: '0' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Contact detail tables (normalized, no embeddings) ------------------
@@ -335,9 +303,6 @@ const definition: BlueprintDefinition = {
         { name: 'email_type', type: 'text' },
         { name: 'is_primary', type: 'bool', default_value: 'false' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
     {
       ref: 'contact_phones',
@@ -348,9 +313,6 @@ const definition: BlueprintDefinition = {
         { name: 'phone_type', type: 'text' },
         { name: 'is_primary', type: 'bool', default_value: 'false' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
     {
       ref: 'contact_addresses',
@@ -365,47 +327,32 @@ const definition: BlueprintDefinition = {
         { name: 'address_type', type: 'text' },
         { name: 'is_primary', type: 'bool', default_value: 'false' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Link tables (standalone embedding) ---------------------------------
     {
       ref: 'contact_links',
       table_name: 'contact_links',
-      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: [...ORG_NODES, { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
     {
       ref: 'company_links',
       table_name: 'company_links',
-      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: [...ORG_NODES, { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
     {
       ref: 'event_links',
       table_name: 'event_links',
-      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: [...ORG_NODES, { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
     {
       ref: 'venue_links',
       table_name: 'venue_links',
-      nodes: [...ORG_NODES, { $type: 'DataEmbedding', data: { field_name: 'embedding', enqueue_job: false } }],
+      nodes: [...ORG_NODES, { $type: 'SearchVector', data: { field_name: 'embedding', enqueue_job: false } }],
       fields: [{ name: 'title', type: 'text' }, { name: 'url', type: 'text', is_required: true }],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
   ],

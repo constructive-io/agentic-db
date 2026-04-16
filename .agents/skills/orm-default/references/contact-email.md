@@ -9,8 +9,8 @@ ORM operations for ContactEmail records
 ```typescript
 db.contactEmail.findMany({ select: { id: true } }).execute()
 db.contactEmail.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.contactEmail.create({ data: { entityId: '<UUID>', email: '<String>', emailType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' }, select: { id: true } }).execute()
-db.contactEmail.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.contactEmail.create({ data: { email: '<String>', emailType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' }, select: { id: true } }).execute()
+db.contactEmail.update({ where: { id: '<UUID>' }, data: { email: '<String>' }, select: { id: true } }).execute()
 db.contactEmail.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.contactEmail.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.contactEmail.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, email: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.contactEmail.findMany({
 
 ```typescript
 const item = await db.contactEmail.create({
-  data: { entityId: '<UUID>', email: '<String>', emailType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' },
+  data: { email: '<String>', emailType: '<String>', isPrimary: '<Boolean>', contactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

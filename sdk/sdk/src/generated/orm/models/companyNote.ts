@@ -97,46 +97,6 @@ export class CompanyNoteModel {
       variables,
     });
   }
-  findOne<S extends CompanyNoteSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, CompanyNoteSelect>
-  ): QueryBuilder<{
-    companyNote: InferSelectResult<CompanyNoteWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'CompanyNote',
-      'companyNotes',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'CompanyNoteFilter',
-      'CompanyNoteOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'CompanyNote',
-      fieldName: 'companyNote',
-      document,
-      variables,
-      transform: (data: {
-        companyNotes?: {
-          nodes?: InferSelectResult<CompanyNoteWithRelations, S>[];
-        };
-      }) => ({
-        companyNote: data.companyNotes?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends CompanyNoteSelect>(
     args: CreateArgs<S, CreateCompanyNoteInput['companyNote']> & {
       select: S;
@@ -160,76 +120,6 @@ export class CompanyNoteModel {
       operation: 'mutation',
       operationName: 'CompanyNote',
       fieldName: 'createCompanyNote',
-      document,
-      variables,
-    });
-  }
-  update<S extends CompanyNoteSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      CompanyNotePatch
-    > & {
-      select: S;
-    } & StrictSelect<S, CompanyNoteSelect>
-  ): QueryBuilder<{
-    updateCompanyNote: {
-      companyNote: InferSelectResult<CompanyNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'CompanyNote',
-      'updateCompanyNote',
-      'companyNote',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateCompanyNoteInput',
-      'id',
-      'companyNotePatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'CompanyNote',
-      fieldName: 'updateCompanyNote',
-      document,
-      variables,
-    });
-  }
-  delete<S extends CompanyNoteSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, CompanyNoteSelect>
-  ): QueryBuilder<{
-    deleteCompanyNote: {
-      companyNote: InferSelectResult<CompanyNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'CompanyNote',
-      'deleteCompanyNote',
-      'companyNote',
-      {
-        id: args.where.id,
-      },
-      'DeleteCompanyNoteInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'CompanyNote',
-      fieldName: 'deleteCompanyNote',
       document,
       variables,
     });

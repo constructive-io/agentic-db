@@ -3,14 +3,12 @@
  *
  * Tables: email_threads, emails, email_attachments, calendars,
  *         calendar_events, calendar_attendees, provider_sync_states
- * Data* nodes: DataSearch
+ * Data* nodes: SearchUnified
  */
 
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
-  CRUD_GRANTS,
   provisionBlueprint,
 } from '../blueprint';
 
@@ -22,8 +20,8 @@ const definition: BlueprintDefinition = {
       table_name: 'email_threads',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['subject', 'summary'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['subject', 'summary'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -43,9 +41,6 @@ const definition: BlueprintDefinition = {
         { name: 'status', type: 'text', default_value: "'open'" },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Emails -------------------------------------------------------------
@@ -54,8 +49,8 @@ const definition: BlueprintDefinition = {
       table_name: 'emails',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['subject', 'body_text'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['subject', 'body_text'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -79,9 +74,6 @@ const definition: BlueprintDefinition = {
         { name: 'sent_at', type: 'timestamptz' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Email Attachments --------------------------------------------------
@@ -96,9 +88,6 @@ const definition: BlueprintDefinition = {
         { name: 'storage_url', type: 'text' },
         { name: 'provider_attachment_id', type: 'text' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Calendars ----------------------------------------------------------
@@ -112,9 +101,6 @@ const definition: BlueprintDefinition = {
         { name: 'name', type: 'text', is_required: true },
         { name: 'color', type: 'text' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Calendar Events ----------------------------------------------------
@@ -123,8 +109,8 @@ const definition: BlueprintDefinition = {
       table_name: 'calendar_events',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'description'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['title', 'description'] },
           bm25: { field_name: 'embedding_text' },
           full_text_search: {
             field_name: 'search_tsv',
@@ -146,9 +132,6 @@ const definition: BlueprintDefinition = {
         { name: 'organizer_contact_id', type: 'uuid' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Calendar Attendees (junction) --------------------------------------
@@ -161,9 +144,6 @@ const definition: BlueprintDefinition = {
         { name: 'response_status', type: 'text', default_value: "'needs_action'" },
         { name: 'role', type: 'text', default_value: "'required'" },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Provider Sync States (infra) ---------------------------------------
@@ -179,9 +159,6 @@ const definition: BlueprintDefinition = {
         { name: 'last_sync_at', type: 'timestamptz' },
         { name: 'status', type: 'text', default_value: "'active'" },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
   ],

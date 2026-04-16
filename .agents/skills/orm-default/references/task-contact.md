@@ -9,7 +9,7 @@ ORM operations for TaskContact records
 ```typescript
 db.taskContact.findMany({ select: { id: true } }).execute()
 db.taskContact.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.taskContact.create({ data: { taskId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.taskContact.create({ data: { taskId: '<UUID>', contactId: '<UUID>' }, select: { id: true } }).execute()
 db.taskContact.update({ where: { id: '<UUID>' }, data: { taskId: '<UUID>' }, select: { id: true } }).execute()
 db.taskContact.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.taskContact.findMany({
 
 ```typescript
 const item = await db.taskContact.create({
-  data: { taskId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' },
+  data: { taskId: '<UUID>', contactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

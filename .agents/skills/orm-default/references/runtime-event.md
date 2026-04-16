@@ -9,8 +9,8 @@ ORM operations for RuntimeEvent records
 ```typescript
 db.runtimeEvent.findMany({ select: { id: true } }).execute()
 db.runtimeEvent.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.runtimeEvent.create({ data: { entityId: '<UUID>', eventType: '<String>', payload: '<JSON>', source: '<String>', processedAt: '<Datetime>', status: '<String>' }, select: { id: true } }).execute()
-db.runtimeEvent.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.runtimeEvent.create({ data: { eventType: '<String>', payload: '<JSON>', source: '<String>', processedAt: '<Datetime>', status: '<String>' }, select: { id: true } }).execute()
+db.runtimeEvent.update({ where: { id: '<UUID>' }, data: { eventType: '<String>' }, select: { id: true } }).execute()
 db.runtimeEvent.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.runtimeEvent.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.runtimeEvent.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, eventType: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.runtimeEvent.findMany({
 
 ```typescript
 const item = await db.runtimeEvent.create({
-  data: { entityId: '<UUID>', eventType: '<String>', payload: '<JSON>', source: '<String>', processedAt: '<Datetime>', status: '<String>' },
+  data: { eventType: '<String>', payload: '<JSON>', source: '<String>', processedAt: '<Datetime>', status: '<String>' },
   select: { id: true }
 }).execute();
 ```

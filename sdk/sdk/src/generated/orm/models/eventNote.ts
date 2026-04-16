@@ -97,46 +97,6 @@ export class EventNoteModel {
       variables,
     });
   }
-  findOne<S extends EventNoteSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, EventNoteSelect>
-  ): QueryBuilder<{
-    eventNote: InferSelectResult<EventNoteWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'EventNote',
-      'eventNotes',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'EventNoteFilter',
-      'EventNoteOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'EventNote',
-      fieldName: 'eventNote',
-      document,
-      variables,
-      transform: (data: {
-        eventNotes?: {
-          nodes?: InferSelectResult<EventNoteWithRelations, S>[];
-        };
-      }) => ({
-        eventNote: data.eventNotes?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends EventNoteSelect>(
     args: CreateArgs<S, CreateEventNoteInput['eventNote']> & {
       select: S;
@@ -160,76 +120,6 @@ export class EventNoteModel {
       operation: 'mutation',
       operationName: 'EventNote',
       fieldName: 'createEventNote',
-      document,
-      variables,
-    });
-  }
-  update<S extends EventNoteSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      EventNotePatch
-    > & {
-      select: S;
-    } & StrictSelect<S, EventNoteSelect>
-  ): QueryBuilder<{
-    updateEventNote: {
-      eventNote: InferSelectResult<EventNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'EventNote',
-      'updateEventNote',
-      'eventNote',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateEventNoteInput',
-      'id',
-      'eventNotePatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'EventNote',
-      fieldName: 'updateEventNote',
-      document,
-      variables,
-    });
-  }
-  delete<S extends EventNoteSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, EventNoteSelect>
-  ): QueryBuilder<{
-    deleteEventNote: {
-      eventNote: InferSelectResult<EventNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'EventNote',
-      'deleteEventNote',
-      'eventNote',
-      {
-        id: args.where.id,
-      },
-      'DeleteEventNoteInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'EventNote',
-      fieldName: 'deleteEventNote',
       document,
       variables,
     });

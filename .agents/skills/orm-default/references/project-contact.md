@@ -9,7 +9,7 @@ ORM operations for ProjectContact records
 ```typescript
 db.projectContact.findMany({ select: { id: true } }).execute()
 db.projectContact.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.projectContact.create({ data: { projectId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.projectContact.create({ data: { projectId: '<UUID>', contactId: '<UUID>' }, select: { id: true } }).execute()
 db.projectContact.update({ where: { id: '<UUID>' }, data: { projectId: '<UUID>' }, select: { id: true } }).execute()
 db.projectContact.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.projectContact.findMany({
 
 ```typescript
 const item = await db.projectContact.create({
-  data: { projectId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' },
+  data: { projectId: '<UUID>', contactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

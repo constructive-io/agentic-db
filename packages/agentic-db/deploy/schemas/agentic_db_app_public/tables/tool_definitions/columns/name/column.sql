@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/indexes/touchpoints_channel_idx
 
 
-ALTER TABLE "agentic_db_app_public".tool_definitions 
+ALTER TABLE agentic_db_app_public.tool_definitions 
   ADD COLUMN name text;
 

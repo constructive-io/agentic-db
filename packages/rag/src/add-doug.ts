@@ -10,16 +10,9 @@ async function main() {
   const { token } = await authenticate(ADMIN_EMAIL, ADMIN_PASSWORD);
   const client = createAuthenticatedClient(token);
 
-  // Fetch an existing contact just to grab the workspace entityId
-  const existing = await client.contact.findFirst({ select: { entityId: true } }).execute();
-  const entityId = existing.data?.contacts?.nodes?.[0]?.entityId;
-  
-  if (!entityId) throw new Error("Could not determine workspace entity ID");
-
-  console.log(`Authenticating... (Entity ID: ${entityId})`);
+  console.log('Authenticating...');
 
   const contactData = {
-    entityId,
     firstName: 'Doug',
     lastName: 'Song',
     headline: 'Founder of Duo Security',
@@ -47,8 +40,6 @@ async function main() {
   console.log('Created Contact Doug Song:', dougId);
 
   const taskData = {
-    entityId,
-    agentId: entityId,
     title: 'Consider Doug Song as a potential investor for Constructive fundraise',
     description: 'Doug is the founder of Duo Security, grew up with Dan in Ann Arbor, known since 1990s. Potential angel/investor for the round.',
     status: 'todo',

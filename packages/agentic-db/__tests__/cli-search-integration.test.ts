@@ -33,8 +33,8 @@ import type { GraphQLQueryFn } from '@constructive-io/graphql-test';
 import { createClient } from '@agentic-db/sdk';
 import OllamaClient from '@agentic-kit/ollama';
 import {
-  setAppMembershipDefaults,
   createAppJobsStub,
+  grantAnonymousAccess,
 } from '../test-utils/helpers';
 
 // Pre-baked embeddings generated with nomic-embed-text
@@ -42,8 +42,6 @@ import fixtures from './fixtures/rag-embeddings.json';
 
 const SCHEMAS = [
   'agentic_db_app_public',
-  'agentic_db_auth_public',
-  'agentic_db_users_public',
 ];
 
 const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
@@ -67,7 +65,7 @@ beforeAll(async () => {
   });
   ({ db, pg, query, teardown } = connections);
 
-  await setAppMembershipDefaults(pg, { is_verified: true, is_approved: true });
+  await grantAnonymousAccess(pg);
   await createAppJobsStub(pg);
 });
 
@@ -155,7 +153,6 @@ function formatContext(items: SearchResult[]): string {
 
 describe('CLI Search Integration (pre-baked data + live Ollama)', () => {
   let sdk: ReturnType<typeof createClient>;
-  let userId: string;
   let carolId: string;
   let daveId: string;
   let eveId: string;
@@ -165,29 +162,9 @@ describe('CLI Search Integration (pre-baked data + live Ollama)', () => {
   beforeEach(async () => {
     sdk = createClient({ adapter: new GraphQLTestAdapter(query) });
 
-    // 1. Sign up
-    const signUpResult = await query(
-      `mutation SignUp($input: SignUpInput!) {
-        signUp(input: $input) {
-          result { userId accessToken }
-        }
-      }`,
-      { input: { email: `cli-search-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@example.com`, password: 'testpassword123' } },
-    );
-
-    const signUpData = (signUpResult as any)?.data?.signUp?.result;
-    if (!signUpData) throw new Error(`signUp failed: ${JSON.stringify(signUpResult)}`);
-
-    userId = signUpData.userId;
-    db.setContext({
-      role: 'authenticated',
-      'jwt.claims.user_id': userId,
-    });
-
-    // 2. Insert contacts
+    // 1. Insert contacts
     const carolRes = await sdk.contact.create({
       data: {
-        entityId: userId,
         firstName: 'Carol', lastName: 'Engineer',
         headline: fixtures.records.carol.data.headline,
         bio: fixtures.records.carol.data.bio,
@@ -199,7 +176,6 @@ describe('CLI Search Integration (pre-baked data + live Ollama)', () => {
 
     const daveRes = await sdk.contact.create({
       data: {
-        entityId: userId,
         firstName: 'Dave', lastName: 'Chef',
         headline: fixtures.records.dave.data.headline,
         bio: fixtures.records.dave.data.bio,
@@ -211,7 +187,6 @@ describe('CLI Search Integration (pre-baked data + live Ollama)', () => {
 
     const eveRes = await sdk.contact.create({
       data: {
-        entityId: userId,
         firstName: 'Eve', lastName: 'Scientist',
         headline: fixtures.records.eve.data.headline,
         bio: fixtures.records.eve.data.bio,
@@ -221,10 +196,9 @@ describe('CLI Search Integration (pre-baked data + live Ollama)', () => {
     if (!eveRes.ok) throw new Error(`create Eve failed: ${JSON.stringify(eveRes.errors)}`);
     eveId = eveRes.data.createContact.contact.id!;
 
-    // 3. Insert notes
+    // 2. Insert notes
     const noteArchRes = await sdk.note.create({
       data: {
-        entityId: userId,
         content: fixtures.records.note_architecture.data.content,
       },
       select: { id: true },
@@ -234,7 +208,6 @@ describe('CLI Search Integration (pre-baked data + live Ollama)', () => {
 
     const noteMeetingRes = await sdk.note.create({
       data: {
-        entityId: userId,
         content: fixtures.records.note_meeting.data.content,
       },
       select: { id: true },
@@ -242,7 +215,7 @@ describe('CLI Search Integration (pre-baked data + live Ollama)', () => {
     if (!noteMeetingRes.ok) throw new Error(`create meeting note failed: ${JSON.stringify(noteMeetingRes.errors)}`);
     noteMeetingId = noteMeetingRes.data.createNote.note.id!;
 
-    // 4. Embed contacts and notes via ORM update (pre-baked vectors)
+    // 3. Embed contacts and notes via ORM update (pre-baked vectors)
     for (const [id, rec] of [
       [carolId, fixtures.records.carol] as const,
       [daveId, fixtures.records.dave] as const,
@@ -268,32 +241,7 @@ describe('CLI Search Integration (pre-baked data + live Ollama)', () => {
       if (!embedRes.ok) throw new Error(`embed note ${id} failed: ${JSON.stringify(embedRes.errors)}`);
     }
 
-    // 5. Insert chunks via pg (superuser, simulating the worker)
     await db.publish();
-
-    await pg.query(
-      `INSERT INTO "agentic_db_app_public".contacts_chunks
-         (contacts_id, content, chunk_index, embedding)
-       VALUES ($1, $2, $3, $4::vector)`,
-      [
-        carolId,
-        fixtures.records.chunk_carol_pgconf.data.content,
-        0,
-        `[${fixtures.records.chunk_carol_pgconf.embedding.join(',')}]`,
-      ],
-    );
-
-    await pg.query(
-      `INSERT INTO "agentic_db_app_public".contacts_chunks
-         (contacts_id, content, chunk_index, embedding)
-       VALUES ($1, $2, $3, $4::vector)`,
-      [
-        carolId,
-        fixtures.records.chunk_carol_research.data.content,
-        1,
-        `[${fixtures.records.chunk_carol_research.embedding.join(',')}]`,
-      ],
-    );
   });
 
   // =========================================================================

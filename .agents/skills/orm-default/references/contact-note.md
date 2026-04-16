@@ -9,7 +9,7 @@ ORM operations for ContactNote records
 ```typescript
 db.contactNote.findMany({ select: { id: true } }).execute()
 db.contactNote.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.contactNote.create({ data: { contactId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.contactNote.create({ data: { contactId: '<UUID>', noteId: '<UUID>' }, select: { id: true } }).execute()
 db.contactNote.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute()
 db.contactNote.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.contactNote.findMany({
 
 ```typescript
 const item = await db.contactNote.create({
-  data: { contactId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' },
+  data: { contactId: '<UUID>', noteId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

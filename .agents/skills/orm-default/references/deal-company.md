@@ -9,7 +9,7 @@ ORM operations for DealCompany records
 ```typescript
 db.dealCompany.findMany({ select: { id: true } }).execute()
 db.dealCompany.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.dealCompany.create({ data: { dealId: '<UUID>', companyId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.dealCompany.create({ data: { dealId: '<UUID>', companyId: '<UUID>' }, select: { id: true } }).execute()
 db.dealCompany.update({ where: { id: '<UUID>' }, data: { dealId: '<UUID>' }, select: { id: true } }).execute()
 db.dealCompany.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.dealCompany.findMany({
 
 ```typescript
 const item = await db.dealCompany.create({
-  data: { dealId: '<UUID>', companyId: '<UUID>', entityId: '<UUID>' },
+  data: { dealId: '<UUID>', companyId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

@@ -5,7 +5,7 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-CREATE FUNCTION "agentic_db_private".calendar_events_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_private.calendar_events_search_tsv_tsv() RETURNS TRIGGER AS $_PGFN_$
 
 BEGIN
 NEW.search_tsv = (setweight(to_tsvector('english', COALESCE(NEW.description, '')), 'B') || setweight(to_tsvector('english', COALESCE(NEW.title, '')), 'A'));

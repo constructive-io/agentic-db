@@ -292,7 +292,7 @@ const task: Task = async (payload, { logger }) => {
   }
 
   // Build select fields
-  const selectFields: Record<string, boolean> = { id: true, entityId: true };
+  const selectFields: Record<string, boolean> = { id: true };
   for (const f of cfg.textFields) {
     selectFields[f] = true;
   }
@@ -398,14 +398,11 @@ const task: Task = async (payload, { logger }) => {
     const chunks = splitIntoChunks(text);
     logger.info(`Splitting ${table} ${id} into ${chunks.length} chunks`);
 
-    const entityId = record.entityId ?? null;
-
     for (let i = 0; i < chunks.length; i++) {
       const chunkText = chunks[i];
       const chunkEmbedding = await generateEmbedding(chunkText);
 
       const chunkData: Record<string, unknown> = {
-        entityId,
         chunkIndex: i,
         content: chunkText,
         embeddingText: chunkText,

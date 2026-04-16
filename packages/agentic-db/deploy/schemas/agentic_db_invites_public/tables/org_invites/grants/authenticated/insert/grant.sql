@@ -1,9 +1,0 @@
--- Deploy: schemas/agentic_db_invites_public/tables/org_invites/grants/authenticated/insert/grant
--- made with <3 @ constructive.io
-
--- requires: schemas/agentic_db_invites_public/schema
--- requires: schemas/agentic_db_invites_public/tables/org_invites/table
-
-
-GRANT INSERT (email, expires_at, multiple, invite_limit, entity_id, receiver_id) ON "agentic_db_invites_public".org_invites TO authenticated;
-

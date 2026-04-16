@@ -9,7 +9,7 @@ ORM operations for CalendarEventContact records
 ```typescript
 db.calendarEventContact.findMany({ select: { id: true } }).execute()
 db.calendarEventContact.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.calendarEventContact.create({ data: { calendarEventId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.calendarEventContact.create({ data: { calendarEventId: '<UUID>', contactId: '<UUID>' }, select: { id: true } }).execute()
 db.calendarEventContact.update({ where: { id: '<UUID>' }, data: { calendarEventId: '<UUID>' }, select: { id: true } }).execute()
 db.calendarEventContact.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.calendarEventContact.findMany({
 
 ```typescript
 const item = await db.calendarEventContact.create({
-  data: { calendarEventId: '<UUID>', contactId: '<UUID>', entityId: '<UUID>' },
+  data: { calendarEventId: '<UUID>', contactId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

@@ -6,6 +6,6 @@
 -- requires: schemas/agentic_db_app_public/tables/provider_sync_states/indexes/provider_sync_states_status_idx
 
 
-ALTER TABLE "agentic_db_app_public".raw_contact_emails 
+ALTER TABLE agentic_db_app_public.raw_contact_emails 
   ADD COLUMN is_primary bool;
 

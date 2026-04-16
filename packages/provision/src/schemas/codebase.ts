@@ -1,14 +1,12 @@
 /**
  * codebase.ts - Codebase schema (blueprint definition)
  *
- * Data* nodes: DataSearch
+ * Data* nodes: SearchUnified
  */
 
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
-  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -20,8 +18,8 @@ const definition: BlueprintDefinition = {
       table_name: 'codebases',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -36,9 +34,6 @@ const definition: BlueprintDefinition = {
         { name: 'config', type: 'jsonb' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     {
@@ -46,7 +41,7 @@ const definition: BlueprintDefinition = {
       table_name: 'code_chunks',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
+        { $type: 'SearchUnified', data: {
           embedding: { source_fields: ['content', 'file_path', 'symbol_name'] },
           bm25: { field_name: 'embedding_text' },
         }},
@@ -62,9 +57,6 @@ const definition: BlueprintDefinition = {
         { name: 'symbol_name', type: 'text' },
         { name: 'symbol_type', type: 'text' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
   ],
 

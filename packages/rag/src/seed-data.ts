@@ -27,7 +27,6 @@ async function main() {
     
     const result = await client.company.create({
       data: {
-        entityId: userId,
         name,
         domain,
         industry,
@@ -53,7 +52,6 @@ async function main() {
     
     const result = await client.contact.create({
       data: {
-        entityId: userId,
         firstName,
         lastName,
         email,
@@ -80,7 +78,6 @@ async function main() {
     
     const result = await client.deal.create({
       data: {
-        entityId: userId,
         name,
         stage,
         value: value as any, 

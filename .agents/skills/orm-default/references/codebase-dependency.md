@@ -9,7 +9,7 @@ ORM operations for CodebaseDependency records
 ```typescript
 db.codebaseDependency.findMany({ select: { id: true } }).execute()
 db.codebaseDependency.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.codebaseDependency.create({ data: { codebaseId: '<UUID>', dependencyId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.codebaseDependency.create({ data: { codebaseId: '<UUID>', dependencyId: '<UUID>' }, select: { id: true } }).execute()
 db.codebaseDependency.update({ where: { id: '<UUID>' }, data: { codebaseId: '<UUID>' }, select: { id: true } }).execute()
 db.codebaseDependency.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.codebaseDependency.findMany({
 
 ```typescript
 const item = await db.codebaseDependency.create({
-  data: { codebaseId: '<UUID>', dependencyId: '<UUID>', entityId: '<UUID>' },
+  data: { codebaseId: '<UUID>', dependencyId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

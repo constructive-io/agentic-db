@@ -27,14 +27,11 @@ async function main() {
   
   const authClient = createClient({ adapter: authAdapter });
 
-  // Use the NEW Tenant User ID created via signUp
-  const userId = '88bae6e9-1149-4461-9d72-82ac8fcf6633';
-  console.log(`👤 Using User ID: ${userId}`);
   console.log(`🌍 Target Host: ${config.appHost}`);
 
   await avengersClient.connect();
 
-  console.log(`\n🚀 Starting Full Import (User: ${userId})...\n`);
+  console.log(`\n🚀 Starting Full Import...\n`);
 
   const importTable = async (name: string, query: string, createFn: (row: any) => Promise<any>) => {
     console.log(`\n📦 Importing ${name}...`);
@@ -64,7 +61,6 @@ async function main() {
   await importTable('Contacts', 'SELECT * FROM crm.contacts', async (row) => {
     return authClient.contact.create({
       data: {
-        entityId: userId,
         firstName: row.first_name,
         lastName: row.last_name,
         email: row.email,
@@ -82,7 +78,6 @@ async function main() {
   await importTable('Tasks', 'SELECT * FROM agent.tasks', async (row) => {
     return authClient.task.create({
       data: {
-        entityId: userId,
         title: row.title,
       },
       select: { id: true }
@@ -93,7 +88,6 @@ async function main() {
   await importTable('Companies', 'SELECT * FROM crm.companies', async (row) => {
     return authClient.company.create({
       data: {
-        entityId: userId,
         name: row.name,
         domain: row.website,
         industry: row.industry,
@@ -108,7 +102,6 @@ async function main() {
   await importTable('Events', 'SELECT * FROM crm.events', async (row) => {
     return authClient.event.create({
       data: {
-        entityId: userId,
         name: row.name,
         eventType: row.event_type,
         location: row.location,
@@ -126,7 +119,6 @@ async function main() {
   await importTable('Venues', 'SELECT * FROM crm.venues', async (row) => {
     return authClient.venue.create({
       data: {
-        entityId: userId,
         name: row.name,
         neighborhood: row.neighborhood,
         city: row.city,
@@ -142,7 +134,6 @@ async function main() {
   await importTable('Notes', 'SELECT * FROM crm.notes', async (row) => {
     return authClient.note.create({
       data: {
-        entityId: userId,
         content: row.body,
         tags: [],
       },
@@ -154,7 +145,6 @@ async function main() {
   await importTable('Memories', 'SELECT * FROM agent.memories', async (row) => {
     return authClient.memory.create({
       data: {
-        entityId: userId,
         title: row.title || 'Untitled',
         content: row.content,
         tags: row.tags || [],
@@ -167,8 +157,6 @@ async function main() {
   await importTable('Skills', 'SELECT * FROM agent.skills', async (row) => {
     return authClient.skill.create({
       data: {
-        entityId: userId,
-        agentId: userId,
         name: row.name,
         description: row.description,
         implementation: row.content,
@@ -182,8 +170,6 @@ async function main() {
   await importTable('Rules', 'SELECT * FROM agent.rules', async (row) => {
     return authClient.rule.create({
       data: {
-        entityId: userId,
-        agentId: userId,
         name: row.title || row.name,
         description: row.content,
         triggerType: row.kind,

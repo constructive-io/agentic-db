@@ -36,8 +36,6 @@ import fixtures from '../../agentic-db/__tests__/fixtures/rag-embeddings.json';
 
 const SCHEMAS = [
   'agentic_db_app_public',
-  'agentic_db_auth_public',
-  'agentic_db_users_public',
 ];
 
 const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
@@ -255,54 +253,35 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     query = connections.query;
     teardown = connections.teardown;
 
-    // Grant anonymous role read access to app tables so the CLI
-    // can query via the HTTP server without JWT auth.
-    // Data is seeded via superuser (pg), bypassing RLS entirely.
-    // We also disable RLS on the tables we query so the anonymous role
-    // can see the seeded data without needing JWT claims.
+    // Grant anonymous role full access to app tables (no security modules installed)
     await pg.query(`
       GRANT USAGE ON SCHEMA agentic_db_app_public TO anonymous;
-      GRANT SELECT ON ALL TABLES IN SCHEMA agentic_db_app_public TO anonymous;
-      ALTER TABLE agentic_db_app_public.contacts DISABLE ROW LEVEL SECURITY;
-      ALTER TABLE agentic_db_app_public.notes DISABLE ROW LEVEL SECURITY;
-      ALTER TABLE agentic_db_app_public.contacts_chunks DISABLE ROW LEVEL SECURITY;
+      GRANT ALL ON ALL TABLES IN SCHEMA agentic_db_app_public TO anonymous;
+      GRANT ALL ON ALL SEQUENCES IN SCHEMA agentic_db_app_public TO anonymous;
     `);
 
-    // ---- Seed all test data once (superuser, bypasses RLS) ----
+    // ---- Seed all test data once (superuser) ----
 
-    // 0. Create a stub for app_jobs.add_job so that INSERT triggers
-    //    (e.g. contacts_enqueue_chunking, notes_enqueue_chunking) don't fail.
-    //    The real function lives in graphile-worker which isn't deployed in the test DB.
+    // 0. Override jwt_private.current_database_id() so that INSERT triggers
+    //    (e.g. contacts_enqueue_embedding) which call
+    //    app_jobs.add_job(jwt_private.current_database_id(), ...) don't fail
+    //    with a NULL database_id constraint violation.
+    //    Also grant anonymous access to app_jobs schema so triggers can execute.
     await pg.query(`
-      CREATE SCHEMA IF NOT EXISTS app_jobs;
-      CREATE OR REPLACE FUNCTION app_jobs.add_job(
-        _database_id uuid,
-        _task text,
-        _payload jsonb DEFAULT '{}'::jsonb
-      ) RETURNS void AS $$ BEGIN /* no-op stub */ END; $$ LANGUAGE plpgsql;
+      CREATE OR REPLACE FUNCTION jwt_private.current_database_id()
+      RETURNS uuid AS $$
+      BEGIN
+        RETURN '00000000-0000-0000-0000-000000000000'::uuid;
+      END;
+      $$ LANGUAGE plpgsql;
+
+      GRANT USAGE ON SCHEMA app_jobs TO anonymous;
+      GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA app_jobs TO anonymous;
+      GRANT ALL ON ALL TABLES IN SCHEMA app_jobs TO anonymous;
+      GRANT ALL ON ALL SEQUENCES IN SCHEMA app_jobs TO anonymous;
     `);
 
-    // 1. Create a user entity via signUp (anonymous mutation — no auth needed)
-    const signUpResult = await query(
-      `mutation SignUp($input: SignUpInput!) {
-        signUp(input: $input) {
-          result { userId }
-        }
-      }`,
-      {
-        input: {
-          email: `e2e-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@example.com`,
-          password: 'testpassword123',
-        },
-      },
-    );
-
-    const signUpData = (signUpResult as any)?.data?.signUp?.result;
-    if (!signUpData) throw new Error(`signUp failed: ${JSON.stringify(signUpResult)}`);
-
-    const { userId } = signUpData;
-
-    // 2. Insert contacts via direct SQL (superuser, bypasses RLS)
+    // 1. Insert contacts via direct SQL (superuser)
     const insertContact = async (
       firstName: string,
       lastName: string,
@@ -311,10 +290,10 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     ): Promise<string> => {
       const result = await pg.query(
         `INSERT INTO "agentic_db_app_public".contacts
-           (entity_id, first_name, last_name, headline, bio)
-         VALUES ($1, $2, $3, $4, $5)
+           (first_name, last_name, headline, bio)
+         VALUES ($1, $2, $3, $4)
          RETURNING id`,
-        [userId, firstName, lastName, headline, bio],
+        [firstName, lastName, headline, bio],
       );
       return result.rows[0].id;
     };
@@ -335,14 +314,14 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
       fixtures.records.eve.data.bio,
     );
 
-    // 3. Insert notes via direct SQL (superuser)
+    // 2. Insert notes via direct SQL (superuser)
     const insertNote = async (content: string): Promise<string> => {
       const result = await pg.query(
         `INSERT INTO "agentic_db_app_public".notes
-           (entity_id, content)
-         VALUES ($1, $2)
+           (content)
+         VALUES ($1)
          RETURNING id`,
-        [userId, content],
+        [content],
       );
       return result.rows[0].id;
     };
@@ -350,7 +329,7 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     const noteArchId = await insertNote(fixtures.records.note_architecture.data.content);
     await insertNote(fixtures.records.note_meeting.data.content);
 
-    // 4. Set embeddings via direct SQL (superuser)
+    // 3. Set embeddings via direct SQL (superuser)
     const setEmbedding = async (table: string, id: string, embedding: number[], text: string) => {
       await pg.query(
         `UPDATE "agentic_db_app_public".${table}
@@ -365,23 +344,10 @@ describe('CLI E2E Tests (real HTTP server + subprocess)', () => {
     await setEmbedding('contacts', eveId, fixtures.records.eve.embedding, fixtures.records.eve.text);
     await setEmbedding('notes', noteArchId, fixtures.records.note_architecture.embedding, fixtures.records.note_architecture.text);
 
-    // 5. Insert chunks via direct SQL
-    await pg.query(
-      `INSERT INTO "agentic_db_app_public".contacts_chunks
-         (contacts_id, content, chunk_index, embedding)
-       VALUES ($1, $2, $3, $4::vector)`,
-      [
-        carolId,
-        fixtures.records.chunk_carol_pgconf.data.content,
-        0,
-        `[${fixtures.records.chunk_carol_pgconf.embedding.join(',')}]`,
-      ],
-    );
-
-    // 6. Configure CLI context to point at test server + Ollama proxy
+    // 4. Configure CLI context to point at test server + Ollama proxy
     setupCliContext(server.graphqlUrl, ollamaProxyUrl);
 
-    // 7. Warm up Ollama model so first CLI call doesn't timeout on model load
+    // 5. Warm up Ollama model so first CLI call doesn't timeout on model load
     try {
       const warmUpRes = await fetch(`${OLLAMA_URL}/api/embeddings`, {
         method: 'POST',

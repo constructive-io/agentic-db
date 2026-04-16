@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/deals/table
 -- requires: schemas/agentic_db_app_public/tables/touchpoints/table
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
-ALTER TABLE "agentic_db_app_public".touchpoints 
+ALTER TABLE agentic_db_app_public.touchpoints 
   ADD CONSTRAINT touchpoints_deal_id_fkey 
     FOREIGN KEY(deal_id) 
-    REFERENCES "agentic_db_app_public".deals (id) 
+    REFERENCES agentic_db_app_public.deals (id) 
     ON DELETE SET NULL;
 

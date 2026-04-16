@@ -97,46 +97,6 @@ export class TaskContactModel {
       variables,
     });
   }
-  findOne<S extends TaskContactSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, TaskContactSelect>
-  ): QueryBuilder<{
-    taskContact: InferSelectResult<TaskContactWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'TaskContact',
-      'taskContacts',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'TaskContactFilter',
-      'TaskContactOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'TaskContact',
-      fieldName: 'taskContact',
-      document,
-      variables,
-      transform: (data: {
-        taskContacts?: {
-          nodes?: InferSelectResult<TaskContactWithRelations, S>[];
-        };
-      }) => ({
-        taskContact: data.taskContacts?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends TaskContactSelect>(
     args: CreateArgs<S, CreateTaskContactInput['taskContact']> & {
       select: S;
@@ -160,76 +120,6 @@ export class TaskContactModel {
       operation: 'mutation',
       operationName: 'TaskContact',
       fieldName: 'createTaskContact',
-      document,
-      variables,
-    });
-  }
-  update<S extends TaskContactSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      TaskContactPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, TaskContactSelect>
-  ): QueryBuilder<{
-    updateTaskContact: {
-      taskContact: InferSelectResult<TaskContactWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'TaskContact',
-      'updateTaskContact',
-      'taskContact',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateTaskContactInput',
-      'id',
-      'taskContactPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'TaskContact',
-      fieldName: 'updateTaskContact',
-      document,
-      variables,
-    });
-  }
-  delete<S extends TaskContactSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, TaskContactSelect>
-  ): QueryBuilder<{
-    deleteTaskContact: {
-      taskContact: InferSelectResult<TaskContactWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'TaskContact',
-      'deleteTaskContact',
-      'taskContact',
-      {
-        id: args.where.id,
-      },
-      'DeleteTaskContactInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'TaskContact',
-      fieldName: 'deleteTaskContact',
       document,
       variables,
     });

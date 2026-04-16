@@ -9,8 +9,8 @@ ORM operations for Tag records
 ```typescript
 db.tag.findMany({ select: { id: true } }).execute()
 db.tag.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.tag.create({ data: { entityId: '<UUID>', name: '<String>', color: '<String>', category: '<String>', usageCount: '<Int>' }, select: { id: true } }).execute()
-db.tag.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.tag.create({ data: { name: '<String>', color: '<String>', category: '<String>', usageCount: '<Int>' }, select: { id: true } }).execute()
+db.tag.update({ where: { id: '<UUID>' }, data: { name: '<String>' }, select: { id: true } }).execute()
 db.tag.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.tag.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.tag.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, name: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.tag.findMany({
 
 ```typescript
 const item = await db.tag.create({
-  data: { entityId: '<UUID>', name: '<String>', color: '<String>', category: '<String>', usageCount: '<Int>' },
+  data: { name: '<String>', color: '<String>', category: '<String>', usageCount: '<Int>' },
   select: { id: true }
 }).execute();
 ```

@@ -9,7 +9,7 @@ ORM operations for DealNote records
 ```typescript
 db.dealNote.findMany({ select: { id: true } }).execute()
 db.dealNote.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.dealNote.create({ data: { dealId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.dealNote.create({ data: { dealId: '<UUID>', noteId: '<UUID>' }, select: { id: true } }).execute()
 db.dealNote.update({ where: { id: '<UUID>' }, data: { dealId: '<UUID>' }, select: { id: true } }).execute()
 db.dealNote.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.dealNote.findMany({
 
 ```typescript
 const item = await db.dealNote.create({
-  data: { dealId: '<UUID>', noteId: '<UUID>', entityId: '<UUID>' },
+  data: { dealId: '<UUID>', noteId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

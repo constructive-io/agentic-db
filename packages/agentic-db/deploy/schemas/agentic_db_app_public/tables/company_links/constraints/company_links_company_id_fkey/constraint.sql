@@ -4,12 +4,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/companies/table
 -- requires: schemas/agentic_db_app_public/tables/company_links/table
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
-ALTER TABLE "agentic_db_app_public".company_links 
+ALTER TABLE agentic_db_app_public.company_links 
   ADD CONSTRAINT company_links_company_id_fkey 
     FOREIGN KEY(company_id) 
-    REFERENCES "agentic_db_app_public".companies (id) 
+    REFERENCES agentic_db_app_public.companies (id) 
     ON DELETE CASCADE;
 

@@ -9,7 +9,7 @@ ORM operations for ContactMemory records
 ```typescript
 db.contactMemory.findMany({ select: { id: true } }).execute()
 db.contactMemory.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.contactMemory.create({ data: { contactId: '<UUID>', memoryId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.contactMemory.create({ data: { contactId: '<UUID>', memoryId: '<UUID>' }, select: { id: true } }).execute()
 db.contactMemory.update({ where: { id: '<UUID>' }, data: { contactId: '<UUID>' }, select: { id: true } }).execute()
 db.contactMemory.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.contactMemory.findMany({
 
 ```typescript
 const item = await db.contactMemory.create({
-  data: { contactId: '<UUID>', memoryId: '<UUID>', entityId: '<UUID>' },
+  data: { contactId: '<UUID>', memoryId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

@@ -4,8 +4,8 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/contacts/table
 -- requires: schemas/agentic_db_app_public/tables/contacts/columns/email/column
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
-CREATE INDEX contacts_email_idx ON "agentic_db_app_public".contacts USING BTREE ( email );
+CREATE INDEX contacts_email_idx ON agentic_db_app_public.contacts USING BTREE ( email );
 

@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/notes/table
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_app_public/tables/notes/columns/active_count/column
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX notes_active_count_idx ON "agentic_db_app_public".notes USING BTREE ( active_count );
+CREATE INDEX notes_active_count_idx ON agentic_db_app_public.notes USING BTREE ( active_count );
 

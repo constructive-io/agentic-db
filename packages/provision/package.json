@@ -10,8 +10,7 @@
     "build": "makage build",
     "clean": "makage clean",
     "create-db": "tsx src/create-db.ts",
-    "provision": "tsx src/provision.ts",
-    "enable-membership-defaults": "tsx src/enable-membership-defaults.ts"
+    "provision": "tsx src/provision.ts"
   },
   "dependencies": {
     "@constructive-io/node": "^0.8.15",

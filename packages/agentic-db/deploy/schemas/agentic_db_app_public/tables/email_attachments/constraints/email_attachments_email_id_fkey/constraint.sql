@@ -7,9 +7,9 @@
 -- requires: schemas/agentic_db_app_public/tables/places/indexes/places_category_idx
 
 
-ALTER TABLE "agentic_db_app_public".email_attachments 
+ALTER TABLE agentic_db_app_public.email_attachments 
   ADD CONSTRAINT email_attachments_email_id_fkey 
     FOREIGN KEY(email_id) 
-    REFERENCES "agentic_db_app_public".emails (id) 
+    REFERENCES agentic_db_app_public.emails (id) 
     ON DELETE CASCADE;
 

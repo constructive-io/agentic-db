@@ -97,46 +97,6 @@ export class EmailNoteModel {
       variables,
     });
   }
-  findOne<S extends EmailNoteSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, EmailNoteSelect>
-  ): QueryBuilder<{
-    emailNote: InferSelectResult<EmailNoteWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'EmailNote',
-      'emailNotes',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'EmailNoteFilter',
-      'EmailNoteOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'EmailNote',
-      fieldName: 'emailNote',
-      document,
-      variables,
-      transform: (data: {
-        emailNotes?: {
-          nodes?: InferSelectResult<EmailNoteWithRelations, S>[];
-        };
-      }) => ({
-        emailNote: data.emailNotes?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends EmailNoteSelect>(
     args: CreateArgs<S, CreateEmailNoteInput['emailNote']> & {
       select: S;
@@ -160,76 +120,6 @@ export class EmailNoteModel {
       operation: 'mutation',
       operationName: 'EmailNote',
       fieldName: 'createEmailNote',
-      document,
-      variables,
-    });
-  }
-  update<S extends EmailNoteSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      EmailNotePatch
-    > & {
-      select: S;
-    } & StrictSelect<S, EmailNoteSelect>
-  ): QueryBuilder<{
-    updateEmailNote: {
-      emailNote: InferSelectResult<EmailNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'EmailNote',
-      'updateEmailNote',
-      'emailNote',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateEmailNoteInput',
-      'id',
-      'emailNotePatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'EmailNote',
-      fieldName: 'updateEmailNote',
-      document,
-      variables,
-    });
-  }
-  delete<S extends EmailNoteSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, EmailNoteSelect>
-  ): QueryBuilder<{
-    deleteEmailNote: {
-      emailNote: InferSelectResult<EmailNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'EmailNote',
-      'deleteEmailNote',
-      'emailNote',
-      {
-        id: args.where.id,
-      },
-      'DeleteEmailNoteInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'EmailNote',
-      fieldName: 'deleteEmailNote',
       document,
       variables,
     });

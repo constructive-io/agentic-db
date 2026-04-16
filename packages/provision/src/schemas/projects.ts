@@ -1,14 +1,12 @@
 /**
  * projects.ts - Projects schema (blueprint definition)
  *
- * Data* nodes: DataSearch
+ * Data* nodes: SearchUnified
  */
 
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
-  CRUD_GRANTS,
   provisionBlueprint,
 } from '../blueprint';
 
@@ -19,8 +17,8 @@ const definition: BlueprintDefinition = {
       table_name: 'projects',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -36,9 +34,6 @@ const definition: BlueprintDefinition = {
         { name: 'config', type: 'jsonb' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
   ],

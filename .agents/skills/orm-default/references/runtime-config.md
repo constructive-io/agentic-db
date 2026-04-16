@@ -9,8 +9,8 @@ ORM operations for RuntimeConfig records
 ```typescript
 db.runtimeConfig.findMany({ select: { id: true } }).execute()
 db.runtimeConfig.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.runtimeConfig.create({ data: { entityId: '<UUID>', key: '<String>', value: '<JSON>', description: '<String>', isSecret: '<Boolean>' }, select: { id: true } }).execute()
-db.runtimeConfig.update({ where: { id: '<UUID>' }, data: { entityId: '<UUID>' }, select: { id: true } }).execute()
+db.runtimeConfig.create({ data: { key: '<String>', value: '<JSON>', description: '<String>', isSecret: '<Boolean>' }, select: { id: true } }).execute()
+db.runtimeConfig.update({ where: { id: '<UUID>' }, data: { key: '<String>' }, select: { id: true } }).execute()
 db.runtimeConfig.delete({ where: { id: '<UUID>' } }).execute()
 ```
 
@@ -20,7 +20,7 @@ db.runtimeConfig.delete({ where: { id: '<UUID>' } }).execute()
 
 ```typescript
 const items = await db.runtimeConfig.findMany({
-  select: { id: true, entityId: true }
+  select: { id: true, key: true }
 }).execute();
 ```
 
@@ -28,7 +28,7 @@ const items = await db.runtimeConfig.findMany({
 
 ```typescript
 const item = await db.runtimeConfig.create({
-  data: { entityId: '<UUID>', key: '<String>', value: '<JSON>', description: '<String>', isSecret: '<Boolean>' },
+  data: { key: '<String>', value: '<JSON>', description: '<String>', isSecret: '<Boolean>' },
   select: { id: true }
 }).execute();
 ```

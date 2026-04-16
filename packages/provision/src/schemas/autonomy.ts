@@ -1,14 +1,12 @@
 /**
  * autonomy.ts - Autonomy schema (blueprint definition)
  *
- * Data* nodes: DataSearch
+ * Data* nodes: SearchUnified
  */
 
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
-  CRUD_GRANTS,
   M2M_JUNCTION_OPTS,
   provisionBlueprint,
 } from '../blueprint';
@@ -20,8 +18,8 @@ const definition: BlueprintDefinition = {
       table_name: 'autonomy_records',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'content'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['title', 'content'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -35,9 +33,6 @@ const definition: BlueprintDefinition = {
         { name: 'context', type: 'jsonb' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
   ],

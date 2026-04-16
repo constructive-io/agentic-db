@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/tags/table
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
-ALTER TABLE "agentic_db_app_public".tags 
+ALTER TABLE agentic_db_app_public.tags 
   ADD COLUMN created_at timestamptz;
 

@@ -5,12 +5,12 @@
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/notes/table
 -- requires: schemas/agentic_db_private/trigger_fns/notes_enqueue_embedding
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
 CREATE TRIGGER notes_enqueue_embedding_insert_tg
-AFTER INSERT ON "agentic_db_app_public".notes
+AFTER INSERT ON agentic_db_app_public.notes
 FOR EACH ROW
 WHEN (NEW.embedding_stale IS TRUE)
-EXECUTE PROCEDURE "agentic_db_private".notes_enqueue_embedding ( );
+EXECUTE PROCEDURE agentic_db_private.notes_enqueue_embedding ( );
 

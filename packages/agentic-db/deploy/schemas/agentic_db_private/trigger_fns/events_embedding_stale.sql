@@ -2,14 +2,14 @@
 -- made with <3 @ constructive.io
 
 -- requires: schemas/agentic_db_private/schema
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 
 
-CREATE FUNCTION "agentic_db_private".events_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_private.events_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
-  SELECT true INTO NEW.embedding_stale;
-  SELECT NULL INTO NEW.embedding;
+  new.embedding_stale := true;
+  new.embedding := NULL;
   RETURN NEW;
-END
+END;
 $_PGFN_$ LANGUAGE plpgsql VOLATILE;
 

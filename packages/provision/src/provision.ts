@@ -8,6 +8,7 @@
  */
 
 import { config } from './config';
+import { createPlatformClient, withRetry } from './helpers';
 import { Pool } from 'pg';
 
 const UUID_SEED = 'agentic-db';
@@ -63,6 +64,35 @@ async function main() {
     console.log('   Run: eval "$(pgpm env)" before provisioning.');
   }
 
+  // --- Create the app_public schema ---
+  // With bare database.create() (no modules), the schema doesn't exist yet.
+  // We create it via the SDK before running blueprint modules.
+  const databaseId = config.databaseId;
+  const sdk = createPlatformClient();
+
+  console.log('\n\ud83d\udce6 Creating app_public schema...');
+  try {
+    const schemaResult = await withRetry(() =>
+      sdk.schema.create({
+        data: {
+          databaseId,
+          name: 'app_public',
+          schemaName: 'app_public',
+        },
+        select: { id: true, name: true },
+      }).unwrap()
+    );
+    const schemaId = schemaResult?.createSchema?.schema?.id;
+    console.log(`   \u2713 app_public schema created (ID: ${schemaId})`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (msg.includes('already exists') || msg.includes('exists')) {
+      console.log('   \u2713 app_public schema already exists');
+    } else {
+      throw err;
+    }
+  }
+
   const schemas = [
     ['CRM',              './schemas/crm'],
     ['Agent Core',       './schemas/agent'],
@@ -80,32 +110,40 @@ async function main() {
     await run(label, mod);
   }
 
-  // Enable app membership defaults: set is_approved and is_verified to TRUE.
-  // The memberships_module generator seeds both as FALSE (secure by default),
-  // but for agentic-db we want users to be immediately active on sign-up.
-  // This follows the same pattern as constructive-db's enableAppMembershipDefaults().
-  // Can also be run standalone: pnpm run enable-membership-defaults
+  // Disable RLS on ALL tables in the database.
+  // construct_blueprint and provision_relation enable RLS on junction tables
+  // by default. We disable it globally since we're running without security.
   if (pgAvailable) {
-    console.log('\n\ud83d\udd11 Enabling app membership defaults...');
-    const defaultsPool = new Pool({ database: process.env.PGDATABASE || 'constructive' });
-    // Find the actual memberships schema name (varies by database naming convention)
-    const schemaResult = await defaultsPool.query(
-      `SELECT schema_name FROM information_schema.schemata
-       WHERE schema_name LIKE '%memberships_public' AND schema_name LIKE '%agentic%'
-       ORDER BY schema_name DESC LIMIT 1`
+    console.log('\n\ud83d\udd12 Disabling RLS on all tables...');
+    const pool2 = new Pool({ database: process.env.PGDATABASE || 'constructive' });
+
+    // 1. Get the physical schema name for this database's app_public
+    const { rows: schemaRows } = await pool2.query(
+      `SELECT s.id, s.schema_name FROM metaschema_public.schema s
+       WHERE s.database_id = $1 AND s.name = 'app_public' LIMIT 1`,
+      [databaseId]
     );
-    if (schemaResult.rows.length > 0) {
-      const membershipsSchema = schemaResult.rows[0].schema_name;
-      await defaultsPool.query(
-        `UPDATE "${membershipsSchema}".app_membership_defaults
-         SET is_approved = TRUE, is_verified = TRUE`
+    const appSchema = schemaRows[0];
+    if (appSchema) {
+      // 2. Disable RLS on every table in the physical schema
+      const { rows: rlsTables } = await pool2.query(
+        `SELECT tablename FROM pg_tables
+         WHERE schemaname = $1 AND rowsecurity = true`,
+        [appSchema.schema_name]
       );
-      console.log(`   schema: ${membershipsSchema}`);
-      console.log('   is_approved = TRUE, is_verified = TRUE');
-    } else {
-      console.log('   No memberships schema found - skipping defaults');
+      for (const t of rlsTables) {
+        await pool2.query(`ALTER TABLE "${appSchema.schema_name}"."${t.tablename}" DISABLE ROW LEVEL SECURITY`);
+      }
+      // 3. Update metaschema records
+      await pool2.query(
+        `UPDATE metaschema_public."table" SET use_rls = false
+         WHERE database_id = $1 AND schema_id = $2 AND use_rls = true`,
+        [databaseId, appSchema.id]
+      );
+      console.log(`   \u2713 Disabled RLS on ${rlsTables.length} tables`);
     }
-    await defaultsPool.end();
+
+    await pool2.end();
   }
 
   // Reset provision-only settings so normal operation uses random UUIDs.

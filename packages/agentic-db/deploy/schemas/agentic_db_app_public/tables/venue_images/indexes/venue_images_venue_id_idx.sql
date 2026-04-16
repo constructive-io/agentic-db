@@ -3,9 +3,9 @@
 
 -- requires: schemas/agentic_db_app_public/schema
 -- requires: schemas/agentic_db_app_public/tables/venue_images/table
+-- requires: schemas/agentic_db_app_public/schema/default_function_privs/anonymous
 -- requires: schemas/agentic_db_app_public/tables/venue_images/columns/venue_id/column
--- requires: schemas/agentic_db_users_public/tables/users/policies/auth_del_admin_deletes/policy
 
 
-CREATE INDEX venue_images_venue_id_idx ON "agentic_db_app_public".venue_images USING BTREE ( venue_id );
+CREATE INDEX venue_images_venue_id_idx ON agentic_db_app_public.venue_images USING BTREE ( venue_id );
 

@@ -97,46 +97,6 @@ export class EventImageModel {
       variables,
     });
   }
-  findOne<S extends EventImageSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, EventImageSelect>
-  ): QueryBuilder<{
-    eventImage: InferSelectResult<EventImageWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'EventImage',
-      'eventImages',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'EventImageFilter',
-      'EventImageOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'EventImage',
-      fieldName: 'eventImage',
-      document,
-      variables,
-      transform: (data: {
-        eventImages?: {
-          nodes?: InferSelectResult<EventImageWithRelations, S>[];
-        };
-      }) => ({
-        eventImage: data.eventImages?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends EventImageSelect>(
     args: CreateArgs<S, CreateEventImageInput['eventImage']> & {
       select: S;
@@ -160,76 +120,6 @@ export class EventImageModel {
       operation: 'mutation',
       operationName: 'EventImage',
       fieldName: 'createEventImage',
-      document,
-      variables,
-    });
-  }
-  update<S extends EventImageSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      EventImagePatch
-    > & {
-      select: S;
-    } & StrictSelect<S, EventImageSelect>
-  ): QueryBuilder<{
-    updateEventImage: {
-      eventImage: InferSelectResult<EventImageWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'EventImage',
-      'updateEventImage',
-      'eventImage',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateEventImageInput',
-      'id',
-      'eventImagePatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'EventImage',
-      fieldName: 'updateEventImage',
-      document,
-      variables,
-    });
-  }
-  delete<S extends EventImageSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, EventImageSelect>
-  ): QueryBuilder<{
-    deleteEventImage: {
-      eventImage: InferSelectResult<EventImageWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'EventImage',
-      'deleteEventImage',
-      'eventImage',
-      {
-        id: args.where.id,
-      },
-      'DeleteEventImageInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'EventImage',
-      fieldName: 'deleteEventImage',
       document,
       variables,
     });

@@ -5,11 +5,11 @@
 -- requires: schemas/agentic_db_app_public/tables/expenses/indexes/expenses_tags_gin_idx
 
 
-CREATE FUNCTION "agentic_db_private".messages_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
+CREATE FUNCTION agentic_db_private.messages_embedding_stale() RETURNS TRIGGER AS $_PGFN_$
 BEGIN
-  SELECT true INTO NEW.embedding_stale;
-  SELECT NULL INTO NEW.embedding;
+  new.embedding_stale := true;
+  new.embedding := NULL;
   RETURN NEW;
-END
+END;
 $_PGFN_$ LANGUAGE plpgsql VOLATILE;
 

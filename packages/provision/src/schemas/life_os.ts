@@ -3,14 +3,12 @@
  *
  * Tables: goals, habits, activity_logs, memories, trips, hiking_trails, places
  * (projects lives in projects.ts; expenses lives in agent.ts)
- * Data* nodes: DataSearch, DataPostGIS
+ * Data* nodes: SearchUnified, SearchSpatial
  */
 
 import {
   type BlueprintDefinition,
   ORG_NODES,
-  ORG_POLICY,
-  CRUD_GRANTS,
   provisionBlueprint,
 } from '../blueprint';
 
@@ -22,8 +20,8 @@ const definition: BlueprintDefinition = {
       table_name: 'goals',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'description'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['title', 'description'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -35,9 +33,6 @@ const definition: BlueprintDefinition = {
         { name: 'progress', type: 'numeric', default_value: '0' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Habits -------------------------------------------------------------
@@ -52,9 +47,6 @@ const definition: BlueprintDefinition = {
         { name: 'last_completed_at', type: 'timestamptz' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Activity Logs ------------------------------------------------------
@@ -63,8 +55,8 @@ const definition: BlueprintDefinition = {
       table_name: 'activity_logs',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['activity_type', 'notes'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['activity_type', 'notes'] },
           bm25: { field_name: 'embedding_text' },
         }},
       ],
@@ -79,9 +71,6 @@ const definition: BlueprintDefinition = {
         { name: 'meta', type: 'jsonb' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Memories -----------------------------------------------------------
@@ -90,11 +79,11 @@ const definition: BlueprintDefinition = {
       table_name: 'memories',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['title', 'content', 'location'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['title', 'content', 'location'] },
           bm25: { field_name: 'embedding_text' },
         }},
-        { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+        { $type: 'SearchSpatial', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
         { name: 'title', type: 'text', is_required: true },
@@ -104,9 +93,6 @@ const definition: BlueprintDefinition = {
         { name: 'mood', type: 'text' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Trips --------------------------------------------------------------
@@ -115,11 +101,11 @@ const definition: BlueprintDefinition = {
       table_name: 'trips',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'destination'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description', 'destination'] },
           bm25: { field_name: 'embedding_text' },
         }},
-        { $type: 'DataPostGIS', data: { field_name: 'destination_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+        { $type: 'SearchSpatial', data: { field_name: 'destination_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
         { name: 'name', type: 'text', is_required: true },
@@ -129,9 +115,6 @@ const definition: BlueprintDefinition = {
         { name: 'end_date', type: 'timestamptz' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Hiking Trails ------------------------------------------------------
@@ -140,11 +123,11 @@ const definition: BlueprintDefinition = {
       table_name: 'hiking_trails',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'location'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description', 'location'] },
           bm25: { field_name: 'embedding_text' },
         }},
-        { $type: 'DataPostGIS', data: { field_name: 'trailhead_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+        { $type: 'SearchSpatial', data: { field_name: 'trailhead_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
         { name: 'name', type: 'text', is_required: true },
@@ -156,9 +139,6 @@ const definition: BlueprintDefinition = {
         { name: 'rating', type: 'numeric' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
     // -- Places -------------------------------------------------------------
@@ -167,11 +147,11 @@ const definition: BlueprintDefinition = {
       table_name: 'places',
       nodes: [
         ...ORG_NODES,
-        { $type: 'DataSearch', data: {
-          embedding: { source_fields: ['name', 'description', 'address'], chunks: {} },
+        { $type: 'SearchUnified', data: {
+          embedding: { source_fields: ['name', 'description', 'address'] },
           bm25: { field_name: 'embedding_text' },
         }},
-        { $type: 'DataPostGIS', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
+        { $type: 'SearchSpatial', data: { field_name: 'location_geo', use_geography: true, geometry_type: 'Point', srid: 4326 } },
       ],
       fields: [
         { name: 'name', type: 'text', is_required: true },
@@ -181,9 +161,6 @@ const definition: BlueprintDefinition = {
         { name: 'rating', type: 'numeric' },
         { name: 'tags', type: 'citext[]' },
       ],
-      grant_roles: ['authenticated'],
-      grants: CRUD_GRANTS,
-      policies: [ORG_POLICY],
     },
 
   ],

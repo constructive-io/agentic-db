@@ -97,46 +97,6 @@ export class CalendarEventNoteModel {
       variables,
     });
   }
-  findOne<S extends CalendarEventNoteSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, CalendarEventNoteSelect>
-  ): QueryBuilder<{
-    calendarEventNote: InferSelectResult<CalendarEventNoteWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'CalendarEventNote',
-      'calendarEventNotes',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'CalendarEventNoteFilter',
-      'CalendarEventNoteOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'CalendarEventNote',
-      fieldName: 'calendarEventNote',
-      document,
-      variables,
-      transform: (data: {
-        calendarEventNotes?: {
-          nodes?: InferSelectResult<CalendarEventNoteWithRelations, S>[];
-        };
-      }) => ({
-        calendarEventNote: data.calendarEventNotes?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends CalendarEventNoteSelect>(
     args: CreateArgs<S, CreateCalendarEventNoteInput['calendarEventNote']> & {
       select: S;
@@ -160,76 +120,6 @@ export class CalendarEventNoteModel {
       operation: 'mutation',
       operationName: 'CalendarEventNote',
       fieldName: 'createCalendarEventNote',
-      document,
-      variables,
-    });
-  }
-  update<S extends CalendarEventNoteSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      CalendarEventNotePatch
-    > & {
-      select: S;
-    } & StrictSelect<S, CalendarEventNoteSelect>
-  ): QueryBuilder<{
-    updateCalendarEventNote: {
-      calendarEventNote: InferSelectResult<CalendarEventNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'CalendarEventNote',
-      'updateCalendarEventNote',
-      'calendarEventNote',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateCalendarEventNoteInput',
-      'id',
-      'calendarEventNotePatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'CalendarEventNote',
-      fieldName: 'updateCalendarEventNote',
-      document,
-      variables,
-    });
-  }
-  delete<S extends CalendarEventNoteSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, CalendarEventNoteSelect>
-  ): QueryBuilder<{
-    deleteCalendarEventNote: {
-      calendarEventNote: InferSelectResult<CalendarEventNoteWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'CalendarEventNote',
-      'deleteCalendarEventNote',
-      'calendarEventNote',
-      {
-        id: args.where.id,
-      },
-      'DeleteCalendarEventNoteInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'CalendarEventNote',
-      fieldName: 'deleteCalendarEventNote',
       document,
       variables,
     });

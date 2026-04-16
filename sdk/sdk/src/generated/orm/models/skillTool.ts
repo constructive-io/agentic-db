@@ -97,46 +97,6 @@ export class SkillToolModel {
       variables,
     });
   }
-  findOne<S extends SkillToolSelect>(
-    args: {
-      id: string;
-      select: S;
-    } & StrictSelect<S, SkillToolSelect>
-  ): QueryBuilder<{
-    skillTool: InferSelectResult<SkillToolWithRelations, S> | null;
-  }> {
-    const { document, variables } = buildFindManyDocument(
-      'SkillTool',
-      'skillTools',
-      args.select,
-      {
-        where: {
-          id: {
-            equalTo: args.id,
-          },
-        },
-        first: 1,
-      },
-      'SkillToolFilter',
-      'SkillToolOrderBy',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'query',
-      operationName: 'SkillTool',
-      fieldName: 'skillTool',
-      document,
-      variables,
-      transform: (data: {
-        skillTools?: {
-          nodes?: InferSelectResult<SkillToolWithRelations, S>[];
-        };
-      }) => ({
-        skillTool: data.skillTools?.nodes?.[0] ?? null,
-      }),
-    });
-  }
   create<S extends SkillToolSelect>(
     args: CreateArgs<S, CreateSkillToolInput['skillTool']> & {
       select: S;
@@ -160,76 +120,6 @@ export class SkillToolModel {
       operation: 'mutation',
       operationName: 'SkillTool',
       fieldName: 'createSkillTool',
-      document,
-      variables,
-    });
-  }
-  update<S extends SkillToolSelect>(
-    args: UpdateArgs<
-      S,
-      {
-        id: string;
-      },
-      SkillToolPatch
-    > & {
-      select: S;
-    } & StrictSelect<S, SkillToolSelect>
-  ): QueryBuilder<{
-    updateSkillTool: {
-      skillTool: InferSelectResult<SkillToolWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildUpdateByPkDocument(
-      'SkillTool',
-      'updateSkillTool',
-      'skillTool',
-      args.select,
-      args.where.id,
-      args.data,
-      'UpdateSkillToolInput',
-      'id',
-      'skillToolPatch',
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'SkillTool',
-      fieldName: 'updateSkillTool',
-      document,
-      variables,
-    });
-  }
-  delete<S extends SkillToolSelect>(
-    args: DeleteArgs<
-      {
-        id: string;
-      },
-      S
-    > & {
-      select: S;
-    } & StrictSelect<S, SkillToolSelect>
-  ): QueryBuilder<{
-    deleteSkillTool: {
-      skillTool: InferSelectResult<SkillToolWithRelations, S>;
-    };
-  }> {
-    const { document, variables } = buildDeleteByPkDocument(
-      'SkillTool',
-      'deleteSkillTool',
-      'skillTool',
-      {
-        id: args.where.id,
-      },
-      'DeleteSkillToolInput',
-      args.select,
-      connectionFieldsMap
-    );
-    return new QueryBuilder({
-      client: this.client,
-      operation: 'mutation',
-      operationName: 'SkillTool',
-      fieldName: 'deleteSkillTool',
       document,
       variables,
     });

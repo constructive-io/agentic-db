@@ -9,7 +9,7 @@ ORM operations for TaskProject records
 ```typescript
 db.taskProject.findMany({ select: { id: true } }).execute()
 db.taskProject.findOne({ id: '<UUID>', select: { id: true } }).execute()
-db.taskProject.create({ data: { taskId: '<UUID>', projectId: '<UUID>', entityId: '<UUID>' }, select: { id: true } }).execute()
+db.taskProject.create({ data: { taskId: '<UUID>', projectId: '<UUID>' }, select: { id: true } }).execute()
 db.taskProject.update({ where: { id: '<UUID>' }, data: { taskId: '<UUID>' }, select: { id: true } }).execute()
 db.taskProject.delete({ where: { id: '<UUID>' } }).execute()
 ```
@@ -28,7 +28,7 @@ const items = await db.taskProject.findMany({
 
 ```typescript
 const item = await db.taskProject.create({
-  data: { taskId: '<UUID>', projectId: '<UUID>', entityId: '<UUID>' },
+  data: { taskId: '<UUID>', projectId: '<UUID>' },
   select: { id: true }
 }).execute();
 ```

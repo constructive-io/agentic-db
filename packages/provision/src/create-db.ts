@@ -47,43 +47,36 @@ async function main() {
   }
   console.log(`   ✅ Signed up (ID: ${userId})`);
 
-  // --- Step 2: Provision database ---
+  // --- Step 2: Create database (bare — no modules) ---
+  //
+  // Uses the Constructive SDK database.create() directly.
+  // No databaseProvisionModule, no modules installed.
+  // Node types are registered by construct_blueprint at provision time.
 
-  console.log('\n   Provisioning database...');
+  console.log('\n   Creating database...');
   const apiAdapter = new NodeHttpAdapter(config.apiEndpoint, {
     Authorization: `Bearer ${accessToken}`,
     'X-Meta-Schema': 'true',
   });
   const apiClient = public_.createClient({ adapter: apiAdapter });
 
-  const provData = await withRetry(() =>
-    apiClient.databaseProvisionModule
+  const dbData = await withRetry(() =>
+    apiClient.database
       .create({
-        data: {
-          databaseName,
-          ownerId: userId,
-          subdomain: databaseName,
-          domain: 'localhost',
-          modules: ['all'],
-          bootstrapUser: true,
-          options: {},
-        },
-        select: { id: true, databaseId: true, errorMessage: true },
+        data: { name: databaseName, ownerId: userId },
+        select: { id: true, name: true },
       })
       .unwrap()
   );
 
-  const dbProv =
-    provData?.createDatabaseProvisionModule?.databaseProvisionModule;
+  const db = dbData?.createDatabase?.database;
 
-  if (!dbProv || !dbProv.databaseId) {
-    console.error(
-      `❌ DB Provision failed: ${dbProv?.errorMessage || 'unknown'}`
-    );
+  if (!db || !db.id) {
+    console.error('❌ Database creation failed');
     process.exit(1);
   }
 
-  const databaseId = dbProv.databaseId;
+  const databaseId = db.id;
   console.log(`   ✅ Database ready (ID: ${databaseId})`);
 
   // --- Step 3: Write .env ---
