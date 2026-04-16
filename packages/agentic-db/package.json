@@ -1,6 +1,6 @@
 {
   "name": "agentic-db",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Constructive <developers@constructive.io>",
   "description": "pgpm-installable agentic-db SQL module for the agentic-db personal database",
   "homepage": "https://github.com/constructive-io/agentic-db",
@@ -22,6 +22,7 @@
   },
   "keywords": [],
   "dependencies": {
+    "@agentic-db/services": "workspace:*",
     "@pgpm/base32": "^0.20.0",
     "@pgpm/database-jobs": "^0.20.2",
     "@pgpm/inflection": "^0.20.1",
@@ -31,8 +32,7 @@
     "@pgpm/totp": "^0.20.0",
     "@pgpm/types": "^0.20.0",
     "@pgpm/utils": "^0.20.0",
-    "@pgpm/uuid": "^0.20.0",
-    "@agentic-db/services": "workspace:*"
+    "@pgpm/uuid": "^0.20.0"
   },
   "devDependencies": {
     "@agentic-db/sdk": "workspace:*",
