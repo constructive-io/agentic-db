@@ -73,12 +73,20 @@ pgpm docker stop               # Stop
 pgpm docker ls                 # List services and status
 ```
 
-The repo also includes a `docker-compose.yml` that adds **Ollama** for local embedding generation:
+To include Ollama for embedding generation:
+
+```bash
+pgpm docker start --ollama             # PostgreSQL + Ollama (CPU)
+pgpm docker start --ollama --gpu       # PostgreSQL + Ollama (NVIDIA GPU)
+```
+
+Already have an LLM running? Just use `pgpm docker start` and point `OLLAMA_URL` at your existing instance.
+
+The repo also includes a `docker-compose.yml` with tuned Postgres settings and Ollama as an alternative:
 
 ```bash
 docker compose up -d                    # Postgres + Ollama (CPU)
 docker compose --profile gpu up -d      # Postgres + Ollama (NVIDIA GPU)
-docker compose down -v                  # Stop and delete all data
 ```
 
 ## Schema Development Workflow

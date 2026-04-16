@@ -21,7 +21,7 @@ pnpm run start
 ## Prerequisites
 
 - A deployed `agentic-db` database (see [agentic-db](../agentic-db))
-- Ollama running locally with the `nomic-embed-text` model pulled
+- Ollama running with the `nomic-embed-text` model pulled (`pgpm docker start --ollama`, or your own instance)
 - Environment variables set (`eval "$(pgpm env)"`)
 
 ## Configuration

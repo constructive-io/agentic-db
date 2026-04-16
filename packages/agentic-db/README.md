@@ -57,20 +57,23 @@ That's it. You now have a fully provisioned database with all tables, RLS polici
 
 ### With Ollama (for embeddings)
 
-If you want auto-embedding via Ollama, use the included Docker Compose file:
+The embedding triggers require an LLM to generate vectors. If you don't already have one running:
 
 ```bash
-git clone https://github.com/constructive-io/agentic-db.git
-cd agentic-db
-pnpm install
+# Start PostgreSQL + Ollama (CPU)
+pgpm docker start --ollama
 
-# Start Postgres + Ollama
-docker compose up -d          # CPU
-docker compose --profile gpu up -d  # NVIDIA GPU
+# Or with NVIDIA GPU acceleration
+pgpm docker start --ollama --gpu
+```
 
-eval "$(pgpm env)"
-pgpm admin-users bootstrap --yes
-pgpm deploy --createdb --database agentic-db --yes --recursive --package agentic-db
+Already have Ollama (or another LLM) running? Just use `pgpm docker start` and point `OLLAMA_URL` at your existing instance.
+
+Alternatively, the repo includes a `docker-compose.yml` with tuned Postgres settings and Ollama:
+
+```bash
+docker compose up -d                    # CPU
+docker compose --profile gpu up -d      # NVIDIA GPU
 ```
 
 ### Clean Rebuild
